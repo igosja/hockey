@@ -2,6 +2,8 @@
 <head>
     <title>Hockey online manager</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 </head>
 <body>
 <div class="main">
