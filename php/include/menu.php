@@ -1,7 +1,5 @@
 <?php
 
-define('SPACE', '&nbsp;');
-
 $igosja_menu = array(
     array('label' => 'VIP-клуб', 'url' => 'javascript:;'),
     array('label' => 'Аренда', 'url' => 'javascript:;'),
