@@ -1,0 +1,3 @@
+<?php
+
+define('SPACE', '&nbsp;');

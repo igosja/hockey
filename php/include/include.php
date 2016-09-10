@@ -1,0 +1,11 @@
+<?php
+
+$start_time = microtime(true);
+
+//$denw_php_command = '\usr\local\php5\php-cgi.exe \home\fm.local.net\www\generator\generator.php';
+
+include (__DIR__ . '/constant.php');
+include (__DIR__ . '/database.php');
+include (__DIR__ . '/function.php');
+include (__DIR__ . '/menu.php');
+include (__DIR__ . '/session.php');
