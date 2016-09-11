@@ -1,13 +1,13 @@
 <?php
 
 if ($data = igosja_get_post('data')) {
-    $login = trim($data['login']);
     if (empty($data['password'])) {
         $check_password         = false;
         $data['error_password'] = 'Введите пароль.';
     } else {
         $check_password = true;
     }
+    $login = trim($data['login']);
     if (empty($login)) {
         $check_login         = false;
         $data['error_login'] = 'Введите логин.';
@@ -30,7 +30,7 @@ if ($data = igosja_get_post('data')) {
     if ($check_login && $check_email && $check_password) {
         $password = igosja_hash_password($data['password']);
 
-        $sql     = "INSERT INTO `user`
+        $sql = "INSERT INTO `user`
                 SET `user_date_register`=UNIX_TIMESTAMP(),
                     `user_email`=?,
                     `user_login`=?,

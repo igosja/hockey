@@ -47,9 +47,3 @@ class Mail
         return mail($this->to, $subject, $this->message, $headers);
     }
 }
-
-$mail = new Mail();
-$mail->setTo('igosja@ukr.net');
-$mail->setSubject('Тест');
-$mail->setHtml('Текст с <strong>HTML</strong> расметкой');
-$mail->send();
