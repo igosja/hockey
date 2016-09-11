@@ -3,7 +3,7 @@
 class Mail
 {
     private $from;
-    private $from_name = 'Виртуальная хоккейная лига';
+    private $from_name = 'Виртуальная Хоккейная Лига';
     private $message   = "";
     private $subject   = "";
     private $to        = "";
