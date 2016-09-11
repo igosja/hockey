@@ -1,3 +1,3 @@
 <?php
 
-define('SPACE', '&nbsp;');
+define('PASSWORD_SALT', 'hockey');

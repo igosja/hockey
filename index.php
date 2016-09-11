@@ -1,11 +1,18 @@
 <?php
 
 if (isset($_GET['route'])) {
-    $file = $_GET['route'];
+    $route_file = $_GET['route'];
 } else {
-    $file = 'index';
+    $route_file = 'index';
 }
 
 include(__DIR__ . '/php/include/include.php');
-include(__DIR__ . '/php/' . $file . '.php');
-include(__DIR__ . '/html/' . $file . '.php');
+
+if (file_exists(__DIR__ . '/php/' . $route_file . '.php')) {
+    include(__DIR__ . '/php/' . $route_file . '.php');
+    if ('ajax' != substr($route_file, 0, 4)) {
+        include(__DIR__ . '/html/include/layout.php');
+    }
+} else {
+    redirect('/');
+}

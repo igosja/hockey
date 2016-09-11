@@ -35,11 +35,11 @@ a:hover, a:focus {
 }
 
 .btn {
-    background-color: #fff;
+    background-color: #337ab7;
     background-image: none;
-    border: 1px solid #ccc;
+    border: 1px solid #2e6da4;
     border-radius: 3px;
-    color: #333;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     font-weight: normal;
@@ -53,15 +53,10 @@ a:hover, a:focus {
     -webkit-user-select: none;
 }
 
-.btn:hover {
-    background-color: #e6e6e6;
-    border-color: #adadad;
+.btn:hover, .btn:active {
+    background-color: #286090;
+    border-color: #204d74;
     text-decoration: none;
-}
-
-.btn:active {
-    background-color: #d4d4d4;
-    border-color: #8c8c8c;
 }
 
 .main {
@@ -433,4 +428,58 @@ a:hover, a:focus {
     color: #adadad;
     font-size: 11px;
     padding-top: 5px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px;
+    padding: 0;
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 18px;
+}
+
+h2 {
+    font-size: 17px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 15px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+h6 {
+    font-size: 14px;
+}
+
+.red {
+    color: #ff0000 !important;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.has-error {
+    border-color: #a94442;
+}
+
+.error {
+    color: #a94442;
 }

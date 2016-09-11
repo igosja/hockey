@@ -1,69 +1,75 @@
-<html>
-<head>
-    <title>Hockey online manager</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<div class="main">
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                <img src="/img/logo.png">
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                <form action="login" class="form-inline">
-                    <label for="top-form-login">Логин</label>
-                    <input class="form-control form-small" type="text" id="top-form-login" name="data[login]"/>
-                    <label for="top-form-pass">Пароль</label>
-                    <input class="form-control form-small" type="password" id="top-form-pass" name="data[password]"/>
-                    <button type="submit" class="btn">Вход</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center menu">
-            <?= $igosja_menu; ?>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center menu">
-            <?= $igosja_menu_mobile; ?>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Добро пожаловать в мир виртуального хоккея!
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Последние игровые новости
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Как стать менеджером хоккейной команды?
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Хоккейная аналитика
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Новости федераций
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Дни рождения
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
-            Страница сгенерирована за <?= round(microtime(true) - $start_time, 5); ?> сек.,
-            <?= $count_query; ?> запр.
-        </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>Онлайн менеджер для истинных любителей хоккея!</h1>
+        <p class="text-justify">
+            Наверняка каждый из нас мечтал почувствовать себя тренером или менеджером настоящего хоккейного клуба.
+            Увлекательный поиск талантливых игроков, постепенное развитие инфраструктуры,
+            выбор подходящей тактики на игру, регулярные матчи и, конечно же, победы, титулы и новые достижения!
+            Именно это ждёт Вас в нашем мире виртуального хоккея. Окунитесь в него и создайте клуб своей мечты!
+        </p>
+        <h4>Играть в наш хокейный онлайн менеджер может каждый!</h4>
+        <p class="text-justify">
+            Наш проект открыт для всех!
+            Чтобы начать играть, Вам достаточно просто пройти элементарную процедуру регистрации
+            либо зайти под своим профилем в социальных сетях.
+            <strong>“Виртуальная Хоккейная Лига”</strong> – это функциональный хоккейный онлайн менеджер,
+            в котором Вы получите возможность пройти увлекательный путь развития своей команды
+            от низших дивизионов до побед в национальных чемпионатах и мировых кубках!
+        </p>
+        <br/>
+        <p class="text-center">
+            <a href="/signup">
+                <button class="btn">
+                    Зарегистрироваться
+                </button>
+            </a>
+        </p>
+        <h4>Скачивать ничего не надо!</h4>
+        <p class="text-justify">
+            Обращаем внимание, что наш хоккейный онлайн менеджер является браузерной игрой.
+            Поэтому Вам не надо будет скачивать какие-либо клиентские программы,
+            тратить время на их утомительную установку и последующую настройку.
+            Для игры Вам необходим только доступ к интернету и несколько минут свободного времени.
+            При этом участие в турнирах является <strong>абсолютно бесплатным</strong>.
+        </p>
+        <h4 class="center header">Вы обязательно станете чемпионом!</h4>
+        <p class="text-justify">
+            Хотим подчеркнуть, что для достижения успеха Вам не надо целыми сутками сидеть за компьютером.
+            Чтобы поступательно развивать свой клуб, участвовать в трансферах и играть календарные матчи,
+            Вам Вам достаточно иметь возможность хотя бы несколько раз в неделю посещать наш сайт.
+        </p>
+        <h4 class="center header">Увлекательные хоккейные матчи и первые победы уже ждут Вас!</h4>
+        <p class="text-justify">
+            Хоккейный онлайн менеджер <strong>“Виртуальная Хоккейная Лига”</strong> – это больше, чем обычная игра.
+            Это сообщество людей, которые объединены страстью и любовью к хоккею.
+            Здесь Вы обязательно сможете найти интересных людей, заведете новые знакомства
+            и просто отлично проведетё время в непринужденной и максимально комфортной атмосфере.
+            Вперёд, пришло время занять тренерское кресло и кабинет менеджера!
+        </p>
     </div>
 </div>
-</body>
-</html>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Последние игровые новости</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Как стать менеджером хоккейной команды?</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Хоккейная аналитика</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Новости федераций</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2>Дни рождения</h2>
+    </div>
+</div>
