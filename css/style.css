@@ -495,3 +495,7 @@ h6 {
 .margin {
     margin: 5px 0;
 }
+
+form {
+    margin: 0;
+}
