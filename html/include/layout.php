@@ -2,6 +2,7 @@
 <head>
     <title>Hockey online manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="yandex-verification" content="efe586f3c07b0a93" />
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
