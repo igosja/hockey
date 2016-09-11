@@ -16,6 +16,16 @@ function igosja_get_post($var)
     return $result;
 }
 
+function igosja_get_get($var)
+{
+    if (isset($_GET[$var])) {
+        $result = $_GET[$var];
+    } else {
+        $result = '';
+    }
+    return $result;
+}
+
 function igosja_check_user_by_email($email)
 {
     global $mysqli;

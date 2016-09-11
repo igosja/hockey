@@ -483,3 +483,15 @@ h6 {
 .error {
     color: #a94442;
 }
+
+.has-success {
+    border-color: #3c763d;
+}
+
+.success {
+    color: #3c763d;
+}
+
+.margin {
+    margin: 5px 0;
+}

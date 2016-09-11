@@ -6,6 +6,10 @@ if (isset($_GET['route'])) {
     $route_file = 'index';
 }
 
+if ('/' == substr($route_file, -1)) {
+    $route_file = substr($route_file, 0, -1);
+}
+
 include(__DIR__ . '/php/include/include.php');
 
 if (file_exists(__DIR__ . '/php/' . $route_file . '.php')) {

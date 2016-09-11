@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        Регистрация | Забыли пароль? | Активация аккаунта
+        <strong>Регистрация</strong> | Забыли пароль? | <a href="/activation">Активация аккаунта</a>
     </div>
 </div>
 <form method="POST">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <input
-                        class="form-control <?php if (isset($data['error_login'])) { ?>has-error<?php } ?>"
+                        class="form-control <?php if (isset($data['error']['login'])) { ?>has-error<?php } ?>"
                         id="signup-login"
                         name="data[login]"
                         required
@@ -39,13 +39,13 @@
                     />
                 </div>
                 <div class="col-lg-4 col-md-3 col-sm-3 hidden-xs error signup-login-error">
-                    <?php if (isset($data['error_login'])) {
-                        print $data['error_login'];
+                    <?php if (isset($data['error']['login'])) {
+                        print $data['error']['login'];
                     } ?>
                 </div>
                 <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center error signup-login-error">
                     <?php if (isset($data['error_login'])) {
-                        print $data['error_login'];
+                        print $data['error']['login'];
                     } ?>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <input
-                        class="form-control <?php if (isset($data['error_password'])) { ?>has-error<?php } ?>"
+                        class="form-control <?php if (isset($data['error']['password'])) { ?>has-error<?php } ?>"
                         id="signup-password"
                         name="data[password]"
                         required
@@ -66,13 +66,13 @@
                     />
                 </div>
                 <div class="col-lg-4 col-md-3 col-sm-3 hidden-xs error signup-password-error">
-                    <?php if (isset($data['error_password'])) {
-                        print $data['error_password'];
+                    <?php if (isset($data['error']['password'])) {
+                        print $data['error']['password'];
                     } ?>
                 </div>
                 <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center error signup-password-error">
-                    <?php if (isset($data['error_password'])) {
-                        print $data['error_password'];
+                    <?php if (isset($data['error']['password'])) {
+                        print $data['error']['password'];
                     } ?>
                 </div>
             </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                 <input
-                    class="form-control <?php if (isset($data['error_login'])) { ?>has-error<?php } ?>"
+                    class="form-control <?php if (isset($data['error']['email'])) { ?>has-error<?php } ?>"
                     id="signup-email"
                     name="data[email]"
                     required
@@ -105,13 +105,13 @@
                 />
             </div>
             <div class="col-lg-4 col-md-3 col-sm-3 hidden-xs error signup-email-error">
-                <?php if (isset($data['error_email'])) {
-                    print $data['error_email'];
+                <?php if (isset($data['error']['email'])) {
+                    print $data['error']['email'];
                 } ?>
             </div>
             <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center error signup-email-error">
-                <?php if (isset($data['error_email'])) {
-                    print $data['error_email'];
+                <?php if (isset($data['error']['email'])) {
+                    print $data['error']['email'];
                 } ?>
             </div>
         </div>
