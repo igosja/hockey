@@ -2,7 +2,7 @@
 <head>
     <title>Hockey online manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="yandex-verification" content="efe586f3c07b0a93" />
+    <meta name="yandex-verification" content="efe586f3c07b0a93"/>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -33,8 +33,8 @@
         </div>
         <?php
 
-        if (file_exists(__DIR__ . '/../' . $route_file . '.php')) {
-            include(__DIR__ . '/../' . $route_file . '.php');
+        if (file_exists(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php')) {
+            include(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php');
         } else {
             print $route_file . '.html не найден';
         }
@@ -44,13 +44,14 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
             Страница сгенерирована за <?= round(microtime(true) - $start_time, 5); ?> сек.,
-            <?= $count_query; ?> запр.
+            <?= $count_query; ?> запр.<br/>
+            <?= number_format(memory_get_usage(), 0, ',', ' '); ?> Б памяти
         </div>
     </div>
 </div>
-<?php if (file_exists(__DIR__ . '/../../js/' . $route_file . '.js')) { ?>
+<?php if (file_exists(__DIR__ . '/../../js/' . $route_path . '.js')) { ?>
     <script src="/js/jquery.js"></script>
-    <script src="/js/<?= $route_file; ?>.js"></script>
+    <script src="/js/<?= $route_path; ?>.js"></script>
 <?php } ?>
 </body>
 </html>

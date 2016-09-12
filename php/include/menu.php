@@ -164,12 +164,12 @@ for ($i = 0; $i < 4; $i++) {
 
     for ($j = 0; $j < count($$menu); $j++) {
         foreach ($$menu[$j] as $item) {
-            $a_menu[] = '<a href="' . $item['url'] . '" class="'.(isset($item['css']) ? $item['css'] : '').'">'
+            $a_menu[] = '<a href="' . $item['url'] . '" class="' . (isset($item['css']) ? $item['css'] : '') . '">'
                 . $item['label']
                 . '</a>';
         }
         $$menu[$j] = $a_menu;
-        $a_menu    = array();
+        $a_menu = array();
     }
 
     foreach ($$menu as $item) {

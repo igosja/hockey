@@ -1,37 +1,39 @@
 <?php
 
-if ($data = igosja_get_post('data')) {
+if ($data = f_igosja_post('data')) {
     if (empty($data['password'])) {
-        $check_password         = false;
+        $check_password = false;
         $data['error_password'] = 'Введите пароль.';
     } else {
         $check_password = true;
     }
     $login = trim($data['login']);
     if (empty($login)) {
-        $check_login         = false;
+        $check_login = false;
         $data['error']['login'] = 'Введите логин.';
     } else {
-        $check_login = igosja_check_user_by_login($login);
+        $check_login = f_igosja_check_user_by_login($login);
         if (!$check_login) {
             $data['error']['login'] = 'Такой логин уже занят.';
         }
     }
     $email = trim($data['email']);
     if (empty($email)) {
-        $check_email         = false;
+        $check_email = false;
         $data['error']['email'] = 'Введите email.';
     } else {
-        $check_email = igosja_check_user_by_email($email);
+        $check_email = f_igosja_check_user_by_email($email);
         if (!$check_email) {
             $data['error']['email'] = 'Такой email уже занят.';
         }
     }
     if ($check_login && $check_email && $check_password) {
-        $password = igosja_hash_password($data['password']);
+        $password = f_igosja_hash_password($data['password']);
+        $code = f_igosja_generate_user_code();
 
         $sql = "INSERT INTO `user`
-                SET `user_date_register`=UNIX_TIMESTAMP(),
+                SET `user_code`='$code',
+                    `user_date_register`=UNIX_TIMESTAMP(),
                     `user_email`=?,
                     `user_login`=?,
                     `user_password`='$password'";
@@ -39,15 +41,13 @@ if ($data = igosja_get_post('data')) {
         $prepare->bind_param('ss', $email, $login);
         $prepare->execute();
 
-        $user_id    = $mysqli->insert_id;
-        $code       = igosja_hash_password($user_id);
-        $href       = 'http://' . $_SERVER['HTTP_HOST'] . '/activation/?data[id]=' . $user_id . '&data[code]=' . $code;
-        $page       = 'http://' . $_SERVER['HTTP_HOST'] . '/activation/';
+        $href = 'http://' . $_SERVER['HTTP_HOST'] . '/activation/?data[code]=' . $code;
+        $page = 'http://' . $_SERVER['HTTP_HOST'] . '/activation/';
         $email_text =
             'Вы успешно зарегистрированы на сайте Виртуальной Хоккейной Лиги под логином
             <strong>' . $login . '</strong>.<br>
             Чтобы завершить регистрацию подтвердите свой email по ссылке <a href="' . $href . '">' . $href . '</a>
-            или введите код <strong>' . $user_id . '-' . $code . '</strong> на странице
+            или введите код <strong>' . $code . '</strong> на странице
             <a href="' . $page . '">' . $page . '</a>.<br/><br/>
             Администрация Виртуальной Хоккейной Лиги';
 
@@ -56,7 +56,7 @@ if ($data = igosja_get_post('data')) {
         $mail->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги');
         $mail->setHtml($email_text);
         $mail->send();
-        redirect('activation');
+        redirect('/activation');
     }
 } else {
     $data = array(

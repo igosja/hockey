@@ -1,8 +1,8 @@
 <?php
 
 $count_query = 0;
-$db_host     = 'localhost';
-$db_user     = 'igosja_hockey';
+$db_host = 'localhost';
+$db_user = 'igosja_hockey';
 $db_password = 'zuI2QbJJ';
 $db_database = 'igosja_hockey';
 

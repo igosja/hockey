@@ -4,9 +4,9 @@ class Mail
 {
     private $from;
     private $from_name = 'Виртуальная Хоккейная Лига';
-    private $message   = "";
-    private $subject   = "";
-    private $to        = "";
+    private $message = "";
+    private $subject = "";
+    private $to = "";
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ class Mail
 
     public function send()
     {
-        $from    = "=?utf-8?B?" . base64_encode($this->from_name) . "?=" . " <" . $this->from . ">";
+        $from = "=?utf-8?B?" . base64_encode($this->from_name) . "?=" . " <" . $this->from . ">";
         $headers = "From: " . $from . "\r\nReply-To: " . $from . "\r\nContent-type: text/html; charset=utf-8\r\n";
         $subject = "=?utf-8?B?" . base64_encode($this->subject) . "?=";
 

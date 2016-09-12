@@ -81,14 +81,14 @@
             </button>
         </div>
         <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
-            <a href="/activation">
+            <a href="../../index.php">
                 <button class="btn margin">
                     Мне не пришло письмо
                 </button>
             </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs text-left">
-            <a href="/activation">
+            <a href="../../index.php">
                 <button class="btn margin">
                     Мне не пришло письмо
                 </button>

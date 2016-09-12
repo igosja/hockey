@@ -6,7 +6,7 @@ function redirect($location)
     exit;
 }
 
-function igosja_get_post($var)
+function f_igosja_post($var)
 {
     if (isset($_POST[$var])) {
         $result = $_POST[$var];
@@ -16,7 +16,7 @@ function igosja_get_post($var)
     return $result;
 }
 
-function igosja_get_get($var)
+function f_igosja_get($var)
 {
     if (isset($_GET[$var])) {
         $result = $_GET[$var];
@@ -26,7 +26,7 @@ function igosja_get_get($var)
     return $result;
 }
 
-function igosja_check_user_by_email($email)
+function f_igosja_check_user_by_email($email)
 {
     global $mysqli;
     $sql = "SELECT COUNT(`user_id`) AS `count`
@@ -38,7 +38,7 @@ function igosja_check_user_by_email($email)
     $check_sql = $prepare->get_result();
     $prepare->close();
     $check_array = $check_sql->fetch_all(1);
-    $check       = $check_array[0]['count'];
+    $check = $check_array[0]['count'];
     if ($check) {
         $result = false;
     } else {
@@ -47,7 +47,7 @@ function igosja_check_user_by_email($email)
     return $result;
 }
 
-function igosja_check_user_by_login($login)
+function f_igosja_check_user_by_login($login)
 {
     global $mysqli;
     $sql = "SELECT COUNT(`user_id`) AS `count`
@@ -59,7 +59,7 @@ function igosja_check_user_by_login($login)
     $check_sql = $prepare->get_result();
     $prepare->close();
     $check_array = $check_sql->fetch_all(1);
-    $check       = $check_array[0]['count'];
+    $check = $check_array[0]['count'];
     if ($check) {
         $result = false;
     } else {
@@ -68,6 +68,22 @@ function igosja_check_user_by_login($login)
     return $result;
 }
 
-function igosja_hash_password($password) {
+function f_igosja_hash_password($password)
+{
     return md5($password . md5(PASSWORD_SALT));
+}
+
+function f_igosja_generate_user_code()
+{
+    $code = md5(uniqid(rand(), 1));
+    $sql = "SELECT COUNT(`user_id`) AS `count`
+            FROM `user`
+            WHERE `user_code`='$code'";
+    $check_sql = db_query($sql);
+    $check_array = $check_sql->fetch_all(1);
+    $check = $check_array[0]['count'];
+    if ($check) {
+        $code = f_igosja_generate_user_code();
+    }
+    return $code;
 }
