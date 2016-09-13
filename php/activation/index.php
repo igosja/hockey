@@ -8,9 +8,13 @@ if (isset($data['code'])) {
     $code = $data['code'];
     $sql = "SELECT `user_date_confirm`
             FROM `user`
-            WHERE `user_code`='$code'
+            WHERE `user_code`=?
             LIMIT 1";
-    $user_sql = db_query($sql);
+    $prepare = $mysqli->prepare($sql);
+    $prepare->bind_param('s', $code);
+    $prepare->execute();
+    $user_sql = $prepare->get_result();
+    $prepare->close();
     if ($user_sql->num_rows) {
         $user_array = $user_sql->fetch_all(1);
         if ($user_array[0]['user_date_confirm']) {

@@ -34,6 +34,11 @@ a:hover, a:focus {
     -webkit-box-sizing: border-box;
 }
 
+a.btn {
+    color: #fff;
+    text-decoration: none;
+}
+
 .btn {
     background-color: #337ab7;
     background-image: none;
