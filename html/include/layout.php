@@ -15,15 +15,22 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                 <!--                <img src="/img/logo.png">-->
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                <form action="login" class="form-inline">
-                    <label for="top-form-login">Логин</label>
-                    <input class="form-control form-small" type="text" id="top-form-login" name="data[login]"/>
-                    <label for="top-form-pass">Пароль</label>
-                    <input class="form-control form-small" type="password" id="top-form-pass" name="data[password]"/>
-                    <button type="submit" class="btn">Вход</button>
-                </form>
-            </div>
+            <?php if (isset($auth_user_id)) { ?>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+                    <?= $aut_user_login; ?>
+                    <a href="/login/logout" class="btn margin">Выйти</a>
+                </div>
+            <?php } else { ?>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                    <form action="/login" class="form-inline" method="POST">
+                        <label for="t-form-login">Логин</label>
+                        <input class="form-control form-small" type="text" id="t-form-login" name="data[login]"/>
+                        <label for="t-form-pass">Пароль</label>
+                        <input class="form-control form-small" type="password" id="t-form-pass" name="data[password]"/>
+                        <button type="submit" class="btn">Вход</button>
+                    </form>
+                </div>
+            <?php } ?>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center menu">
             <?= $igosja_menu; ?>
