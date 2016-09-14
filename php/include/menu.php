@@ -162,17 +162,18 @@ for ($i = 0; $i < 4; $i++) {
         $menu = 'igosja_menu_login_mobile';
     }
 
-    for ($j = 0; $j < count($$menu); $j++) {
-        foreach ($$menu[$j] as $item) {
+    $foreach_menu = $$menu;
+    for ($j = 0; $j < count($foreach_menu); $j++) {
+        foreach ($foreach_menu[$j] as $item) {
             $a_menu[] = '<a href="' . $item['url'] . '" class="' . (isset($item['css']) ? $item['css'] : '') . '">'
                 . $item['label']
                 . '</a>';
         }
-        $$menu[$j] = $a_menu;
+        $foreach_menu[$j] = $a_menu;
         $a_menu = array();
     }
 
-    foreach ($$menu as $item) {
+    foreach ($foreach_menu as $item) {
         $a_menu[] = implode(' | ', $item);
     }
 

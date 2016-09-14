@@ -18,7 +18,7 @@
         </p>
         <br/>
         <p class="text-center">
-            <a href="../../index.php">
+            <a href="/signup">
                 <button class="btn">
                     Зарегистрироваться
                 </button>
