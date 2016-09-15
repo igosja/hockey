@@ -4,7 +4,7 @@ $igosja_menu = array(
     array('label' => 'VIP-клуб', 'url' => 'javascript:;'),
     array('label' => 'Аренда', 'url' => 'javascript:;'),
     array('label' => 'Главная', 'url' => '/'),
-    array('label' => 'Забыли пароль?', 'url' => 'javascript:;'),
+    array('label' => 'Забыли пароль?', 'url' => '/password'),
     array('label' => 'Игроки', 'url' => 'javascript:;'),
     array('label' => 'Команды', 'url' => 'javascript:;'),
     array('label' => 'Магазин', 'url' => 'javascript:;'),
@@ -16,7 +16,7 @@ $igosja_menu = array(
     array('label' => 'Профиль', 'url' => 'javascript:;'),
     array('label' => 'Расписание', 'url' => 'javascript:;'),
     array('label' => 'Рейтинги', 'url' => 'javascript:;'),
-    array('label' => 'Регистрация', 'url' => 'signup', 'css' => 'red'),
+    array('label' => 'Регистрация', 'url' => '/signup', 'css' => 'red'),
     array('label' => 'Ростер', 'url' => 'javascript:;', 'css' => 'red'),
     array('label' => 'Сборная', 'url' => 'javascript:;'),
     array('label' => 'Сменить клуб', 'url' => 'javascript:;'),
@@ -162,17 +162,18 @@ for ($i = 0; $i < 4; $i++) {
         $menu = 'igosja_menu_login_mobile';
     }
 
-    for ($j = 0; $j < count($$menu); $j++) {
-        foreach ($$menu[$j] as $item) {
+    $foreach_menu = $$menu;
+    for ($j = 0; $j < count($foreach_menu); $j++) {
+        foreach ($foreach_menu[$j] as $item) {
             $a_menu[] = '<a href="' . $item['url'] . '" class="' . (isset($item['css']) ? $item['css'] : '') . '">'
                 . $item['label']
                 . '</a>';
         }
-        $$menu[$j] = $a_menu;
+        $foreach_menu[$j] = $a_menu;
         $a_menu = array();
     }
 
-    foreach ($$menu as $item) {
+    foreach ($foreach_menu as $item) {
         $a_menu[] = implode(' | ', $item);
     }
 

@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <strong>Регистрация</strong> | Забыли пароль? | <a href="/activation">Активация аккаунта</a>
+        <strong>Регистрация</strong> | <a href="/password">Забыли пароль?</a> | <a href="/activation">Активация аккаунта</a>
     </div>
 </div>
 <form method="POST">
@@ -44,7 +44,7 @@
                     } ?>
                 </div>
                 <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center error signup-login-error">
-                    <?php if (isset($data['error_login'])) {
+                    <?php if (isset($data['error']['login'])) {
                         print $data['error']['login'];
                     } ?>
                 </div>

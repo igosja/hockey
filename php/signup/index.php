@@ -1,14 +1,17 @@
 <?php
 
 if ($data = f_igosja_post('data')) {
-    if (empty($data['password'])) {
+    if (!isset($data['password']) || empty($data['password'])) {
         $check_password = false;
         $data['error_password'] = 'Введите пароль.';
     } else {
         $check_password = true;
     }
-    $login = trim($data['login']);
-    if (empty($login)) {
+
+    if (isset($data['login'])) {
+        $login = trim($data['login']);
+    }
+    if (!isset($login) || empty($login)) {
         $check_login = false;
         $data['error']['login'] = 'Введите логин.';
     } else {
@@ -17,8 +20,11 @@ if ($data = f_igosja_post('data')) {
             $data['error']['login'] = 'Такой логин уже занят.';
         }
     }
-    $email = trim($data['email']);
-    if (empty($email)) {
+
+    if (isset($data['email'])) {
+        $email = trim($data['email']);
+    }
+    if (!isset($email) || empty($email)) {
         $check_email = false;
         $data['error']['email'] = 'Введите email.';
     } else {
@@ -27,6 +33,7 @@ if ($data = f_igosja_post('data')) {
             $data['error']['email'] = 'Такой email уже занят.';
         }
     }
+
     if ($check_login && $check_email && $check_password) {
         $password = f_igosja_hash_password($data['password']);
         $code = f_igosja_generate_user_code();

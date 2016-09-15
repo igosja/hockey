@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a href="/signup">Регистрация</a> | Забыли пароль? | <strong>Активация аккаунта</strong>
+        <a href="/signup">Регистрация</a> | <a href="/password">Забыли пароль?</a> | <strong>Активация аккаунта</strong>
     </div>
 </div>
 <form method="POST">
