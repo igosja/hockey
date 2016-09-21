@@ -40,8 +40,8 @@
         </div>
         <?php
 
-        if (file_exists(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php')) {
-            include(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php');
+        if (file_exists(__DIR__ . '/../../' . $route_path . '/' . $route_file . '.php')) {
+            include(__DIR__ . '/../../' . $route_path . '/' . $route_file . '.php');
         } else {
             print $route_file . '.html не найден';
         }
