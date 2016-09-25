@@ -24,7 +24,7 @@ if (isset($data['code'])) {
                     SET `user_date_confirm`=UNIX_TIMESTAMP()
                     WHERE `user_code`='$code'
                     LIMIT 1";
-            db_query($sql);
+            igosja_db_query($sql);
             $data['success']['code'] = 'Профиль активирован.';
         }
     } else {

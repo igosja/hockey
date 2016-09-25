@@ -1,18 +1,20 @@
 <?php
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$count_page = db_query($sql);
-$count_page = $count_page->fetch_all(1);
-$count_page = $count_page[0]['count'];
-$count_page = ceil($count_page / $limit);
+$count_item = igosja_db_query($sql);
+$count_item = $count_item->fetch_all(1);
+$count_item = $count_item[0]['count'];
+$count_page = ceil($count_item / $limit);
 
-$pages_in_pagination = 5;
+$pages_in_pagination = ADMIN_PAGES_IN_PAGINATION;
+$pages_minus = round(($pages_in_pagination - 1) / 2);
+$pages_plus = $pages_in_pagination - $pages_minus - 1;
 
 $page_array = array();
 
 if ($pages_in_pagination < $count_page) {
-    $first_page = $page - 2;
-    $last_page = $page + 2;
+    $first_page = $page - $pages_minus;
+    $last_page = $page + $pages_plus;
 } else {
     $first_page = 1;
     $last_page = $count_page;
@@ -48,6 +50,19 @@ if ($page <= $first_page) {
 }
 
 if ($page >= $last_page) {
-
     $page_next = array('class' => 'disabled', 'page' => $last_page);
 }
+
+$page_filter = $filter;
+if (is_array($page_filter)) {
+    foreach ($page_filter as $key => $value) {
+        if (!$value) {
+            unset($page_filter[$key]);
+        }
+    }
+    $page_filter = array('filter' => $page_filter);
+    $page_filter = '&' . http_build_query($page_filter);
+}
+
+$summary_from = ($page - 1) * $limit + 1 < $count_item ? ($page - 1) * $limit + 1 : $count_item;
+$summary_to = $count_item < $page * $limit ? $count_item : $page * $limit;

@@ -18,10 +18,18 @@ if ('admin' == $route_path) {
     } else {
         $route_file = 'index';
     }
-    if ('login' != $route_path && !isset($_SESSION['user_id'])) {
+    if (isset($a_route[3]) && !empty($a_route[3])) {
+        $num_get = (int)$a_route[3];
+    } else {
+        $num_get = 0;
+    }
+    if ('login' != $route_path && !$auth_user_login) {
         redirect('/admin/login');
+    } elseif ('login' != $route_path && 10 != $auth_userrole_id) {
+        redirect('/');
     }
     if (file_exists(__DIR__ . '/../admin/' . $route_path . '/' . $route_file . '.php')) {
+        include(__DIR__ . '/../include/filter.php');
         include(__DIR__ . '/../admin/' . $route_path . '/' . $route_file . '.php');
         if ('login' != $route_path) {
             include(__DIR__ . '/../../html/include/layout/admin.php');
@@ -36,6 +44,11 @@ if ('admin' == $route_path) {
         $route_file = $a_route[1];
     } else {
         $route_file = 'index';
+    }
+    if (isset($a_route[2]) && !empty($a_route[2])) {
+        $num_get = $a_route[2];
+    } else {
+        $num_get = 'index';
     }
     if (file_exists(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php')) {
         include(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php');

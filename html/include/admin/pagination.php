@@ -5,7 +5,9 @@
                 <li class="<?= $page_prev['class']; ?>">
                     <a
                         <?php if (!$page_prev['class']) { ?>
-                            href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?= $page_prev['page']; ?>"
+                            href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?=
+                            $page_prev['page'] . $page_filter;
+                            ?>"
                         <?php } ?>
                     >
                         <span aria-hidden="true">&laquo;</span>
@@ -15,7 +17,9 @@
                     <li class="<?= $item['class']; ?>">
                         <a
                             <?php if (!$item['class']) { ?>
-                                href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?= $item['page']; ?>"
+                                href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?=
+                                $item['page'] . $page_filter;
+                                ?>"
                             <?php } ?>
                         >
                             <?= $item['page']; ?>
@@ -25,7 +29,9 @@
                 <li class="<?= $page_next['class']; ?>">
                     <a
                         <?php if (!$page_next['class']) { ?>
-                            href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?= $page_next['page']; ?>"
+                            href="/admin/<?= $route_path; ?>/<?= $route_file; ?>?page=<?=
+                            $page_next['page'] . $page_filter;
+                            ?>"
                         <?php } ?>
                     >
                         <span aria-hidden="true">&raquo;</span>

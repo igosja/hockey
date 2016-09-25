@@ -9,6 +9,7 @@ $q[] = 'CREATE TABLE `country`
             `country_name` VARCHAR(255) NOT NULL,
             `country_president_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `country_president_id` ON `country` (`country_president_id`);';
 $q[] = "INSERT INTO `country` (`country_name`)
         VALUES ('Австралия'),
                ('Австрия'),

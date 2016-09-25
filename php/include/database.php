@@ -8,7 +8,7 @@ $db_database = 'igosja_hockey';
 
 $mysqli = new mysqli($db_host, $db_user, $db_password, $db_database);
 
-function db_query($sql)
+function igosja_db_query($sql)
 {
     global $mysqli;
     global $count_query;
@@ -19,7 +19,7 @@ function db_query($sql)
 }
 
 $sql = "SET NAMES 'utf8'";
-db_query($sql);
+igosja_db_query($sql);
 
 $sql = "SET `lc_time_names`='ru_RU'";
-db_query($sql);
+igosja_db_query($sql);

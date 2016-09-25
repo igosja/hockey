@@ -244,6 +244,12 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
+                                <a href="/admin/stadium">Стадионы</a>
+                            </li>
+                            <li>
+                                <a href="/admin/city">Города</a>
+                            </li>
+                            <li>
                                 <a href="/admin/country">Страны</a>
                             </li>
                         </ul>
@@ -271,5 +277,6 @@
 <!--<script src="/js/morris.js"></script>-->
 <!--<script src="/js/morris-data.js"></script>-->
 <script src="/js/sb-admin-2.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>

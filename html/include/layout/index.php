@@ -17,7 +17,7 @@
             </div>
             <?php if (isset($auth_user_id)) { ?>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-                    <?= $aut_user_login; ?>
+                    <?= $auth_user_login; ?>
                     <a href="/login/logout" class="btn margin">Выйти</a>
                 </div>
             <?php } else { ?>

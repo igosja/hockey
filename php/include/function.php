@@ -16,12 +16,20 @@ function f_igosja_post($var)
     return $result;
 }
 
-function f_igosja_get($var)
+function f_igosja_get($var, $subvar = '')
 {
-    if (isset($_GET[$var])) {
-        $result = $_GET[$var];
+    if ($subvar) {
+        if (isset($_GET[$var][$subvar])) {
+            $result = $_GET[$var][$subvar];
+        } else {
+            $result = '';
+        }
     } else {
-        $result = '';
+        if (isset($_GET[$var])) {
+            $result = $_GET[$var];
+        } else {
+            $result = '';
+        }
     }
     return $result;
 }
@@ -79,11 +87,20 @@ function f_igosja_generate_user_code()
     $sql = "SELECT COUNT(`user_id`) AS `count`
             FROM `user`
             WHERE `user_code`='$code'";
-    $check_sql = db_query($sql);
+    $check_sql = igosja_db_query($sql);
     $check_array = $check_sql->fetch_all(1);
     $check = $check_array[0]['count'];
     if ($check) {
         $code = f_igosja_generate_user_code();
     }
     return $code;
+}
+
+function f_igosja_sql_data($data) {
+    $sql = array();
+    foreach ($data as $key => $value) {
+        $sql[] = '`' . $key . '`=\'' . $value .'\'';
+    }
+    $sql = implode(', ', $sql);
+    return $sql;
 }
