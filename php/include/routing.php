@@ -23,7 +23,7 @@ if ('admin' == $route_path) {
     } else {
         $num_get = 0;
     }
-    if ('login' != $route_path && !$auth_user_login) {
+    if ('login' != $route_path && !isset($auth_user_login)) {
         redirect('/admin/login');
     } elseif ('login' != $route_path && 10 != $auth_userrole_id) {
         redirect('/');
