@@ -96,11 +96,35 @@ function f_igosja_generate_user_code()
     return $code;
 }
 
-function f_igosja_sql_data($data) {
+function f_igosja_sql_data($data)
+{
     $sql = array();
     foreach ($data as $key => $value) {
-        $sql[] = '`' . $key . '`=\'' . $value .'\'';
+        $sql[] = '`' . $key . '`=\'' . $value . '\'';
     }
     $sql = implode(', ', $sql);
     return $sql;
+}
+
+function f_igosja_ufu_date_time($date)
+{
+    return date('H:i d.m.Y', $date);
+}
+
+function f_igosja_ufu_last_visit($date)
+{
+    $min_5 = $date + 5 * 60;
+    $min_60 = $date + 60 * 60;
+    $now = time();
+    if ($min_5 >= $now) {
+        $date = 'онлайн';
+    } elseif ($min_60 >= $now) {
+        $difference = $now - $date;
+        $difference = $difference / 60;
+        $difference = round($difference, 0);
+        $date = $difference . ' минут назад';
+    } else {
+        $date = date('H:i d.m.Y', $date);
+    }
+    return $date;
 }

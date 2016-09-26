@@ -240,7 +240,17 @@
                     </li>
                     <li>
                         <a href="javascript:;">
-                            Команды<span class="fa arrow"></span>
+                            Пользователи <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/user">Пользователи</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Команды <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
