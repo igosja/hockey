@@ -264,6 +264,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;">
+                            Хоккеисты <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/name">Имена</a>
+                            </li>
+                            <li>
+                                <a href="/admin/surname">Фамилии</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

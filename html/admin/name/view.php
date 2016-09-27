@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header"><?= $country_array[0]['country_name']; ?></h3>
+        <h3 class="page-header"><?= $name_array[0]['name_name']; ?></h3>
     </div>
 </div>
 <?php include(__DIR__ . '/../../include/admin/button/list-edit-delete.php'); ?>
@@ -12,24 +12,27 @@
                     Id
                 </td>
                 <td>
-                    <?= $country_array[0]['country_id']; ?>
+                    <?= $name_array[0]['name_id']; ?>
                 </td>
             </tr>
             <tr>
                 <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    Название
+                    Имя
                 </td>
                 <td>
-                    <?= $country_array[0]['country_name']; ?>
+                    <?= $name_array[0]['name_name']; ?>
                 </td>
             </tr>
             <tr>
                 <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    Флаг
+                    Страны
                 </td>
                 <td>
-                    <?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/country/12/' . $num_get . '.png')) { ?>
-                        <img src="/img/country/12/<?= $num_get; ?>.png"/>
+                    <?php foreach ($country_array as $item) { ?>
+                        <a href="/admin/country/view/<?= $item['country_id']; ?>">
+                            <?= $item['country_name']; ?>
+                        </a>
+                        <br/>
                     <?php } ?>
                 </td>
             </tr>

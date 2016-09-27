@@ -6,12 +6,20 @@ function redirect($location)
     exit;
 }
 
-function f_igosja_post($var)
+function f_igosja_post($var, $subvar = '')
 {
-    if (isset($_POST[$var])) {
-        $result = $_POST[$var];
+    if ($subvar) {
+        if (isset($_POST[$var][$subvar])) {
+            $result = $_POST[$var][$subvar];
+        } else {
+            $result = '';
+        }
     } else {
-        $result = '';
+        if (isset($_POST[$var])) {
+            $result = $_POST[$var];
+        } else {
+            $result = '';
+        }
     }
     return $result;
 }
