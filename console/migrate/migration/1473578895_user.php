@@ -23,7 +23,6 @@ $q[] = 'CREATE TABLE `user`
             `user_holiday` TINYINT(1) DEFAULT 0,
             `user_holiday_day` TINYINT(2) DEFAULT 0,
             `user_password` CHAR(32) NOT NULL,
-            `user_rating` DECIMAL(6,2) DEFAULT 500,
             `user_referrer_id` INT(11) DEFAULT 0,
             `user_sex_id` TINYINT(1) DEFAULT 1,
             `user_social_facebook` VARCHAR(255) NOT NULL,
