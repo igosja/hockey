@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header">Города</h3>
+        <h3 class="page-header">Стадионы</h3>
     </div>
 </div>
 <?php include(__DIR__ . '/../../include/admin/button/create.php'); ?>
@@ -83,13 +83,13 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="/admin/stadium/view/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['stadium_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/stadium/update/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['stadium_id']; ?>" class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </a>
-                            <a href="/admin/stadium/delete/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['stadium_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

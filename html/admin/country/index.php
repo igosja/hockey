@@ -41,13 +41,13 @@
                         <td class="text-center"><?= $item['country_id']; ?></td>
                         <td><?= $item['country_name']; ?></td>
                         <td class="text-center">
-                            <a href="/admin/country/view/<?= $item['country_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['country_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/country/update/<?= $item['country_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['country_id']; ?>" class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </a>
-                            <a href="/admin/country/delete/<?= $item['country_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['country_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

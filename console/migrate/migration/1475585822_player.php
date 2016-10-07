@@ -7,7 +7,7 @@ $q[] = 'CREATE TABLE `player`
             `player_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
             `player_age` INT(11) DEFAULT 0,
             `player_country_id` INT(11) DEFAULT 0,
-            `player_game_row` INT(11) DEFAULT 0,
+            `player_game_row` INT(11) DEFAULT -1,
             `player_name_id` INT(11) DEFAULT 0,
             `player_power` INT(11) DEFAULT 0,
             `player_power_old` INT(11) DEFAULT 0,

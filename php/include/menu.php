@@ -17,7 +17,7 @@ $igosja_menu = array(
     array('label' => 'Расписание', 'url' => 'javascript:;'),
     array('label' => 'Рейтинги', 'url' => 'javascript:;'),
     array('label' => 'Регистрация', 'url' => '/signup', 'css' => 'red'),
-    array('label' => 'Ростер', 'url' => 'javascript:;', 'css' => 'red'),
+    array('label' => 'Ростер', 'url' => '/team', 'css' => 'red'),
     array('label' => 'Сборная', 'url' => 'javascript:;'),
     array('label' => 'Сменить клуб', 'url' => 'javascript:;'),
     array('label' => 'Тех.поддержка', 'url' => 'javascript:;'),
@@ -163,6 +163,7 @@ for ($i = 0; $i < 4; $i++) {
     }
 
     $foreach_menu = $$menu;
+
     for ($j = 0; $j < count($foreach_menu); $j++) {
         foreach ($foreach_menu[$j] as $item) {
             $a_menu[] = '<a href="' . $item['url'] . '" class="' . (isset($item['css']) ? $item['css'] : '') . '">'

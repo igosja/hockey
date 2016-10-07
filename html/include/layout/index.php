@@ -29,11 +29,13 @@
                 </div>
             <?php } ?>
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center menu">
-            <?= $igosja_menu; ?>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center menu">
-            <?= $igosja_menu_mobile; ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center menu">
+                <?= $igosja_menu; ?>
+            </div>
+            <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center menu">
+                <?= $igosja_menu_mobile; ?>
+            </div>
         </div>
         <?php
 

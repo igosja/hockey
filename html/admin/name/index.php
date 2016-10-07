@@ -41,13 +41,13 @@
                         <td class="text-center"><?= $item['name_id']; ?></td>
                         <td><?= $item['name_name']; ?></td>
                         <td class="text-center">
-                            <a href="/admin/name/view/<?= $item['name_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['name_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/name/update/<?= $item['name_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['name_id']; ?>" class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </a>
-                            <a href="/admin/name/delete/<?= $item['name_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['name_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

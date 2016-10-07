@@ -4,7 +4,7 @@
             <?php if (isset($stadium_array[0]['stadium_name'])) { ?>
                 <?= $stadium_array[0]['stadium_name']; ?>
             <?php } else { ?>
-                Создание города
+                Создание стадиона
             <?php } ?>
         </h3>
     </div>

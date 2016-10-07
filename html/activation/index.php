@@ -34,7 +34,7 @@
                 class="form-control <?php
                 if (isset($data['error']['code'])) {
                     print 'has-error';
-                } elseif (isset($data['error']['code'])) {
+                } elseif (isset($data['success']['code'])) {
                     print 'has-success';
                 } ?>"
                 id="activation-code"

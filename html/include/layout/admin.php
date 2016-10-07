@@ -254,6 +254,9 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
+                                <a href="/admin/team">Команды</a>
+                            </li>
+                            <li>
                                 <a href="/admin/stadium">Стадионы</a>
                             </li>
                             <li>
@@ -282,6 +285,7 @@
         </div>
     </nav>
     <div id="page-wrapper">
+        <?php include(__DIR__ . '/../../include/admin/breadcrumb.php'); ?>
         <?php
 
         if (file_exists(__DIR__ . '/../../admin/' . $route_path . '/' . $route_file . '.php')) {

@@ -481,6 +481,10 @@ h6 {
     font-weight: bold;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .has-error {
     border-color: #a94442;
 }
@@ -503,4 +507,24 @@ h6 {
 
 form {
     margin: 2px;
+}
+
+.text-size-1 {
+    font-size: 16px;
+}
+
+.text-size-2 {
+    font-size: 12px;
+}
+
+.text-size-3 {
+    font-size: 11px;
+}
+
+.text-size-4 {
+    font-size: 5px;
+}
+
+.margin-top {
+    margin-top: 10px;
 }

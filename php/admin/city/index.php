@@ -10,6 +10,7 @@ $sql = "SELECT `country_id`,
         GROUP BY `city_country_id`
         ORDER BY `country_name`";
 $country_sql = igosja_db_query($sql);
+
 $country_array = $country_sql->fetch_all(1);
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
@@ -24,6 +25,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ORDER BY `city_id`
         LIMIT $offset, $limit";
 $city_sql = igosja_db_query($sql);
+
 $city_array = $city_sql->fetch_all(1);
+
+$breadcrumb_array[] = 'Города';
 
 include(__DIR__ . '/../../include/pagination_count.php');

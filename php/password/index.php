@@ -26,7 +26,9 @@ if ($data = f_igosja_post('data')) {
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('ss', $email, $login);
         $prepare->execute();
+
         $user_sql = $prepare->get_result();
+
         $prepare->close();
 
         if ($user_sql->num_rows) {

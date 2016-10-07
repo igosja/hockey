@@ -10,6 +10,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ORDER BY `country_id`
         LIMIT $offset, $limit";
 $country_sql = igosja_db_query($sql);
+
 $country_array = $country_sql->fetch_all(1);
+
+$breadcrumb_array[] = 'Страны';
 
 include(__DIR__ . '/../../include/pagination_count.php');

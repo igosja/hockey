@@ -10,6 +10,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ORDER BY `surname_id`
         LIMIT $offset, $limit";
 $surname_sql = igosja_db_query($sql);
+
 $surname_array = $surname_sql->fetch_all(1);
+
+$breadcrumb_array[] = 'Фамилии';
 
 include(__DIR__ . '/../../include/pagination_count.php');

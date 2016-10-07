@@ -6,6 +6,7 @@ if (!$data = f_igosja_post('data')) {
 
 if (isset($data['code'])) {
     $code = $data['code'];
+
     $sql = "SELECT `user_date_confirm`
             FROM `user`
             WHERE `user_code`=?
@@ -13,10 +14,14 @@ if (isset($data['code'])) {
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('s', $code);
     $prepare->execute();
+
     $user_sql = $prepare->get_result();
+
     $prepare->close();
+
     if ($user_sql->num_rows) {
         $user_array = $user_sql->fetch_all(1);
+
         if ($user_array[0]['user_date_confirm']) {
             $data['success']['code'] = 'Профиль уже активирован.';
         } else {
@@ -25,6 +30,7 @@ if (isset($data['code'])) {
                     WHERE `user_code`='$code'
                     LIMIT 1";
             igosja_db_query($sql);
+
             $data['success']['code'] = 'Профиль активирован.';
         }
     } else {

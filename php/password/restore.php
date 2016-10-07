@@ -3,13 +3,16 @@
 if ($code = f_igosja_get('data')) {
     if (isset($code['code'])) {
         $code = $code['code'];
+
         $sql = "SELECT COUNT(`user_id`) AS `count`
                 FROM `user`
                 WHERE `user_code`=?";
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('s', $code);
         $prepare->execute();
+
         $user_sql = $prepare->get_result();
+
         $prepare->close();
 
         $user_array = $user_sql->fetch_all(1);
@@ -18,13 +21,15 @@ if ($code = f_igosja_get('data')) {
                 if (isset($data['password'])) {
                     if (!empty($data['password'])) {
                         $password = f_igosja_hash_password($data['password']);
+
                         $sql = "UPDATE `user`
-                        SET `user_password`=?
-                        WHERE `user_code`=?
-                        LIMIT 1";
+                                SET `user_password`=?
+                                WHERE `user_code`=?
+                                LIMIT 1";
                         $prepare = $mysqli->prepare($sql);
                         $prepare->bind_param('ss', $password, $code);
                         $prepare->execute();
+
                         $data['success']['password'] = 'Пароль успешно изменен.';
                     } else {
                         $data['error']['password'] = 'Введите пароль.';

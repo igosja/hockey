@@ -22,6 +22,7 @@ if ($pages_in_pagination < $count_page) {
 
 if (1 > $first_page) {
     $first_page = 1;
+
     if ($pages_in_pagination < $count_page) {
         $last_page = $pages_in_pagination;
     } else {
@@ -31,6 +32,7 @@ if (1 > $first_page) {
 
 if ($count_page < $last_page) {
     $last_page = $count_page;
+
     if (1 > $count_page - $pages_in_pagination) {
         $first_page = 1;
     } else {
@@ -54,12 +56,14 @@ if ($page >= $last_page) {
 }
 
 $page_filter = $filter;
+
 if (is_array($page_filter)) {
     foreach ($page_filter as $key => $value) {
         if (!$value) {
             unset($page_filter[$key]);
         }
     }
+
     $page_filter = array('filter' => $page_filter);
     $page_filter = '&' . http_build_query($page_filter);
 }

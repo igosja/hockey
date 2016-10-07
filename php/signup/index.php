@@ -11,6 +11,7 @@ if ($data = f_igosja_post('data')) {
     if (isset($data['login'])) {
         $login = trim($data['login']);
     }
+
     if (!isset($login) || empty($login)) {
         $check_login = false;
         $data['error']['login'] = 'Введите логин.';
@@ -24,6 +25,7 @@ if ($data = f_igosja_post('data')) {
     if (isset($data['email'])) {
         $email = trim($data['email']);
     }
+
     if (!isset($email) || empty($email)) {
         $check_email = false;
         $data['error']['email'] = 'Введите email.';
@@ -63,6 +65,7 @@ if ($data = f_igosja_post('data')) {
         $mail->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги');
         $mail->setHtml($email_text);
         $mail->send();
+
         redirect('/activation');
     }
 } else {

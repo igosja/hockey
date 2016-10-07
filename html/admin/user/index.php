@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header">Страны</h3>
+        <h3 class="page-header">Пользователи</h3>
     </div>
 </div>
 <?php include(__DIR__ . '/../../include/admin/button/create.php'); ?>
@@ -41,13 +41,13 @@
                         <td class="text-center"><?= $item['user_id']; ?></td>
                         <td><?= $item['user_login']; ?></td>
                         <td class="text-center">
-                            <a href="/admin/user/view/<?= $item['user_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['user_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/user/update/<?= $item['user_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['user_id']; ?>" class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </a>
-                            <a href="/admin/user/delete/<?= $item['user_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['user_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

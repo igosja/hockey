@@ -3,6 +3,7 @@
 if ($data = f_igosja_post('data')) {
     if (isset($data['email'])) {
         $email = $data['email'];
+
         $sql = "SELECT `user_code`,
                        `user_date_confirm`
                 FROM `user`
@@ -11,10 +12,14 @@ if ($data = f_igosja_post('data')) {
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('s', $email);
         $prepare->execute();
+
         $user_sql = $prepare->get_result();
+
         $prepare->close();
+
         if ($user_sql->num_rows) {
             $user_array = $user_sql->fetch_all(1);
+
             if ($user_array[0]['user_date_confirm']) {
                 $data['success']['email'] = 'Профиль уже активирован.';
             } else {

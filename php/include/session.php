@@ -14,7 +14,9 @@ if (isset($_SESSION['user_id'])) {
             WHERE `user_id`='$auth_user_id'
             LIMIT 1";
     $user_sql = igosja_db_query($sql);
+
     $user_array = $user_sql->fetch_all(1);
+
     $auth_user_login = $user_array[0]['user_login'];
     $auth_userrole_id = $user_array[0]['user_userrole_id'];
 

@@ -15,4 +15,8 @@ $sql = "SELECT `city_id`,
         WHERE `stadium_id`='$num_get'
         LIMIT 1";
 $stadium_sql = igosja_db_query($sql);
+
 $stadium_array = $stadium_sql->fetch_all(1);
+
+$breadcrumb_array[] = array('url' => $route_path, 'text' => 'Стадионы');
+$breadcrumb_array[] = $stadium_array[0]['stadium_name'];

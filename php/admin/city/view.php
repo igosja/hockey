@@ -10,4 +10,8 @@ $sql = "SELECT `city_id`,
         WHERE `city_id`='$num_get'
         LIMIT 1";
 $city_sql = igosja_db_query($sql);
+
 $city_array = $city_sql->fetch_all(1);
+
+$breadcrumb_array[] = array('url' => $route_path, 'text' => 'Города');
+$breadcrumb_array[] = $city_array[0]['city_name'];

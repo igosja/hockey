@@ -10,4 +10,8 @@ $sql = "SELECT `user_date_login`,
         WHERE `user_id`='$num_get'
         LIMIT 1";
 $user_sql = igosja_db_query($sql);
+
 $user_array = $user_sql->fetch_all(1);
+
+$breadcrumb_array[] = array('url' => $route_path, 'text' => 'Пользователи');
+$breadcrumb_array[] = $user_array[0]['user_login'];
