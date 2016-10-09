@@ -118,7 +118,70 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Таблица с игроками
+        <table class="table">
+            <tr>
+                <th>Игрок</th>
+                <th title="Национальность">Нац</th>
+                <th title="Позиция">Поз</th>
+                <th title="Возраст">В</th>
+                <th title="Номинальная сила">С</th>
+                <th title="Усталость">У</th>
+                <th title="Реальная сила">РС</th>
+                <th title="Спецвозможности">Спец</th>
+                <th title="Средняя оценка за игру">О</th>
+                <th title="Игр">И</th>
+                <th title="Шайб">Ш</th>
+                <th title="Результативных передач">П</th>
+                <th>Цена</th>
+                <th title="Играл/отдыхал подряд">И/О</th>
+            </tr>
+            <?php foreach ($player_array as $item) { ?>
+                <tr>
+                    <td>
+                        <a href="/player/index/<?= $item['player_id']; ?>">
+                            <?= $item['name_name']; ?>
+                            <?= $item['surname_name']; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/country/index/<?= $item['country_id']; ?>">
+                            <img
+                                src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                title="<?= $item['country_name']; ?>"
+                            />
+                        </a>
+                    </td>
+                    <td></td>
+                    <td><?= $item['player_age']; ?></td>
+                    <td><?= $item['player_power_nominal']; ?></td>
+                    <td><?= $item['player_tire']; ?></td>
+                    <td><?= $item['player_power_real']; ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?= $item['player_price']; ?></td>
+                    <td><?= $item['player_game_row']; ?></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <th>Игрок</th>
+                <th title="Национальность">Нац</th>
+                <th title="Позиция">Поз</th>
+                <th title="Возраст">В</th>
+                <th title="Номинальная сила">С</th>
+                <th title="Усталость">У</th>
+                <th title="Реальная сила">РС</th>
+                <th title="Спецвозможности">Спец</th>
+                <th title="Средняя оценка за игру">О</th>
+                <th title="Игр">И</th>
+                <th title="Шайб">Ш</th>
+                <th title="Результативных передач">П</th>
+                <th>Цена</th>
+                <th title="Играл/отдыхал подряд">И/О</th>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="row">
