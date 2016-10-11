@@ -22,12 +22,17 @@
                 <div class="row text-size-4"><?= SPACE; ?></div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Менежер: (Письмо) <a class="strong" href="javascript:;">Имя</a>
+                        Менежер:
+                        (Письмо) <a class="strong" href="javascript:;"><?= $team_array[0]['user_login']; ?></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Ник: (ВИП) <a class="strong" href="javascript:;">Логин</a>
+                        Ник:
+                        (ВИП)
+                        <a class="strong" href="javascript:;">
+                            <?= $team_array[0]['user_name']; ?> <?= $team_array[0]['user_surname']; ?>
+                        </a>
                     </div>
                 </div>
                 <div class="row text-size-4"><?= SPACE; ?></div>
@@ -44,13 +49,18 @@
                 <div class="row text-size-4"><?= SPACE; ?></div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Стадион: Название, мест (Просмотр)
+                        Стадион:
+                        <?= $team_array[0]['stadium_name'];?>,
+                        <strong><?= $team_array[0]['stadium_capacity'];?></strong>
+                        (Просмотр)
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        База: <span class="strong">5</span> уровень
-                        (<span class="italic">19</span> из <span class="strong">22</span> слотов)
+                        База: <span class="strong"><?= $team_array[0]['team_base_id']; ?></span> уровень
+                        (<span class="italic"><?= $team_array[0]['team_base_slot_used']; ?></span>
+                        из
+                        <span class="strong">22</span> слотов)
                         <img src="/img/build.gif"/>
                         (Просмотр)
                     </div>
@@ -58,7 +68,8 @@
                 <div class="row text-size-4"><?= SPACE; ?></div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Финансы: <span class="strong">2 870 585 $</span>
+                        Финансы:
+                        <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
                     </div>
                 </div>
             </div>
@@ -157,11 +168,11 @@
                     <td class="text-center"><?= $item['player_power_nominal']; ?></td>
                     <td class="text-center"><?= $item['player_tire']; ?></td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
-                    <td></td>
-                    <td>0.00</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center">0.00</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">0</td>
                     <td class="text-right"><?= f_igosja_money($item['player_price']); ?></td>
                     <td class="text-center"><?= $item['player_game_row']; ?></td>
                 </tr>

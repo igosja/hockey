@@ -4,8 +4,22 @@ $num_get = 1;
 
 $sql = "SELECT `city_name`,
                `country_name`,
-               `team_name`
+               `stadium_capacity`,
+               `stadium_name`,
+               `team_base_id`,
+               `team_basemedical_id`+
+               `team_basephisical_id`+
+               `team_baseschool_id`+
+               `team_basescout_id`+
+               `team_basetraining_id` AS `team_base_slot_used`,
+               `team_finance`,
+               `team_name`,
+               `user_login`,
+               `user_name`,
+               `user_surname`
         FROM `team`
+        LEFT JOIN `user`
+        ON `team_user_id`=`user_id`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`

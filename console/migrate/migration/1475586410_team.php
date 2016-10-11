@@ -17,6 +17,8 @@ $q[] = 'CREATE TABLE `team`
             `team_shop_special` INT(11) DEFAULT 0,
             `team_shop_training` INT(11) DEFAULT 0,
             `team_stadium_id` INT(11) DEFAULT 0,
+            `team_user_id` INT(11) DEFAULT 0,
+            `team_vice_id` INT(11) DEFAULT 0,
             `team_vote_junior` INT(11) DEFAULT 2,
             `team_vote_national` INT(11) DEFAULT 2,
             `team_vote_president` INT(11) DEFAULT 2,
@@ -29,3 +31,5 @@ $q[] = 'CREATE INDEX `team_baseschool_id` ON `team` (`team_baseschool_id`);';
 $q[] = 'CREATE INDEX `team_basescout_id` ON `team` (`team_basescout_id`);';
 $q[] = 'CREATE INDEX `team_basetraining_id` ON `team` (`team_basetraining_id`);';
 $q[] = 'CREATE INDEX `team_stadium_id` ON `team` (`team_stadium_id`);';
+$q[] = 'CREATE INDEX `team_user_id` ON `team` (`team_user_id`);';
+$q[] = 'CREATE INDEX `team_vice_id` ON `team` (`team_vice_id`);';
