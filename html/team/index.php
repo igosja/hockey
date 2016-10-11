@@ -4,7 +4,8 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
-                        Команда (Город, Страна)
+                        <?= $team_array[0]['team_name']; ?>
+                        (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
                     </div>
                 </div>
                 <div class="row text-size-4"><?= SPACE; ?></div>
