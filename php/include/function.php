@@ -335,8 +335,9 @@ function f_igosja_create_team_players($team_id)
                 SET `player_age`='$age',
                     `player_country_id`='$country_id',
                     `player_name_id`='$name_id',
-                    `player_power`='$age'*'2',
+                    `player_power_nominal`='$age'*'2',
                     `player_power_old`='$age'*'2',
+                    `player_power_real`='$age'*'2',
                     `player_price`='0',
                     `player_salary`='0',
                     `player_school_id`='$team_id',
@@ -363,4 +364,33 @@ function f_igosja_create_team_players($team_id)
 
         f_igosja_log($log);
     }
+}
+
+function f_igosja_money($price)
+{
+    $price = $price . ' $';
+
+    return $price;
+}
+
+function f_igosja_player_position($player_id)
+{
+    $sql = "SELECT `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id`='$player_id'";
+    $position_sql = igosja_db_query($sql);
+
+    $position_array = $position_sql->fetch_all(1);
+
+    $return_array = array();
+
+    foreach ($position_array as $item) {
+        $return_array[] = $item['position_name'];
+    }
+
+    $return = implode('/', $return_array);
+
+    return $return;
 }

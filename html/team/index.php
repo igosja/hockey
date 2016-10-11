@@ -118,11 +118,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <table class="table">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered">
             <tr>
                 <th>Игрок</th>
-                <th title="Национальность">Нац</th>
+                <th title="Национальность" class="col-1">Нац</th>
                 <th title="Позиция">Поз</th>
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
@@ -144,7 +144,7 @@
                             <?= $item['surname_name']; ?>
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a href="/country/index/<?= $item['country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $item['country_id']; ?>.png"
@@ -152,18 +152,18 @@
                             />
                         </a>
                     </td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= $item['player_age']; ?></td>
+                    <td class="text-center"><?= $item['player_power_nominal']; ?></td>
+                    <td class="text-center"><?= $item['player_tire']; ?></td>
+                    <td class="text-center"><?= $item['player_power_real']; ?></td>
                     <td></td>
-                    <td><?= $item['player_age']; ?></td>
-                    <td><?= $item['player_power_nominal']; ?></td>
-                    <td><?= $item['player_tire']; ?></td>
-                    <td><?= $item['player_power_real']; ?></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><?= $item['player_price']; ?></td>
-                    <td><?= $item['player_game_row']; ?></td>
+                    <td>0.00</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td class="text-right"><?= f_igosja_money($item['player_price']); ?></td>
+                    <td class="text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>
             <tr>

@@ -381,6 +381,10 @@ a.btn {
     }
 }
 
+.col-1 {
+    width: 1px;
+}
+
 .text-left {
     text-align: left;
 }
@@ -533,5 +537,26 @@ form {
 }
 
 .table {
+    border-collapse: collapse;
+    max-width: 100%;
     width: 100%;
+}
+
+.table-bordered {
+    border: 1px solid #dddddd;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dddddd;
+}
+
+.table-bordered th {
+    background-color: #286090;
+    color: #f0f0f0;
+}
+
+.table-responsive {
+    min-height: .01%;
+    overflow-x: auto;
 }
