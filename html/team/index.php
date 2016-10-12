@@ -52,7 +52,8 @@
                         Стадион:
                         <?= $team_array[0]['stadium_name'];?>,
                         <strong><?= $team_array[0]['stadium_capacity'];?></strong>
-                        (Просмотр)
+                        <img src="/img/cog.png"/>
+                        <img src="/img/loupe.png"/>
                     </div>
                 </div>
                 <div class="row">
@@ -61,8 +62,8 @@
                         (<span class="italic"><?= $team_array[0]['team_base_slot_used']; ?></span>
                         из
                         <span class="strong">22</span> слотов)
-                        <img src="/img/build.gif"/>
-                        (Просмотр)
+                        <img src="/img/cog.png"/>
+                        <img src="/img/loupe.png"/>
                     </div>
                 </div>
                 <div class="row text-size-4"><?= SPACE; ?></div>
@@ -98,8 +99,8 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
                 5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                Разделитель
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row text-size-4"><?= SPACE; ?></div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
                 5 октября, 22:00 - Кубок межсезонья - Д - Команда - Ред.
@@ -115,7 +116,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Разделитель
+        <div class="row text-size-4"><?= SPACE; ?></div>
     </div>
 </div>
 <div class="row">
@@ -125,7 +126,12 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Ссылки управления
+        <div class="row text-size-4"><?= SPACE; ?></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php include(__DIR__ . '/table_link.php'); ?>
     </div>
 </div>
 <div class="row">
@@ -198,7 +204,12 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Ссылки управления
+        <?php include(__DIR__ . '/table_link.php'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row text-size-4"><?= SPACE; ?></div>
     </div>
 </div>
 <div class="row">

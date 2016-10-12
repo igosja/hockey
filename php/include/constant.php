@@ -57,3 +57,12 @@ define('ROLE_ADMIN', 10);
 define('SPACE', '&nbsp;');
 
 $breadcrumb_array = array();
+$team_link_array = array(
+    array('url' => 'index', 'text' => 'Игроки'),
+    array('url' => 'game', 'text' => 'Матчи'),
+    array('url' => 'statistic', 'text' => 'Статистика'),
+    array('url' => 'deal', 'text' => 'Сделки'),
+    array('url' => 'event', 'text' => 'События'),
+    array('url' => 'finance', 'text' => 'Финансы'),
+    array('url' => 'achievement', 'text' => 'Достижения'),
+);

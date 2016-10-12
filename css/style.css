@@ -560,3 +560,9 @@ form {
     min-height: .01%;
     overflow-x: auto;
 }
+
+.hr {
+    background-color: #286090;
+    height: 1px;
+    margin: 5px 0;
+}

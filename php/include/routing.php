@@ -56,7 +56,7 @@ if ('admin' == $route_path) {
     if (isset($a_route[2]) && !empty($a_route[2])) {
         $num_get = $a_route[2];
     } else {
-        $num_get = 'index';
+        $num_get = 0;
     }
 
     if (file_exists(__DIR__ . '/../' . $route_path . '/' . $route_file . '.php')) {

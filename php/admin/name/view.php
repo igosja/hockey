@@ -19,5 +19,5 @@ $country_sql = igosja_db_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
-$breadcrumb_array[] = array('url' => $route_path, 'text' => 'Команды');
+$breadcrumb_array[] = array('url' => $route_path, 'text' => 'Имена');
 $breadcrumb_array[] = $name_array[0]['name_name'];
