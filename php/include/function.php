@@ -144,6 +144,11 @@ function f_igosja_ufu_date_time($date)
     return date('H:i d.m.Y', $date);
 }
 
+function f_igosja_ufu_date($date)
+{
+    return date('d.m.Y', $date);
+}
+
 function f_igosja_ufu_last_visit($date)
 {
     $min_5 = $date + 5 * 60;
@@ -151,7 +156,7 @@ function f_igosja_ufu_last_visit($date)
     $now = time();
 
     if ($min_5 >= $now) {
-        $date = 'онлайн';
+        $date = '<span class="red">онлайн</span>';
     } elseif ($min_60 >= $now) {
         $difference = $now - $date;
         $difference = $difference / 60;
@@ -417,4 +422,30 @@ function f_igosja_player_special($player_id)
     $return = implode(' ', $return_array);
 
     return $return;
+}
+
+function f_igosja_birth_date($item)
+{
+    if ($item['user_birth_day'] && $item['user_birth_day'] && $item['user_birth_year']) {
+        $result = $item['user_birth_day'] . '.' . $item['user_birth_month'] . '.' . $item['user_birth_year'];
+    } else {
+        $result = 'Не указан';
+    }
+
+    return $result;
+}
+
+function f_igosja_user_from($item)
+{
+    if ($item['user_city'] && $item['country_name']) {
+        $result = $item['user_city'] . ',' . $item['country_name'];
+    } elseif ($item['user_city']) {
+        $result = $item['user_city'];
+    } elseif ($item['country_name']) {
+        $result = $item['country_name'];
+    } else {
+        $result = 'Не указано';
+    }
+
+    return $result;
 }

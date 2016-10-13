@@ -13,7 +13,7 @@ $igosja_menu = array(
     array('label' => 'Общение', 'url' => 'javascript:;'),
     array('label' => 'Опросы', 'url' => 'javascript:;'),
     array('label' => 'Правила', 'url' => 'javascript:;'),
-    array('label' => 'Профиль', 'url' => 'javascript:;'),
+    array('label' => 'Профиль', 'url' => '/user'),
     array('label' => 'Расписание', 'url' => 'javascript:;'),
     array('label' => 'Рейтинги', 'url' => 'javascript:;'),
     array('label' => 'Регистрация', 'url' => '/signup', 'css' => 'red'),

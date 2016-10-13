@@ -66,3 +66,13 @@ $team_link_array = array(
     array('url' => 'finance', 'text' => 'Финансы'),
     array('url' => 'achievement', 'text' => 'Достижения'),
 );
+$user_link_array = array(
+    array('url' => 'index', 'text' => 'Информация'),
+    array('url' => 'finance', 'text' => 'Личный счёт'),
+    array('url' => 'transfermoney', 'text' => 'Перевести деньги'),
+    array('url' => 'deal', 'text' => 'Сделки'),
+    array('url' => 'questionnaire', 'text' => 'Анкета'),
+    array('url' => 'holiday', 'text' => 'Отпуск'),
+    array('url' => 'password', 'text' => 'Пароль'),
+    array('url' => 'referral', 'text' => 'Подопечные'),
+);
