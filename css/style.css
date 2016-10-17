@@ -542,6 +542,11 @@ form {
     width: 100%;
 }
 
+.table th {
+    background-color: #286090;
+    color: #f0f0f0;
+}
+
 .table-bordered {
     border: 1px solid #dddddd;
 }
@@ -549,11 +554,6 @@ form {
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #dddddd;
-}
-
-.table-bordered th {
-    background-color: #286090;
-    color: #f0f0f0;
 }
 
 .table-responsive {
