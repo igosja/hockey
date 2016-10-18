@@ -1,6 +1,6 @@
 <?php
 
-$num_get = 1;
+$num_get = f_igosja_get_auth_team_id();
 
 $sql = "SELECT `city_name`,
                `country_name`,

@@ -449,3 +449,22 @@ function f_igosja_user_from($item)
 
     return $result;
 }
+
+function f_igosja_get_auth_team_id()
+{
+    global $auth_user_id;
+
+    $sql = "SELECT `team_id`
+            FROM `team`
+            WHERE `team_user_id`='$auth_user_id'
+            LIMIT 1";
+    $team_sql = igosja_db_query($sql);
+
+    if (!$team_sql->num_rows) {
+        redirect('/team/ask');
+    }
+
+    $team_array = $team_sql->fetch_all(1);
+
+    $team_id = $team_array[0]['team_id'];
+}
