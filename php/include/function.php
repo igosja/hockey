@@ -6,6 +6,16 @@ function redirect($location)
     exit;
 }
 
+function refresh($location = '')
+{
+    if ($location) {
+        header('Refresh:0; url=' . $location);
+    } else {
+        header('Refresh:0');
+    }
+    exit;
+}
+
 function f_igosja_post($var, $subvar = '')
 {
     if ($subvar) {

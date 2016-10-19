@@ -37,6 +37,13 @@
                 <?= $igosja_menu_mobile; ?>
             </div>
         </div>
+        <?php if (isset($_SESSION['message'])) { ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center <?= $_SESSION['message']['class']; ?>">
+                    <?= $_SESSION['message']['text']; ?>
+                </div>
+            </div>
+        <?php } ?>
         <?php
 
         if (file_exists(__DIR__ . '/../../' . $route_path . '/' . $route_file . '.php')) {
