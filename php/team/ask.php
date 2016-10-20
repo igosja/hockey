@@ -47,7 +47,7 @@ if ($num_get) {
 
     $_SESSION['message']['text'] = 'Заявка успешно подана';
     $_SESSION['message']['class'] = 'success';
-        refresh('/' . $route_path . '/' . $route_file);
+    refresh('/' . $route_path . '/' . $route_file);
 }
 
 $sql = "SELECT `city_name`,

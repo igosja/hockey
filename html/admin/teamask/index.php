@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header">Команды</h3>
+        <h3 class="page-header">Заявки на команды</h3>
     </div>
 </div>
-<?php include(__DIR__ . '/../../include/admin/button/create.php'); ?>
 <form>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
@@ -12,10 +11,9 @@
                 <thead>
                 <tr>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-center">Id</th>
+                    <th>Время заявки</th>
+                    <th>Пользователь</th>
                     <th>Команда</th>
-                    <th>Стадион</th>
-                    <th>Город</th>
-                    <th>Страна</th>
                     <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                 </tr>
                 <tr id="filters">
@@ -107,10 +105,12 @@
                             <a href="/admin/<?= $route_path; ?>/view/<?= $item['stadium_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['stadium_id']; ?>"
+                               class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </a>
-                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['stadium_id']; ?>"
+                               class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

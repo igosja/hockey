@@ -4,29 +4,31 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-comments fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
-                        <div>New Comments!</div>
+    <?php if ($teamask_array[0]['count']) { ?>
+        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge"><?= $teamask_array[0]['count']; ?></div>
+                            <div>Заявки на команды!</div>
+                        </div>
                     </div>
                 </div>
+                <a href="/admin/teamask">
+                    <div class="panel-footer">
+                        <span class="pull-left">Подробнее</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
             </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
         </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
+    <?php } ?>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -48,7 +50,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
@@ -70,7 +72,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">

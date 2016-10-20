@@ -39,8 +39,9 @@
         </div>
         <?php if (isset($_SESSION['message'])) { ?>
             <div class="row margin-top">
-                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center <?= $_SESSION['message']['class']; ?>">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center <?= $_SESSION['message']['class']; ?>">
                     <?= $_SESSION['message']['text']; ?>
+                    <?php unset($_SESSION['message']); ?>
                 </div>
             </div>
         <?php } ?>
