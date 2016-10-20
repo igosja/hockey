@@ -8,7 +8,46 @@ $team_sql = igosja_db_query($sql);
 $team_array = $team_sql->fetch_all(1);
 
 if ($team_array[0]['check']) {
-    redirect('/team/view');
+    redirect('/team/');
+}
+
+if ($num_get) {
+    $sql = "SELECT COUNT(`team_id`) AS `check`
+            FROM `team`
+            WHERE `team_id`='$num_get'
+            AND `team_user_id`='0'";
+    $team_sql = igosja_db_query($sql);
+
+    $team_array = $team_sql->fetch_all(1);
+
+    if (!$team_array[0]['check']) {
+        $_SESSION['message']['text'] = 'Команда выбрана неправильно';
+        $_SESSION['message']['class'] = 'error';
+        refresh('/' . $route_path . '/' . $route_file);
+    }
+
+    $sql = "SELECT COUNT(`teamask_id`) AS `check`
+            FROM `teamask`
+            WHERE `teamask_user_id`='$auth_user_id'";
+    $teamask_sql = igosja_db_query($sql);
+
+    $teamask_array = $teamask_sql->fetch_all(1);
+
+    if ($teamask_array[0]['check']) {
+        $_SESSION['message']['text'] = 'Вы уже подали заявку';
+        $_SESSION['message']['class'] = 'error';
+        refresh('/' . $route_path . '/' . $route_file);
+    }
+
+    $sql = "INSERT INTO `teamask`
+            SET `teamask_date`=UNIX_TIMESTAMP(),
+                `teamask_team_id`='$num_get',
+                `teamask_user_id`='$auth_user_id'";
+    igosja_db_query($sql);
+
+    $_SESSION['message']['text'] = 'Заявка успешно подана';
+    $_SESSION['message']['class'] = 'success';
+        refresh('/' . $route_path . '/' . $route_file);
 }
 
 $sql = "SELECT `city_name`,

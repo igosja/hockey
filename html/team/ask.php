@@ -13,7 +13,11 @@
             </tr>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
-                    <td></td>
+                    <td class="text-center">
+                        <a href="/team/ask/<?= $item['team_id']; ?>">
+                            <img src="/img/check.png"/>
+                        </a>
+                    </td>
                     <td>
                         <a href="/team/view/<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
@@ -30,7 +34,7 @@
                             D1
                         </a>
                     </td>
-                    <td class="text-right"><?= $item['team_base_slot_used']; ?> из <?= $item['team_base_id']; ?></td>
+                    <td class="text-center"><?= $item['team_base_slot_used']; ?> из <?= $item['team_base_id']; ?></td>
                     <td class="text-right"><?= $item['stadium_capacity']; ?></td>
                     <td class="text-right"><?= $item['team_finance']; ?></td>
                     <td class="text-right">123</td>

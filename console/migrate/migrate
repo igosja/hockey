@@ -11,13 +11,13 @@ if (isset($argv[1])) {
             $text = '<?php';
             fwrite($file, $text);
             fclose($file);
-            print 'Файл ' . $file_name . ' успешно создан.' . "\r\n";
+            print 'File ' . $file_name . ' has been created.' . "\r\n";
         }
     } else {
-        print 'Нерпавильная команда.' . "\r\n";
+        print 'Wrong command.' . "\r\n";
     }
 } else {
-    print 'Начинаем выполнять миграции.' . "\r\n";
+    print 'Start migration...' . "\r\n";
     $sql = "CREATE TABLE IF NOT EXISTS `a_migration`
             (
                 `migration_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -46,9 +46,9 @@ if (isset($argv[1])) {
                         SET `migration_file`='$item',
                             `migration_date`=UNIX_TIMESTAMP()";
                 $mysqli->query($sql);
-                print 'Файл ' . $item . ' выполнен.' . "\r\n";
+                print 'File ' . $item . ' done.' . "\r\n";
             }
         }
     }
-    print 'Все выполнено.' . "\r\n";
+    print 'All done.' . "\r\n";
 }
