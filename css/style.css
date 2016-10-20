@@ -541,6 +541,10 @@ form {
     margin-top: 10px;
 }
 
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
 .table {
     border-collapse: collapse;
     max-width: 100%;

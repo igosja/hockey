@@ -6,13 +6,9 @@ function redirect($location)
     exit;
 }
 
-function refresh($location = '')
+function refresh()
 {
-    if ($location) {
-        header('Refresh:0; url=' . $location);
-    } else {
-        header('Refresh:0');
-    }
+    header('Refresh:0');
     exit;
 }
 

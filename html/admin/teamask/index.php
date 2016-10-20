@@ -20,10 +20,19 @@
                     <td>
                         <input
                             class="form-control"
-                            name="filter[team_id]"
+                            name="filter[teamask_id]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'team_id'); ?>"
+                            value="<?= f_igosja_get('filter', 'teamask_id'); ?>"
                         />
+                    </td>
+                    <td></td>
+                    <td>
+                        <input
+                            class="form-control"
+                            name="filter[user_login]"
+                            type="text"
+                            value="<?= f_igosja_get('filter', 'user_login'); ?>"
+                        >
                     </td>
                     <td>
                         <input
@@ -33,84 +42,29 @@
                             value="<?= f_igosja_get('filter', 'team_name'); ?>"
                         >
                     </td>
-                    <td>
-                        <select class="form-control" name="filter[stadium_id]">
-                            <option value="">Все</option>
-                            <?php foreach ($stadium_array as $item) { ?>
-                                <option
-                                    value="<?= $item['stadium_id']; ?>"
-                                    <?php if (f_igosja_get('filter', 'stadium_id') == $item['stadium_id']) { ?>
-                                        selected
-                                    <?php } ?>
-                                >
-                                    <?= $item['stadium_name']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-control" name="filter[city_id]">
-                            <option value="">Все</option>
-                            <?php foreach ($city_array as $item) { ?>
-                                <option
-                                    value="<?= $item['city_id']; ?>"
-                                    <?php if (f_igosja_get('filter', 'city_id') == $item['city_id']) { ?>
-                                        selected
-                                    <?php } ?>
-                                >
-                                    <?= $item['city_name']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-control" name="filter[country_id]">
-                            <option value="">Все</option>
-                            <?php foreach ($country_array as $item) { ?>
-                                <option
-                                    value="<?= $item['country_id']; ?>"
-                                    <?php if (f_igosja_get('filter', 'country_id') == $item['country_id']) { ?>
-                                        selected
-                                    <?php } ?>
-                                >
-                                    <?= $item['country_name']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </td>
                     <td></td>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($team_array as $item) { ?>
+                <?php foreach ($teamask_array as $item) { ?>
                     <tr>
-                        <td class="text-center"><?= $item['team_id']; ?></td>
-                        <td><?= $item['team_name']; ?></td>
+                        <td class="text-center"><?= $item['teamask_id']; ?></td>
+                        <td><?= f_igosja_ufu_date_time($item['teamask_date']); ?></td>
                         <td>
-                            <a href="/admin/stadium/view/<?= $item['stadium_id']; ?>">
-                                <?= $item['stadium_name']; ?>
+                            <a href="/admin/user/view/<?= $item['user_id']; ?>">
+                                <?= $item['user_login']; ?>
                             </a>
                         </td>
                         <td>
-                            <a href="/admin/city/view/<?= $item['city_id']; ?>">
-                                <?= $item['city_name']; ?>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="/admin/country/view/<?= $item['country_id']; ?>">
-                                <?= $item['country_name']; ?>
+                            <a href="/admin/team/view/<?= $item['team_id']; ?>">
+                                <?= $item['team_name']; ?>
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['stadium_id']; ?>" class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['teamask_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/<?= $route_path; ?>/update/<?= $item['stadium_id']; ?>"
-                               class="no-underline">
-                                <i class="fa fa-pencil fa-fw"></i>
-                            </a>
-                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['stadium_id']; ?>"
-                               class="no-underline">
+                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['teamask_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

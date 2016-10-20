@@ -23,7 +23,7 @@ if ($num_get) {
     if (!$team_array[0]['check']) {
         $_SESSION['message']['text'] = 'Команда выбрана неправильно';
         $_SESSION['message']['class'] = 'error';
-        refresh('/' . $route_path . '/' . $route_file);
+        redirect('/' . $route_path . '/' . $route_file);
     }
 
     $sql = "SELECT COUNT(`teamask_id`) AS `check`
@@ -36,7 +36,7 @@ if ($num_get) {
     if ($teamask_array[0]['check']) {
         $_SESSION['message']['text'] = 'Вы уже подали заявку';
         $_SESSION['message']['class'] = 'error';
-        refresh('/' . $route_path . '/' . $route_file);
+        redirect('/' . $route_path . '/' . $route_file);
     }
 
     $sql = "INSERT INTO `teamask`
@@ -47,8 +47,15 @@ if ($num_get) {
 
     $_SESSION['message']['text'] = 'Заявка успешно подана';
     $_SESSION['message']['class'] = 'success';
-    refresh('/' . $route_path . '/' . $route_file);
+    redirect('/' . $route_path . '/' . $route_file);
 }
+
+$sql = "SELECT COUNT(`teamask_id`) AS `count`
+        FROM `teamask`
+        WHERE `teamask_user_id`='$auth_user_id'";
+$teamask_sql = igosja_db_query($sql);
+
+$teamask_array = $teamask_sql->fetch_all(1);
 
 $sql = "SELECT `city_name`,
                `country_id`,

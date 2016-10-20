@@ -3,9 +3,17 @@
 include(__DIR__ . '/../../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
+               `team_id`,
+               `team_name`,
                `teamask_id`,
-               `teamask_date`
+               `teamask_date`,
+               `user_id`,
+               `user_login`
         FROM `teamask`
+        LEFT JOIN `team`
+        ON `teamask_team_id`
+        LEFT JOIN `user`
+        ON `teamask_user_id`=`user_id`
         WHERE $sql_filter
         ORDER BY `teamask_date` ASC
         LIMIT $offset, $limit";
