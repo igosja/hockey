@@ -2,24 +2,16 @@
 
 class m161021_111344_style extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{style}}', array(
+            'style_id' => 'pk',
+            'style_name' => 'VARCHAR(255) NOT NULL',
+        ));
+    }
 
-	public function down()
-	{
-		echo "m161021_111344_style does not support migration down.\n";
-		return false;
-	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{style}}');
+    }
 }

@@ -2,24 +2,23 @@
 
 class m161021_111538_news extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{news}}', array(
+            'news_id' => 'pk',
+            'news_country_id' => 'INT(11) DEFAULT 0',
+            'news_date' => 'INT(11) DEFAULT 0',
+            'news_title' => 'VARCHAR(255) NOT NULL',
+            'news_text' => 'TEXT NOT NULL',
+            'news_user_id' => 'INT(11) DEFAULT 0',
+        ));
 
-	public function down()
-	{
-		echo "m161021_111538_news does not support migration down.\n";
-		return false;
-	}
+        $this->createIndex('news_country_id', '{{news}}', 'news_country_id');
+        $this->createIndex('news_user_id', '{{news}}', 'news_user_id');
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{news}}');
+    }
 }

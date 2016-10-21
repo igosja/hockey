@@ -13,7 +13,7 @@ return array(
         'user' => array(
             'allowAutoLogin' => true,
         ),
-        'db'=>array(
+        'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=igosja_hockey',
             'emulatePrepare' => true,
             'username' => 'igosja_hockey',
@@ -26,7 +26,11 @@ return array(
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
+            'showScriptName' => false,
             'rules' => array(
+                'admin/<controller>/<action>/<id>' => 'admin/<controller>/<action>',
+                'admin/<controller>/<action>' => 'admin/<controller>/<action>',
+                'admin/<controller>' => 'admin/<controller>/index',
                 '<controller>/<action>/<id>' => '<controller>/<action>',
                 '<controller>/<action>' => '<controller>/<action>',
                 '<controller>' => '<controller>/index',
@@ -40,10 +44,13 @@ return array(
                     'levels' => 'error, warning',
                 ),
                 array(
-                    'class'=>'CWebLogRoute',
+                    'class' => 'CWebLogRoute',
                 ),
             ),
         ),
+    ),
+    'modules' => array(
+        'admin',
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
 );

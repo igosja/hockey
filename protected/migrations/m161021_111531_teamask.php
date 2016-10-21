@@ -2,24 +2,21 @@
 
 class m161021_111531_teamask extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{teamask}}', array(
+            'teamask_id' => 'pk',
+            'teamask_date' => 'INT(11) DEFAULT 0',
+            'teamask_team_id' => 'INT(11) DEFAULT 0',
+            'teamask_user_id' => 'INT(11) DEFAULT 0',
+        ));
 
-	public function down()
-	{
-		echo "m161021_111531_teamask does not support migration down.\n";
-		return false;
-	}
+        $this->createIndex('teamask_team_id', '{{teamask}}', 'teamask_team_id');
+        $this->createIndex('teamask_user_id', '{{teamask}}', 'teamask_user_id');
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{teamask}}');
+    }
 }

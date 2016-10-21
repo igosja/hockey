@@ -2,24 +2,21 @@
 
 class m161021_111326_sex extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{sex}}', array(
+            'sex_id' => 'pk',
+            'sex_name' => 'VARCHAR(255) NOT NULL',
+        ));
 
-	public function down()
-	{
-		echo "m161021_111326_sex does not support migration down.\n";
-		return false;
-	}
+        $this->insertMultiple('{{sex}}', array(
+            array('sex_name' => 'мужской'),
+            array('sex_name' => 'женский'),
+        ));
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{sex}}');
+    }
 }

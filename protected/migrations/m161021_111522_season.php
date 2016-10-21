@@ -2,24 +2,17 @@
 
 class m161021_111522_season extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{season}}', array(
+            'season_id' => 'pk',
+        ));
 
-	public function down()
-	{
-		echo "m161021_111522_season does not support migration down.\n";
-		return false;
-	}
+        $this->insert('{{season}}', array('season_id' => null));
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{season}}');
+    }
 }

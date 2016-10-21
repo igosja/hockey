@@ -2,24 +2,16 @@
 
 class m161021_111231_surname extends CDbMigration
 {
-	public function up()
-	{
-	}
+    public function up()
+    {
+        $this->createTable('{{surname}}', array(
+            'surname_id' => 'pk',
+            'surname_name' => 'VARCHAR(255) NOT NULL',
+        ));
+    }
 
-	public function down()
-	{
-		echo "m161021_111231_surname does not support migration down.\n";
-		return false;
-	}
-
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
+    public function down()
+    {
+        $this->dropTable('{{surname}}');
+    }
 }
