@@ -501,16 +501,8 @@ h6 {
     border-color: #a94442;
 }
 
-.error {
-    color: #a94442;
-}
-
 .has-success {
     border-color: #3c763d;
-}
-
-.success {
-    color: #3c763d;
 }
 
 .margin {
@@ -574,4 +566,43 @@ form {
     background-color: #286090;
     height: 1px;
     margin: 5px 0;
+}
+
+.alert {
+    border-top: dotted 1px;
+    border-bottom: dotted 1px;
+    padding: 5px 0;
+}
+
+.info
+{
+    background-color: #BDE5F8;
+    border-color: #00529B;
+    color: #00529B;
+}
+
+.success
+{
+    background-color: #DFF2BF;
+    border-color: #4F8A10;
+    color: #4F8A10;
+}
+
+.warning
+{
+    background-color: #FEEFB3;
+    border-color: #9F6000;
+    color: #9F6000;
+}
+
+.error
+{
+    background-color: #FFBABA;
+    border-color: #D8000C;
+    color: #D8000C;
+}
+
+.notification-error {
+    padding: 2px;
+    color: #D8000C;
 }

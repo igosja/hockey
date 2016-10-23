@@ -2,7 +2,10 @@ body {
     background-color: #f8f8f8;
 }
 
-.no-underline:hover {
+.no-underline:active,
+.no-underline:focus,
+.no-underline:hover
+{
     text-decoration: none;
 }
 
