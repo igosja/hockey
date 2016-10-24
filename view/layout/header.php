@@ -3,6 +3,7 @@
     <title>Hockey online manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="efe586f3c07b0a93"/>
+    <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
