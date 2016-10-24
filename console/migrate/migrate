@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__ . '/../../php/include/database.php');
+include(__DIR__ . '/../../include/database.php');
 
 $igosja_migration_path = (__DIR__ . '/migration');
 

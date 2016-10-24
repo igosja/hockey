@@ -7,12 +7,12 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if (!$auth_team_id)
+if ($auth_team_id)
 {
     redirect('/team_view.php');
 }
 
-if ($num_get = f_igosja_get('num'))
+if ($num_get = (int) f_igosja_get('num'))
 {
     $sql = "SELECT COUNT(`team_id`) AS `check`
             FROM `team`

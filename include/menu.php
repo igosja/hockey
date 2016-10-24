@@ -8,7 +8,7 @@ $igosja_menu = array(
     array('label' => 'Игроки',          'url' => 'javascript:;'),
     array('label' => 'Команды',         'url' => 'javascript:;'),
     array('label' => 'Магазин',         'url' => 'javascript:;'),
-    array('label' => 'Новости',         'url' => 'javascript:;'),
+    array('label' => 'Новости',         'url' => '/news.php'),
     array('label' => 'Обмены',          'url' => 'javascript:;'),
     array('label' => 'Общение',         'url' => 'javascript:;'),
     array('label' => 'Опросы',          'url' => 'javascript:;'),
@@ -199,3 +199,6 @@ for ($i=0; $i<4; $i++)
 
     $$menu = implode('<br>', $a_menu);
 }
+
+unset($foreach_menu);
+unset($a_menu);

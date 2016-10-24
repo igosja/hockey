@@ -23,7 +23,7 @@ if (isset($_SESSION['user_id']))
 
     $auth_user_login    = $user_array[0]['user_login'];
     $auth_userrole_id   = $user_array[0]['user_userrole_id'];
-    $auth_team_id       = $user_array[0]['team_id'];
+    $auth_team_id       = (int) $user_array[0]['team_id'];
 
     $sql = "UPDATE `user`
             SET `user_date_login`=UNIX_TIMESTAMP()

@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_get('num'))
 {
     if (!isset($auth_team_id))
     {

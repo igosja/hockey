@@ -603,6 +603,10 @@ form {
 }
 
 .notification-error {
-    padding: 2px;
     color: #D8000C;
+    padding: 2px;
+}
+
+.border-top {
+    border-top: #286090 dotted 1px;
 }

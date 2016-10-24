@@ -280,6 +280,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;">
+                            Новости <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/news_list.php">Новости</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
