@@ -20,7 +20,7 @@ $igosja_menu = array(
     array('label' => 'Ростер',          'url' => '/team_view.php',  'css' => 'red'),
     array('label' => 'Сборная',         'url' => 'javascript:;'),
     array('label' => 'Сменить клуб',    'url' => 'javascript:;'),
-    array('label' => 'Тех.поддержка',   'url' => 'javascript:;'),
+    array('label' => 'Тех.поддержка',   'url' => '/support.php'),
     array('label' => 'Трансфер',        'url' => 'javascript:;'),
     array('label' => 'Турниры',         'url' => 'javascript:;'),
     array('label' => 'Федерация',       'url' => 'javascript:;'),
@@ -200,5 +200,4 @@ for ($i=0; $i<4; $i++)
     $$menu = implode('<br>', $a_menu);
 }
 
-unset($foreach_menu);
-unset($a_menu);
+unset($igosja_menu, $foreach_menu, $a_menu, $i, $j, $item, $css);

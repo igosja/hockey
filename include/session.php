@@ -36,3 +36,5 @@ else
     $igosja_menu        = $igosja_menu_guest;
     $igosja_menu_mobile = $igosja_menu_guest_mobile;
 }
+
+unset($igosja_menu_login, $igosja_menu_login_mobile, $igosja_menu_guest, $igosja_menu_guest_mobile);

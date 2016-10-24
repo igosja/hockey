@@ -22,3 +22,5 @@ if (is_array($filter))
 }
 
 $sql_filter = implode(' AND ', $sql_filter);
+
+unset($filter);
