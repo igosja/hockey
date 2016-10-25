@@ -25,6 +25,28 @@ if (isset($_SESSION['user_id']))
     $auth_userrole_id   = $user_array[0]['user_userrole_id'];
     $auth_team_id       = (int) $user_array[0]['team_id'];
 
+    $sql = "SELECT COUNT(`message_id`) AS `count`
+            FROM `message`
+            WHERE `message_support_from`='1'
+            AND `message_user_id_to`='$auth_user_id'
+            AND `message_read`='0'";
+    $support_sql = igosja_db_query($sql);
+
+    $support_array = $support_sql->fetch_all(1);
+
+    $count_support = $support_array[0]['count'];
+
+    if ($count_support)
+    {
+        $igosja_menu        = str_replace('count_support', 'red', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_support', 'red', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('count_support', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_support', '', $igosja_menu_mobile);
+    }
+
     $sql = "UPDATE `user`
             SET `user_date_login`=UNIX_TIMESTAMP()
             WHERE `user_id`='$auth_user_id'

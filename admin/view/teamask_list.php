@@ -51,20 +51,20 @@
                         <td class="text-center"><?= $item['teamask_id']; ?></td>
                         <td><?= f_igosja_ufu_date_time($item['teamask_date']); ?></td>
                         <td>
-                            <a href="/admin/user/view/<?= $item['user_id']; ?>">
+                            <a href="/admin/user_view.php?num=<?= $item['user_id']; ?>">
                                 <?= $item['user_login']; ?>
                             </a>
                         </td>
                         <td>
-                            <a href="/admin/team/view/<?= $item['team_id']; ?>">
+                            <a href="/admin/team_view.php?num=<?= $item['team_id']; ?>">
                                 <?= $item['team_name']; ?>
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="/admin/<?= $route_path; ?>/view/<?= $item['teamask_id']; ?>" class="no-underline">
+                            <a href="/admin/teamask_view.php?num=<?= $item['teamask_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
                             </a>
-                            <a href="/admin/<?= $route_path; ?>/delete/<?= $item['teamask_id']; ?>" class="no-underline">
+                            <a href="/admin/teamask_delete.php?num=<?= $item['teamask_id']; ?>" class="no-underline">
                                 <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>

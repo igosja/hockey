@@ -31,7 +31,7 @@ if ($data = f_igosja_post('data'))
     {
         if (isset($data['text']) && !empty(trim($data['text'])))
         {
-            $text = $data['text'];
+            $text = trim($data['text']);
 
             $sql = "INSERT INTO `newscomment`
                     SET `newscomment_date`=UNIX_TIMESTAMP(),
@@ -41,6 +41,7 @@ if ($data = f_igosja_post('data'))
             $prepare = $mysqli->prepare($sql);
             $prepare->bind_param('s', $text);
             $prepare->execute();
+            $prepare->close();
 
             $_SESSION['message']['class'] = 'success';
             $_SESSION['message']['text'] = 'Комментарий успешно сохранен.';

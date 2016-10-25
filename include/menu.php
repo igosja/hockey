@@ -20,7 +20,7 @@ $igosja_menu = array(
     array('label' => 'Ростер',          'url' => '/team_view.php',  'css' => 'red'),
     array('label' => 'Сборная',         'url' => 'javascript:;'),
     array('label' => 'Сменить клуб',    'url' => 'javascript:;'),
-    array('label' => 'Тех.поддержка',   'url' => '/support.php'),
+    array('label' => 'Тех.поддержка',   'url' => '/support.php',    'css' => 'count_support'),
     array('label' => 'Трансфер',        'url' => 'javascript:;'),
     array('label' => 'Турниры',         'url' => 'javascript:;'),
     array('label' => 'Федерация',       'url' => 'javascript:;'),

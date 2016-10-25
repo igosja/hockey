@@ -7,12 +7,51 @@ if (!isset($auth_user_id))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `support_answer`
-        FROM `support`
-        WHERE `support_ask_user_id`='$auth_user_id'
-        ORDER BY `support_id` DESC";
-$news_sql = igosja_db_query($sql);
+if ($data = f_igosja_post('data'))
+{
+    if (isset($data['text']) && !empty(trim($data['text'])))
+    {
+        $text = trim($data['text']);
 
-$news_array = $news_sql->fetch_all(1);
+        $sql = "INSERT INTO `message`
+                SET `message_date`=UNIX_TIMESTAMP(),
+                    `message_support_to`='1',
+                    `message_text`=?,
+                    `message_user_id_from`='$auth_user_id'";
+        $prepare = $mysqli->prepare($sql);
+        $prepare->bind_param('s', $text);
+        $prepare->execute();
+        $prepare->close();
+
+        $_SESSION['message']['class'] = 'success';
+        $_SESSION['message']['text'] = 'Сообщение успешно отправлено.';
+    }
+
+    refresh();
+}
+
+$sql = "SELECT `message_date`,
+               `message_id`,
+               `message_text`,
+               `user_id`,
+               `user_login`
+        FROM `message`
+        LEFT JOIN `user`
+        ON `message_user_id_from`=`user_id`
+        WHERE (`message_support_to`='1'
+        AND `message_user_id_from`='$auth_user_id')
+        OR (`message_support_from`='1'
+        AND `message_user_id_to`='$auth_user_id')
+        ORDER BY `message_id` DESC";
+$message_sql = igosja_db_query($sql);
+
+$message_array = $message_sql->fetch_all(1);
+
+$sql = "UPDATE `message`
+        SET `message_read`='1'
+        WHERE `message_user_id_to`='$auth_user_id'
+        AND `message_support_from`='1'
+        AND `message_read`='0'";
+igosja_db_query($sql);
 
 include (__DIR__ . '/view/layout/main.php');
