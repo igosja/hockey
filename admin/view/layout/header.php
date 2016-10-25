@@ -290,6 +290,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;">
+                            Правила <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/rule_list.php">Правила</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
