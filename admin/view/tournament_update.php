@@ -45,7 +45,7 @@
                         <label class="control-label" for="tournament_city_id">Тип</label>
                     </td>
                     <td>
-                        <select class="form-control" id="tournament_city_id" name="data[tournament_tournamenttype_id]">
+                        <select class="form-control" id="tournament_tournamenttype_id" name="data[tournament_tournamenttype_id]">
                             <?php foreach ($tournamenttype_array as $item) { ?>
                                 <option
                                     value="<?= $item['tournamenttype_id']; ?>"
@@ -56,6 +56,28 @@
                                     <?php } ?>
                                 >
                                     <?= $item['tournamenttype_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <label class="control-label" for="tournament_city_id">Страна</label>
+                    </td>
+                    <td>
+                        <select class="form-control" id="tournament_country_id" name="data[tournament_country_id]">
+                            <option value="0">Нет</option>
+                            <?php foreach ($country_array as $item) { ?>
+                                <option
+                                    value="<?= $item['country_id']; ?>"
+                                    <?php
+                                    if (isset($tournament_array[0]) && $tournament_array[0]['tournament_country_id'] == $item['country_id']) {
+                                    ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['country_name']; ?>
                                 </option>
                             <?php } ?>
                         </select>

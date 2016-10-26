@@ -55,6 +55,12 @@ define('POSITION_C', 5);
 define('POSITION_RW', 6);
 define('ROLE_ADMIN', 10);
 define('SPACE', '&nbsp;');
+define('TOURNAMENTTYPE_NATIONAL', 1);
+define('TOURNAMENTTYPE_LEAGUE', 2);
+define('TOURNAMENTTYPE_CHAMPIONSHIP', 3);
+define('TOURNAMENTTYPE_CONFERENCE', 4);
+define('TOURNAMENTTYPE_OFFSEASON', 5);
+define('TOURNAMENTTYPE_FRIENDLY', 6);
 
 $breadcrumb_array = array();
 $team_link_array = array(

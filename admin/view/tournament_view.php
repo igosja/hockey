@@ -49,6 +49,16 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Страна
+                </td>
+                <td>
+                    <a href="/admin/country_view.php?num=<?= $tournament_array[0]['country_id']; ?>">
+                        <?= $tournament_array[0]['country_name']; ?>
+                    </a>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

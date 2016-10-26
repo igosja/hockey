@@ -21,6 +21,14 @@ $tournamenttype_sql = igosja_db_query($sql);
 
 $tournamenttype_array = $tournamenttype_sql->fetch_all(1);
 
+$sql = "SELECT `country_id`,
+               `country_name`
+        FROM `country`
+        ORDER BY `country_id` ASC";
+$country_sql = igosja_db_query($sql);
+
+$country_array = $country_sql->fetch_all(1);
+
 $breadcrumb_array[] = array('url' => 'tournament_list.php', 'text' => 'Турниры');
 $breadcrumb_array[] = 'Создание';
 
