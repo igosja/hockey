@@ -6,7 +6,7 @@ $igosja_menu = array(
     array('label' => 'Главная',         'url' => '/'),
     array('label' => 'Забыли пароль?',  'url' => '/password.php'),
     array('label' => 'Игроки',          'url' => 'javascript:;'),
-    array('label' => 'Команды',         'url' => 'javascript:;'),
+    array('label' => 'Команды',         'url' => '/team_list.php'),
     array('label' => 'Магазин',         'url' => 'javascript:;'),
     array('label' => 'Новости',         'url' => '/news.php'),
     array('label' => 'Обмены',          'url' => 'javascript:;'),
