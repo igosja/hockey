@@ -1,10 +1,12 @@
 <?php
 
+$q = array();
+
 $q[] = 'CREATE TABLE `basetraining`
         (
             `basetraining_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
             `basetraining_base_id` TINYINT(2) DEFAULT 0,
-            `basetraining_build_speed` TINYINT(1) DEFAULT 0,
+            `basetraining_build_speed` TINYINT(2) DEFAULT 0,
             `basetraining_level` TINYINT(2) DEFAULT 0,
             `basetraining_position_count` TINYINT(2) DEFAULT 0,
             `basetraining_position_price` INT(11) DEFAULT 0,

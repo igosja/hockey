@@ -300,6 +300,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;">
+                            Турниры <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/tournament_list.php">Турниры</a>
+                            </li>
+                            <li>
+                                <a href="/admin/tournamenttype_list.php">Типы турниров</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
