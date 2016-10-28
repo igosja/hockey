@@ -10,7 +10,7 @@ $tpl        = $file_name;
 
 if ('admin' == $chapter)
 {
-    if (!isset($auth_user_id) || 10 != $auth_userrole_id)
+    if (!isset($auth_user_id) || 2 > $auth_userrole_id)
     {
         redirect('/');
     }
