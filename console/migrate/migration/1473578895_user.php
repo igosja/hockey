@@ -26,9 +26,6 @@ $q[] = 'CREATE TABLE `user`
             `user_password` CHAR(32) NOT NULL,
             `user_referrer_id` INT(11) DEFAULT 0,
             `user_sex_id` TINYINT(1) DEFAULT 1,
-            `user_social_facebook` VARCHAR(255) NOT NULL,
-            `user_social_google` VARCHAR(255) NOT NULL,
-            `user_social_vk` VARCHAR(255) NOT NULL,
             `user_surname` VARCHAR(255) NOT NULL,
             `user_userrole_id` TINYINT(1) DEFAULT 1
         );';
@@ -49,7 +46,7 @@ $q[] = "INSERT INTO `user`
             `user_email`='igosja@ukr.net',
             `user_login`='igosja',
             `user_password`='8fa914dc4a270abfc2a4561228770426',
-            `user_userrole_id`='10'";
+            `user_userrole_id`='3'";
 $q[] = "INSERT INTO `user`
         SET `user_code`='f296a47aebb6b66620d44652a59db37a',
             `user_date_confirm`='0',

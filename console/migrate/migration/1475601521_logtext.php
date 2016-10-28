@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `logtext`
         (
-            `logtext_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `logtext_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
             `logtext_name` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `logtext` (`logtext_name`)
