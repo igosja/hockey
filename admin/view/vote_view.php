@@ -1,9 +1,16 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header"><?= $vote_array[0]['vote_name']; ?></h3>
+        <h3 class="page-header"><?= $vote_array[0]['vote_text']; ?></h3>
     </div>
 </div>
 <ul class="list-inline preview-links text-center">
+    <?php if (1 == $vote_array[0]['vote_votestatus_id']) { ?>
+        <li>
+            <a href="/admin/vote_ok.php?num=<?= $num_get; ?>">
+                <button class="btn btn-default">Одобрить</button>
+            </a>
+        </li>
+    <?php } ?>
     <li>
         <a href="/admin/vote_list.php">
             <button class="btn btn-default">Список</button>
@@ -33,12 +40,22 @@
             </tr>
             <tr>
                 <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    Название
+                    Вопрос
                 </td>
                 <td>
-                    <?= $vote_array[0]['vote_name']; ?>
+                    <?= $vote_array[0]['vote_text']; ?>
                 </td>
             </tr>
+            <?php foreach ($vote_array as $item) { ?>
+                <tr>
+                    <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        Ответ
+                    </td>
+                    <td>
+                        <?= $item['voteanswer_text']; ?>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
 </div>

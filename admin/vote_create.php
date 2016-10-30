@@ -18,7 +18,9 @@ if ($data = f_igosja_post('data'))
 
     foreach ($answer as $item)
     {
-        if (!empty(trim($item)))
+        $item = trim($item);
+
+        if (!empty($item))
         {
             $answer_sql[] = '(\'' . $item . '\', \'' . $vote_id . '\')';
         }

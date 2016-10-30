@@ -10,6 +10,14 @@ if (0 != $num_get)
             WHERE `vote_id`='$num_get'
             LIMIT 1";
     igosja_db_query($sql);
+
+    $sql = "DELETE `voteanswer`
+            WHERE `voteanswer_vote_id`='$num_get'";
+    igosja_db_query($sql);
+
+    $sql = "DELETE `voteuser`
+            WHERE `voteuser_vote_id`='$num_get'";
+    igosja_db_query($sql);
 }
 
 redirect('/admin/vote_list.php');

@@ -61,6 +61,9 @@ define('TOURNAMENTTYPE_CHAMPIONSHIP', 3);
 define('TOURNAMENTTYPE_CONFERENCE', 4);
 define('TOURNAMENTTYPE_OFFSEASON', 5);
 define('TOURNAMENTTYPE_FRIENDLY', 6);
+define('VOTESTATUS_NEW', 1);
+define('VOTESTATUS_OPEN', 2);
+define('VOTESTATUS_CLOSE', 3);
 
 $breadcrumb_array = array();
 $team_link_array = array(

@@ -5,8 +5,11 @@ include (__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `vote_id`,
-               `vote_text`
+               `vote_text`,
+               `votestatus_name`
         FROM `vote`
+        LEFT JOIN `votestatus`
+        ON `vote_votestatus_id`=`votestatus_id`
         WHERE $sql_filter
         ORDER BY `vote_id`
         LIMIT $offset, $limit";

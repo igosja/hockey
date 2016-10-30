@@ -19,6 +19,7 @@
                     <tr>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-center">Id</th>
                         <th>Тип</th>
+                        <th>Статус</th>
                         <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                     </tr>
                     <tr id="filters">
@@ -39,6 +40,7 @@
                             >
                         </td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +48,7 @@
                         <tr>
                             <td class="text-center"><?= $item['vote_id']; ?></td>
                             <td><?= $item['vote_text']; ?></td>
+                            <td><?= $item['votestatus_name']; ?></td>
                             <td class="text-center">
                                 <a href="/admin/vote_view.php?num=<?= $item['vote_id']; ?>" class="no-underline">
                                     <i class="fa fa-eye fa-fw"></i>

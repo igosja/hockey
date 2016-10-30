@@ -48,7 +48,7 @@
                         <input
                             class="form-control"
                             id="vote_answer_1"
-                            name="answer[voteanswer_text][]"
+                            name="answer[voteanswer_text][<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_id'] : ''; ?>]"
                             value="<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_text'] : ''; ?>"
                         >
                     </td>
@@ -61,8 +61,8 @@
                         <input
                             class="form-control"
                             id="vote_answer_2"
-                            name="answer[voteanswer_text][]"
-                            value="<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_text'] : ''; ?>"
+                            name="answer[voteanswer_text][<?= isset($vote_array[1]) ? $vote_array[1]['voteanswer_id'] : ''; ?>]"
+                            value="<?= isset($vote_array[1]) ? $vote_array[1]['voteanswer_text'] : ''; ?>"
                         >
                     </td>
                 </tr>
@@ -74,8 +74,8 @@
                         <input
                             class="form-control"
                             id="vote_answer_3"
-                            name="answer[voteanswer_text][]"
-                            value="<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_text'] : ''; ?>"
+                            name="answer[voteanswer_text][<?= isset($vote_array[2]) ? $vote_array[2]['voteanswer_id'] : ''; ?>]"
+                            value="<?= isset($vote_array[2]) ? $vote_array[2]['voteanswer_text'] : ''; ?>"
                         >
                     </td>
                 </tr>
@@ -87,8 +87,8 @@
                         <input
                             class="form-control"
                             id="vote_answer_4"
-                            name="answer[voteanswer_text][]"
-                            value="<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_text'] : ''; ?>"
+                            name="answer[voteanswer_text][<?= isset($vote_array[3]) ? $vote_array[3]['voteanswer_id'] : ''; ?>]"
+                            value="<?= isset($vote_array[3]) ? $vote_array[3]['voteanswer_text'] : ''; ?>"
                         >
                     </td>
                 </tr>
@@ -100,8 +100,8 @@
                         <input
                             class="form-control"
                             id="vote_answer_5"
-                            name="answer[voteanswer_text][]"
-                            value="<?= isset($vote_array[0]) ? $vote_array[0]['voteanswer_text'] : ''; ?>"
+                            name="answer[voteanswer_text][<?= isset($vote_array[4]) ? $vote_array[4]['voteanswer_id'] : ''; ?>]"
+                            value="<?= isset($vote_array[4]) ? $vote_array[4]['voteanswer_text'] : ''; ?>"
                         >
                     </td>
                 </tr>

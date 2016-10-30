@@ -5,10 +5,14 @@ include (__DIR__ . '/../include/include.php');
 $num_get = (int) f_igosja_get('num');
 
 $sql = "SELECT `vote_id`,
-               `vote_name`
+               `vote_text`,
+               `vote_votestatus_id`,
+               `voteanswer_text`
         FROM `vote`
+        LEFT JOIN `voteanswer`
+        ON `vote_id`=`voteanswer_vote_id`
         WHERE `vote_id`='$num_get'
-        LIMIT 1";
+        ORDER BY `voteanswer_id` ASC";
 $vote_sql = igosja_db_query($sql);
 
 if (0 == $vote_sql->num_rows)
@@ -18,7 +22,7 @@ if (0 == $vote_sql->num_rows)
 
 $vote_array = $vote_sql->fetch_all(1);
 
-$breadcrumb_array[] = array('url' => 'vote_list.php', 'text' => 'Типы турниров');
-$breadcrumb_array[] = $vote_array[0]['vote_name'];
+$breadcrumb_array[] = array('url' => 'vote_list.php', 'text' => 'Опросы');
+$breadcrumb_array[] = $vote_array[0]['vote_text'];
 
 include (__DIR__ . '/view/layout/main.php');

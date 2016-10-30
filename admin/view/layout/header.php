@@ -306,9 +306,6 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/tournament_list.php">Турниры</a>
-                            </li>
-                            <li>
                                 <a href="/admin/tournamenttype_list.php">Типы турниров</a>
                             </li>
                         </ul>
@@ -320,6 +317,16 @@
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/admin/vote_list.php">Опросы</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            Рассписание <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/shedule_start.php">Старт первого сезона</a>
                             </li>
                         </ul>
                     </li>
