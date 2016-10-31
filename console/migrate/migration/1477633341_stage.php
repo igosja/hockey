@@ -8,7 +8,8 @@ $q[] = 'CREATE TABLE `stage`
             `stage_name` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `stage` (`stage_name`)
-        VALUES ('1 тур'),
+        VALUES ('-'),
+               ('1 тур'),
                ('2 тур'),
                ('3 тур'),
                ('4 тур'),

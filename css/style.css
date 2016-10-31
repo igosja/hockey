@@ -562,6 +562,10 @@ form {
     overflow-x: auto;
 }
 
+.table-hover tr:hover {
+    background-color: #e8e8e8;
+}
+
 .hr {
     background-color: #286090;
     height: 1px;
@@ -574,29 +578,25 @@ form {
     padding: 5px 0;
 }
 
-.info
-{
+.info {
     background-color: #BDE5F8;
     border-color: #00529B;
     color: #00529B;
 }
 
-.success
-{
+.success {
     background-color: #DFF2BF;
     border-color: #4F8A10;
     color: #4F8A10;
 }
 
-.warning
-{
+.warning {
     background-color: #FEEFB3;
     border-color: #9F6000;
     color: #9F6000;
 }
 
-.error
-{
+.error {
     background-color: #FFBABA;
     border-color: #D8000C;
     color: #D8000C;

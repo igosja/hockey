@@ -55,12 +55,12 @@ define('POSITION_C', 5);
 define('POSITION_RW', 6);
 define('ROLE_ADMIN', 10);
 define('SPACE', '&nbsp;');
+define('STAGE_1_TOUR', '2');
 define('TOURNAMENTTYPE_NATIONAL', 1);
 define('TOURNAMENTTYPE_LEAGUE', 2);
 define('TOURNAMENTTYPE_CHAMPIONSHIP', 3);
-define('TOURNAMENTTYPE_CONFERENCE', 4);
-define('TOURNAMENTTYPE_OFFSEASON', 5);
-define('TOURNAMENTTYPE_FRIENDLY', 6);
+define('TOURNAMENTTYPE_OFFSEASON', 4);
+define('TOURNAMENTTYPE_FRIENDLY', 5);
 define('VOTESTATUS_NEW', 1);
 define('VOTESTATUS_OPEN', 2);
 define('VOTESTATUS_CLOSE', 3);
@@ -90,3 +90,13 @@ $register_link_array = array(
     array('url' => 'password', 'url2' => 'password_restore', 'text' => 'Забыли пароль?'),
     array('url' => 'activation', 'url2' => 'activation_repeat', 'text' => 'Активация аккаунта'),
 );
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC
+        LIMIT 1";
+$season_sql = igosja_db_query($sql);
+
+$season_array = $season_sql->fetch_all(1);
+
+$igosja_season_id = $season_array[0]['season_id'];
