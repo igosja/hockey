@@ -546,3 +546,29 @@ function f_igosja_user_from($item)
 
     return $result;
 }
+
+function f_igosja_game_score($played, $home_score, $guest_score)
+{
+    if ($played)
+    {
+        $result = $home_score . ':' . $guest_score;
+    }
+    else
+    {
+        $result = '?:?';
+    }
+
+    return $result;
+}
+
+function f_igosja_game_auto($auto)
+{
+    $result = '';
+
+    if ($auto)
+    {
+        $result = '*';
+    }
+
+    return $result;
+}

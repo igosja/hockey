@@ -17,12 +17,24 @@ $shedule_stage_array        = array(
     54, 54, 54, 55, 55, 55, 1,
     56, 56, 56, 56, 56,  1, 1
 );
+$shedule_conference_stage_array = array(
+     2,  3,  4,  5,  6,  7, 1,
+     8,  9, 10, 11, 12, 13, 1,
+     2,  3,  4,  5,  6,  7, 1,
+     8,  9, 10, 11, 12, 13, 1,
+    14, 15, 16, 17, 18, 19, 1,
+    20, 21, 22, 23, 24, 25, 1,
+    26, 27, 28, 29, 30, 31, 1,
+    32, 33, 34, 35, 36, 37, 1,
+    38, 39, 40, 41, 42,  1, 1
+);
 
 $start_date = strtotime('Mon') + 12 * 60 * 60;
 
 for ($i=0; $i<63; $i++)
 {
-    $date = $start_date + $i * 24 * 60 *60;
+    $date       = $start_date + $i * 24 * 60 *60;
+    $conference = 0;
 
     if (in_array($i, $shedule_friendly_array))
     {
@@ -34,10 +46,17 @@ for ($i=0; $i<63; $i++)
     }
     else
     {
-        $tournament_type = TOURNAMENTTYPE_CHAMPIONSHIP;
+        $conference         = 1;
+        $tournament_type    = TOURNAMENTTYPE_CHAMPIONSHIP;
+        $tournament_type_c  = TOURNAMENTTYPE_CONFERENCE;
     }
 
     $shedule_insert_array[] = "('$date', '1', '$shedule_stage_array[$i]', '$tournament_type')";
+
+    if ($conference)
+    {
+        $shedule_insert_array[] = "('$date', '1', '$shedule_conference_stage_array[$i]', '$tournament_type_c')";
+    }
 }
 
 $shedule_insert_array = implode(',', $shedule_insert_array);
@@ -80,8 +99,8 @@ $team_array = $team_sql->fetch_all(1);
 
 for ($i=0; $i<$count_team; $i=$i+2)
 {
-    $team_1_id      = $team_array[$i]['team_id'];
-    $team_2_id      = $team_array[$i+1]['team_id'];
+    $team_1_id      = $team_array[$i]['offseason_team_id'];
+    $team_2_id      = $team_array[$i+1]['offseason_team_id'];
     $game_array[]   = "('$team_1_id', '$team_2_id', '$shedule_id')";
 }
 
@@ -93,6 +112,8 @@ igosja_db_query($sql);
 //Конец формирования таблицы и матчей кубка межсезонья
 
 //Начало формирования таблиц и матчей чемпионата
+$championship_country_array = array();
+
 $sql = "SELECT `city_country_id`
         FROM `team`
         LEFT JOIN `stadium`
@@ -110,6 +131,8 @@ $country_array = $country_sql->fetch_all(1);
 foreach ($country_array as $country)
 {
     $country_id = $country['city_country_id'];
+
+    $championship_country_array[] = $country_id;
 
     $sql = "INSERT INTO `championship` (`championship_country_id`, `championship_division_id`, `championship_season_id`, `championship_team_id`)
             SELECT `city_country_id`, '1', '$igosja_season_id', `team_id`
@@ -138,247 +161,322 @@ foreach ($country_array as $country)
     igosja_db_query($sql);
 }
 
-2	1
-3	15
-4	14
-5	13
-6	12
-7	11
-8	10
-16	9
-1	3
-2	16
-10	9
-11	8
-12	7
-13	6
-14	5
-15	4
-3	2
-4	1
-5	15
-6	14
-7	13
-8	12
-9	11
-16	10
-1	5
-2	4
-3	16
-11	10
-12	9
-13	8
-14	7
-15	6
-4	3
-5	2
-6	1
-7	15
-8	14
-9	13
-10	12
-16	11
-1	7
-2	6
-3	5
-4	16
-12	11
-13	10
-14	9
-15	8
-5	4
-6	3
-7	2
-8	1
-9	15
-10	14
-11	13
-16	12
-1	9
-2	8
-3	7
-4	6
-5	16
-13	12
-14	11
-15	10
-6	5
-7	4
-8	3
-9	2
-10	1
-11	15
-12	14
-16	13
-1	11
-2	10
-3	9
-4	8
-5	7
-6	16
-14	13
-15	12
-7	6
-8	5
-9	4
-10	3
-11	2
-12	1
-13	15
-16	14
-1	13
-2	12
-3	11
-4	10
-5	9
-6	8
-7	16
-15	14
-8	7
-9	6
-10	5
-11	4
-12	3
-13	2
-14	1
-16	15
-1	15
-2	14
-3	13
-4	12
-5	11
-6	10
-7	9
-16	8
-9	8
-10	7
-11	6
-12	5
-13	4
-14	3
-15	2
-16	1
-1	2
-15	3
-14	4
-13	5
-12	6
-11	7
-10	8
-9	16
-3	1
-16	2
-9	10
-8	11
-7	12
-6	13
-5	14
-4	15
-2	3
-1	4
-15	5
-14	6
-13	7
-12	8
-11	9
-10	16
-5	1
-4	2
-16	3
-10	11
-9	12
-8	13
-7	14
-6	15
-3	4
-2	5
-1	6
-15	7
-14	8
-13	9
-12	10
-11	16
-7	1
-6	2
-5	3
-16	4
-11	12
-10	13
-9	14
-8	15
-4	5
-3	6
-2	7
-1	8
-15	9
-14	10
-13	11
-12	16
-9	1
-8	2
-7	3
-6	4
-16	5
-12	13
-11	14
-10	15
-5	6
-4	7
-3	8
-2	9
-1	10
-15	11
-14	12
-13	16
-11	1
-10	2
-9	3
-8	4
-7	5
-16	6
-13	14
-12	15
-6	7
-5	8
-4	9
-3	10
-2	11
-1	12
-15	13
-14	16
-13	1
-12	2
-11	3
-10	4
-9	5
-8	6
-16	7
-14	15
-7	8
-6	9
-5	10
-4	11
-3	12
-2	13
-1	14
-15	16
-15	1
-14	2
-13	3
-12	4
-11	5
-10	6
-9	7
-8	16
-8	9
-7	10
-6	11
-5	12
-4	13
-3	14
-2	15
-1	16
+$sql = "SELECT `shedule_id`
+        FROM `shedule`
+        WHERE `shedule_season_id`='$igosja_season_id'
+        AND `shedule_tournamenttype_id`='" . TOURNAMENTTYPE_CHAMPIONSHIP . "'
+        ORDER BY `shedule_id` ASC
+        LIMIT 30";
+$shedule_sql = igosja_db_query($sql);
 
+$shedule_array = $shedule_sql->fetch_all(1);
+
+$shedule_id_01 = $shedule_array[0]['shedule_id'];
+$shedule_id_02 = $shedule_array[1]['shedule_id'];
+$shedule_id_03 = $shedule_array[2]['shedule_id'];
+$shedule_id_04 = $shedule_array[3]['shedule_id'];
+$shedule_id_05 = $shedule_array[4]['shedule_id'];
+$shedule_id_06 = $shedule_array[5]['shedule_id'];
+$shedule_id_07 = $shedule_array[6]['shedule_id'];
+$shedule_id_08 = $shedule_array[7]['shedule_id'];
+$shedule_id_09 = $shedule_array[8]['shedule_id'];
+$shedule_id_10 = $shedule_array[9]['shedule_id'];
+$shedule_id_11 = $shedule_array[10]['shedule_id'];
+$shedule_id_12 = $shedule_array[11]['shedule_id'];
+$shedule_id_13 = $shedule_array[12]['shedule_id'];
+$shedule_id_14 = $shedule_array[13]['shedule_id'];
+$shedule_id_15 = $shedule_array[14]['shedule_id'];
+$shedule_id_16 = $shedule_array[15]['shedule_id'];
+$shedule_id_17 = $shedule_array[16]['shedule_id'];
+$shedule_id_18 = $shedule_array[17]['shedule_id'];
+$shedule_id_19 = $shedule_array[18]['shedule_id'];
+$shedule_id_20 = $shedule_array[19]['shedule_id'];
+$shedule_id_21 = $shedule_array[20]['shedule_id'];
+$shedule_id_22 = $shedule_array[21]['shedule_id'];
+$shedule_id_23 = $shedule_array[22]['shedule_id'];
+$shedule_id_24 = $shedule_array[23]['shedule_id'];
+$shedule_id_25 = $shedule_array[24]['shedule_id'];
+$shedule_id_26 = $shedule_array[25]['shedule_id'];
+$shedule_id_27 = $shedule_array[26]['shedule_id'];
+$shedule_id_28 = $shedule_array[27]['shedule_id'];
+$shedule_id_29 = $shedule_array[28]['shedule_id'];
+$shedule_id_30 = $shedule_array[29]['shedule_id'];
+
+foreach ($championship_country_array as $item)
+{
+    for ($i=1; $i<=2; $i++)
+    {
+        $sql = "SELECT `championship_team_id`
+                FROM `championship`
+                WHERE `championship_country_id`='$item'
+                AND `championship_division_id`='$i'
+                AND `championship_season_id`='$igosja_season_id'
+                ORDER BY RAND()";
+        $team_sql = igosja_db_query($sql);
+
+        $team_array = $team_sql->fetch_all(1);
+
+        $team_id_01 = $team_array[0]['championship_team_id'];
+        $team_id_02 = $team_array[1]['championship_team_id'];
+        $team_id_03 = $team_array[2]['championship_team_id'];
+        $team_id_04 = $team_array[3]['championship_team_id'];
+        $team_id_05 = $team_array[4]['championship_team_id'];
+        $team_id_06 = $team_array[5]['championship_team_id'];
+        $team_id_07 = $team_array[6]['championship_team_id'];
+        $team_id_08 = $team_array[7]['championship_team_id'];
+        $team_id_09 = $team_array[8]['championship_team_id'];
+        $team_id_10 = $team_array[9]['championship_team_id'];
+        $team_id_11 = $team_array[10]['championship_team_id'];
+        $team_id_12 = $team_array[11]['championship_team_id'];
+        $team_id_13 = $team_array[12]['championship_team_id'];
+        $team_id_14 = $team_array[13]['championship_team_id'];
+        $team_id_15 = $team_array[14]['championship_team_id'];
+        $team_id_16 = $team_array[15]['championship_team_id'];
+
+        $sql = "INSERT INTO `game` (`game_home_team_id`, `game_guest_team_id`, `game_shedule_id`)
+                VALUES ('$team_id_02', '$team_id_01', '$shedule_id_01'),
+                       ('$team_id_03', '$team_id_15', '$shedule_id_01'),
+                       ('$team_id_04', '$team_id_14', '$shedule_id_01'),
+                       ('$team_id_05', '$team_id_13', '$shedule_id_01'),
+                       ('$team_id_06', '$team_id_12', '$shedule_id_01'),
+                       ('$team_id_07', '$team_id_11', '$shedule_id_01'),
+                       ('$team_id_08', '$team_id_10', '$shedule_id_01'),
+                       ('$team_id_16', '$team_id_09', '$shedule_id_01'),
+                       ('$team_id_01', '$team_id_03', '$shedule_id_02'),
+                       ('$team_id_02', '$team_id_16', '$shedule_id_02'),
+                       ('$team_id_10', '$team_id_09', '$shedule_id_02'),
+                       ('$team_id_11', '$team_id_08', '$shedule_id_02'),
+                       ('$team_id_12', '$team_id_07', '$shedule_id_02'),
+                       ('$team_id_13', '$team_id_06', '$shedule_id_02'),
+                       ('$team_id_14', '$team_id_05', '$shedule_id_02'),
+                       ('$team_id_15', '$team_id_04', '$shedule_id_02'),
+                       ('$team_id_03', '$team_id_02', '$shedule_id_03'),
+                       ('$team_id_04', '$team_id_01', '$shedule_id_03'),
+                       ('$team_id_05', '$team_id_15', '$shedule_id_03'),
+                       ('$team_id_06', '$team_id_14', '$shedule_id_03'),
+                       ('$team_id_07', '$team_id_13', '$shedule_id_03'),
+                       ('$team_id_08', '$team_id_12', '$shedule_id_03'),
+                       ('$team_id_09', '$team_id_11', '$shedule_id_03'),
+                       ('$team_id_16', '$team_id_10', '$shedule_id_03'),
+                       ('$team_id_01', '$team_id_05', '$shedule_id_04'),
+                       ('$team_id_02', '$team_id_04', '$shedule_id_04'),
+                       ('$team_id_03', '$team_id_16', '$shedule_id_04'),
+                       ('$team_id_11', '$team_id_10', '$shedule_id_04'),
+                       ('$team_id_12', '$team_id_09', '$shedule_id_04'),
+                       ('$team_id_13', '$team_id_08', '$shedule_id_04'),
+                       ('$team_id_14', '$team_id_07', '$shedule_id_04'),
+                       ('$team_id_15', '$team_id_06', '$shedule_id_04'),
+                       ('$team_id_04', '$team_id_03', '$shedule_id_05'),
+                       ('$team_id_05', '$team_id_02', '$shedule_id_05'),
+                       ('$team_id_06', '$team_id_01', '$shedule_id_05'),
+                       ('$team_id_07', '$team_id_15', '$shedule_id_05'),
+                       ('$team_id_08', '$team_id_14', '$shedule_id_05'),
+                       ('$team_id_09', '$team_id_13', '$shedule_id_05'),
+                       ('$team_id_10', '$team_id_12', '$shedule_id_05'),
+                       ('$team_id_16', '$team_id_11', '$shedule_id_05'),
+                       ('$team_id_01', '$team_id_07', '$shedule_id_06'),
+                       ('$team_id_02', '$team_id_06', '$shedule_id_06'),
+                       ('$team_id_03', '$team_id_05', '$shedule_id_06'),
+                       ('$team_id_04', '$team_id_16', '$shedule_id_06'),
+                       ('$team_id_12', '$team_id_11', '$shedule_id_06'),
+                       ('$team_id_13', '$team_id_10', '$shedule_id_06'),
+                       ('$team_id_14', '$team_id_09', '$shedule_id_06'),
+                       ('$team_id_15', '$team_id_08', '$shedule_id_06'),
+                       ('$team_id_05', '$team_id_04', '$shedule_id_07'),
+                       ('$team_id_06', '$team_id_03', '$shedule_id_07'),
+                       ('$team_id_07', '$team_id_02', '$shedule_id_07'),
+                       ('$team_id_08', '$team_id_01', '$shedule_id_07'),
+                       ('$team_id_09', '$team_id_15', '$shedule_id_07'),
+                       ('$team_id_10', '$team_id_14', '$shedule_id_07'),
+                       ('$team_id_11', '$team_id_13', '$shedule_id_07'),
+                       ('$team_id_16', '$team_id_12', '$shedule_id_07'),
+                       ('$team_id_01', '$team_id_09', '$shedule_id_08'),
+                       ('$team_id_02', '$team_id_08', '$shedule_id_08'),
+                       ('$team_id_03', '$team_id_07', '$shedule_id_08'),
+                       ('$team_id_04', '$team_id_06', '$shedule_id_08'),
+                       ('$team_id_05', '$team_id_16', '$shedule_id_08'),
+                       ('$team_id_13', '$team_id_12', '$shedule_id_08'),
+                       ('$team_id_14', '$team_id_11', '$shedule_id_08'),
+                       ('$team_id_15', '$team_id_10', '$shedule_id_08'),
+                       ('$team_id_06', '$team_id_05', '$shedule_id_09'),
+                       ('$team_id_07', '$team_id_04', '$shedule_id_09'),
+                       ('$team_id_08', '$team_id_03', '$shedule_id_09'),
+                       ('$team_id_09', '$team_id_02', '$shedule_id_09'),
+                       ('$team_id_10', '$team_id_01', '$shedule_id_09'),
+                       ('$team_id_11', '$team_id_15', '$shedule_id_09'),
+                       ('$team_id_12', '$team_id_14', '$shedule_id_09'),
+                       ('$team_id_16', '$team_id_13', '$shedule_id_09'),
+                       ('$team_id_01', '$team_id_11', '$shedule_id_10'),
+                       ('$team_id_02', '$team_id_10', '$shedule_id_10'),
+                       ('$team_id_03', '$team_id_09', '$shedule_id_10'),
+                       ('$team_id_04', '$team_id_08', '$shedule_id_10'),
+                       ('$team_id_05', '$team_id_07', '$shedule_id_10'),
+                       ('$team_id_06', '$team_id_16', '$shedule_id_10'),
+                       ('$team_id_14', '$team_id_13', '$shedule_id_10'),
+                       ('$team_id_15', '$team_id_12', '$shedule_id_10'),
+                       ('$team_id_07', '$team_id_06', '$shedule_id_11'),
+                       ('$team_id_08', '$team_id_05', '$shedule_id_11'),
+                       ('$team_id_09', '$team_id_04', '$shedule_id_11'),
+                       ('$team_id_10', '$team_id_03', '$shedule_id_11'),
+                       ('$team_id_11', '$team_id_02', '$shedule_id_11'),
+                       ('$team_id_12', '$team_id_01', '$shedule_id_11'),
+                       ('$team_id_13', '$team_id_15', '$shedule_id_11'),
+                       ('$team_id_16', '$team_id_14', '$shedule_id_11'),
+                       ('$team_id_01', '$team_id_13', '$shedule_id_12'),
+                       ('$team_id_02', '$team_id_12', '$shedule_id_12'),
+                       ('$team_id_03', '$team_id_11', '$shedule_id_12'),
+                       ('$team_id_04', '$team_id_10', '$shedule_id_12'),
+                       ('$team_id_05', '$team_id_09', '$shedule_id_12'),
+                       ('$team_id_06', '$team_id_08', '$shedule_id_12'),
+                       ('$team_id_07', '$team_id_16', '$shedule_id_12'),
+                       ('$team_id_15', '$team_id_14', '$shedule_id_12'),
+                       ('$team_id_08', '$team_id_07', '$shedule_id_13'),
+                       ('$team_id_09', '$team_id_06', '$shedule_id_13'),
+                       ('$team_id_10', '$team_id_05', '$shedule_id_13'),
+                       ('$team_id_11', '$team_id_04', '$shedule_id_13'),
+                       ('$team_id_12', '$team_id_03', '$shedule_id_13'),
+                       ('$team_id_13', '$team_id_02', '$shedule_id_13'),
+                       ('$team_id_14', '$team_id_01', '$shedule_id_13'),
+                       ('$team_id_16', '$team_id_15', '$shedule_id_13'),
+                       ('$team_id_01', '$team_id_15', '$shedule_id_14'),
+                       ('$team_id_02', '$team_id_14', '$shedule_id_14'),
+                       ('$team_id_03', '$team_id_13', '$shedule_id_14'),
+                       ('$team_id_04', '$team_id_12', '$shedule_id_14'),
+                       ('$team_id_05', '$team_id_11', '$shedule_id_14'),
+                       ('$team_id_06', '$team_id_10', '$shedule_id_14'),
+                       ('$team_id_07', '$team_id_09', '$shedule_id_14'),
+                       ('$team_id_16', '$team_id_08', '$shedule_id_14'),
+                       ('$team_id_09', '$team_id_08', '$shedule_id_15'),
+                       ('$team_id_10', '$team_id_07', '$shedule_id_15'),
+                       ('$team_id_11', '$team_id_06', '$shedule_id_15'),
+                       ('$team_id_12', '$team_id_05', '$shedule_id_15'),
+                       ('$team_id_13', '$team_id_04', '$shedule_id_15'),
+                       ('$team_id_14', '$team_id_03', '$shedule_id_15'),
+                       ('$team_id_15', '$team_id_02', '$shedule_id_15'),
+                       ('$team_id_16', '$team_id_01', '$shedule_id_15'),
+                       ('$team_id_01', '$team_id_02', '$shedule_id_16'),
+                       ('$team_id_15', '$team_id_03', '$shedule_id_16'),
+                       ('$team_id_14', '$team_id_04', '$shedule_id_16'),
+                       ('$team_id_13', '$team_id_05', '$shedule_id_16'),
+                       ('$team_id_12', '$team_id_06', '$shedule_id_16'),
+                       ('$team_id_11', '$team_id_07', '$shedule_id_16'),
+                       ('$team_id_10', '$team_id_08', '$shedule_id_16'),
+                       ('$team_id_09', '$team_id_16', '$shedule_id_16'),
+                       ('$team_id_03', '$team_id_01', '$shedule_id_17'),
+                       ('$team_id_16', '$team_id_02', '$shedule_id_17'),
+                       ('$team_id_09', '$team_id_10', '$shedule_id_17'),
+                       ('$team_id_08', '$team_id_11', '$shedule_id_17'),
+                       ('$team_id_07', '$team_id_12', '$shedule_id_17'),
+                       ('$team_id_06', '$team_id_13', '$shedule_id_17'),
+                       ('$team_id_05', '$team_id_14', '$shedule_id_17'),
+                       ('$team_id_04', '$team_id_15', '$shedule_id_17'),
+                       ('$team_id_02', '$team_id_03', '$shedule_id_18'),
+                       ('$team_id_01', '$team_id_04', '$shedule_id_18'),
+                       ('$team_id_15', '$team_id_05', '$shedule_id_18'),
+                       ('$team_id_14', '$team_id_06', '$shedule_id_18'),
+                       ('$team_id_13', '$team_id_07', '$shedule_id_18'),
+                       ('$team_id_12', '$team_id_08', '$shedule_id_18'),
+                       ('$team_id_11', '$team_id_09', '$shedule_id_18'),
+                       ('$team_id_10', '$team_id_16', '$shedule_id_18'),
+                       ('$team_id_05', '$team_id_01', '$shedule_id_19'),
+                       ('$team_id_04', '$team_id_02', '$shedule_id_19'),
+                       ('$team_id_16', '$team_id_03', '$shedule_id_19'),
+                       ('$team_id_10', '$team_id_11', '$shedule_id_19'),
+                       ('$team_id_09', '$team_id_12', '$shedule_id_19'),
+                       ('$team_id_08', '$team_id_13', '$shedule_id_19'),
+                       ('$team_id_07', '$team_id_14', '$shedule_id_19'),
+                       ('$team_id_06', '$team_id_15', '$shedule_id_19'),
+                       ('$team_id_03', '$team_id_04', '$shedule_id_20'),
+                       ('$team_id_02', '$team_id_05', '$shedule_id_20'),
+                       ('$team_id_01', '$team_id_06', '$shedule_id_20'),
+                       ('$team_id_15', '$team_id_07', '$shedule_id_20'),
+                       ('$team_id_14', '$team_id_08', '$shedule_id_20'),
+                       ('$team_id_13', '$team_id_09', '$shedule_id_20'),
+                       ('$team_id_12', '$team_id_10', '$shedule_id_20'),
+                       ('$team_id_11', '$team_id_16', '$shedule_id_20'),
+                       ('$team_id_07', '$team_id_01', '$shedule_id_21'),
+                       ('$team_id_06', '$team_id_02', '$shedule_id_21'),
+                       ('$team_id_05', '$team_id_03', '$shedule_id_21'),
+                       ('$team_id_16', '$team_id_04', '$shedule_id_21'),
+                       ('$team_id_11', '$team_id_12', '$shedule_id_21'),
+                       ('$team_id_10', '$team_id_13', '$shedule_id_21'),
+                       ('$team_id_09', '$team_id_14', '$shedule_id_21'),
+                       ('$team_id_08', '$team_id_15', '$shedule_id_21'),
+                       ('$team_id_04', '$team_id_05', '$shedule_id_22'),
+                       ('$team_id_03', '$team_id_06', '$shedule_id_22'),
+                       ('$team_id_02', '$team_id_07', '$shedule_id_22'),
+                       ('$team_id_01', '$team_id_08', '$shedule_id_22'),
+                       ('$team_id_15', '$team_id_09', '$shedule_id_22'),
+                       ('$team_id_14', '$team_id_10', '$shedule_id_22'),
+                       ('$team_id_13', '$team_id_11', '$shedule_id_22'),
+                       ('$team_id_12', '$team_id_16', '$shedule_id_22'),
+                       ('$team_id_09', '$team_id_01', '$shedule_id_23'),
+                       ('$team_id_08', '$team_id_02', '$shedule_id_23'),
+                       ('$team_id_07', '$team_id_03', '$shedule_id_23'),
+                       ('$team_id_06', '$team_id_04', '$shedule_id_23'),
+                       ('$team_id_16', '$team_id_05', '$shedule_id_23'),
+                       ('$team_id_12', '$team_id_13', '$shedule_id_23'),
+                       ('$team_id_11', '$team_id_14', '$shedule_id_23'),
+                       ('$team_id_10', '$team_id_15', '$shedule_id_23'),
+                       ('$team_id_05', '$team_id_06', '$shedule_id_24'),
+                       ('$team_id_04', '$team_id_07', '$shedule_id_24'),
+                       ('$team_id_03', '$team_id_08', '$shedule_id_24'),
+                       ('$team_id_02', '$team_id_09', '$shedule_id_24'),
+                       ('$team_id_01', '$team_id_10', '$shedule_id_24'),
+                       ('$team_id_15', '$team_id_11', '$shedule_id_24'),
+                       ('$team_id_14', '$team_id_12', '$shedule_id_24'),
+                       ('$team_id_13', '$team_id_16', '$shedule_id_24'),
+                       ('$team_id_11', '$team_id_01', '$shedule_id_25'),
+                       ('$team_id_10', '$team_id_02', '$shedule_id_25'),
+                       ('$team_id_09', '$team_id_03', '$shedule_id_25'),
+                       ('$team_id_08', '$team_id_04', '$shedule_id_25'),
+                       ('$team_id_07', '$team_id_05', '$shedule_id_25'),
+                       ('$team_id_16', '$team_id_06', '$shedule_id_25'),
+                       ('$team_id_13', '$team_id_14', '$shedule_id_25'),
+                       ('$team_id_12', '$team_id_15', '$shedule_id_25'),
+                       ('$team_id_06', '$team_id_07', '$shedule_id_26'),
+                       ('$team_id_05', '$team_id_08', '$shedule_id_26'),
+                       ('$team_id_04', '$team_id_09', '$shedule_id_26'),
+                       ('$team_id_03', '$team_id_10', '$shedule_id_26'),
+                       ('$team_id_02', '$team_id_11', '$shedule_id_26'),
+                       ('$team_id_01', '$team_id_12', '$shedule_id_26'),
+                       ('$team_id_15', '$team_id_13', '$shedule_id_26'),
+                       ('$team_id_14', '$team_id_16', '$shedule_id_26'),
+                       ('$team_id_13', '$team_id_01', '$shedule_id_27'),
+                       ('$team_id_12', '$team_id_02', '$shedule_id_27'),
+                       ('$team_id_11', '$team_id_03', '$shedule_id_27'),
+                       ('$team_id_10', '$team_id_04', '$shedule_id_27'),
+                       ('$team_id_09', '$team_id_05', '$shedule_id_27'),
+                       ('$team_id_08', '$team_id_06', '$shedule_id_27'),
+                       ('$team_id_16', '$team_id_07', '$shedule_id_27'),
+                       ('$team_id_14', '$team_id_15', '$shedule_id_27'),
+                       ('$team_id_07', '$team_id_08', '$shedule_id_28'),
+                       ('$team_id_06', '$team_id_09', '$shedule_id_28'),
+                       ('$team_id_05', '$team_id_10', '$shedule_id_28'),
+                       ('$team_id_04', '$team_id_11', '$shedule_id_28'),
+                       ('$team_id_03', '$team_id_12', '$shedule_id_28'),
+                       ('$team_id_02', '$team_id_13', '$shedule_id_28'),
+                       ('$team_id_01', '$team_id_14', '$shedule_id_28'),
+                       ('$team_id_15', '$team_id_16', '$shedule_id_28'),
+                       ('$team_id_15', '$team_id_01', '$shedule_id_29'),
+                       ('$team_id_14', '$team_id_02', '$shedule_id_29'),
+                       ('$team_id_13', '$team_id_03', '$shedule_id_29'),
+                       ('$team_id_12', '$team_id_04', '$shedule_id_29'),
+                       ('$team_id_11', '$team_id_05', '$shedule_id_29'),
+                       ('$team_id_10', '$team_id_06', '$shedule_id_29'),
+                       ('$team_id_09', '$team_id_07', '$shedule_id_29'),
+                       ('$team_id_08', '$team_id_16', '$shedule_id_29'),
+                       ('$team_id_08', '$team_id_09', '$shedule_id_30'),
+                       ('$team_id_07', '$team_id_10', '$shedule_id_30'),
+                       ('$team_id_06', '$team_id_11', '$shedule_id_30'),
+                       ('$team_id_05', '$team_id_12', '$shedule_id_30'),
+                       ('$team_id_04', '$team_id_13', '$shedule_id_30'),
+                       ('$team_id_03', '$team_id_14', '$shedule_id_30'),
+                       ('$team_id_02', '$team_id_15', '$shedule_id_30'),
+                       ('$team_id_01', '$team_id_16', '$shedule_id_30');";
+            igosja_db_query($sql);
+    }
+}
 //Конец формирования таблиц и матчей чемпионата
 
 //Начало формирования таблицы и матчей конференции
@@ -420,8 +518,8 @@ $team_array = $team_sql->fetch_all(1);
 
 for ($i=0; $i<$count_team; $i=$i+2)
 {
-    $team_1_id      = $team_array[$i]['team_id'];
-    $team_2_id      = $team_array[$i+1]['team_id'];
+    $team_1_id      = $team_array[$i]['conference_team_id'];
+    $team_2_id      = $team_array[$i+1]['conference_team_id'];
     $game_array[]   = "('$team_1_id', '$team_2_id', '$shedule_id')";
 }
 

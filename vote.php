@@ -26,6 +26,11 @@ $sql = "SELECT `user_id`,
         ORDER BY `voteanswer_id` ASC";
 $vote_sql = igosja_db_query($sql);
 
+if (0 == $vote_sql->num_rows)
+{
+    redirect('/wrong_page');
+}
+
 $vote_array = $vote_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');

@@ -4,13 +4,13 @@ $q = array();
 
 $q[] = 'CREATE TABLE `game`
         (
-            `game_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
-            `game_guest_auto` TINYINT(0) DEFAULT 0,
+            `game_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `game_guest_auto` TINYINT(1) DEFAULT 0,
             `game_guest_collision_loose` TINYINT(1) DEFAULT 0,
             `game_guest_collision_win` TINYINT(1) DEFAULT 0,
-            `game_guest_country_id` SMALLINT(5) DEFAULT 0,
             `game_guest_forecast` SMALLINT(4) DEFAULT 0,
             `game_guest_mood_id` TINYINT(1) DEFAULT 0,
+            `game_guest_national_id` SMALLINT(5) DEFAULT 0,
             `game_guest_penalty` TINYINT(2) DEFAULT 0,
             `game_guest_penalty_1` TINYINT(2) DEFAULT 0,
             `game_guest_penalty_2` TINYINT(2) DEFAULT 0,
@@ -42,9 +42,9 @@ $q[] = 'CREATE TABLE `game`
             `game_home_auto` TINYINT(0) DEFAULT 0,
             `game_home_collision_loose` TINYINT(1) DEFAULT 0,
             `game_home_collision_win` TINYINT(1) DEFAULT 0,
-            `game_home_country_id` SMALLINT(5) DEFAULT 0,
             `game_home_forecast` SMALLINT(4) DEFAULT 0,
             `game_home_mood_id` TINYINT(1) DEFAULT 0,
+            `game_home_national_id` SMALLINT(5) DEFAULT 0,
             `game_home_penalty` TINYINT(2) DEFAULT 0,
             `game_home_penalty_1` TINYINT(2) DEFAULT 0,
             `game_home_penalty_2` TINYINT(2) DEFAULT 0,

@@ -52,27 +52,39 @@ if (0 == $team_sql->num_rows)
 
 $team_array = $team_sql->fetch_all(1);
 
-$sql = "SELECT `country_id`,
+$sql = "SELECT `city_name`,
                `country_name`,
-               `name_name`,
-               `player_age`,
-               `player_game_row`,
-               `player_id`,
-               `player_power_nominal`,
-               `player_power_real`,
-               `player_price`,
-               `player_tire`,
-               `surname_name`
-        FROM `player`
-        LEFT JOIN `name`
-        ON `player_name_id`=`name_id`
-        LEFT JOIN `surname`
-        ON `player_surname_id`=`surname_id`
+               IF(`game_guest_team_id`='$num_get', `game_guest_auto`, `game_home_auto`) AS `game_auto`,
+               `game_guest_score`,
+               `game_home_score`,
+               `game_id`,
+               `game_played`,
+               `shedule_date`,
+               `stage_name`,
+               `team_id`,
+               `team_name`,
+               `tournamenttype_name`
+        FROM `game`
+        LEFT JOIN `shedule`
+        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `tournamenttype`
+        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        LEFT JOIN `stage`
+        ON `shedule_stage_id`=`stage_id`
+        LEFT JOIN `team`
+        ON IF(`game_guest_team_id`='$num_get', `game_home_team_id`, `game_guest_team_id`)=`team_id`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
-        ON `player_country_id`=`country_id`
-        WHERE `player_team_id`='$num_get'";
-$player_sql = igosja_db_query($sql);
+        ON `city_country_id`=`country_id`
+        WHERE (`game_guest_team_id`='$num_get'
+        OR `game_home_team_id`='$num_get')
+        AND `shedule_season_id`='$igosja_season_id'
+        ORDER BY `shedule_id` ASC";
+$game_sql = igosja_db_query($sql);
 
-$player_array = $player_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');

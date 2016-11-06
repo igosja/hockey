@@ -46,6 +46,16 @@ if ($country_id)
     $where = $where . " AND `player_country_id`='$country_id'";
 }
 
+if ($position_id)
+{
+    $where = $where . " AND `player_id` IN
+                        (
+                            SELECT `playerposition_player_id`
+                            FROM `playerposition`
+                            WHERE `playerposition_position_id`='$position_id'
+                        )";
+}
+
 if ($power_max)
 {
     $where = $where . " AND `player_power_nominal`<='$power_max'";
@@ -85,7 +95,16 @@ if ($surname)
     $bind_param_array[] = '%' . $surname . '%';
 }
 
-$sql = "SELECT `city_name`,
+if (!$page = (int) f_igosja_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 50;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               `city_name`,
                `t_country`.`country_name` AS `t_country_name`,
                `name_name`,
                `pl_country`.`country_id` AS `pl_country_id`,
@@ -113,7 +132,9 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `country` AS `t_country`
         ON `city_country_id`=`t_country`.`country_id`
         WHERE $where
-        ORDER BY `player_id` ASC";
+        ORDER BY `player_id` ASC
+        LIMIT $offset, $limit";
+
 if (count($bind_param_array))
 {
     $prepare = $mysqli->prepare($sql);
@@ -138,6 +159,30 @@ else
     $player_sql = igosja_db_query($sql);
 }
 
+$count_player = $player_sql->num_rows;
 $player_array = $player_sql->fetch_all(1);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = igosja_db_query($sql);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
+
+$sql = "SELECT `position_id`,
+               `position_name`
+        FROM `position`
+        ORDER BY `position_id` ASC";
+$position_sql = igosja_db_query($sql);
+
+$position_array = $position_sql->fetch_all(1);
+
+$sql = "SELECT `country_id`,
+               `country_name`
+        FROM `country`
+        ORDER BY `country_id` ASC";
+$country_sql = igosja_db_query($sql);
+
+$country_array = $country_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');

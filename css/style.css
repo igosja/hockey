@@ -389,6 +389,10 @@ a.btn {
     width: 1px;
 }
 
+.col-5 {
+    width: 5%;
+}
+
 .text-left {
     text-align: left;
 }
@@ -417,7 +421,6 @@ a.btn {
     border: 1px solid #cccccc;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     display: block;
-    padding: 2px;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     width: 100%;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -609,4 +612,9 @@ form {
 
 .border-top {
     border-top: #286090 dotted 1px;
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
 }

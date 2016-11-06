@@ -81,8 +81,8 @@ if ($data = f_igosja_post('data'))
         $mail->send();
     }
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Изменения сохранены.';
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Изменения сохранены.';
 
     refresh();
 }
@@ -111,6 +111,11 @@ $sql = "SELECT `country_name`,
         ON `user_country_id`=`country_id`
         WHERE `user_id`='$num_get'";
 $user_sql = igosja_db_query($sql);
+
+if (0 == $user_sql->num_rows)
+{
+    redirect('/wrong_page');
+}
 
 $user_array = $user_sql->fetch_all(1);
 

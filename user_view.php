@@ -31,6 +31,11 @@ $sql = "SELECT `country_name`,
         WHERE `user_id`='$num_get'";
 $user_sql = igosja_db_query($sql);
 
+if (0 == $user_sql->num_rows)
+{
+    redirect('/wrong_page');
+}
+
 $user_array = $user_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');

@@ -25,8 +25,8 @@ if (isset($data['code']))
 
     if (!$user_sql->num_rows)
     {
-        $_SESSION['message']['class'] = 'error';
-        $_SESSION['message']['text'] = 'Активировать профиль не удалось.';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Активировать профиль не удалось.';
 
         refresh();
     }
@@ -35,8 +35,8 @@ if (isset($data['code']))
 
     if ($user_array[0]['user_date_confirm'])
     {
-        $_SESSION['message']['class'] = 'info';
-        $_SESSION['message']['text'] = 'Профиль уже активирован.';
+        $_SESSION['message']['class']   = 'info';
+        $_SESSION['message']['text']    = 'Профиль уже активирован.';
 
         refresh();
     }
@@ -47,8 +47,8 @@ if (isset($data['code']))
             LIMIT 1";
     igosja_db_query($sql);
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Профиль уже активирован.';
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Профиль уже активирован.';
 
     refresh();
 }

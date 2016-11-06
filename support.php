@@ -23,8 +23,8 @@ if ($data = f_igosja_post('data'))
         $prepare->execute();
         $prepare->close();
 
-        $_SESSION['message']['class'] = 'success';
-        $_SESSION['message']['text'] = 'Сообщение успешно отправлено.';
+        $_SESSION['message']['class']   = 'success';
+        $_SESSION['message']['text']    = 'Сообщение успешно отправлено.';
     }
 
     refresh();
@@ -46,8 +46,14 @@ $sql = "SELECT `country_name`,
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
-        WHERE `user_id`='$auth_user_id'";
+        WHERE `user_id`='$auth_user_id'
+        LIMIT 1";
 $user_sql = igosja_db_query($sql);
+
+if (0 == $user_sql->num_rows)
+{
+    redirect('/wrong_page');
+}
 
 $user_array = $user_sql->fetch_all(1);
 

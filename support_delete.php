@@ -18,8 +18,8 @@ if ($num_get = (int) f_igosja_get('num'))
             LIMIT 1";
     igosja_db_query($sql);
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Сообщение успешно удалено.';
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Сообщение успешно удалено.';
 }
 
 redirect('/support.php');

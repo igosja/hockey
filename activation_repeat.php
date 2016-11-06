@@ -6,8 +6,8 @@ if ($data = f_igosja_post('data'))
 {
     if (!isset($data['email']))
     {
-        $_SESSION['message']['class'] = 'error';
-        $_SESSION['message']['text'] = 'Введите email.';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Введите email.';
 
         refresh();
     }
@@ -39,8 +39,8 @@ if ($data = f_igosja_post('data'))
 
     if ($user_array[0]['user_date_confirm'])
     {
-        $_SESSION['message']['class'] = 'info';
-        $_SESSION['message']['text'] = 'Профиль уже активирован.';
+        $_SESSION['message']['class']   = 'info';
+        $_SESSION['message']['text']    = 'Профиль уже активирован.';
 
         refresh();
     }
@@ -61,8 +61,8 @@ if ($data = f_igosja_post('data'))
     $mail->setHtml($email_text);
     $mail->send();
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Код отправлен на email.';
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Код отправлен на email.';
 
     refresh();
 }

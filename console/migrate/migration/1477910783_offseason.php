@@ -17,5 +17,6 @@ $q[] = 'CREATE TABLE `offseason`
             `offseason_win` TINYINT(2) DEFAULT 0,
             `offseason_win_over` TINYINT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `offseason_place` ON `offseason` (`offseason_place`);';
 $q[] = 'CREATE INDEX `offseason_season_id` ON `offseason` (`offseason_season_id`);';
 $q[] = 'CREATE INDEX `offseason_team_id` ON `offseason` (`offseason_team_id`);';

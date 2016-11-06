@@ -2,11 +2,6 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!isset($auth_user_id))
-{
-    redirect('/wrong_page.php');
-}
-
 $sql = "SELECT `shedule_date`,
                `shedule_id`,
                `stage_name`,

@@ -15,7 +15,8 @@ $sql = "SELECT `news_date`,
         FROM `news`
         LEFT JOIN `user`
         ON `news_user_id`=`user_id`
-        WHERE `news_id`='$num_get'";
+        WHERE `news_id`='$num_get'
+        LIMIT 1";
 $news_sql = igosja_db_query($sql);
 
 if (0 == $news_sql->num_rows)
