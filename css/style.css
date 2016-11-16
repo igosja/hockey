@@ -436,6 +436,12 @@ a.btn {
     width: 24%;
 }
 
+.form-control[disabled] {
+    background-color: #eee;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
 .menu {
     background-color: #c4c9f9;
     border-bottom: dotted 1px #0f103d;
@@ -621,4 +627,41 @@ form {
 ul {
     margin: 0;
     padding-left: 20px;
+}
+
+.team-base-div {
+    border: 1px solid #0f103d;
+    padding: 5px;
+}
+
+.img-border {
+    border: 1px solid #0f103d;
+    margin: -1px;
+}
+
+fieldset {
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+    min-width: -webkit-min-content;
+    border: 2px groove threedface;
+}
+
+fieldset legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border: none;
+}
+
+tr.current {
+    background-color: #e8e8e8;
+}
+
+.margin-no {
+    margin: 0;
 }

@@ -2,7 +2,14 @@
 
 include (__DIR__ . '/include/include.php');
 
-$sql = "SELECT `user_id`,
+$sql = "UPDATE `vote`
+        SET `vote_votestatus_id`='" . VOTESTATUS_CLOSE . "'
+        WHERE `vote_votestatus_id`='" . VOTESTATUS_OPEN . "'
+        AND `vote_date`<UNIX_TIMESTAMP()-'604800'";
+igosja_db_query($sql);
+
+$sql = "SELECT `count_answer`,
+               `user_id`,
                `user_login`,
                `vote_id`,
                `vote_text`,
@@ -15,9 +22,17 @@ $sql = "SELECT `user_id`,
         ON `vote_user_id`=`user_id`
         LEFT JOIN `voteanswer`
         ON `vote_id`=`voteanswer_vote_id`
+        LEFT JOIN
+        (
+            SELECT COUNT(`voteuser_user_id`) AS `count_answer`,
+                   `voteuser_answer_id`
+            FROM `voteuser`
+            GROUP BY `voteuser_answer_id`
+        ) AS `t1`
+        ON `voteuser_answer_id`=`voteanswer_id`
         WHERE `vote_country_id`='0'
         AND `votestatus_id`>'" . VOTESTATUS_NEW . "'
-        ORDER BY `votestatus_id` DESC, `vote_id` DESC, `voteanswer_id` ASC";
+        ORDER BY `votestatus_id` ASC, `vote_id` DESC, `count_answer` DESC, `voteanswer_id` ASC";
 $vote_sql = igosja_db_query($sql);
 
 $vote_array = $vote_sql->fetch_all(1);

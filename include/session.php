@@ -33,7 +33,6 @@ if (isset($_SESSION['user_id']))
     $support_sql = igosja_db_query($sql);
 
     $support_array = $support_sql->fetch_all(1);
-
     $count_support = $support_array[0]['count'];
 
     if ($count_support)
@@ -45,6 +44,34 @@ if (isset($_SESSION['user_id']))
     {
         $igosja_menu        = str_replace('count_support', '', $igosja_menu);
         $igosja_menu_mobile = str_replace('count_support', '', $igosja_menu_mobile);
+    }
+
+    $sql = "SELECT COUNT(`vote_id`) AS `count`
+            FROM `vote`
+            WHERE `vote_votestatus_id`='" . VOTESTATUS_OPEN . "'
+            AND `vote_country_id`='0'
+            AND `vote_id`>
+            (
+                SELECT IF(MAX(`voteuser_vote_id`) IS NULL, 0, MAX(`voteuser_vote_id`))
+                FROM `voteuser`
+                WHERE `voteuser_user_id`='$auth_user_id'
+            )";
+    $vote_sql = igosja_db_query($sql);
+
+    $vote_array = $vote_sql->fetch_all(1);
+    $count_vote = $vote_array[0]['count'];
+
+    unset ($vote_array);
+
+    if ($count_vote)
+    {
+        $igosja_menu        = str_replace('count_vote', 'red', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_vote', 'red', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('count_vote', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_vote', '', $igosja_menu_mobile);
     }
 
     $sql = "UPDATE `user`

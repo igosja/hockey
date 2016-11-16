@@ -61,7 +61,7 @@
                 из
                 <span class="strong">22</span> слотов)
                 <img src="/img/cog.png"/>
-                <img src="/img/loupe.png"/>
+                <a href="base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
             </div>
         </div>
         <div class="row text-size-4"><?= SPACE; ?></div>
@@ -89,24 +89,31 @@
                 <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
                 <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
-            </div>
+            <?php foreach ($nearest_array as $item) { ?>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
+                    5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
+                </div>
+            <?php } ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row text-size-4"><?= SPACE; ?></div>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Ред.
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Отпр.
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Отпр.
-            </div>
+            <?php foreach ($nearest_array as $item) { ?>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
+                    <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
+                    -
+                    <?= $item['tournamenttype_name']; ?>
+                    -
+                    Д
+                    -
+                    <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                        <?= $item['team_name']; ?>
+                    </a>
+                    -
+                    <a href="/game_send.php?num=<?= $item['game_id']; ?>">
+                        Отпр.
+                    </a>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </div>
@@ -152,13 +159,13 @@
             <?php foreach ($player_array as $item) { ?>
                 <tr>
                     <td>
-                        <a href="/player/index/<?= $item['player_id']; ?>">
+                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                             <?= $item['name_name']; ?>
                             <?= $item['surname_name']; ?>
                         </a>
                     </td>
                     <td class="text-center">
-                        <a href="/country/index/<?= $item['country_id']; ?>">
+                        <a href="/country_view.php?num=<?= $item['country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $item['country_id']; ?>.png"
                                 title="<?= $item['country_name']; ?>"

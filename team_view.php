@@ -52,6 +52,27 @@ if (0 == $team_sql->num_rows)
 
 $team_array = $team_sql->fetch_all(1);
 
+$sql = "SELECT `game_id`,
+               `shedule_date`,
+               `team_id`,
+               `team_name`,
+               `tournamenttype_name`
+        FROM `game`
+        LEFT JOIN `shedule`
+        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `tournamenttype`
+        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        LEFT JOIN `team`
+        ON IF(`game_guest_team_id`='$num_get', `game_home_team_id`, `game_guest_team_id`)=`team_id`
+        WHERE (`game_guest_team_id`='$num_get'
+        OR `game_home_team_id`='$num_get')
+        AND `game_played`='0'
+        ORDER BY `shedule_date` ASC
+        LIMIT 2";
+$nearest_sql = igosja_db_query($sql);
+
+$nearest_array = $nearest_sql->fetch_all(1);
+
 $sql = "SELECT `country_id`,
                `country_name`,
                `name_name`,
