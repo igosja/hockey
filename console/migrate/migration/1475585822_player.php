@@ -9,6 +9,7 @@ $q[] = 'CREATE TABLE `player`
             `player_country_id` SMALLINT(3) DEFAULT 0,
             `player_game_row` TINYINT(2) DEFAULT -1,
             `player_name_id` INT(11) DEFAULT 0,
+            `player_phisical_id` TINYINT(2) DEFAULT 0,
             `player_power_real` SMALLINT(3) DEFAULT 0,
             `player_power_nominal` SMALLINT(3) DEFAULT 0,
             `player_power_old` SMALLINT(3) DEFAULT 0,

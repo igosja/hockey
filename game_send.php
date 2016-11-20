@@ -2,8 +2,6 @@
 
 include (__DIR__ . '/include/include.php');
 
-$auth_team_id = 25;
-
 if (!isset($auth_team_id))
 {
     redirect('/wrong_page.php');
@@ -19,23 +17,14 @@ $sql = "SELECT `game_guest_team_id`,
                IF(`game_home_team_id`='$auth_team_id', `game_home_rude_id`, `game_guest_rude_id`) AS `game_rude_id`,
                IF(`game_home_team_id`='$auth_team_id', `game_home_style_id`, `game_guest_style_id`) AS `game_style_id`,
                IF(`game_home_team_id`='$auth_team_id', `game_home_tactic_id`, `game_guest_tactic_id`) AS `game_tactic_id`,
-               `game_ticket`,
-               `shedule_date`,
-               `team_id`,
-               `team_name`,
-               `tournamenttype_name`
+               `game_ticket`
         FROM `game`
         LEFT JOIN `shedule`
         ON `game_shedule_id`=`shedule_id`
-        LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
-        LEFT JOIN `team`
-        ON IF(`game_guest_team_id`='$auth_team_id', `game_home_team_id`, `game_guest_team_id`)=`team_id`
         WHERE (`game_guest_team_id`='$auth_team_id'
         OR `game_home_team_id`='$auth_team_id')
         AND `game_played`='0'
         AND `game_id`='$num_get'
-        ORDER BY `shedule_date` ASC
         LIMIT 1";
 $current_sql = igosja_db_query($sql);
 
@@ -46,7 +35,15 @@ if (0 == $current_sql->num_rows)
 
 if ($data = f_igosja_post('data'))
 {
-    $ticket     = (int) $data['ticket'];
+    if (isset($data['ticket']))
+    {
+        $ticket = (int) $data['ticket'];
+    }
+    else
+    {
+        $ticket = 0;
+    }
+
     $tactic_id  = (int) $data['tactic_id'];
     $rude_id    = (int) $data['rude_id'];
     $style_id   = (int) $data['style_id'];
@@ -83,8 +80,7 @@ if ($data = f_igosja_post('data'))
             SET `game_guest_mood_id`='$mood_id',
                 `game_guest_rude_id`='$rude_id',
                 `game_guest_style_id`='$style_id',
-                `game_guest_tactic_id`='$tactic_id',
-                `game_ticket`='$ticket'
+                `game_guest_tactic_id`='$tactic_id'
             WHERE `game_guest_team_id`='$auth_team_id'
             AND `game_id`='$num_get'
             LIMIT 1";

@@ -397,6 +397,10 @@ a.btn {
     width: 10%;
 }
 
+.col-15 {
+    width: 15%;
+}
+
 .text-left {
     text-align: left;
 }
@@ -552,11 +556,15 @@ form {
 
 .table {
     border-collapse: collapse;
+    border-spacing: 0;
     max-width: 100%;
     width: 100%;
 }
 
-.table th {
+
+
+.table th,
+.table th a {
     background-color: #286090;
     color: #f0f0f0;
 }
@@ -568,6 +576,19 @@ form {
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #dddddd;
+}
+
+.table-bordered-no {
+    border: none;
+}
+
+.table-bordered-no th,
+.table-bordered-no td {
+    border: none;
+}
+
+td.table-bordered-right {
+    border-right: 1px solid #dddddd;
 }
 
 .table-responsive {
@@ -664,4 +685,8 @@ tr.current {
 
 .margin-no {
     margin: 0;
+}
+
+.padding-no {
+    padding: 0;
 }

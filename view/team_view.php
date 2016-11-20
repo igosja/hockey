@@ -89,9 +89,21 @@
                 <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
                 <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
             </div>
-            <?php foreach ($nearest_array as $item) { ?>
+            <?php foreach ($latest_array as $item) { ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                    5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
+                    <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
+                    -
+                    <?= $item['tournamenttype_name']; ?>
+                    -
+                    <?= $item['home_guest']; ?>
+                    -
+                    <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                        <?= $item['team_name']; ?>
+                    </a>
+                    -
+                    <a href="/game_view.php?num=<?= $item['game_id']; ?>">
+                        <?= $item['home_score']; ?>:<?= $item['guest_score']; ?>
+                    </a>
                 </div>
             <?php } ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -103,7 +115,7 @@
                     -
                     <?= $item['tournamenttype_name']; ?>
                     -
-                    Д
+                    <?= $item['home_guest']; ?>
                     -
                     <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                         <?= $item['team_name']; ?>
@@ -147,9 +159,10 @@
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
                 <th title="Усталость">У</th>
+                <th title="Форма">Ф</th>
                 <th title="Реальная сила">РС</th>
                 <th title="Спецвозможности">Спец</th>
-                <th title="Средняя оценка за игру">О</th>
+                <th title="Плюс/минус">+/-</th>
                 <th title="Игр">И</th>
                 <th title="Шайб">Ш</th>
                 <th title="Результативных передач">П</th>
@@ -176,9 +189,15 @@
                     <td class="text-center"><?= $item['player_age']; ?></td>
                     <td class="text-center"><?= $item['player_power_nominal']; ?></td>
                     <td class="text-center"><?= $item['player_tire']; ?></td>
+                    <td class="text-center">
+                        <img
+                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                            title="<?= $item['phisical_value']; ?>%"
+                        />
+                    </td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
                     <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
-                    <td class="text-center">0.00</td>
+                    <td class="text-center">0</td>
                     <td class="text-center">0</td>
                     <td class="text-center">0</td>
                     <td class="text-center">0</td>
@@ -193,9 +212,10 @@
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
                 <th title="Усталость">У</th>
+                <th title="Форма">Ф</th>
                 <th title="Реальная сила">РС</th>
                 <th title="Спецвозможности">Спец</th>
-                <th title="Средняя оценка за игру">О</th>
+                <th title="Плюс/минус">+/-</th>
                 <th title="Игр">И</th>
                 <th title="Шайб">Ш</th>
                 <th title="Результативных передач">П</th>
