@@ -76,6 +76,15 @@ $player_link_array = array(
     array('url' => 'player_rent', 'text' => 'Аренда'),
     array('url' => 'player_achievement', 'text' => 'Достижения'),
 );
+$register_link_array = array(
+    array('url' => 'signup', 'url2' => '', 'text' => 'Регистрация'),
+    array('url' => 'password', 'url2' => 'password_restore', 'text' => 'Забыли пароль?'),
+    array('url' => 'activation', 'url2' => 'activation_repeat', 'text' => 'Активация аккаунта'),
+);
+$stadium_link_array = array(
+    array('url' => 'stadium_increase', 'text' => 'Расширить стадион'),
+    array('url' => 'stadium_decrease', 'text' => 'Уменьшить стадион'),
+);
 $team_link_array = array(
     array('url' => 'team_view', 'text' => 'Игроки'),
     array('url' => 'team_game', 'text' => 'Матчи'),
@@ -94,11 +103,6 @@ $user_link_array = array(
     array('url' => 'user_holiday', 'text' => 'Отпуск'),
     array('url' => 'user_password', 'text' => 'Пароль'),
     array('url' => 'user_referral', 'text' => 'Подопечные'),
-);
-$register_link_array = array(
-    array('url' => 'signup', 'url2' => '', 'text' => 'Регистрация'),
-    array('url' => 'password', 'url2' => 'password_restore', 'text' => 'Забыли пароль?'),
-    array('url' => 'activation', 'url2' => 'activation_repeat', 'text' => 'Активация аккаунта'),
 );
 
 $sql = "SELECT `season_id`

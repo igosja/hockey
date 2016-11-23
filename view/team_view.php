@@ -51,7 +51,7 @@
                 <?= $team_array[0]['stadium_name']; ?>,
                 <strong><?= $team_array[0]['stadium_capacity']; ?></strong>
                 <img src="/img/cog.png"/>
-                <img src="/img/loupe.png"/>
+                <a href="/stadium_increase.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
             </div>
         </div>
         <div class="row">
@@ -61,7 +61,7 @@
                 из
                 <span class="strong">22</span> слотов)
                 <img src="/img/cog.png"/>
-                <a href="base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
+                <a href="/base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
             </div>
         </div>
         <div class="row text-size-4"><?= SPACE; ?></div>
