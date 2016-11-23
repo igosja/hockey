@@ -67,6 +67,15 @@ define('VOTESTATUS_OPEN', 2);
 define('VOTESTATUS_CLOSE', 3);
 
 $breadcrumb_array = array();
+$player_link_array = array(
+    array('url' => 'player_view', 'text' => 'Матчи'),
+    array('url' => 'player_statistic', 'text' => 'Статистика'),
+    array('url' => 'player_event', 'text' => 'События'),
+    array('url' => 'player_deal', 'text' => 'Сделки'),
+    array('url' => 'player_transfer', 'text' => 'Трансфер'),
+    array('url' => 'player_rent', 'text' => 'Аренда'),
+    array('url' => 'player_achievement', 'text' => 'Достижения'),
+);
 $team_link_array = array(
     array('url' => 'team_view', 'text' => 'Игроки'),
     array('url' => 'team_game', 'text' => 'Матчи'),

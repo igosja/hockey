@@ -690,3 +690,12 @@ tr.current {
 .padding-no {
     padding: 0;
 }
+
+td.phisical-yellow {
+    background-color: #FEEFB3;
+}
+
+td.phisical-bordered {
+    background-color: #FEEFB3;
+    border: 2px solid #0f103d;
+}

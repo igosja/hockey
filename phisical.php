@@ -42,6 +42,31 @@ $shedule_sql = igosja_db_query($sql);
 $count_shedule = $shedule_sql->num_rows;
 $shedule_array = $shedule_sql->fetch_all(1);
 
+if ($count_shedule)
+{
+    $shedule_id = $shedule_array[0]['shedule_id'];
+}
+else
+{
+    $shedule_id = 0;
+}
+
+$sql = "SELECT `phisicalchange_player_id`,
+               `phisicalchange_shedule_id`
+        FROM `phisicalchange`
+        WHERE `phisicalchange_team_id`='$num_get'
+        ORDER BY `phisicalchange_id` ASC";
+$phisicalchange_sql = igosja_db_query($sql);
+
+$phisicalchange_array = $phisicalchange_sql->fetch_all(1);
+
+$change_array = array();
+
+foreach ($phisicalchange_array as $item)
+{
+    $change_array[$item['phisicalchange_player_id']][$item['phisicalchange_shedule_id']] = 1;
+}
+
 $sql = "SELECT `name_name`,
                `phisical_id`,
                `phisical_value`,
@@ -74,11 +99,30 @@ for ($i=0; $i<$count_player; $i++)
         {
             $phisical_id = $player_array[$i]['phisical_id'];
 
+            if (isset($change_array[$player_array[$i]['player_id']][$shedule_array[$j]['shedule_id']]))
+            {
+                $class = 'phisical-bordered';
+
+                $sql = "SELECT `phisical_opposite`
+                        FROM `phisical`
+                        WHERE `phisical_id`='$phisical_id'
+                        LIMIT 1";
+                $opposite_sql = igosja_db_query($sql);
+
+                $opposite_array = $phisical_sql->fetch_all(1);
+
+                $opposite_id = $opposite_array[0]['phisical_opposite'];
+            }
+            else
+            {
+                $class = '';
+            }
+
             $player_phisical_array[] = array(
-                'class'             => '',
+                'class'             => $class,
                 'id'                => $player_array[$i]['player_id'] . '-' . $shedule_array[$j]['shedule_id'],
                 'phisical_id'       => $phisical_id,
-                'phisical_value'    => $player_array[$i]['phisical_value'],
+                'phisical_value'    => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
                 'shedule_id'        => $shedule_array[$j]['shedule_id'],
             );
@@ -92,8 +136,31 @@ for ($i=0; $i<$count_player; $i++)
                 $phisical_id = $phisical_id - 20;
             }
 
+            if (isset($change_array[$player_array[$i]['player_id']][$shedule_array[$j]['shedule_id']]))
+            {
+                $class = 'phisical-change-cell phisical-bordered';
+
+                $sql = "SELECT `phisical_opposite`
+                        FROM `phisical`
+                        WHERE `phisical_id`='$phisical_id'
+                        LIMIT 1";
+                $opposite_sql = igosja_db_query($sql);
+
+                $opposite_array = $opposite_sql->fetch_all(1);
+
+                $phisical_id = $opposite_array[0]['phisical_opposite'];
+            }
+            elseif (in_array($class, array('phisical-change-cell phisical-bordered', 'phisical-change-cell phisical-yellow', 'phisical-bordered')))
+            {
+                $class = 'phisical-change-cell phisical-yellow';
+            }
+            else
+            {
+                $class = 'phisical-change-cell';
+            }
+
             $player_phisical_array[] = array(
-                'class'             => 'phisical-change-cell',
+                'class'             => $class,
                 'id'                => $player_array[$i]['player_id'] . '-' . $shedule_array[$j]['shedule_id'],
                 'phisical_id'       => $phisical_id,
                 'phisical_value'    => $phisical_array[$phisical_id],

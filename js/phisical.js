@@ -11,8 +11,17 @@ jQuery(document).ready(function () {
             {
                 for (var i=0; i<data.length; i++)
                 {
+                    $('#' + data[i].id).removeClass(data[i].remove_class_1);
+                    $('#' + data[i].id).removeClass(data[i].remove_class_2);
+                    $('#' + data[i].id).addClass(data[i].class);
                     $('#' + data[i].id).data('phisical', data[i].phisical_id);
-                    $('#' + data[i].id).html('<img src="/img/phisical/' + data[i].phisical_id + '.png" title="' + data[i].phisical_value + '">');
+                    $('#' + data[i].id).html(
+                        '<img src="/img/phisical/'
+                        + data[i].phisical_id
+                        + '.png" title="'
+                        + data[i].phisical_value
+                        + '">'
+                    );
                 }
             }
         });
