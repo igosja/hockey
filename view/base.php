@@ -110,6 +110,33 @@
         </div>
     </div>
 </div>
+<?php if ($count_buildingbase) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert error">
+            На базе сейчас идет строительство.
+        </div>
+    </div>
+<?php } ?>
+<?php if (isset($base_error)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert error">
+            Строить нельзя: <?= $base_error; ?>
+        </div>
+    </div>
+<?php } ?>
+<?php if (isset($base_accept)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <?= $base_accept; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/base.php?building_id=<?= $building_id; ?>&constructiontype_id=<?= $constructiontype_id; ?>&ok=1" class="btn margin">Строить</a>
+            <a href="/base.php" class="btn margin">Отказаться</a>
+        </div>
+    </div>
+<?php } ?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <fieldset>
@@ -148,8 +175,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>
@@ -190,8 +217,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>
@@ -218,8 +245,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>
@@ -261,8 +288,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>
@@ -294,8 +321,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>
@@ -323,8 +350,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="javascript:;" class="btn margin">Строить</a>
-                    <a href="javascript:;" class="btn margin">Продать</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                    <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
                 </div>
             </div>
         </fieldset>

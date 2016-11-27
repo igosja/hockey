@@ -1,7 +1,6 @@
 jQuery(document).ready(function () {
     $('#stadium-capacity').on('change', function() {
-        var capacity_new    = parseInt($(this).val());
-        var one_sit_price   = 200;
+        var capacity_new = parseInt($(this).val());
 
         if (isNaN(capacity_new))
         {

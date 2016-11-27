@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `basemedical`
         (
             `basemedical_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basemedical_base_id` TINYINT(2) DEFAULT 0,
+            `basemedical_base_level` TINYINT(2) DEFAULT 0,
             `basemedical_build_speed` TINYINT(1) DEFAULT 0,
             `basemedical_level` TINYINT(2) DEFAULT 0,
             `basemedical_price_buy` INT(11) DEFAULT 0,
@@ -14,7 +14,7 @@ $q[] = 'CREATE TABLE `basemedical`
         );';
 $q[] = 'INSERT INTO `basemedical`
         (
-            `basemedical_base_id`,
+            `basemedical_base_level`,
             `basemedical_build_speed`,
             `basemedical_level`,
             `basemedical_price_buy`,

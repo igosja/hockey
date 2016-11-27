@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `basetraining`
         (
             `basetraining_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basetraining_base_id` TINYINT(2) DEFAULT 0,
+            `basetraining_base_level` TINYINT(2) DEFAULT 0,
             `basetraining_build_speed` TINYINT(2) DEFAULT 0,
             `basetraining_level` TINYINT(2) DEFAULT 0,
             `basetraining_position_count` TINYINT(2) DEFAULT 0,
@@ -21,7 +21,7 @@ $q[] = 'CREATE TABLE `basetraining`
         );';
 $q[] = 'INSERT INTO `basetraining`
         (
-            `basetraining_base_id`,
+            `basetraining_base_level`,
             `basetraining_build_speed`,
             `basetraining_level`,
             `basetraining_position_count`,

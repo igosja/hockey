@@ -3,6 +3,33 @@
         <?= $stadium_array[0]['stadium_name']; ?>
     </div>
 </div>
+<?php if ($count_buildingstadium) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert error">
+            На стадионе сейчас идет строительство.
+        </div>
+    </div>
+<?php } ?>
+<?php if (isset($stadium_error)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert error">
+            Строить нельзя: <?= $stadium_error; ?>
+        </div>
+    </div>
+<?php } ?>
+<?php if (isset($stadium_accept)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <?= $stadium_accept; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/stadium_increase.php?capacity=<?= $new_capacity; ?>&ok=1" class="btn margin">Строить</a>
+            <a href="/stadium_increase.php" class="btn margin">Отказаться</a>
+        </div>
+    </div>
+<?php } ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?php include(__DIR__ . '/include/stadium_table_link.php'); ?>
@@ -22,7 +49,7 @@
             Новая вместимость
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <input class="form-control" id="stadium-capacity" />
+            <input class="form-control" id="stadium-capacity" name="data[new_capacity]" />
         </div>
     </div>
     <div class="row">
@@ -49,4 +76,5 @@
 </form>
 <script>
     var capacity_current = <?= $stadium_array[0]['stadium_capacity']; ?>;
+    var one_sit_price    = <?= STADIUM_ONE_SIT_PICE_BUY; ?>;
 </script>

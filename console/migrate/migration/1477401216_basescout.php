@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `basescout`
         (
             `basescout_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basescout_base_id` TINYINT(2) DEFAULT 0,
+            `basescout_base_level` TINYINT(2) DEFAULT 0,
             `basescout_build_speed` TINYINT(2) DEFAULT 0,
             `basescout_distance` TINYINT(1) DEFAULT 0,
             `basescout_level` TINYINT(2) DEFAULT 0,
@@ -23,7 +23,7 @@ $q[] = 'CREATE TABLE `basescout`
         );';
 $q[] = 'INSERT INTO `basescout`
         (
-            `basescout_base_id`,
+            `basescout_base_level`,
             `basescout_build_speed`,
             `basescout_distance`,
             `basescout_level`,

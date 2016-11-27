@@ -10,7 +10,7 @@ $q[] = 'CREATE TABLE `base`
             `base_maintenance_base` INT(11) DEFAULT 0,
             `base_maintenance_slot` INT(11) DEFAULT 0,
             `base_price_buy` INT(11) DEFAULT 0,
-            `base_price_sale` INT(11) DEFAULT 0,
+            `base_price_sell` INT(11) DEFAULT 0,
             `base_slot_max` TINYINT(2) DEFAULT 0,
             `base_slot_min` TINYINT(2) DEFAULT 0
         );';
@@ -21,7 +21,7 @@ $q[] = 'INSERT INTO `base`
             `base_maintenance_base`,
             `base_maintenance_slot`,
             `base_price_buy`,
-            `base_price_sale`,
+            `base_price_sell`,
             `base_slot_max`,
             `base_slot_min`
         )
