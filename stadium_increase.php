@@ -2,8 +2,6 @@
 
 include (__DIR__ . '/include/include.php');
 
-$auth_team_id = 27;
-
 if (!isset($auth_team_id))
 {
     redirect('/wrong_page.php');
