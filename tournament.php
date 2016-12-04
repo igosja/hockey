@@ -10,7 +10,7 @@ $sql = "SELECT `country_id`,
         WHERE `championship_season_id`='$igosja_season_id'
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $count_country = $country_sql->num_rows;
 $country_array = $country_sql->fetch_all(1);
@@ -31,7 +31,7 @@ for ($i=0; $i<$count_country; $i++)
                 AND `championship_division_id`='$j'
                 AND `championship_country_id`='$country_id'
                 LIMIT 1";
-        $division_sql = igosja_db_query($sql);
+        $division_sql = f_igosja_mysqli_query($sql);
 
         if ($division_sql->num_rows)
         {

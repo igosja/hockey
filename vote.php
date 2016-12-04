@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page');
 }
@@ -36,7 +36,7 @@ $sql = "SELECT `count_answer`,
         AND `votestatus_id`>'" . VOTESTATUS_NEW . "'
         AND `vote_id`='$num_get'
         ORDER BY `count_answer` DESC, `voteanswer_id` ASC";
-$vote_sql = igosja_db_query($sql);
+$vote_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $vote_sql->num_rows)
 {
@@ -45,7 +45,7 @@ if (0 == $vote_sql->num_rows)
 
 $vote_array = $vote_sql->fetch_all(1);
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))
     {
@@ -59,7 +59,7 @@ if ($data = f_igosja_post('data'))
             FROM `voteuser`
             WHERE `voteuser_vote_id`='$num_get'
             AND `voteuser_user_id`='$auth_user_id'";
-    $voteuser_sql = igosja_db_query($sql);
+    $voteuser_sql = f_igosja_mysqli_query($sql);
 
     $voteuser_array = $voteuser_sql->fetch_all(1);
 
@@ -78,7 +78,7 @@ if ($data = f_igosja_post('data'))
                 `voteuser_date`=UNIX_TIMESTAMP(),
                 `voteuser_user_id`='$auth_user_id',
                 `voteuser_vote_id`='$num_get'";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Вы успешно проголосовали.';
@@ -92,7 +92,7 @@ if (isset($auth_user_id) && VOTESTATUS_OPEN == $vote_array[0]['votestatus_id'])
             FROM `voteuser`
             WHERE `voteuser_vote_id`='$num_get'
             AND `voteuser_user_id`='$auth_user_id'";
-    $voteuser_sql = igosja_db_query($sql);
+    $voteuser_sql = f_igosja_mysqli_query($sql);
 
     $voteuser_array = $voteuser_sql->fetch_all(1);
 

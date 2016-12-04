@@ -2,9 +2,9 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
@@ -12,7 +12,7 @@ if ($data = f_igosja_post('data'))
             SET $set_sql
             WHERE `tournamenttype_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/tournamenttype_view.php?num=' . $num_get);
 }
@@ -22,7 +22,7 @@ $sql = "SELECT `tournamenttype_id`,
         FROM `tournamenttype`
         WHERE `tournamenttype_id`='$num_get'
         LIMIT 1";
-$tournamenttype_sql = igosja_db_query($sql);
+$tournamenttype_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $tournamenttype_sql->num_rows)
 {

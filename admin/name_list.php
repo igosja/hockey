@@ -10,7 +10,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `name_id`
         LIMIT $offset, $limit";
-$name_sql = igosja_db_query($sql);
+$name_sql = f_igosja_mysqli_query($sql);
 
 $name_array = $name_sql->fetch_all(1);
 

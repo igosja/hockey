@@ -7,7 +7,7 @@ if (isset($auth_user_id))
     redirect('/');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['password']) || empty($data['password']))
     {

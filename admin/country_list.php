@@ -10,7 +10,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `country_id`
         LIMIT $offset, $limit";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 

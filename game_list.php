@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
@@ -18,7 +18,7 @@ $sql = "SELECT `shedule_date`,
         ON `shedule_stage_id`=`stage_id`
         WHERE `shedule_id`='$num_get'
         LIMIT 1";
-$shedule_sql = igosja_db_query($sql);
+$shedule_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $shedule_sql->num_rows)
 {
@@ -62,7 +62,7 @@ $sql = "SELECT `game_id`,
         ON `home_city`.`city_country_id`=`home_country`.`country_id`
         WHERE `shedule_id`='$num_get'
         ORDER BY `game_id`ASC";
-$game_sql = igosja_db_query($sql);
+$game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 

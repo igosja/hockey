@@ -2,12 +2,12 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$country_id = (int) f_igosja_get('country_id'))
+if (!$country_id = (int) f_igosja_request_get('country_id'))
 {
     redirect('/wrong_page.php');
 }
 
-if (!$division_id = (int) f_igosja_get('division_id'))
+if (!$division_id = (int) f_igosja_request_get('division_id'))
 {
     redirect('/wrong_page.php');
 }
@@ -23,7 +23,7 @@ $sql = "SELECT `country_name`,
         AND `championship_country_id`='$country_id'
         AND `championship_division_id`='$division_id'
         LIMIT 1";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $country_sql->num_rows)
 {
@@ -39,7 +39,7 @@ $sql = "SELECT `shedule_id`
         AND `shedule_season_id`='$igosja_season_id'
         ORDER BY `shedule_id` DESC
         LIMIT 1";
-$shedule_sql = igosja_db_query($sql);
+$shedule_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $shedule_sql->num_rows)
 {
@@ -50,7 +50,7 @@ if (0 == $shedule_sql->num_rows)
             AND `shedule_season_id`='$igosja_season_id'
             ORDER BY `shedule_id` ASC
             LIMIT 1";
-    $shedule_sql = igosja_db_query($sql);
+    $shedule_sql = f_igosja_mysqli_query($sql);
 }
 
 $shedule_array = $shedule_sql->fetch_all(1);
@@ -87,7 +87,7 @@ $sql = "SELECT `game_id`,
         AND `championship_country_id`='$country_id'
         AND `championship_division_id`='$division_id'
         ORDER BY `game_id` ASC";
-$game_sql = igosja_db_query($sql);
+$game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 
@@ -114,7 +114,7 @@ $sql = "SELECT `city_name`,
         AND `championship_country_id`='$country_id'
         AND `championship_division_id`='$division_id'
         ORDER BY `championship_place` ASC";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 

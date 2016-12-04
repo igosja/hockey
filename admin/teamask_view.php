@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
 $sql = "SELECT `team_id`,
                `team_name`,
@@ -17,7 +17,7 @@ $sql = "SELECT `team_id`,
         ON `teamask_user_id`=`user_id`
         WHERE `teamask_id`='$num_get'
         LIMIT 1";
-$teamask_sql = igosja_db_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $teamask_sql->num_rows)
 {

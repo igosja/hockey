@@ -9,13 +9,13 @@ if (!isset($auth_user_id))
 
 $num_get = $auth_user_id;
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $sql = "SELECT `user_code`,
                    `user_email`
             FROM `user`
             WHERE `user_id`='$num_get'";
-    $user_sql = igosja_db_query($sql);
+    $user_sql = f_igosja_mysqli_query($sql);
 
     $user_array = $user_sql->fetch_all(1);
 
@@ -110,7 +110,7 @@ $sql = "SELECT `country_name`,
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
         WHERE `user_id`='$num_get'";
-$user_sql = igosja_db_query($sql);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {
@@ -123,7 +123,7 @@ $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         ORDER BY `country_name` ASC";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
@@ -131,7 +131,7 @@ $sql = "SELECT `sex_id`,
                `sex_name`
         FROM `sex`
         ORDER BY `sex_id` ASC";
-$sex_sql = igosja_db_query($sql);
+$sex_sql = f_igosja_mysqli_query($sql);
 
 $sex_array = $sex_sql->fetch_all(1);
 

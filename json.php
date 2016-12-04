@@ -4,31 +4,31 @@ include (__DIR__ . '/include/include.php');
 
 $result = '';
 
-if ($email = f_igosja_post('signup_email'))
+if ($email = f_igosja_request_post('signup_email'))
 {
     $email  = trim($email);
     $result = f_igosja_check_user_by_email($email);
 }
-elseif ($login = f_igosja_post('signup_login'))
+elseif ($login = f_igosja_request_post('signup_login'))
 {
     $login  = trim($login);
     $result = f_igosja_check_user_by_login($login);
 }
-elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
+elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
 {
-    $player_id  = (int) f_igosja_get('player_id');
-    $shedule_id = (int) f_igosja_get('shedule_id');
+    $player_id  = (int) f_igosja_request_get('player_id');
+    $shedule_id = (int) f_igosja_request_get('shedule_id');
 
     $sql = "DELETE FROM `phisicalchange`
             WHERE `phisicalchange_player_id`='$player_id'
             AND `phisicalchange_shedule_id`>'$shedule_id'";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             FROM `phisicalchange`
             WHERE `phisicalchange_player_id`='$player_id'
             AND `phisicalchange_shedule_id`='$shedule_id'";
-    $check_sql = igosja_db_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(1);
     $count_check = $check_array[0]['count'];
@@ -38,7 +38,7 @@ elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
         $sql = "DELETE FROM `phisicalchange`
                 WHERE `phisicalchange_player_id`='$player_id'
                 AND `phisicalchange_shedule_id`='$shedule_id'";
-        igosja_db_query($sql);
+        f_igosja_mysqli_query($sql);
     }
     else
     {
@@ -48,7 +48,7 @@ elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
                 SET `phisicalchange_player_id`='$player_id',
                     `phisicalchange_shedule_id`='$shedule_id',
                     `phisicalchange_team_id`='$auth_team_id'";
-        igosja_db_query($sql);
+        f_igosja_mysqli_query($sql);
     }
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
@@ -63,7 +63,7 @@ elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
                 ORDER BY `shedule_id` ASC
                 LIMIT 1
             )";
-    $prev_sql = igosja_db_query($sql);
+    $prev_sql = f_igosja_mysqli_query($sql);
 
     $prev_array = $prev_sql->fetch_all(1);
     $count_prev = $prev_array[0]['count'];
@@ -73,7 +73,7 @@ elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
                    `phisical_value`
             FROM `phisical`
             ORDER BY `phisical_id` ASC";
-    $phisical_sql = igosja_db_query($sql);
+    $phisical_sql = f_igosja_mysqli_query($sql);
 
     $phisical_sql = $phisical_sql->fetch_all(1);
 
@@ -92,7 +92,7 @@ elseif ($phisical_id = (int) f_igosja_get('phisical_id'))
             WHERE `shedule_id`>='$shedule_id'
             AND `shedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
             ORDER BY `shedule_id` ASC";
-    $shedule_sql = igosja_db_query($sql);
+    $shedule_sql = f_igosja_mysqli_query($sql);
 
     $count_shedule = $shedule_sql->num_rows;
     $shedule_array = $shedule_sql->fetch_all(1);

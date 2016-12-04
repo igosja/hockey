@@ -2,13 +2,13 @@
 
 include (__DIR__ . '/../include/include.php');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
     $sql = "INSERT INTO `stadium`
             SET $set_sql";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/stadium_view.php?num=' . $mysqli->insert_id);
 }
@@ -17,7 +17,7 @@ $sql = "SELECT `city_id`,
                `city_name`
         FROM `city`
         ORDER BY `city_name` ASC";
-$city_sql = igosja_db_query($sql);
+$city_sql = f_igosja_mysqli_query($sql);
 
 $city_array = $city_sql->fetch_all(1);
 

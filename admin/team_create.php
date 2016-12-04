@@ -2,13 +2,13 @@
 
 include (__DIR__ . '/../include/include.php');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
     $sql = "INSERT INTO `team`
             SET $set_sql";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $num_get = $mysqli->insert_id;
 
@@ -26,7 +26,7 @@ $sql = "SELECT `stadium_id`,
                `stadium_name`
         FROM `stadium`
         ORDER BY `stadium_name` ASC";
-$stadium_sql = igosja_db_query($sql);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
 $stadium_array = $stadium_sql->fetch_all(1);
 

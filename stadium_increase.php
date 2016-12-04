@@ -15,7 +15,7 @@ $sql = "SELECT `stadium_capacity`,
         ON `team_stadium_id`=`stadium_id`
         WHERE `team_id`='$auth_team_id'
         LIMIT 1";
-$stadium_sql = igosja_db_query($sql);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $stadium_sql->num_rows)
 {
@@ -27,12 +27,12 @@ $stadium_array = $stadium_sql->fetch_all(1);
 $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
         FROM `buildingstadium`
         WHERE `buildingstadium_team_id`='$auth_team_id'";
-$buildingstadium_sql = igosja_db_query($sql);
+$buildingstadium_sql = f_igosja_mysqli_query($sql);
 
 $buildingstadium_array = $buildingstadium_sql->fetch_all(1);
 $count_buildingstadium = $buildingstadium_array[0]['count'];
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (isset($data['new_capacity']))
     {
@@ -46,7 +46,7 @@ if ($data = f_igosja_post('data'))
 
 if (!isset($new_capacity))
 {
-    if ($capacity = f_igosja_get('capacity'))
+    if ($capacity = f_igosja_request_get('capacity'))
     {
         $new_capacity = (int) $capacity;
     }
@@ -71,7 +71,7 @@ if (isset($new_capacity))
         {
             $base_error = 'Для строительства нужно ' . f_igosja_money($buildingstadium_price) . '.';
         }
-        elseif (!f_igosja_get('ok'))
+        elseif (!f_igosja_request_get('ok'))
         {
             $stadium_accept = 'При уменьшении стадиона до ' . $new_capacity
                             . ' мест будет стоить ' . f_igosja_money($buildingstadium_price)
@@ -87,13 +87,13 @@ if (isset($new_capacity))
                         `buildingstadium_constructiontype_id`='$constructiontype_id',
                         `buildingstadium_day`='$buildingstadium_day',
                         `buildingstadium_team_id`='$auth_team_id'";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-'$buildingstadium_price'
                     WHERE `team_id`='$auth_team_id'
                     LIMIT 1";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_capacity' => $new_capacity,

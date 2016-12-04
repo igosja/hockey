@@ -21,7 +21,7 @@ $sql = "SELECT IF(`count_newscomment`, `count_newscomment`, 0) AS `count_newscom
         ) AS `t1`
         ON `news_id`=`newscomment_news_id`
         ORDER BY `news_id` DESC";
-$news_sql = igosja_db_query($sql);
+$news_sql = f_igosja_mysqli_query($sql);
 
 $news_array = $news_sql->fetch_all(1);
 

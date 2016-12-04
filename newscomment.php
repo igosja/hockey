@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
@@ -17,7 +17,7 @@ $sql = "SELECT `news_date`,
         ON `news_user_id`=`user_id`
         WHERE `news_id`='$num_get'
         LIMIT 1";
-$news_sql = igosja_db_query($sql);
+$news_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $news_sql->num_rows)
 {
@@ -26,7 +26,7 @@ if (0 == $news_sql->num_rows)
 
 $news_array = $news_sql->fetch_all(1);
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (isset($auth_user_id))
     {
@@ -61,7 +61,7 @@ $sql = "SELECT `newscomment_date`,
         ON `newscomment_user_id`=`user_id`
         WHERE `newscomment_news_id`='$num_get'
         ORDER BY `newscomment_id` ASC";
-$newscomment_sql = igosja_db_query($sql);
+$newscomment_sql = f_igosja_mysqli_query($sql);
 
 $newscomment_array = $newscomment_sql->fetch_all(1);
 

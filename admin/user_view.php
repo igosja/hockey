@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
 $sql = "SELECT `user_date_login`,
                `user_date_register`,
@@ -13,7 +13,7 @@ $sql = "SELECT `user_date_login`,
         FROM `user`
         WHERE `user_id`='$num_get'
         LIMIT 1";
-$user_sql = igosja_db_query($sql);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {

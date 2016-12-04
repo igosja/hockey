@@ -7,7 +7,7 @@ if (!isset($auth_user_id))
     redirect('/wrong_page.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (isset($data['text']) && !empty(trim($data['text'])))
     {
@@ -48,7 +48,7 @@ $sql = "SELECT `country_name`,
         ON `user_country_id`=`country_id`
         WHERE `user_id`='$auth_user_id'
         LIMIT 1";
-$user_sql = igosja_db_query($sql);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {
@@ -70,7 +70,7 @@ $sql = "SELECT `message_date`,
         OR (`message_support_from`='1'
         AND `message_user_id_to`='$auth_user_id')
         ORDER BY `message_id` DESC";
-$message_sql = igosja_db_query($sql);
+$message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(1);
 
@@ -79,6 +79,6 @@ $sql = "UPDATE `message`
         WHERE `message_user_id_to`='$auth_user_id'
         AND `message_support_from`='1'
         AND `message_read`='0'";
-igosja_db_query($sql);
+f_igosja_mysqli_query($sql);
 
 include (__DIR__ . '/view/layout/main.php');

@@ -28,7 +28,7 @@
                                 class="form-control"
                                 name="filter[vote_id]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'vote_id'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'vote_id'); ?>"
                             />
                         </td>
                         <td>
@@ -36,7 +36,7 @@
                                 class="form-control"
                                 name="filter[vote_text]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'vote_text'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'vote_text'); ?>"
                             >
                         </td>
                         <td></td>

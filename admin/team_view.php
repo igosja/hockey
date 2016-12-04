@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
 $sql = "SELECT `city_id`,
                `city_name`,
@@ -22,7 +22,7 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`='$num_get'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {

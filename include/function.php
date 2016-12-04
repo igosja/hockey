@@ -1,68 +1,26 @@
 <?php
 
-function redirect($location)
-{
-    header('Location: ' . $location);
-    exit;
-}
-
 function refresh()
 {
     header('Refresh:0');
     exit;
 }
 
-function f_igosja_post($var, $subvar = '')
+function redirect($location)
 {
-    if ($subvar)
-    {
-        if (isset($_POST[$var][$subvar]))
-        {
-            $result = $_POST[$var][$subvar];
-        }
-        else
-        {
-            $result = '';
-        }
-    }
-    else
-    {
-        if (isset($_POST[$var]))
-        {
-            $result = $_POST[$var];
-        }
-        else
-        {
-            $result = '';
-        }
-    }
-
-    return $result;
+    header('Location: ' . $location);
+    exit;
 }
 
-function f_igosja_get($var, $subvar = '')
+function f_igosja_birth_date($item)
 {
-    if ($subvar)
+    if ($item['user_birth_day'] && $item['user_birth_day'] && $item['user_birth_year'])
     {
-        if (isset($_GET[$var][$subvar]))
-        {
-            $result = $_GET[$var][$subvar];
-        }
-        else
-        {
-            $result = '';
-        }
+        $result = $item['user_birth_day'] . '.' . $item['user_birth_month'] . '.' . $item['user_birth_year'];
     }
     else
     {
-        if (isset($_GET[$var]))
-        {
-            $result = $_GET[$var];
-        }
-        else
-        {
-            $result = '';
-        }
+        $result = 'Не указан';
     }
 
     return $result;
@@ -130,9 +88,284 @@ function f_igosja_check_user_by_login($login)
     return $result;
 }
 
-function f_igosja_hash_password($password)
+function f_igosja_create_team_players($team_id)
 {
-    return md5($password . md5(PASSWORD_SALT));
+    global $mysqli;
+
+    $sql = "SELECT `city_country_id`
+            FROM `team`
+            LEFT JOIN `stadium`
+            ON `team_stadium_id`=`stadium_id`
+            LEFT JOIN `city`
+            ON `stadium_city_id`=`city_id`
+            WHERE `team_id`='$team_id'
+            LIMIT 1";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(1);
+
+    $country_id = $country_array[0]['city_country_id'];
+
+    for ($i=0; $i<27; $i++)
+    {
+        if ($i < 2)
+        {
+            $position_id = POSITION_GK;
+        }
+        elseif ($i < 7)
+        {
+            $position_id = POSITION_LD;
+        }
+        elseif ($i < 12)
+        {
+            $position_id = POSITION_RD;
+        }
+        elseif ($i < 17)
+        {
+            $position_id = POSITION_LW;
+        }
+        elseif ($i < 22)
+        {
+            $position_id = POSITION_C;
+        }
+        else
+        {
+            $position_id = POSITION_RW;
+        }
+
+        $age = 17 + $i;
+
+        if (30 < $age)
+        {
+            $age = $age - 12;
+        }
+
+        $sql ="SELECT `phisical_id`,
+                      `phisical_value`
+               FROM `phisical`
+               ORDER BY RAND()
+               LIMIT 1";
+        $phisical_sql = f_igosja_mysqli_query($sql);
+
+        $phisical_array = $phisical_sql->fetch_all(1);
+
+        $phisical_id    = $phisical_array[0]['phisical_id'];
+        $phisical_value = $phisical_array[0]['phisical_value'];
+
+        $sql = "SELECT `namecountry_name_id`
+                FROM `namecountry`
+                WHERE `namecountry_country_id`='$country_id'
+                ORDER BY RAND()
+                LIMIT 1";
+        $name_sql = f_igosja_mysqli_query($sql);
+
+        $name_array = $name_sql->fetch_all(1);
+
+        $name_id = $name_array[0]['namecountry_name_id'];
+
+        $sql = "SELECT `surnamecountry_surname_id`
+                FROM `surnamecountry`
+                WHERE `surnamecountry_country_id`='$country_id'
+                ORDER BY RAND()
+                LIMIT 1";
+        $surname_sql = f_igosja_mysqli_query($sql);
+
+        $surname_array = $surname_sql->fetch_all(1);
+
+        $surname_id = $surname_array[0]['surnamecountry_surname_id'];
+
+        $shape      = rand(75, 125);
+        $style_id   = 1;
+        $ability    = rand(1, 5);
+
+        $sql = "INSERT INTO `player`
+                SET `player_age`='$age',
+                    `player_country_id`='$country_id',
+                    `player_name_id`='$name_id',
+                    `player_phisical_id`='$phisical_id',
+                    `player_power_nominal`='$age'*'2',
+                    `player_power_old`='$age'*'2',
+                    `player_power_real`=`player_power_nominal`*'60'/'100'*'$phisical_value'/'100',
+                    `player_price`='0',
+                    `player_salary`='0',
+                    `player_school_id`='$team_id',
+                    `player_shape`='$shape',
+                    `player_style_id`='$style_id ',
+                    `player_surname_id`='$surname_id',
+                    `player_team_id`='$team_id',
+                    `player_tire`='40',
+                    `player_training_ability`='$ability'";
+        f_igosja_mysqli_query($sql);
+
+        $player_id = $mysqli->insert_id;
+
+        $sql = "INSERT INTO `playerposition`
+                SET `playerposition_player_id`='$player_id',
+                    `playerposition_position_id`='$position_id'";
+        f_igosja_mysqli_query($sql);
+
+        $log = array(
+            'log_logtext_id' => LOGTEXT_PLAYER_FROM_SCHOOL,
+            'log_player_id' => $player_id,
+            'log_team_id' => $team_id,
+        );
+
+        f_igosja_log($log);
+    }
+}
+
+function f_igosja_finance($data)
+{
+    if (isset($data['finance_building_id']))
+    {
+        $finance_building_id = (int)$data['finance_building_id'];
+    }
+    else
+    {
+        $finance_building_id = 0;
+    }
+
+    if (isset($data['finance_capacity']))
+    {
+        $finance_capacity = (int)$data['finance_capacity'];
+    }
+    else
+    {
+        $finance_capacity = 0;
+    }
+
+    if (isset($data['finance_country_id']))
+    {
+        $finance_country_id = (int)$data['finance_country_id'];
+    }
+    else
+    {
+        $finance_country_id = 0;
+    }
+
+    if (isset($data['finance_financetext_id']))
+    {
+        $finance_financetext_id = (int)$data['finance_financetext_id'];
+    }
+    else
+    {
+        $finance_financetext_id = 0;
+    }
+
+    if (isset($data['finance_level']))
+    {
+        $finance_level = (int)$data['finance_level'];
+    }
+    else
+    {
+        $finance_level = 0;
+    }
+
+    if (isset($data['finance_national_id']))
+    {
+        $finance_national_id = (int)$data['finance_national_id'];
+    }
+    else
+    {
+        $finance_national_id = 0;
+    }
+
+    if (isset($data['finance_player_id']))
+    {
+        $finance_player_id = (int)$data['finance_player_id'];
+    }
+    else
+    {
+        $finance_player_id = 0;
+    }
+
+    if (isset($data['finance_team_id']))
+    {
+        $finance_team_id = (int)$data['finance_team_id'];
+    }
+    else
+    {
+        $finance_team_id = 0;
+    }
+
+    if (isset($data['finance_value']))
+    {
+        $finance_value = (int)$data['finance_value'];
+    }
+    else
+    {
+        $finance_value = 0;
+    }
+
+    if (isset($data['finance_value_after']))
+    {
+        $finance_value_after = (int)$data['finance_value_after'];
+    }
+    else
+    {
+        $finance_value_after = 0;
+    }
+
+    if (isset($data['finance_value_before']))
+    {
+        $finance_value_before = (int)$data['finance_value_before'];
+    }
+    else
+    {
+        $finance_value_before = 0;
+    }
+
+    $sql = "SELECT `season_id`
+            FROM `season`
+            ORDER BY `season_id` DESC
+            LIMIT 1";
+    $season_sql = f_igosja_mysqli_query($sql);
+
+    $season_array = $season_sql->fetch_all(1);
+
+    $finance_season_id = $season_array[0]['season_id'];
+
+    $sql = "INSERT INTO `finance`
+            SET `finance_building_id`='$finance_building_id',
+                `finance_capacity`='$finance_capacity',
+                `finance_country_id`='$finance_country_id',
+                `finance_date`=UNIX_TIMESTAMP(),
+                `finance_financetext_id`='$finance_financetext_id',
+                `finance_level`='$finance_level',
+                `finance_national_id`='$finance_national_id',
+                `finance_player_id`='$finance_player_id',
+                `finance_season_id`='$finance_season_id',
+                `finance_team_id`='$finance_team_id',
+                `finance_value`='$finance_value',
+                `finance_value_after`='$finance_value_after',
+                `finance_value_before`='$finance_value_before'";
+    f_igosja_mysqli_query($sql);
+}
+
+function f_igosja_game_auto($auto)
+{
+    $result = '';
+
+    if ($auto)
+    {
+        $result = '*';
+    }
+
+    return $result;
+}
+
+function f_igosja_game_score($played, $home_score, $guest_score)
+{
+    if ($played)
+    {
+        $result = $home_score . ':' . $guest_score;
+    }
+    else
+    {
+        $result = '?:?';
+    }
+
+    return $result;
 }
 
 function f_igosja_generate_user_code()
@@ -142,7 +375,7 @@ function f_igosja_generate_user_code()
     $sql = "SELECT COUNT(`user_id`) AS `count`
             FROM `user`
             WHERE `user_code`='$code'";
-    $check_sql = igosja_db_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(1);
 
@@ -156,53 +389,9 @@ function f_igosja_generate_user_code()
     return $code;
 }
 
-function f_igosja_sql_data($data)
+function f_igosja_hash_password($password)
 {
-    $sql = array();
-
-    foreach ($data as $key => $value)
-    {
-        $sql[] = '`' . $key . '`=\'' . $value . '\'';
-    }
-
-    $sql = implode(', ', $sql);
-
-    return $sql;
-}
-
-function f_igosja_ufu_date_time($date)
-{
-    return date('H:i d.m.Y', $date);
-}
-
-function f_igosja_ufu_date($date)
-{
-    return date('d.m.Y', $date);
-}
-
-function f_igosja_ufu_last_visit($date)
-{
-    $min_5  = $date + 5 * 60;
-    $min_60 = $date + 60 * 60;
-    $now    = time();
-
-    if ($min_5 >= $now)
-    {
-        $date = '<span class="red">онлайн</span>';
-    }
-    elseif ($min_60 >= $now)
-    {
-        $difference = $now - $date;
-        $difference = $difference / 60;
-        $difference = round($difference, 0);
-        $date       = $difference . ' минут назад';
-    }
-    else
-    {
-        $date = date('H:i d.m.Y', $date);
-    }
-
-    return $date;
+    return md5($password . md5(PASSWORD_SALT));
 }
 
 function f_igosja_log($data)
@@ -319,7 +508,7 @@ function f_igosja_log($data)
             FROM `season`
             ORDER BY `season_id` DESC
             LIMIT 1";
-    $season_sql = igosja_db_query($sql);
+    $season_sql = f_igosja_mysqli_query($sql);
 
     $season_array = $season_sql->fetch_all(1);
 
@@ -340,248 +529,7 @@ function f_igosja_log($data)
                 `log_team_2_id`='$log_team_2_id',
                 `log_user_id`='$log_user_id',
                 `log_value`='$log_value'";
-    igosja_db_query($sql);
-}
-
-function f_igosja_finance($data)
-{
-    if (isset($data['finance_building_id']))
-    {
-        $finance_building_id = (int)$data['finance_building_id'];
-    }
-    else
-    {
-        $finance_building_id = 0;
-    }
-
-    if (isset($data['finance_capacity']))
-    {
-        $finance_capacity = (int)$data['finance_capacity'];
-    }
-    else
-    {
-        $finance_capacity = 0;
-    }
-
-    if (isset($data['finance_country_id']))
-    {
-        $finance_country_id = (int)$data['finance_country_id'];
-    }
-    else
-    {
-        $finance_country_id = 0;
-    }
-
-    if (isset($data['finance_financetext_id']))
-    {
-        $finance_financetext_id = (int)$data['finance_financetext_id'];
-    }
-    else
-    {
-        $finance_financetext_id = 0;
-    }
-
-    if (isset($data['finance_level']))
-    {
-        $finance_level = (int)$data['finance_level'];
-    }
-    else
-    {
-        $finance_level = 0;
-    }
-
-    if (isset($data['finance_national_id']))
-    {
-        $finance_national_id = (int)$data['finance_national_id'];
-    }
-    else
-    {
-        $finance_national_id = 0;
-    }
-
-    if (isset($data['finance_player_id']))
-    {
-        $finance_player_id = (int)$data['finance_player_id'];
-    }
-    else
-    {
-        $finance_player_id = 0;
-    }
-
-    if (isset($data['finance_team_id']))
-    {
-        $finance_team_id = (int)$data['finance_team_id'];
-    }
-    else
-    {
-        $finance_team_id = 0;
-    }
-
-    if (isset($data['finance_value']))
-    {
-        $finance_value = (int)$data['finance_value'];
-    }
-    else
-    {
-        $finance_value = 0;
-    }
-
-    if (isset($data['finance_value_after']))
-    {
-        $finance_value_after = (int)$data['finance_value_after'];
-    }
-    else
-    {
-        $finance_value_after = 0;
-    }
-
-    if (isset($data['finance_value_before']))
-    {
-        $finance_value_before = (int)$data['finance_value_before'];
-    }
-    else
-    {
-        $finance_value_before = 0;
-    }
-
-    $sql = "SELECT `season_id`
-            FROM `season`
-            ORDER BY `season_id` DESC
-            LIMIT 1";
-    $season_sql = igosja_db_query($sql);
-
-    $season_array = $season_sql->fetch_all(1);
-
-    $finance_season_id = $season_array[0]['season_id'];
-
-    $sql = "INSERT INTO `finance`
-            SET `finance_building_id`='$finance_building_id',
-                `finance_capacity`='$finance_capacity',
-                `finance_country_id`='$finance_country_id',
-                `finance_date`=UNIX_TIMESTAMP(),
-                `finance_financetext_id`='$finance_financetext_id',
-                `finance_level`='$finance_level',
-                `finance_national_id`='$finance_national_id',
-                `finance_player_id`='$finance_player_id',
-                `finance_season_id`='$finance_season_id',
-                `finance_team_id`='$finance_team_id',
-                `finance_value`='$finance_value',
-                `finance_value_after`='$finance_value_after',
-                `finance_value_before`='$finance_value_before'";
-    igosja_db_query($sql);
-}
-
-function f_igosja_create_team_players($team_id)
-{
-    global $mysqli;
-
-    $sql = "SELECT `city_country_id`
-            FROM `team`
-            LEFT JOIN `stadium`
-            ON `team_stadium_id`=`stadium_id`
-            LEFT JOIN `city`
-            ON `stadium_city_id`=`city_id`
-            WHERE `team_id`='$team_id'
-            LIMIT 1";
-    $country_sql = igosja_db_query($sql);
-
-    $country_array = $country_sql->fetch_all(1);
-
-    $country_id = $country_array[0]['city_country_id'];
-
-    for ($i=0; $i<27; $i++)
-    {
-        if ($i < 2)
-        {
-            $position_id = POSITION_GK;
-        }
-        elseif ($i < 7)
-        {
-            $position_id = POSITION_LD;
-        }
-        elseif ($i < 12)
-        {
-            $position_id = POSITION_RD;
-        }
-        elseif ($i < 17)
-        {
-            $position_id = POSITION_LW;
-        }
-        elseif ($i < 22)
-        {
-            $position_id = POSITION_C;
-        }
-        else
-        {
-            $position_id = POSITION_RW;
-        }
-
-        $age = 17 + $i;
-
-        if (30 < $age)
-        {
-            $age = $age - 12;
-        }
-
-        $sql = "SELECT `namecountry_name_id`
-                FROM `namecountry`
-                WHERE `namecountry_country_id`='$country_id'
-                ORDER BY RAND()
-                LIMIT 1";
-        $name_sql = igosja_db_query($sql);
-
-        $name_array = $name_sql->fetch_all(1);
-
-        $name_id = $name_array[0]['namecountry_name_id'];
-
-        $sql = "SELECT `surnamecountry_surname_id`
-                FROM `surnamecountry`
-                WHERE `surnamecountry_country_id`='$country_id'
-                ORDER BY RAND()
-                LIMIT 1";
-        $surname_sql = igosja_db_query($sql);
-
-        $surname_array = $surname_sql->fetch_all(1);
-
-        $surname_id = $surname_array[0]['surnamecountry_surname_id'];
-
-        $shape      = rand(75, 125);
-        $style_id   = 1;
-        $ability    = rand(1, 5);
-
-        $sql = "INSERT INTO `player`
-                SET `player_age`='$age',
-                    `player_country_id`='$country_id',
-                    `player_name_id`='$name_id',
-                    `player_power_nominal`='$age'*'2',
-                    `player_power_old`='$age'*'2',
-                    `player_power_real`='$age'*'2',
-                    `player_price`='0',
-                    `player_salary`='0',
-                    `player_school_id`='$team_id',
-                    `player_shape`='$shape',
-                    `player_style_id`='$style_id ',
-                    `player_surname_id`='$surname_id',
-                    `player_team_id`='$team_id',
-                    `player_tire`='40',
-                    `player_training_ability`='$ability'";
-        igosja_db_query($sql);
-
-        $player_id = $mysqli->insert_id;
-
-        $sql = "INSERT INTO `playerposition`
-                SET `playerposition_player_id`='$player_id',
-                    `playerposition_position_id`='$position_id'";
-        igosja_db_query($sql);
-
-        $log = array(
-            'log_logtext_id' => LOGTEXT_PLAYER_FROM_SCHOOL,
-            'log_player_id' => $player_id,
-            'log_team_id' => $team_id,
-        );
-
-        f_igosja_log($log);
-    }
+    f_igosja_mysqli_query($sql);
 }
 
 function f_igosja_money($price)
@@ -592,6 +540,16 @@ function f_igosja_money($price)
     return $price;
 }
 
+function f_igosja_mysqli_query($sql)
+{
+    global $mysqli;
+    global $count_query;
+
+    $count_query++;
+
+    return $mysqli->query($sql);
+}
+
 function f_igosja_player_position($player_id)
 {
     $sql = "SELECT `position_name`
@@ -599,7 +557,7 @@ function f_igosja_player_position($player_id)
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id`='$player_id'";
-    $position_sql = igosja_db_query($sql);
+    $position_sql = f_igosja_mysqli_query($sql);
 
     $position_array = $position_sql->fetch_all(1);
 
@@ -623,7 +581,7 @@ function f_igosja_player_special($player_id)
             LEFT JOIN `special`
             ON `playerspecial_special_id`=`special_id`
             WHERE `playerspecial_player_id`='$player_id'";
-    $special_sql = igosja_db_query($sql);
+    $special_sql = f_igosja_mysqli_query($sql);
 
     $special_array = $special_sql->fetch_all(1);
 
@@ -639,18 +597,109 @@ function f_igosja_player_special($player_id)
     return $return;
 }
 
-function f_igosja_birth_date($item)
+function f_igosja_request_get($var, $subvar = '')
 {
-    if ($item['user_birth_day'] && $item['user_birth_day'] && $item['user_birth_year'])
+    if ($subvar)
     {
-        $result = $item['user_birth_day'] . '.' . $item['user_birth_month'] . '.' . $item['user_birth_year'];
+        if (isset($_GET[$var][$subvar]))
+        {
+            $result = $_GET[$var][$subvar];
+        }
+        else
+        {
+            $result = '';
+        }
     }
     else
     {
-        $result = 'Не указан';
+        if (isset($_GET[$var]))
+        {
+            $result = $_GET[$var];
+        }
+        else
+        {
+            $result = '';
+        }
     }
 
     return $result;
+}
+
+function f_igosja_request_post($var, $subvar = '')
+{
+    if ($subvar)
+    {
+        if (isset($_POST[$var][$subvar]))
+        {
+            $result = $_POST[$var][$subvar];
+        }
+        else
+        {
+            $result = '';
+        }
+    }
+    else
+    {
+        if (isset($_POST[$var]))
+        {
+            $result = $_POST[$var];
+        }
+        else
+        {
+            $result = '';
+        }
+    }
+
+    return $result;
+}
+
+function f_igosja_sql_data($data)
+{
+    $sql = array();
+
+    foreach ($data as $key => $value)
+    {
+        $sql[] = '`' . $key . '`=\'' . $value . '\'';
+    }
+
+    $sql = implode(', ', $sql);
+
+    return $sql;
+}
+
+function f_igosja_ufu_date($date)
+{
+    return date('d.m.Y', $date);
+}
+
+function f_igosja_ufu_date_time($date)
+{
+    return date('H:i d.m.Y', $date);
+}
+
+function f_igosja_ufu_last_visit($date)
+{
+    $min_5  = $date + 5 * 60;
+    $min_60 = $date + 60 * 60;
+    $now    = time();
+
+    if ($min_5 >= $now)
+    {
+        $date = '<span class="red">онлайн</span>';
+    }
+    elseif ($min_60 >= $now)
+    {
+        $difference = $now - $date;
+        $difference = $difference / 60;
+        $difference = round($difference, 0);
+        $date       = $difference . ' минут назад';
+    }
+    else
+    {
+        $date = date('H:i d.m.Y', $date);
+    }
+
+    return $date;
 }
 
 function f_igosja_user_from($item)
@@ -670,32 +719,6 @@ function f_igosja_user_from($item)
     else
     {
         $result = 'Не указано';
-    }
-
-    return $result;
-}
-
-function f_igosja_game_score($played, $home_score, $guest_score)
-{
-    if ($played)
-    {
-        $result = $home_score . ':' . $guest_score;
-    }
-    else
-    {
-        $result = '?:?';
-    }
-
-    return $result;
-}
-
-function f_igosja_game_auto($auto)
-{
-    $result = '';
-
-    if ($auto)
-    {
-        $result = '*';
     }
 
     return $result;

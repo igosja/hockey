@@ -10,7 +10,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `tournamenttype_id`
         LIMIT $offset, $limit";
-$tournamenttype_sql = igosja_db_query($sql);
+$tournamenttype_sql = f_igosja_mysqli_query($sql);
 
 $tournamenttype_array = $tournamenttype_sql->fetch_all(1);
 

@@ -7,7 +7,7 @@ if (isset($auth_user_id))
     redirect('/team_view.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['login']) || !isset($data['password']))
     {

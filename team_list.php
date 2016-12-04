@@ -14,7 +14,7 @@ $sql = "SELECT COUNT(`team_id`) AS `count_team`,
         ON `city_country_id`=`country_id`
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 

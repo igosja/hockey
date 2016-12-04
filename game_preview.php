@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
@@ -37,7 +37,7 @@ $sql = "SELECT `game_guest_forecast`,
         ON `stadium_team`.`team_stadium_id`=`stadium_id`
         WHERE `game_id`='$num_get'
         LIMIT 1";
-$game_sql = igosja_db_query($sql);
+$game_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $game_sql->num_rows)
 {
@@ -76,7 +76,7 @@ $sql = "SELECT `game_guest_score`,
         OR (`game_home_team_id`='$guest_team_id'
         AND `game_guest_team_id`='$home_team_id')
         ORDER BY `game_id` DESC";
-$previous_sql = igosja_db_query($sql);
+$previous_sql = f_igosja_mysqli_query($sql);
 
 $previous_array = $previous_sql->fetch_all(1);
 

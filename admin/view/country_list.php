@@ -27,7 +27,7 @@
                             class="form-control"
                             name="filter[country_id]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'country_id'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'country_id'); ?>"
                         />
                     </td>
                     <td>
@@ -35,7 +35,7 @@
                             class="form-control"
                             name="filter[country_name]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'country_name'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'country_name'); ?>"
                         >
                     </td>
                     <td></td>

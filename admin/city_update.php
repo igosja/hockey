@@ -2,9 +2,9 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
@@ -12,7 +12,7 @@ if ($data = f_igosja_post('data'))
             SET $set_sql
             WHERE `city_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/city_view.php?num=' . $num_get);
 }
@@ -23,7 +23,7 @@ $sql = "SELECT `city_country_id`,
         FROM `city`
         WHERE `city_id`='$num_get'
         LIMIT 1";
-$city_sql = igosja_db_query($sql);
+$city_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $city_sql->num_rows)
 {
@@ -36,7 +36,7 @@ $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         ORDER BY `country_name` ASC";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 

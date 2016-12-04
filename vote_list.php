@@ -6,7 +6,7 @@ $sql = "UPDATE `vote`
         SET `vote_votestatus_id`='" . VOTESTATUS_CLOSE . "'
         WHERE `vote_votestatus_id`='" . VOTESTATUS_OPEN . "'
         AND `vote_date`<UNIX_TIMESTAMP()-'604800'";
-igosja_db_query($sql);
+f_igosja_mysqli_query($sql);
 
 $sql = "SELECT `count_answer`,
                `user_id`,
@@ -33,7 +33,7 @@ $sql = "SELECT `count_answer`,
         WHERE `vote_country_id`='0'
         AND `votestatus_id`>'" . VOTESTATUS_NEW . "'
         ORDER BY `votestatus_id` ASC, `vote_id` DESC, `count_answer` DESC, `voteanswer_id` ASC";
-$vote_sql = igosja_db_query($sql);
+$vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(1);
 

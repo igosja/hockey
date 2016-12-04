@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     if (!isset($auth_user_id))
     {
@@ -29,7 +29,7 @@ $sql = "SELECT `country_name`,
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
         WHERE `user_id`='$num_get'";
-$user_sql = igosja_db_query($sql);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {

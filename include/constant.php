@@ -11,6 +11,7 @@ define('BUILDING_BASETRAINING', 6);
 define('CONSTRUCTION_BUILD', 1);
 define('CONSTRUCTION_DESTROY', 2);
 define('EMAIL_INFO', 'info@' . $_SERVER['HTTP_HOST']);
+define('GAME_LINEUP_QUANTITY', 16);
 define('FINANCETEXT_INCOME_BUILDING_BASE', 17);
 define('FINANCETEXT_INCOME_BUILDING_STADIUM', 15);
 define('FINANCETEXT_INCOME_NATIONAL', 26);
@@ -145,7 +146,7 @@ $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC
         LIMIT 1";
-$season_sql = igosja_db_query($sql);
+$season_sql = f_igosja_mysqli_query($sql);
 
 $season_array = $season_sql->fetch_all(1);
 

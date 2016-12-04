@@ -9,7 +9,7 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $confirm_data = array('position' => array());
 
@@ -21,14 +21,14 @@ if ($data = f_igosja_post('data'))
                 FROM `position`
                 WHERE `position_id`='$position_id'
                 LIMIT 1";
-        $position_sql = igosja_db_query($sql);
+        $position_sql = f_igosja_mysqli_query($sql);
 
         if ($position_sql->num_rows)
         {
             $sql = "SELECT COUNT(`school_id`) AS `count`
                     FROM `school`
                     WHERE `school_team_id`='$auth_team_id'";
-            $check_sql = igosja_db_query($sql);
+            $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(1);
             $count_check = $check_array[0]['count'];
@@ -56,7 +56,7 @@ if ($data = f_igosja_post('data'))
                         `school_team_id`='$auth_team_id',
                         `school_season_id`='$igosja_season_id',
                         `school_position_id`='$position_id'";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
         }
 
         $_SESSION['message']['class']   = 'success';
@@ -77,7 +77,7 @@ $sql = "SELECT `country_id`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`='$auth_team_id'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -85,7 +85,7 @@ $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = igosja_db_query($sql);
+$position_sql = f_igosja_mysqli_query($sql);
 
 $position_array = $position_sql->fetch_all(1);
 

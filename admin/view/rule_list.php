@@ -27,7 +27,7 @@
                                 class="form-control"
                                 name="filter[rule_id]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'rule_id'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'rule_id'); ?>"
                             />
                         </td>
                         <td>
@@ -35,7 +35,7 @@
                                 class="form-control"
                                 name="filter[rule_title]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'rule_title'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'rule_title'); ?>"
                             >
                         </td>
                         <td></td>

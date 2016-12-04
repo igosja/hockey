@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
@@ -12,7 +12,7 @@ $sql = "SELECT `rule_text`,
         FROM `rule`
         WHERE `rule_id`='$num_get'
         LIMIT 1";
-$rule_sql = igosja_db_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $rule_sql->num_rows)
 {

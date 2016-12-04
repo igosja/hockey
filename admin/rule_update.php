@@ -2,9 +2,9 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
@@ -12,7 +12,7 @@ if ($data = f_igosja_post('data'))
             SET $set_sql
             WHERE `rule_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/rule_view.php?num=' . $num_get);
 }
@@ -23,7 +23,7 @@ $sql = "SELECT `rule_id`,
         FROM `rule`
         WHERE `rule_id`='$num_get'
         LIMIT 1";
-$rule_sql = igosja_db_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $rule_sql->num_rows)
 {

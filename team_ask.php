@@ -12,13 +12,13 @@ if ($auth_team_id)
     redirect('/team_view.php');
 }
 
-if ($num_get = (int) f_igosja_get('num'))
+if ($num_get = (int) f_igosja_request_get('num'))
 {
     $sql = "SELECT COUNT(`team_id`) AS `check`
             FROM `team`
             WHERE `team_id`='$num_get'
             AND `team_user_id`='0'";
-    $team_sql = igosja_db_query($sql);
+    $team_sql = f_igosja_mysqli_query($sql);
 
     $team_array = $team_sql->fetch_all(1);
 
@@ -33,7 +33,7 @@ if ($num_get = (int) f_igosja_get('num'))
     $sql = "SELECT COUNT(`teamask_id`) AS `check`
             FROM `teamask`
             WHERE `teamask_user_id`='$auth_user_id'";
-    $teamask_sql = igosja_db_query($sql);
+    $teamask_sql = f_igosja_mysqli_query($sql);
 
     $teamask_array = $teamask_sql->fetch_all(1);
 
@@ -49,7 +49,7 @@ if ($num_get = (int) f_igosja_get('num'))
             SET `teamask_date`=UNIX_TIMESTAMP(),
                 `teamask_team_id`='$num_get',
                 `teamask_user_id`='$auth_user_id'";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['text'] = 'Заявка успешно подана';
     $_SESSION['message']['class'] = 'success';
@@ -60,7 +60,7 @@ if ($num_get = (int) f_igosja_get('num'))
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`
         WHERE `teamask_user_id`='$auth_user_id'";
-$teamask_sql = igosja_db_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
 $teamask_array = $teamask_sql->fetch_all(1);
 
@@ -86,7 +86,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_user_id`='0'
         ORDER BY `team_id`";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 

@@ -16,7 +16,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         AND `message_support_to`='1'
         ORDER BY `message_read` ASC, `message_id` DESC
         LIMIT $offset, $limit";
-$message_sql = igosja_db_query($sql);
+$message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(1);
 

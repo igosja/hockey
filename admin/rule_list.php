@@ -10,7 +10,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `rule_order`
         LIMIT $offset, $limit";
-$rule_sql = igosja_db_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql);
 
 $rule_array = $rule_sql->fetch_all(1);
 

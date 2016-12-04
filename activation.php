@@ -2,9 +2,9 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$data = f_igosja_post('data'))
+if (!$data = f_igosja_request_post('data'))
 {
-    $data = f_igosja_get('data');
+    $data = f_igosja_request_get('data');
 }
 
 if (isset($data['code']))
@@ -45,7 +45,7 @@ if (isset($data['code']))
             SET `user_date_confirm`=UNIX_TIMESTAMP()
             WHERE `user_code`='$code'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Профиль уже активирован.';

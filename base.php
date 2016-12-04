@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     if (!isset($auth_team_id))
     {
@@ -38,7 +38,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`='$num_get'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
@@ -50,7 +50,7 @@ $team_array = $team_sql->fetch_all(1);
 $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         FROM `buildingbase`
         WHERE `buildingbase_team_id`='$auth_team_id'";
-$buildingbase_sql = igosja_db_query($sql);
+$buildingbase_sql = f_igosja_mysqli_query($sql);
 
 $buildingbase_array = $buildingbase_sql->fetch_all(1);
 $count_buildingbase = $buildingbase_array[0]['count'];
@@ -99,11 +99,11 @@ $sql = "SELECT `base_id`,
         LEFT JOIN `basetraining`
         ON `team_basetraining_id`=`basetraining_id`
         WHERE `team_id`='$num_get'";
-$base_sql = igosja_db_query($sql);
+$base_sql = f_igosja_mysqli_query($sql);
 
 $base_array = $base_sql->fetch_all(1);
 
-if ($building_id = (int) f_igosja_get('building_id'))
+if ($building_id = (int) f_igosja_request_get('building_id'))
 {
     if ($count_buildingbase)
     {
@@ -111,7 +111,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
     }
     else
     {
-        if (!$constructiontype_id = (int) f_igosja_get('constructiontype_id'))
+        if (!$constructiontype_id = (int) f_igosja_request_get('constructiontype_id'))
         {
             $constructiontype_id = CONSTRUCTION_BUILD;
         }
@@ -130,7 +130,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         FROM `base`
                         WHERE `base_id`='$level'
                         LIMIT 1";
-                $baseinfo_sql = igosja_db_query($sql);
+                $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                 if (0 == $baseinfo_sql->num_rows)
                 {
@@ -148,7 +148,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                     {
                         $base_error = 'Для строительства нужно ' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '.';
                     }
-                    elseif (!f_igosja_get('ok'))
+                    elseif (!f_igosja_request_get('ok'))
                     {
                         $base_accept = 'Строительство базы ' . $baseinfo_array[0]['base_level']
                                      . ' уровня будет стоить ' . f_igosja_money($baseinfo_array[0]['base_price_buy'])
@@ -165,13 +165,13 @@ if ($building_id = (int) f_igosja_get('building_id'))
                                     `buildingbase_constructiontype_id`='$constructiontype_id',
                                     `buildingbase_day`='$buildingbase_day',
                                     `buildingbase_team_id`='$auth_team_id'";
-                        igosja_db_query($sql);
+                        f_igosja_mysqli_query($sql);
 
                         $sql = "UPDATE `team`
                                 SET `team_finance`=`team_finance`-'$buildingbase_price'
                                 WHERE `team_id`='$auth_team_id'
                                 LIMIT 1";
-                        igosja_db_query($sql);
+                        f_igosja_mysqli_query($sql);
 
                         $finance = array(
                             'finance_building_id' => $building_id,
@@ -197,7 +197,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         FROM `building`
                         WHERE `building_id`='$building_id'
                         LIMIT 1";
-                $building_sql = igosja_db_query($sql);
+                $building_sql = f_igosja_mysqli_query($sql);
 
                 if (0 == $building_sql->num_rows)
                 {
@@ -219,7 +219,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                             FROM `" . $building_name . "`
                             WHERE `" . $building_name . "_id`='$level'
                             LIMIT 1";
-                    $baseinfo_sql = igosja_db_query($sql);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -237,7 +237,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         {
                             $base_error = 'Для строительства нужно ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '.';
                         }
-                        elseif (!f_igosja_get('ok'))
+                        elseif (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'Строительство здания ' . $baseinfo_array[0][$building_name . '_level']
                                      . ' уровня будет стоить ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
@@ -254,13 +254,13 @@ if ($building_id = (int) f_igosja_get('building_id'))
                                         `buildingbase_constructiontype_id`='$constructiontype_id',
                                         `buildingbase_day`='$buildingbase_day',
                                         `buildingbase_team_id`='$auth_team_id'";
-                            igosja_db_query($sql);
+                            f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
                                     SET `team_finance`=`team_finance`-'$buildingbase_price'
                                     WHERE `team_id`='$auth_team_id'
                                     LIMIT 1";
-                            igosja_db_query($sql);
+                            f_igosja_mysqli_query($sql);
 
                             $finance = array(
                                 'finance_building_id' => $building_id,
@@ -292,7 +292,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         FROM `base`
                         WHERE `base_id`='$level'
                         LIMIT 1";
-                $baseinfo_sql = igosja_db_query($sql);
+                $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                 if (0 == $baseinfo_sql->num_rows)
                 {
@@ -313,7 +313,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         FROM `base`
                         WHERE `base_id`='$level'
                         LIMIT 1";
-                $baseinfo_sql = igosja_db_query($sql);
+                $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                 if (0 == $baseinfo_sql->num_rows)
                 {
@@ -327,7 +327,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                     {
                         $base_error = 'Максимальное количество занятых слотов должно быть не больше ' . $baseinfo_array[0]['base_slot_max'] . '.';
                     }
-                    elseif (!f_igosja_get('ok'))
+                    elseif (!f_igosja_request_get('ok'))
                     {
                         $base_accept = 'При строительстве базы ' . $baseinfo_array[0]['base_level']
                                      . ' уровня вы получите компенсацию ' . f_igosja_money($buildingbase_price)
@@ -342,13 +342,13 @@ if ($building_id = (int) f_igosja_get('building_id'))
                                     `buildingbase_constructiontype_id`='$constructiontype_id',
                                     `buildingbase_day`='$buildingbase_day',
                                     `buildingbase_team_id`='$auth_team_id'";
-                        igosja_db_query($sql);
+                        f_igosja_mysqli_query($sql);
 
                         $sql = "UPDATE `team`
                                 SET `team_finance`=`team_finance`+'$buildingbase_price'
                                 WHERE `team_id`='$auth_team_id'
                                 LIMIT 1";
-                        igosja_db_query($sql);
+                        f_igosja_mysqli_query($sql);
 
                         $finance = array(
                             'finance_building_id' => $building_id,
@@ -374,7 +374,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                         FROM `building`
                         WHERE `building_id`='$building_id'
                         LIMIT 1";
-                $building_sql = igosja_db_query($sql);
+                $building_sql = f_igosja_mysqli_query($sql);
 
                 if (0 == $building_sql->num_rows)
                 {
@@ -392,7 +392,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                             FROM `" . $building_name . "`
                             WHERE `" . $building_name . "_id`='$level'
                             LIMIT 1";
-                    $baseinfo_sql = igosja_db_query($sql);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -413,7 +413,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                             FROM `" . $building_name . "`
                             WHERE `" . $building_name . "_id`='$level'
                             LIMIT 1";
-                    $baseinfo_sql = igosja_db_query($sql);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -423,7 +423,7 @@ if ($building_id = (int) f_igosja_get('building_id'))
                     {
                         $baseinfo_array = $baseinfo_sql->fetch_all(1);
 
-                        if (!f_igosja_get('ok'))
+                        if (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'При строительстве здания ' . $baseinfo_array[0][$building_name . '_level']
                                      . ' уровня вы получите компенсацию ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
@@ -438,13 +438,13 @@ if ($building_id = (int) f_igosja_get('building_id'))
                                         `buildingbase_constructiontype_id`='$constructiontype_id',
                                         `buildingbase_day`='$buildingbase_day',
                                         `buildingbase_team_id`='$auth_team_id'";
-                            igosja_db_query($sql);
+                            f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
                                     SET `team_finance`=`team_finance`+'$buildingbase_price'
                                     WHERE `team_id`='$auth_team_id'
                                     LIMIT 1";
-                            igosja_db_query($sql);
+                            f_igosja_mysqli_query($sql);
 
                             $finance = array(
                                 'finance_building_id' => $building_id,

@@ -15,7 +15,7 @@ $price_min          = 0;
 $price_max          = 0;
 $surname            = '';
 
-if ($data = f_igosja_get('data'))
+if ($data = f_igosja_request_get('data'))
 {
     $age_max        = (int) $data['age_max'];
     $age_min        = (int) $data['age_min'];
@@ -95,7 +95,7 @@ if ($surname)
     $bind_param_array[] = '%' . $surname . '%';
 }
 
-if (!$page = (int) f_igosja_get('page'))
+if (!$page = (int) f_igosja_request_get('page'))
 {
     $page = 1;
 }
@@ -156,14 +156,14 @@ if (count($bind_param_array))
 }
 else
 {
-    $player_sql = igosja_db_query($sql);
+    $player_sql = f_igosja_mysqli_query($sql);
 }
 
 $count_player = $player_sql->num_rows;
 $player_array = $player_sql->fetch_all(1);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = igosja_db_query($sql);
+$total = f_igosja_mysqli_query($sql);
 $total = $total->fetch_all(1);
 $total = $total[0]['count'];
 
@@ -173,7 +173,7 @@ $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = igosja_db_query($sql);
+$position_sql = f_igosja_mysqli_query($sql);
 
 $position_array = $position_sql->fetch_all(1);
 
@@ -181,7 +181,7 @@ $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         ORDER BY `country_id` ASC";
-$country_sql = igosja_db_query($sql);
+$country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 

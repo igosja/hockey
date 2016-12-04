@@ -2,9 +2,9 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
@@ -12,7 +12,7 @@ if ($data = f_igosja_post('data'))
             SET $set_sql
             WHERE `team_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/team_view.php?num=' . $num_get);
 }
@@ -23,7 +23,7 @@ $sql = "SELECT `team_stadium_id`,
         FROM `team`
         WHERE `team_id`='$num_get'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
@@ -36,7 +36,7 @@ $sql = "SELECT `stadium_id`,
                `stadium_name`
         FROM `stadium`
         ORDER BY `stadium_name` ASC";
-$stadium_sql = igosja_db_query($sql);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
 $stadium_array = $stadium_sql->fetch_all(1);
 

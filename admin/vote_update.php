@@ -2,18 +2,18 @@
 
 include (__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_get('num');
+$num_get = (int) f_igosja_request_get('num');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
-    $answer  = f_igosja_post('answer', 'voteanswer_text');
+    $answer  = f_igosja_request_post('answer', 'voteanswer_text');
 
     $sql = "UPDATE `vote`
             SET $set_sql
             WHERE `vote_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     foreach ($answer as $key => $item)
     {
@@ -25,7 +25,7 @@ if ($data = f_igosja_post('data'))
                     FROM `voteanswer`
                     WHERE `voteanswer_vote_id`='$num_get'
                     AND `voteanswer_id`='$key'";
-            $check_sql = igosja_db_query($sql);
+            $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(1);
 
@@ -35,7 +35,7 @@ if ($data = f_igosja_post('data'))
                         SET `voteanswer_text`='$item'
                         WHERE `voteanswer_id`='$key'
                         LIMIT 1";
-                igosja_db_query($sql);
+                f_igosja_mysqli_query($sql);
             }
             else
             {
@@ -43,7 +43,7 @@ if ($data = f_igosja_post('data'))
                         SET `voteanswer_text`='$item',
                             `voteanswer_vote_id`='$num_get'
                         WHERE `voteanswer_id`='$key'";
-                igosja_db_query($sql);
+                f_igosja_mysqli_query($sql);
             }
         }
     }
@@ -60,7 +60,7 @@ $sql = "SELECT `vote_id`,
         ON `vote_id`=`voteanswer_vote_id`
         WHERE `vote_id`='$num_get'
         ORDER BY `voteanswer_id` ASC";
-$vote_sql = igosja_db_query($sql);
+$vote_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $vote_sql->num_rows)
 {

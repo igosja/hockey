@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     if (!isset($auth_team_id))
     {
@@ -43,7 +43,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`='$num_get'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
@@ -83,7 +83,7 @@ $sql = "SELECT `city_name`,
         OR `game_home_team_id`='$num_get')
         AND `shedule_season_id`='$igosja_season_id'
         ORDER BY `shedule_id` ASC";
-$game_sql = igosja_db_query($sql);
+$game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 

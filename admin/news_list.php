@@ -11,7 +11,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `news_id`
         LIMIT $offset, $limit";
-$news_sql = igosja_db_query($sql);
+$news_sql = f_igosja_mysqli_query($sql);
 
 $news_array = $news_sql->fetch_all(1);
 

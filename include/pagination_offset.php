@@ -1,7 +1,7 @@
 <?php
 
 $limit  = ADMIN_ITEMS_ON_PAGE;
-$page   = f_igosja_get('page');
+$page   = f_igosja_request_get('page');
 
 if (!$page)
 {

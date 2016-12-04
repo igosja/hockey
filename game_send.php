@@ -7,7 +7,7 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
@@ -26,14 +26,14 @@ $sql = "SELECT `game_guest_team_id`,
         AND `game_played`='0'
         AND `game_id`='$num_get'
         LIMIT 1";
-$current_sql = igosja_db_query($sql);
+$current_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $current_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (isset($data['ticket']))
     {
@@ -74,7 +74,7 @@ if ($data = f_igosja_post('data'))
             WHERE `game_home_team_id`='$auth_team_id'
             AND `game_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `game`
             SET `game_guest_mood_id`='$mood_id',
@@ -84,7 +84,7 @@ if ($data = f_igosja_post('data'))
             WHERE `game_guest_team_id`='$auth_team_id'
             AND `game_id`='$num_get'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     for ($i=0; $i<16; $i++)
     {
@@ -112,7 +112,7 @@ if ($data = f_igosja_post('data'))
                 AND `lineup_position_id`='$position_id'
                 AND `lineup_team_id`='$auth_team_id'
                 LIMIT 1";
-        $lineup_sql = igosja_db_query($sql);
+        $lineup_sql = f_igosja_mysqli_query($sql);
 
         if (0 == $lineup_sql->num_rows)
         {
@@ -122,7 +122,7 @@ if ($data = f_igosja_post('data'))
                         `lineup_player_id`='$player_id',
                         `lineup_position_id`='$position_id',
                         `lineup_team_id`='$auth_team_id'";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
         }
         else
         {
@@ -134,7 +134,7 @@ if ($data = f_igosja_post('data'))
                     SET `lineup_player_id`='$player_id'
                     WHERE `lineup_id`='$lineup_id'
                     LIMIT 1";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
         }
     }
 
@@ -170,7 +170,7 @@ $sql = "SELECT `lineup_line_id`,
         WHERE `lineup_game_id`='$num_get'
         AND `lineup_team_id`='$auth_team_id'
         ORDER BY `lineup_id` ASC";
-$lineup_sql = igosja_db_query($sql);
+$lineup_sql = f_igosja_mysqli_query($sql);
 
 $lineup_array = $lineup_sql->fetch_all(1);
 
@@ -216,7 +216,7 @@ $sql = "SELECT `game_id`,
         AND `game_played`='0'
         ORDER BY `shedule_date` ASC
         LIMIT 5";
-$game_sql = igosja_db_query($sql);
+$game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 
@@ -238,7 +238,7 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         WHERE `player_team_id`='$auth_team_id'
         ORDER BY `player_id` ASC";
-$player_sql = igosja_db_query($sql);
+$player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
 
@@ -268,7 +268,7 @@ for ($i=1; $i<=6; $i++)
             WHERE `player_team_id`='$auth_team_id'
             AND `playerposition_position_id`='$i'
             ORDER BY `player_power_real` DESC";
-    $result_sql = igosja_db_query($sql);
+    $result_sql = f_igosja_mysqli_query($sql);
 
     $$array_name = $result_sql->fetch_all(1);
 }
@@ -277,7 +277,7 @@ $sql = "SELECT `tactic_id`,
                `tactic_name`
         FROM `tactic`
         ORDER BY `tactic_id` ASC";
-$tactic_sql = igosja_db_query($sql);
+$tactic_sql = f_igosja_mysqli_query($sql);
 
 $tactic_array = $tactic_sql->fetch_all(1);
 
@@ -285,7 +285,7 @@ $sql = "SELECT `rude_id`,
                `rude_name`
         FROM `rude`
         ORDER BY `rude_id` ASC";
-$rude_sql = igosja_db_query($sql);
+$rude_sql = f_igosja_mysqli_query($sql);
 
 $rude_array = $rude_sql->fetch_all(1);
 
@@ -293,7 +293,7 @@ $sql = "SELECT `style_id`,
                `style_name`
         FROM `style`
         ORDER BY `style_id` ASC";
-$style_sql = igosja_db_query($sql);
+$style_sql = f_igosja_mysqli_query($sql);
 
 $style_array = $style_sql->fetch_all(1);
 
@@ -301,7 +301,7 @@ $sql = "SELECT `mood_id`,
                `mood_name`
         FROM `mood`
         ORDER BY `mood_id` ASC";
-$mood_sql = igosja_db_query($sql);
+$mood_sql = f_igosja_mysqli_query($sql);
 
 $mood_array = $mood_sql->fetch_all(1);
 

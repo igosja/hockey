@@ -2,14 +2,14 @@
 
 include (__DIR__ . '/../include/include.php');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
     $sql = "INSERT INTO `rule`
             SET $set_sql,
                 `rule_date`=UNIX_TIMESTAMP()";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/rule_view.php?num=' . $mysqli->insert_id);
 }

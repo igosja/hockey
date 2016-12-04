@@ -22,7 +22,7 @@
                             class="form-control"
                             name="filter[teamask_id]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'teamask_id'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'teamask_id'); ?>"
                         />
                     </td>
                     <td></td>
@@ -31,7 +31,7 @@
                             class="form-control"
                             name="filter[user_login]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'user_login'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'user_login'); ?>"
                         >
                     </td>
                     <td>
@@ -39,7 +39,7 @@
                             class="form-control"
                             name="filter[team_name]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'team_name'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'team_name'); ?>"
                         >
                     </td>
                     <td></td>

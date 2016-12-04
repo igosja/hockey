@@ -27,7 +27,7 @@
                             class="form-control"
                             name="filter[tournamenttype_id]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'tournamenttype_id'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'tournamenttype_id'); ?>"
                         />
                     </td>
                     <td>
@@ -35,7 +35,7 @@
                             class="form-control"
                             name="filter[tournamenttype_name]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'tournamenttype_name'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'tournamenttype_name'); ?>"
                         >
                     </td>
                     <td></td>

@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/../include/include.php');
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data);
 
@@ -10,7 +10,7 @@ if ($data = f_igosja_post('data'))
             SET $set_sql,
                 `news_date`=UNIX_TIMESTAMP(),
                 `news_user_id`='$auth_user_id'";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/news_view.php?num=' . $mysqli->insert_id);
 }

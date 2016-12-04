@@ -27,7 +27,7 @@
                                 class="form-control"
                                 name="filter[surname_id]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'surname_id'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'surname_id'); ?>"
                             />
                         </td>
                         <td>
@@ -35,7 +35,7 @@
                                 class="form-control"
                                 name="filter[surname_name]"
                                 type="text"
-                                value="<?= f_igosja_get('filter', 'surname_name'); ?>"
+                                value="<?= f_igosja_request_get('filter', 'surname_name'); ?>"
                             >
                         </td>
                         <td></td>

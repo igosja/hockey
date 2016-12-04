@@ -18,7 +18,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `teamask_date` ASC
         LIMIT $offset, $limit";
-$teamask_sql = igosja_db_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
 $teamask_array = $teamask_sql->fetch_all(1);
 

@@ -13,7 +13,7 @@ $sql = "SELECT `news_date`,
         WHERE `news_country_id`='0'
         ORDER BY `news_id` DESC
         LIMIT 1";
-$news_sql = igosja_db_query($sql);
+$news_sql = f_igosja_mysqli_query($sql);
 
 $news_array = $news_sql->fetch_all(1);
 

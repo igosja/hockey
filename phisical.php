@@ -20,7 +20,7 @@ $sql = "SELECT `phisical_id`,
                `phisical_value`
         FROM `phisical`
         ORDER BY `phisical_id` ASC";
-$phisical_sql = igosja_db_query($sql);
+$phisical_sql = f_igosja_mysqli_query($sql);
 
 $phisical_sql = $phisical_sql->fetch_all(1);
 
@@ -37,7 +37,7 @@ $sql = "SELECT `shedule_date`,
         WHERE `shedule_date`>UNIX_TIMESTAMP()
         AND `shedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
         ORDER BY `shedule_id` ASC";
-$shedule_sql = igosja_db_query($sql);
+$shedule_sql = f_igosja_mysqli_query($sql);
 
 $count_shedule = $shedule_sql->num_rows;
 $shedule_array = $shedule_sql->fetch_all(1);
@@ -56,7 +56,7 @@ $sql = "SELECT `phisicalchange_player_id`,
         FROM `phisicalchange`
         WHERE `phisicalchange_team_id`='$num_get'
         ORDER BY `phisicalchange_id` ASC";
-$phisicalchange_sql = igosja_db_query($sql);
+$phisicalchange_sql = f_igosja_mysqli_query($sql);
 
 $phisicalchange_array = $phisicalchange_sql->fetch_all(1);
 
@@ -84,7 +84,7 @@ $sql = "SELECT `name_name`,
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
         WHERE `player_team_id`='$num_get'";
-$player_sql = igosja_db_query($sql);
+$player_sql = f_igosja_mysqli_query($sql);
 
 $count_player = $player_sql->num_rows;
 $player_array = $player_sql->fetch_all(1);
@@ -107,7 +107,7 @@ for ($i=0; $i<$count_player; $i++)
                         FROM `phisical`
                         WHERE `phisical_id`='$phisical_id'
                         LIMIT 1";
-                $opposite_sql = igosja_db_query($sql);
+                $opposite_sql = f_igosja_mysqli_query($sql);
 
                 $opposite_array = $phisical_sql->fetch_all(1);
 
@@ -144,7 +144,7 @@ for ($i=0; $i<$count_player; $i++)
                         FROM `phisical`
                         WHERE `phisical_id`='$phisical_id'
                         LIMIT 1";
-                $opposite_sql = igosja_db_query($sql);
+                $opposite_sql = f_igosja_mysqli_query($sql);
 
                 $opposite_array = $opposite_sql->fetch_all(1);
 

@@ -7,7 +7,7 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     $confirm_data = array('power' => array());
 
@@ -27,14 +27,14 @@ if ($data = f_igosja_post('data'))
                     WHERE `player_id`='$player_id'
                     AND `player_team_id`='$auth_team_id'
                     LIMIT 1";
-            $player_sql = igosja_db_query($sql);
+            $player_sql = f_igosja_mysqli_query($sql);
 
             if ($player_sql->num_rows)
             {
                 $sql = "SELECT COUNT(`training_id`) AS `count`
                         FROM `training`
                         WHERE `training_player_id`='$player_id'";
-                $check_sql = igosja_db_query($sql);
+                $check_sql = f_igosja_mysqli_query($sql);
 
                 $check_array = $check_sql->fetch_all(1);
                 $count_check = $check_array[0]['count'];
@@ -63,13 +63,13 @@ if ($data = f_igosja_post('data'))
             $sql = "INSERT INTO `training`
                     SET `training_player_id`='$player_id',
                         `training_power`='1'";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
                     WHERE `team_id`='$auth_team_id'
                     LIMIT 1";
-            $team_sql = igosja_db_query($sql);
+            $team_sql = f_igosja_mysqli_query($sql);
 
             $team_array = $team_sql->fetch_all(1);
 
@@ -77,7 +77,7 @@ if ($data = f_igosja_post('data'))
                     SET `team_fanance`=`team_finance`-'$price'
                     WHERE `team_id`='$auth_team_id'
                     LIMIT 1";
-            igosja_db_query($sql);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_POWER,
@@ -112,7 +112,7 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         WHERE `player_team_id`='$auth_team_id'
         ORDER BY `player_id` ASC";
-$player_sql = igosja_db_query($sql);
+$player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
 

@@ -7,7 +7,7 @@ if (isset($auth_user_id))
     redirect('/');
 }
 
-if (!$code = f_igosja_get('data'))
+if (!$code = f_igosja_request_get('data'))
 {
     $_SESSION['message']['class'] = 'error';
     $_SESSION['message']['text'] = 'Пользователь не найден.';
@@ -46,7 +46,7 @@ if (!$user_array[0]['count'])
     redirect('/password.php');
 }
 
-if ($data = f_igosja_post('data'))
+if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['password']))
     {

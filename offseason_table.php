@@ -27,7 +27,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `offseason_season_id`='$igosja_season_id'
         ORDER BY `offseason_place` ASC";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 

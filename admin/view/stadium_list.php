@@ -29,7 +29,7 @@
                             class="form-control"
                             name="filter[stadium_id]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'stadium_id'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'stadium_id'); ?>"
                         />
                     </td>
                     <td>
@@ -37,7 +37,7 @@
                             class="form-control"
                             name="filter[stadium_name]"
                             type="text"
-                            value="<?= f_igosja_get('filter', 'stadium_name'); ?>"
+                            value="<?= f_igosja_request_get('filter', 'stadium_name'); ?>"
                         >
                     </td>
                     <td>
@@ -46,7 +46,7 @@
                             <?php foreach ($city_array as $item) { ?>
                                 <option
                                     value="<?= $item['city_id']; ?>"
-                                    <?php if (f_igosja_get('filter', 'city_id') == $item['city_id']) { ?>
+                                    <?php if (f_igosja_request_get('filter', 'city_id') == $item['city_id']) { ?>
                                         selected
                                     <?php } ?>
                                 >
@@ -61,7 +61,7 @@
                             <?php foreach ($country_array as $item) { ?>
                                 <option
                                     value="<?= $item['country_id']; ?>"
-                                    <?php if (f_igosja_get('filter', 'country_id') == $item['country_id']) { ?>
+                                    <?php if (f_igosja_request_get('filter', 'country_id') == $item['country_id']) { ?>
                                         selected
                                     <?php } ?>
                                 >

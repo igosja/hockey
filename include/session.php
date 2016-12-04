@@ -17,7 +17,7 @@ if (isset($_SESSION['user_id']))
             ON `user_id`=`team_user_id`
             WHERE `user_id`='$auth_user_id'
             LIMIT 1";
-    $user_sql = igosja_db_query($sql);
+    $user_sql = f_igosja_mysqli_query($sql);
 
     $user_array = $user_sql->fetch_all(1);
 
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id']))
             WHERE `message_support_from`='1'
             AND `message_user_id_to`='$auth_user_id'
             AND `message_read`='0'";
-    $support_sql = igosja_db_query($sql);
+    $support_sql = f_igosja_mysqli_query($sql);
 
     $support_array = $support_sql->fetch_all(1);
     $count_support = $support_array[0]['count'];
@@ -56,7 +56,7 @@ if (isset($_SESSION['user_id']))
                 FROM `voteuser`
                 WHERE `voteuser_user_id`='$auth_user_id'
             )";
-    $vote_sql = igosja_db_query($sql);
+    $vote_sql = f_igosja_mysqli_query($sql);
 
     $vote_array = $vote_sql->fetch_all(1);
     $count_vote = $vote_array[0]['count'];
@@ -78,7 +78,7 @@ if (isset($_SESSION['user_id']))
             SET `user_date_login`=UNIX_TIMESTAMP()
             WHERE `user_id`='$auth_user_id'
             LIMIT 1";
-    igosja_db_query($sql);
+    f_igosja_mysqli_query($sql);
 }
 else
 {

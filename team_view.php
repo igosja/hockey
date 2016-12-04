@@ -2,7 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     if (!isset($auth_team_id))
     {
@@ -43,7 +43,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`='$num_get'
         LIMIT 1";
-$team_sql = igosja_db_query($sql);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
@@ -72,7 +72,7 @@ $sql = "SELECT `game_id`,
         AND `game_played`='1'
         ORDER BY `shedule_date` DESC
         LIMIT 3";
-$latest_sql = igosja_db_query($sql);
+$latest_sql = f_igosja_mysqli_query($sql);
 
 $latest_array = $latest_sql->fetch_all(1);
 
@@ -94,7 +94,7 @@ $sql = "SELECT `game_id`,
         AND `game_played`='0'
         ORDER BY `shedule_date` ASC
         LIMIT 2";
-$nearest_sql = igosja_db_query($sql);
+$nearest_sql = f_igosja_mysqli_query($sql);
 
 $nearest_array = $nearest_sql->fetch_all(1);
 
@@ -121,7 +121,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
         WHERE `player_team_id`='$num_get'";
-$player_sql = igosja_db_query($sql);
+$player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
 

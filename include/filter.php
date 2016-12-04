@@ -1,6 +1,6 @@
 <?php
 
-$filter     = f_igosja_get('filter');
+$filter     = f_igosja_request_get('filter');
 $sql_filter = array(1);
 
 if (is_array($filter))
