@@ -2,7 +2,7 @@
 
 $start_time = microtime(true);
 
-//$denw_php_command = '\usr\local\php5\php-cgi.exe \home\hockey.local\www\console\migrate';
+//$denw_php_command = '\usr\local\php5\php-cgi.exe www\console\migrate';
 
 include(__DIR__ . '/menu.php');
 include(__DIR__ . '/database.php');

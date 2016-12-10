@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `game`
         (
             `game_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `game_bonus_home` TINYINT(1) DEFAULT 1,
             `game_guest_auto` TINYINT(1) DEFAULT 0,
             `game_guest_collision_loose` TINYINT(1) DEFAULT 0,
             `game_guest_collision_win` TINYINT(1) DEFAULT 0,

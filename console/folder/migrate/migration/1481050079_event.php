@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `event`
         (
             `event_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `event_eventtextbullet_id` TINYINT(1) DEFAULT 0,
             `event_eventtextgoal_id` TINYINT(1) DEFAULT 0,
             `event_eventtextpenalty_id` TINYINT(2) DEFAULT 0,
             `event_eventtype_id` TINYINT(1) DEFAULT 0,

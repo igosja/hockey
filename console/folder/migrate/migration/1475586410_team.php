@@ -19,6 +19,7 @@ $q[] = 'CREATE TABLE `team`
             `team_stadium_id` INT(11) DEFAULT 0,
             `team_user_id` INT(11) DEFAULT 0,
             `team_vice_id` INT(11) DEFAULT 0,
+            `team_visitor` SMALLINT(3) DEFAULT 100,
             `team_vote_junior` TINYINT(1) DEFAULT 2,
             `team_vote_national` TINYINT(1) DEFAULT 2,
             `team_vote_president` TINYINT(1) DEFAULT 2,
