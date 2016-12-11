@@ -7,18 +7,16 @@ set_time_limit(0);
 date_default_timezone_set('Europe/Moscow');
 
 include (__DIR__ . '/database.php');
-include (__DIR__ . '/constant.php');
 include (__DIR__ . '/function.php');
+include (__DIR__ . '/constant.php');
 
-$file_list = scandir(__DIR__ . '/../console/generator/function');
+$file_list = scandir(__DIR__ . '/../console/folder/generator/function');
 $file_list = array_slice($file_list, 2);
 
 foreach ($file_list as $item)
 {
-    include(__DIR__ . '/../console/generator/function/' . $item);
+    include(__DIR__ . '/../console/folder/generator/function/' . $item);
 }
-
-$count_sql = 0;
 
 //$sql = "TRUNCATE `debug`";
 //$mysqli->query($sql);

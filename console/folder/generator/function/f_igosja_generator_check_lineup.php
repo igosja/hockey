@@ -10,7 +10,7 @@ function f_igosja_generator_check_lineup()
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
             WHERE `game_played`='0'
-            AND FROM_UNIXTIME(`shedule_date`)=CURDATE()
+            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 

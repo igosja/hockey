@@ -24,7 +24,7 @@ function f_igosja_generator_count_visitor()
             LEFT JOIN `stadium`
             ON `game_stadium_id`=`stadium_id`
             WHERE `game_played`='0'
-            AND FROM_UNIXTIME(`shedule_date`)=CURDATE()
+            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 

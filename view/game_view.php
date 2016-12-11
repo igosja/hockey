@@ -87,7 +87,7 @@
             </tr>
             <tr>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $home_power = round($game_array[0]['game_home_power_1'] / (0 == $game_array[0]['game_home_power_1'] + $game_array[0]['game_guest_power_1'] ? 1 : 0) * 100); ?>%
+                    <?= $home_power = round($game_array[0]['game_home_power'] / (($game_array[0]['game_home_power'] + $game_array[0]['game_guest_power']) ? $game_array[0]['game_home_power'] + $game_array[0]['game_guest_power'] : 1) * 100); ?>%
                 </td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Соотношение сил</td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
@@ -154,65 +154,13 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Состав в 1 периоде
+                Сила состава
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_1']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_1']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Состав во 2 периоде
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_2']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_2']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Состав во 3 периоде
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_3']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_3']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Состав в ОТ
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_over']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_over']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Состав в конце матча
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_end']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power_end']; ?></td>
+                        <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
+                        <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
                     </tr>
                 </table>
             </div>
