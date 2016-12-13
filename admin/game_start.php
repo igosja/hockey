@@ -91,10 +91,10 @@ $team_array = array(
 //    array('team_name' => 'Чикаго Вулвз', 'team_stadium_id' => 62),
     array('team_name' => 'Монреаль Канадиенс', 'team_stadium_id' => 65),
     array('team_name' => 'Оттава Сенаторз', 'team_stadium_id' => 66),
-    array('team_name' => 'Торонто Мейпл Лифс', 'team_stadium_id' => 67),
-    array('team_name' => 'Ванкувер Кэнакс', 'team_stadium_id' => 68),
-    array('team_name' => 'Калгари Флэймз', 'team_stadium_id' => 69),
-    array('team_name' => 'Эдмонтон Ойлерз', 'team_stadium_id' => 70),
+//    array('team_name' => 'Торонто Мейпл Лифс', 'team_stadium_id' => 67),
+//    array('team_name' => 'Ванкувер Кэнакс', 'team_stadium_id' => 68),
+//    array('team_name' => 'Калгари Флэймз', 'team_stadium_id' => 69),
+//    array('team_name' => 'Эдмонтон Ойлерз', 'team_stadium_id' => 70),
 );
 
 foreach ($team_array as $team)

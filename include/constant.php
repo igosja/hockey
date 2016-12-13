@@ -96,6 +96,7 @@ define('SPACE', '&nbsp;');
 define('STADIUM_ONE_SIT_PICE_BUY', 200);
 define('STADIUM_ONE_SIT_PICE_SELL', 150);
 define('STAGE_1_TOUR', 2);
+define('STAGE_1_QUALIFY', 43);
 define('STYLE_NORMAL', 1);
 define('TACTIC_NORMAL', 3);
 define('TOURNAMENTTYPE_NATIONAL', 1);

@@ -61,62 +61,77 @@ function f_igosja_generator_game_result()
         $home_gk_shot       = 0;
         $home_ld_1_assist   = 0;
         $home_ld_1_penalty  = 0;
+        $home_ld_1_plus     = 0;
         $home_ld_1_score    = 0;
         $home_ld_1_shot     = 0;
         $home_rd_1_assist   = 0;
         $home_rd_1_penalty  = 0;
+        $home_rd_1_plus     = 0;
         $home_rd_1_score    = 0;
         $home_rd_1_shot     = 0;
         $home_lf_1_assist   = 0;
         $home_lf_1_penalty  = 0;
+        $home_lf_1_plus     = 0;
         $home_lf_1_score    = 0;
         $home_lf_1_shot     = 0;
         $home_c_1_assist    = 0;
         $home_c_1_penalty   = 0;
+        $home_c_1_plus      = 0;
         $home_c_1_score     = 0;
         $home_c_1_shot      = 0;
         $home_rf_1_assist   = 0;
         $home_rf_1_penalty  = 0;
+        $home_rf_1_plus     = 0;
         $home_rf_1_score    = 0;
         $home_rf_1_shot     = 0;
         $home_ld_2_assist   = 0;
         $home_ld_2_penalty  = 0;
+        $home_ld_2_plus     = 0;
         $home_ld_2_score    = 0;
         $home_ld_2_shot     = 0;
         $home_rd_2_assist   = 0;
         $home_rd_2_penalty  = 0;
+        $home_rd_2_plus     = 0;
         $home_rd_2_score    = 0;
         $home_rd_2_shot     = 0;
         $home_lf_2_assist   = 0;
         $home_lf_2_penalty  = 0;
+        $home_lf_2_plus     = 0;
         $home_lf_2_score    = 0;
         $home_lf_2_shot     = 0;
         $home_c_2_assist    = 0;
         $home_c_2_penalty   = 0;
+        $home_c_2_plus      = 0;
         $home_c_2_score     = 0;
         $home_c_2_shot      = 0;
         $home_rf_2_assist   = 0;
         $home_rf_2_penalty  = 0;
+        $home_rf_2_plus     = 0;
         $home_rf_2_score    = 0;
         $home_rf_2_shot     = 0;
         $home_ld_3_assist   = 0;
         $home_ld_3_penalty  = 0;
+        $home_ld_3_plus     = 0;
         $home_ld_3_score    = 0;
         $home_ld_3_shot     = 0;
         $home_rd_3_assist   = 0;
         $home_rd_3_penalty  = 0;
+        $home_rd_3_plus     = 0;
         $home_rd_3_score    = 0;
         $home_rd_3_shot     = 0;
         $home_lf_3_assist   = 0;
         $home_lf_3_penalty  = 0;
+        $home_lf_3_plus     = 0;
         $home_lf_3_score    = 0;
         $home_lf_3_shot     = 0;
         $home_c_3_assist    = 0;
         $home_c_3_penalty   = 0;
+        $home_c_3_plus      = 0;
         $home_c_3_score     = 0;
         $home_c_3_shot      = 0;
         $home_rf_3_assist   = 0;
         $home_rf_3_penalty  = 0;
+        $home_rf_3_plus     = 0;
         $home_rf_3_score    = 0;
         $home_rf_3_shot     = 0;
 
@@ -125,62 +140,77 @@ function f_igosja_generator_game_result()
         $guest_gk_shot      = 0;
         $guest_ld_1_assist  = 0;
         $guest_ld_1_penalty = 0;
+        $guest_ld_1_plus    = 0;
         $guest_ld_1_score   = 0;
         $guest_ld_1_shot    = 0;
         $guest_rd_1_assist  = 0;
         $guest_rd_1_penalty = 0;
+        $guest_rd_1_plus    = 0;
         $guest_rd_1_score   = 0;
         $guest_rd_1_shot    = 0;
         $guest_lf_1_assist  = 0;
         $guest_lf_1_penalty = 0;
+        $guest_lf_1_plus    = 0;
         $guest_lf_1_score   = 0;
         $guest_lf_1_shot    = 0;
         $guest_c_1_assist   = 0;
         $guest_c_1_penalty  = 0;
+        $guest_c_1_plus     = 0;
         $guest_c_1_score    = 0;
         $guest_c_1_shot     = 0;
         $guest_rf_1_assist  = 0;
         $guest_rf_1_penalty = 0;
+        $guest_rf_1_plus    = 0;
         $guest_rf_1_score   = 0;
         $guest_rf_1_shot    = 0;
         $guest_ld_2_assist  = 0;
         $guest_ld_2_penalty = 0;
+        $guest_ld_2_plus    = 0;
         $guest_ld_2_score   = 0;
         $guest_ld_2_shot    = 0;
         $guest_rd_2_assist  = 0;
         $guest_rd_2_penalty = 0;
+        $guest_rd_2_plus    = 0;
         $guest_rd_2_score   = 0;
         $guest_rd_2_shot    = 0;
         $guest_lf_2_assist  = 0;
         $guest_lf_2_penalty = 0;
+        $guest_lf_2_plus    = 0;
         $guest_lf_2_score   = 0;
         $guest_lf_2_shot    = 0;
         $guest_c_2_assist   = 0;
         $guest_c_2_penalty  = 0;
+        $guest_c_2_plus     = 0;
         $guest_c_2_score    = 0;
         $guest_c_2_shot     = 0;
         $guest_rf_2_assist  = 0;
         $guest_rf_2_penalty = 0;
+        $guest_rf_2_plus    = 0;
         $guest_rf_2_score   = 0;
         $guest_rf_2_shot    = 0;
         $guest_ld_3_assist  = 0;
         $guest_ld_3_penalty = 0;
+        $guest_ld_3_plus    = 0;
         $guest_ld_3_score   = 0;
         $guest_ld_3_shot    = 0;
         $guest_rd_3_assist  = 0;
         $guest_rd_3_penalty = 0;
+        $guest_rd_3_plus    = 0;
         $guest_rd_3_score   = 0;
         $guest_rd_3_shot    = 0;
         $guest_lf_3_assist  = 0;
         $guest_lf_3_penalty = 0;
+        $guest_lf_3_plus    = 0;
         $guest_lf_3_score   = 0;
         $guest_lf_3_shot    = 0;
         $guest_c_3_assist   = 0;
         $guest_c_3_penalty  = 0;
+        $guest_c_3_plus     = 0;
         $guest_c_3_score    = 0;
         $guest_c_3_shot     = 0;
         $guest_rf_3_assist  = 0;
         $guest_rf_3_penalty = 0;
+        $guest_rf_3_plus    = 0;
         $guest_rf_3_score   = 0;
         $guest_rf_3_shot    = 0;
 
@@ -190,6 +220,15 @@ function f_igosja_generator_game_result()
         $game_home_team_id      = $game['game_home_team_id'];
         $game_stadium_capacity  = $game['game_stadium_capacity'];
         $game_visitor           = $game['game_visitor'];
+
+        if ($game_bonus_home)
+        {
+            $home_bonus = 1 + $game_visitor / $game_stadium_capacity / 10;
+        }
+        else
+        {
+            $home_bonus = 1;
+        }
 
         $sql = "SELECT `lineup_id`,
                        `player_age`,
@@ -296,67 +335,67 @@ function f_igosja_generator_game_result()
         $home_player_gk_age                 = $home_lineup_array[0]['player_age'];
         $home_player_gk_lineup_id           = $home_lineup_array[0]['lineup_id'];
         $home_player_gk_power_nominal       = $home_lineup_array[0]['player_power_nominal'];
-        $home_player_gk_power_real          = $home_lineup_array[0]['player_power_real'];
+        $home_player_gk_power_real          = round($home_lineup_array[0]['player_power_real'] * $home_bonus, 0);
         $home_player_ld_1_age               = $home_lineup_array[1]['player_age'];
         $home_player_ld_1_lineup_id         = $home_lineup_array[1]['lineup_id'];
         $home_player_ld_1_power_nominal     = $home_lineup_array[1]['player_power_nominal'];
-        $home_player_ld_1_power_real        = $home_lineup_array[1]['player_power_real'];
+        $home_player_ld_1_power_real        = round($home_lineup_array[1]['player_power_real'] * $home_bonus, 0);
         $home_player_rd_1_age               = $home_lineup_array[2]['player_age'];
         $home_player_rd_1_lineup_id         = $home_lineup_array[2]['lineup_id'];
         $home_player_rd_1_power_nominal     = $home_lineup_array[2]['player_power_nominal'];
-        $home_player_rd_1_power_real        = $home_lineup_array[2]['player_power_real'];
+        $home_player_rd_1_power_real        = round($home_lineup_array[2]['player_power_real'] * $home_bonus, 0);
         $home_player_lf_1_age               = $home_lineup_array[3]['player_age'];
         $home_player_lf_1_lineup_id         = $home_lineup_array[3]['lineup_id'];
         $home_player_lf_1_power_nominal     = $home_lineup_array[3]['player_power_nominal'];
-        $home_player_lf_1_power_real        = $home_lineup_array[3]['player_power_real'];
+        $home_player_lf_1_power_real        = round($home_lineup_array[3]['player_power_real'] * $home_bonus, 0);
         $home_player_c_1_age                = $home_lineup_array[4]['player_age'];
         $home_player_c_1_lineup_id          = $home_lineup_array[4]['lineup_id'];
         $home_player_c_1_power_nominal      = $home_lineup_array[4]['player_power_nominal'];
-        $home_player_c_1_power_real         = $home_lineup_array[4]['player_power_real'];
+        $home_player_c_1_power_real         = round($home_lineup_array[4]['player_power_real'] * $home_bonus, 0);
         $home_player_rf_1_age               = $home_lineup_array[5]['player_age'];
         $home_player_rf_1_lineup_id         = $home_lineup_array[5]['lineup_id'];
         $home_player_rf_1_power_nominal     = $home_lineup_array[5]['player_power_nominal'];
-        $home_player_rf_1_power_real        = $home_lineup_array[5]['player_power_real'];
+        $home_player_rf_1_power_real        = round($home_lineup_array[5]['player_power_real'] * $home_bonus, 0);
         $home_player_ld_2_age               = $home_lineup_array[6]['player_age'];
         $home_player_ld_2_lineup_id         = $home_lineup_array[6]['lineup_id'];
         $home_player_ld_2_power_nominal     = $home_lineup_array[6]['player_power_nominal'];
-        $home_player_ld_2_power_real        = $home_lineup_array[6]['player_power_real'];
+        $home_player_ld_2_power_real        = round($home_lineup_array[6]['player_power_real'] * $home_bonus, 0);
         $home_player_rd_2_age               = $home_lineup_array[7]['player_age'];
         $home_player_rd_2_lineup_id         = $home_lineup_array[7]['lineup_id'];
         $home_player_rd_2_power_nominal     = $home_lineup_array[7]['player_power_nominal'];
-        $home_player_rd_2_power_real        = $home_lineup_array[7]['player_power_real'];
+        $home_player_rd_2_power_real        = round($home_lineup_array[7]['player_power_real'] * $home_bonus, 0);
         $home_player_lf_2_age               = $home_lineup_array[8]['player_age'];
         $home_player_lf_2_lineup_id         = $home_lineup_array[8]['lineup_id'];
         $home_player_lf_2_power_nominal     = $home_lineup_array[8]['player_power_nominal'];
-        $home_player_lf_2_power_real        = $home_lineup_array[8]['player_power_real'];
+        $home_player_lf_2_power_real        = round($home_lineup_array[8]['player_power_real'] * $home_bonus, 0);
         $home_player_c_2_age                = $home_lineup_array[9]['player_age'];
         $home_player_c_2_lineup_id          = $home_lineup_array[9]['lineup_id'];
         $home_player_c_2_power_nominal      = $home_lineup_array[9]['player_power_nominal'];
-        $home_player_c_2_power_real         = $home_lineup_array[9]['player_power_real'];
+        $home_player_c_2_power_real         = round($home_lineup_array[9]['player_power_real'] * $home_bonus, 0);
         $home_player_rf_2_age               = $home_lineup_array[10]['player_age'];
         $home_player_rf_2_lineup_id         = $home_lineup_array[10]['lineup_id'];
         $home_player_rf_2_power_nominal     = $home_lineup_array[10]['player_power_nominal'];
-        $home_player_rf_2_power_real        = $home_lineup_array[10]['player_power_real'];
+        $home_player_rf_2_power_real        = round($home_lineup_array[10]['player_power_real'] * $home_bonus, 0);
         $home_player_ld_3_age               = $home_lineup_array[11]['player_age'];
         $home_player_ld_3_lineup_id         = $home_lineup_array[11]['lineup_id'];
         $home_player_ld_3_power_nominal     = $home_lineup_array[11]['player_power_nominal'];
-        $home_player_ld_3_power_real        = $home_lineup_array[11]['player_power_real'];
+        $home_player_ld_3_power_real        = round($home_lineup_array[11]['player_power_real'] * $home_bonus, 0);
         $home_player_rd_3_age               = $home_lineup_array[12]['player_age'];
         $home_player_rd_3_lineup_id         = $home_lineup_array[12]['lineup_id'];
         $home_player_rd_3_power_nominal     = $home_lineup_array[12]['player_power_nominal'];
-        $home_player_rd_3_power_real        = $home_lineup_array[12]['player_power_real'];
+        $home_player_rd_3_power_real        = round($home_lineup_array[12]['player_power_real'] * $home_bonus, 0);
         $home_player_lf_3_age               = $home_lineup_array[13]['player_age'];
         $home_player_lf_3_lineup_id         = $home_lineup_array[13]['lineup_id'];
         $home_player_lf_3_power_nominal     = $home_lineup_array[13]['player_power_nominal'];
-        $home_player_lf_3_power_real        = $home_lineup_array[13]['player_power_real'];
+        $home_player_lf_3_power_real        = round($home_lineup_array[13]['player_power_real'] * $home_bonus, 0);
         $home_player_c_3_age                = $home_lineup_array[14]['player_age'];
         $home_player_c_3_lineup_id          = $home_lineup_array[14]['lineup_id'];
         $home_player_c_3_power_nominal      = $home_lineup_array[14]['player_power_nominal'];
-        $home_player_c_3_power_real         = $home_lineup_array[14]['player_power_real'];
+        $home_player_c_3_power_real         = round($home_lineup_array[14]['player_power_real'] * $home_bonus, 0);
         $home_player_rf_3_age               = $home_lineup_array[15]['player_age'];
         $home_player_rf_3_lineup_id         = $home_lineup_array[15]['lineup_id'];
         $home_player_rf_3_power_nominal     = $home_lineup_array[15]['player_power_nominal'];
-        $home_player_rf_3_power_real        = $home_lineup_array[15]['player_power_real'];
+        $home_player_rf_3_power_real        = round($home_lineup_array[15]['player_power_real'] * $home_bonus, 0);
 
         $home_gk            = $home_player_gk_power_real;
         $home_defence_1     = $home_player_ld_1_power_real + $home_player_rd_1_power_real;
@@ -718,14 +757,50 @@ function f_igosja_generator_game_result()
                         if (20 > $minute)
                         {
                             $home_score_1++;
+
+                            $home_ld_1_plus++;
+                            $home_rd_1_plus++;
+                            $home_lf_1_plus++;
+                            $home_c_1_plus++;
+                            $home_rf_1_plus++;
+
+                            $guest_ld_1_plus--;
+                            $guest_rd_1_plus--;
+                            $guest_lf_1_plus--;
+                            $guest_c_1_plus--;
+                            $guest_rf_1_plus--;
                         }
                         elseif (40 > $minute)
                         {
                             $home_score_2++;
+
+                            $home_ld_2_plus++;
+                            $home_rd_2_plus++;
+                            $home_lf_2_plus++;
+                            $home_c_2_plus++;
+                            $home_rf_2_plus++;
+
+                            $guest_ld_2_plus--;
+                            $guest_rd_2_plus--;
+                            $guest_lf_2_plus--;
+                            $guest_c_2_plus--;
+                            $guest_rf_2_plus--;
                         }
                         else
                         {
                             $home_score_3++;
+
+                            $home_ld_3_plus++;
+                            $home_rd_3_plus++;
+                            $home_lf_3_plus++;
+                            $home_c_3_plus++;
+                            $home_rf_3_plus++;
+
+                            $guest_ld_3_plus--;
+                            $guest_rd_3_plus--;
+                            $guest_lf_3_plus--;
+                            $guest_c_3_plus--;
+                            $guest_rf_3_plus--;
                         }
 
                         if (1 == $player)
@@ -1084,14 +1159,50 @@ function f_igosja_generator_game_result()
                         if (20 > $minute)
                         {
                             $guest_score_1++;
+
+                            $guest_ld_1_plus++;
+                            $guest_rd_1_plus++;
+                            $guest_lf_1_plus++;
+                            $guest_c_1_plus++;
+                            $guest_rf_1_plus++;
+
+                            $home_ld_1_plus--;
+                            $home_rd_1_plus--;
+                            $home_lf_1_plus--;
+                            $home_c_1_plus--;
+                            $home_rf_1_plus--;
                         }
                         elseif (40 > $minute)
                         {
                             $guest_score_2++;
+
+                            $guest_ld_2_plus++;
+                            $guest_rd_2_plus++;
+                            $guest_lf_2_plus++;
+                            $guest_c_2_plus++;
+                            $guest_rf_2_plus++;
+
+                            $home_ld_2_plus--;
+                            $home_rd_2_plus--;
+                            $home_lf_2_plus--;
+                            $home_c_2_plus--;
+                            $home_rf_2_plus--;
                         }
                         else
                         {
                             $guest_score_3++;
+
+                            $guest_ld_3_plus++;
+                            $guest_rd_3_plus++;
+                            $guest_lf_3_plus++;
+                            $guest_c_3_plus++;
+                            $guest_rf_3_plus++;
+
+                            $home_ld_3_plus--;
+                            $home_rd_3_plus--;
+                            $home_lf_3_plus--;
+                            $home_c_3_plus--;
+                            $home_rf_3_plus--;
                         }
 
                         if (1 == $player)
@@ -1373,6 +1484,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_ld_1_age',
                     `lineup_assist`='$guest_ld_1_assist',
                     `lineup_penalty`='$guest_ld_1_penalty'*'2',
+                    `lineup_plus_minus`='$guest_ld_1_plus',
                     `lineup_power_nominal`='$guest_player_ld_1_power_nominal',
                     `lineup_power_real`='$guest_player_ld_1_power_real',
                     `lineup_score`='$guest_ld_1_score',
@@ -1385,6 +1497,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rd_1_age',
                     `lineup_assist`='$guest_rd_1_assist',
                     `lineup_penalty`='$guest_rd_1_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rd_1_plus',
                     `lineup_power_nominal`='$guest_player_rd_1_power_nominal',
                     `lineup_power_real`='$guest_player_rd_1_power_real',
                     `lineup_score`='$guest_rd_1_score',
@@ -1397,6 +1510,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_lf_1_age',
                     `lineup_assist`='$guest_lf_1_assist',
                     `lineup_penalty`='$guest_lf_1_penalty'*'2',
+                    `lineup_plus_minus`='$guest_lf_1_plus',
                     `lineup_power_nominal`='$guest_player_lf_1_power_nominal',
                     `lineup_power_real`='$guest_player_lf_1_power_real',
                     `lineup_score`='$guest_lf_1_score',
@@ -1409,6 +1523,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_c_1_age',
                     `lineup_assist`='$guest_c_1_assist',
                     `lineup_penalty`='$guest_c_1_penalty'*'2',
+                    `lineup_plus_minus`='$guest_c_1_plus',
                     `lineup_power_nominal`='$guest_player_c_1_power_nominal',
                     `lineup_power_real`='$guest_player_c_1_power_real',
                     `lineup_score`='$guest_c_1_score',
@@ -1421,6 +1536,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rf_1_age',
                     `lineup_assist`='$guest_rf_1_assist',
                     `lineup_penalty`='$guest_rf_1_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rf_1_plus',
                     `lineup_power_nominal`='$guest_player_rf_1_power_nominal',
                     `lineup_power_real`='$guest_player_rf_1_power_real',
                     `lineup_score`='$guest_rf_1_score',
@@ -1433,6 +1549,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_ld_2_age',
                     `lineup_assist`='$guest_ld_2_assist',
                     `lineup_penalty`='$guest_ld_2_penalty'*'2',
+                    `lineup_plus_minus`='$guest_ld_2_plus',
                     `lineup_power_nominal`='$guest_player_ld_2_power_nominal',
                     `lineup_power_real`='$guest_player_ld_2_power_real',
                     `lineup_score`='$guest_ld_2_score',
@@ -1445,6 +1562,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rd_2_age',
                     `lineup_assist`='$guest_rd_2_assist',
                     `lineup_penalty`='$guest_rd_2_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rd_2_plus',
                     `lineup_power_nominal`='$guest_player_rd_2_power_nominal',
                     `lineup_power_real`='$guest_player_rd_2_power_real',
                     `lineup_score`='$guest_rd_2_score',
@@ -1457,6 +1575,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_lf_2_age',
                     `lineup_assist`='$guest_lf_2_assist',
                     `lineup_penalty`='$guest_lf_2_penalty'*'2',
+                    `lineup_plus_minus`='$guest_lf_2_plus',
                     `lineup_power_nominal`='$guest_player_lf_2_power_nominal',
                     `lineup_power_real`='$guest_player_lf_2_power_real',
                     `lineup_score`='$guest_lf_2_score',
@@ -1469,6 +1588,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_c_2_age',
                     `lineup_assist`='$guest_c_2_assist',
                     `lineup_penalty`='$guest_c_2_penalty'*'2',
+                    `lineup_plus_minus`='$guest_c_2_plus',
                     `lineup_power_nominal`='$guest_player_c_2_power_nominal',
                     `lineup_power_real`='$guest_player_c_2_power_real',
                     `lineup_score`='$guest_c_2_score',
@@ -1481,6 +1601,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rf_2_age',
                     `lineup_assist`='$guest_rf_2_assist',
                     `lineup_penalty`='$guest_rf_2_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rf_2_plus',
                     `lineup_power_nominal`='$guest_player_rf_2_power_nominal',
                     `lineup_power_real`='$guest_player_rf_2_power_real',
                     `lineup_score`='$guest_rf_2_score',
@@ -1493,6 +1614,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_ld_3_age',
                     `lineup_assist`='$guest_ld_3_assist',
                     `lineup_penalty`='$guest_ld_3_penalty'*'2',
+                    `lineup_plus_minus`='$guest_ld_3_plus',
                     `lineup_power_nominal`='$guest_player_ld_3_power_nominal',
                     `lineup_power_real`='$guest_player_ld_3_power_real',
                     `lineup_score`='$guest_ld_3_score',
@@ -1505,6 +1627,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rd_3_age',
                     `lineup_assist`='$guest_rd_3_assist',
                     `lineup_penalty`='$guest_rd_3_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rd_3_plus',
                     `lineup_power_nominal`='$guest_player_rd_3_power_nominal',
                     `lineup_power_real`='$guest_player_rd_3_power_real',
                     `lineup_score`='$guest_rd_3_score',
@@ -1517,6 +1640,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_lf_3_age',
                     `lineup_assist`='$guest_lf_3_assist',
                     `lineup_penalty`='$guest_lf_3_penalty'*'2',
+                    `lineup_plus_minus`='$guest_lf_3_plus',
                     `lineup_power_nominal`='$guest_player_lf_3_power_nominal',
                     `lineup_power_real`='$guest_player_lf_3_power_real',
                     `lineup_score`='$guest_lf_3_score',
@@ -1529,6 +1653,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_c_3_age',
                     `lineup_assist`='$guest_c_3_assist',
                     `lineup_penalty`='$guest_c_3_penalty'*'2',
+                    `lineup_plus_minus`='$guest_c_3_plus',
                     `lineup_power_nominal`='$guest_player_c_3_power_nominal',
                     `lineup_power_real`='$guest_player_c_3_power_real',
                     `lineup_score`='$guest_c_3_score',
@@ -1541,6 +1666,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$guest_player_rf_3_age',
                     `lineup_assist`='$guest_rf_3_assist',
                     `lineup_penalty`='$guest_rf_3_penalty'*'2',
+                    `lineup_plus_minus`='$guest_rf_3_plus',
                     `lineup_power_nominal`='$guest_player_rf_3_power_nominal',
                     `lineup_power_real`='$guest_player_rf_3_power_real',
                     `lineup_score`='$guest_rf_3_score',
@@ -1564,6 +1690,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_ld_1_age',
                     `lineup_assist`='$home_ld_1_assist',
                     `lineup_penalty`='$home_ld_1_penalty'*'2',
+                    `lineup_plus_minus`='$home_ld_1_plus',
                     `lineup_power_nominal`='$home_player_ld_1_power_nominal',
                     `lineup_power_real`='$home_player_ld_1_power_real',
                     `lineup_score`='$home_ld_1_score',
@@ -1576,6 +1703,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rd_1_age',
                     `lineup_assist`='$home_rd_1_assist',
                     `lineup_penalty`='$home_rd_1_penalty'*'2',
+                    `lineup_plus_minus`='$home_rd_1_plus',
                     `lineup_power_nominal`='$home_player_rd_1_power_nominal',
                     `lineup_power_real`='$home_player_rd_1_power_real',
                     `lineup_score`='$home_rd_1_score',
@@ -1588,6 +1716,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_lf_1_age',
                     `lineup_assist`='$home_lf_1_assist',
                     `lineup_penalty`='$home_lf_1_penalty'*'2',
+                    `lineup_plus_minus`='$home_lf_1_plus',
                     `lineup_power_nominal`='$home_player_lf_1_power_nominal',
                     `lineup_power_real`='$home_player_lf_1_power_real',
                     `lineup_score`='$home_lf_1_score',
@@ -1600,6 +1729,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_c_1_age',
                     `lineup_assist`='$home_c_1_assist',
                     `lineup_penalty`='$home_c_1_penalty'*'2',
+                    `lineup_plus_minus`='$home_c_1_plus',
                     `lineup_power_nominal`='$home_player_c_1_power_nominal',
                     `lineup_power_real`='$home_player_c_1_power_real',
                     `lineup_score`='$home_c_1_score',
@@ -1612,6 +1742,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rf_1_age',
                     `lineup_assist`='$home_rf_1_assist',
                     `lineup_penalty`='$home_rf_1_penalty'*'2',
+                    `lineup_plus_minus`='$home_rf_1_plus',
                     `lineup_power_nominal`='$home_player_rf_1_power_nominal',
                     `lineup_power_real`='$home_player_rf_1_power_real',
                     `lineup_score`='$home_rf_1_score',
@@ -1624,6 +1755,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_ld_2_age',
                     `lineup_assist`='$home_ld_2_assist',
                     `lineup_penalty`='$home_ld_2_penalty'*'2',
+                    `lineup_plus_minus`='$home_ld_2_plus',
                     `lineup_power_nominal`='$home_player_ld_2_power_nominal',
                     `lineup_power_real`='$home_player_ld_2_power_real',
                     `lineup_score`='$home_ld_2_score',
@@ -1636,6 +1768,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rd_2_age',
                     `lineup_assist`='$home_rd_2_assist',
                     `lineup_penalty`='$home_rd_2_penalty'*'2',
+                    `lineup_plus_minus`='$home_rd_2_plus',
                     `lineup_power_nominal`='$home_player_rd_2_power_nominal',
                     `lineup_power_real`='$home_player_rd_2_power_real',
                     `lineup_score`='$home_rd_2_score',
@@ -1648,6 +1781,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_lf_2_age',
                     `lineup_assist`='$home_lf_2_assist',
                     `lineup_penalty`='$home_lf_2_penalty'*'2',
+                    `lineup_plus_minus`='$home_lf_2_plus',
                     `lineup_power_nominal`='$home_player_lf_2_power_nominal',
                     `lineup_power_real`='$home_player_lf_2_power_real',
                     `lineup_score`='$home_lf_2_score',
@@ -1660,6 +1794,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_c_2_age',
                     `lineup_assist`='$home_c_2_assist',
                     `lineup_penalty`='$home_c_2_penalty'*'2',
+                    `lineup_plus_minus`='$home_c_2_plus',
                     `lineup_power_nominal`='$home_player_c_2_power_nominal',
                     `lineup_power_real`='$home_player_c_2_power_real',
                     `lineup_score`='$home_c_2_score',
@@ -1672,6 +1807,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rf_2_age',
                     `lineup_assist`='$home_rf_2_assist',
                     `lineup_penalty`='$home_rf_2_penalty'*'2',
+                    `lineup_plus_minus`='$home_rf_2_plus',
                     `lineup_power_nominal`='$home_player_rf_2_power_nominal',
                     `lineup_power_real`='$home_player_rf_2_power_real',
                     `lineup_score`='$home_rf_2_score',
@@ -1684,6 +1820,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_ld_3_age',
                     `lineup_assist`='$home_ld_3_assist',
                     `lineup_penalty`='$home_ld_3_penalty'*'2',
+                    `lineup_plus_minus`='$home_ld_3_plus',
                     `lineup_power_nominal`='$home_player_ld_3_power_nominal',
                     `lineup_power_real`='$home_player_ld_3_power_real',
                     `lineup_score`='$home_ld_3_score',
@@ -1696,6 +1833,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rd_3_age',
                     `lineup_assist`='$home_rd_3_assist',
                     `lineup_penalty`='$home_rd_3_penalty'*'2',
+                    `lineup_plus_minus`='$home_rd_3_plus',
                     `lineup_power_nominal`='$home_player_rd_3_power_nominal',
                     `lineup_power_real`='$home_player_rd_3_power_real',
                     `lineup_score`='$home_rd_3_score',
@@ -1708,6 +1846,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_lf_3_age',
                     `lineup_assist`='$home_lf_3_assist',
                     `lineup_penalty`='$home_lf_3_penalty'*'2',
+                    `lineup_plus_minus`='$home_lf_3_plus',
                     `lineup_power_nominal`='$home_player_lf_3_power_nominal',
                     `lineup_power_real`='$home_player_lf_3_power_real',
                     `lineup_score`='$home_lf_3_score',
@@ -1720,6 +1859,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_c_3_age',
                     `lineup_assist`='$home_c_3_assist',
                     `lineup_penalty`='$home_c_3_penalty'*'2',
+                    `lineup_plus_minus`='$home_c_3_plus',
                     `lineup_power_nominal`='$home_player_c_3_power_nominal',
                     `lineup_power_real`='$home_player_c_3_power_real',
                     `lineup_score`='$home_c_3_score',
@@ -1732,6 +1872,7 @@ function f_igosja_generator_game_result()
                 SET `lineup_age`='$home_player_rf_3_age',
                     `lineup_assist`='$home_rf_3_assist',
                     `lineup_penalty`='$home_rf_3_penalty'*'2',
+                    `lineup_plus_minus`='$home_rf_3_plus',
                     `lineup_power_nominal`='$home_player_rf_3_power_nominal',
                     `lineup_power_real`='$home_player_rf_3_power_real',
                     `lineup_score`='$home_rf_3_score',
