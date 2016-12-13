@@ -121,8 +121,6 @@ if (0 == $game_array[0]['game_played'])
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
-               `lineup_on_target`,
-               `lineup_parry`,
                `lineup_pass`,
                `lineup_penalty`,
                `lineup_plus_minus`,
@@ -159,8 +157,6 @@ $home_array = $home_sql->fetch_all(1);
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
-               `lineup_on_target`,
-               `lineup_parry`,
                `lineup_pass`,
                `lineup_penalty`,
                `lineup_plus_minus`,
@@ -194,5 +190,22 @@ $sql = "SELECT `lineup_age`,
 $guest_sql = f_igosja_mysqli_query($sql);
 
 $guest_array = $guest_sql->fetch_all(1);
+
+$home_power_percent     = $game_array[0]['game_home_power'];
+$guest_power_percent    = $game_array[0]['game_guest_power'];
+
+if (0 == $home_power_percent)
+{
+    $home_power_percent = 1;
+}
+
+if (0 == $guest_power_percent)
+{
+    $guest_power_percent = 1;
+}
+
+$team_power_total       = $home_power_percent + $guest_power_percent;
+$home_power_percent     = round($home_power_percent / $team_power_total * 100, 0);
+$guest_power_percent    = 100 - $home_power_percent;
 
 include (__DIR__ . '/view/layout/main.php');

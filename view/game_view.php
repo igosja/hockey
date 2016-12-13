@@ -87,11 +87,11 @@
             </tr>
             <tr>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $home_power = round($game_array[0]['game_home_power'] / (($game_array[0]['game_home_power'] + $game_array[0]['game_guest_power']) ? $game_array[0]['game_home_power'] + $game_array[0]['game_guest_power'] : 1) * 100); ?>%
+                    <?= $home_power_percent; ?>%
                 </td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Соотношение сил</td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= 100 - $home_power; ?>%
+                    <?= $guest_power_percent; ?>%
                 </td>
             </tr>
             <tr>
@@ -160,7 +160,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
+                        <td class="text-center"><?= $game_array[0]['game_guest_power']; ?></td>
                     </tr>
                 </table>
             </div>
@@ -181,7 +181,7 @@
                 <th title="Номиральная сила">НС</th>
                 <th title="Реальная сила">РС</th>
                 <th title="Штрафные минуты">ШМ</th>
-                <th title="Броски/В створ (Отбитые броски для вратарей)">Б/В</th>
+                <th title="Броски">Б</th>
                 <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
                 <th title="Голевые передачи">П</th>
                 <th title="Плюс/минус">+/-</th>
@@ -209,11 +209,7 @@
                         <?= $item['lineup_penalty']; ?>
                     </td>
                     <td class="text-center">
-                        <?php if (1 == $item['position_id']) { ?>
-                            <?= $item['lineup_parry']; ?>
-                        <?php } else { ?>
-                            <?= $item['lineup_shot']; ?>/<?= $item['lineup_on_target']; ?>
-                        <?php } ?>
+                        <?= $item['lineup_shot']; ?>
                     </td>
                     <td class="text-center">
                         <?php if (1 == $item['position_id']) { ?>
@@ -245,7 +241,7 @@
                 <th title="Номиральная сила">НС</th>
                 <th title="Реальная сила">РС</th>
                 <th title="Штрафные минуты">ШМ</th>
-                <th title="Броски/В створ (Отбитые броски для вратарей)">Б/В</th>
+                <th title="Броски">Б</th>
                 <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
                 <th title="Голевые передачи">П</th>
                 <th title="Плюс/минус">+/-</th>
@@ -273,11 +269,7 @@
                         <?= $item['lineup_penalty']; ?>
                     </td>
                     <td class="text-center">
-                        <?php if (1 == $item['position_id']) { ?>
-                            <?= $item['lineup_parry']; ?>
-                        <?php } else { ?>
-                            <?= $item['lineup_shot']; ?>/<?= $item['lineup_on_target']; ?>
-                        <?php } ?>
+                        <?= $item['lineup_shot']; ?>
                     </td>
                     <td class="text-center">
                         <?php if (1 == $item['position_id']) { ?>

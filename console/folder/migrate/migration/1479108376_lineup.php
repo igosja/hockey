@@ -10,8 +10,6 @@ $q[] = 'CREATE TABLE `lineup`
             `lineup_game_id` INT(1) DEFAULT 0,
             `lineup_line_id` TINYINT(1) DEFAULT 0,
             `lineup_national_id` SMALLINT(5) DEFAULT 0,
-            `lineup_on_target` TINYINT(3) DEFAULT 0,
-            `lineup_parry` TINYINT(3) DEFAULT 0,
             `lineup_pass` TINYINT(3) DEFAULT 0,
             `lineup_penalty` TINYINT(3) DEFAULT 0,
             `lineup_player_id` INT(1) DEFAULT 0,
