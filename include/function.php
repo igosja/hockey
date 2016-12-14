@@ -389,6 +389,26 @@ function f_igosja_generate_user_code()
     return $code;
 }
 
+function f_igosja_get_count_query()
+{
+    global $count_query;
+    global $mysqli;
+    global $query_array;
+
+    foreach ($query_array as $item)
+    {
+        $sql    = addslashes($item['sql']);
+        $time   = $item['time'] * 1000;
+
+        $sql = "INSERT INTO `debug`
+                SET `debug_time`='$time',
+                    `debug_sql`='$sql'";
+        $mysqli->query($sql);
+    }
+
+    return $count_query;
+}
+
 function f_igosja_hash_password($password)
 {
     return md5($password . md5(PASSWORD_SALT));
@@ -542,12 +562,22 @@ function f_igosja_money($price)
 
 function f_igosja_mysqli_query($sql)
 {
-    global $mysqli;
     global $count_query;
+    global $mysqli;
+    global $query_array;
 
     $count_query++;
 
-    return $mysqli->query($sql);
+    $start_time = microtime(true);
+    $result     = $mysqli->query($sql);
+    $time       = round(microtime(true) - $start_time, 5);
+
+    $query_array[] = array(
+        'sql' => $sql,
+        'time' => $time,
+    );
+
+    return $result;
 }
 
 function f_igosja_player_position($player_id)

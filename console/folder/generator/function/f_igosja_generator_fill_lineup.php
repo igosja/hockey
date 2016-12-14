@@ -141,7 +141,8 @@ function f_igosja_generator_fill_lineup()
 
                 if (0 == $lineup_player_id)
                 {
-                    $sql = "SELECT `player_id`, `lineup_player_id`
+                    $sql = "SELECT `player_id`,
+                                   `lineup_player_id`
                             FROM `player`
                             LEFT JOIN `playerposition`
                             ON `playerposition_player_id`=`player_id`
@@ -165,7 +166,8 @@ function f_igosja_generator_fill_lineup()
 
                     if (0 == $player_sql->num_rows)
                     {
-                        $sql = "SELECT `player_id`, `lineup_player_id`
+                        $sql = "SELECT `player_id`,
+                                       `lineup_player_id`
                                 FROM `player`
                                 LEFT JOIN `playerposition`
                                 ON `playerposition_player_id`=`player_id`

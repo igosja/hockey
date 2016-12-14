@@ -218,6 +218,9 @@
                     <li>
                         <a href="/admin/site_version.php"><i class="fa fa-signal fa-fw"></i> Версия сайта</a>
                     </li>
+                    <li>
+                        <a href="/admin/debug_list.php"><i class="fa fa-bug fa-fw"></i> Debugger</a>
+                    </li>
                 </ul>
             </li>
         </ul>

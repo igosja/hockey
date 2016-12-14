@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
             Страница сгенерирована за <?= round(microtime(true) - $start_time, 5); ?> сек.,
-            <?= $count_query; ?> запр.<br/>
+            <?= f_igosja_get_count_query(); ?> запр.<br/>
             <?= number_format(memory_get_usage(), 0, ',', ' '); ?> Б памяти<br/>
             Версия
             <?=
