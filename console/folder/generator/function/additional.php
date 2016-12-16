@@ -1,1559 +1,1297 @@
 <?php
 
-function f_igosja_get_home_defence()
+function f_igosja_home_defence($result)
 {
-    global $home_defence_1;
-    global $home_defence_2;
-    global $home_defence_3;
-    global $minute;
-
-    if (0 == $minute % 3)
+    if (0 == $result['minute'] % 3)
     {
-        $home_defence = $home_defence_1;
+        $result['home']['team']['power']['defence']['current'] = $result['home']['team']['power']['defence'][1];
     }
-    elseif (1 == $minute % 3)
+    elseif (1 == $result['minute'] % 3)
     {
-        $home_defence = $home_defence_2;
+        $result['home']['team']['power']['defence']['current'] = $result['home']['team']['power']['defence'][2];
     }
     else
     {
-        $home_defence = $home_defence_3;
+        $result['home']['team']['power']['defence']['current'] = $result['home']['team']['power']['defence'][3];
     }
 
-    return $home_defence;
+    return $result;
 }
 
-function f_igosja_get_home_forward()
+function f_igosja_home_forward($result)
 {
-    global $home_forward_1;
-    global $home_forward_2;
-    global $home_forward_3;
-    global $minute;
-
-    if (0 == $minute % 3)
+    if (0 == $result['minute'] % 3)
     {
-        $home_forward = $home_forward_1;
+        $result['home']['team']['power']['forward']['current'] = $result['home']['team']['power']['forward'][1];
     }
-    elseif (1 == $minute % 3)
+    elseif (1 == $result['minute'] % 3)
     {
-        $home_forward = $home_forward_2;
+        $result['home']['team']['power']['forward']['current'] = $result['home']['team']['power']['forward'][2];
     }
     else
     {
-        $home_forward = $home_forward_3;
+        $result['home']['team']['power']['forward']['current'] = $result['home']['team']['power']['forward'][3];
     }
 
-    return $home_forward;
+    return $result;
 }
 
-function f_igosja_get_guest_defence()
+function f_igosja_guest_defence($result)
 {
-    global $guest_defence_1;
-    global $guest_defence_2;
-    global $guest_defence_3;
-    global $minute;
-
-    if (0 == $minute % 3)
+    if (0 == $result['minute'] % 3)
     {
-        $guest_defence = $guest_defence_1;
+        $result['guest']['team']['power']['defence']['current'] = $result['guest']['team']['power']['defence'][1];
     }
-    elseif (1 == $minute % 3)
+    elseif (1 == $result['minute'] % 3)
     {
-        $guest_defence = $guest_defence_2;
+        $result['guest']['team']['power']['defence']['current'] = $result['guest']['team']['power']['defence'][2];
     }
     else
     {
-        $guest_defence = $guest_defence_3;
+        $result['guest']['team']['power']['defence']['current'] = $result['guest']['team']['power']['defence'][3];
     }
 
-    return $guest_defence;
+    return $result;
 }
 
-function f_igosja_get_guest_forward()
+function f_igosja_guest_forward($result)
 {
-    global $guest_forward_1;
-    global $guest_forward_2;
-    global $guest_forward_3;
-    global $minute;
-
-    if (0 == $minute % 3)
+    if (0 == $result['minute'] % 3)
     {
-        $guest_forward = $guest_forward_1;
+        $result['guest']['team']['power']['forward']['current'] = $result['guest']['team']['power']['forward'][1];
     }
-    elseif (1 == $minute % 3)
+    elseif (1 == $result['minute'] % 3)
     {
-        $guest_forward = $guest_forward_2;
+        $result['guest']['team']['power']['forward']['current'] = $result['guest']['team']['power']['forward'][2];
     }
     else
     {
-        $guest_forward = $guest_forward_3;
+        $result['guest']['team']['power']['forward']['current'] = $result['guest']['team']['power']['forward'][3];
     }
 
-    return $guest_forward;
+    return $result;
 }
 
-function f_igosja_home_player_penalty_increase($player)
+function f_igosja_home_player_penalty_increase($game_result)
 {
-    global $home_c_1_penalty;
-    global $home_c_2_penalty;
-    global $home_c_3_penalty;
-    global $home_ld_1_penalty;
-    global $home_ld_2_penalty;
-    global $home_ld_3_penalty;
-    global $home_lf_1_penalty;
-    global $home_lf_2_penalty;
-    global $home_lf_3_penalty;
-    global $home_rd_1_penalty;
-    global $home_rd_2_penalty;
-    global $home_rd_3_penalty;
-    global $home_rf_1_penalty;
-    global $home_rf_2_penalty;
-    global $home_rf_3_penalty;
-    global $minute;
-
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_ld_1_penalty++;
+            $game_result['home']['player']['field']['ld_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_ld_2_penalty++;
+            $game_result['home']['player']['field']['ld_2']['penalty']++;
         }
         else
         {
-            $home_ld_3_penalty++;
+            $game_result['home']['player']['field']['ld_3']['penalty']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rd_1_penalty++;
+            $game_result['home']['player']['field']['rd_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rd_2_penalty++;
+            $game_result['home']['player']['field']['rd_2']['penalty']++;
         }
         else
         {
-            $home_rd_3_penalty++;
+            $game_result['home']['player']['field']['rd_3']['penalty']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_lf_1_penalty++;
+            $game_result['home']['player']['field']['lf_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_lf_2_penalty++;
+            $game_result['home']['player']['field']['lf_2']['penalty']++;
         }
         else
         {
-            $home_lf_3_penalty++;
+            $game_result['home']['player']['field']['lf_3']['penalty']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_c_1_penalty++;
+            $game_result['home']['player']['field']['c_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_c_2_penalty++;
+            $game_result['home']['player']['field']['c_2']['penalty']++;
         }
         else
         {
-            $home_c_3_penalty++;
+            $game_result['home']['player']['field']['c_3']['penalty']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rf_1_penalty++;
+            $game_result['home']['player']['field']['rf_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rf_2_penalty++;
+            $game_result['home']['player']['field']['rf_2']['penalty']++;
         }
         else
         {
-            $home_rf_3_penalty++;
+            $game_result['home']['player']['field']['rf_3']['penalty']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_player_penalty_increase($player)
+function f_igosja_guest_player_penalty_increase($game_result)
 {
-    global $guest_c_1_penalty;
-    global $guest_c_2_penalty;
-    global $guest_c_3_penalty;
-    global $guest_ld_1_penalty;
-    global $guest_ld_2_penalty;
-    global $guest_ld_3_penalty;
-    global $guest_lf_1_penalty;
-    global $guest_lf_2_penalty;
-    global $guest_lf_3_penalty;
-    global $guest_rd_1_penalty;
-    global $guest_rd_2_penalty;
-    global $guest_rd_3_penalty;
-    global $guest_rf_1_penalty;
-    global $guest_rf_2_penalty;
-    global $guest_rf_3_penalty;
-    global $minute;
-
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_ld_1_penalty++;
+            $game_result['guest']['player']['field']['ld_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_ld_2_penalty++;
+            $game_result['guest']['player']['field']['ld_2']['penalty']++;
         }
         else
         {
-            $guest_ld_3_penalty++;
+            $game_result['guest']['player']['field']['ld_3']['penalty']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rd_1_penalty++;
+            $game_result['guest']['player']['field']['rd_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rd_2_penalty++;
+            $game_result['guest']['player']['field']['rd_2']['penalty']++;
         }
         else
         {
-            $guest_rd_3_penalty++;
+            $game_result['guest']['player']['field']['rd_3']['penalty']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_lf_1_penalty++;
+            $game_result['guest']['player']['field']['lf_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_lf_2_penalty++;
+            $game_result['guest']['player']['field']['lf_2']['penalty']++;
         }
         else
         {
-            $guest_lf_3_penalty++;
+            $game_result['guest']['player']['field']['lf_3']['penalty']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_c_1_penalty++;
+            $game_result['guest']['player']['field']['c_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_c_2_penalty++;
+            $game_result['guest']['player']['field']['c_2']['penalty']++;
         }
         else
         {
-            $guest_c_3_penalty++;
+            $game_result['guest']['player']['field']['c_3']['penalty']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rf_1_penalty++;
+            $game_result['guest']['player']['field']['rf_1']['penalty']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rf_2_penalty++;
+            $game_result['guest']['player']['field']['rf_2']['penalty']++;
         }
         else
         {
-            $guest_rf_3_penalty++;
+            $game_result['guest']['player']['field']['rf_3']['penalty']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_team_penalty_increase()
+function f_igosja_home_team_penalty_increase($game_result)
 {
-    global $home_penalty;
-    global $home_penalty_1;
-    global $home_penalty_2;
-    global $home_penalty_3;
-    global $minute;
+    $game_result['home']['team']['penalty']['total']++;
 
-    $home_penalty++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $home_penalty_1++;
+        $game_result['home']['team']['penalty'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $home_penalty_2++;
+        $game_result['home']['team']['penalty'][2]++;
     }
     else
     {
-        $home_penalty_3++;
+        $game_result['home']['team']['penalty'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_team_penalty_increase()
+function f_igosja_guest_team_penalty_increase($game_result)
 {
-    global $guest_penalty;
-    global $guest_penalty_1;
-    global $guest_penalty_2;
-    global $guest_penalty_3;
-    global $minute;
+    $game_result['guest']['team']['penalty']['total']++;
 
-    $guest_penalty++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $guest_penalty_1++;
+        $game_result['guest']['team']['penalty'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $guest_penalty_2++;
+        $game_result['guest']['team']['penalty'][2]++;
     }
     else
     {
-        $guest_penalty_3++;
+        $game_result['guest']['team']['penalty'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_team_shot_increase()
+function f_igosja_home_team_shot_increase($game_result)
 {
-    global $guest_gk_shot;
-    global $home_shot;
-    global $home_shot_1;
-    global $home_shot_2;
-    global $home_shot_3;
-    global $minute;
+    $game_result['guest']['player']['gk']['shot']++;
+    $game_result['home']['team']['shot']['total']++;
 
-    $guest_gk_shot++;
-    $home_shot++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $home_shot_1++;
+        $game_result['home']['team']['shot'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $home_shot_2++;
+        $game_result['home']['team']['shot'][2]++;
     }
     else
     {
-        $home_shot_3++;
+        $game_result['home']['team']['shot'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_team_shot_increase()
+function f_igosja_guest_team_shot_increase($game_result)
 {
-    global $home_gk_shot;
-    global $guest_shot;
-    global $guest_shot_1;
-    global $guest_shot_2;
-    global $guest_shot_3;
-    global $minute;
+    $game_result['home']['player']['gk']['shot']++;
+    $game_result['guest']['team']['shot']['total']++;
 
-    $home_gk_shot++;
-    $guest_shot++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $guest_shot_1++;
+        $game_result['guest']['team']['shot'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $guest_shot_2++;
+        $game_result['guest']['team']['shot'][2]++;
     }
     else
     {
-        $guest_shot_3++;
+        $game_result['guest']['team']['shot'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_player_shot_increase($player)
+function f_igosja_home_player_shot_increase($game_result)
 {
-    global $home_c_1_shot;
-    global $home_c_2_shot;
-    global $home_c_3_shot;
-    global $home_ld_1_shot;
-    global $home_ld_2_shot;
-    global $home_ld_3_shot;
-    global $home_lf_1_shot;
-    global $home_lf_2_shot;
-    global $home_lf_3_shot;
-    global $home_rd_1_shot;
-    global $home_rd_2_shot;
-    global $home_rd_3_shot;
-    global $home_rf_1_shot;
-    global $home_rf_2_shot;
-    global $home_rf_3_shot;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_ld_1_shot++;
+            $game_result['home']['player']['field']['ld_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_ld_2_shot++;
+            $game_result['home']['player']['field']['ld_2']['shot']++;
         }
         else
         {
-            $home_ld_3_shot++;
+            $game_result['home']['player']['field']['ld_3']['shot']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rd_1_shot++;
+            $game_result['home']['player']['field']['rd_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rd_2_shot++;
+            $game_result['home']['player']['field']['rd_2']['shot']++;
         }
         else
         {
-            $home_rd_3_shot++;
+            $game_result['home']['player']['field']['rd_3']['shot']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_lf_1_shot++;
+            $game_result['home']['player']['field']['lf_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_lf_2_shot++;
+            $game_result['home']['player']['field']['lf_2']['shot']++;
         }
         else
         {
-            $home_lf_3_shot++;
+            $game_result['home']['player']['field']['lf_3']['shot']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_c_1_shot++;
+            $game_result['home']['player']['field']['c_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_c_2_shot++;
+            $game_result['home']['player']['field']['c_2']['shot']++;
         }
         else
         {
-            $home_c_3_shot++;
+            $game_result['home']['player']['field']['c_3']['shot']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rf_1_shot++;
+            $game_result['home']['player']['field']['rf_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rf_2_shot++;
+            $game_result['home']['player']['field']['rf_2']['shot']++;
         }
         else
         {
-            $home_rf_3_shot++;
+            $game_result['home']['player']['field']['rf_3']['shot']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_player_shot_increase($player)
+function f_igosja_guest_player_shot_increase($game_result)
 {
-    global $guest_c_1_shot;
-    global $guest_c_2_shot;
-    global $guest_c_3_shot;
-    global $guest_ld_1_shot;
-    global $guest_ld_2_shot;
-    global $guest_ld_3_shot;
-    global $guest_lf_1_shot;
-    global $guest_lf_2_shot;
-    global $guest_lf_3_shot;
-    global $guest_rd_1_shot;
-    global $guest_rd_2_shot;
-    global $guest_rd_3_shot;
-    global $guest_rf_1_shot;
-    global $guest_rf_2_shot;
-    global $guest_rf_3_shot;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_ld_1_shot++;
+            $game_result['guest']['player']['field']['ld_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_ld_2_shot++;
+            $game_result['guest']['player']['field']['ld_2']['shot']++;
         }
         else
         {
-            $guest_ld_3_shot++;
+            $game_result['guest']['player']['field']['ld_3']['shot']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rd_1_shot++;
+            $game_result['guest']['player']['field']['rd_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rd_2_shot++;
+            $game_result['guest']['player']['field']['rd_2']['shot']++;
         }
         else
         {
-            $guest_rd_3_shot++;
+            $game_result['guest']['player']['field']['rd_3']['shot']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_lf_1_shot++;
+            $game_result['guest']['player']['field']['lf_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_lf_2_shot++;
+            $game_result['guest']['player']['field']['lf_2']['shot']++;
         }
         else
         {
-            $guest_lf_3_shot++;
+            $game_result['guest']['player']['field']['lf_3']['shot']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_c_1_shot++;
+            $game_result['guest']['player']['field']['c_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_c_2_shot++;
+            $game_result['guest']['player']['field']['c_2']['shot']++;
         }
         else
         {
-            $guest_c_3_shot++;
+            $game_result['guest']['player']['field']['c_3']['shot']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rf_1_shot++;
+            $game_result['guest']['player']['field']['rf_1']['shot']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rf_2_shot++;
+            $game_result['guest']['player']['field']['rf_2']['shot']++;
         }
         else
         {
-            $guest_rf_3_shot++;
+            $game_result['guest']['player']['field']['rf_3']['shot']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_get_home_player_shot_power($player)
+function f_igosja_home_player_shot_power($game_result)
 {
-    global $home_player_c_1_power_real;
-    global $home_player_c_2_power_real;
-    global $home_player_c_3_power_real;
-    global $home_player_ld_1_power_real;
-    global $home_player_ld_2_power_real;
-    global $home_player_ld_3_power_real;
-    global $home_player_lf_1_power_real;
-    global $home_player_lf_2_power_real;
-    global $home_player_lf_3_power_real;
-    global $home_player_rd_1_power_real;
-    global $home_player_rd_2_power_real;
-    global $home_player_rd_3_power_real;
-    global $home_player_rf_1_power_real;
-    global $home_player_rf_2_power_real;
-    global $home_player_rf_3_power_real;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_ld_1_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['ld_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_ld_2_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['ld_2']['power_real'];
         }
         else
         {
-            $player_shot = $home_player_ld_3_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['ld_3']['power_real'];
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_rd_1_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rd_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_rd_2_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rd_2']['power_real'];
         }
         else
         {
-            $player_shot = $home_player_rd_3_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rd_3']['power_real'];
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_lf_1_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_lf_2_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_2']['power_real'];
         }
         else
         {
-            $player_shot = $home_player_lf_3_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_3']['power_real'];
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_c_1_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['c_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_c_2_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['c_2']['power_real'];
         }
         else
         {
-            $player_shot = $home_player_c_3_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['c_3']['power_real'];
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_rf_1_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $home_player_rf_2_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_2']['power_real'];
         }
         else
         {
-            $player_shot = $home_player_rf_3_power_real;
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_3']['power_real'];
         }
     }
 
-    return $player_shot;
+    return $game_result;
 }
 
-function f_igosja_get_guest_player_shot_power($player)
+function f_igosja_guest_player_shot_power($game_result)
 {
-    global $guest_player_c_1_power_real;
-    global $guest_player_c_2_power_real;
-    global $guest_player_c_3_power_real;
-    global $guest_player_ld_1_power_real;
-    global $guest_player_ld_2_power_real;
-    global $guest_player_ld_3_power_real;
-    global $guest_player_lf_1_power_real;
-    global $guest_player_lf_2_power_real;
-    global $guest_player_lf_3_power_real;
-    global $guest_player_rd_1_power_real;
-    global $guest_player_rd_2_power_real;
-    global $guest_player_rd_3_power_real;
-    global $guest_player_rf_1_power_real;
-    global $guest_player_rf_2_power_real;
-    global $guest_player_rf_3_power_real;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_ld_1_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['ld_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_ld_2_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['ld_2']['power_real'];
         }
         else
         {
-            $player_shot = $guest_player_ld_3_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['ld_3']['power_real'];
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_rd_1_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rd_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_rd_2_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rd_2']['power_real'];
         }
         else
         {
-            $player_shot = $guest_player_rd_3_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rd_3']['power_real'];
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_lf_1_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_lf_2_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_2']['power_real'];
         }
         else
         {
-            $player_shot = $guest_player_lf_3_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_3']['power_real'];
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_c_1_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['c_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_c_2_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['c_2']['power_real'];
         }
         else
         {
-            $player_shot = $guest_player_c_3_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['c_3']['power_real'];
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_rf_1_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_1']['power_real'];
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $player_shot = $guest_player_rf_2_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_2']['power_real'];
         }
         else
         {
-            $player_shot = $guest_player_rf_3_power_real;
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_3']['power_real'];
         }
     }
 
-    return $player_shot;
+    return $game_result;
 }
 
-function f_igosja_home_team_score_increase()
+function f_igosja_home_team_score_increase($game_result)
 {
-    global $guest_gk_pass;
-    global $home_score;
-    global $home_score_1;
-    global $home_score_2;
-    global $home_score_3;
-    global $minute;
+    $game_result['home']['team']['score']['total']++;
+    $game_result['guest']['player']['gk']['pass']++;
 
-    $home_score++;
-    $guest_gk_pass++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $home_score_1++;
+        $game_result['home']['team']['score'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $home_score_2++;
+        $game_result['home']['team']['score'][2]++;
     }
     else
     {
-        $home_score_3++;
+        $game_result['home']['team']['score'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_team_score_increase()
+function f_igosja_guest_team_score_increase($game_result)
 {
-    global $home_gk_pass;
-    global $guest_score;
-    global $guest_score_1;
-    global $guest_score_2;
-    global $guest_score_3;
-    global $minute;
+    $game_result['guest']['team']['score']['total']++;
+    $game_result['home']['player']['gk']['pass']++;
 
-    $guest_score++;
-    $home_gk_pass++;
-
-    if (20 > $minute)
+    if (20 > $game_result['minute'])
     {
-        $guest_score_1++;
+        $game_result['guest']['team']['score'][1]++;
     }
-    elseif (40 > $minute)
+    elseif (40 > $game_result['minute'])
     {
-        $guest_score_2++;
+        $game_result['guest']['team']['score'][2]++;
     }
     else
     {
-        $guest_score_3++;
+        $game_result['guest']['team']['score'][3]++;
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_plus_minus_increase()
+function f_igosja_home_plus_minus_increase($game_result)
 {
-    global $guest_c_1_plus;
-    global $guest_c_2_plus;
-    global $guest_c_3_plus;
-    global $guest_ld_1_plus;
-    global $guest_ld_2_plus;
-    global $guest_ld_3_plus;
-    global $guest_lf_1_plus;
-    global $guest_lf_2_plus;
-    global $guest_lf_3_plus;
-    global $guest_rd_1_plus;
-    global $guest_rd_2_plus;
-    global $guest_rd_3_plus;
-    global $guest_rf_1_plus;
-    global $guest_rf_2_plus;
-    global $guest_rf_3_plus;
-    global $home_c_1_plus;
-    global $home_c_2_plus;
-    global $home_c_3_plus;
-    global $home_ld_1_plus;
-    global $home_ld_2_plus;
-    global $home_ld_3_plus;
-    global $home_lf_1_plus;
-    global $home_lf_2_plus;
-    global $home_lf_3_plus;
-    global $home_rd_1_plus;
-    global $home_rd_2_plus;
-    global $home_rd_3_plus;
-    global $home_rf_1_plus;
-    global $home_rf_2_plus;
-    global $home_rf_3_plus;
-    global $minute;
-
-    if (20 > $minute)
+    if (0 == $game_result['minute'] % 3)
     {
-        $home_ld_1_plus++;
-        $home_rd_1_plus++;
-        $home_lf_1_plus++;
-        $home_c_1_plus++;
-        $home_rf_1_plus++;
+        $game_result['home']['player']['field']['ld_1']['plus_minus']++;
+        $game_result['home']['player']['field']['rd_1']['plus_minus']++;
+        $game_result['home']['player']['field']['lf_1']['plus_minus']++;
+        $game_result['home']['player']['field']['c_1']['plus_minus']++;
+        $game_result['home']['player']['field']['rf_1']['plus_minus']++;
 
-        $guest_ld_1_plus--;
-        $guest_rd_1_plus--;
-        $guest_lf_1_plus--;
-        $guest_c_1_plus--;
-        $guest_rf_1_plus--;
+        $game_result['guest']['player']['field']['ld_1']['plus_minus']--;
+        $game_result['guest']['player']['field']['rd_1']['plus_minus']--;
+        $game_result['guest']['player']['field']['lf_1']['plus_minus']--;
+        $game_result['guest']['player']['field']['c_1']['plus_minus']--;
+        $game_result['guest']['player']['field']['rf_1']['plus_minus']--;
     }
-    elseif (40 > $minute)
+    elseif (1 == $game_result['minute'] % 3)
     {
-        $home_ld_2_plus++;
-        $home_rd_2_plus++;
-        $home_lf_2_plus++;
-        $home_c_2_plus++;
-        $home_rf_2_plus++;
+        $game_result['home']['player']['field']['ld_2']['plus_minus']++;
+        $game_result['home']['player']['field']['rd_2']['plus_minus']++;
+        $game_result['home']['player']['field']['lf_2']['plus_minus']++;
+        $game_result['home']['player']['field']['c_2']['plus_minus']++;
+        $game_result['home']['player']['field']['rf_2']['plus_minus']++;
 
-        $guest_ld_2_plus--;
-        $guest_rd_2_plus--;
-        $guest_lf_2_plus--;
-        $guest_c_2_plus--;
-        $guest_rf_2_plus--;
+        $game_result['guest']['player']['field']['ld_2']['plus_minus']--;
+        $game_result['guest']['player']['field']['rd_2']['plus_minus']--;
+        $game_result['guest']['player']['field']['lf_2']['plus_minus']--;
+        $game_result['guest']['player']['field']['c_2']['plus_minus']--;
+        $game_result['guest']['player']['field']['rf_2']['plus_minus']--;
     }
     else
     {
-        $home_ld_3_plus++;
-        $home_rd_3_plus++;
-        $home_lf_3_plus++;
-        $home_c_3_plus++;
-        $home_rf_3_plus++;
+        $game_result['home']['player']['field']['ld_3']['plus_minus']++;
+        $game_result['home']['player']['field']['rd_3']['plus_minus']++;
+        $game_result['home']['player']['field']['lf_3']['plus_minus']++;
+        $game_result['home']['player']['field']['c_3']['plus_minus']++;
+        $game_result['home']['player']['field']['rf_3']['plus_minus']++;
 
-        $guest_ld_3_plus--;
-        $guest_rd_3_plus--;
-        $guest_lf_3_plus--;
-        $guest_c_3_plus--;
-        $guest_rf_3_plus--;
+        $game_result['guest']['player']['field']['ld_3']['plus_minus']--;
+        $game_result['guest']['player']['field']['rd_3']['plus_minus']--;
+        $game_result['guest']['player']['field']['lf_3']['plus_minus']--;
+        $game_result['guest']['player']['field']['c_3']['plus_minus']--;
+        $game_result['guest']['player']['field']['rf_3']['plus_minus']--;
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_plus_minus_increase()
+function f_igosja_guest_plus_minus_increase($game_result)
 {
-    global $home_c_1_plus;
-    global $home_c_2_plus;
-    global $home_c_3_plus;
-    global $home_ld_1_plus;
-    global $home_ld_2_plus;
-    global $home_ld_3_plus;
-    global $home_lf_1_plus;
-    global $home_lf_2_plus;
-    global $home_lf_3_plus;
-    global $home_rd_1_plus;
-    global $home_rd_2_plus;
-    global $home_rd_3_plus;
-    global $home_rf_1_plus;
-    global $home_rf_2_plus;
-    global $home_rf_3_plus;
-    global $guest_c_1_plus;
-    global $guest_c_2_plus;
-    global $guest_c_3_plus;
-    global $guest_ld_1_plus;
-    global $guest_ld_2_plus;
-    global $guest_ld_3_plus;
-    global $guest_lf_1_plus;
-    global $guest_lf_2_plus;
-    global $guest_lf_3_plus;
-    global $guest_rd_1_plus;
-    global $guest_rd_2_plus;
-    global $guest_rd_3_plus;
-    global $guest_rf_1_plus;
-    global $guest_rf_2_plus;
-    global $guest_rf_3_plus;
-    global $minute;
-
-    if (20 > $minute)
+    if (0 == $game_result['minute'] % 3)
     {
-        $guest_ld_1_plus++;
-        $guest_rd_1_plus++;
-        $guest_lf_1_plus++;
-        $guest_c_1_plus++;
-        $guest_rf_1_plus++;
+        $game_result['guest']['player']['field']['ld_1']['plus_minus']++;
+        $game_result['guest']['player']['field']['rd_1']['plus_minus']++;
+        $game_result['guest']['player']['field']['lf_1']['plus_minus']++;
+        $game_result['guest']['player']['field']['c_1']['plus_minus']++;
+        $game_result['guest']['player']['field']['rf_1']['plus_minus']++;
 
-        $home_ld_1_plus--;
-        $home_rd_1_plus--;
-        $home_lf_1_plus--;
-        $home_c_1_plus--;
-        $home_rf_1_plus--;
+        $game_result['home']['player']['field']['ld_1']['plus_minus']--;
+        $game_result['home']['player']['field']['rd_1']['plus_minus']--;
+        $game_result['home']['player']['field']['lf_1']['plus_minus']--;
+        $game_result['home']['player']['field']['c_1']['plus_minus']--;
+        $game_result['home']['player']['field']['rf_1']['plus_minus']--;
     }
-    elseif (40 > $minute)
+    elseif (1 == $game_result['minute'] % 3)
     {
-        $guest_ld_2_plus++;
-        $guest_rd_2_plus++;
-        $guest_lf_2_plus++;
-        $guest_c_2_plus++;
-        $guest_rf_2_plus++;
+        $game_result['guest']['player']['field']['ld_2']['plus_minus']++;
+        $game_result['guest']['player']['field']['rd_2']['plus_minus']++;
+        $game_result['guest']['player']['field']['lf_2']['plus_minus']++;
+        $game_result['guest']['player']['field']['c_2']['plus_minus']++;
+        $game_result['guest']['player']['field']['rf_2']['plus_minus']++;
 
-        $home_ld_2_plus--;
-        $home_rd_2_plus--;
-        $home_lf_2_plus--;
-        $home_c_2_plus--;
-        $home_rf_2_plus--;
+        $game_result['home']['player']['field']['ld_2']['plus_minus']--;
+        $game_result['home']['player']['field']['rd_2']['plus_minus']--;
+        $game_result['home']['player']['field']['lf_2']['plus_minus']--;
+        $game_result['home']['player']['field']['c_2']['plus_minus']--;
+        $game_result['home']['player']['field']['rf_2']['plus_minus']--;
     }
     else
     {
-        $guest_ld_3_plus++;
-        $guest_rd_3_plus++;
-        $guest_lf_3_plus++;
-        $guest_c_3_plus++;
-        $guest_rf_3_plus++;
+        $game_result['guest']['player']['field']['ld_3']['plus_minus']++;
+        $game_result['guest']['player']['field']['rd_3']['plus_minus']++;
+        $game_result['guest']['player']['field']['lf_3']['plus_minus']++;
+        $game_result['guest']['player']['field']['c_3']['plus_minus']++;
+        $game_result['guest']['player']['field']['rf_3']['plus_minus']++;
 
-        $home_ld_3_plus--;
-        $home_rd_3_plus--;
-        $home_lf_3_plus--;
-        $home_c_3_plus--;
-        $home_rf_3_plus--;
+        $game_result['home']['player']['field']['ld_3']['plus_minus']--;
+        $game_result['home']['player']['field']['rd_3']['plus_minus']--;
+        $game_result['home']['player']['field']['lf_3']['plus_minus']--;
+        $game_result['home']['player']['field']['c_3']['plus_minus']--;
+        $game_result['home']['player']['field']['rf_3']['plus_minus']--;
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_player_score_increase($player)
+function f_igosja_home_player_score_increase($game_result)
 {
-    global $home_c_1_score;
-    global $home_c_2_score;
-    global $home_c_3_score;
-    global $home_ld_1_score;
-    global $home_ld_2_score;
-    global $home_ld_3_score;
-    global $home_lf_1_score;
-    global $home_lf_2_score;
-    global $home_lf_3_score;
-    global $home_rd_1_score;
-    global $home_rd_2_score;
-    global $home_rd_3_score;
-    global $home_rf_1_score;
-    global $home_rf_2_score;
-    global $home_rf_3_score;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_ld_1_score++;
+            $game_result['home']['player']['field']['ld_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_ld_2_score++;
+            $game_result['home']['player']['field']['ld_2']['score']++;
         }
         else
         {
-            $home_ld_3_score++;
+            $game_result['home']['player']['field']['ld_3']['score']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rd_1_score++;
+            $game_result['home']['player']['field']['rd_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rd_2_score++;
+            $game_result['home']['player']['field']['rd_2']['score']++;
         }
         else
         {
-            $home_rd_3_score++;
+            $game_result['home']['player']['field']['rd_3']['score']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_lf_1_score++;
+            $game_result['home']['player']['field']['lf_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_lf_2_score++;
+            $game_result['home']['player']['field']['lf_2']['score']++;
         }
         else
         {
-            $home_lf_3_score++;
+            $game_result['home']['player']['field']['lf_3']['score']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_c_1_score++;
+            $game_result['home']['player']['field']['c_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_c_2_score++;
+            $game_result['home']['player']['field']['c_2']['score']++;
         }
         else
         {
-            $home_c_3_score++;
+            $game_result['home']['player']['field']['c_3']['score']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rf_1_score++;
+            $game_result['home']['player']['field']['rf_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rf_2_score++;
+            $game_result['home']['player']['field']['rf_2']['score']++;
         }
         else
         {
-            $home_rf_3_score++;
+            $game_result['home']['player']['field']['rf_3']['score']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_player_score_increase($player)
+function f_igosja_guest_player_score_increase($game_result)
 {
-    global $guest_c_1_score;
-    global $guest_c_2_score;
-    global $guest_c_3_score;
-    global $guest_ld_1_score;
-    global $guest_ld_2_score;
-    global $guest_ld_3_score;
-    global $guest_lf_1_score;
-    global $guest_lf_2_score;
-    global $guest_lf_3_score;
-    global $guest_rd_1_score;
-    global $guest_rd_2_score;
-    global $guest_rd_3_score;
-    global $guest_rf_1_score;
-    global $guest_rf_2_score;
-    global $guest_rf_3_score;
-    global $minute;
-
-    if (1 == $player)
+    if (1 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_ld_1_score++;
+            $game_result['guest']['player']['field']['ld_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_ld_2_score++;
+            $game_result['guest']['player']['field']['ld_2']['score']++;
         }
         else
         {
-            $guest_ld_3_score++;
+            $game_result['guest']['player']['field']['ld_3']['score']++;
         }
     }
-    elseif (2 == $player)
+    elseif (2 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rd_1_score++;
+            $game_result['guest']['player']['field']['rd_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rd_2_score++;
+            $game_result['guest']['player']['field']['rd_2']['score']++;
         }
         else
         {
-            $guest_rd_3_score++;
+            $game_result['guest']['player']['field']['rd_3']['score']++;
         }
     }
-    elseif (3 == $player)
+    elseif (3 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_lf_1_score++;
+            $game_result['guest']['player']['field']['lf_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_lf_2_score++;
+            $game_result['guest']['player']['field']['lf_2']['score']++;
         }
         else
         {
-            $guest_lf_3_score++;
+            $game_result['guest']['player']['field']['lf_3']['score']++;
         }
     }
-    elseif (4 == $player)
+    elseif (4 == $game_result['player'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_c_1_score++;
+            $game_result['guest']['player']['field']['c_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_c_2_score++;
+            $game_result['guest']['player']['field']['c_2']['score']++;
         }
         else
         {
-            $guest_c_3_score++;
+            $game_result['guest']['player']['field']['c_3']['score']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rf_1_score++;
+            $game_result['guest']['player']['field']['rf_1']['score']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rf_2_score++;
+            $game_result['guest']['player']['field']['rf_2']['score']++;
         }
         else
         {
-            $guest_rf_3_score++;
+            $game_result['guest']['player']['field']['rf_3']['score']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_player_assist_1_increase($assist_1)
+function f_igosja_home_player_assist_1_increase($game_result)
 {
-    global $home_c_1_assist;
-    global $home_c_2_assist;
-    global $home_c_3_assist;
-    global $home_ld_1_assist;
-    global $home_ld_2_assist;
-    global $home_ld_3_assist;
-    global $home_lf_1_assist;
-    global $home_lf_2_assist;
-    global $home_lf_3_assist;
-    global $home_rd_1_assist;
-    global $home_rd_2_assist;
-    global $home_rd_3_assist;
-    global $home_rf_1_assist;
-    global $home_rf_2_assist;
-    global $home_rf_3_assist;
-    global $minute;
-
-    if (1 == $assist_1)
+    if (1 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_ld_1_assist++;
+            $game_result['home']['player']['field']['ld_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_ld_2_assist++;
+            $game_result['home']['player']['field']['ld_2']['assist']++;
         }
         else
         {
-            $home_ld_3_assist++;
+            $game_result['home']['player']['field']['ld_3']['assist']++;
         }
     }
-    elseif (2 == $assist_1)
+    elseif (2 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rd_1_assist++;
+            $game_result['home']['player']['field']['rd_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rd_2_assist++;
+            $game_result['home']['player']['field']['rd_2']['assist']++;
         }
         else
         {
-            $home_rd_3_assist++;
+            $game_result['home']['player']['field']['rd_3']['assist']++;
         }
     }
-    elseif (3 == $assist_1)
+    elseif (3 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_lf_1_assist++;
+            $game_result['home']['player']['field']['lf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_lf_2_assist++;
+            $game_result['home']['player']['field']['lf_2']['assist']++;
         }
         else
         {
-            $home_lf_3_assist++;
+            $game_result['home']['player']['field']['lf_3']['assist']++;
         }
     }
-    elseif (4 == $assist_1)
+    elseif (4 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_c_1_assist++;
+            $game_result['home']['player']['field']['c_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_c_2_assist++;
+            $game_result['home']['player']['field']['c_2']['assist']++;
         }
         else
         {
-            $home_c_3_assist++;
+            $game_result['home']['player']['field']['c_3']['assist']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rf_1_assist++;
+            $game_result['home']['player']['field']['rf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rf_2_assist++;
+            $game_result['home']['player']['field']['rf_2']['assist']++;
         }
         else
         {
-            $home_rf_3_assist++;
+            $game_result['home']['player']['field']['rf_3']['assist']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_player_assist_1_increase($assist_1)
+function f_igosja_guest_player_assist_1_increase($game_result)
 {
-    global $guest_c_1_assist;
-    global $guest_c_2_assist;
-    global $guest_c_3_assist;
-    global $guest_ld_1_assist;
-    global $guest_ld_2_assist;
-    global $guest_ld_3_assist;
-    global $guest_lf_1_assist;
-    global $guest_lf_2_assist;
-    global $guest_lf_3_assist;
-    global $guest_rd_1_assist;
-    global $guest_rd_2_assist;
-    global $guest_rd_3_assist;
-    global $guest_rf_1_assist;
-    global $guest_rf_2_assist;
-    global $guest_rf_3_assist;
-    global $minute;
-
-    if (1 == $assist_1)
+    if (1 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_ld_1_assist++;
+            $game_result['guest']['player']['field']['ld_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_ld_2_assist++;
+            $game_result['guest']['player']['field']['ld_2']['assist']++;
         }
         else
         {
-            $guest_ld_3_assist++;
+            $game_result['guest']['player']['field']['ld_3']['assist']++;
         }
     }
-    elseif (2 == $assist_1)
+    elseif (2 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rd_1_assist++;
+            $game_result['guest']['player']['field']['rd_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rd_2_assist++;
+            $game_result['guest']['player']['field']['rd_2']['assist']++;
         }
         else
         {
-            $guest_rd_3_assist++;
+            $game_result['guest']['player']['field']['rd_3']['assist']++;
         }
     }
-    elseif (3 == $assist_1)
+    elseif (3 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_lf_1_assist++;
+            $game_result['guest']['player']['field']['lf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_lf_2_assist++;
+            $game_result['guest']['player']['field']['lf_2']['assist']++;
         }
         else
         {
-            $guest_lf_3_assist++;
+            $game_result['guest']['player']['field']['lf_3']['assist']++;
         }
     }
-    elseif (4 == $assist_1)
+    elseif (4 == $game_result['assist_1'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_c_1_assist++;
+            $game_result['guest']['player']['field']['c_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_c_2_assist++;
+            $game_result['guest']['player']['field']['c_2']['assist']++;
         }
         else
         {
-            $guest_c_3_assist++;
+            $game_result['guest']['player']['field']['c_3']['assist']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rf_1_assist++;
+            $game_result['guest']['player']['field']['rf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rf_2_assist++;
+            $game_result['guest']['player']['field']['rf_2']['assist']++;
         }
         else
         {
-            $guest_rf_3_assist++;
+            $game_result['guest']['player']['field']['rf_3']['assist']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_home_player_assist_2_increase($assist_2)
+function f_igosja_home_player_assist_2_increase($game_result)
 {
-    global $home_c_1_assist;
-    global $home_c_2_assist;
-    global $home_c_3_assist;
-    global $home_ld_1_assist;
-    global $home_ld_2_assist;
-    global $home_ld_3_assist;
-    global $home_lf_1_assist;
-    global $home_lf_2_assist;
-    global $home_lf_3_assist;
-    global $home_rd_1_assist;
-    global $home_rd_2_assist;
-    global $home_rd_3_assist;
-    global $home_rf_1_assist;
-    global $home_rf_2_assist;
-    global $home_rf_3_assist;
-    global $minute;
-
-    if (1 == $assist_2)
+    if (0 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        $game_result['home']['player']['gk']['assist']++;
+    }
+    elseif (1 == $game_result['assist_2'])
+    {
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_ld_1_assist++;
+            $game_result['home']['player']['field']['ld_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_ld_2_assist++;
+            $game_result['home']['player']['field']['ld_2']['assist']++;
         }
         else
         {
-            $home_ld_3_assist++;
+            $game_result['home']['player']['field']['ld_3']['assist']++;
         }
     }
-    elseif (2 == $assist_2)
+    elseif (2 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rd_1_assist++;
+            $game_result['home']['player']['field']['rd_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rd_2_assist++;
+            $game_result['home']['player']['field']['rd_2']['assist']++;
         }
         else
         {
-            $home_rd_3_assist++;
+            $game_result['home']['player']['field']['rd_3']['assist']++;
         }
     }
-    elseif (3 == $assist_2)
+    elseif (3 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_lf_1_assist++;
+            $game_result['home']['player']['field']['lf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_lf_2_assist++;
+            $game_result['home']['player']['field']['lf_2']['assist']++;
         }
         else
         {
-            $home_lf_3_assist++;
+            $game_result['home']['player']['field']['lf_3']['assist']++;
         }
     }
-    elseif (4 == $assist_2)
+    elseif (4 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_c_1_assist++;
+            $game_result['home']['player']['field']['c_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_c_2_assist++;
+            $game_result['home']['player']['field']['c_2']['assist']++;
         }
         else
         {
-            $home_c_3_assist++;
+            $game_result['home']['player']['field']['c_3']['assist']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $home_rf_1_assist++;
+            $game_result['home']['player']['field']['rf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $home_rf_2_assist++;
+            $game_result['home']['player']['field']['rf_2']['assist']++;
         }
         else
         {
-            $home_rf_3_assist++;
+            $game_result['home']['player']['field']['rf_3']['assist']++;
         }
     }
+
+    return $game_result;
 }
 
-function f_igosja_guest_player_assist_2_increase($assist_2)
+function f_igosja_guest_player_assist_2_increase($game_result)
 {
-    global $guest_c_1_assist;
-    global $guest_c_2_assist;
-    global $guest_c_3_assist;
-    global $guest_ld_1_assist;
-    global $guest_ld_2_assist;
-    global $guest_ld_3_assist;
-    global $guest_lf_1_assist;
-    global $guest_lf_2_assist;
-    global $guest_lf_3_assist;
-    global $guest_rd_1_assist;
-    global $guest_rd_2_assist;
-    global $guest_rd_3_assist;
-    global $guest_rf_1_assist;
-    global $guest_rf_2_assist;
-    global $guest_rf_3_assist;
-    global $minute;
-
-    if (1 == $assist_2)
+    if (0 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        $game_result['guest']['player']['gk']['assist']++;
+    }
+    elseif (1 == $game_result['assist_2'])
+    {
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_ld_1_assist++;
+            $game_result['guest']['player']['field']['ld_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_ld_2_assist++;
+            $game_result['guest']['player']['field']['ld_2']['assist']++;
         }
         else
         {
-            $guest_ld_3_assist++;
+            $game_result['guest']['player']['field']['ld_3']['assist']++;
         }
     }
-    elseif (2 == $assist_2)
+    elseif (2 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rd_1_assist++;
+            $game_result['guest']['player']['field']['rd_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rd_2_assist++;
+            $game_result['guest']['player']['field']['rd_2']['assist']++;
         }
         else
         {
-            $guest_rd_3_assist++;
+            $game_result['guest']['player']['field']['rd_3']['assist']++;
         }
     }
-    elseif (3 == $assist_2)
+    elseif (3 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_lf_1_assist++;
+            $game_result['guest']['player']['field']['lf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_lf_2_assist++;
+            $game_result['guest']['player']['field']['lf_2']['assist']++;
         }
         else
         {
-            $guest_lf_3_assist++;
+            $game_result['guest']['player']['field']['lf_3']['assist']++;
         }
     }
-    elseif (4 == $assist_2)
+    elseif (4 == $game_result['assist_2'])
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_c_1_assist++;
+            $game_result['guest']['player']['field']['c_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_c_2_assist++;
+            $game_result['guest']['player']['field']['c_2']['assist']++;
         }
         else
         {
-            $guest_c_3_assist++;
+            $game_result['guest']['player']['field']['c_3']['assist']++;
         }
     }
     else
     {
-        if (0 == $minute % 3)
+        if (0 == $game_result['minute'] % 3)
         {
-            $guest_rf_1_assist++;
+            $game_result['guest']['player']['field']['rf_1']['assist']++;
         }
-        elseif (1 == $minute % 3)
+        elseif (1 == $game_result['minute'] % 3)
         {
-            $guest_rf_2_assist++;
+            $game_result['guest']['player']['field']['rf_2']['assist']++;
         }
         else
         {
-            $guest_rf_3_assist++;
+            $game_result['guest']['player']['field']['rf_3']['assist']++;
         }
     }
+
+    return $game_result;
+}
+
+function f_igosja_generator_assist_1($game_result)
+{
+    $game_result['assist_1'] = rand(1, 5);
+
+    if ($game_result['player'] == $game_result['assist_1'])
+    {
+        $game_result = f_igosja_generator_assist_1($game_result);
+    }
+
+    return $game_result;
+}
+
+function f_igosja_generator_assist_2($game_result)
+{
+    $game_result['assist_2'] = rand(0, 5);
+
+    if (in_array($game_result['assist_2'], array($game_result['player'], $game_result['assist_1'])))
+    {
+        $game_result = f_igosja_generator_assist_2($game_result);
+    }
+
+    return $game_result;
 }

@@ -31,188 +31,448 @@ function f_igosja_generator_game_result()
 
     foreach ($game_array as $game)
     {
-        $home_score         = 0;
-        $home_score_1       = 0;
-        $home_score_2       = 0;
-        $home_score_3       = 0;
-        $home_shot          = 0;
-        $home_shot_1        = 0;
-        $home_shot_2        = 0;
-        $home_shot_3        = 0;
-        $home_penalty       = 0;
-        $home_penalty_1     = 0;
-        $home_penalty_2     = 0;
-        $home_penalty_3     = 0;
-        $guest_score        = 0;
-        $guest_score_1      = 0;
-        $guest_score_2      = 0;
-        $guest_score_3      = 0;
-        $guest_shot         = 0;
-        $guest_shot_1       = 0;
-        $guest_shot_2       = 0;
-        $guest_shot_3       = 0;
-        $guest_penalty      = 0;
-        $guest_penalty_1    = 0;
-        $guest_penalty_2    = 0;
-        $guest_penalty_3    = 0;
-
-        $home_gk_assist     = 0;
-        $home_gk_pass       = 0;
-        $home_gk_shot       = 0;
-        $home_ld_1_assist   = 0;
-        $home_ld_1_penalty  = 0;
-        $home_ld_1_plus     = 0;
-        $home_ld_1_score    = 0;
-        $home_ld_1_shot     = 0;
-        $home_rd_1_assist   = 0;
-        $home_rd_1_penalty  = 0;
-        $home_rd_1_plus     = 0;
-        $home_rd_1_score    = 0;
-        $home_rd_1_shot     = 0;
-        $home_lf_1_assist   = 0;
-        $home_lf_1_penalty  = 0;
-        $home_lf_1_plus     = 0;
-        $home_lf_1_score    = 0;
-        $home_lf_1_shot     = 0;
-        $home_c_1_assist    = 0;
-        $home_c_1_penalty   = 0;
-        $home_c_1_plus      = 0;
-        $home_c_1_score     = 0;
-        $home_c_1_shot      = 0;
-        $home_rf_1_assist   = 0;
-        $home_rf_1_penalty  = 0;
-        $home_rf_1_plus     = 0;
-        $home_rf_1_score    = 0;
-        $home_rf_1_shot     = 0;
-        $home_ld_2_assist   = 0;
-        $home_ld_2_penalty  = 0;
-        $home_ld_2_plus     = 0;
-        $home_ld_2_score    = 0;
-        $home_ld_2_shot     = 0;
-        $home_rd_2_assist   = 0;
-        $home_rd_2_penalty  = 0;
-        $home_rd_2_plus     = 0;
-        $home_rd_2_score    = 0;
-        $home_rd_2_shot     = 0;
-        $home_lf_2_assist   = 0;
-        $home_lf_2_penalty  = 0;
-        $home_lf_2_plus     = 0;
-        $home_lf_2_score    = 0;
-        $home_lf_2_shot     = 0;
-        $home_c_2_assist    = 0;
-        $home_c_2_penalty   = 0;
-        $home_c_2_plus      = 0;
-        $home_c_2_score     = 0;
-        $home_c_2_shot      = 0;
-        $home_rf_2_assist   = 0;
-        $home_rf_2_penalty  = 0;
-        $home_rf_2_plus     = 0;
-        $home_rf_2_score    = 0;
-        $home_rf_2_shot     = 0;
-        $home_ld_3_assist   = 0;
-        $home_ld_3_penalty  = 0;
-        $home_ld_3_plus     = 0;
-        $home_ld_3_score    = 0;
-        $home_ld_3_shot     = 0;
-        $home_rd_3_assist   = 0;
-        $home_rd_3_penalty  = 0;
-        $home_rd_3_plus     = 0;
-        $home_rd_3_score    = 0;
-        $home_rd_3_shot     = 0;
-        $home_lf_3_assist   = 0;
-        $home_lf_3_penalty  = 0;
-        $home_lf_3_plus     = 0;
-        $home_lf_3_score    = 0;
-        $home_lf_3_shot     = 0;
-        $home_c_3_assist    = 0;
-        $home_c_3_penalty   = 0;
-        $home_c_3_plus      = 0;
-        $home_c_3_score     = 0;
-        $home_c_3_shot      = 0;
-        $home_rf_3_assist   = 0;
-        $home_rf_3_penalty  = 0;
-        $home_rf_3_plus     = 0;
-        $home_rf_3_score    = 0;
-        $home_rf_3_shot     = 0;
-
-        $guest_gk_assist    = 0;
-        $guest_gk_pass      = 0;
-        $guest_gk_shot      = 0;
-        $guest_ld_1_assist  = 0;
-        $guest_ld_1_penalty = 0;
-        $guest_ld_1_plus    = 0;
-        $guest_ld_1_score   = 0;
-        $guest_ld_1_shot    = 0;
-        $guest_rd_1_assist  = 0;
-        $guest_rd_1_penalty = 0;
-        $guest_rd_1_plus    = 0;
-        $guest_rd_1_score   = 0;
-        $guest_rd_1_shot    = 0;
-        $guest_lf_1_assist  = 0;
-        $guest_lf_1_penalty = 0;
-        $guest_lf_1_plus    = 0;
-        $guest_lf_1_score   = 0;
-        $guest_lf_1_shot    = 0;
-        $guest_c_1_assist   = 0;
-        $guest_c_1_penalty  = 0;
-        $guest_c_1_plus     = 0;
-        $guest_c_1_score    = 0;
-        $guest_c_1_shot     = 0;
-        $guest_rf_1_assist  = 0;
-        $guest_rf_1_penalty = 0;
-        $guest_rf_1_plus    = 0;
-        $guest_rf_1_score   = 0;
-        $guest_rf_1_shot    = 0;
-        $guest_ld_2_assist  = 0;
-        $guest_ld_2_penalty = 0;
-        $guest_ld_2_plus    = 0;
-        $guest_ld_2_score   = 0;
-        $guest_ld_2_shot    = 0;
-        $guest_rd_2_assist  = 0;
-        $guest_rd_2_penalty = 0;
-        $guest_rd_2_plus    = 0;
-        $guest_rd_2_score   = 0;
-        $guest_rd_2_shot    = 0;
-        $guest_lf_2_assist  = 0;
-        $guest_lf_2_penalty = 0;
-        $guest_lf_2_plus    = 0;
-        $guest_lf_2_score   = 0;
-        $guest_lf_2_shot    = 0;
-        $guest_c_2_assist   = 0;
-        $guest_c_2_penalty  = 0;
-        $guest_c_2_plus     = 0;
-        $guest_c_2_score    = 0;
-        $guest_c_2_shot     = 0;
-        $guest_rf_2_assist  = 0;
-        $guest_rf_2_penalty = 0;
-        $guest_rf_2_plus    = 0;
-        $guest_rf_2_score   = 0;
-        $guest_rf_2_shot    = 0;
-        $guest_ld_3_assist  = 0;
-        $guest_ld_3_penalty = 0;
-        $guest_ld_3_plus    = 0;
-        $guest_ld_3_score   = 0;
-        $guest_ld_3_shot    = 0;
-        $guest_rd_3_assist  = 0;
-        $guest_rd_3_penalty = 0;
-        $guest_rd_3_plus    = 0;
-        $guest_rd_3_score   = 0;
-        $guest_rd_3_shot    = 0;
-        $guest_lf_3_assist  = 0;
-        $guest_lf_3_penalty = 0;
-        $guest_lf_3_plus    = 0;
-        $guest_lf_3_score   = 0;
-        $guest_lf_3_shot    = 0;
-        $guest_c_3_assist   = 0;
-        $guest_c_3_penalty  = 0;
-        $guest_c_3_plus     = 0;
-        $guest_c_3_score    = 0;
-        $guest_c_3_shot     = 0;
-        $guest_rf_3_assist  = 0;
-        $guest_rf_3_penalty = 0;
-        $guest_rf_3_plus    = 0;
-        $guest_rf_3_score   = 0;
-        $guest_rf_3_shot    = 0;
+        $game_result = array(
+            'guest' => array(
+                'player' => array(
+                    'gk' => array(
+                        'age' => 0,
+                        'assist' => 0,
+                        'lineup_id' => 0,
+                        'pass' => 0,
+                        'power_nominal' => 0,
+                        'power_real' => 0,
+                        'shot' => 0,
+                    ),
+                    'field' => array(
+                        'ld_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'ld_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'ld_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                    ),
+                ),
+                'team' => array(
+                    'penalty' => array(
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                        'current' => 0,
+                        'total' => 0,
+                    ),
+                    'power' => array(
+                        'defence' => array(
+                            1 => 0,
+                            2 => 0,
+                            3 => 0,
+                            'current' => 0,
+                        ),
+                        'forward' => array(
+                            1 => 0,
+                            2 => 0,
+                            3 => 0,
+                            'current' => 0,
+                        ),
+                        'gk' => 0,
+                        'shot' => 0,
+                        'total' => 0,
+                    ),
+                    'score' => array(
+                        'total' => 0,
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                    ),
+                    'shot' => array(
+                        'total' => 0,
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                    ),
+                ),
+            ),
+            'home' => array(
+                'player' => array(
+                    'gk' => array(
+                        'age' => 0,
+                        'assist' => 0,
+                        'lineup_id' => 0,
+                        'pass' => 0,
+                        'power_nominal' => 0,
+                        'power_real' => 0,
+                        'shot' => 0,
+                    ),
+                    'field' => array(
+                        'ld_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_1' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'ld_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_2' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'ld_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rd_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'lf_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'c_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                        'rf_3' => array(
+                            'age' => 0,
+                            'assist' => 0,
+                            'lineup_id' => 0,
+                            'penalty' => 0,
+                            'plus_minus' => 0,
+                            'power_nominal' => 0,
+                            'power_real' => 0,
+                            'score' => 0,
+                            'shot' => 0,
+                        ),
+                    ),
+                ),
+                'team' => array(
+                    'penalty' => array(
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                        'current' => 0,
+                        'total' => 0,
+                    ),
+                    'power' => array(
+                        'defence' => array(
+                            1 => 0,
+                            2 => 0,
+                            3 => 0,
+                            'current' => 0,
+                        ),
+                        'forward' => array(
+                            1 => 0,
+                            2 => 0,
+                            3 => 0,
+                            'current' => 0,
+                        ),
+                        'gk' => 0,
+                        'shot' => 0,
+                        'total' => 0,
+                    ),
+                    'score' => array(
+                        'total' => 0,
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                    ),
+                    'shot' => array(
+                        'total' => 0,
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                    ),
+                ),
+            ),
+            'minute' => 0,
+            'player' => 0,
+            'assist_1' => 0,
+            'assist_2' => 0,
+        );
 
         $game_id                = $game['game_id'];
         $game_bonus_home        = $game['game_bonus_home'];
@@ -244,79 +504,101 @@ function f_igosja_generator_game_result()
 
         $guest_lineup_array = $guest_lineup_sql->fetch_all(1);
 
-        $guest_player_gk_age                = $guest_lineup_array[0]['player_age'];
-        $guest_player_gk_lineup_id          = $guest_lineup_array[0]['lineup_id'];
-        $guest_player_gk_power_nominal      = $guest_lineup_array[0]['player_power_nominal'];
-        $guest_player_gk_power_real         = $guest_lineup_array[0]['player_power_real'];
-        $guest_player_ld_1_age              = $guest_lineup_array[1]['player_age'];
-        $guest_player_ld_1_lineup_id        = $guest_lineup_array[1]['lineup_id'];
-        $guest_player_ld_1_power_nominal    = $guest_lineup_array[1]['player_power_nominal'];
-        $guest_player_ld_1_power_real       = $guest_lineup_array[1]['player_power_real'];
-        $guest_player_rd_1_age              = $guest_lineup_array[2]['player_age'];
-        $guest_player_rd_1_lineup_id        = $guest_lineup_array[2]['lineup_id'];
-        $guest_player_rd_1_power_nominal    = $guest_lineup_array[2]['player_power_nominal'];
-        $guest_player_rd_1_power_real       = $guest_lineup_array[2]['player_power_real'];
-        $guest_player_lf_1_age              = $guest_lineup_array[3]['player_age'];
-        $guest_player_lf_1_lineup_id        = $guest_lineup_array[3]['lineup_id'];
-        $guest_player_lf_1_power_nominal    = $guest_lineup_array[3]['player_power_nominal'];
-        $guest_player_lf_1_power_real       = $guest_lineup_array[3]['player_power_real'];
-        $guest_player_c_1_age               = $guest_lineup_array[4]['player_age'];
-        $guest_player_c_1_lineup_id         = $guest_lineup_array[4]['lineup_id'];
-        $guest_player_c_1_power_nominal     = $guest_lineup_array[4]['player_power_nominal'];
-        $guest_player_c_1_power_real        = $guest_lineup_array[4]['player_power_real'];
-        $guest_player_rf_1_age              = $guest_lineup_array[5]['player_age'];
-        $guest_player_rf_1_lineup_id        = $guest_lineup_array[5]['lineup_id'];
-        $guest_player_rf_1_power_nominal    = $guest_lineup_array[5]['player_power_nominal'];
-        $guest_player_rf_1_power_real       = $guest_lineup_array[5]['player_power_real'];
-        $guest_player_ld_2_age              = $guest_lineup_array[6]['player_age'];
-        $guest_player_ld_2_lineup_id        = $guest_lineup_array[6]['lineup_id'];
-        $guest_player_ld_2_power_nominal    = $guest_lineup_array[6]['player_power_nominal'];
-        $guest_player_ld_2_power_real       = $guest_lineup_array[6]['player_power_real'];
-        $guest_player_rd_2_age              = $guest_lineup_array[7]['player_age'];
-        $guest_player_rd_2_lineup_id        = $guest_lineup_array[7]['lineup_id'];
-        $guest_player_rd_2_power_nominal    = $guest_lineup_array[7]['player_power_nominal'];
-        $guest_player_rd_2_power_real       = $guest_lineup_array[7]['player_power_real'];
-        $guest_player_lf_2_age              = $guest_lineup_array[8]['player_age'];
-        $guest_player_lf_2_lineup_id        = $guest_lineup_array[8]['lineup_id'];
-        $guest_player_lf_2_power_nominal    = $guest_lineup_array[8]['player_power_nominal'];
-        $guest_player_lf_2_power_real       = $guest_lineup_array[8]['player_power_real'];
-        $guest_player_c_2_age               = $guest_lineup_array[9]['player_age'];
-        $guest_player_c_2_lineup_id         = $guest_lineup_array[9]['lineup_id'];
-        $guest_player_c_2_power_nominal     = $guest_lineup_array[9]['player_power_nominal'];
-        $guest_player_c_2_power_real        = $guest_lineup_array[9]['player_power_real'];
-        $guest_player_rf_2_age              = $guest_lineup_array[10]['player_age'];
-        $guest_player_rf_2_lineup_id        = $guest_lineup_array[10]['lineup_id'];
-        $guest_player_rf_2_power_nominal    = $guest_lineup_array[10]['player_power_nominal'];
-        $guest_player_rf_2_power_real       = $guest_lineup_array[10]['player_power_real'];
-        $guest_player_ld_3_age              = $guest_lineup_array[11]['player_age'];
-        $guest_player_ld_3_lineup_id        = $guest_lineup_array[11]['lineup_id'];
-        $guest_player_ld_3_power_nominal    = $guest_lineup_array[11]['player_power_nominal'];
-        $guest_player_ld_3_power_real       = $guest_lineup_array[11]['player_power_real'];
-        $guest_player_rd_3_age              = $guest_lineup_array[12]['player_age'];
-        $guest_player_rd_3_lineup_id        = $guest_lineup_array[12]['lineup_id'];
-        $guest_player_rd_3_power_nominal    = $guest_lineup_array[12]['player_power_nominal'];
-        $guest_player_rd_3_power_real       = $guest_lineup_array[12]['player_power_real'];
-        $guest_player_lf_3_age              = $guest_lineup_array[13]['player_age'];
-        $guest_player_lf_3_lineup_id        = $guest_lineup_array[13]['lineup_id'];
-        $guest_player_lf_3_power_nominal    = $guest_lineup_array[13]['player_power_nominal'];
-        $guest_player_lf_3_power_real       = $guest_lineup_array[13]['player_power_real'];
-        $guest_player_c_3_age               = $guest_lineup_array[14]['player_age'];
-        $guest_player_c_3_lineup_id         = $guest_lineup_array[14]['lineup_id'];
-        $guest_player_c_3_power_nominal     = $guest_lineup_array[14]['player_power_nominal'];
-        $guest_player_c_3_power_real        = $guest_lineup_array[14]['player_power_real'];
-        $guest_player_rf_3_age              = $guest_lineup_array[15]['player_age'];
-        $guest_player_rf_3_lineup_id        = $guest_lineup_array[15]['lineup_id'];
-        $guest_player_rf_3_power_nominal    = $guest_lineup_array[15]['player_power_nominal'];
-        $guest_player_rf_3_power_real       = $guest_lineup_array[15]['player_power_real'];
+        $game_result['guest']['player']['gk']['age']                        = $guest_lineup_array[0]['player_age'];
+        $game_result['guest']['player']['gk']['lineup_id']                  = $guest_lineup_array[0]['lineup_id'];
+        $game_result['guest']['player']['gk']['power_nominal']              = $guest_lineup_array[0]['player_power_nominal'];
+        $game_result['guest']['player']['gk']['power_real']                 = $guest_lineup_array[0]['player_power_real'];
+        $game_result['guest']['player']['field']['ld_1']['age']             = $guest_lineup_array[1]['player_age'];
+        $game_result['guest']['player']['field']['ld_1']['lineup_id']       = $guest_lineup_array[1]['lineup_id'];
+        $game_result['guest']['player']['field']['ld_1']['power_nominal']   = $guest_lineup_array[1]['player_power_nominal'];
+        $game_result['guest']['player']['field']['ld_1']['power_real']      = $guest_lineup_array[1]['player_power_real'];
+        $game_result['guest']['player']['field']['rd_1']['age']             = $guest_lineup_array[2]['player_age'];
+        $game_result['guest']['player']['field']['rd_1']['lineup_id']       = $guest_lineup_array[2]['lineup_id'];
+        $game_result['guest']['player']['field']['rd_1']['power_nominal']   = $guest_lineup_array[2]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rd_1']['power_real']      = $guest_lineup_array[2]['player_power_real'];
+        $game_result['guest']['player']['field']['lf_1']['age']             = $guest_lineup_array[3]['player_age'];
+        $game_result['guest']['player']['field']['lf_1']['lineup_id']       = $guest_lineup_array[3]['lineup_id'];
+        $game_result['guest']['player']['field']['lf_1']['power_nominal']   = $guest_lineup_array[3]['player_power_nominal'];
+        $game_result['guest']['player']['field']['lf_1']['power_real']      = $guest_lineup_array[3]['player_power_real'];
+        $game_result['guest']['player']['field']['c_1']['age']              = $guest_lineup_array[4]['player_age'];
+        $game_result['guest']['player']['field']['c_1']['lineup_id']        = $guest_lineup_array[4]['lineup_id'];
+        $game_result['guest']['player']['field']['c_1']['power_nominal']    = $guest_lineup_array[4]['player_power_nominal'];
+        $game_result['guest']['player']['field']['c_1']['power_real']       = $guest_lineup_array[4]['player_power_real'];
+        $game_result['guest']['player']['field']['rf_1']['age']             = $guest_lineup_array[5]['player_age'];
+        $game_result['guest']['player']['field']['rf_1']['lineup_id']       = $guest_lineup_array[5]['lineup_id'];
+        $game_result['guest']['player']['field']['rf_1']['power_nominal']   = $guest_lineup_array[5]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rf_1']['power_real']      = $guest_lineup_array[5]['player_power_real'];
+        $game_result['guest']['player']['field']['ld_2']['age']             = $guest_lineup_array[6]['player_age'];
+        $game_result['guest']['player']['field']['ld_2']['lineup_id']       = $guest_lineup_array[6]['lineup_id'];
+        $game_result['guest']['player']['field']['ld_2']['power_nominal']   = $guest_lineup_array[6]['player_power_nominal'];
+        $game_result['guest']['player']['field']['ld_2']['power_real']      = $guest_lineup_array[6]['player_power_real'];
+        $game_result['guest']['player']['field']['rd_2']['age']             = $guest_lineup_array[7]['player_age'];
+        $game_result['guest']['player']['field']['rd_2']['lineup_id']       = $guest_lineup_array[7]['lineup_id'];
+        $game_result['guest']['player']['field']['rd_2']['power_nominal']   = $guest_lineup_array[7]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rd_2']['power_real']      = $guest_lineup_array[7]['player_power_real'];
+        $game_result['guest']['player']['field']['lf_2']['age']             = $guest_lineup_array[8]['player_age'];
+        $game_result['guest']['player']['field']['lf_2']['lineup_id']       = $guest_lineup_array[8]['lineup_id'];
+        $game_result['guest']['player']['field']['lf_2']['power_nominal']   = $guest_lineup_array[8]['player_power_nominal'];
+        $game_result['guest']['player']['field']['lf_2']['power_real']      = $guest_lineup_array[8]['player_power_real'];
+        $game_result['guest']['player']['field']['c_2']['age']              = $guest_lineup_array[9]['player_age'];
+        $game_result['guest']['player']['field']['c_2']['lineup_id']        = $guest_lineup_array[9]['lineup_id'];
+        $game_result['guest']['player']['field']['c_2']['power_nominal']    = $guest_lineup_array[9]['player_power_nominal'];
+        $game_result['guest']['player']['field']['c_2']['power_real']       = $guest_lineup_array[9]['player_power_real'];
+        $game_result['guest']['player']['field']['rf_2']['age']             = $guest_lineup_array[10]['player_age'];
+        $game_result['guest']['player']['field']['rf_2']['lineup_id']       = $guest_lineup_array[10]['lineup_id'];
+        $game_result['guest']['player']['field']['rf_2']['power_nominal']   = $guest_lineup_array[10]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rf_2']['power_real']      = $guest_lineup_array[10]['player_power_real'];
+        $game_result['guest']['player']['field']['ld_3']['age']             = $guest_lineup_array[11]['player_age'];
+        $game_result['guest']['player']['field']['ld_3']['lineup_id']       = $guest_lineup_array[11]['lineup_id'];
+        $game_result['guest']['player']['field']['ld_3']['power_nominal']   = $guest_lineup_array[11]['player_power_nominal'];
+        $game_result['guest']['player']['field']['ld_3']['power_real']      = $guest_lineup_array[11]['player_power_real'];
+        $game_result['guest']['player']['field']['rd_3']['age']             = $guest_lineup_array[12]['player_age'];
+        $game_result['guest']['player']['field']['rd_3']['lineup_id']       = $guest_lineup_array[12]['lineup_id'];
+        $game_result['guest']['player']['field']['rd_3']['power_nominal']   = $guest_lineup_array[12]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rd_3']['power_real']      = $guest_lineup_array[12]['player_power_real'];
+        $game_result['guest']['player']['field']['lf_3']['age']             = $guest_lineup_array[13]['player_age'];
+        $game_result['guest']['player']['field']['lf_3']['lineup_id']       = $guest_lineup_array[13]['lineup_id'];
+        $game_result['guest']['player']['field']['lf_3']['power_nominal']   = $guest_lineup_array[13]['player_power_nominal'];
+        $game_result['guest']['player']['field']['lf_3']['power_real']      = $guest_lineup_array[13]['player_power_real'];
+        $game_result['guest']['player']['field']['c_3']['age']              = $guest_lineup_array[14]['player_age'];
+        $game_result['guest']['player']['field']['c_3']['lineup_id']        = $guest_lineup_array[14]['lineup_id'];
+        $game_result['guest']['player']['field']['c_3']['power_nominal']    = $guest_lineup_array[14]['player_power_nominal'];
+        $game_result['guest']['player']['field']['c_3']['power_real']       = $guest_lineup_array[14]['player_power_real'];
+        $game_result['guest']['player']['field']['rf_3']['age']             = $guest_lineup_array[15]['player_age'];
+        $game_result['guest']['player']['field']['rf_3']['lineup_id']       = $guest_lineup_array[15]['lineup_id'];
+        $game_result['guest']['player']['field']['rf_3']['power_nominal']   = $guest_lineup_array[15]['player_power_nominal'];
+        $game_result['guest']['player']['field']['rf_3']['power_real']      = $guest_lineup_array[15]['player_power_real'];
 
-        $guest_gk           = $guest_player_gk_power_real;
-        $guest_defence_1    = $guest_player_ld_1_power_real + $guest_player_rd_1_power_real;
-        $guest_forward_1    = $guest_player_lf_1_power_real + $guest_player_c_1_power_real + $guest_player_rf_1_power_real;
-        $guest_defence_2    = $guest_player_ld_2_power_real + $guest_player_rd_2_power_real;
-        $guest_forward_2    = $guest_player_lf_2_power_real + $guest_player_c_2_power_real + $guest_player_rf_2_power_real;
-        $guest_defence_3    = $guest_player_ld_3_power_real + $guest_player_rd_3_power_real;
-        $guest_forward_3    = $guest_player_lf_3_power_real + $guest_player_c_3_power_real + $guest_player_rf_3_power_real;
-        $guest_power        = $guest_gk + $guest_defence_1 + $guest_forward_1 + $guest_defence_2 + $guest_forward_2 + $guest_defence_3 + $guest_forward_3;
+        $game_result['guest']['team']['power']['gk'] = $game_result['guest']['player']['gk']['power_real'];
+        $game_result['guest']['team']['power']['defence'][1]
+            = $game_result['guest']['player']['field']['ld_1']['power_real']
+            + $game_result['guest']['player']['field']['rd_1']['power_real'];
+        $game_result['guest']['team']['power']['defence'][2]
+            = $game_result['guest']['player']['field']['ld_2']['power_real']
+            + $game_result['guest']['player']['field']['rd_2']['power_real'];
+        $game_result['guest']['team']['power']['defence'][3]
+            = $game_result['guest']['player']['field']['ld_3']['power_real']
+            + $game_result['guest']['player']['field']['rd_3']['power_real'];
+        $game_result['guest']['team']['power']['forward'][1]
+            = $game_result['guest']['player']['field']['lf_1']['power_real']
+            + $game_result['guest']['player']['field']['c_1']['power_real']
+            + $game_result['guest']['player']['field']['rf_1']['power_real'];
+        $game_result['guest']['team']['power']['forward'][2]
+            = $game_result['guest']['player']['field']['lf_2']['power_real']
+            + $game_result['guest']['player']['field']['c_2']['power_real']
+            + $game_result['guest']['player']['field']['rf_2']['power_real'];
+        $game_result['guest']['team']['power']['forward'][3]
+            = $game_result['guest']['player']['field']['lf_2']['power_real']
+            + $game_result['guest']['player']['field']['c_2']['power_real']
+            + $game_result['guest']['player']['field']['rf_2']['power_real'];
+        $game_result['guest']['team']['power']['total']
+            = $game_result['guest']['team']['power']['gk']
+            + $game_result['guest']['team']['power']['defence'][1]
+            + $game_result['guest']['team']['power']['defence'][2]
+            + $game_result['guest']['team']['power']['defence'][3]
+            + $game_result['guest']['team']['power']['forward'][1]
+            + $game_result['guest']['team']['power']['forward'][2]
+            + $game_result['guest']['team']['power']['forward'][3];
 
         $sql = "SELECT `lineup_id`,
                        `player_age`,
@@ -332,637 +614,324 @@ function f_igosja_generator_game_result()
 
         $home_lineup_array = $home_lineup_sql->fetch_all(1);
 
-        $home_player_gk_age                 = $home_lineup_array[0]['player_age'];
-        $home_player_gk_lineup_id           = $home_lineup_array[0]['lineup_id'];
-        $home_player_gk_power_nominal       = $home_lineup_array[0]['player_power_nominal'];
-        $home_player_gk_power_real          = round($home_lineup_array[0]['player_power_real'] * $home_bonus, 0);
-        $home_player_ld_1_age               = $home_lineup_array[1]['player_age'];
-        $home_player_ld_1_lineup_id         = $home_lineup_array[1]['lineup_id'];
-        $home_player_ld_1_power_nominal     = $home_lineup_array[1]['player_power_nominal'];
-        $home_player_ld_1_power_real        = round($home_lineup_array[1]['player_power_real'] * $home_bonus, 0);
-        $home_player_rd_1_age               = $home_lineup_array[2]['player_age'];
-        $home_player_rd_1_lineup_id         = $home_lineup_array[2]['lineup_id'];
-        $home_player_rd_1_power_nominal     = $home_lineup_array[2]['player_power_nominal'];
-        $home_player_rd_1_power_real        = round($home_lineup_array[2]['player_power_real'] * $home_bonus, 0);
-        $home_player_lf_1_age               = $home_lineup_array[3]['player_age'];
-        $home_player_lf_1_lineup_id         = $home_lineup_array[3]['lineup_id'];
-        $home_player_lf_1_power_nominal     = $home_lineup_array[3]['player_power_nominal'];
-        $home_player_lf_1_power_real        = round($home_lineup_array[3]['player_power_real'] * $home_bonus, 0);
-        $home_player_c_1_age                = $home_lineup_array[4]['player_age'];
-        $home_player_c_1_lineup_id          = $home_lineup_array[4]['lineup_id'];
-        $home_player_c_1_power_nominal      = $home_lineup_array[4]['player_power_nominal'];
-        $home_player_c_1_power_real         = round($home_lineup_array[4]['player_power_real'] * $home_bonus, 0);
-        $home_player_rf_1_age               = $home_lineup_array[5]['player_age'];
-        $home_player_rf_1_lineup_id         = $home_lineup_array[5]['lineup_id'];
-        $home_player_rf_1_power_nominal     = $home_lineup_array[5]['player_power_nominal'];
-        $home_player_rf_1_power_real        = round($home_lineup_array[5]['player_power_real'] * $home_bonus, 0);
-        $home_player_ld_2_age               = $home_lineup_array[6]['player_age'];
-        $home_player_ld_2_lineup_id         = $home_lineup_array[6]['lineup_id'];
-        $home_player_ld_2_power_nominal     = $home_lineup_array[6]['player_power_nominal'];
-        $home_player_ld_2_power_real        = round($home_lineup_array[6]['player_power_real'] * $home_bonus, 0);
-        $home_player_rd_2_age               = $home_lineup_array[7]['player_age'];
-        $home_player_rd_2_lineup_id         = $home_lineup_array[7]['lineup_id'];
-        $home_player_rd_2_power_nominal     = $home_lineup_array[7]['player_power_nominal'];
-        $home_player_rd_2_power_real        = round($home_lineup_array[7]['player_power_real'] * $home_bonus, 0);
-        $home_player_lf_2_age               = $home_lineup_array[8]['player_age'];
-        $home_player_lf_2_lineup_id         = $home_lineup_array[8]['lineup_id'];
-        $home_player_lf_2_power_nominal     = $home_lineup_array[8]['player_power_nominal'];
-        $home_player_lf_2_power_real        = round($home_lineup_array[8]['player_power_real'] * $home_bonus, 0);
-        $home_player_c_2_age                = $home_lineup_array[9]['player_age'];
-        $home_player_c_2_lineup_id          = $home_lineup_array[9]['lineup_id'];
-        $home_player_c_2_power_nominal      = $home_lineup_array[9]['player_power_nominal'];
-        $home_player_c_2_power_real         = round($home_lineup_array[9]['player_power_real'] * $home_bonus, 0);
-        $home_player_rf_2_age               = $home_lineup_array[10]['player_age'];
-        $home_player_rf_2_lineup_id         = $home_lineup_array[10]['lineup_id'];
-        $home_player_rf_2_power_nominal     = $home_lineup_array[10]['player_power_nominal'];
-        $home_player_rf_2_power_real        = round($home_lineup_array[10]['player_power_real'] * $home_bonus, 0);
-        $home_player_ld_3_age               = $home_lineup_array[11]['player_age'];
-        $home_player_ld_3_lineup_id         = $home_lineup_array[11]['lineup_id'];
-        $home_player_ld_3_power_nominal     = $home_lineup_array[11]['player_power_nominal'];
-        $home_player_ld_3_power_real        = round($home_lineup_array[11]['player_power_real'] * $home_bonus, 0);
-        $home_player_rd_3_age               = $home_lineup_array[12]['player_age'];
-        $home_player_rd_3_lineup_id         = $home_lineup_array[12]['lineup_id'];
-        $home_player_rd_3_power_nominal     = $home_lineup_array[12]['player_power_nominal'];
-        $home_player_rd_3_power_real        = round($home_lineup_array[12]['player_power_real'] * $home_bonus, 0);
-        $home_player_lf_3_age               = $home_lineup_array[13]['player_age'];
-        $home_player_lf_3_lineup_id         = $home_lineup_array[13]['lineup_id'];
-        $home_player_lf_3_power_nominal     = $home_lineup_array[13]['player_power_nominal'];
-        $home_player_lf_3_power_real        = round($home_lineup_array[13]['player_power_real'] * $home_bonus, 0);
-        $home_player_c_3_age                = $home_lineup_array[14]['player_age'];
-        $home_player_c_3_lineup_id          = $home_lineup_array[14]['lineup_id'];
-        $home_player_c_3_power_nominal      = $home_lineup_array[14]['player_power_nominal'];
-        $home_player_c_3_power_real         = round($home_lineup_array[14]['player_power_real'] * $home_bonus, 0);
-        $home_player_rf_3_age               = $home_lineup_array[15]['player_age'];
-        $home_player_rf_3_lineup_id         = $home_lineup_array[15]['lineup_id'];
-        $home_player_rf_3_power_nominal     = $home_lineup_array[15]['player_power_nominal'];
-        $home_player_rf_3_power_real        = round($home_lineup_array[15]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['gk']['age']                         = $home_lineup_array[0]['player_age'];
+        $game_result['home']['player']['gk']['lineup_id']                   = $home_lineup_array[0]['lineup_id'];
+        $game_result['home']['player']['gk']['power_nominal']               = $home_lineup_array[0]['player_power_nominal'];
+        $game_result['home']['player']['gk']['power_real']                  = round($home_lineup_array[0]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['ld_1']['age']              = $home_lineup_array[1]['player_age'];
+        $game_result['home']['player']['field']['ld_1']['lineup_id']        = $home_lineup_array[1]['lineup_id'];
+        $game_result['home']['player']['field']['ld_1']['power_nominal']    = $home_lineup_array[1]['player_power_nominal'];
+        $game_result['home']['player']['field']['ld_1']['power_real']       = round($home_lineup_array[1]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rd_1']['age']              = $home_lineup_array[2]['player_age'];
+        $game_result['home']['player']['field']['rd_1']['lineup_id']        = $home_lineup_array[2]['lineup_id'];
+        $game_result['home']['player']['field']['rd_1']['power_nominal']    = $home_lineup_array[2]['player_power_nominal'];
+        $game_result['home']['player']['field']['rd_1']['power_real']       = round($home_lineup_array[2]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['lf_1']['age']              = $home_lineup_array[3]['player_age'];
+        $game_result['home']['player']['field']['lf_1']['lineup_id']        = $home_lineup_array[3]['lineup_id'];
+        $game_result['home']['player']['field']['lf_1']['power_nominal']    = $home_lineup_array[3]['player_power_nominal'];
+        $game_result['home']['player']['field']['lf_1']['power_real']       = round($home_lineup_array[3]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['c_1']['age']               = $home_lineup_array[4]['player_age'];
+        $game_result['home']['player']['field']['c_1']['lineup_id']         = $home_lineup_array[4]['lineup_id'];
+        $game_result['home']['player']['field']['c_1']['power_nominal']     = $home_lineup_array[4]['player_power_nominal'];
+        $game_result['home']['player']['field']['c_1']['power_real']        = round($home_lineup_array[4]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rf_1']['age']              = $home_lineup_array[5]['player_age'];
+        $game_result['home']['player']['field']['rf_1']['lineup_id']        = $home_lineup_array[5]['lineup_id'];
+        $game_result['home']['player']['field']['rf_1']['power_nominal']    = $home_lineup_array[5]['player_power_nominal'];
+        $game_result['home']['player']['field']['rf_1']['power_real']       = round($home_lineup_array[5]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['ld_2']['age']              = $home_lineup_array[6]['player_age'];
+        $game_result['home']['player']['field']['ld_2']['lineup_id']        = $home_lineup_array[6]['lineup_id'];
+        $game_result['home']['player']['field']['ld_2']['power_nominal']    = $home_lineup_array[6]['player_power_nominal'];
+        $game_result['home']['player']['field']['ld_2']['power_real']       = round($home_lineup_array[6]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rd_2']['age']              = $home_lineup_array[7]['player_age'];
+        $game_result['home']['player']['field']['rd_2']['lineup_id']        = $home_lineup_array[7]['lineup_id'];
+        $game_result['home']['player']['field']['rd_2']['power_nominal']    = $home_lineup_array[7]['player_power_nominal'];
+        $game_result['home']['player']['field']['rd_2']['power_real']       = round($home_lineup_array[7]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['lf_2']['age']              = $home_lineup_array[8]['player_age'];
+        $game_result['home']['player']['field']['lf_2']['lineup_id']        = $home_lineup_array[8]['lineup_id'];
+        $game_result['home']['player']['field']['lf_2']['power_nominal']    = $home_lineup_array[8]['player_power_nominal'];
+        $game_result['home']['player']['field']['lf_2']['power_real']       = round($home_lineup_array[8]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['c_2']['age']               = $home_lineup_array[9]['player_age'];
+        $game_result['home']['player']['field']['c_2']['lineup_id']         = $home_lineup_array[9]['lineup_id'];
+        $game_result['home']['player']['field']['c_2']['power_nominal']     = $home_lineup_array[9]['player_power_nominal'];
+        $game_result['home']['player']['field']['c_2']['power_real']        = round($home_lineup_array[9]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rf_2']['age']              = $home_lineup_array[10]['player_age'];
+        $game_result['home']['player']['field']['rf_2']['lineup_id']        = $home_lineup_array[10]['lineup_id'];
+        $game_result['home']['player']['field']['rf_2']['power_nominal']    = $home_lineup_array[10]['player_power_nominal'];
+        $game_result['home']['player']['field']['rf_2']['power_real']       = round($home_lineup_array[10]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['ld_3']['age']              = $home_lineup_array[11]['player_age'];
+        $game_result['home']['player']['field']['ld_3']['lineup_id']        = $home_lineup_array[11]['lineup_id'];
+        $game_result['home']['player']['field']['ld_3']['power_nominal']    = $home_lineup_array[11]['player_power_nominal'];
+        $game_result['home']['player']['field']['ld_3']['power_real']       = round($home_lineup_array[11]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rd_3']['age']              = $home_lineup_array[12]['player_age'];
+        $game_result['home']['player']['field']['rd_3']['lineup_id']        = $home_lineup_array[12]['lineup_id'];
+        $game_result['home']['player']['field']['rd_3']['power_nominal']    = $home_lineup_array[12]['player_power_nominal'];
+        $game_result['home']['player']['field']['rd_3']['power_real']       = round($home_lineup_array[12]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['lf_3']['age']              = $home_lineup_array[13]['player_age'];
+        $game_result['home']['player']['field']['lf_3']['lineup_id']        = $home_lineup_array[13]['lineup_id'];
+        $game_result['home']['player']['field']['lf_3']['power_nominal']    = $home_lineup_array[13]['player_power_nominal'];
+        $game_result['home']['player']['field']['lf_3']['power_real']       = round($home_lineup_array[13]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['c_3']['age']               = $home_lineup_array[14]['player_age'];
+        $game_result['home']['player']['field']['c_3']['lineup_id']         = $home_lineup_array[14]['lineup_id'];
+        $game_result['home']['player']['field']['c_3']['power_nominal']     = $home_lineup_array[14]['player_power_nominal'];
+        $game_result['home']['player']['field']['c_3']['power_real']        = round($home_lineup_array[14]['player_power_real'] * $home_bonus, 0);
+        $game_result['home']['player']['field']['rf_3']['age']              = $home_lineup_array[15]['player_age'];
+        $game_result['home']['player']['field']['rf_3']['lineup_id']        = $home_lineup_array[15]['lineup_id'];
+        $game_result['home']['player']['field']['rf_3']['power_nominal']    = $home_lineup_array[15]['player_power_nominal'];
+        $game_result['home']['player']['field']['rf_3']['power_real']       = round($home_lineup_array[15]['player_power_real'] * $home_bonus, 0);
 
-        $home_gk            = $home_player_gk_power_real;
-        $home_defence_1     = $home_player_ld_1_power_real + $home_player_rd_1_power_real;
-        $home_forward_1     = $home_player_lf_1_power_real + $home_player_c_1_power_real + $home_player_rf_1_power_real;
-        $home_defence_2     = $home_player_ld_2_power_real + $home_player_rd_2_power_real;
-        $home_forward_2     = $home_player_lf_2_power_real + $home_player_c_2_power_real + $home_player_rf_2_power_real;
-        $home_defence_3     = $home_player_ld_3_power_real + $home_player_rd_3_power_real;
-        $home_forward_3     = $home_player_lf_3_power_real + $home_player_c_3_power_real + $home_player_rf_3_power_real;
-        $home_power         = $home_gk + $home_defence_1 + $home_forward_1 + $home_defence_2 + $home_forward_2 + $home_defence_3 + $home_forward_3;
+        $game_result['home']['team']['power']['gk'] = $game_result['home']['player']['gk']['power_real'];
+        $game_result['home']['team']['power']['defence'][1]
+            = $game_result['home']['player']['field']['ld_1']['power_real']
+            + $game_result['home']['player']['field']['rd_1']['power_real'];
+        $game_result['home']['team']['power']['defence'][2]
+            = $game_result['home']['player']['field']['ld_2']['power_real']
+            + $game_result['home']['player']['field']['rd_2']['power_real'];
+        $game_result['home']['team']['power']['defence'][3]
+            = $game_result['home']['player']['field']['ld_3']['power_real']
+            + $game_result['home']['player']['field']['rd_3']['power_real'];
+        $game_result['home']['team']['power']['forward'][1]
+            = $game_result['home']['player']['field']['lf_1']['power_real']
+            + $game_result['home']['player']['field']['c_1']['power_real']
+            + $game_result['home']['player']['field']['rf_1']['power_real'];
+        $game_result['home']['team']['power']['forward'][2]
+            = $game_result['home']['player']['field']['lf_2']['power_real']
+            + $game_result['home']['player']['field']['c_2']['power_real']
+            + $game_result['home']['player']['field']['rf_2']['power_real'];
+        $game_result['home']['team']['power']['forward'][3]
+            = $game_result['home']['player']['field']['lf_2']['power_real']
+            + $game_result['home']['player']['field']['c_2']['power_real']
+            + $game_result['home']['player']['field']['rf_2']['power_real'];
+        $game_result['home']['team']['power']['total']
+            = $game_result['home']['team']['power']['gk']
+            + $game_result['home']['team']['power']['defence'][1]
+            + $game_result['home']['team']['power']['defence'][2]
+            + $game_result['home']['team']['power']['defence'][3]
+            + $game_result['home']['team']['power']['forward'][1]
+            + $game_result['home']['team']['power']['forward'][2]
+            + $game_result['home']['team']['power']['forward'][3];
 
-        for ($minute=0; $minute<60; $minute++)
+        for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
         {
-            $home_defence   = f_igosja_get_home_defence();
-            $home_forward   = f_igosja_get_home_forward();
-            $guest_defence  = f_igosja_get_guest_defence();
-            $guest_forward  = f_igosja_get_guest_forward();
+            $game_result = f_igosja_home_defence($game_result);
+            $game_result = f_igosja_home_forward($game_result);
+            $game_result = f_igosja_guest_defence($game_result);
+            $game_result = f_igosja_guest_forward($game_result);
 
             if (rand(0, 40) >= 34 && 1 == rand(0, 1))
             {
-                $home_current_penalty = 1;
+                $game_result['home']['team']['penalty']['current'] = 1;
 
-                $player = rand(1, 5);
+                $game_result['player'] = rand(1, 5);
 
-                f_igosja_home_player_penalty_increase($player);
-                f_igosja_home_team_penalty_increase();
+                $game_result = f_igosja_home_player_penalty_increase($game_result);
+                $game_result = f_igosja_home_team_penalty_increase($game_result);
             }
             else
             {
-                $home_current_penalty = 0;
+                $game_result['home']['team']['penalty']['current'] = 0;
             }
 
             if (rand(0, 40) >= 34 && 1 == rand(0, 1))
             {
-                $guest_current_penalty = 1;
+                $game_result['guest']['team']['penalty']['current'] = 1;
 
-                $player = rand(1, 5);
+                $game_result['player'] = rand(1, 5);
 
-                f_igosja_guest_player_penalty_increase($player);
-                f_igosja_guest_team_penalty_increase();
+                $game_result = f_igosja_guest_player_penalty_increase($game_result);
+                $game_result = f_igosja_guest_team_penalty_increase($game_result);
             }
             else
             {
-                $guest_current_penalty = 0;
+                $game_result['guest']['team']['penalty']['current'] = 0;
             }
 
-            if (rand(0, $home_defence / (1 + $home_current_penalty)) > rand(0, $guest_forward / (2 + $guest_current_penalty)))
+            if (rand(
+                    0,
+                    $game_result['home']['team']['power']['defence']['current']
+                    /
+                    (1 + $game_result['home']['team']['penalty']['current'])
+                ) > rand(
+                    0,
+                    $game_result['guest']['team']['power']['forward']['current']
+                    /
+                    (2 + $game_result['guest']['team']['penalty']['current'])
+                ))
             {
-                if (rand(0, $home_forward / (1 + $home_current_penalty)) > rand(0, $guest_defence / (2 + $guest_current_penalty)))
+                if (rand(
+                        0,
+                        $game_result['home']['team']['power']['forward']['current']
+                        /
+                        (1 + $game_result['home']['team']['penalty']['current'])
+                    ) > rand(
+                        0,
+                        $game_result['guest']['team']['power']['defence']['current']
+                        /
+                        (2 + $game_result['guest']['team']['penalty']['current'])
+                    ))
                 {
-                    $player = rand(1, 5);
+                    $game_result['player'] = rand(1, 5);
 
-                    f_igosja_home_team_shot_increase();
-                    f_igosja_home_player_shot_increase($player);
+                    $game_result = f_igosja_home_team_shot_increase($game_result);
+                    $game_result = f_igosja_home_player_shot_increase($game_result);
+                    $game_result = f_igosja_home_player_shot_power($game_result);
 
-                    $player_shot = f_igosja_get_home_player_shot_power($player);
-
-                    if (rand(0, $player_shot) > rand(0, $guest_gk * 5))
+                    if (rand(
+                            0,
+                            $game_result['home']['team']['power']['shot']
+                        ) > rand(
+                            0,
+                            $game_result['guest']['team']['power']['gk'] * 5
+                        ))
                     {
-                        $assist_1 = f_igosja_generator_assist_1($player);
-                        $assist_2 = f_igosja_generator_assist_2($player, $assist_1);
-
-                        f_igosja_home_team_score_increase();
-                        f_igosja_home_plus_minus_increase();
-                        f_igosja_home_player_score_increase($player);
-                        f_igosja_home_player_assist_1_increase($assist_1);
-                        f_igosja_home_player_assist_2_increase($assist_2);
+                        $game_result = f_igosja_generator_assist_1($game_result);
+                        $game_result = f_igosja_generator_assist_2($game_result);
+                        $game_result = f_igosja_home_team_score_increase($game_result);
+                        $game_result = f_igosja_home_plus_minus_increase($game_result);
+                        $game_result = f_igosja_home_player_score_increase($game_result);
+                        $game_result = f_igosja_home_player_assist_1_increase($game_result);
+                        $game_result = f_igosja_home_player_assist_2_increase($game_result);
                     }
                 }
             }
 
-            if (rand(0, $guest_defence / (1 + $guest_current_penalty)) > rand(0, $home_forward / (2 + $home_current_penalty)))
+            if (rand(
+                    0,
+                    $game_result['guest']['team']['power']['defence']['current']
+                    /
+                    (1 + $game_result['guest']['team']['penalty']['current'])
+                ) > rand(
+                    0,
+                    $game_result['home']['team']['power']['forward']['current']
+                    /
+                    (2 + $game_result['home']['team']['penalty']['current'])
+                ))
             {
-                if (rand(0, $guest_forward / (1 + $guest_current_penalty)) > rand(0, $home_defence / (2 + $home_current_penalty)))
+                if (rand(
+                        0,
+                        $game_result['guest']['team']['power']['forward']['current']
+                        /
+                        (1 + $game_result['guest']['team']['penalty']['current'])
+                    ) > rand(
+                        0,
+                        $game_result['home']['team']['power']['defence']['current']
+                        /
+                        (2 + $game_result['home']['team']['penalty']['current'])
+                    ))
                 {
-                    $player = rand(1, 5);
+                    $game_result['player'] = rand(1, 5);
+                    $game_result = f_igosja_guest_team_shot_increase($game_result);
+                    $game_result = f_igosja_guest_player_shot_increase($game_result);
+                    $game_result = f_igosja_guest_player_shot_power($game_result);
 
-                    f_igosja_guest_team_shot_increase();
-                    f_igosja_guest_player_shot_increase($player);
-
-                    $player_shot = f_igosja_get_guest_player_shot_power($player);
-
-                    if (rand(0, $player_shot) > rand(0, $home_gk * 5))
+                    if (rand(
+                            0,
+                            $game_result['guest']['team']['power']['shot']
+                        ) > rand(
+                            0,
+                            $game_result['home']['team']['power']['gk'] * 5
+                        ))
                     {
-                        $assist_1 = f_igosja_generator_assist_1($player);
-                        $assist_2 = f_igosja_generator_assist_2($player, $assist_1);
-
-                        f_igosja_guest_team_score_increase();
-                        f_igosja_guest_plus_minus_increase();
-                        f_igosja_guest_player_score_increase($player);
-                        f_igosja_guest_player_assist_1_increase($assist_1);
-                        f_igosja_guest_player_assist_2_increase($assist_2);
+                        $game_result = f_igosja_generator_assist_1($game_result);
+                        $game_result = f_igosja_generator_assist_2($game_result);
+                        $game_result = f_igosja_guest_team_score_increase($game_result);
+                        $game_result = f_igosja_guest_plus_minus_increase($game_result);
+                        $game_result = f_igosja_guest_player_score_increase($game_result);
+                        $game_result = f_igosja_guest_player_assist_1_increase($game_result);
+                        $game_result = f_igosja_guest_player_assist_2_increase($game_result);
                     }
                 }
             }
         }
 
         $sql = "UPDATE `game`
-                SET `game_guest_penalty`='$guest_penalty'*'2',
-                    `game_guest_penalty_1`='$guest_penalty_1'*'2',
-                    `game_guest_penalty_2`='$guest_penalty_2'*'2',
-                    `game_guest_penalty_3`='$guest_penalty_3'*'2',
-                    `game_guest_power`='$guest_power',
-                    `game_guest_score`='$guest_score',
-                    `game_guest_score_1`='$guest_score_1',
-                    `game_guest_score_2`='$guest_score_2',
-                    `game_guest_score_3`='$guest_score_3',
-                    `game_guest_shot`='$guest_shot',
-                    `game_guest_shot_1`='$guest_shot_1',
-                    `game_guest_shot_2`='$guest_shot_2',
-                    `game_guest_shot_3`='$guest_shot_3',
-                    `game_home_penalty`='$home_penalty'*'2',
-                    `game_home_penalty_1`='$home_penalty_1'*'2',
-                    `game_home_penalty_2`='$home_penalty_2'*'2',
-                    `game_home_penalty_3`='$home_penalty_3'*'2',
-                    `game_home_power`='$home_power',
-                    `game_home_score`='$home_score',
-                    `game_home_score_1`='$home_score_1',
-                    `game_home_score_2`='$home_score_2',
-                    `game_home_score_3`='$home_score_3',
-                    `game_home_shot`='$home_shot',
-                    `game_home_shot_1`='$home_shot_1',
-                    `game_home_shot_2`='$home_shot_2',
-                    `game_home_shot_3`='$home_shot_3',
+                SET `game_guest_penalty`='" . $game_result['guest']['team']['penalty']['total'] . "'*'2',
+                    `game_guest_penalty_1`='" . $game_result['guest']['team']['penalty'][1] . "'*'2',
+                    `game_guest_penalty_2`='" . $game_result['guest']['team']['penalty'][2] . "'*'2',
+                    `game_guest_penalty_3`='" . $game_result['guest']['team']['penalty'][3] . "'*'2',
+                    `game_guest_power`='" . $game_result['guest']['team']['power']['total'] . "',
+                    `game_guest_score`='" . $game_result['guest']['team']['score']['total'] . "',
+                    `game_guest_score_1`='" . $game_result['guest']['team']['score'][1] . "',
+                    `game_guest_score_2`='" . $game_result['guest']['team']['score'][2] . "',
+                    `game_guest_score_3`='" . $game_result['guest']['team']['score'][3] . "',
+                    `game_guest_shot`='" . $game_result['guest']['team']['shot']['total'] . "',
+                    `game_guest_shot_1`='" . $game_result['guest']['team']['shot'][1] . "',
+                    `game_guest_shot_2`='" . $game_result['guest']['team']['shot'][2] . "',
+                    `game_guest_shot_3`='" . $game_result['guest']['team']['shot'][3] . "',
+                    `game_home_penalty`='" . $game_result['home']['team']['penalty']['total'] . "'*'2',
+                    `game_home_penalty_1`='" . $game_result['home']['team']['penalty'][1] . "'*'2',
+                    `game_home_penalty_2`='" . $game_result['home']['team']['penalty'][2] . "'*'2',
+                    `game_home_penalty_3`='" . $game_result['home']['team']['penalty'][3] . "'*'2',
+                    `game_home_power`='" . $game_result['home']['team']['power']['total'] . "',
+                    `game_home_score`='" . $game_result['home']['team']['score']['total'] . "',
+                    `game_home_score_1`='" . $game_result['home']['team']['score'][1] . "',
+                    `game_home_score_2`='" . $game_result['home']['team']['score'][2] . "',
+                    `game_home_score_3`='" . $game_result['home']['team']['score'][3] . "',
+                    `game_home_shot`='" . $game_result['home']['team']['shot']['total'] . "',
+                    `game_home_shot_1`='" . $game_result['home']['team']['shot'][1] . "',
+                    `game_home_shot_2`='" . $game_result['home']['team']['shot'][2] . "',
+                    `game_home_shot_3`='" . $game_result['home']['team']['shot'][3] . "',
                     `game_played`='1'
                 WHERE `game_id`='$game_id'
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_gk_age',
-                    `lineup_assist`='$guest_gk_assist',
-                    `lineup_pass`='$guest_gk_pass',
-                    `lineup_power_nominal`='$guest_player_gk_power_nominal',
-                    `lineup_power_real`='$guest_player_gk_power_real',
-                    `lineup_shot`='$guest_gk_shot'
-                WHERE `lineup_id`='$guest_player_gk_lineup_id'
+                SET `lineup_age`='" . $game_result['guest']['player']['gk']['age'] . "',
+                    `lineup_assist`='" . $game_result['guest']['player']['gk']['assist'] . "',
+                    `lineup_pass`='" . $game_result['guest']['player']['gk']['pass'] . "',
+                    `lineup_power_nominal`='" . $game_result['guest']['player']['gk']['power_nominal'] . "',
+                    `lineup_power_real`='" . $game_result['guest']['player']['gk']['power_real'] . "',
+                    `lineup_shot`='" . $game_result['guest']['player']['gk']['shot'] . "'
+                WHERE `lineup_id`='" . $game_result['guest']['player']['gk']['lineup_id'] . "'
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
+        foreach ($game_result['guest']['player']['field'] as $player)
+        {
+            $sql = "UPDATE `lineup`
+                    SET `lineup_age`='" . $player['age'] . "',
+                        `lineup_assist`='" . $player['assist'] . "',
+                        `lineup_penalty`='" . $player['penalty'] . "'*'2',
+                        `lineup_plus_minus`='" . $player['plus_minus'] . "',
+                        `lineup_power_nominal`='" . $player['power_nominal'] . "',
+                        `lineup_power_real`='" . $player['power_real'] . "',
+                        `lineup_score`='" . $player['score'] . "',
+                        `lineup_shot`='" . $player['shot'] . "'
+                    WHERE `lineup_id`='" . $player['lineup_id'] . "'
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+
         $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_ld_1_age',
-                    `lineup_assist`='$guest_ld_1_assist',
-                    `lineup_penalty`='$guest_ld_1_penalty'*'2',
-                    `lineup_plus_minus`='$guest_ld_1_plus',
-                    `lineup_power_nominal`='$guest_player_ld_1_power_nominal',
-                    `lineup_power_real`='$guest_player_ld_1_power_real',
-                    `lineup_score`='$guest_ld_1_score',
-                    `lineup_shot`='$guest_ld_1_shot'
-                WHERE `lineup_id`='$guest_player_ld_1_lineup_id'
+                SET `lineup_age`='" . $game_result['home']['player']['gk']['age'] . "',
+                    `lineup_assist`='" . $game_result['home']['player']['gk']['assist'] . "',
+                    `lineup_pass`='" . $game_result['home']['player']['gk']['pass'] . "',
+                    `lineup_power_nominal`='" . $game_result['home']['player']['gk']['power_nominal'] . "',
+                    `lineup_power_real`='" . $game_result['home']['player']['gk']['power_real'] . "',
+                    `lineup_shot`='" . $game_result['home']['player']['gk']['shot'] . "'
+                WHERE `lineup_id`='" . $game_result['home']['player']['gk']['lineup_id'] . "'
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rd_1_age',
-                    `lineup_assist`='$guest_rd_1_assist',
-                    `lineup_penalty`='$guest_rd_1_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rd_1_plus',
-                    `lineup_power_nominal`='$guest_player_rd_1_power_nominal',
-                    `lineup_power_real`='$guest_player_rd_1_power_real',
-                    `lineup_score`='$guest_rd_1_score',
-                    `lineup_shot`='$guest_rd_1_shot'
-                WHERE `lineup_id`='$guest_player_rd_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_lf_1_age',
-                    `lineup_assist`='$guest_lf_1_assist',
-                    `lineup_penalty`='$guest_lf_1_penalty'*'2',
-                    `lineup_plus_minus`='$guest_lf_1_plus',
-                    `lineup_power_nominal`='$guest_player_lf_1_power_nominal',
-                    `lineup_power_real`='$guest_player_lf_1_power_real',
-                    `lineup_score`='$guest_lf_1_score',
-                    `lineup_shot`='$guest_lf_1_shot'
-                WHERE `lineup_id`='$guest_player_lf_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_c_1_age',
-                    `lineup_assist`='$guest_c_1_assist',
-                    `lineup_penalty`='$guest_c_1_penalty'*'2',
-                    `lineup_plus_minus`='$guest_c_1_plus',
-                    `lineup_power_nominal`='$guest_player_c_1_power_nominal',
-                    `lineup_power_real`='$guest_player_c_1_power_real',
-                    `lineup_score`='$guest_c_1_score',
-                    `lineup_shot`='$guest_c_1_shot'
-                WHERE `lineup_id`='$guest_player_c_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rf_1_age',
-                    `lineup_assist`='$guest_rf_1_assist',
-                    `lineup_penalty`='$guest_rf_1_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rf_1_plus',
-                    `lineup_power_nominal`='$guest_player_rf_1_power_nominal',
-                    `lineup_power_real`='$guest_player_rf_1_power_real',
-                    `lineup_score`='$guest_rf_1_score',
-                    `lineup_shot`='$guest_rf_1_shot'
-                WHERE `lineup_id`='$guest_player_rf_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_ld_2_age',
-                    `lineup_assist`='$guest_ld_2_assist',
-                    `lineup_penalty`='$guest_ld_2_penalty'*'2',
-                    `lineup_plus_minus`='$guest_ld_2_plus',
-                    `lineup_power_nominal`='$guest_player_ld_2_power_nominal',
-                    `lineup_power_real`='$guest_player_ld_2_power_real',
-                    `lineup_score`='$guest_ld_2_score',
-                    `lineup_shot`='$guest_ld_2_shot'
-                WHERE `lineup_id`='$guest_player_ld_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rd_2_age',
-                    `lineup_assist`='$guest_rd_2_assist',
-                    `lineup_penalty`='$guest_rd_2_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rd_2_plus',
-                    `lineup_power_nominal`='$guest_player_rd_2_power_nominal',
-                    `lineup_power_real`='$guest_player_rd_2_power_real',
-                    `lineup_score`='$guest_rd_2_score',
-                    `lineup_shot`='$guest_rd_2_shot'
-                WHERE `lineup_id`='$guest_player_rd_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_lf_2_age',
-                    `lineup_assist`='$guest_lf_2_assist',
-                    `lineup_penalty`='$guest_lf_2_penalty'*'2',
-                    `lineup_plus_minus`='$guest_lf_2_plus',
-                    `lineup_power_nominal`='$guest_player_lf_2_power_nominal',
-                    `lineup_power_real`='$guest_player_lf_2_power_real',
-                    `lineup_score`='$guest_lf_2_score',
-                    `lineup_shot`='$guest_lf_2_shot'
-                WHERE `lineup_id`='$guest_player_lf_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_c_2_age',
-                    `lineup_assist`='$guest_c_2_assist',
-                    `lineup_penalty`='$guest_c_2_penalty'*'2',
-                    `lineup_plus_minus`='$guest_c_2_plus',
-                    `lineup_power_nominal`='$guest_player_c_2_power_nominal',
-                    `lineup_power_real`='$guest_player_c_2_power_real',
-                    `lineup_score`='$guest_c_2_score',
-                    `lineup_shot`='$guest_c_2_shot'
-                WHERE `lineup_id`='$guest_player_c_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rf_2_age',
-                    `lineup_assist`='$guest_rf_2_assist',
-                    `lineup_penalty`='$guest_rf_2_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rf_2_plus',
-                    `lineup_power_nominal`='$guest_player_rf_2_power_nominal',
-                    `lineup_power_real`='$guest_player_rf_2_power_real',
-                    `lineup_score`='$guest_rf_2_score',
-                    `lineup_shot`='$guest_rf_2_shot'
-                WHERE `lineup_id`='$guest_player_rf_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_ld_3_age',
-                    `lineup_assist`='$guest_ld_3_assist',
-                    `lineup_penalty`='$guest_ld_3_penalty'*'2',
-                    `lineup_plus_minus`='$guest_ld_3_plus',
-                    `lineup_power_nominal`='$guest_player_ld_3_power_nominal',
-                    `lineup_power_real`='$guest_player_ld_3_power_real',
-                    `lineup_score`='$guest_ld_3_score',
-                    `lineup_shot`='$guest_ld_3_shot'
-                WHERE `lineup_id`='$guest_player_ld_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rd_3_age',
-                    `lineup_assist`='$guest_rd_3_assist',
-                    `lineup_penalty`='$guest_rd_3_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rd_3_plus',
-                    `lineup_power_nominal`='$guest_player_rd_3_power_nominal',
-                    `lineup_power_real`='$guest_player_rd_3_power_real',
-                    `lineup_score`='$guest_rd_3_score',
-                    `lineup_shot`='$guest_rd_3_shot'
-                WHERE `lineup_id`='$guest_player_rd_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_lf_3_age',
-                    `lineup_assist`='$guest_lf_3_assist',
-                    `lineup_penalty`='$guest_lf_3_penalty'*'2',
-                    `lineup_plus_minus`='$guest_lf_3_plus',
-                    `lineup_power_nominal`='$guest_player_lf_3_power_nominal',
-                    `lineup_power_real`='$guest_player_lf_3_power_real',
-                    `lineup_score`='$guest_lf_3_score',
-                    `lineup_shot`='$guest_lf_3_shot'
-                WHERE `lineup_id`='$guest_player_lf_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_c_3_age',
-                    `lineup_assist`='$guest_c_3_assist',
-                    `lineup_penalty`='$guest_c_3_penalty'*'2',
-                    `lineup_plus_minus`='$guest_c_3_plus',
-                    `lineup_power_nominal`='$guest_player_c_3_power_nominal',
-                    `lineup_power_real`='$guest_player_c_3_power_real',
-                    `lineup_score`='$guest_c_3_score',
-                    `lineup_shot`='$guest_c_3_shot'
-                WHERE `lineup_id`='$guest_player_c_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$guest_player_rf_3_age',
-                    `lineup_assist`='$guest_rf_3_assist',
-                    `lineup_penalty`='$guest_rf_3_penalty'*'2',
-                    `lineup_plus_minus`='$guest_rf_3_plus',
-                    `lineup_power_nominal`='$guest_player_rf_3_power_nominal',
-                    `lineup_power_real`='$guest_player_rf_3_power_real',
-                    `lineup_score`='$guest_rf_3_score',
-                    `lineup_shot`='$guest_rf_3_shot'
-                WHERE `lineup_id`='$guest_player_rf_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_gk_age',
-                    `lineup_assist`='$home_gk_assist',
-                    `lineup_pass`='$home_gk_pass',
-                    `lineup_power_nominal`='$home_player_gk_power_nominal',
-                    `lineup_power_real`='$home_player_gk_power_real',
-                    `lineup_shot`='$home_gk_shot'
-                WHERE `lineup_id`='$home_player_gk_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_ld_1_age',
-                    `lineup_assist`='$home_ld_1_assist',
-                    `lineup_penalty`='$home_ld_1_penalty'*'2',
-                    `lineup_plus_minus`='$home_ld_1_plus',
-                    `lineup_power_nominal`='$home_player_ld_1_power_nominal',
-                    `lineup_power_real`='$home_player_ld_1_power_real',
-                    `lineup_score`='$home_ld_1_score',
-                    `lineup_shot`='$home_ld_1_shot'
-                WHERE `lineup_id`='$home_player_ld_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rd_1_age',
-                    `lineup_assist`='$home_rd_1_assist',
-                    `lineup_penalty`='$home_rd_1_penalty'*'2',
-                    `lineup_plus_minus`='$home_rd_1_plus',
-                    `lineup_power_nominal`='$home_player_rd_1_power_nominal',
-                    `lineup_power_real`='$home_player_rd_1_power_real',
-                    `lineup_score`='$home_rd_1_score',
-                    `lineup_shot`='$home_rd_1_shot'
-                WHERE `lineup_id`='$home_player_rd_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_lf_1_age',
-                    `lineup_assist`='$home_lf_1_assist',
-                    `lineup_penalty`='$home_lf_1_penalty'*'2',
-                    `lineup_plus_minus`='$home_lf_1_plus',
-                    `lineup_power_nominal`='$home_player_lf_1_power_nominal',
-                    `lineup_power_real`='$home_player_lf_1_power_real',
-                    `lineup_score`='$home_lf_1_score',
-                    `lineup_shot`='$home_lf_1_shot'
-                WHERE `lineup_id`='$home_player_lf_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_c_1_age',
-                    `lineup_assist`='$home_c_1_assist',
-                    `lineup_penalty`='$home_c_1_penalty'*'2',
-                    `lineup_plus_minus`='$home_c_1_plus',
-                    `lineup_power_nominal`='$home_player_c_1_power_nominal',
-                    `lineup_power_real`='$home_player_c_1_power_real',
-                    `lineup_score`='$home_c_1_score',
-                    `lineup_shot`='$home_c_1_shot'
-                WHERE `lineup_id`='$home_player_c_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rf_1_age',
-                    `lineup_assist`='$home_rf_1_assist',
-                    `lineup_penalty`='$home_rf_1_penalty'*'2',
-                    `lineup_plus_minus`='$home_rf_1_plus',
-                    `lineup_power_nominal`='$home_player_rf_1_power_nominal',
-                    `lineup_power_real`='$home_player_rf_1_power_real',
-                    `lineup_score`='$home_rf_1_score',
-                    `lineup_shot`='$home_rf_1_shot'
-                WHERE `lineup_id`='$home_player_rf_1_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_ld_2_age',
-                    `lineup_assist`='$home_ld_2_assist',
-                    `lineup_penalty`='$home_ld_2_penalty'*'2',
-                    `lineup_plus_minus`='$home_ld_2_plus',
-                    `lineup_power_nominal`='$home_player_ld_2_power_nominal',
-                    `lineup_power_real`='$home_player_ld_2_power_real',
-                    `lineup_score`='$home_ld_2_score',
-                    `lineup_shot`='$home_ld_2_shot'
-                WHERE `lineup_id`='$home_player_ld_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rd_2_age',
-                    `lineup_assist`='$home_rd_2_assist',
-                    `lineup_penalty`='$home_rd_2_penalty'*'2',
-                    `lineup_plus_minus`='$home_rd_2_plus',
-                    `lineup_power_nominal`='$home_player_rd_2_power_nominal',
-                    `lineup_power_real`='$home_player_rd_2_power_real',
-                    `lineup_score`='$home_rd_2_score',
-                    `lineup_shot`='$home_rd_2_shot'
-                WHERE `lineup_id`='$home_player_rd_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_lf_2_age',
-                    `lineup_assist`='$home_lf_2_assist',
-                    `lineup_penalty`='$home_lf_2_penalty'*'2',
-                    `lineup_plus_minus`='$home_lf_2_plus',
-                    `lineup_power_nominal`='$home_player_lf_2_power_nominal',
-                    `lineup_power_real`='$home_player_lf_2_power_real',
-                    `lineup_score`='$home_lf_2_score',
-                    `lineup_shot`='$home_lf_2_shot'
-                WHERE `lineup_id`='$home_player_lf_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_c_2_age',
-                    `lineup_assist`='$home_c_2_assist',
-                    `lineup_penalty`='$home_c_2_penalty'*'2',
-                    `lineup_plus_minus`='$home_c_2_plus',
-                    `lineup_power_nominal`='$home_player_c_2_power_nominal',
-                    `lineup_power_real`='$home_player_c_2_power_real',
-                    `lineup_score`='$home_c_2_score',
-                    `lineup_shot`='$home_c_2_shot'
-                WHERE `lineup_id`='$home_player_c_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rf_2_age',
-                    `lineup_assist`='$home_rf_2_assist',
-                    `lineup_penalty`='$home_rf_2_penalty'*'2',
-                    `lineup_plus_minus`='$home_rf_2_plus',
-                    `lineup_power_nominal`='$home_player_rf_2_power_nominal',
-                    `lineup_power_real`='$home_player_rf_2_power_real',
-                    `lineup_score`='$home_rf_2_score',
-                    `lineup_shot`='$home_rf_2_shot'
-                WHERE `lineup_id`='$home_player_rf_2_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_ld_3_age',
-                    `lineup_assist`='$home_ld_3_assist',
-                    `lineup_penalty`='$home_ld_3_penalty'*'2',
-                    `lineup_plus_minus`='$home_ld_3_plus',
-                    `lineup_power_nominal`='$home_player_ld_3_power_nominal',
-                    `lineup_power_real`='$home_player_ld_3_power_real',
-                    `lineup_score`='$home_ld_3_score',
-                    `lineup_shot`='$home_ld_3_shot'
-                WHERE `lineup_id`='$home_player_ld_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rd_3_age',
-                    `lineup_assist`='$home_rd_3_assist',
-                    `lineup_penalty`='$home_rd_3_penalty'*'2',
-                    `lineup_plus_minus`='$home_rd_3_plus',
-                    `lineup_power_nominal`='$home_player_rd_3_power_nominal',
-                    `lineup_power_real`='$home_player_rd_3_power_real',
-                    `lineup_score`='$home_rd_3_score',
-                    `lineup_shot`='$home_rd_3_shot'
-                WHERE `lineup_id`='$home_player_rd_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_lf_3_age',
-                    `lineup_assist`='$home_lf_3_assist',
-                    `lineup_penalty`='$home_lf_3_penalty'*'2',
-                    `lineup_plus_minus`='$home_lf_3_plus',
-                    `lineup_power_nominal`='$home_player_lf_3_power_nominal',
-                    `lineup_power_real`='$home_player_lf_3_power_real',
-                    `lineup_score`='$home_lf_3_score',
-                    `lineup_shot`='$home_lf_3_shot'
-                WHERE `lineup_id`='$home_player_lf_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_c_3_age',
-                    `lineup_assist`='$home_c_3_assist',
-                    `lineup_penalty`='$home_c_3_penalty'*'2',
-                    `lineup_plus_minus`='$home_c_3_plus',
-                    `lineup_power_nominal`='$home_player_c_3_power_nominal',
-                    `lineup_power_real`='$home_player_c_3_power_real',
-                    `lineup_score`='$home_c_3_score',
-                    `lineup_shot`='$home_c_3_shot'
-                WHERE `lineup_id`='$home_player_c_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $sql = "UPDATE `lineup`
-                SET `lineup_age`='$home_player_rf_3_age',
-                    `lineup_assist`='$home_rf_3_assist',
-                    `lineup_penalty`='$home_rf_3_penalty'*'2',
-                    `lineup_plus_minus`='$home_rf_3_plus',
-                    `lineup_power_nominal`='$home_player_rf_3_power_nominal',
-                    `lineup_power_real`='$home_player_rf_3_power_real',
-                    `lineup_score`='$home_rf_3_score',
-                    `lineup_shot`='$home_rf_3_shot'
-                WHERE `lineup_id`='$home_player_rf_3_lineup_id'
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        foreach ($game_result['home']['player']['field'] as $player)
+        {
+            $sql = "UPDATE `lineup`
+                    SET `lineup_age`='" . $player['age'] . "',
+                        `lineup_assist`='" . $player['assist'] . "',
+                        `lineup_penalty`='" . $player['penalty'] . "'*'2',
+                        `lineup_plus_minus`='" . $player['plus_minus'] . "',
+                        `lineup_power_nominal`='" . $player['power_nominal'] . "',
+                        `lineup_power_real`='" . $player['power_real'] . "',
+                        `lineup_score`='" . $player['score'] . "',
+                        `lineup_shot`='" . $player['shot'] . "'
+                    WHERE `lineup_id`='" . $player['lineup_id'] . "'
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         usleep(1);
 
         print '.';
         flush();
     }
-}
-
-function f_igosja_generator_assist_1($player)
-{
-    $assist_1 = rand(1, 5);
-
-    if ($player == $assist_1)
-    {
-        $assist_1 = f_igosja_generator_assist_1($player);
-    }
-
-    return $assist_1;
-}
-
-function f_igosja_generator_assist_2($player, $assist_1)
-{
-    $assist_2 = rand(0, 5);
-
-    if (in_array($assist_2, array($player, $assist_1)))
-    {
-        $assist_2 = f_igosja_generator_assist_2($player, $assist_1);
-    }
-
-    return $assist_2;
 }
