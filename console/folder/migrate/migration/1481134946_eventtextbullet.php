@@ -8,5 +8,5 @@ $q[] = 'CREATE TABLE `eventtextbullet`
             `eventtextbullet_text` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `eventtextbullet` (`eventtextbullet_text`)
-        VALUES ('Реализованный буллит'),
-               ('Нереализованный буллит');";
+        VALUES ('Реализованный буллит.'),
+               ('Нереализованный буллит.');";

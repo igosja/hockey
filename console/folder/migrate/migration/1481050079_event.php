@@ -16,8 +16,8 @@ $q[] = 'CREATE TABLE `event`
             `event_national_id` SMALLINT(5) DEFAULT 0,
             `event_player_assist_1_id` INT(11) DEFAULT 0,
             `event_player_assist_2_id` INT(11) DEFAULT 0,
-            `event_player_id` INT(11) DEFAULT 0,
-            `event_player_penalty_id` INT(11) DEFAULT 0, #Против кого нарушили правила
+            `event_player_penalty_id` INT(11) DEFAULT 0,
+            `event_player_score_id` INT(11) DEFAULT 0,
             `event_second` TINYINT(2) DEFAULT 0,
             `event_team_id` SMALLINT(5) DEFAULT 0
         );';

@@ -289,3 +289,60 @@
         </table>
     </div>
 </div>
+<div class="row margin-top">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>Время</th>
+                <th>Команда</th>
+                <th>Тип</th>
+                <th>Событие</th>
+                <th>Счет</th>
+            </tr>
+            <?php foreach ($event_array as $item) { ?>
+                <tr>
+                    <td class="text-center"><?= $item['event_minute']; ?>:<?= $item['event_second']; ?></td>
+                    <td class="text-center">
+                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                            <?= $item['team_name']; ?>
+                        </a>
+                    </td>
+                    <td class="text-center"><?= $item['eventtype_text']; ?></td>
+                    <td>
+                        <?= $item['eventtextbullet_text']; ?>
+                        <?= $item['eventtextgoal_text']; ?>
+                        <?= $item['eventtextpenalty_text']; ?>
+                        <?php if ($item['event_player_penalty_id']) { ?>
+                            Удаление -
+                            <a href="/player_view.php?num=<?= $item['event_player_penalty_id']; ?>">
+                                <?= $item['name_penalty_name']; ?>
+                                <?= $item['surname_penalty_name']; ?>
+                            </a>
+                        <?php } ?>
+                        <?php if ($item['event_player_score_id']) { ?>
+                            Гол -
+                            <a href="/player_view.php?num=<?= $item['event_player_score_id']; ?>">
+                                <?= $item['name_score_name']; ?>
+                                <?= $item['surname_score_name']; ?>
+                            </a>
+                        <?php } ?>
+                        <?php if ($item['event_player_assist_1_id']) { ?>
+                            (<a href="/player_view.php?num=<?= $item['event_player_assist_1_id']; ?>"><?=
+                                $item['name_assist_1_name']; ?>
+                                <?= $item['surname_assist_1_name'];
+                                ?></a><?php if ($item['event_player_assist_2_id']) { ?>,
+                                <a href="/player_view.php?num=<?= $item['event_player_assist_2_id']; ?>">
+                                    <?= $item['name_assist_2_name']; ?>
+                                    <?= $item['surname_assist_2_name']; ?></a><?php } ?>)
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?php if (in_array($item['eventtype_id'], array(EVENTTYPE_GOAL, EVENTTYPE_BULLET))) { ?>
+                            <?= $item['event_home_score']; ?>:<?= $item['event_guest_score']; ?>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+</div>

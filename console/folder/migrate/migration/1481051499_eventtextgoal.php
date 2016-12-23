@@ -8,8 +8,7 @@ $q[] = 'CREATE TABLE `eventtextgoal`
             `eventtextgoal_text` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `eventtextgoal` (`eventtextgoal_text`)
-        VALUES ('Выход 1 на 1'),
-               ('Щелчок'),
-               ('Мощный кистевой бросок'),
-               ('Быстрый кистевой бросок'),
-               ('Гол в пустые ворота');";
+        VALUES ('Щелчок.'),
+               ('Мощный кистевой бросок.'),
+               ('Быстрый кистевой бросок.'),
+               ('Добивание.');";

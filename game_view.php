@@ -119,6 +119,23 @@ if (0 == $game_array[0]['game_played'])
     redirect('/game_preview.php?num=' . $num_get);
 }
 
+$home_power_percent     = $game_array[0]['game_home_power'];
+$guest_power_percent    = $game_array[0]['game_guest_power'];
+
+if (0 == $home_power_percent)
+{
+    $home_power_percent = 1;
+}
+
+if (0 == $guest_power_percent)
+{
+    $guest_power_percent = 1;
+}
+
+$team_power_total       = $home_power_percent + $guest_power_percent;
+$home_power_percent     = round($home_power_percent / $team_power_total * 100, 0);
+$guest_power_percent    = 100 - $home_power_percent;
+
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
                `lineup_pass`,
@@ -191,21 +208,68 @@ $guest_sql = f_igosja_mysqli_query($sql);
 
 $guest_array = $guest_sql->fetch_all(1);
 
-$home_power_percent     = $game_array[0]['game_home_power'];
-$guest_power_percent    = $game_array[0]['game_guest_power'];
+$sql = "SELECT `event_guest_score`,
+               `event_home_score`,
+               `event_minute`,
+               `event_player_assist_1_id`,
+               `event_player_assist_2_id`,
+               `event_player_penalty_id`,
+               `event_player_score_id`,
+               `event_second`,
+               `eventtextbullet_text`,
+               `eventtextgoal_text`,
+               `eventtextpenalty_text`,
+               `eventtype_id`,
+               `eventtype_text`,
+               `name_assist_1`.`name_name` AS `name_assist_1_name`,
+               `name_assist_2`.`name_name` AS `name_assist_2_name`,
+               `name_penalty`.`name_name` AS `name_penalty_name`,
+               `name_score`.`name_name` AS `name_score_name`,
+               `surname_assist_1`.`surname_name` AS `surname_assist_1_name`,
+               `surname_assist_2`.`surname_name` AS `surname_assist_2_name`,
+               `surname_penalty`.`surname_name` AS `surname_penalty_name`,
+               `surname_score`.`surname_name` AS `surname_score_name`,
+               `team_id`,
+               `team_name`
+        FROM `event`
+        LEFT JOIN `eventtextbullet`
+        ON `event_eventtextbullet_id`=`eventtextbullet_id`
+        LEFT JOIN `eventtextgoal`
+        ON `event_eventtextgoal_id`=`eventtextgoal_id`
+        LEFT JOIN `eventtextpenalty`
+        ON `event_eventtextpenalty_id`=`eventtextpenalty_id`
+        LEFT JOIN `eventtype`
+        ON `event_eventtype_id`=`eventtype_id`
+        LEFT JOIN `team`
+        ON `event_team_id`=`team_id`
+        LEFT JOIN `player` AS `player_score`
+        ON `event_player_score_id`=`player_score`.`player_id`
+        LEFT JOIN `name` AS `name_score`
+        ON `player_score`.`player_name_id`=`name_score`.`name_id`
+        LEFT JOIN `surname` AS `surname_score`
+        ON `player_score`.`player_surname_id`=`surname_score`.`surname_id`
+        LEFT JOIN `player` AS `player_assist_1`
+        ON `event_player_assist_1_id`=`player_assist_1`.`player_id`
+        LEFT JOIN `name` AS `name_assist_1`
+        ON `player_assist_1`.`player_name_id`=`name_assist_1`.`name_id`
+        LEFT JOIN `surname` AS `surname_assist_1`
+        ON `player_assist_1`.`player_surname_id`=`surname_assist_1`.`surname_id`
+        LEFT JOIN `player` AS `player_assist_2`
+        ON `event_player_assist_2_id`=`player_assist_2`.`player_id`
+        LEFT JOIN `name` AS `name_assist_2`
+        ON `player_assist_2`.`player_name_id`=`name_assist_2`.`name_id`
+        LEFT JOIN `surname` AS `surname_assist_2`
+        ON `player_assist_2`.`player_surname_id`=`surname_assist_2`.`surname_id`
+        LEFT JOIN `player` AS `player_penalty`
+        ON `event_player_penalty_id`=`player_penalty`.`player_id`
+        LEFT JOIN `name` AS `name_penalty`
+        ON `player_penalty`.`player_name_id`=`name_penalty`.`name_id`
+        LEFT JOIN `surname` AS `surname_penalty`
+        ON `player_penalty`.`player_surname_id`=`surname_penalty`.`surname_id`
+        WHERE `event_game_id`='$num_get'
+        ORDER BY `event_minute` ASC, `event_second` ASC";
+$event_sql = f_igosja_mysqli_query($sql);
 
-if (0 == $home_power_percent)
-{
-    $home_power_percent = 1;
-}
-
-if (0 == $guest_power_percent)
-{
-    $guest_power_percent = 1;
-}
-
-$team_power_total       = $home_power_percent + $guest_power_percent;
-$home_power_percent     = round($home_power_percent / $team_power_total * 100, 0);
-$guest_power_percent    = 100 - $home_power_percent;
+$event_array = $event_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');
