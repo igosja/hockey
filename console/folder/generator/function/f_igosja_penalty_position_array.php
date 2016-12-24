@@ -1,0 +1,20 @@
+<?php
+
+function f_igosja_penalty_position_array($game_result, $team)
+{
+    $penalty_position_array = array();
+
+    $count_penalty = count($game_result[$team]['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position_home[] = $game_result[$team]['team']['penalty']['current'][$i]['position'];
+    }
+
+    return $penalty_position_array;
+}

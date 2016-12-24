@@ -17,6 +17,3 @@ foreach ($file_list as $item)
 {
     include(__DIR__ . '/../console/folder/generator/function/' . $item);
 }
-
-//$sql = "TRUNCATE `debug`";
-//$mysqli->query($sql);

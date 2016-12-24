@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `finance`
         (
             `finance_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `finance_building_id` TINYINT(1) DEFAULT 0,
             `finance_capacity` SMALLINT(5) DEFAULT 0,
             `finance_country_id` SMALLINT(3) DEFAULT 0,
             `finance_date` INT(11) DEFAULT 0,
