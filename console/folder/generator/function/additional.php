@@ -96,7 +96,7 @@ function f_igosja_home_player_penalty_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -117,7 +117,7 @@ function f_igosja_home_player_penalty_increase($game_result)
                 $game_result['home']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -138,28 +138,28 @@ function f_igosja_home_player_penalty_increase($game_result)
                 $game_result['home']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_1']['penalty']++;
+            $game_result['home']['player']['field']['lw_1']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['lf_1']['player_id'];
+                $game_result['home']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_2']['penalty']++;
+            $game_result['home']['player']['field']['lw_2']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['lf_2']['player_id'];
+                $game_result['home']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['lf_3']['penalty']++;
+            $game_result['home']['player']['field']['lw_3']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['lf_3']['player_id'];
+                $game_result['home']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -180,25 +180,25 @@ function f_igosja_home_player_penalty_increase($game_result)
                 $game_result['home']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_1']['penalty']++;
+            $game_result['home']['player']['field']['rw_1']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['rf_1']['player_id'];
+                $game_result['home']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_2']['penalty']++;
+            $game_result['home']['player']['field']['rw_2']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['rf_2']['player_id'];
+                $game_result['home']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['rf_3']['penalty']++;
+            $game_result['home']['player']['field']['rw_3']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['home']['player']['field']['rf_3']['player_id'];
+                $game_result['home']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -209,7 +209,7 @@ function f_igosja_guest_player_penalty_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -230,7 +230,7 @@ function f_igosja_guest_player_penalty_increase($game_result)
                 $game_result['guest']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -251,28 +251,28 @@ function f_igosja_guest_player_penalty_increase($game_result)
                 $game_result['guest']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_1']['penalty']++;
+            $game_result['guest']['player']['field']['lw_1']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['lf_1']['player_id'];
+                $game_result['guest']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_2']['penalty']++;
+            $game_result['guest']['player']['field']['lw_2']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['lf_2']['player_id'];
+                $game_result['guest']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['lf_3']['penalty']++;
+            $game_result['guest']['player']['field']['lw_3']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['lf_3']['player_id'];
+                $game_result['guest']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -293,25 +293,25 @@ function f_igosja_guest_player_penalty_increase($game_result)
                 $game_result['guest']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_1']['penalty']++;
+            $game_result['guest']['player']['field']['rw_1']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['rf_1']['player_id'];
+                $game_result['guest']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_2']['penalty']++;
+            $game_result['guest']['player']['field']['rw_2']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['rf_2']['player_id'];
+                $game_result['guest']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['rf_3']['penalty']++;
+            $game_result['guest']['player']['field']['rw_3']['penalty']++;
             $game_result['event'][$count_event - 1]['event_player_penalty_id'] =
-                $game_result['guest']['player']['field']['rf_3']['player_id'];
+                $game_result['guest']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -402,7 +402,7 @@ function f_igosja_guest_team_shot_increase($game_result)
 
 function f_igosja_home_player_shot_increase($game_result)
 {
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -417,7 +417,7 @@ function f_igosja_home_player_shot_increase($game_result)
             $game_result['home']['player']['field']['ld_3']['shot']++;
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -432,22 +432,22 @@ function f_igosja_home_player_shot_increase($game_result)
             $game_result['home']['player']['field']['rd_3']['shot']++;
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_1']['shot']++;
+            $game_result['home']['player']['field']['lw_1']['shot']++;
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_2']['shot']++;
+            $game_result['home']['player']['field']['lw_2']['shot']++;
         }
         else
         {
-            $game_result['home']['player']['field']['lf_3']['shot']++;
+            $game_result['home']['player']['field']['lw_3']['shot']++;
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -462,19 +462,19 @@ function f_igosja_home_player_shot_increase($game_result)
             $game_result['home']['player']['field']['c_3']['shot']++;
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_1']['shot']++;
+            $game_result['home']['player']['field']['rw_1']['shot']++;
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_2']['shot']++;
+            $game_result['home']['player']['field']['rw_2']['shot']++;
         }
         else
         {
-            $game_result['home']['player']['field']['rf_3']['shot']++;
+            $game_result['home']['player']['field']['rw_3']['shot']++;
         }
     }
 
@@ -483,7 +483,7 @@ function f_igosja_home_player_shot_increase($game_result)
 
 function f_igosja_guest_player_shot_increase($game_result)
 {
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -498,7 +498,7 @@ function f_igosja_guest_player_shot_increase($game_result)
             $game_result['guest']['player']['field']['ld_3']['shot']++;
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -513,22 +513,22 @@ function f_igosja_guest_player_shot_increase($game_result)
             $game_result['guest']['player']['field']['rd_3']['shot']++;
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_1']['shot']++;
+            $game_result['guest']['player']['field']['lw_1']['shot']++;
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_2']['shot']++;
+            $game_result['guest']['player']['field']['lw_2']['shot']++;
         }
         else
         {
-            $game_result['guest']['player']['field']['lf_3']['shot']++;
+            $game_result['guest']['player']['field']['lw_3']['shot']++;
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -543,19 +543,19 @@ function f_igosja_guest_player_shot_increase($game_result)
             $game_result['guest']['player']['field']['c_3']['shot']++;
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_1']['shot']++;
+            $game_result['guest']['player']['field']['rw_1']['shot']++;
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_2']['shot']++;
+            $game_result['guest']['player']['field']['rw_2']['shot']++;
         }
         else
         {
-            $game_result['guest']['player']['field']['rf_3']['shot']++;
+            $game_result['guest']['player']['field']['rw_3']['shot']++;
         }
     }
 
@@ -564,7 +564,7 @@ function f_igosja_guest_player_shot_increase($game_result)
 
 function f_igosja_home_player_shot_power($game_result)
 {
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -579,7 +579,7 @@ function f_igosja_home_player_shot_power($game_result)
             $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['ld_3']['power_real'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -594,22 +594,22 @@ function f_igosja_home_player_shot_power($game_result)
             $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rd_3']['power_real'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_1']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lw_1']['power_real'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_2']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lw_2']['power_real'];
         }
         else
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lf_3']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['lw_3']['power_real'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -624,19 +624,19 @@ function f_igosja_home_player_shot_power($game_result)
             $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['c_3']['power_real'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_1']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rw_1']['power_real'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_2']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rw_2']['power_real'];
         }
         else
         {
-            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rf_3']['power_real'];
+            $game_result['home']['team']['power']['shot'] = $game_result['home']['player']['field']['rw_3']['power_real'];
         }
     }
 
@@ -645,7 +645,7 @@ function f_igosja_home_player_shot_power($game_result)
 
 function f_igosja_guest_player_shot_power($game_result)
 {
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -660,7 +660,7 @@ function f_igosja_guest_player_shot_power($game_result)
             $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['ld_3']['power_real'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -675,22 +675,22 @@ function f_igosja_guest_player_shot_power($game_result)
             $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rd_3']['power_real'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_1']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lw_1']['power_real'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_2']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lw_2']['power_real'];
         }
         else
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lf_3']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['lw_3']['power_real'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -705,19 +705,19 @@ function f_igosja_guest_player_shot_power($game_result)
             $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['c_3']['power_real'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_1']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rw_1']['power_real'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_2']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rw_2']['power_real'];
         }
         else
         {
-            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rf_3']['power_real'];
+            $game_result['guest']['team']['power']['shot'] = $game_result['guest']['player']['field']['rw_3']['power_real'];
         }
     }
 
@@ -768,47 +768,189 @@ function f_igosja_guest_team_score_increase($game_result)
 
 function f_igosja_home_plus_minus_increase($game_result)
 {
+    $penalty_position_home = array();
+
+    $count_penalty = count($game_result['home']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position_home[] = $game_result['home']['team']['penalty']['current'][$i]['position'];
+    }
+
+    $penalty_position_guest = array();
+
+    $count_penalty = count($game_result['guest']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position_guest[] = $game_result['guest']['team']['penalty']['current'][$i]['position'];
+    }
+
     if (0 == $game_result['minute'] % 3)
     {
-        $game_result['home']['player']['field']['ld_1']['plus_minus']++;
-        $game_result['home']['player']['field']['rd_1']['plus_minus']++;
-        $game_result['home']['player']['field']['lf_1']['plus_minus']++;
-        $game_result['home']['player']['field']['c_1']['plus_minus']++;
-        $game_result['home']['player']['field']['rf_1']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_1']['plus_minus']++;
+        }
+        
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_1']['plus_minus']++;
+        }
+        
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_1']['plus_minus']++;
+        }
+        
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_1']['plus_minus']++;
+        }
 
-        $game_result['guest']['player']['field']['ld_1']['plus_minus']--;
-        $game_result['guest']['player']['field']['rd_1']['plus_minus']--;
-        $game_result['guest']['player']['field']['lf_1']['plus_minus']--;
-        $game_result['guest']['player']['field']['c_1']['plus_minus']--;
-        $game_result['guest']['player']['field']['rf_1']['plus_minus']--;
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_1']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_1']['plus_minus']--;
+        }
+        
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_1']['plus_minus']--;
+        }
+        
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_1']['plus_minus']--;
+        }
+        
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_1']['plus_minus']--;
+        }
+        
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_1']['plus_minus']--;
+        }
     }
     elseif (1 == $game_result['minute'] % 3)
     {
-        $game_result['home']['player']['field']['ld_2']['plus_minus']++;
-        $game_result['home']['player']['field']['rd_2']['plus_minus']++;
-        $game_result['home']['player']['field']['lf_2']['plus_minus']++;
-        $game_result['home']['player']['field']['c_2']['plus_minus']++;
-        $game_result['home']['player']['field']['rf_2']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_2']['plus_minus']++;
+        }
 
-        $game_result['guest']['player']['field']['ld_2']['plus_minus']--;
-        $game_result['guest']['player']['field']['rd_2']['plus_minus']--;
-        $game_result['guest']['player']['field']['lf_2']['plus_minus']--;
-        $game_result['guest']['player']['field']['c_2']['plus_minus']--;
-        $game_result['guest']['player']['field']['rf_2']['plus_minus']--;
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_2']['plus_minus']--;
+        }
     }
     else
     {
-        $game_result['home']['player']['field']['ld_3']['plus_minus']++;
-        $game_result['home']['player']['field']['rd_3']['plus_minus']++;
-        $game_result['home']['player']['field']['lf_3']['plus_minus']++;
-        $game_result['home']['player']['field']['c_3']['plus_minus']++;
-        $game_result['home']['player']['field']['rf_3']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_3']['plus_minus']++;
+        }
 
-        $game_result['guest']['player']['field']['ld_3']['plus_minus']--;
-        $game_result['guest']['player']['field']['rd_3']['plus_minus']--;
-        $game_result['guest']['player']['field']['lf_3']['plus_minus']--;
-        $game_result['guest']['player']['field']['c_3']['plus_minus']--;
-        $game_result['guest']['player']['field']['rf_3']['plus_minus']--;
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_3']['plus_minus']--;
+        }
     }
 
     return $game_result;
@@ -816,47 +958,189 @@ function f_igosja_home_plus_minus_increase($game_result)
 
 function f_igosja_guest_plus_minus_increase($game_result)
 {
+    $penalty_position_home = array();
+
+    $count_penalty = count($game_result['home']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position_home[] = $game_result['home']['team']['penalty']['current'][$i]['position'];
+    }
+
+    $penalty_position_guest = array();
+
+    $count_penalty = count($game_result['guest']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position_guest[] = $game_result['guest']['team']['penalty']['current'][$i]['position'];
+    }
+
     if (0 == $game_result['minute'] % 3)
     {
-        $game_result['guest']['player']['field']['ld_1']['plus_minus']++;
-        $game_result['guest']['player']['field']['rd_1']['plus_minus']++;
-        $game_result['guest']['player']['field']['lf_1']['plus_minus']++;
-        $game_result['guest']['player']['field']['c_1']['plus_minus']++;
-        $game_result['guest']['player']['field']['rf_1']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_1']['plus_minus']++;
+        }
 
-        $game_result['home']['player']['field']['ld_1']['plus_minus']--;
-        $game_result['home']['player']['field']['rd_1']['plus_minus']--;
-        $game_result['home']['player']['field']['lf_1']['plus_minus']--;
-        $game_result['home']['player']['field']['c_1']['plus_minus']--;
-        $game_result['home']['player']['field']['rf_1']['plus_minus']--;
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_1']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_1']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_1']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_1']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_1']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_1']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_1']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_1']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_1']['plus_minus']--;
+        }
     }
     elseif (1 == $game_result['minute'] % 3)
     {
-        $game_result['guest']['player']['field']['ld_2']['plus_minus']++;
-        $game_result['guest']['player']['field']['rd_2']['plus_minus']++;
-        $game_result['guest']['player']['field']['lf_2']['plus_minus']++;
-        $game_result['guest']['player']['field']['c_2']['plus_minus']++;
-        $game_result['guest']['player']['field']['rf_2']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_2']['plus_minus']++;
+        }
 
-        $game_result['home']['player']['field']['ld_2']['plus_minus']--;
-        $game_result['home']['player']['field']['rd_2']['plus_minus']--;
-        $game_result['home']['player']['field']['lf_2']['plus_minus']--;
-        $game_result['home']['player']['field']['c_2']['plus_minus']--;
-        $game_result['home']['player']['field']['rf_2']['plus_minus']--;
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_2']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_2']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_2']['plus_minus']--;
+        }
     }
     else
     {
-        $game_result['guest']['player']['field']['ld_3']['plus_minus']++;
-        $game_result['guest']['player']['field']['rd_3']['plus_minus']++;
-        $game_result['guest']['player']['field']['lf_3']['plus_minus']++;
-        $game_result['guest']['player']['field']['c_3']['plus_minus']++;
-        $game_result['guest']['player']['field']['rf_3']['plus_minus']++;
+        if (!in_array(POSITION_LD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['ld_3']['plus_minus']++;
+        }
 
-        $game_result['home']['player']['field']['ld_3']['plus_minus']--;
-        $game_result['home']['player']['field']['rd_3']['plus_minus']--;
-        $game_result['home']['player']['field']['lf_3']['plus_minus']--;
-        $game_result['home']['player']['field']['c_3']['plus_minus']--;
-        $game_result['home']['player']['field']['rf_3']['plus_minus']--;
+        if (!in_array(POSITION_RD, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rd_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['lw_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['c_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_guest))
+        {
+            $game_result['guest']['player']['field']['rw_3']['plus_minus']++;
+        }
+
+        if (!in_array(POSITION_LD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['ld_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RD, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rd_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_LW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['lw_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_C, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['c_3']['plus_minus']--;
+        }
+
+        if (!in_array(POSITION_RW, $penalty_position_home))
+        {
+            $game_result['home']['player']['field']['rw_3']['plus_minus']--;
+        }
     }
 
     return $game_result;
@@ -866,7 +1150,7 @@ function f_igosja_home_player_score_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -887,7 +1171,7 @@ function f_igosja_home_player_score_increase($game_result)
                 $game_result['home']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -908,28 +1192,28 @@ function f_igosja_home_player_score_increase($game_result)
                 $game_result['home']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_1']['score']++;
+            $game_result['home']['player']['field']['lw_1']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['lf_1']['player_id'];
+                $game_result['home']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_2']['score']++;
+            $game_result['home']['player']['field']['lw_2']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['lf_2']['player_id'];
+                $game_result['home']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['lf_3']['score']++;
+            $game_result['home']['player']['field']['lw_3']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['lf_3']['player_id'];
+                $game_result['home']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -950,25 +1234,25 @@ function f_igosja_home_player_score_increase($game_result)
                 $game_result['home']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_1']['score']++;
+            $game_result['home']['player']['field']['rw_1']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['rf_1']['player_id'];
+                $game_result['home']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_2']['score']++;
+            $game_result['home']['player']['field']['rw_2']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['rf_2']['player_id'];
+                $game_result['home']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['rf_3']['score']++;
+            $game_result['home']['player']['field']['rw_3']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['home']['player']['field']['rf_3']['player_id'];
+                $game_result['home']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -979,7 +1263,7 @@ function f_igosja_guest_player_score_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['player'])
+    if (POSITION_LD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1000,7 +1284,7 @@ function f_igosja_guest_player_score_increase($game_result)
                 $game_result['guest']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['player'])
+    elseif (POSITION_RD == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1021,28 +1305,28 @@ function f_igosja_guest_player_score_increase($game_result)
                 $game_result['guest']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['player'])
+    elseif (POSITION_LW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_1']['score']++;
+            $game_result['guest']['player']['field']['lw_1']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['lf_1']['player_id'];
+                $game_result['guest']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_2']['score']++;
+            $game_result['guest']['player']['field']['lw_2']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['lf_2']['player_id'];
+                $game_result['guest']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['lf_3']['score']++;
+            $game_result['guest']['player']['field']['lw_3']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['lf_3']['player_id'];
+                $game_result['guest']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['player'])
+    elseif (POSITION_C == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1063,25 +1347,25 @@ function f_igosja_guest_player_score_increase($game_result)
                 $game_result['guest']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['player'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_1']['score']++;
+            $game_result['guest']['player']['field']['rw_1']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['rf_1']['player_id'];
+                $game_result['guest']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_2']['score']++;
+            $game_result['guest']['player']['field']['rw_2']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['rf_2']['player_id'];
+                $game_result['guest']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['rf_3']['score']++;
+            $game_result['guest']['player']['field']['rw_3']['score']++;
             $game_result['event'][$count_event - 1]['event_player_score_id'] =
-                $game_result['guest']['player']['field']['rf_3']['player_id'];
+                $game_result['guest']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -1092,7 +1376,7 @@ function f_igosja_home_player_assist_1_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['assist_1'])
+    if (POSITION_LD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1113,7 +1397,7 @@ function f_igosja_home_player_assist_1_increase($game_result)
                 $game_result['home']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['assist_1'])
+    elseif (POSITION_RD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1134,28 +1418,28 @@ function f_igosja_home_player_assist_1_increase($game_result)
                 $game_result['home']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['assist_1'])
+    elseif (POSITION_LW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_1']['assist']++;
+            $game_result['home']['player']['field']['lw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['lf_1']['player_id'];
+                $game_result['home']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_2']['assist']++;
+            $game_result['home']['player']['field']['lw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['lf_2']['player_id'];
+                $game_result['home']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['lf_3']['assist']++;
+            $game_result['home']['player']['field']['lw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['lf_3']['player_id'];
+                $game_result['home']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['assist_1'])
+    elseif (POSITION_C == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1176,25 +1460,25 @@ function f_igosja_home_player_assist_1_increase($game_result)
                 $game_result['home']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_1']['assist']++;
+            $game_result['home']['player']['field']['rw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['rf_1']['player_id'];
+                $game_result['home']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_2']['assist']++;
+            $game_result['home']['player']['field']['rw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['rf_2']['player_id'];
+                $game_result['home']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['rf_3']['assist']++;
+            $game_result['home']['player']['field']['rw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['home']['player']['field']['rf_3']['player_id'];
+                $game_result['home']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -1205,7 +1489,7 @@ function f_igosja_guest_player_assist_1_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (1 == $game_result['assist_1'])
+    if (POSITION_LD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1226,7 +1510,7 @@ function f_igosja_guest_player_assist_1_increase($game_result)
                 $game_result['guest']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['assist_1'])
+    elseif (POSITION_RD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1247,28 +1531,28 @@ function f_igosja_guest_player_assist_1_increase($game_result)
                 $game_result['guest']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['assist_1'])
+    elseif (POSITION_LW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_1']['assist']++;
+            $game_result['guest']['player']['field']['lw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['lf_1']['player_id'];
+                $game_result['guest']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_2']['assist']++;
+            $game_result['guest']['player']['field']['lw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['lf_2']['player_id'];
+                $game_result['guest']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['lf_3']['assist']++;
+            $game_result['guest']['player']['field']['lw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['lf_3']['player_id'];
+                $game_result['guest']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['assist_1'])
+    elseif (POSITION_C == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1289,25 +1573,25 @@ function f_igosja_guest_player_assist_1_increase($game_result)
                 $game_result['guest']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_1']['assist']++;
+            $game_result['guest']['player']['field']['rw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['rf_1']['player_id'];
+                $game_result['guest']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_2']['assist']++;
+            $game_result['guest']['player']['field']['rw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['rf_2']['player_id'];
+                $game_result['guest']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['rf_3']['assist']++;
+            $game_result['guest']['player']['field']['rw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_1_id'] =
-                $game_result['guest']['player']['field']['rf_3']['player_id'];
+                $game_result['guest']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -1318,13 +1602,13 @@ function f_igosja_home_player_assist_2_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (0 == $game_result['assist_2'])
+    if (POSITION_GK == $game_result['assist_2'])
     {
         $game_result['home']['player']['gk']['assist']++;
         $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
             $game_result['home']['player']['gk']['player_id'];
     }
-    elseif (1 == $game_result['assist_2'])
+    elseif (POSITION_LD == $game_result['assist_2'])
     {
 
         if (0 == $game_result['minute'] % 3)
@@ -1346,7 +1630,7 @@ function f_igosja_home_player_assist_2_increase($game_result)
                 $game_result['home']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['assist_2'])
+    elseif (POSITION_RD == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1367,28 +1651,28 @@ function f_igosja_home_player_assist_2_increase($game_result)
                 $game_result['home']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['assist_2'])
+    elseif (POSITION_LW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_1']['assist']++;
+            $game_result['home']['player']['field']['lw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['lf_1']['player_id'];
+                $game_result['home']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['lf_2']['assist']++;
+            $game_result['home']['player']['field']['lw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['lf_2']['player_id'];
+                $game_result['home']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['lf_3']['assist']++;
+            $game_result['home']['player']['field']['lw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['lf_3']['player_id'];
+                $game_result['home']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['assist_2'])
+    elseif (POSITION_C == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1409,25 +1693,25 @@ function f_igosja_home_player_assist_2_increase($game_result)
                 $game_result['home']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_1']['assist']++;
+            $game_result['home']['player']['field']['rw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['rf_1']['player_id'];
+                $game_result['home']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['home']['player']['field']['rf_2']['assist']++;
+            $game_result['home']['player']['field']['rw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['rf_2']['player_id'];
+                $game_result['home']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['home']['player']['field']['rf_3']['assist']++;
+            $game_result['home']['player']['field']['rw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['home']['player']['field']['rf_3']['player_id'];
+                $game_result['home']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -1438,13 +1722,13 @@ function f_igosja_guest_player_assist_2_increase($game_result)
 {
     $count_event = count($game_result['event']);
 
-    if (0 == $game_result['assist_2'])
+    if (POSITION_GK == $game_result['assist_2'])
     {
         $game_result['guest']['player']['gk']['assist']++;
         $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
             $game_result['guest']['player']['gk']['player_id'];
     }
-    elseif (1 == $game_result['assist_2'])
+    elseif (POSITION_LD == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1465,7 +1749,7 @@ function f_igosja_guest_player_assist_2_increase($game_result)
                 $game_result['guest']['player']['field']['ld_3']['player_id'];
         }
     }
-    elseif (2 == $game_result['assist_2'])
+    elseif (POSITION_RD == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1486,28 +1770,28 @@ function f_igosja_guest_player_assist_2_increase($game_result)
                 $game_result['guest']['player']['field']['rd_3']['player_id'];
         }
     }
-    elseif (3 == $game_result['assist_2'])
+    elseif (POSITION_LW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_1']['assist']++;
+            $game_result['guest']['player']['field']['lw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['lf_1']['player_id'];
+                $game_result['guest']['player']['field']['lw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['lf_2']['assist']++;
+            $game_result['guest']['player']['field']['lw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['lf_2']['player_id'];
+                $game_result['guest']['player']['field']['lw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['lf_3']['assist']++;
+            $game_result['guest']['player']['field']['lw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['lf_3']['player_id'];
+                $game_result['guest']['player']['field']['lw_3']['player_id'];
         }
     }
-    elseif (4 == $game_result['assist_2'])
+    elseif (POSITION_C == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -1528,25 +1812,25 @@ function f_igosja_guest_player_assist_2_increase($game_result)
                 $game_result['guest']['player']['field']['c_3']['player_id'];
         }
     }
-    else
+    elseif (POSITION_RW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_1']['assist']++;
+            $game_result['guest']['player']['field']['rw_1']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['rf_1']['player_id'];
+                $game_result['guest']['player']['field']['rw_1']['player_id'];
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result['guest']['player']['field']['rf_2']['assist']++;
+            $game_result['guest']['player']['field']['rw_2']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['rf_2']['player_id'];
+                $game_result['guest']['player']['field']['rw_2']['player_id'];
         }
         else
         {
-            $game_result['guest']['player']['field']['rf_3']['assist']++;
+            $game_result['guest']['player']['field']['rw_3']['assist']++;
             $game_result['event'][$count_event - 1]['event_player_assist_2_id'] =
-                $game_result['guest']['player']['field']['rf_3']['player_id'];
+                $game_result['guest']['player']['field']['rw_3']['player_id'];
         }
     }
 
@@ -1555,37 +1839,231 @@ function f_igosja_guest_player_assist_2_increase($game_result)
 
 function f_igosja_home_select_player_shot($game_result)
 {
-    $game_result['player'] = rand(1, 5);
+    $game_result['player'] = rand(POSITION_LD, POSITION_RW);
+
+    $penalty_position = array();
+
+    $count_penalty = count($game_result['home']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['home']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['player'], $penalty_position))
+    {
+        $game_result = f_igosja_home_select_player_shot($game_result);
+    }
 
     return $game_result;
 }
 
 function f_igosja_guest_select_player_shot($game_result)
 {
-    $game_result['player'] = rand(1, 5);
+    $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
-    return $game_result;
-}
+    $penalty_position = array();
 
-function f_igosja_generator_assist_1($game_result)
-{
-    $game_result['assist_1'] = rand(1, 5);
+    $count_penalty = count($game_result['guest']['team']['penalty']['current']);
 
-    if ($game_result['player'] == $game_result['assist_1'])
+    if (2 < $count_penalty)
     {
-        $game_result = f_igosja_generator_assist_1($game_result);
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['guest']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['player'], $penalty_position))
+    {
+        $game_result = f_igosja_home_select_player_shot($game_result);
     }
 
     return $game_result;
 }
 
-function f_igosja_generator_assist_2($game_result)
+function f_igosja_home_assist_1($game_result)
 {
-    $game_result['assist_2'] = rand(0, 5);
-
-    if (in_array($game_result['assist_2'], array($game_result['player'], $game_result['assist_1'])))
+    if (rand(0, 3))
     {
-        $game_result = f_igosja_generator_assist_2($game_result);
+        $game_result = f_igosja_home_select_assist_1($game_result);
+    }
+    else
+    {
+        $game_result['assist_1'] = 0;
+    }
+
+    return $game_result;
+}
+
+function f_igosja_home_select_assist_1($game_result)
+{
+    $game_result['assist_1'] = rand(POSITION_LD, POSITION_RW);
+
+    if ($game_result['player'] == $game_result['assist_1'])
+    {
+        $game_result = f_igosja_home_select_assist_1($game_result);
+    }
+
+    $penalty_position = array();
+
+    $count_penalty = count($game_result['home']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['home']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['assist_1'], $penalty_position))
+    {
+        $game_result = f_igosja_home_select_assist_1($game_result);
+    }
+
+    return $game_result;
+}
+
+function f_igosja_home_assist_2($game_result)
+{
+    if (0 == rand(0, 4))
+    {
+        $game_result = f_igosja_home_select_assist_2($game_result);
+    }
+    else
+    {
+        $game_result['assist_2'] = 0;
+    }
+
+    return $game_result;
+}
+
+function f_igosja_home_select_assist_2($game_result)
+{
+    $game_result['assist_2'] = rand(POSITION_GK, POSITION_RW);
+
+    if ($game_result['player'] == $game_result['assist_2'])
+    {
+        $game_result = f_igosja_home_select_assist_2($game_result);
+    }
+
+    $penalty_position = array();
+
+    $count_penalty = count($game_result['home']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['home']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['assist_2'], $penalty_position))
+    {
+        $game_result = f_igosja_home_select_assist_2($game_result);
+    }
+
+    return $game_result;
+}
+
+function f_igosja_guest_assist_1($game_result)
+{
+    if (rand(0, 3))
+    {
+        $game_result = f_igosja_guest_select_assist_1($game_result);
+    }
+    else
+    {
+        $game_result['assist_1'] = 0;
+    }
+
+    return $game_result;
+}
+
+function f_igosja_guest_select_assist_1($game_result)
+{
+    $game_result['assist_1'] = rand(POSITION_LD, POSITION_RW);
+
+    if ($game_result['player'] == $game_result['assist_1'])
+    {
+        $game_result = f_igosja_guest_select_assist_1($game_result);
+    }
+
+    $penalty_position = array();
+
+    $count_penalty = count($game_result['guest']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['guest']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['assist_1'], $penalty_position))
+    {
+        $game_result = f_igosja_guest_select_assist_1($game_result);
+    }
+
+    return $game_result;
+}
+
+function f_igosja_guest_assist_2($game_result)
+{
+    if (0 == rand(0, 4))
+    {
+        $game_result = f_igosja_guest_select_assist_2($game_result);
+    }
+    else
+    {
+        $game_result['assist_2'] = 0;
+    }
+
+    return $game_result;
+}
+
+function f_igosja_guest_select_assist_2($game_result)
+{
+    $game_result['assist_2'] = rand(POSITION_GK, POSITION_RW);
+
+    if ($game_result['player'] == $game_result['assist_2'])
+    {
+        $game_result = f_igosja_guest_select_assist_2($game_result);
+    }
+
+    $penalty_position = array();
+
+    $count_penalty = count($game_result['guest']['team']['penalty']['current']);
+
+    if (2 < $count_penalty)
+    {
+        $count_penalty = 2;
+    }
+
+    for ($i=0; $i<$count_penalty; $i++)
+    {
+        $penalty_position[] = $game_result['guest']['team']['penalty']['current'][$i]['position'];
+    }
+
+    if (in_array($game_result['assist_2'], $penalty_position))
+    {
+        $game_result = f_igosja_guest_select_assist_2($game_result);
     }
 
     return $game_result;
@@ -1775,6 +2253,73 @@ function f_igosja_guest_current_penalty_decrease($game_result)
     }
 
     $game_result['guest']['team']['penalty']['current'] = $penalty_array_new;
+
+    return $game_result;
+}
+
+function f_igosja_home_current_penalty_decrease_after_goal($game_result)
+{
+    if (count($game_result['guest']['team']['penalty']['current']) > count($game_result['home']['team']['penalty']['current']) && 2 > count($game_result['home']['team']['penalty']['current']))
+    {
+        $penalty_array_old = $game_result['home']['team']['penalty']['current'];
+        $penalty_array_new = array();
+
+        $count_penalty = count($penalty_array_old);
+
+        for ($i=0; $i<$count_penalty; $i++)
+        {
+            if (1 < $i)
+            {
+                $penalty_array_new[] = array(
+                    'minute' => $game_result['minute'],
+                    'position' => $penalty_array_old[$i]['position'],
+                );
+            }
+            elseif (0 != $i)
+            {
+                $penalty_array_new[] = $penalty_array_old[$i];
+            }
+        }
+
+        $game_result['home']['team']['penalty']['current'] = $penalty_array_new;
+    }
+
+    return $game_result;
+}
+
+function f_igosja_guest_current_penalty_decrease_after_goal($game_result)
+{
+    if (count($game_result['home']['team']['penalty']['current']) > count($game_result['guest']['team']['penalty']['current']) && 2 > count($game_result['guest']['team']['penalty']['current']))
+    {
+        $penalty_array_old = $game_result['guest']['team']['penalty']['current'];
+        $penalty_array_new = array();
+
+        $count_penalty = count($penalty_array_old);
+
+        for ($i=0; $i<$count_penalty; $i++)
+        {
+            if (0 == $i)
+            {
+                if ($game_result['minute'] < $penalty_array_old[$i]['minute'] + 2)
+                {
+                    $penalty_array_new[] = $penalty_array_old[$i];
+                }
+            }
+            elseif (1 < $i)
+            {
+                $penalty_array_new[] = array(
+                    'minute' => $game_result['minute'],
+                    'position' => $penalty_array_old[$i]['position'],
+                );
+            }
+            elseif (0 != $i)
+            {
+                $penalty_array_new[] = $penalty_array_old[$i];
+            }
+        }
+
+        $game_result['guest']['team']['penalty']['current'] = $penalty_array_new;
+    }
 
     return $game_result;
 }
