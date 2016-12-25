@@ -1,6 +1,6 @@
 <?php
 
-function f_igosja_event_penalty($game_result, $team, $opponent)
+function f_igosja_event_penalty($game_result, $team)
 {
     $sql = "SELECT `eventtextpenalty_id`
             FROM `eventtextpenalty`
@@ -25,8 +25,8 @@ function f_igosja_event_penalty($game_result, $team, $opponent)
         'event_eventtextpenalty_id' => $eventtextpenalty_array[0]['eventtextpenalty_id'],
         'event_eventtype_id' => EVENTTYPE_PENALTY,
         'event_game_id' => $game_result['game_info']['game_id'],
-        'event_guest_score' => $game_result[$opponent]['team']['score']['total'],
-        'event_home_score' => $game_result[$team]['team']['score']['total'],
+        'event_guest_score' => $game_result['guest']['team']['score']['total'],
+        'event_home_score' => $game_result['home']['team']['score']['total'],
         'event_minute' => $game_result['minute'],
         'event_player_assist_1_id' => 0,
         'event_player_assist_2_id' => 0,

@@ -29,7 +29,6 @@ $q[] = 'CREATE TABLE `statisticplayer`
             `statisticplayer_save` SMALLINT(3) DEFAULT 0, #Отражённые броски
             `statisticplayer_save_percent` TINYINT(3) DEFAULT 0, #Процент отраженных бросков
             `statisticplayer_score` SMALLINT(3) DEFAULT 0, #Голы
-            `statisticplayer_score_empty` TINYINT(2) DEFAULT 0, #Голы в пустые ворота
             `statisticplayer_score_draw` SMALLINT(3) DEFAULT 0, #Голы, которые сравняли счет в матче
             `statisticplayer_score_power` SMALLINT(3) DEFAULT 0, #Голы в большинстве
             `statisticplayer_score_short` SMALLINT(3) DEFAULT 0, #Голы в меньшинстве

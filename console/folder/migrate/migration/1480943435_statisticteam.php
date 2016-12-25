@@ -9,7 +9,7 @@ $q[] = 'CREATE TABLE `statisticteam`
             `statisticteam_country_id` SMALLINT(3) DEFAULT 0,
             `statisticteam_division_id` TINYINT(2) DEFAULT 0,
             `statisticteam_game` TINYINT(2) DEFAULT 0,
-            `statisticteam_game_no_pass` TINYINT(2) DEFAULT 0, #Игры без габитых голов
+            `statisticteam_game_no_pass` TINYINT(2) DEFAULT 0, #Игры без забитых голов
             `statisticteam_game_no_score` TINYINT(2) DEFAULT 0, #Игры без пропущенных голов
             `statisticteam_loose` TINYINT(2) DEFAULT 0,
             `statisticteam_loose_bullet` TINYINT(2) DEFAULT 0,
