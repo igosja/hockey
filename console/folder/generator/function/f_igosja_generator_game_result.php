@@ -55,14 +55,27 @@ function f_igosja_generator_game_result()
                 $field_player_array[$key] = array(
                     'age'           => 0,
                     'assist'        => 0,
+                    'assist_power'  => 0,
+                    'assist_short'  => 0,
+                    'bullet_win'    => 0,
+                    'face_off'      => 0,
+                    'face_off_win'  => 0,
+                    'game'          => 1,
                     'lineup_id'     => 0,
+                    'loose'         => 0,
                     'penalty'       => 0,
                     'player_id'     => 0,
                     'plus_minus'    => 0,
+                    'point'         => 0,
                     'power_nominal' => 0,
                     'power_real'    => 0,
                     'score'         => 0,
+                    'score_draw'    => 0,
+                    'score_power'   => 0,
+                    'score_short'   => 0,
+                    'score_win'     => 0,
                     'shot'          => 0,
+                    'win'           => 0,
                 );
             }
         }
@@ -70,24 +83,41 @@ function f_igosja_generator_game_result()
         $team_array = array(
             'player' => array(
                 'gk' => array(
-                    'age'           => 0,
-                    'assist'        => 0,
-                    'lineup_id'     => 0,
-                    'pass'          => 0,
-                    'player_id'     => 0,
-                    'power_nominal' => 0,
-                    'power_real'    => 0,
-                    'shot'          => 0,
+                    'age'               => 0,
+                    'assist'            => 0,
+                    'assist_power'      => 0,
+                    'assist_short'      => 0,
+                    'game'              => 1,
+                    'game_with_bullet'  => 0,
+                    'lineup_id'         => 0,
+                    'loose'             => 0,
+                    'pass'              => 0,
+                    'player_id'         => 0,
+                    'point'             => 0,
+                    'power_nominal'     => 0,
+                    'power_real'        => 0,
+                    'save'              => 0,
+                    'shot'              => 0,
+                    'shutout'           => 0,
+                    'win'               => 0,
                 ),
                 'field' => $field_player_array,
             ),
             'team' => array(
+                'game' => 1,
+                'loose' => 0,
+                'loose_bullet' => 0,
+                'loose_over' => 0,
+                'no_pass' => 0,
+                'no_score' => 0,
+                'pass' => 0,
                 'penalty' => array(
                     1 => 0,
                     2 => 0,
                     3 => 0,
                     'current' => array(),
                     'total' => 0,
+                    'opponent' => 0,
                 ),
                 'power' => array(
                     'defence' => array(
@@ -96,6 +126,7 @@ function f_igosja_generator_game_result()
                         3 => 0,
                         'current' => 0,
                     ),
+                    'face_off' => 0,
                     'forward' => array(
                         1 => 0,
                         2 => 0,
@@ -118,22 +149,27 @@ function f_igosja_generator_game_result()
                     3 => 0,
                     'total' => 0,
                 ),
+                'win' => 0,
+                'win_bullet' => 0,
+                'win_over' => 0,
             ),
         );
 
         $game_result = array(
-            'event'     => array(),
-            'game_info' => array(
-                'game_id'       => $game_id,
-                'guest_team_id' => $game_guest_team_id,
-                'home_team_id'  => $game_home_team_id,
+            'event'             => array(),
+            'face_off_guest'    => 0,
+            'face_off_home'     => 0,
+            'game_info'         => array(
+                'game_id'           => $game_id,
+                'guest_team_id'     => $game_guest_team_id,
+                'home_team_id'      => $game_home_team_id,
             ),
-            'guest'     => $team_array,
-            'home'      => $team_array,
-            'minute'    => 0,
-            'player'    => 0,
-            'assist_1'  => 0,
-            'assist_2'  => 0,
+            'guest'             => $team_array,
+            'home'              => $team_array,
+            'minute'            => 0,
+            'player'            => 0,
+            'assist_1'          => 0,
+            'assist_2'          => 0,
         );
 
         if ($game_bonus_home)
@@ -328,6 +364,7 @@ function f_igosja_generator_game_result()
 
             $game_result = f_igosja_current_penalty_decrease($game_result, 'home');
             $game_result = f_igosja_current_penalty_decrease($game_result, 'guest');
+            $game_result = f_igosja_face_off($game_result);
 
             $home_penalty_current = count($game_result['home']['team']['penalty']['current']);
 
