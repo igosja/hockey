@@ -301,7 +301,9 @@
             </tr>
             <?php foreach ($event_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= $item['event_minute']; ?>:<?= $item['event_second']; ?></td>
+                    <td class="text-center">
+                        <?= sprintf("%02d", $item['event_minute']); ?>:<?= sprintf("%02d", $item['event_second']); ?>
+                    </td>
                     <td class="text-center">
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
