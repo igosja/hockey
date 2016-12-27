@@ -1,102 +1,107 @@
 <?php
 
-function f_igosja_player_assist_1_increase($game_result, $team)
+function f_igosja_player_assist_1_increase($game_result, $team, $opponent)
 {
+    $power_short            = '';
+    $count_team_penalty     = count($game_result[$team]['team']['penalty']['current']);
+    $count_opponent_penalty = count($game_result[$opponent]['team']['penalty']['current']);
+
+    if ($count_team_penalty < $count_opponent_penalty || 2 > $count_team_penalty)
+    {
+        $power_short = 'assist_power';
+    }
+    elseif ($count_team_penalty > $count_opponent_penalty || 2 > $count_opponent_penalty)
+    {
+        $power_short = 'assist_short';
+    }
+
     $count_event = count($game_result['event']);
 
     if (POSITION_LD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['ld_1']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['ld_1']['player_id'];
+            $player = 'ld_1';
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['ld_2']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['ld_2']['player_id'];
+            $player = 'ld_2';
         }
         else
         {
-            $game_result[$team]['player']['field']['ld_3']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['ld_3']['player_id'];
+            $player = 'ld_3';
         }
     }
     elseif (POSITION_RD == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['rd_1']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rd_1']['player_id'];
+            $player = 'rd_1';
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['rd_2']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rd_2']['player_id'];
+            $player = 'rd_2';
         }
         else
         {
-            $game_result[$team]['player']['field']['rd_3']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rd_3']['player_id'];
+            $player = 'rd_3';
         }
     }
     elseif (POSITION_LW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['lw_1']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['lw_1']['player_id'];
+            $player = 'lw_1';
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['lw_2']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['lw_2']['player_id'];
+            $player = 'lw_2';
         }
         else
         {
-            $game_result[$team]['player']['field']['lw_3']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['lw_3']['player_id'];
+            $player = 'lw_3';
         }
     }
     elseif (POSITION_C == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['c_1']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['c_1']['player_id'];
+            $player = 'c_1';
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['c_2']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['c_2']['player_id'];
+            $player = 'c_2';
         }
         else
         {
-            $game_result[$team]['player']['field']['c_3']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['c_3']['player_id'];
+            $player = 'c_3';
         }
     }
     elseif (POSITION_RW == $game_result['assist_1'])
     {
         if (0 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['rw_1']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rw_1']['player_id'];
+            $player = 'rw_1';
         }
         elseif (1 == $game_result['minute'] % 3)
         {
-            $game_result[$team]['player']['field']['rw_2']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rw_2']['player_id'];
+            $player = 'rw_2';
         }
         else
         {
-            $game_result[$team]['player']['field']['rw_3']['assist']++;
-            $event_player_id = $game_result[$team]['player']['field']['rw_3']['player_id'];
+            $player = 'rw_3';
         }
     }
 
-    if (isset($event_player_id))
+    if (isset($player))
     {
+        if ($power_short)
+        {
+            $game_result[$team]['player']['field'][$player][$power_short]++;
+        }
+
+        $game_result[$team]['player']['field'][$player]['assist']++;
+        $event_player_id = $game_result[$team]['player']['field'][$player]['player_id'];
         $game_result['event'][$count_event - 1]['event_player_assist_1_id'] = $event_player_id;
     }
 
