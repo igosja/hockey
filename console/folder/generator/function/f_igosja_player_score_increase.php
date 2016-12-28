@@ -2,9 +2,10 @@
 
 function f_igosja_player_score_increase($game_result, $team, $opponent)
 {
-    $power_short            = '';
     $count_team_penalty     = count($game_result[$team]['team']['penalty']['current']);
     $count_opponent_penalty = count($game_result[$opponent]['team']['penalty']['current']);
+    $draw                   = '';
+    $power_short            = '';
 
     if ($count_team_penalty < $count_opponent_penalty || 2 > $count_team_penalty)
     {
@@ -13,6 +14,11 @@ function f_igosja_player_score_increase($game_result, $team, $opponent)
     elseif ($count_team_penalty > $count_opponent_penalty || 2 > $count_opponent_penalty)
     {
         $power_short = 'score_short';
+    }
+
+    if ($game_result[$team]['team']['score']['total'] == $game_result[$opponent]['team']['score']['total'])
+    {
+        $draw = 'score_draw';
     }
 
     $count_event = count($game_result['event']);
@@ -98,6 +104,11 @@ function f_igosja_player_score_increase($game_result, $team, $opponent)
         if ($power_short)
         {
             $game_result[$team]['player']['field'][$player][$power_short]++;
+        }
+
+        if ($draw)
+        {
+            $game_result[$team]['player']['field'][$player][$draw]++;
         }
 
         $game_result[$team]['player']['field'][$player]['score']++;

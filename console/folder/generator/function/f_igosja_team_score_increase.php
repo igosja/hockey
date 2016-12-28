@@ -13,9 +13,13 @@ function f_igosja_team_score_increase($game_result, $team, $opponent)
     {
         $game_result[$team]['team']['score'][2]++;
     }
-    else
+    elseif (60 > $game_result['minute'])
     {
         $game_result[$team]['team']['score'][3]++;
+    }
+    elseif (65 > $game_result['minute'])
+    {
+        $game_result[$team]['team']['score']['over']++;
     }
 
     return $game_result;
