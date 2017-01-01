@@ -322,7 +322,9 @@
                             </a>
                         <?php } ?>
                         <?php if ($item['event_player_score_id']) { ?>
-                            Гол -
+                            <?php if ($item['eventtextgoal_text']) { ?>
+                                Гол -
+                            <?php } ?>
                             <a href="/player_view.php?num=<?= $item['event_player_score_id']; ?>">
                                 <?= $item['name_score_name']; ?>
                                 <?= $item['surname_score_name']; ?>
