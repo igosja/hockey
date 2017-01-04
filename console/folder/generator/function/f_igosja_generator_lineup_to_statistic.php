@@ -66,7 +66,7 @@ function f_igosja_generator_lineup_to_statistic()
         {
             $is_playoff = 0;
         }
-        
+
         $sql = "SELECT COUNT(`statisticplayer_id`) AS `count`
                 FROM `statisticplayer`
                 WHERE `statisticplayer_championship_playoff`='$is_playoff'

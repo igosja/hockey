@@ -114,6 +114,7 @@ function f_igosja_player_score_increase($game_result, $team, $opponent)
         $game_result[$team]['player']['field'][$player]['score']++;
         $event_player_id = $game_result[$team]['player']['field'][$player]['player_id'];
         $game_result['event'][$count_event - 1]['event_player_score_id'] = $event_player_id;
+        $game_result[$team]['team']['score']['last']['score'] = $player;
     }
 
     return $game_result;

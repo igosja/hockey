@@ -279,6 +279,8 @@ function f_igosja_generator_game_result()
 
         if ($game_result['home']['team']['score']['total'] == $game_result['guest']['team']['score']['total'])
         {
+            $game_result = f_igosja_game_with_bullet($game_result);
+
             $guest_power_array  = array();
             $home_power_array   = array();
 
@@ -327,6 +329,7 @@ function f_igosja_generator_game_result()
                 {
                     $game_result = f_igosja_team_score_bullet_increase($game_result, 'home');
                     $game_result = f_igosja_event_bullet($game_result, 'home', EVENTTEXT_BULLET_SCORE, $home_power_array[$key][0]);
+                    $game_result['home']['team']['score']['last']['bullet'] = $home_power_array[$key][0];
                 }
                 else
                 {
@@ -340,6 +343,7 @@ function f_igosja_generator_game_result()
                 {
                     $game_result = f_igosja_team_score_bullet_increase($game_result, 'guest');
                     $game_result = f_igosja_event_bullet($game_result, 'guest', EVENTTEXT_BULLET_SCORE, $guest_power_array[$key][0]);
+                    $game_result['guest']['team']['score']['last']['bullet'] = $guest_power_array[$key][0];
                 }
                 else
                 {
@@ -352,6 +356,8 @@ function f_igosja_generator_game_result()
                 }
             }
         }
+
+        $game_result = f_igosja_calculate_statistic($game_result);
 
         $sql = "UPDATE `game`
                 SET `game_guest_penalty`='" . $game_result['guest']['team']['penalty']['total'] . "'*'2',
@@ -463,6 +469,164 @@ function f_igosja_generator_game_result()
                         `lineup_score`='" . $player['score'] . "',
                         `lineup_shot`='" . $player['shot'] . "'
                     WHERE `lineup_id`='" . $player['lineup_id'] . "'
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+
+        $sql = "SELECT `championship_country_id`,
+                       `championship_division_id`,
+                       `shedule_season_id`,
+                       `shedule_stage_id`,
+                       `shedule_tournamenttype_id`
+                FROM `lineup`
+                LEFT JOIN `game`
+                ON `game_id`=`lineup_game_id`
+                LEFT JOIN `shedule`
+                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `championship`
+                ON (`lineup_team_id`=`championship_team_id`
+                AND `shedule_season_id`=`championship_season_id`)
+                WHERE `lineup_id`='" . $game_result['guest']['player']['gk']['lineup_id'] . "'
+                LIMIT 1";
+        $statistic_sql = f_igosja_mysqli_query($sql);
+
+        $statistic_array = $statistic_sql->fetch_all(1);
+
+        $country_id         = $statistic_array[0]['championship_country_id'];
+        $division_id        = $statistic_array[0]['championship_division_id'];
+        $season_id          = $statistic_array[0]['shedule_season_id'];
+        $stage_id           = $statistic_array[0]['shedule_stage_id'];
+        $tournamenttype_id  = $statistic_array[0]['shedule_tournamenttype_id'];
+
+        if (!$country_id)
+        {
+            $country_id = 0;
+        }
+
+        if ($division_id)
+        {
+            $division_id = 0;
+        }
+
+        if (TOURNAMENTTYPE_CHAMPIONSHIP == $tournamenttype_id && STAGE_1_QUALIFY <= $stage_id)
+        {
+            $is_playoff = 1;
+        }
+        else
+        {
+            $is_playoff = 0;
+        }
+
+        $sql = "UPDATE `statisticplayer`
+                SET `statisticplayer_assist`=`statisticplayer_assist`+'" . $game_result['guest']['player']['gk']['assist'] . "',
+                    `statisticplayer_assist_power`=`statisticplayer_assist_power`+'" . $game_result['guest']['player']['gk']['assist_power'] . "',
+                    `statisticplayer_assist_short`=`statisticplayer_assist_short`+'" . $game_result['guest']['player']['gk']['assist_short'] . "',
+                    `statisticplayer_game`=`statisticplayer_game`+'" . $game_result['guest']['player']['gk']['game'] . "',
+                    `statisticplayer_game_with_bullet`=`statisticplayer_game_with_bullet`+'" . $game_result['guest']['player']['gk']['game_with_bullet'] . "',
+                    `statisticplayer_loose`=`statisticplayer_loose`+'" . $game_result['guest']['player']['gk']['loose'] . "',
+                    `statisticplayer_pass`=`statisticplayer_pass`+'" . $game_result['guest']['player']['gk']['pass'] . "',
+                    `statisticplayer_point`=`statisticplayer_point`+'" . $game_result['guest']['player']['gk']['point'] . "',
+                    `statisticplayer_save`=`statisticplayer_save`+'" . $game_result['guest']['player']['gk']['save'] . "',
+                    `statisticplayer_shot_gk`=`statisticplayer_shot_gk`+'" . $game_result['guest']['player']['gk']['shot'] . "',
+                    `statisticplayer_shutout`=`statisticplayer_shutout`+'" . $game_result['guest']['player']['gk']['shutout'] . "',
+                    `statisticplayer_win`=`statisticplayer_win`+'" . $game_result['guest']['player']['gk']['win'] . "'
+                WHERE `statisticplayer_championship_playoff`='$is_playoff'
+                AND `statisticplayer_country_id`='$country_id'
+                AND `statisticplayer_division_id`='$division_id'
+                AND `statisticplayer_is_gk`='1'
+                AND `statisticplayer_player_id`='" . $game_result['guest']['player']['gk']['player_id'] . "'
+                AND `statisticplayer_season_id`='$season_id'
+                AND `statisticplayer_team_id`='" . $game_result['game_info']['guest_team_id'] . "'
+                AND `statisticplayer_tournamenttype_id`='$tournamenttype_id'
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        foreach ($game_result['guest']['player']['field'] as $player)
+        {
+            $sql = "UPDATE `statisticplayer`
+                    SET `statisticplayer_assist`=`statisticplayer_assist`+'" . $player['assist'] . "',
+                        `statisticplayer_assist_power`=`statisticplayer_assist_power`+'" . $player['assist_power'] . "',
+                        `statisticplayer_assist_short`=`statisticplayer_assist_short`+'" . $player['assist_short'] . "',
+                        `statisticplayer_bullet_win`=`statisticplayer_bullet_win`+'" . $player['bullet_win'] . "',
+                        `statisticplayer_face_off`=`statisticplayer_face_off`+'" . $player['face_off'] . "',
+                        `statisticplayer_face_off_win`=`statisticplayer_face_off_win`+'" . $player['face_off_win'] . "',
+                        `statisticplayer_game`=`statisticplayer_game`+'" . $player['game'] . "',
+                        `statisticplayer_loose`=`statisticplayer_loose`+'" . $player['loose'] . "',
+                        `statisticplayer_penalty`=`statisticplayer_penalty`+'" . $player['penalty'] . "',
+                        `statisticplayer_plus_minus`=`statisticplayer_plus_minus`+'" . $player['plus_minus'] . "',
+                        `statisticplayer_point`=`statisticplayer_point`+'" . $player['point'] . "',
+                        `statisticplayer_score`=`statisticplayer_score`+'" . $player['score'] . "',
+                        `statisticplayer_score_draw`=`statisticplayer_score_draw`+'" . $player['score_draw'] . "',
+                        `statisticplayer_score_power`=`statisticplayer_score_power`+'" . $player['score_power'] . "',
+                        `statisticplayer_score_short`=`statisticplayer_score_short`+'" . $player['score_short'] . "',
+                        `statisticplayer_score_win`=`statisticplayer_score_win`+'" . $player['score_win'] . "',
+                        `statisticplayer_shot`=`statisticplayer_shot`+'" . $player['shot'] . "',
+                        `statisticplayer_win`=`statisticplayer_win`+'" . $player['win'] . "'
+                    WHERE `statisticplayer_championship_playoff`='$is_playoff'
+                    AND `statisticplayer_country_id`='$country_id'
+                    AND `statisticplayer_division_id`='$division_id'
+                    AND `statisticplayer_is_gk`='0'
+                    AND `statisticplayer_player_id`='" . $player['player_id'] . "'
+                    AND `statisticplayer_season_id`='$season_id'
+                    AND `statisticplayer_team_id`='" . $game_result['game_info']['guest_team_id'] . "'
+                    AND `statisticplayer_tournamenttype_id`='$tournamenttype_id'
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+
+        $sql = "UPDATE `statisticplayer`
+                SET `statisticplayer_assist`=`statisticplayer_assist`+'" . $game_result['home']['player']['gk']['assist'] . "',
+                    `statisticplayer_assist_power`=`statisticplayer_assist_power`+'" . $game_result['home']['player']['gk']['assist_power'] . "',
+                    `statisticplayer_assist_short`=`statisticplayer_assist_short`+'" . $game_result['home']['player']['gk']['assist_short'] . "',
+                    `statisticplayer_game`=`statisticplayer_game`+'" . $game_result['home']['player']['gk']['game'] . "',
+                    `statisticplayer_game_with_bullet`=`statisticplayer_game_with_bullet`+'" . $game_result['home']['player']['gk']['game_with_bullet'] . "',
+                    `statisticplayer_loose`=`statisticplayer_loose`+'" . $game_result['home']['player']['gk']['loose'] . "',
+                    `statisticplayer_pass`=`statisticplayer_pass`+'" . $game_result['home']['player']['gk']['pass'] . "',
+                    `statisticplayer_point`=`statisticplayer_point`+'" . $game_result['home']['player']['gk']['point'] . "',
+                    `statisticplayer_save`=`statisticplayer_save`+'" . $game_result['home']['player']['gk']['save'] . "',
+                    `statisticplayer_shot_gk`=`statisticplayer_shot_gk`+'" . $game_result['home']['player']['gk']['shot'] . "',
+                    `statisticplayer_shutout`=`statisticplayer_shutout`+'" . $game_result['home']['player']['gk']['shutout'] . "',
+                    `statisticplayer_win`=`statisticplayer_win`+'" . $game_result['home']['player']['gk']['win'] . "'
+                WHERE `statisticplayer_championship_playoff`='$is_playoff'
+                AND `statisticplayer_country_id`='$country_id'
+                AND `statisticplayer_division_id`='$division_id'
+                AND `statisticplayer_is_gk`='1'
+                AND `statisticplayer_player_id`='" . $game_result['home']['player']['gk']['player_id'] . "'
+                AND `statisticplayer_season_id`='$season_id'
+                AND `statisticplayer_team_id`='" . $game_result['game_info']['home_team_id'] . "'
+                AND `statisticplayer_tournamenttype_id`='$tournamenttype_id'
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        foreach ($game_result['home']['player']['field'] as $player)
+        {
+            $sql = "UPDATE `statisticplayer`
+                    SET `statisticplayer_assist`=`statisticplayer_assist`+'" . $player['assist'] . "',
+                        `statisticplayer_assist_power`=`statisticplayer_assist_power`+'" . $player['assist_power'] . "',
+                        `statisticplayer_assist_short`=`statisticplayer_assist_short`+'" . $player['assist_short'] . "',
+                        `statisticplayer_bullet_win`=`statisticplayer_bullet_win`+'" . $player['bullet_win'] . "',
+                        `statisticplayer_face_off`=`statisticplayer_face_off`+'" . $player['face_off'] . "',
+                        `statisticplayer_face_off_win`=`statisticplayer_face_off_win`+'" . $player['face_off_win'] . "',
+                        `statisticplayer_game`=`statisticplayer_game`+'" . $player['game'] . "',
+                        `statisticplayer_loose`=`statisticplayer_loose`+'" . $player['loose'] . "',
+                        `statisticplayer_penalty`=`statisticplayer_penalty`+'" . $player['penalty'] . "',
+                        `statisticplayer_plus_minus`=`statisticplayer_plus_minus`+'" . $player['plus_minus'] . "',
+                        `statisticplayer_point`=`statisticplayer_point`+'" . $player['point'] . "',
+                        `statisticplayer_score`=`statisticplayer_score`+'" . $player['score'] . "',
+                        `statisticplayer_score_draw`=`statisticplayer_score_draw`+'" . $player['score_draw'] . "',
+                        `statisticplayer_score_power`=`statisticplayer_score_power`+'" . $player['score_power'] . "',
+                        `statisticplayer_score_short`=`statisticplayer_score_short`+'" . $player['score_short'] . "',
+                        `statisticplayer_score_win`=`statisticplayer_score_win`+'" . $player['score_win'] . "',
+                        `statisticplayer_shot`=`statisticplayer_shot`+'" . $player['shot'] . "',
+                        `statisticplayer_win`=`statisticplayer_win`+'" . $player['win'] . "'
+                    WHERE `statisticplayer_championship_playoff`='$is_playoff'
+                    AND `statisticplayer_country_id`='$country_id'
+                    AND `statisticplayer_division_id`='$division_id'
+                    AND `statisticplayer_is_gk`='0'
+                    AND `statisticplayer_player_id`='" . $player['player_id'] . "'
+                    AND `statisticplayer_season_id`='$season_id'
+                    AND `statisticplayer_team_id`='" . $game_result['game_info']['home_team_id'] . "'
+                    AND `statisticplayer_tournamenttype_id`='$tournamenttype_id'
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
         }

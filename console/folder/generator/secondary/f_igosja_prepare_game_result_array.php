@@ -107,6 +107,10 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
                 2 => 0,
                 3 => 0,
                 'bullet' => 0,
+                'last' => array(
+                    'bullet' => '',
+                    'score' => '',
+                ),
                 'over' => 0,
                 'total' => 0,
             ),
