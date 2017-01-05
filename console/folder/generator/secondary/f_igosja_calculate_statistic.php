@@ -164,5 +164,8 @@ function f_igosja_calculate_statistic($game_result)
         $game_result['home']['team']['no_score'] = 1;
     }
 
+    $game_result['guest']['team']['penalty']['opponent'] = $game_result['home']['team']['penalty']['total'];
+    $game_result['home']['team']['penalty']['opponent'] = $game_result['guest']['team']['penalty']['total'];
+
     return $game_result;
 }
