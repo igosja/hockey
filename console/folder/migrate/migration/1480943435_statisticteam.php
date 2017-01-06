@@ -25,5 +25,5 @@ $q[] = 'CREATE TABLE `statisticteam`
             `statisticteam_win` TINYINT(2) DEFAULT 0,
             `statisticteam_win_bullet` TINYINT(2) DEFAULT 0,
             `statisticteam_win_over` TINYINT(2) DEFAULT 0,
-            `statisticteam_win_percent` TINYINT(2) DEFAULT 0 #Процент побед
+            `statisticteam_win_percent` DECIMAL(4,2) DEFAULT 0 #Процент побед
         );';
