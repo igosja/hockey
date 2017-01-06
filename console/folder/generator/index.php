@@ -13,6 +13,7 @@ f_igosja_generator_lineup_to_statistic();
 f_igosja_generator_game_result();
 f_igosja_generator_update_team_statistic();
 f_igosja_generator_update_player_statistic();
+f_igosja_generator_standing();
 f_igosja_generator_site_open();
 
 print "\r\n"
