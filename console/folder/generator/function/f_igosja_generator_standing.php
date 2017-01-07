@@ -20,6 +20,7 @@ function f_igosja_generator_standing()
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
             WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND `game_played`='0'
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 

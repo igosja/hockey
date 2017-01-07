@@ -393,8 +393,7 @@ function f_igosja_generator_game_result()
                     `game_home_shot_1`='" . $game_result['home']['team']['shot'][1] . "',
                     `game_home_shot_2`='" . $game_result['home']['team']['shot'][2] . "',
                     `game_home_shot_3`='" . $game_result['home']['team']['shot'][3] . "',
-                    `game_home_shot_over`='" . $game_result['home']['team']['shot']['over'] . "',
-                    `game_played`='1'
+                    `game_home_shot_over`='" . $game_result['home']['team']['shot']['over'] . "'
                 WHERE `game_id`='$game_id'
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
