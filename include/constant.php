@@ -104,6 +104,7 @@ define('STAGE_1_TOUR', 2);
 define('STAGE_6_TOUR', 7);
 define('STAGE_30_TOUR', 31);
 define('STAGE_1_QUALIFY', 43);
+define('STAGE_FINAL', 56);
 define('STYLE_NORMAL', 1);
 define('TACTIC_NORMAL', 3);
 define('TOURNAMENTTYPE_NATIONAL', 1);

@@ -8,6 +8,7 @@ f_igosja_generator_fill_lineup();
 f_igosja_generator_set_auto();
 f_igosja_generator_set_ticket_price();
 f_igosja_generator_count_visitor();
+f_igosja_generator_finance_stadium();
 f_igosja_generator_team_to_statistic();
 f_igosja_generator_lineup_to_statistic();
 f_igosja_generator_game_result();

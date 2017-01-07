@@ -38,7 +38,7 @@ function f_igosja_generator_standing()
 
         if ($game['game_home_score'] > $game['game_guest_score'])
         {
-            if (0 == $game['game_home_score_bullet'] && 0 == $game['game_home_score_over'])
+            if (0 == $game['game_home_score_over'])
             {
                 $home_win++;
                 $guest_loose++;
@@ -51,7 +51,7 @@ function f_igosja_generator_standing()
         }
         elseif ($game['game_guest_score'] > $game['game_home_score'])
         {
-            if (0 == $game['game_guest_score_bullet'] && 0 == $game['game_guest_score_over'])
+            if (0 == $game['game_guest_score_over'])
             {
                 $guest_win++;
                 $home_loose++;
@@ -60,6 +60,19 @@ function f_igosja_generator_standing()
             {
                 $guest_win_over++;
                 $home_loose_over++;
+            }
+        }
+        elseif ($game['game_guest_score'] == $game['game_home_score'])
+        {
+            if (0 == $game['game_home_score_bullet'])
+            {
+                $guest_win_over++;
+                $home_loose_over++;
+            }
+            else
+            {
+                $home_win_over++;
+                $guest_loose_over++;
             }
         }
 

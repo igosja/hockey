@@ -350,7 +350,7 @@ function f_igosja_generator_game_result()
                     $game_result = f_igosja_event_bullet($game_result, 'guest', EVENTTEXT_BULLET_NO_SCORE, $guest_power_array[$key][0]);
                 }
 
-                if ($game_result['home']['team']['score']['total'] != $game_result['guest']['team']['score']['total'])
+                if ($game_result['home']['team']['score']['bullet'] != $game_result['guest']['team']['score']['bullet'])
                 {
                     $continue = false;
                 }
