@@ -1,6 +1,6 @@
 <?php
 
-function f_igosja_generator_building_stadium()
+function f_igosja_generator_building_base()
 //Строительство базы
 {
     $sql = "UPDATE `buildingbase`

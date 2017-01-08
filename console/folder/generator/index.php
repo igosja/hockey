@@ -15,8 +15,14 @@ f_igosja_generator_game_result();
 f_igosja_generator_update_team_statistic();
 f_igosja_generator_update_player_statistic();
 f_igosja_generator_standing();
+f_igosja_generator_player_game_row();
+f_igosja_generator_player_tire();
 f_igosja_generator_training();
 f_igosja_generator_phisical();
+f_igosja_generator_school();
+f_igosja_generator_building_base();
+f_igosja_generator_building_stadium();
+f_igosja_generator_make_played();
 f_igosja_generator_site_open();
 
 print "\r\n"
