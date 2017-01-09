@@ -13,6 +13,7 @@ $q[] = 'CREATE TABLE `team`
             `team_basetraining_id` TINYINT(2) DEFAULT 1,
             `team_finance` INT(11) DEFAULT 1000000,
             `team_name` VARCHAR(255) NOT NULL,
+            `team_power` SMALLINT(5) DEFAULT 0,
             `team_shop_position` TINYINT(3) DEFAULT 0,
             `team_shop_special` TINYINT(3) DEFAULT 0,
             `team_shop_training` TINYINT(3) DEFAULT 0,

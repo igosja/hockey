@@ -17,7 +17,7 @@
                 <th></th>
                 <th>Команда</th>
                 <th>Страна</th>
-                <th>Див</th>
+                <th title="Дивизион, в котором выступает команда">Див</th>
                 <th>База</th>
                 <th>Стадион</th>
                 <th>Финансы</th>
@@ -42,21 +42,25 @@
                         </a>
                     </td>
                     <td class="text-center">
-                        <a href="javascript:;">
-                            D1
-                        </a>
+                        <?php if ($item['division_id']) { ?>
+                            <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $item['division_id']; ?>">
+                                <?= $item['division_name']; ?>
+                            </a>
+                        <?php } else { ?>
+                            <a href="/conference_table.php">КЛК</a>
+                        <?php } ?>
                     </td>
-                    <td class="text-center"><?= $item['team_base_slot_used']; ?> из <?= $item['team_base_id']; ?></td>
+                    <td class="text-center"><?= $item['team_base_slot_used']; ?> из <?= $item['base_slot_max']; ?></td>
                     <td class="text-right"><?= $item['stadium_capacity']; ?></td>
-                    <td class="text-right"><?= $item['team_finance']; ?></td>
-                    <td class="text-right">123</td>
+                    <td class="text-right"><?= f_igosja_money($item['team_finance']); ?></td>
+                    <td class="text-right"><?= $item['team_power']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
                 <th></th>
                 <th>Команда</th>
                 <th>Страна</th>
-                <th>Див</th>
+                <th title="Дивизион, в котором выступает команда">Див</th>
                 <th>База</th>
                 <th>Стадион</th>
                 <th>Финансы</th>

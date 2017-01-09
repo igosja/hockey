@@ -21,10 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-5 col-md-4 col-sm-4 hidden-xs text-right">
-            <label class="strong" for="activation-email">Email:</label>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
             <label class="strong" for="activation-email">Email:</label>
         </div>
         <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
@@ -38,22 +35,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs text-right">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
             <button type="submit" class="btn margin">
                 Получить код
             </button>
         </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
-            <button type="submit" class="btn margin">
-                Получить код
-            </button>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
-            <a href="/activation.php" class="btn margin">
-                У меня уже есть код активации
-            </a>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs text-left">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
             <a href="/activation.php" class="btn margin">
                 У меня уже есть код активации
             </a>

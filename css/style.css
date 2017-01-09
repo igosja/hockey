@@ -365,6 +365,10 @@ a.btn {
     .hidden-xs {
         display: none !important;
     }
+
+    .xs-text-center {
+        text-align: center !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -418,8 +422,8 @@ a.btn {
 }
 
 .form-inline .form-control {
-    vertical-align: middle;
     display: inline-block;
+    vertical-align: middle;
     width: auto;
 }
 
@@ -548,6 +552,10 @@ form {
 
 .margin-top {
     margin-top: 10px;
+}
+
+.margin-top-small {
+    margin-top: 5px;
 }
 
 .margin-bottom {

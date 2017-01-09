@@ -2,7 +2,6 @@
 
 include (__DIR__ . '/include/include.php');
 
-
 if (!isset($auth_user_id))
 {
     redirect('/');

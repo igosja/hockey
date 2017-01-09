@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a href="/signup.php">Регистрация</a> | <a href="/password.php">Забыли пароль?</a> | <strong>Активация аккаунта</strong>
+        <?php include(__DIR__ . '/include/register_link.php'); ?>
     </div>
 </div>
 <form method="POST">
@@ -23,10 +23,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-5 col-md-4 col-sm-4 hidden-xs text-right">
-            <label class="strong" for="activation-code">Код активации:</label>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
             <label class="strong" for="activation-code">Код активации:</label>
         </div>
         <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
@@ -40,22 +37,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs text-right">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
             <button type="submit" class="btn margin">
                 Активировать аккаунт
             </button>
         </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
-            <button type="submit" class="btn margin">
-                Активировать аккаунт
-            </button>
-        </div>
-        <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
-            <a href="/activation_repeat.php" class="btn margin">
-                Мне не пришло письмо
-            </a>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs text-left">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
             <a href="/activation_repeat.php" class="btn margin">
                 Мне не пришло письмо
             </a>

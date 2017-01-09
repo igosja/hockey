@@ -1,76 +1,6 @@
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
-                <?= $team_array[0]['team_name']; ?>
-                (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                Кубок межсезонья: <a href="javascript:;">12345 место</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                Дивизон: <a href="javascript:;">Страна, Дивизион, 12 место</a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Менежер:
-                (Письмо) <a class="strong" href="javascript:;"><?= $team_array[0]['user_login']; ?></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Ник:
-                (ВИП)
-                <a class="strong" href="javascript:;">
-                    <?= $team_array[0]['user_name']; ?> <?= $team_array[0]['user_surname']; ?>
-                </a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Заместитель: (Письмо) <a class="strong" href="javascript:;">Имя</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Ник: (ВИП) <a class="strong" href="javascript:;">Логин</a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Стадион:
-                <?= $team_array[0]['stadium_name']; ?>,
-                <strong><?= $team_array[0]['stadium_capacity']; ?></strong>
-                <img src="/img/cog.png"/>
-                <a href="/stadium_increase.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                База: <span class="strong"><?= $team_array[0]['team_base_id']; ?></span> уровень
-                (<span class="italic"><?= $team_array[0]['team_base_slot_used']; ?></span>
-                из
-                <span class="strong">22</span> слотов)
-                <img src="/img/cog.png"/>
-                <a href="/base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Финансы:
-                <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
-            </div>
-        </div>
+        <?php include(__DIR__ . '/include/team_view_left.php'); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
@@ -129,22 +59,12 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row text-size-4"><?= SPACE; ?></div>
-    </div>
-</div>
-<div class="row">
+<div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Список с напоминаниями
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row text-size-4"><?= SPACE; ?></div>
-    </div>
-</div>
-<div class="row">
+<div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php include(__DIR__ . '/include/team_table_link.php'); ?>
     </div>

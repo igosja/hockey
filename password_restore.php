@@ -7,18 +7,18 @@ if (isset($auth_user_id))
     redirect('/');
 }
 
-if (!$code = f_igosja_request_get('data'))
+if (!$data = f_igosja_request_get('data'))
 {
-    $_SESSION['message']['class'] = 'error';
-    $_SESSION['message']['text'] = 'Пользователь не найден.';
+    $_SESSION['message']['class']   = 'error';
+    $_SESSION['message']['text']    = 'Пользователь не найден.';
 
     redirect('/password.php');
 }
 
 if (!isset($code['code']))
 {
-    $_SESSION['message']['class'] = 'error';
-    $_SESSION['message']['text'] = 'Пользователь не найден.';
+    $_SESSION['message']['class']   = 'error';
+    $_SESSION['message']['text']    = 'Пользователь не найден.';
 
     redirect('/password.php');
 }
@@ -40,26 +40,18 @@ $user_array = $user_sql->fetch_all(1);
 
 if (!$user_array[0]['count'])
 {
-    $_SESSION['message']['class'] = 'error';
-    $_SESSION['message']['text'] = 'Пользователь не найден.';
+    $_SESSION['message']['class']   = 'error';
+    $_SESSION['message']['text']    = 'Пользователь не найден.';
 
     redirect('/password.php');
 }
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (!isset($data['password']))
+    if (!isset($data['password']) || empty($data['password']))
     {
-        $_SESSION['message']['class'] = 'error';
-        $_SESSION['message']['text'] = 'Введите пароль.';
-
-        refresh();
-    }
-
-    if (empty($data['password']))
-    {
-        $_SESSION['message']['class'] = 'error';
-        $_SESSION['message']['text'] = 'Введите пароль.';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Введите пароль.';
 
         refresh();
     }
@@ -74,8 +66,8 @@ if ($data = f_igosja_request_post('data'))
     $prepare->bind_param('ss', $password, $code);
     $prepare->execute();
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Пароль успешно изменен.';
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Пароль успешно изменен.';
 
     redirect('/');
 }

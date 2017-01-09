@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a href="/signup.php">Регистрация</a> | <strong>Забыли пароль?</strong> | <a href="/activation.php">Активация аккаунта</a>
+        <?php include(__DIR__ . '/include/register_link.php'); ?>
     </div>
 </div>
 <form method="POST">
@@ -23,10 +23,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-lg-5 col-md-4 col-sm-4 hidden-xs text-right">
-                    <label class="strong" for="password-login">Логин:</label>
-                </div>
-                <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
+                <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
                     <label class="strong" for="password-login">Логин:</label>
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
@@ -39,10 +36,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5 col-md-4 col-sm-4 hidden-xs text-right">
-                    <label class="strong" for="password-email">Email:</label>
-                </div>
-                <div class="hidden-lg hidden-md hidden-sm col-xs-12 text-center">
+                <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
                     <label class="strong" for="password-email">Email:</label>
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
@@ -60,7 +54,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <p>
                 Если при регистрации вы ввели свой e-mail неправильно или он уже не работает,<br/>
-                то напишите нам письмо на <?= EMAIL_INFO; ?><br/>
+                то напишите нам письмо на <span class="strong"><?= EMAIL_INFO; ?></span><br/>
                 и мы попробуем найти ваш аккаунт вручную.
             </p>
         </div>

@@ -2,10 +2,7 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (!$data = f_igosja_request_post('data'))
-{
-    $data = f_igosja_request_get('data');
-}
+$data = f_igosja_request('data');
 
 if (isset($data['code']))
 {
@@ -48,7 +45,7 @@ if (isset($data['code']))
     f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Профиль уже активирован.';
+    $_SESSION['message']['text']    = 'Профиль активирован.';
 
     refresh();
 }

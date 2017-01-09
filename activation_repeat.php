@@ -29,8 +29,8 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $user_sql->num_rows)
     {
-        $_SESSION['message']['class'] = 'error';
-        $_SESSION['message']['text'] = 'Пользователь не найден.';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Пользователь не найден.';
 
         refresh();
     }

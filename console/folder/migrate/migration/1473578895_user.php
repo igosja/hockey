@@ -30,6 +30,19 @@ $q[] = 'CREATE TABLE `user`
             `user_userrole_id` TINYINT(1) DEFAULT 1
         );';
 $q[] = "INSERT INTO `user`
+        SET `user_code`='00000000000000000000000000000000',
+            `user_date_confirm`='0',
+            `user_date_register`='1473700000',
+            `user_email`='info@vhol.org',
+            `user_login`='Free team',
+            `user_password`='00000000000000000000000000000000',
+            `user_userrole_id`='1'";
+$q[] = "UPDATE `user`
+        SET `user_id`='0'
+        WHERE `user_id`='1'
+        LIMIT 1";
+$q[] = "ALTER TABLE `user` AUTO_INCREMENT=1";
+$q[] = "INSERT INTO `user`
         SET `user_code`='13373e3c14aa77368437c7c972601d70',
             `user_date_confirm`='1473706009',
             `user_date_register`='1473705854',
