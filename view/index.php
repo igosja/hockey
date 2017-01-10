@@ -19,7 +19,7 @@
                     от низших дивизионов до побед в национальных чемпионатах и мировых кубках!
                 </p>
                 <p class="text-center">
-                    <a href="/signup">
+                    <a href="/signup.php">
                         <button class="btn">
                             Зарегистрироваться
                         </button>
@@ -55,20 +55,20 @@
             </div>
         </div>
         <?php if (isset($news_array[0])) { ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify">
-                    <?= f_igosja_ufu_date_time($news_array[0]['news_date']); ?>,
-                    <a href="/user_view.php?num=<?= $news_array[0]['user_id']; ?>">
-                        <?= $news_array[0]['user_login']; ?>
-                    </a>
-                    <br/>
-                    <span class="strong"><?= $news_array[0]['news_title']; ?></span>
-                    <br/>
-                    <?= $news_array[0]['news_text']; ?>
-                </p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p class="text-justify">
+                        <?= f_igosja_ufu_date_time($news_array[0]['news_date']); ?>,
+                        <a href="/user_view.php?num=<?= $news_array[0]['user_id']; ?>">
+                            <?= $news_array[0]['user_login']; ?>
+                        </a>
+                        <br/>
+                        <span class="strong"><?= $news_array[0]['news_title']; ?></span>
+                        <br/>
+                        <?= $news_array[0]['news_text']; ?>
+                    </p>
+                </div>
             </div>
-        </div>
         <?php } ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
