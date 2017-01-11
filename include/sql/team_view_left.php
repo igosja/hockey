@@ -10,6 +10,8 @@ $sql = "SELECT `base_level`,
                `championship_place`,
                `city_name`,
                `conference_place`,
+               `count_buildingbase`,
+               `count_buildingstadium`,
                `country_id`,
                `country_name`,
                `division_id`,
@@ -18,6 +20,7 @@ $sql = "SELECT `base_level`,
                `stadium_name`,
                `team_finance`,
                `team_name`,
+               `user_date_vip`,
                `user_id`,
                `user_login`,
                `user_name`,
@@ -65,6 +68,24 @@ $sql = "SELECT `base_level`,
             AND `conference_season_id`='$igosja_season_id'
         ) AS `t2`
         ON `team_id`=`conference_team_id`
+        LEFT JOIN
+        (
+            SELECT `buildingbase_team_id`,
+                   COUNT(`buildingbase_id`) AS `count_buildingbase`
+            FROM `buildingbase`
+            WHERE `buildingbase_team_id`='$num_get'
+            AND `buildingbase_ready`='0'
+        ) AS `t3`
+        ON `team_id`=`buildingbase_team_id`
+        LEFT JOIN
+        (
+            SELECT `buildingstadium_team_id`,
+                   COUNT(`buildingstadium_id`) AS `count_buildingstadium`
+            FROM `buildingstadium`
+            WHERE `buildingstadium_team_id`='$num_get'
+            AND `buildingstadium_ready`='0'
+        ) AS `t4`
+        ON `team_id`=`buildingstadium_team_id`
         WHERE `team_id`='$num_get'
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);

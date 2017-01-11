@@ -23,8 +23,10 @@
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Менежер:
-        (Письмо)
-        <a class="strong" href="/user_view.php?num=<?= $team_array['user_id']; ?>">
+        <?php if (isset($auth_user_id) && $team_array[0]['user_id'] && $team_array[0]['user_id'] != $auth_user_id) { ?>
+            <img src="/img/letter.png" title="Написать письмо" />
+        <?php } ?>
+        <a class="strong" href="/user_view.php?num=<?= $team_array[0]['user_id']; ?>">
             <?php if ($team_array[0]['user_name'] || $team_array[0]['user_surname']) { ?>
                 <?= $team_array[0]['user_name']; ?> <?= $team_array[0]['user_surname']; ?>
             <?php } else { ?>
@@ -36,7 +38,9 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Ник:
-        (ВИП)
+        <?php if ($team_array[0]['user_date_vip'] < time()) { ?>
+            <img src="/img/vip.png" title="VIP" />
+        <?php } ?>
         <a class="strong" href="/user_view.php?num=<?= $team_array['user_id']; ?>">
             <?= $team_array[0]['user_login']; ?>
         </a>
@@ -47,10 +51,14 @@
         Стадион:
         <?= $team_array[0]['stadium_name']; ?>,
         <strong><?= $team_array[0]['stadium_capacity']; ?></strong>
-        <img src="/img/cog.png"/>
-        <a href="/stadium_increase.php?num=<?= $num_get; ?>">
-            <img src="/img/loupe.png"/>
-        </a>
+        <?php if ($team_array[0]['count_buildingstadium']) { ?>
+            <img src="/img/cog.png" title="Идет строительство стадиона" />
+        <?php } ?>
+        <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+            <a href="/stadium_increase.php?num=<?= $num_get; ?>">
+                <img src="/img/loupe.png"/>
+            </a>
+        <?php } ?>
     </div>
 </div>
 <div class="row">
@@ -59,7 +67,9 @@
         (<span class="strong"><?= $team_array[0]['base_slot_used']; ?></span>
         из
         <span class="strong"><?= $team_array[0]['base_slot_max']; ?></span> слотов)
-        <img src="/img/cog.png"/>
+        <?php if ($team_array[0]['count_buildingbase']) { ?>
+            <img src="/img/cog.png" title="Идет строительство базы команды" />
+        <?php } ?>
         <a href="/base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
     </div>
 </div>
