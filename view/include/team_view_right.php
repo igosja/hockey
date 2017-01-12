@@ -11,16 +11,21 @@
         - Играйте честно - так интереснее выигрывать -
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-        <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
+        <a href="/friendly.php">
+            <img src="/img/fast-icon/friendly.png" title="Friendly"/>
+        </a>
+        <a href="/training.php">
+            <img src="http://virtualsoccer.ru/menu/new/squad_big.gif" title="Training"/>
+        </a>
+        <a href="/scout.php">
+            <img src="/img/fast-icon/scout.png" title="Scout"/>
+        </a>
+        <a href="/phisical.php">
+            <img src="/img/fast-icon/phisical.png" title="Phisical"/>
+        </a>
+        <a href="/school.php">
+            <img src="/img/fast-icon/school.png" title="School"/>
+        </a>
     </div>
     <?php foreach ($latest_array as $item) { ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">

@@ -24,7 +24,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Менежер:
         <?php if (isset($auth_user_id) && $team_array[0]['user_id'] && $team_array[0]['user_id'] != $auth_user_id) { ?>
-            <img src="/img/letter.png" title="Написать письмо" />
+            <a href="/dialog.php?num=<?= $team_array[0]['user_id']; ?>">
+                <img src="/img/letter.png" title="Написать письмо" />
+            </a>
         <?php } ?>
         <a class="strong" href="/user_view.php?num=<?= $team_array[0]['user_id']; ?>">
             <?php if ($team_array[0]['user_name'] || $team_array[0]['user_surname']) { ?>
@@ -38,7 +40,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Ник:
-        <?php if ($team_array[0]['user_date_vip'] < time()) { ?>
+        <?php if ($team_array[0]['user_date_vip'] > time()) { ?>
             <img src="/img/vip.png" title="VIP" />
         <?php } ?>
         <a class="strong" href="/user_view.php?num=<?= $team_array['user_id']; ?>">
