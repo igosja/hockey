@@ -1,7 +1,5 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
-
 $sql = "SELECT `news_date`,
                `news_text`,
                `news_title`,

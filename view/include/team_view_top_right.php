@@ -15,7 +15,7 @@
             <img src="/img/fast-icon/friendly.png" title="Friendly"/>
         </a>
         <a href="/training.php">
-            <img src="http://virtualsoccer.ru/menu/new/squad_big.gif" title="Training"/>
+            <img src="/img/fast-icon/training.png" title="Training"/>
         </a>
         <a href="/scout.php">
             <img src="/img/fast-icon/scout.png" title="Scout"/>

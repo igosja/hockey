@@ -1,9 +1,9 @@
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?php include(__DIR__ . '/include/team_view_left.php'); ?>
+        <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <?php include(__DIR__ . '/include/team_view_right.php'); ?>
+        <?php include(__DIR__ . '/include/team_view_top_right.php'); ?>
     </div>
 </div>
 <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
@@ -99,16 +99,77 @@
         <?php include(__DIR__ . '/include/team_table_link.php'); ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row text-size-4"><?= SPACE; ?></div>
+<div class="row margin-top">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <span class="italic">Показатели команды:</span>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Рейтинг силы команды (Vs)
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                0
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Сила 16 лучших (s16)
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                0
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Сила 21 лучшего (s21)
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                0
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Сила 27 лучших (s27)
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                0
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Стоимость строений
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                <?= f_igosja_money(0); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                - Общая стоимость
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                <?= f_igosja_money(0); ?>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                Расскажите всем о лиге - vk, fb, ok, tw
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        Показатели команды
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        Последнее с форума
-    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs"></div>
+    <?php
+
+    if (isset($auth_team_id))
+    {
+        if ($num_get == $auth_team_id)
+        {
+            include(__DIR__ . '/include/team_view_bottom_right_forum.php');
+        }
+        else
+        {
+            include(__DIR__ . '/include/team_view_bottom_right_my_team.php');
+        }
+    }
+
+    ?>
 </div>
