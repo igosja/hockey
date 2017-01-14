@@ -24,8 +24,8 @@ if ($data = f_igosja_request_post('data'))
                     ON `player_name_id`=`name_id`
                     LEFT JOIN `surname`
                     ON `player_surname_id`=`surname_id`
-                    WHERE `player_id`='$player_id'
-                    AND `player_team_id`='$auth_team_id'
+                    WHERE `player_id`=$player_id
+                    AND `player_team_id`=$auth_team_id
                     LIMIT 1";
             $player_sql = f_igosja_mysqli_query($sql);
 
@@ -33,7 +33,7 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "SELECT COUNT(`training_id`) AS `count`
                         FROM `training`
-                        WHERE `training_player_id`='$player_id'";
+                        WHERE `training_player_id`=$player_id";
                 $check_sql = f_igosja_mysqli_query($sql);
 
                 $check_array = $check_sql->fetch_all(1);
@@ -61,21 +61,21 @@ if ($data = f_igosja_request_post('data'))
             $player_id = $item['id'];
 
             $sql = "INSERT INTO `training`
-                    SET `training_player_id`='$player_id',
-                        `training_power`='1'";
+                    SET `training_player_id`=$player_id,
+                        `training_power`=1";
             f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$auth_team_id'
+                    WHERE `team_id`=$auth_team_id
                     LIMIT 1";
             $team_sql = f_igosja_mysqli_query($sql);
 
             $team_array = $team_sql->fetch_all(1);
 
             $sql = "UPDATE `team`
-                    SET `team_fanance`=`team_finance`-'$price'
-                    WHERE `team_id`='$auth_team_id'
+                    SET `team_fanance`=`team_finance`-$price
+                    WHERE `team_id`=$auth_team_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
@@ -110,7 +110,7 @@ $sql = "SELECT `country_id`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
-        WHERE `player_team_id`='$auth_team_id'
+        WHERE `player_team_id`=$auth_team_id
         ORDER BY `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 

@@ -16,8 +16,8 @@ if ($num_get = (int) f_igosja_request_get('num'))
 {
     $sql = "SELECT COUNT(`team_id`) AS `check`
             FROM `team`
-            WHERE `team_id`='$num_get'
-            AND `team_user_id`='0'";
+            WHERE `team_id`=$num_get
+            AND `team_user_id`=0";
     $team_sql = f_igosja_mysqli_query($sql);
 
     $team_array = $team_sql->fetch_all(1);
@@ -32,7 +32,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     $sql = "SELECT COUNT(`teamask_id`) AS `check`
             FROM `teamask`
-            WHERE `teamask_user_id`='$auth_user_id'";
+            WHERE `teamask_user_id`=$auth_user_id";
     $teamask_sql = f_igosja_mysqli_query($sql);
 
     $teamask_array = $teamask_sql->fetch_all(1);
@@ -47,8 +47,8 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     $sql = "INSERT INTO `teamask`
             SET `teamask_date`=UNIX_TIMESTAMP(),
-                `teamask_team_id`='$num_get',
-                `teamask_user_id`='$auth_user_id'";
+                `teamask_team_id`=$num_get,
+                `teamask_user_id`=$auth_user_id";
     f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['text'] = 'Заявка успешно подана';
@@ -59,7 +59,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`
-        WHERE `teamask_user_id`='$auth_user_id'";
+        WHERE `teamask_user_id`=$auth_user_id";
 $teamask_sql = f_igosja_mysqli_query($sql);
 
 $teamask_array = $teamask_sql->fetch_all(1);
@@ -110,17 +110,17 @@ $sql = "SELECT `base_slot_max`,
             FROM `championship`
             LEFT JOIN `division`
             ON `championship_division_id`=`division_id`
-            WHERE `championship_season_id`='$igosja_season_id'
+            WHERE `championship_season_id`=$igosja_season_id
         ) AS `t1`
         ON `championship_team_id`=`team_id`
         LEFT JOIN 
         (
             SELECT `conference_team_id`
             FROM `conference`
-            WHERE `conference_season_id`='$igosja_season_id'
+            WHERE `conference_season_id`=$igosja_season_id
         ) AS `t2`
         ON `conference_team_id`=`team_id`
-        WHERE `team_user_id`='0'
+        WHERE `team_user_id`=0
         ORDER BY `team_id` ASC";
 $team_sql = f_igosja_mysqli_query($sql);
 

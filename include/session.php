@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id']))
             FROM `user`
             LEFT JOIN `team`
             ON `user_id`=`team_user_id`
-            WHERE `user_id`='$auth_user_id'
+            WHERE `user_id`=$auth_user_id
             LIMIT 1";
     $user_sql = f_igosja_mysqli_query($sql);
 
@@ -27,9 +27,9 @@ if (isset($_SESSION['user_id']))
 
     $sql = "SELECT COUNT(`message_id`) AS `count`
             FROM `message`
-            WHERE `message_support_from`='1'
-            AND `message_user_id_to`='$auth_user_id'
-            AND `message_read`='0'";
+            WHERE `message_support_from`=1
+            AND `message_user_id_to`=$auth_user_id
+            AND `message_read`=0";
     $support_sql = f_igosja_mysqli_query($sql);
 
     $support_array = $support_sql->fetch_all(1);
@@ -48,13 +48,13 @@ if (isset($_SESSION['user_id']))
 
     $sql = "SELECT COUNT(`vote_id`) AS `count`
             FROM `vote`
-            WHERE `vote_votestatus_id`='" . VOTESTATUS_OPEN . "'
-            AND `vote_country_id`='0'
+            WHERE `vote_votestatus_id`=" . VOTESTATUS_OPEN . "
+            AND `vote_country_id`=0
             AND `vote_id`>
             (
                 SELECT IF(MAX(`voteuser_vote_id`) IS NULL, 0, MAX(`voteuser_vote_id`))
                 FROM `voteuser`
-                WHERE `voteuser_user_id`='$auth_user_id'
+                WHERE `voteuser_user_id`=$auth_user_id
             )";
     $vote_sql = f_igosja_mysqli_query($sql);
 
@@ -76,7 +76,7 @@ if (isset($_SESSION['user_id']))
 
     $sql = "UPDATE `user`
             SET `user_date_login`=UNIX_TIMESTAMP()
-            WHERE `user_id`='$auth_user_id'
+            WHERE `user_id`=$auth_user_id
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 }

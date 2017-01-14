@@ -34,7 +34,7 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
-        WHERE `player_id`='$num_get'
+        WHERE `player_id`=$num_get
         LIMIT 1";
 $player_sql = f_igosja_mysqli_query($sql);
 
@@ -74,8 +74,8 @@ $sql = "SELECT `game_id`,
         ON `game_home_team_id`=`home_team`.`team_id`
         LEFT JOIN `team` AS `guest_team`
         ON `game_guest_team_id`=`guest_team`.`team_id`
-        WHERE `lineup_player_id`='$num_get'
-        AND `game_played`='1'
+        WHERE `lineup_player_id`=$num_get
+        AND `game_played`=1
         ORDER BY `shedule_id` DESC";
 $game_sql = f_igosja_mysqli_query($sql);
 

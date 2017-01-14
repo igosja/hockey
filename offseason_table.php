@@ -25,7 +25,7 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `offseason_season_id`='$igosja_season_id'
+        WHERE `offseason_season_id`=$igosja_season_id
         ORDER BY `offseason_place` ASC";
 $team_sql = f_igosja_mysqli_query($sql);
 

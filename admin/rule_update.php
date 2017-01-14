@@ -10,7 +10,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `rule`
             SET $set_sql
-            WHERE `rule_id`='$num_get'
+            WHERE `rule_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
@@ -21,7 +21,7 @@ $sql = "SELECT `rule_id`,
                `rule_text`,
                `rule_title`
         FROM `rule`
-        WHERE `rule_id`='$num_get'
+        WHERE `rule_id`=$num_get
         LIMIT 1";
 $rule_sql = f_igosja_mysqli_query($sql);
 

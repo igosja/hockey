@@ -23,7 +23,7 @@ function f_igosja_generator_count_visitor()
             ON `game_home_team_id`=`home_team`.`team_id`
             LEFT JOIN `stadium`
             ON `game_stadium_id`=`stadium_id`
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
@@ -48,9 +48,9 @@ function f_igosja_generator_count_visitor()
         $game_visitor = $game_visitor / 1000000;
 
         $sql = "UPDATE `game`
-                SET `game_stadium_capacity`='$stadium_capacity',
-                    `game_visitor`='$game_visitor'
-                WHERE `game_id`='$game_id'
+                SET `game_stadium_capacity`=$stadium_capacity,
+                    `game_visitor`=$game_visitor
+                WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 

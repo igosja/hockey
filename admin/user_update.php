@@ -10,7 +10,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `user`
             SET $set_sql
-            WHERE `user_id`='$num_get'
+            WHERE `user_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
@@ -20,7 +20,7 @@ if ($data = f_igosja_request_post('data'))
 $sql = "SELECT `user_id`,
                `user_login`
         FROM `user`
-        WHERE `user_id`='$num_get'
+        WHERE `user_id`=$num_get
         LIMIT 1";
 $user_sql = f_igosja_mysqli_query($sql);
 

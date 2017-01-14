@@ -35,7 +35,7 @@ $sql = "SELECT `game_guest_forecast`,
         ON `game_stadium_id`=`stadium_id`
         LEFT JOIN `team` AS `stadium_team`
         ON `stadium_team`.`team_stadium_id`=`stadium_id`
-        WHERE `game_id`='$num_get'
+        WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);
 
@@ -71,10 +71,10 @@ $sql = "SELECT `game_guest_score`,
         ON `game_guest_team_id`=`guest_team`.`team_id`
         LEFT JOIN `team` AS `home_team`
         ON `game_home_team_id`=`home_team`.`team_id`
-        WHERE (`game_home_team_id`='$home_team_id'
-        AND `game_guest_team_id`='$guest_team_id')
-        OR (`game_home_team_id`='$guest_team_id'
-        AND `game_guest_team_id`='$home_team_id')
+        WHERE (`game_home_team_id`=$home_team_id
+        AND `game_guest_team_id`=$guest_team_id)
+        OR (`game_home_team_id`=$guest_team_id
+        AND `game_guest_team_id`=$home_team_id)
         ORDER BY `game_id` DESC";
 $previous_sql = f_igosja_mysqli_query($sql);
 

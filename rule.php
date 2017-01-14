@@ -10,7 +10,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 $sql = "SELECT `rule_text`,
                `rule_title`
         FROM `rule`
-        WHERE `rule_id`='$num_get'
+        WHERE `rule_id`=$num_get
         LIMIT 1";
 $rule_sql = f_igosja_mysqli_query($sql);
 

@@ -28,7 +28,7 @@ $sql = "SELECT `country_name`,
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
-        WHERE `user_id`='$num_get'";
+        WHERE `user_id`=$num_get";
 $user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)

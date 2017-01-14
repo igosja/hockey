@@ -7,16 +7,16 @@ $num_get = (int) f_igosja_request_get('num');
 if (0 != $num_get)
 {
     $sql = "DELETE FROM `vote`
-            WHERE `vote_id`='$num_get'
+            WHERE `vote_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $sql = "DELETE `voteanswer`
-            WHERE `voteanswer_vote_id`='$num_get'";
+            WHERE `voteanswer_vote_id`=$num_get";
     f_igosja_mysqli_query($sql);
 
     $sql = "DELETE `voteuser`
-            WHERE `voteuser_vote_id`='$num_get'";
+            WHERE `voteuser_vote_id`=$num_get";
     f_igosja_mysqli_query($sql);
 }
 

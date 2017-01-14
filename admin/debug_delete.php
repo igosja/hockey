@@ -7,7 +7,7 @@ $num_get = (int) f_igosja_request_get('num');
 if (0 != $num_get)
 {
     $sql = "DELETE FROM `debug`
-            WHERE `debug_id`='$num_get'
+            WHERE `debug_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 }

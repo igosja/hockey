@@ -48,7 +48,7 @@ $sql = "SELECT `country_id`,
         ON `player_id`=`playerposition_player_id`
         LEFT JOIN `playerspecial`
         ON `player_id`=`playerspecial_player_id`
-        WHERE `player_team_id`='$num_get'
+        WHERE `player_team_id`=$num_get
         GROUP BY `player_id`";
 $player_sql = f_igosja_mysqli_query($sql);
 

@@ -20,14 +20,14 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
     $shedule_id = (int) f_igosja_request_get('shedule_id');
 
     $sql = "DELETE FROM `phisicalchange`
-            WHERE `phisicalchange_player_id`='$player_id'
-            AND `phisicalchange_shedule_id`>'$shedule_id'";
+            WHERE `phisicalchange_player_id`=$player_id
+            AND `phisicalchange_shedule_id`>$shedule_id";
     f_igosja_mysqli_query($sql);
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             FROM `phisicalchange`
-            WHERE `phisicalchange_player_id`='$player_id'
-            AND `phisicalchange_shedule_id`='$shedule_id'";
+            WHERE `phisicalchange_player_id`=$player_id
+            AND `phisicalchange_shedule_id`=$shedule_id";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(1);
@@ -36,8 +36,8 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
     if ($count_check)
     {
         $sql = "DELETE FROM `phisicalchange`
-                WHERE `phisicalchange_player_id`='$player_id'
-                AND `phisicalchange_shedule_id`='$shedule_id'";
+                WHERE `phisicalchange_player_id`=$player_id
+                AND `phisicalchange_shedule_id`=$shedule_id";
         f_igosja_mysqli_query($sql);
     }
     else
@@ -45,15 +45,15 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
         $auth_team_id = 25;
 
         $sql = "INSERT INTO `phisicalchange`
-                SET `phisicalchange_player_id`='$player_id',
-                    `phisicalchange_shedule_id`='$shedule_id',
-                    `phisicalchange_team_id`='$auth_team_id'";
+                SET `phisicalchange_player_id`=$player_id,
+                    `phisicalchange_shedule_id`=$shedule_id,
+                    `phisicalchange_team_id`=$auth_team_id";
         f_igosja_mysqli_query($sql);
     }
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             FROM `phisicalchange`
-            WHERE `phisicalchange_player_id`='$player_id'
+            WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_shedule_id`>
             (
                 SELECT `shedule_id`

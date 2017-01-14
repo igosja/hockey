@@ -14,7 +14,7 @@ if ($data = f_igosja_request_post('data'))
     $sql = "SELECT `user_code`,
                    `user_email`
             FROM `user`
-            WHERE `user_id`='$num_get'";
+            WHERE `user_id`=$num_get";
     $user_sql = f_igosja_mysqli_query($sql);
 
     $user_array = $user_sql->fetch_all(1);
@@ -39,16 +39,16 @@ if ($data = f_igosja_request_post('data'))
     }
 
     $sql = "UPDATE `user`
-            SET `user_birth_day`='$user_birth_day',
-                `user_birth_month`='$user_birth_month',
-                `user_birth_year`='$user_birth_year',
+            SET `user_birth_day`=$user_birth_day,
+                `user_birth_month`=$user_birth_month,
+                `user_birth_year`=$user_birth_year,
                 `user_city`=?,
-                `user_country_id`='$user_country_id',
-                `user_holiday`='$user_holiday',
+                `user_country_id`=$user_country_id,
+                `user_holiday`=$user_holiday,
                 `user_name`=?,
-                `user_sex_id`='$user_sex_id',
+                `user_sex_id`=$user_sex_id,
                 `user_surname`=?
-            WHERE `user_id`='$num_get'
+            WHERE `user_id`=$num_get
             LIMIT 1";
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('sss', $user_city, $user_name, $user_surname);
@@ -58,8 +58,8 @@ if ($data = f_igosja_request_post('data'))
     {
         $sql = "UPDATE `user`
                 SET `user_email`=?,
-                    `user_date_confirm`='0'
-                WHERE `user_id`='$num_get'
+                    `user_date_confirm`=0
+                WHERE `user_id`=$num_get
                 LIMIT 1";
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('s', $user_email);
@@ -109,7 +109,7 @@ $sql = "SELECT `country_name`,
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
-        WHERE `user_id`='$num_get'";
+        WHERE `user_id`=$num_get";
 $user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)

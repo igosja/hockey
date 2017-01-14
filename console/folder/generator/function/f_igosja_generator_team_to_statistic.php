@@ -18,7 +18,7 @@ function f_igosja_generator_team_to_statistic()
             LEFT JOIN `championship`
             ON (`game_home_team_id`=`championship_team_id`
             AND `shedule_season_id`=`championship_season_id`)
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
@@ -58,13 +58,13 @@ function f_igosja_generator_team_to_statistic()
 
         $sql = "SELECT COUNT(`statisticteam_id`) AS `count`
                 FROM `statisticteam`
-                WHERE `statisticteam_championship_playoff`='$is_playoff'
-                AND `statisticteam_country_id`='$country_id'
-                AND `statisticteam_division_id`='$division_id'
-                AND `statisticteam_national_id`='$guest_national_id'
-                AND `statisticteam_season_id`='$season_id'
-                AND `statisticteam_team_id`='$guest_team_id'
-                AND `statisticteam_tournamenttype_id`='$tournamenttype_id'";
+                WHERE `statisticteam_championship_playoff`=$is_playoff
+                AND `statisticteam_country_id`=$country_id
+                AND `statisticteam_division_id`=$division_id
+                AND `statisticteam_national_id`=$guest_national_id
+                AND `statisticteam_season_id`=$season_id
+                AND `statisticteam_team_id`=$guest_team_id
+                AND `statisticteam_tournamenttype_id`=$tournamenttype_id";
         $check_sql = f_igosja_mysqli_query($sql);
 
         $check_array = $check_sql->fetch_all(1);
@@ -72,25 +72,25 @@ function f_igosja_generator_team_to_statistic()
         if (0 == $check_array[0]['count'])
         {
             $sql = "INSERT INTO `statisticteam`
-                    SET `statisticteam_championship_playoff`='$is_playoff',
-                        `statisticteam_country_id`='$country_id',
-                        `statisticteam_division_id`='$division_id',
-                        `statisticteam_national_id`='$guest_national_id',
-                        `statisticteam_season_id`='$season_id',
-                        `statisticteam_team_id`='$guest_team_id',
-                        `statisticteam_tournamenttype_id`='$tournamenttype_id'";
+                    SET `statisticteam_championship_playoff`=$is_playoff,
+                        `statisticteam_country_id`=$country_id,
+                        `statisticteam_division_id`=$division_id,
+                        `statisticteam_national_id`=$guest_national_id,
+                        `statisticteam_season_id`=$season_id,
+                        `statisticteam_team_id`=$guest_team_id,
+                        `statisticteam_tournamenttype_id`=$tournamenttype_id";
             f_igosja_mysqli_query($sql);
         }
 
         $sql = "SELECT COUNT(`statisticteam_id`) AS `count`
                 FROM `statisticteam`
-                WHERE `statisticteam_championship_playoff`='$is_playoff'
-                AND `statisticteam_country_id`='$country_id'
-                AND `statisticteam_division_id`='$division_id'
-                AND `statisticteam_national_id`='$home_national_id'
-                AND `statisticteam_season_id`='$season_id'
-                AND `statisticteam_team_id`='$home_team_id'
-                AND `statisticteam_tournamenttype_id`='$tournamenttype_id'";
+                WHERE `statisticteam_championship_playoff`=$is_playoff
+                AND `statisticteam_country_id`=$country_id
+                AND `statisticteam_division_id`=$division_id
+                AND `statisticteam_national_id`=$home_national_id
+                AND `statisticteam_season_id`=$season_id
+                AND `statisticteam_team_id`=$home_team_id
+                AND `statisticteam_tournamenttype_id`=$tournamenttype_id";
         $check_sql = f_igosja_mysqli_query($sql);
 
         $check_array = $check_sql->fetch_all(1);
@@ -98,13 +98,13 @@ function f_igosja_generator_team_to_statistic()
         if (0 == $check_array[0]['count'])
         {
             $sql = "INSERT INTO `statisticteam`
-                    SET `statisticteam_championship_playoff`='$is_playoff',
-                        `statisticteam_country_id`='$country_id',
-                        `statisticteam_division_id`='$division_id',
-                        `statisticteam_national_id`='$home_national_id',
-                        `statisticteam_season_id`='$season_id',
-                        `statisticteam_team_id`='$home_team_id',
-                        `statisticteam_tournamenttype_id`='$tournamenttype_id'";
+                    SET `statisticteam_championship_playoff`=$is_playoff,
+                        `statisticteam_country_id`=$country_id,
+                        `statisticteam_division_id`=$division_id,
+                        `statisticteam_national_id`=$home_national_id,
+                        `statisticteam_season_id`=$season_id,
+                        `statisticteam_team_id`=$home_team_id,
+                        `statisticteam_tournamenttype_id`=$tournamenttype_id";
             f_igosja_mysqli_query($sql);
         }
 

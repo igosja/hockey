@@ -8,7 +8,7 @@ $sql = "SELECT `rule_id`,
                `rule_text`,
                `rule_title`
         FROM `rule`
-        WHERE `rule_id`='$num_get'
+        WHERE `rule_id`=$num_get
         LIMIT 1";
 $rule_sql = f_igosja_mysqli_query($sql);
 

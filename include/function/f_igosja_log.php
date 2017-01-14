@@ -121,19 +121,19 @@ function f_igosja_log($data)
     $log_season_id = $season_array[0]['season_id'];
 
     $sql = "INSERT INTO `log`
-            SET `log_building_id`='$log_building_id',
-                `log_country_id`='$log_country_id',
+            SET `log_building_id`=$log_building_id,
+                `log_country_id`=$log_country_id,
                 `log_date`=UNIX_TIMESTAMP(),
-                `log_game_id`='$log_game_id',
-                `log_logtext_id`='$log_logtext_id',
-                `log_national_id`='$log_national_id',
-                `log_player_id`='$log_player_id',
-                `log_position_id`='$log_position_id',
-                `log_season_id`='$log_season_id',
-                `log_special_id`='$log_special_id',
-                `log_team_id`='$log_team_id',
-                `log_team_2_id`='$log_team_2_id',
-                `log_user_id`='$log_user_id',
-                `log_value`='$log_value'";
+                `log_game_id`=$log_game_id,
+                `log_logtext_id`=$log_logtext_id,
+                `log_national_id`=$log_national_id,
+                `log_player_id`=$log_player_id,
+                `log_position_id`=$log_position_id,
+                `log_season_id`=$log_season_id,
+                `log_special_id`=$log_special_id,
+                `log_team_id`=$log_team_id,
+                `log_team_2_id`=$log_team_2_id,
+                `log_user_id`=$log_user_id,
+                `log_value`=$log_value";
     f_igosja_mysqli_query($sql);
 }

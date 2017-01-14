@@ -103,7 +103,7 @@ $sql = "SELECT `game_guest_forecast`,
         ON `game_guest_tactic_id`=`guest_tactic`.`tactic_id`
         LEFT JOIN `tactic` AS `home_tactic`
         ON `game_home_tactic_id`=`home_tactic`.`tactic_id`
-        WHERE `game_id`='$num_get'
+        WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);
 
@@ -166,7 +166,7 @@ $sql = "SELECT `lineup_age`,
         ON `lineup_position_id`=`position_id`
         LEFT JOIN `team`
         ON `lineup_team_id`=`team_id`
-        WHERE `game_id`='$num_get'
+        WHERE `game_id`=$num_get
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
 $home_sql = f_igosja_mysqli_query($sql);
 
@@ -202,7 +202,7 @@ $sql = "SELECT `lineup_age`,
         ON `lineup_position_id`=`position_id`
         LEFT JOIN `team`
         ON `lineup_team_id`=`team_id`
-        WHERE `game_id`='$num_get'
+        WHERE `game_id`=$num_get
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
 $guest_sql = f_igosja_mysqli_query($sql);
 
@@ -266,7 +266,7 @@ $sql = "SELECT `event_guest_score`,
         ON `player_penalty`.`player_name_id`=`name_penalty`.`name_id`
         LEFT JOIN `surname` AS `surname_penalty`
         ON `player_penalty`.`player_surname_id`=`surname_penalty`.`surname_id`
-        WHERE `event_game_id`='$num_get'
+        WHERE `event_game_id`=$num_get
         ORDER BY `event_minute` ASC, `event_second` ASC";
 $event_sql = f_igosja_mysqli_query($sql);
 

@@ -11,7 +11,7 @@ $sql = "SELECT `user_date_login`,
                `user_login`,
                `user_money`
         FROM `user`
-        WHERE `user_id`='$num_get'
+        WHERE `user_id`=$num_get
         LIMIT 1";
 $user_sql = f_igosja_mysqli_query($sql);
 

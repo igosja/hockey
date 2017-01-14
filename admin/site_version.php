@@ -34,12 +34,12 @@ if ($num_get = (int) f_igosja_request_get('num'))
     }
 
     $sql = "UPDATE `site`
-            SET `site_version_1`='$version_1',
-                `site_version_2`='$version_2',
-                `site_version_3`='$version_3',
-                `site_version_4`='$version_4',
+            SET `site_version_1`=$version_1,
+                `site_version_2`=$version_2,
+                `site_version_3`=$version_3,
+                `site_version_4`=$version_4,
                 `site_version_date`=UNIX_TIMESTAMP()
-            WHERE `site_id`='1'
+            WHERE `site_id`=1
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 

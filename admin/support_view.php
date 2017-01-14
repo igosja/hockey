@@ -12,10 +12,10 @@ $sql = "SELECT `message_date`,
         FROM `message`
         LEFT JOIN `user`
         ON `message_user_id_from`=`user_id`
-        WHERE (`message_user_id_from`='$num_get'
-        AND `message_support_to`='1')
-        OR (`message_user_id_to`='$num_get'
-        AND `message_support_from`='1')
+        WHERE (`message_user_id_from`=$num_get
+        AND `message_support_to`=1)
+        OR (`message_user_id_to`=$num_get
+        AND `message_support_from`=1)
         ORDER BY `message_id` DESC";
 $message_sql = f_igosja_mysqli_query($sql);
 
@@ -35,9 +35,9 @@ if ($data = f_igosja_request_post('data'))
         $sql = "INSERT INTO `message`
                 SET `message_date`=UNIX_TIMESTAMP(),
                     `message_text`='$text',
-                    `message_support_from`='1',
-                    `message_user_id_from`='$auth_user_id',
-                    `message_user_id_to`='$num_get'";
+                    `message_support_from`=1,
+                    `message_user_id_from`=$auth_user_id,
+                    `message_user_id_to`=$num_get";
         f_igosja_mysqli_query($sql);
 
         refresh();
@@ -45,9 +45,9 @@ if ($data = f_igosja_request_post('data'))
 }
 
 $sql = "UPDATE `message`
-        SET `message_read`='1'
-        WHERE `message_user_id_from`='$num_get'
-        AND `message_support_to`='1'";
+        SET `message_read`=1
+        WHERE `message_user_id_from`=$num_get
+        AND `message_support_to`=1";
 f_igosja_mysqli_query($sql);
 
 $breadcrumb_array[] = array('url' => 'support_list.php', 'text' => 'Вопросы в техподдержку');

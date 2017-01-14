@@ -7,7 +7,7 @@ $num_get = (int) f_igosja_request_get('num');
 $sql = "SELECT `name_id`,
                `name_name`
         FROM `name`
-        WHERE `name_id`='$num_get'
+        WHERE `name_id`=$num_get
         LIMIT 1";
 $name_sql = f_igosja_mysqli_query($sql);
 
@@ -23,7 +23,7 @@ $sql = "SELECT `country_id`,
         FROM `namecountry`
         LEFT JOIN `country`
         ON `namecountry_country_id`=`country_id`
-        WHERE `namecountry_name_id`='$num_get'";
+        WHERE `namecountry_name_id`=$num_get";
 $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);

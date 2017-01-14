@@ -15,7 +15,7 @@ $sql = "SELECT `team_id`,
         ON `teamask_team_id`=`team_id`
         LEFT JOIN `user`
         ON `teamask_user_id`=`user_id`
-        WHERE `teamask_id`='$num_get'
+        WHERE `teamask_id`=$num_get
         LIMIT 1";
 $teamask_sql = f_igosja_mysqli_query($sql);
 

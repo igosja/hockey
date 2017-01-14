@@ -52,7 +52,7 @@ else
 $sql = "SELECT `phisicalchange_player_id`,
                `phisicalchange_shedule_id`
         FROM `phisicalchange`
-        WHERE `phisicalchange_team_id`='$num_get'
+        WHERE `phisicalchange_team_id`=$num_get
         ORDER BY `phisicalchange_id` ASC";
 $phisicalchange_sql = f_igosja_mysqli_query($sql);
 
@@ -81,7 +81,7 @@ $sql = "SELECT `name_name`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
-        WHERE `player_team_id`='$num_get'";
+        WHERE `player_team_id`=$num_get";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $count_player = $player_sql->num_rows;
@@ -103,7 +103,7 @@ for ($i=0; $i<$count_player; $i++)
 
                 $sql = "SELECT `phisical_opposite`
                         FROM `phisical`
-                        WHERE `phisical_id`='$phisical_id'
+                        WHERE `phisical_id`=$phisical_id
                         LIMIT 1";
                 $opposite_sql = f_igosja_mysqli_query($sql);
 
@@ -140,7 +140,7 @@ for ($i=0; $i<$count_player; $i++)
 
                 $sql = "SELECT `phisical_opposite`
                         FROM `phisical`
-                        WHERE `phisical_id`='$phisical_id'
+                        WHERE `phisical_id`=$phisical_id
                         LIMIT 1";
                 $opposite_sql = f_igosja_mysqli_query($sql);
 

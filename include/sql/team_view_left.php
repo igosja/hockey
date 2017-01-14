@@ -55,8 +55,8 @@ $sql = "SELECT `base_level`,
             FROM `championship`
             LEFT JOIN `division`
             ON `championship_division_id`=`division_id`
-            WHERE `championship_team_id`='$num_get'
-            AND `championship_season_id`='$igosja_season_id'
+            WHERE `championship_team_id`=$num_get
+            AND `championship_season_id`=$igosja_season_id
         ) AS `t1`
         ON `team_id`=`championship_team_id`
         LEFT JOIN
@@ -64,8 +64,8 @@ $sql = "SELECT `base_level`,
             SELECT `conference_place`,
                    `conference_team_id`
             FROM `conference`
-            WHERE `conference_team_id`='$num_get'
-            AND `conference_season_id`='$igosja_season_id'
+            WHERE `conference_team_id`=$num_get
+            AND `conference_season_id`=$igosja_season_id
         ) AS `t2`
         ON `team_id`=`conference_team_id`
         LEFT JOIN
@@ -73,8 +73,8 @@ $sql = "SELECT `base_level`,
             SELECT `buildingbase_team_id`,
                    COUNT(`buildingbase_id`) AS `count_buildingbase`
             FROM `buildingbase`
-            WHERE `buildingbase_team_id`='$num_get'
-            AND `buildingbase_ready`='0'
+            WHERE `buildingbase_team_id`=$num_get
+            AND `buildingbase_ready`=0
         ) AS `t3`
         ON `team_id`=`buildingbase_team_id`
         LEFT JOIN
@@ -82,11 +82,11 @@ $sql = "SELECT `base_level`,
             SELECT `buildingstadium_team_id`,
                    COUNT(`buildingstadium_id`) AS `count_buildingstadium`
             FROM `buildingstadium`
-            WHERE `buildingstadium_team_id`='$num_get'
-            AND `buildingstadium_ready`='0'
+            WHERE `buildingstadium_team_id`=$num_get
+            AND `buildingstadium_ready`=0
         ) AS `t4`
         ON `team_id`=`buildingstadium_team_id`
-        WHERE `team_id`='$num_get'
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 

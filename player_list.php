@@ -29,7 +29,7 @@ if ($data = f_igosja_request_get('data'))
     $surname        = trim($data['surname_name']);
 }
 
-$where = "`player_team_id`!='0'";
+$where = "`player_team_id`!=0";
 
 if ($age_max)
 {
@@ -43,7 +43,7 @@ if ($age_min)
 
 if ($country_id)
 {
-    $where = $where . " AND `player_country_id`='$country_id'";
+    $where = $where . " AND `player_country_id`=$country_id";
 }
 
 if ($position_id)
@@ -52,7 +52,7 @@ if ($position_id)
                         (
                             SELECT `playerposition_player_id`
                             FROM `playerposition`
-                            WHERE `playerposition_position_id`='$position_id'
+                            WHERE `playerposition_position_id`=$position_id
                         )";
 }
 

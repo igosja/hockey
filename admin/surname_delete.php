@@ -7,12 +7,12 @@ $num_get = (int) f_igosja_request_get('num');
 if (0 != $num_get)
 {
     $sql = "DELETE FROM `surname`
-            WHERE `surname_id`='$num_get'
+            WHERE `surname_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $sql = "DELETE FROM `surnamecountry`
-            WHERE `surnamecountry_surname_id`='$num_get'";
+            WHERE `surnamecountry_surname_id`=$num_get";
     f_igosja_mysqli_query($sql);
 }
 

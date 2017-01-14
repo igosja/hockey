@@ -7,7 +7,7 @@ $num_get = (int) f_igosja_request_get('num');
 if (0 != $num_get)
 {
     $sql = "DELETE FROM `city`
-            WHERE `city_id`='$num_get'
+            WHERE `city_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 }

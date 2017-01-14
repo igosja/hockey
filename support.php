@@ -15,9 +15,9 @@ if ($data = f_igosja_request_post('data'))
 
         $sql = "INSERT INTO `message`
                 SET `message_date`=UNIX_TIMESTAMP(),
-                    `message_support_to`='1',
+                    `message_support_to`=1,
                     `message_text`=?,
-                    `message_user_id_from`='$auth_user_id'";
+                    `message_user_id_from`=$auth_user_id";
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('s', $text);
         $prepare->execute();
@@ -46,7 +46,7 @@ $sql = "SELECT `country_name`,
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
-        WHERE `user_id`='$auth_user_id'
+        WHERE `user_id`=$auth_user_id
         LIMIT 1";
 $user_sql = f_igosja_mysqli_query($sql);
 
@@ -65,20 +65,20 @@ $sql = "SELECT `message_date`,
         FROM `message`
         LEFT JOIN `user`
         ON `message_user_id_from`=`user_id`
-        WHERE (`message_support_to`='1'
-        AND `message_user_id_from`='$auth_user_id')
-        OR (`message_support_from`='1'
-        AND `message_user_id_to`='$auth_user_id')
+        WHERE (`message_support_to`=1
+        AND `message_user_id_from`=$auth_user_id)
+        OR (`message_support_from`=1
+        AND `message_user_id_to`=$auth_user_id)
         ORDER BY `message_id` DESC";
 $message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(1);
 
 $sql = "UPDATE `message`
-        SET `message_read`='1'
-        WHERE `message_user_id_to`='$auth_user_id'
-        AND `message_support_from`='1'
-        AND `message_read`='0'";
+        SET `message_read`=1
+        WHERE `message_user_id_to`=$auth_user_id
+        AND `message_support_from`=1
+        AND `message_read`=0";
 f_igosja_mysqli_query($sql);
 
 include (__DIR__ . '/view/layout/main.php');

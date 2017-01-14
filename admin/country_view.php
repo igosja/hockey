@@ -7,7 +7,7 @@ $num_get = (int) f_igosja_request_get('num');
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
-        WHERE `country_id`='$num_get'
+        WHERE `country_id`=$num_get
         LIMIT 1";
 $country_sql = f_igosja_mysqli_query($sql);
 

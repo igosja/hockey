@@ -15,13 +15,13 @@ function f_igosja_generator_phisical()
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`
-            SET `player_phisical_id`=`player_phisical_id`+'1'
-            WHERE `player_age`<'40'";
+            SET `player_phisical_id`=`player_phisical_id`+1
+            WHERE `player_age`<40";
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`
-            SET `player_phisical_id`='1'
-            WHERE `player_phisical_id`>'20'";
+            SET `player_phisical_id`=1
+            WHERE `player_phisical_id`>20";
     f_igosja_mysqli_query($sql);
 
     print '.';

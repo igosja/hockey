@@ -10,7 +10,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `tournamenttype`
             SET $set_sql
-            WHERE `tournamenttype_id`='$num_get'
+            WHERE `tournamenttype_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
@@ -20,7 +20,7 @@ if ($data = f_igosja_request_post('data'))
 $sql = "SELECT `tournamenttype_id`,
                `tournamenttype_name`
         FROM `tournamenttype`
-        WHERE `tournamenttype_id`='$num_get'
+        WHERE `tournamenttype_id`=$num_get
         LIMIT 1";
 $tournamenttype_sql = f_igosja_mysqli_query($sql);
 

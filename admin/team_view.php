@@ -20,7 +20,7 @@ $sql = "SELECT `city_id`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `team_id`='$num_get'
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 

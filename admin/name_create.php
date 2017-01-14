@@ -13,7 +13,7 @@ if ($data = f_igosja_request_post('data'))
     $num_get = $mysqli->insert_id;
 
     $sql = "DELETE FROM `namecountry`
-            WHERE `namecountry_name_id`='$num_get'";
+            WHERE `namecountry_name_id`=$num_get";
     f_igosja_mysqli_query($sql);
 
     $country = f_igosja_request_post('array', 'namecountry_country_id');
@@ -23,8 +23,8 @@ if ($data = f_igosja_request_post('data'))
         $country_id = (int) $item;
 
         $sql = "INSERT INTO `namecountry`
-                SET `namecountry_name_id`='$num_get',
-                    `namecountry_country_id`='$country_id'";
+                SET `namecountry_name_id`=$num_get,
+                    `namecountry_country_id`=$country_id";
         f_igosja_mysqli_query($sql);
     }
 

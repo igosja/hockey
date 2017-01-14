@@ -19,7 +19,7 @@ function f_igosja_generator_finance_stadium()
             ON `game_stadium_id`=`stadium_id`
             LEFT JOIN `team` AS `team_stadium`
             ON `stadium_id`=`team_stadium_id`
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
@@ -38,7 +38,7 @@ function f_igosja_generator_finance_stadium()
         {
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$home_team_id'
+                    WHERE `team_id`=$home_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -64,7 +64,7 @@ function f_igosja_generator_finance_stadium()
 
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$guest_team_id'
+                    WHERE `team_id`'$guest_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -89,7 +89,7 @@ function f_igosja_generator_finance_stadium()
             f_igosja_finance($finance);
 
             $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`+'$income'/'2'-'$outcome'/'2'
+                    SET `team_finance`=`team_finance`+$income/2-$outcome/2
                     WHERE `team_id` IN ('$home_team_id', '$guest_team_id')";
             f_igosja_mysqli_query($sql);
         }
@@ -97,7 +97,7 @@ function f_igosja_generator_finance_stadium()
         {
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$home_team_id'
+                    WHERE `team_id`=$home_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -114,7 +114,7 @@ function f_igosja_generator_finance_stadium()
 
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$guest_team_id'
+                    WHERE `team_id`=$guest_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -131,7 +131,7 @@ function f_igosja_generator_finance_stadium()
 
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$stadium_team_id'
+                    WHERE `team_id`=$stadium_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -147,7 +147,7 @@ function f_igosja_generator_finance_stadium()
             f_igosja_finance($finance);
 
             $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`+'$income'/'3'
+                    SET `team_finance`=`team_finance`+$income/3
                     WHERE `team_id` IN ('$home_team_id', '$guest_team_id', '$stadium_team_id')";
             f_igosja_mysqli_query($sql);
         }
@@ -155,7 +155,7 @@ function f_igosja_generator_finance_stadium()
         {
             $sql = "SELECT `team_finance`
                     FROM `team`
-                    WHERE `team_id`='$home_team_id'
+                    WHERE `team_id`=$home_team_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -180,8 +180,8 @@ function f_igosja_generator_finance_stadium()
             f_igosja_finance($finance);
 
             $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`+'$income'-'$outcome'
-                    WHERE `team_id`='$home_team_id'
+                    SET `team_finance`=`team_finance`+$income-$outcome
+                    WHERE `team_id`=$home_team_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
         }

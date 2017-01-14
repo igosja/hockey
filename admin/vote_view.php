@@ -11,7 +11,7 @@ $sql = "SELECT `vote_id`,
         FROM `vote`
         LEFT JOIN `voteanswer`
         ON `vote_id`=`voteanswer_vote_id`
-        WHERE `vote_id`='$num_get'
+        WHERE `vote_id`=$num_get
         ORDER BY `voteanswer_id` ASC";
 $vote_sql = f_igosja_mysqli_query($sql);
 

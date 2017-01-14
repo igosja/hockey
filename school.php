@@ -17,7 +17,7 @@ if ($data = f_igosja_request_post('data'))
 
         $sql = "SELECT `position_name`
                 FROM `position`
-                WHERE `position_id`='$position_id'
+                WHERE `position_id`=$position_id
                 LIMIT 1";
         $position_sql = f_igosja_mysqli_query($sql);
 
@@ -25,7 +25,7 @@ if ($data = f_igosja_request_post('data'))
         {
             $sql = "SELECT COUNT(`school_id`) AS `count`
                     FROM `school`
-                    WHERE `school_team_id`='$auth_team_id'";
+                    WHERE `school_team_id`=$auth_team_id";
             $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(1);
@@ -50,10 +50,10 @@ if ($data = f_igosja_request_post('data'))
             $position_id = $item['id'];
 
             $sql = "INSERT INTO `school`
-                    SET `school_day`='10',
-                        `school_team_id`='$auth_team_id',
-                        `school_season_id`='$igosja_season_id',
-                        `school_position_id`='$position_id'";
+                    SET `school_day`=10,
+                        `school_team_id`=$auth_team_id,
+                        `school_season_id`=$igosja_season_id,
+                        `school_position_id`=$position_id";
             f_igosja_mysqli_query($sql);
         }
 
@@ -73,7 +73,7 @@ $sql = "SELECT `country_id`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `team_id`='$auth_team_id'
+        WHERE `team_id`=$auth_team_id
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 

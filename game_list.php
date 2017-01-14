@@ -16,7 +16,7 @@ $sql = "SELECT `shedule_date`,
         ON `shedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
         ON `shedule_stage_id`=`stage_id`
-        WHERE `shedule_id`='$num_get'
+        WHERE `shedule_id`=$num_get
         LIMIT 1";
 $shedule_sql = f_igosja_mysqli_query($sql);
 
@@ -60,7 +60,7 @@ $sql = "SELECT `game_id`,
         ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
         LEFT JOIN `country` AS `home_country`
         ON `home_city`.`city_country_id`=`home_country`.`country_id`
-        WHERE `shedule_id`='$num_get'
+        WHERE `shedule_id`=$num_get
         ORDER BY `game_id`ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 

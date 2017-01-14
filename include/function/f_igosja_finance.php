@@ -112,18 +112,18 @@ function f_igosja_finance($data)
     $finance_season_id = $season_array[0]['season_id'];
 
     $sql = "INSERT INTO `finance`
-            SET `finance_building_id`='$finance_building_id',
-                `finance_capacity`='$finance_capacity',
-                `finance_country_id`='$finance_country_id',
+            SET `finance_building_id`=$finance_building_id,
+                `finance_capacity`=$finance_capacity,
+                `finance_country_id`=$finance_country_id,
                 `finance_date`=UNIX_TIMESTAMP(),
-                `finance_financetext_id`='$finance_financetext_id',
-                `finance_level`='$finance_level',
-                `finance_national_id`='$finance_national_id',
-                `finance_player_id`='$finance_player_id',
-                `finance_season_id`='$finance_season_id',
-                `finance_team_id`='$finance_team_id',
-                `finance_value`='$finance_value',
-                `finance_value_after`='$finance_value_after',
-                `finance_value_before`='$finance_value_before'";
+                `finance_financetext_id`=$finance_financetext_id,
+                `finance_level`=$finance_level,
+                `finance_national_id`=$finance_national_id,
+                `finance_player_id`=$finance_player_id,
+                `finance_season_id`=$finance_season_id,
+                `finance_team_id`=$finance_team_id,
+                `finance_value`=$finance_value,
+                `finance_value_after`=$finance_value_after,
+                `finance_value_before`=$finance_value_before";
     f_igosja_mysqli_query($sql);
 }

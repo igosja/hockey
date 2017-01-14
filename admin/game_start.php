@@ -6,7 +6,7 @@ include (__DIR__ . '/../include/include.php');
 
 $sql = "INSERT INTO `user`
         SET `user_code`='f296a47aebb6b66620d44652a59db37a',
-            `user_date_confirm`='0',
+            `user_date_confirm`=0,
             `user_date_login`=UNIX_TIMESTAMP(),
             `user_date_register`=UNIX_TIMESTAMP(),
             `user_email`='fanat16rus@yandex.ru',
@@ -16,7 +16,7 @@ f_igosja_mysqli_query($sql);
 
 $sql = "INSERT INTO `user`
         SET `user_code`='883a889016dafef5c1c17d4227988ae1',
-            `user_date_confirm`='0',
+            `user_date_confirm`=0,
             `user_date_login`=UNIX_TIMESTAMP(),
             `user_date_register`=UNIX_TIMESTAMP(),
             `user_email`='pavel87desant38@gmail.com',
@@ -36,7 +36,7 @@ f_igosja_mysqli_query($sql);
 
 $sql = "INSERT INTO `user`
         SET `user_code`='7e1e9fb1fb5130d6d795ce1fd7efa661',
-            `user_date_confirm`='0',
+            `user_date_confirm`=0,
             `user_date_login`=UNIX_TIMESTAMP(),
             `user_date_register`=UNIX_TIMESTAMP(),
             `user_email`='denzell87@mail.ru',
@@ -56,7 +56,7 @@ f_igosja_mysqli_query($sql);
 
 $sql = "INSERT INTO `user`
         SET `user_code`='d0f2887375f98b39cea2f8cee1761840',
-            `user_date_confirm`='0',
+            `user_date_confirm`=0,
             `user_date_login`=UNIX_TIMESTAMP(),
             `user_date_register`=UNIX_TIMESTAMP(),
             `user_email`='suronovos@mail.ru',
@@ -144,7 +144,7 @@ foreach ($team_array as $team)
 
     $sql = "INSERT INTO `team`
             SET `team_name`='$team_name',
-                `team_stadium_id`='$team_stadium_id'";
+                `team_stadium_id`=$team_stadium_id";
     f_igosja_mysqli_query($sql);
 
     $num_get = $mysqli->insert_id;
@@ -211,12 +211,12 @@ for ($i=0; $i<63; $i++)
         $tournament_type    = TOURNAMENTTYPE_CHAMPIONSHIP;
     }
 
-    $shedule_insert_array[] = "('$date', '1', '$shedule_stage_array[$i]', '$tournament_type')";
+    $shedule_insert_array[] = "('$date', 1, '$shedule_stage_array[$i]', '$tournament_type')";
 
     if ($conference)
     {
         $tournament_type_c  = TOURNAMENTTYPE_CONFERENCE;
-        $shedule_insert_array[] = "('$date', '1', '$shedule_conference_stage_array[$i]', '$tournament_type_c')";
+        $shedule_insert_array[] = "('$date', 1, '$shedule_conference_stage_array[$i]', '$tournament_type_c')";
     }
 }
 
@@ -233,15 +233,15 @@ $game_array = array();
 $sql = "INSERT INTO `offseason` (`offseason_season_id`, `offseason_team_id`)
         SELECT '$igosja_season_id', `team_id`
         FROM `team`
-        WHERE `team_id`!='0'
+        WHERE `team_id`!=0
         ORDER BY `team_id` ASC";
 f_igosja_mysqli_query($sql);
 
 $sql = "SELECT `shedule_id`
         FROM `shedule`
-        WHERE `shedule_tournamenttype_id`='" . TOURNAMENTTYPE_OFFSEASON . "'
-        AND `shedule_stage_id`='" . STAGE_1_TOUR . "'
-        AND `shedule_season_id`='$igosja_season_id'
+        WHERE `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
+        AND `shedule_stage_id`=" . STAGE_1_TOUR . "
+        AND `shedule_season_id`=$igosja_season_id
         LIMIT 1";
 $shedule_sql = f_igosja_mysqli_query($sql);
 
@@ -256,7 +256,7 @@ $sql = "SELECT `offseason_team_id`,
         ON `offseason_team_id`=`team_id`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
-        WHERE `offseason_season_id`='$igosja_season_id'
+        WHERE `offseason_season_id`=$igosja_season_id
         ORDER BY RAND()";
 $team_sql = f_igosja_mysqli_query($sql);
 
@@ -287,9 +287,9 @@ $sql = "SELECT `city_country_id`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
-        WHERE `team_id`!='0'
+        WHERE `team_id`!=0
         GROUP BY `city_country_id`
-        HAVING COUNT(`team_id`)>='16'
+        HAVING COUNT(`team_id`)>=16
         ORDER BY `city_country_id` ASC";
 $country_sql = f_igosja_mysqli_query($sql);
 
@@ -302,27 +302,27 @@ foreach ($country_array as $country)
     $championship_country_array[] = $country_id;
 
     $sql = "INSERT INTO `championship` (`championship_country_id`, `championship_division_id`, `championship_season_id`, `championship_team_id`)
-            SELECT `city_country_id`, '1', '$igosja_season_id', `team_id`
+            SELECT `city_country_id`, 1, '$igosja_season_id', `team_id`
             FROM `team`
             LEFT JOIN `stadium`
             ON `team_stadium_id`=`stadium_id`
             LEFT JOIN `city`
             ON `stadium_city_id`=`city_id`
-            WHERE `team_id`!='0'
-            AND `city_country_id`='$country_id'
+            WHERE `team_id`!=0
+            AND `city_country_id`=$country_id
             ORDER BY `team_id` ASC
             LIMIT 16";
     f_igosja_mysqli_query($sql);
 
     $sql = "INSERT INTO `championship` (`championship_country_id`, `championship_division_id`, `championship_season_id`, `championship_team_id`)
-            SELECT `city_country_id`, '2', '$igosja_season_id', `team_id`
+            SELECT `city_country_id`, 2, $igosja_season_id, `team_id`
             FROM `team`
             LEFT JOIN `stadium`
             ON `team_stadium_id`=`stadium_id`
             LEFT JOIN `city`
             ON `stadium_city_id`=`city_id`
-            WHERE `team_id`!='0'
-            AND `city_country_id`='$country_id'
+            WHERE `team_id`!=0
+            AND `city_country_id`=$country_id
             ORDER BY `team_id` ASC
             LIMIT 16, 16";
     f_igosja_mysqli_query($sql);
@@ -330,8 +330,8 @@ foreach ($country_array as $country)
 
 $sql = "SELECT `shedule_id`
         FROM `shedule`
-        WHERE `shedule_season_id`='$igosja_season_id'
-        AND `shedule_tournamenttype_id`='" . TOURNAMENTTYPE_CHAMPIONSHIP . "'
+        WHERE `shedule_season_id`=$igosja_season_id
+        AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
         ORDER BY `shedule_id` ASC
         LIMIT 30";
 $shedule_sql = f_igosja_mysqli_query($sql);
@@ -380,9 +380,9 @@ foreach ($championship_country_array as $item)
                 ON `championship_team_id`=`team_id`
                 LEFT JOIN `stadium`
                 ON `team_stadium_id`=`stadium_id`
-                WHERE `championship_country_id`='$item'
-                AND `championship_division_id`='$i'
-                AND `championship_season_id`='$igosja_season_id'
+                WHERE `championship_country_id`=$item
+                AND `championship_division_id`=$i
+                AND `championship_season_id`=$igosja_season_id
                 ORDER BY RAND()";
         $team_sql = f_igosja_mysqli_query($sql);
 
@@ -674,21 +674,21 @@ $game_array = array();
 $sql = "INSERT INTO `conference` (`conference_season_id`, `conference_team_id`)
         SELECT '$igosja_season_id', `team_id`
         FROM `team`
-        WHERE `team_id`!='0'
+        WHERE `team_id`!=0
         AND `team_id` NOT IN
         (
             SELECT `championship_team_id`
             FROM `championship`
-            WHERE `championship_season_id`='$igosja_season_id'
+            WHERE `championship_season_id`=$igosja_season_id
         )
         ORDER BY `team_id` ASC";
 f_igosja_mysqli_query($sql);
 
 $sql = "SELECT `shedule_id`
         FROM `shedule`
-        WHERE `shedule_tournamenttype_id`='" . TOURNAMENTTYPE_CONFERENCE . "'
-        AND `shedule_stage_id`='" . STAGE_1_TOUR . "'
-        AND `shedule_season_id`='$igosja_season_id'
+        WHERE `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_CONFERENCE . "
+        AND `shedule_stage_id`=" . STAGE_1_TOUR . "
+        AND `shedule_season_id`=$igosja_season_id
         LIMIT 1";
 $shedule_sql = f_igosja_mysqli_query($sql);
 
@@ -703,7 +703,7 @@ $sql = "SELECT `conference_team_id`,
         ON `conference_team_id`=`team_id`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
-        WHERE `conference_season_id`='$igosja_season_id'
+        WHERE `conference_season_id`=$igosja_season_id
         ORDER BY RAND()";
 $team_sql = f_igosja_mysqli_query($sql);
 

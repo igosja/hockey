@@ -7,13 +7,13 @@ $num_get = (int) f_igosja_request_get('num');
 if (0 != $num_get)
 {
     $sql = "DELETE FROM `team`
-            WHERE `team_id`='$num_get'
+            WHERE `team_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `player_id`
             FROM `player`
-            WHERE `player_team_id`='$num_get'
+            WHERE `player_team_id`=$num_get
             ORDER BY `player_id` ASC";
     $player_sql = f_igosja_mysqli_query($sql);
 
@@ -24,8 +24,8 @@ if (0 != $num_get)
         $player_id = $item['player_id'];
 
         $sql = "UPDATE `player`
-                SET `player_team_id`='0'
-                WHERE `player_id`='$player_id'
+                SET `player_team_id`=0
+                WHERE `player_id`=$player_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 

@@ -15,10 +15,10 @@ function f_igosja_generator_set_auto()
             FROM `game`
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
-            AND (`game_guest_tactic_id`='0'
-            OR `game_home_tactic_id`='0')
+            AND (`game_guest_tactic_id`=0
+            OR `game_home_tactic_id`=0)
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -57,17 +57,17 @@ function f_igosja_generator_set_auto()
         }
 
         $sql = "UPDATE `game`
-                SET `game_guest_auto`='$guest_auto',
-                    `game_guest_mood_id`='$guest_mood_id',
-                    `game_guest_rude_id`='$guest_rude_id',
-                    `game_guest_style_id`='$guest_style_id',
-                    `game_guest_tactic_id`='$guest_tactic_id',
-                    `game_home_auto`='$home_auto',
-                    `game_home_mood_id`='$home_mood_id',
-                    `game_home_rude_id`='$home_rude_id',
-                    `game_home_style_id`='$home_style_id',
-                    `game_home_tactic_id`='$home_tactic_id'
-                WHERE `game_id`='$game_id'
+                SET `game_guest_auto`=$guest_auto,
+                    `game_guest_mood_id`=$guest_mood_id,
+                    `game_guest_rude_id`=$guest_rude_id,
+                    `game_guest_style_id`=$guest_style_id,
+                    `game_guest_tactic_id`=$guest_tactic_id,
+                    `game_home_auto`=$home_auto,
+                    `game_home_mood_id`=$home_mood_id,
+                    `game_home_rude_id`=$home_rude_id,
+                    `game_home_style_id`=$home_style_id,
+                    `game_home_tactic_id`=$home_tactic_id
+                WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 

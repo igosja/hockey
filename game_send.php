@@ -13,18 +13,18 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 }
 
 $sql = "SELECT `game_guest_team_id`,
-               IF(`game_home_team_id`='$auth_team_id', `game_home_mood_id`, `game_guest_mood_id`) AS `game_mood_id`,
-               IF(`game_home_team_id`='$auth_team_id', `game_home_rude_id`, `game_guest_rude_id`) AS `game_rude_id`,
-               IF(`game_home_team_id`='$auth_team_id', `game_home_style_id`, `game_guest_style_id`) AS `game_style_id`,
-               IF(`game_home_team_id`='$auth_team_id', `game_home_tactic_id`, `game_guest_tactic_id`) AS `game_tactic_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_mood_id`, `game_guest_mood_id`) AS `game_mood_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_rude_id`, `game_guest_rude_id`) AS `game_rude_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_style_id`, `game_guest_style_id`) AS `game_style_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_id`, `game_guest_tactic_id`) AS `game_tactic_id`,
                `game_ticket`
         FROM `game`
         LEFT JOIN `shedule`
         ON `game_shedule_id`=`shedule_id`
-        WHERE (`game_guest_team_id`='$auth_team_id'
-        OR `game_home_team_id`='$auth_team_id')
-        AND `game_played`='0'
-        AND `game_id`='$num_get'
+        WHERE (`game_guest_team_id`=$auth_team_id
+        OR `game_home_team_id`=$auth_team_id)
+        AND `game_played`=0
+        AND `game_id`=$num_get
         LIMIT 1";
 $current_sql = f_igosja_mysqli_query($sql);
 
@@ -66,23 +66,23 @@ if ($data = f_igosja_request_post('data'))
     $rw_3_id    = (int) $data['line'][3][5];
 
     $sql = "UPDATE `game`
-            SET `game_home_mood_id`='$mood_id',
-                `game_home_rude_id`='$rude_id',
-                `game_home_style_id`='$style_id',
-                `game_home_tactic_id`='$tactic_id',
-                `game_ticket`='$ticket'
-            WHERE `game_home_team_id`='$auth_team_id'
-            AND `game_id`='$num_get'
+            SET `game_home_mood_id`=$mood_id,
+                `game_home_rude_id`=$rude_id,
+                `game_home_style_id`=$style_id,
+                `game_home_tactic_id`=$tactic_id,
+                `game_ticket`=$ticket
+            WHERE `game_home_team_id`=$auth_team_id
+            AND `game_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `game`
-            SET `game_guest_mood_id`='$mood_id',
-                `game_guest_rude_id`='$rude_id',
-                `game_guest_style_id`='$style_id',
-                `game_guest_tactic_id`='$tactic_id'
-            WHERE `game_guest_team_id`='$auth_team_id'
-            AND `game_id`='$num_get'
+            SET `game_guest_mood_id`=$mood_id,
+                `game_guest_rude_id`=$rude_id,
+                `game_guest_style_id`=$style_id,
+                `game_guest_tactic_id`=$tactic_id
+            WHERE `game_guest_team_id`=$auth_team_id
+            AND `game_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
@@ -107,21 +107,21 @@ if ($data = f_igosja_request_post('data'))
 
         $sql = "SELECT `lineup_id`
                 FROM `lineup`
-                WHERE `lineup_game_id`='$num_get'
-                AND `lineup_line_id`='$line_id'
-                AND `lineup_position_id`='$position_id'
-                AND `lineup_team_id`='$auth_team_id'
+                WHERE `lineup_game_id`=$num_get
+                AND `lineup_line_id`=$line_id
+                AND `lineup_position_id`=$position_id
+                AND `lineup_team_id`=$auth_team_id
                 LIMIT 1";
         $lineup_sql = f_igosja_mysqli_query($sql);
 
         if (0 == $lineup_sql->num_rows)
         {
             $sql = "INSERT INTO `lineup`
-                    SET `lineup_game_id`='$num_get',
-                        `lineup_line_id`='$line_id',
-                        `lineup_player_id`='$player_id',
-                        `lineup_position_id`='$position_id',
-                        `lineup_team_id`='$auth_team_id'";
+                    SET `lineup_game_id`=$num_get,
+                        `lineup_line_id`=$line_id,
+                        `lineup_player_id`=$player_id,
+                        `lineup_position_id`=$position_id,
+                        `lineup_team_id`=$auth_team_id";
             f_igosja_mysqli_query($sql);
         }
         else
@@ -131,8 +131,8 @@ if ($data = f_igosja_request_post('data'))
             $lineup_id = $lineup_array[0]['lineup_id'];
 
             $sql = "UPDATE `lineup`
-                    SET `lineup_player_id`='$player_id'
-                    WHERE `lineup_id`='$lineup_id'
+                    SET `lineup_player_id`=$player_id
+                    WHERE `lineup_id`=$lineup_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
         }
@@ -167,8 +167,8 @@ $sql = "SELECT `lineup_line_id`,
                `lineup_player_id`,
                `lineup_position_id`
         FROM `lineup`
-        WHERE `lineup_game_id`='$num_get'
-        AND `lineup_team_id`='$auth_team_id'
+        WHERE `lineup_game_id`=$num_get
+        AND `lineup_team_id`=$auth_team_id
         ORDER BY `lineup_id` ASC";
 $lineup_sql = f_igosja_mysqli_query($sql);
 
@@ -195,8 +195,8 @@ foreach ($lineup_array as $item)
 }
 
 $sql = "SELECT `game_id`,
-               IF(`game_guest_team_id`='$auth_team_id', `game_guest_tactic_id`, `game_home_tactic_id`) AS `game_tactic_id`,
-               IF(`game_guest_team_id`='$auth_team_id', 'Г', 'Д') AS `home_guest`,
+               IF(`game_guest_team_id`=$auth_team_id, `game_guest_tactic_id`, `game_home_tactic_id`) AS `game_tactic_id`,
+               IF(`game_guest_team_id`=$auth_team_id, 'Г', 'Д') AS `home_guest`,
                `shedule_date`,
                `stage_name`,
                `team_id`,
@@ -210,10 +210,10 @@ $sql = "SELECT `game_id`,
         LEFT JOIN `stage`
         ON `shedule_stage_id`=`stage_id`
         LEFT JOIN `team`
-        ON IF(`game_guest_team_id`='$auth_team_id', `game_home_team_id`, `game_guest_team_id`)=`team_id`
-        WHERE (`game_guest_team_id`='$auth_team_id'
-        OR `game_home_team_id`='$auth_team_id')
-        AND `game_played`='0'
+        ON IF(`game_guest_team_id`=$auth_team_id, `game_home_team_id`, `game_guest_team_id`)=`team_id`
+        WHERE (`game_guest_team_id`=$auth_team_id
+        OR `game_home_team_id`=$auth_team_id)
+        AND `game_played`=0
         ORDER BY `shedule_date` ASC
         LIMIT 5";
 $game_sql = f_igosja_mysqli_query($sql);
@@ -236,7 +236,7 @@ $sql = "SELECT `country_id`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
-        WHERE `player_team_id`='$auth_team_id'
+        WHERE `player_team_id`=$auth_team_id
         ORDER BY `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
@@ -265,8 +265,8 @@ for ($i=1; $i<=6; $i++)
             ON `player_name_id`=`name_id`
             LEFT JOIN `surname`
             ON `player_surname_id`=`surname_id`
-            WHERE `player_team_id`='$auth_team_id'
-            AND `playerposition_position_id`='$i'
+            WHERE `player_team_id`=$auth_team_id
+            AND `playerposition_position_id`=$i
             ORDER BY `player_power_real` DESC";
     $result_sql = f_igosja_mysqli_query($sql);
 

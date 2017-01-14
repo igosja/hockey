@@ -11,20 +11,21 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `vote`
             SET $set_sql
-            WHERE `vote_id`='$num_get'
+            WHERE `vote_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     foreach ($answer as $key => $item)
     {
         $item = trim($item);
+        $key  = (int) $key;
 
         if (!empty($item))
         {
             $sql = "SELECT COUNT(`voteanswer_id`) AS `count`
                     FROM `voteanswer`
-                    WHERE `voteanswer_vote_id`='$num_get'
-                    AND `voteanswer_id`='$key'";
+                    WHERE `voteanswer_vote_id`=$num_get
+                    AND `voteanswer_id`=$key";
             $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(1);
@@ -33,7 +34,7 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "UPDATE `voteanswer`
                         SET `voteanswer_text`='$item'
-                        WHERE `voteanswer_id`='$key'
+                        WHERE `voteanswer_id`=$key
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
             }
@@ -41,8 +42,8 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "INSERT INTO `voteanswer`
                         SET `voteanswer_text`='$item',
-                            `voteanswer_vote_id`='$num_get'
-                        WHERE `voteanswer_id`='$key'";
+                            `voteanswer_vote_id`=$num_get
+                        WHERE `voteanswer_id`=$key";
                 f_igosja_mysqli_query($sql);
             }
         }
@@ -58,7 +59,7 @@ $sql = "SELECT `vote_id`,
         FROM `vote`
         LEFT JOIN `voteanswer`
         ON `vote_id`=`voteanswer_vote_id`
-        WHERE `vote_id`='$num_get'
+        WHERE `vote_id`=$num_get
         ORDER BY `voteanswer_id` ASC";
 $vote_sql = f_igosja_mysqli_query($sql);
 

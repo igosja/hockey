@@ -8,7 +8,7 @@ $sql = "SELECT `news_id`,
                `news_text`,
                `news_title`
         FROM `news`
-        WHERE `news_id`='$num_get'
+        WHERE `news_id`=$num_get
         LIMIT 1";
 $news_sql = f_igosja_mysqli_query($sql);
 

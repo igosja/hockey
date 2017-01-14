@@ -36,7 +36,7 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `team_id`='$num_get'
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 
@@ -49,7 +49,7 @@ $team_array = $team_sql->fetch_all(1);
 
 $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         FROM `buildingbase`
-        WHERE `buildingbase_team_id`='$auth_team_id'";
+        WHERE `buildingbase_team_id`=$auth_team_id";
 $buildingbase_sql = f_igosja_mysqli_query($sql);
 
 $buildingbase_array = $buildingbase_sql->fetch_all(1);
@@ -98,7 +98,7 @@ $sql = "SELECT `base_id`,
         ON `team_basescout_id`=`basescout_id`
         LEFT JOIN `basetraining`
         ON `team_basetraining_id`=`basetraining_id`
-        WHERE `team_id`='$num_get'";
+        WHERE `team_id`=$num_get";
 $base_sql = f_igosja_mysqli_query($sql);
 
 $base_array = $base_sql->fetch_all(1);
@@ -128,7 +128,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                                `base_price_buy`,
                                `base_slot_min`
                         FROM `base`
-                        WHERE `base_id`='$level'
+                        WHERE `base_id`=$level
                         LIMIT 1";
                 $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -161,15 +161,15 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                         $buildingbase_price = $baseinfo_array[0]['base_price_buy'];
 
                         $sql = "INSERT INTO `buildingbase`
-                                SET `buildingbase_building_id`='$building_id',
-                                    `buildingbase_constructiontype_id`='$constructiontype_id',
-                                    `buildingbase_day`='$buildingbase_day',
-                                    `buildingbase_team_id`='$auth_team_id'";
+                                SET `buildingbase_building_id`=$building_id,
+                                    `buildingbase_constructiontype_id`=$constructiontype_id,
+                                    `buildingbase_day`=$buildingbase_day,
+                                    `buildingbase_team_id`=$auth_team_id";
                         f_igosja_mysqli_query($sql);
 
                         $sql = "UPDATE `team`
-                                SET `team_finance`=`team_finance`-'$buildingbase_price'
-                                WHERE `team_id`='$auth_team_id'
+                                SET `team_finance`=`team_finance`-$buildingbase_price
+                                WHERE `team_id`=$auth_team_id
                                 LIMIT 1";
                         f_igosja_mysqli_query($sql);
 
@@ -195,7 +195,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
             {
                 $sql = "SELECT `building_name`
                         FROM `building`
-                        WHERE `building_id`='$building_id'
+                        WHERE `building_id`=$building_id
                         LIMIT 1";
                 $building_sql = f_igosja_mysqli_query($sql);
 
@@ -217,7 +217,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                                    `" . $building_name . "_level`,
                                    `" . $building_name . "_price_buy`
                             FROM `" . $building_name . "`
-                            WHERE `" . $building_name . "_id`='$level'
+                            WHERE `" . $building_name . "_id`=$level
                             LIMIT 1";
                     $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -250,15 +250,15 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                             $buildingbase_price = $baseinfo_array[0][$building_name . '_price_buy'];
 
                             $sql = "INSERT INTO `buildingbase`
-                                    SET `buildingbase_building_id`='$building_id',
-                                        `buildingbase_constructiontype_id`='$constructiontype_id',
-                                        `buildingbase_day`='$buildingbase_day',
-                                        `buildingbase_team_id`='$auth_team_id'";
+                                    SET `buildingbase_building_id`=$building_id,
+                                        `buildingbase_constructiontype_id`=$constructiontype_id,
+                                        `buildingbase_day`=$buildingbase_day,
+                                        `buildingbase_team_id`=$auth_team_id";
                             f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
-                                    SET `team_finance`=`team_finance`-'$buildingbase_price'
-                                    WHERE `team_id`='$auth_team_id'
+                                    SET `team_finance`=`team_finance`-$buildingbase_price
+                                    WHERE `team_id`=$auth_team_id
                                     LIMIT 1";
                             f_igosja_mysqli_query($sql);
 
@@ -290,7 +290,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
 
                 $sql = "SELECT `base_price_sell`
                         FROM `base`
-                        WHERE `base_id`='$level'
+                        WHERE `base_id`=$level
                         LIMIT 1";
                 $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -311,7 +311,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                                `base_level`,
                                `base_slot_max`
                         FROM `base`
-                        WHERE `base_id`='$level'
+                        WHERE `base_id`=$level
                         LIMIT 1";
                 $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -338,15 +338,15 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                         $buildingbase_day = 1;
 
                         $sql = "INSERT INTO `buildingbase`
-                                SET `buildingbase_building_id`='$building_id',
-                                    `buildingbase_constructiontype_id`='$constructiontype_id',
-                                    `buildingbase_day`='$buildingbase_day',
-                                    `buildingbase_team_id`='$auth_team_id'";
+                                SET `buildingbase_building_id`=$building_id,
+                                    `buildingbase_constructiontype_id`=$constructiontype_id,
+                                    `buildingbase_day`=$buildingbase_day,
+                                    `buildingbase_team_id`=$auth_team_id";
                         f_igosja_mysqli_query($sql);
 
                         $sql = "UPDATE `team`
-                                SET `team_finance`=`team_finance`+'$buildingbase_price'
-                                WHERE `team_id`='$auth_team_id'
+                                SET `team_finance`=`team_finance`+$buildingbase_price
+                                WHERE `team_id`=$auth_team_id
                                 LIMIT 1";
                         f_igosja_mysqli_query($sql);
 
@@ -372,7 +372,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
             {
                 $sql = "SELECT `building_name`
                         FROM `building`
-                        WHERE `building_id`='$building_id'
+                        WHERE `building_id`=$building_id
                         LIMIT 1";
                 $building_sql = f_igosja_mysqli_query($sql);
 
@@ -390,7 +390,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
 
                     $sql = "SELECT `" . $building_name . "_price_sell`
                             FROM `" . $building_name . "`
-                            WHERE `" . $building_name . "_id`='$level'
+                            WHERE `" . $building_name . "_id`=$level
                             LIMIT 1";
                     $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -411,7 +411,7 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                                    `" . $building_name . "_build_speed`,
                                    `" . $building_name . "_level`
                             FROM `" . $building_name . "`
-                            WHERE `" . $building_name . "_id`='$level'
+                            WHERE `" . $building_name . "_id`=$level
                             LIMIT 1";
                     $baseinfo_sql = f_igosja_mysqli_query($sql);
 
@@ -434,15 +434,15 @@ if ($building_id = (int) f_igosja_request_get('building_id'))
                             $buildingbase_day = 1;
 
                             $sql = "INSERT INTO `buildingbase`
-                                    SET `buildingbase_building_id`='$building_id',
-                                        `buildingbase_constructiontype_id`='$constructiontype_id',
-                                        `buildingbase_day`='$buildingbase_day',
-                                        `buildingbase_team_id`='$auth_team_id'";
+                                    SET `buildingbase_building_id`=$building_id,
+                                        `buildingbase_constructiontype_id`=$constructiontype_id,
+                                        `buildingbase_day`=$buildingbase_day,
+                                        `buildingbase_team_id`=$auth_team_id";
                             f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
-                                    SET `team_finance`=`team_finance`+'$buildingbase_price'
-                                    WHERE `team_id`='$auth_team_id'
+                                    SET `team_finance`=`team_finance`+$buildingbase_price
+                                    WHERE `team_id`=$auth_team_id
                                     LIMIT 1";
                             f_igosja_mysqli_query($sql);
 

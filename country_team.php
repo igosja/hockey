@@ -9,7 +9,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 $sql = "SELECT `country_name`
         FROM `country`
-        WHERE `country_id`='$num_get'
+        WHERE `country_id`=$num_get
         LIMIT 1";
 $country_sql = f_igosja_mysqli_query($sql);
 
@@ -27,7 +27,7 @@ $sql = "SELECT `team_id`,
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
-        WHERE `city_country_id`='$num_get'
+        WHERE `city_country_id`=$num_get
         ORDER BY `team_name` ASC";
 $team_sql = f_igosja_mysqli_query($sql);
 

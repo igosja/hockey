@@ -7,7 +7,7 @@ $sql = "SELECT `country_id`,
         FROM `championship`
         LEFT JOIN `country`
         ON `championship_country_id`=`country_id`
-        WHERE `championship_season_id`='$igosja_season_id'
+        WHERE `championship_season_id`=$igosja_season_id
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
 $country_sql = f_igosja_mysqli_query($sql);
@@ -27,9 +27,9 @@ for ($i=0; $i<$count_country; $i++)
                 FROM `championship`
                 LEFT JOIN `division`
                 ON `championship_division_id`=`division_id`
-                WHERE `championship_season_id`='$igosja_season_id'
-                AND `championship_division_id`='$j'
-                AND `championship_country_id`='$country_id'
+                WHERE `championship_season_id`=$igosja_season_id
+                AND `championship_division_id`=$j
+                AND `championship_country_id`=$country_id
                 LIMIT 1";
         $division_sql = f_igosja_mysqli_query($sql);
 

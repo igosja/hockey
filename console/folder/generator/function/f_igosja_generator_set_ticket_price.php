@@ -7,9 +7,9 @@ function f_igosja_generator_set_ticket_price()
             FROM `game`
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
-            AND `game_ticket`='0'
+            AND `game_ticket`=0
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -20,8 +20,8 @@ function f_igosja_generator_set_ticket_price()
         $game_id = $game['game_id'];
 
         $sql = "UPDATE `game`
-                SET `game_ticket`='20'
-                WHERE `game_id`='$game_id'
+                SET `game_ticket`=20
+                WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 

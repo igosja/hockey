@@ -10,7 +10,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `team`
             SET $set_sql
-            WHERE `team_id`='$num_get'
+            WHERE `team_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
@@ -21,7 +21,7 @@ $sql = "SELECT `team_stadium_id`,
                `team_id`,
                `team_name`
         FROM `team`
-        WHERE `team_id`='$num_get'
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 

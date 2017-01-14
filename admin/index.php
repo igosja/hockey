@@ -10,8 +10,8 @@ $teamask_array = $teamask_sql->fetch_all(1);
 
 $sql = "SELECT COUNT(`message_id`) AS `count`
         FROM `message`
-        WHERE `message_support_to`='1'
-        AND `message_read`='0'";
+        WHERE `message_support_to`=1
+        AND `message_read`=0";
 $support_sql = f_igosja_mysqli_query($sql);
 
 $support_array = $support_sql->fetch_all(1);

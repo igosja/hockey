@@ -41,7 +41,7 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `team_id`='$num_get'
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $team_sql = f_igosja_mysqli_query($sql);
 
@@ -54,7 +54,7 @@ $team_array = $team_sql->fetch_all(1);
 
 $sql = "SELECT `city_name`,
                `country_name`,
-               IF(`game_guest_team_id`='$num_get', `game_guest_auto`, `game_home_auto`) AS `game_auto`,
+               IF(`game_guest_team_id`=$num_get, `game_guest_auto`, `game_home_auto`) AS `game_auto`,
                `game_guest_score`,
                `game_home_score`,
                `game_id`,
@@ -72,16 +72,16 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `stage`
         ON `shedule_stage_id`=`stage_id`
         LEFT JOIN `team`
-        ON IF(`game_guest_team_id`='$num_get', `game_home_team_id`, `game_guest_team_id`)=`team_id`
+        ON IF(`game_guest_team_id`=$num_get, `game_home_team_id`, `game_guest_team_id`)=`team_id`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE (`game_guest_team_id`='$num_get'
-        OR `game_home_team_id`='$num_get')
-        AND `shedule_season_id`='$igosja_season_id'
+        WHERE (`game_guest_team_id`=$num_get
+        OR `game_home_team_id`=$num_get)
+        AND `shedule_season_id`=$igosja_season_id
         ORDER BY `shedule_id` ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 

@@ -9,7 +9,7 @@ function f_igosja_generator_fill_lineup()
             FROM `game`
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
-            WHERE `game_played`='0'
+            WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
@@ -119,10 +119,10 @@ function f_igosja_generator_fill_lineup()
                 $sql = "SELECT `lineup_id`,
                                `lineup_player_id`
                         FROM `lineup`
-                        WHERE `lineup_game_id`='$game_id'
-                        AND `lineup_line_id`='$line_id'
-                        AND `lineup_position_id`='$position_id'
-                        AND `lineup_team_id`='$team_id'
+                        WHERE `lineup_game_id`=$game_id
+                        AND `lineup_line_id`=$line_id
+                        AND `lineup_position_id`=$position_id
+                        AND `lineup_team_id`=$team_id
                         LIMIT 1";
                 $lineup_sql = f_igosja_mysqli_query($sql);
 
@@ -157,8 +157,8 @@ function f_igosja_generator_fill_lineup()
                                 WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
                             ) AS `t`
                             ON `player_id`=`lineup_player_id`
-                            WHERE `player_team_id`='$team_id'
-                            AND `playerposition_position_id`='$position_id'
+                            WHERE `player_team_id`=$team_id
+                            AND `playerposition_position_id`=$position_id
                             AND `lineup_player_id` IS NULL
                             ORDER BY `player_tire` ASC, `player_power_real` DESC
                             LIMIT 1";
@@ -182,8 +182,8 @@ function f_igosja_generator_fill_lineup()
                                     WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
                                 ) AS `t`
                                 ON `player_id`=`lineup_player_id`
-                                WHERE `player_team_id`='0'
-                                AND `playerposition_position_id`='$position_id'
+                                WHERE `player_team_id`=0
+                                AND `playerposition_position_id`=$position_id
                                 AND `lineup_player_id` IS NULL
                                 ORDER BY `player_tire` ASC, `player_power_real` DESC
                                 LIMIT 1";
@@ -197,18 +197,18 @@ function f_igosja_generator_fill_lineup()
                     if (0 == $lineup_id)
                     {
                         $sql = "INSERT INTO `lineup`
-                                SET `lineup_player_id`='$player_id',
-                                    `lineup_line_id`='$line_id',
-                                    `lineup_position_id`='$position_id',
-                                    `lineup_team_id`='$team_id',
-                                    `lineup_game_id`='$game_id'";
+                                SET `lineup_player_id`=$player_id,
+                                    `lineup_line_id`=$line_id,
+                                    `lineup_position_id`=$position_id,
+                                    `lineup_team_id`=$team_id,
+                                    `lineup_game_id`=$game_id";
                         f_igosja_mysqli_query($sql);
                     }
                     else
                     {
                         $sql = "UPDATE `lineup`
-                                SET `lineup_player_id`='$player_id'
-                                WHERE `lineup_id`='$lineup_id'
+                                SET `lineup_player_id`=$player_id
+                                WHERE `lineup_id`=$lineup_id
                                 LIMIT 1";
                         f_igosja_mysqli_query($sql);
                     }
