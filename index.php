@@ -2,14 +2,9 @@
 
 include (__DIR__ . '/include/include.php');
 
-$sql = "SELECT `news_date`,
-               `news_text`,
-               `news_title`,
-               `user_id`,
-               `user_login`
+$sql = "SELECT `news_text`,
+               `news_title`
         FROM `news`
-        LEFT JOIN `user`
-        ON `news_user_id`=`user_id`
         WHERE `news_country_id`=0
         ORDER BY `news_id` DESC
         LIMIT 1";

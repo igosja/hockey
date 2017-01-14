@@ -12,7 +12,7 @@ if ('admin' == $chapter)
 {
     if (!isset($auth_user_id) || 2 > $auth_userrole_id)
     {
-        redirect('/');
+        redirect('/admin_login.php');
     }
 
     include (__DIR__ . '/../include/filter.php');

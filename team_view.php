@@ -32,8 +32,6 @@ $sql = "SELECT `country_id`,
                `player_power_real`,
                `player_price`,
                `player_tire`,
-               GROUP_CONCAT(`playerposition_position_id` SEPARATOR ',') AS `playerposition_position_id`,
-               GROUP_CONCAT(`playerspecial_special_id` SEPARATOR ',') AS `playerspecial_special_id`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -48,10 +46,22 @@ $sql = "SELECT `country_id`,
         ON `player_id`=`playerposition_player_id`
         LEFT JOIN `playerspecial`
         ON `player_id`=`playerspecial_player_id`
-        WHERE `player_team_id`=$num_get
-        GROUP BY `player_id`";
+        WHERE `player_team_id`=$num_get";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
+
+$sql = "SELECT `team_power_s_16`,
+               `team_power_s_21`,
+               `team_power_s_27`,
+               `team_power_vs`,
+               `team_price_base`,
+               `team_price_total`
+        FROM `team`
+        WHERE `team_id`=$num_get
+        LIMIT 1";
+$rating_sql = f_igosja_mysqli_query($sql);
+
+$rating_array = $rating_sql->fetch_all(1);
 
 include (__DIR__ . '/view/layout/main.php');

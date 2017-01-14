@@ -9,7 +9,26 @@
 <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            Список с напоминаниями
+            <ul>
+                <li>В вашей стране проходят выборы заместителя тренера молодёжной сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы заместителя тренера национальной сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы заместителя тренера юношеской сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть здесь</li>
+                <li>В вашей стране проходят выборы президента федерации</li>
+                <li>Ваш тренировочный центр простаивает - осталось 15 баллов силы, 3 спецвозможности, 1 совмещение</li>
+                <li>Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить</li>
+                <li>Ваша спортшкола простаивает - можно подготовить ещё одного молодого игрока для основной команды</li>
+                <li>Доступна бонусная тренировка - 0 баллов силы, 1 совмещение, 0 спецвозможностей</li>
+                <li>Открыт прием заявок от кандидатов в тренеры молодежных сборных</li>
+                <li>Открыт прием заявок от кандидатов в тренеры национальных сборных</li>
+                <li>Открыт прием заявок от кандидатов в тренеры юношеских сборных</li>
+                <li>Открыт прием заявок от кандидатов на пост заместителя тренера молодёжной сборной вашей страны</li>
+                <li>Открыт прием заявок от кандидатов на пост заместителя тренера национальной сборной вашей страны</li>
+                <li>Открыт прием заявок от кандидатов на пост заместителя тренера юношеской сборной вашей страны</li>
+                <li>Открыт прием заявок от кандидатов на пост президента федерации вашей стран</li>
+            </ul>
         </div>
     </div>
 <?php } ?>
@@ -54,7 +73,7 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['playerposition_position_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>
                     <td class="text-center"><?= $item['player_power_nominal']; ?></td>
                     <td class="text-center"><?= $item['player_tire']; ?></td>
@@ -65,7 +84,7 @@
                         />
                     </td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['playerspecial_special_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
@@ -100,14 +119,14 @@
     </div>
 </div>
 <div class="row margin-top">
-    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-size-2">
         <span class="italic">Показатели команды:</span>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 - Рейтинг силы команды (Vs)
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                0
+                <?= $rating_array[0]['team_power_vs']; ?>
             </div>
         </div>
         <div class="row">
@@ -115,7 +134,7 @@
                 - Сила 16 лучших (s16)
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                0
+                <?= $rating_array[0]['team_power_s_16']; ?>
             </div>
         </div>
         <div class="row">
@@ -123,7 +142,7 @@
                 - Сила 21 лучшего (s21)
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                0
+                <?= $rating_array[0]['team_power_s_21']; ?>
             </div>
         </div>
         <div class="row">
@@ -131,7 +150,7 @@
                 - Сила 27 лучших (s27)
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                0
+                <?= $rating_array[0]['team_power_s_27']; ?>
             </div>
         </div>
         <div class="row">
@@ -139,7 +158,7 @@
                 - Стоимость строений
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= f_igosja_money(0); ?>
+                <?= f_igosja_money($rating_array[0]['team_price_base']); ?>
             </div>
         </div>
         <div class="row">
@@ -147,7 +166,7 @@
                 - Общая стоимость
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= f_igosja_money(0); ?>
+                <?= f_igosja_money($rating_array[0]['team_price_total']); ?>
             </div>
         </div>
         <div class="row margin-top">

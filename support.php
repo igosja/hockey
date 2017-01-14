@@ -9,22 +9,25 @@ if (!isset($auth_user_id))
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($data['text']) && !empty(trim($data['text'])))
+    if (isset($data['text']) &&!empty($data['text']))
     {
         $text = trim($data['text']);
 
-        $sql = "INSERT INTO `message`
-                SET `message_date`=UNIX_TIMESTAMP(),
-                    `message_support_to`=1,
-                    `message_text`=?,
-                    `message_user_id_from`=$auth_user_id";
-        $prepare = $mysqli->prepare($sql);
-        $prepare->bind_param('s', $text);
-        $prepare->execute();
-        $prepare->close();
+        if (!empty($text))
+        {
+            $sql = "INSERT INTO `message`
+                    SET `message_date`=UNIX_TIMESTAMP(),
+                        `message_support_to`=1,
+                        `message_text`=?,
+                        `message_user_id_from`=$auth_user_id";
+            $prepare = $mysqli->prepare($sql);
+            $prepare->bind_param('s', $text);
+            $prepare->execute();
+            $prepare->close();
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Сообщение успешно отправлено.';
+            $_SESSION['message']['class'] = 'success';
+            $_SESSION['message']['text'] = 'Сообщение успешно отправлено.';
+        }
     }
 
     refresh();

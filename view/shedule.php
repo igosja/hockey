@@ -7,9 +7,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive table-hover">
         <table class="table table-bordered">
             <tr>
-                <th>Дата</th>
+                <th class="col-20">Дата</th>
                 <th>Соревнования</th>
-                <th>Стадия</th>
+                <th class="col-20">Стадия</th>
             </tr>
             <?php foreach ($shedule_array as $item) { ?>
                 <tr>

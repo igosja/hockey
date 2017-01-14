@@ -397,12 +397,28 @@ a.btn {
     width: 5%;
 }
 
+.col-6 {
+    width: 6%;
+}
+
 .col-10 {
     width: 10%;
 }
 
 .col-15 {
     width: 15%;
+}
+
+.col-20 {
+    width: 20%;
+}
+
+.col-30 {
+    width: 30%;
+}
+
+.col-47 {
+    width: 47%;
 }
 
 .text-left {

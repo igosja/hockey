@@ -2,25 +2,26 @@
 
 include (__DIR__ . '/include/include.php');
 
-if (isset($auth_user_id))
+if (isset($auth_user_id) && 2 == $auth_userrole_id)
 {
-    redirect('/team_view.php');
+    redirect('/admin');
 }
 
 if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['login']) || !isset($data['password']))
     {
-        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['class']   = 'danger';
         $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
 
-        redirect('/');
+        refresh();
     }
 
     $login      = trim($data['login']);
     $password   = f_igosja_hash_password($data['password']);
 
-    $sql = "SELECT `user_id`
+    $sql = "SELECT `user_id`,
+                   `user_userrole_id`
             FROM `user`
             WHERE `user_login`=?
             AND `user_password`=?
@@ -35,16 +36,25 @@ if ($data = f_igosja_request_post('data'))
 
     if (!$user_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['class']   = 'danger';
         $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
 
-        redirect('/');
+        refresh();
     }
 
-    $user_array             = $user_sql->fetch_all(1);
-    $_SESSION['user_id']    = $user_array[0]['user_id'];
+    $user_array = $user_sql->fetch_all(1);
 
-    redirect('/team_view.php');
+    if (2 > $user_array[0]['user_userrole_id'])
+    {
+        $_SESSION['message']['class']   = 'danger';
+        $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
+
+        refresh();
+    }
+
+    $_SESSION['user_id'] = $user_array[0]['user_id'];
+
+    redirect('/admin');
 }
 
-redirect('/');
+include (__DIR__ . '/view/layout/admin.php');

@@ -5,7 +5,7 @@
 </div>
 <?php if ($teamask_array[0]['count']) { ?>
     <div class="row margin-bottom">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center success">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert success">
             Ваша заявка рассматривается администратором
         </div>
     </div>

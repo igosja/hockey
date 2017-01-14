@@ -1,5 +1,10 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>Новости</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php foreach ($news_array as $item) { ?>
             <div class="row border-top margin-top">
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 text-center">
@@ -9,7 +14,7 @@
                         <?= $item['user_login']; ?>
                     </a>
                     <br/>
-                    <a href="/newscomment.php?num=<?= $item['news_id']; ?>" class="text-size-3">
+                    <a class="text-size-3" href="/newscomment.php?num=<?= $item['news_id']; ?>">
                         Комментариев: <?= $item['count_newscomment']; ?>
                     </a>
                 </div>

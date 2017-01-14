@@ -75,4 +75,4 @@ $log = array(
 );
 f_igosja_log($log);
 
-redirect('/admin/teamask.php');
+redirect('/admin/teamask_list.php');

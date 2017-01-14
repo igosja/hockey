@@ -1,4 +1,4 @@
-<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-size-2">
     <span class="italic">Показатели вашей команды:</span>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">

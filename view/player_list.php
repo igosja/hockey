@@ -173,7 +173,7 @@
                         <a href="/country_view.php?num=<?= $player_array[$i]['pl_country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $player_array[$i]['pl_country_id']; ?>.png"
-                                title="<?= $player_array[$i]['pl_country_id']; ?>"
+                                title="<?= $player_array[$i]['pl_country_name']; ?>"
                             />
                         </a>
                     </td>
@@ -191,7 +191,8 @@
                     </td>
                     <td>
                         <a href="/team_view.php?num=<?= $player_array[$i]['team_id']; ?>">
-                            <?= $player_array[$i]['team_name']; ?> (<?= $player_array[$i]['city_name']; ?>, <?= $player_array[$i]['t_country_name']; ?>)
+                            <?= $player_array[$i]['team_name']; ?>
+                            (<?= $player_array[$i]['city_name']; ?>, <?= $player_array[$i]['t_country_name']; ?>)
                         </a>
                     </td>
                     <td class="text-right">

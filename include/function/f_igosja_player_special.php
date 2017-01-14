@@ -1,21 +1,25 @@
 <?php
 
-function f_igosja_player_special($playerspecial_player_id)
+function f_igosja_player_special($player_id)
 {
-    global $special_array;
+    $sql = "SELECT `playerspecial_level`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id`='$player_id'";
+    $special_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array    = explode(',', $playerspecial_player_id);
-    $return_array           = array();
+    $special_array = $special_sql->fetch_all(1);
+
+    $return_array = array();
 
     foreach ($special_array as $item)
     {
-        if (in_array($item['special_id'], $playerspecial_array))
-        {
-            $return_array[] = $item['special_name'];
-        }
+        $return_array[] = $item['special_name'] . $item['playerspecial_level'];
     }
 
-    $return = implode('/', $return_array);
+    $return = implode(' ', $return_array);
 
     return $return;
 }
