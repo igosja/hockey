@@ -20,27 +20,21 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th class="col-15">Дата</th>
-                <th class="col-10">Было</th>
-                <th class="col-10">+/-</th>
-                <th class="col-10">Стало</th>
-                <th>Комментарий</th>
+                <th title="Сезон" class="col-1">С</th>
+                <th>Турнир</th>
+                <th class="col-10">Позиция</th>
             </tr>
-            <?php foreach ($finance_array as $item) { ?>
+            <?php foreach ($achievement_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= f_igosja_ufu_date($item['finance_date']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value_before']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value_after']); ?></td>
-                    <td><?= $item['financetext_name']; ?></td>
+                    <td class="text-center"><?= $item['achievement_season_id']; ?></td>
+                    <td><?= $item['tournamenttype_name']; ?></td>
+                    <td class="text-center"><?= $item['achievement_position']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
-                <th>Дата</th>
-                <th>Было</th>
-                <th>+/-</th>
-                <th>Стало</th>
-                <th>Комментарий</th>
+                <th title="Сезон" class="col-1">С</th>
+                <th>Турнир</th>
+                <th>Позиция</th>
             </tr>
         </table>
     </div>
