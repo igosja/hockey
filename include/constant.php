@@ -120,7 +120,6 @@ define('VOTESTATUS_CLOSE', 3);
 $breadcrumb_array = array();
 $player_link_array = array(
     array('url' => 'player_view', 'text' => 'Матчи'),
-    array('url' => 'player_statistic', 'text' => 'Статистика'),
     array('url' => 'player_event', 'text' => 'События'),
     array('url' => 'player_deal', 'text' => 'Сделки'),
     array('url' => 'player_transfer', 'text' => 'Трансфер'),
