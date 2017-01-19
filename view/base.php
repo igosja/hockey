@@ -1,113 +1,9 @@
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
-                <?= $team_array[0]['team_name']; ?>
-                (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                Кубок межсезонья: <a href="javascript:;">12345 место</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                Дивизон: <a href="javascript:;">Страна, Дивизион, 12 место</a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Менежер:
-                (Письмо) <a class="strong" href="javascript:;"><?= $team_array[0]['user_login']; ?></a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Ник:
-                (ВИП)
-                <a class="strong" href="javascript:;">
-                    <?= $team_array[0]['user_name']; ?> <?= $team_array[0]['user_surname']; ?>
-                </a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Заместитель: (Письмо) <a class="strong" href="javascript:;">Имя</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Ник: (ВИП) <a class="strong" href="javascript:;">Логин</a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Стадион:
-                <?= $team_array[0]['stadium_name']; ?>,
-                <strong><?= $team_array[0]['stadium_capacity']; ?></strong>
-                <img src="/img/cog.png"/>
-                <img src="/img/loupe.png"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                База: <span class="strong"><?= $team_array[0]['team_base_id']; ?></span> уровень
-                (<span class="italic"><?= $team_array[0]['team_base_slot_used']; ?></span>
-                из
-                <span class="strong">22</span> слотов)
-                <img src="/img/cog.png"/>
-                <a href="base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
-            </div>
-        </div>
-        <div class="row text-size-4"><?= SPACE; ?></div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Финансы:
-                <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
-            </div>
-        </div>
+        <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                - Уезжая надолго и без интернета - не забудьте поставить статус "в отпуске" -
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-                <img src="http://virtualsoccer.ru/menu/new/squad_big.gif"/>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - 3:2
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row text-size-4"><?= SPACE; ?></div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Ред.
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Отпр.
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-                5 октября, 22:00 - Кубок межсезонья - Д - Команда - Отпр.
-            </div>
-        </div>
+        <?php include(__DIR__ . '/include/team_view_top_right.php'); ?>
     </div>
 </div>
 <?php if ($count_buildingbase) { ?>
@@ -153,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Стоимость: <span class="strong">123 456</span>
+                            Стоимость: <span class="strong"><?= f_igosja_money($base_array[0]['base_price_buy']); ?></span>
                         </div>
                     </div>
                     <div class="row">
@@ -163,22 +59,24 @@
                     </div>
                     <div class="row margin-top">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Занято слотов: <span class="strong">1</span>
+                            Занято слотов: <span class="strong"><?= $base_array[0]['base_slot_used']; ?></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Содержание: <span class="strong">4 321</span>
+                            Содержание: <span class="strong"><?= f_igosja_money($base_array[0]['base_maintenance']); ?></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASE; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -215,12 +113,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -243,12 +143,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASEMEDICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -286,12 +188,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -319,12 +223,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -348,12 +254,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
-                    <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
+                        <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </fieldset>
     </div>
 </div>
