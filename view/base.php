@@ -2,9 +2,7 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <?php include(__DIR__ . '/include/team_view_top_right.php'); ?>
-    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"></div>
 </div>
 <?php if ($count_buildingbase) { ?>
     <div class="row margin-top">
@@ -118,6 +116,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
                         <a href="/base.php?building_id=<?= BUILDING_BASETRAINING; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                        <a href="/training.php" class="btn margin">Тренировка</a>
                     </div>
                 </div>
             <?php } ?>
@@ -193,6 +192,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
                         <a href="/base.php?building_id=<?= BUILDING_BASEPHISICAL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                        <a href="/phisical.php" class="btn margin">Форма</a>
                     </div>
                 </div>
             <?php } ?>
@@ -228,6 +228,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
                         <a href="/base.php?building_id=<?= BUILDING_BASESCHOOL; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                        <a href="/school.php" class="btn margin">Молодежь</a>
                     </div>
                 </div>
             <?php } ?>
@@ -259,6 +260,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_BUILD; ?>" class="btn margin">Строить</a>
                         <a href="/base.php?building_id=<?= BUILDING_BASESCOUT; ?>&constructiontype_id=<?= CONSTRUCTION_DESTROY; ?>" class="btn margin">Продать</a>
+                        <a href="/scout.php" class="btn margin">Изучить</a>
                     </div>
                 </div>
             <?php } ?>

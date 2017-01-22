@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+    <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12 col-lg-offset-4 col-md-offset-2 col-sm-offset-1">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">Вход</h3>

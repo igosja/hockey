@@ -13,7 +13,6 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 }
 
 include (__DIR__ . '/include/sql/team_view_left.php');
-include (__DIR__ . '/include/sql/team_view_right.php');
 
 $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         FROM `buildingbase`

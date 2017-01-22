@@ -53,7 +53,7 @@
                     <td class="text-center"><?= $item['base_slot_used']; ?> из <?= $item['base_slot_max']; ?></td>
                     <td class="text-right"><?= $item['stadium_capacity']; ?></td>
                     <td class="text-right"><?= f_igosja_money($item['team_finance']); ?></td>
-                    <td class="text-right"><?= $item['team_power']; ?></td>
+                    <td class="text-right"><?= $item['team_power_vs']; ?></td>
                 </tr>
             <?php } ?>
             <tr>

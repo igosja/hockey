@@ -82,7 +82,7 @@ $sql = "SELECT `base_slot_max`,
                `team_id`,
                `team_finance`,
                `team_name`,
-               `team_power`
+               `team_power_vs`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
