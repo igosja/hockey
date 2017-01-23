@@ -62,7 +62,8 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "SELECT COUNT(`training_id`) AS `count`
                         FROM `training`
-                        WHERE `training_player_id`=$player_id";
+                        WHERE `training_player_id`=$player_id
+                        AND `training_ready`=0";
                 $check_sql = f_igosja_mysqli_query($sql);
 
                 $check_array = $check_sql->fetch_all(1);
@@ -81,23 +82,6 @@ if ($data = f_igosja_request_post('data'))
                 }
             }
         }
-    }
-
-    if (count($confirm_data['power']) > $basetraining_array[0]['basetraining_power_count'])
-    {
-        $confirm_data['error'] = 'У вас недостаточно баллов для тренировки';
-    }
-    elseif (count($confirm_data['position']) > $basetraining_array[0]['basetraining_position_count'])
-    {
-        $confirm_data['error'] = 'У вас недостаточно совмещений для тренировки';
-    }
-    elseif (count($confirm_data['special']) > $basetraining_array[0]['basetraining_special_count'])
-    {
-        $confirm_data['error'] = 'У вас недостаточно спецвозможностей для тренировки';
-    }
-    elseif ($confirm_data['price'] > $basetraining_array[0]['team_finance'])
-    {
-        $confirm_data['error'] = 'У вас недостаточно денег для тренировки';
     }
 
     if (isset($data['position']))
@@ -125,7 +109,8 @@ if ($data = f_igosja_request_post('data'))
                 {
                     $sql = "SELECT COUNT(`training_id`) AS `count`
                             FROM `training`
-                            WHERE `training_player_id`=$player_id";
+                            WHERE `training_player_id`=$player_id
+                            AND `training_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(1);
@@ -185,7 +170,8 @@ if ($data = f_igosja_request_post('data'))
                 {
                     $sql = "SELECT COUNT(`training_id`) AS `count`
                             FROM `training`
-                            WHERE `training_player_id`=$player_id";
+                            WHERE `training_player_id`=$player_id
+                            AND `training_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(1);
@@ -220,6 +206,23 @@ if ($data = f_igosja_request_post('data'))
         }
     }
 
+    if (count($confirm_data['power']) > $basetraining_array[0]['basetraining_power_count'])
+    {
+        $confirm_data['error'] = 'У вас недостаточно баллов для тренировки';
+    }
+    elseif (count($confirm_data['position']) > $basetraining_array[0]['basetraining_position_count'])
+    {
+        $confirm_data['error'] = 'У вас недостаточно совмещений для тренировки';
+    }
+    elseif (count($confirm_data['special']) > $basetraining_array[0]['basetraining_special_count'])
+    {
+        $confirm_data['error'] = 'У вас недостаточно спецвозможностей для тренировки';
+    }
+    elseif ($confirm_data['price'] > $basetraining_array[0]['team_finance'])
+    {
+        $confirm_data['error'] = 'У вас недостаточно денег для тренировки';
+    }
+
     if (isset($data['ok']))
     {
         $price = $basetraining_array[0]['basetraining_power_price'];
@@ -230,7 +233,9 @@ if ($data = f_igosja_request_post('data'))
 
             $sql = "INSERT INTO `training`
                     SET `training_player_id`=$player_id,
-                        `training_power`=1";
+                        `training_power`=1,
+                        `training_season_id`=$igosja_season_id,
+                        `training_team_id`=$num_get";
             f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
@@ -266,7 +271,9 @@ if ($data = f_igosja_request_post('data'))
 
             $sql = "INSERT INTO `training`
                     SET `training_player_id`=$player_id,
-                        `training_position_id`=$position_id";
+                        `training_position_id`=$position_id,
+                        `training_season_id`=$igosja_season_id,
+                        `training_team_id`=$num_get";
             f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
@@ -302,7 +309,9 @@ if ($data = f_igosja_request_post('data'))
 
             $sql = "INSERT INTO `training`
                     SET `training_player_id`=$player_id,
-                        `training_special_id`=$special_id";
+                        `training_season_id`=$igosja_season_id,
+                        `training_special_id`=$special_id,
+                        `training_team_id`=$num_get";
             f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
@@ -335,6 +344,38 @@ if ($data = f_igosja_request_post('data'))
         refresh();
     }
 }
+
+$sql = "SELECT `country_id`,
+               `country_name`,
+               `name_name`,
+               `player_age`,
+               `player_id`,
+               `player_power_nominal`,
+               `position_name`,
+               `surname_name`,
+               `special_name`,
+               `training_percent`,
+               `training_power`
+        FROM `training`
+        LEFT JOIN `player`
+        ON `training_player_id`=`player_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        LEFT JOIN `country`
+        ON `player_country_id`=`country_id`
+        LEFT JOIN `position`
+        ON `training_position_id`=`position_id`
+        LEFT JOIN `special`
+        ON `training_special_id`=`special_id`
+        WHERE `training_season_id`=$igosja_season_id
+        AND `training_ready`=0
+        AND `training_team_id`=$num_get
+        ORDER BY `training_id` ASC";
+$training_sql = f_igosja_mysqli_query($sql);
+
+$trainin_array = $training_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`,

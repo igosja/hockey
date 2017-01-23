@@ -105,6 +105,77 @@
         </form>
     <?php } ?>
 <?php } ?>
+<?php if ($training_sql->num_rows) { ?>
+<div class="row margin-top">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        Игроки вашей команды, находящиеся на тренировке:
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Игрок</th>
+                <th class="col-1" title="Национальность">Нац</th>
+                <th class="col-5" title="Возраст">В</th>
+                <th class="col-10" title="Номинальная сила">С</th>
+                <th class="col-10" title="Позиция">Поз</th>
+                <th class="col-10" title="Спецвозможности">Спец</th>
+                <th class="col-10" title="Прогресс тренировки">%</th>
+            </tr>
+            <?php foreach ($trainin_array as $item) { ?>
+                <tr>
+                    <td>
+                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                            <?= $item['name_name']; ?>
+                            <?= $item['surname_name']; ?>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/country_view.php?num=<?= $item['country_id']; ?>">
+                            <img
+                                src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                title="<?= $item['country_name']; ?>"
+                            />
+                        </a>
+                    </td>
+                    <td class="text-center"><?= $item['player_age']; ?></td>
+                    <td class="text-center">
+                        <?= $item['player_power_nominal']; ?>
+                        <?php if ($item['training_power']) { ?>
+                            + 1
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?= f_igosja_player_position($item['player_id']); ?>
+                        <?php if ($item['position_name']) { ?>
+                            + <?= $item['position_name']; ?>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?= f_igosja_player_special($item['player_id']); ?>
+                        <?php if ($item['special_name']) { ?>
+                            + <?= $item['special_name']; ?>
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?= $item['training_percent']; ?>%
+                    </td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <th>Игрок</th>
+                <th title="Национальность">Нац</th>
+                <th title="Возраст">В</th>
+                <th title="Позиция">Поз</th>
+                <th title="Номинальная сила">С</th>
+                <th title="Спецвозможности">Спец</th>
+                <th title="Прогресс тренировки">%</th>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php } ?>
 <form method="POST">
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
