@@ -27,7 +27,7 @@ $q[] = 'INSERT INTO `baseschool`
             `baseschool_with_special`,
             `baseschool_with_style`
         )
-        VALUES (0,  0,  0, 2,       0,       0,  0, 0, 0),
+        VALUES (0,  0,  0, 0,       0,       0,  0, 0, 0),
                (1,  1,  1, 2,  250000,  187500, 14, 0, 0),
                (1,  2,  2, 2,  500000,  375000, 12, 0, 0),
                (2,  3,  3, 2,  750000,  562500, 14, 1, 0),
