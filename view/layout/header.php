@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Virtual hockey online manager</title>
-    <meta name="description" content="Virtual hockey online manager (VHOL) - лучший бесплатный хоккейный онлайн менеджер.">
+    <title>Виртуальная хоккейная лига</title>
+    <meta name="description" content="Виртуальная хоккейная лига - лучший бесплатный хоккейный онлайн менеджер.">
     <meta name="keywords" content="Virtual hockey online manager, VHOL, хоккейный онлайн менеджер, вируальный хоккей">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="efe586f3c07b0a93"/>
@@ -11,15 +11,6 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<!--LiveInternet counter-->
-<script type="text/javascript"><!--
-new Image().src = "//counter.yadro.ru/hit?r"+
-escape(document.referrer)+((typeof(screen)=="undefined")?"":
-";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-";"+Math.random();//-->
-</script>
-<!--/LiveInternet-->
 <div class="main">
     <div class="content">
         <div class="row">

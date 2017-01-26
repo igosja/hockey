@@ -7,12 +7,21 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if (0 == $auth_team_id)
-{
-    redirect('/team_ask.php');
-}
-
 $num_get = $auth_team_id;
+
+include (__DIR__ . '/include/sql/team_view_left.php');
+
+$sql = "SELECT `basephisical_change_count`,
+               `basephisical_level`,
+               `basephisical_tire_bobus`
+        FROM `basephisical`
+        LEFT JOIN `team`
+        ON `basephisical_id`=`team_basephisical_id`
+        WHERE `team_id`=$num_get
+        LIMIT 1";
+$basephisical_sql = f_igosja_mysqli_query($sql);
+
+$basephisical_array = $basephisical_sql->fetch_all(1);
 
 $sql = "SELECT `phisical_id`,
                `phisical_value`

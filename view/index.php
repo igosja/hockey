@@ -183,7 +183,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <a href="//www.liveinternet.ru/click" target="_blank">
                     <img
-                        alt=""
+                        alt="LiveInternet counter"
                         border="0"
                         height="120"
                         src="//counter.yadro.ru/logo?27.1"

@@ -42,8 +42,6 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
     }
     else
     {
-        $auth_team_id = 25;
-
         $sql = "INSERT INTO `phisicalchange`
                 SET `phisicalchange_player_id`=$player_id,
                     `phisicalchange_shedule_id`=$shedule_id,
