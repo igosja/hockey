@@ -1,4 +1,4 @@
-<?php include(__DIR__ . '/include/user_profile.php'); ?>
+<?php include(__DIR__ . '/include/user_profile_top_left.php'); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php foreach ($message_array as $item) { ?>

@@ -1,10 +1,17 @@
-<?php include(__DIR__ . '/include/user_profile.php'); ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row text-size-4"><?= SPACE; ?></div>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?php include(__DIR__ . '/include/user_profile_top_left.php'); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
+                Анкетные данные
+            </div>
+        </div>
+        <?php include(__DIR__ . '/include/user_profile_top_right.php'); ?>
     </div>
 </div>
-<div class="row">
+<div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php include(__DIR__ . '/include/user_table_link.php'); ?>
     </div>
@@ -39,7 +46,7 @@
                 id="questionnaire-name"
                 name="data[user_name]"
                 type="text"
-                value="<?= $user_array[0]['user_name']; ?>"
+                value="<?= $questionnaire_array[0]['user_name']; ?>"
             />
         </div>
     </div>
@@ -53,7 +60,7 @@
                 id="questionnaire-surname"
                 name="data[user_surname]"
                 type="text"
-                value="<?= $user_array[0]['user_surname']; ?>"
+                value="<?= $questionnaire_array[0]['user_surname']; ?>"
             />
         </div>
     </div>
@@ -67,7 +74,7 @@
                 id="questionnaire-email"
                 name="data[user_email]"
                 type="text"
-                value="<?= $user_array[0]['user_email']; ?>"
+                value="<?= $questionnaire_array[0]['user_email']; ?>"
             />
         </div>
     </div>
@@ -81,7 +88,7 @@
                 id="questionnaire-city"
                 name="data[user_city]"
                 type="text"
-                value="<?= $user_array[0]['user_city']; ?>"
+                value="<?= $questionnaire_array[0]['user_city']; ?>"
             />
         </div>
     </div>
@@ -94,7 +101,7 @@
                 <option value="0">Не указано</option>
                 <?php foreach ($country_array as $item) { ?>
                     <option
-                        <?php if ($item['country_id'] == $user_array[0]['user_country_id']) { ?>
+                        <?php if ($item['country_id'] == $questionnaire_array[0]['user_country_id']) { ?>
                             selected
                         <?php } ?>
                         value="<?= $item['country_id']; ?>"
@@ -114,7 +121,7 @@
                 <option value="0">Не указано</option>
                 <?php foreach ($sex_array as $item) { ?>
                     <option
-                        <?php if ($item['sex_id'] == $user_array[0]['user_sex_id']) { ?>
+                        <?php if ($item['sex_id'] == $questionnaire_array[0]['user_sex_id']) { ?>
                             selected
                         <?php } ?>
                         value="<?= $item['sex_id']; ?>"
@@ -136,7 +143,7 @@
                         <option value="0">Не указано</option>
                         <?php for ($i = 1; $i <= 31; $i++) { ?>
                             <option
-                                <?php if ($i == $user_array[0]['user_birth_day']) { ?>
+                                <?php if ($i == $questionnaire_array[0]['user_birth_day']) { ?>
                                     selected
                                 <?php } ?>
                                 value="<?= $i; ?>"
@@ -151,7 +158,7 @@
                         <option value="0">Не указано</option>
                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                             <option
-                                <?php if ($i == $user_array[0]['user_birth_month']) { ?>
+                                <?php if ($i == $questionnaire_array[0]['user_birth_month']) { ?>
                                     selected
                                 <?php } ?>
                                 value="<?= $i; ?>"
@@ -166,7 +173,7 @@
                         <option value="0">Не указано</option>
                         <?php for ($i = date('Y'); $i >= date('Y') - 100; $i--) { ?>
                             <option
-                                <?php if ($i == $user_array[0]['user_birth_year']) { ?>
+                                <?php if ($i == $questionnaire_array[0]['user_birth_year']) { ?>
                                     selected
                                 <?php } ?>
                                 value="<?= $i; ?>"
@@ -177,21 +184,6 @@
                     </select>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <label for="questionnaire-holiday">Я уехал в отпуск</label>:
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
-            <input
-                <?php if ($user_array[0]['user_holiday']) { ?>
-                    checked
-                <?php } ?>
-                id="questionnaire-holiday"
-                name="data[user_holiday]"
-                type="checkbox"
-            /> Назначить заместитетей
         </div>
     </div>
     <div class="row">

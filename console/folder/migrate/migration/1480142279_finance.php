@@ -15,6 +15,7 @@ $q[] = 'CREATE TABLE `finance`
             `finance_player_id` INT(11) DEFAULT 0,
             `finance_season_id` SMALLINT(5) DEFAULT 0,
             `finance_team_id` SMALLINT(5) DEFAULT 0,
+            `finance_user_id` INT(11) DEFAULT 0,
             `finance_value` INT(11) DEFAULT 0,
             `finance_value_after` INT(11) DEFAULT 0,
             `finance_value_before` INT(11) DEFAULT 0

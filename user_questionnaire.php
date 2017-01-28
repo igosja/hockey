@@ -9,6 +9,8 @@ if (!isset($auth_user_id))
 
 $num_get = $auth_user_id;
 
+include (__DIR__ . '/include/sql/user_view.php');
+
 if ($data = f_igosja_request_post('data'))
 {
     $sql = "SELECT `user_code`,
@@ -29,22 +31,12 @@ if ($data = f_igosja_request_post('data'))
     $user_sex_id        = (int)$data['user_sex_id'];
     $user_surname       = $data['user_surname'];
 
-    if (isset($data['user_holiday']))
-    {
-        $user_holiday = 1;
-    }
-    else
-    {
-        $user_holiday = 0;
-    }
-
     $sql = "UPDATE `user`
             SET `user_birth_day`=$user_birth_day,
                 `user_birth_month`=$user_birth_month,
                 `user_birth_year`=$user_birth_year,
                 `user_city`=?,
                 `user_country_id`=$user_country_id,
-                `user_holiday`=$user_holiday,
                 `user_name`=?,
                 `user_sex_id`=$user_sex_id,
                 `user_surname`=?
@@ -87,20 +79,14 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-$sql = "SELECT `country_name`,
-               `sex_name`,
-               `user_birth_day`,
+$sql = "SELECT `user_birth_day`,
                `user_birth_month`,
                `user_birth_year`,
                `user_city`,
                `user_country_id`,
-               `user_date_login`,
-               `user_date_register`,
                `user_email`,
                `user_finance`,
-               `user_holiday`,
                `user_login`,
-               `user_money`,
                `user_name`,
                `user_sex_id`,
                `user_surname`
@@ -110,14 +96,9 @@ $sql = "SELECT `country_name`,
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
         WHERE `user_id`=$num_get";
-$user_sql = f_igosja_mysqli_query($sql);
+$questionnaire_sql = f_igosja_mysqli_query($sql);
 
-if (0 == $user_sql->num_rows)
-{
-    redirect('/wrong_page');
-}
-
-$user_array = $user_sql->fetch_all(1);
+$questionnaire_array = $questionnaire_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`
