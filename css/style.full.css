@@ -393,6 +393,14 @@ a.btn {
     width: 1px;
 }
 
+.col-3 {
+    width: 3%;
+}
+
+.col-3-5 {
+    width: 3.5%;
+}
+
 .col-5 {
     width: 5%;
 }
