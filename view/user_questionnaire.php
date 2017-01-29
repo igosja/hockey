@@ -31,11 +31,6 @@
             На этой странице вы можете <span class="strong">изменить свои анкетные данные</span>:
         </div>
     </div>
-    <?php if (isset($success)) { ?>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center success">
-            <?= $success; ?>
-        </div>
-    <?php } ?>
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <label for="questionnaire-name">Имя</label>:

@@ -40,7 +40,7 @@ if ($data = f_igosja_request_post('data'))
                 `user_name`=?,
                 `user_sex_id`=$user_sex_id,
                 `user_surname`=?
-            WHERE `user_id`=$num_get
+            WHERE `user_id`=$auth_user_id
             LIMIT 1";
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('sss', $user_city, $user_name, $user_surname);

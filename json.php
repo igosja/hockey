@@ -14,6 +14,10 @@ elseif ($login = f_igosja_request_post('signup_login'))
     $login  = trim($login);
     $result = f_igosja_check_user_by_login($login);
 }
+elseif ($password = f_igosja_request_post('password_old'))
+{
+    $result = f_igosja_check_user_password($password);
+}
 elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
 {
     $player_id  = (int) f_igosja_request_get('player_id');
