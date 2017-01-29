@@ -208,7 +208,7 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="/country_view.php?num=<?= $item['country_id']; ?>" target="_blank">
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>" target="_blank">
                                 <img
                                     src="/img/country/12/<?= $item['country_id']; ?>.png"
                                     title="<?= $item['country_name']; ?>"

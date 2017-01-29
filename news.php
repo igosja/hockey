@@ -20,6 +20,7 @@ $sql = "SELECT IF(`count_newscomment`, `count_newscomment`, 0) AS `count_newscom
             GROUP BY `newscomment_news_id`
         ) AS `t1`
         ON `news_id`=`newscomment_news_id`
+        AND `news_country_id`=0
         ORDER BY `news_id` DESC";
 $news_sql = f_igosja_mysqli_query($sql);
 

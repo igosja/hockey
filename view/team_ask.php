@@ -37,7 +37,7 @@
                     </td>
                     <td>
                         <img src="/img/country/12/<?= $item['country_id']; ?>.png"/>
-                        <a href="/country_view.php?num=<?= $item['country_id']; ?>">
+                        <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                             <?= $item['country_name']; ?>
                         </a>
                     </td>

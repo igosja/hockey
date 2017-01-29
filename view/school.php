@@ -91,7 +91,7 @@
                 <tr>
                     <td>Молодой игрок</td>
                     <td class="text-center">
-                        <a href="/country_view.php?num=<?= $player_array[0]['country_id']; ?>">
+                        <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                             <img
                                     src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
                                     title="<?= $player_array[0]['country_name']; ?>"
@@ -125,7 +125,7 @@
                             Молодой игрок
                         </td>
                         <td class="text-center">
-                            <a href="/country_view.php?num=<?= $player_array[0]['country_id']; ?>">
+                            <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                                 <img
                                     src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
                                     title="<?= $player_array[0]['country_name']; ?>"

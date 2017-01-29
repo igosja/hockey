@@ -170,7 +170,7 @@
                         </a>
                     </td>
                     <td class="text-center">
-                        <a href="/country_view.php?num=<?= $player_array[$i]['pl_country_id']; ?>">
+                        <a href="/country_news.php?num=<?= $player_array[$i]['pl_country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $player_array[$i]['pl_country_id']; ?>.png"
                                 title="<?= $player_array[$i]['pl_country_name']; ?>"

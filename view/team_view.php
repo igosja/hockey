@@ -68,7 +68,7 @@
                         </a>
                     </td>
                     <td class="hidden-xs text-center">
-                        <a href="/country_view.php?num=<?= $item['country_id']; ?>">
+                        <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $item['country_id']; ?>.png"
                                 title="<?= $item['country_name']; ?>"

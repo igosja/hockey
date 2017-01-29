@@ -12,7 +12,7 @@
                     <img
                         src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
                     />
-                    <a href="/country_view.php?num=<?= $player_array[0]['country_id']; ?>">
+                    <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                         <?= $player_array[0]['country_name']; ?>
                     </a>
                 </div>

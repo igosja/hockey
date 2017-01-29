@@ -23,7 +23,7 @@ $igosja_menu = array(
     array('label' => 'Тех.поддержка',   'url' => '/support.php',    'css' => 'count_support'),
     array('label' => 'Трансфер',        'url' => 'javascript:;'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
-    array('label' => 'Федерация',       'url' => 'javascript:;'),
+    array('label' => 'Федерация',       'url' => '/country_news.php'),
     array('label' => 'Форум',           'url' => 'javascript:;'),
 );
 
