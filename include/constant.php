@@ -154,6 +154,15 @@ $user_link_array = array(
     array('url' => 'user_password', 'text' => 'Пароль'),
     array('url' => 'user_referral', 'text' => 'Подопечные'),
 );
+$country_link_array = array(
+    array('url' => 'country_team', 'text' => 'Команды'),
+    array('url' => 'country_national', 'text' => 'Сборные'),
+    array('url' => 'country_news', 'text' => 'Новости'),
+    array('url' => 'country_finance', 'text' => 'Фонд'),
+    array('url' => 'country_vote_list', 'text' => 'Опросы'),
+    array('url' => 'country_deal', 'text' => 'Сделки'),
+    array('url' => 'country_league', 'text' => 'Лига Чемпионов'),
+);
 
 $sql = "SELECT `season_id`
         FROM `season`

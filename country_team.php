@@ -7,18 +7,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `country_name`
-        FROM `country`
-        WHERE `country_id`=$num_get
-        LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql);
-
-if (0 == $country_sql->num_rows)
-{
-    redirect('/wrong_page.php');
-}
-
-$country_array = $country_sql->fetch_all(1);
+include (__DIR__ . '/include/sql/country_view.php');
 
 $sql = "SELECT `team_id`,
                `team_name`

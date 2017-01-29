@@ -1,6 +1,7 @@
 <?php
 
-$sql = "SELECT `country_name`
+$sql = "SELECT `country_finance`,
+               `country_name`
         FROM `country`
         WHERE `country_id`=$num_get
         LIMIT 1";
