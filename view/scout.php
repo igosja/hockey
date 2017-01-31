@@ -5,65 +5,45 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Тренировочный центр
+                Скаут центр
             </div>
         </div>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Уровень:
-                <span class="strong"><?= $basetraining_array[0]['basetraining_level']; ?></span>
+                <span class="strong"><?= $basescout_array[0]['basescout_level']; ?></span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Скорость тренировки:
-                <span class="strong"><?= $basetraining_array[0]['basetraining_training_speed_min']; ?>%</span>
+                Скорость изучения:
+                <span class="strong"><?= $basescout_array[0]['basescout_scout_speed_min']; ?>%</span>
                 -
-                <span class="strong"><?= $basetraining_array[0]['basetraining_training_speed_max']; ?>%</span>
+                <span class="strong"><?= $basescout_array[0]['basescout_scout_speed_max']; ?>%</span>
                 за тур
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Осталось тренировок силы:
-                <span class="strong"><?= $basetraining_array[0]['basetraining_power_count']; ?></span>
+                Осталось изучений стилей:
+                <span class="strong"><?= $basescout_array[0]['basescout_my_style_count']; ?></span>
                 из
-                <span class="strong"><?= $basetraining_array[0]['basetraining_power_count']; ?></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Осталось спецвозможностей:
-                <span class="strong"><?= $basetraining_array[0]['basetraining_special_count']; ?></span>
-                из
-                <span class="strong"><?= $basetraining_array[0]['basetraining_special_count']; ?></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Осталось совмещений:
-                <span class="strong"><?= $basetraining_array[0]['basetraining_position_count']; ?></span>
-                из
-                <span class="strong"><?= $basetraining_array[0]['basetraining_position_count']; ?></span>
+                <span class="strong"><?= $basescout_array[0]['basescout_my_style_count']; ?></span>
             </div>
         </div>
     </div>
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <span class="strong">Стоимость тренировок:</span>
-        Балл силы
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_power_price']); ?></span>
-        Спецвозможность
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_special_price']); ?></span>
-        Совмещение
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_position_price']); ?></span>
+        <span class="strong">Стоимость изучения:</span>
+        Стиля
+        <span class="strong"><?= f_igosja_money($basescout_array[0]['basescout_my_style_price']); ?></span>
     </div>
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        Здесь - <span class="strong">в тренировочном центре</span> -
-        вы можете назначить тренировки силы, спецвозможностей или совмещений своим игрокам:
+        Здесь - <span class="strong">в скаут центре</span> -
+        вы можете изучить любимые стили игроков:
     </div>
 </div>
 <?php if (isset($confirm_data)) { ?>
@@ -77,35 +57,27 @@
         <form method="POST">
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    Будут проведены следующие тренировки:
+                    Будут проведены следующие изучения:
                     <ul>
-                        <?php foreach ($confirm_data['power'] as $item) { ?>
-                            <li><?= $item['name']; ?> +1 балл силы</li>
-                            <input name="data[power][]" type="hidden" value="<?= $item['id']; ?>">
-                        <?php } ?>
-                        <?php foreach ($confirm_data['position'] as $item) { ?>
-                            <li><?= $item['name']; ?> позиция <?= $item['position']['name']; ?></li>
-                            <input name="data[position][]" type="hidden" value="<?= $item['id']; ?>:<?= $item['position']['id']; ?>">
-                        <?php } ?>
-                        <?php foreach ($confirm_data['special'] as $item) { ?>
-                            <li><?= $item['name']; ?> спецвозможность <?= $item['special']['name']; ?></li>
-                            <input name="data[special][]" type="hidden" value="<?= $item['id']; ?>:<?= $item['special']['id']; ?>">
+                        <?php foreach ($confirm_data['style'] as $item) { ?>
+                            <li><?= $item['name']; ?> - любимый стиль</li>
+                            <input name="data[style][]" type="hidden" value="<?= $item['id']; ?>">
                         <?php } ?>
                     </ul>
-                    Общая стоимость тренировок <?= f_igosja_money($confirm_data['price']); ?>
+                    Общая стоимость изучений <?= f_igosja_money($confirm_data['price']); ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <input name="data[ok]" type="hidden" value="1">
-                    <input class="btn margin" type="submit" value="Начать тренировку"/>
-                    <a href="/training.php" class="btn margin">Отказаться</a>
+                    <input class="btn margin" type="submit" value="Начать изучение"/>
+                    <a href="/scout.php" class="btn margin">Отказаться</a>
                 </div>
             </div>
         </form>
     <?php } ?>
 <?php } ?>
-<?php if ($training_sql->num_rows) { ?>
+<?php if ($scout_sql->num_rows) { ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         Игроки вашей команды, находящиеся на тренировке:
@@ -117,13 +89,14 @@
             <tr>
                 <th>Игрок</th>
                 <th class="col-1" title="Национальность">Нац</th>
+                <th class="col-10" title="Позиция">Поз</th>
                 <th class="col-5" title="Возраст">В</th>
                 <th class="col-10" title="Номинальная сила">С</th>
-                <th class="col-10" title="Позиция">Поз</th>
-                <th class="col-10" title="Спецвозможности">Спец</th>
+                <th class="col-15" title="Спецвозможности">Спец</th>
+                <th class="col-10">Изучение</th>
                 <th class="col-10" title="Прогресс тренировки">%</th>
             </tr>
-            <?php foreach ($training_array as $item) { ?>
+            <?php foreach ($scout_array as $item) { ?>
                 <tr>
                     <td>
                         <a href="/player_view.php?num=<?= $item['player_id']; ?>">
@@ -139,37 +112,22 @@
                             />
                         </a>
                     </td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>
-                    <td class="text-center">
-                        <?= $item['player_power_nominal']; ?>
-                        <?php if ($item['training_power']) { ?>
-                            + 1
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?= f_igosja_player_position($item['player_id']); ?>
-                        <?php if ($item['position_name']) { ?>
-                            + <?= $item['position_name']; ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?= f_igosja_player_special($item['player_id']); ?>
-                        <?php if ($item['special_name']) { ?>
-                            + <?= $item['special_name']; ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['training_percent']; ?>%
-                    </td>
+                    <td class="text-center"><?= $item['player_power_nominal']; ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center">Стиль</td>
+                    <td class="text-center"><?= $item['scout_percent']; ?>%</td>
                 </tr>
             <?php } ?>
             <tr>
                 <th>Игрок</th>
                 <th title="Национальность">Нац</th>
-                <th title="Возраст">В</th>
                 <th title="Позиция">Поз</th>
+                <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
                 <th title="Спецвозможности">Спец</th>
+                <th>Изучение</th>
                 <th title="Прогресс тренировки">%</th>
             </tr>
         </table>
@@ -183,10 +141,11 @@
                 <tr>
                     <th>Игрок</th>
                     <th class="col-1" title="Национальность">Нац</th>
+                    <th class="col-10" title="Позиция">Поз</th>
                     <th class="col-5" title="Возраст">В</th>
                     <th class="col-10" title="Номинальная сила">С</th>
-                    <th class="col-15" title="Позиция">Поз</th>
                     <th class="col-15" title="Спецвозможности">Спец</th>
+                    <th class="col-10">Стиль</th>
                 </tr>
                 <?php foreach ($player_array as $item) { ?>
                     <tr>
@@ -204,40 +163,29 @@
                                 />
                             </a>
                         </td>
+                        <td class="text-center">
+                            <?= f_igosja_player_position($item['player_id']); ?>
+                        </td>
                         <td class="text-center"><?= $item['player_age']; ?></td>
                         <td class="text-center">
                             <?= $item['player_power_nominal']; ?>
-                            <input name="data[power][]" type="checkbox" value="<?= $item['player_id']; ?>" />
                         </td>
                         <td class="text-center">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_position($item['player_id']); ?>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_position_training($item['player_id']); ?>
-                                </div>
-                            </div>
+                            <?= f_igosja_player_special($item['player_id']); ?>
                         </td>
                         <td class="text-center">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_special($item['player_id']); ?>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_special_training($item['player_id']); ?>
-                                </div>
-                            </div>
+                            <input name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
                         </td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <th>Игрок</th>
                     <th title="Национальность">Нац</th>
-                    <th title="Возраст">В</th>
                     <th title="Позиция">Поз</th>
+                    <th title="Возраст">В</th>
                     <th title="Номинальная сила">С</th>
                     <th title="Спецвозможности">Спец</th>
+                    <th>Стиль</th>
                 </tr>
             </table>
         </div>

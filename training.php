@@ -375,7 +375,7 @@ $sql = "SELECT `country_id`,
         ORDER BY `training_id` ASC";
 $training_sql = f_igosja_mysqli_query($sql);
 
-$trainin_array = $training_sql->fetch_all(1);
+$training_array = $training_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`,
