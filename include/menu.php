@@ -2,7 +2,7 @@
 
 $igosja_menu = array(
     array('label' => 'VIP-клуб',        'url' => 'javascript:;'),
-    array('label' => 'Аренда',          'url' => 'javascript:;'),
+    array('label' => 'Аренда',          'url' => '/rent.php'),
     array('label' => 'Главная',         'url' => '/'),
     array('label' => 'Забыли пароль?',  'url' => '/password.php'),
     array('label' => 'Игроки',          'url' => '/player_list.php'),
@@ -21,7 +21,7 @@ $igosja_menu = array(
     array('label' => 'Сборная',         'url' => 'javascript:;'),
     array('label' => 'Сменить клуб',    'url' => 'javascript:;'),
     array('label' => 'Тех.поддержка',   'url' => '/support.php',    'css' => 'count_support'),
-    array('label' => 'Трансфер',        'url' => 'javascript:;'),
+    array('label' => 'Трансфер',        'url' => '/transfer.php'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
     array('label' => 'Федерация',       'url' => '/country_news.php'),
     array('label' => 'Форум',           'url' => 'javascript:;'),
@@ -42,7 +42,6 @@ $igosja_menu_guest = array(
         $igosja_menu[5],
         $igosja_menu[4],
         $igosja_menu[20],
-        $igosja_menu[8],
         $igosja_menu[1],
     ),
     array(
@@ -69,7 +68,6 @@ $igosja_menu_guest_mobile = array(
     ),
     array(
         $igosja_menu[20],
-        $igosja_menu[8],
         $igosja_menu[1],
     ),
     array(
@@ -97,7 +95,6 @@ $igosja_menu_login = array(
         $igosja_menu[5],
         $igosja_menu[4],
         $igosja_menu[20],
-        $igosja_menu[8],
         $igosja_menu[1],
     ),
     array(
@@ -134,7 +131,6 @@ $igosja_menu_login_mobile = array(
     ),
     array(
         $igosja_menu[20],
-        $igosja_menu[8],
         $igosja_menu[1],
     ),
     array(
