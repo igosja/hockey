@@ -8,35 +8,38 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>Трансфер игрока</th>
+                <th>Аренда игрока</th>
             </tr>
         </table>
     </div>
 </div>
 <?php if (isset($auth_team_id)) { ?>
     <?php if ($my_player) { ?>
-        <?php if ($on_transfer) { ?>
+        <?php if ($on_rent) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
                     <p class="text-center">
-                        Игрок находится на трансфере.
+                        Игрок находится на рынке аренды.
                         <br/>
-                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money($transfer_price); ?></span>.
+                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money($rent_price); ?></span> за 1 день арены.
+                        <br/>
+                        Срок аренды составляет <span class="strong"><?= $rent_day_min; ?>-<?= $rent_day_max; ?></span> дней.
                     </p>
                     <form method="POST">
                         <input name="data[off]" type="hidden" value="1" />
                         <p class="text-center">
-                            <button class="btn" type="submit">Снять с трансфера</button>
+                            <button class="btn" type="submit">Снять с рынка аренды</button>
                         </p>
                     </form>
                     <p class="text-center">Заявки на вашего игрока:</p>
                     <table class="table table-bordered table-hover">
                         <tr>
-                            <th>Команда потенциального покупателя</th>
+                            <th>Команда потенциального арендатора</th>
                             <th class="col-20">Время заявки</th>
+                            <th class="col-15">Срок аренды</th>
                             <th class="col-15">Сумма</th>
                         </tr>
-                        <?php foreach ($transferapplication_array as $item) { ?>
+                        <?php foreach ($rentapplication_array as $item) { ?>
                             <tr>
                                 <td>
                                     <a href="/team_view.php?num=<?= $item['team_id']; ?>">
@@ -44,8 +47,9 @@
                                         (<?= $item['city_name']; ?>, <?= $item['country_name']; ?>)
                                     </a>
                                 </td>
-                                <td class="text-center"><?= f_igosja_ufu_date_time($item['transferapplication_date']); ?></td>
-                                <td class="text-right"><?= f_igosja_money($item['transferapplication_price']); ?></td>
+                                <td class="text-center"><?= f_igosja_ufu_date_time($item['rentapplication_date']); ?></td>
+                                <td class="text-center"><?= $item['rentapplication_day']; ?></td>
+                                <td class="text-right"><?= f_igosja_money($item['rentapplication_price']); ?></td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -55,30 +59,41 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <p>
-                        Здесь вы можете <span class="strong">поставить своего игрока на трансферный рынок</span>.
+                        Здесь вы можете <span class="strong">поставить своего игрока на арендный рынок</span>.
                     </p>
                     <p>
-                        Начальная трансферная цена игрока должна быть не меньше
-                        <span class="strong"><?= f_igosja_money($transfer_price); ?></span>.
+                        Начальная цена аренды игрока должна быть не меньше
+                        <span class="strong"><?= f_igosja_money($rent_price); ?></span>.
                     </p>
                     <form method="POST">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                 <label for="price">Начальная цена, $:</label>
                             </div>
-                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">
-                                <input class="form-control" name="data[price]" id="price" type="text" value="<?= $transfer_price; ?>" />
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                                <input class="form-control" name="data[price]" id="price" type="text" value="<?= $rent_price; ?>" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                <label for="price">Дней аренды (min-max):</label>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                                <input class="form-control" name="data[day_min]" id="price" type="text" value="<?= $rent_day_min; ?>" />
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                                <input class="form-control" name="data[day_max]" id="price" type="text" value="<?= $rent_day_max; ?>" />
                             </div>
                         </div>
                         <p class="text-center">
-                            <button class="btn" type="submit">Выставить на трансфер</button>
+                            <button class="btn" type="submit">Выставить на рынок аренды</button>
                         </p>
                     </form>
                 </div>
             </div>
         <?php } ?>
     <?php } else { ?>
-        <?php if ($on_transfer) { ?>
+        <?php if ($on_rent) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
@@ -104,10 +119,18 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                            Начальная цена:
+                            Начальная цена за 1 день аренды:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <span class="strong"><?= f_igosja_money($start_price); ?></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                            Срок аренды:
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <span class="strong"><?= $rent_day_min; ?>-<?= $rent_day_max; ?></span> дней
                         </div>
                     </div>
                     <form method="POST">
@@ -116,11 +139,19 @@
                                 <label for="price">Ваше предложение, $:</label>
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">
-                                <input class="form-control" name="data[price]" id="price" type="text" value="<?= $transfer_price; ?>" />
+                                <input class="form-control" name="data[price]" id="price" type="text" value="<?= $rent_price; ?>" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                <label for="day">Дней аренды:</label>
+                            </div>
+                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">
+                                <input class="form-control" name="data[day]" id="day" type="text" value="<?= $rent_day; ?>" />
                             </div>
                         </div>
                         <p class="text-center">
-                            <?php if ($transferapplication_sql->num_rows) { ?>
+                            <?php if ($rentapplication_sql->num_rows) { ?>
                                 <button class="btn" type="submit">
                                     Редактировать заявку
                                 </button>
@@ -153,7 +184,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>Трансфер игрока</th>
+                <th>Аренда игрока</th>
             </tr>
         </table>
     </div>

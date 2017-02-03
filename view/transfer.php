@@ -23,7 +23,7 @@
                 <tr>
                     <td class="text-center"><?= $i + 1; ?></td>
                     <td>
-                        <a href="/player_view.php?num=<?= $transfer_array[$i]['player_id']; ?>">
+                        <a href="/player_transfer.php?num=<?= $transfer_array[$i]['player_id']; ?>">
                             <?= $transfer_array[$i]['name_name']; ?> <?= $transfer_array[$i]['surname_name']; ?>
                         </a>
                     </td>
@@ -54,7 +54,7 @@
                         </a>
                     </td>
                     <td class="text-right">
-                        <?= f_igosja_money($transfer_array[$i]['transfer_price']); ?>
+                        <?= f_igosja_money($transfer_array[$i]['transfer_price_buyer']); ?>
                     </td>
                 </tr>
             <?php } ?>

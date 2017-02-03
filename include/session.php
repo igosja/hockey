@@ -25,6 +25,11 @@ if (isset($_SESSION['user_id']))
     $auth_userrole_id   = $user_array[0]['user_userrole_id'];
     $auth_team_id       = $user_array[0]['team_id'];
 
+    if (!$auth_team_id)
+    {
+        $auth_team_id = 0;
+    }
+
     $sql = "SELECT COUNT(`message_id`) AS `count`
             FROM `message`
             WHERE `message_support_from`=1

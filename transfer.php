@@ -13,7 +13,7 @@ $sql = "SELECT `city_name`,
                `t_country`.`country_name` AS `t_country_name`,
                `team_id`,
                `team_name`,
-               `transfer_price`
+               `transfer_price_buyer`
         FROM `transfer`
         LEFT JOIN `player`
         ON `transfer_player_id`=`player_id`
