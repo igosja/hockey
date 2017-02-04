@@ -58,7 +58,7 @@
                         <?= $rent_array[$i]['rent_day']; ?>
                     </td>
                     <td class="text-right">
-                        <?= f_igosja_money($rent_array[$i]['rent_price']); ?>
+                        <?= f_igosja_money($rent_array[$i]['rent_price_buyer']); ?>
                     </td>
                 </tr>
             <?php } ?>

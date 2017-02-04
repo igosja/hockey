@@ -15,6 +15,7 @@ $q[] = 'CREATE TABLE `rent`
             `rent_price_buyer` INT(11) DEFAULT 0,
             `rent_price_seller` INT(11) DEFAULT 0,
             `rent_ready` TINYINT(1) DEFAULT 0,
+            `rent_season_id` SMALLINT(5) DEFAULT 0,
             `rent_team_buyer_id` INT(11) DEFAULT 0,
             `rent_team_seller_id` INT(11) DEFAULT 0,
             `rent_user_buyer_id` INT(11) DEFAULT 0,
