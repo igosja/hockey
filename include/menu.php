@@ -10,7 +10,7 @@ $igosja_menu = array(
     array('label' => 'Магазин',         'url' => 'javascript:;'),
     array('label' => 'Новости',         'url' => '/news.php'),
     array('label' => 'Обмены',          'url' => 'javascript:;'),
-    array('label' => 'Общение',         'url' => 'javascript:;'),
+    array('label' => 'Общение',         'url' => '/talk_list.php'),
     array('label' => 'Опросы',          'url' => '/vote_list.php',  'css' => 'count_vote'),
     array('label' => 'Правила',         'url' => '/rule_list.php'),
     array('label' => 'Профиль',         'url' => '/user_view.php'),

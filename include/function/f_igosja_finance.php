@@ -2,6 +2,8 @@
 
 function f_igosja_finance($data)
 {
+    global $mysqli;
+
     if (isset($data['finance_building_id']))
     {
         $finance_building_id = (int)$data['finance_building_id'];
@@ -18,6 +20,15 @@ function f_igosja_finance($data)
     else
     {
         $finance_capacity = 0;
+    }
+
+    if (isset($data['finance_comment']))
+    {
+        $finance_comment = $data['finance_comment'];
+    }
+    else
+    {
+        $finance_comment = 0;
     }
 
     if (isset($data['finance_country_id']))
@@ -74,6 +85,15 @@ function f_igosja_finance($data)
         $finance_team_id = 0;
     }
 
+    if (isset($data['finance_user_id']))
+    {
+        $finance_user_id = (int)$data['finance_user_id'];
+    }
+    else
+    {
+        $finance_user_id = 0;
+    }
+
     if (isset($data['finance_value']))
     {
         $finance_value = (int)$data['finance_value'];
@@ -114,6 +134,7 @@ function f_igosja_finance($data)
     $sql = "INSERT INTO `finance`
             SET `finance_building_id`=$finance_building_id,
                 `finance_capacity`=$finance_capacity,
+                `finance_comment`=?,
                 `finance_country_id`=$finance_country_id,
                 `finance_date`=UNIX_TIMESTAMP(),
                 `finance_financetext_id`=$finance_financetext_id,
@@ -122,8 +143,11 @@ function f_igosja_finance($data)
                 `finance_player_id`=$finance_player_id,
                 `finance_season_id`=$finance_season_id,
                 `finance_team_id`=$finance_team_id,
+                `finance_user_id`=$finance_user_id,
                 `finance_value`=$finance_value,
                 `finance_value_after`=$finance_value_after,
                 `finance_value_before`=$finance_value_before";
-    f_igosja_mysqli_query($sql);
+    $prepare = $mysqli->prepare($sql);
+    $prepare->bind_param('s', $finance_comment);
+    $prepare->execute();
 }

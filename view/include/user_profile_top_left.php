@@ -11,6 +11,9 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Ник: <span class="strong"><?= $user_array[0]['user_login']; ?></span>
+        <a href="/talk.php?num=<?= $user_array[0]['user_id']; ?>">
+            Письмо
+        </a>
     </div>
 </div>
 <div class="row">

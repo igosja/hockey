@@ -9,6 +9,7 @@ $sql = "SELECT `country_name`,
                `user_date_login`,
                `user_date_register`,
                `user_finance`,
+               `user_id`,
                `user_login`,
                `user_money`
         FROM `user`
