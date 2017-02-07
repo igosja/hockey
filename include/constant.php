@@ -160,7 +160,6 @@ $country_link_array = array(
     array('url' => 'country_news', 'text' => 'Новости'),
     array('url' => 'country_finance', 'text' => 'Фонд'),
     array('url' => 'country_vote_list', 'text' => 'Опросы'),
-    array('url' => 'country_deal', 'text' => 'Сделки'),
     array('url' => 'country_league', 'text' => 'Лига Чемпионов'),
 );
 
