@@ -100,7 +100,7 @@
             </tr>
             <tr>
                 <td>
-                    Деньги на счёт команды
+                    1 млн. $ на счёт команды
                 </td>
                 <td class="text-right">
                     <a href="/shop.php?data[product]=2">

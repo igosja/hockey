@@ -26,6 +26,9 @@ $q[] = 'CREATE TABLE `user`
             `user_password` CHAR(32) NOT NULL,
             `user_referrer_id` INT(11) DEFAULT 0,
             `user_sex_id` TINYINT(1) DEFAULT 1,
+            `user_shop_position` TINYINT(3) DEFAULT 0,
+            `user_shop_special` TINYINT(3) DEFAULT 0,
+            `user_shop_training` TINYINT(3) DEFAULT 0,
             `user_surname` VARCHAR(255) NOT NULL,
             `user_userrole_id` TINYINT(1) DEFAULT 1
         );';

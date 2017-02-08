@@ -66,10 +66,101 @@ if ($data = f_igosja_request_get('data'))
 
         redirect('/shop.php');
     }
+    elseif (isset($data['product']))
+    {
+        if (!in_array($data['product'], array(1, 2, 3, 4)))
+        {
+            $_SESSION['message']['class']   = 'success';
+            $_SESSION['message']['text']    = 'Игровой товар выбран неправильно.';
 
-    print '<pre>';
-    print_r($data);
-    exit;
+            redirect('/shop.php');
+        }
+
+        if (1 == $data['product'])
+        {
+            $price = 1;
+        }
+        elseif (2 == $data['product'])
+        {
+            $price = 5;
+        }
+        else
+        {
+            $price = 3;
+        }
+
+        if ($price > $user_array[0]['user_money'])
+        {
+            $_SESSION['message']['class']   = 'error';
+            $_SESSION['message']['text']    = 'Недостаточно средств на счету.';
+
+            redirect('/shop.php');
+        }
+
+        if (1 == $data['product'])
+        {
+            $sql = "UPDATE `user`
+                    SET `user_money`=`user_money`-$price,
+                        `user_shop_training`=`user_shop_training`+1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+        elseif(2 == $data['product'])
+        {
+            $sql = "UPDATE `user`
+                    SET `user_money`=`user_money`-$price
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+
+            $sql = "SELECT `team_finance`
+                    FROM `team`
+                    WHERE `team_id`=$auth_team_id
+                    LIMIT 1";
+            $team_sql = f_igosja_mysqli_query($sql);
+
+            $team_array = $team_sql->fetch_all(1);
+
+            $sql = "UPDATE `team`
+                    SET `team_finance`=`team_finance`+1000000
+                    WHERE `team_id`=$auth_team_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+
+            $finance = array(
+                'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_VIP,
+                'finance_team_id' => $auth_team_id,
+                'finance_value' => 1000000,
+                'finance_value_after' => $team_array[0]['team_finance'] + 1000000,
+                'finance_value_before' => $team_array[0]['team_finance'],
+            );
+            f_igosja_finance($finance);
+        }
+        elseif(3 == $data['product'])
+        {
+            $sql = "UPDATE `user`
+                    SET `user_money`=`user_money`-$price,
+                        `user_shop_position`=`user_shop_position`+1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+        elseif(4 == $data['product'])
+        {
+            $sql = "UPDATE `user`
+                    SET `user_money`=`user_money`-$price,
+                        `user_shop_special`=`user_shop_special`+1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
+
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Покупка совершена успешно.';
+
+        redirect('/shop.php');
+    }
 }
 
 include (__DIR__ . '/view/layout/main.php');
