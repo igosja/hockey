@@ -33,8 +33,8 @@ $q[] = 'CREATE TABLE `team`
             `team_user_id` INT(11) DEFAULT 0,
             `team_vice_id` INT(11) DEFAULT 0,
             `team_visitor` SMALLINT(3) DEFAULT 100,
-            `team_vote_junior` TINYINT(1) DEFAULT 2,
             `team_vote_national` TINYINT(1) DEFAULT 2,
             `team_vote_president` TINYINT(1) DEFAULT 2,
-            `team_vote_youth` TINYINT(1) DEFAULT 2
+            `team_vote_u19` TINYINT(1) DEFAULT 2,
+            `team_vote_u21` TINYINT(1) DEFAULT 2
         );';
