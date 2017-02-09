@@ -5,7 +5,7 @@ include (__DIR__ . '/include/include.php');
 $sql = "SELECT `rule_id`,
                `rule_title`
         FROM `rule`
-        ORDER BY `rule_order` DESC";
+        ORDER BY `rule_order` ASC, `rule_id` ASC";
 $rule_sql = f_igosja_mysqli_query($sql);
 
 $rule_array = $rule_sql->fetch_all(1);

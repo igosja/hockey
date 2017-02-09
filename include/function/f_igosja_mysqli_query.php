@@ -1,6 +1,6 @@
 <?php
 
-function f_igosja_mysqli_query($sql)
+function f_igosja_mysqli_query($sql, $save = true)
 {
     global $count_query;
     global $mysqli;
@@ -8,14 +8,21 @@ function f_igosja_mysqli_query($sql)
 
     $count_query++;
 
-    $start_time = microtime(true);
-    $result     = $mysqli->query($sql) or die($mysqli->error);
-    $time       = round(microtime(true) - $start_time, 5);
+    if ($save)
+    {
+        $start_time = microtime(true);
+        $result = $mysqli->query($sql) or die($mysqli->error);
+        $time = round(microtime(true) - $start_time, 5);
 
-    $query_array[] = array(
-        'sql' => $sql,
-        'time' => $time,
-    );
+        $query_array[] = array(
+            'sql' => $sql,
+            'time' => $time,
+        );
+    }
+    else
+    {
+        $result = $mysqli->query($sql) or die($mysqli->error);
+    }
 
     return $result;
 }

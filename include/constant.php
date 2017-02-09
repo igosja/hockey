@@ -173,19 +173,3 @@ $season_sql = f_igosja_mysqli_query($sql);
 $season_array = $season_sql->fetch_all(1);
 
 $igosja_season_id = $season_array[0]['season_id'];
-
-$sql = "SELECT `position_id`,
-               `position_name`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
-
-$position_array = $position_sql->fetch_all(1);
-
-$sql = "SELECT `special_id`,
-               `special_name`
-        FROM `special`
-        ORDER BY `special_id` ASC";
-$special_sql = f_igosja_mysqli_query($sql);
-
-$special_array = $special_sql->fetch_all(1);
