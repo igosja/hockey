@@ -7,7 +7,8 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `rule_text`,
+$sql = "SELECT `rule_date`,
+               `rule_text`,
                `rule_title`
         FROM `rule`
         WHERE `rule_id`=$num_get

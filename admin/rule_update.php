@@ -9,7 +9,8 @@ if ($data = f_igosja_request_post('data'))
     $set_sql = f_igosja_sql_data($data);
 
     $sql = "UPDATE `rule`
-            SET $set_sql
+            SET $set_sql,
+                `rule_date`=UNIX_TIMESTAMP()
             WHERE `rule_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);

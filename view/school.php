@@ -53,11 +53,11 @@
                 Начнется подготовка юниора:
                 <ul>
                     <li><?= $confirm_data['position']['name']; ?></li>
-                    <input name="data[position_id]" type="hidden" value="<?= $confirm_data['position']['id']; ?>">
+                    <input name="data[position_id]" type="hidden" value="<?= $confirm_data['position']['id']; ?>" />
                     <li><?= $confirm_data['special']['name']; ?></li>
-                    <input name="data[special_id]" type="hidden" value="<?= $confirm_data['special']['id']; ?>">
+                    <input name="data[special_id]" type="hidden" value="<?= $confirm_data['special']['id']; ?>" />
                     <li><?= $confirm_data['style']['name']; ?></li>
-                    <input name="data[style_id]" type="hidden" value="<?= $confirm_data['style']['id']; ?>">
+                    <input name="data[style_id]" type="hidden" value="<?= $confirm_data['style']['id']; ?>" />
                 </ul>
             </div>
         </div>
@@ -93,8 +93,8 @@
                     <td class="text-center">
                         <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                             <img
-                                    src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
-                                    title="<?= $player_array[0]['country_name']; ?>"
+                                src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
+                                title="<?= $player_array[0]['country_name']; ?>"
                             />
                         </a>
                     </td>
