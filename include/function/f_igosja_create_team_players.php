@@ -47,9 +47,9 @@ function f_igosja_create_team_players($team_id)
 
         $age = 17 + $i;
 
-        if (30 < $age)
+        if (39 < $age)
         {
-            $age = $age - 12;
+            $age = $age - 17;
         }
 
         $sql ="SELECT `phisical_id`,
