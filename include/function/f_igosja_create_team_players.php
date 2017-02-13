@@ -97,7 +97,7 @@ function f_igosja_create_team_players($team_id)
                     `player_phisical_id`=$phisical_id,
                     `player_power_nominal`=$age*2,
                     `player_power_old`=$age*2,
-                    `player_power_real`=`player_power_nominal`*60/100*$phisical_value/100,
+                    `player_power_real`=`player_power_nominal`*50/100*$phisical_value/100,
                     `player_price`=0,
                     `player_salary`=0,
                     `player_school_id`=$team_id,
@@ -105,7 +105,7 @@ function f_igosja_create_team_players($team_id)
                     `player_style_id`=$style_id,
                     `player_surname_id`=$surname_id,
                     `player_team_id`=$team_id,
-                    `player_tire`=40,
+                    `player_tire`=50,
                     `player_training_ability`=$ability";
         f_igosja_mysqli_query($sql);
 

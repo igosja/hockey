@@ -679,7 +679,7 @@ td.table-bordered-right {
     border-top: #286090 dotted 1px;
 }
 
-ul {
+ol, ul {
     margin: 0;
     padding-left: 20px;
 }
