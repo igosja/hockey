@@ -433,6 +433,10 @@ a.btn {
     width: 47%;
 }
 
+.col-50 {
+    width: 50%;
+}
+
 .text-left {
     text-align: left;
 }
