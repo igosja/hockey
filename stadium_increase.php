@@ -76,7 +76,7 @@ if (isset($new_capacity))
             $stadium_accept = 'При уменьшении стадиона до ' . $new_capacity
                             . ' мест будет стоить ' . f_igosja_money($buildingstadium_price)
                             . ' и займет  ' . $buildingstadium_day
-                            . ' дней типа B';
+                            . ' дней.';
         }
         else
         {

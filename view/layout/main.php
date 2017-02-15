@@ -67,7 +67,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
             Страница сгенерирована за <?= round(microtime(true) - $start_time, 5); ?> сек.,
             <?= f_igosja_get_count_query(); ?> запр.<br/>
-            <?= number_format(memory_get_usage(), 0, ',', ' '); ?> Б памяти<br/>
+            Потребление памяти - <?= number_format(memory_get_usage(), 0, ',', ' '); ?> Б<br/>
             Версия
             <?=
             $site_array[0]['site_version_1']
