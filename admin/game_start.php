@@ -256,7 +256,7 @@ $name_array = array(
         'list' => $eng_name,
     ),
     array(
-        'country' => 'Росссия',
+        'country' => 'Россия',
         'list' => $rus_name,
     ),
     array(
@@ -377,8 +377,49 @@ $name_array = array(
     ),
 );
 
-foreach ($name_array as $team)
+foreach ($name_array as $country)
 {
+    $country_name = $country['country'];
+
+    $sql = "SELECT `country_id`
+            FROM `country`
+            WHERE `country_name`='$country_name'
+            LIMIT 1";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(1);
+
+    $country_id = $country_array[0]['country_id'];
+
+    foreach ($country['list'] as $item)
+    {
+        $sql = "SELECT `name_id`
+                FROM `name`
+                WHERE `name_name`='$item'
+                LIMIT 1";
+        $name_sql = f_igosja_mysqli_query($sql);
+
+        if (0 == $name_sql->num_rows)
+        {
+            $sql = "INSERT INTO `name`
+                    SET `name_name`='$item'";
+            f_igosja_mysqli_query($sql);
+
+            $name_id = $mysqli->insert_id;
+        }
+        else
+        {
+            $nam_array = $name_sql->fetch_all(1);
+
+            $name_id = $nam_array[0]['name_id'];
+        }
+
+        $sql = "INSERT INTO `namecountry`
+                SET `namecountry_country_id`=$country_id,
+                    `namecountry_name_id`=$name_id";
+        f_igosja_mysqli_query($sql);
+    }
+
     usleep(1);
 
     print '.';
@@ -896,7 +937,7 @@ $surname_array = array(
         'list' => $eng_surname,
     ),
     array(
-        'country' => 'Росссия',
+        'country' => 'Россия',
         'list' => array(
             'Абрамов',
             'Авдеев',
@@ -1929,8 +1970,49 @@ $surname_array = array(
     ),
 );
 
-foreach ($name_array as $team)
+foreach ($surname_array as $country)
 {
+    $country_name = $country['country'];
+
+    $sql = "SELECT `country_id`
+            FROM `country`
+            WHERE `country_name`='$country_name'
+            LIMIT 1";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(1);
+
+    $country_id = $country_array[0]['country_id'];
+
+    foreach ($country['list'] as $item)
+    {
+        $sql = "SELECT `surname_id`
+                FROM `surname`
+                WHERE `surname_name`='$item'
+                LIMIT 1";
+        $surname_sql = f_igosja_mysqli_query($sql);
+
+        if (0 == $surname_sql->num_rows)
+        {
+            $sql = "INSERT INTO `surname`
+                    SET `surname_name`='$item'";
+            f_igosja_mysqli_query($sql);
+
+            $surname_id = $mysqli->insert_id;
+        }
+        else
+        {
+            $surnam_array = $surname_sql->fetch_all(1);
+
+            $surname_id = $surnam_array[0]['surname_id'];
+        }
+
+        $sql = "INSERT INTO `surnamecountry`
+                SET `surnamecountry_country_id`=$country_id,
+                    `surnamecountry_surname_id`=$surname_id";
+        f_igosja_mysqli_query($sql);
+    }
+
     usleep(1);
 
     print '.';
@@ -2408,12 +2490,61 @@ $team_array = array(
     ),
 );
 
-foreach ($team_array as $team)
+foreach ($team_array as $country)
 {
-    usleep(1);
+    $country_name = $country['country'];
 
-    print '.';
-    flush();
+    $sql = "SELECT `country_id`
+            FROM `country`
+            WHERE `country_name`='$country_name'
+            LIMIT 1";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(1);
+
+    $country_id = $country_array[0]['country_id'];
+
+    foreach ($country['list'] as $item)
+    {
+        $city_name = $item['city'];
+
+        $sql = "INSERT INTO `city`
+                SET `city_country_id`=$country_id,
+                    `city_name`='$city_name'";
+        f_igosja_mysqli_query($sql);
+
+        $city_id = $mysqli->insert_id;
+
+        $stadium_name = $item['stadium'];
+
+        $sql = "INSERT INTO `stadium`
+                SET `stadium_city_id`=$city_id,
+                    `stadium_name`='$stadium_name'";
+        f_igosja_mysqli_query($sql);
+
+        $stadium_id = $mysqli->insert_id;
+
+        $team_name = $item['team'];
+
+        $sql = "INSERT INTO `team`
+                SET `team_stadium_id`=$stadium_id,
+                    `team_name`='$team_name'";
+        f_igosja_mysqli_query($sql);
+
+        $team_id = $mysqli->insert_id;
+
+        $log = array(
+            'log_logtext_id' => LOGTEXT_TEAM_REGISTER,
+            'log_team_id' => $team_id,
+        );
+        f_igosja_log($log);
+        f_igosja_create_team_players($team_id);
+
+        usleep(1);
+
+        print '.';
+        flush();
+    }
 }
 
 //Начало формирования календаря
