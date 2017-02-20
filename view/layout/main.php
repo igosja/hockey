@@ -14,13 +14,17 @@
 <div class="main">
     <div class="content">
         <div class="row">
-            <?php if (isset($auth_user_id)) { ?>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
+                <a href="/index.php">
+                    <img class="img-responsive" src="/img/logo.png"/>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
+                <br/>
+                <?php if (isset($auth_user_id)) { ?>
                     <?= $auth_user_login; ?>
                     <a href="/logout.php" class="btn margin">Выйти</a>
-                </div>
-            <?php } else { ?>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                <?php } else { ?>
                     <form action="/login.php" class="form-inline" method="POST">
                         <label for="t-form-login">Логин</label>
                         <input class="form-control form-small" type="text" id="t-form-login" name="data[login]"/>
@@ -28,8 +32,8 @@
                         <input class="form-control form-small" type="password" id="t-form-pass" name="data[password]"/>
                         <button type="submit" class="btn">Вход</button>
                     </form>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs text-center menu">

@@ -64,6 +64,26 @@ $sql = "INSERT INTO `user`
             `user_password`='c4cebb3cf70d9ac033606682b796c5a9'";
 f_igosja_mysqli_query($sql);
 
+$sql = "INSERT INTO `user`
+        SET `user_code`='27415f4d1d6b604a99754d451ec92c26',
+            `user_date_confirm`=0,
+            `user_date_login`=UNIX_TIMESTAMP(),
+            `user_date_register`=UNIX_TIMESTAMP(),
+            `user_email`='sdhgqnk75@mail.ru',
+            `user_login`='Anthonywasse',
+            `user_password`='bd414a156a5a5c493bf1ebbee650cccb'";
+f_igosja_mysqli_query($sql);
+
+$sql = "INSERT INTO `user`
+        SET `user_code`='6eb62c17f8cd62f32c238f820f44f4c1',
+            `user_date_confirm`=0,
+            `user_date_login`=UNIX_TIMESTAMP(),
+            `user_date_register`=UNIX_TIMESTAMP(),
+            `user_email`='owen@1milliondollars.xyz',
+            `user_login`='IsaacHab',
+            `user_password`='cf12350f0de7344e7907740e266f516d'";
+f_igosja_mysqli_query($sql);
+
 $rus_name = array(
     'Александр',
     'Алексей',
