@@ -63,7 +63,10 @@
                     <p class="text-justify">
                         <?= $news_array[0]['news_text']; ?>
                     </p>
-                    <p class="text-justify">
+                    <a href="/user_view.php?num=<?= $news_array[0]['user_id']; ?>">
+                        <?= $news_array[0]['user_login']; ?>
+                    </a>
+                    <p class="text-justify text-size-3">
                         [<a href="/news.php">Подробнее</a>]
                     </p>
                 </div>
@@ -120,17 +123,17 @@
                     Журналисты Виртуальной Хоккейной Лиги регулярно публикуют обзоры состоявшихся туров:
                 </p>
                 <ul>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
-                    <li>Нигерия (D2), тур 28: Тур 28. Нигерия, D2. (Сталеканатчик)</li>
+                    <?php foreach ($review_array as $item) { ?>
+                        <li>
+                            <?= $item['country_name']; ?>
+                            (<?= $item['division_name']; ?>),
+                            <?= $item['stage_name']; ?>:
+                            <a href="/review_view.php?num=<?= $item['review_id']; ?>">
+                                <?= $item['review_title']; ?>
+                            </a>
+                            (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
@@ -139,17 +142,20 @@
                 <h2>Новости федераций</h2>
             </div>
         </div>
-        <?php if (isset($news_array[0])) { ?>
+        <?php if (isset($newscountry_array[0])) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
-                        <span class="strong"><?= $news_array[0]['news_title']; ?></span>
+                        <span class="strong"><?= $newscountry_array[0]['country_name']; ?>: <?= $newscountry_array[0]['news_title']; ?></span>
                     </p>
                     <p class="text-justify">
-                        <?= $news_array[0]['news_text']; ?>
+                        <?= $newscountry_array[0]['news_text']; ?>
                     </p>
-                    <p class="text-justify">
-                        [<a href="/news.php">Подробнее</a>]
+                    <a href="/user_view.php?num=<?= $newscountry_array[0]['user_id']; ?>">
+                        <?= $newscountry_array[0]['user_login']; ?>
+                    </a>
+                    <p class="text-justify text-size-3">
+                        [<a href="/country_news.php?num=<?= $newscountry_array[0]['country_id']; ?>">Подробнее</a>]
                     </p>
                 </div>
             </div>
@@ -163,22 +169,17 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <p class="text-justify"><span class="strong">Сегодня день рождения</span> празднуют менеджеры:</p>
                 <ul>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
-                    <li>Иванов Иван (Иванио)!</li>
+                    <?php foreach ($birth_array as $item) { ?>
+                        <li>
+                            <?= $item['user_name']; ?> <?= $item['user_surname']; ?>
+                            (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)!
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+    <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs">
         <div class="row margin">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <a href="//www.liveinternet.ru/click" target="_blank">

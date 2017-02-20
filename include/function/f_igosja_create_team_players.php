@@ -96,6 +96,7 @@ function f_igosja_create_team_players($team_id)
                     `player_name_id`=$name_id,
                     `player_phisical_id`=$phisical_id,
                     `player_power_nominal`=$age*2,
+                    `player_power_nominal_s`=$age*2,
                     `player_power_old`=$age*2,
                     `player_power_real`=`player_power_nominal`*50/100*$phisical_value/100,
                     `player_price`=0,

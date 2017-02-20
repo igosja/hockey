@@ -17,11 +17,11 @@
                 <th></th>
                 <th>Команда</th>
                 <th>Страна</th>
-                <th title="Дивизион, в котором выступает команда">Див</th>
-                <th>База</th>
-                <th>Стадион</th>
-                <th>Финансы</th>
-                <th title="Рейтинг силы с учетом спецвозможностей">Vs</th>
+                <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
+                <th class="hidden-xs">База</th>
+                <th class="hidden-xs">Стадион</th>
+                <th class="hidden-xs">Финансы</th>
+                <th class="hidden-xs" title="Рейтинг силы с учетом спецвозможностей">Vs</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
@@ -35,13 +35,15 @@
                             <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
                         </a>
                     </td>
-                    <td>
-                        <img src="/img/country/12/<?= $item['country_id']; ?>.png"/>
+                    <td class="xs-text-center">
                         <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                            <?= $item['country_name']; ?>
+                            <img src="/img/country/12/<?= $item['country_id']; ?>.png"/>
+                            <span class="hidden-xs">
+                                <?= $item['country_name']; ?>
+                            </span>
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?php if ($item['division_id']) { ?>
                             <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $item['division_id']; ?>">
                                 <?= $item['division_name']; ?>
@@ -50,21 +52,21 @@
                             <a href="/conference_table.php">КЛК</a>
                         <?php } ?>
                     </td>
-                    <td class="text-center"><?= $item['base_slot_used']; ?> из <?= $item['base_slot_max']; ?></td>
-                    <td class="text-right"><?= $item['stadium_capacity']; ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['team_finance']); ?></td>
-                    <td class="text-right"><?= $item['team_power_vs']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['base_slot_used']; ?> из <?= $item['base_slot_max']; ?></td>
+                    <td class="hidden-xs text-right"><?= $item['stadium_capacity']; ?></td>
+                    <td class="hidden-xs text-right"><?= f_igosja_money($item['team_finance']); ?></td>
+                    <td class="hidden-xs text-right"><?= $item['team_power_vs']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
                 <th></th>
                 <th>Команда</th>
                 <th>Страна</th>
-                <th title="Дивизион, в котором выступает команда">Див</th>
-                <th>База</th>
-                <th>Стадион</th>
-                <th>Финансы</th>
-                <th title="Рейтинг силы с учетом спецвозможностей">Vs</th>
+                <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
+                <th class="hidden-xs">База</th>
+                <th class="hidden-xs">Стадион</th>
+                <th class="hidden-xs">Финансы</th>
+                <th class="hidden-xs" title="Рейтинг силы с учетом спецвозможностей">Vs</th>
             </tr>
         </table>
     </div>

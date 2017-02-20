@@ -12,6 +12,7 @@ $q[] = 'CREATE TABLE `player`
             `player_phisical_id` TINYINT(2) DEFAULT 0,
             `player_power_real` SMALLINT(3) DEFAULT 0,
             `player_power_nominal` SMALLINT(3) DEFAULT 0,
+            `player_power_nominal_s` SMALLINT(3) DEFAULT 0,
             `player_power_old` SMALLINT(3) DEFAULT 0,
             `player_price` INT(11) DEFAULT 0,
             `player_rent_day` TINYINT(3) DEFAULT 0,
