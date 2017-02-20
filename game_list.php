@@ -41,9 +41,9 @@ $sql = "SELECT `game_id`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
                `game_played`
-        FROM `shedule`
-        LEFT JOIN `game`
-        ON `shedule_id`=`game_shedule_id`
+        FROM `game`
+        LEFT JOIN `shedule`
+        ON `game_shedule_id`=`shedule_id`
         LEFT JOIN `team` AS `guest_team`
         ON `game_guest_team_id`=`guest_team`.`team_id`
         LEFT JOIN `stadium` AS `guest_stadium`

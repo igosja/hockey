@@ -58,27 +58,27 @@ if ($position_id)
 
 if ($power_max)
 {
-    $where = $where . " AND `player_power_nominal`<='$power_max'";
+    $where = $where . " AND `player_power_nominal`<=$power_max";
 }
 
 if ($power_min)
 {
-    $where = $where . " AND `player_power_nominal`>='$power_min'";
+    $where = $where . " AND `player_power_nominal`>=$power_min";
 }
 
 if ($price_max)
 {
-    $where = $where . " AND `player_price`<='$price_max'";
+    $where = $where . " AND `player_price`<=$price_max";
 }
 
 if ($price_min)
 {
-    $where = $where . " AND `player_price`>='$price_min'";
+    $where = $where . " AND `player_price`>=$price_min";
 }
 
 if ($price_min)
 {
-    $where = $where . " AND `player_price`>='$price_min'";
+    $where = $where . " AND `player_price`>=$price_min";
 }
 
 if ($name)
@@ -176,20 +176,22 @@ foreach ($player_array as $item)
     $player_id[] = $item['player_id'];
 }
 
-$player_id = implode(', ', $player_id);
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
 
-$sql = "SELECT `playerposition_player_id`,
+    $sql = "SELECT `playerposition_player_id`,
                `position_name`
         FROM `playerposition`
         LEFT JOIN `position`
         ON `playerposition_position_id`=`position_id`
         WHERE `playerposition_player_id` IN ($player_id)
         ORDER BY `playerposition_position_id` ASC";
-$playerposition_sql = f_igosja_mysqli_query($sql);
+    $playerposition_sql = f_igosja_mysqli_query($sql);
 
-$playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(1);
 
-$sql = "SELECT `playerspecial_level`,
+    $sql = "SELECT `playerspecial_level`,
                `playerspecial_player_id`,
                `special_name`
         FROM `playerspecial`
@@ -197,9 +199,15 @@ $sql = "SELECT `playerspecial_level`,
         ON `playerspecial_special_id`=`special_id`
         WHERE `playerspecial_player_id` IN ($player_id)
         ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-$playerspecial_sql = f_igosja_mysqli_query($sql);
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-$playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+}
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
 
 $sql = "SELECT `position_id`,
                `position_name`
@@ -212,6 +220,10 @@ $position_array = $position_sql->fetch_all(1);
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
+        LEFT JOIN `city`
+        ON `country_id`=`city_country_id`
+        WHERE `city_country_id` IS NOT NULL
+        GROUP BY `country_id`
         ORDER BY `country_id` ASC";
 $country_sql = f_igosja_mysqli_query($sql);
 

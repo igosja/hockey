@@ -1,5 +1,13 @@
 <?php
 
+$sql = "SELECT `rosterphrase_text`
+        FROM `rosterphrase`
+        ORDER BY RAND()
+        LIMIT 1";
+$rosterphrase_sql = f_igosja_mysqli_query($sql);
+
+$rosterphrase_array = $rosterphrase_sql->fetch_all(1);
+
 $sql = "SELECT `game_id`,
                IF(`game_guest_team_id`=$num_get, `game_home_score`, `game_guest_score`) AS `guest_score`,
                IF(`game_guest_team_id`=$num_get, 'Г', 'Д') AS `home_guest`,
