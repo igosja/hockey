@@ -128,10 +128,10 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             Всего игроков: <?= $total; ?>
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-right">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
             Страница:
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
             <select class="form-control" name="page" id="page">
                 <?php for ($i=1; $i<=$count_page; $i++) { ?>
                     <option
@@ -148,18 +148,18 @@
     </div>
 </form>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
                 <th>№</th>
                 <th>Игрок</th>
-                <th class="col-1">Нац</th>
+                <th class="hidden-xs col-1">Нац</th>
                 <th>Поз</th>
                 <th>В</th>
                 <th>С</th>
-                <th>Спец</th>
+                <th class="hidden-xs">Спец</th>
                 <th>Команда</th>
-                <th>Цена</th>
+                <th class="hidden-xs">Цена</th>
             </tr>
             <?php for ($i=0; $i<$count_player; $i++) { ?>
                 <tr>
@@ -169,7 +169,7 @@
                             <?= $player_array[$i]['name_name']; ?> <?= $player_array[$i]['surname_name']; ?>
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <a href="/country_news.php?num=<?= $player_array[$i]['pl_country_id']; ?>">
                             <img
                                 src="/img/country/12/<?= $player_array[$i]['pl_country_id']; ?>.png"
@@ -186,7 +186,7 @@
                     <td class="text-center">
                         <?= $player_array[$i]['player_power_nominal']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= f_igosja_player_special($player_array[$i]['player_id'], $playerspecial_array); ?>
                     </td>
                     <td>
@@ -195,7 +195,7 @@
                             (<?= $player_array[$i]['city_name']; ?>, <?= $player_array[$i]['t_country_name']; ?>)
                         </a>
                     </td>
-                    <td class="text-right">
+                    <td class="hidden-xs text-right">
                         <?= f_igosja_money($player_array[$i]['player_price']); ?>
                     </td>
                 </tr>
@@ -203,13 +203,13 @@
             <tr>
                 <th>№</th>
                 <th>Игрок</th>
-                <th>Нац</th>
+                <th class="hidden-xs">Нац</th>
                 <th>Поз</th>
                 <th>В</th>
                 <th>С</th>
-                <th>Спец</th>
+                <th class="hidden-xs">Спец</th>
                 <th>Команда</th>
-                <th>Цена</th>
+                <th class="hidden-xs">Цена</th>
             </tr>
         </table>
     </div>

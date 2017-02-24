@@ -21,9 +21,9 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Команда</th>
-                <th class="col-20">Дивизион</th>
+                <th class="col-20 hidden-xs">Дивизион</th>
                 <th class="col-10" title="Рейтинг силы команды">Vs</th>
-                <th class="col-20">Стоимость</th>
+                <th class="col-20 hidden-xs">Стоимость</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
@@ -33,7 +33,7 @@
                             (<?= $item['city_name']; ?>, <?= $item['country_name']; ?>)
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?php if ($item['division_id']) { ?>
                             <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $item['division_id']; ?>">
                                 <?= $item['country_name']; ?>,
@@ -49,16 +49,16 @@
                     <td class="text-center">
                         <?= $item['team_power_vs']; ?>
                     </td>
-                    <td class="text-right">
+                    <td class="hidden-xs text-right">
                         <?= f_igosja_money($item['team_price_total']); ?>
                     </td>
                 </tr>
             <?php } ?>
             <tr>
                 <th>Команда</th>
-                <th>Дивизион</th>
+                <th class="hidden-xs">Дивизион</th>
                 <th title="Рейтинг силы команды">Vs</th>
-                <th>Стоимость</th>
+                <th class="hidden-xs">Стоимость</th>
             </tr>
         </table>
     </div>
@@ -74,25 +74,25 @@
                 <th class="col-3-5" title="Победы в овертайме/по буллитам">BО</th>
                 <th class="col-3-5" title="Поражения в овертайме/по буллитам/ничьи">ПО</th>
                 <th class="col-3-5" title="Поражения">П</th>
-                <th class="col-3-5" title="Выигранные коллизии">К+</th>
-                <th class="col-3-5" title="Проигранные коллизии">К-</th>
-                <th class="col-3-5" title="Победы у команд с супернастроем">ВС</th>
-                <th class="col-3-5" title="Победы у сильных соперников">В+</th>
-                <th class="col-3-5" title="Победы у равных соперников">В=</th>
-                <th class="col-3-5" title="Победы у слабых соперников">В-</th>
-                <th class="col-3-5" title="Победы в овертайме/по буллитам у сильных соперников">ВО+</th>
-                <th class="col-3-5" title="Победы в овертайме/по буллитам у равных соперников">ВО=</th>
-                <th class="col-3-5" title="Победы в овертайме/по буллитам у слабых соперников">ВО-</th>
-                <th class="col-3-5" title="Поражения в овертайме/по буллитам/ничьи сильным соперникам">ПО+</th>
-                <th class="col-3-5" title="Поражения в овертайме/по буллитам/ничьи равным соперникам">ПО=</th>
-                <th class="col-3-5" title="Поражения в овертайме/по буллитам/ничьи слабым соперникам">ПО-</th>
-                <th class="col-3-5" title="Поражения сильным соперникам">П+</th>
-                <th class="col-3-5" title="Поражения равным соперникам">П=</th>
-                <th class="col-3-5" title="Поражения слабым соперникам">П-</th>
-                <th class="col-3-5" title="Поражения супернастроем">ПС</th>
+                <th class="col-3-5 hidden-xs" title="Выигранные коллизии">К+</th>
+                <th class="col-3-5 hidden-xs" title="Проигранные коллизии">К-</th>
+                <th class="col-3-5 hidden-xs" title="Победы у команд с супернастроем">ВС</th>
+                <th class="col-3-5 hidden-xs" title="Победы у сильных соперников">В+</th>
+                <th class="col-3-5 hidden-xs" title="Победы у равных соперников">В=</th>
+                <th class="col-3-5 hidden-xs" title="Победы у слабых соперников">В-</th>
+                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у сильных соперников">ВО+</th>
+                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у равных соперников">ВО=</th>
+                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у слабых соперников">ВО-</th>
+                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи сильным соперникам">ПО+</th>
+                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи равным соперникам">ПО=</th>
+                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи слабым соперникам">ПО-</th>
+                <th class="col-3-5 hidden-xs" title="Поражения сильным соперникам">П+</th>
+                <th class="col-3-5 hidden-xs" title="Поражения равным соперникам">П=</th>
+                <th class="col-3-5 hidden-xs" title="Поражения слабым соперникам">П-</th>
+                <th class="col-3-5 hidden-xs" title="Поражения супернастроем">ПС</th>
                 <th class="col-3-5" title="Автосоставы">А</th>
-                <th class="col-3-5" title="Игры против супернастроя">VС</th>
-                <th class="col-3-5" title="Игры против отдыха">VО</th>
+                <th class="col-3-5 hidden-xs" title="Игры против супернастроя">VС</th>
+                <th class="col-3-5 hidden-xs" title="Игры против отдыха">VО</th>
             </tr>
             <?php foreach ($userrating_array as $item) { ?>
                 <tr>
@@ -103,25 +103,25 @@
                     <td class="text-center"><?= $item['userrating_winover']; ?></td>
                     <td class="text-center"><?= $item['userrating_looseover']; ?></td>
                     <td class="text-center"><?= $item['userrating_loose']; ?></td>
-                    <td class="text-center"><?= $item['userrating_collision_win']; ?></td>
-                    <td class="text-center"><?= $item['userrating_collision_loose']; ?></td>
-                    <td class="text-center"><?= $item['userrating_win_super']; ?></td>
-                    <td class="text-center"><?= $item['userrating_win_strong']; ?></td>
-                    <td class="text-center"><?= $item['userrating_win_equal']; ?></td>
-                    <td class="text-center"><?= $item['userrating_win_weak']; ?></td>
-                    <td class="text-center"><?= $item['userrating_winover_strong']; ?></td>
-                    <td class="text-center"><?= $item['userrating_winover_equal']; ?></td>
-                    <td class="text-center"><?= $item['userrating_winover_weak']; ?></td>
-                    <td class="text-center"><?= $item['userrating_looseover_strong']; ?></td>
-                    <td class="text-center"><?= $item['userrating_looseover_equal']; ?></td>
-                    <td class="text-center"><?= $item['userrating_looseover_weak']; ?></td>
-                    <td class="text-center"><?= $item['userrating_loose_strong']; ?></td>
-                    <td class="text-center"><?= $item['userrating_loose_equal']; ?></td>
-                    <td class="text-center"><?= $item['userrating_loose_weak']; ?></td>
-                    <td class="text-center"><?= $item['userrating_loose_super']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_collision_win']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_collision_loose']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_win_super']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_win_strong']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_win_equal']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_win_weak']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_winover_strong']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_winover_equal']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_winover_weak']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_strong']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_equal']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_weak']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_loose_strong']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_loose_equal']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_loose_weak']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_loose_super']; ?></td>
                     <td class="text-center"><?= $item['userrating_auto']; ?></td>
-                    <td class="text-center"><?= $item['userrating_vs_super']; ?></td>
-                    <td class="text-center"><?= $item['userrating_vs_rest']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_vs_super']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['userrating_vs_rest']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -132,25 +132,25 @@
                 <th><?= $userrating_total_array[0]['userrating_winover']; ?></th>
                 <th><?= $userrating_total_array[0]['userrating_looseover']; ?></th>
                 <th><?= $userrating_total_array[0]['userrating_loose']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_collision_win']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_collision_loose']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_win_super']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_win_strong']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_win_equal']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_win_weak']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_winover_strong']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_winover_equal']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_winover_weak']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_looseover_strong']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_looseover_equal']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_looseover_weak']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_loose_strong']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_loose_equal']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_loose_weak']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_loose_super']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_collision_win']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_collision_loose']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_super']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_strong']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_equal']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_weak']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_strong']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_equal']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_weak']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_strong']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_equal']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_weak']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_strong']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_equal']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_weak']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_super']; ?></th>
                 <th><?= $userrating_total_array[0]['userrating_auto']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_vs_super']; ?></th>
-                <th><?= $userrating_total_array[0]['userrating_vs_rest']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_vs_super']; ?></th>
+                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_vs_rest']; ?></th>
             </tr>
         </table>
     </div>
