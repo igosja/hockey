@@ -10,26 +10,9 @@
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <ul>
-                <li>В ближайшем матче ваша команда будет использовать супер</li>
-                <li>В ближайшем матче ваша команда будет использовать отдых</li>
-                <li>В вашей стране проходят выборы заместителя тренера молодёжной сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы заместителя тренера национальной сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы заместителя тренера юношеской сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть здесь</li>
-                <li>В вашей стране проходят выборы президента федерации</li>
-                <li>Ваш тренировочный центр простаивает - осталось 15 баллов силы, 3 спецвозможности, 1 совмещение</li>
-                <li>Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить</li>
-                <li>Ваша спортшкола простаивает - можно подготовить ещё одного молодого игрока для основной команды</li>
-                <li>Доступна бонусная тренировка - 0 баллов силы, 1 совмещение, 0 спецвозможностей</li>
-                <li>Открыт прием заявок от кандидатов в тренеры молодежных сборных</li>
-                <li>Открыт прием заявок от кандидатов в тренеры национальных сборных</li>
-                <li>Открыт прием заявок от кандидатов в тренеры юношеских сборных</li>
-                <li>Открыт прием заявок от кандидатов на пост заместителя тренера молодёжной сборной вашей страны</li>
-                <li>Открыт прием заявок от кандидатов на пост заместителя тренера национальной сборной вашей страны</li>
-                <li>Открыт прием заявок от кандидатов на пост заместителя тренера юношеской сборной вашей страны</li>
-                <li>Открыт прием заявок от кандидатов на пост президента федерации вашей стран</li>
+                <?php foreach ($notification_array as $item) { ?>
+                    <li><?= $item; ?></li>
+                <?php } ?>
             </ul>
         </div>
     </div>
@@ -51,13 +34,13 @@
                 <th class="col-5" title="Усталость">У</th>
                 <th class="col-5" title="Форма">Ф</th>
                 <th class="col-5" title="Реальная сила">РС</th>
-                <th class="col-10" title="Спецвозможности">Спец</th>
+                <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
                 <th class="col-5 hidden-xs" title="Плюс/минус">+/-</th>
                 <th class="col-5 hidden-xs" title="Игр">И</th>
                 <th class="col-5 hidden-xs" title="Шайб">Ш</th>
                 <th class="col-5 hidden-xs" title="Результативных передач">П</th>
                 <th class="col-10 hidden-xs">Цена</th>
-                <th class="col-5" title="Играл/отдыхал подряд">ИО</th>
+                <th class="col-5 hidden-xs" title="Играл/отдыхал подряд">ИО</th>
             </tr>
             <?php foreach ($player_array as $item) { ?>
                 <tr>
@@ -86,13 +69,13 @@
                         />
                     </td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-right"><?= f_igosja_money($item['player_price']); ?></td>
-                    <td class="text-center"><?= $item['player_game_row']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -104,13 +87,13 @@
                 <th title="Усталость">У</th>
                 <th title="Форма">Ф</th>
                 <th title="Реальная сила">РС</th>
-                <th title="Спецвозможности">Спец</th>
+                <th class="hidden-xs" title="Спецвозможности">Спец</th>
                 <th title="Плюс/минус" class="hidden-xs">+/-</th>
                 <th class="hidden-xs" title="Игр">И</th>
                 <th class="hidden-xs" title="Шайб">Ш</th>
                 <th class="hidden-xs" title="Результативных передач">П</th>
                 <th class="hidden-xs">Цена</th>
-                <th title="Играл/отдыхал подряд">ИО</th>
+                <th class="hidden-xs" title="Играл/отдыхал подряд">ИО</th>
             </tr>
         </table>
     </div>

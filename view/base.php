@@ -37,7 +37,7 @@
             <legend class="strong text-center">База команды</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/base.jpg" />
+                    <img class="img-border" src="/img/base/base.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
@@ -82,7 +82,7 @@
             <legend class="strong text-center">Тренировочный центр</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/training.jpg" />
+                    <img class="img-border" src="/img/base/training.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
@@ -127,7 +127,7 @@
             <legend class="strong text-center">Медцентр</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/medical.jpg" />
+                    <img class="img-border" src="/img/base/medical.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
@@ -157,7 +157,7 @@
             <legend class="strong text-center">Центр физподготовки</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/phisical.jpg" />
+                    <img class="img-border" src="/img/base/phisical.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
@@ -203,7 +203,7 @@
             <legend class="strong text-center">Спортшкола</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/school.jpg" />
+                    <img class="img-border" src="/img/base/school.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
@@ -239,7 +239,7 @@
             <legend class="strong text-center">Скаут-центр</legend>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
-                    <img class="img-border" src="/img/base/scout.jpg" />
+                    <img class="img-border" src="/img/base/scout.png" />
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
