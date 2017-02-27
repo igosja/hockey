@@ -8,7 +8,7 @@
                 <th class="col-20 hidden-xs">Последний визит</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
-                <tr <?php if (isset ($auth_team_id) && $auth_team_id == $item['team_id']) { ?>class="current"<?php } ?>>
+                <tr <?php if (isset ($auth_team_id) && $auth_team_id == $item['team_id']) { ?>class="info"<?php } ?>>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>

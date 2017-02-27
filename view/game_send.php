@@ -11,7 +11,7 @@
                 <th></th>
             </tr>
             <?php foreach ($game_array as $item) { ?>
-                <tr <?php if ($num_get == $item['game_id']) { ?>class="current"<?php } ?>>
+                <tr <?php if ($num_get == $item['game_id']) { ?>class="info"<?php } ?>>
                     <td class="text-center"><?= f_igosja_ufu_date_time($item['shedule_date']); ?></td>
                     <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
                     <td class="text-center"><?= $item['stage_name']; ?></td>
@@ -49,7 +49,7 @@
             <input
                 class="form-control"
                 name="data[ticket]"
-                value="<?= $current_array[0]['game_ticket']; ?>"
+                value="<?= $current_array[0]['game_ticket'] ? $current_array[0]['game_ticket'] : GAME_TICKET_BASE_PRICE; ?>"
                 <?php if ($auth_team_id == $current_array[0]['game_guest_team_id']) { ?>
                     disabled
                 <?php } ?>
@@ -136,8 +136,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <select class="form-control" name="data[line][0][0]">
-                        <option value="0">-</option>
+                    <select class="form-control player-change" name="data[line][0][0]">
+                        <option value="0">GK -</option>
                         <?php foreach ($gk_array as $item) { ?>
                             <option
                                 value="<?= $item['player_id']; ?>"
@@ -171,7 +171,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <select
-                                class="form-control lineup-change"
+                                class="form-control lineup-change player-change"
                                 data-line="<?= $i; ?>"
                                 data-position="<?= $j; ?>"
                                 id="line-<?= $i; ?>-<?= $j; ?>"
@@ -200,7 +200,7 @@
                     <th title="Спецвозможности">Спец</th>
                 </tr>
                 <?php foreach ($player_array as $item) { ?>
-                    <tr>
+                    <tr class="tr-player" id="tr-<?= $item['player_id']; ?>">
                         <td>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>" target="_blank">
                                 <?= $item['name_name']; ?>

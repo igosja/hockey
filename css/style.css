@@ -721,8 +721,12 @@ fieldset legend {
     border: none;
 }
 
-tr.current {
-    background-color: #e8e8e8;
+tr.info {
+    background-color: #BDE5F8;
+}
+
+tr.success {
+    background-color: #DFF2BF;
 }
 
 .margin-no {

@@ -1,5 +1,12 @@
 jQuery(document).ready(function () {
     var position_array = '';
+    var current_1;
+    var current_2;
+    var current_3;
+    var other_1;
+    var other_2;
+    var other_3;
+    var promt;
 
     for (var i=1; i<=5; i++)
     {
@@ -12,6 +19,7 @@ jQuery(document).ready(function () {
             current_3       = ld_3_id;
             other_3         = [ld_1_id, ld_2_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
             position_array  = ld_array;
+            promt           = 'LD -';
         }
         else if (2 == i)
         {
@@ -22,6 +30,7 @@ jQuery(document).ready(function () {
             current_3       = rd_3_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
             position_array  = rd_array;
+            promt           = 'RD -';
         }
         else if (3 == i)
         {
@@ -32,6 +41,7 @@ jQuery(document).ready(function () {
             current_3       = lw_3_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
             position_array  = lw_array;
+            promt           = 'LW -';
         }
         else if (4 == i)
         {
@@ -42,6 +52,7 @@ jQuery(document).ready(function () {
             current_3       = c_3_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, rw_1_id, rw_2_id, rw_3_id];
             position_array  = c_array;
+            promt           = 'C -';
         }
         else if (5 == i)
         {
@@ -52,11 +63,12 @@ jQuery(document).ready(function () {
             current_3       = rw_3_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id];
             position_array  = rw_array;
+            promt           = 'RW -';
         }
 
-        var select_html_1 = '<option value="0">-</option>';
-        var select_html_2 = '<option value="0">-</option>';
-        var select_html_3 = '<option value="0">-</option>';
+        var select_html_1 = '<option value="0">' + promt + '</option>';
+        var select_html_2 = '<option value="0">' + promt + '</option>';
+        var select_html_3 = '<option value="0">' + promt + '</option>';
 
         for (var j=0; j<position_array.length; j++)
         {
@@ -93,6 +105,8 @@ jQuery(document).ready(function () {
         $('#line-3-' + i).html(select_html_3);
     }
 
+    player_change();
+
     $('.lineup-change').on('change', function() {
         var position    = $(this).data('position');
         var line        = $(this).data('line');
@@ -117,11 +131,11 @@ jQuery(document).ready(function () {
             parseInt($('#line-3-5').val())
         ];
 
-        if      (1 == position) { position_array = ld_array; }
-        else if (2 == position) { position_array = rd_array; }
-        else if (3 == position) { position_array = lw_array; }
-        else if (4 == position) { position_array =  c_array; }
-        else if (5 == position) { position_array = rw_array; }
+        if      (1 == position) { position_array = ld_array; promt = 'LD -'; }
+        else if (2 == position) { position_array = rd_array; promt = 'RD -'; }
+        else if (3 == position) { position_array = lw_array; promt = 'LW -'; }
+        else if (4 == position) { position_array =  c_array; promt = 'C -'; }
+        else if (5 == position) { position_array = rw_array; promt = 'RW -'; }
 
         for (var i=1; i<=3; i++)
         {
@@ -135,7 +149,7 @@ jQuery(document).ready(function () {
 
                 var line_player_id = $('#line-' + i + '-' + k).val();
 
-                var select_html = '<option value="0">-</option>';
+                var select_html = '<option value="0">' + promt + '</option>';
 
                 for (var j=0; j<position_array.length; j++)
                 {
@@ -172,5 +186,21 @@ jQuery(document).ready(function () {
                 $('#line-' + i + '-' + k).html(select_html);
             }
         }
-    })
+    });
+
+    $('.player-change').on('change', function() {
+        player_change();
+    });
 });
+
+function player_change()
+{
+    $('.tr-player').removeClass('info');
+
+    var player_change = $('.player-change');
+
+    for (var i=0; i<player_change.length; i++)
+    {
+        $('#tr-' + $(player_change[i]).val()).addClass('info');
+    }
+}
