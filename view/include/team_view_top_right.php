@@ -3,20 +3,20 @@
         - <?= $rosterphrase_array[0]['rosterphrase_text']; ?> -
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a href="/friendly.php">
-            <img src="/img/fast-icon/friendly.png" title="Friendly"/>
+        <a class="no-underline" href="/friendly.php">
+            <img src="/img/roster/friendly.png" title="Friendly"/>
         </a>
-        <a href="/training.php">
-            <img src="/img/fast-icon/training.png" title="Training"/>
+        <a class="no-underline" href="/training.php">
+            <img src="/img/roster/training.png" title="Training"/>
         </a>
-        <a href="/scout.php">
-            <img src="/img/fast-icon/scout.png" title="Scout"/>
+        <a class="no-underline" href="/scout.php">
+            <img src="/img/roster/scout.png" title="Scout"/>
         </a>
-        <a href="/phisical.php">
-            <img src="/img/fast-icon/phisical.png" title="Phisical"/>
+        <a class="no-underline" href="/phisical.php">
+            <img src="/img/roster/phisical.png" title="Phisical"/>
         </a>
-        <a href="/school.php">
-            <img src="/img/fast-icon/school.png" title="School"/>
+        <a class="no-underline" href="/school.php">
+            <img src="/img/roster/school.png" title="School"/>
         </a>
     </div>
     <?php foreach ($latest_array as $item) { ?>
