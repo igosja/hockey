@@ -242,36 +242,171 @@ $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
 
-for ($i=1; $i<=6; $i++)
-{
-    if     (1 == $i) { $array_name = 'gk_array'; }
-    elseif (2 == $i) { $array_name = 'ld_array'; }
-    elseif (3 == $i) { $array_name = 'rd_array'; }
-    elseif (4 == $i) { $array_name = 'lw_array'; }
-    elseif (5 == $i) { $array_name =  'c_array'; }
-    elseif (6 == $i) { $array_name = 'rw_array'; }
+$player_id = array();
 
-    $sql = "SELECT `name_name`,
-                   `player_id`,
-                   `player_power_real`,
-                   `position_name`,
-                   `surname_name`
-            FROM `player`
-            LEFT JOIN `playerposition`
-            ON `player_id`=`playerposition_player_id`
+foreach ($player_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
+
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
+
+    $sql = "SELECT `playerposition_player_id`,
+                   `position_name`
+            FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
-            LEFT JOIN `name`
-            ON `player_name_id`=`name_id`
-            LEFT JOIN `surname`
-            ON `player_surname_id`=`surname_id`
-            WHERE `player_team_id`=$auth_team_id
-            AND `playerposition_position_id`=$i
-            ORDER BY `player_power_real` DESC";
-    $result_sql = f_igosja_mysqli_query($sql);
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
+    $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $$array_name = $result_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(1);
+
+    $sql = "SELECT `playerspecial_level`,
+                   `playerspecial_player_id`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+    $playerspecial_array = $playerspecial_sql->fetch_all(1);
 }
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$gk_array = $result_sql->fetch_all(1);
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`!=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$ld_array = $result_sql->fetch_all(1);
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`!=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$rd_array = $result_sql->fetch_all(1);
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`!=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$lw_array = $result_sql->fetch_all(1);
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`!=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$c_array = $result_sql->fetch_all(1);
+
+$sql = "SELECT `name_name`,
+               `player_id`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               `position_name`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `playerposition`
+        ON `player_id`=`playerposition_player_id`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `player_team_id`=$auth_team_id
+        AND `playerposition_position_id`!=" . POSITION_GK . "
+        ORDER BY `player_power_real` DESC";
+$result_sql = f_igosja_mysqli_query($sql);
+
+$rw_array = $result_sql->fetch_all(1);
 
 $sql = "SELECT `tactic_id`,
                `tactic_name`

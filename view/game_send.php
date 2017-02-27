@@ -215,12 +215,12 @@
                                 >
                             </a>
                         </td>
-                        <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                         <td class="text-center"><?= $item['player_age']; ?></td>
                         <td class="text-center"><?= $item['player_power_nominal']; ?></td>
                         <td class="text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>
-                        <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                        <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     </tr>
                 <?php } ?>
             </table>
