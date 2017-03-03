@@ -8,13 +8,15 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 }
 
 $sql = "SELECT `game_guest_forecast`,
-               `game_guest_optimality`,
+               `game_guest_optimality_1`,
+               `game_guest_optimality_2`,
                `game_guest_penalty`,
                `game_guest_penalty_1`,
                `game_guest_penalty_2`,
                `game_guest_penalty_3`,
                `game_guest_penalty_over`,
                `game_guest_power`,
+               `game_guest_power_percent`,
                `game_guest_score`,
                `game_guest_score_1`,
                `game_guest_score_2`,
@@ -30,13 +32,15 @@ $sql = "SELECT `game_guest_forecast`,
                `game_guest_teamwork_2`,
                `game_guest_teamwork_3`,
                `game_home_forecast`,
-               `game_home_optimality`,
+               `game_home_optimality_1`,
+               `game_home_optimality_2`,
                `game_home_penalty`,
                `game_home_penalty_1`,
                `game_home_penalty_2`,
                `game_home_penalty_3`,
                `game_home_penalty_over`,
                `game_home_power`,
+               `game_home_power_percent`,
                `game_home_score`,
                `game_home_score_1`,
                `game_home_score_2`,
@@ -118,23 +122,6 @@ if (0 == $game_array[0]['game_played'])
 {
     redirect('/game_preview.php?num=' . $num_get);
 }
-
-$home_power_percent     = $game_array[0]['game_home_power'];
-$guest_power_percent    = $game_array[0]['game_guest_power'];
-
-if (0 == $home_power_percent)
-{
-    $home_power_percent = 1;
-}
-
-if (0 == $guest_power_percent)
-{
-    $guest_power_percent = 1;
-}
-
-$team_power_total       = $home_power_percent + $guest_power_percent;
-$home_power_percent     = round($home_power_percent / $team_power_total * 100, 0);
-$guest_power_percent    = 100 - $home_power_percent;
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,

@@ -7,13 +7,13 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `game_guest_forecast`,
-               `game_home_forecast`,
-               `game_played`,
+$sql = "SELECT `game_played`,
                `guest_team`.`team_id` AS `guest_team_id`,
                `guest_team`.`team_name` AS `guest_team_name`,
+               `guest_team`.`team_power_vs` AS `guest_team_power_vs`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
+               `home_team`.`team_power_vs` AS `home_team_power_vs`,
                `shedule_date`,
                `stadium_capacity`,
                `stadium_name`,

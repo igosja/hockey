@@ -87,20 +87,26 @@
             </tr>
             <tr>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $home_power_percent; ?>%
+                    <?= $game_array[0]['game_home_power_percent']; ?>%
                 </td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Соотношение сил</td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $guest_power_percent; ?>%
+                    <?= $game_array[0]['game_guest_power_percent']; ?>%
                 </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_home_optimality']; ?>%
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                    <?= $game_array[0]['game_home_optimality_1']; ?>%
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                    <?= $game_array[0]['game_home_optimality_2']; ?>%
                 </td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Оптимальность</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_guest_optimality']; ?>%
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                    <?= $game_array[0]['game_guest_optimality_1']; ?>%
+                </td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                    <?= $game_array[0]['game_guest_optimality_2']; ?>%
                 </td>
             </tr>
             <tr>

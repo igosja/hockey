@@ -44,7 +44,7 @@ function f_igosja_generator_lineup_to_statistic()
             $country_id = 0;
         }
 
-        if ($division_id)
+        if (!$division_id)
         {
             $division_id = 0;
         }

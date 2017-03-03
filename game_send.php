@@ -38,10 +38,19 @@ if ($data = f_igosja_request_post('data'))
     if (isset($data['ticket']))
     {
         $ticket = (int) $data['ticket'];
+
+        if (GAME_TICKET_MIN_PRICE > $ticket)
+        {
+            $ticket = GAME_TICKET_MIN_PRICE;
+        }
+        elseif (GAME_TICKET_MAX_PRICE < $ticket)
+        {
+            $ticket = GAME_TICKET_MAX_PRICE;
+        }
     }
     else
     {
-        $ticket = 0;
+        $ticket = GAME_TICKET_MIN_PRICE;
     }
 
     $tactic_id  = (int) $data['tactic_id'];

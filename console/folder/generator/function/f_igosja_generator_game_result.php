@@ -42,6 +42,9 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
         $game_result = f_igosja_get_player_info($game_result, 'home');
         $game_result = f_igosja_get_player_info($game_result, 'guest');
+        $game_result = f_igosja_team_power_foreacst($game_result, 'home');
+        $game_result = f_igosja_team_power_foreacst($game_result, 'guest');
+        $game_result = f_igosja_optimality($game_result);
 
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
         {
@@ -360,12 +363,16 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_calculate_statistic($game_result);
 
         $sql = "UPDATE `game`
-                SET `game_guest_penalty`=" . $game_result['guest']['team']['penalty']['total'] . "*2,
+                SET `game_guest_forecast`=" . $game_result['guest']['team']['power']['forecast'] . ",
+                    `game_guest_optimality_1`=" . $game_result['guest']['team']['optimality_1'] . ",
+                    `game_guest_optimality_2`=" . $game_result['guest']['team']['optimality_2'] . ",
+                    `game_guest_penalty`=" . $game_result['guest']['team']['penalty']['total'] . "*2,
                     `game_guest_penalty_1`=" . $game_result['guest']['team']['penalty'][1] . "*2,
                     `game_guest_penalty_2`=" . $game_result['guest']['team']['penalty'][2] . "*2,
                     `game_guest_penalty_3`=" . $game_result['guest']['team']['penalty'][3] . "*2,
                     `game_guest_penalty_over`=" . $game_result['guest']['team']['penalty']['over'] . "*2,
                     `game_guest_power`=" . $game_result['guest']['team']['power']['total'] . ",
+                    `game_guest_power_percent`=" . $game_result['guest']['team']['power']['percent'] . ",
                     `game_guest_score`=" . $game_result['guest']['team']['score']['total'] . ",
                     `game_guest_score_1`=" . $game_result['guest']['team']['score'][1] . ",
                     `game_guest_score_2`=" . $game_result['guest']['team']['score'][2] . ",
@@ -377,12 +384,16 @@ function f_igosja_generator_game_result()
                     `game_guest_shot_2`=" . $game_result['guest']['team']['shot'][2] . ",
                     `game_guest_shot_3`=" . $game_result['guest']['team']['shot'][3] . ",
                     `game_guest_shot_over`=" . $game_result['guest']['team']['shot']['over'] . ",
+                    `game_home_forecast`=" . $game_result['home']['team']['power']['forecast'] . ",
+                    `game_home_optimality_1`=" . $game_result['home']['team']['optimality_1'] . ",
+                    `game_home_optimality_2`=" . $game_result['home']['team']['optimality_2'] . ",
                     `game_home_penalty`=" . $game_result['home']['team']['penalty']['total'] . "*2,
                     `game_home_penalty_1`=" . $game_result['home']['team']['penalty'][1] . "*2,
                     `game_home_penalty_2`=" . $game_result['home']['team']['penalty'][2] . "*2,
                     `game_home_penalty_3`=" . $game_result['home']['team']['penalty'][3] . "*2,
                     `game_home_penalty_over`=" . $game_result['home']['team']['penalty']['over'] . "*2,
                     `game_home_power`=" . $game_result['home']['team']['power']['total'] . ",
+                    `game_home_power_percent`=" . $game_result['home']['team']['power']['percent'] . ",
                     `game_home_score`=" . $game_result['home']['team']['score']['total'] . ",
                     `game_home_score_1`=" . $game_result['home']['team']['score'][1] . ",
                     `game_home_score_2`=" . $game_result['home']['team']['score'][2] . ",
@@ -414,7 +425,7 @@ function f_igosja_generator_game_result()
                         `event_player_penalty_id`=" . $event['event_player_penalty_id'] . ",
                         `event_player_score_id`=" . $event['event_player_score_id'] . ",
                         `event_second`=" . $event['event_second'] . ",
-                        `event_team_id`=" . $event['event_team_id'] . "";
+                        `event_team_id`=" . $event['event_team_id'] . " ";
             f_igosja_mysqli_query($sql);
         }
 
@@ -502,7 +513,7 @@ function f_igosja_generator_game_result()
             $country_id = 0;
         }
 
-        if ($division_id)
+        if (!$division_id)
         {
             $division_id = 0;
         }
@@ -561,7 +572,7 @@ function f_igosja_generator_game_result()
                         `statisticplayer_score_win`=`statisticplayer_score_win`+" . $player['score_win'] . ",
                         `statisticplayer_shot`=`statisticplayer_shot`+" . $player['shot'] . ",
                         `statisticplayer_win`=`statisticplayer_win`+" . $player['win'] . "
-                    WHERE `statisticplayer_championship_playoff`='$is_playoff
+                    WHERE `statisticplayer_championship_playoff`=$is_playoff
                     AND `statisticplayer_country_id`=$country_id
                     AND `statisticplayer_division_id`=$division_id
                     AND `statisticplayer_is_gk`=0

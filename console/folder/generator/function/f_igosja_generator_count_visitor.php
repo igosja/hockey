@@ -43,6 +43,16 @@ function f_igosja_generator_count_visitor()
         $game_visitor = $stadium_capacity;
         $game_visitor = $game_visitor * $tournamenttype_visitor;
         $game_visitor = $game_visitor * $stage_visitor;
+
+        if ($game_ticket < GAME_TICKET_MIN_PRICE)
+        {
+            $game_ticket = GAME_TICKET_MIN_PRICE;
+        }
+        elseif ($game_ticket > GAME_TICKET_MAX_PRICE)
+        {
+            $game_ticket = GAME_TICKET_MAX_PRICE;
+        }
+
         $game_visitor = $game_visitor / pow(($game_ticket - GAME_TICKET_BASE_PRICE) / 10, 1.1);
         $game_visitor = $game_visitor * ($home_visitor * 2 + $guest_visitor) / 3;
         $game_visitor = $game_visitor / 1000000;

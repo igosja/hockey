@@ -49,7 +49,7 @@
             <input
                 class="form-control"
                 name="data[ticket]"
-                value="<?= $current_array[0]['game_ticket'] ? $current_array[0]['game_ticket'] : GAME_TICKET_BASE_PRICE; ?>"
+                value="<?= $current_array[0]['game_ticket'] ? $current_array[0]['game_ticket'] : 20; ?>"
                 <?php if ($auth_team_id == $current_array[0]['game_guest_team_id']) { ?>
                     disabled
                 <?php } ?>

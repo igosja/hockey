@@ -31,12 +31,14 @@ function f_igosja_generator_check_lineup()
                 $home_guest_team = 'game_home_team_id';
             }
 
+            $team_id = $game[$home_guest_team];
+
             $sql = "UPDATE `lineup`
                     LEFT JOIN `player`
                     ON `lineup_player_id`=`player_id`
                     SET `lineup_player_id`=0
                     WHERE `lineup_game_id`=$game_id
-                    AND `lineup_team_id`=$home_guest_team
+                    AND `lineup_team_id`=$team_id
                     AND `lineup_team_id`!=`player_team_id`";
             f_igosja_mysqli_query($sql);
         }

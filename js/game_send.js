@@ -131,21 +131,21 @@ jQuery(document).ready(function () {
             parseInt($('#line-3-5').val())
         ];
 
-        if      (1 == position) { position_array = ld_array; promt = 'LD -'; }
-        else if (2 == position) { position_array = rd_array; promt = 'RD -'; }
-        else if (3 == position) { position_array = lw_array; promt = 'LW -'; }
-        else if (4 == position) { position_array =  c_array; promt = 'C -'; }
-        else if (5 == position) { position_array = rw_array; promt = 'RW -'; }
+        if      (1 == position) { position_array = ld_array; }
+        else if (2 == position) { position_array = rd_array; }
+        else if (3 == position) { position_array = lw_array; }
+        else if (4 == position) { position_array =  c_array; }
+        else if (5 == position) { position_array = rw_array; }
 
         for (var i=1; i<=3; i++)
         {
             for (var k=1; k<=5; k++)
             {
-                if      (1 == k) { position_array = ld_array; }
-                else if (2 == k) { position_array = rd_array; }
-                else if (3 == k) { position_array = lw_array; }
-                else if (4 == k) { position_array =  c_array; }
-                else if (5 == k) { position_array = rw_array; }
+                if      (1 == k) { position_array = ld_array; promt = 'LD -'; }
+                else if (2 == k) { position_array = rd_array; promt = 'RD -'; }
+                else if (3 == k) { position_array = lw_array; promt = 'LW -'; }
+                else if (4 == k) { position_array =  c_array; promt = 'C -'; }
+                else if (5 == k) { position_array = rw_array; promt = 'RW -'; }
 
                 var line_player_id = $('#line-' + i + '-' + k).val();
 

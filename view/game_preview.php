@@ -53,8 +53,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_forecast']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_guest_forecast']; ?></td>
+                        <td class="text-center"><?= $game_array[0]['home_team_power_vs']; ?></td>
+                        <td class="text-center"><?= $game_array[0]['guest_team_power_vs']; ?></td>
                     </tr>
                 </table>
             </div>

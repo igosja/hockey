@@ -2728,8 +2728,8 @@ foreach ($team_array as $country)
 
         $power_s_27 = $power + $power_array[0]['power'];
 
-        $power_v    = round(($power_c_16 + $power_c_21 + $power_c_27) / 64);
-        $power_vs   = round(($power_s_16 + $power_s_21 + $power_s_27) / 64);
+        $power_v    = round(($power_c_16 + $power_c_21 + $power_c_27) / 64 * 16);
+        $power_vs   = round(($power_s_16 + $power_s_21 + $power_s_27) / 64 * 16);
 
         $sql = "UPDATE `team`
                 SET `team_power_c_16`=$power_c_16,
