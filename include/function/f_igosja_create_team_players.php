@@ -118,11 +118,11 @@ function f_igosja_create_team_players($team_id)
         f_igosja_mysqli_query($sql);
 
         $log = array(
-            'log_logtext_id' => LOGTEXT_PLAYER_FROM_SCHOOL,
-            'log_player_id' => $player_id,
-            'log_team_id' => $team_id,
+            'history_historytext_id' => HISTORYTEXT_PLAYER_FROM_SCHOOL,
+            'history_player_id' => $player_id,
+            'history_team_id' => $team_id,
         );
 
-        f_igosja_log($log);
+        f_igosja_history($log);
     }
 }

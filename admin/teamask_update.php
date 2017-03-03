@@ -69,10 +69,10 @@ $sql = "DELETE FROM `teamask`
 f_igosja_mysqli_query($sql);
 
 $log = array(
-    'log_logtext_id' => LOGTEXT_USER_MANAGER_TEAM_IN,
-    'log_team_id' => $team_id,
-    'log_user_id' => $user_id,
+    'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_IN,
+    'history_team_id' => $team_id,
+    'history_user_id' => $user_id,
 );
-f_igosja_log($log);
+f_igosja_history($log);
 
 redirect('/admin/teamask_list.php');

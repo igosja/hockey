@@ -175,14 +175,14 @@ $userrating_sql = f_igosja_mysqli_query($sql);
 
 $userrating_array = $userrating_sql->fetch_all(1);
 
-$sql = "SELECT `log_date`,
-               `log_season_id`,
-               `logtext_name`
-        FROM `log`
-        LEFT JOIN `logtext`
-        ON `log_logtext_id`=`logtext_id`
-        WHERE `log_user_id`=$num_get
-        ORDER BY `log_id` DESC";
+$sql = "SELECT `history_date`,
+               `history_season_id`,
+               `historytext_name`
+        FROM `history`
+        LEFT JOIN `historytext`
+        ON `history_historytext_id`=`historytext_id`
+        WHERE `history_user_id`=$num_get
+        ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
 
 $event_array = $event_sql->fetch_all(1);

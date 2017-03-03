@@ -1569,6 +1569,21 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td class=\"text-center\">35%-36%</td><td class=\"text-center\">-10.0</td></tr>
 <tr><td class=\"text-center\">34% и меньше</td><td class=\"text-center\">-10.5</td></tr>
 </table>
+<p class=\"text-justify\">Оптимальность позиций: расстановка игроков по позициям</p>
+<table class=\"table table-bordered table-hover\">
+<tr><th>Оптимальность</th><th>Баллы</th></tr>
+<tr><td class=\"text-center\">100%</td><td class=\"text-center\">0.0</td></tr>
+<tr><td class=\"text-center\">97%-99%</td><td class=\"text-center\">-0.5</td></tr>
+<tr><td class=\"text-center\">94%-96%</td><td class=\"text-center\">-1.0</td></tr>
+<tr><td class=\"text-center\">91%-93%</td><td class=\"text-center\">-1.5</td></tr>
+<tr><td class=\"text-center\">88%-90%</td><td class=\"text-center\">-2.0</td></tr>
+<tr><td class=\"text-center\">85%-87%</td><td class=\"text-center\">-2.5</td></tr>
+<tr><td class=\"text-center\">82%-84%</td><td class=\"text-center\">-3.0</td></tr>
+<tr><td class=\"text-center\">79%-81%</td><td class=\"text-center\">-3.5</td></tr>
+<tr><td class=\"text-center\">76%-78%</td><td class=\"text-center\">-4.0</td></tr>
+<tr><td class=\"text-center\">73%-75%</td><td class=\"text-center\">-4.5</td></tr>
+<tr><td class=\"text-center\">72% и меньше</td><td class=\"text-center\">-5.0</td></tr>
+</table>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"3.6\"><span class=\"strong\">3.6. Ограничения.</span> В любых случаях командное изменение силы не может превышать 5 набранных или потерянных баллов.</p>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Изменение силы игроков по результатам матча');";

@@ -30,11 +30,11 @@ if (0 != $num_get)
         f_igosja_mysqli_query($sql);
 
         $log = array(
-            'log_logtext_id' => LOGTEXT_PLAYER_FREE,
-            'log_player_id' => $player_id,
-            'log_team_id' => $num_get,
+            'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,
+            'history_player_id' => $player_id,
+            'history_team_id' => $num_get,
         );
-        f_igosja_log($log);
+        f_igosja_history($log);
     }
 }
 

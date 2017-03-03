@@ -13,10 +13,10 @@ if ($data = f_igosja_request_post('data'))
     $num_get = $mysqli->insert_id;
 
     $log = array(
-        'log_logtext_id' => LOGTEXT_TEAM_REGISTER,
-        'log_team_id' => $num_get
+        'history_historytext_id' => HISTORYTEXT_TEAM_REGISTER,
+        'history_team_id' => $num_get
     );
-    f_igosja_log($log);
+    f_igosja_history($log);
     f_igosja_create_team_players($num_get);
 
     redirect('/admin/team_view.php?num=' . $num_get);

@@ -165,9 +165,9 @@
             </tr>
             <?php foreach ($event_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= $item['log_season_id']; ?></td>
-                    <td class="text-center"><?= f_igosja_ufu_date($item['log_date']); ?></td>
-                    <td><?= $item['logtext_name']; ?></td>
+                    <td class="text-center"><?= $item['history_season_id']; ?></td>
+                    <td class="text-center"><?= f_igosja_ufu_date($item['history_date']); ?></td>
+                    <td><?= $item['historytext_name']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
