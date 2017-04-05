@@ -33,6 +33,7 @@ $latest_sql = f_igosja_mysqli_query($sql);
 $latest_array = $latest_sql->fetch_all(1);
 
 $sql = "SELECT `game_id`,
+               IF(`game_guest_team_id`=$num_get, `game_guest_tactic_id`, `game_home_tactic_id`) AS `game_tactic_id`,
                IF(`game_guest_team_id`=$num_get, 'Г', 'Д') AS `home_guest`,
                `shedule_date`,
                `team_id`,

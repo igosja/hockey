@@ -53,7 +53,7 @@
             -
             <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
                 <a href="/game_send.php?num=<?= $item['game_id']; ?>">
-                    Отпр.
+                    <?php if ($item['game_tactic_id']) { ?>Ред.<?php } else { ?>Отпр.<?php } ?>
                 </a>
             <?php } else { ?>
                 <a href="/game_preview.php?num=<?= $item['game_id']; ?>">

@@ -54,6 +54,10 @@ function f_igosja_get_player_real_power_from_optimal($player_array, $position_id
             array(POSITION_RD, POSITION_C)
         );
     }
+    else
+    {
+        $position_coefficient = array(0, 0);
+    }
 
     if (in_array($position_coefficient[0], $position_array))
     {
