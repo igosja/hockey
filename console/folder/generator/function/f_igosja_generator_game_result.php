@@ -5,7 +5,15 @@ function f_igosja_generator_game_result()
 {
     $sql = "SELECT `game_id`,
                    `game_bonus_home`,
+                   `game_guest_mood_id`,
+                   `game_guest_rude_id`,
+                   `game_guest_style_id`,
+                   `game_guest_tactic_id`,
                    `game_guest_team_id`,
+                   `game_home_mood_id`,
+                   `game_home_rude_id`,
+                   `game_home_style_id`,
+                   `game_home_tactic_id`,
                    `game_home_team_id`,
                    `game_stadium_capacity`,
                    `game_visitor`
@@ -33,12 +41,32 @@ function f_igosja_generator_game_result()
     {
         $game_id                = $game['game_id'];
         $game_bonus_home        = $game['game_bonus_home'];
+        $game_guest_mood_id     = $game['game_guest_mood_id'];
+        $game_guest_rude_id     = $game['game_guest_rude_id'];
+        $game_guest_style_id    = $game['game_guest_style_id'];
+        $game_guest_tactic_id   = $game['game_guest_tactic_id'];
         $game_guest_team_id     = $game['game_guest_team_id'];
+        $game_home_mood_id      = $game['game_home_mood_id'];
+        $game_home_rude_id      = $game['game_home_rude_id'];
+        $game_home_style_id     = $game['game_home_style_id'];
+        $game_home_tactic_id    = $game['game_home_tactic_id'];
         $game_home_team_id      = $game['game_home_team_id'];
         $game_stadium_capacity  = $game['game_stadium_capacity'];
         $game_visitor           = $game['game_visitor'];
 
-        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id);
+        $game_result = f_igosja_prepare_game_result_array(
+            $game_id,
+            $game_home_team_id,
+            $game_home_mood_id,
+            $game_home_rude_id,
+            $game_home_style_id,
+            $game_home_tactic_id,
+            $game_guest_team_id,
+            $game_guest_mood_id,
+            $game_guest_rude_id,
+            $game_guest_style_id,
+            $game_guest_tactic_id
+        );
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
         $game_result = f_igosja_get_player_info($game_result, 'home');
         $game_result = f_igosja_get_player_info($game_result, 'guest');
