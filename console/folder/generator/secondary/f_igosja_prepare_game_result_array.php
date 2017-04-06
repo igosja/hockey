@@ -128,6 +128,11 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
                 'over' => 0,
                 'total' => 0,
             ),
+            'teamwork' => array(
+                1 => 0,
+                2 => 0,
+                3 => 0,
+            ),
             'win' => 0,
             'win_bullet' => 0,
             'win_over' => 0,

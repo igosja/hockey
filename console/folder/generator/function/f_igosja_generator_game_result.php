@@ -42,6 +42,10 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
         $game_result = f_igosja_get_player_info($game_result, 'home');
         $game_result = f_igosja_get_player_info($game_result, 'guest');
+        $game_result = f_igosja_get_teamwork($game_result, 'home');
+        $game_result = f_igosja_get_teamwork($game_result, 'guest');
+        $game_result = f_igosja_after_teamwork($game_result, 'home');
+        $game_result = f_igosja_after_teamwork($game_result, 'guest');
         $game_result = f_igosja_team_power_foreacst($game_result, 'home');
         $game_result = f_igosja_team_power_foreacst($game_result, 'guest');
         $game_result = f_igosja_optimality($game_result);
@@ -384,6 +388,9 @@ function f_igosja_generator_game_result()
                     `game_guest_shot_2`=" . $game_result['guest']['team']['shot'][2] . ",
                     `game_guest_shot_3`=" . $game_result['guest']['team']['shot'][3] . ",
                     `game_guest_shot_over`=" . $game_result['guest']['team']['shot']['over'] . ",
+                    `game_guest_teamwork_1`=" . $game_result['guest']['team']['teamwork'][1] . ",
+                    `game_guest_teamwork_2`=" . $game_result['guest']['team']['teamwork'][2] . ",
+                    `game_guest_teamwork_3`=" . $game_result['guest']['team']['teamwork'][3] . ",
                     `game_home_forecast`=" . $game_result['home']['team']['power']['forecast'] . ",
                     `game_home_optimality_1`=" . $game_result['home']['team']['optimality_1'] . ",
                     `game_home_optimality_2`=" . $game_result['home']['team']['optimality_2'] . ",
@@ -404,7 +411,10 @@ function f_igosja_generator_game_result()
                     `game_home_shot_1`=" . $game_result['home']['team']['shot'][1] . ",
                     `game_home_shot_2`=" . $game_result['home']['team']['shot'][2] . ",
                     `game_home_shot_3`=" . $game_result['home']['team']['shot'][3] . ",
-                    `game_home_shot_over`=" . $game_result['home']['team']['shot']['over'] . "
+                    `game_home_shot_over`=" . $game_result['home']['team']['shot']['over'] . ",
+                    `game_home_teamwork_1`=" . $game_result['home']['team']['teamwork'][1] . ",
+                    `game_home_teamwork_2`=" . $game_result['home']['team']['teamwork'][2] . ",
+                    `game_home_teamwork_3`=" . $game_result['home']['team']['teamwork'][3] . "
                 WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);

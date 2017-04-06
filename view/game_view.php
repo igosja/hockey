@@ -111,11 +111,11 @@
             </tr>
             <tr>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_home_teamwork_1']; ?> | <?= $game_array[0]['game_home_teamwork_2']; ?> | <?= $game_array[0]['game_home_teamwork_3']; ?>
+                    <?= $game_array[0]['game_home_teamwork_1']; ?>% | <?= $game_array[0]['game_home_teamwork_2']; ?>% | <?= $game_array[0]['game_home_teamwork_3']; ?>%
                 </td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Сыгранность</td>
                 <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_guest_teamwork_1']; ?> | <?= $game_array[0]['game_guest_teamwork_2']; ?> | <?= $game_array[0]['game_guest_teamwork_3']; ?>
+                    <?= $game_array[0]['game_guest_teamwork_1']; ?>% | <?= $game_array[0]['game_guest_teamwork_2']; ?>% | <?= $game_array[0]['game_guest_teamwork_3']; ?>%
                 </td>
             </tr>
             <tr>
