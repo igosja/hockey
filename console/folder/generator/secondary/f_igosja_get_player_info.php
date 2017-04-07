@@ -1,6 +1,6 @@
 <?php
 
-function f_igosja_get_player_info($game_result, $team)
+function f_igosja_get_player_info($game_result, $team, $opponent)
 {
     if ('home' == $team)
     {
@@ -30,7 +30,36 @@ function f_igosja_get_player_info($game_result, $team)
     $game_result[$team]['player']['gk']['lineup_id']        = $lineup_array[0]['lineup_id'];
     $game_result[$team]['player']['gk']['player_id']        = $lineup_array[0]['player_id'];
     $game_result[$team]['player']['gk']['power_nominal']    = $lineup_array[0]['player_power_nominal'];
-    $game_result[$team]['player']['gk']['power_optimal']    = round($lineup_array[0]['player_power_real'] * $home_bonus, 0);
+    $game_result[$team]['player']['gk']['bonus']            = f_igosja_count_player_bonus($game_result[$team]['player']['gk'], $game_result, $team);
+    $game_result[$team]                                     = f_igosja_count_team_leader_bonus($game_result[$team]['player']['gk'], $game_result[$team]);
+
+    for ($j=1; $j<=15; $j++)
+    {
+        if     ( 1 == $j) { $key = 'ld_1'; }
+        elseif ( 2 == $j) { $key = 'rd_1'; }
+        elseif ( 3 == $j) { $key = 'lw_1'; }
+        elseif ( 4 == $j) { $key =  'c_1'; }
+        elseif ( 5 == $j) { $key = 'rw_1'; }
+        elseif ( 6 == $j) { $key = 'ld_2'; }
+        elseif ( 7 == $j) { $key = 'rd_2'; }
+        elseif ( 8 == $j) { $key = 'lw_2'; }
+        elseif ( 9 == $j) { $key =  'c_2'; }
+        elseif (10 == $j) { $key = 'rw_2'; }
+        elseif (11 == $j) { $key = 'ld_3'; }
+        elseif (12 == $j) { $key = 'rd_3'; }
+        elseif (13 == $j) { $key = 'lw_3'; }
+        elseif (14 == $j) { $key =  'c_3'; }
+        else              { $key = 'rw_3'; }
+
+        $game_result[$team]['player']['field'][$key]['age']             = $lineup_array[$j]['player_age'];
+        $game_result[$team]['player']['field'][$key]['lineup_id']       = $lineup_array[$j]['lineup_id'];
+        $game_result[$team]['player']['field'][$key]['player_id']       = $lineup_array[$j]['player_id'];
+        $game_result[$team]['player']['field'][$key]['power_nominal']   = $lineup_array[$j]['player_power_nominal'];
+        $game_result[$team]['player']['field'][$key]                    = f_igosja_count_player_bonus($game_result[$team]['player']['field'][$key], $game_result, $team);
+        $game_result[$team]                                             = f_igosja_count_team_leader_bonus($game_result[$team]['player']['field'][$key], $game_result[$team]);
+    }
+
+    $game_result[$team]['player']['gk']['power_optimal']    = f_igosja_get_player_optiomal_power($lineup_array[0]['player_power_real'], $game_result[$team]['player']['gk'], $game_result, $team, $opponent, $home_bonus);
     $game_result[$team]['player']['gk']['power_real']       = $game_result[$team]['player']['gk']['power_optimal'];
 
     for ($j=1; $j<=15; $j++)
@@ -51,11 +80,7 @@ function f_igosja_get_player_info($game_result, $team)
         elseif (14 == $j) { $key =  'c_3'; $position_id =  POSITION_C; }
         else              { $key = 'rw_3'; $position_id = POSITION_RW; }
 
-        $game_result[$team]['player']['field'][$key]['age']             = $lineup_array[$j]['player_age'];
-        $game_result[$team]['player']['field'][$key]['lineup_id']       = $lineup_array[$j]['lineup_id'];
-        $game_result[$team]['player']['field'][$key]['player_id']       = $lineup_array[$j]['player_id'];
-        $game_result[$team]['player']['field'][$key]['power_nominal']   = $lineup_array[$j]['player_power_nominal'];
-        $game_result[$team]['player']['field'][$key]['power_optimal']   = round($lineup_array[$j]['player_power_real'] * $home_bonus, 0);
+        $game_result[$team]['player']['field'][$key]['power_optimal']   = f_igosja_get_player_optiomal_power($lineup_array[$j]['player_power_real'], $game_result[$team]['player']['field'][$key], $game_result, $team, $opponent, $home_bonus);
         $game_result[$team]['player']['field'][$key]['power_real']      = f_igosja_get_player_real_power_from_optimal($game_result[$team]['player']['field'][$key], $position_id);
     }
 

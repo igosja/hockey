@@ -68,8 +68,8 @@ function f_igosja_generator_game_result()
             $game_guest_tactic_id
         );
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
-        $game_result = f_igosja_get_player_info($game_result, 'home');
-        $game_result = f_igosja_get_player_info($game_result, 'guest');
+        $game_result = f_igosja_get_player_info($game_result, 'home', 'guest');
+        $game_result = f_igosja_get_player_info($game_result, 'guest', 'home');
         $game_result = f_igosja_get_teamwork($game_result, 'home');
         $game_result = f_igosja_get_teamwork($game_result, 'guest');
         $game_result = f_igosja_after_teamwork($game_result, 'home');

@@ -33,6 +33,7 @@ function f_igosja_prepare_game_result_array(
                 'assist'        => 0,
                 'assist_power'  => 0,
                 'assist_short'  => 0,
+                'bonus'         => 0,
                 'bullet_win'    => 0,
                 'face_off'      => 0,
                 'face_off_win'  => 0,
@@ -64,6 +65,7 @@ function f_igosja_prepare_game_result_array(
                 'assist'            => 0,
                 'assist_power'      => 0,
                 'assist_short'      => 0,
+                'bonus'             => 0,
                 'game'              => 1,
                 'game_with_bullet'  => 0,
                 'lineup_id'         => 0,
@@ -83,6 +85,7 @@ function f_igosja_prepare_game_result_array(
         ),
         'team' => array(
             'game' => 1,
+            'leader' => 0,
             'loose' => 0,
             'loose_bullet' => 0,
             'loose_over' => 0,
