@@ -6,14 +6,26 @@ function f_igosja_generator_game_result()
     $sql = "SELECT `game_id`,
                    `game_bonus_home`,
                    `game_guest_mood_id`,
-                   `game_guest_rude_id`,
-                   `game_guest_style_id`,
-                   `game_guest_tactic_id`,
+                   `game_guest_rude_1_id`,
+                   `game_guest_rude_2_id`,
+                   `game_guest_rude_3_id`,
+                   `game_guest_style_1_id`,
+                   `game_guest_style_2_id`,
+                   `game_guest_style_3_id`,
+                   `game_guest_tactic_1_id`,
+                   `game_guest_tactic_2_id`,
+                   `game_guest_tactic_3_id`,
                    `game_guest_team_id`,
                    `game_home_mood_id`,
-                   `game_home_rude_id`,
-                   `game_home_style_id`,
-                   `game_home_tactic_id`,
+                   `game_home_rude_1_id`,
+                   `game_home_rude_2_id`,
+                   `game_home_rude_3_id`,
+                   `game_home_style_1_id`,
+                   `game_home_style_2_id`,
+                   `game_home_style_3_id`,
+                   `game_home_tactic_1_id`,
+                   `game_home_tactic_2_id`,
+                   `game_home_tactic_3_id`,
                    `game_home_team_id`,
                    `game_stadium_capacity`,
                    `game_visitor`
@@ -41,35 +53,37 @@ function f_igosja_generator_game_result()
     {
         $game_id                = $game['game_id'];
         $game_bonus_home        = $game['game_bonus_home'];
-        $game_guest_mood_id     = $game['game_guest_mood_id'];
-        $game_guest_rude_id     = $game['game_guest_rude_id'];
-        $game_guest_style_id    = $game['game_guest_style_id'];
-        $game_guest_tactic_id   = $game['game_guest_tactic_id'];
-        $game_guest_team_id     = $game['game_guest_team_id'];
-        $game_home_mood_id      = $game['game_home_mood_id'];
-        $game_home_rude_id      = $game['game_home_rude_id'];
-        $game_home_style_id     = $game['game_home_style_id'];
-        $game_home_tactic_id    = $game['game_home_tactic_id'];
         $game_home_team_id      = $game['game_home_team_id'];
+        $game_guest_team_id     = $game['game_guest_team_id'];
         $game_stadium_capacity  = $game['game_stadium_capacity'];
         $game_visitor           = $game['game_visitor'];
 
-        $game_result = f_igosja_prepare_game_result_array(
-            $game_id,
-            $game_home_team_id,
-            $game_home_mood_id,
-            $game_home_rude_id,
-            $game_home_style_id,
-            $game_home_tactic_id,
-            $game_guest_team_id,
-            $game_guest_mood_id,
-            $game_guest_rude_id,
-            $game_guest_style_id,
-            $game_guest_tactic_id
-        );
+        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id);
+
+        $game['guest']['team']['mood']      = $game['game_guest_mood_id'];
+        $game['guest']['team']['rude'][1]   = $game['game_guest_rude_1_id'];
+        $game['guest']['team']['rude'][2]   = $game['game_guest_rude_2_id'];
+        $game['guest']['team']['rude'][3]   = $game['game_guest_rude_3_id'];
+        $game['guest']['team']['style'][1]  = $game['game_guest_style_1_id'];
+        $game['guest']['team']['style'][2]  = $game['game_guest_style_2_id'];
+        $game['guest']['team']['style'][3]  = $game['game_guest_style_3_id'];
+        $game['guest']['team']['tactic'][1] = $game['game_guest_tactic_1_id'];
+        $game['guest']['team']['tactic'][2] = $game['game_guest_tactic_2_id'];
+        $game['guest']['team']['tactic'][3] = $game['game_guest_tactic_3_id'];
+        $game['home']['team']['mood']       = $game['game_home_mood_id'];
+        $game['home']['team']['rude'][1]    = $game['game_home_rude_1_id'];
+        $game['home']['team']['rude'][2]    = $game['game_home_rude_2_id'];
+        $game['home']['team']['rude'][3]    = $game['game_home_rude_3_id'];
+        $game['home']['team']['style'][1]   = $game['game_home_style_1_id'];
+        $game['home']['team']['style'][2]   = $game['game_home_style_2_id'];
+        $game['home']['team']['style'][3]   = $game['game_home_style_3_id'];
+        $game['home']['team']['tactic'][1]  = $game['game_home_tactic_1_id'];
+        $game['home']['team']['tactic'][2]  = $game['game_home_tactic_2_id'];
+        $game['home']['team']['tactic'][3]  = $game['game_home_tactic_3_id'];
+
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
-        $game_result = f_igosja_get_player_info($game_result, 'home', 'guest');
-        $game_result = f_igosja_get_player_info($game_result, 'guest', 'home');
+        $game_result = f_igosja_get_player_info($game_result);
+        $game_result = f_igosja_count_player_bonus($game_result);
         $game_result = f_igosja_get_teamwork($game_result, 'home');
         $game_result = f_igosja_get_teamwork($game_result, 'guest');
         $game_result = f_igosja_after_teamwork($game_result, 'home');

@@ -1,18 +1,6 @@
 <?php
 
-function f_igosja_prepare_game_result_array(
-    $game_id,
-    $game_home_team_id,
-    $game_home_mood_id,
-    $game_home_rude_id,
-    $game_home_style_id,
-    $game_home_tactic_id,
-    $game_guest_team_id,
-    $game_guest_mood_id,
-    $game_guest_rude_id,
-    $game_guest_style_id,
-    $game_guest_tactic_id
-)
+function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id)
 {
     $field_player_array = array();
 
@@ -89,6 +77,7 @@ function f_igosja_prepare_game_result_array(
             'loose' => 0,
             'loose_bullet' => 0,
             'loose_over' => 0,
+            'mood' => 0,
             'no_pass' => 0,
             'no_score' => 0,
             'optimality_1' => 0,
@@ -124,6 +113,11 @@ function f_igosja_prepare_game_result_array(
                 'shot' => 0,
                 'total' => 0,
             ),
+            'rude' => array(
+                1 => 0,
+                2 => 0,
+                3 => 0,
+            ),
             'score' => array(
                 1 => 0,
                 2 => 0,
@@ -143,6 +137,16 @@ function f_igosja_prepare_game_result_array(
                 'over' => 0,
                 'total' => 0,
             ),
+            'style' => array(
+                1 => 0,
+                2 => 0,
+                3 => 0,
+            ),
+            'tactic' => array(
+                1 => 0,
+                2 => 0,
+                3 => 0,
+            ),
             'teamwork' => array(
                 1 => 0,
                 2 => 0,
@@ -160,16 +164,8 @@ function f_igosja_prepare_game_result_array(
         'face_off_home'     => 0,
         'game_info'         => array(
             'game_id'           => $game_id,
-            'guest_mood_id'     => $game_guest_mood_id,
-            'guest_rude_id'     => $game_guest_rude_id,
-            'guest_style_id'    => $game_guest_style_id,
-            'guest_tactick_id'  => $game_guest_tactic_id,
             'guest_team_id'     => $game_guest_team_id,
             'home_bonus'        => 1,
-            'home_mood_id'      => $game_home_mood_id,
-            'home_rude_id'      => $game_home_rude_id,
-            'home_style_id'     => $game_home_style_id,
-            'home_tactick_id'   => $game_home_tactic_id,
             'home_team_id'      => $game_home_team_id,
         ),
         'guest'             => $team_array,

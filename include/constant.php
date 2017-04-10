@@ -124,6 +124,8 @@ define('STYLE_POWER', 2);
 define('STYLE_SPEED', 3);
 define('STYLE_TECHNIQUE', 4);
 define('TACTIC_NORMAL', 3);
+define('TEAM_GUEST', 'guest');
+define('TEAM_HOME', 'home');
 define('TEAMWORK_MAX', 100);
 define('TOURNAMENTTYPE_NATIONAL', 1);
 define('TOURNAMENTTYPE_LEAGUE', 2);

@@ -14,9 +14,15 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 $sql = "SELECT `game_guest_team_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_mood_id`, `game_guest_mood_id`) AS `game_mood_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_rude_id`, `game_guest_rude_id`) AS `game_rude_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_style_id`, `game_guest_style_id`) AS `game_style_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_id`, `game_guest_tactic_id`) AS `game_tactic_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_rude_1_id`, `game_guest_rude_1_id`) AS `game_rude_1_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_rude_2_id`, `game_guest_rude_2_id`) AS `game_rude_2_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_rude_3_id`, `game_guest_rude_3_id`) AS `game_rude_3_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_style_1_id`, `game_guest_style_1_id`) AS `game_style_1_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_style_2_id`, `game_guest_style_2_id`) AS `game_style_2_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_style_3_id`, `game_guest_style_3_id`) AS `game_style_3_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_1_id`, `game_guest_tactic_1_id`) AS `game_tactic_1_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_2_id`, `game_guest_tactic_2_id`) AS `game_tactic_2_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_3_id`, `game_guest_tactic_3_id`) AS `game_tactic_3_id`,
                `game_ticket`
         FROM `game`
         LEFT JOIN `shedule`
@@ -53,32 +59,44 @@ if ($data = f_igosja_request_post('data'))
         $ticket = GAME_TICKET_MIN_PRICE;
     }
 
-    $tactic_id  = (int) $data['tactic_id'];
-    $rude_id    = (int) $data['rude_id'];
-    $style_id   = (int) $data['style_id'];
-    $mood_id    = (int) $data['mood_id'];
-    $gk_id      = (int) $data['line'][0][0];
-    $ld_1_id    = (int) $data['line'][1][1];
-    $rd_1_id    = (int) $data['line'][1][2];
-    $lw_1_id    = (int) $data['line'][1][3];
-    $c_1_id     = (int) $data['line'][1][4];
-    $rw_1_id    = (int) $data['line'][1][5];
-    $ld_2_id    = (int) $data['line'][2][1];
-    $rd_2_id    = (int) $data['line'][2][2];
-    $lw_2_id    = (int) $data['line'][2][3];
-    $c_2_id     = (int) $data['line'][2][4];
-    $rw_2_id    = (int) $data['line'][2][5];
-    $ld_3_id    = (int) $data['line'][3][1];
-    $rd_3_id    = (int) $data['line'][3][2];
-    $lw_3_id    = (int) $data['line'][3][3];
-    $c_3_id     = (int) $data['line'][3][4];
-    $rw_3_id    = (int) $data['line'][3][5];
+    $tactic_1_id    = (int) $data['tactic_1_id'];
+    $tactic_2_id    = (int) $data['tactic_2_id'];
+    $tactic_3_id    = (int) $data['tactic_3_id'];
+    $rude_1_id      = (int) $data['rude_1_id'];
+    $rude_2_id      = (int) $data['rude_2_id'];
+    $rude_3_id      = (int) $data['rude_3_id'];
+    $style_1_id     = (int) $data['style_1_id'];
+    $style_2_id     = (int) $data['style_2_id'];
+    $style_3_id     = (int) $data['style_3_id'];
+    $mood_id        = (int) $data['mood_id'];
+    $gk_id          = (int) $data['line'][0][0];
+    $ld_1_id        = (int) $data['line'][1][1];
+    $rd_1_id        = (int) $data['line'][1][2];
+    $lw_1_id        = (int) $data['line'][1][3];
+    $c_1_id         = (int) $data['line'][1][4];
+    $rw_1_id        = (int) $data['line'][1][5];
+    $ld_2_id        = (int) $data['line'][2][1];
+    $rd_2_id        = (int) $data['line'][2][2];
+    $lw_2_id        = (int) $data['line'][2][3];
+    $c_2_id         = (int) $data['line'][2][4];
+    $rw_2_id        = (int) $data['line'][2][5];
+    $ld_3_id        = (int) $data['line'][3][1];
+    $rd_3_id        = (int) $data['line'][3][2];
+    $lw_3_id        = (int) $data['line'][3][3];
+    $c_3_id         = (int) $data['line'][3][4];
+    $rw_3_id        = (int) $data['line'][3][5];
 
     $sql = "UPDATE `game`
             SET `game_home_mood_id`=$mood_id,
-                `game_home_rude_id`=$rude_id,
-                `game_home_style_id`=$style_id,
-                `game_home_tactic_id`=$tactic_id,
+                `game_home_rude_1_id`=$rude_1_id,
+                `game_home_rude_2_id`=$rude_2_id,
+                `game_home_rude_3_id`=$rude_3_id,
+                `game_home_style_1_id`=$style_1_id,
+                `game_home_style_2_id`=$style_2_id,
+                `game_home_style_3_id`=$style_3_id,
+                `game_home_tactic_1_id`=$tactic_1_id,
+                `game_home_tactic_2_id`=$tactic_2_id,
+                `game_home_tactic_3_id`=$tactic_3_id,
                 `game_ticket`=$ticket
             WHERE `game_home_team_id`=$auth_team_id
             AND `game_id`=$num_get
@@ -87,9 +105,15 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "UPDATE `game`
             SET `game_guest_mood_id`=$mood_id,
-                `game_guest_rude_id`=$rude_id,
-                `game_guest_style_id`=$style_id,
-                `game_guest_tactic_id`=$tactic_id
+                `game_guest_rude_1_id`=$rude_1_id,
+                `game_guest_rude_2_id`=$rude_2_id,
+                `game_guest_rude_3_id`=$rude_3_id,
+                `game_guest_style_1_id`=$style_1_id,
+                `game_guest_style_2_id`=$style_2_id,
+                `game_guest_style_3_id`=$style_3_id,
+                `game_guest_tactic_1_id`=$tactic_1_id,
+                `game_guest_tactic_2_id`=$tactic_2_id,
+                `game_guest_tactic_3_id`=$tactic_3_id
             WHERE `game_guest_team_id`=$auth_team_id
             AND `game_id`=$num_get
             LIMIT 1";
@@ -204,7 +228,7 @@ foreach ($lineup_array as $item)
 }
 
 $sql = "SELECT `game_id`,
-               IF(`game_guest_team_id`=$auth_team_id, `game_guest_tactic_id`, `game_home_tactic_id`) AS `game_tactic_id`,
+               IF(`game_guest_team_id`=$auth_team_id, `game_guest_tactic_1_id`, `game_home_tactic_1_id`) AS `game_tactic_id`,
                IF(`game_guest_team_id`=$auth_team_id, 'Г', 'Д') AS `home_guest`,
                `shedule_date`,
                `stage_name`,
