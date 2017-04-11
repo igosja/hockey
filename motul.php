@@ -1,5 +1,17 @@
 <?php
 
+$count_query    = 0;
+$query_array    = array();
+$db_host        = 'localhost';
+$db_user        = 'igosja_hockey';
+$db_password    = 'zuI2QbJJ';
+$db_database    = 'igosja_hockey';
+
+$mysqli = new mysqli($db_host, $db_user, $db_password, $db_database) or die('No MySQL connection');
+
+$sql = "SET NAMES 'utf8'";
+$mysqli->query($sql);
+
 include('simple_html_dom.php');
 
 $order_id = '';
@@ -19,11 +31,13 @@ $total = '';
 $payment_name = '';
 $payment_address = '';
 $payment_method = '';
+$payment_code = '';
 $payment_warehouse = '';
 $payment_city = '';
 $shipping_name = '';
 $shipping_address = '';
 $shipping_method = '';
+$shipping_code = '';
 $shipping_warehouse = '';
 $shipping_city = '';
 $product_array = '';
@@ -291,68 +305,39 @@ foreach ($table_history_tr as $tr) {
     }
 }
 
-print '<pre>';
-print_r($order_id);
-print '<br>';
-print_r($status_current);
-print '<br>';
-print_r($ip_address);
-print '<br>';
-print_r($shop_name);
-print '<br>';
-print_r($ip_forwarded);
-print '<br>';
-print_r($shop_url);
-print '<br>';
-print_r($user_agent);
-print '<br>';
-print_r($client);
-print '<br>';
-print_r($accept_language);
-print '<br>';
-print_r($email);
-print '<br>';
-print_r($date_add);
-print '<br>';
-print_r($phone);
-print '<br>';
-print_r($date_change);
-print '<br>';
-print_r($total);
-print '<br>';
-print_r($payment_name);
-print '<br>';
-print_r($payment_address);
-print '<br>';
-print_r($payment_method);
-print '<br>';
-print_r($payment_warehouse);
-print '<br>';
-print_r($payment_city);
-print '<br>';
-print_r($shipping_name);
-print '<br>';
-print_r($shipping_address);
-print '<br>';
-print_r($shipping_method);
-print '<br>';
-print_r($shipping_warehouse);
-print '<br>';
-print_r($shipping_city);
-print '<br>';
-print_r($product_array);
-print '<br>';
-print_r($product_sum);
-print '<br>';
-print_r($product_new_post);
-print '<br>';
-print_r($product_pickup);
-print '<br>';
-print_r($product_cupon_name);
-print '<br>';
-print_r($product_cupon);
-print '<br>';
-print_r($product_total);
-print '<br>';
-print_r($status_array);
-exit;
+$sql = "INSERT INTO `order`
+        SET `order_id`='$order_id',
+            `store_name`='$shop_name',
+            `store_url`='$shop_url',
+            `customer_group_id`='1',
+            `firstname`='$client',
+            `email`='$email',
+            `telephone`='$phone',
+            `custom_field`='[]',
+            `payment_firstname`='$client',
+            `payment_address_1`='$payment_address',
+            `payment_postcode`='00000',
+            `payment_country_id`='220',
+            `payment_zone_id`='0',
+            `payment_custom_field`='[]',
+            `payment_method`='$payment_method',
+            `payment_code`='',
+            `shipping_firstname`='$shipping_name',
+            `shipping_address_1`='$shipping_address',
+            `shipping_postcode`='00000',
+            `shipping_country_id`='220',
+            `shipping_zone_id`='0',
+            `shipping_custom_field`='[]',
+            `shipping_method`='$shipping_method',
+            `shipping_code`='',
+            `total`='$total',
+            `order_status_id`='',
+            `language_id`='1',
+            `currency_id`='1',
+            `currency_code`='RUB',
+            `currency_value`='1',
+            `ip`='$ip_address',
+            `user_agent`='$user_agent',
+            `accept_language`='$accept_language',
+            `date_added`='$date_add',
+            `date_modified`='$date_change'";
