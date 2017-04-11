@@ -1,7 +1,7 @@
 <?php
 
-$count_query    = 0;
-$query_array    = array();
+$token = '80d35e133cd628c4751206a159079cef';
+
 $db_host        = 'localhost';
 $db_user        = 'igosja_hockey';
 $db_password    = 'zuI2QbJJ';
@@ -14,6 +14,7 @@ $mysqli->query($sql);
 
 include('simple_html_dom.php');
 
+for ($i=1075; $i<6200; $i++) {
 $order_id = '';
 $status_current = '';
 $ip_address = '';
@@ -28,6 +29,7 @@ $date_add = '';
 $phone = '';
 $date_change = '';
 $total = '';
+$comment = '';
 $payment_name = '';
 $payment_address = '';
 $payment_method = '';
@@ -53,8 +55,8 @@ $ch = curl_init();
 $timeout = 5;
 $params = [
     'route' => 'sale/order/info',
-    'token' => '186b748a9fb4c482edce9085ae927d4b',
-    'order_id' => '6124',
+    'token' => $token,
+    'order_id' => $i,
 ];
 curl_setopt($ch, CURLOPT_URL, 'http://motulmarket.com.ua/admin/index.php?' . http_build_query($params));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -142,9 +144,9 @@ foreach ($table_main_tr as $tr) {
     }
 
     if ('Дата добавления:' == $td[0]->plaintext) {
-        $date_add = $td[1]->plaintext;
+        $date_add = date('Y-m-d H:i:s', strtotime($td[1]->plaintext));
     } elseif ('Дата добавления:' == $td[2]->plaintext) {
-        $date_add = $td[3]->plaintext;
+        $date_add = date('Y-m-d H:i:s', strtotime($td[3]->plaintext));
     }
 
     if ('Телефон:' == $td[0]->plaintext) {
@@ -154,9 +156,9 @@ foreach ($table_main_tr as $tr) {
     }
 
     if ('Дата изменения:' == $td[0]->plaintext) {
-        $date_change = $td[1]->plaintext;
+        $date_change = date('Y-m-d H:i:s', strtotime($td[1]->plaintext));
     } elseif ('Дата изменения:' == $td[2]->plaintext) {
-        $date_change = $td[3]->plaintext;
+        $date_change = date('Y-m-d H:i:s', strtotime($td[3]->plaintext));
     }
 
     if ('Итого:' == $td[0]->plaintext) {
@@ -164,11 +166,19 @@ foreach ($table_main_tr as $tr) {
     } elseif ('Итого:' == $td[2]->plaintext) {
         $total = $td[3]->plaintext;
     }
+
+    if ('Комментарий::' == $td[0]->plaintext) {
+        $comment = $td[1]->plaintext;
+    } elseif ('Комментарий::' == $td[2]->plaintext) {
+        $comment = $td[3]->plaintext;
+    }
 }
 
 $table_payment = $content[2];
 
 $table_payment_tr = $table_payment->find('tr');
+
+$payment_address = '';
 
 foreach ($table_payment_tr as $tr) {
     $td = $tr->find('td');
@@ -178,7 +188,7 @@ foreach ($table_payment_tr as $tr) {
     }
 
     if ('Адрес:' == $td[0]->plaintext) {
-        $payment_address = $td[1]->plaintext;
+        $payment_address = $payment_address . $td[1]->plaintext;
     }
 
     if ('Способ оплаты:' == $td[0]->plaintext) {
@@ -186,17 +196,27 @@ foreach ($table_payment_tr as $tr) {
     }
 
     if ('Область:' == $td[0]->plaintext) {
-        $payment_warehouse = $td[1]->plaintext;
+        $payment_address = $payment_address . $td[1]->plaintext;
     }
 
     if ('Страна:' == $td[0]->plaintext) {
-        $payment_city = $td[1]->plaintext;
+        $payment_address = $payment_address . $td[1]->plaintext;
     }
+}
+
+if ('Оплата при получении' == $payment_method) {
+    $payment_code = 'cod';
+} elseif ('Карточка Приват' == $payment_method) {
+    $payment_code = 'free_checkout';
+} else {
+    $payment_code = 'privatbank';
 }
 
 $table_shipping = $content[3];
 
 $table_shipping_tr = $table_shipping->find('tr');
+
+$shipping_address = '';
 
 foreach ($table_shipping_tr as $tr) {
     $td = $tr->find('td');
@@ -206,7 +226,7 @@ foreach ($table_shipping_tr as $tr) {
     }
 
     if ('Адрес:' == $td[0]->plaintext) {
-        $shipping_address = $td[1]->plaintext;
+        $shipping_address = $shipping_address . $td[1]->plaintext;
     }
 
     if ('Способ доставки:' == $td[0]->plaintext) {
@@ -214,12 +234,20 @@ foreach ($table_shipping_tr as $tr) {
     }
 
     if ('Область:' == $td[0]->plaintext) {
-        $shipping_warehouse = $td[1]->plaintext;
+        $shipping_address = $shipping_address .  $td[1]->plaintext;
     }
 
     if ('Страна:' == $td[0]->plaintext) {
-        $shipping_city = $td[1]->plaintext;
+        $shipping_address = $shipping_address .  $td[1]->plaintext;
     }
+}
+
+if ('Самовывоз из магазина' == $shipping_method) {
+    $shipping_code = 'pickup.pickup';
+} elseif ('Доставка Новой почтой' == $shipping_method) {
+    $shipping_code = 'flat.flat';
+} else {
+    $shipping_code = 'citylink.citylink';
 }
 
 $table_product = $content[4];
@@ -261,7 +289,7 @@ foreach ($table_product_tr as $tr) {
             'model' => $td[1]->plaintext,
             'quantity' => $td[2]->plaintext,
             'price' => $td[3]->plaintext,
-            'sum' => $td[4]->plaintext,
+            'total' => $td[4]->plaintext,
         );
     }
 }
@@ -272,8 +300,8 @@ $ch = curl_init();
 $timeout = 5;
 $params = [
     'route' => 'sale/order/history',
-    'token' => '186b748a9fb4c482edce9085ae927d4b',
-    'order_id' => '6124',
+    'token' => $token,
+    'order_id' => $i,
 ];
 curl_setopt($ch, CURLOPT_URL, 'http://motulmarket.com.ua/admin/index.php?' . http_build_query($params));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -300,10 +328,205 @@ foreach ($table_history_tr as $tr) {
             'date' => $td[0]->plaintext,
             'comment' => $td[1]->plaintext,
             'status' => $td[2]->plaintext,
-            'alert' => $td[3]->plaintext,
         );
     }
 }
+
+$sql = "SELECT `order_status_id`
+        FROM `order_status`
+        WHERE `name`='$status'
+        LIMIT 1";
+$status_sql = $mysqli->query($sql);
+
+if ($status_sql->num_rows) {
+    $status_array = $status_sql->fetch_all(1);
+    $status_id = $status_array[0]['order_status_id'];
+} else {
+    $status_id = 7;
+}
+
+$total = str_replace(' ', '', $total);
+$total = (int) $total;
+
+$product_sql_array = array();
+
+foreach ($product_array as $product) {
+    $product_name = $product['product'];
+    $product_name = explode(',', $product_name);
+    $option_name = end($product_name);
+    array_splice($product_name, 0, -1);
+    $product_name = implode(',', $product_name);
+
+    $sql = "SELECT `product_id`,
+                   `name`
+            FROM `product_description`
+            WHERE `name`='$product_name'
+            LIMIT 1";
+    $product_sql = $mysqli->query($sql);
+
+    if (0 == $product_sql) {
+        exit($i . ' Product - ' . $product_name);
+    }
+
+    $product_array = $product_sql->fetch_all(1);
+
+    $product_id = $product_array[0]['product_id'];
+    $product_name = $product_array[0]['name'];
+
+    $sql = "SELECT `option_value_id`,
+                   `name`
+            FROM `option_value_description`
+            WHERE `name`='$option_name'
+            LIMIT 1";
+    $option_sql = $mysqli->query($sql);
+
+    if (0 == $option_sql) {
+        exit($i . ' Option - ' . $option_name);
+    }
+
+    $option_array = $option_sql->fetch_all(1);
+
+    $option_value_id = $option_array[0]['option_value_id'];
+    $option_name = $option_array[0]['name'];
+    
+    $sql = "SELECT `product_option_id`
+            FROM `product_option`
+            WHERE `product_id`='$product_id'
+            AND `option_id`='1'
+            LIMIT 1";
+    $option_sql = $mysqli->query($sql);
+    
+    $option_array = $option_sql->fetch_all(1);
+    $product_option_id = $option_array[0]['product_option_id'];
+    
+    $sql = "SELECT `product_option_value_id`
+            FROM `product_option_value`
+            WHERE `product_id`='$product_id'
+            AND `option_id`='1'
+            AND `product_option_id`='$product_option_id'
+            AND `option_value_id`='$option_value_id'
+            LIMIT 1";
+    $option_sql = $mysqli->query($sql);
+    
+    $option_array = $option_sql->fetch_all(1);
+    $product_option_id = $option_array[0]['product_option_id'];
+    
+    $product_price = str_replace(' ', '', $product['price']);
+    $product_price = (int) $product_price;
+    
+    $product_totals = str_replace(' ', '', $product['total']);
+    $product_totals = (int) $product_totals;
+
+    $product_sql_array[] = array(
+        'order_id' = > $order_id,
+        'product_option_id' = > '',
+        'product_option_value_id' = > '',
+        'name_option' = > 'Литраж',
+        'value' = > $option_name,
+        'type' = > 'radio',
+        'product_id' = > $product_id,
+        'name_product' = > $product_name,
+        'model' = > $product['model'],
+        'quantity' = > $product['quantity'],
+        'price' = > $product['price'],
+        'total' = > $product['total'],
+        'tax' = > 0,
+        'reward' = > 0,
+    );
+}
+
+$status_sql_array = array();
+
+foreach ($status_array as $status) {
+    $status_name = $status['status'];
+
+    $sql = "SELECT `order_status_id`
+            FROM `order_status`
+            WHERE `name`='$status_name'
+            LIMIT 1";
+    $status_sql = $mysqli->query($sql);
+
+    if ($status_sql->num_rows) {
+        $status_array = $status_sql->fetch_all(1);
+        $status_id = $status_array[0]['order_status_id'];
+    } else {
+        exit($i . ' Status - ' . $status_name);
+    }
+
+    $status_sql_array[] = array(
+        'order_id' => $order_id,
+        'order_status_id' => $status_id,
+        'notify' => 0,
+        'comment' => $status['comment'],
+        'date_added' => date('Y-m-d H:i:s', strtotime($status['date'])),
+    );
+}
+
+$total_sql_array = array();
+
+if ($product_sum) {
+    $product_sum = str_replace(' ', '', $product_sum);
+    $product_sum = (int) $product_sum;
+    $total_sql_array[] = array(
+        'order_id' => $order_id,
+        'code' => 'sub_total',
+        'title' => 'Предварительная стоимость',
+        'value' => $product_sum,
+        'sort_order' => 1,
+    );
+}
+
+if ($product_new_post) {
+    $product_new_post = str_replace(' ', '', $product_new_post);
+    $product_new_post = (int) $product_new_post;
+    $total_sql_array[] = array(
+        'order_id' => $order_id,
+        'code' => 'shipping',
+        'title' => 'Доставка службой Нова пошта',
+        'value' => $product_new_post,
+        'sort_order' => 3,
+    );
+}
+
+if ($product_pickup) {
+    $product_pickup = str_replace(' ', '', $product_pickup);
+    $product_pickup = (int) $product_pickup;
+    $total_sql_array[] = array(
+        'order_id' => $order_id,
+        'code' => 'shipping',
+        'title' => 'Я заберу сам в пункте выдачи',
+        'value' => $product_pickup,
+        'sort_order' => 3,
+    );
+}
+
+if ($product_cupon) {
+    $product_cupon = str_replace(' ', '', $product_cupon);
+    $product_cupon = (int) $product_cupon;
+    $total_sql_array[] = array(
+        'order_id' => $order_id,
+        'code' => 'coupon',
+        'title' => 'Купон ('.$product_cupon_name.')',
+        'value' => $product_cupon,
+        'sort_order' => 4,
+    );
+}
+
+if ($product_total) {
+    $product_total = str_replace(' ', '', $product_total);
+    $product_total = (int) $product_total;
+    $total_sql_array[] = array(
+        'order_id' => $order_id,
+        'code' => 'total',
+        'title' => 'Итого',
+        'value' => $product_total,
+        'sort_order' => 9,
+    );
+}
+
+print '<pre>';
+print_r(get_defined_vars());
+exit;
 
 $sql = "INSERT INTO `order`
         SET `order_id`='$order_id',
@@ -321,7 +544,7 @@ $sql = "INSERT INTO `order`
             `payment_zone_id`='0',
             `payment_custom_field`='[]',
             `payment_method`='$payment_method',
-            `payment_code`='',
+            `payment_code`='$payment_code',
             `shipping_firstname`='$shipping_name',
             `shipping_address_1`='$shipping_address',
             `shipping_postcode`='00000',
@@ -329,9 +552,10 @@ $sql = "INSERT INTO `order`
             `shipping_zone_id`='0',
             `shipping_custom_field`='[]',
             `shipping_method`='$shipping_method',
-            `shipping_code`='',
+            `shipping_code`='$shipping_code',
+            `comment`='$comment',
             `total`='$total',
-            `order_status_id`='',
+            `order_status_id`='$status_id',
             `language_id`='1',
             `currency_id`='1',
             `currency_code`='RUB',
@@ -341,3 +565,52 @@ $sql = "INSERT INTO `order`
             `accept_language`='$accept_language',
             `date_added`='$date_add',
             `date_modified`='$date_change'";
+$mysqli->query($sql);
+
+foreach ($product_sql_array as $item) {
+    $sql = "INSERT INTO `order_product`
+            SET `order_id`='" .$item['order_id']. "',
+                `product_id`='" .$item['product_id']. "',
+                `name`='" .$item['name_product']. "',
+                `model`='" .$item['model']. "',
+                `quantity`='" .$item['quantity']. "',
+                `price`='" .$item['price']. "',
+                `total`='" .$item['total']. "',
+                `tax`='" .$item['tax']. "',
+                `reward`='" .$item['reward']. "'"
+    $mysqli->query($sql);
+
+    $order_product_id = $mysqli->insert_id;
+
+    $sql = "INSERT INTO `order_option`
+            SET `order_id`='" .$item['order_id']. "',
+                `order_product_id`='" .$order_product_id. "',
+                `product_option_id`='" .$item['product_option_id']. "',
+                `product_option_value_id`='" .$item['product_option_value_id']. "',
+                `quantity`='" .$item['quantity']. "',
+                `name`='" .$item['name']. "',
+                `value`='" .$item['value']. "',
+                `type`='" .$item['type']. "'"
+    $mysqli->query($sql);
+}
+
+foreach ($status_sql_array as $item) {
+    $sql = "INSERT INTO `order_history`
+            SET `order_id`='" .$item['order_id']. "',
+                `order_status_id`='" .$item['order_status_id']. "',
+                `notify`='" .$item['notify']. "',
+                `comment`='" .$item['comment']. "',
+                `date_added`='" .$item['date_added']. "'"
+    $mysqli->query($sql);
+}
+
+foreach ($total_sql_array as $item) {
+    $sql = "INSERT INTO `order_total`
+            SET `order_id`='" .$item['order_id']. "',
+                `code`='" .$item['code']. "',
+                `title`='" .$item['title']. "',
+                `value`='" .$item['value']. "',
+                `sort_order`='" .$item['sort_order']. "'"
+    $mysqli->query($sql);
+}
+}
