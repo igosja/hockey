@@ -84,12 +84,8 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_count_home_bonus($game_result, $game_bonus_home, $game_visitor, $game_stadium_capacity);
         $game_result = f_igosja_get_player_info($game_result);
         $game_result = f_igosja_count_player_bonus($game_result);
-        $game_result = f_igosja_get_teamwork($game_result, 'home');
-        $game_result = f_igosja_get_teamwork($game_result, 'guest');
-        $game_result = f_igosja_after_teamwork($game_result, 'home');
-        $game_result = f_igosja_after_teamwork($game_result, 'guest');
-        $game_result = f_igosja_team_power_foreacst($game_result, 'home');
-        $game_result = f_igosja_team_power_foreacst($game_result, 'guest');
+        $game_result = f_igosja_get_teamwork($game_result);
+        $game_result = f_igosja_team_power_forecast($game_result);
         $game_result = f_igosja_optimality($game_result);
 
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
