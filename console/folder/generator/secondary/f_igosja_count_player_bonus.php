@@ -29,58 +29,62 @@ function f_igosja_count_player_bonus($game_result)
             {
                 if (in_array(STYLE_SPEED, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 10 * $item['playerspecial_level'];
                 }
                 elseif (in_array(STYLE_TECHNIQUE, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 4 * $item['playerspecial_level'];
                 }
                 else
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
                 }
             }
             elseif (SPECIAL_POWER == $item['playerspecial_special_id'])
             {
                 if (in_array(STYLE_POWER, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 10 * $item['playerspecial_level'];
                 }
                 elseif (in_array(STYLE_SPEED, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 4 * $item['playerspecial_level'];
                 }
                 else
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
                 }
             }
             elseif (SPECIAL_COMBINE == $item['playerspecial_special_id'])
             {
                 if (in_array(STYLE_TECHNIQUE, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 10 * $item['playerspecial_level'];
                 }
                 elseif (in_array(STYLE_POWER, array($game_result[$team]['team']['style'][1], $game_result[$team]['team']['style'][2], $game_result[$team]['team']['style'][3])))
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 4 * $item['playerspecial_level'];
                 }
                 else
                 {
-                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                    $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
                 }
             }
             elseif (SPECIAL_TACKLE == $item['playerspecial_special_id'])
             {
-                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
             }
             elseif (SPECIAL_REACTION == $item['playerspecial_special_id'])
             {
-                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
             }
             elseif (SPECIAL_SHOT == $item['playerspecial_special_id'])
             {
-                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
+            }
+            elseif (SPECIAL_LEADER == $item['playerspecial_special_id'])
+            {
+                $game_result[$team]['team']['leader'] = $game_result[$team]['team']['leader'] + $item['playerspecial_level'];
             }
         }
 
@@ -112,58 +116,62 @@ function f_igosja_count_player_bonus($game_result)
                     {
                         if (STYLE_SPEED == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 10 * $item['playerspecial_level'];
                         }
                         elseif (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 4 * $item['playerspecial_level'];
                         }
                         else
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
                         }
                     }
                     elseif (SPECIAL_POWER == $item['playerspecial_special_id'])
                     {
                         if (STYLE_POWER == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 10 * $item['playerspecial_level'];
                         }
                         elseif (STYLE_SPEED == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 4 * $item['playerspecial_level'];
                         }
                         else
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
                         }
                     }
                     elseif (SPECIAL_COMBINE == $item['playerspecial_special_id'])
                     {
                         if (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 10 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 10 * $item['playerspecial_level'];
                         }
                         elseif (STYLE_POWER == $game_result[$team]['team']['style'][$line])
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 4 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 4 * $item['playerspecial_level'];
                         }
                         else
                         {
-                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                            $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
                         }
                     }
                     elseif (SPECIAL_TACKLE == $item['playerspecial_special_id'])
                     {
-                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
                     }
                     elseif (SPECIAL_REACTION == $item['playerspecial_special_id'])
                     {
-                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
                     }
                     elseif (SPECIAL_SHOT == $item['playerspecial_special_id'])
                     {
-                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] * (100 + 5 * $item['playerspecial_level']) / 100;
+                        $game_result[$team]['player']['field'][$key]['bonus'] = $game_result[$team]['player']['field'][$key]['bonus'] + 5 * $item['playerspecial_level'];
+                    }
+                    elseif (SPECIAL_LEADER == $item['playerspecial_special_id'])
+                    {
+                        $game_result[$team]['team']['leader'] = $game_result[$team]['team']['leader'] + $item['playerspecial_level'];
                     }
                 }
             }

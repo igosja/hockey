@@ -1,21 +1,33 @@
 <?php
 
-function f_igosja_forward($game_result, $team)
+function f_igosja_forward($game_result)
 {
-    if (0 == $game_result['minute'] % 3)
+    for ($i=0; $i<2; $i++)
     {
-        $forward = $game_result[$team]['team']['power']['forward'][1];
-    }
-    elseif (1 == $game_result['minute'] % 3)
-    {
-        $forward = $game_result[$team]['team']['power']['forward'][2];
-    }
-    else
-    {
-        $forward = $game_result[$team]['team']['power']['forward'][3];
-    }
+        if (0 == $i)
+        {
+            $team = TEAM_HOME;
+        }
+        else
+        {
+            $team = TEAM_GUEST;
+        }
 
-    $game_result[$team]['team']['power']['forward']['current'] = $forward;
+        if (0 == $game_result['minute'] % 3)
+        {
+            $forward = $game_result[$team]['team']['power']['forward'][1];
+        }
+        elseif (1 == $game_result['minute'] % 3)
+        {
+            $forward = $game_result[$team]['team']['power']['forward'][2];
+        }
+        else
+        {
+            $forward = $game_result[$team]['team']['power']['forward'][3];
+        }
+
+        $game_result[$team]['team']['power']['forward']['current'] = $forward;
+    }
 
     return $game_result;
 }

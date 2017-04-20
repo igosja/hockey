@@ -1,21 +1,33 @@
 <?php
 
-function f_igosja_defence($game_result, $team)
+function f_igosja_defence($game_result)
 {
-    if (0 == $game_result['minute'] % 3)
+    for ($i=0; $i<2; $i++)
     {
-        $defence = $game_result[$team]['team']['power']['defence'][1];
-    }
-    elseif (1 == $game_result['minute'] % 3)
-    {
-        $defence = $game_result[$team]['team']['power']['defence'][2];
-    }
-    else
-    {
-        $defence = $game_result[$team]['team']['power']['defence'][3];
-    }
+        if (0 == $i)
+        {
+            $team = TEAM_HOME;
+        }
+        else
+        {
+            $team = TEAM_GUEST;
+        }
 
-    $game_result[$team]['team']['power']['defence']['current'] = $defence;
+        if (0 == $game_result['minute'] % 3)
+        {
+            $defence = $game_result[$team]['team']['power']['defence'][1];
+        }
+        elseif (1 == $game_result['minute'] % 3)
+        {
+            $defence = $game_result[$team]['team']['power']['defence'][2];
+        }
+        else
+        {
+            $defence = $game_result[$team]['team']['power']['defence'][3];
+        }
+
+        $game_result[$team]['team']['power']['defence']['current'] = $defence;
+    }
 
     return $game_result;
 }

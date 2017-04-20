@@ -86,14 +86,13 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_count_player_bonus($game_result);
         $game_result = f_igosja_get_teamwork($game_result);
         $game_result = f_igosja_team_power_forecast($game_result);
+        $game_result = f_igosja_apply_player_bonus_teamwork($game_result);
         $game_result = f_igosja_optimality($game_result);
 
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
         {
-            $game_result = f_igosja_defence($game_result, 'home');
-            $game_result = f_igosja_forward($game_result, 'home');
-            $game_result = f_igosja_defence($game_result, 'guest');
-            $game_result = f_igosja_forward($game_result, 'guest');
+            $game_result = f_igosja_defence($game_result);
+            $game_result = f_igosja_forward($game_result);
 
             if (rand(0, 40) >= 34 && 1 == rand(0, 1))
             {
@@ -115,8 +114,7 @@ function f_igosja_generator_game_result()
                 $game_result = f_igosja_team_penalty_increase($game_result, 'guest');
             }
 
-            $game_result = f_igosja_current_penalty_decrease($game_result, 'home');
-            $game_result = f_igosja_current_penalty_decrease($game_result, 'guest');
+            $game_result = f_igosja_current_penalty_decrease($game_result);
             $game_result = f_igosja_face_off($game_result);
 
             $home_penalty_current = count($game_result['home']['team']['penalty']['current']);
@@ -204,10 +202,8 @@ function f_igosja_generator_game_result()
         {
             for ($game_result['minute']=60; $game_result['minute']<65; $game_result['minute']++)
             {
-                $game_result = f_igosja_defence($game_result, 'home');
-                $game_result = f_igosja_forward($game_result, 'home');
-                $game_result = f_igosja_defence($game_result, 'guest');
-                $game_result = f_igosja_forward($game_result, 'guest');
+                $game_result = f_igosja_defence($game_result);
+                $game_result = f_igosja_forward($game_result);
 
                 if (rand(0, 40) >= 34 && 1 == rand(0, 1))
                 {
@@ -229,8 +225,7 @@ function f_igosja_generator_game_result()
                     $game_result = f_igosja_team_penalty_increase($game_result, 'guest');
                 }
 
-                $game_result = f_igosja_current_penalty_decrease($game_result, 'home');
-                $game_result = f_igosja_current_penalty_decrease($game_result, 'guest');
+                $game_result = f_igosja_current_penalty_decrease($game_result);
                 $game_result = f_igosja_face_off($game_result);
 
                 $home_penalty_current = count($game_result['home']['team']['penalty']['current']);
