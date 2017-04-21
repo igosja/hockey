@@ -1096,7 +1096,7 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <br/>
 <a href=\"#2.2\">2.2. Силовая борьба (Сб).</a>
 <br/>
-<a href=\"#2.3\">2.3. Комбинирование (Км).</a>
+<a href=\"#2.3\">2.3. Техника (Т).</a>
 <br/>
 <a href=\"#2.4\">2.4. Лидер (Л).</a>
 <br/>
@@ -1133,7 +1133,7 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td class=\"text-center\">4</td><td class=\"text-center\">+40% силы</td><td class=\"text-center\">+20% силы</td><td class=\"text-center\">+16% силы</td><td class=\"text-center\">+20% силы</td></tr>
 </table>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
-<p class=\"text-justify\" id=\"2.3\"><span class=\"strong\">2.3. Комбинирование (Км).</span> Игроки с этой спецвозможностью лучше играют в командный созидательный хоккей.</p>
+<p class=\"text-justify\" id=\"2.3\"><span class=\"strong\">2.3. Техника (Т).</span> Игроки с этой спецвозможностью имеют высокую технику работы с шайбой..</p>
 <table class=\"table table-hover table-bordered\">
 <tr><th class=\"col-20\">Уровень</th><th class=\"col-20\">Технический</th><th class=\"col-20\">Скоросной</th><th class=\"col-20\">Силовой</th><th class=\"col-20\">Нормальный</th></tr>
 <tr><td class=\"text-center\">1</td><td class=\"text-center\">+10% силы</td><td class=\"text-center\">+5% силы</td><td class=\"text-center\">+4% силы</td><td class=\"text-center\">+5% силы</td></tr>

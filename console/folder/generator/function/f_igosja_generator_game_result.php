@@ -85,9 +85,12 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_get_player_info($game_result);
         $game_result = f_igosja_count_player_bonus($game_result);
         $game_result = f_igosja_get_teamwork($game_result);
-        $game_result = f_igosja_team_power_forecast($game_result);
-        $game_result = f_igosja_apply_player_bonus_teamwork($game_result);
+        $game_result = f_igosja_collision($game_result);
+        $game_result = f_igosja_player_optimal_power($game_result);
+        $game_result = f_igosja_get_player_real_power_from_optimal($game_result);
         $game_result = f_igosja_optimality($game_result);
+        $game_result = f_igosja_team_power($game_result);
+        $game_result = f_igosja_team_power_forecast($game_result);
 
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
         {
@@ -400,7 +403,10 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_calculate_statistic($game_result);
 
         $sql = "UPDATE `game`
-                SET `game_guest_forecast`=" . $game_result['guest']['team']['power']['forecast'] . ",
+                SET `game_guest_collision_1`=" . $game_result['guest']['team']['collision'][1] . ",
+                    `game_guest_collision_2`=" . $game_result['guest']['team']['collision'][2] . ",
+                    `game_guest_collision_3`=" . $game_result['guest']['team']['collision'][3] . ",
+                    `game_guest_forecast`=" . $game_result['guest']['team']['power']['forecast'] . ",
                     `game_guest_optimality_1`=" . $game_result['guest']['team']['optimality_1'] . ",
                     `game_guest_optimality_2`=" . $game_result['guest']['team']['optimality_2'] . ",
                     `game_guest_penalty`=" . $game_result['guest']['team']['penalty']['total'] . "*2,

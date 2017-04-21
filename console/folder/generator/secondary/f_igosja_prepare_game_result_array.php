@@ -72,6 +72,11 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
             'field' => $field_player_array,
         ),
         'team' => array(
+            'collision'  => array(
+                1 => 0,
+                2 => 0,
+                3 => 0,
+            ),
             'game' => 1,
             'leader' => 0,
             'loose' => 0,
