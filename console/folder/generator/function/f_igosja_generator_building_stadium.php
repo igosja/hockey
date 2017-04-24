@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Строительство стадиона
+ */
 function f_igosja_generator_building_stadium()
-//Строительство стадиона
 {
     $sql = "UPDATE `buildingstadium`
             SET `buildingstadium_day`=`buildingstadium_day`-1

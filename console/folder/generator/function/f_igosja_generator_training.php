@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Тренируем игроков
+ */
 function f_igosja_generator_training()
-//Тренируем игроков
 {
     $sql = "UPDATE `training`
             LEFT JOIN `team`

@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Играл подряд/отдыхал подряд
+ */
 function f_igosja_generator_player_game_row()
-//Играл подряд/отдыхал подряд
 {
     $sql = "UPDATE `player`
             LEFT JOIN `lineup`

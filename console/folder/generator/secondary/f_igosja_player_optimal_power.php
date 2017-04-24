@@ -17,8 +17,16 @@ function f_igosja_player_optimal_power($game_result)
             $game_result[$team]['player']['gk']['power_optimal']
             * (100 + $game_result[$team]['player']['gk']['bonus'] + $game_result[$team]['team']['leader']) / 100
             * (100 + $game_result[$team]['team']['teamwork'][1] + $game_result[$team]['team']['teamwork'][2] + $game_result[$team]['team']['teamwork'][3]) / 100
-            * (10 - $game_result[$team]['team']['mood'] - 2) / 10
+            * (10 - $game_result[$team]['team']['mood'] + 2) / 10
+            * (100 - AUTO_PENALTY * $game_result[$team]['team']['auto']) / 100
         );
+
+        if (TEAM_HOME == $team)
+        {
+            $game_result[$team]['player']['gk']['power_optimal'] = round(
+                $game_result[$team]['player']['gk']['power_optimal'] * $game_result['game_info']['home_bonus']
+            );
+        }
 
         for ($line=1; $line<=3; $line++)
         {
@@ -79,15 +87,23 @@ function f_igosja_player_optimal_power($game_result)
                     }
                 }
 
-                $game_result[$team]['player']['field'][$key]['power_real'] = round(
-                    $game_result[$team]['player']['field'][$key]['power_real']
+                $game_result[$team]['player']['field'][$key]['power_optimal'] = round(
+                    $game_result[$team]['player']['field'][$key]['power_optimal']
                     * (100 + $game_result[$team]['player']['field'][$key]['bonus'] + $game_result[$team]['team']['leader']) / 100
                     * (100 + $game_result[$team]['team']['teamwork'][$line]) / 100
-                    * (10 - $game_result[$team]['team']['mood'] - 2) / 10
+                    * (10 - $game_result[$team]['team']['mood'] + 2) / 10
                     * (100 + $game_result[$team]['team']['rude'][$line] - 1) / 100
-                    * (10 + $game_result[$team]['team']['collision'][$line]) / 100
+                    * (10 + $game_result[$team]['team']['collision'][$line]) / 10
                     * (100 + $tactic) / 100
+                    * (100 - AUTO_PENALTY * $game_result[$team]['team']['auto']) / 100
                 );
+
+                if (TEAM_HOME == $team)
+                {
+                    $game_result[$team]['player']['field'][$key]['power_optimal'] = round(
+                        $game_result[$team]['player']['field'][$key]['power_optimal'] * $game_result['game_info']['home_bonus']
+                    );
+                }
             }
         }
     }

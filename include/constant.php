@@ -2,6 +2,7 @@
 
 define('ADMIN_ITEMS_ON_PAGE', 10);
 define('ADMIN_PAGES_IN_PAGINATION', 5);
+define('AUTO_PENALTY', 25);
 define('BUILDING_BASE', 1);
 define('BUILDING_BASEMEDICAL', 2);
 define('BUILDING_BASEPHISICAL', 3);
@@ -102,6 +103,7 @@ define('POSITION_C', 5);
 define('POSITION_RW', 6);
 define('ROLE_ADMIN', 10);
 define('RUDE_NORMAL', 1);
+define('RUDE_PENALTY', 6);
 define('RUDE_RUDE', 2);
 define('SPACE', '&nbsp;');
 define('SPECIAL_ATHLETIC', 5);

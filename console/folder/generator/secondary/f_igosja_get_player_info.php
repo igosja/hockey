@@ -32,7 +32,6 @@ function f_igosja_get_player_info($game_result)
         $game_result[$team]['player']['gk']['lineup_id']        = $lineup_array[0]['lineup_id'];
         $game_result[$team]['player']['gk']['player_id']        = $lineup_array[0]['player_id'];
         $game_result[$team]['player']['gk']['power_nominal']    = $lineup_array[0]['player_power_nominal'];
-        $game_result[$team]['player']['gk']['power_real']       = $lineup_array[0]['player_power_real'];
         $game_result[$team]['player']['gk']['power_optimal']    = $lineup_array[0]['player_power_real'];
 
         for ($j=1; $j<=15; $j++)
@@ -57,7 +56,6 @@ function f_igosja_get_player_info($game_result)
             $game_result[$team]['player']['field'][$key]['lineup_id']       = $lineup_array[$j]['lineup_id'];
             $game_result[$team]['player']['field'][$key]['player_id']       = $lineup_array[$j]['player_id'];
             $game_result[$team]['player']['field'][$key]['power_nominal']   = $lineup_array[$j]['player_power_nominal'];
-            $game_result[$team]['player']['field'][$key]['power_real']      = $lineup_array[$j]['player_power_real'];
             $game_result[$team]['player']['field'][$key]['power_optimal']   = $lineup_array[$j]['player_power_real'];
         }
     }

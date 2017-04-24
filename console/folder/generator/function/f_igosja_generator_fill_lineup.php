@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Формируем автосоставы и заполняем пропущенных игроков
+ */
 function f_igosja_generator_fill_lineup()
-//Формируем автосоставы и заполняем пропущенных игроков
 {
     $sql = "SELECT `game_id`,
                    `game_guest_team_id`,

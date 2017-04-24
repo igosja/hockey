@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Считаем проценты в таблицах статистики хоккеистов
+ */
 function f_igosja_generator_update_player_statistic()
-//Считаем проценты в таблицах статистики хоккеистов
 {
     global $igosja_season_id;
 

@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Ставим цену за билет 20, где ее нет
+ */
 function f_igosja_generator_set_ticket_price()
-//Ставим цену за билет 20, где ее нет
 {
     $sql = "SELECT `game_id`
             FROM `game`

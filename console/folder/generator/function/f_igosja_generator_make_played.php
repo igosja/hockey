@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Делаем матчи сыгранными
+ */
 function f_igosja_generator_make_played()
-//Делаем матчи сыгранными
 {
     $sql = "UPDATE `game`
             LEFT JOIN `shedule`

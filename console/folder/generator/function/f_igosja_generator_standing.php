@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Обновляем турнирные таблицы
+ */
 function f_igosja_generator_standing()
-//Обновляем турнирные таблицы
 {
     $sql = "SELECT `game_guest_national_id`,
                    `game_guest_score`,
@@ -96,7 +98,7 @@ function f_igosja_generator_standing()
                     SET `conference_game`=`conference_game`+1,
                         `conference_loose`=`conference_loose`+$guest_loose,
                         `conference_loose_over`=`conference_loose_over`+$guest_loose_over,
-                        `conference_pass`=`conference_pass`+" . $game['game_guest_score'] . ",
+                        `conference_pass`=`conference_pass`+" . $game['game_home_score'] . ",
                         `conference_score`=`conference_score`+" . $game['game_guest_score'] . ",
                         `conference_win`=`conference_win`+$guest_win,
                         `conference_win_over`=`conference_win_over`+$guest_win_over
@@ -124,7 +126,7 @@ function f_igosja_generator_standing()
                     SET `offseason_game`=`offseason_game`+1,
                         `offseason_loose`=`offseason_loose`+$guest_loose,
                         `offseason_loose_over`=`offseason_loose_over`+$guest_loose_over,
-                        `offseason_pass`=`offseason_pass`+" . $game['game_guest_score'] . ",
+                        `offseason_pass`=`offseason_pass`+" . $game['game_home_score'] . ",
                         `offseason_score`=`offseason_score`+" . $game['game_guest_score'] . ",
                         `offseason_win`=`offseason_win`+$guest_win,
                         `offseason_win_over`=`offseason_win_over`+$guest_win_over
@@ -154,7 +156,7 @@ function f_igosja_generator_standing()
                     SET `championship_game`=`championship_game`+1,
                         `championship_loose`=`championship_loose`+$guest_loose,
                         `championship_loose_over`=`championship_loose_over`+$guest_loose_over,
-                        `championship_pass`=`championship_pass`+" . $game['game_guest_score'] . ",
+                        `championship_pass`=`championship_pass`+" . $game['game_home_score'] . ",
                         `championship_score`=`championship_score`+" . $game['game_guest_score'] . ",
                         `championship_win`=`championship_win`+$guest_win,
                         `championship_win_over`=`championship_win_over`+$guest_win_over
@@ -184,7 +186,7 @@ function f_igosja_generator_standing()
                     SET `league_game`=`league_game`+1,
                         `league_loose`=`league_loose`+$guest_loose,
                         `league_loose_over`=`league_loose_over`+$guest_loose_over,
-                        `league_pass`=`league_pass`+" . $game['game_guest_score'] . ",
+                        `league_pass`=`league_pass`+" . $game['game_home_score'] . ",
                         `league_score`=`league_score`+" . $game['game_guest_score'] . ",
                         `league_win`=`league_win`+$guest_win,
                         `league_win_over`=`league_win_over`+$guest_win_over
@@ -212,7 +214,7 @@ function f_igosja_generator_standing()
                     SET `worldcup_game`=`worldcup_game`+1,
                         `worldcup_loose`=`worldcup_loose`+$guest_loose,
                         `worldcup_loose_over`=`worldcup_loose_over`+$guest_loose_over,
-                        `worldcup_pass`=`worldcup_pass`+" . $game['game_guest_score'] . ",
+                        `worldcup_pass`=`worldcup_pass`+" . $game['game_home_score'] . ",
                         `worldcup_score`=`worldcup_score`+" . $game['game_guest_score'] . ",
                         `worldcup_win`=`worldcup_win`+$guest_win,
                         `worldcup_win_over`=`worldcup_win_over`+$guest_win_over
@@ -221,6 +223,31 @@ function f_igosja_generator_standing()
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
         }
+
+        $sql = "UPDATE `worldcup`
+                SET `worldcup_point`=`worldcup_win`*3+`worldcup_win_over`*2+`worldcup_loose_over`
+                WHERE `worldcup_season_id`=" . $game['shedule_season_id'];
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `league`
+                SET `league_point`=`league_win`*3+`league_win_over`*2+`league_loose_over`
+                WHERE `league_season_id`=" . $game['shedule_season_id'];
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `championship`
+                SET `championship_point`=`championship_win`*3+`championship_win_over`*2+`championship_loose_over`
+                WHERE `championship_season_id`=" . $game['shedule_season_id'];
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `conference`
+                SET `conference_point`=`conference_win`*3+`conference_win_over`*2+`conference_loose_over`
+                WHERE `conference_season_id`=" . $game['shedule_season_id'];
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `offseason`
+                SET `offseason_point`=`offseason_win`*3+`offseason_win_over`*2+`offseason_loose_over`
+                WHERE `offseason_season_id`=" . $game['shedule_season_id'];
+        f_igosja_mysqli_query($sql);
 
         usleep(1);
 

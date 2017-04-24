@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Закрываем сайт для пользователей на время генерации
+ */
 function f_igosja_generator_site_close()
-//Закрываем сайт для пользователей на время генерации
 {
     $sql = "UPDATE `site`
             SET `site_status`=0

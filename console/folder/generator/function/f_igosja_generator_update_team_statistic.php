@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Считаем проценты в таблицах статистики команд
+ */
 function f_igosja_generator_update_team_statistic()
-//Считаем проценты в таблицах статистики команд
 {
     global $igosja_season_id;
 

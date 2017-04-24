@@ -15,6 +15,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <a href="/team_view.php?num=<?= $game_array[0]['home_team_id']; ?>">
                             <?= $game_array[0]['home_team_name']; ?>
+                            <?= f_igosja_game_auto($game_array[0]['game_home_auto']); ?>
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
@@ -38,6 +39,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <a href="/team_view.php?num=<?= $game_array[0]['guest_team_id']; ?>">
                             <?= $game_array[0]['guest_team_name']; ?>
+                            <?= f_igosja_game_auto($game_array[0]['game_guest_auto']); ?>
                         </a>
                     </div>
                 </th>
@@ -66,76 +68,100 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered">
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['home_tactic_name']; ?></td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Тактика</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['guest_tactic_name']; ?></td>
+                <td class="col-35 text-center">
+                    <?= $game_array[0]['home_tactic_1_name']; ?> |
+                    <?= $game_array[0]['home_tactic_2_name']; ?> |
+                    <?= $game_array[0]['home_tactic_3_name']; ?>
+                </td>
+                <td class="text-center">Тактика</td>
+                <td class="col-35 text-center">
+                    <?= $game_array[0]['guest_tactic_1_name']; ?> |
+                    <?= $game_array[0]['guest_tactic_2_name']; ?> |
+                    <?= $game_array[0]['guest_tactic_3_name']; ?>
+                </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['home_style_name']; ?></td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Стиль</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['guest_style_name']; ?></td>
+                <td class="text-center">
+                    <?= $game_array[0]['home_style_1_name']; ?> |
+                    <?= $game_array[0]['home_style_1_name']; ?> |
+                    <?= $game_array[0]['home_style_1_name']; ?>
+                </td>
+                <td class="text-center">Стиль</td>
+                <td class="text-center">
+                    <?= $game_array[0]['guest_style_1_name']; ?> |
+                    <?= $game_array[0]['guest_style_1_name']; ?> |
+                    <?= $game_array[0]['guest_style_1_name']; ?>
+                </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['home_rude_name']; ?></td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Грубость</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['guest_rude_name']; ?></td>
+                <td class="text-center">
+                    <?= $game_array[0]['home_rude_1_name']; ?> |
+                    <?= $game_array[0]['home_rude_1_name']; ?> |
+                    <?= $game_array[0]['home_rude_1_name']; ?>
+                </td>
+                <td class="text-center">Грубость</td>
+                <td class="text-center">
+                    <?= $game_array[0]['guest_rude_1_name']; ?> |
+                    <?= $game_array[0]['guest_rude_1_name']; ?> |
+                    <?= $game_array[0]['guest_rude_1_name']; ?>
+                </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['home_mood_name']; ?></td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Настрой</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center"><?= $game_array[0]['guest_mood_name']; ?></td>
+                <td class="text-center"><?= $game_array[0]['home_mood_name']; ?></td>
+                <td class="text-center">Настрой</td>
+                <td class="text-center"><?= $game_array[0]['guest_mood_name']; ?></td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">
                     <?= $game_array[0]['game_home_power_percent']; ?>%
                 </td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Соотношение сил</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">Соотношение сил</td>
+                <td class="text-center">
                     <?= $game_array[0]['game_guest_power_percent']; ?>%
                 </td>
             </tr>
             <tr>
-                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
-                    <?= $game_array[0]['game_home_optimality_1']; ?>%
-                </td>
-                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                <td class="text-center">
+                    <?= $game_array[0]['game_home_optimality_1']; ?>% |
                     <?= $game_array[0]['game_home_optimality_2']; ?>%
                 </td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Оптимальность</td>
-                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
-                    <?= $game_array[0]['game_guest_optimality_1']; ?>%
-                </td>
-                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-6 text-center">
+                <td class="text-center">Оптимальность</td>
+                <td class="text-center">
+                    <?= $game_array[0]['game_guest_optimality_1']; ?>% |
                     <?= $game_array[0]['game_guest_optimality_2']; ?>%
                 </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_home_teamwork_1']; ?>% | <?= $game_array[0]['game_home_teamwork_2']; ?>% | <?= $game_array[0]['game_home_teamwork_3']; ?>%
+                <td class="text-center">
+                    <?= $game_array[0]['game_home_teamwork_1']; ?>% |
+                    <?= $game_array[0]['game_home_teamwork_2']; ?>% |
+                    <?= $game_array[0]['game_home_teamwork_3']; ?>%
                 </td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Сыгранность</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                    <?= $game_array[0]['game_guest_teamwork_1']; ?>% | <?= $game_array[0]['game_guest_teamwork_2']; ?>% | <?= $game_array[0]['game_guest_teamwork_3']; ?>%
+                <td class="text-center">Сыгранность</td>
+                <td class="text-center">
+                    <?= $game_array[0]['game_guest_teamwork_1']; ?>% |
+                    <?= $game_array[0]['game_guest_teamwork_2']; ?>% |
+                    <?= $game_array[0]['game_guest_teamwork_3']; ?>%
                 </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">
                     <?= $game_array[0]['game_home_shot']; ?>
                     (<?= $game_array[0]['game_home_shot_1']; ?> | <?= $game_array[0]['game_home_shot_2']; ?> | <?= $game_array[0]['game_home_shot_3']; ?><?php if ($game_array[0]['game_home_shot_over']) { ?> | <?= $game_array[0]['game_home_shot_over']; ?><?php } ?>)
                 </td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Броски</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">Броски</td>
+                <td class="text-center">
                     <?= $game_array[0]['game_guest_shot']; ?>
                     (<?= $game_array[0]['game_guest_shot_1']; ?> | <?= $game_array[0]['game_guest_shot_2']; ?> | <?= $game_array[0]['game_guest_shot_3']; ?><?php if ($game_array[0]['game_guest_shot_over']) { ?> | <?= $game_array[0]['game_guest_shot_over']; ?><?php } ?>)
                 </td>
             </tr>
             <tr>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">
                     <?= $game_array[0]['game_home_penalty']; ?>
                     (<?= $game_array[0]['game_home_penalty_1']; ?> | <?= $game_array[0]['game_home_penalty_2']; ?> | <?= $game_array[0]['game_home_penalty_3']; ?><?php if ($game_array[0]['game_home_penalty_over']) { ?> | <?= $game_array[0]['game_home_penalty_over']; ?><?php } ?>)
                 </td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">Штрафные минуты</td>
-                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                <td class="text-center">Штрафные минуты</td>
+                <td class="text-center">
                     <?= $game_array[0]['game_guest_penalty']; ?>
                     (<?= $game_array[0]['game_guest_penalty_1']; ?> | <?= $game_array[0]['game_guest_penalty_2']; ?> | <?= $game_array[0]['game_guest_penalty_3']; ?><?php if ($game_array[0]['game_guest_penalty_over']) { ?> | <?= $game_array[0]['game_guest_penalty_over']; ?><?php } ?>)
                 </td>
@@ -144,33 +170,19 @@
     </div>
 </div>
 <div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Прогноз на матч
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_forecast']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_guest_forecast']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                Сила состава
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['game_guest_power']; ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <td class="text-center">Прогноз на матч</td>
+                <td class="col-35 text-center"><?= $game_array[0]['game_home_forecast']; ?></td>
+                <td class="col-35 text-center"><?= $game_array[0]['game_guest_forecast']; ?></td>
+            </tr>
+            <tr>
+                <td class="text-center">Сила состава</td>
+                <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
+                <td class="text-center"><?= $game_array[0]['game_guest_power']; ?></td>
+            </tr>
+        </table>
     </div>
 </div>
 <div class="row margin-top">

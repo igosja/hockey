@@ -18,25 +18,25 @@ function f_igosja_current_penalty_decrease($game_result)
 
         $count_penalty = count($penalty_array_old);
 
-        for ($i=0; $i<$count_penalty; $i++)
+        for ($j=0; $j<$count_penalty; $j++)
         {
-            if (0 == $i)
+            if (0 == $j)
             {
-                if ($game_result['minute'] < $penalty_array_old[$i]['minute'] + 2)
+                if ($game_result['minute'] < $penalty_array_old[$j]['minute'] + 2)
                 {
-                    $penalty_array_new[] = $penalty_array_old[$i];
+                    $penalty_array_new[] = $penalty_array_old[$j];
                 }
             }
-            elseif (1 < $i)
+            elseif (1 < $j)
             {
                 $penalty_array_new[] = array(
                     'minute' => $game_result['minute'],
-                    'position' => $penalty_array_old[$i]['position'],
+                    'position' => $penalty_array_old[$j]['position'],
                 );
             }
             else
             {
-                $penalty_array_new[] = $penalty_array_old[$i];
+                $penalty_array_new[] = $penalty_array_old[$j];
             }
         }
 

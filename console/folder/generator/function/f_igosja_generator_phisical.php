@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Меняем физ форму хоккеистов
+ */
 function f_igosja_generator_phisical()
-//Меняем физ форму хоккеистов
 {
     $sql = "UPDATE `player`
             LEFT JOIN `phisicalchange`

@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Готовим молодежь в спортшколе
+ */
 function f_igosja_generator_school()
-//Готовим молодежь в спортшколе
 {
     $sql = "UPDATE `school`
             SET `school_day`=`school_day`-1

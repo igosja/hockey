@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Обновляем финансы со стадионов
+ */
 function f_igosja_generator_finance_stadium()
-//Обновляем финансы со стадионов
 {
     $sql = "SELECT `game_guest_team_id`,
                    `game_home_team_id`,

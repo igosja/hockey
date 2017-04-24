@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Считаем количество зрителей
+ */
 function f_igosja_generator_count_visitor()
-//Считаем количество зрителей
 {
     $sql = "SELECT `game_id`,
                    `game_ticket`,

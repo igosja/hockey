@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Записываем команды в таблицы статистики
+ */
 function f_igosja_generator_team_to_statistic()
-//Записываем команды в таблицы статистики
 {
     $sql = "SELECT `championship_country_id`,
                    `championship_division_id`,

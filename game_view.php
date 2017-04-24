@@ -7,7 +7,8 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `game_guest_forecast`,
+$sql = "SELECT `game_guest_auto`,
+               `game_guest_forecast`,
                `game_guest_optimality_1`,
                `game_guest_optimality_2`,
                `game_guest_penalty`,
@@ -31,6 +32,7 @@ $sql = "SELECT `game_guest_forecast`,
                `game_guest_teamwork_1`,
                `game_guest_teamwork_2`,
                `game_guest_teamwork_3`,
+               `game_home_auto`,
                `game_home_forecast`,
                `game_home_optimality_1`,
                `game_home_optimality_2`,
@@ -60,15 +62,27 @@ $sql = "SELECT `game_guest_forecast`,
                `game_ticket`,
                `game_visitor`,
                `guest_mood`.`mood_name` AS `guest_mood_name`,
-               `guest_rude`.`rude_name` AS `guest_rude_name`,
-               `guest_style`.`style_name` AS `guest_style_name`,
-               `guest_tactic`.`tactic_name` AS `guest_tactic_name`,
+               `guest_rude_1`.`rude_name` AS `guest_rude_1_name`,
+               `guest_rude_2`.`rude_name` AS `guest_rude_2_name`,
+               `guest_rude_3`.`rude_name` AS `guest_rude_3_name`,
+               `guest_style_1`.`style_name` AS `guest_style_1_name`,
+               `guest_style_2`.`style_name` AS `guest_style_2_name`,
+               `guest_style_3`.`style_name` AS `guest_style_3_name`,
+               `guest_tactic_1`.`tactic_name` AS `guest_tactic_1_name`,
+               `guest_tactic_2`.`tactic_name` AS `guest_tactic_2_name`,
+               `guest_tactic_3`.`tactic_name` AS `guest_tactic_3_name`,
                `guest_team`.`team_id` AS `guest_team_id`,
                `guest_team`.`team_name` AS `guest_team_name`,
                `home_mood`.`mood_name` AS `home_mood_name`,
-               `home_rude`.`rude_name` AS `home_rude_name`,
-               `home_style`.`style_name` AS `home_style_name`,
-               `home_tactic`.`tactic_name` AS `home_tactic_name`,
+               `home_rude_1`.`rude_name` AS `home_rude_1_name`,
+               `home_rude_2`.`rude_name` AS `home_rude_2_name`,
+               `home_rude_3`.`rude_name` AS `home_rude_3_name`,
+               `home_style_1`.`style_name` AS `home_style_1_name`,
+               `home_style_2`.`style_name` AS `home_style_2_name`,
+               `home_style_3`.`style_name` AS `home_style_3_name`,
+               `home_tactic_1`.`tactic_name` AS `home_tactic_1_name`,
+               `home_tactic_2`.`tactic_name` AS `home_tactic_2_name`,
+               `home_tactic_3`.`tactic_name` AS `home_tactic_3_name`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
                `shedule_date`,
@@ -95,18 +109,42 @@ $sql = "SELECT `game_guest_forecast`,
         ON `game_guest_mood_id`=`guest_mood`.`mood_id`
         LEFT JOIN `mood` AS `home_mood`
         ON `game_home_mood_id`=`home_mood`.`mood_id`
-        LEFT JOIN `rude` AS `guest_rude`
-        ON `game_guest_rude_id`=`guest_rude`.`rude_id`
-        LEFT JOIN `rude` AS `home_rude`
-        ON `game_home_rude_id`=`home_rude`.`rude_id`
-        LEFT JOIN `style` AS `guest_style`
-        ON `game_guest_style_id`=`guest_style`.`style_id`
-        LEFT JOIN `style` AS `home_style`
-        ON `game_home_style_id`=`home_style`.`style_id`
-        LEFT JOIN `tactic` AS `guest_tactic`
-        ON `game_guest_tactic_id`=`guest_tactic`.`tactic_id`
-        LEFT JOIN `tactic` AS `home_tactic`
-        ON `game_home_tactic_id`=`home_tactic`.`tactic_id`
+        LEFT JOIN `rude` AS `guest_rude_1`
+        ON `game_guest_rude_1_id`=`guest_rude_1`.`rude_id`
+        LEFT JOIN `rude` AS `guest_rude_2`
+        ON `game_guest_rude_2_id`=`guest_rude_2`.`rude_id`
+        LEFT JOIN `rude` AS `guest_rude_3`
+        ON `game_guest_rude_3_id`=`guest_rude_3`.`rude_id`
+        LEFT JOIN `rude` AS `home_rude_1`
+        ON `game_home_rude_1_id`=`home_rude_1`.`rude_id`
+        LEFT JOIN `rude` AS `home_rude_2`
+        ON `game_home_rude_2_id`=`home_rude_2`.`rude_id`
+        LEFT JOIN `rude` AS `home_rude_3`
+        ON `game_home_rude_3_id`=`home_rude_3`.`rude_id`
+        LEFT JOIN `style` AS `guest_style_1`
+        ON `game_guest_style_1_id`=`guest_style_1`.`style_id`
+        LEFT JOIN `style` AS `guest_style_2`
+        ON `game_guest_style_2_id`=`guest_style_2`.`style_id`
+        LEFT JOIN `style` AS `guest_style_3`
+        ON `game_guest_style_3_id`=`guest_style_3`.`style_id`
+        LEFT JOIN `style` AS `home_style_1`
+        ON `game_home_style_1_id`=`home_style_1`.`style_id`
+        LEFT JOIN `style` AS `home_style_2`
+        ON `game_home_style_2_id`=`home_style_2`.`style_id`
+        LEFT JOIN `style` AS `home_style_3`
+        ON `game_home_style_3_id`=`home_style_3`.`style_id`
+        LEFT JOIN `tactic` AS `guest_tactic_1`
+        ON `game_guest_tactic_1_id`=`guest_tactic_1`.`tactic_id`
+        LEFT JOIN `tactic` AS `guest_tactic_2`
+        ON `game_guest_tactic_2_id`=`guest_tactic_2`.`tactic_id`
+        LEFT JOIN `tactic` AS `guest_tactic_3`
+        ON `game_guest_tactic_3_id`=`guest_tactic_3`.`tactic_id`
+        LEFT JOIN `tactic` AS `home_tactic_1`
+        ON `game_home_tactic_1_id`=`home_tactic_1`.`tactic_id`
+        LEFT JOIN `tactic` AS `home_tactic_2`
+        ON `game_home_tactic_2_id`=`home_tactic_2`.`tactic_id`
+        LEFT JOIN `tactic` AS `home_tactic_3`
+        ON `game_home_tactic_3_id`=`home_tactic_3`.`tactic_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);

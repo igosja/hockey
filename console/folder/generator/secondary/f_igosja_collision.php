@@ -17,19 +17,19 @@ function f_igosja_collision($game_result)
 
         for ($j=1; $j<=3; $j++)
         {
-            if ((STYLE_POWER == $game_result[$team]['team']['style'][$i] && STYLE_SPEED == $game_result[$opponent]['team']['style'][$i]) ||
-                (STYLE_SPEED == $game_result[$team]['team']['style'][$i] && STYLE_TECHNIQUE == $game_result[$opponent]['team']['style'][$i]) ||
-                (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$i] && STYLE_POWER == $game_result[$opponent]['team']['style'][$i]))
+            if ((STYLE_POWER == $game_result[$team]['team']['style'][$j] && STYLE_SPEED == $game_result[$opponent]['team']['style'][$j]) ||
+                (STYLE_SPEED == $game_result[$team]['team']['style'][$j] && STYLE_TECHNIQUE == $game_result[$opponent]['team']['style'][$j]) ||
+                (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$j] && STYLE_POWER == $game_result[$opponent]['team']['style'][$j]))
             {
-                $game_result[$team]['team']['collision'][$i]        = 1;
-                $game_result[$team]['opponent']['collision'][$i]    = -1;
+                $game_result[$team]['team']['collision'][$j]        = 1;
+                $game_result[$team]['opponent']['collision'][$j]    = -1;
             }
-            elseif ((STYLE_SPEED == $game_result[$team]['team']['style'][$i] && STYLE_POWER == $game_result[$opponent]['team']['style'][$i]) ||
-                    (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$i] && STYLE_SPEED == $game_result[$opponent]['team']['style'][$i]) ||
-                    (STYLE_POWER == $game_result[$team]['team']['style'][$i] && STYLE_TECHNIQUE == $game_result[$opponent]['team']['style'][$i]))
+            elseif ((STYLE_SPEED == $game_result[$team]['team']['style'][$j] && STYLE_POWER == $game_result[$opponent]['team']['style'][$j]) ||
+                    (STYLE_TECHNIQUE == $game_result[$team]['team']['style'][$j] && STYLE_SPEED == $game_result[$opponent]['team']['style'][$j]) ||
+                    (STYLE_POWER == $game_result[$team]['team']['style'][$j] && STYLE_TECHNIQUE == $game_result[$opponent]['team']['style'][$j]))
             {
-                $game_result[$team]['team']['collision'][$i]        = -1;
-                $game_result[$team]['opponent']['collision'][$i]    = 1;
+                $game_result[$team]['team']['collision'][$j]        = -1;
+                $game_result[$team]['opponent']['collision'][$j]    = 1;
             }
         }
     }

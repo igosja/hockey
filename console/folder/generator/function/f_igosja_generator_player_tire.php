@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Усталость игроков
+ */
 function f_igosja_generator_player_tire()
-//Усталость игроков
 {
     $sql = "UPDATE `player`
             SET `player_tire`=`player_tire`+5

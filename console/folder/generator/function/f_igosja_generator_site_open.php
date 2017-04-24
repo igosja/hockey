@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Открываем сайт для пользователей после генерации
+ */
 function f_igosja_generator_site_open()
-//Открываем сайт для пользователей после генерации
 {
     $sql = "UPDATE `site`
             SET `site_status`=1

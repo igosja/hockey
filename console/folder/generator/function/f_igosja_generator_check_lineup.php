@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Удаляем неправильные составы
+ */
 function f_igosja_generator_check_lineup()
-//Удаляем неправильные составы
 {
     $sql = "SELECT `game_id`,
                    `game_guest_team_id`,
