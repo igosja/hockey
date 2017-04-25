@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Отображение select с перечнем позиций, которые могут быть натренированны хоккеисту
+ * @param $player_id integer id хоккеиста
+ * @return string select с перечнем позиций или пустая строка
+ */
 function f_igosja_player_position_training($player_id)
 {
     $sql = "SELECT `position_name`

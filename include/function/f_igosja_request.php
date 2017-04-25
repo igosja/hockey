@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Обертка для работы с массивом $_REQUEST
+ * @param $var string название параметра в массиве $_REQUEST
+ * @param $subvar string название параметра в массиве $_REQUEST[$var]
+ * @return mixed значение параметра
+ */
 function f_igosja_request($var, $subvar = '')
 {
     if ($subvar)

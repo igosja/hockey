@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Время последнего посещения
+ * @param $date integer unix_timestamp
+ * @return string онлайн или n минут назад или дата чч:мм дд.мм.гггг
+ */
 function f_igosja_ufu_last_visit($date)
 {
     $min_5  = $date + 5 * 60;

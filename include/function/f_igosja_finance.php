@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Запись лога о финансовых операциях в БД
+ * @param $data array данные для вставки в базу данных
+ */
 function f_igosja_finance($data)
 {
     global $mysqli;

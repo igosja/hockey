@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Запись в лог события на сайте
+ * @param $data array данные для вставки в базу данных
+ */
 function f_igosja_history($data)
 {
     if (isset($data['history_building_id']))

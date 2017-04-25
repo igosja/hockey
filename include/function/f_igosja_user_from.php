@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Форматирование информации о том, откуда наш пользователь
+ * @param $item array массив с данными пользователя после выборки из БД
+ * @return string город, страна или не указано
+ */
 function f_igosja_user_from($item)
 {
     if ($item['user_city'] && $item['country_name'])

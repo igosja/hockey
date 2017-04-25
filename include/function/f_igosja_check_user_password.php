@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Сравниваем введенный пароль с тем, что в базе
+ * @param $password string пароль из формы авторизации
+ * @return boolean результат проверки (true - пароль правильный)
+ */
 function f_igosja_check_user_password($password)
 {
     global $auth_user_id;

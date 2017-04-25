@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Генерация ключа, по которому пользователь может авторизоваться или подтвердить email
+ * @return string код
+ */
 function f_igosja_generate_user_code()
 {
     $code = md5(uniqid(rand(), 1));

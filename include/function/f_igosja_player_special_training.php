@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Отображение select с перечнем спецвозможностей, которые могут быть натренированны хоккеисту
+ * @param $player_id integer id хоккеиста
+ * @return string select с перечнем спецвозможностей или пустая строка
+ */
 function f_igosja_player_special_training($player_id)
 {
     $sql = "SELECT COUNT(`playerspecial_special_id`) AS `count`

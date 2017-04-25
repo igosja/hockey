@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Вывод количества запросов к БД за время работы скрипта
+ * @return integer количество запросов
+ */
 function f_igosja_get_count_query()
 {
     global $count_query;

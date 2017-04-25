@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Создаем хоккеистов в новой команде (2 вратаря + по 5 человек на каждую позицию в поле)
+ * и записываем это в БД (`history`)
+ * @param $team_id integer id команды
+ */
 function f_igosja_create_team_players($team_id)
 {
     global $mysqli;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Обертка для работы с массивом $_GET
+ * @param $var string название параметра в массиве $_GET
+ * @param $subvar string название параметра в массиве $_GET[$var]
+ * @return mixed значение параметра
+ */
 function f_igosja_request_get($var, $subvar = '')
 {
     if ($subvar)
