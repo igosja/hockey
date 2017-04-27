@@ -6,6 +6,10 @@
 function f_igosja_generator_player_game_row()
 {
     $sql = "UPDATE `player`
+            SET `player_game_row_old`=`player_game_row`";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `player`
             LEFT JOIN `lineup`
             ON `player_id`=`lineup_player_id`
             LEFT JOIN `game`
