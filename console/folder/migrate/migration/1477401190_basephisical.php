@@ -11,7 +11,7 @@ $q[] = 'CREATE TABLE `basephisical`
             `basephisical_level` TINYINT(2) DEFAULT 0,
             `basephisical_price_buy` INT(11) DEFAULT 0,
             `basephisical_price_sell` INT(11) DEFAULT 0,
-            `basephisical_tire_bobus` TINYINT(1) DEFAULT 0
+            `basephisical_tire_bonus` TINYINT(1) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `basephisical`
         (
@@ -21,7 +21,7 @@ $q[] = 'INSERT INTO `basephisical`
             `basephisical_level`,
             `basephisical_price_buy`,
             `basephisical_price_sell`,
-            `basephisical_tire_bobus`
+            `basephisical_tire_bonus`
         )
         VALUES (0,  0,  0,  0,       0,       0,  2),
                (1,  1,  5,  1,  250000,  187500,  1),

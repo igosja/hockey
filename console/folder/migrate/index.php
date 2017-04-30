@@ -14,7 +14,11 @@ if (isset($argv[1]))
 
         if ($file = fopen($igosja_migration_path . '/' . $file_name, 'w'))
         {
-            $text = '<?php';
+            $text = '<?php
+
+$q = array();
+
+$q[] = \'\';';
             fwrite($file, $text);
             fclose($file);
 

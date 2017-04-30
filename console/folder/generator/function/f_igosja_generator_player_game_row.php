@@ -16,8 +16,11 @@ function f_igosja_generator_player_game_row()
             ON `lineup_game_id`=`game_id`
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `tournamenttype`
+            ON `shedule_tournamenttype_id`
             SET `player_game_row`=IF(`player_game_row`>0, `player_game_row`+1, 1)
             WHERE `game_played`=0
+            AND `tournamenttype_daytype_id` IN (" . DAYTYPE_B . ", " . DAYTYPE_C . ")
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
     f_igosja_mysqli_query($sql);
 
@@ -31,7 +34,10 @@ function f_igosja_generator_player_game_row()
                 ON `lineup_game_id`=`game_id`
                 LEFT JOIN `shedule`
                 ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `tournamenttype`
+                ON `shedule_tournamenttype_id`
                 WHERE `game_played`=0
+                AND `tournamenttype_daytype_id`=" . DAYTYPE_B . "
                 AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             )";
     f_igosja_mysqli_query($sql);

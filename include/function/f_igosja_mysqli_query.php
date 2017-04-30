@@ -4,7 +4,7 @@
  * Обертка для запроса в БД для ведения лога запросов
  * @param $sql string текст запроса к БД
  * @param $save boolean сохранять ли текст запроса в лог
- * @return object объект с результатом запроса $mysqli->query($sql)
+ * @return mysqli_result объект с результатом запроса $mysqli->query($sql)
  */
 function f_igosja_mysqli_query($sql, $save = true)
 {
