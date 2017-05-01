@@ -1565,7 +1565,7 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td class=\"text-center\">43%-44%</td><td class=\"text-center\">-8.0</td></tr>
 <tr><td class=\"text-center\">41%-42%</td><td class=\"text-center\">-8.5</td></tr>
 <tr><td class=\"text-center\">39%-40%</td><td class=\"text-center\">-9.0</td></tr>
-<tr><td class=\"text-center\">38%-37%</td><td class=\"text-center\">-9.5</td></tr>
+<tr><td class=\"text-center\">37%-38%</td><td class=\"text-center\">-9.5</td></tr>
 <tr><td class=\"text-center\">35%-36%</td><td class=\"text-center\">-10.0</td></tr>
 <tr><td class=\"text-center\">34% и меньше</td><td class=\"text-center\">-10.5</td></tr>
 </table>
