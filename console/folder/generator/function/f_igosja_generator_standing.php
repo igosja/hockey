@@ -83,6 +83,7 @@ function f_igosja_generator_standing()
         {
             $sql = "UPDATE `conference`
                     SET `conference_game`=`conference_game`+1,
+                        `conference_home`=`conference_home`+1,
                         `conference_loose`=`conference_loose`+$home_loose,
                         `conference_loose_over`=`conference_loose_over`+$home_loose_over,
                         `conference_pass`=`conference_pass`+" . $game['game_guest_score'] . ",
@@ -96,6 +97,7 @@ function f_igosja_generator_standing()
 
             $sql = "UPDATE `conference`
                     SET `conference_game`=`conference_game`+1,
+                        `conference_guest`=`conference_guest`+1,
                         `conference_loose`=`conference_loose`+$guest_loose,
                         `conference_loose_over`=`conference_loose_over`+$guest_loose_over,
                         `conference_pass`=`conference_pass`+" . $game['game_home_score'] . ",
@@ -111,6 +113,7 @@ function f_igosja_generator_standing()
         {
             $sql = "UPDATE `offseason`
                     SET `offseason_game`=`offseason_game`+1,
+                        `offseason_home`=`offseason_home`+1,
                         `offseason_loose`=`offseason_loose`+$home_loose,
                         `offseason_loose_over`=`offseason_loose_over`+$home_loose_over,
                         `offseason_pass`=`offseason_pass`+" . $game['game_guest_score'] . ",
@@ -124,6 +127,7 @@ function f_igosja_generator_standing()
 
             $sql = "UPDATE `offseason`
                     SET `offseason_game`=`offseason_game`+1,
+                        `offseason_guest`=`offseason_guest`+1,
                         `offseason_loose`=`offseason_loose`+$guest_loose,
                         `offseason_loose_over`=`offseason_loose_over`+$guest_loose_over,
                         `offseason_pass`=`offseason_pass`+" . $game['game_home_score'] . ",

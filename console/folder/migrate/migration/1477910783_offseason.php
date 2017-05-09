@@ -6,6 +6,8 @@ $q[] = 'CREATE TABLE `offseason`
         (
             `offseason_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
             `offseason_game` TINYINT(2) DEFAULT 0,
+            `offseason_guest` TINYINT(2) DEFAULT 0,
+            `offseason_home` TINYINT(2) DEFAULT 0,
             `offseason_loose` TINYINT(2) DEFAULT 0,
             `offseason_loose_over` TINYINT(2) DEFAULT 0,
             `offseason_pass` SMALLINT(3) DEFAULT 0,
