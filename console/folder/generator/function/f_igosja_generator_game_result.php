@@ -91,6 +91,7 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_get_player_info($game_result);
         $game_result = f_igosja_count_player_bonus($game_result);
         $game_result = f_igosja_get_teamwork($game_result);
+        $game_result = f_igosja_set_teamwork($game_result);
         $game_result = f_igosja_collision($game_result);
         $game_result = f_igosja_player_optimal_power($game_result);
         $game_result = f_igosja_get_player_real_power_from_optimal($game_result);
