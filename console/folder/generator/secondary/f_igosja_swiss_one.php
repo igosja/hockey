@@ -9,7 +9,7 @@ function f_igosja_swiss_one($position_difference)
     $sql = "SELECT `swisstable_place`,
                    `swisstable_team_id`
             FROM `swisstable`
-            WHERE `swisstable_home`>=`swisstable_guest`
+            WHERE `swisstable_home`<=`swisstable_guest`
             ORDER BY `swisstable_place` ASC
             LIMIT 1";
     $swisstable_sql = f_igosja_mysqli_query($sql);
@@ -22,7 +22,7 @@ function f_igosja_swiss_one($position_difference)
     $sql = "SELECT `swisstable_team_id`
             FROM `swisstable`
             WHERE `swisstable_team_id`!=$home_id
-            AND `swisstable_home`<=`swisstable_guest`
+            AND `swisstable_home`>=`swisstable_guest`
             AND `swisstable_place` BETWEEN $place-$position_difference AND $place+$position_difference
             ORDER BY RAND()
             LIMIT 1";
