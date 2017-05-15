@@ -3,7 +3,7 @@
 /**
  * Форматирование денежных сумм
  * @param $price integer сумма
- * @return string отформаттированния сумма
+ * @return string отформатированная сумма
  */
 function f_igosja_money($price)
 {

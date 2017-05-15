@@ -26,6 +26,7 @@
             <a class="navbar-brand" href="/admin">Админ</a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
+            <?php if (false) { ?>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -210,6 +211,7 @@
                     </li>
                 </ul>
             </li>
+            <?php } ?>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-gear fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -324,6 +326,9 @@
                             Рассписание <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/shedule_change.php">Перевести дату</a>
+                            </li>
                             <li>
                                 <a href="/admin/game_start.php">Старт первого сезона</a>
                             </li>

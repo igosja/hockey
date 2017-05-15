@@ -104,7 +104,7 @@ function f_igosja_create_team_players($team_id)
                     `player_power_nominal_s`=`player_power_nominal`,
                     `player_power_old`=`player_power_nominal`,
                     `player_power_real`=`player_power_nominal`*50/100*$phisical_value/100,
-                    `player_price`=POW(150-(28-$age), 2)*$age*2*1000,
+                    `player_price`=POW(150-(28-$age), 2)*$age*2,
                     `player_salary`=`player_price`/999,
                     `player_school_id`=$team_id,
                     `player_shape`=$shape,
