@@ -30,7 +30,7 @@
                             print ' | ' . $game_array[0]['game_home_score_over'] . ':' . $game_array[0]['game_guest_score_over'] . ' ОТ';
                         }
                         ?><?php
-                        if ($game_array[0]['game_home_score_bullet'] && $game_array[0]['game_guest_score_bullet'])
+                        if ($game_array[0]['game_home_score_bullet'] || $game_array[0]['game_guest_score_bullet'])
                         {
                             print ' | ' . $game_array[0]['game_home_score_bullet'] . ':' . $game_array[0]['game_guest_score_bullet'] . ' Б';
                         }

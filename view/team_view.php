@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $notification_array array
+ * @var $num_get integer
+ */
+?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
@@ -60,7 +66,16 @@
                     </td>
                     <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>
-                    <td class="text-center"><?= $item['player_power_nominal']; ?></td>
+                    <td
+                        class="text-center
+                        <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
+                            font-green
+                        <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
+                            font-red
+                        <?php } ?>"
+                    >
+                        <?= $item['player_power_nominal']; ?>
+                    </td>
                     <td class="text-center"><?= $item['player_tire']; ?></td>
                     <td class="text-center">
                         <img
