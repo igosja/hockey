@@ -3,6 +3,7 @@
 $start_time = microtime(true);
 
 //\usr\local\php5\php.exe www\console\migrate
+//\usr\local\php5\php.exe www\console\start
 //\usr\local\php5\php.exe www\console\generator
 
 include(__DIR__ . '/menu.php');
