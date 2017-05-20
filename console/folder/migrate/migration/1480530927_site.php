@@ -14,5 +14,5 @@ $q[] = 'CREATE TABLE `site`
         );';
 $q[] = 'INSERT INTO `site`
         SET `site_id`=NULL,
-            `site_version_2`=4,
+            `site_version_2`=5,
             `site_version_date`=UNIX_TIMESTAMP()';

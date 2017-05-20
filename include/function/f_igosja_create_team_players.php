@@ -80,16 +80,7 @@ function f_igosja_create_team_players($team_id)
 
         $name_id = $name_array[0]['namecountry_name_id'];
 
-        $sql = "SELECT `surnamecountry_surname_id`
-                FROM `surnamecountry`
-                WHERE `surnamecountry_country_id`=$country_id
-                ORDER BY RAND()
-                LIMIT 1";
-        $surname_sql = f_igosja_mysqli_query($sql);
-
-        $surname_array = $surname_sql->fetch_all(1);
-
-        $surname_id = $surname_array[0]['surnamecountry_surname_id'];
+        $surname_id = f_igosja_select_player_surname_id($team_id, $country_id);
 
         $shape      = rand(75, 125);
         $style_id   = 1;
