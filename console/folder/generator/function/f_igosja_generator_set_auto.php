@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Ставим метку автосостава
+ * Ставимо мітку автосостава
  */
 function f_igosja_generator_set_auto()
 {

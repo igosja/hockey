@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Отметка о автосоставе
- * @param $auto boolean метка о автосоставе
- * @return string звездочка, если был автосостав
+ * Відмітка про автосостав
+ * @param $auto boolean мітка про автосостав
+ * @return string зірочка, якщо був автосостав
  */
 function f_igosja_game_auto($auto)
 {

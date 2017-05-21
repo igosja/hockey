@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Формируем таблицы и матчи чемпионатов стран
+ * Формуємо таблиці та матчі національних чемпіонатів
  */
 function f_igosja_start_insert_championship()
 {
@@ -394,7 +394,7 @@ function f_igosja_start_insert_championship()
 
         usleep(1);
 
-        print '.' . __FILE__ . time() . "\r\n";
+        print '.';
         flush();
     }
 }

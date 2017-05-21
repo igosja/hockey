@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Добавляем имена хоккеистов
+ * Додаємо імена хокеїстів
  */
 function f_igosja_start_insert_name()
 {
@@ -382,7 +382,7 @@ function f_igosja_start_insert_name()
 
             usleep(1);
 
-            print '.' . __FILE__ . time() . "\r\n";
+            print '.';
             flush();
         }
 

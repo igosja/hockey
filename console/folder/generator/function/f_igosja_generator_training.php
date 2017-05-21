@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Тренируем игроков
+ * Тренуємо граців
  */
 function f_igosja_generator_training()
 {

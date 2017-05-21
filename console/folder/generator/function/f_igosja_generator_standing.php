@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Обновляем турнирные таблицы
+ * Оновлюємо турнірні таблиці
  */
 function f_igosja_generator_standing()
 {

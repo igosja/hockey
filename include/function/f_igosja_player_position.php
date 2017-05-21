@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Отображение позиций хоккеиста
- * @param $player_id integer id хоккеиста
- * @param $playerposition_array array массив с результатом запроса в БД (`playerposition`)
- * @return string позиции игрока
+ * Відображення позицій хокеїста
+ * @param $player_id integer id хокеїста
+ * @param $playerposition_array array масив с результатом запиту в БД (`playerposition`)
+ * @return string позиції хокеїста
  */
 function f_igosja_player_position($player_id, $playerposition_array)
 {

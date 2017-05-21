@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Хешируем введенный через форму пароль
- * @param $password string введенный пароль
- * @return string захешированный пароль
+ * Хешиємо введений через форму пароль
+ * @param $password string введений пароль
+ * @return string захешований пароль
  */
 function f_igosja_hash_password($password)
 {

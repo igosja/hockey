@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Отображение счета на основе метки о том, сыгран ли матч
- * @param $played boolean метка о том, сыгран ли матч
- * @param $home_score integer шайбы хозяев
- * @param $guest_score integer шайбы гостей
- * @return string счет или ?:?
+ * Відображення рахунку на основі мітки про те, чи зіграли матч
+ * @param $played boolean мітка про те, чи зіграли матч
+ * @param $home_score integer шайби господарів
+ * @param $guest_score integer шайби гостей
+ * @return string рахунок або ?:?
  */
 function f_igosja_game_score($played, $home_score, $guest_score)
 {

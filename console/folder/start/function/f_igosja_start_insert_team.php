@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Добавляем команды, города и стадионы
+ * Додаємо команди, міста і стадіони
  */
 function f_igosja_start_insert_team()
 {
@@ -730,7 +730,7 @@ function f_igosja_start_insert_team()
 
             usleep(1);
 
-            print '.' . __FILE__ . time() . "\r\n";
+            print '.';
             flush();
         }
     }

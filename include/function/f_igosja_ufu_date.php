@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Форматирование даты
+ * Формат дати
  * @param $date integer unix_timestamp
- * @return string дата дд.мм.гггг
+ * @return string дата дд.мм.рррр
  */
 function f_igosja_ufu_date($date)
 {

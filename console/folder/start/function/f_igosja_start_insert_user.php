@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Добавляем зарегистрированных пользователей
+ * Додаємо зареєстрованих користувачів
  */
 function f_igosja_start_insert_user()
 {
@@ -157,6 +157,6 @@ function f_igosja_start_insert_user()
 
     usleep(1);
 
-    print '.' . __FILE__ . time() . "\r\n";
+    print '.';
     flush();
 }

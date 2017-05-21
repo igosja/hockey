@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Усталость игроков
+ * Втома хокеїстів
  */
 function f_igosja_generator_player_tire()
 {

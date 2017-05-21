@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Формируем таблицу и матчи конференции
+ * Формуємо таблицю та матчі конференції
  */
 function f_igosja_start_insert_conference()
 {
@@ -62,6 +62,6 @@ function f_igosja_start_insert_conference()
 
     usleep(1);
 
-    print '.' . __FILE__ . time() . "\r\n";
+    print '.';
     flush();
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Формируем таблицу и матчи кубка межсезонья
+ * Формуємо таблицю та матчі кубка міжсезоння
  */
 function f_igosja_start_insert_offseason()
 {
@@ -56,6 +56,6 @@ function f_igosja_start_insert_offseason()
 
     usleep(1);
 
-    print '.' . __FILE__ . time() . "\r\n";
+    print '.';
     flush();
 }

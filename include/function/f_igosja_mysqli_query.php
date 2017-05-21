@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Обертка для запроса в БД для ведения лога запросов
- * @param $sql string текст запроса к БД
- * @param $save boolean сохранять ли текст запроса в лог
- * @return mysqli_result объект с результатом запроса $mysqli->query($sql)
+ * Обгортка для запиту в БД для ведення лога запитів
+ * @param $sql string текст запиту в БД
+ * @param $save boolean мітка, чи зберігати запит в лог
+ * @return mysqli_result об'ект с результатом запиту $mysqli->query($sql)
  */
 function f_igosja_mysqli_query($sql, $save = true)
 {

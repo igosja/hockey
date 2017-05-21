@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Строительство базы
+ * Будівництво бази
  */
 function f_igosja_generator_building_base()
 {

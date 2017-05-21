@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Считаем количество зрителей
+ * Рахуємо кількість глядачів
  */
 function f_igosja_generator_count_visitor()
 {

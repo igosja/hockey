@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Отображение select с перечнем позиций, которые могут быть натренированны хоккеисту
- * @param $player_id integer id хоккеиста
- * @return string select с перечнем позиций или пустая строка
+ * Select з переліком позицій, котрі можуть бути натреновані хокеїсту
+ * @param $player_id integer id хокеїста
+ * @return string select з переліком позицій або порожній рядок
  */
 function f_igosja_player_position_training($player_id)
 {

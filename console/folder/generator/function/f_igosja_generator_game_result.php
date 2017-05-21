@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Генерируем результат матча
+ * Генеруємо результат матчу
  */
 function f_igosja_generator_game_result()
 {

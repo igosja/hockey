@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Формируем календарь
+ * Формуємо календар
  */
 function f_igosja_start_insert_shedule()
 {
@@ -70,6 +70,6 @@ function f_igosja_start_insert_shedule()
 
     usleep(1);
 
-    print '.' . __FILE__ . time() . "\r\n";
+    print '.';
     flush();
 }

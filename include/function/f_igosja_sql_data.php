@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Обертка для получения sql строки после submit формы
+ * Обгортка для отримання sql рядка після submit форми
  * `key`='value', `key`='value', `key`='value'
- * Используется только в админке как не безопасная вещь
- * @param $data array $_POST после submit формы
- * @return string строка для вставки в запрос
+ * Використовуєсть тільки в админці як небезпечна штука
+ * @param $data array $_POST після submit форми
+ * @return string рядок для вставки в запит
  */
 function f_igosja_sql_data($data)
 {

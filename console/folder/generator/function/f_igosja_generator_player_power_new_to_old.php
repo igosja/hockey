@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Перенос текущей силы игроков в старую
+ * Переносимо поточної сили хокеїстів в стару
  */
 function f_igosja_generator_player_power_new_to_old()
 {

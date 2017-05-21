@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Делаем матчи сыгранными
+ * Робимо матчі зіграними
  */
 function f_igosja_generator_make_played()
 {

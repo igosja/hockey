@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Время последнего посещения
+ * Час останнього візиту на сайт
  * @param $date integer unix_timestamp
- * @return string онлайн или n минут назад или дата чч:мм дд.мм.гггг
+ * @return string 'онлайн' або 'n минут назад' або дата гг:хх дд.мм.рррр
  */
 function f_igosja_ufu_last_visit($date)
 {

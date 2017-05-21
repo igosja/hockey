@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Обертка для работы с массивом $_REQUEST
- * @param $var string название параметра в массиве $_REQUEST
- * @param $subvar string название параметра в массиве $_REQUEST[$var]
- * @return mixed значение параметра
+ * Обгортка для роботи з масивом $_REQUEST
+ * @param $var string назва параметра в масиві $_REQUEST
+ * @param $subvar string назва параметра в масиві $_REQUEST[$var]
+ * @return mixed значення параметра
  */
 function f_igosja_request($var, $subvar = '')
 {

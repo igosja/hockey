@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Запись в лог события на сайте
- * @param $data array данные для вставки в базу данных
+ * Запис в лог події на сайті
+ * @param $data array дані для запису в БД
  */
 function f_igosja_history($data)
 {

@@ -75,4 +75,14 @@ $log = array(
 );
 f_igosja_history($log);
 
+$email_text =
+    'Ваша заявка на управление командой одобрена.<br/><br/>
+    Администрация Виртуальной Хоккейной Лиги';
+
+$mail = new Mail();
+$mail->setTo($email);
+$mail->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги');
+$mail->setHtml($email_text);
+$mail->send();
+
 redirect('/admin/teamask_list.php');

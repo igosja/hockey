@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Форматирование денежных сумм
- * @param $price integer сумма
- * @return string отформатированная сумма
+ * Формат грошових сум
+ * @param $price integer сума
+ * @return string сума в потрібному форматі
  */
 function f_igosja_money($price)
 {

@@ -2,7 +2,7 @@
 
 /**
  * Жребий по швейцарской системе одной пары
- * @var integer $position_difference разница в позиции
+ * @param integer $position_difference разница в позиции
  */
 function f_igosja_swiss_one($position_difference)
 {

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Проверяем, есть ли пользователь с таким email
- * @param $email string email пользователя
- * @return boolean результат проверки (false - пользователь есть в системе)
+ * Перевіряемо наявніть користувача в БД за email
+ * @param $email string email користувача
+ * @return boolean результат перевірки (false - користувач присутній в БД)
  */
 function f_igosja_check_user_by_email($email)
 {

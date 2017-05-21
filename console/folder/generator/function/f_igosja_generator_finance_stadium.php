@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Обновляем финансы со стадионов
+ * Додаємо в каси команд гроші зі стадіонів
  */
 function f_igosja_generator_finance_stadium()
 {

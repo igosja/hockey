@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Строительство стадиона
+ * Будівництво стадіону
  */
 function f_igosja_generator_building_stadium()
 {

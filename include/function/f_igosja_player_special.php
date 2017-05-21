@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Отображение спесвозможностей хоккеиста с их уровнями
- * @param $player_id integer id хоккеиста
- * @param $playerspecial_array array массив с результатом запроса в БД (`playerspecial`)
- * @return string спецвозможности игрока
+ * Відображення спецможливостей хокеїста з їх рівнем
+ * @param $player_id integer id хокеїста
+ * @param $playerspecial_array array масив с результатом запиту в БД (`playerspecial`)
+ * @return string спецможливості хокеїста
  */
 function f_igosja_player_special($player_id, $playerspecial_array)
 {
