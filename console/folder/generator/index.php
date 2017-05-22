@@ -27,6 +27,7 @@ f_igosja_generator_building_base();
 f_igosja_generator_building_stadium();
 f_igosja_generator_make_played();
 f_igosja_generator_swiss();
+f_igosja_generator_transfer();
 f_igosja_generator_site_open();
 
 print "\r\n"

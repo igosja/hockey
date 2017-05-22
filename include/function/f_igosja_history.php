@@ -105,6 +105,15 @@ function f_igosja_history($data)
         $history_user_id = 0;
     }
 
+    if (isset($data['history_user_2_id']))
+    {
+        $history_user_2_id = (int)$data['history_user_2_id'];
+    }
+    else
+    {
+        $history_user_2_id = 0;
+    }
+
     if (isset($data['history_value']))
     {
         $history_value = (int)$data['history_value'];
@@ -138,6 +147,7 @@ function f_igosja_history($data)
                 `history_team_id`=$history_team_id,
                 `history_team_2_id`=$history_team_2_id,
                 `history_user_id`=$history_user_id,
+                `history_user_2_id`=$history_user_2_id,
                 `history_value`=$history_value";
     f_igosja_mysqli_query($sql);
 }

@@ -118,7 +118,6 @@ function f_igosja_create_team_players($team_id)
             'history_player_id' => $player_id,
             'history_team_id' => $team_id,
         );
-
         f_igosja_history($log);
     }
 }

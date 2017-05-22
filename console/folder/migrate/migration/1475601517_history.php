@@ -18,5 +18,6 @@ $q[] = 'CREATE TABLE `history`
             `history_team_id` INT(11) DEFAULT 0,
             `history_team_2_id` INT(11) DEFAULT 0,
             `history_user_id` INT(11) DEFAULT 0,
+            `history_user_2_id` INT(11) DEFAULT 0,
             `history_value` INT(11) DEFAULT 0
         );';
