@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Жребий по швейцарской системе
- * @param integer $tournamenttype_id
- * @param integer $position_difference разница в позиции (начинаем с минимума и постепенно увеличиваем)
- * @param integer $try попытка жребия с текущей разницей в позиции (до 5 попыток и увеличиваем разницу)
+ * Жереб за швейцарською системою
+ * @param $tournamenttype_id integer
+ * @param $position_difference integer різниця в позиції (починаємо з мінімума і поступово збільшуємо)
+ * @param $try integer спроба жереба з поточною різницею в позиції (до 5 спроб і збільшуємо різницю)
  */
 function f_igosja_swiss($tournamenttype_id, $position_difference, $try)
 {

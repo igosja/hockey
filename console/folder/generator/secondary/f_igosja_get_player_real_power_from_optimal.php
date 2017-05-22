@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Корегуємо сили хокеїстів на отпимальність позицій
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_get_player_real_power_from_optimal($game_result)
 {
     for ($i=0; $i<2; $i++)

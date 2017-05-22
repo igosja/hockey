@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Рахуємо бонус хокеїстів за їх спецможливості залежно від стилю гри
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_count_player_bonus($game_result)
 {
     for ($i=0; $i<2; $i++)

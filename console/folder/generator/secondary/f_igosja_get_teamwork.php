@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Рахуємо зіграність хокеїстів в розрізі ліній
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_get_teamwork($game_result)
 {
     for ($i=0; $i<2; $i++)

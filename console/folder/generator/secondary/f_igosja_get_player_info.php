@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Отримуємо дані про хокеїстів з БД
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_get_player_info($game_result)
 {
     for ($i=0; $i<2; $i++)

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Визначаємо позицію хокеїства, що віддав результативну передачу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_select_assist_1($game_result, $team)
 {
     $game_result['assist_1']    = rand(POSITION_LD, POSITION_RW);

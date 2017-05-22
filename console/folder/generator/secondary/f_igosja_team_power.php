@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Рахуємо силу всіх ланок команд
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_team_power($game_result)
 {
     for ($i=0; $i<2; $i++)

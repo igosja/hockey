@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Віпускаємо хокеїста на лід після пропущеного голу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @param $opponent string home або guest
+ * @return array
+ */
 function f_igosja_current_penalty_decrease_after_goal($game_result, $team, $opponent)
 {
     $count_team_penalty     = count($game_result[$team]['team']['penalty']['current']);

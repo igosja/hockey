@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Визначаємо позицію хокеїства, що боротиметься за вкидання
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_select_face_off($game_result, $team)
 {
     $penalty_position = f_igosja_penalty_position_array($game_result, $team);

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Зменшуємо штрафні хвилини команд у матчі
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_current_penalty_decrease($game_result)
 {
     for ($i=0; $i<2; $i++)

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Записуємо дані про отриманий штраф в масив команди
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_team_penalty_increase($game_result, $team)
 {
     $game_result[$team]['team']['penalty']['total']++;

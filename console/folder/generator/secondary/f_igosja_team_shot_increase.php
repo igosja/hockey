@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Записуємо дані про кидок по воромах в масив команди
+ * @param $game_result array
+ * @param $team string home або guest
+ * @param $opponent string home або guest
+ * @return array
+ */
 function f_igosja_team_shot_increase($game_result, $team, $opponent)
 {
     $game_result[$opponent]['player']['gk']['shot']++;

@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Жребий по швейцарской системе одной пары
- * @param integer $position_difference разница в позиции
+ * Жереб за швейцарською системою однієї пари
+ * @param $position_difference integer різниця в позиції
+ * @return boolean мітка про успішніть жеребу (true - все добре)
  */
 function f_igosja_swiss_one($position_difference)
 {

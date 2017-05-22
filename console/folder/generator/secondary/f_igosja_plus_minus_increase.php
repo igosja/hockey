@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Записуємо дані про показник плюс/мінус після голу в масив хокеїста
+ * @param $game_result array
+ * @param $team string home або guest
+ * @param $opponent string home або guest
+ * @return array
+ */
 function f_igosja_plus_minus_increase($game_result, $team, $opponent)
 {
     $penalty_position_team     = f_igosja_penalty_position_array($game_result, $team);

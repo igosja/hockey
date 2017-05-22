@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Визначаємо коллізію
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_collision($game_result)
 {
     for ($i=0; $i<2; $i++)

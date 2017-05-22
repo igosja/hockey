@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Готуємо массив для генерації результату гри
+ * @param $game_id integer
+ * @param $game_home_team_id integer
+ * @param $game_guest_team_id integer
+ * @return array
+ */
 function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id)
 {
     $field_player_array = array();

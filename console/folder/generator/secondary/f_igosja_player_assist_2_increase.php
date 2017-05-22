@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Записуємо дані про другу результативну передачу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @param $opponent string home або guest
+ * @return array
+ */
 function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
 {
     $power_short            = '';

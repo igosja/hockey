@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Розрахунок оптимальної сили гравців до корегування на оптимальність позиції
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_player_optimal_power($game_result)
 {
     for ($i=0; $i<2; $i++)

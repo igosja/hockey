@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Отримуємо позицію хокеїста, що має штрафні хвилини
+ * @param $game_result array
+ * @param $team string
+ * @return array
+ */
 function f_igosja_penalty_position_array($game_result, $team)
 {
     $penalty_position_array = array();

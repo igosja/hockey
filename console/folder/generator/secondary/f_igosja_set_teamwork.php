@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Збільшуємо зігранніть хокеїстів після гри
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_set_teamwork($game_result)
 {
     for ($i=0; $i<2; $i++)

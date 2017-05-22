@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Записуємо дані про кидок по воротах в масив хокеїста
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_player_shot_increase($game_result, $team)
 {
     if (POSITION_LD == $game_result['player'])

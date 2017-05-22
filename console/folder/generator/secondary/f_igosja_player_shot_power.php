@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Отримуємо силу хокеїста, що кидає по воротах
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_player_shot_power($game_result, $team)
 {
     if (POSITION_LD == $game_result['player'])

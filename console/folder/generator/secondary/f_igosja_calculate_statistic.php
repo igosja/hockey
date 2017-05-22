@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Підраховуємо статистику команд і гравців в массиві $game_result
+ * @param $game_result array
+ * @return array
+ * */
 function f_igosja_calculate_statistic($game_result)
 {
     if ($game_result['home']['team']['score']['total'] > $game_result['guest']['team']['score']['total'])

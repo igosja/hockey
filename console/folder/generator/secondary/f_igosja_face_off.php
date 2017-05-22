@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Рахуємо переможця вкидання шайби
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_face_off($game_result)
 {
     $game_result = f_igosja_select_face_off($game_result, 'home');

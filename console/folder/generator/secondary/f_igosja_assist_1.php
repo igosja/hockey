@@ -3,8 +3,8 @@
 /**
  * Визначаемо вірогідність шайби, що закинули з передачі
  * та вибираємо позицію асистента
- * @param array $game_result
- * @param string $team home або guest
+ * @param $game_result array
+ * @param $team string home або guest
  * @return array
  */
 function f_igosja_assist_1($game_result, $team)

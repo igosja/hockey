@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Записуємо дані про отриманий штраф в масив хокеїста
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_player_penalty_increase($game_result, $team)
 {
     $count_event = count($game_result['event']);

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Записуємо дані про гол в події матчу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_event_score($game_result, $team)
 {
     $sql = "SELECT `eventtextgoal_id`

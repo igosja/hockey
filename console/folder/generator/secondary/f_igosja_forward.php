@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Визначаемо силу нападу залежно від хвилини матчу
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_forward($game_result)
 {
     for ($i=0; $i<2; $i++)

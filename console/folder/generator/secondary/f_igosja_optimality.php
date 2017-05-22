@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Рахуємо відсотки оптимальності
+ * @param $game_result array
+ * @return array
+ */
 function f_igosja_optimality($game_result)
 {
     $home_power_real        = $game_result['home']['team']['power']['total'];

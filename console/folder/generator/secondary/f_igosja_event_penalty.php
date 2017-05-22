@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Записуємо дані про отриманий штраф в події матчу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @return array
+ */
 function f_igosja_event_penalty($game_result, $team)
 {
     $sql = "SELECT `eventtextpenalty_id`

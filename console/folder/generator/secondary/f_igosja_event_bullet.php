@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Записуємо дані про булліт в події матчу
+ * @param $game_result array
+ * @param $team string home або guest
+ * @param $eventtextbullet_id integer
+ * @param $player_key string позиція та лінія гравця через _
+ * @return array
+ */
 function f_igosja_event_bullet($game_result, $team, $eventtextbullet_id, $player_key)
 {
     $game_result['event'][] = array(
