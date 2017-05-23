@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @var $igosja_menu_login array
+ * @var $igosja_menu_login_mobile array
+ * @var $igosja_menu_guest array
+ * @var $igosja_menu_guest_mobile array
+ */
+
 session_start();
 session_regenerate_id();
 

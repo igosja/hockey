@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $breadcrumb_array array
+ */
+?>
 <?php if (count($breadcrumb_array)) { ?>
     <ol class="breadcrumb">
         <li>

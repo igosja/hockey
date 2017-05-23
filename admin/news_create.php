@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include (__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))

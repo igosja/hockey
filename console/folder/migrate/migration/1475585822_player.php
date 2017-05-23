@@ -27,7 +27,6 @@ $q[] = 'CREATE TABLE `player`
             `player_rookie` TINYINT(1) DEFAULT 0,
             `player_salary` INT(11) DEFAULT 0,
             `player_school_id` INT(11) DEFAULT 0,
-            `player_shape` TINYINT(3) DEFAULT 0,
             `player_style_id` TINYINT(1) DEFAULT 0,
             `player_surname_id` INT(11) DEFAULT 0,
             `player_team_id` INT(11) DEFAULT 0,

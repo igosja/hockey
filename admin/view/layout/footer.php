@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $tpl string
+ */
+?>
     </div>
 </div>
 <script src="/js/jquery.js"></script>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $num_get integer
+ */
+
 $sql = "SELECT `country_finance`,
                `country_name`
         FROM `country`

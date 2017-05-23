@@ -329,9 +329,6 @@
                             <li>
                                 <a href="/admin/shedule_change.php">Перевести дату</a>
                             </li>
-                            <li>
-                                <a href="/admin/game_start.php">Старт первого сезона</a>
-                            </li>
                         </ul>
                     </li>
                 </ul>

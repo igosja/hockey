@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $num_get integer
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header"><?= $news_array[0]['news_title']; ?></h3>

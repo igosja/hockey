@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $q array
+ */
+
 set_time_limit(0);
 
 include(__DIR__ . '/../../../include/database.php');

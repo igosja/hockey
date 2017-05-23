@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ * @var $num_get integer
+ */
+
 $sql = "SELECT `base_level`,
                `base_slot_max`,
                `basemedical_level`+

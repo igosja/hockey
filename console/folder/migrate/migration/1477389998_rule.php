@@ -1298,7 +1298,6 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"3.2\"><span class=\"strong\">3.2. Как готовить молодежь в спортшколе?</span> Для того, чтобы начать подготовку молодого игрока в спортшколе, вам нужно указать игроку:
 <ul>
-<li>возраст;</li>
 <li>позицию на льду;</li>
 <li>спецвозможность;</li>
 <li>любимый стиль игры.</li>

@@ -5,8 +5,11 @@ include (__DIR__ . '/../include/include.php');
 $num_get = (int) f_igosja_request_get('num');
 
 $sql = "SELECT `teamask_team_id`,
-               `teamask_user_id`
+               `teamask_user_id`,
+               `user_email`
         FROM `teamask`
+        LEFT JOIN `user`
+        ON `teamask_user_id`=`user_id`
         WHERE `teamask_id`=$num_get
         LIMIT 1";
 $teamask_sql = f_igosja_mysqli_query($sql);
@@ -20,6 +23,7 @@ $teamask_array = $teamask_sql->fetch_all(1);
 
 $team_id = $teamask_array[0]['teamask_team_id'];
 $user_id = $teamask_array[0]['teamask_user_id'];
+$email   = $teamask_array[0]['user_email'];
 
 $sql = "SELECT COUNT(`team_id`) AS `check`
         FROM `team`

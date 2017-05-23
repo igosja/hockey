@@ -80,7 +80,8 @@ function f_igosja_generator_transfer()
             f_igosja_finance($finance);
 
             $sql = "UPDATE `player`
-                    SET `player_team_id`=$team_buyer_id
+                    SET `player_team_id`=$team_buyer_id,
+                        `player_transfer_on`=0
                     WHERE `player_id`=$player_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
@@ -89,8 +90,8 @@ function f_igosja_generator_transfer()
                     LEFT JOIN `player`
                     ON `transfer_player_id`=`player_id`
                     SET `transfer_age`=`player_age`,
-                        `transfer_power`=`player_power_nominal`,
                         `transfer_date`=UNIX_TIMESTAMP(),
+                        `transfer_power`=`player_power_nominal`,
                         `transfer_price_buyer`=$transferaplication_price,
                         `transfer_ready`=1,
                         `transfer_season_id`=$igosja_season_id,

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $num_get integer
+ */
+
 $sql = "SELECT `country_name`,
                `sex_name`,
                `user_birth_day`,

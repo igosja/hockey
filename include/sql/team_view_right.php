@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $num_get integer
+ */
+
 $sql = "SELECT `rosterphrase_text`
         FROM `rosterphrase`
         ORDER BY RAND()

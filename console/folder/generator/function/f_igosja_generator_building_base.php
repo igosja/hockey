@@ -10,65 +10,81 @@ function f_igosja_generator_building_base()
             WHERE `buildingbase_ready`=0";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_base_id`=`team_base_id`+1
-            WHERE `buildingbase_day`=0
+    $sql = "SELECT `building_name`,
+                   `buildingbase_id`,
+                   `buildingbase_building_id`,
+                   `buildingbase_constructiontype_id`,
+                   `buildingbase_team_id`
+            FROM `buildingbase`
+            LEFT JOIN `building`
+            ON `buildingbase_building_id`=`building_id`
+            WHERE `buildingbase_day`<=0
             AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=1";
-    f_igosja_mysqli_query($sql);
+            ORDER BY `buildingbase_id` ASC";
+    $buildingbase_sql = f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_basemedical_id`=`team_basemedical_id`+1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=2";
-    f_igosja_mysqli_query($sql);
+    $buildingbase_array = $buildingbase_sql->fetch_all(1);
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_basephisical_id`=`team_basephisical_id`+1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=3";
-    f_igosja_mysqli_query($sql);
+    foreach ($buildingbase_array as $item)
+    {
+        $buildingbase_building_id   = $item['buildingbase_building_id'];
+        $buildingbase_id            = $item['buildingbase_id'];
+        $building_name              = $item['building_name'];
+        $team_id                    = $item['buildingbase_team_id'];
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_baseschool_id`=`team_baseschool_id`+1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=4";
-    f_igosja_mysqli_query($sql);
+        $building_table             = '`' . $building_name .'`';
+        $building_level             = '`' . $building_name . '_level`';
+        $building_field             = $building_name . '_level';
+        $building_id                = '`' . $building_name . '_id`';
+        $team_building_id           = '`team_' . $building_name . '_id`';
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_basescout_id`=`team_basescout_id`+1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=5";
-    f_igosja_mysqli_query($sql);
+        if (CONSTRUCTION_BUILD == $item['buildingbase_constructiontype_id'])
+        {
+            $sql = "UPDATE `team`
+                    SET $team_building_id=$team_building_id+1
+                    WHERE `team_id`=$team_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `team`
-            LEFT JOIN `buildingbase`
-            ON `team_id`=`buildingbase_team_id`
-            SET `team_basetraining_id`=`team_basetraining_id`+1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0
-            AND `buildingbase_building_id`=6";
-    f_igosja_mysqli_query($sql);
+            $historytext_id = HISTORYTEXT_BUILDING_UP;
+        }
+        else
+        {
+            $sql = "UPDATE `team`
+                    SET $team_building_id=$team_building_id-1
+                    WHERE `team_id`=$team_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `buildingbase`
-            SET `buildingbase_ready`=1
-            WHERE `buildingbase_day`=0
-            AND `buildingbase_ready`=0";
-    f_igosja_mysqli_query($sql);
+            $historytext_id = HISTORYTEXT_BUILDING_DOWN;
+        }
+
+        $sql = "SELECT $building_level,
+                       `team_user_id`
+                FROM team
+                LEFT JOIN $building_table
+                ON $team_building_id=$building_id
+                WHERE `team_id`=$team_id
+                LIMIT 1";
+        $team_sql = f_igosja_mysqli_query($sql);
+
+        $team_array = $team_sql->fetch_all(1);
+
+        $sql = "UPDATE `buildingbase`
+                SET `buildingbase_ready`=1
+                WHERE `buildingbase_id`=$buildingbase_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $log = array(
+            'history_building_id' => $buildingbase_building_id,
+            'history_historytext_id' => $historytext_id,
+            'history_team_id' => $team_id,
+            'history_user_id' => $team_array[0]['team_user_id'],
+            'history_value' => $team_array[0][$building_field],
+        );
+        f_igosja_history($log);
+    }
 
     print '.';
     flush();

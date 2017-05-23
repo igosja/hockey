@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <label class="control-label" for="stadium_city_id">Стадион</label>
+                        <label class="control-label" for="team_stadium_id">Стадион</label>
                     </td>
                     <td>
                         <select class="form-control" id="team_stadium_id" name="data[team_stadium_id]">

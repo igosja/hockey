@@ -82,12 +82,11 @@ function f_igosja_create_team_players($team_id)
 
         $surname_id = f_igosja_select_player_surname_id($team_id, $country_id);
 
-        $shape      = rand(75, 125);
         $style_id   = 1;
         $ability    = rand(1, 5);
 
         $sql = "INSERT INTO `player`
-                SET `player_age`='$age',
+                SET `player_age`=$age,
                     `player_country_id`=$country_id,
                     `player_name_id`=$name_id,
                     `player_phisical_id`=$phisical_id,
@@ -98,7 +97,6 @@ function f_igosja_create_team_players($team_id)
                     `player_price`=POW(150-(28-$age), 2)*$age*2,
                     `player_salary`=`player_price`/999,
                     `player_school_id`=$team_id,
-                    `player_shape`=$shape,
                     `player_style_id`=$style_id,
                     `player_surname_id`=$surname_id,
                     `player_team_id`=$team_id,

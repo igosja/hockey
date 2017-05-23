@@ -88,10 +88,12 @@ function f_igosja_generator_standing_place()
                 {
                     $sql = "SELECT `championship_id`
                             FROM `championship`
+                            LEFT JOIN `team`
+                            ON `championship_team_id`=`team_id`
                             WHERE `championship_season_id`=" . $shedule['shedule_season_id'] . "
                             AND `championship_country_id`=" . $country['championship_country_id'] . "
                             AND `championship_division_id`=" . $division['championship_division_id'] . "
-                            ORDER BY `championship_point` DESC, `championship_win` DESC, `championship_win_over` DESC, `championship_win_bullet` DESC, `championship_loose_bullet` DESC, `championship_loose_over` DESC, `championship_score`-`championship_pass` DESC, `championship_score` DESC, `championship_national_id` ASC";
+                            ORDER BY `championship_point` DESC, `championship_win` DESC, `championship_win_over` DESC, `championship_win_bullet` DESC, `championship_loose_bullet` DESC, `championship_loose_over` DESC, `championship_score`-`championship_pass` DESC, `championship_score` DESC, `team_power_vs` ASC, `team_id` ASC";
                     $championship_sql = f_igosja_mysqli_query($sql);
 
                     $championship_array = $championship_sql->fetch_all(1);
@@ -124,9 +126,11 @@ function f_igosja_generator_standing_place()
             {
                 $sql = "SELECT `league_id`
                         FROM `league`
+                        LEFT JOIN `team`
+                        ON `league_team_id`=`team_id`
                         WHERE `league_season_id`=" . $shedule['shedule_season_id'] . "
                         AND `league_group`=" . $group['league_group'] . "
-                        ORDER BY `league_point` DESC, `league_win` DESC, `league_win_over` DESC, `league_win_bullet` DESC, `league_loose_bullet` DESC, `league_loose_over` DESC, `league_score`-`league_pass` DESC, `league_score` DESC, `league_national_id` ASC";
+                        ORDER BY `league_point` DESC, `league_win` DESC, `league_win_over` DESC, `league_win_bullet` DESC, `league_loose_bullet` DESC, `league_loose_over` DESC, `league_score`-`league_pass` DESC, `league_score` DESC, `team_power_vs` ASC, `team_id` ASC";
                 $league_sql = f_igosja_mysqli_query($sql);
 
                 $league_array = $league_sql->fetch_all(1);
