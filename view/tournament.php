@@ -13,7 +13,7 @@
         |
         <a href="/worldcup.php">Чемпионат мира</a>
         |
-        <a href="/championsleague.php">Лига чемпионов</a>
+        <a href="/league.php">Лига чемпионов</a>
     </div>
 </div>
 <div class="row margin-top">

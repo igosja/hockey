@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $file_name string
+ * @var $num_get integer
+ */
+
 $table_link = array();
 
 foreach ($player_link_array as $item) {

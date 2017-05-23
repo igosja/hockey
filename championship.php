@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include (__DIR__ . '/include/include.php');
 
 if (!$country_id = (int) f_igosja_request_get('country_id'))

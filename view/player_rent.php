@@ -1,3 +1,17 @@
+<?php
+/**
+ * @var $my_player boolean
+ * @var $num_get integer
+ * @var $on_rent boolean
+ * @var $rentapplication_array array
+ * @var $rentapplication_sql mysqli_result
+ * @var $rent_day integer
+ * @var $rent_day_max integer
+ * @var $rent_day_min integer
+ * @var $rent_price integer
+ * @var $start_price integer
+ */
+?>
 <?php include(__DIR__ . '/include/player_view_top.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

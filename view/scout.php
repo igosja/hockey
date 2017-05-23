@@ -112,10 +112,10 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>
                     <td class="text-center"><?= $item['player_power_nominal']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     <td class="text-center">Стиль</td>
                     <td class="text-center"><?= $item['scout_percent']; ?>%</td>
                 </tr>
@@ -164,14 +164,14 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <?= f_igosja_player_position($item['player_id']); ?>
+                            <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
                         </td>
                         <td class="text-center"><?= $item['player_age']; ?></td>
                         <td class="text-center">
                             <?= $item['player_power_nominal']; ?>
                         </td>
                         <td class="text-center">
-                            <?= f_igosja_player_special($item['player_id']); ?>
+                            <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
                         </td>
                         <td class="text-center">
                             <input name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />

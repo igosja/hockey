@@ -180,4 +180,12 @@ for ($i=0; $i<$count_player; $i++)
     $player_array[$i]['phisical_array'] = $player_phisical_array;
 }
 
+$sql = "SELECT `position_id`,
+               `position_name`
+        FROM `position`
+        ORDER BY `position_id` ASC";
+$position_sql = f_igosja_mysqli_query($sql);
+
+$position_array = $position_sql->fetch_all(1);
+
 include (__DIR__ . '/view/layout/main.php');

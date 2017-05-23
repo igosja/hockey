@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $auth_team_id integer
+ * @var $line integer
+ * @var $num_get integer
+ */
+?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
@@ -56,7 +63,7 @@
             />
         </div>
         <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4" style="height: 20px">
-            [<a href="javascript:;">Зрители</a>]
+            [<a href="javascript:">Зрители</a>]
         </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
             Настрой:

@@ -45,10 +45,10 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $position_array); ?></td>
                     <td class="text-center"><?= $item['transfer_age']; ?></td>
                     <td class="text-center"><?= $item['transfer_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $special_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
@@ -95,10 +95,10 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $position_array); ?></td>
                     <td class="text-center"><?= $item['transfer_age']; ?></td>
                     <td class="text-center"><?= $item['transfer_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $special_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
@@ -146,10 +146,10 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $position_array); ?></td>
                     <td class="text-center"><?= $item['rent_age']; ?></td>
                     <td class="text-center"><?= $item['rent_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $special_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
@@ -198,10 +198,10 @@
                             />
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $position_array); ?></td>
                     <td class="text-center"><?= $item['rent_age']; ?></td>
                     <td class="text-center"><?= $item['rent_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $special_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>

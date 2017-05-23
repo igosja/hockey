@@ -36,7 +36,7 @@
                         </a>
                     </td>
                     <td class="text-center">
-                        <?= f_igosja_player_position($transfer_array[$i]['player_id']); ?>
+                        <?= f_igosja_player_position($transfer_array[$i]['player_id'], $position_array); ?>
                     </td>
                     <td class="text-center">
                         <?= $transfer_array[$i]['player_age']; ?>
@@ -45,7 +45,7 @@
                         <?= $transfer_array[$i]['player_power_nominal']; ?>
                     </td>
                     <td class="text-center">
-                        <?= f_igosja_player_special($transfer_array[$i]['player_id']); ?>
+                        <?= f_igosja_player_special($transfer_array[$i]['player_id'], $special_array); ?>
                     </td>
                     <td>
                         <a href="/team_view.php?num=<?= $transfer_array[$i]['team_id']; ?>">

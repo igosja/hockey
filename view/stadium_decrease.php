@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $count_buildingstadium integer
+ * @var $new_capacity integer
+ */
+?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-1 strong">
         <?= $stadium_array[0]['stadium_name']; ?>

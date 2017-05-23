@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include (__DIR__ . '/include/include.php');
 
 $sql = "SELECT `city_name`,

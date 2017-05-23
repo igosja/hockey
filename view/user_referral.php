@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $num_get integer
+ */
+?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?php include(__DIR__ . '/include/user_profile_top_left.php'); ?>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ */
+
 include (__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -45,7 +49,7 @@ $sql = "SELECT `base_id`,
                `basephisical_change_count`,
                `basephisical_id`,
                `basephisical_level`,
-               `basephisical_tire_bobus`,
+               `basephisical_tire_bonus`,
                `baseschool_id`,
                `baseschool_level`,
                `baseschool_player_count`,

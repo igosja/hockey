@@ -1,3 +1,14 @@
+<?php
+/**
+ * @var $my_player boolean
+ * @var $num_get integer
+ * @var $on_transfer boolean
+ * @var $transferapplication_array array
+ * @var $transferapplication_sql mysqli_result
+ * @var $transfer_price integer
+ * @var $start_price integer
+ */
+?>
 <?php include(__DIR__ . '/include/player_view_top.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

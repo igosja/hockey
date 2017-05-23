@@ -50,7 +50,7 @@
                             <?= $item['surname_name']; ?>
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>
                     <td class="text-center"><?= $item['player_power_nominal']; ?></td>
                     <?php foreach ($item['phisical_array'] as $phisical) { ?>

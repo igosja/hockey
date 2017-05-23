@@ -147,13 +147,13 @@
                         <?php } ?>
                     </td>
                     <td class="text-center">
-                        <?= f_igosja_player_position($item['player_id']); ?>
+                        <?= f_igosja_player_position($item['player_id'], $position_array); ?>
                         <?php if ($item['position_name']) { ?>
                             + <?= $item['position_name']; ?>
                         <?php } ?>
                     </td>
                     <td class="text-center">
-                        <?= f_igosja_player_special($item['player_id']); ?>
+                        <?= f_igosja_player_special($item['player_id'], $special_array); ?>
                         <?php if ($item['special_name']) { ?>
                             + <?= $item['special_name']; ?>
                         <?php } ?>
@@ -212,7 +212,7 @@
                         <td class="text-center">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_position($item['player_id']); ?>
+                                    <?= f_igosja_player_position($item['player_id'], $position_array); ?>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <?= f_igosja_player_position_training($item['player_id']); ?>
@@ -222,7 +222,7 @@
                         <td class="text-center">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <?= f_igosja_player_special($item['player_id']); ?>
+                                    <?= f_igosja_player_special($item['player_id'], $special_array); ?>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <?= f_igosja_player_special_training($item['player_id']); ?>

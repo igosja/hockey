@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $auth_user_login string
+ * @var $igosja_menu_mobile array
+ * @var $tpl string
+ */
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $num_get integer
+ */
+?>
 <?php if ($game_array[0]['game_played']) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">

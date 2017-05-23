@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_userrole_id integer
+ */
+
 include (__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id) && 2 == $auth_userrole_id)

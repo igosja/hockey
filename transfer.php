@@ -38,4 +38,20 @@ $transfer_sql = f_igosja_mysqli_query($sql);
 $count_transfer = $transfer_sql->num_rows;
 $transfer_array = $transfer_sql->fetch_all(1);
 
+$sql = "SELECT `position_id`,
+               `position_name`
+        FROM `position`
+        ORDER BY `position_id` ASC";
+$position_sql = f_igosja_mysqli_query($sql);
+
+$position_array = $position_sql->fetch_all(1);
+
+$sql = "SELECT `special_id`,
+               `special_name`
+        FROM `special`
+        ORDER BY `special_id` ASC";
+$special_sql = f_igosja_mysqli_query($sql);
+
+$special_array = $special_sql->fetch_all(1);
+
 include (__DIR__ . '/view/layout/main.php');

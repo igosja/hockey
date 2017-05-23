@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $tpl string
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

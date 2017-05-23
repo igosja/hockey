@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $file_name string
+ */
+
 $table_link = array();
 
 foreach ($stadium_link_array as $item) {

@@ -25,10 +25,10 @@
                 <tr>
                     <td class="text-center"><?= $item['transfer_season_id']; ?></td>
                     <td class="text-center"><?= f_igosja_ufu_date($item['transfer_date']); ?></td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['transfer_age']; ?></td>
                     <td class="text-center"><?= $item['transfer_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerposition_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['seller_team_id']; ?>">
                             <?= $item['seller_team_name']; ?>
