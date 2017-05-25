@@ -84,6 +84,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_mysqli_query($sql);
 
                 $log = array(
+                    'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
                     'history_player_id' => $player['lineup_player_id'],
                     'history_team_id' => $item['game_home_team_id'],
@@ -112,6 +113,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_mysqli_query($sql);
 
                 $log = array(
+                    'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
                     'history_player_id' => $player['lineup_player_id'],
                     'history_team_id' => $item['game_home_team_id'],
@@ -141,6 +143,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_mysqli_query($sql);
 
                 $log = array(
+                    'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
                     'history_player_id' => $player['lineup_player_id'],
                     'history_team_id' => $item['game_guest_team_id'],
@@ -169,6 +172,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_mysqli_query($sql);
 
                 $log = array(
+                    'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
                     'history_player_id' => $player['lineup_player_id'],
                     'history_team_id' => $item['game_guest_team_id'],
