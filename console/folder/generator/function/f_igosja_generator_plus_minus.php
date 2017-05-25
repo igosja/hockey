@@ -63,8 +63,6 @@ function f_igosja_generator_plus_minus()
 
     foreach ($game_array as $item)
     {
-        $player_id = array();
-
         if (0 > $item['game_home_plus_minus'])
         {
             $sql = "SELECT `lineup_player_id`
@@ -79,15 +77,19 @@ function f_igosja_generator_plus_minus()
 
             foreach ($player_array as $player)
             {
-                $player_id[] = $player['lineup_player_id'];
+                $sql = "UPDATE `player`
+                        SET `player_power_nominal`=`player_power_nominal`-1
+                        WHERE `player_id`=" . $player['lineup_player_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
+                    'history_player_id' => $player['lineup_player_id'],
+                    'history_team_id' => $item['game_home_team_id'],
+                );
+                f_igosja_history($log);
             }
-
-            $player_id = implode(', ', $player_id);
-
-            $sql = "UPDATE `player`
-                    SET `player_power_nominal`=`player_power_nominal`-1
-                    WHERE `player_id` IN (" . $player_id . ")";
-            f_igosja_mysqli_query($sql);
         }
         elseif (0 < $item['game_home_plus_minus'])
         {
@@ -103,18 +105,20 @@ function f_igosja_generator_plus_minus()
 
             foreach ($player_array as $player)
             {
-                $player_id[] = $player['lineup_player_id'];
+                $sql = "UPDATE `player`
+                        SET `player_power_nominal`=`player_power_nominal`+1
+                        WHERE `player_id`=" . $player['lineup_player_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
+                    'history_player_id' => $player['lineup_player_id'],
+                    'history_team_id' => $item['game_home_team_id'],
+                );
+                f_igosja_history($log);
             }
-
-            $player_id = implode(', ', $player_id);
-
-            $sql = "UPDATE `player`
-                    SET `player_power_nominal`=`player_power_nominal`+1
-                    WHERE `player_id` IN (" . $player_id . ")";
-            f_igosja_mysqli_query($sql);
         }
-
-        $player_id = array();
 
         if (0 > $item['game_guest_plus_minus'])
         {
@@ -130,15 +134,19 @@ function f_igosja_generator_plus_minus()
 
             foreach ($player_array as $player)
             {
-                $player_id[] = $player['lineup_player_id'];
+                $sql = "UPDATE `player`
+                        SET `player_power_nominal`=`player_power_nominal`-1
+                        WHERE `player_id`=" . $player['lineup_player_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
+                    'history_player_id' => $player['lineup_player_id'],
+                    'history_team_id' => $item['game_guest_team_id'],
+                );
+                f_igosja_history($log);
             }
-
-            $player_id = implode(', ', $player_id);
-
-            $sql = "UPDATE `player`
-                    SET `player_power_nominal`=`player_power_nominal`-1
-                    WHERE `player_id` IN (" . $player_id . ")";
-            f_igosja_mysqli_query($sql);
         }
         elseif (0 < $item['game_guest_plus_minus'])
         {
@@ -154,15 +162,19 @@ function f_igosja_generator_plus_minus()
 
             foreach ($player_array as $player)
             {
-                $player_id[] = $player['lineup_player_id'];
+                $sql = "UPDATE `player`
+                        SET `player_power_nominal`=`player_power_nominal`+1
+                        WHERE `player_id`=" . $player['lineup_player_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
+                    'history_player_id' => $player['lineup_player_id'],
+                    'history_team_id' => $item['game_guest_team_id'],
+                );
+                f_igosja_history($log);
             }
-
-            $player_id = implode(', ', $player_id);
-
-            $sql = "UPDATE `player`
-                    SET `player_power_nominal`=`player_power_nominal`+1
-                    WHERE `player_id` IN (" . $player_id . ")";
-            f_igosja_mysqli_query($sql);
         }
     }
 
