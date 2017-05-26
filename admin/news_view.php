@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -22,4 +22,4 @@ $news_array = $news_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'news_list.php', 'text' => 'Новости');
 $breadcrumb_array[] = $news_array[0]['news_title'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

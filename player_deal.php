@@ -1,13 +1,13 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
 
-include (__DIR__ . '/include/sql/player_view.php');
+include(__DIR__ . '/include/sql/player_view.php');
 
 $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
                `buyer_city`.`city_name` AS `buyer_city_name`,
@@ -98,4 +98,4 @@ $position_sql = f_igosja_mysqli_query($sql);
 
 $position_array = $position_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

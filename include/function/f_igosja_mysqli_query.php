@@ -17,7 +17,7 @@ function f_igosja_mysqli_query($sql, $save = true)
     if ($save)
     {
         $start_time = microtime(true);
-        $result = $mysqli->query($sql) or die($mysqli->error);
+        $result = $mysqli->query($sql) or die($mysqli->error . ' ' . $sql);
         $time = round(microtime(true) - $start_time, 5);
 
         $query_array[] = array(
@@ -27,7 +27,7 @@ function f_igosja_mysqli_query($sql, $save = true)
     }
     else
     {
-        $result = $mysqli->query($sql) or die($mysqli->error);
+        $result = $mysqli->query($sql) or die($mysqli->error . ' ' . $sql);
     }
 
     return $result;

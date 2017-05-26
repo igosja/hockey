@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 $sql = "SELECT `city_name`,
                `name_name`,
@@ -47,4 +47,4 @@ $position_sql = f_igosja_mysqli_query($sql);
 
 $position_array = $position_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

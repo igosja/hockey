@@ -1,7 +1,7 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
-include (__DIR__ . '/../include/pagination_offset.php');
+include(__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `team_id`,
@@ -24,5 +24,5 @@ $teamask_array = $teamask_sql->fetch_all(1);
 
 $breadcrumb_array[] = 'Заявки на команды';
 
-include (__DIR__ . '/../include/pagination_count.php');
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/../include/pagination_count.php');
+include(__DIR__ . '/view/layout/main.php');

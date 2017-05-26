@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
 {
@@ -108,4 +108,4 @@ if (isset($new_capacity))
     }
 }
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

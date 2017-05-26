@@ -1,4 +1,4 @@
-<?php include (__DIR__ . '/include/country_view.php'); ?>
+<?php include(__DIR__ . '/include/country_view.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">

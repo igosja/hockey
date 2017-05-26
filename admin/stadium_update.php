@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -47,4 +47,4 @@ $breadcrumb_array[] = array(
 );
 $breadcrumb_array[] = 'Редактирование';
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
@@ -66,4 +66,4 @@ $game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

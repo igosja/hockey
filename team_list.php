@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 $sql = "SELECT COUNT(`team_id`) AS `count_team`,
                `country_id`,
@@ -18,4 +18,4 @@ $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

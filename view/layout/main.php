@@ -71,7 +71,7 @@
             </div>
         <?php } ?>
 
-        <?php include (__DIR__ . '/../' . $tpl . '.php'); ?>
+        <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
 
     </div>
     <div class="row">

@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
@@ -22,4 +22,4 @@ if (0 == $rule_sql->num_rows)
 
 $rule_array = $rule_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

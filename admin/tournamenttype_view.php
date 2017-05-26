@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -21,4 +21,4 @@ $tournamenttype_array = $tournamenttype_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'tournamenttype_list.php', 'text' => 'Типы турниров');
 $breadcrumb_array[] = $tournamenttype_array[0]['tournamenttype_name'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

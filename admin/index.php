@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`";
@@ -16,4 +16,4 @@ $support_sql = f_igosja_mysqli_query($sql);
 
 $support_array = $support_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

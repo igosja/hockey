@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -19,4 +19,4 @@ $breadcrumb_array[] = 'Создание';
 
 $tpl = 'rule_update';
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

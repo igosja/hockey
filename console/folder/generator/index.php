@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../../../include/generator.php');
+include(__DIR__ . '/../../../include/generator.php');
 
 f_igosja_generator_site_close();
 f_igosja_generator_check_lineup();

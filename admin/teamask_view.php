@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -29,4 +29,4 @@ $teamask_array = $teamask_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'teamask_list.php', 'text' => 'Заявки на команды');
 $breadcrumb_array[] = $teamask_array[0]['team_name'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

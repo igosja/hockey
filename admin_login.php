@@ -4,7 +4,7 @@
  * @var $auth_userrole_id integer
  */
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id) && 2 == $auth_userrole_id)
 {
@@ -61,4 +61,4 @@ if ($data = f_igosja_request_post('data'))
     redirect('/admin');
 }
 
-include (__DIR__ . '/view/layout/admin.php');
+include(__DIR__ . '/view/layout/admin.php');

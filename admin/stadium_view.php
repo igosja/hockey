@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -30,4 +30,4 @@ $stadium_array = $stadium_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'stadium_list.php', 'text' => 'Стадионы');
 $breadcrumb_array[] = $stadium_array[0]['stadium_name'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

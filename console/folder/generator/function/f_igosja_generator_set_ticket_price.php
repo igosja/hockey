@@ -11,8 +11,7 @@ function f_igosja_generator_set_ticket_price()
             SET `game_ticket`=" . GAME_TICKET_DEFAULT_PRICE . "
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
-            AND `game_ticket`=0
-            ORDER BY `game_id` ASC";
+            AND `game_ticket`=0";
     f_igosja_mysqli_query($sql);
 
     usleep(1);

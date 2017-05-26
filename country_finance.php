@@ -4,14 +4,14 @@
  * @var $igosja_season_id integer
  */
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
 
-include (__DIR__ . '/include/sql/country_view.php');
+include(__DIR__ . '/include/sql/country_view.php');
 
 $sql = "SELECT `finance_date`,
                `finance_value`,
@@ -28,4 +28,4 @@ $finance_sql = f_igosja_mysqli_query($sql);
 
 $finance_array = $finance_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

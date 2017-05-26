@@ -1,13 +1,13 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
 
-include (__DIR__ . '/include/sql/country_view.php');
+include(__DIR__ . '/include/sql/country_view.php');
 
 $sql = "SELECT `team_id`,
                `team_name`,
@@ -29,4 +29,4 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
@@ -12,7 +12,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     $num_get = $auth_user_id;
 }
 
-include (__DIR__ . '/include/sql/user_view.php');
+include(__DIR__ . '/include/sql/user_view.php');
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -64,4 +64,4 @@ $sql = "UPDATE `message`
         AND `message_read`=0";
 f_igosja_mysqli_query($sql);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

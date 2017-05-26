@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 $data = f_igosja_request('data');
 
@@ -50,4 +50,4 @@ if (isset($data['code']))
     refresh();
 }
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

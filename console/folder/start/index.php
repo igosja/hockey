@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../../../include/start.php');
+include(__DIR__ . '/../../../include/start.php');
 
 f_igosja_start_insert_user();
 f_igosja_start_insert_name();

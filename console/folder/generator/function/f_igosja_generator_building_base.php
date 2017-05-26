@@ -32,11 +32,11 @@ function f_igosja_generator_building_base()
         $building_name              = $item['building_name'];
         $team_id                    = $item['buildingbase_team_id'];
 
-        $building_table             = '`' . $building_name .'`';
-        $building_level             = '`' . $building_name . '_level`';
-        $building_field             = $building_name . '_level';
-        $building_id                = '`' . $building_name . '_id`';
-        $team_building_id           = '`team_' . $building_name . '_id`';
+        $building_table     = '`' . $building_name .'`';
+        $building_level     = '`' . $building_name . '_level`';
+        $building_field     = $building_name . '_level';
+        $building_id        = '`' . $building_name . '_id`';
+        $team_building_id   = '`team_' . $building_name . '_id`';
 
         if (CONSTRUCTION_BUILD == $item['buildingbase_constructiontype_id'])
         {
@@ -64,8 +64,7 @@ function f_igosja_generator_building_base()
                 FROM team
                 LEFT JOIN $building_table
                 ON $team_building_id=$building_id
-                WHERE `team_id`=$team_id
-                LIMIT 1";
+                WHERE `team_id`=$team_id";
         $team_sql = f_igosja_mysqli_query($sql);
 
         $team_array = $team_sql->fetch_all(1);

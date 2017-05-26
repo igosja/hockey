@@ -90,7 +90,7 @@ function f_igosja_generator_training()
             {
                 $sql = "UPDATE `playerspecial`
                         SET `playerspecial_level`=`playerspecial_level`+1
-                        WHERE `playerspecial_player_id`=$player_id,
+                        WHERE `playerspecial_player_id`=$player_id
                         AND `playerspecial_special_id`=$special_id";
                 f_igosja_mysqli_query($sql);
             }

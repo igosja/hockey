@@ -19,5 +19,5 @@ if ('admin' == $chapter)
         redirect('/admin_login.php');
     }
 
-    include (__DIR__ . '/../include/filter.php');
+    include(__DIR__ . '/../include/filter.php');
 }

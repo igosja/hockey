@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <?php include (__DIR__ . '/../' . $tpl . '.php'); ?>
+    <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
 </div>
 </body>
 </html>

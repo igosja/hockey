@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -31,4 +31,4 @@ $country_array = $country_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'surname_list.php', 'text' => 'Фамилии');
 $breadcrumb_array[] = $surname_array[0]['surname_name'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

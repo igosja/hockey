@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
 {
@@ -9,7 +9,7 @@ if (!isset($auth_team_id))
 
 $num_get = $auth_team_id;
 
-include (__DIR__ . '/include/sql/team_view_left.php');
+include(__DIR__ . '/include/sql/team_view_left.php');
 
 $sql = "SELECT `baseschool_level`,
                `baseschool_player_count`,
@@ -209,4 +209,4 @@ $style_sql = f_igosja_mysqli_query($sql);
 
 $style_array = $style_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

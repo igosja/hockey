@@ -1,13 +1,13 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
 
-include (__DIR__ . '/include/sql/player_view.php');
+include(__DIR__ . '/include/sql/player_view.php');
 
 $data = f_igosja_request('data');
 
@@ -317,4 +317,4 @@ if (isset($auth_team_id) && $auth_team_id)
     }
 }
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

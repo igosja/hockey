@@ -4,7 +4,7 @@
  * @var $auth_user_id integer
  */
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -57,4 +57,4 @@ f_igosja_mysqli_query($sql);
 $breadcrumb_array[] = array('url' => 'support_list.php', 'text' => 'Вопросы в техподдержку');
 $breadcrumb_array[] = $message_array[0]['user_login'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

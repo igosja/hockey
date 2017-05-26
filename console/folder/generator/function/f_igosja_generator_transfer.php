@@ -96,7 +96,9 @@ function f_igosja_generator_transfer()
                         `transfer_ready`=1,
                         `transfer_season_id`=$igosja_season_id,
                         `transfer_team_buyer_id`=$team_buyer_id,
-                        `transfer_user_buyer_id`=$user_buyer_id";
+                        `transfer_user_buyer_id`=$user_buyer_id
+                    WHERE `transfer_id`=$transfer_id
+                    LIMIT 1";
             f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `transferposition` (`transferposition_position_id`, `transferposition_transfer_id`)

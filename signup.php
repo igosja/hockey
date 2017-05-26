@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id))
 {
@@ -115,4 +115,4 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

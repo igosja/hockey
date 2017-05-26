@@ -1,7 +1,7 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
-include (__DIR__ . '/../include/pagination_offset.php');
+include(__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT `country_id`,
                `country_name`
@@ -31,5 +31,5 @@ $city_array = $city_sql->fetch_all(1);
 
 $breadcrumb_array[] = 'Города';
 
-include (__DIR__ . '/../include/pagination_count.php');
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/../include/pagination_count.php');
+include(__DIR__ . '/view/layout/main.php');

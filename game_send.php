@@ -4,7 +4,7 @@
  * @var $auth_team_id integer
  */
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
 {
@@ -477,4 +477,4 @@ $mood_sql = f_igosja_mysqli_query($sql);
 
 $mood_array = $mood_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

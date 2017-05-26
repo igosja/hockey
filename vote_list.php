@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 $sql = "UPDATE `vote`
         SET `vote_votestatus_id`=" . VOTESTATUS_CLOSE . "
@@ -37,4 +37,4 @@ $vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(1);
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

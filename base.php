@@ -4,7 +4,7 @@
  * @var $auth_team_id integer
  */
 
-include (__DIR__ . '/include/include.php');
+include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
@@ -16,7 +16,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     $num_get = $auth_team_id;
 }
 
-include (__DIR__ . '/include/sql/team_view_left.php');
+include(__DIR__ . '/include/sql/team_view_left.php');
 
 $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         FROM `buildingbase`
@@ -451,4 +451,4 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');

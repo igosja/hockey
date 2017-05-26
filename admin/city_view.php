@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '/../include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
@@ -25,4 +25,4 @@ $city_array = $city_sql->fetch_all(1);
 $breadcrumb_array[] = array('url' => 'city_list.php', 'text' => 'Города');
 $breadcrumb_array[] = $city_array[0]['city_name'];
 
-include (__DIR__ . '/view/layout/main.php');
+include(__DIR__ . '/view/layout/main.php');
