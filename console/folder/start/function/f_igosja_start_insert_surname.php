@@ -2628,6 +2628,8 @@ function f_igosja_start_insert_surname()
         ),
     );
 
+    $surname_id_array = array();
+
     foreach ($surname_array as $country)
     {
         $country_name = $country['country'];
@@ -2641,8 +2643,6 @@ function f_igosja_start_insert_surname()
         $country_array = $country_sql->fetch_all(1);
 
         $country_id = $country_array[0]['country_id'];
-
-        $surname_id_array = array();
 
         foreach ($country['list'] as $item)
         {
@@ -2674,9 +2674,9 @@ function f_igosja_start_insert_surname()
             print '.';
             flush();
         }
-
-        $sql = "INSERT INTO `surnamecountry` (`surnamecountry_country_id`, `surnamecountry_surname_id`)
-                VALUES " . implode(', ', $surname_id_array) . ";";
-        f_igosja_mysqli_query($sql);
     }
+
+    $sql = "INSERT INTO `surnamecountry` (`surnamecountry_country_id`, `surnamecountry_surname_id`)
+            VALUES " . implode(', ', $surname_id_array) . ";";
+    f_igosja_mysqli_query($sql);
 }
