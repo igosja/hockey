@@ -36,6 +36,8 @@ $latest_sql = f_igosja_mysqli_query($sql);
 
 $latest_array = $latest_sql->fetch_all(1);
 
+$latest_array = array_reverse($latest_array);
+
 $sql = "SELECT `game_id`,
                IF(`game_guest_team_id`=$num_get, `game_guest_tactic_1_id`, `game_home_tactic_1_id`) AS `game_tactic_id`,
                IF(`game_guest_team_id`=$num_get, 'Г', 'Д') AS `home_guest`,

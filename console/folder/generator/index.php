@@ -3,6 +3,7 @@
 include(__DIR__ . '/../../../include/generator.php');
 
 f_igosja_generator_site_close();
+f_igosja_generator_player_power_new_to_old();
 f_igosja_generator_check_lineup();
 f_igosja_generator_fill_lineup();
 f_igosja_generator_set_auto();
@@ -35,4 +36,4 @@ f_igosja_generator_site_open();
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"
     . 'Database queries: ' . f_igosja_get_count_query() . "\r\n"
-    . 'Memory usage: ' . number_format(memory_get_usage(), 0, ",", " ") . ' bytes';
+    . 'Memory usage: ' . number_format(memory_get_usage(), 0, ",", " ") . ' bytes' . "\r\n";

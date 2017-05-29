@@ -17,16 +17,16 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 }
 
 $sql = "SELECT `game_guest_team_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_mood_id`, `game_guest_mood_id`) AS `game_mood_id`,
+               IF(`game_home_team_id`=$auth_team_id, IF(`game_home_mood_id`, `game_home_mood_id`, " . MOOD_NORMAL . "), IF(`game_guest_mood_id`, `game_guest_mood_id`, " . MOOD_NORMAL . ")) AS `game_mood_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_rude_1_id`, `game_guest_rude_1_id`) AS `game_rude_1_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_rude_2_id`, `game_guest_rude_2_id`) AS `game_rude_2_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_rude_3_id`, `game_guest_rude_3_id`) AS `game_rude_3_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_style_1_id`, `game_guest_style_1_id`) AS `game_style_1_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_style_2_id`, `game_guest_style_2_id`) AS `game_style_2_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_style_3_id`, `game_guest_style_3_id`) AS `game_style_3_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_1_id`, `game_guest_tactic_1_id`) AS `game_tactic_1_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_2_id`, `game_guest_tactic_2_id`) AS `game_tactic_2_id`,
-               IF(`game_home_team_id`=$auth_team_id, `game_home_tactic_3_id`, `game_guest_tactic_3_id`) AS `game_tactic_3_id`,
+               IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_1_id`, `game_home_tactic_1_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_1_id`, `game_guest_tactic_1_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_1_id`,
+               IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_2_id`, `game_home_tactic_2_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_2_id`, `game_guest_tactic_2_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_2_id`,
+               IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_3_id`, `game_home_tactic_3_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_3_id`, `game_guest_tactic_3_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_3_id`,
                `game_ticket`
         FROM `game`
         LEFT JOIN `shedule`
@@ -140,7 +140,7 @@ if ($data = f_igosja_request_post('data'))
         elseif (12 == $i) { $line_id = 3; $position_id = 3; $player_id = $rd_3_id; }
         elseif (13 == $i) { $line_id = 3; $position_id = 4; $player_id = $lw_3_id; }
         elseif (14 == $i) { $line_id = 3; $position_id = 5; $player_id =  $c_3_id; }
-        elseif (15 == $i) { $line_id = 3; $position_id = 6; $player_id = $rw_3_id; }
+        else              { $line_id = 3; $position_id = 6; $player_id = $rw_3_id; }
 
         $sql = "SELECT `lineup_id`
                 FROM `lineup`

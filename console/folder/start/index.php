@@ -14,4 +14,4 @@ f_igosja_start_insert_conference();
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"
     . 'Database queries: ' . f_igosja_get_count_query() . "\r\n"
-    . 'Memory usage: ' . number_format(memory_get_usage(), 0, ",", " ") . ' bytes';
+    . 'Memory usage: ' . number_format(memory_get_usage(), 0, ",", " ") . ' bytes' . "\r\n";

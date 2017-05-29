@@ -2,11 +2,14 @@
 
 /**
  * Жереб за швейцарською системою однієї пари
+ * @param $tournamenttype_id integer
  * @param $position_difference integer різниця в позиції
  * @return boolean мітка про успішніть жеребу (true - все добре)
  */
-function f_igosja_swiss_one($position_difference)
+function f_igosja_swiss_one($tournamenttype_id, $position_difference)
 {
+    global $igosja_season_id;
+
     $sql = "SELECT `swisstable_place`,
                    `swisstable_team_id`
             FROM `swisstable`
@@ -25,6 +28,17 @@ function f_igosja_swiss_one($position_difference)
             WHERE `swisstable_team_id`!=$home_id
             AND `swisstable_home`>=`swisstable_guest`
             AND `swisstable_place` BETWEEN $place-$position_difference AND $place+$position_difference
+            AND `swisstable_team_id` NOT IN
+            (
+                SELECT IF(`game_home_team_id`=$home_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
+                FROM `game`
+                LEFT JOIN `shedule`
+                ON `game_shedule_id`=`shedule_id`
+                WHERE (`game_home_team_id`=$home_id
+                OR `game_guest_team_id`=$home_id)
+                AND `shedule_tournamenttype_id`=$tournamenttype_id
+                AND `shedule_season_id`=$igosja_season_id
+            )
             ORDER BY RAND()
             LIMIT 1";
     $swisstable_sql = f_igosja_mysqli_query($sql);
@@ -55,7 +69,7 @@ function f_igosja_swiss_one($position_difference)
 
     if ($check_array[0]['check'])
     {
-        if (f_igosja_swiss_one($position_difference))
+        if (f_igosja_swiss_one($tournamenttype_id, $position_difference))
         {
             return true;
         }
