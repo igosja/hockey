@@ -31,6 +31,7 @@ f_igosja_generator_swiss();
 f_igosja_generator_rent_decrease_return();
 f_igosja_generator_transfer();
 f_igosja_generator_rent();
+f_igosja_generator_player_price_and_salary();
 f_igosja_generator_site_open();
 
 print "\r\n"
