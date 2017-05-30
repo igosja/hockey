@@ -545,13 +545,17 @@ function f_igosja_start_insert_team()
             f_igosja_create_team_players($team_id);
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 15";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 15
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -559,13 +563,17 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 1";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 1
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -573,13 +581,17 @@ function f_igosja_start_insert_team()
             $power_c_16 = $power + $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 20";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 20
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -587,13 +599,17 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 1";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 1
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -601,13 +617,17 @@ function f_igosja_start_insert_team()
             $power_c_21 = $power + $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 25";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 25
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -615,27 +635,35 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 2";
+                    FROM
+                    (
+                        SELECT `player_power_nominal`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 2
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
 
             $power_c_27 = $power + $power_array[0]['power'];
 
-            $sql = "SELECT SUM(`player_power_nominal`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 15";
+            $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 15
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -643,13 +671,17 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 1";
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 1
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -657,13 +689,17 @@ function f_igosja_start_insert_team()
             $power_s_16 = $power + $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 20";
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 20
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -671,13 +707,17 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 1";
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 1
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -685,13 +725,17 @@ function f_igosja_start_insert_team()
             $power_s_21 = $power + $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`!=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 25";
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`!=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 25
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);
@@ -699,13 +743,17 @@ function f_igosja_start_insert_team()
             $power = $power_array[0]['power'];
 
             $sql = "SELECT SUM(`player_power_nominal_s`) AS `power`
-                    FROM `player`
-                    LEFT JOIN `playerposition`
-                    ON `player_id`=`playerposition_player_id`
-                    WHERE `player_team_id`=$team_id
-                    AND `playerposition_position_id`=" . POSITION_GK . "
-                    ORDER BY `player_power_nominal` DESC, `player_id` ASC
-                    LIMIT 2";
+                    FROM
+                    (
+                        SELECT `player_power_nominal_s`
+                        FROM `player`
+                        LEFT JOIN `playerposition`
+                        ON `player_id`=`playerposition_player_id`
+                        WHERE `player_team_id`=$team_id
+                        AND `playerposition_position_id`=" . POSITION_GK . "
+                        ORDER BY `player_power_nominal` DESC, `player_id` ASC
+                        LIMIT 2
+                    ) AS `t1`";
             $power_sql = f_igosja_mysqli_query($sql);
 
             $power_array = $power_sql->fetch_all(1);

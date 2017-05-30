@@ -88,7 +88,7 @@ function f_igosja_generator_school()
                     `player_power_nominal`=$power,
                     `player_power_nominal_s`=`player_power_nominal`,
                     `player_power_old`=`player_power_nominal`,
-                    `player_power_real`=`player_power_nominal`*$tire/100*$phisical_value/100,
+                    `player_power_real`=`player_power_nominal`*(100-$tire)/100*$phisical_value/100,
                     `player_price`=POW(150-(28-$power/2), 2)*$power,
                     `player_salary`=`player_price`/999,
                     `player_school_id`=$team_id,

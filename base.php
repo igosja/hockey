@@ -20,7 +20,8 @@ include(__DIR__ . '/include/sql/team_view_left.php');
 
 $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         FROM `buildingbase`
-        WHERE `buildingbase_team_id`=$num_get";
+        WHERE `buildingbase_team_id`=$num_get
+        AND `buildingbase_ready`=0";
 $buildingbase_sql = f_igosja_mysqli_query($sql);
 
 $buildingbase_array = $buildingbase_sql->fetch_all(1);

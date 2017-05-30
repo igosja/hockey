@@ -32,6 +32,10 @@ f_igosja_generator_rent_decrease_return();
 f_igosja_generator_transfer();
 f_igosja_generator_rent();
 f_igosja_generator_player_price_and_salary();
+f_igosja_generator_player_power_s();
+f_igosja_generator_player_real_power();
+f_igosja_generator_team_vs();
+f_igosja_generator_team_price();
 f_igosja_generator_site_open();
 
 print "\r\n"

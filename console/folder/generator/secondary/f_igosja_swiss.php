@@ -4,10 +4,15 @@
  * Жереб за швейцарською системою
  * @param $tournamenttype_id integer
  * @param $position_difference integer різниця в позиції (починаємо з мінімума і поступово збільшуємо)
- * @param $try integer спроба жереба з поточною різницею в позиції (до 5 спроб і збільшуємо різницю)
+ * @param $try integer спроба жереба з поточною різницею в позиції (до 20 спроб і збільшуємо різницю)
  */
 function f_igosja_swiss($tournamenttype_id, $position_difference, $try)
 {
+    usleep(1);
+
+    print '.';
+    flush();
+
     global $igosja_season_id;
 
     $sql = "TRUNCATE TABLE `swisstable`;";
@@ -39,7 +44,7 @@ function f_igosja_swiss($tournamenttype_id, $position_difference, $try)
     {
         $try++;
 
-        if (5 < $try)
+        if (20 < $try)
         {
             $try = 1;
             $position_difference++;
