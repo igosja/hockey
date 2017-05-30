@@ -78,7 +78,7 @@ function f_igosja_generator_school()
 
         $surname_id = f_igosja_select_player_surname_id($team_id, $country_id);
 
-        $ability    = rand(1, 5);
+        $ability = rand(1, 5);
 
         $sql = "INSERT INTO `player`
                 SET `player_age`=17,
