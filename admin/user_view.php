@@ -4,7 +4,8 @@ include(__DIR__ . '/../include/include.php');
 
 $num_get = (int) f_igosja_request_get('num');
 
-$sql = "SELECT `user_date_login`,
+$sql = "SELECT `user_code`,
+               `user_date_login`,
                `user_date_register`,
                `user_email`,
                `user_id`,
