@@ -16,6 +16,7 @@ f_igosja_generator_lineup_to_statistic();
 f_igosja_generator_game_result();
 f_igosja_generator_update_team_statistic();
 f_igosja_generator_update_player_statistic();
+f_igosja_generator_user_rating();
 f_igosja_generator_plus_minus();
 f_igosja_generator_decrease_teamwork();
 f_igosja_generator_standing();
