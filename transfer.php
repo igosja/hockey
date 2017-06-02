@@ -38,20 +38,44 @@ $transfer_sql = f_igosja_mysqli_query($sql);
 $count_transfer = $transfer_sql->num_rows;
 $transfer_array = $transfer_sql->fetch_all(1);
 
-$sql = "SELECT `position_id`,
-               `position_name`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$player_id = array();
 
-$position_array = $position_sql->fetch_all(1);
+foreach ($transfer_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
 
-$sql = "SELECT `special_id`,
-               `special_name`
-        FROM `special`
-        ORDER BY `special_id` ASC";
-$special_sql = f_igosja_mysqli_query($sql);
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
 
-$special_array = $special_sql->fetch_all(1);
+    $sql = "SELECT `playerposition_player_id`,
+                   `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
+    $playerposition_sql = f_igosja_mysqli_query($sql);
+
+    $playerposition_array = $playerposition_sql->fetch_all(1);
+
+    $sql = "SELECT `playerspecial_level`,
+                   `playerspecial_player_id`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+}
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
 
 include(__DIR__ . '/view/layout/main.php');

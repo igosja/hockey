@@ -6,7 +6,7 @@
  * @param $position_difference integer різниця в позиції (починаємо з мінімума і поступово збільшуємо)
  * @param $try integer спроба жереба з поточною різницею в позиції (до 20 спроб і збільшуємо різницю)
  */
-function f_igosja_swiss($tournamenttype_id, $position_difference, $try)
+function f_igosja_swiss($tournamenttype_id, $position_difference)
 {
     usleep(1);
 
@@ -42,14 +42,8 @@ function f_igosja_swiss($tournamenttype_id, $position_difference, $try)
 
     if (!f_igosja_swiss_one($tournamenttype_id, $position_difference))
     {
-        $try++;
+        $position_difference++;
 
-        if (20 < $try)
-        {
-            $try = 1;
-            $position_difference++;
-        }
-
-        f_igosja_swiss($tournamenttype_id, $position_difference, $try);
+        f_igosja_swiss($tournamenttype_id, $position_difference);
     }
 }

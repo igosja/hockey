@@ -188,7 +188,7 @@ function f_igosja_get_teamwork($game_result)
                 $teamwork = $teamwork + $teamwork_array[0]['teamwork_value'];
             }
     
-            $game_result[$team]['team']['teamwork'][$j] = $teamwork;
+            $game_result[$team]['team']['teamwork'][$j] = round($teamwork / 10);
         }
     }
 

@@ -17,7 +17,7 @@ function f_igosja_generator_swiss()
         $tournamenttype_array   = $tournamenttype_sql->fetch_all(1);
         $tournamenttype_id      = $tournamenttype_array[0]['shedule_tournamenttype_id'];
 
-        f_igosja_swiss($tournamenttype_id, 1, 1);
+        f_igosja_swiss($tournamenttype_id, 1);
 
         $sql = "SELECT `shedule_id`
                 FROM `shedule`

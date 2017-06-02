@@ -7,7 +7,8 @@ function f_igosja_generator_rent()
 {
     global $igosja_season_id;
 
-    $sql = "SELECT `rent_id`,
+    $sql = "SELECT `team_finance`,
+                   `rent_id`,
                    `rent_player_id`,
                    `rent_team_seller_id`,
                    `rent_user_seller_id`
