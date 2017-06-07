@@ -155,12 +155,12 @@ function f_igosja_generator_user_rating()
             $guest_win++;
             $home_loose++;
 
-            if ($item['game_guest_forecast'] / $item['game_home_forecast'] > 90)
+            if ($item['game_guest_forecast'] / $item['game_home_forecast'] < 0.9)
             {
                 $guest_win_strong++;
                 $home_loose_weak++;
             }
-            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] < 110)
+            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] > 1.1)
             {
                 $guest_win_weak++;
                 $home_loose_strong++;
@@ -183,12 +183,12 @@ function f_igosja_generator_user_rating()
             $guest_winover++;
             $home_looseover++;
 
-            if ($item['game_guest_forecast'] / $item['game_home_forecast'] > 90)
+            if ($item['game_guest_forecast'] / $item['game_home_forecast'] < 0.9)
             {
                 $guest_winover_strong++;
                 $home_looseover_weak++;
             }
-            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] < 110)
+            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] > 1.1)
             {
                 $guest_winover_weak++;
                 $home_looseover_strong++;
@@ -204,12 +204,12 @@ function f_igosja_generator_user_rating()
             $guest_looseover++;
             $home_looseover++;
 
-            if ($item['game_guest_forecast'] / $item['game_home_forecast'] > 90)
+            if ($item['game_guest_forecast'] / $item['game_home_forecast'] < 0.9)
             {
                 $guest_looseover_strong++;
                 $home_looseover_weak++;
             }
-            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] < 110)
+            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] > 1.1)
             {
                 $guest_looseover_weak++;
                 $home_looseover_strong++;
@@ -226,12 +226,12 @@ function f_igosja_generator_user_rating()
             $guest_looseover++;
             $home_winover++;
 
-            if ($item['game_guest_forecast'] / $item['game_home_forecast'] > 90)
+            if ($item['game_guest_forecast'] / $item['game_home_forecast'] < 0.9)
             {
                 $guest_looseover_strong++;
                 $home_winover_weak++;
             }
-            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] < 110)
+            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] > 1.1)
             {
                 $guest_looseover_weak++;
                 $home_winover_strong++;
@@ -247,12 +247,12 @@ function f_igosja_generator_user_rating()
             $guest_loose++;
             $home_win++;
 
-            if ($item['game_guest_forecast'] / $item['game_home_forecast'] > 90)
+            if ($item['game_guest_forecast'] / $item['game_home_forecast'] < 0.9)
             {
                 $guest_loose_strong++;
                 $home_win_weak++;
             }
-            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] < 110)
+            elseif ($item['game_guest_forecast'] / $item['game_home_forecast'] > 1.1)
             {
                 $guest_loose_weak++;
                 $home_win_strong++;
