@@ -39,6 +39,7 @@ f_igosja_generator_player_real_power();
 f_igosja_generator_team_vs();
 f_igosja_generator_team_price();
 f_igosja_generator_user_deprive_team();
+f_igosja_generator_user_holiday_end();
 f_igosja_generator_site_open();
 
 print "\r\n"
