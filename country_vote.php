@@ -8,7 +8,7 @@ include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    redirect('/wrong_page');
+    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `count_answer`,
@@ -43,7 +43,7 @@ $vote_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $vote_sql->num_rows)
 {
-    redirect('/wrong_page');
+    redirect('/wrong_page.php');
 }
 
 $vote_array = $vote_sql->fetch_all(1);

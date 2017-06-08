@@ -97,7 +97,7 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
-    redirect('/wrong_page');
+    redirect('/wrong_page.php');
 }
 
 $team_array = $team_sql->fetch_all(1);

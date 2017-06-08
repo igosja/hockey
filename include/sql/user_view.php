@@ -26,7 +26,7 @@ $user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {
-    redirect('/wrong_page');
+    redirect('/wrong_page.php');
 }
 
 $user_array = $user_sql->fetch_all(1);
