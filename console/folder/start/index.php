@@ -6,6 +6,7 @@ f_igosja_start_insert_user();
 f_igosja_start_insert_name();
 f_igosja_start_insert_surname();
 f_igosja_start_insert_team();
+f_igosja_start_insert_national();
 f_igosja_start_insert_shedule();
 f_igosja_start_insert_offseason();
 f_igosja_start_insert_championship();
