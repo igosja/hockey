@@ -15,7 +15,7 @@
                 name="data[text]"
                 required
                 rows="5"
-            ><?= isset($electionpresidentapplication_array[0]['electionpresidentapplication_text']) ? $electionpresidentapplication_array[0]['electionpresidentapplication_text'] : ''; ?></textarea>
+            ><?= isset($electionnationalapplication_array[0]['electionnationalapplication_text']) ? $electionnationalapplication_array[0]['electionnationalapplication_text'] : ''; ?></textarea>
         </div>
     </div>
     <div class="row">

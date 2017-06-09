@@ -8,7 +8,7 @@ $q[] = 'CREATE TABLE `country`
             `country_finance` INT(11) DEFAULT 0,
             `country_name` VARCHAR(255) NOT NULL,
             `country_president_id` INT(11) DEFAULT 0,
-            `country_vicepresident_id` INT(11) DEFAULT 0
+            `country_vice_id` INT(11) DEFAULT 0
         );';
 $q[] = "INSERT INTO `country` (`country_name`)
         VALUES ('Австралия'),
