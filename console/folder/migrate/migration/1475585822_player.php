@@ -12,6 +12,8 @@ $q[] = 'CREATE TABLE `player`
             `player_game_row` TINYINT(2) DEFAULT -1,
             `player_game_row_old` TINYINT(2) DEFAULT -1,
             `player_injury` TINYINT(1) DEFAULT 0,
+            `player_injury_day` TINYINT(1) DEFAULT 0,
+            `player_line_id` TINYINT(1) DEFAULT 1,
             `player_mood_id` TINYINT(1) DEFAULT 0, #Метка супера/отдыха в последнем матче для подсчёта усталости
             `player_name_id` INT(11) DEFAULT 0,
             `player_noaction` INT(11) DEFAULT 0,

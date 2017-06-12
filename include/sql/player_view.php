@@ -6,6 +6,8 @@
 
 $sql = "SELECT `country_id`,
                `country_name`,
+               `line_id`,
+               `line_name`,
                `name_name`,
                `phisical_id`,
                `phisical_value`,
@@ -31,6 +33,8 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
 $player_sql = f_igosja_mysqli_query($sql);
@@ -64,3 +68,12 @@ $sql = "SELECT `playerspecial_level`,
 $playerspecial_sql = f_igosja_mysqli_query($sql);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(1);
+
+$sql = "SELECT `line_color`,
+               `line_id`,
+               `line_name`
+        FROM `line`
+        ORDER BY `line_id` ASC";
+$line_sql = f_igosja_mysqli_query($sql);
+
+$line_array = $line_sql->fetch_all(1);

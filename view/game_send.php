@@ -316,7 +316,7 @@
                 </tr>
                 <?php foreach ($player_array as $item) { ?>
                     <tr class="tr-player" id="tr-<?= $item['player_id']; ?>">
-                        <td>
+                        <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>" target="_blank">
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>

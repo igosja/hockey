@@ -23,12 +23,8 @@ img {
     border: none;
 }
 
-a, a:active, a:hover, a:focus {
+a, a:active, a:hover, a:focus, a:visited {
     color: #0008ae;
-}
-
-a:visited {
-    color: #8781EC;
 }
 
 a, a:visited, a:active {

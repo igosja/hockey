@@ -1,6 +1,25 @@
 <div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-size-1 strong">
         <?= $player_array[0]['name_name']; ?> <?= $player_array[0]['surname_name']; ?>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+        <label for="select-line">Состав:</label>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <select class="form-control" id="select-line" data-player="<?= $player_array[0]['player_id']; ?>">
+            <?php foreach ($line_array as $item) { ?>
+                <option value="<?= $item['line_id']; ?>"
+                    <?php if ($player_array[0]['line_id'] == $item['line_id']) { ?>
+                        selected
+                    <?php } ?>
+                    <?php if ($item['line_color']) { ?>
+                        style="background-color: #<?= $item['line_color']; ?>"
+                    <?php } ?>
+                >
+                    <?= $item['line_name']; ?>
+                </option>
+            <?php } ?>
+        </select>
     </div>
     <div class="row margin-top">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

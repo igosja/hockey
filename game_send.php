@@ -259,6 +259,7 @@ $game_array = $game_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`,
+               `line_color`,
                `name_name`,
                `player_age`,
                `player_id`,
@@ -273,6 +274,8 @@ $sql = "SELECT `country_id`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$auth_team_id
         ORDER BY `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);

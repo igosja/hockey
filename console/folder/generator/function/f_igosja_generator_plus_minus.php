@@ -5,31 +5,1148 @@
  */
 function f_igosja_generator_plus_minus()
 {
-    $sql = "UPDATE `game`
+    $sql = "SELECT `game_guest_mood_id`,
+                   `game_guest_optimality_1`,
+                   `game_guest_optimality_2`,
+                   `game_guest_power_percent`,
+                   `game_guest_score`,
+                   `game_home_mood_id`,
+                   `game_home_optimality_1`,
+                   `game_home_optimality_2`,
+                   `game_home_power_percent`,
+                   `game_home_score`,
+                   `game_id`,
+                   `shedule_tournamenttype_id`
+            FROM `game`
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
-            SET `game_guest_plus_minus_competition`=IF(`shedule_tournamenttype_id`=" . TOURNAMENTTYPE_NATIONAL . ", 2.5, IF(`shedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . ", 2, 0)),
-                `game_guest_plus_minus_mood`=IF(`game_guest_mood_id`=" . MOOD_SUPER . ", -1, IF(`game_guest_mood_id`=" . MOOD_REST . ", 0.5, 0)),
-                `game_guest_plus_minus_optimality_1`=IF(`game_guest_optimality_1`>=100, 0, IF(`game_guest_optimality_1`>=97, -0.5, IF(`game_guest_optimality_1`>=94, -1, IF(`game_guest_optimality_1`>=91, -1.5, IF(`game_guest_optimality_1`>=88, -2, IF(`game_guest_optimality_1`>=85, -2.5, IF(`game_guest_optimality_1`>=82, -3, IF(`game_guest_optimality_1`>=79, -3.5, IF(`game_guest_optimality_1`>=76, -4, IF(`game_guest_optimality_1`>=73, -4.5, -5)))))))))),
-                `game_guest_plus_minus_optimality_2`=IF(`game_guest_optimality_2`>135, 2.5, IF(`game_guest_optimality_2`>125, 2, IF(`game_guest_optimality_2`>115, 1.5, IF(`game_guest_optimality_2`>110, 1, IF(`game_guest_optimality_2`>105, 0.5, IF(`game_guest_optimality_2`>80, 0, IF(`game_guest_optimality_2`>76, -0.5, IF(`game_guest_optimality_2`>73, -1, IF(`game_guest_optimality_2`>70, -1.5, IF(`game_guest_optimality_2`>67, -2, IF(`game_guest_optimality_2`>65, -2.5, IF(`game_guest_optimality_2`>63, -3, IF(`game_guest_optimality_2`>61, -3.5, IF(`game_guest_optimality_2`>59, -4, IF(`game_guest_optimality_2`>57, -4.5, IF(`game_guest_optimality_2`>55, -5, IF(`game_guest_optimality_2`>53, -5.5, IF(`game_guest_optimality_2`>51, -6, IF(`game_guest_optimality_2`>49, -6.5, IF(`game_guest_optimality_2`>47, -7, IF(`game_guest_optimality_2`>45, -7.5, IF(`game_guest_optimality_2`>43, -8, IF(`game_guest_optimality_2`>41, -8.5, IF(`game_guest_optimality_2`>39, -9, IF(`game_guest_optimality_2`>37, -9.5, IF(`game_guest_optimality_2`>35, -10, -10.5)))))))))))))))))))))))))),
-                `game_guest_plus_minus_power`=IF(`game_guest_power_percent`>=75, IF(`game_guest_score`>`game_home_score`, -4, IF(`game_guest_score`=`game_home_score`, -4.5, -5)), IF(`game_guest_power_percent`>=71, IF(`game_guest_score`>`game_home_score`, -3.5, IF(`game_guest_score`=`game_home_score`, -4, -4.5)), IF(`game_guest_power_percent`>=68, IF(`game_guest_score`>`game_home_score`, -3, IF(`game_guest_score`=`game_home_score`, -3.5, -4)), IF(`game_guest_power_percent`>=65, IF(`game_guest_score`>`game_home_score`, -2.5, IF(`game_guest_score`=`game_home_score`, -3, -3.5)), IF(`game_guest_power_percent`>=62, IF(`game_guest_score`>`game_home_score`, -2, IF(`game_guest_score`=`game_home_score`, -2.5, -3)), IF(`game_guest_power_percent`>=59, IF(`game_guest_score`>`game_home_score`, -1.5, IF(`game_guest_score`=`game_home_score`, -2, -2.5)), IF(`game_guest_power_percent`>=57, IF(`game_guest_score`>`game_home_score`, -1, IF(`game_guest_score`=`game_home_score`, -1.5, -2)), IF(`game_guest_power_percent`>=55, IF(`game_guest_score`>`game_home_score`, -0.5, IF(`game_guest_score`=`game_home_score`, -1, -1.5)), IF(`game_guest_power_percent`>=53, IF(`game_guest_score`>`game_home_score`, 0, IF(`game_guest_score`=`game_home_score`, -0.5, -1)), IF(`game_guest_power_percent`>=51, IF(`game_guest_score`>`game_home_score`, 0.5, IF(`game_guest_score`=`game_home_score`, 0, -0.5)), IF(`game_guest_power_percent`>=49, IF(`game_guest_score`>`game_home_score`, 1, IF(`game_guest_score`=`game_home_score`, 0.5, 0)), IF(`game_guest_power_percent`>=47, IF(`game_guest_score`>`game_home_score`, 1.5, IF(`game_guest_score`=`game_home_score`, 1, 0.5)), IF(`game_guest_power_percent`>=45, IF(`game_guest_score`>`game_home_score`, 2, IF(`game_guest_score`=`game_home_score`, 1.5, 1)), IF(`game_guest_power_percent`>=43, IF(`game_guest_score`>`game_home_score`, 2.5, IF(`game_guest_score`=`game_home_score`, 2, 1.5)), IF(`game_guest_power_percent`>=41, IF(`game_guest_score`>`game_home_score`, 3, IF(`game_guest_score`=`game_home_score`, 2.5, 2)), IF(`game_guest_power_percent`>=38, IF(`game_guest_score`>`game_home_score`, 3.5, IF(`game_guest_score`=`game_home_score`, 3, 2.5)), IF(`game_guest_power_percent`>=35, IF(`game_guest_score`>`game_home_score`, 4, IF(`game_guest_score`=`game_home_score`, 3.5, 3)), IF(`game_guest_power_percent`>=32, IF(`game_guest_score`>`game_home_score`, 4.5, IF(`game_guest_score`=`game_home_score`, 4, 3.5)), IF(`game_guest_power_percent`>=29, IF(`game_guest_score`>`game_home_score`, 5, IF(`game_guest_score`=`game_home_score`, 4.5, 4)), IF(`game_guest_power_percent`>=25, IF(`game_guest_score`>`game_home_score`, 5.5, IF(`game_guest_score`=`game_home_score`, 5, 4.5)), IF(`game_guest_score`>`game_home_score`, 6, IF(`game_guest_score`=`game_home_score`, 5.5, 5)))))))))))))))))))))),
-                `game_guest_plus_minus_score`=IF(`game_guest_score`-`game_home_score`>=9, 7.5, IF(`game_guest_score`-`game_home_score`=8, 6.5, IF(`game_guest_score`-`game_home_score`=7, 5.5, IF(`game_guest_score`-`game_home_score`=6, 4.5, IF(`game_guest_score`-`game_home_score`=5, 3.5, IF(`game_guest_score`-`game_home_score`=4, 2.5, IF(`game_guest_score`-`game_home_score`=3, 1.5, IF(`game_guest_score`-`game_home_score`=2, 0.5, IF(`game_guest_score`-`game_home_score`=-2, -0.5, IF(`game_guest_score`-`game_home_score`=-3, -1.5, IF(`game_guest_score`-`game_home_score`=-4, -2.5, IF(`game_guest_score`-`game_home_score`=-5, -3.5, IF(`game_guest_score`-`game_home_score`=-6, -4.5, IF(`game_guest_score`-`game_home_score`=-7, -5.5, IF(`game_guest_score`-`game_home_score`=-8, -6.5, IF(`game_guest_score`-`game_home_score`<=-9, -7.5, 0)))))))))))))))),
-                `game_home_plus_minus_competition`=IF(`shedule_tournamenttype_id`=" . TOURNAMENTTYPE_NATIONAL . ", 2.5, IF(`shedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . ", 2, 0)),
-                `game_home_plus_minus_mood`=IF(`game_home_mood_id`=" . MOOD_SUPER . ", -1, IF(`game_home_mood_id`=" . MOOD_REST . ", 0.5, 0)),
-                `game_home_plus_minus_optimality_1`=IF(`game_home_optimality_1`>=100, 0, IF(`game_home_optimality_1`>=97, -0.5, IF(`game_home_optimality_1`>=94, -1, IF(`game_home_optimality_1`>=91, -1.5, IF(`game_home_optimality_1`>=88, -2, IF(`game_home_optimality_1`>=85, -2.5, IF(`game_home_optimality_1`>=82, -3, IF(`game_home_optimality_1`>=79, -3.5, IF(`game_home_optimality_1`>=76, -4, IF(`game_home_optimality_1`>=73, -4.5, -5)))))))))),
-                `game_home_plus_minus_optimality_2`=IF(`game_home_optimality_2`>135, 2.5, IF(`game_home_optimality_2`>125, 2, IF(`game_home_optimality_2`>115, 1.5, IF(`game_home_optimality_2`>110, 1, IF(`game_home_optimality_2`>105, 0.5, IF(`game_home_optimality_2`>80, 0, IF(`game_home_optimality_2`>76, -0.5, IF(`game_home_optimality_2`>73, -1, IF(`game_home_optimality_2`>70, -1.5, IF(`game_home_optimality_2`>67, -2, IF(`game_home_optimality_2`>65, -2.5, IF(`game_home_optimality_2`>63, -3, IF(`game_home_optimality_2`>61, -3.5, IF(`game_home_optimality_2`>59, -4, IF(`game_home_optimality_2`>57, -4.5, IF(`game_home_optimality_2`>55, -5, IF(`game_home_optimality_2`>53, -5.5, IF(`game_home_optimality_2`>51, -6, IF(`game_home_optimality_2`>49, -6.5, IF(`game_home_optimality_2`>47, -7, IF(`game_home_optimality_2`>45, -7.5, IF(`game_home_optimality_2`>43, -8, IF(`game_home_optimality_2`>41, -8.5, IF(`game_home_optimality_2`>39, -9, IF(`game_home_optimality_2`>37, -9.5, IF(`game_home_optimality_2`>35, -10, -10.5)))))))))))))))))))))))))),
-                `game_home_plus_minus_power`=IF(`game_home_power_percent`>=75, IF(`game_home_score`>`game_guest_score`, -4, IF(`game_home_score`=`game_guest_score`, -4.5, -5)), IF(`game_home_power_percent`>=71, IF(`game_home_score`>`game_guest_score`, -3.5, IF(`game_home_score`=`game_guest_score`, -4, -4.5)), IF(`game_home_power_percent`>=68, IF(`game_home_score`>`game_guest_score`, -3, IF(`game_home_score`=`game_guest_score`, -3.5, -4)), IF(`game_home_power_percent`>=65, IF(`game_home_score`>`game_guest_score`, -2.5, IF(`game_home_score`=`game_guest_score`, -3, -3.5)), IF(`game_home_power_percent`>=62, IF(`game_home_score`>`game_guest_score`, -2, IF(`game_home_score`=`game_guest_score`, -2.5, -3)), IF(`game_home_power_percent`>=59, IF(`game_home_score`>`game_guest_score`, -1.5, IF(`game_home_score`=`game_guest_score`, -2, -2.5)), IF(`game_home_power_percent`>=57, IF(`game_home_score`>`game_guest_score`, -1, IF(`game_home_score`=`game_guest_score`, -1.5, -2)), IF(`game_home_power_percent`>=55, IF(`game_home_score`>`game_guest_score`, -0.5, IF(`game_home_score`=`game_guest_score`, -1, -1.5)), IF(`game_home_power_percent`>=53, IF(`game_home_score`>`game_guest_score`, 0, IF(`game_home_score`=`game_guest_score`, -0.5, -1)), IF(`game_home_power_percent`>=51, IF(`game_home_score`>`game_guest_score`, 0.5, IF(`game_home_score`=`game_guest_score`, 0, -0.5)), IF(`game_home_power_percent`>=49, IF(`game_home_score`>`game_guest_score`, 1, IF(`game_home_score`=`game_guest_score`, 0.5, 0)), IF(`game_home_power_percent`>=47, IF(`game_home_score`>`game_guest_score`, 1.5, IF(`game_home_score`=`game_guest_score`, 1, 0.5)), IF(`game_home_power_percent`>=45, IF(`game_home_score`>`game_guest_score`, 2, IF(`game_home_score`=`game_guest_score`, 1.5, 1)), IF(`game_home_power_percent`>=43, IF(`game_home_score`>`game_guest_score`, 2.5, IF(`game_home_score`=`game_guest_score`, 2, 1.5)), IF(`game_home_power_percent`>=41, IF(`game_home_score`>`game_guest_score`, 3, IF(`game_home_score`=`game_guest_score`, 2.5, 2)), IF(`game_home_power_percent`>=38, IF(`game_home_score`>`game_guest_score`, 3.5, IF(`game_home_score`=`game_guest_score`, 3, 2.5)), IF(`game_home_power_percent`>=35, IF(`game_home_score`>`game_guest_score`, 4, IF(`game_home_score`=`game_guest_score`, 3.5, 3)), IF(`game_home_power_percent`>=32, IF(`game_home_score`>`game_guest_score`, 4.5, IF(`game_home_score`=`game_guest_score`, 4, 3.5)), IF(`game_home_power_percent`>=29, IF(`game_home_score`>`game_guest_score`, 5, IF(`game_home_score`=`game_guest_score`, 4.5, 4)), IF(`game_home_power_percent`>=25, IF(`game_home_score`>`game_guest_score`, 5.5, IF(`game_home_score`=`game_guest_score`, 5, 4.5)), IF(`game_home_score`>`game_guest_score`, 6, IF(`game_home_score`=`game_guest_score`, 5.5, 5)))))))))))))))))))))),
-                `game_home_plus_minus_score`=IF(`game_home_score`-`game_guest_score`>=9, 7.5, IF(`game_home_score`-`game_guest_score`=8, 6.5, IF(`game_home_score`-`game_guest_score`=7, 5.5, IF(`game_home_score`-`game_guest_score`=6, 4.5, IF(`game_home_score`-`game_guest_score`=5, 3.5, IF(`game_home_score`-`game_guest_score`=4, 2.5, IF(`game_home_score`-`game_guest_score`=3, 1.5, IF(`game_home_score`-`game_guest_score`=2, 0.5, IF(`game_home_score`-`game_guest_score`=-2, -0.5, IF(`game_home_score`-`game_guest_score`=-3, -1.5, IF(`game_home_score`-`game_guest_score`=-4, -2.5, IF(`game_home_score`-`game_guest_score`=-5, -3.5, IF(`game_home_score`-`game_guest_score`=-6, -4.5, IF(`game_home_score`-`game_guest_score`=-7, -5.5, IF(`game_home_score`-`game_guest_score`=-8, -6.5, IF(`game_home_score`-`game_guest_score`<=-9, -7.5, 0))))))))))))))))
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
-    f_igosja_mysqli_query($sql);
+            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND `game_played`=0
+            ORDER BY `game_id` ASC";
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
-            SET `game_guest_plus_minus`=IF(`game_guest_plus_minus_competition`+`game_guest_plus_minus_mood`+`game_guest_plus_minus_optimality_1`+`game_guest_plus_minus_optimality_2`+`game_guest_plus_minus_power`+`game_guest_plus_minus_score`>5, 5, IF(`game_guest_plus_minus_competition`+`game_guest_plus_minus_mood`+`game_guest_plus_minus_optimality_1`+`game_guest_plus_minus_optimality_2`+`game_guest_plus_minus_power`+`game_guest_plus_minus_score`<-5, -5, `game_guest_plus_minus_competition`+`game_guest_plus_minus_mood`+`game_guest_plus_minus_optimality_1`+`game_guest_plus_minus_optimality_2`+`game_guest_plus_minus_power`+`game_guest_plus_minus_score`)),
-                `game_home_plus_minus`=IF(`game_home_plus_minus_competition`+`game_home_plus_minus_mood`+`game_home_plus_minus_optimality_1`+`game_home_plus_minus_optimality_2`+`game_home_plus_minus_power`+`game_home_plus_minus_score`>5, 5, IF(`game_home_plus_minus_competition`+`game_home_plus_minus_mood`+`game_home_plus_minus_optimality_1`+`game_home_plus_minus_optimality_2`+`game_home_plus_minus_power`+`game_home_plus_minus_score`<-5, -5, `game_home_plus_minus_competition`+`game_home_plus_minus_mood`+`game_home_plus_minus_optimality_1`+`game_home_plus_minus_optimality_2`+`game_home_plus_minus_power`+`game_home_plus_minus_score`))
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
-    f_igosja_mysqli_query($sql);
+    $game_array = $game_sql->fetch_all(1);
+
+    foreach ($game_array as $item)
+    {
+        $game_id            = $item['game_id'];
+        $guest_competition  = 0;
+        $guest_mood         = 0;
+        $guest_optimality_1 = 0;
+        $guest_optimality_2 = 0;
+        $guest_power        = 0;
+        $guest_score        = 0;
+        $home_competition   = 0;
+        $home_mood          = 0;
+        $home_optimality_1  = 0;
+        $home_optimality_2  = 0;
+        $home_power         = 0;
+        $home_score         = 0;
+
+        if ($item['game_guest_power_percent'] > 74)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -4;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -4.5;
+            }
+            else
+            {
+                $guest_power = -5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 70)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -3.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -4;
+            }
+            else
+            {
+                $guest_power = -4.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 67)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -3;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -3.5;
+            }
+            else
+            {
+                $guest_power = -5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 64)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -2.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -3;
+            }
+            else
+            {
+                $guest_power = -3.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 61)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -2;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -2.5;
+            }
+            else
+            {
+                $guest_power = -3;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 58)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -1.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -2;
+            }
+            else
+            {
+                $guest_power = -2.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 56)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -1;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -1.5;
+            }
+            else
+            {
+                $guest_power = -2;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 54)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -0.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -1;
+            }
+            else
+            {
+                $guest_power = -1.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 52)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 0;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -0.5;
+            }
+            else
+            {
+                $guest_power = -1;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 50)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 0.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 0;
+            }
+            else
+            {
+                $guest_power = -0.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 48)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = -1;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = -0.5;
+            }
+            else
+            {
+                $guest_power = -0;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 46)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 1.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 1;
+            }
+            else
+            {
+                $guest_power = 0.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 44)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 2;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 1.5;
+            }
+            else
+            {
+                $guest_power = 1;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 42)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 2.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 2;
+            }
+            else
+            {
+                $guest_power = 1.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 40)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 3;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 2.5;
+            }
+            else
+            {
+                $guest_power = 2;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 37)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 3.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 3;
+            }
+            else
+            {
+                $guest_power = 2.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 34)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 4;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 3.5;
+            }
+            else
+            {
+                $guest_power = 3;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 31)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 4.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 4;
+            }
+            else
+            {
+                $guest_power = 3.5;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 28)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 4.5;
+            }
+            else
+            {
+                $guest_power = 4;
+            }
+        }
+        elseif ($item['game_guest_power_percent'] > 24)
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 5.5;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 5;
+            }
+            else
+            {
+                $guest_power = 4.5;
+            }
+        }
+        else
+        {
+            if ($item['game_guest_score'] > $item['game_home_score'])
+            {
+                $guest_power = 6;
+            }
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
+            {
+                $guest_power = 5.5;
+            }
+            else
+            {
+                $guest_power = 5;
+            }
+        }
+
+        if ($item['game_home_power_percent'] > 74)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -4;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -4.5;
+            }
+            else
+            {
+                $home_power = -5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 70)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -3.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -4;
+            }
+            else
+            {
+                $home_power = -4.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 67)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -3;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -3.5;
+            }
+            else
+            {
+                $home_power = -5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 64)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -2.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -3;
+            }
+            else
+            {
+                $home_power = -3.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 61)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -2;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -2.5;
+            }
+            else
+            {
+                $home_power = -3;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 58)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -1.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -2;
+            }
+            else
+            {
+                $home_power = -2.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 56)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -1;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -1.5;
+            }
+            else
+            {
+                $home_power = -2;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 54)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -0.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -1;
+            }
+            else
+            {
+                $home_power = -1.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 52)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 0;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -0.5;
+            }
+            else
+            {
+                $home_power = -1;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 50)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 0.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 0;
+            }
+            else
+            {
+                $home_power = -0.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 48)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = -1;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = -0.5;
+            }
+            else
+            {
+                $home_power = -0;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 46)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 1.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 1;
+            }
+            else
+            {
+                $home_power = 0.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 44)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 2;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 1.5;
+            }
+            else
+            {
+                $home_power = 1;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 42)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 2.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 2;
+            }
+            else
+            {
+                $home_power = 1.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 40)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 3;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 2.5;
+            }
+            else
+            {
+                $home_power = 2;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 37)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 3.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 3;
+            }
+            else
+            {
+                $home_power = 2.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 34)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 4;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 3.5;
+            }
+            else
+            {
+                $home_power = 3;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 31)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 4.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 4;
+            }
+            else
+            {
+                $home_power = 3.5;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 28)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 4.5;
+            }
+            else
+            {
+                $home_power = 4;
+            }
+        }
+        elseif ($item['game_home_power_percent'] > 24)
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 5.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 5;
+            }
+            else
+            {
+                $home_power = 4.5;
+            }
+        }
+        else
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 6;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 5.5;
+            }
+            else
+            {
+                $home_power = 5;
+            }
+        }
+
+        if (TOURNAMENTTYPE_NATIONAL == $item['shedule_tournamenttype_id'])
+        {
+            $guest_competition  = 2.5;
+            $home_competition   = 2.5;
+        }
+        elseif (TOURNAMENTTYPE_LEAGUE == $item['shedule_tournamenttype_id'])
+        {
+            $guest_competition  = 2;
+            $home_competition   = 2;
+        }
+        else
+        {
+            $guest_competition  = 0;
+            $home_competition   = 0;
+        }
+
+        if (MOOD_SUPER == $item['game_guest_mood_id'])
+        {
+            $guest_mood = $guest_mood - 1;
+            $home_mood  = $home_mood + 0.5;
+        }
+        elseif (MOOD_REST == $item['shedule_tournamenttype_id'])
+        {
+            $guest_mood = $guest_mood + 0.5;
+            $home_mood  = $home_mood - 1;
+        }
+
+        if (MOOD_SUPER == $item['game_home_mood_id'])
+        {
+            $home_mood  = $home_mood - 1;
+            $guest_mood = $guest_mood + 0.5;
+        }
+        elseif (MOOD_REST == $item['game_home_mood_id'])
+        {
+            $home_mood  = $home_mood + 0.5;
+            $guest_mood = $guest_mood - 1;
+        }
+
+        if ($item['game_guest_optimality_1'] > 99)
+        {
+            $guest_optimality_1 = 0;
+        }
+        elseif ($item['game_guest_optimality_1'] > 96)
+        {
+            $guest_optimality_1 = -0.5;
+        }
+        elseif ($item['game_guest_optimality_1'] > 93)
+        {
+            $guest_optimality_1 = -1;
+        }
+        elseif ($item['game_guest_optimality_1'] > 90)
+        {
+            $guest_optimality_1 = -1.5;
+        }
+        elseif ($item['game_guest_optimality_1'] > 87)
+        {
+            $guest_optimality_1 = -2;
+        }
+        elseif ($item['game_guest_optimality_1'] > 84)
+        {
+            $guest_optimality_1 = -2.5;
+        }
+        elseif ($item['game_guest_optimality_1'] > 81)
+        {
+            $guest_optimality_1 = -3;
+        }
+        elseif ($item['game_guest_optimality_1'] > 78)
+        {
+            $guest_optimality_1 = -3.5;
+        }
+        elseif ($item['game_guest_optimality_1'] > 75)
+        {
+            $guest_optimality_1 = -4;
+        }
+        elseif ($item['game_guest_optimality_1'] > 72)
+        {
+            $guest_optimality_1 = -4.5;
+        }
+        else
+        {
+            $guest_optimality_1 = -5;
+        }
+
+        if ($item['game_home_optimality_1'] > 99)
+        {
+            $home_optimality_1 = 0;
+        }
+        elseif ($item['game_home_optimality_1'] > 96)
+        {
+            $home_optimality_1 = -0.5;
+        }
+        elseif ($item['game_home_optimality_1'] > 93)
+        {
+            $home_optimality_1 = -1;
+        }
+        elseif ($item['game_home_optimality_1'] > 90)
+        {
+            $home_optimality_1 = -1.5;
+        }
+        elseif ($item['game_home_optimality_1'] > 87)
+        {
+            $home_optimality_1 = -2;
+        }
+        elseif ($item['game_home_optimality_1'] > 84)
+        {
+            $home_optimality_1 = -2.5;
+        }
+        elseif ($item['game_home_optimality_1'] > 81)
+        {
+            $home_optimality_1 = -3;
+        }
+        elseif ($item['game_home_optimality_1'] > 78)
+        {
+            $home_optimality_1 = -3.5;
+        }
+        elseif ($item['game_home_optimality_1'] > 75)
+        {
+            $home_optimality_1 = -4;
+        }
+        elseif ($item['game_home_optimality_1'] > 72)
+        {
+            $home_optimality_1 = -4.5;
+        }
+        else
+        {
+            $home_optimality_1 = -5;
+        }
+
+        if ($item['game_guest_optimality_2'] > 134)
+        {
+            $guest_optimality_2 = 2.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 124)
+        {
+            $guest_optimality_2 = 2;
+        }
+        elseif ($item['game_guest_optimality_2'] > 114)
+        {
+            $guest_optimality_2 = 1.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 109)
+        {
+            $guest_optimality_2 = 1;
+        }
+        elseif ($item['game_guest_optimality_2'] > 104)
+        {
+            $guest_optimality_2 = 0.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 79)
+        {
+            $guest_optimality_2 = 0;
+        }
+        elseif ($item['game_guest_optimality_2'] > 75)
+        {
+            $guest_optimality_2 = -0.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 72)
+        {
+            $guest_optimality_2 = -1;
+        }
+        elseif ($item['game_guest_optimality_2'] > 69)
+        {
+            $guest_optimality_2 = -1.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 66)
+        {
+            $guest_optimality_2 = -2;
+        }
+        elseif ($item['game_guest_optimality_2'] > 64)
+        {
+            $guest_optimality_2 = -2.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 62)
+        {
+            $guest_optimality_2 = -3;
+        }
+        elseif ($item['game_guest_optimality_2'] > 60)
+        {
+            $guest_optimality_2 = -3.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 58)
+        {
+            $guest_optimality_2 = -4;
+        }
+        elseif ($item['game_guest_optimality_2'] > 56)
+        {
+            $guest_optimality_2 = -4.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 54)
+        {
+            $guest_optimality_2 = -5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 52)
+        {
+            $guest_optimality_2 = -5.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 50)
+        {
+            $guest_optimality_2 = -6;
+        }
+        elseif ($item['game_guest_optimality_2'] > 48)
+        {
+            $guest_optimality_2 = -6.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 46)
+        {
+            $guest_optimality_2 = -7;
+        }
+        elseif ($item['game_guest_optimality_2'] > 44)
+        {
+            $guest_optimality_2 = -7.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 42)
+        {
+            $guest_optimality_2 = -8;
+        }
+        elseif ($item['game_guest_optimality_2'] > 40)
+        {
+            $guest_optimality_2 = -8.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 38)
+        {
+            $guest_optimality_2 = -9;
+        }
+        elseif ($item['game_guest_optimality_2'] > 36)
+        {
+            $guest_optimality_2 = -9.5;
+        }
+        elseif ($item['game_guest_optimality_2'] > 34)
+        {
+            $guest_optimality_2 = -10;
+        }
+        else
+        {
+            $guest_optimality_2 = -10.5;
+        }
+
+        if ($item['game_home_optimality_2'] > 134)
+        {
+            $home_optimality_2 = 2.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 124)
+        {
+            $home_optimality_2 = 2;
+        }
+        elseif ($item['game_home_optimality_2'] > 114)
+        {
+            $home_optimality_2 = 1.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 109)
+        {
+            $home_optimality_2 = 1;
+        }
+        elseif ($item['game_home_optimality_2'] > 104)
+        {
+            $home_optimality_2 = 0.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 79)
+        {
+            $home_optimality_2 = 0;
+        }
+        elseif ($item['game_home_optimality_2'] > 75)
+        {
+            $home_optimality_2 = -0.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 72)
+        {
+            $home_optimality_2 = -1;
+        }
+        elseif ($item['game_home_optimality_2'] > 69)
+        {
+            $home_optimality_2 = -1.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 66)
+        {
+            $home_optimality_2 = -2;
+        }
+        elseif ($item['game_home_optimality_2'] > 64)
+        {
+            $home_optimality_2 = -2.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 62)
+        {
+            $home_optimality_2 = -3;
+        }
+        elseif ($item['game_home_optimality_2'] > 60)
+        {
+            $home_optimality_2 = -3.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 58)
+        {
+            $home_optimality_2 = -4;
+        }
+        elseif ($item['game_home_optimality_2'] > 56)
+        {
+            $home_optimality_2 = -4.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 54)
+        {
+            $home_optimality_2 = -5;
+        }
+        elseif ($item['game_home_optimality_2'] > 52)
+        {
+            $home_optimality_2 = -5.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 50)
+        {
+            $home_optimality_2 = -6;
+        }
+        elseif ($item['game_home_optimality_2'] > 48)
+        {
+            $home_optimality_2 = -6.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 46)
+        {
+            $home_optimality_2 = -7;
+        }
+        elseif ($item['game_home_optimality_2'] > 44)
+        {
+            $home_optimality_2 = -7.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 42)
+        {
+            $home_optimality_2 = -8;
+        }
+        elseif ($item['game_home_optimality_2'] > 40)
+        {
+            $home_optimality_2 = -8.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 38)
+        {
+            $home_optimality_2 = -9;
+        }
+        elseif ($item['game_home_optimality_2'] > 36)
+        {
+            $home_optimality_2 = -9.5;
+        }
+        elseif ($item['game_home_optimality_2'] > 34)
+        {
+            $home_optimality_2 = -10;
+        }
+        else
+        {
+            $home_optimality_2 = -10.5;
+        }
+
+        if ($item['game_guest_score'] - $item['game_home_score'] > 8)
+        {
+            $guest_score    = 7.5;
+            $home_score     = -7.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 7)
+        {
+            $guest_score    = 6.5;
+            $home_score     = -6.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 6)
+        {
+            $guest_score    = 5.5;
+            $home_score     = -5.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 5)
+        {
+            $guest_score    = 4.5;
+            $home_score     = -4.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 4)
+        {
+            $guest_score    = 3.5;
+            $home_score     = -3.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 3)
+        {
+            $guest_score    = 2.5;
+            $home_score     = -2.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 2)
+        {
+            $guest_score    = 1.5;
+            $home_score     = -1.5;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 1)
+        {
+            $guest_score    = 0.5;
+            $home_score     = -0.5;
+        }
+
+        if ($item['game_home_score'] - $item['game_guest_score'] > 8)
+        {
+            $home_score     = 7.5;
+            $guest_score    = -7.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 7)
+        {
+            $home_score     = 6.5;
+            $guest_score    = -6.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 6)
+        {
+            $home_score     = 5.5;
+            $guest_score    = -5.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 5)
+        {
+            $home_score     = 4.5;
+            $guest_score    = -4.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 4)
+        {
+            $home_score     = 3.5;
+            $guest_score    = -3.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 3)
+        {
+            $home_score     = 2.5;
+            $guest_score    = -2.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 2)
+        {
+            $home_score     = 1.5;
+            $guest_score    = -1.5;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 1)
+        {
+            $home_score     = 0.5;
+            $guest_score    = -0.5;
+        }
+
+        $guest_total = $guest_competition + $guest_mood + $guest_optimality_1 + $guest_optimality_2 + $guest_power + $guest_score;
+
+        if ($guest_total > 5)
+        {
+            $guest_total = 5;
+        }
+        elseif ($guest_total < -5)
+        {
+            $guest_total = -5;
+        }
+
+        $home_total  = $home_competition + $guest_mood + $guest_optimality_1 + $guest_optimality_2 + $guest_power + $guest_score;
+
+        if ($home_total > 5)
+        {
+            $home_total = 5;
+        }
+        elseif ($home_total < -5)
+        {
+            $home_total = -5;
+        }
+
+        $sql = "UPDATE `game`
+                SET `game_guest_plus_minus`=$guest_total,
+                    `game_guest_plus_minus_competition`=$guest_competition,
+                    `game_guest_plus_minus_mood`=$guest_mood,
+                    `game_guest_plus_minus_optimality_1`=$guest_optimality_1,
+                    `game_guest_plus_minus_optimality_2`=$guest_optimality_2,
+                    `game_guest_plus_minus_power`=$guest_power,
+                    `game_guest_plus_minus_score`=$guest_score,
+                    `game_home_plus_minus`=$home_total,
+                    `game_home_plus_minus_competition`=$home_competition,
+                    `game_home_plus_minus_mood`=$home_mood,
+                    `game_home_plus_minus_optimality_1`=$home_optimality_1,
+                    `game_home_plus_minus_optimality_2`=$home_optimality_2,
+                    `game_home_plus_minus_power`=$home_power,
+                    `game_home_plus_minus_score`=$home_score
+                WHERE `game_id`=$game_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        print '.';
+        flush();
+    }
 
     $sql = "UPDATE `game`
             LEFT JOIN `shedule`
@@ -56,6 +1173,7 @@ function f_igosja_generator_plus_minus()
             LEFT JOIN `shedule`
             ON `game_shedule_id`=`shedule_id`
             WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND `game_played`=0
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -180,8 +1298,8 @@ function f_igosja_generator_plus_minus()
                 f_igosja_history($log);
             }
         }
-    }
 
-    print '.';
-    flush();
+        print '.';
+        flush();
+    }
 }

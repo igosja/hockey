@@ -22,6 +22,7 @@ include(__DIR__ . '/include/sql/team_view_right.php');
 
 $sql = "SELECT `country_id`,
                `country_name`,
+               `line_color`,
                `name_name`,
                `phisical_id`,
                `phisical_value`,
@@ -47,6 +48,8 @@ $sql = "SELECT `country_id`,
         ON `player_id`=`playerposition_player_id`
         LEFT JOIN `playerspecial`
         ON `player_id`=`playerspecial_player_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get";
 $player_sql = f_igosja_mysqli_query($sql);
 
