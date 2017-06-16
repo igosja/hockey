@@ -12,9 +12,4 @@ function f_igosja_generator_decrease_teamwork()
     $sql = "DELETE FROM `teamwork`
             WHERE `teamwork_value`<=0";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

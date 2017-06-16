@@ -67,9 +67,4 @@ function f_igosja_start_insert_shedule()
     $sql = "INSERT INTO `shedule` (`shedule_date`, `shedule_season_id`, `shedule_stage_id`, `shedule_tournamenttype_id`)
             VALUES $shedule_insert_array;";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

@@ -119,7 +119,4 @@ function f_igosja_generator_training()
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
     }
-
-    print '.';
-    flush();
 }

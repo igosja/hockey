@@ -154,9 +154,4 @@ function f_igosja_generator_transfer()
             f_igosja_history($log);
         }
     }
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

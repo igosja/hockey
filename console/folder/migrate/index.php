@@ -50,6 +50,8 @@ else
 
     foreach ($a_file as $item)
     {
+        $start_time = microtime(true);
+
         $file_name = explode('.', $item);
 
         if (isset($file_name[1]) && 'php' == $file_name[1])
@@ -75,7 +77,7 @@ else
                             `migration_date`=UNIX_TIMESTAMP()";
                 $mysqli->query($sql);
 
-                print 'File ' . $item . ' done.' . "\r\n";
+                print 'File ' . $item . ' done in ' . round((microtime(true) - $start_time) * 1000, 2) . " ms.\r\n";
             }
         }
     }

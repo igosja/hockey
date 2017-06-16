@@ -28,9 +28,4 @@ function f_igosja_generator_player_price_and_salary()
             SET `player_salary`=`player_price`/999
             WHERE `player_age`<40";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

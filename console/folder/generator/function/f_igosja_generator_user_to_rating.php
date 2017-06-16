@@ -53,10 +53,5 @@ function f_igosja_generator_user_to_rating()
                         `userrating_season_id`=$igosja_season_id";
             f_igosja_mysqli_query($sql);
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

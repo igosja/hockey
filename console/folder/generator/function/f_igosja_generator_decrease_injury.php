@@ -20,7 +20,4 @@ function f_igosja_generator_decrease_injury()
             WHERE `player_injury`=1
             AND `player_injury`<=0";
     f_igosja_mysqli_query($sql);
-
-    print '.';
-    flush();
 }

@@ -25,9 +25,4 @@ function f_igosja_generator_team_price()
             SET `team_price_total`=`team_price_base`+`team_price_player`+`team_price_stadium`
             WHERE `team_id`!=0";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

@@ -109,10 +109,5 @@ function f_igosja_generator_team_to_statistic()
                         `statisticteam_tournamenttype_id`=$tournamenttype_id";
             f_igosja_mysqli_query($sql);
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

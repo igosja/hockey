@@ -12,9 +12,4 @@ function f_igosja_generator_make_played()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

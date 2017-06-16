@@ -48,9 +48,4 @@ function f_igosja_generator_rent_decrease_return()
         );
         f_igosja_history($log);
     }
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

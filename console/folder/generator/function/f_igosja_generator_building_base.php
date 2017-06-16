@@ -84,7 +84,4 @@ function f_igosja_generator_building_base()
         );
         f_igosja_history($log);
     }
-
-    print '.';
-    flush();
 }

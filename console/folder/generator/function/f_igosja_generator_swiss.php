@@ -48,9 +48,4 @@ function f_igosja_generator_swiss()
                 ON `swissgame_home_team_id`=`team_id`";
         f_igosja_mysqli_query($sql);
     }
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

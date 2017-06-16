@@ -217,10 +217,5 @@ function f_igosja_generator_fill_lineup()
                 }
             }
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

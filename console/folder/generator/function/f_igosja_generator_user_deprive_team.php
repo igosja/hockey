@@ -35,9 +35,4 @@ function f_igosja_generator_user_deprive_team()
         );
         f_igosja_history($log);
     }
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

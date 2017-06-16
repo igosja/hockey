@@ -46,7 +46,4 @@ function f_igosja_generator_set_injury()
         );
         f_igosja_history($log);
     }
-
-    print '.';
-    flush();
 }

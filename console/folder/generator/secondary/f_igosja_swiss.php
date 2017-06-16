@@ -8,11 +8,6 @@
  */
 function f_igosja_swiss($tournamenttype_id, $position_difference)
 {
-    usleep(1);
-
-    print '.';
-    flush();
-
     global $igosja_season_id;
 
     $sql = "TRUNCATE TABLE `swisstable`;";

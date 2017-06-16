@@ -15,9 +15,4 @@ function f_igosja_generator_update_player_statistic()
                 `statisticplayer_shot_per_game`=`statisticplayer_shot`/`statisticplayer_game`
             WHERE `statisticplayer_season_id`=$igosja_season_id";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

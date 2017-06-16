@@ -2,15 +2,20 @@
 
 include(__DIR__ . '/../../../include/start.php');
 
-f_igosja_start_insert_user();
-f_igosja_start_insert_name();
-f_igosja_start_insert_surname();
-f_igosja_start_insert_team();
-f_igosja_start_insert_national();
-f_igosja_start_insert_shedule();
-f_igosja_start_insert_offseason();
-f_igosja_start_insert_championship();
-f_igosja_start_insert_conference();
+for ($i=1, $count_file_list=count($file_list); $i<=$count_file_list; $i++)
+{
+    if     (1 == $i) { f_igosja_start_insert_user(); }
+    elseif (2 == $i) { f_igosja_start_insert_name(); }
+    elseif (3 == $i) { f_igosja_start_insert_surname(); }
+    elseif (4 == $i) { f_igosja_start_insert_team(); }
+    elseif (5 == $i) { f_igosja_start_insert_national(); }
+    elseif (6 == $i) { f_igosja_start_insert_shedule(); }
+    elseif (7 == $i) { f_igosja_start_insert_offseason(); }
+    elseif (8 == $i) { f_igosja_start_insert_championship(); }
+    elseif (9 == $i) { f_igosja_start_insert_conference(); }
+
+    f_igosja_console_progress($i, count($file_list));
+}
 
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"

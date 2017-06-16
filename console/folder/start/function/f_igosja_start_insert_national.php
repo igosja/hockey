@@ -33,9 +33,6 @@ function f_igosja_start_insert_national()
                     SET `national_country_id`=$country_id,
                         `national_nationaltype_id`=$nationaltype_id";
             f_igosja_mysqli_query($sql);
-
-            print '.';
-            flush();
         }
     }
 }

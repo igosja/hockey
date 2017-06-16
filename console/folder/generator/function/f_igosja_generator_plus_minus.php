@@ -30,17 +30,9 @@ function f_igosja_generator_plus_minus()
     foreach ($game_array as $item)
     {
         $game_id            = $item['game_id'];
-        $guest_competition  = 0;
         $guest_mood         = 0;
-        $guest_optimality_1 = 0;
-        $guest_optimality_2 = 0;
-        $guest_power        = 0;
         $guest_score        = 0;
-        $home_competition   = 0;
         $home_mood          = 0;
-        $home_optimality_1  = 0;
-        $home_optimality_2  = 0;
-        $home_power         = 0;
         $home_score         = 0;
 
         if ($item['game_guest_power_percent'] > 74)
@@ -1143,9 +1135,6 @@ function f_igosja_generator_plus_minus()
                 WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
-
-        print '.';
-        flush();
     }
 
     $sql = "UPDATE `game`
@@ -1298,8 +1287,5 @@ function f_igosja_generator_plus_minus()
                 f_igosja_history($log);
             }
         }
-
-        print '.';
-        flush();
     }
 }

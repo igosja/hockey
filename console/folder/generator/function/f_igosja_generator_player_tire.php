@@ -114,7 +114,4 @@ function f_igosja_generator_player_tire()
             WHERE `player_tire`<0
             AND `player_age`<40";
     f_igosja_mysqli_query($sql);
-
-    print '.';
-    flush();
 }

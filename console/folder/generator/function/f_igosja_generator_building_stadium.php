@@ -62,7 +62,4 @@ function f_igosja_generator_building_stadium()
         );
         f_igosja_history($log);
     }
-
-    print '.';
-    flush();
 }

@@ -128,9 +128,4 @@ function f_igosja_generator_rent()
             f_igosja_history($log);
         }
     }
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

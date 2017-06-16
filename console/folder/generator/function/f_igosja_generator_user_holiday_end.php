@@ -19,9 +19,4 @@ function f_igosja_generator_user_holiday_end()
             SET `user_holiday_day`=0
             WHERE `user_holiday`=0";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

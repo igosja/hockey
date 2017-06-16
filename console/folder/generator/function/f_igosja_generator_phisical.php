@@ -25,7 +25,4 @@ function f_igosja_generator_phisical()
             SET `player_phisical_id`=1
             WHERE `player_phisical_id`>20";
     f_igosja_mysqli_query($sql);
-
-    print '.';
-    flush();
 }

@@ -248,10 +248,5 @@ function f_igosja_generator_team_vs()
                 WHERE `team_id`=$team_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

@@ -41,7 +41,4 @@ function f_igosja_generator_player_game_row()
                 AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             )";
     f_igosja_mysqli_query($sql);
-
-    print '.';
-    flush();
 }

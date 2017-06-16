@@ -2668,11 +2668,6 @@ function f_igosja_start_insert_surname()
             }
 
             $surname_id_array[] = '(' . $country_id . ', ' . $surname_id . ')';
-
-            usleep(1);
-
-            print '.';
-            flush();
         }
     }
 

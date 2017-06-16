@@ -391,10 +391,5 @@ function f_igosja_start_insert_championship()
                            ('$team_id_01', '$team_id_16', '$shedule_id_30', '$stadium_id_01');";
             f_igosja_mysqli_query($sql);
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

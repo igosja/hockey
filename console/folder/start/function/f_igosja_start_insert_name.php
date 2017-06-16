@@ -379,11 +379,6 @@ function f_igosja_start_insert_name()
             }
 
             $name_id_array[] = '(' . $country_id . ', ' . $name_id . ')';
-
-            usleep(1);
-
-            print '.';
-            flush();
         }
     }
 

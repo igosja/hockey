@@ -44,10 +44,5 @@ function f_igosja_generator_check_lineup()
                     AND `lineup_team_id`!=`player_team_id`";
             f_igosja_mysqli_query($sql);
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

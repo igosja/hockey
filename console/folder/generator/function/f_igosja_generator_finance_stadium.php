@@ -187,10 +187,5 @@ function f_igosja_generator_finance_stadium()
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
         }
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

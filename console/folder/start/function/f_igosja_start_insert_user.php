@@ -154,9 +154,4 @@ function f_igosja_start_insert_user()
                 `user_login`='Vini',
                 `user_password`='b18a5b2e77a96a591f2548c64f3d1c88'";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

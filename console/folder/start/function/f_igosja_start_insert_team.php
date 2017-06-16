@@ -775,11 +775,6 @@ function f_igosja_start_insert_team()
                     WHERE `team_id`=$team_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
-
-            usleep(1);
-
-            print '.';
-            flush();
         }
     }
 }

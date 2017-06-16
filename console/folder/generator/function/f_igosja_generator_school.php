@@ -130,7 +130,4 @@ function f_igosja_generator_school()
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
     }
-
-    print '.';
-    flush();
 }

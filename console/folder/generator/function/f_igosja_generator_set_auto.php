@@ -120,10 +120,5 @@ function f_igosja_generator_set_auto()
                 WHERE `game_id`=$game_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

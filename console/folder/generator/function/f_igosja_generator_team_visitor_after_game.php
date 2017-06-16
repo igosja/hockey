@@ -44,10 +44,5 @@ function f_igosja_generator_team_visitor_after_game()
                 VALUES ($home_team_id, $home_visitor),
                        ($guest_team_id, $guest_visitor);";
         f_igosja_mysqli_query($sql);
-
-        usleep(1);
-
-        print '.';
-        flush();
     }
 }

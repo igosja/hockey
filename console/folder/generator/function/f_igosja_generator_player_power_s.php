@@ -16,9 +16,4 @@ function f_igosja_generator_player_power_s()
             SET `player_power_nominal_s`=`player_power_nominal`+IF(`special_level` IS NULL, 0, `special_level`)*`player_power_nominal`*5/100
             WHERE `player_age`<40";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }

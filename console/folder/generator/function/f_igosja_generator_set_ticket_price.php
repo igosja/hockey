@@ -13,9 +13,4 @@ function f_igosja_generator_set_ticket_price()
             AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_ticket`=0";
     f_igosja_mysqli_query($sql);
-
-    usleep(1);
-
-    print '.';
-    flush();
 }
