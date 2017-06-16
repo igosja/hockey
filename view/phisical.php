@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Бонус к изменению услатости:
-                <span class="strong"><?= $basephisical_array[0]['basephisical_tire_bobus']; ?>%</span>
+                <span class="strong"><?= $basephisical_array[0]['basephisical_tire_bonus']; ?>%</span>
             </div>
         </div>
         <div class="row">

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))

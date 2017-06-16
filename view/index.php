@@ -87,7 +87,7 @@
                     </li>
                     <li>
                         активировать свою регистрацию с помощью кода, полученного в письме,
-                        на <a href="activation.php">этой странице</a>;
+                        на <a href="/activation.php">этой странице</a>;
                     </li>
                     <li>
                         зайти на сайт под своим логином / паролем (ввести их вверху страницы, в шапке сайта);
@@ -107,42 +107,43 @@
                 </ul>
                 <p class="text-justify">
                     Свои вопросы вы можете задать опытным игрокам на форуме.
-                    Обо всех проблемах и вопросах вы можете написать в наиболее подходящий раздел
-                    <a href="/support.php">тех.поддержки сайта</a>.
+                    Обо всех проблемах и вопросах вы можете написать в <a href="/support.php">тех.поддержку сайта</a>.
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2>Хоккейная аналитика</h2>
+        <?php if ($review_array) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>Хоккейная аналитика</h2>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify">
-                    Журналисты Виртуальной Хоккейной Лиги регулярно публикуют обзоры состоявшихся туров:
-                </p>
-                <ul>
-                    <?php foreach ($review_array as $item) { ?>
-                        <li>
-                            <?= $item['country_name']; ?>
-                            (<?= $item['division_name']; ?>),
-                            <?= $item['stage_name']; ?>:
-                            <a href="/review_view.php?num=<?= $item['review_id']; ?>">
-                                <?= $item['review_title']; ?>
-                            </a>
-                            (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)
-                        </li>
-                    <?php } ?>
-                </ul>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p class="text-justify">
+                        Журналисты Виртуальной Хоккейной Лиги регулярно публикуют обзоры состоявшихся туров:
+                    </p>
+                    <ul>
+                        <?php foreach ($review_array as $item) { ?>
+                            <li>
+                                <?= $item['country_name']; ?>
+                                (<?= $item['division_name']; ?>),
+                                <?= $item['stage_name']; ?>:
+                                <a href="/review_view.php?num=<?= $item['review_id']; ?>">
+                                    <?= $item['review_title']; ?>
+                                </a>
+                                (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2>Новости федераций</h2>
+        <?php } ?>
+        <?php if ($newscountry_array) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>Новости федераций</h2>
+                </div>
             </div>
-        </div>
-        <?php if (isset($newscountry_array[0])) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
@@ -160,26 +161,36 @@
                 </div>
             </div>
         <?php } ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2>Дни рождения</h2>
+        <?php if ($birth_array) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>Дни рождения</h2>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify"><span class="strong">Сегодня день рождения</span> празднуют менеджеры:</p>
-                <ul>
-                    <?php foreach ($birth_array as $item) { ?>
-                        <li>
-                            <?= $item['user_name']; ?> <?= $item['user_surname']; ?>
-                            (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)!
-                        </li>
-                    <?php } ?>
-                </ul>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p class="text-justify"><span class="strong">Сегодня день рождения</span> празднуют менеджеры:</p>
+                    <ul>
+                        <?php foreach ($birth_array as $item) { ?>
+                            <li>
+                                <?= $item['user_name']; ?> <?= $item['user_surname']; ?>
+                                (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)
+                                <?php if ($item['user_birth_year']) { ?>
+                                - исполняется <?= f_igosja_birth_age($item['user_birth_year']); ?>!
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
-    <div class="col-lg-1 col-md-2 col-sm-2 hidden-xs">
+    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+        <div class="row margin">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                Форум
+            </div>
+        </div>
         <div class="row margin">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <a href="//www.liveinternet.ru/click" target="_blank">
