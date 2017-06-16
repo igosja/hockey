@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $class string
+ * @var $phisical_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
@@ -13,7 +19,7 @@ include(__DIR__ . '/include/sql/team_view_left.php');
 
 $sql = "SELECT `basephisical_change_count`,
                `basephisical_level`,
-               `basephisical_tire_bobus`
+               `basephisical_tire_bonus`
         FROM `basephisical`
         LEFT JOIN `team`
         ON `basephisical_id`=`team_basephisical_id`
@@ -116,7 +122,7 @@ for ($i=0; $i<$count_player; $i++)
                         LIMIT 1";
                 $opposite_sql = f_igosja_mysqli_query($sql);
 
-                $opposite_array = $phisical_sql->fetch_all(1);
+                $opposite_array = $opposite_sql->fetch_all(1);
 
                 $opposite_id = $opposite_array[0]['phisical_opposite'];
             }
@@ -180,12 +186,44 @@ for ($i=0; $i<$count_player; $i++)
     $player_array[$i]['phisical_array'] = $player_phisical_array;
 }
 
-$sql = "SELECT `position_id`,
-               `position_name`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$player_id = array();
 
-$position_array = $position_sql->fetch_all(1);
+foreach ($player_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
+
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
+
+    $sql = "SELECT `playerposition_player_id`,
+                   `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
+    $playerposition_sql = f_igosja_mysqli_query($sql);
+
+    $playerposition_array = $playerposition_sql->fetch_all(1);
+
+    $sql = "SELECT `playerspecial_level`,
+                   `playerspecial_player_id`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+}
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
 
 include(__DIR__ . '/view/layout/main.php');
