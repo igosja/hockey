@@ -1,7 +1,7 @@
 <?php
 
 $igosja_menu = array(
-    array('label' => 'VIP-клуб',        'url' => 'javascript:;'),
+    array('label' => 'VIP-клуб',        'url' => '/vip.php'),
     array('label' => 'Аренда',          'url' => '/rent.php'),
     array('label' => 'Главная',         'url' => '/'),
     array('label' => 'Забыли пароль?',  'url' => '/password.php'),
