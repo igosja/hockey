@@ -56,7 +56,8 @@ $newscountry_sql = f_igosja_mysqli_query($sql);
 
 $newscountry_array = $newscountry_sql->fetch_all(1);
 
-$sql = "SELECT `user_id`,
+$sql = "SELECT `user_birth_year`,
+               `user_id`,
                `user_login`,
                `user_name`,
                `user_surname`
