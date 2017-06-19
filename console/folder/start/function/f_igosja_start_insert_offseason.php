@@ -14,6 +14,11 @@ function f_igosja_start_insert_offseason()
             ORDER BY `team_id` ASC";
     f_igosja_mysqli_query($sql);
 
+    $sql = "UPDATE `offseason`
+            SET `offseason_place`=`offseason_id`
+            WHERE `offseason_place`=0";
+    f_igosja_mysqli_query($sql);
+
     $sql = "SELECT `shedule_id`
             FROM `shedule`
             WHERE `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "

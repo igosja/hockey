@@ -54,6 +54,11 @@ function f_igosja_start_insert_championship()
         f_igosja_mysqli_query($sql);
     }
 
+    $sql = "UPDATE `championship`
+            SET `championship_place`=`championship_id`-((CEIL(`championship_id`/16)-1)*16)
+            WHERE `championship_place`=0";
+    f_igosja_mysqli_query($sql);
+
     $sql = "SELECT `shedule_id`
             FROM `shedule`
             WHERE `shedule_season_id`=1

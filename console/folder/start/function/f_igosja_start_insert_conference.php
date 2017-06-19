@@ -20,6 +20,11 @@ function f_igosja_start_insert_conference()
             ORDER BY `team_id` ASC";
     f_igosja_mysqli_query($sql);
 
+    $sql = "UPDATE `conference`
+            SET `conference_place`=`conference_id`
+            WHERE `conference_place`=0";
+    f_igosja_mysqli_query($sql);
+
     $sql = "SELECT `shedule_id`
             FROM `shedule`
             WHERE `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_CONFERENCE . "
