@@ -22,6 +22,10 @@ function f_igosja_ufu_last_visit($date)
         $difference = round($difference, 0);
         $date       = $difference . ' минут назад';
     }
+    elseif (0 == $date)
+    {
+        $date = '-';
+    }
     else
     {
         $date = date('H:i d.m.Y', $date);
