@@ -15,16 +15,16 @@ $igosja_menu = array(
     array('label' => 'Правила',         'url' => '/rule_list.php'),
     array('label' => 'Профиль',         'url' => '/user_view.php'),
     array('label' => 'Расписание',      'url' => '/shedule.php'),
-    array('label' => 'Рейтинги',        'url' => 'javascript:;'),
+    array('label' => 'Рейтинги',        'url' => '/rating.php'),
     array('label' => 'Регистрация',     'url' => '/signup.php',     'css' => 'red'),
     array('label' => 'Ростер',          'url' => '/team_view.php',  'css' => 'red'),
-    array('label' => 'Сборная',         'url' => 'javascript:;'),
-    array('label' => 'Сменить клуб',    'url' => 'javascript:;'),
+    array('label' => 'Сборная',         'url' => '/national_view.php'),
+    array('label' => 'Сменить клуб',    'url' => '/team_change.php'),
     array('label' => 'Тех.поддержка',   'url' => '/support.php',    'css' => 'count_support'),
     array('label' => 'Трансфер',        'url' => '/transfer.php'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
     array('label' => 'Федерация',       'url' => '/country_news.php'),
-    array('label' => 'Форум',           'url' => 'javascript:;'),
+    array('label' => 'Форум',           'url' => '/forum.php'),
 );
 
 $igosja_menu_guest = array(
