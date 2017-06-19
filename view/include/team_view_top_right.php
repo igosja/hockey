@@ -9,19 +9,19 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a class="no-underline" href="/friendly.php">
-            <img src="/img/roster/friendly.png" title="Friendly"/>
+            <img src="/img/roster/friendly.png" title="Организовать товарищеский матч"/>
         </a>
         <a class="no-underline" href="/training.php">
-            <img src="/img/roster/training.png" title="Training"/>
+            <img src="/img/roster/training.png" title="Тренировка хоккеистов"/>
         </a>
         <a class="no-underline" href="/scout.php">
-            <img src="/img/roster/scout.png" title="Scout"/>
+            <img src="/img/roster/scout.png" title="Изучение хоккеистов"/>
         </a>
         <a class="no-underline" href="/phisical.php">
-            <img src="/img/roster/phisical.png" title="Phisical"/>
+            <img src="/img/roster/phisical.png" title="Изменение физической формы"/>
         </a>
         <a class="no-underline" href="/school.php">
-            <img src="/img/roster/school.png" title="School"/>
+            <img src="/img/roster/school.png" title="Подготовка молодёжи"/>
         </a>
     </div>
     <?php foreach ($latest_array as $item) { ?>
