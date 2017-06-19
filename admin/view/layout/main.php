@@ -353,6 +353,12 @@
     </nav>
     <div id="page-wrapper">
         <?php include(__DIR__ . '/../include/breadcrumb.php'); ?>
+        <?php if (isset($_SESSION['message'])) { ?>
+            <div class="alert alert-<?= $_SESSION['message']['class']; ?> margin-top">
+                <?= $_SESSION['message']['text']; ?>
+                <?php unset($_SESSION['message']); ?>
+            </div>
+        <?php } ?>
         <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
     </div>
 </div>
