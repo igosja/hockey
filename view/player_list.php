@@ -1,3 +1,16 @@
+<?php
+/**
+ * @var $count_page integer
+ * @var $count_player integer
+ * @var $country_array array
+ * @var $data array
+ * @var $player_array array
+ * @var $playerposition_array array
+ * @var $playerspecial_array array
+ * @var $position_array array
+ * @var $total integer
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
@@ -32,7 +45,7 @@
                 placeholder="Имя"
                 <?php if (isset($data['name_name'])) { ?>
                     value="<?= $data['name_name']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
@@ -42,7 +55,7 @@
                 placeholder="Фамилия"
                 <?php if (isset($data['surname_name'])) { ?>
                     value="<?= $data['surname_name']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
@@ -67,7 +80,7 @@
                 placeholder="Возраст, от"
                 <?php if (isset($data['age_min'])) { ?>
                     value="<?= $data['age_min']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
@@ -77,7 +90,7 @@
                 placeholder="Возраст, до"
                 <?php if (isset($data['age_max'])) { ?>
                     value="<?= $data['age_max']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
@@ -87,7 +100,7 @@
                 placeholder="Сила, от"
                 <?php if (isset($data['power_min'])) { ?>
                     value="<?= $data['power_min']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
@@ -97,7 +110,7 @@
                 placeholder="Сила, до"
                 <?php if (isset($data['power_max'])) { ?>
                     value="<?= $data['power_max']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
@@ -107,7 +120,7 @@
                 placeholder="Цена, от"
                 <?php if (isset($data['price_min'])) { ?>
                     value="<?= $data['price_min']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
@@ -117,11 +130,11 @@
                 placeholder="Цена, до"
                 <?php if (isset($data['price_max'])) { ?>
                     value="<?= $data['price_max']; ?>"
-                <? } ?>
+                <?php } ?>
             />
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-            <input class="form-control" type="submit" value="Поиск" />
+            <input class="form-control submit-blue" type="submit" value="Поиск" />
         </div>
     </div>
     <div class="row">

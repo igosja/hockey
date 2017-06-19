@@ -1,7 +1,11 @@
 <?php
 /**
+ * @var $auth_team_id integer
  * @var $notification_array array
  * @var $num_get integer
+ * @var $player_array array
+ * @var $playerposition_array array
+ * @var $playerspecial_array array
  */
 ?>
 <div class="row margin-top">
@@ -12,7 +16,7 @@
         <?php include(__DIR__ . '/include/team_view_top_right.php'); ?>
     </div>
 </div>
-<?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+<?php if ($notification_array) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <ul>

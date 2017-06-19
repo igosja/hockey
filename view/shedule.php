@@ -1,9 +1,7 @@
 <?php
-
 /**
  * @var $shedule_array array
  */
-
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -11,8 +9,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive table-hover">
-        <table class="table table-bordered">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
             <tr>
                 <th class="col-20">Дата</th>
                 <th>Соревнования</th>

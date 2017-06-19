@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var $birth_array array
+ * @var $news_array array
+ * @var $newscountry_array array
+ * @var $review_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
         <div class="row">

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $auth_user_id integer
+ * @var $news_array array
+ * @var $newscomment_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row margin-top">
@@ -14,23 +21,25 @@
                 <?= $news_array[0]['news_text']; ?>
             </div>
         </div>
-        <div class="row margin-top">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <span class="strong">Последние комментарии:</span>
-            </div>
-        </div>
-        <?php foreach ($newscomment_array as $item) { ?>
-            <div class="row border-top margin-top">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                    <?= f_igosja_ufu_date_time($item['newscomment_date']); ?>,
-                    <a href="/user_view.php?num=<?= $item['user_id']; ?>">
-                        <?= $item['user_login']; ?>
-                    </a>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?= $item['newscomment_text']; ?>
+        <?php if ($newscomment_array) { ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <span class="strong">Последние комментарии:</span>
                 </div>
             </div>
+            <?php foreach ($newscomment_array as $item) { ?>
+                <div class="row border-top margin-top">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
+                        <?= f_igosja_ufu_date_time($item['newscomment_date']); ?>,
+                        <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <?= $item['newscomment_text']; ?>
+                    </div>
+                </div>
+            <?php } ?>
         <?php } ?>
         <?php if (isset($auth_user_id)) { ?>
             <div class="row margin-top">

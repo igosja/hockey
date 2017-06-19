@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $teamask_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h1>Получение команды</h1>
@@ -5,7 +10,7 @@
 </div>
 <?php if ($teamask_array[0]['count']) { ?>
     <div class="row margin-bottom">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert success">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
             Ваша заявка рассматривается администратором
         </div>
     </div>

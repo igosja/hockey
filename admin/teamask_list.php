@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 

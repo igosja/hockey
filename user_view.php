@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -177,14 +182,41 @@ $userrating_array = $userrating_sql->fetch_all(1);
 
 $sql = "SELECT `history_date`,
                `history_season_id`,
-               `historytext_name`
+               `historytext_name`,
+               `team_id`,
+               `team_name`,
+               `user_id`,
+               `user_login`
         FROM `history`
         LEFT JOIN `historytext`
         ON `history_historytext_id`=`historytext_id`
+        LEFT JOIN `user`
+        ON `history_user_id`=`user_id`
+        LEFT JOIN `team`
+        ON `history_team_id`=`team_id`
         WHERE `history_user_id`=$num_get
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
 
+$count_event = $event_sql->num_rows;
 $event_array = $event_sql->fetch_all(1);
+
+for ($i=0; $i<$count_event; $i++)
+{
+    $text = $event_array[$i]['historytext_name'];
+
+    $text = str_replace(
+        '{user}',
+        '<a href="/user_view.php?num=' . $event_array[$i]['user_id'] . '">' . $event_array[$i]['user_login'] . '</a>',
+        $text
+    );
+    $text = str_replace(
+        '{team}',
+        '<a href="/team_view.php?num=' . $event_array[$i]['team_id'] . '">' . $event_array[$i]['team_name'] . '</a>',
+        $text
+    );
+
+    $event_array[$i]['historytext_name'] = $text;
+}
 
 include(__DIR__ . '/view/layout/main.php');

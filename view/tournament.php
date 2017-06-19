@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $country_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
@@ -18,7 +23,7 @@
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
             <tr>
                 <th colspan="5">Национальные чемпионаты</th>
             </tr>

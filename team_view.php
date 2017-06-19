@@ -2,6 +2,8 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $auth_user_id integer
+ * @var $igosja_season_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -112,27 +114,248 @@ else
     $playerspecial_array    = array();
 }
 
-$notification_array = array(
-    'В ближайшем матче ваша команда будет использовать супер',
-    'В ближайшем матче ваша команда будет использовать отдых',
-    'В вашей стране проходят выборы заместителя тренера молодёжной сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы заместителя тренера национальной сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы заместителя тренера юношеской сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть здесь',
-    'В вашей стране проходят выборы президента федерации',
-    'Ваш тренировочный центр простаивает - осталось 15 баллов силы, 3 спецвозможности, 1 совмещение',
-    'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить',
-    'Ваша спортшкола простаивает - можно подготовить ещё одного молодого игрока для основной команды',
-    'Доступна бонусная тренировка - 0 баллов силы, 1 совмещение, 0 спецвозможностей',
-    'Открыт прием заявок от кандидатов в тренеры молодежных сборных',
-    'Открыт прием заявок от кандидатов в тренеры национальных сборных',
-    'Открыт прием заявок от кандидатов в тренеры юношеских сборных',
-    'Открыт прием заявок от кандидатов на пост заместителя тренера молодёжной сборной вашей страны',
-    'Открыт прием заявок от кандидатов на пост заместителя тренера национальной сборной вашей страны',
-    'Открыт прием заявок от кандидатов на пост заместителя тренера юношеской сборной вашей страны',
-    'Открыт прием заявок от кандидатов на пост президента федерации вашей стран',
-);
+if (isset($auth_team_id) && $auth_team_id == $num_get)
+{
+    $notification_array = array();
+
+    $sql = "SELECT `game_guest_mood_id`,
+                   `game_guest_team_id`,
+                   `game_home_mood_id`,
+                   `game_home_team_id`,
+                   `game_id`
+            FROM `game`
+            LEFT JOIN `shedule`
+            ON `game_shedule_id`=`shedule_id`
+            WHERE (`game_home_team_id`=$num_get
+            OR `game_guest_team_id`=$num_get)
+            AND `game_played`=0
+            ORDER BY `shedule_id` ASC
+            LIMIT 1";
+    $check_game_send_sql = f_igosja_mysqli_query($sql);
+
+    if ($check_game_send_sql->num_rows)
+    {
+        $check_game_send_array = $check_game_send_sql->fetch_all(1);
+
+        if (($num_get == $check_game_send_array[0]['game_guest_team_id'] && 0 == $check_game_send_array[0]['game_guest_mood_id']) ||
+            ($num_get == $check_game_send_array[0]['game_home_team_id'] && 0 == $check_game_send_array[0]['game_home_mood_id']))
+        {
+            $notification_array[] = 'Вы не отправили состав на ближайший <a href="/game_send.php?num=' . $check_game_send_array[0]['game_id'] . '">матч</a> своей команды';
+        }
+    }
+
+    $sql = "SELECT `game_guest_mood_id`,
+                   `game_guest_team_id`,
+                   `game_home_mood_id`,
+                   `game_home_team_id`,
+                   `game_id`
+            FROM `game`
+            LEFT JOIN `shedule`
+            ON `game_shedule_id`=`shedule_id`
+            WHERE (`game_home_team_id`=$num_get
+            OR `game_guest_team_id`=$num_get)
+            AND `game_played`=0
+            ORDER BY `shedule_id` ASC
+            LIMIT 1";
+    $check_mood_sql = f_igosja_mysqli_query($sql);
+
+    if ($check_mood_sql->num_rows)
+    {
+        $check_mood_array = $check_mood_sql->fetch_all(1);
+
+        if (($num_get == $check_mood_array[0]['game_guest_team_id'] && MOOD_SUPER == $check_mood_array[0]['game_guest_mood_id']) ||
+            ($num_get == $check_mood_array[0]['game_home_team_id'] && MOOD_SUPER == $check_mood_array[0]['game_home_mood_id']))
+        {
+            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать супер';
+        }
+        elseif (($num_get == $check_mood_array[0]['game_guest_team_id'] && MOOD_REST == $check_mood_array[0]['game_guest_mood_id']) ||
+            ($num_get == $check_mood_array[0]['game_home_team_id'] && MOOD_REST == $check_mood_array[0]['game_home_mood_id']))
+        {
+            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать отдых';
+        }
+    }
+
+    $sql = "SELECT COUNT(`user_id`) AS `count`
+            FROM `user`
+            WHERE `user_id`=$auth_user_id
+            AND `user_date_vip`>UNIX_TIMESTAMP()
+            AND `user_date_vip`<UNIX_TIMESTAMP()-604800";
+    $vip_sql = f_igosja_mysqli_query($sql);
+
+    $vip_array = $vip_sql->fetch_all(1);
+
+    if ($vip_array[0]['count'])
+    {
+        $notification_array[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте <a href="/shop.php">продлить</a>';
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `country`
+            LEFT JOIN `city`
+            ON `country_id`=`city_country_id`
+            LEFT JOIN `stadium`
+            ON `city_id`=`stadium_city_id`
+            LEFT JOIN `team`
+            ON `stadium_id`=`team_stadium_id`
+            WHERE `team_id`=$num_get
+            AND `country_president_id`=0
+            LIMIT 1";
+    $president_sql = f_igosja_mysqli_query($sql);
+
+    if ($president_sql->num_rows)
+    {
+        $president_array = $president_sql->fetch_all(1);
+
+        $notification_array[] = 'Открыт <a href="/president_application.php?num=' . $president_array[0]['country_id'] . '">прием заявок</a> от кандидатов на пост президента федерации вашей страны';
+        $notification_array[] = 'В вашей стране проходят выборы президента федерации, результаты можно посмотреть <a href="/president_vote.php?num=' . 1 . '">здесь</a>';
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `country`
+            LEFT JOIN `city`
+            ON `country_id`=`city_country_id`
+            LEFT JOIN `stadium`
+            ON `city_id`=`stadium_city_id`
+            LEFT JOIN `team`
+            ON `stadium_id`=`team_stadium_id`
+            WHERE `team_id`=$num_get
+            AND `country_vice_id`=0
+            AND `country_president_id`!=0
+            LIMIT 1";
+    $vice_sql = f_igosja_mysqli_query($sql);
+
+    if ($vice_sql->num_rows)
+    {
+        $vice_array = $vice_sql->fetch_all(1);
+
+        $notification_array[] = 'Открыт <a href="/president_application.php?num=' . $vice_array[0]['country_id'] . '">прием заявок</a> от кандидатов на пост заместителя президента федерации вашей страны';
+        $notification_array[] = 'В вашей стране проходят выборы заместителя президента федерации, результаты можно посмотреть <a href="/president_vote.php?num=' . 1 . '">здесь</a>';
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `national`
+            LEFT JOIN `country`
+            ON `national_country_id`=`country_id`
+            LEFT JOIN `city`
+            ON `country_id`=`city_country_id`
+            LEFT JOIN `stadium`
+            ON `city_id`=`stadium_city_id`
+            LEFT JOIN `team`
+            ON `stadium_id`=`team_stadium_id`
+            WHERE `team_id`=$num_get
+            AND `national_vice_id`=0
+            AND `national_user_id`!=0
+            AND `national_nationaltype_id`=" . NATIONALTYPE_MAIN . "
+            LIMIT 1";
+    $vice_sql = f_igosja_mysqli_query($sql);
+
+    if ($vice_sql->num_rows)
+    {
+        $vice_array = $vice_sql->fetch_all(1);
+
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . $vice_array[0]['country_id'] . '&type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов на пост заместителя тренера национальной сборной вашей страны';
+        $notification_array[] = 'В вашей стране проходят выборы заместителя тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `national`
+            LEFT JOIN `country`
+            ON `national_country_id`=`country_id`
+            LEFT JOIN `city`
+            ON `country_id`=`city_country_id`
+            LEFT JOIN `stadium`
+            ON `city_id`=`stadium_city_id`
+            LEFT JOIN `team`
+            ON `stadium_id`=`team_stadium_id`
+            WHERE `team_id`=$num_get
+            AND `national_vice_id`=0
+            AND `national_user_id`!=0
+            AND `national_nationaltype_id`=" . NATIONALTYPE_21 . "
+            LIMIT 1";
+    $vice_sql = f_igosja_mysqli_query($sql);
+
+    if ($vice_sql->num_rows)
+    {
+        $vice_array = $vice_sql->fetch_all(1);
+
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . $vice_array[0]['country_id'] . '&type=' . NATIONALTYPE_21 . '">прием заявок</a> от кандидатов на пост заместителя тренера молодёжной сборной вашей страны';
+        $notification_array[] = 'В вашей стране проходят выборы заместителя тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_21 . '">здесь</a>';
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `national`
+            LEFT JOIN `country`
+            ON `national_country_id`=`country_id`
+            LEFT JOIN `city`
+            ON `country_id`=`city_country_id`
+            LEFT JOIN `stadium`
+            ON `city_id`=`stadium_city_id`
+            LEFT JOIN `team`
+            ON `stadium_id`=`team_stadium_id`
+            WHERE `team_id`=$num_get
+            AND `national_vice_id`=0
+            AND `national_user_id`!=0
+            AND `national_nationaltype_id`=" . NATIONALTYPE_19 . "
+            LIMIT 1";
+    $vice_sql = f_igosja_mysqli_query($sql);
+
+    if ($vice_sql->num_rows)
+    {
+        $vice_array = $vice_sql->fetch_all(1);
+
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . $vice_array[0]['country_id'] . '&type=' . NATIONALTYPE_19 . '">прием заявок</a> от кандидатов на пост заместителя тренера юношеской сборной вашей страны';
+        $notification_array[] = 'В вашей стране проходят выборы заместителя тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_19 . '">здесь</a>';
+    }
+
+    $sql = "SELECT `basetraining_position_count`,
+                   `basetraining_power_count`,
+                   `basetraining_special_count`
+            FROM `team`
+            LEFT JOIN `basetraining`
+            ON `team_basetraining_id`=`basetraining_id`
+            WHERE `team_id`=$num_get
+            LIMIT 1";
+    $training_sql = f_igosja_mysqli_query($sql);
+
+    $training_array = $training_sql->fetch_all(1);
+
+    $notification_array[] = 'Ваш <a href="/training.php">тренировочный центр</a> простаивает - осталось ' . $training_array[0]['basetraining_power_count'] . ' баллов силы, ' . $training_array[0]['basetraining_special_count'] . ' спецвозможности, ' . $training_array[0]['basetraining_position_count'] . ' совмещение';
+    $notification_array[] = 'Ваша <a href="/school.php">спортшкола</a> простаивает - можно подготовить ещё одного молодого игрока для основной команды';
+
+    $sql = "SELECT `game_shedule_id`
+            FROM `game`
+            LEFT JOIN `shedule`
+            ON `game_shedule_id`=`shedule_id`
+            WHERE `game_played`=1
+            AND `shedule_season_id`=$igosja_season_id
+            GROUP BY `game_shedule_id`
+            ORDER BY `game_shedule_id`";
+    $shedule_sql = f_igosja_mysqli_query($sql);
+
+    if ($shedule_sql->num_rows <= 2)
+    {
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов в тренеры национальных сборных';
+    }
+    elseif ($shedule_sql->num_rows <= 4)
+    {
+        $notification_array[] = 'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+    }
+    elseif ($shedule_sql->num_rows <= 6)
+    {
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_21 . '">прием заявок</a> от кандидатов в тренеры молодежных сборных';
+    }
+    elseif ($shedule_sql->num_rows <= 8)
+    {
+        $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_21 . '">здесь</a>';
+    }
+    elseif ($shedule_sql->num_rows <= 10)
+    {
+        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_19 . '">прием заявок</a> от кандидатов в тренеры юношеских сборных';
+    }
+    elseif ($shedule_sql->num_rows <= 12)
+    {
+        $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_19 . '">здесь</a>';
+    }
+}
 
 include(__DIR__ . '/view/layout/main.php');
