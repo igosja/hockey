@@ -2,6 +2,7 @@
 
 define('ADMIN_ITEMS_ON_PAGE', 10);
 define('ADMIN_PAGES_IN_PAGINATION', 5);
+define('ALERT_SUCCESS', 'Изменения успешно сохранены.');
 define('AUTO_PENALTY', 25);
 define('BUILDING_BASE', 1);
 define('BUILDING_BASEMEDICAL', 2);
@@ -101,6 +102,9 @@ define('HISTORYTEXT_PLAYER_FREE', 43);
 define('MOOD_NORMAL', 2);
 define('MOOD_REST', 3);
 define('MOOD_SUPER', 1);
+define('NATIONALTYPE_19', 3);
+define('NATIONALTYPE_21', 2);
+define('NATIONALTYPE_MAIN', 1);
 define('PASSWORD_SALT', 'hockey');
 define('POSITION_GK', 1);
 define('POSITION_LD', 2);
