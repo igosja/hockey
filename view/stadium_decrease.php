@@ -52,9 +52,9 @@
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-            Новая вместимость
+            <label for="stadium-capacity">Новая вместимость</label>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
             <input class="form-control" id="stadium-capacity" name="data[new_capacity]" />
         </div>
     </div>

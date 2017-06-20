@@ -114,10 +114,10 @@ else
     $playerspecial_array    = array();
 }
 
+$notification_array = array();
+
 if (isset($auth_team_id) && $auth_team_id == $num_get)
 {
-    $notification_array = array();
-
     $sql = "SELECT `game_guest_mood_id`,
                    `game_guest_team_id`,
                    `game_home_mood_id`,

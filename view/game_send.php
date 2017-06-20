@@ -49,12 +49,13 @@
 </div>
 <form class="margin-no" method="POST">
     <div class="row margin-top">
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong" style="height: 20px">
-            Билет, $:
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-right strong">
+            <label for="ticket">Билет, $:</label>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-center">
+        <div class="col-lg-3 col-md-3 col-sm-2 col-xs-4 text-center">
             <input
                 class="form-control"
+                id="ticket"
                 name="data[ticket]"
                 value="<?= $current_array[0]['game_ticket'] ? $current_array[0]['game_ticket'] : 20; ?>"
                 <?php if ($auth_team_id == $current_array[0]['game_guest_team_id']) { ?>
@@ -62,17 +63,17 @@
                 <?php } ?>
             />
         </div>
-        <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4" style="height: 20px">
+        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4" style="height: 20px">
             [<a href="javascript:">Зрители</a>]
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Настрой:
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-right strong">
+            <label for="mood">Настрой:</label>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[mood_id]">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+            <select class="form-control" id="mood" name="data[mood_id]">
                 <?php foreach ($mood_array as $item) { ?>
                     <option
-                        value="<?= $item['mood_id']; ?>"
+                            value="<?= $item['mood_id']; ?>"
                         <?php if ($current_array[0]['game_mood_id'] == $item['mood_id']) { ?>
                             selected
                         <?php } ?>
@@ -83,163 +84,160 @@
             </select>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-4 text-right strong">
-            Тактика:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[tactic_1_id]">
-                <?php foreach ($tactic_array as $item) { ?>
-                    <option
-                        value="<?= $item['tactic_id']; ?>"
-                        <?php if ($current_array[0]['game_tactic_1_id'] == $item['tactic_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['tactic_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Грубость:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[rude_1_id]">
-                <?php foreach ($rude_array as $item) { ?>
-                    <option
-                        value="<?= $item['rude_id']; ?>"
-                        <?php if ($current_array[0]['game_rude_1_id'] == $item['rude_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['rude_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Стиль:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[style_1_id]">
-                <?php foreach ($style_array as $item) { ?>
-                    <option
-                        value="<?= $item['style_id']; ?>"
-                        <?php if ($current_array[0]['game_style_1_id'] == $item['style_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['style_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-4 text-right strong">
-            Тактика:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[tactic_2_id]">
-                <?php foreach ($tactic_array as $item) { ?>
-                    <option
-                        value="<?= $item['tactic_id']; ?>"
-                        <?php if ($current_array[0]['game_tactic_2_id'] == $item['tactic_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['tactic_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Грубость:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[rude_2_id]">
-                <?php foreach ($rude_array as $item) { ?>
-                    <option
-                        value="<?= $item['rude_id']; ?>"
-                        <?php if ($current_array[0]['game_rude_2_id'] == $item['rude_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['rude_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Стиль:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[style_2_id]">
-                <?php foreach ($style_array as $item) { ?>
-                    <option
-                        value="<?= $item['style_id']; ?>"
-                        <?php if ($current_array[0]['game_style_2_id'] == $item['style_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['style_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-1 col-md-1 col-sm-3 col-xs-4 text-right strong">
-            Тактика:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[tactic_3_id]">
-                <?php foreach ($tactic_array as $item) { ?>
-                    <option
-                        value="<?= $item['tactic_id']; ?>"
-                        <?php if ($current_array[0]['game_tactic_3_id'] == $item['tactic_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['tactic_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Грубость:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[rude_3_id]">
-                <?php foreach ($rude_array as $item) { ?>
-                    <option
-                        value="<?= $item['rude_id']; ?>"
-                        <?php if ($current_array[0]['game_rude_3_id'] == $item['rude_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['rude_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4 text-right strong">
-            Стиль:
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-8">
-            <select class="form-control" name="data[style_3_id]">
-                <?php foreach ($style_array as $item) { ?>
-                    <option
-                        value="<?= $item['style_id']; ?>"
-                        <?php if ($current_array[0]['game_style_3_id'] == $item['style_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['style_name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table">
+                <tr>
+                    <td></td>
+                    <td class="text-center strong">Тактика</td>
+                    <td class="text-center strong">Грубость</td>
+                    <td class="text-center strong">Стиль</td>
+                </tr>
+                <tr>
+                    <td class="text-right strong">1 звено:</td>
+                    <td>
+                        <label class="hidden" for="tactic-1">tactic 1</label>
+                        <select class="form-control" id="tactic-1" name="data[tactic_1_id]">
+                            <?php foreach ($tactic_array as $item) { ?>
+                                <option
+                                        value="<?= $item['tactic_id']; ?>"
+                                    <?php if ($current_array[0]['game_tactic_1_id'] == $item['tactic_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['tactic_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="rude-1">rude 1</label>
+                        <select class="form-control" id="rude-1" name="data[rude_1_id]">
+                            <?php foreach ($rude_array as $item) { ?>
+                                <option
+                                        value="<?= $item['rude_id']; ?>"
+                                    <?php if ($current_array[0]['game_rude_1_id'] == $item['rude_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['rude_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="style-1">style 1</label>
+                        <select class="form-control" id="style-1" name="data[style_1_id]">
+                            <?php foreach ($style_array as $item) { ?>
+                                <option
+                                        value="<?= $item['style_id']; ?>"
+                                    <?php if ($current_array[0]['game_style_1_id'] == $item['style_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['style_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right strong">2 звено:</td>
+                    <td>
+                        <label class="hidden" for="tactic-2">tactic 2</label>
+                        <select class="form-control" id="tactic-2" name="data[tactic_2_id]">
+                            <?php foreach ($tactic_array as $item) { ?>
+                                <option
+                                        value="<?= $item['tactic_id']; ?>"
+                                    <?php if ($current_array[0]['game_tactic_2_id'] == $item['tactic_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['tactic_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="rude-2">rude 2</label>
+                        <select class="form-control" id="rude-2" name="data[rude_2_id]">
+                            <?php foreach ($rude_array as $item) { ?>
+                                <option
+                                        value="<?= $item['rude_id']; ?>"
+                                    <?php if ($current_array[0]['game_rude_2_id'] == $item['rude_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['rude_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="style-2">style 2</label>
+                        <select class="form-control" id="style-2" name="data[style_2_id]">
+                            <?php foreach ($style_array as $item) { ?>
+                                <option
+                                        value="<?= $item['style_id']; ?>"
+                                    <?php if ($current_array[0]['game_style_2_id'] == $item['style_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['style_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right strong">3 звено:</td>
+                    <td>
+                        <label class="hidden" for="tactic-3">tactic 3</label>
+                        <select class="form-control" id="tactic-3" name="data[tactic_3_id]">
+                            <?php foreach ($tactic_array as $item) { ?>
+                                <option
+                                        value="<?= $item['tactic_id']; ?>"
+                                    <?php if ($current_array[0]['game_tactic_3_id'] == $item['tactic_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['tactic_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="rude-3">rude 3</label>
+                        <select class="form-control" id="rude-3" name="data[rude_3_id]">
+                            <?php foreach ($rude_array as $item) { ?>
+                                <option
+                                        value="<?= $item['rude_id']; ?>"
+                                    <?php if ($current_array[0]['game_rude_3_id'] == $item['rude_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['rude_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td>
+                        <label class="hidden" for="style-3">style 3</label>
+                        <select class="form-control" id="style-3" name="data[style_3_id]">
+                            <?php foreach ($style_array as $item) { ?>
+                                <option
+                                        value="<?= $item['style_id']; ?>"
+                                    <?php if ($current_array[0]['game_style_3_id'] == $item['style_id']) { ?>
+                                        selected
+                                    <?php } ?>
+                                >
+                                    <?= $item['style_name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="row margin-top">

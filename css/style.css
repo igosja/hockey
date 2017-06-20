@@ -771,3 +771,7 @@ input[type="checkbox"] {
 .font-red {
     color: #b52b27;
 }
+
+.hidden {
+    display: none;
+}

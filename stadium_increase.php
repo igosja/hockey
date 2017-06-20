@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
