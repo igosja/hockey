@@ -18,7 +18,7 @@
                 <th class="col-15">Дата</th>
                 <th class="col-30 hidden-xs">Турнир</th>
                 <th class="col-10 hidden-xs">Стадия</th>
-                <th class="col-5 hidden-xs" title="Соотношение сил (чем больше это число, тем сильнее соперник)">C/C</th>
+                <th class="col-5 hidden-xs" title="Соотношение сил (чем больше это число, тем сильнее соперник)">С/С</th>
                 <th>Соперник</th>
                 <th class="col-1 hidden-xs" title="Автосостав">А</th>
                 <th class="col-5">Счёт</th>
