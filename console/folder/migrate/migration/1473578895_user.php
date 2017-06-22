@@ -18,6 +18,7 @@ $q[] = 'CREATE TABLE `user`
             `user_date_vip` INT(11) DEFAULT 0,
             `user_email` VARCHAR(255) NOT NULL,
             `user_finance` INT(11) DEFAULT 0,
+            `user_friendlystatus_id` TINYINT(11) DEFAULT 2,
             `user_holiday` TINYINT(1) DEFAULT 0,
             `user_holiday_day` TINYINT(2) DEFAULT 0,
             `user_login` VARCHAR(255) NOT NULL,

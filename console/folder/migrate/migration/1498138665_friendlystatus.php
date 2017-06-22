@@ -10,4 +10,4 @@ $q[] = 'CREATE TABLE `friendlystatus`
 $q[] = "INSERT INTO `friendlystatus` (`friendlystatus_name`)
         VALUES ('Я принимаю любое приглашение'),
                ('Я сам выбираю соперников для моей команды'),
-               ('Я не хочу принимать приглашения');
+               ('Я не хочу принимать приглашения');";
