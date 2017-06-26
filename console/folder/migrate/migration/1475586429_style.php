@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `style`
         (
-            `style_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+            `style_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `style_name` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `style` (`style_name`)

@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `line`
         (
-            `line_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+            `line_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `line_color` CHAR(6) NOT NULL,
             `line_name` VARCHAR(255) NOT NULL
         );';

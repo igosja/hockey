@@ -4,9 +4,9 @@ $q = array();
 
 $q[] = 'CREATE TABLE `stage`
         (
-            `stage_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+            `stage_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `stage_name` VARCHAR(255) NOT NULL,
-            `stage_visitor` SMALLINT(3)
+            `stage_visitor` INT(3)
         );';
 $q[] = "INSERT INTO `stage` (`stage_name`, `stage_visitor`)
         VALUES ('-', 90),

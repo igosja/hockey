@@ -4,20 +4,20 @@ $q = array();
 
 $q[] = 'CREATE TABLE `basetraining`
         (
-            `basetraining_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basetraining_base_level` TINYINT(2) DEFAULT 0,
-            `basetraining_build_speed` TINYINT(2) DEFAULT 0,
-            `basetraining_level` TINYINT(2) DEFAULT 0,
-            `basetraining_position_count` TINYINT(2) DEFAULT 0,
+            `basetraining_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `basetraining_base_level` INT(2) DEFAULT 0,
+            `basetraining_build_speed` INT(2) DEFAULT 0,
+            `basetraining_level` INT(2) DEFAULT 0,
+            `basetraining_position_count` INT(2) DEFAULT 0,
             `basetraining_position_price` INT(11) DEFAULT 0,
-            `basetraining_power_count` TINYINT(2) DEFAULT 0,
+            `basetraining_power_count` INT(2) DEFAULT 0,
             `basetraining_power_price` INT(11) DEFAULT 0,
             `basetraining_price_buy` INT(11) DEFAULT 0,
             `basetraining_price_sell` INT(11) DEFAULT 0,
-            `basetraining_special_count` TINYINT(2) DEFAULT 0,
+            `basetraining_special_count` INT(2) DEFAULT 0,
             `basetraining_special_price` INT(11) DEFAULT 0,
-            `basetraining_training_speed_max` TINYINT(3) DEFAULT 0,
-            `basetraining_training_speed_min` TINYINT(3) DEFAULT 0
+            `basetraining_training_speed_max` INT(3) DEFAULT 0,
+            `basetraining_training_speed_min` INT(3) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `basetraining`
         (

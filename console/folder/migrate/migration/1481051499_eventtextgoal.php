@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `eventtextgoal`
         (
-            `eventtextgoal_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+            `eventtextgoal_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `eventtextgoal_text` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `eventtextgoal` (`eventtextgoal_text`)

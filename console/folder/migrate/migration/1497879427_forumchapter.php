@@ -14,6 +14,6 @@ $q[] = 'CREATE TABLE `forumchapter`
             `forumchapter_last_forumtheme_id` INT(11) DEFAULT 0,
             `forumchapter_last_user_id` INT(11) DEFAULT 0,
             `forumchapter_name` VARCHAR(255) NOT NULL,
-            `forumchapter_order` SMALLINT(3) DEFAULT 0,
+            `forumchapter_order` INT(3) DEFAULT 0,
             `forumchapter_user_id` INT(11) DEFAULT 0
         );';

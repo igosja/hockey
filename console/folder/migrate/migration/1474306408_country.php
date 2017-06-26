@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `country`
         (
-            `country_id` SMALLINT(3) PRIMARY KEY AUTO_INCREMENT,
+            `country_id` INT(3) PRIMARY KEY AUTO_INCREMENT,
             `country_finance` INT(11) DEFAULT 0,
             `country_name` VARCHAR(255) NOT NULL,
             `country_president_id` INT(11) DEFAULT 0,

@@ -4,8 +4,8 @@ $q = array();
 
 $q[] = 'CREATE TABLE `tournamenttype`
         (
-            `tournamenttype_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
-            `tournamenttype_daytype_id` TINYINT(1) DEFAULT 0,
+            `tournamenttype_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
+            `tournamenttype_daytype_id` INT(1) DEFAULT 0,
             `tournamenttype_name` VARCHAR(255) NOT NULL,
             `tournamenttype_visitor` VARCHAR(255) NOT NULL
         );';

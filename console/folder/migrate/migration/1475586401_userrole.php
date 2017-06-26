@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `userrole`
         (
-            `userrole_id` TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+            `userrole_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `userrole_name` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `userrole` (`userrole_name`)

@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `financetext`
         (
-            `financetext_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
+            `financetext_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
             `financetext_name` VARCHAR(255) NOT NULL
         );';
 $q[] = "INSERT INTO `financetext` (`financetext_name`)

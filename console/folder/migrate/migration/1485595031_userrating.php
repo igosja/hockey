@@ -19,7 +19,7 @@ $q[] = 'CREATE TABLE `userrating`
             `userrating_looseover_strong` INT(11) DEFAULT 0,
             `userrating_looseover_weak` INT(11) DEFAULT 0,
             `userrating_rating` DECIMAL(6,2) DEFAULT 0,
-            `userrating_season_id` SMALLINT(5) DEFAULT 0,
+            `userrating_season_id` INT(5) DEFAULT 0,
             `userrating_user_id` INT(11) DEFAULT 0,
             `userrating_vs_super` INT(11) DEFAULT 0,
             `userrating_vs_rest` INT(11) DEFAULT 0,

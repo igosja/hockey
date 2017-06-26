@@ -4,23 +4,23 @@ $q = array();
 
 $q[] = 'CREATE TABLE `basescout`
         (
-            `basescout_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basescout_base_level` TINYINT(2) DEFAULT 0,
-            `basescout_build_speed` TINYINT(2) DEFAULT 0,
-            `basescout_distance` TINYINT(1) DEFAULT 0,
-            `basescout_level` TINYINT(2) DEFAULT 0,
-            `basescout_market_game_row` TINYINT(1) DEFAULT 0,
-            `basescout_market_phisical` TINYINT(1) DEFAULT 0,
-            `basescout_market_tire` TINYINT(1) DEFAULT 0,
-            `basescout_my_style_count` TINYINT(2) DEFAULT 0,
+            `basescout_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `basescout_base_level` INT(2) DEFAULT 0,
+            `basescout_build_speed` INT(2) DEFAULT 0,
+            `basescout_distance` INT(1) DEFAULT 0,
+            `basescout_level` INT(2) DEFAULT 0,
+            `basescout_market_game_row` INT(1) DEFAULT 0,
+            `basescout_market_phisical` INT(1) DEFAULT 0,
+            `basescout_market_tire` INT(1) DEFAULT 0,
+            `basescout_my_style_count` INT(2) DEFAULT 0,
             `basescout_my_style_price` INT(11) DEFAULT 0,
-            `basescout_opponent_game_row` TINYINT(1) DEFAULT 0,
-            `basescout_opponent_phisical` TINYINT(1) DEFAULT 0,
-            `basescout_opponent_tire` TINYINT(1) DEFAULT 0,
+            `basescout_opponent_game_row` INT(1) DEFAULT 0,
+            `basescout_opponent_phisical` INT(1) DEFAULT 0,
+            `basescout_opponent_tire` INT(1) DEFAULT 0,
             `basescout_price_buy` INT(11) DEFAULT 0,
             `basescout_price_sell` INT(11) DEFAULT 0,
-            `basescout_scout_speed_max` TINYINT(3) DEFAULT 0,
-            `basescout_scout_speed_min` TINYINT(3) DEFAULT 0
+            `basescout_scout_speed_max` INT(3) DEFAULT 0,
+            `basescout_scout_speed_min` INT(3) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `basescout`
         (

@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `special`
         (
-            `special_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
+            `special_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
             `special_field` VARCHAR(255) NOT NULL,
             `special_gk` VARCHAR(255) NOT NULL,
             `special_name` VARCHAR(255) NOT NULL,

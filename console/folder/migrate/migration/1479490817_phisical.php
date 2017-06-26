@@ -4,9 +4,9 @@ $q = array();
 
 $q[] = 'CREATE TABLE `phisical`
         (
-            `phisical_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `phisical_opposite` TINYINT(2) DEFAULT 0,
-            `phisical_value` TINYINT(3) DEFAULT 0
+            `phisical_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `phisical_opposite` INT(2) DEFAULT 0,
+            `phisical_value` INT(3) DEFAULT 0
         );';
 $q[] = "INSERT INTO `phisical` (`phisical_opposite`, `phisical_value`)
         VALUES (1, 125),

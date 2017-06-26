@@ -4,14 +4,14 @@ $q = array();
 
 $q[] = 'CREATE TABLE `basephisical`
         (
-            `basephisical_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basephisical_base_level` TINYINT(2) DEFAULT 0,
-            `basephisical_build_speed` TINYINT(2) DEFAULT 0,
-            `basephisical_change_count` TINYINT(2) DEFAULT 0,
-            `basephisical_level` TINYINT(2) DEFAULT 0,
+            `basephisical_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `basephisical_base_level` INT(2) DEFAULT 0,
+            `basephisical_build_speed` INT(2) DEFAULT 0,
+            `basephisical_change_count` INT(2) DEFAULT 0,
+            `basephisical_level` INT(2) DEFAULT 0,
             `basephisical_price_buy` INT(11) DEFAULT 0,
             `basephisical_price_sell` INT(11) DEFAULT 0,
-            `basephisical_tire_bonus` TINYINT(1) DEFAULT 0
+            `basephisical_tire_bonus` INT(1) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `basephisical`
         (

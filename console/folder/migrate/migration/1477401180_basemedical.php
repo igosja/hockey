@@ -4,13 +4,13 @@ $q = array();
 
 $q[] = 'CREATE TABLE `basemedical`
         (
-            `basemedical_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `basemedical_base_level` TINYINT(2) DEFAULT 0,
-            `basemedical_build_speed` TINYINT(1) DEFAULT 0,
-            `basemedical_level` TINYINT(2) DEFAULT 0,
+            `basemedical_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `basemedical_base_level` INT(2) DEFAULT 0,
+            `basemedical_build_speed` INT(1) DEFAULT 0,
+            `basemedical_level` INT(2) DEFAULT 0,
             `basemedical_price_buy` INT(11) DEFAULT 0,
             `basemedical_price_sell` INT(11) DEFAULT 0,
-            `basemedical_tire` TINYINT(2) DEFAULT 0
+            `basemedical_tire` INT(2) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `basemedical`
         (

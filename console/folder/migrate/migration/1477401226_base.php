@@ -4,15 +4,15 @@ $q = array();
 
 $q[] = 'CREATE TABLE `base`
         (
-            `base_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `base_build_speed` TINYINT(2) DEFAULT 0,
-            `base_level` TINYINT(2) DEFAULT 0,
+            `base_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `base_build_speed` INT(2) DEFAULT 0,
+            `base_level` INT(2) DEFAULT 0,
             `base_maintenance_base` INT(11) DEFAULT 0,
             `base_maintenance_slot` INT(11) DEFAULT 0,
             `base_price_buy` INT(11) DEFAULT 0,
             `base_price_sell` INT(11) DEFAULT 0,
-            `base_slot_max` TINYINT(2) DEFAULT 0,
-            `base_slot_min` TINYINT(2) DEFAULT 0
+            `base_slot_max` INT(2) DEFAULT 0,
+            `base_slot_min` INT(2) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `base`
         (

@@ -4,17 +4,17 @@ $q = array();
 
 $q[] = 'CREATE TABLE `baseschool`
         (
-            `baseschool_id` TINYINT(2) PRIMARY KEY AUTO_INCREMENT,
-            `baseschool_base_level` TINYINT(2) DEFAULT 0,
-            `baseschool_build_speed` TINYINT(2) DEFAULT 0,
-            `baseschool_level` TINYINT(2) DEFAULT 0,
-            `baseschool_player_count` TINYINT(1) DEFAULT 0,
-            `baseschool_power` TINYINT(2) DEFAULT 0,
+            `baseschool_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
+            `baseschool_base_level` INT(2) DEFAULT 0,
+            `baseschool_build_speed` INT(2) DEFAULT 0,
+            `baseschool_level` INT(2) DEFAULT 0,
+            `baseschool_player_count` INT(1) DEFAULT 0,
+            `baseschool_power` INT(2) DEFAULT 0,
             `baseschool_price_buy` INT(11) DEFAULT 0,
             `baseschool_price_sell` INT(11) DEFAULT 0,
-            `baseschool_school_speed` TINYINT(2) DEFAULT 0,
-            `baseschool_with_special` TINYINT(1) DEFAULT 0,
-            `baseschool_with_style` TINYINT(1) DEFAULT 0
+            `baseschool_school_speed` INT(2) DEFAULT 0,
+            `baseschool_with_special` INT(1) DEFAULT 0,
+            `baseschool_with_style` INT(1) DEFAULT 0
         );';
 $q[] = 'INSERT INTO `baseschool`
         (
