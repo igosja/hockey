@@ -11,13 +11,16 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
+$num_get = $auth_team_id;
+
+include(__DIR__ . '/include/sql/team_view_left.php');
+
 $sql = "SELECT `stadium_capacity`,
-               `stadium_name`,
                `team_finance`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
-        WHERE `team_id`=$auth_team_id
+        WHERE `team_id`=$num_get
         LIMIT 1";
 $stadium_sql = f_igosja_mysqli_query($sql);
 
@@ -30,7 +33,7 @@ $stadium_array = $stadium_sql->fetch_all(1);
 
 $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
         FROM `buildingstadium`
-        WHERE `buildingstadium_team_id`=$auth_team_id";
+        WHERE `buildingstadium_team_id`=$num_get";
 $buildingstadium_sql = f_igosja_mysqli_query($sql);
 
 $buildingstadium_array = $buildingstadium_sql->fetch_all(1);
@@ -72,9 +75,9 @@ if (isset($new_capacity))
 
         if (!f_igosja_request_get('ok'))
         {
-            $stadium_accept = 'При уменьшении стадиона до ' . $new_capacity
-                            . ' мест вы получите компенсацию ' . f_igosja_money($buildingstadium_price)
-                            . '. Это займет 1 день.';
+            $stadium_accept = 'При уменьшении стадиона до <span class="strong">' . $new_capacity
+                            . '</span> мест вы получите компенсацию <span class="strong">' . f_igosja_money($buildingstadium_price)
+                            . '</span>. Это займет <span class="strong">1</span> день.';
         }
         else
         {
@@ -85,19 +88,19 @@ if (isset($new_capacity))
                     SET `buildingstadium_capacity`=$new_capacity,
                         `buildingstadium_constructiontype_id`=$constructiontype_id,
                         `buildingstadium_day`=$buildingstadium_day,
-                        `buildingstadium_team_id`=$auth_team_id";
+                        `buildingstadium_team_id`=$num_get";
             f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$buildingstadium_price
-                    WHERE `team_id`=$auth_team_id
+                    WHERE `team_id`=$num_get
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_capacity' => $new_capacity,
                 'finance_financetext_id' => FINANCETEXT_INCOME_BUILDING_STADIUM,
-                'finance_team_id' => $auth_team_id,
+                'finance_team_id' => $num_get,
                 'finance_value' => $buildingstadium_price,
                 'finance_value_after' => $stadium_array[0]['team_finance'] + $buildingstadium_price,
                 'finance_value_before' => $stadium_array[0]['team_finance'],

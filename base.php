@@ -2,6 +2,7 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $igosja_season_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -18,14 +19,20 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 include(__DIR__ . '/include/sql/team_view_left.php');
 
-$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+$buildingbase_array = array();
+
+$sql = "SELECT `buildingbase_building_id`
         FROM `buildingbase`
         WHERE `buildingbase_team_id`=$num_get
         AND `buildingbase_ready`=0";
 $buildingbase_sql = f_igosja_mysqli_query($sql);
 
-$buildingbase_array = $buildingbase_sql->fetch_all(1);
-$count_buildingbase = $buildingbase_array[0]['count'];
+$count_buildingbase = $buildingbase_sql->num_rows;
+
+if ($count_buildingbase)
+{
+    $buildingbase_array = $buildingbase_sql->fetch_all(1);
+}
 
 $sql = "SELECT `base_id`,
                `base_level`,
@@ -118,24 +125,36 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     {
                         $base_error = 'Вы имеете здание максимального уровня.';
                     }
+                    elseif (f_igosja_base_is_training($num_get))
+                    {
+                        $base_error = 'В тренировочном центре тренируются игроки.';
+                    }
+                    elseif (f_igosja_base_is_school($num_get))
+                    {
+                        $base_error = 'В спортшколе идет подготовка игрока.';
+                    }
+                    elseif (f_igosja_base_is_scout($num_get))
+                    {
+                        $base_error = 'В скаутцентре идет изучение игроков.';
+                    }
                     else
                     {
                         $baseinfo_array = $baseinfo_sql->fetch_all(1);
 
                         if ($baseinfo_array[0]['base_slot_min'] > $base_array[0]['base_slot_used'])
                         {
-                            $base_error = 'Минимальное количество занятых слотов должно быть не меньше ' . $baseinfo_array[0]['base_slot_min'] . '.';
+                            $base_error = 'Минимальное количество занятых слотов должно быть не меньше <span class="strong">' . $baseinfo_array[0]['base_slot_min'] . '</span>.';
                         }
                         elseif ($baseinfo_array[0]['base_price_buy'] > $base_array[0]['team_finance'])
                         {
-                            $base_error = 'Для строительства нужно ' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '.';
+                            $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '</span>.';
                         }
                         elseif (!f_igosja_request_get('ok'))
                         {
-                            $base_accept = 'Строительство базы ' . $baseinfo_array[0]['base_level']
-                                         . ' уровня будет стоить ' . f_igosja_money($baseinfo_array[0]['base_price_buy'])
-                                         . ' и займет ' . $baseinfo_array[0]['base_build_speed']
-                                         . ' дней типа B';
+                            $base_accept = 'Строительство базы <span class="strong">' . $baseinfo_array[0]['base_level']
+                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy'])
+                                         . '</span> и займет <span class="strong">' . $baseinfo_array[0]['base_build_speed']
+                                         . '</span> ' . f_igosja_count_case($baseinfo_array[0]['base_build_speed'], 'день', 'дня', 'дней') . '.';
                         }
                         else
                         {
@@ -185,6 +204,18 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     {
                         $base_error = 'Тип строения выбран не правильно.';
                     }
+                    elseif (BUILDING_BASETRAINING == $building_id && f_igosja_base_is_training($num_get))
+                    {
+                        $base_error = 'В тренировочном центре тренируются игроки.';
+                    }
+                    elseif (BUILDING_BASESCHOOL == $building_id && f_igosja_base_is_school($num_get))
+                    {
+                        $base_error = 'В спортшколе идет подготовка игрока.';
+                    }
+                    elseif (BUILDING_BASESCOUT == $building_id && f_igosja_base_is_scout($num_get))
+                    {
+                        $base_error = 'В скаутцентре идет изучение игроков.';
+                    }
                     else
                     {
                         $building_array = $building_sql->fetch_all(1);
@@ -213,18 +244,18 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                             if ($baseinfo_array[0][$building_name . '_base_level'] > $base_array[0]['base_level'])
                             {
-                                $base_error = 'Минимальный уровень базы должен быть не меньше ' . $baseinfo_array[0][$building_name . '_base_level'] . '.';
+                                $base_error = 'Минимальный уровень базы должен быть не меньше <span class="strong">' . $baseinfo_array[0][$building_name . '_base_level'] . '</span>.';
                             }
                             elseif ($baseinfo_array[0][$building_name . '_price_buy'] > $base_array[0]['team_finance'])
                             {
-                                $base_error = 'Для строительства нужно ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '.';
+                                $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '</span>.';
                             }
                             elseif (!f_igosja_request_get('ok'))
                             {
-                                $base_accept = 'Строительство здания ' . $baseinfo_array[0][$building_name . '_level']
-                                         . ' уровня будет стоить ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
-                                         . ' и займет ' . $baseinfo_array[0][$building_name . '_build_speed']
-                                         . ' дней типа B';
+                                $base_accept = 'Строительство здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
+                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
+                                         . '</span> и займет <span class="strong">' . $baseinfo_array[0][$building_name . '_build_speed']
+                                         . '</span> ' . f_igosja_count_case($baseinfo_array[0][$building_name . '_build_speed'], 'день', 'дня', 'дней') . '.';
                             }
                             else
                             {
@@ -301,19 +332,31 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     {
                         $base_error = 'Вы имеете здание минимального уровня.';
                     }
+                    elseif (f_igosja_base_is_training($num_get))
+                    {
+                        $base_error = 'В тренировочном центре тренируются игроки.';
+                    }
+                    elseif (f_igosja_base_is_school($num_get))
+                    {
+                        $base_error = 'В спортшколе идет подготовка игрока.';
+                    }
+                    elseif (f_igosja_base_is_scout($num_get))
+                    {
+                        $base_error = 'В скаутцентре идет изучение игроков.';
+                    }
                     else
                     {
                         $baseinfo_array = $baseinfo_sql->fetch_all(1);
 
                         if ($baseinfo_array[0]['base_slot_max'] < $base_array[0]['base_slot_used'])
                         {
-                            $base_error = 'Максимальное количество занятых слотов должно быть не больше ' . $baseinfo_array[0]['base_slot_max'] . '.';
+                            $base_error = 'Максимальное количество занятых слотов должно быть не больше <span class="strong">' . $baseinfo_array[0]['base_slot_max'] . '</span>.';
                         }
                         elseif (!f_igosja_request_get('ok'))
                         {
-                            $base_accept = 'При строительстве базы ' . $baseinfo_array[0]['base_level']
-                                         . ' уровня вы получите компенсацию ' . f_igosja_money($buildingbase_price)
-                                         . '. Это займет 1 день типа B';
+                            $base_accept = 'При строительстве базы <span class="strong">' . $baseinfo_array[0]['base_level']
+                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($buildingbase_price)
+                                         . '</span>. Это займет <span class="strong">1</span> день.';
                         }
                         else
                         {
@@ -362,6 +405,18 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     {
                         $base_error = 'Тип строения выбран не правильно.';
                     }
+                    elseif (BUILDING_BASETRAINING == $building_id && f_igosja_base_is_training($num_get))
+                    {
+                        $base_error = 'В тренировочном центре тренируются игроки.';
+                    }
+                    elseif (BUILDING_BASESCHOOL == $building_id && f_igosja_base_is_school($num_get))
+                    {
+                        $base_error = 'В спортшколе идет подготовка игрока.';
+                    }
+                    elseif (BUILDING_BASESCOUT == $building_id && f_igosja_base_is_scout($num_get))
+                    {
+                        $base_error = 'В скаутцентре идет изучение игроков.';
+                    }
                     else
                     {
                         $building_array = $building_sql->fetch_all(1);
@@ -407,9 +462,9 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                             if (!f_igosja_request_get('ok'))
                             {
-                                $base_accept = 'При строительстве здания ' . $baseinfo_array[0][$building_name . '_level']
-                                         . ' уровня вы получите компенсацию ' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
-                                         . '. Это займет 1 день типа B';
+                                $base_accept = 'При строительстве здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
+                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
+                                         . '</span>. Это займет <span class="strong">1</span> день.';
                             }
                             else
                             {
@@ -447,6 +502,400 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_power`!=0";
+$training_used_power_sql = f_igosja_mysqli_query($sql);
+
+$training_used_power_array = $training_used_power_sql->fetch_all(1);
+
+$training_available_power = $base_array[0]['basetraining_power_count'] - $training_used_power_array[0]['count'];
+
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_special_id`!=0";
+$training_used_special_sql = f_igosja_mysqli_query($sql);
+
+$training_used_special_array = $training_used_special_sql->fetch_all(1);
+
+$training_available_special = $base_array[0]['basetraining_special_count'] - $training_used_special_array[0]['count'];
+
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_position_id`!=0";
+$training_used_position_sql = f_igosja_mysqli_query($sql);
+
+$training_used_position_array = $training_used_position_sql->fetch_all(1);
+
+$training_available_position = $base_array[0]['basetraining_position_count'] - $training_used_position_array[0]['count'];
+
+$sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
+        FROM `phisicalchange`
+        WHERE `phisicalchange_team_id`=$num_get
+        AND `phisicalchange_season_id`=$igosja_season_id
+        AND `phisicalchange_shedule_id`<=
+        (
+            SELECT `shedule_id`
+            FROM `shedule`
+            WHERE `shedule_date`<UNIX_TIMESTAMP()
+            AND `shedule_season_id`=$igosja_season_id
+            ORDER BY `shedule_date` DESC
+            LIMIT 1
+        )";
+$phisical_used_sql = f_igosja_mysqli_query($sql);
+
+$phisical_used_array = $phisical_used_sql->fetch_all(1);
+
+$phisical_available = $base_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
+
+$sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
+        FROM `phisicalchange`
+        WHERE `phisicalchange_team_id`=$num_get
+        AND `phisicalchange_season_id`=$igosja_season_id
+        AND `phisicalchange_shedule_id`>
+        (
+            SELECT `shedule_id`
+            FROM `shedule`
+            WHERE `shedule_date`<UNIX_TIMESTAMP()
+            AND `shedule_season_id`=$igosja_season_id
+            ORDER BY `shedule_date` DESC
+            LIMIT 1
+        )";
+$phisical_plan_sql = f_igosja_mysqli_query($sql);
+
+$phisical_plan_array = $phisical_plan_sql->fetch_all(1);
+
+$sql = "SELECT COUNT(`school_id`) AS `count`
+        FROM `school`
+        WHERE `school_team_id`=$num_get
+        AND `school_season_id`=$igosja_season_id";
+$school_used_sql = f_igosja_mysqli_query($sql);
+
+$school_used_array = $school_used_sql->fetch_all(1);
+
+$school_available = $base_array[0]['baseschool_player_count'] - $school_used_array[0]['count'];
+
+$sql = "SELECT COUNT(`scout_id`) AS `count`
+        FROM `scout`
+        WHERE `scout_team_id`=$num_get
+        AND `scout_season_id`=$igosja_season_id";
+$scout_used_sql = f_igosja_mysqli_query($sql);
+
+$scout_used_array = $scout_used_sql->fetch_all(1);
+
+$scout_available = $base_array[0]['basescout_my_style_count'] - $scout_used_array[0]['count'];
+
+$img = '/img/base/';
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASE == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_base = $img . 'building.png';
+}
+else
+{
+    $img_base = $img . 'base.png';
+}
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASETRAINING == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_training = $img . 'building.png';
+}
+else
+{
+    $img_training = $img . 'training.png';
+}
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEMEDICAL == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_medical = $img . 'building.png';
+}
+else
+{
+    $img_medical = $img . 'medical.png';
+}
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEPHISICAL == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_phisical = $img . 'building.png';
+}
+else
+{
+    $img_phisical = $img . 'phisical.png';
+}
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCHOOL == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_school = $img . 'building.png';
+}
+else
+{
+    $img_school = $img . 'school.png';
+}
+
+if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCOUT == $buildingbase_array[0]['buildingbase_building_id'])
+{
+    $img_scout = $img . 'building.png';
+}
+else
+{
+    $img_scout = $img . 'scout.png';
+}
+
+unset($img);
+
+$link_base_array        = array();
+$link_training_array    = array();
+$link_medical_array     = array();
+$link_phisical_array    = array();
+$link_school_array      = array();
+$link_scout_array       = array();
+
+$del_base       = false;
+$del_medical    = false;
+$del_phisical   = false;
+$del_school     = false;
+$del_scout      = false;
+$del_training   = false;
+
+if (isset($auth_team_id) && $auth_team_id == $num_get)
+{
+    if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASE == $buildingbase_array[0]['buildingbase_building_id'])
+    {
+        $link_base_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $link_training_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $link_medical_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $link_phisical_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $link_school_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $link_scout_array[] = array(
+            'href' => 'javascript:',
+            'text' => 'Идет строительство',
+        );
+
+        $del_base       = true;
+        $del_medical    = true;
+        $del_phisical   = true;
+        $del_school     = true;
+        $del_scout      = true;
+        $del_training   = true;
+    }
+    else
+    {
+        if ($base_array[0]['base_level'] < BUILDING_MAX_LEVEL)
+        {
+            $link_base_array[] = array(
+                'href' => '/base.php?building_id=' . BUILDING_BASE . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                'text' => 'Строить',
+            );
+        }
+
+        if ($base_array[0]['base_level'] > BUILDING_MIN_LEVEL)
+        {
+            $link_base_array[] = array(
+                'href' => '/base.php?building_id=' . BUILDING_BASE . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                'text' => 'Продать',
+            );
+        }
+
+        if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASETRAINING == $buildingbase_array[0]['buildingbase_building_id'])
+        {
+            $link_training_array[] = array(
+                'href' => 'javascript:',
+                'text' => 'Идет строительство',
+            );
+
+            $del_training   = true;
+        }
+        else
+        {
+            if ($base_array[0]['basetraining_level'] < BUILDING_MAX_LEVEL)
+            {
+                $link_training_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASETRAINING . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                    'text' => 'Строить',
+                );
+            }
+
+            if ($base_array[0]['basetraining_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_training_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASETRAINING . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                    'text' => 'Продать',
+                );
+            }
+
+            if ($base_array[0]['basetraining_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_training_array[] = array(
+                    'href' => '/training.php',
+                    'text' => 'Тренировка',
+                );
+            }
+        }
+
+        if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEPHISICAL == $buildingbase_array[0]['buildingbase_building_id'])
+        {
+            $link_phisical_array[] = array(
+                'href' => 'javascript:',
+                'text' => 'Идет строительство',
+            );
+
+            $del_phisical   = true;
+        }
+        else
+        {
+            if ($base_array[0]['basephisical_level'] < BUILDING_MAX_LEVEL)
+            {
+                $link_phisical_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASEPHISICAL . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                    'text' => 'Строить',
+                );
+            }
+
+            if ($base_array[0]['basephisical_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_phisical_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASEPHISICAL . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                    'text' => 'Продать',
+                );
+            }
+
+            if ($base_array[0]['basephisical_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_phisical_array[] = array(
+                    'href' => '/phisical.php',
+                    'text' => 'Форма',
+                );
+            }
+        }
+
+        if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCHOOL == $buildingbase_array[0]['buildingbase_building_id'])
+        {
+            $link_school_array[] = array(
+                'href' => 'javascript:',
+                'text' => 'Идет строительство',
+            );
+
+            $del_medical    = true;
+        }
+        else
+        {
+            if ($base_array[0]['baseschool_level'] < BUILDING_MAX_LEVEL)
+            {
+                $link_school_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASESCHOOL . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                    'text' => 'Строить',
+                );
+            }
+
+            if ($base_array[0]['baseschool_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_school_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASESCHOOL . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                    'text' => 'Продать',
+                );
+            }
+
+            if ($base_array[0]['baseschool_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_school_array[] = array(
+                    'href' => '/school.php',
+                    'text' => 'Молодежь',
+                );
+            }
+        }
+
+        if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCOUT == $buildingbase_array[0]['buildingbase_building_id'])
+        {
+            $link_scout_array[] = array(
+                'href' => 'javascript:',
+                'text' => 'Идет строительство',
+            );
+
+            $del_scout      = true;
+        }
+        else
+        {
+            if ($base_array[0]['baseschool_level'] < BUILDING_MAX_LEVEL)
+            {
+                $link_scout_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASESCOUT . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                    'text' => 'Строить',
+                );
+            }
+
+            if ($base_array[0]['baseschool_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_scout_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASESCOUT . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                    'text' => 'Продать',
+                );
+            }
+
+            if ($base_array[0]['baseschool_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_scout_array[] = array(
+                    'href' => '/scout.php',
+                    'text' => 'Изучение',
+                );
+            }
+        }
+
+        if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEMEDICAL == $buildingbase_array[0]['buildingbase_building_id'])
+        {
+            $link_medical_array[] = array(
+                'href' => 'javascript:',
+                'text' => 'Идет строительство',
+            );
+
+            $del_medical    = true;
+        }
+        else
+        {
+            if ($base_array[0]['basemedical_level'] < BUILDING_MAX_LEVEL)
+            {
+                $link_medical_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASEMEDICAL . '&constructiontype_id=' . CONSTRUCTION_BUILD,
+                    'text' => 'Строить',
+                );
+            }
+
+            if ($base_array[0]['basemedical_level'] > BUILDING_MIN_LEVEL)
+            {
+                $link_medical_array[] = array(
+                    'href' => '/base.php?building_id=' . BUILDING_BASEMEDICAL . '&constructiontype_id=' . CONSTRUCTION_DESTROY,
+                    'text' => 'Продать',
+                );
             }
         }
     }
