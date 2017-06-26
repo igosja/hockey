@@ -102,8 +102,8 @@ $q[] = 'CREATE TABLE `game`
             `game_home_teamwork_3` DOUBLE(4,2) DEFAULT 0,
             `game_played` INT(1) DEFAULT 0,
             `game_ticket` INT(2) DEFAULT 0,
+            `game_shedule_id` INT(11) DEFAULT 0,
             `game_stadium_capacity` INT(5) DEFAULT 0,
             `game_stadium_id` INT(5) DEFAULT 0,
-            `game_shedule_id` INT(11) DEFAULT 0,
             `game_visitor` INT(5) DEFAULT 0
         );';

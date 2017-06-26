@@ -445,6 +445,10 @@ input.submit-blue {
     width: 50%;
 }
 
+.col-58 {
+    width: 58%;
+}
+
 .text-left {
     text-align: left;
 }
