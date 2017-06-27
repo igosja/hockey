@@ -398,9 +398,23 @@ $myteam_sql = f_igosja_mysqli_query($sql);
 
 $myteam_array = $myteam_sql->fetch_all(1);
 
-$sql = "SELECT `shedule_date`,
+$sql = "SELECT `game_shedule_id`,
+               `shedule_date`,
                `shedule_id`
         FROM `shedule`
+        LEFT JOIN
+        (
+            SELECT `game_shedule_id`
+            FROM `game`
+            LEFT JOIN `shedule`
+            ON `game_shedule_id`=`shedule_id`
+            WHERE (`game_guest_team_id`=$auth_team_id
+            OR `game_home_team_id`=$auth_team_id)
+            AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
+            AND `shedule_date`>UNIX_TIMESTAMP()
+            AND `shedule_date`<UNIX_TIMESTAMP()+1209600
+        ) AS `t1`
+        ON `shedule_id`=`game_shedule_id`
         WHERE `shedule_date`>UNIX_TIMESTAMP()
         AND `shedule_date`<UNIX_TIMESTAMP()+1209600
         AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
@@ -409,18 +423,27 @@ $shedule_sql = f_igosja_mysqli_query($sql);
 
 $shedule_array = $shedule_sql->fetch_all(1);
 
+$sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
+        FROM `friendlyinvite`
+        WHERE `friendlyinvite_shedule_id`=$num_get
+        AND `friendlyinvite_guest_team_id`=$auth_team_id
+        AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_APPROVE;
+$check_recieve_sql = f_igosja_mysqli_query($sql);
+
+$check_recieve_array = $check_recieve_sql->fetch_all(1);
+
 $sql = "SELECT `city_id`,
                `city_name`,
                `country_id`,
                `country_name`,
-               `friendlyinvite_friendlyinvitestatus_id`,
                `friendlyinvite_id`,
+               `friendlyinvitestatus_id`,
+               `friendlyinvitestatus_name`,
                `stadium_capacity`,
                `team_id`,
                `team_name`,
                `team_power_vs`,
                `team_visitor`,
-               `user_friendlystatus_id`,
                `user_id`,
                `user_login`
         FROM `friendlyinvite`
@@ -434,6 +457,8 @@ $sql = "SELECT `city_id`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
+        LEFT JOIN `friendlyinvitestatus`
+        ON `friendlyinvite_friendlyinvitestatus_id`=`friendlyinvitestatus_id`
         WHERE `friendlyinvite_shedule_id`=$num_get
         AND `friendlyinvite_guest_team_id`=$auth_team_id
         ORDER BY `friendlyinvite_id` ASC";
