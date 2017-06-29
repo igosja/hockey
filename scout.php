@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
@@ -10,6 +15,24 @@ if (!isset($auth_team_id))
 $num_get = $auth_team_id;
 
 include(__DIR__ . '/include/sql/team_view_left.php');
+
+$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+        FROM `buildingbase`
+        WHERE `buildingbase_ready`=0
+        AND `buildingbase_team_id`=$auth_team_id
+        AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASESCOUT . ")";
+$building_sql = f_igosja_mysqli_query($sql);
+
+$building_array = $building_sql->fetch_all(1);
+
+if ($building_array[0]['count'])
+{
+    $on_building = true;
+}
+else
+{
+    $on_building = false;
+}
 
 $sql = "SELECT `basescout_level`,
                `basescout_my_style_count`,
@@ -26,12 +49,21 @@ $basescout_sql = f_igosja_mysqli_query($sql);
 
 $basescout_array = $basescout_sql->fetch_all(1);
 
+$sql = "SELECT COUNT(`scout_id`) AS `count`
+        FROM `scout`
+        WHERE `scout_team_id`=$num_get
+        AND `scout_season_id`=$igosja_season_id";
+$scout_used_sql = f_igosja_mysqli_query($sql);
+
+$scout_used_array = $scout_used_sql->fetch_all(1);
+
+$scout_available = $basescout_array[0]['basescout_my_style_count'] - $scout_used_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     $confirm_data = array(
         'style' => array(),
         'price' => 0,
-        'error' => '',
     );
 
     if (isset($data['style']))
@@ -68,23 +100,43 @@ if ($data = f_igosja_request_post('data'))
                     $player_array = $player_sql->fetch_all(1);
 
                     $confirm_data['style'][] = array(
-                        'id' => $item,
-                        'name' => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
+                        'id'    => $item,
+                        'name'  => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
                     );
 
                     $confirm_data['price'] = $confirm_data['price'] + $basescout_array[0]['basescout_my_style_price'];
+                }
+                else
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Одного игрока нельзя одновременно изучать несколько раз.';
+
+                    refresh();
                 }
             }
         }
     }
 
-    if (count($confirm_data['style']) > $basescout_array[0]['basescout_my_style_count'])
+    if ($on_building)
     {
-        $confirm_data['error'] = 'У вас недостаточно стилей для изучения';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+
+        refresh();
+    }
+    elseif (count($confirm_data['style']) > $scout_available)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно стилей для изучения.';
+
+        refresh();
     }
     elseif ($confirm_data['price'] > $basescout_array[0]['team_finance'])
     {
-        $confirm_data['error'] = 'У вас недостаточно денег для изучения';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно денег для изучения.';
+
+        refresh();
     }
 
     if (isset($data['ok']))
@@ -159,6 +211,46 @@ $scout_sql = f_igosja_mysqli_query($sql);
 
 $scout_array = $scout_sql->fetch_all(1);
 
+$player_id = array();
+
+foreach ($scout_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
+
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
+
+    $sql = "SELECT `playerposition_player_id`,
+                   `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
+    $playerposition_sql = f_igosja_mysqli_query($sql);
+
+    $scoutplayerposition_array = $playerposition_sql->fetch_all(1);
+
+    $sql = "SELECT `playerspecial_level`,
+                   `playerspecial_player_id`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+    $scoutplayerspecial_array = $playerspecial_sql->fetch_all(1);
+}
+else
+{
+    $scoutplayerposition_array  = array();
+    $scoutplayerspecial_array   = array();
+}
+
 $sql = "SELECT `country_id`,
                `country_name`,
                `name_name`,
@@ -179,20 +271,44 @@ $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(1);
 
-$sql = "SELECT `position_id`,
-               `position_name`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$player_id = array();
 
-$position_array = $position_sql->fetch_all(1);
+foreach ($player_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
 
-$sql = "SELECT `special_id`,
-               `special_name`
-        FROM `special`
-        ORDER BY `special_id` ASC";
-$special_sql = f_igosja_mysqli_query($sql);
+if (count($player_id))
+{
+    $player_id = implode(', ', $player_id);
 
-$special_array = $special_sql->fetch_all(1);
+    $sql = "SELECT `playerposition_player_id`,
+                   `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
+    $playerposition_sql = f_igosja_mysqli_query($sql);
+
+    $playerposition_array = $playerposition_sql->fetch_all(1);
+
+    $sql = "SELECT `playerspecial_level`,
+                   `playerspecial_player_id`,
+                   `special_name`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+}
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
 
 include(__DIR__ . '/view/layout/main.php');
