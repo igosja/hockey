@@ -10,7 +10,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_building_id']))
     {
-        $finance_building_id = (int)$data['finance_building_id'];
+        $finance_building_id = (int) $data['finance_building_id'];
     }
     else
     {
@@ -19,7 +19,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_capacity']))
     {
-        $finance_capacity = (int)$data['finance_capacity'];
+        $finance_capacity = (int) $data['finance_capacity'];
     }
     else
     {
@@ -37,7 +37,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_country_id']))
     {
-        $finance_country_id = (int)$data['finance_country_id'];
+        $finance_country_id = (int) $data['finance_country_id'];
     }
     else
     {
@@ -46,7 +46,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_financetext_id']))
     {
-        $finance_financetext_id = (int)$data['finance_financetext_id'];
+        $finance_financetext_id = (int) $data['finance_financetext_id'];
     }
     else
     {
@@ -55,7 +55,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_level']))
     {
-        $finance_level = (int)$data['finance_level'];
+        $finance_level = (int) $data['finance_level'];
     }
     else
     {
@@ -64,7 +64,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_national_id']))
     {
-        $finance_national_id = (int)$data['finance_national_id'];
+        $finance_national_id = (int) $data['finance_national_id'];
     }
     else
     {
@@ -73,7 +73,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_player_id']))
     {
-        $finance_player_id = (int)$data['finance_player_id'];
+        $finance_player_id = (int) $data['finance_player_id'];
     }
     else
     {
@@ -82,7 +82,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_team_id']))
     {
-        $finance_team_id = (int)$data['finance_team_id'];
+        $finance_team_id = (int) $data['finance_team_id'];
     }
     else
     {
@@ -91,7 +91,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_user_id']))
     {
-        $finance_user_id = (int)$data['finance_user_id'];
+        $finance_user_id = (int) $data['finance_user_id'];
     }
     else
     {
@@ -100,7 +100,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_value']))
     {
-        $finance_value = (int)$data['finance_value'];
+        $finance_value = (int) $data['finance_value'];
     }
     else
     {
@@ -109,7 +109,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_value_after']))
     {
-        $finance_value_after = (int)$data['finance_value_after'];
+        $finance_value_after = (int) $data['finance_value_after'];
     }
     else
     {
@@ -118,7 +118,7 @@ function f_igosja_finance($data)
 
     if (isset($data['finance_value_before']))
     {
-        $finance_value_before = (int)$data['finance_value_before'];
+        $finance_value_before = (int) $data['finance_value_before'];
     }
     else
     {

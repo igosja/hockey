@@ -8,7 +8,7 @@ function f_igosja_history($data)
 {
     if (isset($data['history_building_id']))
     {
-        $history_building_id = (int)$data['history_building_id'];
+        $history_building_id = (int) $data['history_building_id'];
     }
     else
     {
@@ -17,7 +17,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_country_id']))
     {
-        $history_country_id = (int)$data['history_country_id'];
+        $history_country_id = (int) $data['history_country_id'];
     }
     else
     {
@@ -26,7 +26,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_game_id']))
     {
-        $history_game_id = (int)$data['history_game_id'];
+        $history_game_id = (int) $data['history_game_id'];
     }
     else
     {
@@ -35,7 +35,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_historytext_id']))
     {
-        $history_historytext_id = (int)$data['history_historytext_id'];
+        $history_historytext_id = (int) $data['history_historytext_id'];
     }
     else
     {
@@ -44,7 +44,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_national_id']))
     {
-        $history_national_id = (int)$data['history_national_id'];
+        $history_national_id = (int) $data['history_national_id'];
     }
     else
     {
@@ -53,7 +53,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_player_id']))
     {
-        $history_player_id = (int)$data['history_player_id'];
+        $history_player_id = (int) $data['history_player_id'];
     }
     else
     {
@@ -62,7 +62,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_position_id']))
     {
-        $history_position_id = (int)$data['history_position_id'];
+        $history_position_id = (int) $data['history_position_id'];
     }
     else
     {
@@ -71,7 +71,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_special_id']))
     {
-        $history_special_id = (int)$data['history_special_id'];
+        $history_special_id = (int) $data['history_special_id'];
     }
     else
     {
@@ -80,7 +80,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_team_id']))
     {
-        $history_team_id = (int)$data['history_team_id'];
+        $history_team_id = (int) $data['history_team_id'];
     }
     else
     {
@@ -89,7 +89,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_team_2_id']))
     {
-        $history_team_2_id = (int)$data['history_team_2_id'];
+        $history_team_2_id = (int) $data['history_team_2_id'];
     }
     else
     {
@@ -98,7 +98,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_user_id']))
     {
-        $history_user_id = (int)$data['history_user_id'];
+        $history_user_id = (int) $data['history_user_id'];
     }
     else
     {
@@ -107,7 +107,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_user_2_id']))
     {
-        $history_user_2_id = (int)$data['history_user_2_id'];
+        $history_user_2_id = (int) $data['history_user_2_id'];
     }
     else
     {
@@ -116,7 +116,7 @@ function f_igosja_history($data)
 
     if (isset($data['history_value']))
     {
-        $history_value = (int)$data['history_value'];
+        $history_value = (int) $data['history_value'];
     }
     else
     {

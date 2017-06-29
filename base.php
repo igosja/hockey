@@ -96,7 +96,10 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     {
         if ($count_buildingbase)
         {
-            $base_error = 'На базе уже идет строительство.';
+            $_SESSION['message']['class']   = 'error';
+            $_SESSION['message']['text']    = 'На базе уже идет строительство.';
+
+            redirect('/base.php');
         }
         else
         {
@@ -123,19 +126,31 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
-                        $base_error = 'Вы имеете здание максимального уровня.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Вы имеете здание максимального уровня.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_training($num_get))
                     {
-                        $base_error = 'В тренировочном центре тренируются игроки.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В тренировочном центре тренируются игроки.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_school($num_get))
                     {
-                        $base_error = 'В спортшколе идет подготовка игрока.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В спортшколе идет подготовка игрока.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_scout($num_get))
                     {
-                        $base_error = 'В скаутцентре идет изучение игроков.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В скаутцентре идет изучение игроков.';
+
+                        redirect('/base.php');
                     }
                     else
                     {
@@ -143,11 +158,17 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                         if ($baseinfo_array[0]['base_slot_min'] > $base_array[0]['base_slot_used'])
                         {
-                            $base_error = 'Минимальное количество занятых слотов должно быть не меньше <span class="strong">' . $baseinfo_array[0]['base_slot_min'] . '</span>.';
+                            $_SESSION['message']['class']   = 'error';
+                            $_SESSION['message']['text']    = 'Минимальное количество занятых слотов должно быть не меньше <span class="strong">' . $baseinfo_array[0]['base_slot_min'] . '</span>.';
+
+                            redirect('/base.php');
                         }
                         elseif ($baseinfo_array[0]['base_price_buy'] > $base_array[0]['team_finance'])
                         {
-                            $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '</span>.';
+                            $_SESSION['message']['class']   = 'error';
+                            $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '</span>.';
+
+                            redirect('/base.php');
                         }
                         elseif (!f_igosja_request_get('ok'))
                         {
@@ -202,19 +223,31 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                     if (0 == $building_sql->num_rows)
                     {
-                        $base_error = 'Тип строения выбран не правильно.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Тип строения выбран не правильно.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASETRAINING == $building_id && f_igosja_base_is_training($num_get))
                     {
-                        $base_error = 'В тренировочном центре тренируются игроки.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В тренировочном центре тренируются игроки.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASESCHOOL == $building_id && f_igosja_base_is_school($num_get))
                     {
-                        $base_error = 'В спортшколе идет подготовка игрока.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В спортшколе идет подготовка игрока.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASESCOUT == $building_id && f_igosja_base_is_scout($num_get))
                     {
-                        $base_error = 'В скаутцентре идет изучение игроков.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В скаутцентре идет изучение игроков.';
+
+                        redirect('/base.php');
                     }
                     else
                     {
@@ -236,7 +269,10 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                         if (0 == $baseinfo_sql->num_rows)
                         {
-                            $base_error = 'Вы имеете здание максимального уровня.';
+                            $_SESSION['message']['class']   = 'error';
+                            $_SESSION['message']['text']    = 'Вы имеете здание максимального уровня.';
+
+                            redirect('/base.php');
                         }
                         else
                         {
@@ -244,11 +280,24 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                             if ($baseinfo_array[0][$building_name . '_base_level'] > $base_array[0]['base_level'])
                             {
-                                $base_error = 'Минимальный уровень базы должен быть не меньше <span class="strong">' . $baseinfo_array[0][$building_name . '_base_level'] . '</span>.';
+                                $_SESSION['message']['class']   = 'error';
+                                $_SESSION['message']['text']    = 'Минимальный уровень базы должен быть не меньше <span class="strong">' . $baseinfo_array[0][$building_name . '_base_level'] . '</span>.';
+
+                                redirect('/base.php');
+                            }
+                            elseif ($base_array[0]['base_slot_max'] <= $base_array[0]['base_slot_used'])
+                            {
+                                $_SESSION['message']['class']   = 'error';
+                                $_SESSION['message']['text']    = 'На базе нет свободных слотов для строительства.';
+
+                                redirect('/base.php');
                             }
                             elseif ($baseinfo_array[0][$building_name . '_price_buy'] > $base_array[0]['team_finance'])
                             {
-                                $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '</span>.';
+                                $_SESSION['message']['class']   = 'error';
+                                $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '</span>.';
+
+                                redirect('/base.php');
                             }
                             elseif (!f_igosja_request_get('ok'))
                             {
@@ -330,19 +379,31 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
-                        $base_error = 'Вы имеете здание минимального уровня.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Вы имеете здание минимального уровня.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_training($num_get))
                     {
-                        $base_error = 'В тренировочном центре тренируются игроки.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В тренировочном центре тренируются игроки.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_school($num_get))
                     {
-                        $base_error = 'В спортшколе идет подготовка игрока.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В спортшколе идет подготовка игрока.';
+
+                        redirect('/base.php');
                     }
                     elseif (f_igosja_base_is_scout($num_get))
                     {
-                        $base_error = 'В скаутцентре идет изучение игроков.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В скаутцентре идет изучение игроков.';
+
+                        redirect('/base.php');
                     }
                     else
                     {
@@ -350,7 +411,10 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                         if ($baseinfo_array[0]['base_slot_max'] < $base_array[0]['base_slot_used'])
                         {
-                            $base_error = 'Максимальное количество занятых слотов должно быть не больше <span class="strong">' . $baseinfo_array[0]['base_slot_max'] . '</span>.';
+                            $_SESSION['message']['class']   = 'error';
+                            $_SESSION['message']['text']    = 'Максимальное количество занятых слотов должно быть не больше <span class="strong">' . $baseinfo_array[0]['base_slot_max'] . '</span>.';
+
+                            redirect('/base.php');
                         }
                         elseif (!f_igosja_request_get('ok'))
                         {
@@ -403,19 +467,31 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                     if (0 == $building_sql->num_rows)
                     {
-                        $base_error = 'Тип строения выбран не правильно.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Тип строения выбран не правильно.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASETRAINING == $building_id && f_igosja_base_is_training($num_get))
                     {
-                        $base_error = 'В тренировочном центре тренируются игроки.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В тренировочном центре тренируются игроки.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASESCHOOL == $building_id && f_igosja_base_is_school($num_get))
                     {
-                        $base_error = 'В спортшколе идет подготовка игрока.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В спортшколе идет подготовка игрока.';
+
+                        redirect('/base.php');
                     }
                     elseif (BUILDING_BASESCOUT == $building_id && f_igosja_base_is_scout($num_get))
                     {
-                        $base_error = 'В скаутцентре идет изучение игроков.';
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'В скаутцентре идет изучение игроков.';
+
+                        redirect('/base.php');
                     }
                     else
                     {
@@ -454,7 +530,10 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                         if (0 == $baseinfo_sql->num_rows)
                         {
-                            $base_error = 'Вы имеете здание минимального уровня.';
+                            $_SESSION['message']['class']   = 'error';
+                            $_SESSION['message']['text']    = 'Вы имеете здание минимального уровня.';
+
+                            redirect('/base.php');
                         }
                         else
                         {
@@ -463,7 +542,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             if (!f_igosja_request_get('ok'))
                             {
                                 $base_accept = 'При строительстве здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
-                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
+                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($buildingbase_price)
                                          . '</span>. Это займет <span class="strong">1</span> день.';
                             }
                             else

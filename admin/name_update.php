@@ -22,7 +22,7 @@ if ($data = f_igosja_request_post('data'))
 
     foreach ($country as $item)
     {
-        $country_id = (int)$item;
+        $country_id = (int) $item;
 
         $sql = "INSERT INTO `namecountry`
                 SET `namecountry_name_id`=$num_get,

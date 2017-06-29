@@ -32,7 +32,7 @@ if ($data = f_igosja_request_post('data'))
     $user_country_id    = (int) $data['user_country_id'];
     $user_email         = $data['user_email'];
     $user_name          = $data['user_name'];
-    $user_sex_id        = (int)$data['user_sex_id'];
+    $user_sex_id        = (int) $data['user_sex_id'];
     $user_surname       = $data['user_surname'];
 
     $sql = "UPDATE `user`

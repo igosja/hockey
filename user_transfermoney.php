@@ -52,7 +52,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (isset($data['team_id']) && $data['team_id'])
     {
-        $team_id = (int)$data['team_id'];
+        $team_id = (int) $data['team_id'];
 
         $sql = "SELECT `team_finance`
                 FROM `team`
@@ -87,7 +87,7 @@ if ($data = f_igosja_request_post('data'))
     }
     elseif (isset($data['country_id']) && $data['country_id'])
     {
-        $country_id = (int)$data['country_id'];
+        $country_id = (int) $data['country_id'];
 
         $sql = "SELECT `country_finance`
                 FROM `country`
