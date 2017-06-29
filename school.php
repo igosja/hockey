@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
@@ -10,6 +15,24 @@ if (!isset($auth_team_id))
 $num_get = $auth_team_id;
 
 include(__DIR__ . '/include/sql/team_view_left.php');
+
+$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+        FROM `buildingbase`
+        WHERE `buildingbase_ready`=0
+        AND `buildingbase_team_id`=$auth_team_id
+        AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASESCHOOL . ")";
+$building_sql = f_igosja_mysqli_query($sql);
+
+$building_array = $building_sql->fetch_all(1);
+
+if ($building_array[0]['count'])
+{
+    $on_building = true;
+}
+else
+{
+    $on_building = false;
+}
 
 $sql = "SELECT `baseschool_level`,
                `baseschool_player_count`,
@@ -25,108 +48,150 @@ $baseschool_sql = f_igosja_mysqli_query($sql);
 
 $baseschool_array = $baseschool_sql->fetch_all(1);
 
+$sql = "SELECT COUNT(`school_id`) AS `count`
+        FROM `school`
+        WHERE `school_team_id`=$num_get
+        AND `school_season_id`=$igosja_season_id";
+$school_used_sql = f_igosja_mysqli_query($sql);
+
+$school_used_array = $school_used_sql->fetch_all(1);
+
+$school_available = $baseschool_array[0]['baseschool_player_count'] - $school_used_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
+    if ($on_building)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+
+        refresh();
+    }
+    elseif (0 == $school_available)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас нет юниоров для подготовки в спортшколе.';
+
+        refresh();
+    }
+
     $confirm_data = array('position' => array(), 'special' => array(), 'style' => array());
+
+    $sql = "SELECT COUNT(`school_id`) AS `count`
+            FROM `school`
+            WHERE `school_team_id`=$num_get
+            AND `school_ready`=0";
+    $check_sql = f_igosja_mysqli_query($sql);
+
+    $check_array = $check_sql->fetch_all(1);
+    $count_check = $check_array[0]['count'];
+
+    if ($count_check)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Нельзя готовить в спортшколе более одного игрока одновременно.';
+
+        refresh();
+    }
 
     if (isset($data['position_id']))
     {
         $position_id = (int) $data['position_id'];
+    }
+    else
+    {
+        $position_id = rand(POSITION_GK, POSITION_RW);
+    }
+
+    $sql = "SELECT `position_name`
+            FROM `position`
+            WHERE `position_id`=$position_id
+            LIMIT 1";
+    $position_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $position_sql->num_rows)
+    {
+        $position_id = rand(POSITION_GK, POSITION_RW);
 
         $sql = "SELECT `position_name`
                 FROM `position`
                 WHERE `position_id`=$position_id
                 LIMIT 1";
         $position_sql = f_igosja_mysqli_query($sql);
-
-        if ($position_sql->num_rows)
-        {
-            $sql = "SELECT COUNT(`school_id`) AS `count`
-                    FROM `school`
-                    WHERE `school_team_id`=$num_get
-                    AND `school_ready`=0";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(1);
-            $count_check = $check_array[0]['count'];
-
-            if (0 == $count_check)
-            {
-                $position_array = $position_sql->fetch_all(1);
-
-                $confirm_data['position'] = array(
-                    'id' => $position_id,
-                    'name' => $position_array[0]['position_name'],
-                );
-            }
-        }
     }
+
+    $position_array = $position_sql->fetch_all(1);
+
+    $confirm_data['position'] = array(
+        'id'    => $position_id,
+        'name'  => $position_array[0]['position_name'],
+    );
 
     if (isset($data['special_id']))
     {
         $special_id = (int) $data['special_id'];
+    }
+    else
+    {
+        $special_id = rand(SPECIAL_SPEED, SPECIAL_SHOT);
+    }
+
+    $sql = "SELECT `special_name`
+            FROM `special`
+            WHERE `special_id`=$special_id
+            LIMIT 1";
+    $special_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $special_sql->num_rows)
+    {
+        $special_id = rand(SPECIAL_SPEED, SPECIAL_SHOT);
 
         $sql = "SELECT `special_name`
                 FROM `special`
                 WHERE `special_id`=$special_id
                 LIMIT 1";
         $special_sql = f_igosja_mysqli_query($sql);
-
-        if ($special_sql->num_rows)
-        {
-            $sql = "SELECT COUNT(`school_id`) AS `count`
-                    FROM `school`
-                    WHERE `school_team_id`=$num_get
-                    AND `school_ready`=0";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(1);
-            $count_check = $check_array[0]['count'];
-
-            if (0 == $count_check)
-            {
-                $special_array = $special_sql->fetch_all(1);
-
-                $confirm_data['special'] = array(
-                    'id' => $special_id,
-                    'name' => $special_array[0]['special_name'],
-                );
-            }
-        }
     }
+
+    $special_array = $special_sql->fetch_all(1);
+
+    $confirm_data['special'] = array(
+        'id'    => $special_id,
+        'name'  => $special_array[0]['special_name'],
+    );
 
     if (isset($data['style_id']))
     {
         $style_id = (int) $data['style_id'];
+    }
+    else
+    {
+        $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
+    }
+
+    $sql = "SELECT `style_name`
+            FROM `style`
+            WHERE `style_id`=$style_id
+            LIMIT 1";
+    $style_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $style_sql->num_rows)
+    {
+        $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
 
         $sql = "SELECT `style_name`
                 FROM `style`
                 WHERE `style_id`=$style_id
                 LIMIT 1";
         $style_sql = f_igosja_mysqli_query($sql);
-
-        if ($style_sql->num_rows)
-        {
-            $sql = "SELECT COUNT(`school_id`) AS `count`
-                    FROM `school`
-                    WHERE `school_team_id`=$num_get
-                    AND `school_ready`=0";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(1);
-            $count_check = $check_array[0]['count'];
-
-            if (0 == $count_check)
-            {
-                $style_array = $style_sql->fetch_all(1);
-
-                $confirm_data['style'] = array(
-                    'id' => $style_id,
-                    'name' => $style_array[0]['style_name'],
-                );
-            }
-        }
     }
+
+    $style_array = $style_sql->fetch_all(1);
+
+    $confirm_data['style'] = array(
+        'id' => $style_id,
+        'name' => $style_array[0]['style_name'],
+    );
 
     if (isset($data['ok']))
     {
