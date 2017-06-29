@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_team_id))
@@ -10,6 +15,24 @@ if (!isset($auth_team_id))
 $num_get = $auth_team_id;
 
 include(__DIR__ . '/include/sql/team_view_left.php');
+
+$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+        FROM `buildingbase`
+        WHERE `buildingbase_ready`=0
+        AND `buildingbase_team_id`=$auth_team_id
+        AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASETRAINING . ")";
+$building_sql = f_igosja_mysqli_query($sql);
+
+$building_array = $building_sql->fetch_all(1);
+
+if ($building_array[0]['count'])
+{
+    $on_building = true;
+}
+else
+{
+    $on_building = false;
+}
 
 $sql = "SELECT `basetraining_level`,
                `basetraining_position_count`,
@@ -30,6 +53,39 @@ $basetraining_sql = f_igosja_mysqli_query($sql);
 
 $basetraining_array = $basetraining_sql->fetch_all(1);
 
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_power`!=0";
+$training_used_power_sql = f_igosja_mysqli_query($sql);
+
+$training_used_power_array = $training_used_power_sql->fetch_all(1);
+
+$training_available_power = $basetraining_array[0]['basetraining_power_count'] - $training_used_power_array[0]['count'];
+
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_special_id`!=0";
+$training_used_special_sql = f_igosja_mysqli_query($sql);
+
+$training_used_special_array = $training_used_special_sql->fetch_all(1);
+
+$training_available_special = $basetraining_array[0]['basetraining_special_count'] - $training_used_special_array[0]['count'];
+
+$sql = "SELECT COUNT(`training_id`) AS `count`
+        FROM `training`
+        WHERE `training_team_id`=$num_get
+        AND `training_season_id`=$igosja_season_id
+        AND `training_position_id`!=0";
+$training_used_position_sql = f_igosja_mysqli_query($sql);
+
+$training_used_position_array = $training_used_position_sql->fetch_all(1);
+
+$training_available_position = $basetraining_array[0]['basetraining_position_count'] - $training_used_position_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     $confirm_data = array(
@@ -37,14 +93,17 @@ if ($data = f_igosja_request_post('data'))
         'position' => array(),
         'special' => array(),
         'price' => 0,
-        'error' => '',
     );
+
+    $player_id_array = array();
 
     if (isset($data['power']))
     {
         foreach ($data['power'] as $item)
         {
             $player_id = (int) $item;
+
+            $player_id_array[] = $player_id;
 
             $sql = "SELECT `name_name`,
                            `surname_name`
@@ -80,6 +139,13 @@ if ($data = f_igosja_request_post('data'))
 
                     $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_power_price'];
                 }
+                else
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+
+                    refresh();
+                }
             }
         }
     }
@@ -92,6 +158,8 @@ if ($data = f_igosja_request_post('data'))
             {
                 $item_array = explode(':', $item);
                 $player_id  = (int) $item_array[0];
+
+                $player_id_array[] = $player_id;
 
                 $sql = "SELECT `name_name`,
                                `surname_name`
@@ -140,6 +208,13 @@ if ($data = f_igosja_request_post('data'))
 
                         $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_position_price'];
                     }
+                    else
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+
+                        refresh();
+                    }
                 }
             }
         }
@@ -153,6 +228,8 @@ if ($data = f_igosja_request_post('data'))
             {
                 $item_array = explode(':', $item);
                 $player_id  = (int) $item_array[0];
+
+                $player_id_array[] = $player_id;
 
                 $sql = "SELECT `name_name`,
                                `surname_name`
@@ -201,26 +278,59 @@ if ($data = f_igosja_request_post('data'))
 
                         $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_special_price'];
                     }
+                    else
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+
+                        refresh();
+                    }
                 }
             }
         }
     }
 
-    if (count($confirm_data['power']) > $basetraining_array[0]['basetraining_power_count'])
+    if ($on_building)
     {
-        $confirm_data['error'] = 'У вас недостаточно баллов для тренировки';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+
+        refresh();
     }
-    elseif (count($confirm_data['position']) > $basetraining_array[0]['basetraining_position_count'])
+    elseif (count($confirm_data['power']) > $training_available_power)
     {
-        $confirm_data['error'] = 'У вас недостаточно совмещений для тренировки';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно баллов для тренировки.';
+
+        refresh();
     }
-    elseif (count($confirm_data['special']) > $basetraining_array[0]['basetraining_special_count'])
+    elseif (count($confirm_data['position']) > $training_available_position)
     {
-        $confirm_data['error'] = 'У вас недостаточно спецвозможностей для тренировки';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно совмещений для тренировки.';
+
+        refresh();
+    }
+    elseif (count($confirm_data['special']) > $training_available_special)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно спецвозможностей для тренировки.';
+
+        refresh();
+    }
+    elseif (count($player_id_array) != count(array_unique($player_id_array)))
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+
+        refresh();
     }
     elseif ($confirm_data['price'] > $basetraining_array[0]['team_finance'])
     {
-        $confirm_data['error'] = 'У вас недостаточно денег для тренировки';
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'У вас недостаточно денег для тренировки.';
+
+        refresh();
     }
 
     if (isset($data['ok']))
