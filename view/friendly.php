@@ -53,13 +53,7 @@
                                 <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
                             </a>
                         </td>
-                        <td>
-                            <?php if ($item['game_shedule_id']) { ?>
-                                Матч организован
-                            <?php } else { ?>
-                                Матч не органован
-                            <?php } ?>
-                        </td>
+                        <td><?= $item['text']; ?></td>
                     </tr>
                 <?php } ?>
             </table>
