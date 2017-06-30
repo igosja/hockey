@@ -85,6 +85,7 @@ function f_igosja_generator_school()
                     `player_country_id`=$country_id,
                     `player_name_id`=$name_id,
                     `player_phisical_id`=$phisical_id,
+                    `player_position_id`=$position_id,
                     `player_power_nominal`=$power,
                     `player_power_nominal_s`=`player_power_nominal`,
                     `player_power_old`=`player_power_nominal`,
