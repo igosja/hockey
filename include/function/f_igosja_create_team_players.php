@@ -23,32 +23,41 @@ function f_igosja_create_team_players($team_id)
 
     $country_id = $country_array[0]['city_country_id'];
 
+    $position_array = array(
+        POSITION_GK,
+        POSITION_GK,
+        POSITION_LD,
+        POSITION_LD,
+        POSITION_LD,
+        POSITION_LD,
+        POSITION_LD,
+        POSITION_RD,
+        POSITION_RD,
+        POSITION_RD,
+        POSITION_RD,
+        POSITION_RD,
+        POSITION_LW,
+        POSITION_LW,
+        POSITION_LW,
+        POSITION_LW,
+        POSITION_LW,
+        POSITION_C,
+        POSITION_C,
+        POSITION_C,
+        POSITION_C,
+        POSITION_C,
+        POSITION_RW,
+        POSITION_RW,
+        POSITION_RW,
+        POSITION_RW,
+        POSITION_RW,
+    );
+
+    shuffle($position_array);
+
     for ($i=0; $i<27; $i++)
     {
-        if ($i < 2)
-        {
-            $position_id = POSITION_GK;
-        }
-        elseif ($i < 7)
-        {
-            $position_id = POSITION_LD;
-        }
-        elseif ($i < 12)
-        {
-            $position_id = POSITION_RD;
-        }
-        elseif ($i < 17)
-        {
-            $position_id = POSITION_LW;
-        }
-        elseif ($i < 22)
-        {
-            $position_id = POSITION_C;
-        }
-        else
-        {
-            $position_id = POSITION_RW;
-        }
+        $position_id = $position_array[$i];
 
         $age = 17 + $i;
 
@@ -90,6 +99,7 @@ function f_igosja_create_team_players($team_id)
                     `player_country_id`=$country_id,
                     `player_name_id`=$name_id,
                     `player_phisical_id`=$phisical_id,
+                    `player_position_id`=$position_id,
                     `player_power_nominal`=$age*2,
                     `player_power_nominal_s`=`player_power_nominal`,
                     `player_power_old`=`player_power_nominal`,
