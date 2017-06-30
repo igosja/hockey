@@ -274,4 +274,8 @@ $style_sql = f_igosja_mysqli_query($sql);
 
 $style_array = $style_sql->fetch_all(1);
 
+$seo_title          = $team_array[0]['team_name'] . '. Спортивная школа';
+$seo_description    = $team_array[0]['team_name'] . '. Спортивная школа на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' спортивная школа';
+
 include(__DIR__ . '/view/layout/main.php');

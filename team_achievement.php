@@ -32,4 +32,8 @@ $achievement_sql = f_igosja_mysqli_query($sql);
 
 $achievement_array = $achievement_sql->fetch_all(1);
 
+$seo_title          = $team_array[0]['team_name'] . '. Достижения команды';
+$seo_description    = $team_array[0]['team_name'] . '. Достижения команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' достижения команды';
+
 include(__DIR__ . '/view/layout/main.php');

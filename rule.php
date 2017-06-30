@@ -22,4 +22,8 @@ if (0 == $rule_sql->num_rows)
 
 $rule_array = $rule_sql->fetch_all(1);
 
+$seo_title          = 'Правила';
+$seo_description    = 'Правила на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'правила';
+
 include(__DIR__ . '/view/layout/main.php');

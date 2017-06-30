@@ -229,4 +229,8 @@ $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
+$seo_title          = 'Список хоккеистов';
+$seo_description    = 'Список хоккеистов на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'список хоккеистов';
+
 include(__DIR__ . '/view/layout/main.php');

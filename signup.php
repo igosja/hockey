@@ -115,4 +115,8 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
+$seo_title          = 'Регистрация';
+$seo_description    = 'Регистрация на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'регистрация';
+
 include(__DIR__ . '/view/layout/main.php');

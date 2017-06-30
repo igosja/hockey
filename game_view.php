@@ -297,4 +297,8 @@ $event_sql = f_igosja_mysqli_query($sql);
 
 $event_array = $event_sql->fetch_all(1);
 
+$seo_title          = 'Результат матча';
+$seo_description    = 'Результат матча на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'результат матча';
+
 include(__DIR__ . '/view/layout/main.php');

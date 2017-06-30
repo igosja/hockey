@@ -76,4 +76,8 @@ for ($i=0; $i<$count_event; $i++)
     $event_array[$i]['historytext_name'] = $text;
 }
 
+$seo_title          = $team_array[0]['team_name'] . '. События команды';
+$seo_description    = $team_array[0]['team_name'] . '. События команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' события команды';
+
 include(__DIR__ . '/view/layout/main.php');

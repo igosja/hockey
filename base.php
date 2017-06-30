@@ -980,4 +980,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
+$seo_title          = 'База команды';
+$seo_description    = 'Информация о базе команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'база команды ';
+
 include(__DIR__ . '/view/layout/main.php');

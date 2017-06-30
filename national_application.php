@@ -129,4 +129,8 @@ $electionnationalapplication_sql = f_igosja_mysqli_query($sql);
 
 $electionnationalapplication_array = $electionnationalapplication_sql->fetch_all(1);
 
+$seo_title          = 'Подача заявки на управление сборной';
+$seo_description    = 'Подача заявки на управление сборной на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'подача заявки на управление сборной';
+
 include(__DIR__ . '/view/layout/main.php');

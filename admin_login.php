@@ -61,4 +61,8 @@ if ($data = f_igosja_request_post('data'))
     redirect('/admin');
 }
 
+$seo_title          = 'Вход в административный раздел';
+$seo_description    = 'Войти в административный раздел на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'административный раздел админка ';
+
 include(__DIR__ . '/view/layout/admin.php');

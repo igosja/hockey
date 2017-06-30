@@ -66,4 +66,8 @@ $game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 
+$seo_title          = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . '. Список матчей игрового дня';
+$seo_description    = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . '. Список матчей игрового дня на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . ' список матчей игрового дня';
+
 include(__DIR__ . '/view/layout/main.php');

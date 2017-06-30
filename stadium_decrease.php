@@ -115,4 +115,8 @@ if (isset($new_capacity))
     }
 }
 
+$seo_title          = $team_array[0]['stadium_name'] . '. Уменьшения стадиона';
+$seo_description    = $team_array[0]['stadium_name'] . '. Уменьшения стадиона на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['stadium_name'] . ' уменьшения стадиона';
+
 include(__DIR__ . '/view/layout/main.php');

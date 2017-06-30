@@ -255,4 +255,8 @@ else
     $playerspecial_array    = array();
 }
 
+$seo_title          = $team_array[0]['team_name'] . '. Центр физической подготовки';
+$seo_description    = $team_array[0]['team_name'] . '. Центр физической подготовки на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' центр физ. подготовки';
+
 include(__DIR__ . '/view/layout/main.php');

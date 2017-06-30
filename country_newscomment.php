@@ -65,4 +65,8 @@ $newscomment_sql = f_igosja_mysqli_query($sql);
 
 $newscomment_array = $newscomment_sql->fetch_all(1);
 
+$seo_title          = $country_array[0]['country_name'] . '. Новости фередации. Комментарии';
+$seo_description    = $country_array[0]['country_name'] . '. Новости фередации и комментарии на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $country_array[0]['country_name'] . ' новости фередации комментарии';
+
 include(__DIR__ . '/view/layout/main.php');

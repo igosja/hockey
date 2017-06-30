@@ -219,4 +219,8 @@ for ($i=0; $i<$count_event; $i++)
     $event_array[$i]['historytext_name'] = $text;
 }
 
+$seo_title          = $user_array[0]['user_login'] . '. Профиль менеджера';
+$seo_description    = $user_array[0]['user_login'] . '. Профиль менеджера на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $user_array[0]['user_login'] . ' профиль менеджера';
+
 include(__DIR__ . '/view/layout/main.php');

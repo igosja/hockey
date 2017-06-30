@@ -172,4 +172,8 @@ $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
+$seo_title          = $user_array[0]['user_login'] . '. Перевод денег с личного счета';
+$seo_description    = $user_array[0]['user_login'] . '. Перевод денег с личного счета на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $user_array[0]['user_login'] . ' перевод денег с личного счета';
+
 include(__DIR__ . '/view/layout/main.php');

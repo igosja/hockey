@@ -72,4 +72,7 @@ $birth_sql = f_igosja_mysqli_query($sql);
 
 $birth_array = $birth_sql->fetch_all(1);
 
+$seo_title          = 'Хоккейный онлайн менеджер';
+$seo_description    = 'Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн менеджер.';
+
 include(__DIR__ . '/view/layout/main.php');

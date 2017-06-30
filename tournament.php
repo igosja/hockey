@@ -48,4 +48,8 @@ for ($i=0; $i<$count_country; $i++)
     $country_array[$i]['division'] = $country_division_array;
 }
 
+$seo_title          = 'Список турниров';
+$seo_description    = 'Список турниров на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'список турниров';
+
 include(__DIR__ . '/view/layout/main.php');

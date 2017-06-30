@@ -38,4 +38,8 @@ for ($i=0; $i<$count_event; $i++)
     $event_array[$i]['historytext_name'] = $text;
 }
 
+$seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. События хоккеиста';
+$seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. События хоккеиста на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . ' события хоккеиста';
+
 include(__DIR__ . '/view/layout/main.php');

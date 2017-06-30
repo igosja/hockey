@@ -602,4 +602,8 @@ else
     $team_array = array();
 }
 
+$seo_title          = 'Организация товарищеских матчей';
+$seo_description    = 'Организация товарищеских матчей на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'организация товарищеских матчей';
+
 include(__DIR__ . '/view/layout/main.php');

@@ -126,4 +126,8 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 
+$seo_title          = 'Получение команды';
+$seo_description    = 'Получение команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'получение команды';
+
 include(__DIR__ . '/view/layout/main.php');

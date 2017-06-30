@@ -119,4 +119,8 @@ if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionnational_array[0]['e
     }
 }
 
+$seo_title          = 'Голосование за тернера сборной';
+$seo_description    = 'Голосование за тернера сборной на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'голосование за тернера сборной';
+
 include(__DIR__ . '/view/layout/main.php');

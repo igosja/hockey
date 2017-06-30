@@ -29,4 +29,8 @@ $message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(1);
 
+$seo_title          = 'Личная переписка';
+$seo_description    = 'Личная переписка на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'личная переписка';
+
 include(__DIR__ . '/view/layout/main.php');

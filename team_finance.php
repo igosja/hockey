@@ -35,4 +35,8 @@ $finance_sql = f_igosja_mysqli_query($sql);
 
 $finance_array = $finance_sql->fetch_all(1);
 
+$seo_title          = $team_array[0]['team_name'] . '. Финансы команды';
+$seo_description    = $team_array[0]['team_name'] . '. Финансы команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' финансы команды';
+
 include(__DIR__ . '/view/layout/main.php');

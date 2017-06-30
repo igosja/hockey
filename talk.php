@@ -64,4 +64,8 @@ $sql = "UPDATE `message`
         AND `message_read`=0";
 f_igosja_mysqli_query($sql);
 
+$seo_title          = 'Личная переписка';
+$seo_description    = 'Личная переписка на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'личная переписка';
+
 include(__DIR__ . '/view/layout/main.php');

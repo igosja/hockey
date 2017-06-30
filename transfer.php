@@ -78,4 +78,8 @@ else
     $playerspecial_array    = array();
 }
 
+$seo_title          = 'Трансфер хоккеистов';
+$seo_description    = 'Трансфер хоккеистов на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'трансфер хоккеистов';
+
 include(__DIR__ . '/view/layout/main.php');

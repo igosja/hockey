@@ -17,4 +17,8 @@ $shedule_sql = f_igosja_mysqli_query($sql);
 
 $shedule_array = $shedule_sql->fetch_all(1);
 
+$seo_title          = 'Сезон ' . $igosja_season_id . '. Расписание';
+$seo_description    = 'Сезон ' . $igosja_season_id . '. Расписание на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'расписание';
+
 include(__DIR__ . '/view/layout/main.php');

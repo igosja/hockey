@@ -79,4 +79,8 @@ else
     $playerspecial_array    = array();
 }
 
+$seo_title          = 'Аренда хоккеистов';
+$seo_description    = 'Аренда хоккеистов на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'аренда хоккеистов';
+
 include(__DIR__ . '/view/layout/main.php');

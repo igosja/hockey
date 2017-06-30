@@ -120,4 +120,8 @@ $electionpresidentapplication_sql = f_igosja_mysqli_query($sql);
 
 $electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(1);
 
+$seo_title          = 'Подача заявки на управление федерацией';
+$seo_description    = 'Подача заявки на управление федерацией на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'подача заявки на управление федерацией';
+
 include(__DIR__ . '/view/layout/main.php');

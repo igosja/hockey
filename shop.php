@@ -163,4 +163,8 @@ if ($data = f_igosja_request_get('data'))
     }
 }
 
+$seo_title          = 'Виртуальный магазин';
+$seo_description    = 'Виртуальный магазин на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'виртуальный магазин';
+
 include(__DIR__ . '/view/layout/main.php');

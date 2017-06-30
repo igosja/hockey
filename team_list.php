@@ -18,4 +18,8 @@ $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);
 
+$seo_title          = 'Список команд';
+$seo_description    = 'Список команд на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'список команд';
+
 include(__DIR__ . '/view/layout/main.php');

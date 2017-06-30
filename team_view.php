@@ -359,4 +359,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
+$seo_title          = $team_array[0]['team_name'] . '. Профиль команды';
+$seo_description    = $team_array[0]['team_name'] . '. Профиль команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' профиль команды';
+
 include(__DIR__ . '/view/layout/main.php');

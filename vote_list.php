@@ -37,4 +37,8 @@ $vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(1);
 
+$seo_title          = 'Список опросов';
+$seo_description    = 'Список опросов на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'Список опросов';
+
 include(__DIR__ . '/view/layout/main.php');

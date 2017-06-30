@@ -122,4 +122,8 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
 
+$seo_title          = $country_array[0]['country_name'] . ', национальный чемпионат, дивизион ' . $country_array[0]['division_name'];
+$seo_description    = $country_array[0]['country_name'] . '. ' . $country_array[0]['division_name'] . '. Национальный чемпионат, календарь игр и турнирная таблица на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $country_array[0]['country_name'] . ' национальный чемпионат ' . $country_array[0]['division_name'];
+
 include(__DIR__ . '/view/layout/main.php');

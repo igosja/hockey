@@ -98,4 +98,8 @@ $position_sql = f_igosja_mysqli_query($sql);
 
 $position_array = $position_sql->fetch_all(1);
 
+$seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста';
+$seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . ' сделки хоккеиста';
+
 include(__DIR__ . '/view/layout/main.php');

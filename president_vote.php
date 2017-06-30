@@ -113,4 +113,8 @@ if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionpresident_array[0]['
     }
 }
 
+$seo_title          = 'Голосование за президента федерации';
+$seo_description    = 'Голосование за президента федерации на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'голосование за президента федерации';
+
 include(__DIR__ . '/view/layout/main.php');

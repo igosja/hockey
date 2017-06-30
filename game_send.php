@@ -480,4 +480,8 @@ $mood_sql = f_igosja_mysqli_query($sql);
 
 $mood_array = $mood_sql->fetch_all(1);
 
+$seo_title          = 'Отправка состава на игру';
+$seo_description    = 'Отправка состава на игру на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'отправка состава на игру';
+
 include(__DIR__ . '/view/layout/main.php');

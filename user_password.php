@@ -92,4 +92,8 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
+$seo_title          = $user_array[0]['user_login'] . '. Смена пароля';
+$seo_description    = $user_array[0]['user_login'] . '. Смена пароля на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $user_array[0]['user_login'] . ' Смена пароля';
+
 include(__DIR__ . '/view/layout/main.php');

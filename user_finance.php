@@ -29,4 +29,8 @@ $finance_sql = f_igosja_mysqli_query($sql);
 
 $finance_array = $finance_sql->fetch_all(1);
 
+$seo_title          = $user_array[0]['user_login'] . '. Финансы менеджера';
+$seo_description    = $user_array[0]['user_login'] . '. Финансы менеджера на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $user_array[0]['user_login'] . ' финансы менеджера';
+
 include(__DIR__ . '/view/layout/main.php');

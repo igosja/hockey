@@ -64,4 +64,8 @@ $sql = "UPDATE `message`
         AND `message_read`=0";
 f_igosja_mysqli_query($sql);
 
+$seo_title          = 'Техническая поддержка';
+$seo_description    = 'Техническая поддержка на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'техническая поддержка';
+
 include(__DIR__ . '/view/layout/main.php');

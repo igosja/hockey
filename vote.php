@@ -102,4 +102,8 @@ if (isset($auth_user_id) && VOTESTATUS_OPEN == $vote_array[0]['votestatus_id'])
     }
 }
 
+$seo_title          = 'Опрос';
+$seo_description    = 'Опрос на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'опрос';
+
 include(__DIR__ . '/view/layout/main.php');

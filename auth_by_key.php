@@ -26,5 +26,3 @@ $user_array = $user_sql->fetch_all(1);
 $_SESSION['user_id'] = $user_array[0]['user_id'];
 
 redirect('index.php');
-
-include(__DIR__ . '/view/layout/main.php');

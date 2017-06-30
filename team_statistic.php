@@ -95,4 +95,8 @@ $rating_sql = f_igosja_mysqli_query($sql);
 
 $rating_array = $rating_sql->fetch_all(1);
 
+$seo_title          = $team_array[0]['team_name'] . '. Статистика команды';
+$seo_description    = $team_array[0]['team_name'] . '. Статистика команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' статистика команды';
+
 include(__DIR__ . '/view/layout/main.php');

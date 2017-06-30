@@ -72,4 +72,8 @@ if ($data = f_igosja_request_post('data'))
     redirect('/');
 }
 
+$seo_title          = 'Восстановление пароля';
+$seo_description    = 'Восстановление пароля на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'восстановление пароля';
+
 include(__DIR__ . '/view/layout/main.php');

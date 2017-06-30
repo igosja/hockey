@@ -50,4 +50,8 @@ if (isset($data['code']))
     refresh();
 }
 
+$seo_title          = 'Активация профиля';
+$seo_description    = 'Здесь вы можете активировать свой профиль на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'активация профиля ';
+
 include(__DIR__ . '/view/layout/main.php');

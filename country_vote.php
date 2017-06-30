@@ -105,4 +105,8 @@ if (isset($auth_user_id) && VOTESTATUS_OPEN == $vote_array[0]['votestatus_id'])
     }
 }
 
+$seo_title          = $country_array[0]['country_name'] . '. Опрос фередации';
+$seo_description    = $country_array[0]['country_name'] . '. Опрос фередации на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $country_array[0]['country_name'] . ' опрос фередации';
+
 include(__DIR__ . '/view/layout/main.php');

@@ -547,4 +547,8 @@ else
     $playerspecial_array    = array();
 }
 
+$seo_title          = $team_array[0]['team_name'] . '. Тренировочный центр';
+$seo_description    = $team_array[0]['team_name'] . '. Тренировочный центр на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $team_array[0]['team_name'] . ' тренировочный центр';
+
 include(__DIR__ . '/view/layout/main.php');

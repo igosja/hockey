@@ -1,16 +1,20 @@
 <?php
 /**
  * @var $auth_user_login string
+ * @var $igosja_menu array
  * @var $igosja_menu_mobile array
+ * @var $seo_description string
+ * @var $seo_keywords string
+ * @var $seo_title string
  * @var $tpl string
  */
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Виртуальная хоккейная лига</title>
-    <meta name="description" content="Виртуальная хоккейная лига - лучший бесплатный хоккейный онлайн менеджер.">
-    <meta name="keywords" content="Virtual hockey online manager, VHOL, хоккейный онлайн менеджер, вируальный хоккей">
+    <title><?= $seo_title; ?> - Виртуальная Хоккейная Лига</title>
+    <meta name="description" content="<?= $seo_description; ?>">
+    <meta name="keywords" content="<?= $seo_keywords; ?> virtual hockey online league vhol хоккейный онлайн менеджер вируальный хоккей виртуальная хоккейная лига вхол">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex-verification" content="efe586f3c07b0a93"/>
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />

@@ -81,4 +81,8 @@ $friendlystatus_sql = f_igosja_mysqli_query($sql);
 
 $friendlystatus_array = $friendlystatus_sql->fetch_all(1);
 
+$seo_title          = 'Изменения статуса в товарищеских матчах';
+$seo_description    = 'Изменения статуса в товарищеских матчах на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'Изменения статуса в товарищеских матчах';
+
 include(__DIR__ . '/view/layout/main.php');

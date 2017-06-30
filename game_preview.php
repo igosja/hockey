@@ -80,4 +80,8 @@ $previous_sql = f_igosja_mysqli_query($sql);
 
 $previous_array = $previous_sql->fetch_all(1);
 
+$seo_title          = 'Информация перед началом матча';
+$seo_description    = 'Информация перед началом матча на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'информация перед началом матча';
+
 include(__DIR__ . '/view/layout/main.php');

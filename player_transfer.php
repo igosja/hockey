@@ -237,4 +237,8 @@ if (isset($auth_team_id) && $auth_team_id)
     }
 }
 
+$seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Трансфер хоккеиста';
+$seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Трансфер хоккеиста на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . ' трансфер хоккеиста';
+
 include(__DIR__ . '/view/layout/main.php');

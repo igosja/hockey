@@ -44,4 +44,8 @@ $vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(1);
 
+$seo_title          = $country_array[0]['country_name'] . '. Список опросов фередации';
+$seo_description    = $country_array[0]['country_name'] . '. Список опросов фередации на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $country_array[0]['country_name'] . ' список опросов фередации';
+
 include(__DIR__ . '/view/layout/main.php');
