@@ -154,4 +154,64 @@ function f_igosja_start_insert_user()
                 `user_login`='Vini',
                 `user_password`='b18a5b2e77a96a591f2548c64f3d1c88'";
     f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='95619089d64db32ed031c7fa722a1341',
+                `user_date_confirm`=UNIX_TIMESTAMP(),
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='ganskiy@yahoo.com',
+                `user_login`='gans79',
+                `user_password`='50ccace5e26269cf9712cef9bbde03fa'";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='5ece89f94c92e53b23785a86a2dab1ca',
+                `user_date_confirm`=0,
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='charlesmaymn555@mail.ru',
+                `user_login`='Charlespleah',
+                `user_password`='9f13e9df7a81d430651885f653cd5a61'";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='32731d9b7b3703b34a27d08f873b94a8',
+                `user_date_confirm`=0,
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='arturof75421@mail.ru',
+                `user_login`='StevenFug',
+                `user_password`='c4c7312ad2caf83626179ead3b3e1687'";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='6254b23a0412533464fdb9a13437e5c8',
+                `user_date_confirm`=UNIX_TIMESTAMP(),
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='Birchgrove@yandex.ru',
+                `user_login`='Witalij',
+                `user_password`='65b24f51521cb2f34ba8d474c65d33d7'";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='dc55f972572fdbe3fa09f40a187c1390',
+                `user_date_confirm`=0,
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='32w7fe@gmail.com',
+                `user_login`='kgg25y',
+                `user_password`='4b32d2d4792e731f23ca182890394640'";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "INSERT INTO `user`
+            SET `user_code`='96d77686c4e8f7c1fcf5aa1ee6871a2b',
+                `user_date_confirm`=0,
+                `user_date_login`=UNIX_TIMESTAMP(),
+                `user_date_register`=UNIX_TIMESTAMP(),
+                `user_email`='kkezl7@gmail.com',
+                `user_login`='1i2rud',
+                `user_password`='4b32d2d4792e731f23ca182890394640'";
+    f_igosja_mysqli_query($sql);
 }
