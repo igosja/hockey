@@ -18,6 +18,7 @@ $q[] = 'CREATE TABLE `player`
             `player_name_id` INT(11) DEFAULT 0,
             `player_noaction` INT(11) DEFAULT 0,
             `player_phisical_id` INT(2) DEFAULT 0,
+            `player_position_id` INT(1) DEFAULT 0,
             `player_power_nominal` INT(3) DEFAULT 0,
             `player_power_nominal_s` INT(3) DEFAULT 0, #Номинальная сила с учетом спец. возможностей для быстрого подсчета vs команды
             `player_power_old` INT(3) DEFAULT 0,
