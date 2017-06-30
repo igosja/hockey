@@ -9,20 +9,24 @@ jQuery(document).ready(function () {
             dataType: 'json',
             success: function (data)
             {
-                for (var i=0; i<data.length; i++)
+                console.log(data);
+                for (var i=0; i<data['list'].length; i++)
                 {
-                    $('#' + data[i].id).removeClass(data[i].remove_class_1);
-                    $('#' + data[i].id).removeClass(data[i].remove_class_2);
-                    $('#' + data[i].id).addClass(data[i].class);
-                    $('#' + data[i].id).data('phisical', data[i].phisical_id);
-                    $('#' + data[i].id).html(
+                    var list_id = $('#' + data['list'][i].id);
+                    list_id.removeClass(data['list'][i].remove_class_1);
+                    list_id.removeClass(data['list'][i].remove_class_2);
+                    list_id.addClass(data['list'][i].class);
+                    list_id.data('phisical', data['list'][i].phisical_id);
+                    list_id.html(
                         '<img src="/img/phisical/'
-                        + data[i].phisical_id
+                        + data['list'][i].phisical_id
                         + '.png" title="'
-                        + data[i].phisical_value
-                        + '">'
+                        + data['list'][i].phisical_value
+                        + '%">'
                     );
                 }
+
+                $('#phisical-available').html(data['available']);
             }
         });
     });

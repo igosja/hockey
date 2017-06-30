@@ -3,6 +3,7 @@
 /**
  * @var $auth_team_id integer
  * @var $class string
+ * @var $igosja_season_id integer
  * @var $phisical_id integer
  */
 
@@ -17,6 +18,24 @@ $num_get = $auth_team_id;
 
 include(__DIR__ . '/include/sql/team_view_left.php');
 
+$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+        FROM `buildingbase`
+        WHERE `buildingbase_ready`=0
+        AND `buildingbase_team_id`=$auth_team_id
+        AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASEPHISICAL . ")";
+$building_sql = f_igosja_mysqli_query($sql);
+
+$building_array = $building_sql->fetch_all(1);
+
+if ($building_array[0]['count'])
+{
+    $on_building = true;
+}
+else
+{
+    $on_building = false;
+}
+
 $sql = "SELECT `basephisical_change_count`,
                `basephisical_level`,
                `basephisical_tire_bonus`
@@ -28,6 +47,16 @@ $sql = "SELECT `basephisical_change_count`,
 $basephisical_sql = f_igosja_mysqli_query($sql);
 
 $basephisical_array = $basephisical_sql->fetch_all(1);
+
+$sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
+        FROM `phisicalchange`
+        WHERE `phisicalchange_team_id`=$num_get
+        AND `phisicalchange_season_id`=$igosja_season_id";
+$phisical_used_sql = f_igosja_mysqli_query($sql);
+
+$phisical_used_array = $phisical_used_sql->fetch_all(1);
+
+$phisical_available = $basephisical_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 
 $sql = "SELECT `phisical_id`,
                `phisical_value`
@@ -165,11 +194,11 @@ for ($i=0; $i<$count_player; $i++)
             }
             elseif (in_array($class, array('phisical-change-cell phisical-bordered', 'phisical-change-cell phisical-yellow', 'phisical-bordered')))
             {
-                $class = 'phisical-change-cell phisical-yellow';
+                $class = ($on_building ? '' : 'phisical-change-cell') . 'phisical-yellow';
             }
             else
             {
-                $class = 'phisical-change-cell';
+                $class = ($on_building ? '' : 'phisical-change-cell');
             }
 
             $player_phisical_array[] = array(
