@@ -63,6 +63,7 @@
                     <td class="hidden-xs text-center">
                         <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                             <img
+                                alt="<?= $item['country_name']; ?>"
                                 src="/img/country/12/<?= $item['country_id']; ?>.png"
                                 title="<?= $item['country_name']; ?>"
                             />
@@ -83,6 +84,7 @@
                     <td class="text-center"><?= $item['player_tire']; ?></td>
                     <td class="text-center">
                         <img
+                            alt="<?= $item['phisical_value']; ?>%"
                             src="/img/phisical/<?= $item['phisical_id']; ?>.png"
                             title="<?= $item['phisical_value']; ?>%"
                         />

@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
                 <a href="/index.php">
-                    <img class="img-responsive" src="/img/logo.png"/>
+                    <img alt="Virtual hockey league" class="img-responsive" src="/img/logo.png"/>
                 </a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">

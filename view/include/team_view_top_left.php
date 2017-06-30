@@ -48,7 +48,7 @@
         <?php if ($team_array[0]['user_date_vip'] > time()) { ?>
             <img src="/img/vip.png" title="VIP" />
         <?php } ?>
-        <a class="strong" href="/user_view.php?num=<?= $team_array['user_id']; ?>">
+        <a class="strong" href="/user_view.php?num=<?= $team_array[0]['user_id']; ?>">
             <?= $team_array[0]['user_login']; ?>
         </a>
     </div>
@@ -59,11 +59,11 @@
         <?= $team_array[0]['stadium_name']; ?>,
         <strong><?= $team_array[0]['stadium_capacity']; ?></strong>
         <?php if ($team_array[0]['count_buildingstadium']) { ?>
-            <img src="/img/cog.png" title="Идет строительство стадиона" />
+            <img alt="Идет строительство стадиона" src="/img/cog.png" title="Идет строительство стадиона" />
         <?php } ?>
         <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
             <a href="/stadium_increase.php?num=<?= $num_get; ?>">
-                <img src="/img/loupe.png"/>
+                <img alt="Подробнее" src="/img/loupe.png"/>
             </a>
         <?php } ?>
     </div>
@@ -75,9 +75,11 @@
         из
         <span class="strong"><?= $team_array[0]['base_slot_max']; ?></span> слотов)
         <?php if ($team_array[0]['count_buildingbase']) { ?>
-            <img src="/img/cog.png" title="Идет строительство базы команды" />
+            <img alt="Идет строительство базы команды" src="/img/cog.png" title="Идет строительство базы команды" />
         <?php } ?>
-        <a href="/base.php?num=<?= $num_get; ?>"><img src="/img/loupe.png"/></a>
+        <a href="/base.php?num=<?= $num_get; ?>">
+            <img alt="Подробнее" src="/img/loupe.png"/>
+        </a>
     </div>
 </div>
 <div class="row margin-top-small">

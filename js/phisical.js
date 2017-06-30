@@ -18,7 +18,9 @@ jQuery(document).ready(function () {
                     list_id.addClass(data['list'][i].class);
                     list_id.data('phisical', data['list'][i].phisical_id);
                     list_id.html(
-                        '<img src="/img/phisical/'
+                        '<img alt="'
+                        + data['list'][i].phisical_value
+                        + '%" src="/img/phisical/'
                         + data['list'][i].phisical_id
                         + '.png" title="'
                         + data['list'][i].phisical_value
