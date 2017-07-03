@@ -46,7 +46,7 @@ class Mail
 
         $message = '<table style="width: 100%; background-color: #f5f5f5; color: #0f103d; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-size: 13px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
                         <tr>
-                            <td style="text-align: center;">
+                            <td>
                                 <img src="https://vhol.org/img/logo.png" style="border: none;"/>
                             </td>
                         </tr>
