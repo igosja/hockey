@@ -44,3 +44,9 @@ $country_link_array = array(
     array('url' => 'country_vote_list', 'text' => 'Опросы'),
     array('url' => 'country_league', 'text' => 'Лига Чемпионов'),
 );
+$shop_link_array = array(
+    array('url' => 'shop', 'text' => 'Виртуальный магазин'),
+    array('url' => 'shop_payment', 'text' => 'Пополнить счет'),
+    array('url' => 'shop_gift', 'text' => 'Подарок другу'),
+    array('url' => 'shop_history', 'text' => 'История платежей'),
+);

@@ -4,8 +4,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong">
         <p class="text-center">Ваш счёт - <?= $user_array[0]['user_money']; ?></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?php include(__DIR__ . '/include/shop_table_link.php'); ?>
     </div>
 </div>
 <div class="row">
