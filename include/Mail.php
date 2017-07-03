@@ -44,19 +44,7 @@ class Mail
         $headers = "From: " . $from . "\r\nReply-To: " . $from . "\r\nContent-type: text/html; charset=utf-8\r\n";
         $subject = "=?utf-8?B?" . base64_encode($this->subject) . "?=";
 
-        $message = '<table style="width: 100%; background-color: #f5f5f5; color: #0f103d; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-size: 13px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-                        <tr>
-                            <td>
-                                <img src="https://vhol.org/img/logo.png" style="border: none;"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>' . $this->message . '</td>
-                        </tr>
-                        <tr>
-                            <td>Администрация Виртуальной Хоккейной Лиги</td>
-                        </tr>
-                    </table>';
+        $message = $this->message . '<br><br>Администрация Виртуальной Хоккейной Лиги';
         mail($this->to, $subject, $message, $headers);
     }
 }
