@@ -97,10 +97,9 @@ if ($data = f_igosja_request_post('data'))
         $email_text =
             'Вы успешно зарегистрированы на сайте Виртуальной Хоккейной Лиги под логином
             <strong>' . $login . '</strong>.<br>
-            Чтобы завершить регистрацию подтвердите свой email по ссылке <a href="' . $href . '">' . $href . '</a>
+            Чтобы завершить регистрацию подтвердите свой email по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>
             или введите код <strong>' . $code . '</strong> на странице
-            <a href="' . $page . '">' . $page . '</a>.<br/><br/>
-            Администрация Виртуальной Хоккейной Лиги';
+            <a href="' . $page . '" target="_blank">' . $page . '</a>.';
 
         $mail = new Mail();
         $mail->setTo($email);

@@ -64,8 +64,7 @@ if ($data = f_igosja_request_post('data'))
     $href = 'http://' . $_SERVER['HTTP_HOST'] . '/password_restore.php?data[code]=' . $code;
     $email_text =
         'Вы запросили восстановление пароля на сайте Виртуальной Хоккейной Лиги.<br>
-        Чтобы восстановить пароль перейдите по ссылке <a href="' . $href . '">' . $href . '</a>.<br/><br/>
-        Администрация Виртуальной Хоккейной Лиги';
+        Чтобы восстановить пароль перейдите по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>.';
 
     $mail = new Mail();
     $mail->setTo($email);

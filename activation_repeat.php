@@ -50,10 +50,9 @@ if ($data = f_igosja_request_post('data'))
     $page = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php';
     $email_text =
         'Вы запросили повтоную отправку кода активации аккаунта на сайте Виртуальной Хоккейной Лиги.<br>
-        Чтобы завершить подтвердить свой email перейдите по ссылке <a href="' . $href . '">' . $href . '</a>
+        Чтобы завершить подтвердить свой email перейдите по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>
         или введите код <strong>' . $code . '</strong> на странице
-        <a href="' . $page . '">' . $page . '</a>.<br/><br/>
-        Администрация Виртуальной Хоккейной Лиги';
+        <a href="' . $page . '" target="_blank">' . $page . '</a>.';
 
     $mail = new Mail();
     $mail->setTo($email);

@@ -65,10 +65,9 @@ if ($data = f_igosja_request_post('data'))
         $page = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php';
         $email_text =
             'Вы изменили свой основной почтовый ящик на сайте Виртуальной Хоккейной Лиги.<br>
-            Подтвердите свой email по ссылке <a href="' . $href . '">' . $href . '</a>
+            Подтвердите свой email по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>
             или введите код <strong>' . $user_array[0]['user_code'] . '</strong> на странице
-            <a href="' . $page . '">' . $page . '</a>.<br/><br/>
-            Администрация Виртуальной Хоккейной Лиги';
+            <a href="' . $page . '" target="_blank">' . $page . '</a>.';
 
         $mail = new Mail();
         $mail->setTo($user_email);
