@@ -40,28 +40,23 @@ class Mail
 
     public function send()
     {
-        $from       = "=?utf-8?B?" . base64_encode($this->from_name) . "?=" . " <" . $this->from . ">";
-        $headers    = "From: " . $from . "\r\nReply-To: " . $from . "\r\nContent-type: text/html; charset=utf-8\r\n";
-        $subject    = "=?utf-8?B?" . base64_encode($this->subject) . "?=";
+        $from = "=?utf-8?B?" . base64_encode($this->from_name) . "?=" . " <" . $this->from . ">";
+        $headers = "From: " . $from . "\r\nReply-To: " . $from . "\r\nContent-type: text/html; charset=utf-8\r\n";
+        $subject = "=?utf-8?B?" . base64_encode($this->subject) . "?=";
 
-        $message = '<link rel="stylesheet" href="https://vhol.org/css/style.css">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <img src="https://vhol.org/img/logo.png"/>
-                            </div>
-                        </div>
-                        <div class="row margin-top">
-                            <div class="col-lg-12">
-                                ' . $this->message . '
-                            </div>
-                        </div>
-                        <div class="row margin-top">
-                            <div class="col-lg-12">
-                                Администрация Виртуальной Хоккейной Лиги
-                            </div>
-                        </div>
-                    </div>';
+        $message = '<table style="width: 100%; background-color: #f5f5f5; color: #0f103d; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-size: 13px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <img src="https://vhol.org/img/logo.png" style="border: none;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>' . $this->message . '</td>
+                        </tr>
+                        <tr>
+                            <td>Администрация Виртуальной Хоккейной Лиги</td>
+                        </tr>
+                    </table>';
         mail($this->to, $subject, $message, $headers);
     }
 }
