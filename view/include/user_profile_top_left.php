@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $auth_user_id integer
+ * @var $user_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
         Имя
@@ -11,9 +17,11 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Ник: <span class="strong"><?= $user_array[0]['user_login']; ?></span>
-        <a href="/talk.php?num=<?= $user_array[0]['user_id']; ?>">
-            Письмо
-        </a>
+        <?php if (isset($auth_user_id) && $auth_user_id != $user_array[0]['user_id']) { ?>
+            <a href="/dialog.php?num=<?= $user_array[0]['user_id']; ?>">
+                <img alt="Letter" src="/img/letter.png" title="Написать письмо" />
+            </a>
+        <?php } ?>
     </div>
 </div>
 <div class="row">
