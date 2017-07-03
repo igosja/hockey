@@ -16,7 +16,7 @@
         <?php foreach ($message_array as $item) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a href="/talk.php?num=<?= $item['user_id']; ?>">
+                    <a href="/dialog.php?num=<?= $item['user_id']; ?>">
                         <?= $item['user_login']; ?>
                     </a>
                 </div>
