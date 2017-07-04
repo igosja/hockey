@@ -24,7 +24,7 @@ function f_igosja_current_penalty_decrease_after_goal($game_result, $team, $oppo
 
     for ($i=0; $i<$count_penalty; $i++)
     {
-        if (1 < $i)
+        if ($i > 1)
         {
             $penalty_array_new[] = array(
                 'minute' => $game_result['minute'],

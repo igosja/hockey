@@ -32,7 +32,7 @@ function f_igosja_current_penalty_decrease($game_result)
                     $penalty_array_new[] = $penalty_array_old[$j];
                 }
             }
-            elseif (1 < $j)
+            elseif ($j > 1)
             {
                 $penalty_array_new[] = array(
                     'minute' => $game_result['minute'],

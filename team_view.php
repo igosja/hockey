@@ -141,7 +141,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if (($num_get == $check_game_send_array[0]['game_guest_team_id'] && 0 == $check_game_send_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_game_send_array[0]['game_home_team_id'] && 0 == $check_game_send_array[0]['game_home_mood_id']))
         {
-            $notification_array[] = 'Вы не отправили состав на ближайший <a href="/game_send.php?num=' . $check_game_send_array[0]['game_id'] . '">матч</a> своей команды';
+            $notification_array[] = 'Вы не отправили состав на ближайший <a href="/game_send.php?num=' . $check_game_send_array[0]['game_id'] . '">матч</a> своей команды.';
         }
     }
 
@@ -167,12 +167,12 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if (($num_get == $check_mood_array[0]['game_guest_team_id'] && MOOD_SUPER == $check_mood_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_mood_array[0]['game_home_team_id'] && MOOD_SUPER == $check_mood_array[0]['game_home_mood_id']))
         {
-            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать супер';
+            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать супер.';
         }
         elseif (($num_get == $check_mood_array[0]['game_guest_team_id'] && MOOD_REST == $check_mood_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_mood_array[0]['game_home_team_id'] && MOOD_REST == $check_mood_array[0]['game_home_mood_id']))
         {
-            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать отдых';
+            $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать отдых.';
         }
     }
 
@@ -187,9 +187,10 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
     if ($vip_array[0]['count'])
     {
-        $notification_array[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте <a href="/shop.php">продлить</a>';
+        $notification_array[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте <a href="/shop.php">продлить</a>.';
     }
 
+    /*
     $sql = "SELECT `country_id`
             FROM `country`
             LEFT JOIN `city`
@@ -322,40 +323,42 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
     $notification_array[] = 'Ваш <a href="/training.php">тренировочный центр</a> простаивает - осталось ' . $training_array[0]['basetraining_power_count'] . ' баллов силы, ' . $training_array[0]['basetraining_special_count'] . ' спецвозможности, ' . $training_array[0]['basetraining_position_count'] . ' совмещение';
     $notification_array[] = 'Ваша <a href="/school.php">спортшкола</a> простаивает - можно подготовить ещё одного молодого игрока для основной команды';
-
-    $sql = "SELECT `game_shedule_id`
-            FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
-            WHERE `game_played`=1
-            AND `shedule_season_id`=$igosja_season_id
-            GROUP BY `game_shedule_id`
-            ORDER BY `game_shedule_id`";
+*/
+    $sql = "SELECT `shedule_nationalvotestep_id`
+            FROM `shedule`
+            WHERE `shedule_date`>UNIX_TIMESTAMP()
+            ORDER BY `shedule_id` ASC
+            LIMIT 1";
     $shedule_sql = f_igosja_mysqli_query($sql);
 
-    if ($shedule_sql->num_rows <= 2)
+    if ($shedule_sql->num_rows)
     {
-        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов в тренеры национальных сборных';
-    }
-    elseif ($shedule_sql->num_rows <= 4)
-    {
-        $notification_array[] = 'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
-    }
-    elseif ($shedule_sql->num_rows <= 6)
-    {
-        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_21 . '">прием заявок</a> от кандидатов в тренеры молодежных сборных';
-    }
-    elseif ($shedule_sql->num_rows <= 8)
-    {
-        $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_21 . '">здесь</a>';
-    }
-    elseif ($shedule_sql->num_rows <= 10)
-    {
-        $notification_array[] = 'Открыт <a href="/national_application.php?num=' . 1 . '&type=' . NATIONALTYPE_19 . '">прием заявок</a> от кандидатов в тренеры юношеских сборных';
-    }
-    elseif ($shedule_sql->num_rows <= 12)
-    {
-        $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . 1 . '&type=' . NATIONALTYPE_19 . '">здесь</a>';
+        $shedule_array = $shedule_sql->fetch_all(1);
+
+        if (NATIONALVOTESTEP_MAIN_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'Открыт <a href="/national_application_country.php?type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов в тренеры национальных сборных.';
+        }
+        elseif (NATIONALVOTESTEP_MAIN_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+        }
+        elseif (NATIONALVOTESTEP_21_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'Открыт <a href="/national_application_country.php?type=' . NATIONALTYPE_21 . '">прием заявок</a> от кандидатов в тренеры молодежных сборных';
+        }
+        elseif (NATIONALVOTESTEP_21_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_21 . '">здесь</a>';
+        }
+        elseif (NATIONALVOTESTEP_19_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'Открыт <a href="/national_application_country.php?type=' . NATIONALTYPE_19 . '">прием заявок</a> от кандидатов в тренеры юношеских сборных';
+        }
+        elseif (NATIONALVOTESTEP_19_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
+        {
+            $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_19 . '">здесь</a>';
+        }
     }
 }
 

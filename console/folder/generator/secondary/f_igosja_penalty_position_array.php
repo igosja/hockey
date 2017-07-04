@@ -12,7 +12,7 @@ function f_igosja_penalty_position_array($game_result, $team)
 
     $count_penalty = count($game_result[$team]['team']['penalty']['current']);
 
-    if (2 < $count_penalty)
+    if ($count_penalty > 2)
     {
         $count_penalty = 2;
     }

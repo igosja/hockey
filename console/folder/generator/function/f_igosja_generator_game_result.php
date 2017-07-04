@@ -132,14 +132,14 @@ function f_igosja_generator_game_result()
 
             $home_penalty_current = count($game_result['home']['team']['penalty']['current']);
 
-            if (2 < $home_penalty_current)
+            if ($home_penalty_current > 2)
             {
                 $home_penalty_current = 2;
             }
 
             $guest_penalty_current = count($game_result['guest']['team']['penalty']['current']);
 
-            if (2 < $guest_penalty_current)
+            if ($guest_penalty_current > 2)
             {
                 $guest_penalty_current = 2;
             }
@@ -243,14 +243,14 @@ function f_igosja_generator_game_result()
 
                 $home_penalty_current = count($game_result['home']['team']['penalty']['current']);
 
-                if (2 < $home_penalty_current)
+                if ($home_penalty_current > 2)
                 {
                     $home_penalty_current = 2;
                 }
 
                 $guest_penalty_current = count($game_result['guest']['team']['penalty']['current']);
 
-                if (2 < $guest_penalty_current)
+                if ($guest_penalty_current > 2)
                 {
                     $guest_penalty_current = 2;
                 }
@@ -577,7 +577,7 @@ function f_igosja_generator_game_result()
             $division_id = 0;
         }
 
-        if (TOURNAMENTTYPE_CHAMPIONSHIP == $tournamenttype_id && STAGE_1_QUALIFY <= $stage_id)
+        if (TOURNAMENTTYPE_CHAMPIONSHIP == $tournamenttype_id && $stage_id >= STAGE_1_QUALIFY)
         {
             $is_playoff = 1;
         }

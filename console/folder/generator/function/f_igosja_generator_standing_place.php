@@ -60,8 +60,8 @@ function f_igosja_generator_standing_place()
             }
         }
         elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $shedule['shedule_tournamenttype_id'] &&
-                STAGE_1_TOUR <= $shedule['shedule_stage_id'] &&
-                STAGE_30_TOUR >= $shedule['shedule_stage_id'])
+                $shedule['shedule_stage_id'] >= STAGE_1_TOUR &&
+                $shedule['shedule_stage_id'] <= STAGE_30_TOUR)
         {
             $sql = "SELECT `championship_country_id`
                     FROM `championship`
@@ -110,8 +110,8 @@ function f_igosja_generator_standing_place()
             }
         }
         elseif (TOURNAMENTTYPE_LEAGUE == $shedule['shedule_tournamenttype_id'] &&
-                STAGE_1_TOUR <= $shedule['shedule_stage_id'] &&
-                STAGE_6_TOUR >= $shedule['shedule_stage_id'])
+                $shedule['shedule_stage_id'] >= STAGE_1_TOUR &&
+                $shedule['shedule_stage_id'] <= STAGE_6_TOUR)
         {
             $sql = "SELECT `league_group`
                     FROM `league`

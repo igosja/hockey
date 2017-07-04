@@ -1199,7 +1199,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_history($log);
             }
         }
-        elseif (0 < $item['game_home_plus_minus'])
+        elseif ($item['game_home_plus_minus'] > 0)
         {
             $sql = "SELECT `lineup_player_id`
                     FROM `lineup`
@@ -1258,7 +1258,7 @@ function f_igosja_generator_plus_minus()
                 f_igosja_history($log);
             }
         }
-        elseif (0 < $item['game_guest_plus_minus'])
+        elseif ($item['game_guest_plus_minus'] > 0)
         {
             $sql = "SELECT `lineup_player_id`
                     FROM `lineup`

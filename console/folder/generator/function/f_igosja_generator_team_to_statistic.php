@@ -49,7 +49,7 @@ function f_igosja_generator_team_to_statistic()
             $division_id = 0;
         }
 
-        if (TOURNAMENTTYPE_CHAMPIONSHIP == $tournamenttype_id && STAGE_1_QUALIFY <= $stage_id)
+        if (TOURNAMENTTYPE_CHAMPIONSHIP == $tournamenttype_id && $stage_id >= STAGE_1_QUALIFY)
         {
             $is_playoff = 1;
         }

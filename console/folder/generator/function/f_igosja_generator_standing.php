@@ -154,8 +154,8 @@ function f_igosja_generator_standing()
             f_igosja_mysqli_query($sql);
         }
         elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $game['shedule_tournamenttype_id'] &&
-                STAGE_1_TOUR <= $game['shedule_stage_id'] &&
-                STAGE_30_TOUR >= $game['shedule_stage_id'])
+                $game['shedule_stage_id'] >= STAGE_1_TOUR &&
+                $game['shedule_stage_id'] <= STAGE_30_TOUR)
         {
             $sql = "UPDATE `championship`
                     SET `championship_game`=`championship_game`+1,
@@ -188,8 +188,8 @@ function f_igosja_generator_standing()
             f_igosja_mysqli_query($sql);
         }
         elseif (TOURNAMENTTYPE_LEAGUE == $game['shedule_tournamenttype_id'] &&
-                STAGE_1_TOUR <= $game['shedule_stage_id'] &&
-                STAGE_6_TOUR >= $game['shedule_stage_id'])
+                $game['shedule_stage_id'] >= STAGE_1_TOUR &&
+                $game['shedule_stage_id'] <= STAGE_6_TOUR)
         {
             $sql = "UPDATE `league`
                     SET `league_game`=`league_game`+1,
