@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -29,12 +33,26 @@ $sql = "SELECT `count_answer`,
                `electionpresidentapplication_id`,
                `electionpresidentapplication_text`,
                `electionstatus_id`,
-               `electionstatus_name`
+               `electionstatus_name`,
+               `user_date_register`,
+               `user_id`,
+               `user_login`,
+               `userrating_rating`
         FROM `electionpresident`
         LEFT JOIN `electionstatus`
         ON `electionpresident_electionstatus_id`=`electionstatus_id`
         LEFT JOIN `electionpresidentapplication`
         ON `electionpresident_id`=`electionpresidentapplication_electionpresident_id`
+        LEFT JOIN `user`
+        ON `electionpresidentapplication_user_id`=`user_id`
+        LEFT JOIN
+        (
+            SELECT `userrating_rating`,
+                   `userrating_user_id`
+            FROM `userrating`
+            WHERE `userrating_season_id`=0
+        ) AS `t3`
+        ON `user_id`=`userrating_user_id`
         LEFT JOIN
         (
             SELECT COUNT(`electionpresidentuser_user_id`) AS `count_answer`,
@@ -43,10 +61,10 @@ $sql = "SELECT `count_answer`,
             WHERE `electionpresidentuser_electionpresidentapplication_id`=$electionpresident_id
             GROUP BY `electionpresidentuser_electionpresidentapplication_id`
         ) AS `t1`
-        ON `electionpresidentuser_electionpresidentapplication_id`=`electionpresidentapplication_id`
+        ON `electionpresidentapplication_id`=`electionpresidentuser_electionpresidentapplication_id`
         WHERE `electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
         AND `electionpresident_id`=$electionpresident_id
-        ORDER BY `count_answer` DESC, `electionpresidentapplication_id` ASC";
+        ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC";
 $electionpresident_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $electionpresident_sql->num_rows)

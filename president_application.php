@@ -20,6 +20,7 @@ $sql = "SELECT COUNT(`country_id`) AS `check`
         FROM `country`
         WHERE `country_id`=$num_get
         AND `country_president_id`=0
+        AND `country_vice_id`=0
         LIMIT 1";
 $check_sql = f_igosja_mysqli_query($sql);
 
@@ -70,7 +71,12 @@ if ($data = f_igosja_request_post('data'))
 {
     $text = trim($data['text']);
 
-    if (!empty($text))
+    if (empty($text))
+    {
+        $error_array[] = 'Добавьте текст программы';
+    }
+
+    if (!isset($error_array))
     {
         $sql = "SELECT `electionpresidentapplication_id`
                 FROM `electionpresidentapplication`
@@ -89,7 +95,7 @@ if ($data = f_igosja_request_post('data'))
                     WHERE `electionpresidentapplication_id`=$electionpresidentapplication_id
                     LIMIT 1";
             $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $data['text']);
+            $prepare->bind_param('s', $text);
             $prepare->execute();
         }
         else
@@ -100,18 +106,29 @@ if ($data = f_igosja_request_post('data'))
                         `electionpresidentapplication_text`=?,
                         `electionpresidentapplication_user_id`=$auth_user_id";
             $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $data['text']);
+            $prepare->bind_param('s', $text);
             $prepare->execute();
+
+            $electionpresidentapplication_id = $mysqli->insert_id;
         }
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Изменения сохранены.';
-    }
 
-    refresh();
+        refresh();
+    }
 }
 
-$sql = "SELECT `electionpresidentapplication_text`
+$sql = "SELECT `country_name`
+        FROM `country`
+        WHERE `country_id`=$num_get
+        LIMIT 1";
+$country_sql = f_igosja_mysqli_query($sql);
+
+$country_array = $country_sql->fetch_all(1);
+
+$sql = "SELECT `electionpresidentapplication_id`,
+               `electionpresidentapplication_text`
         FROM `electionpresidentapplication`
         WHERE `electionpresidentapplication_electionpresident_id`=$electionpresident_id
         AND `electionpresidentapplication_user_id`=$auth_user_id
@@ -120,8 +137,13 @@ $electionpresidentapplication_sql = f_igosja_mysqli_query($sql);
 
 $electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(1);
 
-$seo_title          = 'Подача заявки на управление федерацией';
-$seo_description    = 'Подача заявки на управление федерацией на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'подача заявки на управление федерацией';
+if ($electionpresidentapplication_sql->num_rows)
+{
+    $electionpresidentapplication_id = $electionpresidentapplication_array[0]['electionpresidentapplication_id'];
+}
+
+$seo_title          = 'Подача заявки на президента федерации';
+$seo_description    = 'Подача заявки на президента федерации на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'подача заявки на президента федерации';
 
 include(__DIR__ . '/view/layout/main.php');

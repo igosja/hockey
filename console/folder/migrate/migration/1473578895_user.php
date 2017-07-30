@@ -25,6 +25,7 @@ $q[] = 'CREATE TABLE `user`
             `user_money` DECIMAL(7,2) DEFAULT 0,
             `user_name` VARCHAR(255) NOT NULL,
             `user_password` CHAR(32) NOT NULL,
+            `user_rating` DECIMAL(6,2) DEFAULT 500,
             `user_referrer_id` INT(11) DEFAULT 0,
             `user_sex_id` INT(1) DEFAULT 1,
             `user_shop_position` INT(3) DEFAULT 0,

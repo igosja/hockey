@@ -193,7 +193,7 @@ if ($data = f_igosja_request_post('data'))
 
     $text = trim($data['text']);
 
-    if (empty($data['text']))
+    if (empty($text))
     {
         $error_array[] = 'Добавьте текст программы';
     }
@@ -217,7 +217,7 @@ if ($data = f_igosja_request_post('data'))
                     WHERE `electionnationalapplication_id`=$electionnationalapplication_id
                     LIMIT 1";
             $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $data['text']);
+            $prepare->bind_param('s', $text);
             $prepare->execute();
 
             $sql = "DELETE FROM `electionnationalapplicationplayer`
@@ -232,7 +232,7 @@ if ($data = f_igosja_request_post('data'))
                         `electionnationalapplication_text`=?,
                         `electionnationalapplication_user_id`=$auth_user_id";
             $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $data['text']);
+            $prepare->bind_param('s', $text);
             $prepare->execute();
 
             $electionnationalapplication_id = $mysqli->insert_id;

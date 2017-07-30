@@ -35,12 +35,27 @@ $sql = "SELECT `count_answer`,
                `electionnationalapplication_id`,
                `electionnationalapplication_text`,
                `electionstatus_id`,
-               `electionstatus_name`
+               `electionstatus_name`,
+               `electionnationalapplication_power`,
+               `user_date_register`,
+               `user_id`,
+               `user_login`,
+               `userrating_rating`
         FROM `electionnational`
         LEFT JOIN `electionstatus`
         ON `electionnational_electionstatus_id`=`electionstatus_id`
         LEFT JOIN `electionnationalapplication`
         ON `electionnational_id`=`electionnationalapplication_electionnational_id`
+        LEFT JOIN `user`
+        ON `electionnationalapplication_user_id`=`user_id`
+        LEFT JOIN
+        (
+            SELECT `userrating_rating`,
+                   `userrating_user_id`
+            FROM `userrating`
+            WHERE `userrating_season_id`=0
+        ) AS `t3`
+        ON `user_id`=`userrating_user_id`
         LEFT JOIN
         (
             SELECT COUNT(`electionnationaluser_user_id`) AS `count_answer`,
@@ -49,10 +64,28 @@ $sql = "SELECT `count_answer`,
             WHERE `electionnationaluser_electionnationalapplication_id`=$electionnational_id
             GROUP BY `electionnationaluser_electionnationalapplication_id`
         ) AS `t1`
-        ON `electionnationaluser_electionnationalapplication_id`=`electionnationalapplication_id`
+        ON `electionnationalapplication_id`=`electionnationaluser_electionnationalapplication_id`
+        LEFT JOIN
+        (
+            SELECT `electionnationalapplicationplayer_electionnationalapplication_id`,
+                   SUM(`player_power_nominal_s`) AS `electionnationalapplication_power`
+            FROM `electionnationalapplicationplayer`
+            LEFT JOIN `player`
+            ON `electionnationalapplicationplayer_player_id`=`player_id`
+            WHERE `electionnationalapplicationplayer_electionnationalapplication_id` IN
+            (
+                SELECT `electionnationalapplication_id`
+                FROM `electionnational`
+                LEFT JOIN `electionnationalapplication`
+                ON `electionnational_id`=`electionnationalapplication_electionnational_id`
+                WHERE `electionnational_id`=$electionnational_id
+            )
+            GROUP BY `electionnationalapplicationplayer_electionnationalapplication_id`
+        ) AS `t2`
+        ON `electionnationalapplication_id`=`electionnationalapplicationplayer_electionnationalapplication_id`
         WHERE `electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
         AND `electionnational_id`=$electionnational_id
-        ORDER BY `count_answer` DESC, `electionnationalapplication_id` ASC";
+        ORDER BY `count_answer` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC";
 $electionnational_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $electionnational_sql->num_rows)

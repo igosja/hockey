@@ -335,13 +335,15 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     {
         $shedule_array = $shedule_sql->fetch_all(1);
 
+        $auth_country_id = $team_array[0]['country_id'];
+
         if (NATIONALVOTESTEP_MAIN_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
             $notification_array[] = 'Открыт <a href="/national_application_country.php?type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов в тренеры национальных сборных.';
         }
         elseif (NATIONALVOTESTEP_MAIN_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
-            $notification_array[] = 'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+            $notification_array[] = 'В вашей стране проходят выборы тренера национальной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_MAIN . '&num=' . $auth_country_id . '">здесь</a>';
         }
         elseif (NATIONALVOTESTEP_21_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
@@ -349,7 +351,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
         elseif (NATIONALVOTESTEP_21_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
-            $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_21 . '">здесь</a>';
+            $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '"">здесь</a>';
         }
         elseif (NATIONALVOTESTEP_19_APPLICATION == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
@@ -357,7 +359,206 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
         elseif (NATIONALVOTESTEP_19_VOTE == $shedule_array[0]['shedule_nationalvotestep_id'])
         {
-            $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_19 . '">здесь</a>';
+            $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '"">здесь</a>';
+        }
+        else
+        {
+            for ($i=NATIONALTYPE_MAIN; $i<=NATIONALTYPE_19; $i++)
+            {
+                $sql = "SELECT COUNT(`national_id`) AS `count`
+                        FROM `national`
+                        WHERE `national_country_id`=$auth_country_id
+                        AND `national_nationaltype_id`=$i
+                        AND `national_user_id`!=0
+                        AND `national_vice_id`=0
+                        LIMIT 1";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check_array = $check_sql->fetch_all(1);
+
+                if ($check_array[0]['count'])
+                {
+                    $sql = "SELECT COUNT(`electionnationalvice_id`) AS `count`
+                        FROM `electionnationalvice`
+                        WHERE `electionnationalvice_country_id`=$auth_country_id
+                        AND `electionnationalvice_nationaltype_id`=$i
+                        AND `electionnationalvice_electionstatus_id` IN (
+                            " . ELECTIONSTATUS_CANDIDATES . ",
+                            " . ELECTIONSTATUS_OPEN . "
+                        )";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(1);
+
+                    if (0 == $check_array[0]['count'])
+                    {
+                        $sql = "INSERT INTO `electionnationalvice`
+                            SET `electionnationalvice_country_id`=$auth_country_id,
+                                `electionnationalvice_date`=UNIX_TIMESTAMP(),
+                                `electionnationalvice_nationaltype_id`=$i";
+                        f_igosja_mysqli_query($sql);
+                    }
+                }
+            }
+
+            $sql = "SELECT `electionnationalvice_electionstatus_id`,
+                           `electionnationalvice_nationaltype_id`
+                    FROM `electionnationalvice`
+                    WHERE `electionnationalvice_country_id`=$auth_country_id
+                    AND `electionnationalvice_electionstatus_id` IN (
+                        " . ELECTIONSTATUS_CANDIDATES . ",
+                        " . ELECTIONSTATUS_OPEN . "
+                    )";
+            $election_sql = f_igosja_mysqli_query($sql);
+
+            $election_array = $election_sql->fetch_all(1);
+
+            foreach ($election_array as $item)
+            {
+                if (NATIONALTYPE_MAIN == $item['electionnationalvice_nationaltype_id'])
+                {
+                    if (ELECTIONSTATUS_CANDIDATES == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране открыт <a href="/national_vice_application.php?type=' . NATIONALTYPE_MAIN  . '&num=' . $auth_country_id . '">прием заявок</a> от кандидатов в заместители тренера национальной сборной';
+                    }
+                    elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера национальной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_MAIN . '&num=' . $auth_country_id . '"">здесь</a>';
+                    }
+                }
+                elseif (NATIONALTYPE_21 == $item['electionnationalvice_nationaltype_id'])
+                {
+                    if (ELECTIONSTATUS_CANDIDATES == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране открыт <a href="/national_vice_application.php?type=' . NATIONALTYPE_21  . '&num=' . $auth_country_id . '">прием заявок</a> от кандидатов в заместители тренера молодёжной сборной';
+                    }
+                    elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '"">здесь</a>';
+                    }
+                }
+                elseif (NATIONALTYPE_19 == $item['electionnationalvice_nationaltype_id'])
+                {
+                    if (ELECTIONSTATUS_CANDIDATES == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране открыт <a href="/national_vice_application.php?type=' . NATIONALTYPE_19  . '&num=' . $auth_country_id . '">прием заявок</a> от кандидатов в заместители тренера юношеской сборной';
+                    }
+                    elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
+                    {
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера юношеской сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '"">здесь</a>';
+                    }
+                }
+            }
+        }
+
+        $sql = "SELECT COUNT(`country_id`) AS `count`
+                FROM `country`
+                WHERE `country_id`=$auth_country_id
+                AND `country_president_id`=0
+                AND `country_vice_id`=0
+                LIMIT 1";
+        $check_sql = f_igosja_mysqli_query($sql);
+
+        $check_array = $check_sql->fetch_all(1);
+
+        if ($check_array[0]['count'])
+        {
+            $sql = "SELECT COUNT(`electionpresident_id`) AS `count`
+                    FROM `electionpresident`
+                    WHERE `electionpresident_country_id`=$auth_country_id
+                    AND `electionpresident_electionstatus_id` IN (
+                        " . ELECTIONSTATUS_CANDIDATES . ",
+                        " . ELECTIONSTATUS_OPEN . "
+                    )";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(1);
+
+            if (0 == $check_array[0]['count'])
+            {
+                $sql = "INSERT INTO `electionpresident`
+                        SET `electionpresident_country_id`=$auth_country_id,
+                            `electionpresident_date`=UNIX_TIMESTAMP()";
+                f_igosja_mysqli_query($sql);
+            }
+        }
+
+        $sql = "SELECT `electionpresident_electionstatus_id`
+                FROM `electionpresident`
+                WHERE `electionpresident_country_id`=$auth_country_id
+                AND `electionpresident_electionstatus_id` IN (
+                    " . ELECTIONSTATUS_CANDIDATES . ",
+                    " . ELECTIONSTATUS_OPEN . "
+                )";
+        $election_sql = f_igosja_mysqli_query($sql);
+
+        $election_array = $election_sql->fetch_all(1);
+
+        foreach ($election_array as $item)
+        {
+            if (ELECTIONSTATUS_CANDIDATES == $item['electionpresident_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране открыт <a href="/president_application.php?num=' . $auth_country_id . '">прием заявок</a> от кандидатов президентов федерации';
+            }
+            elseif (ELECTIONSTATUS_OPEN == $item['electionpresident_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране проходят выборы презитента федерации, результаты можно посмотреть <a href="/president_vote.php?num=' . $auth_country_id . '"">здесь</a>';
+            }
+        }
+
+        $sql = "SELECT COUNT(`country_id`) AS `count`
+                FROM `country`
+                WHERE `country_id`=$auth_country_id
+                AND `country_president_id`!=0
+                AND `country_vice_id`=0
+                LIMIT 1";
+        $check_sql = f_igosja_mysqli_query($sql);
+
+        $check_array = $check_sql->fetch_all(1);
+
+        if ($check_array[0]['count'])
+        {
+            $sql = "SELECT COUNT(`electionpresidentvice_id`) AS `count`
+                    FROM `electionpresidentvice`
+                    WHERE `electionpresidentvice_country_id`=$auth_country_id
+                    AND `electionpresidentvice_electionstatus_id` IN (
+                        " . ELECTIONSTATUS_CANDIDATES . ",
+                        " . ELECTIONSTATUS_OPEN . "
+                    )";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(1);
+
+            if (0 == $check_array[0]['count'])
+            {
+                $sql = "INSERT INTO `electionpresidentvice`
+                        SET `electionpresidentvice_country_id`=$auth_country_id,
+                            `electionpresidentvice_date`=UNIX_TIMESTAMP()";
+                f_igosja_mysqli_query($sql);
+            }
+        }
+
+        $sql = "SELECT `electionpresidentvice_electionstatus_id`
+                FROM `electionpresidentvice`
+                WHERE `electionpresidentvice_country_id`=$auth_country_id
+                AND `electionpresidentvice_electionstatus_id` IN (
+                    " . ELECTIONSTATUS_CANDIDATES . ",
+                    " . ELECTIONSTATUS_OPEN . "
+                )";
+        $election_sql = f_igosja_mysqli_query($sql);
+
+        $election_array = $election_sql->fetch_all(1);
+
+        foreach ($election_array as $item)
+        {
+            if (ELECTIONSTATUS_CANDIDATES == $item['electionpresidentvice_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране открыт <a href="/president_vice_application.php?num=' . $auth_country_id . '">прием заявок</a> от кандидатов заместителей президента федерации';
+            }
+            elseif (ELECTIONSTATUS_OPEN == $item['electionpresidentvice_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/president_vice_vote.php?num=' . $auth_country_id . '"">здесь</a>';
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `team`
         (
             `team_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `team_age` DECIMAL(5,3) DEFAULT 0,
             `team_base_id` INT(2) DEFAULT 2,
             `team_basemedical_id` INT(2) DEFAULT 1,
             `team_basephisical_id` INT(2) DEFAULT 1,
@@ -13,6 +14,7 @@ $q[] = 'CREATE TABLE `team`
             `team_basetraining_id` INT(2) DEFAULT 1,
             `team_finance` INT(11) DEFAULT 1000000,
             `team_name` VARCHAR(255) NOT NULL,
+            `team_player` INT(3) DEFAULT 27,
             `team_power_c_16` INT(5) DEFAULT 0,
             `team_power_c_21` INT(5) DEFAULT 0,
             `team_power_c_27` INT(5) DEFAULT 0,

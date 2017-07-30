@@ -5,9 +5,12 @@ $q = array();
 $q[] = 'CREATE TABLE `country`
         (
             `country_id` INT(3) PRIMARY KEY AUTO_INCREMENT,
+            `country_auto` INT(5) DEFAULT 0,
             `country_finance` INT(11) DEFAULT 0,
+            `country_game` INT(5) DEFAULT 0,
             `country_name` VARCHAR(255) NOT NULL,
             `country_president_id` INT(11) DEFAULT 0,
+            `country_stadium` INT(5) DEFAULT 0,
             `country_vice_id` INT(11) DEFAULT 0
         );';
 $q[] = "INSERT INTO `country` (`country_name`)

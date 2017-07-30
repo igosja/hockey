@@ -16,6 +16,7 @@ $q[] = 'CREATE TABLE `player`
             `player_line_id` INT(1) DEFAULT 1,
             `player_mood_id` INT(1) DEFAULT 0, #Метка супера/отдыха в последнем матче для подсчёта усталости
             `player_name_id` INT(11) DEFAULT 0,
+            `player_national_id` INT(11) DEFAULT 0,
             `player_noaction` INT(11) DEFAULT 0,
             `player_phisical_id` INT(2) DEFAULT 0,
             `player_position_id` INT(1) DEFAULT 0,

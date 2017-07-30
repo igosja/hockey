@@ -14,7 +14,7 @@
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h1>Подача заявки на пост президента федерации (<?= $country_array[0]['country_name']; ?>)</h1>
+        <h1>Подача заявки на пост заместителя сборной (<?= $country_array[0]['country_name']; ?>)</h1>
     </div>
 </div>
 <form method="POST">
@@ -38,7 +38,7 @@
                 name="data[text]"
                 required
                 rows="5"
-            ><?= (isset($data['text']) ? $data['text'] : (isset($electionpresidentapplication_array[0]['electionpresidentapplication_text']) ? $electionpresidentapplication_array[0]['electionpresidentapplication_text'] : '')); ?></textarea>
+            ><?= (isset($data['text']) ? $data['text'] : (isset($electionnationalviceapplication_array[0]['electionnationalviceapplication_text']) ? $electionnationalviceapplication_array[0]['electionnationalviceapplication_text'] : '')); ?></textarea>
         </div>
     </div>
     <div class="row">

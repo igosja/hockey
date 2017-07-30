@@ -289,6 +289,7 @@ function f_igosja_start_insert_name()
     );
 
     $name_array = array(
+        /*
         array(
             'country' => 'Канада',
             'list' => $eng_name,
@@ -333,6 +334,7 @@ function f_igosja_start_insert_name()
             'country' => 'Норвегия',
             'list' => $nor_name,
         ),
+        */
         array(
             'country' => 'Украина',
             'list' => $rus_name,

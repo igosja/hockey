@@ -46,7 +46,11 @@ for ($i=1, $count_file_list=count($file_list); $i<=$count_file_list; $i++)
     elseif (40 == $i) { f_igosja_generator_team_price(); }
     elseif (41 == $i) { f_igosja_generator_user_deprive_team(); }
     elseif (42 == $i) { f_igosja_generator_user_holiday_end(); }
-    elseif (43 == $i) { f_igosja_generator_site_open(); }
+    elseif (43 == $i) { f_igosja_generator_national_vote_status(); }
+    elseif (44 == $i) { f_igosja_generator_national_vice_vote_status(); }
+    elseif (45 == $i) { f_igosja_generator_president_vote_status(); }
+    elseif (46 == $i) { f_igosja_generator_president_vice_vote_status(); }
+    elseif (47 == $i) { f_igosja_generator_site_open(); }
 
     f_igosja_console_progress($i, count($file_list));
 }

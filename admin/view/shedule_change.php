@@ -14,13 +14,13 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="?num=-1" class="btn btn-default">
-            На день назад
+        <a href="?num=1" class="btn btn-default">
+            Назад в прошлое
         </a>
     </li>
     <li>
-        <a href="?num=1" class="btn btn-default">
-            На день вперед
+        <a href="?num=-1" class="btn btn-default">
+            Вперёд в будущее
         </a>
     </li>
 </ul>
