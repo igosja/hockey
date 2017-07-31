@@ -19,7 +19,7 @@
     <meta name="yandex-verification" content="efe586f3c07b0a93"/>
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
 </head>
 <body>
 <div class="main">
@@ -99,8 +99,8 @@
     </div>
 </div>
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js')) { ?>
-    <script src="/js/jquery.js"></script>
-    <script src="/js/<?= $tpl; ?>.js"></script>
+    <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
+    <script src="/js/<?= $tpl; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $tpl . '.js'); ?>"></script>
 <?php } ?>
 <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
     <!--LiveInternet counter-->
