@@ -6,6 +6,7 @@ $q[] = 'CREATE TABLE `ratingtype`
         (
             `ratingtype_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
             `ratingtype_name` VARCHAR(255) NOT NULL,
+            `ratingtype_order` INT(2) DEFAULT 0,
             `ratingtype_ratingchapter_id` INT(1) DEFAULT 0
         );';
 $q[] = "INSERT INTO `ratingtype` (`ratingtype_name`, `ratingtype_ratingchapter_id`)
