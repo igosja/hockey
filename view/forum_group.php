@@ -2,6 +2,7 @@
 /**
  * @var $forumgroup_array array
  * @var $forumtheme_array array
+ * @var $num_get integer
  */
 ?>
 <div class="row">
@@ -11,6 +12,15 @@
                 <h1><?= $forumgroup_array[0]['forumgroup_name']; ?></h1>
             </div>
         </div>
+        <?php if (isset($auth_user_id)) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="/forum_theme_create.php?num=<?= $num_get; ?>">
+                        Создать тему
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
         <div class="row">
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                 Темы
@@ -28,7 +38,7 @@
         <?php foreach ($forumtheme_array as $item) { ?>
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                    <a href="/forum_theme.php?num==<?= $item['forumtheme_id']; ?>">
+                    <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>">
                         <?= $item['forumtheme_name']; ?>
                     </a>
                     <br/>

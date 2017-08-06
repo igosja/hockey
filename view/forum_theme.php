@@ -14,10 +14,6 @@
         <?php foreach ($forummessage_array as $item) { ?>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <a href="/forum_theme.php?num==<?= $item['forumtheme_id']; ?>">
-                        <?= $item['forumtheme_name']; ?>
-                    </a>
-                    <br />
                     <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                         <?= $item['user_login']; ?>
                     </a>
@@ -36,3 +32,17 @@
         <?php } ?>
     </div>
 </div>
+<?php if (isset($auth_user_id)) { ?>
+    <form method="POST">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control" name="data[text]" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <input class="btn margin" type="submit" value="Ответить">
+            </div>
+        </div>
+    </form>
+<?php } ?>

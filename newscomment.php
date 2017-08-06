@@ -28,11 +28,11 @@ $news_array = $news_sql->fetch_all(1);
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id))
+    if (isset($auth_user_id) && isset($data['text']))
     {
         $text = trim($data['text']);
 
-        if (isset($data['text']) && !empty($text))
+        if (!empty($text))
         {
             $sql = "INSERT INTO `newscomment`
                     SET `newscomment_date`=UNIX_TIMESTAMP(),

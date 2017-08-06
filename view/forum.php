@@ -30,7 +30,7 @@
             <?php foreach ($chapter['forumgroup'] as $item) { ?>
                 <div class="row">
                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                        <a href="/forum_group.php?num==<?= $item['forumgroup_id']; ?>">
+                        <a href="/forum_group.php?num=<?= $item['forumgroup_id']; ?>">
                             <?= $item['forumgroup_name']; ?>
                         </a>
                         <br/>
