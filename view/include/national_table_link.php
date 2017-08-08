@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @var $country_link_array array
+ * @var $national_link_array array
  * @var $file_name string
  * @var $num_get integer
  */
 
 $table_link = array();
 
-foreach ($country_link_array as $item) {
+foreach ($national_link_array as $item) {
     if ($item['url'] == $file_name) {
         $table_link[] = '<span class="strong">' . $item['text'] . '</span>';
     } else {

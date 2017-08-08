@@ -1,5 +1,20 @@
 <?php
 
+$country_link_array = array(
+    array('url' => 'country_team', 'text' => 'Команды'),
+    array('url' => 'country_national', 'text' => 'Сборные'),
+    array('url' => 'country_news', 'text' => 'Новости'),
+    array('url' => 'country_finance', 'text' => 'Фонд'),
+    array('url' => 'country_vote_list', 'text' => 'Опросы'),
+    array('url' => 'country_league', 'text' => 'Лига Чемпионов'),
+);
+$national_link_array = array(
+    array('url' => 'national_view', 'text' => 'Игроки'),
+    array('url' => 'national_game', 'text' => 'Матчи'),
+    array('url' => 'national_event', 'text' => 'События'),
+    array('url' => 'national_finance', 'text' => 'Финансы'),
+    array('url' => 'national_achievement', 'text' => 'Достижения'),
+);
 $player_link_array = array(
     array('url' => 'player_view', 'text' => 'Матчи'),
     array('url' => 'player_event', 'text' => 'События'),
@@ -12,6 +27,12 @@ $register_link_array = array(
     array('url' => 'signup', 'url2' => '', 'text' => 'Регистрация'),
     array('url' => 'password', 'url2' => 'password_restore', 'text' => 'Забыли пароль?'),
     array('url' => 'activation', 'url2' => 'activation_repeat', 'text' => 'Активация аккаунта'),
+);
+$shop_link_array = array(
+    array('url' => 'shop', 'text' => 'Виртуальный магазин'),
+    array('url' => 'shop_payment', 'text' => 'Пополнить счет'),
+    array('url' => 'shop_gift', 'text' => 'Подарок другу'),
+    array('url' => 'shop_history', 'text' => 'История платежей'),
 );
 $stadium_link_array = array(
     array('url' => 'stadium_increase', 'text' => 'Расширить стадион'),
@@ -35,18 +56,4 @@ $user_link_array = array(
     array('url' => 'user_holiday', 'text' => 'Отпуск'),
     array('url' => 'user_password', 'text' => 'Пароль'),
     array('url' => 'user_referral', 'text' => 'Подопечные'),
-);
-$country_link_array = array(
-    array('url' => 'country_team', 'text' => 'Команды'),
-    array('url' => 'country_national', 'text' => 'Сборные'),
-    array('url' => 'country_news', 'text' => 'Новости'),
-    array('url' => 'country_finance', 'text' => 'Фонд'),
-    array('url' => 'country_vote_list', 'text' => 'Опросы'),
-    array('url' => 'country_league', 'text' => 'Лига Чемпионов'),
-);
-$shop_link_array = array(
-    array('url' => 'shop', 'text' => 'Виртуальный магазин'),
-    array('url' => 'shop_payment', 'text' => 'Пополнить счет'),
-    array('url' => 'shop_gift', 'text' => 'Подарок другу'),
-    array('url' => 'shop_history', 'text' => 'История платежей'),
 );

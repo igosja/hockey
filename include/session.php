@@ -16,12 +16,20 @@ if (isset($_SESSION['user_id']))
     $igosja_menu        = $igosja_menu_login;
     $igosja_menu_mobile = $igosja_menu_login_mobile;
 
-    $sql = "SELECT `team_id`,
+    $sql = "SELECT `city_country_id`,
+                   `national_id`,
+                   `team_id`,
                    `user_login`,
                    `user_userrole_id`
             FROM `user`
             LEFT JOIN `team`
             ON `user_id`=`team_user_id`
+            LEFT JOIN `stadium`
+            ON `team_stadium_id`=`stadium_id`
+            LEFT JOIN `city`
+            ON `stadium_city_id`=`city_id`
+            LEFT JOIN `national`
+            ON `user_id`=`national_user_id`
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
     $user_sql = f_igosja_mysqli_query($sql);
@@ -31,10 +39,22 @@ if (isset($_SESSION['user_id']))
     $auth_user_login    = $user_array[0]['user_login'];
     $auth_userrole_id   = $user_array[0]['user_userrole_id'];
     $auth_team_id       = $user_array[0]['team_id'];
+    $auth_national_id   = $user_array[0]['national_id'];
+    $auth_country_id    = $user_array[0]['city_country_id'];
 
     if (!$auth_team_id)
     {
         $auth_team_id = 0;
+    }
+
+    if (!$auth_national_id)
+    {
+        $auth_national_id = 0;
+    }
+
+    if (!$auth_country_id)
+    {
+        $auth_country_id = 0;
     }
 
     $sql = "SELECT COUNT(`message_id`) AS `count`

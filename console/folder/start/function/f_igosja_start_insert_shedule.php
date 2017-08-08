@@ -53,47 +53,18 @@ function f_igosja_start_insert_shedule()
             $tournament_type    = TOURNAMENTTYPE_CHAMPIONSHIP;
         }
 
-        if ($i < 2)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_MAIN_APPLICATION;
-        }
-        elseif ($i < 4)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_MAIN_VOTE;
-        }
-        elseif ($i < 6)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_21_APPLICATION;
-        }
-        elseif ($i < 8)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_21_VOTE;
-        }
-        elseif ($i < 10)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_19_APPLICATION;
-        }
-        elseif ($i < 12)
-        {
-            $nationalvotestep_id = NATIONALVOTESTEP_19_VOTE;
-        }
-        else
-        {
-            $nationalvotestep_id = 0;
-        }
-
-        $shedule_insert_array[] = "($date, $nationalvotestep_id, 1, $shedule_stage_array[$i], $tournament_type)";
+        $shedule_insert_array[] = "($date, 1, $shedule_stage_array[$i], $tournament_type)";
 
         if ($conference)
         {
             $tournament_type_c  = TOURNAMENTTYPE_CONFERENCE;
-            $shedule_insert_array[] = "($date, $nationalvotestep_id, 1, $shedule_conference_stage_array[$i], $tournament_type_c)";
+            $shedule_insert_array[] = "($date, 1, $shedule_conference_stage_array[$i], $tournament_type_c)";
         }
     }
 
     $shedule_insert_array = implode(',', $shedule_insert_array);
 
-    $sql = "INSERT INTO `shedule` (`shedule_date`, `shedule_nationalvotestep_id`, `shedule_season_id`, `shedule_stage_id`, `shedule_tournamenttype_id`)
+    $sql = "INSERT INTO `shedule` (`shedule_date`, `shedule_season_id`, `shedule_stage_id`, `shedule_tournamenttype_id`)
             VALUES $shedule_insert_array;";
     f_igosja_mysqli_query($sql);
 }

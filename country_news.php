@@ -4,26 +4,9 @@ include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    if (isset($auth_team_id))
+    if (isset($auth_country_id))
     {
-        $sql = "SELECT `city_country_id`
-                FROM `team`
-                LEFT JOIN `stadium`
-                ON `team_stadium_id`=`stadium_id`
-                LEFT JOIN `city`
-                ON `stadium_city_id`=`city_id`
-                WHERE `team_id`=$auth_team_id
-                LIMIT 1";
-        $country_sql = f_igosja_mysqli_query($sql);
-
-        if (0 == $country_sql->num_rows)
-        {
-            redirect('/wrong_page.php');
-        }
-
-        $country_array = $country_sql->fetch_all(1);
-
-        if (!$num_get = $country_array[0]['city_country_id'])
+        if (!$num_get = $auth_country_id)
         {
             redirect('/wrong_page.php');
         }
