@@ -72,6 +72,19 @@ $birth_sql = f_igosja_mysqli_query($sql);
 
 $birth_array = $birth_sql->fetch_all(1);
 
+$sql = "SELECT `forumgroup_name`,
+               `forumtheme_id`,
+               `forumtheme_name`
+        FROM `forumtheme`
+        LEFT JOIN `forumgroup`
+        ON `forumtheme_forumgroup_id`=`forumgroup_id`
+        WHERE `forumgroup_forumchapter_id`!=4
+        ORDER BY `forumtheme_last_date` DESC
+        LIMIT 10";
+$forum_sql = f_igosja_mysqli_query($sql);
+
+$forum_array = $forum_sql->fetch_all(1);
+
 $seo_title          = 'Хоккейный онлайн менеджер';
 $seo_description    = 'Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн менеджер.';
 

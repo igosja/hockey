@@ -563,6 +563,19 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
+$sql = "SELECT `forumtheme_id`,
+               `forumtheme_last_date`,
+               `forumtheme_name`
+        FROM `forumtheme`
+        LEFT JOIN `forumgroup`
+        ON `forumtheme_forumgroup_id`=`forumgroup_id`
+        WHERE `forumgroup_forumchapter_id`=" . FORUMGROUP_NATIONAL . "
+        ORDER BY `forumtheme_last_date` DESC
+        LIMIT 4";
+$forum_sql = f_igosja_mysqli_query($sql);
+
+$forum_array = $forum_sql->fetch_all(1);
+
 $seo_title          = $team_array[0]['team_name'] . '. Профиль команды';
 $seo_description    = $team_array[0]['team_name'] . '. Профиль команды на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = $team_array[0]['team_name'] . ' профиль команды';

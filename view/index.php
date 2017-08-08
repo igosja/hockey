@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $birth_array array
+ * @var $forum_array array
  * @var $news_array array
  * @var $newscountry_array array
  * @var $review_array array
@@ -195,8 +196,24 @@
     </div>
     <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
         <div class="row margin">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                Форум
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                        Форум
+                    </div>
+                </div>
+                <?php foreach ($forum_array as $item) { ?>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>">
+                                <?= $item['forumtheme_name']; ?>
+                            </a>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <?= $item['forumgroup_name']; ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <div class="row margin">
