@@ -239,6 +239,9 @@
                     <li>
                         <a href="/admin/debug_list.php"><i class="fa fa-bug fa-fw"></i> Debugger</a>
                     </li>
+                    <li>
+                        <a href="/admin/code_review.php"><i class="fa fa-file-code-o fa-fw"></i> Code review</a>
+                    </li>
                 </ul>
             </li>
         </ul>
