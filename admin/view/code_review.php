@@ -19,12 +19,12 @@
             <li>Наличие всех проверок согласно правил</li>
             <li>Наличие нужного функционала (в т.ч. пагинация, фильтрация, сортировка, переключение между сезонами)</li>
             <li>Управление страницей из админки, если это нужно</li>
-            <li>Реформат кода в PSR-4 (Alt+E в PHPStorm)</li>
         </ul>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <?php include(__DIR__ . '/include/summary.php'); ?>
         <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
             <tr>

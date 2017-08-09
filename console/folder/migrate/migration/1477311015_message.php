@@ -15,3 +15,4 @@ $q[] = 'CREATE TABLE `message`
             `message_user_id_from` INT(11) DEFAULT 0,
             `message_user_id_to` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `message_read` ON `message` (`message_read`);';

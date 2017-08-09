@@ -22,3 +22,5 @@ $q[] = 'CREATE TABLE `conference`
             `conference_win_bullet` INT(2) DEFAULT 0,
             `conference_win_over` INT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `conference_season_id` ON `conference` (`conference_season_id`);';
+$q[] = 'CREATE INDEX `conference_team_id` ON `conference` (`conference_team_id`);';

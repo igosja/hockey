@@ -9,3 +9,4 @@ $q[] = 'CREATE TABLE `teamask`
             `teamask_team_id` INT(11) DEFAULT 0,
             `teamask_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `teamask_user_id` ON `teamask` (`teamask_user_id`);';

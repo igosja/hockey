@@ -37,3 +37,4 @@ $q[] = 'CREATE TABLE `team`
             `team_vote_u19` INT(1) DEFAULT 2,
             `team_vote_u21` INT(1) DEFAULT 2
         );';
+$q[] = 'CREATE INDEX `team_user_id` ON `team` (`team_user_id`);';

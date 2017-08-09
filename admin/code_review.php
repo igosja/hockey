@@ -37,7 +37,14 @@ $exception_array = array(
         '.git',
     ),
     'file' => array(
-
+        '.gitignore',
+        '.htaccess',
+        'activation.php',
+        'activation_repeat.php',
+        'team_view.php',
+        'view/activation.php',
+        'view/activation_repeat.php',
+        'view/team_view.php',
     ),
 );
 
@@ -46,5 +53,9 @@ $file_array = array();
 $file_array = read_dir_to_array($file_array, __DIR__ . '/../', $exception_array);
 
 $breadcrumb_array[] = 'Code review';
+
+$summary_from   = 1;
+$summary_to     = count($file_array);
+$count_item     = $summary_to;
 
 include(__DIR__ . '/view/layout/main.php');

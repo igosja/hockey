@@ -4,7 +4,7 @@ $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC
         LIMIT 1";
-$season_sql = f_igosja_mysqli_query($sql);
+$season_sql = f_igosja_mysqli_query($sql, false);
 
 $season_array = $season_sql->fetch_all(1);
 

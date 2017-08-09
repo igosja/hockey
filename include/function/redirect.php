@@ -6,6 +6,8 @@
  */
 function redirect($location)
 {
+    f_igosja_get_count_query();
+
     header('Location: ' . $location);
     exit;
 }

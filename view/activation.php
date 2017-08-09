@@ -32,13 +32,12 @@
                 id="activation-code"
                 name="data[code]"
                 required
-                type="text"
             />
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
-            <button type="submit" class="btn margin">
+            <button class="btn margin">
                 Активировать аккаунт
             </button>
         </div>

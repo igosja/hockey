@@ -369,7 +369,7 @@
 <script src="/js/bootstrap.js"></script>
 <script src="/js/metisMenu.js"></script>
 <script src="/js/raphael.js"></script>
-<?php if ('index' == $tpl) { ?>
+<?php if ('index' == $tpl && false) { ?>
     <script src="/js/morris.js"></script>
     <script src="/js/morris-data.js"></script>
 <?php } ?>

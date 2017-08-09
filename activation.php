@@ -8,7 +8,8 @@ if (isset($data['code']))
 {
     $code = $data['code'];
 
-    $sql = "SELECT `user_date_confirm`
+    $sql = "SELECT `user_date_confirm`,
+                   `user_id`
             FROM `user`
             WHERE `user_code`=?
             LIMIT 1";
@@ -25,7 +26,7 @@ if (isset($data['code']))
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Активировать профиль не удалось.';
 
-        refresh();
+        redirect('/activation.php');
     }
 
     $user_array = $user_sql->fetch_all(1);
@@ -35,14 +36,16 @@ if (isset($data['code']))
         $_SESSION['message']['class']   = 'info';
         $_SESSION['message']['text']    = 'Профиль уже активирован.';
 
-        refresh();
+        redirect('/activation.php');
     }
+
+    $user_id = $user_array[0]['user_id'];
 
     $sql = "UPDATE `user`
             SET `user_date_confirm`=UNIX_TIMESTAMP()
-            WHERE `user_code`='$code'
+            WHERE `user_id`=$user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Профиль активирован.';

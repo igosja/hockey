@@ -2,6 +2,13 @@
 
 include(__DIR__ . '/../include/include.php');
 
+$sql = "SELECT COUNT(`team_id`) AS `count`
+        FROM `team`
+        WHERE `team_user_id`=0";
+$freeteam_sql = f_igosja_mysqli_query($sql);
+
+$freeteam_array = $freeteam_sql->fetch_all(1);
+
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`";
 $teamask_sql = f_igosja_mysqli_query($sql);

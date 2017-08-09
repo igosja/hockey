@@ -57,3 +57,5 @@ $q[] = "INSERT INTO `user`
             `user_login`='igosja',
             `user_password`='8fa914dc4a270abfc2a4561228770426',
             `user_userrole_id`=3";
+$q[] = 'CREATE INDEX `user_code` ON `user` (`user_code`);';
+$q[] = 'CREATE INDEX `user_email` ON `user` (`user_email`);';

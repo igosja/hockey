@@ -143,6 +143,7 @@ define('ROLE_ADMIN', 10);
 define('RUDE_NORMAL', 1);
 define('RUDE_PENALTY', 6);
 define('RUDE_RUDE', 2);
+define('SITE_URL', 'https://vhol.org');
 define('SPACE', '&nbsp;');
 define('SPECIAL_ATHLETIC', 5);
 define('SPECIAL_COMBINE', 3);

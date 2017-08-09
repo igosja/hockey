@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $auth_user_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
-if (!isset($auth_team_id))
+if (!isset($auth_user_id))
 {
     redirect('/wrong_page.php');
 }
@@ -18,14 +24,14 @@ if ($num_get = (int) f_igosja_request_get('num'))
             FROM `team`
             WHERE `team_id`=$num_get
             AND `team_user_id`=0";
-    $team_sql = f_igosja_mysqli_query($sql);
+    $team_sql = f_igosja_mysqli_query($sql, false);
 
     $team_array = $team_sql->fetch_all(1);
 
     if (0 == $team_array[0]['check'])
     {
-        $_SESSION['message']['text'] = 'Команда выбрана неправильно';
-        $_SESSION['message']['class'] = 'error';
+        $_SESSION['message']['text']    = 'Команда выбрана неправильно';
+        $_SESSION['message']['class']   = 'error';
 
         redirect('/team_ask.php');
     }
@@ -33,14 +39,14 @@ if ($num_get = (int) f_igosja_request_get('num'))
     $sql = "SELECT COUNT(`teamask_id`) AS `check`
             FROM `teamask`
             WHERE `teamask_user_id`=$auth_user_id";
-    $teamask_sql = f_igosja_mysqli_query($sql);
+    $teamask_sql = f_igosja_mysqli_query($sql, false);
 
     $teamask_array = $teamask_sql->fetch_all(1);
 
     if ($teamask_array[0]['check'])
     {
-        $_SESSION['message']['text'] = 'Вы уже подали заявку';
-        $_SESSION['message']['class'] = 'error';
+        $_SESSION['message']['text']    = 'Вы уже подали заявку';
+        $_SESSION['message']['class']   = 'error';
 
         redirect('/team_ask.php');
     }
@@ -49,10 +55,10 @@ if ($num_get = (int) f_igosja_request_get('num'))
             SET `teamask_date`=UNIX_TIMESTAMP(),
                 `teamask_team_id`=$num_get,
                 `teamask_user_id`=$auth_user_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
-    $_SESSION['message']['text'] = 'Заявка успешно подана';
-    $_SESSION['message']['class'] = 'success';
+    $_SESSION['message']['text']    = 'Заявка успешно подана';
+    $_SESSION['message']['class']   = 'success';
 
     redirect('/team_ask.php');
 }
@@ -60,7 +66,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`
         WHERE `teamask_user_id`=$auth_user_id";
-$teamask_sql = f_igosja_mysqli_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql, false);
 
 $teamask_array = $teamask_sql->fetch_all(1);
 
@@ -121,8 +127,8 @@ $sql = "SELECT `base_slot_max`,
         ) AS `t2`
         ON `conference_team_id`=`team_id`
         WHERE `team_user_id`=0
-        ORDER BY `team_id` ASC";
-$team_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `team_power_vs` ASC";
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 

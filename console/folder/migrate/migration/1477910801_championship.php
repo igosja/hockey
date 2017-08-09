@@ -22,3 +22,4 @@ $q[] = 'CREATE TABLE `championship`
             `championship_win_bullet` INT(2) DEFAULT 0,
             `championship_win_over` INT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `championship_season_id` ON `championship` (`championship_season_id`);';
