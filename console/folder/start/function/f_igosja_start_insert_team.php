@@ -8,7 +8,6 @@ function f_igosja_start_insert_team()
     global $mysqli;
 
     $team_array = array(
-    /*
         array(
             'country' => 'Канада',
             'list' => array(
@@ -438,7 +437,6 @@ function f_igosja_start_insert_team()
                 array('team' => 'Яар', 'city' => 'Берум', 'stadium' => 'Берум'),
             ),
         ),
-        */
         array(
             'country' => 'Украина',
             'list' => array(

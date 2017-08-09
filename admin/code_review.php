@@ -5,19 +5,26 @@ include(__DIR__ . '/../include/include.php');
 function read_dir_to_array($file_array, $dir, $exception_array)
 {
     $files = scandir($dir);
+    $files = array_slice($files, 2);
 
     foreach ($files as $item)
     {
-        if (!in_array($item, $exception_array))
+        $file_path          = $dir . $item;
+        $dir_to_array       = str_replace(__DIR__ . '/../', '', $dir);
+        $file_path_to_array = $dir_to_array . $item;
+
+        if (is_file($file_path))
         {
-            if (is_file($dir . $item))
+            if (!in_array($file_path_to_array, $exception_array['file']))
             {
-                $dir_to_array = str_replace(__DIR__ . '/../', '', $dir);
-                $file_array[] = $dir_to_array . $item;
+                $file_array[] = $file_path_to_array;
             }
-            elseif (is_dir($dir . $item))
+        }
+        elseif (is_dir($file_path))
+        {
+            if (!in_array($file_path_to_array, $exception_array['folder']))
             {
-                $file_array = read_dir_to_array($file_array, $dir . $item . '/', $exception_array);
+                $file_array = read_dir_to_array($file_array, $file_path . '/', $exception_array);
             }
         }
     }
@@ -26,16 +33,12 @@ function read_dir_to_array($file_array, $dir, $exception_array)
 }
 
 $exception_array = array(
-    '.',
-    '..',
-    '.git',
-    'font-awesome',
-    'favicon.ico',
-    'fonts',
-    'img',
-    '_data',
-    '_output',
-    '_support',
+    'folder' => array(
+        '.git',
+    ),
+    'file' => array(
+
+    ),
 );
 
 $file_array = array();
