@@ -10,3 +10,4 @@ $q[] = 'CREATE TABLE `newscomment`
             `newscomment_text` TEXT NOT NULL,
             `newscomment_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `newscomment_news_id` ON `newscomment` (`newscomment_news_id`);';

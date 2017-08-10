@@ -2,21 +2,38 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `surname_id`,
+               `surname_name`
+        FROM `surname`
+        WHERE `surname_id`=$num_get
+        LIMIT 1";
+$surname_sql = f_igosja_mysqli_query($sql, false);
+
+if (0 == $surname_sql->num_rows)
+{
+    redirect('/wrong_page.php');
+}
 
 if ($data = f_igosja_request_post('data'))
 {
-    $set_sql = f_igosja_sql_data($data);
+    $set_sql = f_igosja_sql_data($data, array(
+        'surname_name'
+    ));
 
     $sql = "UPDATE `surname`
             SET $set_sql
             WHERE `surname_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "DELETE FROM `surnamecountry`
             WHERE `surnamecountry_surname_id`=$num_get";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $country = f_igosja_request_post('array', 'surnamecountry_country_id');
 
@@ -27,38 +44,27 @@ if ($data = f_igosja_request_post('data'))
         $sql = "INSERT INTO `surnamecountry`
                 SET `surnamecountry_surname_id`=$num_get,
                     `surnamecountry_country_id`=$country_id";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 
     redirect('/admin/surname_view.php?num=' . $num_get);
-}
-
-$sql = "SELECT `surname_id`,
-               `surname_name`
-        FROM `surname`
-        WHERE `surname_id`=$num_get
-        LIMIT 1";
-$surname_sql = f_igosja_mysqli_query($sql);
-
-if (0 == $surname_sql->num_rows)
-{
-    redirect('/wrong_page.php');
 }
 
 $surname_array = $surname_sql->fetch_all(1);
 
 $sql = "SELECT `surnamecountry_country_id`
         FROM `surnamecountry`
-        WHERE `surnamecountry_surname_id`=$num_get";
-$surnamecountry_sql = f_igosja_mysqli_query($sql);
+        WHERE `surnamecountry_surname_id`=$num_get
+        ORDER BY `surnamecountry_country_id` ASC";
+$surnamecountry_sql = f_igosja_mysqli_query($sql, false);
 
 $surnamecountry_array = $surnamecountry_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
-        ORDER BY `country_name` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `country_name` ASC, `country_id` ASC";
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 

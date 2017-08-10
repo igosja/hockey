@@ -377,3 +377,4 @@
 <script src="/js/admin.js"></script>
 </body>
 </html>
+<?php f_igosja_get_count_query(); ?>

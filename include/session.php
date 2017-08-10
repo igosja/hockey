@@ -36,15 +36,15 @@ if (isset($_SESSION['user_id']))
 
     $user_array = $user_sql->fetch_all(1);
 
-    $auth_user_login    = $user_array[0]['user_login'];
-    $auth_userrole_id   = $user_array[0]['user_userrole_id'];
+    $auth_country_id    = $user_array[0]['city_country_id'];
     $auth_team_id       = $user_array[0]['team_id'];
     $auth_national_id   = $user_array[0]['national_id'];
-    $auth_country_id    = $user_array[0]['city_country_id'];
+    $auth_user_login    = $user_array[0]['user_login'];
+    $auth_userrole_id   = $user_array[0]['user_userrole_id'];
 
-    if (!$auth_team_id)
+    if (!$auth_country_id)
     {
-        $auth_team_id = 0;
+        $auth_country_id = 0;
     }
 
     if (!$auth_national_id)
@@ -52,9 +52,9 @@ if (isset($_SESSION['user_id']))
         $auth_national_id = 0;
     }
 
-    if (!$auth_country_id)
+    if (!$auth_team_id)
     {
-        $auth_country_id = 0;
+        $auth_team_id = 0;
     }
 
     $sql = "SELECT COUNT(`message_id`) AS `count`
@@ -117,5 +117,3 @@ else
     $igosja_menu        = $igosja_menu_guest;
     $igosja_menu_mobile = $igosja_menu_guest_mobile;
 }
-
-unset($igosja_menu_login, $igosja_menu_login_mobile, $igosja_menu_guest, $igosja_menu_guest_mobile);

@@ -14,7 +14,7 @@ $tpl        = $file_name;
 
 if ('admin' == $chapter)
 {
-    if (!isset($auth_user_id) || 2 > $auth_userrole_id)
+    if (!isset($auth_user_id) || USERROLE_USER == $auth_userrole_id)
     {
         redirect('/admin_login.php');
     }

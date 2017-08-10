@@ -2,11 +2,15 @@
 
 /**
  * @var $auth_user_id integer
+ * @var $mysqli mysqli
  */
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `message_date`,
                `message_id`,
@@ -21,7 +25,7 @@ $sql = "SELECT `message_date`,
         OR (`message_user_id_to`=$num_get
         AND `message_support_from`=1)
         ORDER BY `message_id` DESC";
-$message_sql = f_igosja_mysqli_query($sql);
+$message_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $message_sql->num_rows)
 {
@@ -36,13 +40,15 @@ if ($data = f_igosja_request_post('data'))
     {
         $text = trim($data['text']);
 
+        $text = $mysqli->real_escape_string($text);
+
         $sql = "INSERT INTO `message`
                 SET `message_date`=UNIX_TIMESTAMP(),
                     `message_text`='$text',
                     `message_support_from`=1,
                     `message_user_id_from`=$auth_user_id,
                     `message_user_id_to`=$num_get";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         refresh();
     }
@@ -52,7 +58,7 @@ $sql = "UPDATE `message`
         SET `message_read`=1
         WHERE `message_user_id_from`=$num_get
         AND `message_support_to`=1";
-f_igosja_mysqli_query($sql);
+f_igosja_mysqli_query($sql, false);
 
 $breadcrumb_array[] = array('url' => 'support_list.php', 'text' => 'Вопросы в техподдержку');
 $breadcrumb_array[] = $message_array[0]['user_login'];

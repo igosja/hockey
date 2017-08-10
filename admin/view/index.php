@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?= $freeteam_array[0]['count']; ?></div>
-                        <div>Заявки на команды!</div>
+                        <div>Свободные команды</div>
                     </div>
                 </div>
             </div>

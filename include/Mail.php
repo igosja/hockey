@@ -4,13 +4,13 @@ class Mail
 {
     private $from;
     private $from_name = 'Виртуальная Хоккейная Лига';
-    private $message = "";
-    private $subject = "";
-    private $to = "";
+    private $message = '';
+    private $subject = '';
+    private $to = '';
 
     public function __construct()
     {
-        $this->from = 'noreply@' . $_SERVER['HTTP_HOST'];
+        $this->from = 'noreply@vhol.org';
     }
 
     public function setFrom($from)

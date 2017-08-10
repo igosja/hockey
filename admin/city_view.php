@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `city_id`,
                `city_name`,
@@ -13,7 +16,7 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         WHERE `city_id`=$num_get
         LIMIT 1";
-$city_sql = f_igosja_mysqli_query($sql);
+$city_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $city_sql->num_rows)
 {

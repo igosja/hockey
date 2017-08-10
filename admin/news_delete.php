@@ -2,14 +2,16 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if (0 != $num_get)
+if ($num_get = (int) f_igosja_request_get('num'))
 {
     $sql = "DELETE FROM `news`
             WHERE `news_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
+
+    $sql = "DELETE FROM `newscomment`
+            WHERE `newscomment_news_id`=$num_get";
+    f_igosja_mysqli_query($sql, false);
 }
 
 redirect('/admin/news_list.php');

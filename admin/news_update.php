@@ -2,19 +2,9 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if ($data = f_igosja_request_post('data'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $set_sql = f_igosja_sql_data($data);
-
-    $sql = "UPDATE `news`
-            SET $set_sql
-            WHERE `news_id`=$num_get
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    redirect('/admin/news_view.php?num=' . $num_get);
+    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `news_id`,
@@ -23,7 +13,7 @@ $sql = "SELECT `news_id`,
         FROM `news`
         WHERE `news_id`=$num_get
         LIMIT 1";
-$news_sql = f_igosja_mysqli_query($sql);
+$news_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $news_sql->num_rows)
 {
@@ -31,6 +21,22 @@ if (0 == $news_sql->num_rows)
 }
 
 $news_array = $news_sql->fetch_all(1);
+
+if ($data = f_igosja_request_post('data'))
+{
+    $set_sql = f_igosja_sql_data($data, array(
+        'news_text',
+        'news_title'
+    ), true);
+
+    $sql = "UPDATE `news`
+            SET $set_sql
+            WHERE `news_id`=$num_get
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    redirect('/admin/news_view.php?num=' . $num_get);
+}
 
 $breadcrumb_array[] = array('url' => 'news_list.php', 'text' => 'Новости');
 $breadcrumb_array[] = array(

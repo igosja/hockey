@@ -4,12 +4,16 @@ include(__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))
 {
-    $set_sql = f_igosja_sql_data($data);
+    $set_sql = f_igosja_sql_data($data, array(
+        'rule_order',
+        'rule_text',
+        'rule_title'
+    ), true);
 
     $sql = "INSERT INTO `rule`
             SET $set_sql,
                 `rule_date`=UNIX_TIMESTAMP()";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/rule_view.php?num=' . $mysqli->insert_id);
 }

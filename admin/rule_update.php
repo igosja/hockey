@@ -2,20 +2,9 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if ($data = f_igosja_request_post('data'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $set_sql = f_igosja_sql_data($data);
-
-    $sql = "UPDATE `rule`
-            SET $set_sql,
-                `rule_date`=UNIX_TIMESTAMP()
-            WHERE `rule_id`=$num_get
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    redirect('/admin/rule_view.php?num=' . $num_get);
+    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `rule_id`,
@@ -24,14 +13,32 @@ $sql = "SELECT `rule_id`,
         FROM `rule`
         WHERE `rule_id`=$num_get
         LIMIT 1";
-$rule_sql = f_igosja_mysqli_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql, false);
+
+$rule_array = $rule_sql->fetch_all(1);
 
 if (0 == $rule_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$rule_array = $rule_sql->fetch_all(1);
+if ($data = f_igosja_request_post('data'))
+{
+    $set_sql = f_igosja_sql_data($data, array(
+        'rule_order',
+        'rule_text',
+        'rule_title'
+    ), true);
+
+    $sql = "UPDATE `rule`
+            SET $set_sql,
+                `rule_date`=UNIX_TIMESTAMP()
+            WHERE `rule_id`=$num_get
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    redirect('/admin/rule_view.php?num=' . $num_get);
+}
 
 $breadcrumb_array[] = array('url' => 'rule_list.php', 'text' => 'Правила');
 $breadcrumb_array[] = array(

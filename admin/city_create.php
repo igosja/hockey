@@ -4,11 +4,14 @@ include(__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))
 {
-    $set_sql = f_igosja_sql_data($data);
+    $set_sql = f_igosja_sql_data($data, array(
+        'city_country_id',
+        'city_name'
+    ));
 
     $sql = "INSERT INTO `city`
             SET $set_sql";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/city_view.php?num=' . $mysqli->insert_id);
 }
@@ -16,7 +19,7 @@ if ($data = f_igosja_request_post('data'))
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
-        ORDER BY `country_name` ASC";
+        ORDER BY `country_name` ASC, `country_id` ASC";
 $country_sql = f_igosja_mysqli_query($sql);
 
 $country_array = $country_sql->fetch_all(1);

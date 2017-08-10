@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
@@ -10,7 +14,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `rule_order` ASC, `rule_id` ASC
         LIMIT $offset, $limit";
-$rule_sql = f_igosja_mysqli_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql, false);
 
 $rule_array = $rule_sql->fetch_all(1);
 

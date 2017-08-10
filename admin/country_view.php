@@ -2,14 +2,17 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         WHERE `country_id`=$num_get
         LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $country_sql->num_rows)
 {
@@ -18,7 +21,7 @@ if (0 == $country_sql->num_rows)
 
 $country_array = $country_sql->fetch_all(1);
 
-$breadcrumb_array[] = array('url' => 'county_list.php', 'text' => 'Страны');
+$breadcrumb_array[] = array('url' => 'country_list.php', 'text' => 'Страны');
 $breadcrumb_array[] = $country_array[0]['country_name'];
 
 include(__DIR__ . '/view/layout/main.php');

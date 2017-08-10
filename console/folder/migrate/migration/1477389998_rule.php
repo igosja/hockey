@@ -10,6 +10,7 @@ $q[] = 'CREATE TABLE `rule`
             `rule_text` TEXT NOT NULL,
             `rule_title` VARCHAR(255) NOT NULL
         );';
+$q[] = 'CREATE INDEX `rule_order` ON `rule` (`rule_order`);';
 $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 1, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие условия.</a>

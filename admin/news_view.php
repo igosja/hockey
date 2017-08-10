@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `news_id`,
                `news_text`,
@@ -10,7 +13,7 @@ $sql = "SELECT `news_id`,
         FROM `news`
         WHERE `news_id`=$num_get
         LIMIT 1";
-$news_sql = f_igosja_mysqli_query($sql);
+$news_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $news_sql->num_rows)
 {

@@ -13,6 +13,7 @@ $q[] = 'CREATE TABLE `country`
             `country_stadium` INT(5) DEFAULT 0,
             `country_vice_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `country_name` ON `country` (`country_name`);';
 $q[] = "INSERT INTO `country` (`country_name`)
         VALUES ('Австралия'),
                ('Австрия'),

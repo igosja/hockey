@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $site_array array
+ */
+
 include(__DIR__ . '/../include/include.php');
 
 if ($num_get = (int) f_igosja_request_get('num'))
@@ -41,7 +45,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                 `site_version_date`=UNIX_TIMESTAMP()
             WHERE `site_id`=1
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/site_version.php');
 }

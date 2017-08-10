@@ -8,13 +8,16 @@ include(__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))
 {
-    $set_sql = f_igosja_sql_data($data);
+    $set_sql = f_igosja_sql_data($data, array(
+        'news_text',
+        'news_title'
+    ), true);
 
     $sql = "INSERT INTO `news`
             SET $set_sql,
                 `news_date`=UNIX_TIMESTAMP(),
                 `news_user_id`=$auth_user_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/news_view.php?num=' . $mysqli->insert_id);
 }

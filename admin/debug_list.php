@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
@@ -9,9 +13,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `debug_time`
         FROM `debug`
         WHERE $sql_filter
-        ORDER BY `debug_id`
+        ORDER BY `debug_id` ASC
         LIMIT $offset, $limit";
-$debug_sql = f_igosja_mysqli_query($sql);
+$debug_sql = f_igosja_mysqli_query($sql, false);
 
 $debug_array = $debug_sql->fetch_all(1);
 
