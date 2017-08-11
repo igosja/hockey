@@ -2,19 +2,9 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if ($data = f_igosja_request_post('data'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $set_sql = f_igosja_sql_data($data);
-
-    $sql = "UPDATE `tournamenttype`
-            SET $set_sql
-            WHERE `tournamenttype_id`=$num_get
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    redirect('/admin/tournamenttype_view.php?num=' . $num_get);
+    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `tournamenttype_id`,
@@ -22,7 +12,7 @@ $sql = "SELECT `tournamenttype_id`,
         FROM `tournamenttype`
         WHERE `tournamenttype_id`=$num_get
         LIMIT 1";
-$tournamenttype_sql = f_igosja_mysqli_query($sql);
+$tournamenttype_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $tournamenttype_sql->num_rows)
 {
@@ -30,6 +20,21 @@ if (0 == $tournamenttype_sql->num_rows)
 }
 
 $tournamenttype_array = $tournamenttype_sql->fetch_all(1);
+
+if ($data = f_igosja_request_post('data'))
+{
+    $set_sql = f_igosja_sql_data($data, array(
+        'tournamenttype_name'
+    ));
+
+    $sql = "UPDATE `tournamenttype`
+            SET $set_sql
+            WHERE `tournamenttype_id`=$num_get
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    redirect('/admin/tournamenttype_view.php?num=' . $num_get);
+}
 
 $breadcrumb_array[] = array('url' => 'tournamenttype_list.php', 'text' => 'Типы турниров');
 $breadcrumb_array[] = array(

@@ -40,3 +40,4 @@ $q[] = 'CREATE TABLE `player`
             `player_transfer_on` INT(1) DEFAULT 0,
             `player_transfer_price` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `player_team_id` ON `player` (`player_team_id`);';

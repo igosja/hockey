@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `team_id`,
                `team_name`,
@@ -17,7 +20,7 @@ $sql = "SELECT `team_id`,
         ON `teamask_user_id`=`user_id`
         WHERE `teamask_id`=$num_get
         LIMIT 1";
-$teamask_sql = f_igosja_mysqli_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $teamask_sql->num_rows)
 {

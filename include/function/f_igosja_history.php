@@ -6,6 +6,8 @@
  */
 function f_igosja_history($data)
 {
+    global $igosja_season_id;
+
     if (isset($data['history_building_id']))
     {
         $history_building_id = (int) $data['history_building_id'];
@@ -123,16 +125,6 @@ function f_igosja_history($data)
         $history_value = 0;
     }
 
-    $sql = "SELECT `season_id`
-            FROM `season`
-            ORDER BY `season_id` DESC
-            LIMIT 1";
-    $season_sql = f_igosja_mysqli_query($sql);
-
-    $season_array = $season_sql->fetch_all(1);
-
-    $history_season_id = $season_array[0]['season_id'];
-
     $sql = "INSERT INTO `history`
             SET `history_building_id`=$history_building_id,
                 `history_country_id`=$history_country_id,
@@ -142,12 +134,12 @@ function f_igosja_history($data)
                 `history_national_id`=$history_national_id,
                 `history_player_id`=$history_player_id,
                 `history_position_id`=$history_position_id,
-                `history_season_id`=$history_season_id,
+                `history_season_id`=$igosja_season_id,
                 `history_special_id`=$history_special_id,
                 `history_team_id`=$history_team_id,
                 `history_team_2_id`=$history_team_2_id,
                 `history_user_id`=$history_user_id,
                 `history_user_2_id`=$history_user_2_id,
                 `history_value`=$history_value";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

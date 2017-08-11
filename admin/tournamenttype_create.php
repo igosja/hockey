@@ -4,11 +4,13 @@ include(__DIR__ . '/../include/include.php');
 
 if ($data = f_igosja_request_post('data'))
 {
-    $set_sql = f_igosja_sql_data($data);
+    $set_sql = f_igosja_sql_data($data, array(
+        'tournamenttype_name'
+    ));
 
     $sql = "INSERT INTO `tournamenttype`
             SET $set_sql";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/tournamenttype_view.php?num=' . $mysqli->insert_id);
 }

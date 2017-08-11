@@ -2,28 +2,18 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if ($data = f_igosja_request_post('data'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $set_sql = f_igosja_sql_data($data);
-
-    $sql = "UPDATE `team`
-            SET $set_sql
-            WHERE `team_id`=$num_get
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    redirect('/admin/team_view.php?num=' . $num_get);
+    redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `team_stadium_id`,
-               `team_id`,
-               `team_name`
+$sql = "SELECT `team_id`,
+               `team_name`,
+               `team_stadium_id`
         FROM `team`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $team_sql->num_rows)
 {
@@ -32,11 +22,27 @@ if (0 == $team_sql->num_rows)
 
 $team_array = $team_sql->fetch_all(1);
 
+if ($data = f_igosja_request_post('data'))
+{
+    $set_sql = f_igosja_sql_data($data, array(
+        'team_stadium_id',
+        'team_name'
+    ));
+
+    $sql = "UPDATE `team`
+            SET $set_sql
+            WHERE `team_id`=$num_get
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    redirect('/admin/team_view.php?num=' . $num_get);
+}
+
 $sql = "SELECT `stadium_id`,
                `stadium_name`
         FROM `stadium`
-        ORDER BY `stadium_name` ASC";
-$stadium_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `stadium_name` ASC, `stadium_id` ASC";
+$stadium_sql = f_igosja_mysqli_query($sql, false);
 
 $stadium_array = $stadium_sql->fetch_all(1);
 

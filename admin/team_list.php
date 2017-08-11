@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $limit integer
+ * @var $offset integer
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
@@ -13,8 +19,8 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
         GROUP BY `country_id`
-        ORDER BY `country_name`";
-$country_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `country_name` ASC, `country_id` ASC";
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 
@@ -26,8 +32,8 @@ $sql = "SELECT `city_id`,
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
         GROUP BY `city_id`
-        ORDER BY `city_name`";
-$city_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `city_name` ASC, `city_id` ASC";
+$city_sql = f_igosja_mysqli_query($sql, false);
 
 $city_array = $city_sql->fetch_all(1);
 
@@ -39,8 +45,8 @@ $sql = "SELECT `stadium_id`,
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
         GROUP BY `stadium_id`
-        ORDER BY `stadium_name`";
-$stadium_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `stadium_name` ASC, `stadium_id` ASC";
+$stadium_sql = f_igosja_mysqli_query($sql, false);
 
 $stadium_array = $stadium_sql->fetch_all(1);
 
@@ -61,9 +67,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
         WHERE $sql_filter
-        ORDER BY `stadium_id`
+        ORDER BY `team_id` ASC
         LIMIT $offset, $limit";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @var $limit integer
+ * @var $offset integer
  * @var $sql_filter string
  */
 
@@ -22,7 +24,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `teamask_date` ASC
         LIMIT $offset, $limit";
-$teamask_sql = f_igosja_mysqli_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql, false);
 
 $teamask_array = $teamask_sql->fetch_all(1);
 

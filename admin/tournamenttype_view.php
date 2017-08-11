@@ -2,14 +2,17 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `tournamenttype_id`,
                `tournamenttype_name`
         FROM `tournamenttype`
         WHERE `tournamenttype_id`=$num_get
         LIMIT 1";
-$tournamenttype_sql = f_igosja_mysqli_query($sql);
+$tournamenttype_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $tournamenttype_sql->num_rows)
 {

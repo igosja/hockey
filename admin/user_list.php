@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $limit integer
+ * @var $offset integer
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
@@ -8,9 +14,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `user_login`
         FROM `user`
         WHERE $sql_filter
-        ORDER BY `user_id`
+        ORDER BY `user_id` ASC
         LIMIT $offset, $limit";
-$user_sql = f_igosja_mysqli_query($sql);
+$user_sql = f_igosja_mysqli_query($sql, false);
 
 $user_array = $user_sql->fetch_all(1);
 

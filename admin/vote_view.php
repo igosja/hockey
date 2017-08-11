@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `vote_id`,
                `vote_text`,
@@ -13,7 +16,7 @@ $sql = "SELECT `vote_id`,
         ON `vote_id`=`voteanswer_vote_id`
         WHERE `vote_id`=$num_get
         ORDER BY `voteanswer_id` ASC";
-$vote_sql = f_igosja_mysqli_query($sql);
+$vote_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $vote_sql->num_rows)
 {

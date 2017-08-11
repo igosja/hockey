@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $limit integer
+ * @var $offset integer
+ * @var $sql_filter string
+ */
+
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
@@ -11,9 +17,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         LEFT JOIN `votestatus`
         ON `vote_votestatus_id`=`votestatus_id`
         WHERE $sql_filter
-        ORDER BY `vote_id`
+        ORDER BY `vote_id` DESC
         LIMIT $offset, $limit";
-$vote_sql = f_igosja_mysqli_query($sql);
+$vote_sql = f_igosja_mysqli_query($sql, false);
 
 $vote_array = $vote_sql->fetch_all(1);
 

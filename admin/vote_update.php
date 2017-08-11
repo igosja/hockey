@@ -2,54 +2,9 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if ($data = f_igosja_request_post('data'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $set_sql = f_igosja_sql_data($data);
-    $answer  = f_igosja_request_post('answer', 'voteanswer_text');
-
-    $sql = "UPDATE `vote`
-            SET $set_sql
-            WHERE `vote_id`=$num_get
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    foreach ($answer as $key => $item)
-    {
-        $item = trim($item);
-        $key  = (int) $key;
-
-        if (!empty($item))
-        {
-            $sql = "SELECT COUNT(`voteanswer_id`) AS `count`
-                    FROM `voteanswer`
-                    WHERE `voteanswer_vote_id`=$num_get
-                    AND `voteanswer_id`=$key";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(1);
-
-            if ($check_array[0]['count'])
-            {
-                $sql = "UPDATE `voteanswer`
-                        SET `voteanswer_text`='$item'
-                        WHERE `voteanswer_id`=$key
-                        LIMIT 1";
-                f_igosja_mysqli_query($sql);
-            }
-            else
-            {
-                $sql = "INSERT INTO `voteanswer`
-                        SET `voteanswer_text`='$item',
-                            `voteanswer_vote_id`=$num_get
-                        WHERE `voteanswer_id`=$key";
-                f_igosja_mysqli_query($sql);
-            }
-        }
-    }
-
-    redirect('/admin/vote_view.php?num=' . $num_get);
+    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `vote_id`,
@@ -69,6 +24,64 @@ if (0 == $vote_sql->num_rows)
 }
 
 $vote_array = $vote_sql->fetch_all(1);
+
+if ($data = f_igosja_request_post('data'))
+{
+    $set_sql = f_igosja_sql_data($data, array(
+        'vote_text'
+    ));
+    $answer  = f_igosja_request_post('answer', 'voteanswer_text');
+
+    $sql = "UPDATE `vote`
+            SET $set_sql
+            WHERE `vote_id`=$num_get
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    foreach ($answer as $key => $item)
+    {
+        $item = htmlspecialchars($mysqli->real_escape_string($item));
+        $item = trim($item);
+        $key  = (int) $key;
+
+        if (!empty($item))
+        {
+            $sql = "SELECT COUNT(`voteanswer_id`) AS `count`
+                    FROM `voteanswer`
+                    WHERE `voteanswer_vote_id`=$num_get
+                    AND `voteanswer_id`=$key";
+            $check_sql = f_igosja_mysqli_query($sql, false);
+
+            $check_array = $check_sql->fetch_all(1);
+
+            if ($check_array[0]['count'])
+            {
+                $sql = "UPDATE `voteanswer`
+                        SET `voteanswer_text`='$item'
+                        WHERE `voteanswer_id`=$key
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql, false);
+            }
+            else
+            {
+                $sql = "INSERT INTO `voteanswer`
+                        SET `voteanswer_text`='$item',
+                            `voteanswer_vote_id`=$num_get
+                        WHERE `voteanswer_id`=$key";
+                f_igosja_mysqli_query($sql, false);
+            }
+        }
+        else
+        {
+            $sql = "DELETE FROM `voteanswer`
+                    WHERE `voteanswer_id`=$key
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql, false);
+        }
+    }
+
+    redirect('/admin/vote_view.php?num=' . $num_get);
+}
 
 $breadcrumb_array[] = array('url' => 'vote_list.php', 'text' => 'Опросы');
 $breadcrumb_array[] = array(

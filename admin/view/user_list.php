@@ -3,13 +3,6 @@
         <h3 class="page-header">Пользователи</h3>
     </div>
 </div>
-<ul class="list-inline preview-links text-center">
-    <li>
-        <a href="/admin/user_create.php">
-            <button class="btn btn-default">Создать</button>
-        </a>
-    </li>
-</ul>
 <form>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
@@ -52,9 +45,6 @@
                             </a>
                             <a href="/admin/user_update.php?num=<?= $item['user_id']; ?>" class="no-underline">
                                 <i class="fa fa-pencil fa-fw"></i>
-                            </a>
-                            <a href="/admin/user_delete.php?num=<?= $item['user_id']; ?>" class="no-underline">
-                                <i class="fa fa-trash fa-fw"></i>
                             </a>
                         </td>
                     </tr>

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @var $limit integer
+ * @var $offset integer
  * @var $sql_filter string
  */
 

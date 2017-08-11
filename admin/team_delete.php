@@ -2,20 +2,18 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
-
-if (0 != $num_get)
+if ($num_get = (int) f_igosja_request_get('num'))
 {
     $sql = "DELETE FROM `team`
             WHERE `team_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `player_id`
             FROM `player`
             WHERE `player_team_id`=$num_get
             ORDER BY `player_id` ASC";
-    $player_sql = f_igosja_mysqli_query($sql);
+    $player_sql = f_igosja_mysqli_query($sql, false);
 
     $player_array = $player_sql->fetch_all(1);
 
@@ -27,7 +25,7 @@ if (0 != $num_get)
                 SET `player_team_id`=0
                 WHERE `player_id`=$player_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,

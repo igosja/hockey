@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -12,7 +15,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `user_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/user_view.php?num=' . $num_get);
 }
@@ -22,7 +25,7 @@ $sql = "SELECT `user_id`,
         FROM `user`
         WHERE `user_id`=$num_get
         LIMIT 1";
-$user_sql = f_igosja_mysqli_query($sql);
+$user_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $user_sql->num_rows)
 {

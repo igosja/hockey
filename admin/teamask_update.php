@@ -2,7 +2,10 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$num_get = (int) f_igosja_request_get('num');
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT `teamask_team_id`,
                `teamask_user_id`,
@@ -12,7 +15,7 @@ $sql = "SELECT `teamask_team_id`,
         ON `teamask_user_id`=`user_id`
         WHERE `teamask_id`=$num_get
         LIMIT 1";
-$teamask_sql = f_igosja_mysqli_query($sql);
+$teamask_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $teamask_sql->num_rows)
 {
@@ -29,7 +32,7 @@ $sql = "SELECT COUNT(`team_id`) AS `check`
         FROM `team`
         WHERE `team_id`=$team_id
         AND `team_user_id`=0";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -37,7 +40,7 @@ if (!$team_array[0]['check'])
 {
     $sql = "DELETE FROM `teamask`
             WHERE `teamask_team_id`=$team_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/teamask.php');
 }
@@ -45,7 +48,7 @@ if (!$team_array[0]['check'])
 $sql = "SELECT COUNT(`team_id`) AS `check`
         FROM `team`
         WHERE `team_user_id`=$user_id";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -53,7 +56,7 @@ if ($team_array[0]['check'])
 {
     $sql = "DELETE FROM `teamask`
             WHERE `teamask_user_id`=$user_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     redirect('/admin/teamask.php');
 }
@@ -62,15 +65,15 @@ $sql = "UPDATE `team`
         SET `team_user_id`=$user_id
         WHERE `team_id`=$team_id
         LIMIT 1";
-f_igosja_mysqli_query($sql);
+f_igosja_mysqli_query($sql, false);
 
 $sql = "DELETE FROM `teamask`
         WHERE `teamask_user_id`=$user_id";
-f_igosja_mysqli_query($sql);
+f_igosja_mysqli_query($sql, false);
 
 $sql = "DELETE FROM `teamask`
         WHERE `teamask_team_id`=$team_id";
-f_igosja_mysqli_query($sql);
+f_igosja_mysqli_query($sql, false);
 
 $log = array(
     'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_IN,
@@ -79,8 +82,7 @@ $log = array(
 );
 f_igosja_history($log);
 
-$email_text =
-    'Ваша заявка на управление командой одобрена.';
+$email_text = 'Ваша заявка на управление командой одобрена.';
 
 $mail = new Mail();
 $mail->setTo($email);
