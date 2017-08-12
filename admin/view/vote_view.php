@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $num_get integer
+ * @var $vote_array array
  */
 ?>
 <div class="row">
@@ -11,24 +12,24 @@
 <ul class="list-inline preview-links text-center">
     <?php if (1 == $vote_array[0]['vote_votestatus_id']) { ?>
         <li>
-            <a href="/admin/vote_ok.php?num=<?= $num_get; ?>">
-                <button class="btn btn-default">Одобрить</button>
+            <a class="btn btn-default" href="/admin/vote_ok.php?num=<?= $num_get; ?>">
+                Одобрить
             </a>
         </li>
     <?php } ?>
     <li>
-        <a href="/admin/vote_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/vote_list.php">
+            Список
         </a>
     </li>
     <li>
-        <a href="/admin/vote_update.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Изменить</button>
+        <a class="btn btn-default" href="/admin/vote_update.php?num=<?= $num_get; ?>">
+            Изменить
         </a>
     </li>
     <li>
-        <a href="/admin/vote_delete.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Удалить</button>
+        <a class="btn btn-default" href="/admin/vote_delete.php?num=<?= $num_get; ?>">
+            Удалить
         </a>
     </li>
 </ul>

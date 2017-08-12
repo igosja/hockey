@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $name_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Имена</h3>
@@ -5,8 +10,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/name_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/name_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -23,18 +28,20 @@
                     </tr>
                     <tr id="filters">
                         <td>
+                            <label class="hidden" for="name_id"></label>
                             <input
                                 class="form-control"
+                                id="name_id"
                                 name="filter[name_id]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'name_id'); ?>"
                             />
                         </td>
                         <td>
+                            <label class="hidden" for="name_name"></label>
                             <input
                                 class="form-control"
+                                id="name_name"
                                 name="filter[name_name]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'name_name'); ?>"
                             >
                         </td>

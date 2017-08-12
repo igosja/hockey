@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $file_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Code review</h3>
@@ -26,18 +31,14 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <?php include(__DIR__ . '/include/summary.php'); ?>
         <table class="table table-striped table-bordered table-hover table-condensed">
-            <thead>
             <tr>
                 <th>Файл</th>
             </tr>
-            </thead>
-            <tbody>
             <?php foreach ($file_array as $item) { ?>
                 <tr>
                     <td><?= $item; ?></td>
                 </tr>
             <?php } ?>
-            </tbody>
         </table>
     </div>
 </div>

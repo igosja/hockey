@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $rule_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Правила</h3>
@@ -5,8 +10,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/rule_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/rule_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -23,18 +28,20 @@
                     </tr>
                     <tr id="filters">
                         <td>
+                            <label class="hidden" for="rule_id"></label>
                             <input
                                 class="form-control"
+                                id="rule_id"
                                 name="filter[rule_id]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'rule_id'); ?>"
                             />
                         </td>
                         <td>
+                            <label class="hidden" for="rule_title"></label>
                             <input
                                 class="form-control"
+                                id="rule_title"
                                 name="filter[rule_title]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'rule_title'); ?>"
                             >
                         </td>

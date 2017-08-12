@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $country_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Страны</h3>
@@ -5,8 +10,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/country_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/country_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -23,18 +28,20 @@
                 </tr>
                 <tr id="filters">
                     <td>
+                        <label class="hidden" for="country_id"></label>
                         <input
                             class="form-control"
+                            id="country_id"
                             name="filter[country_id]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'country_id'); ?>"
                         />
                     </td>
                     <td>
+                        <label class="hidden" for="country_name"></label>
                         <input
                             class="form-control"
+                            id="country_name"
                             name="filter[country_name]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'country_name'); ?>"
                         >
                     </td>

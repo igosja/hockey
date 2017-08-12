@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $freeteam_array array
+ * @var $teamask_array array
+ * @var $support_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Админ</h1>

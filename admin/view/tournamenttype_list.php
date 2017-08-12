@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $tournamenttype_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Типы турниров</h3>
@@ -5,8 +10,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/tournamenttype_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/tournamenttype_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -23,18 +28,20 @@
                 </tr>
                 <tr id="filters">
                     <td>
+                        <label class="hidden" for="tournamenttype_id"></label>
                         <input
                             class="form-control"
+                            id="tournamenttype_id"
                             name="filter[tournamenttype_id]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'tournamenttype_id'); ?>"
                         />
                     </td>
                     <td>
+                        <label class="hidden" for="tournamenttype_name"></label>
                         <input
                             class="form-control"
+                            id="tournamenttype_name"
                             name="filter[tournamenttype_name]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'tournamenttype_name'); ?>"
                         >
                     </td>

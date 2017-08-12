@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $city_array array
+ * @var $country_array array
+ * @var $stadium_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Стадионы</h3>
@@ -5,8 +12,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/stadium_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/stadium_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -19,29 +26,32 @@
                 <tr>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-center">Id</th>
                     <th>Стадион</th>
-                    <th>Город</th>
-                    <th>Страна</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-2">Город</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Страна</th>
                     <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                 </tr>
                 <tr id="filters">
                     <td>
+                        <label class="hidden" for="stadium_id"></label>
                         <input
                             class="form-control"
+                            id="stadium_id"
                             name="filter[stadium_id]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'stadium_id'); ?>"
                         />
                     </td>
                     <td>
+                        <label class="hidden" for="stadium_name"></label>
                         <input
                             class="form-control"
+                            id="stadium_name"
                             name="filter[stadium_name]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'stadium_name'); ?>"
                         >
                     </td>
                     <td>
-                        <select class="form-control" name="filter[city_id]">
+                        <label class="hidden" for="city_id"></label>
+                        <select class="form-control" id="city_id" name="filter[city_id]">
                             <option value="">Все</option>
                             <?php foreach ($city_array as $item) { ?>
                                 <option
@@ -56,7 +66,8 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" name="filter[country_id]">
+                        <label class="hidden" for="country_id"></label>
+                        <select class="form-control" id="country_id" name="filter[country_id]">
                             <option value="">Все</option>
                             <?php foreach ($country_array as $item) { ?>
                                 <option

@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var $page_array array
+ * @var $page_filter string
+ * @var $page_next array
+ * @var $page_prev array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <nav>
@@ -8,7 +16,7 @@
                             href="?page=<?= $page_prev['page'] . $page_filter; ?>"
                         <?php } ?>
                     >
-                        <span aria-hidden="true">&laquo;</span>
+                        <span>&laquo;</span>
                     </a>
                 </li>
                 <?php foreach ($page_array as $item) { ?>
@@ -28,7 +36,7 @@
                             href="?page=<?= $page_next['page'] . $page_filter; ?>"
                         <?php } ?>
                     >
-                        <span aria-hidden="true">&raquo;</span>
+                        <span>&raquo;</span>
                     </a>
                 </li>
             </ul>

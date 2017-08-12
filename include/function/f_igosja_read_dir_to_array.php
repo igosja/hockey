@@ -16,6 +16,7 @@ function f_igosja_read_dir_to_array($file_array, $dir, $exception_array)
     {
         $file_path          = $dir . $item;
         $dir_to_array       = str_replace(str_replace('include/function', 'admin/../',__DIR__), '', $dir);
+        $dir_to_array       = str_replace(str_replace('include\function', 'admin/../',__DIR__), '', $dir_to_array);
         $file_path_to_array = $dir_to_array . $item;
 
         if (is_file($file_path))

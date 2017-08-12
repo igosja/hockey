@@ -5,6 +5,7 @@ $start_time = microtime(true);
 //\usr\local\php5\php.exe www\console\migrate
 //\usr\local\php5\php.exe www\console\start
 //\usr\local\php5\php.exe www\console\generator
+//\usr\local\php5\php.exe www\console\environment dev
 
 include(__DIR__ . '/menu.php');
 include(__DIR__ . '/database.php');

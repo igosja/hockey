@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $vote_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Опросы</h3>
@@ -5,8 +10,8 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/vote_create.php">
-            <button class="btn btn-default">Создать</button>
+        <a class="btn btn-default" href="/admin/vote_create.php">
+            Создать
         </a>
     </li>
 </ul>
@@ -18,24 +23,26 @@
                 <thead>
                     <tr>
                         <th class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-center">Id</th>
-                        <th>Тип</th>
-                        <th>Статус</th>
+                        <th>Вопрос</th>
+                        <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Статус</th>
                         <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                     </tr>
                     <tr id="filters">
                         <td>
+                            <label class="hidden" for="vote_id"></label>
                             <input
                                 class="form-control"
+                                id="vote_id"
                                 name="filter[vote_id]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'vote_id'); ?>"
                             />
                         </td>
                         <td>
+                            <label class="hidden" for="vote_text"></label>
                             <input
                                 class="form-control"
+                                id="vote_text"
                                 name="filter[vote_text]"
-                                type="text"
                                 value="<?= f_igosja_request_get('filter', 'vote_text'); ?>"
                             >
                         </td>

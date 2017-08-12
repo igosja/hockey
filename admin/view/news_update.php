@@ -1,7 +1,13 @@
+<?php
+/**
+ * @var $news_array array
+ * @var $num_get integer
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">
-            <?php if (isset($news_array[0]['news_title'])) { ?>
+            <?php if (isset($news_array[0])) { ?>
                 <?= $news_array[0]['news_title']; ?>
             <?php } else { ?>
                 Создание новости
@@ -11,14 +17,14 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/news_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/news_list.php">
+            Список
         </a>
     </li>
     <?php if (isset($num_get)) { ?>
         <li>
-            <a href="/admin/news_view.php?num=<?= $num_get; ?>">
-                <button class="btn btn-default">Просмотр</button>
+            <a class="btn btn-default" href="/admin/news_view.php?num=<?= $num_get; ?>">
+                Просмотр
             </a>
         </li>
     <?php } ?>
@@ -36,7 +42,7 @@
                             class="form-control"
                             id="news_title"
                             name="data[news_title]"
-                            value="<?= isset($news_array[0]['news_title']) ? $news_array[0]['news_title'] : ''; ?>"
+                            value="<?= isset($news_array[0]) ? $news_array[0]['news_title'] : ''; ?>"
                         />
                     </td>
                 </tr>
@@ -50,13 +56,13 @@
                             id="news_text"
                             name="data[news_text]"
                             rows="10"
-                        ><?= isset($news_array[0]['news_text']) ? $news_array[0]['news_text'] : ''; ?></textarea>
+                        ><?= isset($news_array[0]) ? $news_array[0]['news_text'] : ''; ?></textarea>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-default" type="submit">Сохранить</button>
+            <button class="btn btn-default">Сохранить</button>
         </div>
     </div>
 </form>

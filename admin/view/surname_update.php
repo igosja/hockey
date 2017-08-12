@@ -1,7 +1,15 @@
+<?php
+/**
+ * @var $country_array array
+ * @var $num_get integer
+ * @var $surname_array array
+ * @var $surnamecountry_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">
-            <?php if (isset($surname_array[0]['surname_name'])) { ?>
+            <?php if (isset($surname_array[0])) { ?>
                 <?= $surname_array[0]['surname_name']; ?>
             <?php } else { ?>
                 Создание фамилии
@@ -11,14 +19,14 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/surname_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/surname_list.php">
+            Список
         </a>
     </li>
     <?php if (isset($num_get)) { ?>
         <li>
-            <a href="/admin/surname_view.php?num=<?= $num_get; ?>">
-                <button class="btn btn-default">Просмотр</button>
+            <a class="btn btn-default" href="/admin/surname_view.php?num=<?= $num_get; ?>">
+                Просмотр
             </a>
         </li>
     <?php } ?>
@@ -36,8 +44,7 @@
                             class="form-control"
                             id="surname_name"
                             name="data[surname_name]"
-                            value=
-                            "<?= isset($surname_array[0]['surname_name']) ? $surname_array[0]['surname_name'] : ''; ?>"
+                            value="<?= isset($surname_array[0]) ? $surname_array[0]['surname_name'] : ''; ?>"
                         >
                     </td>
                 </tr>
@@ -49,7 +56,7 @@
                         <select
                             class="form-control"
                             id="surnamecountry_country_id"
-                            multiple="multiple"
+                            multiple
                             name="array[surnamecountry_country_id][]"
                         >
                             <?php foreach ($country_array as $item) { ?>
@@ -72,7 +79,7 @@
             </table>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-default" type="submit">Сохранить</button>
+            <button class="btn btn-default">Сохранить</button>
         </div>
     </div>
 </form>

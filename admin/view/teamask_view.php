@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $num_get integer
+ * @var $teamask_array array
  */
 ?>
 <div class="row">
@@ -10,18 +11,18 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/teamask_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/teamask_list.php">
+            Список
         </a>
     </li>
     <li>
-        <a href="/admin/teamask_update.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Одобрить</button>
+        <a class="btn btn-default" href="/admin/teamask_update.php?num=<?= $num_get; ?>">
+            Одобрить
         </a>
     </li>
     <li>
-        <a href="/admin/teamask_delete.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Удалить</button>
+        <a class="btn btn-default" href="/admin/teamask_delete.php?num=<?= $num_get; ?>">
+            Удалить
         </a>
     </li>
 </ul>

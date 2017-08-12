@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $count_item integer
  * @var $summary_from integer
  * @var $summary_to integer
  */

@@ -1,7 +1,13 @@
+<?php
+/**
+ * @var $num_get integer
+ * @var $tournamenttype_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">
-            <?php if (isset($tournamenttype_array[0]['tournamenttype_name'])) { ?>
+            <?php if (isset($tournamenttype_array[0])) { ?>
                 <?= $tournamenttype_array[0]['tournamenttype_name']; ?>
             <?php } else { ?>
                 Создание типа
@@ -11,14 +17,14 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/tournamenttype_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/tournamenttype_list.php">
+            Список
         </a>
     </li>
     <?php if (isset($num_get)) { ?>
         <li>
-            <a href="/admin/tournamenttype_view.php?num=<?= $num_get; ?>">
-                <button class="btn btn-default">Просмотр</button>
+            <a class="btn btn-default" href="/admin/tournamenttype_view.php?num=<?= $num_get; ?>">
+                Просмотр
             </a>
         </li>
     <?php } ?>
@@ -43,7 +49,7 @@
             </table>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-default" type="submit">Сохранить</button>
+            <button class="btn btn-default">Сохранить</button>
         </div>
     </div>
 </form>

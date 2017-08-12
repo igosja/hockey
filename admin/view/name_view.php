@@ -1,5 +1,7 @@
 <?php
 /**
+ * @var $country_array array
+ * @var $name_array array
  * @var $num_get integer
  */
 ?>
@@ -10,18 +12,18 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/name_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/name_list.php">
+            Список
         </a>
     </li>
     <li>
-        <a href="/admin/name_update.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Изменить</button>
+        <a class="btn btn-default" href="/admin/name_update.php?num=<?= $num_get; ?>">
+            Изменить
         </a>
     </li>
     <li>
-        <a href="/admin/name_delete.php?num=<?= $num_get; ?>">
-            <button class="btn btn-default">Удалить</button>
+        <a class="btn btn-default" href="/admin/name_delete.php?num=<?= $num_get; ?>">
+            Удалить
         </a>
     </li>
 </ul>

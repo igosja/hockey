@@ -1,12 +1,18 @@
+<?php
+/**
+ * @var $message_array array
+ * @var $user_login string
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h3 class="page-header"><?= end($message_array)['user_login']; ?></h3>
+        <h3 class="page-header"><?= $user_login; ?></h3>
     </div>
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/support_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/support_list.php">
+            Список
         </a>
     </li>
 </ul>

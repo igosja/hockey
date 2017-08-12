@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $num_get integer
+ * @var $user_array integer
  */
 ?>
 <div class="row">

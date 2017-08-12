@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $teamask_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Заявки на команды</h3>
@@ -12,33 +17,36 @@
                 <tr>
                     <th class="col-lg-1 col-md-1 col-sm-1 col-xs-2 text-center">Id</th>
                     <th>Время заявки</th>
-                    <th>Пользователь</th>
-                    <th>Команда</th>
+                    <th class="col-lg-4 col-md-3 col-sm-3 col-xs-3">Пользователь</th>
+                    <th class="col-lg-4 col-md-3 col-sm-3 col-xs-3">Команда</th>
                     <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                 </tr>
                 <tr id="filters">
                     <td>
+                        <label class="hidden" for="teamask_id"></label>
                         <input
                             class="form-control"
+                            id="teamask_id"
                             name="filter[teamask_id]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'teamask_id'); ?>"
                         />
                     </td>
                     <td></td>
                     <td>
+                        <label class="hidden" for="user_login"></label>
                         <input
                             class="form-control"
+                            id="user_login"
                             name="filter[user_login]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'user_login'); ?>"
                         >
                     </td>
                     <td>
+                        <label class="hidden" for="team_name"></label>
                         <input
                             class="form-control"
+                            id="team_name"
                             name="filter[team_name]"
-                            type="text"
                             value="<?= f_igosja_request_get('filter', 'team_name'); ?>"
                         >
                     </td>

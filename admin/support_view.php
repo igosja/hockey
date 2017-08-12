@@ -34,24 +34,29 @@ if (0 == $message_sql->num_rows)
 
 $message_array = $message_sql->fetch_all(1);
 
+$user_login = end($message_array);
+$user_login = $user_login['user_login'];
+
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($data['text']) && !empty(trim($data['text'])))
+    if (isset($data['text']))
     {
         $text = trim($data['text']);
-
         $text = $mysqli->real_escape_string($text);
 
-        $sql = "INSERT INTO `message`
-                SET `message_date`=UNIX_TIMESTAMP(),
-                    `message_text`='$text',
-                    `message_support_from`=1,
-                    `message_user_id_from`=$auth_user_id,
-                    `message_user_id_to`=$num_get";
-        f_igosja_mysqli_query($sql, false);
-
-        refresh();
+        if (!empty($text))
+        {
+            $sql = "INSERT INTO `message`
+                    SET `message_date`=UNIX_TIMESTAMP(),
+                        `message_text`='$text',
+                        `message_support_from`=1,
+                        `message_user_id_from`=$auth_user_id,
+                        `message_user_id_to`=$num_get";
+            f_igosja_mysqli_query($sql, false);
+        }
     }
+
+    refresh();
 }
 
 $sql = "UPDATE `message`

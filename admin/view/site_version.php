@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $site_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">Версия сайта</h3>
@@ -25,8 +30,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="list-inline preview-links">
             <li>
-                <a href="/admin/site_version.php?num=1">
-                    <button class="btn btn-default">+</button>
+                <a class="btn btn-default" href="/admin/site_version.php?num=1">
+                    +
                 </a>
                 - Полное или очень существенное переписывание системы
             </li>
@@ -37,8 +42,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="list-inline preview-links">
             <li>
-                <a href="/admin/site_version.php?num=2">
-                    <button class="btn btn-default">+</button>
+                <a class="btn btn-default" href="/admin/site_version.php?num=2">
+                    +
                 </a>
                 - Добавление нового функционала или страниц
             </li>
@@ -49,8 +54,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="list-inline preview-links">
             <li>
-                <a href="/admin/site_version.php?num=3">
-                    <button class="btn btn-default">+</button>
+                <a class="btn btn-default" href="/admin/site_version.php?num=3">
+                    +
                 </a>
                 - Рефакторинг кода и запросов
             </li>
@@ -61,8 +66,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="list-inline preview-links">
             <li>
-                <a href="/admin/site_version.php?num=4">
-                    <button class="btn btn-default">+</button>
+                <a class="btn btn-default" href="/admin/site_version.php?num=4">
+                    +
                 </a>
                 - Исправление багов, опечаток
             </li>

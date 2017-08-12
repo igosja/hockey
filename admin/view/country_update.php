@@ -1,7 +1,13 @@
+<?php
+/**
+ * @var $country_array array
+ * @var $num_get integer
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3 class="page-header">
-            <?php if (isset($country_array[0]['country_name'])) { ?>
+            <?php if (isset($country_array[0])) { ?>
                 <?= $country_array[0]['country_name']; ?>
             <?php } else { ?>
                 Создание страны
@@ -11,14 +17,14 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a href="/admin/country_list.php">
-            <button class="btn btn-default">Список</button>
+        <a class="btn btn-default" href="/admin/country_list.php">
+            Список
         </a>
     </li>
     <?php if (isset($num_get)) { ?>
         <li>
-            <a href="/admin/country_view.php?num=<?= $num_get; ?>">
-                <button class="btn btn-default">Просмотр</button>
+            <a class="btn btn-default" href="/admin/country_view.php?num=<?= $num_get; ?>">
+                Просмотр
             </a>
         </li>
     <?php } ?>
@@ -36,15 +42,14 @@
                             class="form-control"
                             id="country_name"
                             name="data[country_name]"
-                            value=
-                            "<?= isset($country_array[0]['country_name']) ? $country_array[0]['country_name'] : ''; ?>"
+                            value="<?= isset($country_array[0]) ? $country_array[0]['country_name'] : ''; ?>"
                         >
                     </td>
                 </tr>
             </table>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-default" type="submit">Сохранить</button>
+            <button class="btn btn-default">Сохранить</button>
         </div>
     </div>
 </form>
