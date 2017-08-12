@@ -2,10 +2,10 @@ jQuery(document).ready(function () {
     $('.phisical-change-cell').on('click', function() {
         var phisical_id = $(this).data('phisical');
         var player_id   = $(this).data('player');
-        var shedule_id  = $(this).data('shedule');
+        var schedule_id  = $(this).data('schedule');
 
         $.ajax({
-            url: '/json.php?phisical_id=' + phisical_id + '&player_id=' + player_id + '&shedule_id=' + shedule_id,
+            url: '/json.php?phisical_id=' + phisical_id + '&player_id=' + player_id + '&schedule_id=' + schedule_id,
             dataType: 'json',
             success: function (data)
             {

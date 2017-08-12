@@ -8,7 +8,7 @@
 <div class="row">
     <?php foreach ($latest_array as $item) { ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-            <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
+            <?= f_igosja_ufu_date_time($item['schedule_date']); ?>
             -
             <?= $item['tournamenttype_name']; ?>
             -
@@ -28,7 +28,7 @@
     </div>
     <?php foreach ($nearest_array as $item) { ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
-            <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
+            <?= f_igosja_ufu_date_time($item['schedule_date']); ?>
             -
             <?= $item['tournamenttype_name']; ?>
             -

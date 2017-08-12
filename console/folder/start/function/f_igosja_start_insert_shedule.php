@@ -3,12 +3,12 @@
 /**
  * Формуємо календар
  */
-function f_igosja_start_insert_shedule()
+function f_igosja_start_insert_schedule()
 {
-    $shedule_insert_array       = array();
-    $shedule_friendly_array     = array(6, 13, 20, 27, 34, 41, 48, 55, 61, 62);
-    $shedule_offseason_array    = array(0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12);
-    $shedule_stage_array        = array(
+    $schedule_insert_array       = array();
+    $schedule_friendly_array     = array(6, 13, 20, 27, 34, 41, 48, 55, 61, 62);
+    $schedule_offseason_array    = array(0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12);
+    $schedule_stage_array        = array(
         2,  3,   4,  5,  6,  7, 1,
         8,  9,  10, 11, 12, 13, 1,
         2,  3,   4,  5,  6,  7, 1,
@@ -19,7 +19,7 @@ function f_igosja_start_insert_shedule()
         54, 54, 54, 55, 55, 55, 1,
         56, 56, 56, 56, 56,  1, 1
     );
-    $shedule_conference_stage_array = array(
+    $schedule_conference_stage_array = array(
         2,  3,  4,  5,  6,  7, 1,
         8,  9, 10, 11, 12, 13, 1,
         2,  3,  4,  5,  6,  7, 1,
@@ -39,11 +39,11 @@ function f_igosja_start_insert_shedule()
         $date       = $start_date + $i * 24 * 60 *60;
         $conference = 0;
 
-        if (in_array($i, $shedule_friendly_array))
+        if (in_array($i, $schedule_friendly_array))
         {
             $tournament_type = TOURNAMENTTYPE_FRIENDLY;
         }
-        elseif (in_array($i, $shedule_offseason_array))
+        elseif (in_array($i, $schedule_offseason_array))
         {
             $tournament_type = TOURNAMENTTYPE_OFFSEASON;
         }
@@ -53,18 +53,18 @@ function f_igosja_start_insert_shedule()
             $tournament_type    = TOURNAMENTTYPE_CHAMPIONSHIP;
         }
 
-        $shedule_insert_array[] = "($date, 1, $shedule_stage_array[$i], $tournament_type)";
+        $schedule_insert_array[] = "($date, 1, $schedule_stage_array[$i], $tournament_type)";
 
         if ($conference)
         {
             $tournament_type_c  = TOURNAMENTTYPE_CONFERENCE;
-            $shedule_insert_array[] = "($date, 1, $shedule_conference_stage_array[$i], $tournament_type_c)";
+            $schedule_insert_array[] = "($date, 1, $schedule_conference_stage_array[$i], $tournament_type_c)";
         }
     }
 
-    $shedule_insert_array = implode(',', $shedule_insert_array);
+    $schedule_insert_array = implode(',', $schedule_insert_array);
 
-    $sql = "INSERT INTO `shedule` (`shedule_date`, `shedule_season_id`, `shedule_stage_id`, `shedule_tournamenttype_id`)
-            VALUES $shedule_insert_array;";
+    $sql = "INSERT INTO `schedule` (`schedule_date`, `schedule_season_id`, `schedule_stage_id`, `schedule_tournamenttype_id`)
+            VALUES $schedule_insert_array;";
     f_igosja_mysqli_query($sql);
 }

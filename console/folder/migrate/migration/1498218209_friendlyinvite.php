@@ -12,5 +12,5 @@ $q[] = 'CREATE TABLE `friendlyinvite`
             `friendlyinvite_guest_user_id` INT(11) DEFAULT 0,
             `friendlyinvite_home_team_id` INT(11) DEFAULT 0,
             `friendlyinvite_home_user_id` INT(11) DEFAULT 0,
-            `friendlyinvite_shedule_id` INT(11) DEFAULT 0
+            `friendlyinvite_schedule_id` INT(11) DEFAULT 0
         );';

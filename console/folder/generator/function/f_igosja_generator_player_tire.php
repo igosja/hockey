@@ -10,25 +10,25 @@ function f_igosja_generator_player_tire()
             ON `player_id`=`lineup_player_id`
             LEFT JOIN `game`
             ON `lineup_game_id`=`game_id`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             LEFT JOIN `tournamenttype`
-            ON `shedule_tournamenttype_id`=`tournamenttype_id`
+            ON `schedule_tournamenttype_id`=`tournamenttype_id`
             SET `player_mood_id`=IF(`lineup_team_id`=`game_home_team_id`, `game_home_mood_id`, `game_guest_mood_id`)
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
     f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `tournamenttype_daytype_id`
-            FROM `shedule`
+            FROM `schedule`
             LEFT JOIN `tournamenttype`
-            ON `shedule_tournamenttype_id`=`tournamenttype_id`
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            ON `schedule_tournamenttype_id`=`tournamenttype_id`
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             LIMIT 1";
-    $shedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 
-    $shedule_array = $shedule_sql->fetch_all(1);
+    $schedule_array = $schedule_sql->fetch_all(1);
 
-    if (DAYTYPE_B == $shedule_array[0]['tournamenttype_daytype_id'])
+    if (DAYTYPE_B == $schedule_array[0]['tournamenttype_daytype_id'])
     {
         $sql = "UPDATE `player`
                 LEFT JOIN
@@ -43,10 +43,10 @@ function f_igosja_generator_player_tire()
                 ON `player_id`=`lineup_player_id`
                 LEFT JOIN `game`
                 ON `lineup_game_id`=`game_id`
-                LEFT JOIN `shedule`
-                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
                 SET `player_tire`=`player_tire`+IF((CEIL((`player_age`-12)/11)+`player_game_row`)*(" . MOOD_REST . "-`player_mood_id`)-IF(`playerspecial_level` IS NULL, 0, `playerspecial_level`)>0, (CEIL((`player_age`-12)/11)+`player_game_row`)*(" . MOOD_REST . "-`player_mood_id`)-IF(`playerspecial_level` IS NULL, 0, `playerspecial_level`), 0)
-                WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0";
@@ -66,14 +66,14 @@ function f_igosja_generator_player_tire()
                     FROM `lineup`
                     LEFT JOIN `game`
                     ON `lineup_game_id`=`game_id`
-                    LEFT JOIN `shedule`
-                    ON `game_shedule_id`=`shedule_id`
-                    WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 )
                 AND `player_age`<40";
         f_igosja_mysqli_query($sql);
     }
-    elseif (DAYTYPE_C == $shedule_array[0]['tournamenttype_daytype_id'])
+    elseif (DAYTYPE_C == $schedule_array[0]['tournamenttype_daytype_id'])
     {
         $sql = "UPDATE `player`
                 LEFT JOIN
@@ -88,10 +88,10 @@ function f_igosja_generator_player_tire()
                 ON `player_id`=`lineup_player_id`
                 LEFT JOIN `game`
                 ON `lineup_game_id`=`game_id`
-                LEFT JOIN `shedule`
-                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
                 SET `player_tire`=`player_tire`+IF((FLOOR((`player_age`-12)/11)+CEIL(`player_game_row`/2))*(" . MOOD_REST . "-`player_mood_id`)-IF(`playerspecial_level` IS NULL, 0, `playerspecial_level`)>0, (FLOOR((`player_age`-12)/11)+CEIL(`player_game_row`/2))*(" . MOOD_REST . "-`player_mood_id`)-IF(`playerspecial_level` IS NULL, 0, `playerspecial_level`)>0, 0)
-                WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0";

@@ -9,11 +9,11 @@ function f_igosja_generator_set_injury()
             FROM `lineup`
             LEFT JOIN `game`
             ON `lineup_game_id`=`game_id`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             LEFT JOIN `player`
             ON `lineup_player_id`=`player_id`
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `player_injury`=0
             AND `player_team_id` NOT IN 
             (

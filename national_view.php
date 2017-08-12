@@ -109,12 +109,12 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
                    `game_home_national_id`,
                    `game_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE (`game_home_national_id`=$num_get
             OR `game_guest_national_id`=$num_get)
             AND `game_played`=0
-            ORDER BY `shedule_id` ASC
+            ORDER BY `schedule_id` ASC
             LIMIT 1";
     $check_game_send_sql = f_igosja_mysqli_query($sql);
 
@@ -135,12 +135,12 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
                    `game_home_national_id`,
                    `game_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE (`game_home_national_id`=$num_get
             OR `game_guest_national_id`=$num_get)
             AND `game_played`=0
-            ORDER BY `shedule_id` ASC
+            ORDER BY `schedule_id` ASC
             LIMIT 1";
     $check_mood_sql = f_igosja_mysqli_query($sql);
 

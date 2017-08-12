@@ -42,11 +42,11 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
     $basephisical_array = $basephisical_sql->fetch_all(1);
 
     $player_id  = (int) f_igosja_request_get('player_id');
-    $shedule_id = (int) f_igosja_request_get('shedule_id');
+    $schedule_id = (int) f_igosja_request_get('schedule_id');
 
     $sql = "DELETE FROM `phisicalchange`
             WHERE `phisicalchange_player_id`=$player_id
-            AND `phisicalchange_shedule_id`>$shedule_id
+            AND `phisicalchange_schedule_id`>$schedule_id
             AND `phisicalchange_season_id`=$igosja_season_id";
     f_igosja_mysqli_query($sql);
 
@@ -54,7 +54,7 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             FROM `phisicalchange`
             WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_season_id`=$igosja_season_id
-            AND `phisicalchange_shedule_id`=$shedule_id";
+            AND `phisicalchange_schedule_id`=$schedule_id";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(1);
@@ -65,7 +65,7 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
         $sql = "DELETE FROM `phisicalchange`
                 WHERE `phisicalchange_player_id`=$player_id
                 AND `phisicalchange_season_id`=$igosja_season_id
-                AND `phisicalchange_shedule_id`=$shedule_id";
+                AND `phisicalchange_schedule_id`=$schedule_id";
         f_igosja_mysqli_query($sql);
     }
     else
@@ -85,7 +85,7 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             $sql = "INSERT INTO `phisicalchange`
                     SET `phisicalchange_player_id`=$player_id,
                         `phisicalchange_season_id`=$igosja_season_id,
-                        `phisicalchange_shedule_id`=$shedule_id,
+                        `phisicalchange_schedule_id`=$schedule_id,
                         `phisicalchange_team_id`=$auth_team_id";
             f_igosja_mysqli_query($sql);
         }
@@ -100,13 +100,13 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
         $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
                 FROM `phisicalchange`
                 WHERE `phisicalchange_player_id`=$player_id
-                AND `phisicalchange_shedule_id`>
+                AND `phisicalchange_schedule_id`>
                 (
-                    SELECT `shedule_id`
-                    FROM `shedule`
-                    WHERE `shedule_date`>UNIX_TIMESTAMP()
-                    AND `shedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
-                    ORDER BY `shedule_id` ASC
+                    SELECT `schedule_id`
+                    FROM `schedule`
+                    WHERE `schedule_date`>UNIX_TIMESTAMP()
+                    AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
+                    ORDER BY `schedule_id` ASC
                     LIMIT 1
                 )";
         $prev_sql = f_igosja_mysqli_query($sql);
@@ -133,17 +133,17 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             );
         }
 
-        $sql = "SELECT `shedule_id`
-                FROM `shedule`
-                WHERE `shedule_id`>=$shedule_id
-                AND `shedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
-                ORDER BY `shedule_id` ASC";
-        $shedule_sql = f_igosja_mysqli_query($sql);
+        $sql = "SELECT `schedule_id`
+                FROM `schedule`
+                WHERE `schedule_id`>=$schedule_id
+                AND `schedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
+                ORDER BY `schedule_id` ASC";
+        $schedule_sql = f_igosja_mysqli_query($sql);
 
-        $count_shedule = $shedule_sql->num_rows;
-        $shedule_array = $shedule_sql->fetch_all(1);
+        $count_schedule = $schedule_sql->num_rows;
+        $schedule_array = $schedule_sql->fetch_all(1);
 
-        for ($i=0; $i<$count_shedule; $i++)
+        for ($i=0; $i<$count_schedule; $i++)
         {
             if (0 == $i)
             {
@@ -185,7 +185,7 @@ elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 'remove_class_1'    => 'phisical-bordered',
                 'remove_class_2'    => 'phisical-yellow',
                 'class'             => $class,
-                'id'                => $player_id . '-' . $shedule_array[$i]['shedule_id'],
+                'id'                => $player_id . '-' . $schedule_array[$i]['schedule_id'],
                 'phisical_id'       => $phisical_id,
                 'phisical_value'    => $phisical_array[$phisical_id]['value'],
             );

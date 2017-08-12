@@ -29,8 +29,8 @@ $sql = "SELECT `game_guest_team_id`,
                IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_3_id`, `game_home_tactic_3_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_3_id`, `game_guest_tactic_3_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_3_id`,
                `game_ticket`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         WHERE (`game_guest_team_id`=$auth_team_id
         OR `game_home_team_id`=$auth_team_id)
         AND `game_played`=0
@@ -234,24 +234,24 @@ foreach ($lineup_array as $item)
 $sql = "SELECT `game_id`,
                IF(`game_guest_team_id`=$auth_team_id, `game_guest_tactic_1_id`, `game_home_tactic_1_id`) AS `game_tactic_id`,
                IF(`game_guest_team_id`=$auth_team_id, 'Г', 'Д') AS `home_guest`,
-               `shedule_date`,
+               `schedule_date`,
                `stage_name`,
                `team_id`,
                `team_name`,
                `tournamenttype_name`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
+        ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `team`
         ON IF(`game_guest_team_id`=$auth_team_id, `game_home_team_id`, `game_guest_team_id`)=`team_id`
         WHERE (`game_guest_team_id`=$auth_team_id
         OR `game_home_team_id`=$auth_team_id)
         AND `game_played`=0
-        ORDER BY `shedule_date` ASC
+        ORDER BY `schedule_date` ASC
         LIMIT 5";
 $game_sql = f_igosja_mysqli_query($sql);
 

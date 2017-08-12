@@ -32,12 +32,12 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference)
             (
                 SELECT IF(`game_home_team_id`=$home_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
                 FROM `game`
-                LEFT JOIN `shedule`
-                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
                 WHERE (`game_home_team_id`=$home_id
                 OR `game_guest_team_id`=$home_id)
-                AND `shedule_tournamenttype_id`=$tournamenttype_id
-                AND `shedule_season_id`=$igosja_season_id
+                AND `schedule_tournamenttype_id`=$tournamenttype_id
+                AND `schedule_season_id`=$igosja_season_id
             )
             ORDER BY RAND()
             LIMIT 1";

@@ -4,7 +4,7 @@
  * @var $on_building boolean
  * @var $phisical_available integer
  * @var $player_array array
- * @var $shedule_array array
+ * @var $schedule_array array
  */
 ?>
 <div class="row margin-top">
@@ -53,9 +53,9 @@
                 <th title="Позиция">Поз</th>
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
-                <?php foreach ($shedule_array as $shedule) { ?>
+                <?php foreach ($schedule_array as $schedule) { ?>
                     <th>
-                        <img src="/phisical_image.php?num=<?= $shedule['shedule_date']; ?>"/>
+                        <img src="/phisical_image.php?num=<?= $schedule['schedule_date']; ?>"/>
                     </th>
                 <?php } ?>
             </tr>
@@ -74,7 +74,7 @@
                             class="text-center <?= $phisical['class']; ?>"
                             data-phisical="<?= $phisical['phisical_id']; ?>"
                             data-player="<?= $phisical['player_id']; ?>"
-                            data-shedule="<?= $phisical['shedule_id']; ?>"
+                            data-schedule="<?= $phisical['schedule_id']; ?>"
                             id="<?= $phisical['id']; ?>"
                         >
                             <img
@@ -90,9 +90,9 @@
                 <th title="Позиция">Поз</th>
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
-                <?php foreach ($shedule_array as $shedule) { ?>
+                <?php foreach ($schedule_array as $schedule) { ?>
                     <th>
-                        <img src="/phisical_image.php?num=<?= $shedule['shedule_date']; ?>"/>
+                        <img src="/phisical_image.php?num=<?= $schedule['schedule_date']; ?>"/>
                     </th>
                 <?php } ?>
             </tr>

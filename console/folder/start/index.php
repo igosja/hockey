@@ -9,7 +9,7 @@ for ($i=1, $count_file_list=count($file_list); $i<=$count_file_list; $i++)
     elseif ( 3 == $i) { f_igosja_start_insert_surname(); }
     elseif ( 4 == $i) { f_igosja_start_insert_team(); }
     elseif ( 5 == $i) { f_igosja_start_insert_national(); }
-    elseif ( 6 == $i) { f_igosja_start_insert_shedule(); }
+    elseif ( 6 == $i) { f_igosja_start_insert_schedule(); }
     elseif ( 7 == $i) { f_igosja_start_insert_offseason(); }
     elseif ( 8 == $i) { f_igosja_start_insert_championship(); }
     elseif ( 9 == $i) { f_igosja_start_insert_conference(); }

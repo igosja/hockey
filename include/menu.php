@@ -14,7 +14,7 @@ $igosja_menu = array(
     array('label' => 'Опросы',          'url' => '/vote_list.php',  'css' => 'count_vote'),
     array('label' => 'Правила',         'url' => '/rule_list.php'),
     array('label' => 'Профиль',         'url' => '/user_view.php'),
-    array('label' => 'Расписание',      'url' => '/shedule.php'),
+    array('label' => 'Расписание',      'url' => '/schedule.php'),
     array('label' => 'Рейтинги',        'url' => '/rating.php'),
     array('label' => 'Регистрация',     'url' => '/signup.php',     'css' => 'red'),
     array('label' => 'Ростер',          'url' => '/team_view.php',  'css' => 'red'),

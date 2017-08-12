@@ -27,10 +27,10 @@ function f_igosja_generator_set_auto()
                    `game_home_tactic_2_id`,
                    `game_home_tactic_3_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE `game_played`=0
-            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND (`game_guest_tactic_1_id`=0
             OR `game_home_tactic_1_id`=0)
             ORDER BY `game_id` ASC";

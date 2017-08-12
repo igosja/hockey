@@ -14,7 +14,7 @@ $sql = "SELECT `game_played`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
                `home_team`.`team_power_vs` AS `home_team_power_vs`,
-               `shedule_date`,
+               `schedule_date`,
                `stadium_capacity`,
                `stadium_name`,
                `stadium_team`.`team_id` AS `stadium_team_id`,
@@ -25,12 +25,12 @@ $sql = "SELECT `game_played`,
         ON `game_guest_team_id`=`guest_team`.`team_id`
         LEFT JOIN `team` AS `home_team`
         ON `game_home_team_id`=`home_team`.`team_id`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
+        ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `stadium`
         ON `game_stadium_id`=`stadium_id`
         LEFT JOIN `team` AS `stadium_team`
@@ -57,16 +57,16 @@ $sql = "SELECT `game_guest_score`,
                `guest_team`.`team_name` AS `guest_team_name`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
-               `shedule_date`,
+               `schedule_date`,
                `stage_name`,
                `tournamenttype_name`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
+        ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `team` AS `guest_team`
         ON `game_guest_team_id`=`guest_team`.`team_id`
         LEFT JOIN `team` AS `home_team`

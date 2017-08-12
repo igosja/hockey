@@ -1,18 +1,18 @@
 <?php
 /**
  * @var $game_array array
- * @var $shedule_array array
+ * @var $schedule_array array
  */
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1><?= $shedule_array[0]['tournamenttype_name']; ?></h1>
+        <h1><?= $schedule_array[0]['tournamenttype_name']; ?></h1>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            <?= f_igosja_ufu_date_time($shedule_array[0]['shedule_date']); ?>,
-            <?= $shedule_array[0]['stage_name']; ?>,
-            <?= $shedule_array[0]['shedule_season_id']; ?>-й сезон
+            <?= f_igosja_ufu_date_time($schedule_array[0]['schedule_date']); ?>,
+            <?= $schedule_array[0]['stage_name']; ?>,
+            <?= $schedule_array[0]['schedule_season_id']; ?>-й сезон
         </p>
     </div>
 </div>

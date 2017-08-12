@@ -19,7 +19,7 @@
             </tr>
             <?php foreach ($game_array as $item) { ?>
                 <tr <?php if ($num_get == $item['game_id']) { ?>class="info"<?php } ?>>
-                    <td class="text-center"><?= f_igosja_ufu_date_time($item['shedule_date']); ?></td>
+                    <td class="text-center"><?= f_igosja_ufu_date_time($item['schedule_date']); ?></td>
                     <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
                     <td class="text-center"><?= $item['stage_name']; ?></td>
                     <td class="text-center"><?= $item['home_guest']; ?></td>

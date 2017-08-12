@@ -11,17 +11,17 @@ function f_igosja_generator_team_to_statistic()
                    `game_guest_team_id`,
                    `game_home_national_id`,
                    `game_home_team_id`,
-                   `shedule_season_id`,
-                   `shedule_stage_id`,
-                   `shedule_tournamenttype_id`
+                   `schedule_season_id`,
+                   `schedule_stage_id`,
+                   `schedule_tournamenttype_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             LEFT JOIN `championship`
             ON (`game_home_team_id`=`championship_team_id`
-            AND `shedule_season_id`=`championship_season_id`)
+            AND `schedule_season_id`=`championship_season_id`)
             WHERE `game_played`=0
-            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -35,9 +35,9 @@ function f_igosja_generator_team_to_statistic()
         $guest_team_id      = $game['game_guest_team_id'];
         $home_national_id   = $game['game_home_national_id'];
         $home_team_id       = $game['game_home_team_id'];
-        $season_id          = $game['shedule_season_id'];
-        $stage_id           = $game['shedule_stage_id'];
-        $tournamenttype_id  = $game['shedule_tournamenttype_id'];
+        $season_id          = $game['schedule_season_id'];
+        $stage_id           = $game['schedule_stage_id'];
+        $tournamenttype_id  = $game['schedule_tournamenttype_id'];
 
         if (!$country_id)
         {

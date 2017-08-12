@@ -3,7 +3,7 @@
  * @var $invite_send_array array
  * @var $myteam_array array
  * @var $num_get integer
- * @var $shedule_array array
+ * @var $schedule_array array
  * @var $selected_date integer
  * @var $team_array array
  */
@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-<?php if ($shedule_array) { ?>
+<?php if ($schedule_array) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong">
             Ближайшие дни товарищеских матчей:
@@ -46,11 +46,11 @@
                     <th class="col-20">День</th>
                     <th>Статус</th>
                 </tr>
-                <?php foreach ($shedule_array as $item) { ?>
-                    <tr <?php if ($num_get == $item['shedule_id']) { ?>class="info"<?php } ?>>
+                <?php foreach ($schedule_array as $item) { ?>
+                    <tr <?php if ($num_get == $item['schedule_id']) { ?>class="info"<?php } ?>>
                         <td class="text-center">
-                            <a href="friendly.php?num=<?= $item['shedule_id']; ?>">
-                                <?= f_igosja_ufu_date_time($item['shedule_date']); ?>
+                            <a href="friendly.php?num=<?= $item['schedule_id']; ?>">
+                                <?= f_igosja_ufu_date_time($item['schedule_date']); ?>
                             </a>
                         </td>
                         <td><?= $item['text']; ?></td>
@@ -181,7 +181,7 @@
         </div>
     </div>
 <?php } ?>
-<?php if ($shedule_array && $team_array) { ?>
+<?php if ($schedule_array && $team_array) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong">
             Отправить приглашение:

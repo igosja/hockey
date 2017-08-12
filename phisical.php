@@ -73,28 +73,28 @@ foreach ($phisical_sql as $item)
     $phisical_array[$item['phisical_id']] = $item['phisical_value'];
 }
 
-$sql = "SELECT `shedule_date`,
-               `shedule_id`
-        FROM `shedule`
-        WHERE `shedule_date`>UNIX_TIMESTAMP()
-        AND `shedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
-        ORDER BY `shedule_id` ASC";
-$shedule_sql = f_igosja_mysqli_query($sql);
+$sql = "SELECT `schedule_date`,
+               `schedule_id`
+        FROM `schedule`
+        WHERE `schedule_date`>UNIX_TIMESTAMP()
+        AND `schedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
+        ORDER BY `schedule_id` ASC";
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-$count_shedule = $shedule_sql->num_rows;
-$shedule_array = $shedule_sql->fetch_all(1);
+$count_schedule = $schedule_sql->num_rows;
+$schedule_array = $schedule_sql->fetch_all(1);
 
-if ($count_shedule)
+if ($count_schedule)
 {
-    $shedule_id = $shedule_array[0]['shedule_id'];
+    $schedule_id = $schedule_array[0]['schedule_id'];
 }
 else
 {
-    $shedule_id = 0;
+    $schedule_id = 0;
 }
 
 $sql = "SELECT `phisicalchange_player_id`,
-               `phisicalchange_shedule_id`
+               `phisicalchange_schedule_id`
         FROM `phisicalchange`
         WHERE `phisicalchange_team_id`=$num_get
         ORDER BY `phisicalchange_id` ASC";
@@ -106,7 +106,7 @@ $change_array = array();
 
 foreach ($phisicalchange_array as $item)
 {
-    $change_array[$item['phisicalchange_player_id']][$item['phisicalchange_shedule_id']] = 1;
+    $change_array[$item['phisicalchange_player_id']][$item['phisicalchange_schedule_id']] = 1;
 }
 
 $sql = "SELECT `name_name`,
@@ -135,13 +135,13 @@ for ($i=0; $i<$count_player; $i++)
 {
     $player_phisical_array = array();
 
-    for ($j=0; $j<$count_shedule; $j++)
+    for ($j=0; $j<$count_schedule; $j++)
     {
         if (0 == $j)
         {
             $phisical_id = $player_array[$i]['phisical_id'];
 
-            if (isset($change_array[$player_array[$i]['player_id']][$shedule_array[$j]['shedule_id']]))
+            if (isset($change_array[$player_array[$i]['player_id']][$schedule_array[$j]['schedule_id']]))
             {
                 $class = 'phisical-bordered';
 
@@ -162,11 +162,11 @@ for ($i=0; $i<$count_player; $i++)
 
             $player_phisical_array[] = array(
                 'class'             => $class,
-                'id'                => $player_array[$i]['player_id'] . '-' . $shedule_array[$j]['shedule_id'],
+                'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
                 'phisical_id'       => $phisical_id,
                 'phisical_value'    => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
-                'shedule_id'        => $shedule_array[$j]['shedule_id'],
+                'schedule_id'        => $schedule_array[$j]['schedule_id'],
             );
         }
         else
@@ -178,7 +178,7 @@ for ($i=0; $i<$count_player; $i++)
                 $phisical_id = $phisical_id - 20;
             }
 
-            if (isset($change_array[$player_array[$i]['player_id']][$shedule_array[$j]['shedule_id']]))
+            if (isset($change_array[$player_array[$i]['player_id']][$schedule_array[$j]['schedule_id']]))
             {
                 $class = 'phisical-change-cell phisical-bordered';
 
@@ -203,11 +203,11 @@ for ($i=0; $i<$count_player; $i++)
 
             $player_phisical_array[] = array(
                 'class'             => $class,
-                'id'                => $player_array[$i]['player_id'] . '-' . $shedule_array[$j]['shedule_id'],
+                'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
                 'phisical_id'       => $phisical_id,
                 'phisical_value'    => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
-                'shedule_id'        => $shedule_array[$j]['shedule_id'],
+                'schedule_id'        => $schedule_array[$j]['schedule_id'],
             );
         }
     }

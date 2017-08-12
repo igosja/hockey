@@ -16,11 +16,11 @@ function f_igosja_generator_plus_minus()
                    `game_home_power_percent`,
                    `game_home_score`,
                    `game_id`,
-                   `shedule_tournamenttype_id`
+                   `schedule_tournamenttype_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
@@ -667,12 +667,12 @@ function f_igosja_generator_plus_minus()
             }
         }
 
-        if (TOURNAMENTTYPE_NATIONAL == $item['shedule_tournamenttype_id'])
+        if (TOURNAMENTTYPE_NATIONAL == $item['schedule_tournamenttype_id'])
         {
             $guest_competition  = 2.5;
             $home_competition   = 2.5;
         }
-        elseif (TOURNAMENTTYPE_LEAGUE == $item['shedule_tournamenttype_id'])
+        elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'])
         {
             $guest_competition  = 2;
             $home_competition   = 2;
@@ -688,7 +688,7 @@ function f_igosja_generator_plus_minus()
             $guest_mood = $guest_mood - 1;
             $home_mood  = $home_mood + 0.5;
         }
-        elseif (MOOD_REST == $item['shedule_tournamenttype_id'])
+        elseif (MOOD_REST == $item['schedule_tournamenttype_id'])
         {
             $guest_mood = $guest_mood + 0.5;
             $home_mood  = $home_mood - 1;
@@ -1138,18 +1138,18 @@ function f_igosja_generator_plus_minus()
     }
 
     $sql = "UPDATE `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             SET `game_guest_plus_minus`=FLOOR(`game_guest_plus_minus`)+ROUND(RAND())
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`";
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             SET `game_home_plus_minus`=FLOOR(`game_home_plus_minus`)+ROUND(RAND())
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`";
     f_igosja_mysqli_query($sql);
 
@@ -1159,9 +1159,9 @@ function f_igosja_generator_plus_minus()
                    `game_home_plus_minus`,
                    `game_home_team_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);

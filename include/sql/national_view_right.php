@@ -9,14 +9,14 @@ $sql = "SELECT `country_name`,
                IF(`game_guest_national_id`=$num_get, `game_home_score`, `game_guest_score`) AS `guest_score`,
                IF(`game_guest_national_id`=$num_get, 'Г', 'Д') AS `home_guest`,
                IF(`game_guest_national_id`=$num_get, `game_guest_score`, `game_home_score`) AS `home_score`,
-               `shedule_date`,
+               `schedule_date`,
                `national_id`,
                `tournamenttype_name`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `national`
         ON IF(`game_guest_national_id`=$num_get, `game_home_national_id`, `game_guest_national_id`)=`national_id`
         LEFT JOIN `country`
@@ -24,7 +24,7 @@ $sql = "SELECT `country_name`,
         WHERE (`game_guest_national_id`=$num_get
         OR `game_home_national_id`=$num_get)
         AND `game_played`=1
-        ORDER BY `shedule_date` DESC
+        ORDER BY `schedule_date` DESC
         LIMIT 3";
 $latest_sql = f_igosja_mysqli_query($sql);
 
@@ -36,14 +36,14 @@ $sql = "SELECT `country_name`,
                `game_id`,
                IF(`game_guest_national_id`=$num_get, `game_guest_tactic_1_id`, `game_home_tactic_1_id`) AS `game_tactic_id`,
                IF(`game_guest_national_id`=$num_get, 'Г', 'Д') AS `home_guest`,
-               `shedule_date`,
+               `schedule_date`,
                `national_id`,
                `tournamenttype_name`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `national`
         ON IF(`game_guest_national_id`=$num_get, `game_home_national_id`, `game_guest_national_id`)=`national_id`
         LEFT JOIN `country`
@@ -51,7 +51,7 @@ $sql = "SELECT `country_name`,
         WHERE (`game_guest_national_id`=$num_get
         OR `game_home_national_id`=$num_get)
         AND `game_played`=0
-        ORDER BY `shedule_date` ASC
+        ORDER BY `schedule_date` ASC
         LIMIT 2";
 $nearest_sql = f_igosja_mysqli_query($sql);
 

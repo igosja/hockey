@@ -36,30 +36,30 @@ if (0 == $country_sql->num_rows)
 
 $country_array = $country_sql->fetch_all(1);
 
-$sql = "SELECT `shedule_id`
-        FROM `shedule`
-        WHERE `shedule_date`<=UNIX_TIMESTAMP()
-        AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-        AND `shedule_season_id`=$igosja_season_id
-        ORDER BY `shedule_id` DESC
+$sql = "SELECT `schedule_id`
+        FROM `schedule`
+        WHERE `schedule_date`<=UNIX_TIMESTAMP()
+        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+        AND `schedule_season_id`=$igosja_season_id
+        ORDER BY `schedule_id` DESC
         LIMIT 1";
-$shedule_sql = f_igosja_mysqli_query($sql);
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-if (0 == $shedule_sql->num_rows)
+if (0 == $schedule_sql->num_rows)
 {
-    $sql = "SELECT `shedule_id`
-            FROM `shedule`
-            WHERE `shedule_date`>UNIX_TIMESTAMP()
-            AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-            AND `shedule_season_id`=$igosja_season_id
-            ORDER BY `shedule_id` ASC
+    $sql = "SELECT `schedule_id`
+            FROM `schedule`
+            WHERE `schedule_date`>UNIX_TIMESTAMP()
+            AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+            AND `schedule_season_id`=$igosja_season_id
+            ORDER BY `schedule_id` ASC
             LIMIT 1";
-    $shedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 }
 
-$shedule_array = $shedule_sql->fetch_all(1);
+$schedule_array = $schedule_sql->fetch_all(1);
 
-$shedule_id = $shedule_array[0]['shedule_id'];
+$schedule_id = $schedule_array[0]['schedule_id'];
 
 $sql = "SELECT `game_id`,
                `game_guest_score`,
@@ -86,7 +86,7 @@ $sql = "SELECT `game_id`,
         ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
         LEFT JOIN `championship`
         ON `game_guest_team_id`=`championship_team_id`
-        WHERE `game_shedule_id`=$shedule_id
+        WHERE `game_schedule_id`=$schedule_id
         AND `championship_season_id`=$igosja_season_id
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id

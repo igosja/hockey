@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $shedule_array array
+ * @var $schedule_array array
  */
 ?>
 <div class="row">
@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            Сегодня: <?= $shedule_array[0]['tournamenttype_name']; ?>, <?= $shedule_array[0]['stage_name']; ?>
+            Сегодня: <?= $schedule_array[0]['tournamenttype_name']; ?>, <?= $schedule_array[0]['stage_name']; ?>
         </p>
     </div>
 </div>

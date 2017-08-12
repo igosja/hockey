@@ -9,20 +9,20 @@ function f_igosja_generator_finance_stadium()
                    `game_home_team_id`,
                    `game_ticket`,
                    `game_visitor`,
-                   `shedule_stage_id`,
-                   `shedule_tournamenttype_id`,
+                   `schedule_stage_id`,
+                   `schedule_tournamenttype_id`,
                    `stadium_capacity`,
                    `stadium_maintenance`,
                    `team_id` AS `stadium_team_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             LEFT JOIN `stadium`
             ON `game_stadium_id`=`stadium_id`
             LEFT JOIN `team` AS `team_stadium`
             ON `stadium_id`=`team_stadium_id`
             WHERE `game_played`=0
-            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -36,7 +36,7 @@ function f_igosja_generator_finance_stadium()
         $outcome            = $game['stadium_maintenance'];
         $income             = $game['game_ticket'] * $game['game_visitor'];
 
-        if (TOURNAMENTTYPE_FRIENDLY == $game['shedule_tournamenttype_id'])
+        if (TOURNAMENTTYPE_FRIENDLY == $game['schedule_tournamenttype_id'])
         {
             $sql = "SELECT `team_finance`
                     FROM `team`
@@ -95,7 +95,7 @@ function f_igosja_generator_finance_stadium()
                     WHERE `team_id` IN ('$home_team_id', '$guest_team_id')";
             f_igosja_mysqli_query($sql);
         }
-        elseif (TOURNAMENTTYPE_LEAGUE == $game['shedule_tournamenttype_id'] && STAGE_FINAL == $game['shedule_stage_id'])
+        elseif (TOURNAMENTTYPE_LEAGUE == $game['schedule_tournamenttype_id'] && STAGE_FINAL == $game['schedule_stage_id'])
         {
             $sql = "SELECT `team_finance`
                     FROM `team`

@@ -20,18 +20,18 @@ $sql = "SELECT `game_id`,
                `lineup_power_real`,
                `lineup_score`,
                `position_name`,
-               `shedule_date`,
+               `schedule_date`,
                `stage_name`,
                `tournamenttype_name`
         FROM `lineup`
         LEFT JOIN `game`
         ON `lineup_game_id`=`game_id`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
+        ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `position`
         ON `lineup_position_id`=`position_id`
         LEFT JOIN `team` AS `home_team`
@@ -40,7 +40,7 @@ $sql = "SELECT `game_id`,
         ON `game_guest_team_id`=`guest_team`.`team_id`
         WHERE `lineup_player_id`=$num_get
         AND `game_played`=1
-        ORDER BY `shedule_id` DESC";
+        ORDER BY `schedule_id` DESC";
 $game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);

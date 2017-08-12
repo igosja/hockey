@@ -346,7 +346,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/shedule_change.php">Перевести дату</a>
+                                <a href="/admin/schedule_change.php">Перевести дату</a>
                             </li>
                         </ul>
                     </li>

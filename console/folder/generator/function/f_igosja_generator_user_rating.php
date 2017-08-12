@@ -26,16 +26,16 @@ function f_igosja_generator_user_rating()
                    `game_home_mood_id`,
                    `guest_team`.`team_user_id` AS `guest_user_id`,
                    `home_team`.`team_user_id` AS `home_user_id`,
-                   `shedule_season_id`
+                   `schedule_season_id`
             FROM `game`
             LEFT JOIN `team` AS `guest_team`
             ON `guest_team`.`team_id`=`game_guest_team_id`
             LEFT JOIN `team` AS `home_team`
             ON `home_team`.`team_id`=`game_home_team_id`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE `game_played`=0
-            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND (`guest_team`.`team_user_id`!=0
             OR `home_team`.`team_user_id`!=0)
             ORDER BY `game_id` ASC";
@@ -93,7 +93,7 @@ function f_igosja_generator_user_rating()
         $home_winover_equal     = 0;
         $home_winover_strong    = 0;
         $home_winover_weak      = 0;
-        $season_id              = $item['shedule_season_id'];
+        $season_id              = $item['schedule_season_id'];
 
         if ($item['game_guest_auto'])
         {

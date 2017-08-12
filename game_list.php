@@ -7,25 +7,25 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `shedule_date`,
-               `shedule_season_id`,
+$sql = "SELECT `schedule_date`,
+               `schedule_season_id`,
                `stage_name`,
                `tournamenttype_name`
-        FROM `shedule`
+        FROM `schedule`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
-        WHERE `shedule_id`=$num_get
+        ON `schedule_stage_id`=`stage_id`
+        WHERE `schedule_id`=$num_get
         LIMIT 1";
-$shedule_sql = f_igosja_mysqli_query($sql);
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-if (0 == $shedule_sql->num_rows)
+if (0 == $schedule_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$shedule_array = $shedule_sql->fetch_all(1);
+$schedule_array = $schedule_sql->fetch_all(1);
 
 $sql = "SELECT `game_id`,
                `game_guest_auto`,
@@ -42,8 +42,8 @@ $sql = "SELECT `game_id`,
                `home_team`.`team_name` AS `home_team_name`,
                `game_played`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `team` AS `guest_team`
         ON `game_guest_team_id`=`guest_team`.`team_id`
         LEFT JOIN `stadium` AS `guest_stadium`
@@ -60,14 +60,14 @@ $sql = "SELECT `game_id`,
         ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
         LEFT JOIN `country` AS `home_country`
         ON `home_city`.`city_country_id`=`home_country`.`country_id`
-        WHERE `shedule_id`=$num_get
+        WHERE `schedule_id`=$num_get
         ORDER BY `game_id`ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);
 
-$seo_title          = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . '. Список матчей игрового дня';
-$seo_description    = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . '. Список матчей игрового дня на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = f_igosja_ufu_date($shedule_array[0]['shedule_date']) . ' список матчей игрового дня';
+$seo_title          = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . '. Список матчей игрового дня';
+$seo_description    = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . '. Список матчей игрового дня на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . ' список матчей игрового дня';
 
 include(__DIR__ . '/view/layout/main.php');

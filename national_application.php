@@ -36,16 +36,16 @@ if (0 == $chech_array[0]['check'])
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `shedule_nationalvotestep_id`
-        FROM `shedule`
-        WHERE `shedule_date`>UNIX_TIMESTAMP()
-        ORDER BY `shedule_id` ASC
+$sql = "SELECT `schedule_nationalvotestep_id`
+        FROM `schedule`
+        WHERE `schedule_date`>UNIX_TIMESTAMP()
+        ORDER BY `schedule_id` ASC
         LIMIT 1";
 $check_sql = f_igosja_mysqli_query($sql);
 
 $chech_array = $check_sql->fetch_all(1);
 
-if (!in_array($chech_array[0]['shedule_nationalvotestep_id'], array(0, NATIONALVOTESTEP_MAIN_APPLICATION)))
+if (!in_array($chech_array[0]['schedule_nationalvotestep_id'], array(0, NATIONALVOTESTEP_MAIN_APPLICATION)))
 {
     redirect('/wrong_page.php');
 }

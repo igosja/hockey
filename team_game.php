@@ -38,18 +38,18 @@ $sql = "SELECT `city_name`,
                        ROUND(`game_guest_power`/`game_home_power`*100)
                    )
                ) AS `power_percent`,
-               `shedule_date`,
+               `schedule_date`,
                `stage_name`,
                `opponent`.`team_id` AS `team_id`,
                `opponent`.`team_name` AS `team_name`,
                `tournamenttype_name`
         FROM `game`
-        LEFT JOIN `shedule`
-        ON `game_shedule_id`=`shedule_id`
+        LEFT JOIN `schedule`
+        ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
-        ON `shedule_tournamenttype_id`=`tournamenttype_id`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
-        ON `shedule_stage_id`=`stage_id`
+        ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `team` AS `opponent`
         ON IF(`game_guest_team_id`=$num_get, `game_home_team_id`, `game_guest_team_id`)=`opponent`.`team_id`
         LEFT JOIN `team` AS `my_team`
@@ -62,8 +62,8 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE (`game_guest_team_id`=$num_get
         OR `game_home_team_id`=$num_get)
-        AND `shedule_season_id`=$igosja_season_id
-        ORDER BY `shedule_id` ASC";
+        AND `schedule_season_id`=$igosja_season_id
+        ORDER BY `schedule_id` ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 
 $game_array = $game_sql->fetch_all(1);

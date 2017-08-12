@@ -10,10 +10,10 @@ function f_igosja_generator_phisical()
             ON `player_id`=`phisicalchange_player_id`
             LEFT JOIN `phisical`
             ON `player_phisical_id`=`phisical_id`
-            LEFT JOIN `shedule`
-            ON `phisicalchange_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `phisicalchange_schedule_id`=`schedule_id`
             SET `player_phisical_id`=`phisical_opposite`
-            WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()";
+            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`

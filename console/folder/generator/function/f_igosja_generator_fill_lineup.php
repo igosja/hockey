@@ -9,10 +9,10 @@ function f_igosja_generator_fill_lineup()
                    `game_guest_team_id`,
                    `game_home_team_id`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE `game_played`=0
-            AND FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
@@ -154,9 +154,9 @@ function f_igosja_generator_fill_lineup()
                                 FROM `lineup`
                                 LEFT JOIN `game`
                                 ON `lineup_game_id` = `game_id`
-                                LEFT JOIN `shedule`
-                                ON `game_shedule_id` = `shedule_id`
-                                WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+                                LEFT JOIN `schedule`
+                                ON `game_schedule_id` = `schedule_id`
+                                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                             ) AS `t`
                             ON `player_id`=`lineup_player_id`
                             WHERE `player_team_id`=$team_id
@@ -179,9 +179,9 @@ function f_igosja_generator_fill_lineup()
                                     FROM `lineup`
                                     LEFT JOIN `game`
                                     ON `lineup_game_id` = `game_id`
-                                    LEFT JOIN `shedule`
-                                    ON `game_shedule_id` = `shedule_id`
-                                    WHERE FROM_UNIXTIME(`shedule_date`, '%Y-%m-%d')=CURDATE()
+                                    LEFT JOIN `schedule`
+                                    ON `game_schedule_id` = `schedule_id`
+                                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                                 ) AS `t`
                                 ON `player_id`=`lineup_player_id`
                                 WHERE `player_team_id`=0

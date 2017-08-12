@@ -20,7 +20,7 @@
             </tr>
             <?php foreach ($game_array as $item) { ?>
                 <tr>
-                    <td class="text-right"><?= f_igosja_ufu_date($item['shedule_date']); ?></td>
+                    <td class="text-right"><?= f_igosja_ufu_date($item['schedule_date']); ?></td>
                     <td class="text-center">
                         <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
                             <?= $item['home_team_name']; ?>

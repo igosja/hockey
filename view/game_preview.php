@@ -36,7 +36,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= f_igosja_ufu_date_time($game_array[0]['shedule_date']); ?>,
+        <?= f_igosja_ufu_date_time($game_array[0]['schedule_date']); ?>,
         <?= $game_array[0]['tournamenttype_name']; ?>,
         <?= $game_array[0]['stage_name']; ?>
     </div>
@@ -78,7 +78,7 @@
             </tr>
             <?php foreach ($previous_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= f_igosja_ufu_date_time($item['shedule_date']); ?></td>
+                    <td class="text-center"><?= f_igosja_ufu_date_time($item['schedule_date']); ?></td>
                     <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
                     <td class="text-center"><?= $item['stage_name']; ?></td>
                     <td>

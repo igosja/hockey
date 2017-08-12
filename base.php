@@ -623,13 +623,13 @@ $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
         FROM `phisicalchange`
         WHERE `phisicalchange_team_id`=$num_get
         AND `phisicalchange_season_id`=$igosja_season_id
-        AND `phisicalchange_shedule_id`<=
+        AND `phisicalchange_schedule_id`<=
         (
-            SELECT `shedule_id`
-            FROM `shedule`
-            WHERE `shedule_date`<UNIX_TIMESTAMP()
-            AND `shedule_season_id`=$igosja_season_id
-            ORDER BY `shedule_date` DESC
+            SELECT `schedule_id`
+            FROM `schedule`
+            WHERE `schedule_date`<UNIX_TIMESTAMP()
+            AND `schedule_season_id`=$igosja_season_id
+            ORDER BY `schedule_date` DESC
             LIMIT 1
         )";
 $phisical_used_sql = f_igosja_mysqli_query($sql);
@@ -642,13 +642,13 @@ $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
         FROM `phisicalchange`
         WHERE `phisicalchange_team_id`=$num_get
         AND `phisicalchange_season_id`=$igosja_season_id
-        AND `phisicalchange_shedule_id`>
+        AND `phisicalchange_schedule_id`>
         (
-            SELECT `shedule_id`
-            FROM `shedule`
-            WHERE `shedule_date`<UNIX_TIMESTAMP()
-            AND `shedule_season_id`=$igosja_season_id
-            ORDER BY `shedule_date` DESC
+            SELECT `schedule_id`
+            FROM `schedule`
+            WHERE `schedule_date`<UNIX_TIMESTAMP()
+            AND `schedule_season_id`=$igosja_season_id
+            ORDER BY `schedule_date` DESC
             LIMIT 1
         )";
 $phisical_plan_sql = f_igosja_mysqli_query($sql);

@@ -22,38 +22,38 @@ $selected_game = false;
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    $sql = "SELECT `shedule_date`,
-                   `shedule_id`
-            FROM `shedule`
-            WHERE `shedule_date`>UNIX_TIMESTAMP()
-            AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
-            ORDER BY `shedule_date` ASC
+    $sql = "SELECT `schedule_date`,
+                   `schedule_id`
+            FROM `schedule`
+            WHERE `schedule_date`>UNIX_TIMESTAMP()
+            AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
+            ORDER BY `schedule_date` ASC
             LIMIT 1";
-    $shedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 
-    if (0 == $shedule_sql->num_rows)
+    if (0 == $schedule_sql->num_rows)
     {
         $num_get = 0;
     }
     else
     {
-        $shedule_array = $shedule_sql->fetch_all(1);
+        $schedule_array = $schedule_sql->fetch_all(1);
 
-        $num_get        = $shedule_array[0]['shedule_id'];
-        $selected_date  = $shedule_array[0]['shedule_date'];
+        $num_get        = $schedule_array[0]['schedule_id'];
+        $selected_date  = $schedule_array[0]['schedule_date'];
     }
 }
 else
 {
-    $sql = "SELECT `shedule_date`
-            FROM `shedule`
-            WHERE `shedule_id`=$num_get
+    $sql = "SELECT `schedule_date`
+            FROM `schedule`
+            WHERE `schedule_id`=$num_get
             LIMIT 1";
-    $shedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 
-    $shedule_array = $shedule_sql->fetch_all(1);
+    $schedule_array = $schedule_sql->fetch_all(1);
 
-    $selected_date = $shedule_array[0]['shedule_date'];
+    $selected_date = $schedule_array[0]['schedule_date'];
 }
 
 if ($team_get = (int) f_igosja_request_get('team_id'))
@@ -78,7 +78,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     $sql = "SELECT COUNT(`game_id`) AS `count`
             FROM `game`
-            WHERE `game_shedule_id`=$num_get
+            WHERE `game_schedule_id`=$num_get
             AND (`game_home_team_id`=$team_get
             OR `game_guest_team_id`=$team_get)";
     $check_sql = f_igosja_mysqli_query($sql);
@@ -95,7 +95,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     $sql = "SELECT COUNT(`game_id`) AS `count`
             FROM `game`
-            WHERE `game_shedule_id`=$num_get
+            WHERE `game_schedule_id`=$num_get
             AND (`game_home_team_id`=$auth_team_id
             OR `game_guest_team_id`=$auth_team_id)";
     $check_sql = f_igosja_mysqli_query($sql);
@@ -112,14 +112,14 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     $sql = "SELECT COUNT(`game_id`) AS `count`
             FROM `game`
-            LEFT JOIN `shedule`
-            ON `game_shedule_id`=`shedule_id`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
             WHERE ((`game_home_team_id`=$auth_team_id
             AND `game_guest_team_id`=$team_get)
             OR (`game_home_team_id`=$team_get
             AND `game_guest_team_id`=$auth_team_id))
-            AND `shedule_season_id`=$igosja_season_id
-            AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY;
+            AND `schedule_season_id`=$igosja_season_id
+            AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY;
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(1);
@@ -159,21 +159,21 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
                     `friendlyinvite_guest_user_id`=$user_id,
                     `friendlyinvite_home_team_id`=$auth_team_id,
                     `friendlyinvite_home_user_id`=$auth_user_id,
-                    `friendlyinvite_shedule_id`=$num_get,
+                    `friendlyinvite_schedule_id`=$num_get,
                     `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_APPROVE;
         f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `game`
                 SET `game_guest_team_id`=$team_get,
                     `game_home_team_id`=$auth_team_id,
-                    `game_shedule_id`=$num_get,
+                    `game_schedule_id`=$num_get,
                     `game_stadium_id`=$stadium_id";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `friendlyinvite`
                 SET `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_REJECT . "
                 WHERE `friendlyinvite_friendlyinvitestatus_id`!=" . FRIENDLY_INVITE_STATUS_APPROVE . "
-                AND `friendlyinvite_shedule_id`=$num_get
+                AND `friendlyinvite_schedule_id`=$num_get
                 AND (`friendlyinvite_home_team_id`=$auth_team_id
                 OR `friendlyinvite_guest_team_id`=$auth_team_id)";
         f_igosja_mysqli_query($sql);
@@ -188,7 +188,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
         $sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
                 FROM `friendlyinvite`
                 WHERE `friendlyinvite_home_team_id`=$auth_team_id
-                AND `friendlyinvite_shedule_id`=$num_get
+                AND `friendlyinvite_schedule_id`=$num_get
                 AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW;
         $check_sql = f_igosja_mysqli_query($sql);
 
@@ -212,7 +212,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
                     `friendlyinvite_guest_user_id`=$user_id,
                     `friendlyinvite_home_team_id`=$auth_team_id,
                     `friendlyinvite_home_user_id`=$auth_user_id,
-                    `friendlyinvite_shedule_id`=$num_get";
+                    `friendlyinvite_schedule_id`=$num_get";
         f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
@@ -277,7 +277,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         $sql = "SELECT COUNT(`game_id`) AS `count`
                 FROM `game`
-                WHERE `game_shedule_id`=$num_get
+                WHERE `game_schedule_id`=$num_get
                 AND (`game_home_team_id`=$team_get
                 OR `game_guest_team_id`=$team_get)";
         $check_sql = f_igosja_mysqli_query($sql);
@@ -294,7 +294,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         $sql = "SELECT COUNT(`game_id`) AS `count`
                 FROM `game`
-                WHERE `game_shedule_id`=$num_get
+                WHERE `game_schedule_id`=$num_get
                 AND (`game_home_team_id`=$auth_team_id
                 OR `game_guest_team_id`=$auth_team_id)";
         $check_sql = f_igosja_mysqli_query($sql);
@@ -311,14 +311,14 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         $sql = "SELECT COUNT(`game_id`) AS `count`
                 FROM `game`
-                LEFT JOIN `shedule`
-                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
                 WHERE ((`game_home_team_id`=$auth_team_id
                 AND `game_guest_team_id`=$team_get)
                 OR (`game_home_team_id`=$team_get
                 AND `game_guest_team_id`=$auth_team_id))
-                AND `shedule_season_id`=$igosja_season_id
-                AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY;
+                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY;
         $check_sql = f_igosja_mysqli_query($sql);
 
         $check_array = $check_sql->fetch_all(1);
@@ -359,14 +359,14 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
         $sql = "INSERT INTO `game`
                 SET `game_guest_team_id`=$auth_team_id,
                     `game_home_team_id`=$team_get,
-                    `game_shedule_id`=$num_get,
+                    `game_schedule_id`=$num_get,
                     `game_stadium_id`=$stadium_id";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `friendlyinvite`
                 SET `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_REJECT . "
                 WHERE `friendlyinvite_friendlyinvitestatus_id`!=" . FRIENDLY_INVITE_STATUS_APPROVE . "
-                AND `friendlyinvite_shedule_id`=$num_get
+                AND `friendlyinvite_schedule_id`=$num_get
                 AND (`friendlyinvite_home_team_id`=$auth_team_id
                 OR `friendlyinvite_guest_team_id`=$auth_team_id)";
         f_igosja_mysqli_query($sql);
@@ -400,21 +400,21 @@ $myteam_sql = f_igosja_mysqli_query($sql);
 
 $myteam_array = $myteam_sql->fetch_all(1);
 
-$sql = "SELECT `shedule_date`,
-               `shedule_id`
-        FROM `shedule`
-        WHERE `shedule_date`>UNIX_TIMESTAMP()
-        AND `shedule_date`<UNIX_TIMESTAMP()+1209600
-        AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
-        ORDER BY `shedule_date` ASC";
-$shedule_sql = f_igosja_mysqli_query($sql);
+$sql = "SELECT `schedule_date`,
+               `schedule_id`
+        FROM `schedule`
+        WHERE `schedule_date`>UNIX_TIMESTAMP()
+        AND `schedule_date`<UNIX_TIMESTAMP()+1209600
+        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
+        ORDER BY `schedule_date` ASC";
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-$count_shedule = $shedule_sql->num_rows;
-$shedule_array = $shedule_sql->fetch_all(1);
+$count_schedule = $schedule_sql->num_rows;
+$schedule_array = $schedule_sql->fetch_all(1);
 
-for ($i=0; $i<$count_shedule; $i++)
+for ($i=0; $i<$count_schedule; $i++)
 {
-    $shedule_id = $shedule_array[$i]['shedule_id'];
+    $schedule_id = $schedule_array[$i]['schedule_id'];
 
     $sql = "SELECT `city_id`,
                    `city_name`,
@@ -431,7 +431,7 @@ for ($i=0; $i<$count_shedule; $i++)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            WHERE `game_shedule_id`=$shedule_id
+            WHERE `game_schedule_id`=$schedule_id
             AND (`game_home_team_id`=$auth_team_id
             OR `game_guest_team_id`=$auth_team_id)";
     $check_game_sql = f_igosja_mysqli_query($sql);
@@ -440,7 +440,7 @@ for ($i=0; $i<$count_shedule; $i++)
     {
         $check_game_array = $check_game_sql->fetch_all(1);
 
-        $shedule_array[$i]['text'] =
+        $schedule_array[$i]['text'] =
             'Играем с
              <img
                  alt="'. $check_game_array[0]['country_name'] . '"
@@ -451,7 +451,7 @@ for ($i=0; $i<$count_shedule; $i++)
                  '. $check_game_array[0]['team_name'] . ' ('. $check_game_array[0]['city_name'] . ')
              </a>';
 
-        if ($num_get == $shedule_id)
+        if ($num_get == $schedule_id)
         {
             $selected_game = true;
         }
@@ -460,7 +460,7 @@ for ($i=0; $i<$count_shedule; $i++)
     {
         $sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
                 FROM `friendlyinvite`
-                WHERE `friendlyinvite_shedule_id`=$num_get
+                WHERE `friendlyinvite_schedule_id`=$num_get
                 AND `friendlyinvite_guest_team_id`=$auth_team_id
                 AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW;
         $check_recieve_sql = f_igosja_mysqli_query($sql);
@@ -469,19 +469,19 @@ for ($i=0; $i<$count_shedule; $i++)
 
         if ($check_recieve_array[0]['count'])
         {
-            $shedule_array[$i]['text'] = 'У вас ' . $check_recieve_array[0]['count'] . ' неотвеченных ' . f_igosja_count_case($check_recieve_array[0]['count'], 'приглашение', 'приглашения', 'приглашений');
+            $schedule_array[$i]['text'] = 'У вас ' . $check_recieve_array[0]['count'] . ' неотвеченных ' . f_igosja_count_case($check_recieve_array[0]['count'], 'приглашение', 'приглашения', 'приглашений');
         }
     }
 
-    if (!isset($shedule_array[$i]['text']))
+    if (!isset($schedule_array[$i]['text']))
     {
-        $shedule_array[$i]['text'] = 'Нет приглашений';
+        $schedule_array[$i]['text'] = 'Нет приглашений';
     }
 }
 
 $sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
         FROM `friendlyinvite`
-        WHERE `friendlyinvite_shedule_id`=$num_get
+        WHERE `friendlyinvite_schedule_id`=$num_get
         AND `friendlyinvite_guest_team_id`=$auth_team_id
         AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_APPROVE;
 $check_recieve_sql = f_igosja_mysqli_query($sql);
@@ -515,7 +515,7 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         LEFT JOIN `friendlyinvitestatus`
         ON `friendlyinvite_friendlyinvitestatus_id`=`friendlyinvitestatus_id`
-        WHERE `friendlyinvite_shedule_id`=$num_get
+        WHERE `friendlyinvite_schedule_id`=$num_get
         AND `friendlyinvite_guest_team_id`=$auth_team_id
         ORDER BY `friendlyinvite_id` ASC";
 $invite_recieve_sql = f_igosja_mysqli_query($sql);
@@ -540,7 +540,7 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         LEFT JOIN `friendlyinvitestatus`
         ON `friendlyinvite_friendlyinvitestatus_id`=`friendlyinvitestatus_id`
-        WHERE `friendlyinvite_shedule_id`=$num_get
+        WHERE `friendlyinvite_schedule_id`=$num_get
         AND `friendlyinvite_home_team_id`=$auth_team_id
         ORDER BY `friendlyinvite_id` ASC";
 $invite_send_sql = f_igosja_mysqli_query($sql);
@@ -578,19 +578,19 @@ if (!$selected_game)
                 SELECT `friendlyinvite_guest_team_id`
                 FROM `friendlyinvite`
                 WHERE `friendlyinvite_home_team_id`=$auth_team_id
-                AND `friendlyinvite_shedule_id`=$num_get
+                AND `friendlyinvite_schedule_id`=$num_get
                 AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW . "
             )
             AND `team_id` NOT IN
             (
                 SELECT IF(`game_home_team_id`=$auth_team_id, `game_guest_team_id`, `game_home_team_id`)
                 FROM `game`
-                LEFT JOIN `shedule`
-                ON `game_shedule_id`=`shedule_id`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
                 WHERE (`game_home_team_id`=$auth_team_id
                 OR `game_guest_team_id`=$auth_team_id)
-                AND `shedule_season_id`=$igosja_season_id
-                AND `shedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
+                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
             )
             ORDER BY `team_power_vs` DESC";
     $team_sql = f_igosja_mysqli_query($sql);
