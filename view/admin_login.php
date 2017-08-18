@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <input class="form-control" placeholder="Пароль" name="data[password]" type="password"/>
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary btn-block">Вход</button>
+                        <button class="btn btn-lg btn-primary btn-block">Вход</button>
                     </fieldset>
                 </form>
             </div>

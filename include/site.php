@@ -21,10 +21,10 @@ if ('admin' != $chapter)
 {
     if (0 == $site_array[0]['site_status'] && 'closed' != $tpl)
     {
-        redirect('closed.php');
+        redirect('/closed.php');
     }
     elseif ($site_array[0]['site_status'] && 'closed' == $tpl)
     {
-        redirect('index.php');
+        redirect('/');
     }
 }

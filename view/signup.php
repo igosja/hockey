@@ -35,8 +35,6 @@
                         class="form-control"
                         id="signup-login"
                         name="data[login]"
-                        required
-                        type="text"
                     />
                 </div>
                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center signup-login-error notification-error"></div>
@@ -50,7 +48,6 @@
                         class="form-control <?php if (isset($data['error']['password'])) { ?>has-error<?php } ?>"
                         id="signup-password"
                         name="data[password]"
-                        required
                         type="password"
                     />
                 </div>
@@ -76,7 +73,6 @@
                     class="form-control"
                     id="signup-email"
                     name="data[email]"
-                    required
                     type="email"
                 />
             </div>
@@ -85,7 +81,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button type="submit" class="btn">
+            <button class="btn">
                 Начать карьеру менеджера
             </button>
         </div>

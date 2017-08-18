@@ -2,7 +2,9 @@
 
 include(__DIR__ . '/include/include.php');
 
-$code = f_igosja_request_get('code');
+if (!$code = f_igosja_request_get('code')) {
+    redirect('/');
+}
 
 $sql = "SELECT `user_id`
         FROM `user`
@@ -18,11 +20,11 @@ $prepare->close();
 
 if (!$user_sql->num_rows)
 {
-    redirect('index.php');
+    redirect('/');
 }
 
 $user_array = $user_sql->fetch_all(1);
 
 $_SESSION['user_id'] = $user_array[0]['user_id'];
 
-redirect('index.php');
+redirect('/');
