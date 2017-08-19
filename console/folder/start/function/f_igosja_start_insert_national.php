@@ -8,7 +8,7 @@ function f_igosja_start_insert_national()
     $sql = "SELECT `nationaltype_id`
             FROM `nationaltype`
             ORDER BY `nationaltype_id` ASC";
-    $nationaltype_sql = f_igosja_mysqli_query($sql);
+    $nationaltype_sql = f_igosja_mysqli_query($sql, false);
 
     $nationaltype_array = $nationaltype_sql->fetch_all(1);
 
@@ -17,7 +17,7 @@ function f_igosja_start_insert_national()
             WHERE `city_country_id`!=0
             GROUP BY `city_country_id`
             ORDER BY `city_country_id` ASC";
-    $country_sql = f_igosja_mysqli_query($sql);
+    $country_sql = f_igosja_mysqli_query($sql, false);
 
     $country_array = $country_sql->fetch_all(1);
 
@@ -32,7 +32,7 @@ function f_igosja_start_insert_national()
             $sql = "INSERT INTO `national`
                     SET `national_country_id`=$country_id,
                         `national_nationaltype_id`=$nationaltype_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 }

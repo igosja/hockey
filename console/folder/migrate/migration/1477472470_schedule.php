@@ -11,3 +11,4 @@ $q[] = 'CREATE TABLE `schedule`
             `schedule_stage_id` INT(2) DEFAULT 0,
             `schedule_tournamenttype_id` INT(1) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `schedule_season_id` ON `schedule` (`schedule_season_id`);';

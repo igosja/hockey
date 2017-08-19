@@ -10,3 +10,11 @@ $q[] = 'CREATE TABLE `stadium`
             `stadium_maintenance` INT(6) DEFAULT 398,
             `stadium_name` VARCHAR(255) NOT NULL
         );';
+$q[] = "INSERT INTO `stadium`
+        SET `stadium_city_id`=0,
+            `stadium_name`='VHOL'";
+$q[] = "UPDATE `stadium`
+        SET `stadium_id`=0
+        WHERE `stadium_id`=1
+        LIMIT 1";
+$q[] = "ALTER TABLE `stadium` AUTO_INCREMENT=1";

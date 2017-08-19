@@ -14,6 +14,13 @@ $q[] = 'CREATE TABLE `country`
             `country_vice_id` INT(11) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `country_name` ON `country` (`country_name`);';
+$q[] = "INSERT INTO `country`
+        SET `country_name`='VHOL'";
+$q[] = "UPDATE `country`
+        SET `country_id`=0
+        WHERE `country_id`=1
+        LIMIT 1";
+$q[] = "ALTER TABLE `country` AUTO_INCREMENT=1";
 $q[] = "INSERT INTO `country` (`country_name`)
         VALUES ('Австралия'),
                ('Австрия'),

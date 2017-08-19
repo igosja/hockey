@@ -17,7 +17,7 @@ $sql = "SELECT `news_date`,
         ON `news_user_id`=`user_id`
         WHERE `news_id`=$num_get
         LIMIT 1";
-$news_sql = f_igosja_mysqli_query($sql);
+$news_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $news_sql->num_rows)
 {
@@ -30,7 +30,8 @@ if ($data = f_igosja_request_post('data'))
 {
     if (isset($auth_user_id) && isset($data['text']))
     {
-        $text = trim($data['text']);
+        $text = htmlspecialchars($data['text']);
+        $text = trim($text);
 
         if (!empty($text))
         {
@@ -52,7 +53,16 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-$sql = "SELECT `newscomment_date`,
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 20;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               `newscomment_date`,
                `newscomment_text`,
                `user_id`,
                `user_login`
@@ -60,10 +70,18 @@ $sql = "SELECT `newscomment_date`,
         LEFT JOIN `user`
         ON `newscomment_user_id`=`user_id`
         WHERE `newscomment_news_id`=$num_get
-        ORDER BY `newscomment_id` ASC";
-$newscomment_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `newscomment_id` ASC
+        LIMIT $offset, $limit";
+$newscomment_sql = f_igosja_mysqli_query($sql, false);
 
 $newscomment_array = $newscomment_sql->fetch_all(1);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql, false);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
 
 $seo_title          = 'Новости сайта. Комментарии';
 $seo_description    = 'Новости и комментарии на сайте Вирутальной Хоккейной Лиги.';

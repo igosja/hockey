@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_user_id array
  * @var $birth_array array
  * @var $forum_array array
  * @var $news_array array
@@ -8,35 +9,35 @@
  */
 ?>
 <div class="row">
-    <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1>Онлайн менеджер для истинных любителей хоккея!</h1>
+                <h1>Онлайн-менеджер для истинных любителей хоккея!</h1>
                 <p class="text-justify">
                     Наверняка каждый из нас мечтал почувствовать себя тренером или менеджером настоящего хоккейного клуба.
                     Увлекательный поиск талантливых игроков, постепенное развитие инфраструктуры,
                     выбор подходящей тактики на игру, регулярные матчи и, конечно же, победы, титулы и новые достижения!
                     Именно это ждёт Вас в нашем мире виртуального хоккея. Окунитесь в него и создайте клуб своей мечты!
                 </p>
-                <h4>Играть в наш хокейный онлайн менеджер может каждый!</h4>
+                <h4>Играть в наш хокейный онлайн-менеджер может каждый!</h4>
                 <p class="text-justify">
                     Наш проект открыт для всех!
-                    Чтобы начать играть, Вам достаточно просто пройти элементарную процедуру регистрации
-                    либо зайти под своим профилем в социальных сетях.
-                    <strong>“Виртуальная Хоккейная Лига”</strong> – это функциональный хоккейный онлайн менеджер,
+                    Чтобы начать играть, Вам достаточно просто пройти элементарную процедуру регистрации.
+<!--                    либо зайти под своим профилем в социальных сетях.-->
+                    <strong>“Виртуальная Хоккейная Лига”</strong> – это функциональный хоккейный онлайн-менеджер,
                     в котором Вы получите возможность пройти увлекательный путь развития своей команды
                     от низших дивизионов до побед в национальных чемпионатах и мировых кубках!
                 </p>
-                <p class="text-center">
-                    <a href="/signup.php">
-                        <button class="btn">
+                <?php if (!isset($auth_user_id)) { ?>
+                    <p class="text-center">
+                        <a class="btn" href="/signup.php">
                             Зарегистрироваться
-                        </button>
-                    </a>
-                </p>
+                        </a>
+                    </p>
+                <?php } ?>
                 <h4>Скачивать ничего не надо!</h4>
                 <p class="text-justify">
-                    Обращаем внимание, что наш хоккейный онлайн менеджер является браузерной игрой.
+                    Обращаем внимание, что наш хоккейный онлайн-менеджер является браузерной игрой.
                     Поэтому Вам не надо будет скачивать какие-либо клиентские программы,
                     тратить время на их утомительную установку и последующую настройку.
                     Для игры Вам необходим только доступ к интернету и несколько минут свободного времени.
@@ -45,12 +46,12 @@
                 <h4 class="center header">Вы обязательно станете чемпионом!</h4>
                 <p class="text-justify">
                     Хотим подчеркнуть, что для достижения успеха Вам не надо целыми сутками сидеть за компьютером.
-                    Чтобы поступательно развивать свой клуб, участвовать в трансферах и играть календарные матчи,
-                    Вам Вам достаточно иметь возможность хотя бы несколько раз в неделю посещать наш сайт.
+                    Чтобы постепенно развивать свой клуб, участвовать в трансферах и играть календарные матчи,
+                    Вам достаточно иметь возможность хотя бы несколько раз в неделю посещать наш сайт.
                 </p>
                 <h4 class="center header">Увлекательные хоккейные матчи и первые победы уже ждут Вас!</h4>
                 <p class="text-justify">
-                    Хоккейный онлайн менеджер <strong>“Виртуальная Хоккейная Лига”</strong> – это больше, чем обычная игра.
+                    Хоккейный онлайн-менеджер <strong>“Виртуальная Хоккейная Лига”</strong> – это больше, чем обычная игра.
                     Это сообщество людей, которые объединены страстью и любовью к хоккею.
                     Здесь Вы обязательно сможете найти интересных людей, заведете новые знакомства
                     и просто отлично проведетё время в непринужденной и максимально комфортной атмосфере.
@@ -194,40 +195,39 @@
             </div>
         <?php } ?>
     </div>
-    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="row margin">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
-                        Форум
-                    </div>
-                </div>
-                <?php foreach ($forum_array as $item) { ?>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>">
-                                <?= $item['forumtheme_name']; ?>
-                            </a>
+                <fieldset class="text-size-3">
+                    <legend class="text-center strong">Форум</legend>
+                    <?php foreach ($forum_array as $item) { ?>
+                        <div class="row margin-top-small">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>">
+                                    <?= $item['forumtheme_name']; ?>
+                                </a>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <?= $item['forumgroup_name']; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= $item['forumgroup_name']; ?>
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </fieldset>
             </div>
         </div>
         <div class="row margin">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <a href="//www.liveinternet.ru/click" target="_blank">
-                    <img
-                        alt="LiveInternet counter"
-                        border="0"
-                        height="120"
-                        src="//counter.yadro.ru/logo?27.1"
-                        title="LiveInternet: показано количество просмотров и посетителей"
-                        width="88"
-                    />
-                </a>
+                <fieldset>
+                    <legend class="text-center strong">Счётчик</legend>
+                    <a href="//www.liveinternet.ru/click" target="_blank">
+                        <img
+                            alt="LiveInternet counter"
+                            height="120"
+                            src="//counter.yadro.ru/logo?29.19"
+                            width="88"
+                        />
+                    </a>
+                </fieldset>
             </div>
         </div>
     </div>

@@ -2,7 +2,16 @@
 
 include(__DIR__ . '/include/include.php');
 
-$sql = "SELECT IF(`count_newscomment`, `count_newscomment`, 0) AS `count_newscomment`,
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 10;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               IF(`count_newscomment`, `count_newscomment`, 0) AS `count_newscomment`,
                `news_date`,
                `news_id`,
                `news_text`,
@@ -21,10 +30,18 @@ $sql = "SELECT IF(`count_newscomment`, `count_newscomment`, 0) AS `count_newscom
         ) AS `t1`
         ON `news_id`=`newscomment_news_id`
         AND `news_country_id`=0
-        ORDER BY `news_id` DESC";
-$news_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `news_id` DESC
+        LIMIT $offset, $limit";
+$news_sql = f_igosja_mysqli_query($sql, false);
 
 $news_array = $news_sql->fetch_all(1);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql, false);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
 
 $seo_title          = 'Новости сайта';
 $seo_description    = 'Новости на сайте Вирутальной Хоккейной Лиги.';

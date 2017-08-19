@@ -38,3 +38,11 @@ $q[] = 'CREATE TABLE `team`
             `team_vote_u21` INT(1) DEFAULT 2
         );';
 $q[] = 'CREATE INDEX `team_user_id` ON `team` (`team_user_id`);';
+$q[] = "INSERT INTO `team`
+        SET `team_stadium_id`=0,
+            `team_name`='Free team'";
+$q[] = "UPDATE `team`
+        SET `team_id`=0
+        WHERE `team_id`=1
+        LIMIT 1";
+$q[] = "ALTER TABLE `team` AUTO_INCREMENT=1";

@@ -4,8 +4,7 @@ body {
 
 .no-underline:active,
 .no-underline:focus,
-.no-underline:hover
-{
+.no-underline:hover {
     text-decoration: none;
 }
 

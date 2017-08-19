@@ -351,7 +351,7 @@ function f_igosja_start_insert_name()
                 FROM `country`
                 WHERE `country_name`='$country_name'
                 LIMIT 1";
-        $country_sql = f_igosja_mysqli_query($sql);
+        $country_sql = f_igosja_mysqli_query($sql, false);
 
         $country_array = $country_sql->fetch_all(1);
 
@@ -363,13 +363,13 @@ function f_igosja_start_insert_name()
                     FROM `name`
                     WHERE `name_name`='$item'
                     LIMIT 1";
-            $name_sql = f_igosja_mysqli_query($sql);
+            $name_sql = f_igosja_mysqli_query($sql, false);
 
             if (0 == $name_sql->num_rows)
             {
                 $sql = "INSERT INTO `name`
                         SET `name_name`='$item'";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
 
                 $name_id = $mysqli->insert_id;
             }
@@ -386,5 +386,5 @@ function f_igosja_start_insert_name()
 
     $sql = "INSERT INTO `namecountry` (`namecountry_country_id`, `namecountry_name_id`)
             VALUES " . implode(', ', $name_id_array) . ";";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

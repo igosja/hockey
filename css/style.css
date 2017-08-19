@@ -780,10 +780,23 @@ input[type="checkbox"] {
     color: #b52b27;
 }
 
+.font-grey,
+.font-grey a {
+    color: #afafaf;
+}
+
 .hidden {
     display: none;
 }
 
 .del {
     text-decoration: line-through;
+}
+
+fieldset {
+    border: 1px solid #0f103d;
+}
+
+fieldset legend {
+    font-size: 13px;
 }

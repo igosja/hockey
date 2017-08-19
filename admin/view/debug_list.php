@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $debug_array array
+ * @var $sort integer
  */
 ?>
 <div class="row">
@@ -22,8 +23,26 @@
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th>Запрос</th>
-                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Время</th>
+                    <th>
+                        <a href="?sort=<?php if (1 == $sort) { ?>2<?php } else { ?>1<?php } ?>">
+                            Запрос
+                            <?php if (1 == $sort) { ?>
+                                <i class="fa fa-sort-alpha-asc"></i>
+                            <?php } elseif (2 == $sort) { ?>
+                                <i class="fa fa-sort-alpha-desc"></i>
+                            <?php } ?>
+                        </a>
+                    </th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <a href="?sort=<?php if (3 == $sort) { ?>4<?php } else { ?>3<?php } ?>">
+                            Время
+                            <?php if (3 == $sort) { ?>
+                                <i class="fa fa-sort-numeric-asc"></i>
+                            <?php } elseif (4 == $sort) { ?>
+                                <i class="fa fa-sort-numeric-desc"></i>
+                            <?php } ?>
+                        </a>
+                    </th>
                     <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                 </tr>
                 <tr id="filters">

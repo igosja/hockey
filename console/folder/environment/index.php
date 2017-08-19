@@ -1,10 +1,9 @@
 <?php
 
 /**
+ * @var $argv array
  * @var $q array
  */
-
-set_time_limit(0);
 
 if (isset($argv[1]))
 {

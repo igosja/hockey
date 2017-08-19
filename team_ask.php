@@ -127,6 +127,7 @@ $sql = "SELECT `base_slot_max`,
         ) AS `t2`
         ON `conference_team_id`=`team_id`
         WHERE `team_user_id`=0
+        AND `team_id`!=0
         ORDER BY `team_power_vs` DESC, `team_id` ASC";
 $team_sql = f_igosja_mysqli_query($sql, false);
 

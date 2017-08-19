@@ -1,10 +1,10 @@
 <?php
 
 /**
+ * @var $argv array
+ * @var $mysqli mysqli
  * @var $q array
  */
-
-set_time_limit(0);
 
 include(__DIR__ . '/../../../include/database.php');
 

@@ -18,12 +18,12 @@ function f_igosja_start_insert_conference()
                 WHERE `championship_season_id`=1
             )
             ORDER BY `team_id` ASC";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `conference`
             SET `conference_place`=`conference_id`
             WHERE `conference_place`=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `schedule_id`
             FROM `schedule`
@@ -31,7 +31,7 @@ function f_igosja_start_insert_conference()
             AND `schedule_stage_id`=" . STAGE_1_TOUR . "
             AND `schedule_season_id`=1
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
     $schedule_array = $schedule_sql->fetch_all(1);
 
@@ -46,7 +46,7 @@ function f_igosja_start_insert_conference()
             ON `team_stadium_id`=`stadium_id`
             WHERE `conference_season_id`=1
             ORDER BY RAND()";
-    $team_sql = f_igosja_mysqli_query($sql);
+    $team_sql = f_igosja_mysqli_query($sql, false);
 
     $count_team = $team_sql->num_rows;
     $team_array = $team_sql->fetch_all(1);
@@ -56,12 +56,12 @@ function f_igosja_start_insert_conference()
         $team_1_id      = $team_array[$i]['conference_team_id'];
         $team_2_id      = $team_array[$i+1]['conference_team_id'];
         $stadium_id     = $team_array[$i]['stadium_id'];
-        $game_array[]   = "('$team_1_id', '$team_2_id', '$schedule_id', '$stadium_id')";
+        $game_array[]   = '(' . $team_1_id . ',' . $team_2_id . ',' . $schedule_id . ',' . $stadium_id . ')';
     }
 
     $game_array = implode(', ', $game_array);
 
     $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
             VALUES $game_array;";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

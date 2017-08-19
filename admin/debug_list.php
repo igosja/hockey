@@ -9,13 +9,36 @@
 include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
+$sort = f_igosja_request_get('sort');
+
+if (1 == $sort)
+{
+    $order = '`debug_sql` ASC';
+}
+elseif (2 == $sort)
+{
+    $order = '`debug_sql` DESC';
+}
+elseif (3 == $sort)
+{
+    $order = '`debug_time` ASC';
+}
+elseif (4 == $sort)
+{
+    $order = '`debug_time` DESC';
+}
+else
+{
+    $order = '`debug_id` ASC';
+}
+
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `debug_id`,
                `debug_sql`,
                `debug_time`
         FROM `debug`
         WHERE $sql_filter
-        ORDER BY `debug_id` ASC
+        ORDER BY $order
         LIMIT $offset, $limit";
 $debug_sql = f_igosja_mysqli_query($sql, false);
 

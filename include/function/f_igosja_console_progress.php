@@ -9,6 +9,6 @@ function f_igosja_console_progress($current, $total)
 {
     $percent = round($current / $total * 100, 1);
 
-    print "\r" . $percent . '%';
+    print "\r" . $percent . '% ';
     flush();
 }

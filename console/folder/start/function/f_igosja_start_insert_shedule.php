@@ -66,5 +66,5 @@ function f_igosja_start_insert_schedule()
 
     $sql = "INSERT INTO `schedule` (`schedule_date`, `schedule_season_id`, `schedule_stage_id`, `schedule_tournamenttype_id`)
             VALUES $schedule_insert_array;";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

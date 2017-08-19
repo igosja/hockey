@@ -26,7 +26,7 @@
                 <th class="hidden-xs">База</th>
                 <th class="hidden-xs">Стадион</th>
                 <th class="hidden-xs">Финансы</th>
-                <th class="hidden-xs" title="Рейтинг силы с учетом спецвозможностей">Vs</th>
+                <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
@@ -71,7 +71,7 @@
                 <th class="hidden-xs">База</th>
                 <th class="hidden-xs">Стадион</th>
                 <th class="hidden-xs">Финансы</th>
-                <th class="hidden-xs" title="Рейтинг силы с учетом спецвозможностей">Vs</th>
+                <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
             </tr>
         </table>
     </div>

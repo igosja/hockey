@@ -13,7 +13,7 @@
         <?php include(__DIR__ . '/include/register_link.php'); ?>
     </div>
 </div>
-<form method="POST">
+<form id="signup-form" method="POST">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <p>

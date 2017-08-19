@@ -29,7 +29,8 @@ if ($data = f_igosja_request_post('data'))
 
     if (isset($data['login']))
     {
-        $login = trim($data['login']);
+        $login = htmlspecialchars($data['login']);
+        $login = trim($login);
     }
 
     if (!isset($login) || empty($login))
@@ -56,7 +57,8 @@ if ($data = f_igosja_request_post('data'))
 
     if (isset($data['email']))
     {
-        $email = trim($data['email']);
+        $email = htmlspecialchars($data['email']);
+        $email = trim($email);
     }
 
     if (!isset($email) || empty($email))
