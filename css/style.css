@@ -696,7 +696,8 @@ td.table-bordered-right {
 }
 
 .border-top {
-    border-top: #286090 dotted 1px;
+    border-top: #dddddd solid 1px;
+    padding: 5px 0;
 }
 
 ol, ul {

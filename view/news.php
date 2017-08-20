@@ -37,7 +37,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php foreach ($news_array as $item) { ?>
-            <div class="row margin-top border-top">
+            <div class="row border-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
                     <?= $item['news_title']; ?>
                 </div>

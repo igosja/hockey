@@ -60,7 +60,7 @@
         </div>
     </form>
     <?php foreach ($newscomment_array as $item) { ?>
-        <div class="row margin-top border-top">
+        <div class="row border-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
                 <a class="strong" href="/user_view.php?num=<?= $item['user_id']; ?>">
                     <?= $item['user_login']; ?>

@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php foreach ($message_array as $item) { ?>
-            <div class="row border-top margin-top">
+            <div class="row margin-top">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
                     <?= f_igosja_ufu_date_time($item['message_date']); ?>,
                     <a href="/user_view.php?num=<?= $item['user_id']; ?>">

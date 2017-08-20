@@ -9,7 +9,7 @@ include(__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id) && 2 == $auth_userrole_id)
 {
-    redirect('/admin');
+    redirect('/admin/');
 }
 
 if ($data = f_igosja_request_post('data'))
@@ -59,7 +59,7 @@ if ($data = f_igosja_request_post('data'))
 
     $_SESSION['user_id'] = $user_array[0]['user_id'];
 
-    redirect('/admin');
+    redirect('/admin/');
 }
 
 $seo_title          = 'Вход в административный раздел';

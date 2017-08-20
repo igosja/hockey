@@ -13,7 +13,7 @@ $sql = "SELECT `rule_date`,
         FROM `rule`
         WHERE `rule_id`=$num_get
         LIMIT 1";
-$rule_sql = f_igosja_mysqli_query($sql);
+$rule_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $rule_sql->num_rows)
 {
@@ -22,8 +22,8 @@ if (0 == $rule_sql->num_rows)
 
 $rule_array = $rule_sql->fetch_all(1);
 
-$seo_title          = 'Правила';
-$seo_description    = 'Правила на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'правила';
+$seo_title          = $rule_array[0]['rule_title'] . '. Правила';
+$seo_description    = $rule_array[0]['rule_title'] . '. Правила на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $rule_array[0]['rule_title'] . ' правила';
 
 include(__DIR__ . '/view/layout/main.php');

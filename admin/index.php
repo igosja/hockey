@@ -4,7 +4,8 @@ include(__DIR__ . '/../include/include.php');
 
 $sql = "SELECT COUNT(`team_id`) AS `count`
         FROM `team`
-        WHERE `team_user_id`=0";
+        WHERE `team_user_id`=0
+        AND `team_id`!=0";
 $freeteam_sql = f_igosja_mysqli_query($sql, false);
 
 $freeteam_array = $freeteam_sql->fetch_all(1);

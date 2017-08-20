@@ -20,7 +20,7 @@
             </div>
         </div>
         <?php foreach ($newscomment_array as $item) { ?>
-            <div class="row border-top margin-top">
+            <div class="row border-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                     <?= f_igosja_ufu_date_time($item['newscomment_date']); ?>,
                     <a href="/user_view.php?num=<?= $item['user_id']; ?>">

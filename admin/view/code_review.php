@@ -13,7 +13,7 @@
         <p>Проверить:</p>
         <ul>
             <li>Общий внешний вид страницы, наличие нужных элементов, дизайн (за основу берем ВСОЛ)</li>
-            <li>Корректрость html (https://validator.w3.org/)</li>
+            <li>Корректрость html (<a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>)</li>
             <li>Мобильная верстка</li>
             <li>Javascript-валидация и ajax, если это нужно</li>
             <li>PHPDoc</li>
