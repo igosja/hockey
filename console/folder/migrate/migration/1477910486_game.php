@@ -107,3 +107,4 @@ $q[] = 'CREATE TABLE `game`
             `game_stadium_id` INT(5) DEFAULT 0,
             `game_visitor` INT(5) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `game_schedule_id` ON `game` (`game_schedule_id`);';

@@ -18,7 +18,7 @@ $sql = "SELECT `schedule_date`,
         ON `schedule_stage_id`=`stage_id`
         WHERE `schedule_id`=$num_get
         LIMIT 1";
-$schedule_sql = f_igosja_mysqli_query($sql);
+$schedule_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $schedule_sql->num_rows)
 {
@@ -27,7 +27,16 @@ if (0 == $schedule_sql->num_rows)
 
 $schedule_array = $schedule_sql->fetch_all(1);
 
-$sql = "SELECT `game_id`,
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 50;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               `game_id`,
                `game_guest_auto`,
                `game_guest_score`,
                `game_home_auto`,
@@ -61,12 +70,20 @@ $sql = "SELECT `game_id`,
         LEFT JOIN `country` AS `home_country`
         ON `home_city`.`city_country_id`=`home_country`.`country_id`
         WHERE `schedule_id`=$num_get
-        ORDER BY `game_id`ASC";
-$game_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `game_id` ASC
+        LIMIT $offset, $limit";
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 $game_array = $game_sql->fetch_all(1);
 
-$seo_title          = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . '. Список матчей игрового дня';
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql, false);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
+
+$seo_title          = 'Список матчей игрового дня. ' . f_igosja_ufu_date($schedule_array[0]['schedule_date']);
 $seo_description    = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . '. Список матчей игрового дня на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = f_igosja_ufu_date($schedule_array[0]['schedule_date']) . ' список матчей игрового дня';
 

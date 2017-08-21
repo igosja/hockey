@@ -1,6 +1,27 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
+
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
+
+$season_array = $season_sql->fetch_all(1);
 
 $sql = "SELECT `schedule_date`,
                `schedule_id`,
@@ -11,14 +32,14 @@ $sql = "SELECT `schedule_date`,
         ON `schedule_tournamenttype_id`=`tournamenttype_id`
         LEFT JOIN `stage`
         ON `schedule_stage_id`=`stage_id`
-        WHERE `schedule_season_id`=$igosja_season_id
+        WHERE `schedule_season_id`=$season_id
         ORDER BY `schedule_id`ASC";
-$schedule_sql = f_igosja_mysqli_query($sql);
+$schedule_sql = f_igosja_mysqli_query($sql, false);
 
 $schedule_array = $schedule_sql->fetch_all(1);
 
-$seo_title          = 'Сезон ' . $igosja_season_id . '. Расписание';
+$seo_title          = 'Расписание. Сезон ' . $igosja_season_id;
 $seo_description    = 'Сезон ' . $igosja_season_id . '. Расписание на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'расписание';
+$seo_keywords       = 'расписание сезон ' . $igosja_season_id;
 
 include(__DIR__ . '/view/layout/main.php');

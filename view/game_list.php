@@ -1,7 +1,11 @@
 <?php
 /**
+ * @var $auth_team_id integer
+ * @var $count_page integer
  * @var $game_array array
+ * @var $num_get integer
  * @var $schedule_array array
+ * @var $total integer
  */
 ?>
 <div class="row">
@@ -16,15 +20,42 @@
         </p>
     </div>
 </div>
+<form method="GET">
+    <input type="hidden" name="num" value="<?= $num_get; ?>">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            Всего матчей: <?= $total; ?>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
+            <label for="page">Страница:</label>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <select class="form-control" name="page" id="page">
+                <?php for ($i=1; $i<=$count_page; $i++) { ?>
+                    <option
+                            value="<?= $i; ?>"
+                        <?php if ($page == $i) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $i; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive table-hover">
         <table class="table table-bordered">
             <?php foreach ($game_array as $item) { ?>
-                <tr>
+                <tr<?php if (isset($auth_team_id) && in_array($auth_team_id, array($item['home_team_id'], $item['guest_team_id']))) { ?> class="info"<?php } ?>>
                     <td class="col-47 text-right">
                         <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
                             <?= $item['home_team_name']; ?>
-                            (<?= $item['home_city_name']; ?>, <?= $item['home_country_name']; ?>)
+                            <span class="hidden-xs">
+                                (<?= $item['home_city_name']; ?>, <?= $item['home_country_name']; ?>)
+                            </span>
                         </a>
                         <?= f_igosja_game_auto($item['game_home_auto']); ?>
                     </td>
@@ -34,9 +65,11 @@
                         </a>
                     </td>
                     <td class="col-47">
-                        <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
+                        <a href="/team_view.php?num=<?= $item['guest_team_id']; ?>">
                             <?= $item['guest_team_name']; ?>
-                            (<?= $item['guest_city_name']; ?>, <?= $item['guest_country_name']; ?>)
+                            <span class="hidden-xs">
+                                (<?= $item['guest_city_name']; ?>, <?= $item['guest_country_name']; ?>)
+                            </span>
                         </a>
                         <?= f_igosja_game_auto($item['game_guest_auto']); ?>
                     </td>
