@@ -16,6 +16,16 @@ if (!$division_id = (int) f_igosja_request_get('division_id'))
     redirect('/wrong_page.php');
 }
 
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
 $sql = "SELECT `country_name`,
                `division_name`
         FROM `championship`
@@ -23,7 +33,7 @@ $sql = "SELECT `country_name`,
         ON `championship_country_id`=`country_id`
         LEFT JOIN `division`
         ON `championship_division_id`=`division_id`
-        WHERE `championship_season_id`=$igosja_season_id
+        WHERE `championship_season_id`=$season_id
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         LIMIT 1";
@@ -36,30 +46,130 @@ if (0 == $country_sql->num_rows)
 
 $country_array = $country_sql->fetch_all(1);
 
-$sql = "SELECT `schedule_id`
-        FROM `schedule`
-        WHERE `schedule_date`<=UNIX_TIMESTAMP()
-        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-        AND `schedule_season_id`=$igosja_season_id
-        ORDER BY `schedule_id` DESC
-        LIMIT 1";
-$schedule_sql = f_igosja_mysqli_query($sql);
+$sql = "SELECT `season_id`
+        FROM `championship`
+        LEFT JOIN `season`
+        ON `championship_season_id`=`season_id`
+        WHERE `championship_country_id`=$country_id
+        AND `championship_division_id`=$division_id
+        GROUP BY `championship_season_id`
+        ORDER BY `championship_season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
 
-if (0 == $schedule_sql->num_rows)
+$season_array = $season_sql->fetch_all(1);
+
+$sql = "SELECT `division_id`,
+               `division_name`
+        FROM `championship`
+        LEFT JOIN `division`
+        ON `championship_division_id`=`division_id`
+        WHERE `championship_season_id`=$season_id
+        AND `championship_country_id`=$country_id
+        GROUP BY `championship_division_id`
+        ORDER BY `division_id` ASC";
+$division_sql = f_igosja_mysqli_query($sql);
+
+$division_array = $division_sql->fetch_all(1);
+
+$sql = "SELECT `stage_id`,
+               `stage_name`
+        FROM `schedule`
+        LEFt JOIN `stage`
+        ON `schedule_stage_id`=`stage_id`
+        WHERE `schedule_season_id`=$season_id
+        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+        AND `schedule_stage_id`<=" . STAGE_30_TOUR. "
+        ORDER BY `stage_id` ASC";
+$stage_sql = f_igosja_mysqli_query($sql);
+
+$stage_array = $stage_sql->fetch_all(1);
+
+$sql = "SELECT COUNT(`conference_id`) AS `count`
+        FROM `conference`
+        LEFT JOIN `team`
+        ON `conference_team_id`=`team_id`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        WHERE `conference_season_id`=$season_id
+        AND `city_country_id`=$country_id";
+$conference_sql = f_igosja_mysqli_query($sql);
+
+$conference_array = $conference_sql->fetch_all(1);
+
+if (!$stage_id = (int) f_igosja_request_get('stage_id'))
 {
     $sql = "SELECT `schedule_id`
             FROM `schedule`
-            WHERE `schedule_date`>UNIX_TIMESTAMP()
+            WHERE `schedule_date`<=UNIX_TIMESTAMP()
             AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
             AND `schedule_season_id`=$igosja_season_id
+            ORDER BY `schedule_id` DESC
+            LIMIT 1";
+    $schedule_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $schedule_sql->num_rows)
+    {
+        $sql = "SELECT `schedule_id`
+                FROM `schedule`
+                WHERE `schedule_date`>UNIX_TIMESTAMP()
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+                AND `schedule_season_id`=$igosja_season_id
+                ORDER BY `schedule_id` ASC
+                LIMIT 1";
+        $schedule_sql = f_igosja_mysqli_query($sql);
+    }
+
+    $schedule_array = $schedule_sql->fetch_all(1);
+
+    $schedule_id = $schedule_array[0]['schedule_id'];
+}
+else
+{
+    $sql = "SELECT `schedule_id`
+            FROM `schedule`
+            WHERE `schedule_stage_id`=$stage_id
+            AND `schedule_season_id`=$igosja_season_id
+            AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
             ORDER BY `schedule_id` ASC
             LIMIT 1";
     $schedule_sql = f_igosja_mysqli_query($sql);
+
+    if ($schedule_sql->num_rows)
+    {
+        $schedule_array = $schedule_sql->fetch_all(1);
+
+        $schedule_id = $schedule_array[0]['schedule_id'];
+    }
+    else
+    {
+        $sql = "SELECT `schedule_id`
+                FROM `schedule`
+                WHERE `schedule_date`<=UNIX_TIMESTAMP()
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+                AND `schedule_season_id`=$igosja_season_id
+                ORDER BY `schedule_id` DESC
+                LIMIT 1";
+        $schedule_sql = f_igosja_mysqli_query($sql);
+
+        if (0 == $schedule_sql->num_rows)
+        {
+            $sql = "SELECT `schedule_id`
+                    FROM `schedule`
+                    WHERE `schedule_date`>UNIX_TIMESTAMP()
+                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+                    AND `schedule_season_id`=$igosja_season_id
+                    ORDER BY `schedule_id` ASC
+                    LIMIT 1";
+            $schedule_sql = f_igosja_mysqli_query($sql);
+        }
+
+        $schedule_array = $schedule_sql->fetch_all(1);
+
+        $schedule_id = $schedule_array[0]['schedule_id'];
+    }
 }
-
-$schedule_array = $schedule_sql->fetch_all(1);
-
-$schedule_id = $schedule_array[0]['schedule_id'];
 
 $sql = "SELECT `game_id`,
                `game_guest_score`,
@@ -87,7 +197,7 @@ $sql = "SELECT `game_id`,
         LEFT JOIN `championship`
         ON `game_guest_team_id`=`championship_team_id`
         WHERE `game_schedule_id`=$schedule_id
-        AND `championship_season_id`=$igosja_season_id
+        AND `championship_season_id`=$season_id
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         ORDER BY `game_id` ASC";
@@ -114,7 +224,7 @@ $sql = "SELECT `city_name`,
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
-        WHERE `championship_season_id`=$igosja_season_id
+        WHERE `championship_season_id`=$season_id
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         ORDER BY `championship_place` ASC";

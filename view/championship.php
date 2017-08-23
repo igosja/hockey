@@ -1,11 +1,89 @@
+<?php
+/**
+ * @var $country_array array
+ * @var $country_id integer
+ * @var $division_id integer
+ * @var $season_array array
+ * @var $season_id integer
+ * @var $stage_id integer
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            <?= $country_array[0]['country_name']; ?>,
-            <?= $country_array[0]['division_name']; ?>
+            <?= $country_array[0]['country_name']; ?>
         </h1>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?php include(__DIR__ . '/include/championship_table_link.php'); ?>
+    </div>
+</div>
+<form method="GET">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+            <label for="season_id">Сезон:</label>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <select class="form-control" name="season_id" id="season_id">
+                <?php foreach ($season_array as $item) { ?>
+                    <option
+                        value="<?= $item['season_id']; ?>"
+                        <?php if ($season_id == $item['season_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $item['season_id']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p class="text-justify">
+            Чемпионаты стран - это основные турниры в Лиге.
+            В каждой из стран, где зарегистрированы 16 или более клубов, проводятся национальные чемпионаты.
+            Все команды, которые были созданы на момент старта очередных чемпионатов, принимают в них участие.
+            Национальные чемпионаты проводятся один раз в сезон.
+        </p>
+        <p>
+            В одном национальном чемпионате может быть от двух до четырех дивизионов, в зависимости от числа команд в стране.
+            Победители низших дивизионов получают право в следующем сезоне играть в более высоком дивизионе.
+            Проигравшие вылетают в более низкий дивизион.
+        </p>
+    </div>
+</div>
+<form method="GET">
+    <input name="country_id" type="hidden" value="<?= $country_id; ?>">
+    <input name="division_id" type="hidden" value="<?= $division_id; ?>">
+    <input name="season_id" type="hidden" value="<?= $season_id; ?>">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+            <label for="stage_id">Тур:</label>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <select class="form-control" name="stage_id" id="stage_id">
+                <?php foreach ($stage_array as $item) { ?>
+                    <option
+                        value="<?= $item['stage_id']; ?>"
+                        <?php if ($stage_id == $item['stage_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $item['stage_name']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table">

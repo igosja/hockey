@@ -85,31 +85,39 @@ function check_email(email)
 {
     if ('' !== email)
     {
-        $.ajax({
-            data: {signup_email: email},
-            dataType: 'json',
-            method: 'POST',
-            url: '/json/signup.php',
-            success: function (data) {
-                var email_input = $('#signup-email');
-                var email_error = $('.signup-email-error');
+        if (email_patter.test(email))
+        {
+            $.ajax({
+                data: {signup_email: email},
+                dataType: 'json',
+                method: 'POST',
+                url: '/json/signup.php',
+                success: function (data) {
+                    var email_input = $('#signup-email');
+                    var email_error = $('.signup-email-error');
 
-                if (data)
-                {
-                    email_error.html('');
-
-                    if (email_input.hasClass('has-error'))
+                    if (data)
                     {
-                        email_input.removeClass('has-error');
+                        email_error.html('');
+
+                        if (email_input.hasClass('has-error'))
+                        {
+                            email_input.removeClass('has-error');
+                        }
+                    }
+                    else
+                    {
+                        email_input.addClass('has-error');
+                        email_error.html('Такой email уже занят.');
                     }
                 }
-                else
-                {
-                    email_input.addClass('has-error');
-                    email_error.html('Такой email уже занят.');
-                }
-            }
-        });
+            });
+        }
+        else
+        {
+            $('#signup-email').addClass('has-error');
+            $('.signup-email-error').html('Введите корректный email.');
+        }
     }
     else
     {

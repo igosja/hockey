@@ -2578,7 +2578,6 @@ function f_igosja_start_insert_surname()
     );
 
     $surname_array = array(
-        /*
         array(
             'country' => 'Канада',
             'list' => $eng_surname,
@@ -2623,7 +2622,6 @@ function f_igosja_start_insert_surname()
             'country' => 'Норвегия',
             'list' => $nor_surname,
         ),
-        */
         array(
             'country' => 'Украина',
             'list' => $ukr_surname,

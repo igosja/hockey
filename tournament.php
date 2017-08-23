@@ -1,51 +1,85 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
+
+$season_array = $season_sql->fetch_all(1);
+
 $sql = "SELECT `country_id`,
-               `country_name`
+               `country_name`,
+               `division_id`,
+               `division_name`
         FROM `championship`
+        LEFT JOIN `division`
+        ON `championship_division_id`=`division_id`
         LEFT JOIN `country`
         ON `championship_country_id`=`country_id`
-        WHERE `championship_season_id`=$igosja_season_id
-        GROUP BY `country_id`
-        ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+        WHERE `championship_season_id`=$season_id
+        GROUP BY `country_id`, `division_id`
+        ORDER BY `country_id` ASC, `division_id` ASC";
+$championship_sql = f_igosja_mysqli_query($sql, false);
 
-$count_country = $country_sql->num_rows;
-$country_array = $country_sql->fetch_all(1);
+$championship_array = $championship_sql->fetch_all(1);
 
-for ($i=0; $i<$count_country; $i++)
+$country_id     = 0;
+$country_array  = array();
+$division_array = array();
+
+foreach ($championship_array as $item)
 {
-    $country_id = $country_array[$i]['country_id'];
-
-    $country_division_array = array();
-
-    for ($j=1; $j<=4; $j++)
+    if ($country_id != $item['country_id'])
     {
-        $sql = "SELECT `division_name`
-                FROM `championship`
-                LEFT JOIN `division`
-                ON `championship_division_id`=`division_id`
-                WHERE `championship_season_id`=$igosja_season_id
-                AND `championship_division_id`=$j
-                AND `championship_country_id`=$country_id
-                LIMIT 1";
-        $division_sql = f_igosja_mysqli_query($sql);
-
-        if ($division_sql->num_rows)
+        if ($country_id)
         {
-            $division_array = $division_sql->fetch_all(1);
+            $country_array[] = array(
+                'country_id'    => $item['country_id'],
+                'country_name'  => $item['country_name'],
+                'division'      => $division_array,
+            );
+        }
 
-            $country_division_array[$division_array[0]['division_name']] = $j;
-        }
-        else
-        {
-            $country_division_array[] = '-';
-        }
+        $country_id = $item['country_id'];
+
+        $division_array = array();
     }
 
-    $country_array[$i]['division'] = $country_division_array;
+    $division_array[$item['division_id']] = $item['division_name'];
+}
+
+$sql = "SELECT `division_id`
+        FROM `division`
+        ORDER BY `division_id` ASC";
+$division_sql = f_igosja_mysqli_query($sql, false);
+
+$division_array = $division_sql->fetch_all(1);
+
+for ($i=0, $count_country=count($country_array); $i<$count_country; $i++)
+{
+    foreach ($division_array as $division)
+    {
+        if (!isset($country_array[$i]['division'][$division['division_id']]))
+        {
+            $country_array[$i]['division'][$division['division_id']] = '-';
+        }
+    }
 }
 
 $seo_title          = 'Список турниров';

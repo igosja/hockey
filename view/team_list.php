@@ -16,13 +16,17 @@
             <tr>
                 <th class="col-1"></th>
                 <th>Страна</th>
-                <th>Команд</th>
+                <th class="col-25">Команд</th>
             </tr>
             <?php foreach ($country_array as $item) { ?>
                 <tr>
                     <td>
                         <a href="/country_team.php?num=<?= $item['country_id']; ?>">
-                            <img src="/img/country/12/<?= $item['country_id']; ?>.png" />
+                            <img
+                                alt="<?= $item['country_name']; ?>"
+                                src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                title="<?= $item['country_name']; ?>"
+                            />
                         </a>
                     </td>
                     <td>

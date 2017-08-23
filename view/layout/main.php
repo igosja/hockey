@@ -119,6 +119,7 @@
 </div>
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js')) { ?>
     <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
+    <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
     <script src="/js/<?= $tpl; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $tpl . '.js'); ?>"></script>
 <?php } ?>
 </body>

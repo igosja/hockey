@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id))
@@ -15,7 +19,7 @@ if (!$data = f_igosja_request_get('data'))
     redirect('/password.php');
 }
 
-if (!isset($code['code']))
+if (!isset($data['code']))
 {
     $_SESSION['message']['class']   = 'error';
     $_SESSION['message']['text']    = 'Пользователь не найден.';
@@ -23,7 +27,7 @@ if (!isset($code['code']))
     redirect('/password.php');
 }
 
-$code = $code['code'];
+$code = $data['code'];
 
 $sql = "SELECT COUNT(`user_id`) AS `count`
         FROM `user`
@@ -69,7 +73,7 @@ if ($data = f_igosja_request_post('data'))
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Пароль успешно изменен.';
 
-    redirect('/');
+    redirect('/password.php');
 }
 
 $seo_title          = 'Восстановление пароля';

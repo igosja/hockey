@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
+
+if (!isset($auth_user_id))
+{
+    redirect('/wrong_page.php');
+}
 
 $sql = "SELECT COUNT(`user_id`) AS `count`
         FROM `user`
         WHERE `user_date_vip`>UNIX_TIMESTAMP()";
-$vip_sql = f_igosja_mysqli_query($sql);
+$vip_sql = f_igosja_mysqli_query($sql, false);
 
 $vip_array = $vip_sql->fetch_all(1);
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (isset($auth_user_id))
@@ -58,10 +62,11 @@ if ($data = f_igosja_request_post('data'))
     }
 
     $user_array = $user_sql->fetch_all(1);
-    $code       = $user_array[0]['user_code'];
-    $email      = $user_array[0]['user_email'];
 
-    $href = 'http://' . $_SERVER['HTTP_HOST'] . '/password_restore.php?data[code]=' . $code;
+    $code   = $user_array[0]['user_code'];
+    $email  = $user_array[0]['user_email'];
+
+    $href = 'https://' . $_SERVER['HTTP_HOST'] . '/password_restore.php?data[code]=' . $code;
     $email_text =
         'Вы запросили восстановление пароля на сайте Виртуальной Хоккейной Лиги.<br>
         Чтобы восстановить пароль перейдите по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>.';

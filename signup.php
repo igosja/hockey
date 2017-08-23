@@ -98,8 +98,8 @@ if ($data = f_igosja_request_post('data'))
         $prepare->bind_param('ss', $email, $login);
         $prepare->execute();
 
-        $href = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php?data[code]=' . $code;
-        $page = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php';
+        $href = 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php?data[code]=' . $code;
+        $page = 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php';
         $email_text =
             'Вы успешно зарегистрированы на сайте Виртуальной Хоккейной Лиги под логином
             <strong>' . $login . '</strong>.<br>

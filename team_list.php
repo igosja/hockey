@@ -12,9 +12,10 @@ $sql = "SELECT COUNT(`team_id`) AS `count_team`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
+        WHERE `team_id`!=0
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 
