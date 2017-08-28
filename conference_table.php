@@ -65,6 +65,24 @@ $season_sql = f_igosja_mysqli_query($sql, false);
 
 $season_array = $season_sql->fetch_all(1);
 
+$sql = "SELECT `country_id`,
+               `country_name`
+        FROM `conference`
+        LEFT JOIN `team`
+        ON `conference_team_id`=`team_id`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        LEFT JOIN `country`
+        ON `city_country_id`=`country_id`
+        WHERE `conference_season_id`=$season_id
+        GROUP BY `country_id`
+        ORDER BY `country_id` ASC";
+$country_sql = f_igosja_mysqli_query($sql);
+
+$country_array = $country_sql->fetch_all(1);
+
 $seo_title          = 'Конференция любительских клубов';
 $seo_description    = 'Конференция любительских клубов, турнирная таблица на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'конференция любительских клубов клк';

@@ -1,6 +1,8 @@
 <?php
 /**
- * @var $season_id
+ * @var $country_array array
+ * @var $country_id integer
+ * @var $season_id integer
  */
 ?>
 <div class="row">
@@ -11,6 +13,7 @@
     </div>
 </div>
 <form method="GET">
+    <input name="country_id" type="hidden" value="<?= $country_id; ?>" />
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
@@ -20,12 +23,37 @@
             <select class="form-control" name="season_id" id="season_id">
                 <?php foreach ($season_array as $item) { ?>
                     <option
-                            value="<?= $item['season_id']; ?>"
+                        value="<?= $item['season_id']; ?>"
                         <?php if ($season_id == $item['season_id']) { ?>
                             selected
                         <?php } ?>
                     >
                         <?= $item['season_id']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+    </div>
+</form>
+<form method="GET">
+    <input name="season_id" type="hidden" value="<?= $season_id; ?>" />
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+            <label for="country_id">Страна:</label>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <select class="form-control" name="country_id" id="country_id">
+                <option value="0">Все</option>
+                <?php foreach ($country_array as $item) { ?>
+                    <option
+                        value="<?= $item['country_id']; ?>"
+                        <?php if ($country_id == $item['country_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $item['country_name']; ?>
                     </option>
                 <?php } ?>
             </select>
