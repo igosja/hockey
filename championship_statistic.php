@@ -1,10 +1,41 @@
 <?php
 
-/**
- * @var $igosja_season_id integer
- */
-
 include(__DIR__ . '/include/include.php');
+
+if (!$country_id = (int) f_igosja_request_get('country_id'))
+{
+    redirect('/wrong_page.php');
+}
+
+if (!$division_id = (int) f_igosja_request_get('division_id'))
+{
+    redirect('/wrong_page.php');
+}
+
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `country_name`,
+               `division_name`
+        FROM `championship`
+        LEFT JOIN `country`
+        ON `championship_country_id`=`country_id`
+        LEFT JOIN `division`
+        ON `championship_division_id`=`division_id`
+        WHERE `championship_country_id`=$country_id
+        AND `championship_division_id`=$division_id
+        AND `championship_season_id`=$season_id
+        LIMIT 1";
+$country_sql = f_igosja_mysqli_query($sql, false);
+
+if (0 == $country_sql->num_rows)
+{
+    redirect('/wrong_page.php');
+}
+
+$country_array = $country_sql->fetch_all(1);
 
 $sql = "SELECT `statisticchapter_id`,
                `statisticchapter_name`,
@@ -14,7 +45,7 @@ $sql = "SELECT `statisticchapter_id`,
         LEFT JOIN `statisticchapter`
         ON `statistictype_statisticchapter_id`=`statisticchapter_id`
         ORDER BY `statisticchapter_id` ASC, `statistictype_id` ASC";
-$statistictype_sql = f_igosja_mysqli_query($sql);
+$statistictype_sql = f_igosja_mysqli_query($sql, false);
 
 $count_statistictype = $statistictype_sql->num_rows;
 $statistictype_array = $statistictype_sql->fetch_all(1);
@@ -218,8 +249,10 @@ if (in_array($num_get, array(
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
-            AND `statisticteam_season_id`=$igosja_season_id
+            WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+            AND `statisticteam_season_id`=$season_id
+            AND `statisticteam_country_id`=$country_id
+            AND `statisticteam_division_id`=$division_id
             ORDER BY $select
             LIMIT 100";
 }
@@ -293,19 +326,21 @@ elseif (in_array($num_get, array(
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
             WHERE `statisticplayer_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
-            AND `statisticplayer_season_id`=$igosja_season_id
+            AND `statisticplayer_season_id`=$season_id
+            AND `statisticplayer_country_id`=$country_id
+            AND `statisticplayer_division_id`=$division_id
             $where
             ORDER BY $select
             LIMIT 100";
 }
 
-$statistic_sql = f_igosja_mysqli_query($sql);
+$statistic_sql = f_igosja_mysqli_query($sql, false);
 
 $count_statistic = $statistic_sql->num_rows;
 $statistic_array = $statistic_sql->fetch_all(1);
 
-$seo_title          = 'Статистика кубка межсезонья';
-$seo_description    = 'Кубок межсезонья, статистика на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'кубок межсезонья статистика';
+$seo_title          = 'Статистика. ' . $country_array[0]['country_name'] . ', национальный чемпионат, дивизион ' . $country_array[0]['division_name'];
+$seo_description    = $country_array[0]['country_name'] . '. ' . $country_array[0]['division_name'] . '. Национальный чемпионат, статистика на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $country_array[0]['country_name'] . ' национальный чемпионат ' . $country_array[0]['division_name'] . ' статистика';
 
 include(__DIR__ . '/view/layout/main.php');

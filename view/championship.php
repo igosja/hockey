@@ -3,8 +3,11 @@
  * @var $country_array array
  * @var $country_id integer
  * @var $division_id integer
+ * @var $review_array array
+ * @var $review_create boolean
  * @var $season_array array
  * @var $season_id integer
+ * @var $schedule_id integer
  * @var $stage_id integer
  */
 ?>
@@ -21,6 +24,8 @@
     </div>
 </div>
 <form method="GET">
+    <input name="country_id" type="hidden" value="<?= $country_id; ?>">
+    <input name="division_id" type="hidden" value="<?= $division_id; ?>">
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
@@ -76,7 +81,7 @@
                             selected
                         <?php } ?>
                     >
-                        <?= $item['stage_name']; ?>
+                        <?= $item['stage_name']; ?>, <?= f_igosja_ufu_date($item['schedule_date']); ?>
                     </option>
                 <?php } ?>
             </select>
@@ -89,13 +94,13 @@
         <table class="table">
             <?php foreach ($game_array as $item) { ?>
                 <tr>
-                    <td class="text-right">
+                    <td class="text-right col-45">
                         <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
                             <?= $item['home_team_name']; ?>
                             (<?= $item['home_city_name']; ?>)
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center col-10">
                         <?= f_igosja_game_score($item['game_home_score'], $item['game_guest_score'], $item['game_played']); ?>
                     </td>
                     <td>
@@ -154,5 +159,32 @@
                 <th title="Очки">О</th>
             </tr>
         </table>
+    </div>
+</div>
+<?php if ($review_array) { ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong margin-top text-center">
+            Обзоры:
+        </div>
+    </div>
+    <?php foreach ($review_array as $item) { ?>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-1 hidden-xs"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= $item['stage_name']; ?> - <?= $item['review_title']; ?> - <?= $item['user_login']; ?>
+            </div>
+        </div>
+    <?php } ?>
+<?php } ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top text-center">
+        <a href="/championship_statistic.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>" class="btn">
+            Статистика
+        </a>
+        <?php if ($review_create) { ?>
+            <a href="/review_create.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>&stage_id=<?= $stage_id; ?>&schedule_id=<?= $schedule_id; ?>" class="btn">
+                Написать обзор
+            </a>
+        <?php } ?>
     </div>
 </div>

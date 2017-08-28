@@ -27,3 +27,9 @@ $q[] = 'CREATE TABLE `statisticteam`
             `statisticteam_win_over` INT(2) DEFAULT 0,
             `statisticteam_win_percent` DECIMAL(5,2) DEFAULT 0 #Процент побед
         );';
+$sql = "CREATE INDEX `statisticteam_championship_playoff` ON `statisticteam` (`statisticteam_championship_playoff`);";
+$sql = "CREATE INDEX `statisticteam_country_id` ON `statisticteam` (`statisticteam_country_id`);";
+$sql = "CREATE INDEX `statisticteam_division_id` ON `statisticteam` (`statisticteam_division_id`);";
+$sql = "CREATE INDEX `statisticteam_national_id` ON `statisticteam` (`statisticteam_national_id`);";
+$sql = "CREATE INDEX `statisticteam_season_id` ON `statisticteam` (`statisticteam_season_id`);";
+$sql = "CREATE INDEX `statisticteam_tournamenttype_id` ON `statisticteam` (`statisticteam_tournamenttype_id`);";

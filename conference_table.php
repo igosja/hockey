@@ -6,6 +6,20 @@
 
 include(__DIR__ . '/include/include.php');
 
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($country_id = (int) f_igosja_request_get('country_id'))
+{
+    $where  = 'AND `country_id`=' . $country_id;
+}
+else
+{
+    $where = '';
+}
+
 $sql = "SELECT `city_name`,
                `country_id`,
                `country_name`,
@@ -29,11 +43,27 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE `conference_season_id`=$igosja_season_id
+        WHERE `conference_season_id`=$season_id
+        $where
         ORDER BY `conference_place` ASC";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
+
+if (0 == $team_sql->num_rows)
+{
+    redirect('/wrong_page.php');
+}
 
 $team_array = $team_sql->fetch_all(1);
+
+$sql = "SELECT `season_id`
+        FROM `conference`
+        LEFT JOIN `season`
+        ON `conference_season_id`=`season_id`
+        GROUP BY `conference_season_id`
+        ORDER BY `conference_season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
+
+$season_array = $season_sql->fetch_all(1);
 
 $seo_title          = 'Конференция любительских клубов';
 $seo_description    = 'Конференция любительских клубов, турнирная таблица на сайте Вирутальной Хоккейной Лиги.';

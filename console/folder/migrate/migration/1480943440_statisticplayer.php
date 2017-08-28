@@ -39,7 +39,13 @@ $q[] = 'CREATE TABLE `statisticplayer`
             `statisticplayer_shot_gk` INT(3) DEFAULT 0, #Броски (для вратарей)
             `statisticplayer_shot_per_game` DECIMAL(4,2) DEFAULT 0, #Бросков за игру
             `statisticplayer_shutout` INT(3) DEFAULT 0, #Игр на ноль
-            `statisticplayer_team_id` INT(5) DEFAULT 0,
             `statisticplayer_tournamenttype_id` INT(1) DEFAULT 0,
             `statisticplayer_win` INT(2) DEFAULT 0 #Побед
         );';
+$sql = "CREATE INDEX `statisticplayer_championship_playoff` ON `statisticplayer` (`statisticplayer_championship_playoff`);";
+$sql = "CREATE INDEX `statisticplayer_country_id` ON `statisticplayer` (`statisticplayer_country_id`);";
+$sql = "CREATE INDEX `statisticplayer_division_id` ON `statisticplayer` (`statisticplayer_division_id`);";
+$sql = "CREATE INDEX `statisticplayer_is_gk` ON `statisticplayer` (`statisticplayer_is_gk`);";
+$sql = "CREATE INDEX `statisticplayer_national_id` ON `statisticplayer` (`statisticplayer_national_id`);";
+$sql = "CREATE INDEX `statisticplayer_season_id` ON `statisticplayer` (`statisticplayer_season_id`);";
+$sql = "CREATE INDEX `statisticplayer_tournamenttype_id` ON `statisticplayer` (`statisticplayer_tournamenttype_id`);";

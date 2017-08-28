@@ -1,7 +1,11 @@
 <?php
 /**
  * @var $count_statistictype integer
+ * @var $country_array array
+ * @var $country_id integer
+ * @var $division_id integer
  * @var $num_get integer
+ * @var $season_id integer
  * @var $select string
  * @var $statistic_array array
  * @var $statistictype_array array
@@ -10,17 +14,26 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            Кубок межсезонья
+            <?= $country_array[0]['country_name']; ?>, <?= $country_array[0]['division_name']; ?>, сезон <?= $season_id; ?>
         </h1>
     </div>
 </div>
-<form action="/offseason_statistic.php" method="GET">
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <a href="/championship.php?country_id=<?= $country_id; ?>&season_id=<?= $season_id; ?>&division_id=<?= $division_id; ?>">
+            Турнирная таблица
+        </a>
+    </div>
+</div>
+<form method="GET">
+    <input name="country_id" type="hidden" value="<?= $country_id; ?>" />
+    <input name="season_id" type="hidden" value="<?= $season_id; ?>" />
+    <input name="division_id" type="hidden" value="<?= $division_id; ?>" />
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <label for="statistictype">Статистика:</label>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-8">
-            <label for="statistictype">Статистика</label>
             <select id="statistictype" class="form-control" name="num">
                 <?php for ($i=0; $i<$count_statistictype; $i++) { ?>
                     <?php if (0 == $i || $statistictype_array[$i]['statisticchapter_name'] != $statistictype_array[$i-1]['statisticchapter_name']) { ?>

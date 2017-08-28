@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $auth_user_id integer
  * @var $igosja_season_id integer
  */
 
@@ -19,11 +20,6 @@ if (!$division_id = (int) f_igosja_request_get('division_id'))
 if (!$season_id = (int) f_igosja_request_get('season_id'))
 {
     $season_id = $igosja_season_id;
-}
-
-if ($season_id > $igosja_season_id)
-{
-    redirect('/wrong_page.php');
 }
 
 $sql = "SELECT `country_name`,
@@ -71,7 +67,8 @@ $division_sql = f_igosja_mysqli_query($sql);
 
 $division_array = $division_sql->fetch_all(1);
 
-$sql = "SELECT `stage_id`,
+$sql = "SELECT `schedule_date`,
+               `stage_id`,
                `stage_name`
         FROM `schedule`
         LEFt JOIN `stage`
@@ -97,6 +94,8 @@ $sql = "SELECT COUNT(`conference_id`) AS `count`
 $conference_sql = f_igosja_mysqli_query($sql);
 
 $conference_array = $conference_sql->fetch_all(1);
+
+$schedule_id = 0;
 
 if (!$stage_id = (int) f_igosja_request_get('stage_id'))
 {
@@ -144,30 +143,7 @@ else
     }
     else
     {
-        $sql = "SELECT `schedule_id`
-                FROM `schedule`
-                WHERE `schedule_date`<=UNIX_TIMESTAMP()
-                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                AND `schedule_season_id`=$igosja_season_id
-                ORDER BY `schedule_id` DESC
-                LIMIT 1";
-        $schedule_sql = f_igosja_mysqli_query($sql);
-
-        if (0 == $schedule_sql->num_rows)
-        {
-            $sql = "SELECT `schedule_id`
-                    FROM `schedule`
-                    WHERE `schedule_date`>UNIX_TIMESTAMP()
-                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                    AND `schedule_season_id`=$igosja_season_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $schedule_sql = f_igosja_mysqli_query($sql);
-        }
-
-        $schedule_array = $schedule_sql->fetch_all(1);
-
-        $schedule_id = $schedule_array[0]['schedule_id'];
+        redirect('/wrong_page.php');
     }
 }
 
@@ -203,6 +179,11 @@ $sql = "SELECT `game_id`,
         ORDER BY `game_id` ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 
+if (0 == $game_sql->num_rows)
+{
+    redirect('/wrong_page.php');
+}
+
 $game_array = $game_sql->fetch_all(1);
 
 $sql = "SELECT `city_name`,
@@ -231,6 +212,38 @@ $sql = "SELECT `city_name`,
 $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(1);
+
+$review_create = false;
+
+if (isset($auth_team_id) && $game_array[0]['game_played'])
+{
+    $sql = "SELECT COUNT(`review_id`) AS `check`
+            FROM `review`
+            WHERE `review_country_id`=$country_id
+            AND `review_stage_id`=$stage_id
+            AND `review_season_id`=$season_id
+            AND `review_division_id`=$division_id
+            AND `review_schedule_id`=$schedule_id
+            AND `review_user_id`=$auth_user_id";
+    $review_sql = f_igosja_mysqli_query($sql);
+
+    $review_array = $review_sql->fetch_all(1);
+
+    if (0 == $review_array[0]['check'])
+    {
+        $review_create = true;
+    }
+}
+
+$sql = "SELECT `review_title`
+        FROM `review`
+        WHERE `review_country_id`=$country_id
+        AND `review_division_id`=$division_id
+        AND `review_season_id`=$season_id
+        ORDER BY `review_schedule_id` ASC";
+$review_sql = f_igosja_mysqli_query($sql);
+
+$review_array = $review_sql->fetch_all(1);
 
 $seo_title          = $country_array[0]['country_name'] . ', национальный чемпионат, дивизион ' . $country_array[0]['division_name'];
 $seo_description    = $country_array[0]['country_name'] . '. ' . $country_array[0]['division_name'] . '. Национальный чемпионат, календарь игр и турнирная таблица на сайте Вирутальной Хоккейной Лиги.';
