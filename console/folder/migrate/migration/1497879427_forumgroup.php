@@ -18,6 +18,7 @@ $q[] = 'CREATE TABLE `forumgroup`
             `forumgroup_order` INT(3) DEFAULT 0,
             `forumgroup_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `forumgroup_forumchapter_id` ON `forumgroup` (`forumgroup_forumchapter_id`);';
 $q[] = "INSERT INTO `forumgroup` (`forumgroup_country_id`, `forumgroup_name`, `forumgroup_description`, `forumgroup_forumchapter_id`, `forumgroup_order`)
         VALUES (0, 'О Лиге', 'вопросы и комментарии о лиге глобального характера, творчество, что нравится/не нравится', 1, 1),
                (0, 'Скорая помощь', 'сверxсрочные проблемы, не терпящие отлагательств, а то будет поздно - остальное в баги или вопросы новичков', 1, 2),

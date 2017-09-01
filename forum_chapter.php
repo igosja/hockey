@@ -11,7 +11,7 @@ $sql = "SELECT `forumchapter_name`
         FROM `forumchapter`
         WHERE `forumchapter_id`=$num_get
         LIMIT 1";
-$forumchapter_sql = f_igosja_mysqli_query($sql);
+$forumchapter_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $forumchapter_sql->num_rows)
 {
@@ -26,6 +26,7 @@ $sql = "SELECT `forumgroup_count_message`,
                `forumgroup_id`,
                `forumgroup_name`,
                `forumgroup_last_date`,
+               `forumtheme_id`,
                `forumtheme_name`,
                `user_id`,
                `user_login`
@@ -36,7 +37,7 @@ $sql = "SELECT `forumgroup_count_message`,
         ON `forumgroup_last_user_id`=`user_id`
         WHERE `forumgroup_forumchapter_id`=$num_get
         ORDER BY `forumgroup_order` ASC";
-$forumgroup_sql = f_igosja_mysqli_query($sql);
+$forumgroup_sql = f_igosja_mysqli_query($sql, false);
 
 $forumgroup_array = $forumgroup_sql->fetch_all(1);
 

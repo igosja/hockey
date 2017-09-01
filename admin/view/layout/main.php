@@ -165,6 +165,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:">
+                            Форум <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/forumchapter_list.php">Разделы</a>
+                            </li>
+                            <li>
+                                <a href="/admin/forumgroup_list.php">Группы</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

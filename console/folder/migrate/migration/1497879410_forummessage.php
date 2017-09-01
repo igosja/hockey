@@ -10,3 +10,4 @@ $q[] = 'CREATE TABLE `forummessage`
             `forummessage_text` TEXT NOT NULL,
             `forummessage_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `forummessage_forumtheme_id` ON `forummessage` (`forummessage_forumtheme_id`);';

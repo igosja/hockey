@@ -614,6 +614,10 @@ form {
     margin-bottom: 10px;
 }
 
+th {
+    font-weight: bold;
+}
+
 .table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -804,4 +808,28 @@ fieldset {
 
 fieldset legend {
     font-size: 13px;
+}
+
+.forum-row-head {
+    background-color: #286090;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.forum-row-head,
+.forum-row-head a {
+    color: #f0f0f0;
+}
+
+.forum-row {
+    border-top: #dddddd solid 1px;
+    padding: 2px 0;
+}
+
+.forum-row:hover {
+    background-color: #e8e8e8;
+}
+
+.forum-striped:nth-child(2n+1) {
+    background-color: #e8e8e8;
 }

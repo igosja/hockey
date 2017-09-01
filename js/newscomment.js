@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         {
             return false;
         }
-    })
+    });
 });
 
 function check_newscomment(newscomment)
