@@ -6,23 +6,47 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1><?= $forumgroup_array[0]['forumgroup_name']; ?></h1>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
+                <a href="/forum.php">
+                    Форум
+                </a>
+                /
+                <a href="/forum_chapter.php?num=<?= $forumgroup_array[0]['forumchapter_id']; ?>">
+                    <?= $forumgroup_array[0]['forumchapter_name']; ?>
+                </a>
+                /
+                <a href="/forum_group.php?num=<?= $forumgroup_array[0]['forumgroup_id']; ?>">
+                    <?= $forumgroup_array[0]['forumgroup_name']; ?>
+                </a>
+                /
+                Создание темы
             </div>
         </div>
-        <form method="POST">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1>Создание темы</h1>
+            </div>
+        </div>
+        <form method="POST" id="forumtheme-form">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 text-right">
                     <label for="name">Заголовок:</label>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
                     <input class="form-control" id="name" name="data[name]"/>
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center name-error notification-error"></div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" name="data[text]" rows="5"></textarea>
+                    <label class="hidden" for="text"></label>
+                    <textarea class="form-control" id="text" name="data[text]" rows="5"></textarea>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

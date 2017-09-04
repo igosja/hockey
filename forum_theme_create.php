@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_user_id))
@@ -12,11 +16,16 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `forumgroup_name`
+$sql = "SELECT `forumchapter_id`,
+               `forumchapter_name`,
+               `forumgroup_id`,
+               `forumgroup_name`
         FROM `forumgroup`
+        LEFT JOIN `forumchapter`
+        ON `forumgroup_forumchapter_id`=`forumchapter_id`
         WHERE `forumgroup_id`=$num_get
         LIMIT 1";
-$forumgroup_sql = f_igosja_mysqli_query($sql);
+$forumgroup_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $forumgroup_sql->num_rows)
 {
@@ -34,6 +43,9 @@ if ($data = f_igosja_request_post('data'))
 
         if (!empty($name) && !empty($text))
         {
+            $name = htmlspecialchars($name);
+            $text = htmlspecialchars($text);
+
             $sql = "INSERT INTO `forumtheme`
                     SET `forumtheme_count_message`=1,
                         `forumtheme_date`=UNIX_TIMESTAMP(),
@@ -65,7 +77,7 @@ if ($data = f_igosja_request_post('data'))
                     SET `forumtheme_last_forummessage_id`=$forummessage_id
                     WHERE `forumtheme_id`=$forumtheme_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `forumgroup`
                     SET `forumgroup_count_theme`=`forumgroup_count_theme`+1,
@@ -76,7 +88,7 @@ if ($data = f_igosja_request_post('data'))
                         `forumgroup_last_user_id`=$auth_user_id
                     WHERE `forumgroup_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $_SESSION['message']['class'] = 'success';
             $_SESSION['message']['text'] = 'Тема успешно создана.';

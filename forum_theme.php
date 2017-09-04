@@ -113,7 +113,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `forummessage_forumtheme_id`=$num_get
         ORDER BY `forummessage_id` ASC
         LIMIT $offset, $limit";
-$forummessage_sql = f_igosja_mysqli_query($sql);
+$forummessage_sql = f_igosja_mysqli_query($sql, false);
 
 $forummessage_array = $forummessage_sql->fetch_all(1);
 

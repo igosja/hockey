@@ -1,6 +1,6 @@
 jQuery(document).ready(function () {
-    $('#page').on('change', function () {
-        $(this).closest('form').submit();
+    $('#name').on('blur', function () {
+        check_name($(this).val());
     });
 
     $('#text').on('blur', function () {
@@ -8,14 +8,36 @@ jQuery(document).ready(function () {
     });
 
     $('#forumtheme-form').on('submit', function () {
+        check_name($('#name').val());
         check_text($('#text').val());
 
-        if ($('textarea.has-error').length)
+        if ($('textarea.has-error').length || $('input.has-error').length)
         {
             return false;
         }
     });
 });
+
+function check_name(name)
+{
+    var name_input = $('#name');
+    var name_error = $('.name-error');
+
+    if ('' !== name)
+    {
+        name_error.html('');
+
+        if (name_input.hasClass('has-error'))
+        {
+            name_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        name_input.addClass('has-error');
+        name_error.html('Введите заголовок.');
+    }
+}
 
 function check_text(text)
 {
