@@ -12,17 +12,20 @@ $sql = "SELECT `country_name`,
                `user_city`,
                `user_date_login`,
                `user_date_register`,
+               `user_date_vip`,
                `user_finance`,
-               `user_id`,
                `user_login`,
-               `user_money`
+               `user_money`,
+               `user_name`,
+               `user_rating`,
+               `user_surname`
         FROM `user`
         LEFT JOIN `sex`
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
         WHERE `user_id`=$num_get";
-$user_sql = f_igosja_mysqli_query($sql);
+$user_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $user_sql->num_rows)
 {

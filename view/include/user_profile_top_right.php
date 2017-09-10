@@ -1,6 +1,7 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        День рождения: <span class="strong">
+        День рождения:
+        <span class="strong">
             <?= f_igosja_birth_date($user_array[0]); ?>
         </span>
     </div>

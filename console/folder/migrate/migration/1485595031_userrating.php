@@ -33,3 +33,5 @@ $q[] = 'CREATE TABLE `userrating`
             `userrating_winover_strong` INT(11) DEFAULT 0,
             `userrating_winover_weak` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `userrating_season_id` ON `userrating` (`userrating_season_id`);';
+$q[] = 'CREATE INDEX `userrating_user_id` ON `userrating` (`userrating_user_id`);';

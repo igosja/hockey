@@ -7,6 +7,11 @@
  */
 function f_igosja_user_from($item)
 {
+    if ('VHOL' == $item['country_name'])
+    {
+        $item['country_name'] = '';
+    }
+
     if ($item['user_city'] && $item['country_name'])
     {
         $result = $item['user_city'] . ', ' . $item['country_name'];

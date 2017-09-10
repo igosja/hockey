@@ -16,3 +16,5 @@ $q[] = 'CREATE TABLE `achievement`
             `achievement_tournamenttype_id` INT(1) DEFAULT 0,
             `achievement_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `achievement_team_id` ON `achievement` (`achievement_team_id`)';
+$q[] = 'CREATE INDEX `achievement_user_id` ON `achievement` (`achievement_user_id`)';

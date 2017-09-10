@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var $event_array array
+ * @var $team_array array
+ * @var $userrating_array array
+ * @var $userrating_total_array array
+ */
+?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <?php include(__DIR__ . '/include/user_profile_top_left.php'); ?>
@@ -77,18 +85,18 @@
                 <th class="col-3-5 hidden-xs" title="Выигранные коллизии">К+</th>
                 <th class="col-3-5 hidden-xs" title="Проигранные коллизии">К-</th>
                 <th class="col-3-5 hidden-xs" title="Победы у команд с супернастроем">ВС</th>
-                <th class="col-3-5 hidden-xs" title="Победы у сильных соперников">В+</th>
-                <th class="col-3-5 hidden-xs" title="Победы у равных соперников">В=</th>
-                <th class="col-3-5 hidden-xs" title="Победы у слабых соперников">В-</th>
-                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у сильных соперников">ВО+</th>
-                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у равных соперников">ВО=</th>
-                <th class="col-3-5 hidden-xs" title="Победы в овертайме/по буллитам у слабых соперников">ВО-</th>
-                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи сильным соперникам">ПО+</th>
-                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи равным соперникам">ПО=</th>
-                <th class="col-3-5 hidden-xs" title="Поражения в овертайме/по буллитам/ничьи слабым соперникам">ПО-</th>
-                <th class="col-3-5 hidden-xs" title="Поражения сильным соперникам">П+</th>
-                <th class="col-3-5 hidden-xs" title="Поражения равным соперникам">П=</th>
-                <th class="col-3-5 hidden-xs" title="Поражения слабым соперникам">П-</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы у сильных соперников">В+</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы у равных соперников">В=</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы у слабых соперников">В-</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы в овертайме/по буллитам у сильных соперников">ВО+</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы в овертайме/по буллитам у равных соперников">ВО=</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Победы в овертайме/по буллитам у слабых соперников">ВО-</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения в овертайме/по буллитам/ничьи сильным соперникам">ПО+</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения в овертайме/по буллитам/ничьи равным соперникам">ПО=</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения в овертайме/по буллитам/ничьи слабым соперникам">ПО-</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения сильным соперникам">П+</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения равным соперникам">П=</th>
+                <th class="col-3-5 hidden-sm hidden-xs" title="Поражения слабым соперникам">П-</th>
                 <th class="col-3-5 hidden-xs" title="Поражения супернастроем">ПС</th>
                 <th class="col-3-5" title="Автосоставы">А</th>
                 <th class="col-3-5 hidden-xs" title="Игры против супернастроя">VС</th>
@@ -106,18 +114,18 @@
                     <td class="hidden-xs text-center"><?= $item['userrating_collision_win']; ?></td>
                     <td class="hidden-xs text-center"><?= $item['userrating_collision_loose']; ?></td>
                     <td class="hidden-xs text-center"><?= $item['userrating_win_super']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_win_strong']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_win_equal']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_win_weak']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_winover_strong']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_winover_equal']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_winover_weak']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_strong']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_equal']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_looseover_weak']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_loose_strong']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_loose_equal']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['userrating_loose_weak']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_win_strong']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_win_equal']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_win_weak']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_winover_strong']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_winover_equal']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_winover_weak']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_looseover_strong']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_looseover_equal']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_looseover_weak']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_loose_strong']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_loose_equal']; ?></td>
+                    <td class="hidden-sm hidden-xs text-center"><?= $item['userrating_loose_weak']; ?></td>
                     <td class="hidden-xs text-center"><?= $item['userrating_loose_super']; ?></td>
                     <td class="text-center"><?= $item['userrating_auto']; ?></td>
                     <td class="hidden-xs text-center"><?= $item['userrating_vs_super']; ?></td>
@@ -135,18 +143,18 @@
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_collision_win']; ?></th>
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_collision_loose']; ?></th>
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_super']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_strong']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_equal']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_win_weak']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_strong']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_equal']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_winover_weak']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_strong']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_equal']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_weak']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_strong']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_equal']; ?></th>
-                <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_weak']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_win_strong']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_win_equal']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_win_weak']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_winover_strong']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_winover_equal']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_winover_weak']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_strong']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_equal']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_looseover_weak']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_loose_strong']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_loose_equal']; ?></th>
+                <th class="hidden-sm hidden-xs"><?= $userrating_total_array[0]['userrating_loose_weak']; ?></th>
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_loose_super']; ?></th>
                 <th><?= $userrating_total_array[0]['userrating_auto']; ?></th>
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_vs_super']; ?></th>

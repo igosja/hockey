@@ -1,2 +1,5 @@
 User-agent: *
 Disallow: /admin/
+Disallow: /admin_login.php
+
+Sitemap: https://vhol.org/sitemap.xml

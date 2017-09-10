@@ -48,12 +48,13 @@ $team_link_array = array(
     array('url' => 'team_achievement',  'text' => 'Достижения'),
 );
 $user_link_array = array(
-    array('url' => 'user_view',             'text' => 'Информация'),
-    array('url' => 'user_finance',          'text' => 'Личный счёт'),
-    array('url' => 'user_transfermoney',    'text' => 'Перевести деньги'),
-    array('url' => 'user_deal',             'text' => 'Сделки'),
-    array('url' => 'user_questionnaire',    'text' => 'Анкета'),
-    array('url' => 'user_holiday',          'text' => 'Отпуск'),
-    array('url' => 'user_password',         'text' => 'Пароль'),
-    array('url' => 'user_referral',         'text' => 'Подопечные'),
+    array('url' => 'user_view',             'text' => 'Информация', 'auth' => false),
+    array('url' => 'user_achievement',      'text' => 'Достижения', 'auth' => false),
+    array('url' => 'user_finance',          'text' => 'Личный счёт', 'auth' => true),
+    array('url' => 'user_transfermoney',    'text' => 'Перевести деньги', 'auth' => true),
+    array('url' => 'user_deal',             'text' => 'Сделки', 'auth' => false),
+    array('url' => 'user_questionnaire',    'text' => 'Анкета', 'auth' => true),
+    array('url' => 'user_holiday',          'text' => 'Отпуск', 'auth' => true),
+    array('url' => 'user_password',         'text' => 'Пароль', 'auth' => true),
+    array('url' => 'user_referral',         'text' => 'Подопечные', 'auth' => true),
 );
