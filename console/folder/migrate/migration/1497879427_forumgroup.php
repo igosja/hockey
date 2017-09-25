@@ -8,13 +8,13 @@ $q[] = 'CREATE TABLE `forumgroup`
             `forumgroup_count_message` INT(11) DEFAULT 0,
             `forumgroup_count_theme` INT(11) DEFAULT 0,
             `forumgroup_country_id` INT(3) DEFAULT 0,
-            `forumgroup_description` TEXT NOT NULL,
+            `forumgroup_description` TEXT,
             `forumgroup_forumchapter_id` INT(11) DEFAULT 0,
             `forumgroup_last_date` INT(11) DEFAULT 0,
             `forumgroup_last_forummessage_id` INT(11) DEFAULT 0,
             `forumgroup_last_forumtheme_id` INT(11) DEFAULT 0,
             `forumgroup_last_user_id` INT(11) DEFAULT 0,
-            `forumgroup_name` VARCHAR(255) NOT NULL,
+            `forumgroup_name` VARCHAR(255),
             `forumgroup_order` INT(3) DEFAULT 0,
             `forumgroup_user_id` INT(11) DEFAULT 0
         );';

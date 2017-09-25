@@ -20,7 +20,7 @@ jQuery(document).ready(function () {
         {
             return false;
         }
-    })
+    });
 });
 
 function check_login(login)

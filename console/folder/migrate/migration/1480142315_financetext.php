@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `financetext`
         (
             `financetext_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `financetext_name` VARCHAR(255) NOT NULL
+            `financetext_name` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `financetext` (`financetext_name`)
         VALUES ('VIP-призовые'),

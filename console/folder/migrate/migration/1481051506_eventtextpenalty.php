@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `eventtextpenalty`
         (
             `eventtextpenalty_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `eventtextpenalty_text` VARCHAR(255) NOT NULL
+            `eventtextpenalty_text` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `eventtextpenalty` (`eventtextpenalty_text`)
         VALUES ('Толчок соперника.'),

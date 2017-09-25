@@ -17,7 +17,7 @@ function f_igosja_check_user_password($password)
             FROM `user`
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    $user_sql = f_igosja_mysqli_query($sql);
+    $user_sql = f_igosja_mysqli_query($sql, false);
 
     if ($user_sql->num_rows)
     {

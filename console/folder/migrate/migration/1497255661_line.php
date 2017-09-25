@@ -5,8 +5,8 @@ $q = array();
 $q[] = 'CREATE TABLE `line`
         (
             `line_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
-            `line_color` CHAR(6) NOT NULL,
-            `line_name` VARCHAR(255) NOT NULL
+            `line_color` CHAR(6),
+            `line_name` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `line` (`line_color`, `line_name`)
         VALUES ('', '------'),

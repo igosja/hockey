@@ -5,10 +5,10 @@ $q = array();
 $q[] = 'CREATE TABLE `special`
         (
             `special_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `special_field` VARCHAR(255) NOT NULL,
-            `special_gk` VARCHAR(255) NOT NULL,
-            `special_name` VARCHAR(255) NOT NULL,
-            `special_short` VARCHAR(2) NOT NULL
+            `special_field` VARCHAR(255),
+            `special_gk` VARCHAR(255),
+            `special_name` VARCHAR(255),
+            `special_short` VARCHAR(2)
         );';
 $q[] = "INSERT INTO `special` (`special_field`, `special_gk`, `special_name`, `special_short`)
         VALUES (1, 0, 'Скорость', 'Ск'),

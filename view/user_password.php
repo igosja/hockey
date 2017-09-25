@@ -25,7 +25,7 @@
         </table>
     </div>
 </div>
-<form method="POST">
+<form method="POST" id="password-form">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             Здесь вы можете <span class="strong">изменить свой пароль менеджера</span>. Следите внимательно за регистром и кодировкой букв.
@@ -34,26 +34,24 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <label for="password-old">Старый пароль</label>:
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
+            <label for="password-old">Старый пароль:</label>
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
             <input
-                class="form-control form-small"
+                class="form-control"
                 id="password-old"
                 name="data[password_old]"
                 type="password"
             />
         </div>
+        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center password-old-error notification-error"></div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center password-old-error notification-error"></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
             <label for="password-new">Новый пароль</label>:
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
             <input
                 class="form-control form-small"
                 id="password-new"
@@ -61,12 +59,13 @@
                 type="password"
             />
         </div>
+        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center password-new-error notification-error"></div>
     </div>
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
             <label for="password-confirm">Повторите новый пароль</label>:
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
             <input
                 class="form-control form-small"
                 id="password-confirm"
@@ -74,9 +73,7 @@
                 type="password"
             />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center password-new-error notification-error"></div>
+        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center password-confirm-error notification-error"></div>
     </div>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-justify">

@@ -349,7 +349,11 @@ $exception_array = array(
         'js/schedule.js',
         'js/signup.js',
         'js/tournament.js',
+        'js/user_password.js',
+        'js/user_questionnaire.js',
+        'js/user_transfermoney.js',
         'json/signup.php',
+        'json/user_password.php',
         'login.php',
         'logout.php',
         'news.php',
@@ -366,6 +370,14 @@ $exception_array = array(
         'team_list.php',
         'team_view.php',
         'tournament.php',
+        'user_achievement.php', //!
+        'user_deal.php', //!
+        'user_finance.php', //!
+        'user_holiday.php',
+        'user_password.php',
+        'user_questionnaire.php',
+        'user_referral.php',
+        'user_transfermoney.php',
         'user_view.php',
         'view/activation.php',
         'view/activation_repeat.php',
@@ -393,6 +405,14 @@ $exception_array = array(
         'view/team_list.php',
         'view/team_view.php',
         'view/tournament.php',
+        'view/user_achievement.php', //!
+        'view/user_deal.php', //!
+        'view/user_finance.php', //!
+        'view/user_holiday.php',
+        'view/user_password.php',
+        'view/user_questionnaire.php',
+        'view/user_referral.php',
+        'view/user_transfermoney.php',
         'view/user_view.php',
         'view/vip.php',
         'view/wrong_page.php',

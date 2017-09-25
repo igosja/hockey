@@ -32,7 +32,7 @@ function f_igosja_finance($data)
     }
     else
     {
-        $finance_comment = 0;
+        $finance_comment = '';
     }
 
     if (isset($data['finance_country_id']))

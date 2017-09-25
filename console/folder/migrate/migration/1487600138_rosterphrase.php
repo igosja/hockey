@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `rosterphrase`
         (
             `rosterphrase_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
-            `rosterphrase_text` VARCHAR(255) NOT NULL
+            `rosterphrase_text` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `rosterphrase` (`rosterphrase_text`)
         VALUES ('Уезжая надолго и без интернета - не забудьте поставить статус <a href=\"/user_holiday.php\">в отпуске</a>'),

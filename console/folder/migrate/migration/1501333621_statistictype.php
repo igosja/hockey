@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `statistictype`
         (
             `statistictype_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `statistictype_name` VARCHAR(255) NOT NULL,
+            `statistictype_name` VARCHAR(255),
             `statistictype_order` INT(2) DEFAULT 0,
             `statistictype_statisticchapter_id` INT(1) DEFAULT 0
         );';

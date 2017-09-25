@@ -50,7 +50,7 @@ $team_link_array = array(
 $user_link_array = array(
     array('url' => 'user_view',             'text' => 'Информация', 'auth' => false),
     array('url' => 'user_achievement',      'text' => 'Достижения', 'auth' => false),
-    array('url' => 'user_finance',          'text' => 'Личный счёт', 'auth' => true),
+    array('url' => 'user_finance',          'text' => 'Личный счёт', 'auth' => false),
     array('url' => 'user_transfermoney',    'text' => 'Перевести деньги', 'auth' => true),
     array('url' => 'user_deal',             'text' => 'Сделки', 'auth' => false),
     array('url' => 'user_questionnaire',    'text' => 'Анкета', 'auth' => true),

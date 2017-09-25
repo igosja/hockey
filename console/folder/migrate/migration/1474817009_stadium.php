@@ -8,7 +8,7 @@ $q[] = 'CREATE TABLE `stadium`
             `stadium_capacity` INT(5) DEFAULT 100,
             `stadium_city_id` INT(11) DEFAULT 0,
             `stadium_maintenance` INT(6) DEFAULT 398,
-            `stadium_name` VARCHAR(255) NOT NULL
+            `stadium_name` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `stadium`
         SET `stadium_city_id`=0,

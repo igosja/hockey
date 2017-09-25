@@ -2,6 +2,7 @@
 
 /**
  * @var $auth_user_id integer
+ * @var $user_array array
  */
 
 include(__DIR__ . '/include/include.php');
@@ -20,10 +21,21 @@ if ($data = f_igosja_request_post('data'))
     $sql = "SELECT `user_code`,
                    `user_email`
             FROM `user`
-            WHERE `user_id`=$num_get";
-    $user_sql = f_igosja_mysqli_query($sql);
+            WHERE `user_id`=$num_get
+            LIMIT 1";
+    $user_sql = f_igosja_mysqli_query($sql, false);
 
     $user_array = $user_sql->fetch_all(1);
+
+    if (!isset($data['user_email']) || empty($data['user_email']))
+    {
+        $check_password_new = false;
+
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Введите email.';
+
+        refresh();
+    }
 
     $user_birth_day     = (int) $data['user_birth_day'];
     $user_birth_month   = (int) $data['user_birth_month'];
@@ -61,8 +73,8 @@ if ($data = f_igosja_request_post('data'))
         $prepare->bind_param('s', $user_email);
         $prepare->execute();
 
-        $href = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php?data[code]=' . $user_array[0]['user_code'];
-        $page = 'http://' . $_SERVER['HTTP_HOST'] . '/activation.php';
+        $href = 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php?data[code]=' . $user_array[0]['user_code'];
+        $page = 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php';
         $email_text =
             'Вы изменили свой основной почтовый ящик на сайте Виртуальной Хоккейной Лиги.<br>
             Подтвердите свой email по ссылке <a href="' . $href . '" target="_blank">' . $href . '</a>
@@ -98,16 +110,18 @@ $sql = "SELECT `user_birth_day`,
         ON `user_sex_id`=`sex_id`
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
-        WHERE `user_id`=$num_get";
-$questionnaire_sql = f_igosja_mysqli_query($sql);
+        WHERE `user_id`=$num_get
+        LIMIT 1";
+$questionnaire_sql = f_igosja_mysqli_query($sql, false);
 
 $questionnaire_array = $questionnaire_sql->fetch_all(1);
 
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
+        WHERE `country_id`!=0
         ORDER BY `country_name` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 
@@ -115,7 +129,7 @@ $sql = "SELECT `sex_id`,
                `sex_name`
         FROM `sex`
         ORDER BY `sex_id` ASC";
-$sex_sql = f_igosja_mysqli_query($sql);
+$sex_sql = f_igosja_mysqli_query($sql, false);
 
 $sex_array = $sex_sql->fetch_all(1);
 

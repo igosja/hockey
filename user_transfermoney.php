@@ -1,16 +1,17 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_request_get('num'))
+if (!isset($auth_user_id))
 {
-    if (!isset($auth_user_id))
-    {
-        redirect('/wrong_page.php');
-    }
-
-    $num_get = $auth_user_id;
+    redirect('/wrong_page.php');
 }
+
+$num_get = $auth_user_id;
 
 include(__DIR__ . '/include/sql/user_view.php');
 
@@ -19,7 +20,7 @@ if ($data = f_igosja_request_post('data'))
     if ((!isset($data['team_id']) || 0 == $data['team_id']) && (!isset($data['country_id']) || 0 == $data['country_id']))
     {
         $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Нужно выбрать команду или федерацию.';
+        $_SESSION['message']['text']    = 'Выберите команду или федерацию.';
 
         refresh();
     }
@@ -27,7 +28,7 @@ if ($data = f_igosja_request_post('data'))
     if (!isset($data['sum']) || 0 == $data['sum'] || 0 > $data['sum'])
     {
         $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Нужно ввести суму.';
+        $_SESSION['message']['text']    = 'Введите сумму.';
 
         refresh();
     }
@@ -35,20 +36,20 @@ if ($data = f_igosja_request_post('data'))
     if (!isset($data['comment']) || !$data['comment'])
     {
         $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Нужно ввести комментарий.';
+        $_SESSION['message']['text']    = 'Введите комментарий.';
 
         refresh();
     }
 
-    if ($data['sum'] > $user_array[0]['user_finance'])
+    $sum = (int) $data['sum'];
+
+    if ($sum > $user_array[0]['user_finance'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Недостаточно денег на счету.';
 
         refresh();
     }
-
-    $sum = $data['sum'];
 
     if (isset($data['team_id']) && $data['team_id'])
     {
@@ -58,7 +59,7 @@ if ($data = f_igosja_request_post('data'))
                 FROM `team`
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        $team_sql = f_igosja_mysqli_query($sql);
+        $team_sql = f_igosja_mysqli_query($sql, false);
 
         if (0 == $team_sql->num_rows)
         {
@@ -74,12 +75,13 @@ if ($data = f_igosja_request_post('data'))
                 SET `team_finance`=`team_finance`+$sum
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $data = [
+            'finance_comment' => $data['comment'],
             'finance_financetext_id' => FINANCETEXT_USER_TRANSFER,
             'finance_team_id' => $team_id,
-            'finance_value' => $data['sum'],
+            'finance_value' => $sum,
             'finance_value_after' => $team_array[0]['team_finance'] + $data['sum'],
             'finance_value_before' => $team_array[0]['team_finance'],
         ];
@@ -93,7 +95,7 @@ if ($data = f_igosja_request_post('data'))
                 FROM `country`
                 WHERE `country_id`=$country_id
                 LIMIT 1";
-        $country_sql = f_igosja_mysqli_query($sql);
+        $country_sql = f_igosja_mysqli_query($sql, false);
 
         if (0 == $country_sql->num_rows)
         {
@@ -109,12 +111,13 @@ if ($data = f_igosja_request_post('data'))
                 SET `country_finance`=`country_finance`+$sum
                 WHERE `country_id`=$country_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $data = [
+            'finance_comment' => $data['comment'],
             'finance_country_id' => $country_id,
             'finance_financetext_id' => FINANCETEXT_USER_TRANSFER,
-            'finance_value' => $data['sum'],
+            'finance_value' => $sum,
             'finance_value_after' => $country_array[0]['country_finance'] + $data['sum'],
             'finance_value_before' => $country_array[0]['country_finance'],
         ];
@@ -125,7 +128,7 @@ if ($data = f_igosja_request_post('data'))
             SET `user_finance`=`user_finance`-$sum
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $data = [
         'finance_financetext_id' => FINANCETEXT_USER_TRANSFER,
@@ -155,7 +158,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`!=0
         ORDER BY `team_name` ASC";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -168,7 +171,7 @@ $sql = "SELECT `country_id`,
         AND `city_id` IS NOT NULL
         GROUP BY `country_id`
         ORDER BY `country_name` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 

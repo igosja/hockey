@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_user_id))
@@ -83,7 +87,7 @@ if ($data = f_igosja_request_post('data'))
                 SET `user_password`='$password'
                 WHERE `user_id`=$auth_user_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Пароль успешно изменен.';

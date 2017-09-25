@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `nationalvotestep`
         (
             `nationalvotestep_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
-            `nationalvotestep_name` VARCHAR(255) NOT NULL
+            `nationalvotestep_name` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `nationalvotestep`
         SET `nationalvotestep_name`=''";

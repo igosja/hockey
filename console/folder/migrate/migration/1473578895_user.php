@@ -8,30 +8,30 @@ $q[] = 'CREATE TABLE `user`
             `user_birth_day` INT(2) DEFAULT 0,
             `user_birth_month` INT(2) DEFAULT 0,
             `user_birth_year` INT(4) DEFAULT 0,
-            `user_city` VARCHAR(255) NOT NULL,
-            `user_code` CHAR(32) NOT NULL,
+            `user_city` VARCHAR(255),
+            `user_code` CHAR(32),
             `user_country_id` INT(3) DEFAULT 0,
             `user_date_confirm` INT(11) DEFAULT 0,
             `user_date_holiday` INT(11) DEFAULT 0,
             `user_date_login` INT(11) DEFAULT 0,
             `user_date_register` INT(11) DEFAULT 0,
             `user_date_vip` INT(11) DEFAULT 0,
-            `user_email` VARCHAR(255) NOT NULL,
+            `user_email` VARCHAR(255),
             `user_finance` INT(11) DEFAULT 0,
             `user_friendlystatus_id` INT(11) DEFAULT 2,
             `user_holiday` INT(1) DEFAULT 0,
             `user_holiday_day` INT(2) DEFAULT 0,
-            `user_login` VARCHAR(255) NOT NULL,
+            `user_login` VARCHAR(255),
             `user_money` DECIMAL(7,2) DEFAULT 0,
-            `user_name` VARCHAR(255) NOT NULL,
-            `user_password` CHAR(32) NOT NULL,
+            `user_name` VARCHAR(255),
+            `user_password` CHAR(32),
             `user_rating` DECIMAL(6,2) DEFAULT 500,
             `user_referrer_id` INT(11) DEFAULT 0,
             `user_sex_id` INT(1) DEFAULT 1,
             `user_shop_position` INT(3) DEFAULT 0,
             `user_shop_special` INT(3) DEFAULT 0,
             `user_shop_training` INT(3) DEFAULT 0,
-            `user_surname` VARCHAR(255) NOT NULL,
+            `user_surname` VARCHAR(255),
             `user_userrole_id` INT(1) DEFAULT 1
         );';
 $q[] = "INSERT INTO `user`
@@ -59,3 +59,4 @@ $q[] = "INSERT INTO `user`
             `user_userrole_id`=3";
 $q[] = 'CREATE INDEX `user_code` ON `user` (`user_code`);';
 $q[] = 'CREATE UNIQUE INDEX `user_email` ON `user` (`user_email`);';
+$q[] = 'CREATE INDEX `user_referrer_id` ON `user` (`user_referrer_id`);';

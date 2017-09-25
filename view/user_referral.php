@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $num_get integer
+ * @var $referral_array array
  */
 ?>
 <div class="row margin-top">
@@ -64,7 +65,7 @@
         </p>
         <p class="text-justify">
             А в случае, если ваш подопечный сможет разобраться в игре и стать настоящим менеджером
-            Виртуальной Хоккейно Лиги - вас ждет <span class="strong">дополнительное вознаграждение</span> в виде
+            Виртуальной Хоккейной Лиги - вас ждет <span class="strong">дополнительное вознаграждение</span> в виде
             <span class="strong">1 млн $</span> на личный счет менеджера.
         </p>
         <p class="text-justify">
@@ -93,8 +94,8 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Менеджер</th>
-                <th class="col-15">Последний визит</th>
-                <th class="col-15">Дата регистрации</th>
+                <th class="col-20 hidden-xs">Последний визит</th>
+                <th class="col-20 hidden-xs">Дата регистрации</th>
             </tr>
             <?php foreach ($referral_array as $item) { ?>
                 <tr>
@@ -103,14 +104,14 @@
                             <?= $item['user_login']; ?>
                         </a>
                     </td>
-                    <td class="text-center"><?= f_igosja_ufu_last_visit($item['user_date_register']); ?></td>
-                    <td class="text-center"><?= f_igosja_ufu_date_time($item['user_date_register']); ?></td>
+                    <td class="text-center hidden-xs"><?= f_igosja_ufu_last_visit($item['user_date_login']); ?></td>
+                    <td class="text-center hidden-xs"><?= f_igosja_ufu_date_time($item['user_date_register']); ?></td>
                 </tr>
             <?php } ?>
             <tr>
                 <th>Менеджер</th>
-                <th>Последний визит</th>
-                <th>Дата регистрации</th>
+                <th class="hidden-xs">Последний визит</th>
+                <th class="hidden-xs">Дата регистрации</th>
             </tr>
         </table>
     </div>

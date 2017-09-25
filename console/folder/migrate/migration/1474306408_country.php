@@ -8,7 +8,7 @@ $q[] = 'CREATE TABLE `country`
             `country_auto` INT(5) DEFAULT 0,
             `country_finance` INT(11) DEFAULT 0,
             `country_game` INT(5) DEFAULT 0,
-            `country_name` VARCHAR(255) NOT NULL,
+            `country_name` VARCHAR(255),
             `country_president_id` INT(11) DEFAULT 0,
             `country_stadium` INT(5) DEFAULT 0,
             `country_vice_id` INT(11) DEFAULT 0

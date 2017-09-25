@@ -9,11 +9,7 @@ include(__DIR__ . '/include/include.php');
 
 $result = '';
 
-if ($password = f_igosja_request_post('password_old'))
-{
-    $result = f_igosja_check_user_password($password);
-}
-elseif ($phisical_id = (int) f_igosja_request_get('phisical_id'))
+if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
 {
     $change_status = true;
 

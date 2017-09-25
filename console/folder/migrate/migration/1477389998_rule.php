@@ -7,8 +7,8 @@ $q[] = 'CREATE TABLE `rule`
             `rule_id` INT(3) PRIMARY KEY AUTO_INCREMENT,
             `rule_date` INT(11) DEFAULT 0,
             `rule_order` INT(3) DEFAULT 0,
-            `rule_text` TEXT NOT NULL,
-            `rule_title` VARCHAR(255) NOT NULL
+            `rule_text` TEXT,
+            `rule_title` VARCHAR(255)
         );';
 $q[] = 'CREATE INDEX `rule_order` ON `rule` (`rule_order`);';
 $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 1, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>

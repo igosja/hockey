@@ -5,7 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `historytext`
         (
             `historytext_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `historytext_name` VARCHAR(255) NOT NULL
+            `historytext_name` VARCHAR(255)
         );';
 $q[] = "INSERT INTO `historytext` (`historytext_name`)
         VALUES ('Команда {team} зарегистрирована в Лиге'),
