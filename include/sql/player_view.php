@@ -37,7 +37,7 @@ $sql = "SELECT `country_id`,
         ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
-$player_sql = f_igosja_mysqli_query($sql);
+$player_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $player_sql->num_rows)
 {
@@ -53,7 +53,7 @@ $sql = "SELECT `playerposition_player_id`,
         ON `playerposition_position_id`=`position_id`
         WHERE `playerposition_player_id`=$num_get
         ORDER BY `playerposition_position_id` ASC";
-$playerposition_sql = f_igosja_mysqli_query($sql);
+$playerposition_sql = f_igosja_mysqli_query($sql, false);
 
 $playerposition_array = $playerposition_sql->fetch_all(1);
 
@@ -65,7 +65,7 @@ $sql = "SELECT `playerspecial_level`,
         ON `playerspecial_special_id`=`special_id`
         WHERE `playerspecial_player_id`=$num_get
         ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-$playerspecial_sql = f_igosja_mysqli_query($sql);
+$playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(1);
 
@@ -74,6 +74,6 @@ $sql = "SELECT `line_color`,
                `line_name`
         FROM `line`
         ORDER BY `line_id` ASC";
-$line_sql = f_igosja_mysqli_query($sql);
+$line_sql = f_igosja_mysqli_query($sql, false);
 
 $line_array = $line_sql->fetch_all(1);

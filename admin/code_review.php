@@ -372,7 +372,7 @@ $exception_array = array(
         'tournament.php',
         'user_achievement.php', //!
         'user_deal.php', //!
-        'user_finance.php', //!
+        'user_finance.php',
         'user_holiday.php',
         'user_password.php',
         'user_questionnaire.php',
