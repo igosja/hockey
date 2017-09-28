@@ -11,3 +11,4 @@ $q[] = 'CREATE TABLE `transferapplication`
             `transferapplication_transfer_id` INT(11) DEFAULT 0,
             `transferapplication_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `transferapplication_transfer_id` ON `transferapplication` (`transferapplication_transfer_id`);';

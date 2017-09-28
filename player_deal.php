@@ -45,7 +45,7 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         WHERE `transfer_ready`=1
         AND `transfer_player_id`=$num_get
         ORDER BY `transfer_date` DESC";
-$transfer_sql = f_igosja_mysqli_query($sql);
+$transfer_sql = f_igosja_mysqli_query($sql, false);
 
 $transfer_array = $transfer_sql->fetch_all(1);
 
@@ -86,7 +86,7 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         WHERE `rent_ready`=1
         AND `rent_player_id`=$num_get
         ORDER BY `rent_date` DESC";
-$rent_sql = f_igosja_mysqli_query($sql);
+$rent_sql = f_igosja_mysqli_query($sql, false);
 
 $rent_array = $rent_sql->fetch_all(1);
 
@@ -94,7 +94,7 @@ $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$position_sql = f_igosja_mysqli_query($sql, false);
 
 $position_array = $position_sql->fetch_all(1);
 

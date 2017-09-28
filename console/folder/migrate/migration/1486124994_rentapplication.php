@@ -12,3 +12,4 @@ $q[] = 'CREATE TABLE `rentapplication`
             `rentapplication_rent_id` INT(11) DEFAULT 0,
             `rentapplication_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `rentapplication_rent_id` ON `rentapplication` (`rentapplication_rent_id`);';

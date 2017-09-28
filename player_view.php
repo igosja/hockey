@@ -41,7 +41,7 @@ $sql = "SELECT `game_id`,
         WHERE `lineup_player_id`=$num_get
         AND `game_played`=1
         ORDER BY `schedule_id` DESC";
-$game_sql = f_igosja_mysqli_query($sql);
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 $game_array = $game_sql->fetch_all(1);
 

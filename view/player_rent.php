@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_team_id integer
  * @var $my_player boolean
  * @var $num_get integer
  * @var $on_rent boolean
@@ -12,7 +13,7 @@
  * @var $start_price integer
  */
 ?>
-<?php include(__DIR__ . '/include/player_view_top.php'); ?>
+<?php include(__DIR__ . '/include/player_view.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php include(__DIR__ . '/include/player_table_link.php'); ?>

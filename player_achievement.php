@@ -17,7 +17,7 @@ $sql = "SELECT `achievementplayer_season_id`,
         ON `achievementplayer_tournamenttype_id`=`tournamenttype_id`
         WHERE `achievementplayer_player_id`=$num_get
         ORDER BY `achievementplayer_id` DESC";
-$achievement_sql = f_igosja_mysqli_query($sql);
+$achievement_sql = f_igosja_mysqli_query($sql, false);
 
 $achievement_array = $achievement_sql->fetch_all(1);
 

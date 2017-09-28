@@ -57,7 +57,7 @@
                 <a class="btn btn-default" href="/admin/site_version.php?num=3">
                     +
                 </a>
-                - Рефакторинг кода и запросов
+                - Исправление багов, опечаток
             </li>
         </ul>
     </div>
@@ -69,7 +69,7 @@
                 <a class="btn btn-default" href="/admin/site_version.php?num=4">
                     +
                 </a>
-                - Исправление багов, опечаток
+                - Рефакторинг кода и запросов
             </li>
         </ul>
     </div>

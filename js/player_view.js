@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
         var player_id   = $(this).data('player');
 
         $.ajax({
-            url: '/json.php?line_id=' + line_id + '&player_id=' + player_id
+            url: '/json/player_view.php?line_id=' + line_id + '&player_id=' + player_id
         });
     });
 });

@@ -30,7 +30,13 @@
         Президент:
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        Имя
+        <?php if ($country_array[0]['president_id']) { ?>
+            <a href="/user_view.php?num=<?= $country_array[0]['president_id']; ?>">
+                <?= $country_array[0]['president_login']; ?>
+            </a>
+        <?php } else { ?>
+            -
+        <?php } ?>
     </div>
 </div>
 <div class="row">
@@ -38,7 +44,7 @@
         Последний визит:
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        Время
+        <?= f_igosja_ufu_last_visit($country_array[0]['president_date_login']); ?>
     </div>
 </div>
 <div class="row">
@@ -46,7 +52,33 @@
         Рейтинг президента:
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        Рейтинг
+        <span class="font-green"><?= $country_array[0]['rating_positive']; ?>%</span>
+        |
+        <span class="font-yellow"><?= 100 - $country_array[0]['rating_positive'] - $country_array[0]['rating_negative']; ?>%</span>
+        |
+        <span class="font-red"><?= $country_array[0]['rating_negative']; ?>%</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+        Заместитель президента:
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <?php if ($country_array[0]['vice_id']) { ?>
+            <a href="/user_view.php?num=<?= $country_array[0]['vice_id']; ?>">
+                <?= $country_array[0]['vice_login']; ?>
+            </a>
+        <?php } else { ?>
+            -
+        <?php } ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+        Последний визит:
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <?= f_igosja_ufu_last_visit($country_array[0]['vice_date_login']); ?>
     </div>
 </div>
 <div class="row">

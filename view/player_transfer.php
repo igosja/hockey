@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_team_id integer
  * @var $my_player boolean
  * @var $num_get integer
  * @var $on_transfer boolean
@@ -9,7 +10,7 @@
  * @var $start_price integer
  */
 ?>
-<?php include(__DIR__ . '/include/player_view_top.php'); ?>
+<?php include(__DIR__ . '/include/player_view.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php include(__DIR__ . '/include/player_table_link.php'); ?>
@@ -100,7 +101,9 @@
                             <span class="strong">
                                 <a href="/team_view.php?num=<?= $team_array[0]['team_id']; ?>">
                                     <?= $team_array[0]['team_name']; ?>
-                                    (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
+                                    <span class="hidden-xs">
+                                        (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
+                                    </span>
                                 </a>
                             </span>
                         </div>

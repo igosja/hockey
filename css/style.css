@@ -785,6 +785,10 @@ input[type="checkbox"] {
     color: #3f903f;
 }
 
+.font-yellow {
+    color: #dab900;
+}
+
 .font-red {
     color: #b52b27;
 }

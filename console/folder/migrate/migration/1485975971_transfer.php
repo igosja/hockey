@@ -18,3 +18,5 @@ $q[] = 'CREATE TABLE `transfer`
             `transfer_user_buyer_id` INT(11) DEFAULT 0,
             `transfer_user_seller_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `transfer_player_id` ON `transfer` (`transfer_player_id`);';
+$q[] = 'CREATE INDEX `transfer_ready` ON `transfer` (`transfer_ready`);';

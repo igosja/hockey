@@ -318,6 +318,7 @@ $exception_array = array(
         'include/seo.php',
         'include/session.php',
         'include/site.php',
+        'include/sql/player_view.php',
         'include/sql/user_view.php',
         'include/start.php',
         'include/table_link.php',
@@ -343,6 +344,7 @@ $exception_array = array(
         'js/offseason_statistic.js',
         'js/password.js',
         'js/password_restore.js',
+        'js/player_view.js',
         'js/raphael.js',
         'js/rating.js',
         'js/sb-admin-2.js',
@@ -352,6 +354,7 @@ $exception_array = array(
         'js/user_password.js',
         'js/user_questionnaire.js',
         'js/user_transfermoney.js',
+        'json/player_view.php',
         'json/signup.php',
         'json/user_password.php',
         'login.php',
@@ -360,6 +363,12 @@ $exception_array = array(
         'newscomment.php',
         'password.php',
         'password_restore.php',
+        'player_achievement.php', //!
+        'player_event.php',
+        'player_deal.php',
+        'player_rent.php',
+        'player_transfer.php',
+        'player_view.php', //!
         'robots.txt',
         'rule.php',
         'rule_list.php',
@@ -390,6 +399,8 @@ $exception_array = array(
         'view/forum_theme.php',
         'view/forum_theme_create.php',
         'view/game_list.php',
+        'view/include/player_table_link.php',
+        'view/include/player_view_top.php',
         'view/include/user_profile_top_left.php',
         'view/include/user_profile_top_right.php',
         'view/index.php',
@@ -397,6 +408,12 @@ $exception_array = array(
         'view/newscomment.php',
         'view/password.php',
         'view/password_restore.php',
+        'view/player_achievement.php', //!
+        'view/player_deal.php', //!
+        'view/player_event.php',
+        'view/player_rent.php',
+        'view/player_transfer.php',
+        'view/player_view.php', //!
         'view/rule.php',
         'view/rule_list.php',
         'view/schedule.php',

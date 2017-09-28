@@ -25,7 +25,7 @@ $sql = "SELECT `team_id`,
         ON `team_user_id`=`user_id`
         WHERE `city_country_id`=$num_get
         ORDER BY `team_name` ASC";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 

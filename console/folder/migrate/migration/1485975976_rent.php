@@ -21,3 +21,5 @@ $q[] = 'CREATE TABLE `rent`
             `rent_user_buyer_id` INT(11) DEFAULT 0,
             `rent_user_seller_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `rent_player_id` ON `rent` (`rent_player_id`);';
+$q[] = 'CREATE INDEX `rent_ready` ON `rent` (`rent_ready`);';

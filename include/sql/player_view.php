@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $auth_team_id integer
  * @var $num_get integer
  */
 
@@ -69,11 +70,14 @@ $playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(1);
 
-$sql = "SELECT `line_color`,
-               `line_id`,
-               `line_name`
-        FROM `line`
-        ORDER BY `line_id` ASC";
-$line_sql = f_igosja_mysqli_query($sql, false);
+if (isset($auth_team_id) && $player_array[0]['team_id'] == $auth_team_id)
+{
+    $sql = "SELECT `line_color`,
+                   `line_id`,
+                   `line_name`
+            FROM `line`
+            ORDER BY `line_id` ASC";
+    $line_sql = f_igosja_mysqli_query($sql, false);
 
-$line_array = $line_sql->fetch_all(1);
+    $line_array = $line_sql->fetch_all(1);
+}

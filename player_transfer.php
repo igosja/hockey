@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $auth_user_id integer
+ * @var $player_array array
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -23,7 +29,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 WHERE `transfer_player_id`=$num_get
                 AND `transfer_ready`=0
                 LIMIT 1";
-        $transfer_sql = f_igosja_mysqli_query($sql);
+        $transfer_sql = f_igosja_mysqli_query($sql, false);
 
         if ($transfer_sql->num_rows)
         {
@@ -39,11 +45,11 @@ if (isset($auth_team_id) && $auth_team_id)
                 $sql = "DELETE FROM `transfer`
                         WHERE `transfer_id`=$transfer_id
                         LIMIT 1";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
 
                 $sql = "DELETE FROM `transferapplication`
                         WHERE `transferapplication_transfer_id`=$transfer_id";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
 
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
@@ -68,7 +74,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     ON `city_country_id`=`country_id`
                     WHERE `transferapplication_transfer_id`=$transfer_id
                     ORDER BY `transferapplication_id` ASC";
-            $transferapplication_sql = f_igosja_mysqli_query($sql);
+            $transferapplication_sql = f_igosja_mysqli_query($sql, false);
 
             $transferapplication_array = $transferapplication_sql->fetch_all(1);
         }
@@ -95,7 +101,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             `transfer_price_buyer`=$price,
                             `transfer_team_seller_id`=$auth_team_id,
                             `transfer_user_seller_id`=$auth_user_id";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
 
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно выставлен на трансфер.';
@@ -114,7 +120,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 WHERE `transfer_player_id`=$num_get
                 AND `transfer_ready`=0
                 LIMIT 1";
-        $transfer_sql = f_igosja_mysqli_query($sql);
+        $transfer_sql = f_igosja_mysqli_query($sql, false);
 
         if ($transfer_sql->num_rows)
         {
@@ -138,7 +144,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     ON `city_country_id`=`country_id`
                     WHERE `team_id`=$auth_team_id
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql);
+            $team_sql = f_igosja_mysqli_query($sql, false);
 
             $team_array = $team_sql->fetch_all(1);
 
@@ -149,7 +155,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     AND `transferapplication_team_id`=$auth_team_id
                     AND `transferapplication_user_id`=$auth_user_id
                     LIMIT 1";
-            $transferapplication_sql = f_igosja_mysqli_query($sql);
+            $transferapplication_sql = f_igosja_mysqli_query($sql, false);
 
             if ($transferapplication_sql->num_rows)
             {
@@ -165,7 +171,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     $sql = "DELETE FROM `transferapplication`
                             WHERE `transferapplication_id`=$transferapplication_id
                             LIMIT 1";
-                    f_igosja_mysqli_query($sql);
+                    f_igosja_mysqli_query($sql, false);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно удалена.';
@@ -190,7 +196,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             SET `transferapplication_price`=$price
                             WHERE `transferapplication_id`=$transferapplication_id
                             LIMIT 1";
-                    f_igosja_mysqli_query($sql);
+                    f_igosja_mysqli_query($sql, false);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно отредактирована.';
@@ -221,7 +227,7 @@ if (isset($auth_team_id) && $auth_team_id)
                                 `transferapplication_team_id`=$auth_team_id,
                                 `transferapplication_transfer_id`=$transfer_id,
                                 `transferapplication_user_id`=$auth_user_id";
-                    f_igosja_mysqli_query($sql);
+                    f_igosja_mysqli_query($sql, false);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно сохранена.';
