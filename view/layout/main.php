@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $auth_user_login string
+ * @var $controller string
  * @var $igosja_menu array
  * @var $igosja_menu_mobile array
  * @var $seo_description string
@@ -26,7 +27,7 @@
     <!--LiveInternet counter-->
     <script type="text/javascript">
         new Image().src = "//counter.yadro.ru/hit?r"+
-            escape(document.referrer)+((typeof(screen)=="undefined")?"":
+            escape(document.referrer)+((typeof(screen)==="undefined")?"":
                 ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
                 screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
             ";"+Math.random();
@@ -117,10 +118,15 @@
         </div>
     </div>
 </div>
-<?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js')) { ?>
+<?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js') || file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
     <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
     <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
-    <script src="/js/<?= $tpl; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $tpl . '.js'); ?>"></script>
+    <?php if (file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
+        <script src="/js/<?= $controller; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $controller . '.js'); ?>"></script>
+    <?php } ?>
+    <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js')) { ?>
+        <script src="/js/<?= $tpl; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $tpl . '.js'); ?>"></script>
+    <?php } ?>
 <?php } ?>
 </body>
 </html>

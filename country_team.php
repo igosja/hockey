@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $country_array array
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -9,13 +13,12 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 include(__DIR__ . '/include/sql/country_view.php');
 
-$sql = "SELECT `team_id`,
+$sql = "SELECT SQL_CALC_FOUND_ROWS `city_name`,
+               `team_id`,
                `team_name`,
                `user_date_login`,
                `user_id`,
-               `user_login`,
-               `user_name`,
-               `user_surname`
+               `user_login`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`

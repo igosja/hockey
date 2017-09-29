@@ -32,7 +32,7 @@
                     <select class="form-control" name="season_id" id="season_id">
                         <?php foreach ($season_array as $item) { ?>
                             <option
-                                    value="<?= $item['season_id']; ?>"
+                                value="<?= $item['season_id']; ?>"
                                 <?php if ($season_id == $item['season_id']) { ?>
                                     selected
                                 <?php } ?>
@@ -51,26 +51,26 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th class="col-15">Дата</th>
-                <th class="col-10">Было</th>
+                <th class="col-10 hidden-xs">Было</th>
                 <th class="col-10">+/-</th>
-                <th class="col-10">Стало</th>
-                <th>Комментарий</th>
+                <th class="col-10 hidden-xs">Стало</th>
+                <th class="hidden-xs">Комментарий</th>
             </tr>
             <?php foreach ($finance_array as $item) { ?>
                 <tr>
                     <td class="text-center"><?= f_igosja_ufu_date($item['finance_date']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value_before']); ?></td>
+                    <td class="text-right hidden-xs"><?= f_igosja_money($item['finance_value_before']); ?></td>
                     <td class="text-right"><?= f_igosja_money($item['finance_value']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value_after']); ?></td>
-                    <td><?= $item['financetext_name']; ?></td>
+                    <td class="text-right hidden-xs"><?= f_igosja_money($item['finance_value_after']); ?></td>
+                    <td class="hidden-xs"><?= $item['financetext_name']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
                 <th>Дата</th>
-                <th>Было</th>
+                <th class="hidden-xs">Было</th>
                 <th>+/-</th>
-                <th>Стало</th>
-                <th>Комментарий</th>
+                <th class="hidden-xs">Стало</th>
+                <th class="hidden-xs">Комментарий</th>
             </tr>
         </table>
     </div>

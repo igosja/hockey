@@ -1,10 +1,14 @@
 <?php
-
 /**
+ * @var $auth_relation_id integer
+ * @var $auth_relation_name string
  * @var $country_array array
  * @var $file_name string
+ * @var $rating_negative integer
+ * @var $rating_neutral integer
+ * @var $rating_positive integer
+ * @var $relation_array array
  */
-
 ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -52,11 +56,11 @@
         Рейтинг президента:
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <span class="font-green"><?= $country_array[0]['rating_positive']; ?>%</span>
+        <span class="font-green"><?= $rating_positive; ?>%</span>
         |
-        <span class="font-yellow"><?= 100 - $country_array[0]['rating_positive'] - $country_array[0]['rating_negative']; ?>%</span>
+        <span class="font-yellow"><?= $rating_neutral; ?>%</span>
         |
-        <span class="font-red"><?= $country_array[0]['rating_negative']; ?>%</span>
+        <span class="font-red"><?= $rating_negative; ?>%</span>
     </div>
 </div>
 <div class="row">
@@ -89,3 +93,40 @@
         <?= f_igosja_money($country_array[0]['country_finance']); ?>
     </div>
 </div>
+<?php if (isset($relation_array)) { ?>
+    <form method="post">
+        <div class="row text-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-head">
+                Ваше отношение к президенту федерации:
+                <a href="javascript:" id="relation-link"><?= $auth_relation_name; ?></a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-body hidden">
+                <div class="row text-left">
+                    <div class="col-lg-3 col-md-3 col-sm-2"></div>
+                    <?php foreach ($relation_array as $item) { ?>
+                        <div class="hidden-lg hidden-md hidden-sm col-xs-3"></div>
+                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">
+                            <input
+                                id="rating-<?= $item['relation_id']; ?>"
+                                name="data[vote_president]"
+                                type="radio"
+                                value="<?= $item['relation_id']; ?>"
+                                <?php if ($auth_relation_id == $item['relation_id']) { ?>
+                                    checked
+                                <?php } ?>
+                            />
+                            <label for="rating-<?= $item['relation_id']; ?>"><?= $item['relation_name']; ?></label>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <input type="submit" class="btn" value="Изменить отношение"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<?php } ?>

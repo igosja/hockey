@@ -11,6 +11,8 @@ $file_name  = end($file_name);
 $file_name  = explode('.', $file_name);
 $file_name  = $file_name[0];
 $tpl        = $file_name;
+$controller = explode('_', $file_name);
+$controller = $controller[0];
 
 if ('admin' == $chapter)
 {

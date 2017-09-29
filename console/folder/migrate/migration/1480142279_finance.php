@@ -21,5 +21,6 @@ $q[] = 'CREATE TABLE `finance`
             `finance_value_after` INT(11) DEFAULT 0,
             `finance_value_before` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `finance_country_id` ON `finance` (`finance_country_id`);';
 $q[] = 'CREATE INDEX `finance_season_id` ON `finance` (`finance_season_id`);';
 $q[] = 'CREATE INDEX `finance_user_id` ON `finance` (`finance_user_id`);';

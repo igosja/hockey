@@ -11,3 +11,4 @@ $q[] = 'CREATE TABLE `news`
             `news_title` VARCHAR(255),
             `news_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `news_country_id` ON `news` (`news_country_id`);';

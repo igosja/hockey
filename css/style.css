@@ -837,3 +837,13 @@ fieldset legend {
 .forum-striped:nth-child(2n+1) {
     background-color: #e8e8e8;
 }
+
+.relation-head {
+    background-color: #BDE5F8;
+    border: 1px solid #00529B;
+}
+
+.relation-body {
+    border: 1px solid #00529B;
+    border-top: none;
+}

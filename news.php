@@ -29,7 +29,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
             GROUP BY `newscomment_news_id`
         ) AS `t1`
         ON `news_id`=`newscomment_news_id`
-        AND `news_country_id`=0
+        WHERE `news_country_id`=0
         ORDER BY `news_id` DESC
         LIMIT $offset, $limit";
 $news_sql = f_igosja_mysqli_query($sql, false);
