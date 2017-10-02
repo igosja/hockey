@@ -40,8 +40,12 @@ function f_igosja_election_president_vice_to_close($electionpresidentvice_id)
             WHERE `electionpresidentviceapplication_electionpresidentvice_id`=$electionpresidentvice_id
             AND `user_id` NOT IN
             (
-                SELECT `national_user_id`,
-                       `national_vice_id`
+                SELECT `national_user_id`
+                FROM `national`
+            )
+            AND `user_id` NOT IN
+            (
+                SELECT `national_vice_id`
                 FROM `national`
             )
             ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentviceapplication_id` ASC

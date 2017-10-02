@@ -153,6 +153,7 @@ $exception_array = array(
         'codecept.phar',
         'codeception.yml',
         'conference.php',
+        'conference_statistic.php',
         'conference_table.php',
         'console/environment',
         'console/folder/environment/index.php',
@@ -334,6 +335,7 @@ $exception_array = array(
         'js/championship.js',
         'js/championship_statistic.js',
         'js/conference.js',
+        'js/conference_statistic.js', //!
         'js/conference_table.js',
         'js/country_finance.js',
         'js/country.js',
@@ -351,9 +353,11 @@ $exception_array = array(
         'js/news.js',
         'js/newscomment.js',
         'js/offseason.js',
-        'js/offseason_statistic.js',
+        'js/offseason_statistic.js', //!
+        'js/offseason_table.js',
         'js/password.js',
         'js/password_restore.js',
+        'js/player_list.js',
         'js/player_view.js',
         'js/raphael.js',
         'js/rating.js',
@@ -373,11 +377,14 @@ $exception_array = array(
         'news.php',
         'newscomment.php',
         'offseason.php',
+        'offseason_statistic.php',
+        'offseason_table.php',
         'password.php',
         'password_restore.php',
         'player_achievement.php', //!
         'player_event.php',
         'player_deal.php',
+        'player_list.php',
         'player_rent.php',
         'player_transfer.php',
         'player_view.php', //!
@@ -404,6 +411,7 @@ $exception_array = array(
         'view/activation_repeat.php',
         'view/closed.php',
         'view/conference.php',
+        'view/conference_statistic.php', //!
         'view/conference_table.php',
         'view/country_finance.php',
         'view/country_news.php',
@@ -424,11 +432,14 @@ $exception_array = array(
         'view/news.php',
         'view/newscomment.php',
         'view/offseason.php',
+        'view/offseason_statistic.php', //!
+        'view/offseason_table.php',
         'view/password.php',
         'view/password_restore.php',
         'view/player_achievement.php', //!
         'view/player_deal.php', //!
         'view/player_event.php',
+        'view/player_list.php',
         'view/player_rent.php',
         'view/player_transfer.php',
         'view/player_view.php', //!

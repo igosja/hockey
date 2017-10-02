@@ -14,7 +14,7 @@
         </h1>
     </div>
 </div>
-<form action="/offseason_statistic.php" method="GET">
+<form method="GET">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <label for="statistictype">Статистика:</label>
@@ -61,9 +61,9 @@
         ))) { ?>
             <table class="table table-bordered table-hover">
                 <tr>
-                    <th>№</th>
+                    <th class="col-10">№</th>
                     <th>Команда</th>
-                    <th></th>
+                    <th class="col-10"></th>
                 </tr>
                 <?php for ($i=0; $i<$count_statistic; $i++) { ?>
                     <tr>
@@ -115,10 +115,10 @@
         ))) { ?>
             <table class="table table-bordered table-hover">
                 <tr>
-                    <th>№</th>
+                    <th class="col-10">№</th>
                     <th>Игрок</th>
-                    <th>Команда</th>
-                    <th></th>
+                    <th class="hidden-xs">Команда</th>
+                    <th class="col-10"></th>
                 </tr>
                 <?php for ($i=0; $i<$count_statistic; $i++) { ?>
                     <tr>
@@ -129,7 +129,7 @@
                                 <?= $statistic_array[$i]['surname_name']; ?>
                             </a>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <img src="/img/country/12/<?= $statistic_array[$i]['country_id']; ?>.png" title="<?= $statistic_array[$i]['country_name']; ?>"/>
                             <a href="/team_view.php?num=<?= $statistic_array[$i]['team_id']; ?>">
                                 <?= $statistic_array[$i]['team_name']; ?>
@@ -142,7 +142,7 @@
                 <tr>
                     <th>№</th>
                     <th>Игрок</th>
-                    <th>Команда</th>
+                    <th class="hidden-xs">Команда</th>
                     <th></th>
                 </tr>
             </table>

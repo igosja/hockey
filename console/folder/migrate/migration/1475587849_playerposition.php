@@ -8,3 +8,4 @@ $q[] = 'CREATE TABLE `playerposition`
             `playerposition_position_id` INT(1) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `playerposition_player_id` ON `playerposition` (`playerposition_player_id`);';
+$q[] = 'CREATE INDEX `playerposition_position_id` ON `playerposition` (`playerposition_position_id`);';

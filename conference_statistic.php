@@ -2,6 +2,7 @@
 
 /**
  * @var $igosja_season_id integer
+ * @var $season_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -14,7 +15,7 @@ $sql = "SELECT `statisticchapter_id`,
         LEFT JOIN `statisticchapter`
         ON `statistictype_statisticchapter_id`=`statisticchapter_id`
         ORDER BY `statisticchapter_id` ASC, `statistictype_id` ASC";
-$statistictype_sql = f_igosja_mysqli_query($sql);
+$statistictype_sql = f_igosja_mysqli_query($sql, false);
 
 $count_statistictype = $statistictype_sql->num_rows;
 $statistictype_array = $statistictype_sql->fetch_all(1);
@@ -22,6 +23,11 @@ $statistictype_array = $statistictype_sql->fetch_all(1);
 if (!$num_get = f_igosja_request_get('num'))
 {
     $num_get = $statistictype_array[0]['statistictype_id'];
+}
+
+if (!$season_id = f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
 }
 
 $select = 'team_id';
@@ -219,7 +225,7 @@ if (in_array($num_get, array(
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
             WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
-            AND `statisticteam_season_id`=$igosja_season_id
+            AND `statisticteam_season_id`=$season_id
             ORDER BY $select
             LIMIT 100";
 }
@@ -293,13 +299,13 @@ elseif (in_array($num_get, array(
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
             WHERE `statisticplayer_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
-            AND `statisticplayer_season_id`=$igosja_season_id
+            AND `statisticplayer_season_id`=$season_id
             $where
             ORDER BY $select
             LIMIT 100";
 }
 
-$statistic_sql = f_igosja_mysqli_query($sql);
+$statistic_sql = f_igosja_mysqli_query($sql, false);
 
 $count_statistic = $statistic_sql->num_rows;
 $statistic_array = $statistic_sql->fetch_all(1);

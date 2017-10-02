@@ -13,7 +13,6 @@ function f_igosja_start_insert_team()
             'list' => array(
                 array('team' => 'Абботсфорд Хит', 'stadium' => 'Абботсфорд', 'city' => 'Абботсфорд'),
                 array('team' => 'Брамптон Бист', 'stadium' => 'Паверад', 'city' => 'Брамптон'),
-                /*
                 array('team' => 'Ванкувер Кэнакс', 'stadium' => 'Роджерс', 'city' => 'Ванкувер'),
                 array('team' => 'Виннипег Джетс', 'stadium' => 'МТС', 'city' => 'Виннипег'),
                 array('team' => 'Галифакс Мусхэдз', 'stadium' => 'Галифакс Метро', 'city' => 'Галифакс'),
@@ -45,10 +44,9 @@ function f_igosja_start_insert_team()
                 array('team' => 'Шербрук Финикс', 'stadium' => 'Пале де Спорт', 'city' => 'Шербрук'),
                 array('team' => 'Эдмонтон Ойл Кингз', 'stadium' => 'Рексал', 'city' => 'Эдмонтон'),
                 array('team' => 'Лаваль Сеинтс', 'stadium' => 'Лаваль', 'city' => 'Лаваль'),
-                array('team' => 'Тербон Кобраз', 'stadium' => 'Тербон', 'city' => 'Тербон'),*/
+                array('team' => 'Тербон Кобраз', 'stadium' => 'Тербон', 'city' => 'Тербон'),
             ),
         ),
-        /*
         array(
             'country' => 'США',
             'list' => array(
@@ -477,7 +475,7 @@ function f_igosja_start_insert_team()
                 array('team' => 'Ведмеди', 'city' => 'Ужгород', 'stadium' => 'Ужгород'),
                 array('team' => 'Подоляны', 'city' => 'Тернополь', 'stadium' => 'Тернополь'),
             ),
-        ),*/
+        ),
     );
 
     foreach ($team_array as $country)

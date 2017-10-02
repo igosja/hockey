@@ -105,6 +105,7 @@ $offset = ($page - 1) * $limit;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `city_name`,
+               `t_country`.`country_id` AS `t_country_id`,
                `t_country`.`country_name` AS `t_country_name`,
                `name_name`,
                `pl_country`.`country_id` AS `pl_country_id`,
@@ -156,14 +157,14 @@ if (count($bind_param_array))
 }
 else
 {
-    $player_sql = f_igosja_mysqli_query($sql);
+    $player_sql = f_igosja_mysqli_query($sql, false);
 }
 
 $count_player = $player_sql->num_rows;
 $player_array = $player_sql->fetch_all(1);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql);
+$total = f_igosja_mysqli_query($sql, false);
 $total = $total->fetch_all(1);
 $total = $total[0]['count'];
 
@@ -187,7 +188,7 @@ if (count($player_id))
         ON `playerposition_position_id`=`position_id`
         WHERE `playerposition_player_id` IN ($player_id)
         ORDER BY `playerposition_position_id` ASC";
-    $playerposition_sql = f_igosja_mysqli_query($sql);
+    $playerposition_sql = f_igosja_mysqli_query($sql, false);
 
     $playerposition_array = $playerposition_sql->fetch_all(1);
 
@@ -199,7 +200,7 @@ if (count($player_id))
         ON `playerspecial_special_id`=`special_id`
         WHERE `playerspecial_player_id` IN ($player_id)
         ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-    $playerspecial_sql = f_igosja_mysqli_query($sql);
+    $playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(1);
 }
@@ -213,7 +214,7 @@ $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$position_sql = f_igosja_mysqli_query($sql, false);
 
 $position_array = $position_sql->fetch_all(1);
 
@@ -223,9 +224,10 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `city`
         ON `country_id`=`city_country_id`
         WHERE `city_country_id` IS NOT NULL
+        AND `country_id`!=0
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 

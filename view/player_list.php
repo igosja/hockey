@@ -24,7 +24,8 @@
             Условия поиска:
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-            <select class="form-control" name="data[country_id]">
+            <label class="hidden" for="country_id">Национальность</label>
+            <select class="form-control" id="country_id" name="data[country_id]">
                 <option value="">Национальность</option>
                 <?php foreach ($country_array as $item) { ?>
                     <option
@@ -59,7 +60,8 @@
             />
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-            <select class="form-control" name="data[position_id]">
+            <label class="hidden" for="position_id">Национальность</label>
+            <select class="form-control" id="position_id" name="data[position_id]">
                 <option value="">Позиция</option>
                 <?php foreach ($position_array as $item) { ?>
                     <option
@@ -142,7 +144,7 @@
             Всего игроков: <?= $total; ?>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
-            Страница:
+            <label for="page">Страница:</label>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
             <select class="form-control" name="page" id="page">
@@ -185,6 +187,7 @@
                     <td class="hidden-xs text-center">
                         <a href="/country_news.php?num=<?= $player_array[$i]['pl_country_id']; ?>">
                             <img
+                                alt="<?= $player_array[$i]['pl_country_name']; ?>"
                                 src="/img/country/12/<?= $player_array[$i]['pl_country_id']; ?>.png"
                                 title="<?= $player_array[$i]['pl_country_name']; ?>"
                             />
@@ -203,9 +206,14 @@
                         <?= f_igosja_player_special($player_array[$i]['player_id'], $playerspecial_array); ?>
                     </td>
                     <td>
+                        <img
+                            alt="<?= $player_array[$i]['t_country_name']; ?>"
+                            src="/img/country/12/<?= $player_array[$i]['t_country_id']; ?>.png"
+                            title="<?= $player_array[$i]['t_country_name']; ?>"
+                        />
                         <a href="/team_view.php?num=<?= $player_array[$i]['team_id']; ?>">
                             <?= $player_array[$i]['team_name']; ?>
-                            (<?= $player_array[$i]['city_name']; ?>, <?= $player_array[$i]['t_country_name']; ?>)
+                            <span class="hidden-xs">(<?= $player_array[$i]['city_name']; ?>)</span>
                         </a>
                     </td>
                     <td class="hidden-xs text-right">

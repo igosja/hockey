@@ -39,6 +39,7 @@ $q[] = 'CREATE TABLE `statisticplayer`
             `statisticplayer_shot_gk` INT(3) DEFAULT 0, #Броски (для вратарей)
             `statisticplayer_shot_per_game` DECIMAL(4,2) DEFAULT 0, #Бросков за игру
             `statisticplayer_shutout` INT(3) DEFAULT 0, #Игр на ноль
+            `statisticplayer_team_id` INT(11) DEFAULT 0,
             `statisticplayer_tournamenttype_id` INT(1) DEFAULT 0,
             `statisticplayer_win` INT(2) DEFAULT 0 #Побед
         );';

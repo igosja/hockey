@@ -79,7 +79,7 @@ $sql = "SELECT `country_id`,
         WHERE `conference_season_id`=$season_id
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 $country_array = $country_sql->fetch_all(1);
 

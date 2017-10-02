@@ -1,7 +1,6 @@
 <?php
 
 $count_query    = 0;
-$query_array    = array();
 $db_host        = 'localhost';
 $db_user        = 'igosja_hockey';
 $db_password    = 'zuI2QbJJ';
