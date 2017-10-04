@@ -58,7 +58,7 @@ $sql = "SELECT `country_id`,
         ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
-$player_sql = f_igosja_mysqli_query($sql);
+$player_sql = f_igosja_mysqli_query($sql, false);
 
 $player_array = $player_sql->fetch_all(1);
 
@@ -71,7 +71,7 @@ $sql = "SELECT `team_power_s_16`,
         FROM `team`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$rating_sql = f_igosja_mysqli_query($sql);
+$rating_sql = f_igosja_mysqli_query($sql, false);
 
 $rating_array = $rating_sql->fetch_all(1);
 
@@ -93,7 +93,7 @@ if (count($player_id))
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id` IN ($player_id)
             ORDER BY `playerposition_position_id` ASC";
-    $playerposition_sql = f_igosja_mysqli_query($sql);
+    $playerposition_sql = f_igosja_mysqli_query($sql, false);
 
     $playerposition_array = $playerposition_sql->fetch_all(1);
 
@@ -105,7 +105,7 @@ if (count($player_id))
             ON `playerspecial_special_id`=`special_id`
             WHERE `playerspecial_player_id` IN ($player_id)
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-    $playerspecial_sql = f_igosja_mysqli_query($sql);
+    $playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(1);
 }
@@ -132,7 +132,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             AND `game_played`=0
             ORDER BY `schedule_id` ASC
             LIMIT 1";
-    $check_game_send_sql = f_igosja_mysqli_query($sql);
+    $check_game_send_sql = f_igosja_mysqli_query($sql, false);
 
     if ($check_game_send_sql->num_rows)
     {
@@ -158,7 +158,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             AND `game_played`=0
             ORDER BY `schedule_id` ASC
             LIMIT 1";
-    $check_mood_sql = f_igosja_mysqli_query($sql);
+    $check_mood_sql = f_igosja_mysqli_query($sql, false);
 
     if ($check_mood_sql->num_rows)
     {
@@ -181,7 +181,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             WHERE `user_id`=$auth_user_id
             AND `user_date_vip`>UNIX_TIMESTAMP()
             AND `user_date_vip`<UNIX_TIMESTAMP()-604800";
-    $vip_sql = f_igosja_mysqli_query($sql);
+    $vip_sql = f_igosja_mysqli_query($sql, false);
 
     $vip_array = $vip_sql->fetch_all(1);
 
@@ -329,7 +329,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             WHERE `schedule_date`>UNIX_TIMESTAMP()
             ORDER BY `schedule_id` ASC
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
     if ($schedule_sql->num_rows)
     {
@@ -370,22 +370,21 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         WHERE `national_country_id`=$auth_country_id
                         AND `national_nationaltype_id`=$i
                         AND `national_user_id`!=0
-                        AND `national_vice_id`=0
-                        LIMIT 1";
-                $check_sql = f_igosja_mysqli_query($sql);
+                        AND `national_vice_id`=0";
+                $check_sql = f_igosja_mysqli_query($sql, false);
 
                 $check_array = $check_sql->fetch_all(1);
 
                 if ($check_array[0]['count'])
                 {
                     $sql = "SELECT COUNT(`electionnationalvice_id`) AS `count`
-                        FROM `electionnationalvice`
-                        WHERE `electionnationalvice_country_id`=$auth_country_id
-                        AND `electionnationalvice_nationaltype_id`=$i
-                        AND `electionnationalvice_electionstatus_id` IN (
-                            " . ELECTIONSTATUS_CANDIDATES . ",
-                            " . ELECTIONSTATUS_OPEN . "
-                        )";
+                            FROM `electionnationalvice`
+                            WHERE `electionnationalvice_country_id`=$auth_country_id
+                            AND `electionnationalvice_nationaltype_id`=$i
+                            AND `electionnationalvice_electionstatus_id` IN (
+                                " . ELECTIONSTATUS_CANDIDATES . ",
+                                " . ELECTIONSTATUS_OPEN . "
+                            )";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(1);
@@ -409,7 +408,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         " . ELECTIONSTATUS_CANDIDATES . ",
                         " . ELECTIONSTATUS_OPEN . "
                     )";
-            $election_sql = f_igosja_mysqli_query($sql);
+            $election_sql = f_igosja_mysqli_query($sql, false);
 
             $election_array = $election_sql->fetch_all(1);
 
@@ -455,9 +454,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                 FROM `country`
                 WHERE `country_id`=$auth_country_id
                 AND `country_president_id`=0
-                AND `country_vice_id`=0
-                LIMIT 1";
-        $check_sql = f_igosja_mysqli_query($sql);
+                AND `country_vice_id`=0";
+        $check_sql = f_igosja_mysqli_query($sql, false);
 
         $check_array = $check_sql->fetch_all(1);
 
@@ -470,7 +468,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         " . ELECTIONSTATUS_CANDIDATES . ",
                         " . ELECTIONSTATUS_OPEN . "
                     )";
-            $check_sql = f_igosja_mysqli_query($sql);
+            $check_sql = f_igosja_mysqli_query($sql, false);
 
             $check_array = $check_sql->fetch_all(1);
 
@@ -490,7 +488,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     " . ELECTIONSTATUS_CANDIDATES . ",
                     " . ELECTIONSTATUS_OPEN . "
                 )";
-        $election_sql = f_igosja_mysqli_query($sql);
+        $election_sql = f_igosja_mysqli_query($sql, false);
 
         $election_array = $election_sql->fetch_all(1);
 
@@ -510,9 +508,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                 FROM `country`
                 WHERE `country_id`=$auth_country_id
                 AND `country_president_id`!=0
-                AND `country_vice_id`=0
-                LIMIT 1";
-        $check_sql = f_igosja_mysqli_query($sql);
+                AND `country_vice_id`=0";
+        $check_sql = f_igosja_mysqli_query($sql, false);
 
         $check_array = $check_sql->fetch_all(1);
 
@@ -545,7 +542,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     " . ELECTIONSTATUS_CANDIDATES . ",
                     " . ELECTIONSTATUS_OPEN . "
                 )";
-        $election_sql = f_igosja_mysqli_query($sql);
+        $election_sql = f_igosja_mysqli_query($sql, false);
 
         $election_array = $election_sql->fetch_all(1);
 
@@ -572,7 +569,7 @@ $sql = "SELECT `forumtheme_id`,
         WHERE `forumgroup_forumchapter_id`=" . FORUMGROUP_NATIONAL . "
         ORDER BY `forumtheme_last_date` DESC
         LIMIT 4";
-$forum_sql = f_igosja_mysqli_query($sql);
+$forum_sql = f_igosja_mysqli_query($sql, false);
 
 $forum_array = $forum_sql->fetch_all(1);
 

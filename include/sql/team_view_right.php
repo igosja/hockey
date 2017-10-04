@@ -8,7 +8,7 @@ $sql = "SELECT `rosterphrase_text`
         FROM `rosterphrase`
         ORDER BY RAND()
         LIMIT 1";
-$rosterphrase_sql = f_igosja_mysqli_query($sql);
+$rosterphrase_sql = f_igosja_mysqli_query($sql, false);
 
 $rosterphrase_array = $rosterphrase_sql->fetch_all(1);
 

@@ -34,6 +34,8 @@ else
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `debug_id`,
+               `debug_file`,
+               `debug_line`,
                `debug_sql`,
                `debug_time`
         FROM `debug`

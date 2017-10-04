@@ -31,10 +31,10 @@ function f_igosja_generator_set_auto()
             ON `game_schedule_id`=`schedule_id`
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
-            AND (`game_guest_tactic_1_id`=0
-            OR `game_home_tactic_1_id`=0)
+            AND (`game_guest_mood_id`=0
+            OR `game_home_mood_id`=0)
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    $game_sql = f_igosja_mysqli_query($sql, false);
 
     $game_array = $game_sql->fetch_all(1);
 
@@ -64,7 +64,7 @@ function f_igosja_generator_set_auto()
         $home_tactic_2_id   = $game['game_home_tactic_2_id'];
         $home_tactic_3_id   = $game['game_home_tactic_3_id'];
 
-        if (0 == $guest_tactic_1_id)
+        if (0 == $guest_auto)
         {
             $guest_auto         = 1;
             $guest_mood_id      = MOOD_NORMAL;
@@ -79,7 +79,7 @@ function f_igosja_generator_set_auto()
             $guest_tactic_3_id  = TACTIC_NORMAL;
         }
 
-        if (0 == $home_tactic_1_id)
+        if (0 == $home_mood_id)
         {
             $home_auto          = 1;
             $home_mood_id       = MOOD_NORMAL;
@@ -119,6 +119,6 @@ function f_igosja_generator_set_auto()
                     `game_home_tactic_3_id`=$home_tactic_3_id
                 WHERE `game_id`=$game_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

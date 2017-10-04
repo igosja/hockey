@@ -30,10 +30,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_2_id')
-                    OR (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_1_id')
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_2_id)
+                    OR (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -46,10 +46,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
-                    OR (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_1_id')
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_3_id)
+                    OR (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -62,10 +62,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_1_id')
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -78,10 +78,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_1_id')
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -94,10 +94,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
-                    OR (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_2_id')
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_3_id)
+                    OR (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -110,10 +110,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_2_id')
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -126,10 +126,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_2_id')
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -142,10 +142,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
+                    WHERE (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_3_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -158,10 +158,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
+                    WHERE (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_3_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     
@@ -174,10 +174,10 @@ function f_igosja_get_teamwork($game_result)
     
             $sql = "SELECT `teamwork_value`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
+                    WHERE (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_4_id)
                     LIMIT 1";
             $teamwork_sql = f_igosja_mysqli_query($sql);
     

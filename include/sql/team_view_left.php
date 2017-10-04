@@ -93,7 +93,7 @@ $sql = "SELECT `base_level`,
         ON `team_id`=`buildingstadium_team_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $team_sql->num_rows)
 {

@@ -11,3 +11,4 @@ $q[] = 'CREATE TABLE `buildingbase`
             `buildingbase_ready` INT(1) DEFAULT 0,
             `buildingbase_team_id` INT(5) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `buildingbase_team_id` ON `buildingbase` (`buildingbase_team_id`);';

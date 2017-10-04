@@ -21,4 +21,5 @@ $q[] = 'CREATE TABLE `national`
             `national_vice_id` INT(11) DEFAULT 0,
             `national_visitor` INT(3) DEFAULT 100
         );';
+$q[] = 'CREATE INDEX `national_country_id` ON `national` (`national_country_id`);';
 $q[] = 'CREATE INDEX `national_user_id` ON `national` (`national_user_id`);';

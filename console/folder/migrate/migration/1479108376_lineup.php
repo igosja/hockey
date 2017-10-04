@@ -21,4 +21,6 @@ $q[] = 'CREATE TABLE `lineup`
             `lineup_shot` INT(3) DEFAULT 0,
             `lineup_team_id` INT(5) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `lineup_game_id` ON `lineup` (`lineup_game_id`);';
 $q[] = 'CREATE INDEX `lineup_player_id` ON `lineup` (`lineup_player_id`);';
+$q[] = 'CREATE INDEX `lineup_team_id` ON `lineup` (`lineup_team_id`);';

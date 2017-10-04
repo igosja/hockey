@@ -49,7 +49,7 @@ function f_igosja_generator_game_result()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    $game_sql = f_igosja_mysqli_query($sql, false);
 
     $game_array = $game_sql->fetch_all(1);
 

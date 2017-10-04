@@ -11,6 +11,7 @@ function f_igosja_generator_count_visitor()
                    `home_team`.`team_visitor` AS `home_team_visitor`,
                    `stadium_capacity`,
                    `stage_visitor`,
+                   `tournamenttype_id`,
                    `tournamenttype_visitor`
             FROM `game`
             LEFT JOIN `schedule`
@@ -28,7 +29,7 @@ function f_igosja_generator_count_visitor()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    $game_sql = f_igosja_mysqli_query($sql, false);
 
     $game_array = $game_sql->fetch_all(1);
 
@@ -40,6 +41,7 @@ function f_igosja_generator_count_visitor()
         $home_visitor           = $game['home_team_visitor'];
         $stadium_capacity       = $game['stadium_capacity'];
         $stage_visitor          = $game['stage_visitor'];
+        $tournamenttype_id      = $game['tournamenttype_id'];
         $tournamenttype_visitor = $game['tournamenttype_visitor'];
 
         $game_visitor = $stadium_capacity;
@@ -56,14 +58,24 @@ function f_igosja_generator_count_visitor()
         }
 
         $game_visitor = $game_visitor / pow(($game_ticket - GAME_TICKET_BASE_PRICE) / 10, 1.1);
-        $game_visitor = $game_visitor * ($home_visitor * 2 + $guest_visitor) / 3;
+
+        if (in_array($tournamenttype_id, array(TOURNAMENTTYPE_FRIENDLY, TOURNAMENTTYPE_NATIONAL)))
+        {
+            $game_visitor = $game_visitor * ($home_visitor + $guest_visitor) / 2;
+        }
+        else
+        {
+            $game_visitor = $game_visitor * ($home_visitor * 2 + $guest_visitor) / 3;
+        }
+
         $game_visitor = $game_visitor / 1000000;
+        $game_visitor = round($game_visitor);
 
         $sql = "UPDATE `game`
                 SET `game_stadium_capacity`=$stadium_capacity,
                     `game_visitor`=$game_visitor
                 WHERE `game_id`=$game_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

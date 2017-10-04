@@ -23,6 +23,9 @@
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
                 <tr>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        Файл
+                    </th>
                     <th>
                         <a href="?sort=<?php if (1 == $sort) { ?>2<?php } else { ?>1<?php } ?>">
                             Запрос
@@ -46,6 +49,7 @@
                     <th class="col-lg-1 col-md-2 col-sm-2 col-xs-2 text-center"></th>
                 </tr>
                 <tr id="filters">
+                    <td></td>
                     <td>
                         <label class="hidden" for="debug_sql"></label>
                         <input
@@ -62,6 +66,9 @@
                 <tbody>
                 <?php foreach ($debug_array as $item) { ?>
                     <tr>
+                        <td>
+                            <?= $item['debug_file']; ?> (<?= $item['debug_line']; ?>)
+                        </td>
                         <td><?= nl2br($item['debug_sql']); ?></td>
                         <td>
                             <?= $item['debug_time']; ?> мс

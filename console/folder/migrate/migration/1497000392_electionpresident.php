@@ -9,3 +9,4 @@ $q[] = 'CREATE TABLE `electionpresident`
             `electionpresident_date` INT(11) DEFAULT 0,
             `electionpresident_electionstatus_id` INT(1) DEFAULT 1
         );';
+$q[] = 'CREATE INDEX `electionpresident_country_id` ON `electionpresident` (`electionpresident_country_id`);';

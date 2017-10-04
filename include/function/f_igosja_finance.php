@@ -7,6 +7,7 @@
 function f_igosja_finance($data)
 {
     global $mysqli;
+    global $igosja_season_id;
 
     if (isset($data['finance_building_id']))
     {
@@ -125,16 +126,6 @@ function f_igosja_finance($data)
         $finance_value_before = 0;
     }
 
-    $sql = "SELECT `season_id`
-            FROM `season`
-            ORDER BY `season_id` DESC
-            LIMIT 1";
-    $season_sql = f_igosja_mysqli_query($sql);
-
-    $season_array = $season_sql->fetch_all(1);
-
-    $finance_season_id = $season_array[0]['season_id'];
-
     $sql = "INSERT INTO `finance`
             SET `finance_building_id`=$finance_building_id,
                 `finance_capacity`=$finance_capacity,
@@ -145,7 +136,7 @@ function f_igosja_finance($data)
                 `finance_level`=$finance_level,
                 `finance_national_id`=$finance_national_id,
                 `finance_player_id`=$finance_player_id,
-                `finance_season_id`=$finance_season_id,
+                `finance_season_id`=$igosja_season_id,
                 `finance_team_id`=$finance_team_id,
                 `finance_user_id`=$finance_user_id,
                 `finance_value`=$finance_value,

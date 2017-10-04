@@ -14,7 +14,7 @@ function f_igosja_generator_user_to_rating()
             WHERE `team_id` IS NOT NULL
             AND `user_id`!=0
             ORDER BY `user_id` ASC";
-    $user_sql = f_igosja_mysqli_query($sql);
+    $user_sql = f_igosja_mysqli_query($sql, false);
 
     $user_array = $user_sql->fetch_all(1);
 
@@ -26,7 +26,7 @@ function f_igosja_generator_user_to_rating()
                 FROM `userrating`
                 WHERE `userrating_user_id`=$user_id
                 AND `userrating_season_id`=0";
-        $check_sql = f_igosja_mysqli_query($sql);
+        $check_sql = f_igosja_mysqli_query($sql, false);
 
         $check_array = $check_sql->fetch_all(1);
 
@@ -35,14 +35,14 @@ function f_igosja_generator_user_to_rating()
             $sql = "INSERT INTO `userrating`
                     SET `userrating_user_id`=$user_id,
                         `userrating_season_id`=0";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "SELECT COUNT(`userrating_id`) AS `count`
                 FROM `userrating`
                 WHERE `userrating_user_id`=$user_id
                 AND `userrating_season_id`=$igosja_season_id";
-        $check_sql = f_igosja_mysqli_query($sql);
+        $check_sql = f_igosja_mysqli_query($sql, false);
 
         $check_array = $check_sql->fetch_all(1);
 
@@ -51,7 +51,7 @@ function f_igosja_generator_user_to_rating()
             $sql = "INSERT INTO `userrating`
                     SET `userrating_user_id`=$user_id,
                         `userrating_season_id`=$igosja_season_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 }
