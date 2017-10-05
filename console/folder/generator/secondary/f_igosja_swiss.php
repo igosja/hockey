@@ -11,10 +11,10 @@ function f_igosja_swiss($tournamenttype_id, $position_difference)
     global $igosja_season_id;
 
     $sql = "TRUNCATE TABLE `swisstable`;";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "TRUNCATE TABLE `swissgame`;";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     if (TOURNAMENTTYPE_OFFSEASON == $tournamenttype_id)
     {
@@ -23,7 +23,7 @@ function f_igosja_swiss($tournamenttype_id, $position_difference)
                 FROM `offseason`
                 WHERE `offseason_season_id`=$igosja_season_id
                 ORDER BY `offseason_place` ASC";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
     else
     {
@@ -32,7 +32,7 @@ function f_igosja_swiss($tournamenttype_id, $position_difference)
                 FROM `conference`
                 WHERE `conference_season_id`=$igosja_season_id
                 ORDER BY `conference_place` ASC";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 
     if (!f_igosja_swiss_one($tournamenttype_id, $position_difference))

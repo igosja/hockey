@@ -8,7 +8,7 @@ function f_igosja_generator_decrease_injury()
     $sql = "UPDATE `player`
             SET `player_injury_day`=`player_injury_day`-1
             WHERE `player_injury`=1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `player`
             LEFT JOIN `team`
@@ -18,6 +18,6 @@ function f_igosja_generator_decrease_injury()
             SET `player_tire`=`basemedical_tire`,
                 `player_injury`=0
             WHERE `player_injury`=1
-            AND `player_injury`<=0";
-    f_igosja_mysqli_query($sql);
+            AND `player_injury_day`<=0";
+    f_igosja_mysqli_query($sql, false);
 }

@@ -9,3 +9,4 @@ $q[] = 'CREATE TABLE `playerspecial`
             `playerspecial_special_id` INT(2) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `playerspecial_player_id` ON `playerspecial` (`playerspecial_player_id`);';
+$q[] = 'CREATE INDEX `playerspecial_special_id` ON `playerspecial` (`playerspecial_special_id`);';

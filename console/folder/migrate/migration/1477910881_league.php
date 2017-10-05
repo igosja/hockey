@@ -21,3 +21,6 @@ $q[] = 'CREATE TABLE `league`
             `league_win_bullet` INT(2) DEFAULT 0,
             `league_win_over` INT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `league_group` ON `league` (`league_group`);';
+$q[] = 'CREATE INDEX `league_season_id` ON `league` (`league_season_id`);';
+$q[] = 'CREATE INDEX `league_team_id` ON `league` (`league_team_id`);';

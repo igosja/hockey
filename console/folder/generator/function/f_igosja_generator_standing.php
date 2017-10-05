@@ -26,7 +26,7 @@ function f_igosja_generator_standing()
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    $game_sql = f_igosja_mysqli_query($sql, false);
 
     $game_array = $game_sql->fetch_all(1);
 
@@ -101,7 +101,7 @@ function f_igosja_generator_standing()
                     WHERE `conference_team_id`=" . $game['game_home_team_id'] . "
                     AND `conference_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `conference`
                     SET `conference_game`=`conference_game`+1,
@@ -117,7 +117,7 @@ function f_igosja_generator_standing()
                     WHERE `conference_team_id`=" . $game['game_guest_team_id'] . "
                     AND `conference_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
         elseif (TOURNAMENTTYPE_OFFSEASON == $game['schedule_tournamenttype_id'])
         {
@@ -135,7 +135,7 @@ function f_igosja_generator_standing()
                     WHERE `offseason_team_id`=" . $game['game_home_team_id'] . "
                     AND `offseason_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `offseason`
                     SET `offseason_game`=`offseason_game`+1,
@@ -151,7 +151,7 @@ function f_igosja_generator_standing()
                     WHERE `offseason_team_id`=" . $game['game_guest_team_id'] . "
                     AND `offseason_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
         elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $game['schedule_tournamenttype_id'] &&
                 $game['schedule_stage_id'] >= STAGE_1_TOUR &&
@@ -170,7 +170,7 @@ function f_igosja_generator_standing()
                     WHERE `championship_team_id`=" . $game['game_home_team_id'] . "
                     AND `championship_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `championship`
                     SET `championship_game`=`championship_game`+1,
@@ -185,7 +185,7 @@ function f_igosja_generator_standing()
                     WHERE `championship_team_id`=" . $game['game_guest_team_id'] . "
                     AND `championship_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
         elseif (TOURNAMENTTYPE_LEAGUE == $game['schedule_tournamenttype_id'] &&
                 $game['schedule_stage_id'] >= STAGE_1_TOUR &&
@@ -204,7 +204,7 @@ function f_igosja_generator_standing()
                     WHERE `league_team_id`=" . $game['game_home_team_id'] . "
                     AND `league_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `league`
                     SET `league_game`=`league_game`+1,
@@ -219,7 +219,7 @@ function f_igosja_generator_standing()
                     WHERE `league_team_id`=" . $game['game_guest_team_id'] . "
                     AND `league_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
         elseif (TOURNAMENTTYPE_NATIONAL == $game['schedule_tournamenttype_id'])
         {
@@ -236,7 +236,7 @@ function f_igosja_generator_standing()
                     WHERE `worldcup_national_id`=" . $game['game_home_national_id'] . "
                     AND `worldcup_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `worldcup`
                     SET `worldcup_game`=`worldcup_game`+1,
@@ -251,7 +251,7 @@ function f_igosja_generator_standing()
                     WHERE `worldcup_national_id`=" . $game['game_guest_national_id'] . "
                     AND `worldcup_season_id`=" . $game['schedule_season_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 
@@ -259,29 +259,29 @@ function f_igosja_generator_standing()
             SET `worldcup_point`=`worldcup_win`*3+`worldcup_win_over`*2+`worldcup_loose_over`,
                 `worldcup_difference`=`worldcup_score`-`worldcup_pass`
             WHERE `worldcup_season_id`=" . $igosja_season_id;
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `league`
             SET `league_point`=`league_win`*3+`league_win_over`*2+`league_loose_over`,
                 `league_difference`=`league_score`-`league_pass`
             WHERE `league_season_id`=" . $igosja_season_id;
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `championship`
             SET `championship_point`=`championship_win`*3+`championship_win_over`*2+`championship_loose_over`,
                 `championship_difference`=`championship_score`-`championship_pass`
             WHERE `championship_season_id`=" . $igosja_season_id;
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `conference`
             SET `conference_point`=`conference_win`*3+`conference_win_over`*2+`conference_loose_over`,
                 `conference_difference`=`conference_score`-`conference_pass`
             WHERE `conference_season_id`=" . $igosja_season_id;
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `offseason`
             SET `offseason_point`=`offseason_win`*3+`offseason_win_over`*2+`offseason_loose_over`,
                 `offseason_difference`=`offseason_score`-`offseason_pass`
             WHERE `offseason_season_id`=" . $igosja_season_id;
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

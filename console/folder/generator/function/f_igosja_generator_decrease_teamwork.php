@@ -7,9 +7,9 @@ function f_igosja_generator_decrease_teamwork()
 {
     $sql = "UPDATE `teamwork`
             SET `teamwork_value`=`teamwork_value`-1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "DELETE FROM `teamwork`
             WHERE `teamwork_value`<=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

@@ -12,7 +12,7 @@ function f_igosja_generator_school()
             SET `school_day`=`school_day`-1
             WHERE `school_ready`=0
             AND `school_day`>0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `basemedical_tire`,
                    `baseschool_power`,
@@ -37,7 +37,7 @@ function f_igosja_generator_school()
             WHERE `school_ready`=0
             AND `school_day`<=0
             ORDER BY `school_id`";
-    $school_sql = f_igosja_mysqli_query($sql);
+    $school_sql = f_igosja_mysqli_query($sql, false);
 
     $school_array = $school_sql->fetch_all(1);
 
@@ -58,7 +58,7 @@ function f_igosja_generator_school()
                FROM `phisical`
                ORDER BY RAND()
                LIMIT 1";
-        $phisical_sql = f_igosja_mysqli_query($sql);
+        $phisical_sql = f_igosja_mysqli_query($sql, false);
 
         $phisical_array = $phisical_sql->fetch_all(1);
 
@@ -70,7 +70,7 @@ function f_igosja_generator_school()
                 WHERE `namecountry_country_id`=$country_id
                 ORDER BY RAND()
                 LIMIT 1";
-        $name_sql = f_igosja_mysqli_query($sql);
+        $name_sql = f_igosja_mysqli_query($sql, false);
 
         $name_array = $name_sql->fetch_all(1);
 
@@ -98,14 +98,14 @@ function f_igosja_generator_school()
                     `player_team_id`=$team_id,
                     `player_tire`=$tire,
                     `player_training_ability`=$ability";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $player_id = $mysqli->insert_id;
 
         $sql = "INSERT INTO `playerposition`
                 SET `playerposition_player_id`=$player_id,
                     `playerposition_position_id`=$position_id";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         if ($special_id)
         {
@@ -113,7 +113,7 @@ function f_igosja_generator_school()
                     SET `playerspecial_level`=1,
                         `playerspecial_player_id`=$player_id,
                         `playerspecial_special_id`=$special_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $log = array(
@@ -129,6 +129,6 @@ function f_igosja_generator_school()
                     `school_season_id`=$igosja_season_id
                 WHERE `school_id`=$school_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

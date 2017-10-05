@@ -10,3 +10,5 @@ $q[] = 'CREATE TABLE `swisstable`
             `swisstable_place` INT(11) DEFAULT 0,
             `swisstable_team_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `swisstable_place` ON `swisstable` (`swisstable_place`);';
+$q[] = 'CREATE INDEX `swisstable_team_id` ON `swisstable` (`swisstable_team_id`);';

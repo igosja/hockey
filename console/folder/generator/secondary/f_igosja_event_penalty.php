@@ -12,7 +12,7 @@ function f_igosja_event_penalty($game_result, $team)
             FROM `eventtextpenalty`
             ORDER BY RAND()
             LIMIT 1";
-    $eventtextpenalty_sql = f_igosja_mysqli_query($sql);
+    $eventtextpenalty_sql = f_igosja_mysqli_query($sql, false);
 
     $eventtextpenalty_array = $eventtextpenalty_sql->fetch_all(1);
 

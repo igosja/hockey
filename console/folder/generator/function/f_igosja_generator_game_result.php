@@ -466,7 +466,7 @@ function f_igosja_generator_game_result()
                     `game_home_teamwork_3`=" . $game_result['home']['team']['teamwork'][3] . "
                 WHERE `game_id`=$game_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         foreach ($game_result['event'] as $event)
         {
@@ -485,7 +485,7 @@ function f_igosja_generator_game_result()
                         `event_player_score_id`=" . $event['event_player_score_id'] . ",
                         `event_second`=" . $event['event_second'] . ",
                         `event_team_id`=" . $event['event_team_id'] . " ";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "UPDATE `lineup`
@@ -497,7 +497,7 @@ function f_igosja_generator_game_result()
                     `lineup_shot`=" . $game_result['guest']['player']['gk']['shot'] . "
                 WHERE `lineup_id`=" . $game_result['guest']['player']['gk']['lineup_id'] . "
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         foreach ($game_result['guest']['player']['field'] as $player)
         {
@@ -512,7 +512,7 @@ function f_igosja_generator_game_result()
                         `lineup_shot`=" . $player['shot'] . "
                     WHERE `lineup_id`=" . $player['lineup_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "UPDATE `lineup`
@@ -524,7 +524,7 @@ function f_igosja_generator_game_result()
                     `lineup_shot`=" . $game_result['home']['player']['gk']['shot'] . "
                 WHERE `lineup_id`=" . $game_result['home']['player']['gk']['lineup_id'] . "
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         foreach ($game_result['home']['player']['field'] as $player)
         {
@@ -539,7 +539,7 @@ function f_igosja_generator_game_result()
                         `lineup_shot`=" . $player['shot'] . "
                     WHERE `lineup_id`=" . $player['lineup_id'] . "
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "SELECT `championship_country_id`,
@@ -557,7 +557,7 @@ function f_igosja_generator_game_result()
                 AND `schedule_season_id`=`championship_season_id`)
                 WHERE `lineup_id`=" . $game_result['guest']['player']['gk']['lineup_id'] . "
                 LIMIT 1";
-        $statistic_sql = f_igosja_mysqli_query($sql);
+        $statistic_sql = f_igosja_mysqli_query($sql, false);
 
         $statistic_array = $statistic_sql->fetch_all(1);
 
@@ -608,7 +608,7 @@ function f_igosja_generator_game_result()
                 AND `statisticplayer_team_id`=" . $game_result['game_info']['guest_team_id'] . "
                 AND `statisticplayer_tournamenttype_id`=$tournamenttype_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         foreach ($game_result['guest']['player']['field'] as $player)
         {
@@ -640,7 +640,7 @@ function f_igosja_generator_game_result()
                     AND `statisticplayer_team_id`=" . $game_result['game_info']['guest_team_id'] . "
                     AND `statisticplayer_tournamenttype_id`=$tournamenttype_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "UPDATE `statisticplayer`
@@ -665,7 +665,7 @@ function f_igosja_generator_game_result()
                 AND `statisticplayer_team_id`=" . $game_result['game_info']['home_team_id'] . "
                 AND `statisticplayer_tournamenttype_id`=$tournamenttype_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         foreach ($game_result['home']['player']['field'] as $player)
         {
@@ -697,7 +697,7 @@ function f_igosja_generator_game_result()
                     AND `statisticplayer_team_id`=" . $game_result['game_info']['home_team_id'] . "
                     AND `statisticplayer_tournamenttype_id`=$tournamenttype_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
         $sql = "UPDATE `statisticteam`
@@ -721,7 +721,7 @@ function f_igosja_generator_game_result()
                 AND `statisticteam_team_id`=" . $game_result['game_info']['guest_team_id'] . "
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $sql = "UPDATE `statisticteam`
                 SET `statisticteam_game`=`statisticteam_game`+" . $game_result['home']['team']['game'] . ",
@@ -744,6 +744,6 @@ function f_igosja_generator_game_result()
                 AND `statisticteam_team_id`=" . $game_result['game_info']['home_team_id'] . "
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

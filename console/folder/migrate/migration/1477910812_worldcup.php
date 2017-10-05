@@ -21,3 +21,6 @@ $q[] = 'CREATE TABLE `worldcup`
             `worldcup_win_bullet` INT(2) DEFAULT 0,
             `worldcup_win_over` INT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `worldcup_division_id` ON `worldcup` (`worldcup_division_id`);';
+$q[] = 'CREATE INDEX `worldcup_national_id` ON `worldcup` (`worldcup_national_id`);';
+$q[] = 'CREATE INDEX `worldcup_season_id` ON `worldcup` (`worldcup_season_id`);';

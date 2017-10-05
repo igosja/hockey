@@ -35,7 +35,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_2_id
                     AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -51,7 +51,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_3_id
                     AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -67,7 +67,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_4_id
                     AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -83,7 +83,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_5_id
                     AND `teamwork_player_2_id`=$player_1_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -99,7 +99,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_3_id
                     AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -115,7 +115,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_4_id
                     AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -131,7 +131,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_5_id
                     AND `teamwork_player_2_id`=$player_2_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -147,7 +147,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_4_id
                     AND `teamwork_player_2_id`=$player_3_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -163,7 +163,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_5_id
                     AND `teamwork_player_2_id`=$player_3_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {
@@ -179,7 +179,7 @@ function f_igosja_get_teamwork($game_result)
                     OR (`teamwork_player_1_id`=$player_5_id
                     AND `teamwork_player_2_id`=$player_4_id)
                     LIMIT 1";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
     
             if ($teamwork_sql->num_rows)
             {

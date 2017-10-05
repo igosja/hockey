@@ -8,7 +8,7 @@ function f_igosja_generator_building_base()
     $sql = "UPDATE `buildingbase`
             SET `buildingbase_day`=`buildingbase_day`-1
             WHERE `buildingbase_ready`=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `building_name`,
                    `buildingbase_id`,
@@ -21,7 +21,7 @@ function f_igosja_generator_building_base()
             WHERE `buildingbase_day`<=0
             AND `buildingbase_ready`=0
             ORDER BY `buildingbase_id` ASC";
-    $buildingbase_sql = f_igosja_mysqli_query($sql);
+    $buildingbase_sql = f_igosja_mysqli_query($sql, false);
 
     $buildingbase_array = $buildingbase_sql->fetch_all(1);
 
@@ -44,7 +44,7 @@ function f_igosja_generator_building_base()
                     SET $team_building_id=$team_building_id+1
                     WHERE `team_id`=$team_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $historytext_id = HISTORYTEXT_BUILDING_UP;
         }
@@ -54,7 +54,7 @@ function f_igosja_generator_building_base()
                     SET $team_building_id=$team_building_id-1
                     WHERE `team_id`=$team_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $historytext_id = HISTORYTEXT_BUILDING_DOWN;
         }
@@ -64,8 +64,9 @@ function f_igosja_generator_building_base()
                 FROM team
                 LEFT JOIN $building_table
                 ON $team_building_id=$building_id
-                WHERE `team_id`=$team_id";
-        $team_sql = f_igosja_mysqli_query($sql);
+                WHERE `team_id`=$team_id
+                LIMIT 1";
+        $team_sql = f_igosja_mysqli_query($sql, false);
 
         $team_array = $team_sql->fetch_all(1);
 
@@ -73,7 +74,7 @@ function f_igosja_generator_building_base()
                 SET `buildingbase_ready`=1
                 WHERE `buildingbase_id`=$buildingbase_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $log = array(
             'history_building_id' => $buildingbase_building_id,

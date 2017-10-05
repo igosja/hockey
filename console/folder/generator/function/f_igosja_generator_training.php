@@ -14,7 +14,7 @@ function f_igosja_generator_training()
             ON `training_player_id`=`player_id`
             SET `training_percent`=`training_percent`+`basetraining_training_speed_min`+(`basetraining_training_speed_max`-`basetraining_training_speed_min`)/2*RAND()+`player_training_ability`
             WHERE `training_ready`=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `team_id`,
                    `team_user_id`,
@@ -26,10 +26,10 @@ function f_igosja_generator_training()
             FROM `training`
             LEFT JOIN `team`
             ON `training_team_id`=`team_id`
-            WHERE `training_percent`>='100'
+            WHERE `training_percent`>=100
             AND `training_ready`=0
             ORDER BY `training_id` ASC";
-    $training_sql = f_igosja_mysqli_query($sql);
+    $training_sql = f_igosja_mysqli_query($sql, false);
 
     $training_array = $training_sql->fetch_all(1);
 
@@ -46,7 +46,7 @@ function f_igosja_generator_training()
                     SET `player_power_nominal`=`player_power_nominal`+1
                     WHERE `player_id`=$player_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRAINING_POINT,
@@ -63,7 +63,7 @@ function f_igosja_generator_training()
             $sql = "INSERT INTO `playerposition`
                     SET `playerposition_player_id`=$player_id,
                         `playerposition_position_id`=$position_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRAINING_POSITION,
@@ -82,7 +82,7 @@ function f_igosja_generator_training()
                     FROM `playerspecial`
                     WHERE `playerspecial_player_id`=$player_id,
                     AND `playerspecial_special_id`=$special_id";
-            $check_sql = f_igosja_mysqli_query($sql);
+            $check_sql = f_igosja_mysqli_query($sql, false);
 
             $check_array = $check_sql->fetch_all(1);
 
@@ -92,14 +92,14 @@ function f_igosja_generator_training()
                         SET `playerspecial_level`=`playerspecial_level`+1
                         WHERE `playerspecial_player_id`=$player_id
                         AND `playerspecial_special_id`=$special_id";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
             }
             else
             {
                 $sql = "INSERT INTO `playerspecial`
                         SET `playerspecial_player_id`=$player_id,
                             `playerspecial_special_id`=$special_id";
-                f_igosja_mysqli_query($sql);
+                f_igosja_mysqli_query($sql, false);
             }
 
             $log = array(
@@ -117,6 +117,6 @@ function f_igosja_generator_training()
                     `training_ready`=1
                 WHERE `training_id`=$training_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

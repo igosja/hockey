@@ -16,7 +16,7 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference)
             WHERE `swisstable_home`<=`swisstable_guest`
             ORDER BY `swisstable_place` ASC
             LIMIT 1";
-    $swisstable_sql = f_igosja_mysqli_query($sql);
+    $swisstable_sql = f_igosja_mysqli_query($sql, false);
 
     $swisstable_array = $swisstable_sql->fetch_all(1);
 
@@ -41,7 +41,7 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference)
             )
             ORDER BY RAND()
             LIMIT 1";
-    $swisstable_sql = f_igosja_mysqli_query($sql);
+    $swisstable_sql = f_igosja_mysqli_query($sql, false);
 
     if (0 == $swisstable_sql->num_rows)
     {
@@ -55,15 +55,15 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference)
     $sql = "INSERT INTO `swissgame`
             SET `swissgame_guest_team_id`=$guest_id,
                 `swissgame_home_team_id`=$home_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "DELETE FROM `swisstable`
             WHERE `swisstable_team_id` IN ($home_id, $guest_id)";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT COUNT(`swisstable_id`) AS `check`
             FROM `swisstable`";
-    $check_sql = f_igosja_mysqli_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql, false);
 
     $check_array = $check_sql->fetch_all(1);
 

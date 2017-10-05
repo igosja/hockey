@@ -23,3 +23,4 @@ $q[] = 'CREATE TABLE `offseason`
             `offseason_win_over` INT(2) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `offseason_season_id` ON `offseason` (`offseason_season_id`);';
+$q[] = 'CREATE INDEX `offseason_team_id` ON `offseason` (`offseason_team_id`);';

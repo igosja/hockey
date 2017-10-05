@@ -16,7 +16,7 @@ function f_igosja_generator_player_tire()
             ON `schedule_tournamenttype_id`=`tournamenttype_id`
             SET `player_mood_id`=IF(`lineup_team_id`=`game_home_team_id`, `game_home_mood_id`, `game_guest_mood_id`)
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT `tournamenttype_daytype_id`
             FROM `schedule`
@@ -24,7 +24,7 @@ function f_igosja_generator_player_tire()
             ON `schedule_tournamenttype_id`=`tournamenttype_id`
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
     $schedule_array = $schedule_sql->fetch_all(1);
 
@@ -50,7 +50,7 @@ function f_igosja_generator_player_tire()
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $sql = "UPDATE `player`
                 LEFT JOIN `team`
@@ -71,7 +71,7 @@ function f_igosja_generator_player_tire()
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 )
                 AND `player_age`<40";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
     elseif (DAYTYPE_C == $schedule_array[0]['tournamenttype_daytype_id'])
     {
@@ -95,23 +95,23 @@ function f_igosja_generator_player_tire()
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 
     $sql = "UPDATE `player`
             SET `player_mood_id`=0
             WHERE `player_age`<40";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `player`
             SET `player_tire`=90
             WHERE `player_tire`>90
             AND `player_age`<40";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `player`
             SET `player_tire`=0
             WHERE `player_tire`<0
             AND `player_age`<40";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

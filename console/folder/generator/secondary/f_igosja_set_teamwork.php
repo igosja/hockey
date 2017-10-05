@@ -28,11 +28,11 @@ function f_igosja_set_teamwork($game_result)
     
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_2_id')
-                    OR (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_1_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_2_id)
+                    OR (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_1_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -40,29 +40,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_1_id'
-                        AND `teamwork_player_2_id`='$player_2_id')
-                        OR (`teamwork_player_1_id`='$player_2_id'
-                        AND `teamwork_player_2_id`='$player_1_id')
+                        WHERE (`teamwork_player_1_id`=$player_1_id
+                        AND `teamwork_player_2_id`=$player_2_id)
+                        OR (`teamwork_player_1_id`=$player_2_id
+                        AND `teamwork_player_2_id`=$player_1_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_1_id',
-                            `teamwork_player_2_id`='$player_2_id'";
+                            `teamwork_player_1_id`=$player_1_id,
+                            `teamwork_player_2_id`=$player_2_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
-                    OR (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_1_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_3_id)
+                    OR (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_1_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -70,29 +70,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_1_id'
-                        AND `teamwork_player_2_id`='$player_3_id')
-                        OR (`teamwork_player_1_id`='$player_3_id'
-                        AND `teamwork_player_2_id`='$player_1_id')
+                        WHERE (`teamwork_player_1_id`=$player_1_id
+                        AND `teamwork_player_2_id`=$player_3_id)
+                        OR (`teamwork_player_1_id`=$player_3_id
+                        AND `teamwork_player_2_id`=$player_1_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_1_id',
-                            `teamwork_player_2_id`='$player_3_id'";
+                            `teamwork_player_1_id`=$player_1_id,
+                            `teamwork_player_2_id`=$player_3_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_1_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_1_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -100,29 +100,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_1_id'
-                        AND `teamwork_player_2_id`='$player_4_id')
-                        OR (`teamwork_player_1_id`='$player_4_id'
-                        AND `teamwork_player_2_id`='$player_1_id')
+                        WHERE (`teamwork_player_1_id`=$player_1_id
+                        AND `teamwork_player_2_id`=$player_4_id)
+                        OR (`teamwork_player_1_id`=$player_4_id
+                        AND `teamwork_player_2_id`=$player_1_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_1_id',
-                            `teamwork_player_2_id`='$player_4_id'";
+                            `teamwork_player_1_id`=$player_1_id,
+                            `teamwork_player_2_id`=$player_4_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_1_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_1_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_1_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_1_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -130,29 +130,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_1_id'
-                        AND `teamwork_player_2_id`='$player_5_id')
-                        OR (`teamwork_player_1_id`='$player_5_id'
-                        AND `teamwork_player_2_id`='$player_1_id')
+                        WHERE (`teamwork_player_1_id`=$player_1_id
+                        AND `teamwork_player_2_id`=$player_5_id)
+                        OR (`teamwork_player_1_id`=$player_5_id
+                        AND `teamwork_player_2_id`=$player_1_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_1_id',
-                            `teamwork_player_2_id`='$player_5_id'";
+                            `teamwork_player_1_id`=$player_1_id,
+                            `teamwork_player_2_id`=$player_5_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_3_id')
-                    OR (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_2_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_3_id)
+                    OR (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_2_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -160,29 +160,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_2_id'
-                        AND `teamwork_player_2_id`='$player_3_id')
-                        OR (`teamwork_player_1_id`='$player_3_id'
-                        AND `teamwork_player_2_id`='$player_2_id')
+                        WHERE (`teamwork_player_1_id`=$player_2_id
+                        AND `teamwork_player_2_id`=$player_3_id)
+                        OR (`teamwork_player_1_id`=$player_3_id
+                        AND `teamwork_player_2_id`=$player_2_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_2_id',
-                            `teamwork_player_2_id`='$player_3_id'";
+                            `teamwork_player_1_id`=$player_2_id,
+                            `teamwork_player_2_id`=$player_3_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_2_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_2_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -190,29 +190,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_2_id'
-                        AND `teamwork_player_2_id`='$player_4_id')
-                        OR (`teamwork_player_1_id`='$player_4_id'
-                        AND `teamwork_player_2_id`='$player_2_id')
+                        WHERE (`teamwork_player_1_id`=$player_2_id
+                        AND `teamwork_player_2_id`=$player_4_id)
+                        OR (`teamwork_player_1_id`=$player_4_id
+                        AND `teamwork_player_2_id`=$player_2_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_2_id',
-                            `teamwork_player_2_id`='$player_4_id'";
+                            `teamwork_player_1_id`=$player_2_id,
+                            `teamwork_player_2_id`=$player_4_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_2_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_2_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_2_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_2_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -220,29 +220,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_2_id'
-                        AND `teamwork_player_2_id`='$player_5_id')
-                        OR (`teamwork_player_1_id`='$player_5_id'
-                        AND `teamwork_player_2_id`='$player_2_id')
+                        WHERE (`teamwork_player_1_id`=$player_2_id
+                        AND `teamwork_player_2_id`=$player_5_id)
+                        OR (`teamwork_player_1_id`=$player_5_id
+                        AND `teamwork_player_2_id`=$player_2_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_2_id',
-                            `teamwork_player_2_id`='$player_5_id'";
+                            `teamwork_player_1_id`=$player_2_id,
+                            `teamwork_player_2_id`=$player_5_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_4_id')
-                    OR (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_3_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_4_id)
+                    OR (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_3_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -250,29 +250,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_3_id'
-                        AND `teamwork_player_2_id`='$player_4_id')
-                        OR (`teamwork_player_1_id`='$player_4_id'
-                        AND `teamwork_player_2_id`='$player_3_id')
+                        WHERE (`teamwork_player_1_id`=$player_3_id
+                        AND `teamwork_player_2_id`=$player_4_id)
+                        OR (`teamwork_player_1_id`=$player_4_id
+                        AND `teamwork_player_2_id`=$player_3_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_3_id',
-                            `teamwork_player_2_id`='$player_4_id'";
+                            `teamwork_player_1_id`=$player_3_id,
+                            `teamwork_player_2_id`=$player_4_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_3_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_3_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_3_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_3_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -280,29 +280,29 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_3_id'
-                        AND `teamwork_player_2_id`='$player_5_id')
-                        OR (`teamwork_player_1_id`='$player_5_id'
-                        AND `teamwork_player_2_id`='$player_3_id')
+                        WHERE (`teamwork_player_1_id`=$player_3_id
+                        AND `teamwork_player_2_id`=$player_5_id)
+                        OR (`teamwork_player_1_id`=$player_5_id
+                        AND `teamwork_player_2_id`=$player_3_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_3_id',
-                            `teamwork_player_2_id`='$player_5_id'";
+                            `teamwork_player_1_id`=$player_3_id,
+                            `teamwork_player_2_id`=$player_5_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "SELECT COUNT(`teamwork_value`) AS `check`
                     FROM `teamwork`
-                    WHERE (`teamwork_player_1_id`='$player_4_id'
-                    AND `teamwork_player_2_id`='$player_5_id')
-                    OR (`teamwork_player_1_id`='$player_5_id'
-                    AND `teamwork_player_2_id`='$player_4_id')";
-            $teamwork_sql = f_igosja_mysqli_query($sql);
+                    WHERE (`teamwork_player_1_id`=$player_4_id
+                    AND `teamwork_player_2_id`=$player_5_id)
+                    OR (`teamwork_player_1_id`=$player_5_id
+                    AND `teamwork_player_2_id`=$player_4_id)";
+            $teamwork_sql = f_igosja_mysqli_query($sql, false);
 
             $teamwork_array = $teamwork_sql->fetch_all(1);
 
@@ -310,21 +310,21 @@ function f_igosja_set_teamwork($game_result)
             {
                 $sql = "UPDATE `teamwork`
                         SET `teamwork_value`=`teamwork_value`+5
-                        WHERE (`teamwork_player_1_id`='$player_4_id'
-                        AND `teamwork_player_2_id`='$player_5_id')
-                        OR (`teamwork_player_1_id`='$player_5_id'
-                        AND `teamwork_player_2_id`='$player_4_id')
+                        WHERE (`teamwork_player_1_id`=$player_4_id
+                        AND `teamwork_player_2_id`=$player_5_id)
+                        OR (`teamwork_player_1_id`=$player_5_id
+                        AND `teamwork_player_2_id`=$player_4_id)
                         LIMIT 1";
             }
             else
             {
                 $sql = "INSERT INTO `teamwork`
                         SET `teamwork_value`=5,
-                            `teamwork_player_1_id`='$player_4_id',
-                            `teamwork_player_2_id`='$player_5_id'";
+                            `teamwork_player_1_id`=$player_4_id,
+                            `teamwork_player_2_id`=$player_5_id";
             }
 
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 

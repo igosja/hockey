@@ -10,7 +10,7 @@ function f_igosja_generator_swiss()
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `schedule_tournamenttype_id` IN (" . TOURNAMENTTYPE_CONFERENCE . ", " . TOURNAMENTTYPE_OFFSEASON. ")
             LIMIT 1";
-    $tournamenttype_sql = f_igosja_mysqli_query($sql);
+    $tournamenttype_sql = f_igosja_mysqli_query($sql, false);
 
     if ($tournamenttype_sql->num_rows)
     {
@@ -23,7 +23,7 @@ function f_igosja_generator_swiss()
                 FROM `schedule`
                 WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 LIMIT 1";
-        $schedule_sql = f_igosja_mysqli_query($sql);
+        $schedule_sql = f_igosja_mysqli_query($sql, false);
 
         $schedule_array = $schedule_sql->fetch_all(1);
 
@@ -35,7 +35,7 @@ function f_igosja_generator_swiss()
                 AND `schedule_tournamenttype_id`=$tournamenttype_id
                 ORDER BY `schedule_id` ASC
                 LIMIT 1";
-        $schedule_sql = f_igosja_mysqli_query($sql);
+        $schedule_sql = f_igosja_mysqli_query($sql, false);
 
         $schedule_array = $schedule_sql->fetch_all(1);
 
@@ -46,6 +46,6 @@ function f_igosja_generator_swiss()
                 FROM `swissgame`
                 LEFT JOIN `team`
                 ON `swissgame_home_team_id`=`team_id`";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

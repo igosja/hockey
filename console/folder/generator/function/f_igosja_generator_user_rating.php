@@ -39,7 +39,7 @@ function f_igosja_generator_user_rating()
             AND (`guest_team`.`team_user_id`!=0
             OR `home_team`.`team_user_id`!=0)
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    $game_sql = f_igosja_mysqli_query($sql, false);
 
     $game_array = $game_sql->fetch_all(1);
 
@@ -318,10 +318,10 @@ function f_igosja_generator_user_rating()
                     WHERE `userrating_user_id`=$guest_user_id
                     AND `userrating_season_id`=$season_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
 
-        if ($guest_user_id)
+        if ($home_user_id)
         {
             $sql = "UPDATE `userrating`
                     SET `userrating_auto`=`userrating_auto`+$home_auto,
@@ -351,7 +351,7 @@ function f_igosja_generator_user_rating()
                     WHERE `userrating_user_id`=$home_user_id
                     AND `userrating_season_id`=$season_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 }
