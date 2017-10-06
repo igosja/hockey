@@ -42,4 +42,5 @@ $q[] = 'CREATE TABLE `player`
         );';
 $q[] = 'CREATE INDEX `player_age` ON `player` (`player_age`);';
 $q[] = 'CREATE INDEX `player_injury` ON `player` (`player_injury`);';
+$q[] = 'CREATE INDEX `player_rent_team_id` ON `player` (`player_rent_team_id`);';
 $q[] = 'CREATE INDEX `player_team_id` ON `player` (`player_team_id`);';
