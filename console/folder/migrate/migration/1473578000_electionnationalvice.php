@@ -11,3 +11,4 @@ $q[] = 'CREATE TABLE `electionnationalvice`
             `electionnationalvice_nationaltype_id` INT(1) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `electionnationalvice_country_id` ON `electionnationalvice` (`electionnationalvice_country_id`);';
+$q[] = 'CREATE INDEX `electionnationalvice_electionstatus_id` ON `electionnationalvice` (`electionnationalvice_electionstatus_id`);';

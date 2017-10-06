@@ -9,7 +9,7 @@ function f_igosja_generator_president_vice_vote_status()
             FROM `electionpresidentvice`
             WHERE `electionpresidentvice_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
             AND `electionpresidentvice_date`>UNIX_TIMESTAMP()-172800";
-    $electionpresidentvice_sql = f_igosja_mysqli_query($sql);
+    $electionpresidentvice_sql = f_igosja_mysqli_query($sql, false);
 
     $electionpresidentvice_array = $electionpresidentvice_sql->fetch_all(1);
 
@@ -22,7 +22,7 @@ function f_igosja_generator_president_vice_vote_status()
             FROM `electionpresidentvice`
             WHERE `electionpresidentvice_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
             AND `electionpresidentvice_date`>UNIX_TIMESTAMP()-432000";
-    $electionpresidentvice_sql = f_igosja_mysqli_query($sql);
+    $electionpresidentvice_sql = f_igosja_mysqli_query($sql, false);
 
     $electionpresidentvice_array = $electionpresidentvice_sql->fetch_all(1);
 

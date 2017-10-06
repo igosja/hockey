@@ -10,7 +10,7 @@ function f_igosja_election_president_to_close($electionpresident_id)
             FROM `electionpresident`
             WHERE `electionpresident_id`=$electionpresident_id
             LIMIT 1";
-    $electionpresident_sql = f_igosja_mysqli_query($sql);
+    $electionpresident_sql = f_igosja_mysqli_query($sql, false);
 
     $electionpresident_array = $electionpresident_sql->fetch_all(1);
 
@@ -50,7 +50,7 @@ function f_igosja_election_president_to_close($electionpresident_id)
             )
             ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC
             LIMIT 2";
-    $user_sql = f_igosja_mysqli_query($sql);
+    $user_sql = f_igosja_mysqli_query($sql, false);
 
     if ($user_sql->num_rows)
     {
@@ -86,12 +86,12 @@ function f_igosja_election_president_to_close($electionpresident_id)
                     `country_vice_id`=$vice_id
                 WHERE `country_id`=$country_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $sql = "UPDATE `electionpresident`
                 SET `electionpresident_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "
                 WHERE `electionpresident_id`=$electionpresident_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
 }

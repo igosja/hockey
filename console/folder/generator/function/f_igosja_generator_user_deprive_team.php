@@ -14,7 +14,7 @@ function f_igosja_generator_user_deprive_team()
             AND `user_date_login`<UNIX_TIMESTAMP()-432000
             AND `user_holiday`=0
             ORDER BY `user_id` ASC";
-    $team_sql = f_igosja_mysqli_query($sql);
+    $team_sql = f_igosja_mysqli_query($sql, false);
 
     $team_array = $team_sql->fetch_all(1);
 
@@ -26,7 +26,7 @@ function f_igosja_generator_user_deprive_team()
                 SET `team_user_id`=0
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_OUT,

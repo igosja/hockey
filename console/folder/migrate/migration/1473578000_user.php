@@ -59,4 +59,5 @@ $q[] = "INSERT INTO `user`
             `user_userrole_id`=3";
 $q[] = 'CREATE INDEX `user_code` ON `user` (`user_code`);';
 $q[] = 'CREATE UNIQUE INDEX `user_email` ON `user` (`user_email`);';
+$q[] = 'CREATE INDEX `user_holiday` ON `user` (`user_holiday`);';
 $q[] = 'CREATE INDEX `user_referrer_id` ON `user` (`user_referrer_id`);';

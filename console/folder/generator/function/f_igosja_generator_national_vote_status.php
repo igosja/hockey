@@ -17,7 +17,7 @@ function f_igosja_generator_national_vote_status()
                 ".NATIONALVOTESTEP_19_VOTE."
             )
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
     if ($schedule_sql->num_rows)
     {
@@ -27,7 +27,7 @@ function f_igosja_generator_national_vote_status()
                 FROM `schedule`
                 WHERE FROM_UNIXTIME(`schedule_date`-86400, '%Y-%m-%d')=CURDATE()
                 LIMIT 1";
-        $tomorrow_sql = f_igosja_mysqli_query($sql);
+        $tomorrow_sql = f_igosja_mysqli_query($sql, false);
 
         $tomorrow_array = $tomorrow_sql->fetch_all(1);
 

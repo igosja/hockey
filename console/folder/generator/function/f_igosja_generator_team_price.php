@@ -19,10 +19,10 @@ function f_igosja_generator_team_price()
                 `team_price_player`=`player_price`,
                 `team_price_stadium`=POW(`stadium_capacity`, 1.1)*" . STADIUM_ONE_SIT_PICE_BUY . "
             WHERE `team_id`!=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "UPDATE `team`
             SET `team_price_total`=`team_price_base`+`team_price_player`+`team_price_stadium`
             WHERE `team_id`!=0";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 }

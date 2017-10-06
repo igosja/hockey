@@ -27,7 +27,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                 ORDER BY `electionnational_id` ASC";
     }
 
-    $electionnational_sql = f_igosja_mysqli_query($sql);
+    $electionnational_sql = f_igosja_mysqli_query($sql, false);
 
     $electionnational_array = $electionnational_sql->fetch_all(1);
 

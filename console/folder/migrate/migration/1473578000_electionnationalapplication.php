@@ -10,3 +10,4 @@ $q[] = 'CREATE TABLE `electionnationalapplication`
             `electionnationalapplication_text` TEXT,
             `electionnationalapplication_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `electionnationalapplication_electionnational_id` ON `electionnationalapplication` (`electionnationalapplication_electionnational_id`);';
