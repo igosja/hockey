@@ -13,14 +13,14 @@ function f_igosja_ufu_last_visit($date)
 
     if ($min_5 >= $now)
     {
-        $date = '<span class="red">онлайн</span>';
+        $date = '<span class="red">online</span>';
     }
     elseif ($min_60 >= $now)
     {
         $difference = $now - $date;
         $difference = $difference / 60;
         $difference = round($difference, 0);
-        $date       = $difference . ' минут назад';
+        $date       = $difference . ' ' . f_igosja_count_case($difference, 'минуту', 'минуты', 'минут') . ' назад';
     }
     elseif (0 == $date)
     {

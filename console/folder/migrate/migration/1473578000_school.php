@@ -14,3 +14,4 @@ $q[] = 'CREATE TABLE `school`
             `school_team_id` INT(5) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `school_ready` ON `school` (`school_ready`);';
+$q[] = 'CREATE INDEX `school_team_id` ON `school` (`school_team_id`);';

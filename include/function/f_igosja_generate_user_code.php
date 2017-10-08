@@ -11,7 +11,7 @@ function f_igosja_generate_user_code()
     $sql = "SELECT COUNT(`user_id`) AS `count`
             FROM `user`
             WHERE `user_code`='$code'";
-    $check_sql = f_igosja_mysqli_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql, false);
 
     $check_array = $check_sql->fetch_all(1);
 

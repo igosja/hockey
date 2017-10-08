@@ -11,7 +11,7 @@ function f_igosja_base_is_scout($num_get)
             FROM `scout`
             WHERE `scout_team_id`=$num_get
             AND `scout_ready`=0";
-    $check_scout_sql = f_igosja_mysqli_query($sql);
+    $check_scout_sql = f_igosja_mysqli_query($sql, false);
 
     $check_scout_array = $check_scout_sql->fetch_all(1);
 

@@ -11,7 +11,7 @@ function f_igosja_base_is_school($num_get)
             FROM `school`
             WHERE `school_team_id`=$num_get
             AND `school_ready`=0";
-    $check_school_sql = f_igosja_mysqli_query($sql);
+    $check_school_sql = f_igosja_mysqli_query($sql, false);
 
     $check_school_array = $check_school_sql->fetch_all(1);
 

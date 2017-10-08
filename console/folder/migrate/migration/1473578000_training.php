@@ -15,3 +15,4 @@ $q[] = 'CREATE TABLE `training`
             `training_team_id` INT(5) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `training_ready` ON `training` (`training_ready`);';
+$q[] = 'CREATE INDEX `training_team_id` ON `training` (`training_team_id`);';

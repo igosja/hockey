@@ -8,10 +8,10 @@
 function f_igosja_base_is_training($num_get)
 {
     $sql = "SELECT COUNT(`training_id`) AS `count`
-                    FROM `training`
-                    WHERE `training_team_id`=$num_get
-                    AND `training_ready`=0";
-    $check_training_sql = f_igosja_mysqli_query($sql);
+            FROM `training`
+            WHERE `training_team_id`=$num_get
+            AND `training_ready`=0";
+    $check_training_sql = f_igosja_mysqli_query($sql, false);
 
     $check_training_array = $check_training_sql->fetch_all(1);
 

@@ -84,7 +84,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                 )
                 ORDER BY `count_answer` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC
                 LIMIT 2";
-        $user_sql = f_igosja_mysqli_query($sql);
+        $user_sql = f_igosja_mysqli_query($sql, false);
 
         if ($user_sql->num_rows)
         {
@@ -97,7 +97,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                     WHERE `national_country_id`=$country_id
                     AND `national_nationaltype_id`=$nationaltype_id
                     LIMIT 1";
-            $national_sql = f_igosja_mysqli_query($sql);
+            $national_sql = f_igosja_mysqli_query($sql, false);
 
             $national_array = $national_sql->fetch_all(1);
 
@@ -131,7 +131,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                                 AND `national_vice_id`=$vice_id";
                     }
 
-                    $check_sql = f_igosja_mysqli_query($sql);
+                    $check_sql = f_igosja_mysqli_query($sql, false);
 
                     $check_array = $check_sql->fetch_all(1);
 
@@ -160,7 +160,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                         `national_vice_id`=$vice_id
                     WHERE `national_id`=$national_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $application_id = $user_array[0]['electionnationalapplication_user_id'];
 
@@ -169,13 +169,13 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                     ON `electionnationalapplicationplayer_player_id`=`player_id`
                     SET `player_national_id`=$national_id
                     WHERE `electionnationalapplicationplayer_id`=$application_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
 
             $sql = "UPDATE `electionnational`
                     SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "
                     WHERE `electionnational_id`=$electionnational_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
     }
 }
