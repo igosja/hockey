@@ -723,6 +723,11 @@ ol, ul {
     margin: -1px;
 }
 
+.img-base {
+    max-width: 130px;
+    width: 100%;
+}
+
 fieldset {
     display: block;
     -webkit-margin-start: 2px;

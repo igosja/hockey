@@ -10,3 +10,6 @@ $q[] = 'CREATE TABLE `phisicalchange`
             `phisicalchange_schedule_id` INT(11) DEFAULT 0,
             `phisicalchange_team_id` INT(5) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `phisicalchange_season_id` ON `phisicalchange` (`phisicalchange_season_id`);';
+$q[] = 'CREATE INDEX `phisicalchange_schedule_id` ON `phisicalchange` (`phisicalchange_schedule_id`);';
+$q[] = 'CREATE INDEX `phisicalchange_team_id` ON `phisicalchange` (`phisicalchange_team_id`);';

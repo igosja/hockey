@@ -13,4 +13,5 @@ $q[] = 'CREATE TABLE `scout`
             `scout_team_id` INT(5) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `scout_ready` ON `scout` (`scout_ready`);';
+$q[] = 'CREATE INDEX `scout_season_id` ON `scout` (`scout_season_id`);';
 $q[] = 'CREATE INDEX `scout_team_id` ON `scout` (`scout_team_id`);';

@@ -149,6 +149,7 @@ $exception_array = array(
         'admin/view/vote_view.php',
         'admin_login.php',
         'auth_by_key.php',
+        'base.php',
         'closed.php',
         'codecept.phar',
         'codeception.yml',
@@ -548,6 +549,7 @@ $exception_array = array(
         'user_view.php',
         'view/activation.php',
         'view/activation_repeat.php',
+        'view/base.php',
         'view/closed.php',
         'view/conference.php',
         'view/conference_statistic.php', //!

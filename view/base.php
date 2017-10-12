@@ -71,7 +71,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="База команды"
+                            class="img-border img-base"
                             src="<?= $img_base; ?>"
                         />
                     </div>
@@ -120,7 +121,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="Тренировочный центр"
+                            class="img-border img-base"
                             src="<?= $img_training; ?>"
                         />
                     </div>
@@ -175,7 +177,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="Медцентр"
+                            class="img-border img-base"
                             src="<?= $img_medical; ?>"
                         />
                     </div>
@@ -209,7 +212,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="Центр физподготовки"
+                            class="img-border img-base"
                             src="<?= $img_phisical; ?>"
                         />
                     </div>
@@ -258,7 +262,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="Спортшкола"
+                            class="img-border img-base"
                             src="<?= $img_school; ?>"
                         />
                     </div>
@@ -297,7 +302,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                         <img
-                            class="img-border"
+                            alt="Скаут-центр"
+                            class="img-border img-base"
                             src="<?= $img_scout; ?>"
                         />
                     </div>
