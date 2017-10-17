@@ -25,7 +25,7 @@ jQuery(document).ready(function () {
         $(this).val(capacity_new);
         $('#stadium-price').html(price);
 
-        check_capacity($(this).val());
+        check_capacity($(this).val(), capacity_current, one_sit_price);
     });
 
     $('#capacity-form').on('submit', function () {
@@ -44,9 +44,13 @@ function check_capacity(capacity, capacity_current, one_sit_price)
     var capacity_error = $('.capacity-error');
     var price = get_price(capacity, capacity_current, one_sit_price);
 
+    console.log(capacity);
+    console.log(capacity_current);
+    console.log(one_sit_price);
+
     price = parseInt(price);
 
-    if (0 < price)
+    if (0 < capacity)
     {
         if (parseInt(price) <= parseInt(capacity_input.data('available')))
         {
