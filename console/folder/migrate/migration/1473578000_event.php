@@ -21,3 +21,4 @@ $q[] = 'CREATE TABLE `event`
             `event_second` INT(2) DEFAULT 0,
             `event_team_id` INT(5) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `event_game_id` ON `event` (`event_game_id`);';

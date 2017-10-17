@@ -351,7 +351,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
         elseif (NATIONALVOTESTEP_21_VOTE == $schedule_array[0]['schedule_nationalvotestep_id'])
         {
-            $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '"">здесь</a>';
+            $notification_array[] = 'В вашей стране проходят выборы тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '">здесь</a>';
         }
         elseif (NATIONALVOTESTEP_19_APPLICATION == $schedule_array[0]['schedule_nationalvotestep_id'])
         {
@@ -359,7 +359,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
         elseif (NATIONALVOTESTEP_19_VOTE == $schedule_array[0]['schedule_nationalvotestep_id'])
         {
-            $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '"">здесь</a>';
+            $notification_array[] = 'В вашей стране проходят выборы тренера юношеской сборной, результаты можно посмотреть <a href="/national_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '">здесь</a>';
         }
         else
         {
@@ -422,7 +422,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
                     {
-                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера национальной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_MAIN . '&num=' . $auth_country_id . '"">здесь</a>';
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера национальной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_MAIN . '&num=' . $auth_country_id . '">здесь</a>';
                     }
                 }
                 elseif (NATIONALTYPE_21 == $item['electionnationalvice_nationaltype_id'])
@@ -433,7 +433,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
                     {
-                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '"">здесь</a>';
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера молодёжной сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_21 . '&num=' . $auth_country_id . '">здесь</a>';
                     }
                 }
                 elseif (NATIONALTYPE_19 == $item['electionnationalvice_nationaltype_id'])
@@ -444,7 +444,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
                     {
-                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера юношеской сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '"">здесь</a>';
+                        $notification_array[] = 'В вашей стране проходят выборы заместитетя тренера юношеской сборной, результаты можно посмотреть <a href="/national_vice_vote.php?type=' . NATIONALTYPE_19 . '&num=' . $auth_country_id . '">здесь</a>';
                     }
                 }
             }
@@ -500,7 +500,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             }
             elseif (ELECTIONSTATUS_OPEN == $item['electionpresident_electionstatus_id'])
             {
-                $notification_array[] = 'В вашей стране проходят выборы презитента федерации, результаты можно посмотреть <a href="/president_vote.php?num=' . $auth_country_id . '"">здесь</a>';
+                $notification_array[] = 'В вашей стране проходят выборы презитента федерации, результаты можно посмотреть <a href="/president_vote.php?num=' . $auth_country_id . '">здесь</a>';
             }
         }
 
@@ -554,7 +554,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             }
             elseif (ELECTIONSTATUS_OPEN == $item['electionpresidentvice_electionstatus_id'])
             {
-                $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/president_vice_vote.php?num=' . $auth_country_id . '"">здесь</a>';
+                $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/president_vice_vote.php?num=' . $auth_country_id . '">здесь</a>';
             }
         }
     }

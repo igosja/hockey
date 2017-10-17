@@ -2,6 +2,7 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $igosja_season_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -24,8 +25,24 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 include(__DIR__ . '/include/sql/team_view_left.php');
 include(__DIR__ . '/include/sql/team_view_right.php');
 
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
+
+$season_array = $season_sql->fetch_all(1);
+
 $sql = "SELECT `history_date`,
-               `history_season_id`,
                `historytext_name`,
                `name_name`,
                `player_id`,
@@ -48,8 +65,9 @@ $sql = "SELECT `history_date`,
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
         WHERE `history_team_id`=$num_get
+        AND `history_season_id`=$season_id
         ORDER BY `history_id` DESC";
-$event_sql = f_igosja_mysqli_query($sql);
+$event_sql = f_igosja_mysqli_query($sql, false);
 
 $count_event = $event_sql->num_rows;
 $event_array = $event_sql->fetch_all(1);

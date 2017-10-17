@@ -45,10 +45,12 @@
             </div>
         <?php } ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn margin" type="submit">
-                Сохранить
-            </button>
-            <a class="btn margin" href="friendly.php">Назад</a>
+            <p>
+                <button class="btn" type="submit">
+                    Сохранить
+                </button>
+                <a class="btn" href="friendly.php">Назад</a>
+            </p>
         </div>
     </div>
 </form>

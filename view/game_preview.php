@@ -1,6 +1,8 @@
 <?php
 /**
+ * @var $game_array array
  * @var $num_get integer
+ * @var $previous_array array
  */
 ?>
 <?php if ($game_array[0]['game_played']) { ?>
@@ -58,8 +60,26 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <td class="text-center"><?= $game_array[0]['home_team_power_vs']; ?></td>
-                        <td class="text-center"><?= $game_array[0]['guest_team_power_vs']; ?></td>
+                        <td
+                            class="text-center
+                            <?php if ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
+                                font-green
+                            <?php } elseif ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
+                                font-red
+                            <?php } ?>"
+                        >
+                            <?= $game_array[0]['home_team_power_vs']; ?>
+                        </td>
+                        <td
+                            class="text-center
+                            <?php if ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
+                                font-green
+                            <?php } elseif ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
+                                font-red
+                            <?php } ?>"
+                        >
+                            <?= $game_array[0]['guest_team_power_vs']; ?>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -71,16 +91,16 @@
         <table class="table table-bordered">
             <tr>
                 <th class="col-15">Дата</th>
-                <th>Турнир</th>
-                <th class="col-15">Стадия</th>
+                <th class="hidden-xs">Турнир</th>
+                <th class="col-15 hidden-xs">Стадия</th>
                 <th>Игра</th>
                 <th class="col-10">Результат</th>
             </tr>
             <?php foreach ($previous_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= f_igosja_ufu_date_time($item['schedule_date']); ?></td>
-                    <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
-                    <td class="text-center"><?= $item['stage_name']; ?></td>
+                    <td class="text-center"><?= f_igosja_ufu_date($item['schedule_date']); ?></td>
+                    <td class="hidden-xs text-center"><?= $item['tournamenttype_name']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['stage_name']; ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
                             <?= $item['home_team_name']; ?>

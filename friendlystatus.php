@@ -30,26 +30,26 @@ if ($data = f_igosja_request_post('data'))
     $sql = "SELECT COUNT(`friendlystatus_id`) AS `count`
             FROM `friendlystatus`
             WHERE `friendlystatus_id`=$friendlystatus_id";
-    $friendlystatus_sql = f_igosja_mysqli_query($sql);
+    $friendlystatus_sql = f_igosja_mysqli_query($sql, false);
 
-    $friendlystatus_array = $friendlystatus_sql->fetch_all(1);
-
-    if ($friendlystatus_array[0]['count'])
-    {
-        $sql = "UPDATE `user`
-                SET `user_friendlystatus_id`=$friendlystatus_id
-                WHERE `user_id`=$auth_user_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
-    }
-    else
+    if (0 == $friendlystatus_sql->num_rows)
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Статус выбран неправильно.';
+
+        refresh();
     }
+
+    $friendlystatus_array = $friendlystatus_sql->fetch_all(1);
+
+    $sql = "UPDATE `user`
+            SET `user_friendlystatus_id`=$friendlystatus_id
+            WHERE `user_id`=$auth_user_id
+            LIMIT 1";
+    f_igosja_mysqli_query($sql, false);
+
+    $_SESSION['message']['class']   = 'success';
+    $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
 
     refresh();
 }
@@ -69,7 +69,7 @@ $sql = "SELECT `city_name`,
         ON `team_user_id`=`user_id`
         WHERE `team_id`=$auth_team_id
         LIMIT 1";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -77,7 +77,7 @@ $sql = "SELECT `friendlystatus_id`,
                `friendlystatus_name`
         FROM `friendlystatus`
         ORDER BY `friendlystatus_id` ASC";
-$friendlystatus_sql = f_igosja_mysqli_query($sql);
+$friendlystatus_sql = f_igosja_mysqli_query($sql, false);
 
 $friendlystatus_array = $friendlystatus_sql->fetch_all(1);
 

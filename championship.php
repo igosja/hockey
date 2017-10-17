@@ -33,7 +33,7 @@ $sql = "SELECT `country_name`,
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql);
+$country_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $country_sql->num_rows)
 {
@@ -63,7 +63,7 @@ $sql = "SELECT `division_id`,
         AND `championship_country_id`=$country_id
         GROUP BY `championship_division_id`
         ORDER BY `division_id` ASC";
-$division_sql = f_igosja_mysqli_query($sql);
+$division_sql = f_igosja_mysqli_query($sql, false);
 
 $division_array = $division_sql->fetch_all(1);
 
@@ -77,7 +77,7 @@ $sql = "SELECT `schedule_date`,
         AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
         AND `schedule_stage_id`<=" . STAGE_30_TOUR. "
         ORDER BY `stage_id` ASC";
-$stage_sql = f_igosja_mysqli_query($sql);
+$stage_sql = f_igosja_mysqli_query($sql, false);
 
 $stage_array = $stage_sql->fetch_all(1);
 
@@ -91,7 +91,7 @@ $sql = "SELECT COUNT(`conference_id`) AS `count`
         ON `stadium_city_id`=`city_id`
         WHERE `conference_season_id`=$season_id
         AND `city_country_id`=$country_id";
-$conference_sql = f_igosja_mysqli_query($sql);
+$conference_sql = f_igosja_mysqli_query($sql, false);
 
 $conference_array = $conference_sql->fetch_all(1);
 
@@ -106,7 +106,7 @@ if (!$stage_id = (int) f_igosja_request_get('stage_id'))
             AND `schedule_season_id`=$igosja_season_id
             ORDER BY `schedule_id` DESC
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
     if (0 == $schedule_sql->num_rows)
     {
@@ -117,7 +117,7 @@ if (!$stage_id = (int) f_igosja_request_get('stage_id'))
                 AND `schedule_season_id`=$igosja_season_id
                 ORDER BY `schedule_id` ASC
                 LIMIT 1";
-        $schedule_sql = f_igosja_mysqli_query($sql);
+        $schedule_sql = f_igosja_mysqli_query($sql, false);
     }
 
     $schedule_array = $schedule_sql->fetch_all(1);
@@ -133,18 +133,16 @@ else
             AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
             ORDER BY `schedule_id` ASC
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $schedule_sql = f_igosja_mysqli_query($sql, false);
 
-    if ($schedule_sql->num_rows)
-    {
-        $schedule_array = $schedule_sql->fetch_all(1);
-
-        $schedule_id = $schedule_array[0]['schedule_id'];
-    }
-    else
+    if (0 == $schedule_sql->num_rows)
     {
         redirect('/wrong_page.php');
     }
+
+    $schedule_array = $schedule_sql->fetch_all(1);
+
+    $schedule_id = $schedule_array[0]['schedule_id'];
 }
 
 $sql = "SELECT `game_id`,
@@ -177,7 +175,7 @@ $sql = "SELECT `game_id`,
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         ORDER BY `game_id` ASC";
-$game_sql = f_igosja_mysqli_query($sql);
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $game_sql->num_rows)
 {
@@ -209,7 +207,7 @@ $sql = "SELECT `city_name`,
         AND `championship_country_id`=$country_id
         AND `championship_division_id`=$division_id
         ORDER BY `championship_place` ASC";
-$team_sql = f_igosja_mysqli_query($sql);
+$team_sql = f_igosja_mysqli_query($sql, false);
 
 $team_array = $team_sql->fetch_all(1);
 
@@ -225,7 +223,7 @@ if (isset($auth_team_id) && $game_array[0]['game_played'])
             AND `review_division_id`=$division_id
             AND `review_schedule_id`=$schedule_id
             AND `review_user_id`=$auth_user_id";
-    $review_sql = f_igosja_mysqli_query($sql);
+    $review_sql = f_igosja_mysqli_query($sql, false);
 
     $review_array = $review_sql->fetch_all(1);
 
@@ -241,7 +239,7 @@ $sql = "SELECT `review_title`
         AND `review_division_id`=$division_id
         AND `review_season_id`=$season_id
         ORDER BY `review_schedule_id` ASC";
-$review_sql = f_igosja_mysqli_query($sql);
+$review_sql = f_igosja_mysqli_query($sql, false);
 
 $review_array = $review_sql->fetch_all(1);
 

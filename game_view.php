@@ -147,7 +147,7 @@ $sql = "SELECT `game_guest_auto`,
         ON `game_home_tactic_3_id`=`home_tactic_3`.`tactic_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
-$game_sql = f_igosja_mysqli_query($sql);
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $game_sql->num_rows)
 {
@@ -160,6 +160,9 @@ if (0 == $game_array[0]['game_played'])
 {
     redirect('/game_preview.php?num=' . $num_get);
 }
+
+$home_team_id   = $game_array[0]['home_team_id'];
+$guest_team_id  = $game_array[0]['guest_team_id'];
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
@@ -184,16 +187,14 @@ $sql = "SELECT `lineup_age`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `lineup`
         ON `player_id`=`lineup_player_id`
-        LEFT JOIN `game`
-        ON (`lineup_game_id`=`game_id`
-        AND `lineup_team_id`=`game_home_team_id`)
         LEFT JOIN `position`
         ON `lineup_position_id`=`position_id`
         LEFT JOIN `team`
         ON `lineup_team_id`=`team_id`
-        WHERE `game_id`=$num_get
+        WHERE `lineup_game_id`=$num_get
+        AND `lineup_team_id`=$home_team_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
-$home_sql = f_igosja_mysqli_query($sql);
+$home_sql = f_igosja_mysqli_query($sql, false);
 
 $home_array = $home_sql->fetch_all(1);
 
@@ -220,16 +221,14 @@ $sql = "SELECT `lineup_age`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `lineup`
         ON `player_id`=`lineup_player_id`
-        LEFT JOIN `game`
-        ON (`lineup_game_id`=`game_id`
-        AND `lineup_team_id`=`game_guest_team_id`)
         LEFT JOIN `position`
         ON `lineup_position_id`=`position_id`
         LEFT JOIN `team`
         ON `lineup_team_id`=`team_id`
-        WHERE `game_id`=$num_get
+        WHERE `lineup_game_id`=$num_get
+        AND `lineup_team_id`=$guest_team_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
-$guest_sql = f_igosja_mysqli_query($sql);
+$guest_sql = f_igosja_mysqli_query($sql, false);
 
 $guest_array = $guest_sql->fetch_all(1);
 
@@ -293,12 +292,12 @@ $sql = "SELECT `event_guest_score`,
         ON `player_penalty`.`player_surname_id`=`surname_penalty`.`surname_id`
         WHERE `event_game_id`=$num_get
         ORDER BY `event_minute` ASC, `event_second` ASC";
-$event_sql = f_igosja_mysqli_query($sql);
+$event_sql = f_igosja_mysqli_query($sql, false);
 
 $event_array = $event_sql->fetch_all(1);
 
-$seo_title          = 'Результат матча';
-$seo_description    = 'Результат матча на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'результат матча';
+$seo_title          = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча';
+$seo_description    = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $game_array[0]['home_team_name'] . ' ' . $game_array[0]['guest_team_name'] . ' ' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . ' результат матча';
 
 include(__DIR__ . '/view/layout/main.php');

@@ -14,3 +14,6 @@ $q[] = 'CREATE TABLE `friendlyinvite`
             `friendlyinvite_home_user_id` INT(11) DEFAULT 0,
             `friendlyinvite_schedule_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `friendlyinvite_home_team_id` ON `friendlyinvite` (`friendlyinvite_home_team_id`);';
+$q[] = 'CREATE INDEX `friendlyinvite_guest_team_id` ON `friendlyinvite` (`friendlyinvite_guest_team_id`);';
+$q[] = 'CREATE INDEX `friendlyinvite_schedule_id` ON `friendlyinvite` (`friendlyinvite_schedule_id`);';

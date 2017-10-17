@@ -97,7 +97,7 @@
                     <td class="text-right col-45">
                         <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
                             <?= $item['home_team_name']; ?>
-                            (<?= $item['home_city_name']; ?>)
+                            <span class="hidden-xs">(<?= $item['home_city_name']; ?>)</span>
                         </a>
                     </td>
                     <td class="text-center col-10">
@@ -106,7 +106,7 @@
                     <td>
                         <a href="/team_view.php?num=<?= $item['guest_team_id']; ?>">
                             <?= $item['guest_team_name']; ?>
-                            (<?= $item['guest_city_name']; ?>)
+                            <span class="hidden-xs">(<?= $item['guest_city_name']; ?>)</span>
                         </a>
                     </td>
                 </tr>
@@ -125,7 +125,7 @@
                 <th class="col-5" title="Победы в овертайте/по буллитам">ВО</th>
                 <th class="col-5" title="Поражения в овертайте/по буллитам">ПО</th>
                 <th class="col-5" title="Поражения">П</th>
-                <th colspan="2" title="Шайбы">Ш</th>
+                <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th class="col-5" title="Очки">О</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
@@ -134,7 +134,7 @@
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
-                            (<?= $item['city_name']; ?>)
+                            <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
                         </a>
                     </td>
                     <td class="text-center"><?= $item['championship_game']; ?></td>
@@ -142,8 +142,8 @@
                     <td class="text-center"><?= $item['championship_win_over']; ?></td>
                     <td class="text-center"><?= $item['championship_loose_over']; ?></td>
                     <td class="text-center"><?= $item['championship_loose']; ?></td>
-                    <td class="col-5 text-center"><?= $item['championship_score']; ?></td>
-                    <td class="col-5 text-center"><?= $item['championship_pass']; ?></td>
+                    <td class="col-5 hidden-xs text-center"><?= $item['championship_score']; ?></td>
+                    <td class="col-5 hidden-xs text-center"><?= $item['championship_pass']; ?></td>
                     <td class="text-center strong"><?= $item['championship_point']; ?></td>
                 </tr>
             <?php } ?>
@@ -155,7 +155,7 @@
                 <th title="Победы в овертайте/по буллитам">ВО</th>
                 <th title="Поражения в овертайте/по буллитам">ПО</th>
                 <th title="Поражения">П</th>
-                <th colspan="2" title="Шайбы">Ш</th>
+                <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th title="Очки">О</th>
             </tr>
         </table>
@@ -177,14 +177,16 @@
     <?php } ?>
 <?php } ?>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top text-center">
-        <a href="/championship_statistic.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>" class="btn">
-            Статистика
-        </a>
-        <?php if ($review_create) { ?>
-            <a href="/review_create.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>&stage_id=<?= $stage_id; ?>&schedule_id=<?= $schedule_id; ?>" class="btn">
-                Написать обзор
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>
+            <a href="/championship_statistic.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>" class="btn">
+                Статистика
             </a>
-        <?php } ?>
+            <?php if ($review_create) { ?>
+                <a href="/review_create.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>&stage_id=<?= $stage_id; ?>&schedule_id=<?= $schedule_id; ?>" class="btn">
+                    Написать обзор
+                </a>
+            <?php } ?>
+        </p>
     </div>
 </div>

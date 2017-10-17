@@ -73,7 +73,7 @@
                             <img src="/img/country/12/<?= $statistic_array[$i]['country_id']; ?>.png" title="<?= $statistic_array[$i]['country_name']; ?>"/>
                             <a href="/team_view.php?num=<?= $statistic_array[$i]['team_id']; ?>">
                                 <?= $statistic_array[$i]['team_name']; ?>
-                                (<?= $statistic_array[$i]['city_name']; ?>)
+                                <span class="hidden-xs">(<?= $statistic_array[$i]['city_name']; ?>)</span>
                             </a>
                         </td>
                         <td class="text-center"><?= $statistic_array[$i][$select]; ?></td>

@@ -33,7 +33,8 @@ $stadium_array = $stadium_sql->fetch_all(1);
 
 $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
         FROM `buildingstadium`
-        WHERE `buildingstadium_team_id`=$num_get";
+        WHERE `buildingstadium_team_id`=$num_get
+        AND `buildingstadium_ready`=0";
 $buildingstadium_sql = f_igosja_mysqli_query($sql);
 
 $buildingstadium_array = $buildingstadium_sql->fetch_all(1);

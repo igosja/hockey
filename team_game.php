@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -20,15 +25,31 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 include(__DIR__ . '/include/sql/team_view_left.php');
 include(__DIR__ . '/include/sql/team_view_right.php');
 
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql, false);
+
+$season_array = $season_sql->fetch_all(1);
+
 $sql = "SELECT `city_name`,
                `country_name`,
                IF(`game_guest_team_id`=$num_get, `game_guest_auto`, `game_home_auto`) AS `game_auto`,
                `game_guest_score`,
                `game_home_score`,
                `game_id`,
-               IF(`game_guest_team_id`=$num_get, `game_guest_plus_minus`, `game_home_plus_minus`) AS `game_minus`,
                `game_played`,
-               IF(`game_guest_team_id`=$num_get, `game_guest_plus_minus`, `game_home_plus_minus`) AS `game_plus`,
+               IF(`game_guest_team_id`=$num_get, `game_guest_plus_minus`, `game_home_plus_minus`) AS `game_plus_minus`,
                IF(
                    `game_played`=1,
                    ROUND(`opponent`.`team_power_vs`/`my_team`.`team_power_vs`*100),
@@ -62,9 +83,9 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE (`game_guest_team_id`=$num_get
         OR `game_home_team_id`=$num_get)
-        AND `schedule_season_id`=$igosja_season_id
+        AND `schedule_season_id`=$season_id
         ORDER BY `schedule_id` ASC";
-$game_sql = f_igosja_mysqli_query($sql);
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 $game_array = $game_sql->fetch_all(1);
 

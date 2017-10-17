@@ -1,6 +1,8 @@
 <?php
 /**
+ * @var $check_recieve_array array
  * @var $invite_send_array array
+ * @var $invite_recieve_array array
  * @var $myteam_array array
  * @var $num_get integer
  * @var $schedule_array array
@@ -43,14 +45,14 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
             <table class="table table-bordered">
                 <tr>
-                    <th class="col-20">День</th>
+                    <th class="col-25">День</th>
                     <th>Статус</th>
                 </tr>
                 <?php foreach ($schedule_array as $item) { ?>
                     <tr <?php if ($num_get == $item['schedule_id']) { ?>class="info"<?php } ?>>
                         <td class="text-center">
                             <a href="friendly.php?num=<?= $item['schedule_id']; ?>">
-                                <?= f_igosja_ufu_date_time($item['schedule_date']); ?>
+                                <?= f_igosja_ufu_date($item['schedule_date']); ?>
                             </a>
                         </td>
                         <td><?= $item['text']; ?></td>
@@ -78,7 +80,7 @@
                 <tr>
                     <th class="col-5"></th>
                     <th>Команда</th>
-                    <th class="col-58">Статус</th>
+                    <th class="col-50">Статус</th>
                 </tr>
                 <?php foreach ($invite_send_array as $item) { ?>
                     <tr>
@@ -90,7 +92,8 @@
                                 title="<?$item['country_name']; ?>"
                             />
                             <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                                <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
+                                <?= $item['team_name']; ?>
+                                <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
                             </a>
                         </td>
                         <td><?= $item['friendlyinvitestatus_name']; ?></td>
@@ -124,7 +127,7 @@
                         <th class="col-10">Стадион</th>
                         <th class="col-6" title="Рейтинг посещаемости">РП</th>
                     <?php } else { ?>
-                        <th class="col-58">Статус</th>
+                        <th class="col-50">Статус</th>
                     <?php } ?>
                 </tr>
                 <?php foreach ($invite_recieve_array as $item) { ?>
@@ -132,10 +135,10 @@
                         <td class="text-center">
                             <?php if (FRIENDLY_INVITE_STATUS_NEW == $item['friendlyinvitestatus_id']) { ?>
                                 <a href="/friendly.php?num=<?= $num_get; ?>&friendlyinvite_id=<?= $item['friendlyinvite_id']; ?>&friendlyinivitestatus_id=<?= FRIENDLY_INVITE_STATUS_APPROVE; ?>">
-                                    <img src="/img/check.png"/>
+                                    <img alt="Принять" src="/img/check.png" title="Принять" />
                                 </a>
                                 <a href="/friendly.php?num=<?= $num_get; ?>&friendlyinvite_id=<?= $item['friendlyinvite_id']; ?>&friendlyinivitestatus_id=<?= FRIENDLY_INVITE_STATUS_REJECT; ?>">
-                                    <img src="/img/delete.png"/>
+                                    <img alt="Отклонить" src="/img/delete.png" title="Отклонить" />
                                 </a>
                             <?php } ?>
                         </td>
@@ -146,7 +149,8 @@
                                 title="<?$item['country_name']; ?>"
                             />
                             <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                                <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
+                                <?= $item['team_name']; ?>
+                                <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
                             </a>
                         </td>
                         <?php if (FRIENDLY_INVITE_STATUS_NEW == $item['friendlyinvitestatus_id']) { ?>
@@ -193,8 +197,8 @@
                 <tr>
                     <th class="col-5"></th>
                     <th>Команда</th>
-                    <th class="col-30">Менеджер</th>
-                    <th class="col-6" title="Рейтинг силы команды">Vs</th>
+                    <th class="col-30 hidden-xs">Менеджер</th>
+                    <th class="col-6 hidden-xs" title="Рейтинг силы команды">Vs</th>
                     <th class="col-6" title="Соотношение сил (чем больше это число, тем сильнее соперник)">С/С</th>
                     <th class="col-10">Стадион</th>
                     <th class="col-6" title="Рейтинг посещаемости">РП</th>
@@ -203,7 +207,7 @@
                     <tr<?php if (FRIENDLY_STATUS_ALL == $item['user_friendlystatus_id']) { ?> class="success"<?php } ?>>
                         <td class="text-center">
                             <a href="/friendly.php?num=<?= $num_get; ?>&team_id=<?= $item['team_id']; ?>">
-                                <img src="/img/check.png"/>
+                                <img alt="Отправить" src="/img/check.png" title="Отправить" />
                             </a>
                         </td>
                         <td>
@@ -213,15 +217,16 @@
                                 title="<?$item['country_name']; ?>"
                             />
                             <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                                <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
+                                <?= $item['team_name']; ?>
+                                <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
                             </a>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                                 <?= $item['user_login']?>
                             </a>
                         </td>
-                        <td class="text-center"><?= $item['team_power_vs']; ?></td>
+                        <td class="text-center hidden-xs"><?= $item['team_power_vs']; ?></td>
                         <td class="text-center"><?= round($item['team_power_vs'] / $myteam_array[0]['team_power_vs'] * 100); ?>%</td>
                         <td class="text-center"><?= $item['stadium_capacity']; ?></td>
                         <td class="text-center"><?= $item['team_visitor']; ?></td>
@@ -230,8 +235,8 @@
                 <tr>
                     <th></th>
                     <th>Команда</th>
-                    <th>Менеджер</th>
-                    <th title="Рейтинг силы команды">Vs</th>
+                    <th class="hidden-xs">Менеджер</th>
+                    <th class="hidden-xs" title="Рейтинг силы команды">Vs</th>
                     <th title="Соотношение сил (чем больше это число, тем сильнее соперник)">С/С</th>
                     <th>Стадион</th>
                     <th title="Рейтинг посещаемости">РП</th>

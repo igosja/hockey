@@ -37,7 +37,7 @@ $sql = "SELECT `game_played`,
         ON `stadium_team`.`team_stadium_id`=`stadium_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
-$game_sql = f_igosja_mysqli_query($sql);
+$game_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $game_sql->num_rows)
 {
@@ -76,12 +76,12 @@ $sql = "SELECT `game_guest_score`,
         OR (`game_home_team_id`=$guest_team_id
         AND `game_guest_team_id`=$home_team_id)
         ORDER BY `game_id` DESC";
-$previous_sql = f_igosja_mysqli_query($sql);
+$previous_sql = f_igosja_mysqli_query($sql, false);
 
 $previous_array = $previous_sql->fetch_all(1);
 
-$seo_title          = 'Информация перед началом матча';
-$seo_description    = 'Информация перед началом матча на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'информация перед началом матча';
+$seo_title          = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . '. Информация перед началом матча';
+$seo_description    = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . '. Информация перед началом матча на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $game_array[0]['home_team_name'] . ' ' . $game_array[0]['guest_team_name'] . ' информация перед началом матча';
 
 include(__DIR__ . '/view/layout/main.php');

@@ -130,7 +130,7 @@
                 <tr>
                     <th>№</th>
                     <th>Игрок</th>
-                    <th>Команда</th>
+                    <th class="hidden-xs">Команда</th>
                     <th></th>
                 </tr>
                 <?php for ($i=0; $i<$count_statistic; $i++) { ?>
@@ -142,7 +142,7 @@
                                 <?= $statistic_array[$i]['surname_name']; ?>
                             </a>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <img src="/img/country/12/<?= $statistic_array[$i]['country_id']; ?>.png" title="<?= $statistic_array[$i]['country_name']; ?>"/>
                             <a href="/team_view.php?num=<?= $statistic_array[$i]['team_id']; ?>">
                                 <?= $statistic_array[$i]['team_name']; ?>
@@ -155,7 +155,7 @@
                 <tr>
                     <th>№</th>
                     <th>Игрок</th>
-                    <th>Команда</th>
+                    <th class="hidden-xs">Команда</th>
                     <th></th>
                 </tr>
             </table>

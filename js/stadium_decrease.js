@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-    $('#stadium-capacity').on('change', function() {
+    $('#capacity').on('change', function() {
         var capacity_new = parseInt($(this).val());
 
         if (isNaN(capacity_new))
@@ -20,5 +20,7 @@ jQuery(document).ready(function () {
 
         $(this).val(capacity_new);
         $('#stadium-price').html(price);
+
+        check_capacity($(this).val());
     });
 });

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_team_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -28,7 +32,7 @@ $sql = "SELECT `achievement_season_id`,
         ON `achievement_tournamenttype_id`=`tournamenttype_id`
         WHERE `achievement_team_id`=$num_get
         ORDER BY `achievement_id` DESC";
-$achievement_sql = f_igosja_mysqli_query($sql);
+$achievement_sql = f_igosja_mysqli_query($sql, false);
 
 $achievement_array = $achievement_sql->fetch_all(1);
 

@@ -1194,7 +1194,6 @@ function f_igosja_generator_plus_minus()
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
                     'history_player_id' => $player['lineup_player_id'],
-                    'history_team_id' => $item['game_home_team_id'],
                 );
                 f_igosja_history($log);
             }
@@ -1223,7 +1222,6 @@ function f_igosja_generator_plus_minus()
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
                     'history_player_id' => $player['lineup_player_id'],
-                    'history_team_id' => $item['game_home_team_id'],
                 );
                 f_igosja_history($log);
             }
@@ -1253,7 +1251,6 @@ function f_igosja_generator_plus_minus()
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
                     'history_player_id' => $player['lineup_player_id'],
-                    'history_team_id' => $item['game_guest_team_id'],
                 );
                 f_igosja_history($log);
             }
@@ -1282,7 +1279,6 @@ function f_igosja_generator_plus_minus()
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
                     'history_player_id' => $player['lineup_player_id'],
-                    'history_team_id' => $item['game_guest_team_id'],
                 );
                 f_igosja_history($log);
             }

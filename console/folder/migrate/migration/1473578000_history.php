@@ -21,5 +21,6 @@ $q[] = 'CREATE TABLE `history`
             `history_user_2_id` INT(11) DEFAULT 0,
             `history_value` INT(11) DEFAULT 0
         );';
-$q[] = 'CREATE INDEX `history_user_id` ON `history` (`history_user_id`);';
 $q[] = 'CREATE INDEX `history_player_id` ON `history` (`history_player_id`);';
+$q[] = 'CREATE INDEX `history_team_id` ON `history` (`history_team_id`);';
+$q[] = 'CREATE INDEX `history_user_id` ON `history` (`history_user_id`);';

@@ -14,3 +14,7 @@ $q[] = 'CREATE TABLE `review`
             `review_title` VARCHAR(255),
             `review_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `review_country_id` ON `review` (`review_country_id`);';
+$q[] = 'CREATE INDEX `review_division_id` ON `review` (`review_division_id`);';
+$q[] = 'CREATE INDEX `review_season_id` ON `review` (`review_season_id`);';
+$q[] = 'CREATE INDEX `review_user_id` ON `review` (`review_user_id`);';

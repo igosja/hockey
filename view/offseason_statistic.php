@@ -20,7 +20,6 @@
             <label for="statistictype">Статистика:</label>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-8">
-            <label for="statistictype">Статистика</label>
             <select id="statistictype" class="form-control" name="num">
                 <?php for ($i=0; $i<$count_statistictype; $i++) { ?>
                     <?php if (0 == $i || $statistictype_array[$i]['statisticchapter_name'] != $statistictype_array[$i-1]['statisticchapter_name']) { ?>
@@ -72,7 +71,7 @@
                             <img src="/img/country/12/<?= $statistic_array[$i]['country_id']; ?>.png" title="<?= $statistic_array[$i]['country_name']; ?>"/>
                             <a href="/team_view.php?num=<?= $statistic_array[$i]['team_id']; ?>">
                                 <?= $statistic_array[$i]['team_name']; ?>
-                                (<?= $statistic_array[$i]['city_name']; ?>)
+                                <span class="hidden-xs">(<?= $statistic_array[$i]['city_name']; ?>)</span>
                             </a>
                         </td>
                         <td class="text-center"><?= $statistic_array[$i][$select]; ?></td>

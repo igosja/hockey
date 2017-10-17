@@ -1,5 +1,9 @@
 <?php
 /**
+ * @var $event_array array
+ * @var $game_array array
+ * @var $guest_array array
+ * @var $home_array array
  * @var $num_get integer
  */
 ?>
@@ -74,41 +78,41 @@
         <table class="table table-bordered">
             <tr>
                 <td class="col-35 text-center">
-                    <?= $game_array[0]['home_tactic_1_name']; ?> |
-                    <?= $game_array[0]['home_tactic_2_name']; ?> |
-                    <?= $game_array[0]['home_tactic_3_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['home_tactic_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['home_tactic_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['home_tactic_3_name']; ?></span>
                 </td>
                 <td class="text-center">Тактика</td>
                 <td class="col-35 text-center">
-                    <?= $game_array[0]['guest_tactic_1_name']; ?> |
-                    <?= $game_array[0]['guest_tactic_2_name']; ?> |
-                    <?= $game_array[0]['guest_tactic_3_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['guest_tactic_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['guest_tactic_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['guest_tactic_3_name']; ?></span>
                 </td>
             </tr>
             <tr>
                 <td class="text-center">
-                    <?= $game_array[0]['home_style_1_name']; ?> |
-                    <?= $game_array[0]['home_style_1_name']; ?> |
-                    <?= $game_array[0]['home_style_1_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['home_style_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['home_style_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['home_style_3_name']; ?></span>
                 </td>
                 <td class="text-center">Стиль</td>
                 <td class="text-center">
-                    <?= $game_array[0]['guest_style_1_name']; ?> |
-                    <?= $game_array[0]['guest_style_1_name']; ?> |
-                    <?= $game_array[0]['guest_style_1_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['guest_style_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['guest_style_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['guest_style_3_name']; ?></span>
                 </td>
             </tr>
             <tr>
                 <td class="text-center">
-                    <?= $game_array[0]['home_rude_1_name']; ?> |
-                    <?= $game_array[0]['home_rude_1_name']; ?> |
-                    <?= $game_array[0]['home_rude_1_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['home_rude_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['home_rude_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['home_rude_3_name']; ?></span>
                 </td>
                 <td class="text-center">Грубость</td>
                 <td class="text-center">
-                    <?= $game_array[0]['guest_rude_1_name']; ?> |
-                    <?= $game_array[0]['guest_rude_1_name']; ?> |
-                    <?= $game_array[0]['guest_rude_1_name']; ?>
+                    <span title="Первое звено"><?= $game_array[0]['guest_rude_1_name']; ?></span> |
+                    <span title="Второе звено"><?= $game_array[0]['guest_rude_2_name']; ?></span> |
+                    <span title="Третье звено"><?= $game_array[0]['guest_rude_3_name']; ?></span>
                 </td>
             </tr>
             <tr>
@@ -127,26 +131,26 @@
             </tr>
             <tr>
                 <td class="text-center">
-                    <?= $game_array[0]['game_home_optimality_1']; ?>% |
-                    <?= $game_array[0]['game_home_optimality_2']; ?>%
+                    <span title="Расстановка сил по позициям"><?= $game_array[0]['game_home_optimality_1']; ?>%</span> |
+                    <span title="Соотношение силы состава к ретингу команды"><?= $game_array[0]['game_home_optimality_2']; ?>%</span>
                 </td>
                 <td class="text-center">Оптимальность</td>
                 <td class="text-center">
-                    <?= $game_array[0]['game_guest_optimality_1']; ?>% |
-                    <?= $game_array[0]['game_guest_optimality_2']; ?>%
+                    <span title="Расстановка сил по позициям"><?= $game_array[0]['game_guest_optimality_1']; ?>%</span> |
+                    <span title="Соотношение силы состава к ретингу команды"><?= $game_array[0]['game_guest_optimality_2']; ?>%</span>
                 </td>
             </tr>
             <tr>
                 <td class="text-center">
-                    <?= $game_array[0]['game_home_teamwork_1']; ?>% |
-                    <?= $game_array[0]['game_home_teamwork_2']; ?>% |
-                    <?= $game_array[0]['game_home_teamwork_3']; ?>%
+                    <span title="Первое звено"><?= $game_array[0]['game_home_teamwork_1']; ?>%</span> |
+                    <span title="Второе звено"><?= $game_array[0]['game_home_teamwork_2']; ?>%</span> |
+                    <span title="Третье звено"><?= $game_array[0]['game_home_teamwork_3']; ?>%</span>
                 </td>
                 <td class="text-center">Сыгранность</td>
                 <td class="text-center">
-                    <?= $game_array[0]['game_guest_teamwork_1']; ?>% |
-                    <?= $game_array[0]['game_guest_teamwork_2']; ?>% |
-                    <?= $game_array[0]['game_guest_teamwork_3']; ?>%
+                    <span title="Первое звено"><?= $game_array[0]['game_guest_teamwork_1']; ?>%</span> |
+                    <span title="Второе звено"><?= $game_array[0]['game_guest_teamwork_2']; ?>%</span> |
+                    <span title="Третье звено"><?= $game_array[0]['game_guest_teamwork_3']; ?>%</span>
                 </td>
             </tr>
             <tr>
@@ -179,13 +183,48 @@
         <table class="table table-bordered">
             <tr>
                 <td class="text-center">Прогноз на матч</td>
-                <td class="col-35 text-center"><?= $game_array[0]['game_home_forecast']; ?></td>
-                <td class="col-35 text-center"><?= $game_array[0]['game_guest_forecast']; ?></td>
+                <td
+                    class="col-35 text-center
+                    <?php if ($game_array[0]['game_home_forecast'] > $game_array[0]['game_guest_forecast']) { ?>
+                        font-green
+                    <?php } elseif ($game_array[0]['game_home_forecast'] < $game_array[0]['game_guest_forecast']) { ?>
+                        font-red
+                    <?php } ?>"
+                >
+                    <?= $game_array[0]['game_home_forecast']; ?>
+                </td>
+                <td
+                    class="col-35 text-center
+                    <?php if ($game_array[0]['game_home_forecast'] < $game_array[0]['game_guest_forecast']) { ?>
+                        font-green
+                    <?php } elseif ($game_array[0]['game_home_forecast'] > $game_array[0]['game_guest_forecast']) { ?>
+                        font-red
+                    <?php } ?>"
+                >
+                    <?= $game_array[0]['game_guest_forecast']; ?>
+                </td>
             </tr>
             <tr>
                 <td class="text-center">Сила состава</td>
-                <td class="text-center"><?= $game_array[0]['game_home_power']; ?></td>
-                <td class="text-center"><?= $game_array[0]['game_guest_power']; ?></td>
+                <td class="text-center
+                    <?php if ($game_array[0]['game_home_power'] > $game_array[0]['game_guest_power']) { ?>
+                        font-green
+                    <?php } elseif ($game_array[0]['game_home_power'] < $game_array[0]['game_guest_power']) { ?>
+                        font-red
+                    <?php } ?>"
+                >
+                    <?= $game_array[0]['game_home_power']; ?>
+                </td>
+                <td
+                    class="text-center
+                    <?php if ($game_array[0]['game_home_power'] < $game_array[0]['game_guest_power']) { ?>
+                        font-green
+                    <?php } elseif ($game_array[0]['game_home_power'] > $game_array[0]['game_guest_power']) { ?>
+                        font-red
+                    <?php } ?>"
+                >
+                    <?= $game_array[0]['game_guest_power']; ?>
+                </td>
             </tr>
         </table>
     </div>
@@ -200,11 +239,11 @@
                         <?= $home_array[0]['team_name']; ?>
                     </a>
                 </th>
-                <th title="Возраст">В</th>
-                <th title="Номиральная сила">НС</th>
+                <th class="hidden-xs" title="Возраст">В</th>
+                <th class="hidden-xs" title="Номиральная сила">НС</th>
                 <th title="Реальная сила">РС</th>
-                <th title="Штрафные минуты">ШМ</th>
-                <th title="Броски">Б</th>
+                <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
+                <th class="hidden-xs" title="Броски">Б</th>
                 <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
                 <th title="Голевые передачи">П</th>
                 <th title="Плюс/минус">+/-</th>
@@ -219,19 +258,19 @@
                             <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_age']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_power_nominal']; ?>
                     </td>
                     <td class="text-center">
                         <?= $item['lineup_power_real']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_penalty']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_shot']; ?>
                     </td>
                     <td class="text-center">
@@ -260,11 +299,11 @@
                         <?= $guest_array[0]['team_name']; ?>
                     </a>
                 </th>
-                <th title="Возраст">В</th>
-                <th title="Номиральная сила">НС</th>
+                <th class="hidden-xs" title="Возраст">В</th>
+                <th class="hidden-xs" title="Номиральная сила">НС</th>
                 <th title="Реальная сила">РС</th>
-                <th title="Штрафные минуты">ШМ</th>
-                <th title="Броски">Б</th>
+                <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
+                <th class="hidden-xs" title="Броски">Б</th>
                 <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
                 <th title="Голевые передачи">П</th>
                 <th title="Плюс/минус">+/-</th>
@@ -279,19 +318,19 @@
                             <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_age']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_power_nominal']; ?>
                     </td>
                     <td class="text-center">
                         <?= $item['lineup_power_real']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_penalty']; ?>
                     </td>
-                    <td class="text-center">
+                    <td class="hidden-xs text-center">
                         <?= $item['lineup_shot']; ?>
                     </td>
                     <td class="text-center">
@@ -318,7 +357,7 @@
             <tr>
                 <th>Время</th>
                 <th>Команда</th>
-                <th>Тип</th>
+                <th class="hidden-xs">Тип</th>
                 <th>Событие</th>
                 <th>Счет</th>
             </tr>
@@ -332,11 +371,13 @@
                             <?= $item['team_name']; ?>
                         </a>
                     </td>
-                    <td class="text-center"><?= $item['eventtype_text']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['eventtype_text']; ?></td>
                     <td>
-                        <?= $item['eventtextbullet_text']; ?>
-                        <?= $item['eventtextgoal_text']; ?>
-                        <?= $item['eventtextpenalty_text']; ?>
+                        <span class="hidden-xs">
+                            <?= $item['eventtextbullet_text']; ?>
+                            <?= $item['eventtextgoal_text']; ?>
+                            <?= $item['eventtextpenalty_text']; ?>
+                        </span>
                         <?php if ($item['event_player_penalty_id']) { ?>
                             Удаление -
                             <a href="/player_view.php?num=<?= $item['event_player_penalty_id']; ?>">

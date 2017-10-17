@@ -12,7 +12,7 @@ function f_igosja_select_assist_2($game_result, $team)
     $penalty_position           = f_igosja_penalty_position_array($game_result, $team);
     $penalty_position[]         = $game_result['player'];
 
-    if (in_array($game_result['assist_2'], $penalty_position))
+    if (in_array($game_result['assist_2'], $penalty_position) || $game_result['assist_2'] == $game_result['assist_1'])
     {
         $game_result = f_igosja_select_assist_2($game_result, $team);
     }

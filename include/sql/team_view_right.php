@@ -32,7 +32,7 @@ $sql = "SELECT `game_id`,
         AND `game_played`=1
         ORDER BY `schedule_date` DESC
         LIMIT 3";
-$latest_sql = f_igosja_mysqli_query($sql);
+$latest_sql = f_igosja_mysqli_query($sql, false);
 
 $latest_array = $latest_sql->fetch_all(1);
 
@@ -57,6 +57,6 @@ $sql = "SELECT `game_id`,
         AND `game_played`=0
         ORDER BY `schedule_date` ASC
         LIMIT 2";
-$nearest_sql = f_igosja_mysqli_query($sql);
+$nearest_sql = f_igosja_mysqli_query($sql, false);
 
 $nearest_array = $nearest_sql->fetch_all(1);
