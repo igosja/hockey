@@ -5,7 +5,7 @@
  * @var $igosja_season_id integer
  */
 
-include(__DIR__ . '/include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $result = '';
 
@@ -23,25 +23,25 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             ON `basephisical_id`=`team_basephisical_id`
             WHERE `team_id`=$auth_team_id
             LIMIT 1";
-    $basephisical_sql = f_igosja_mysqli_query($sql);
+    $basephisical_sql = f_igosja_mysqli_query($sql, false);
 
     $basephisical_array = $basephisical_sql->fetch_all(1);
 
-    $player_id  = (int) f_igosja_request_get('player_id');
-    $schedule_id = (int) f_igosja_request_get('schedule_id');
+    $player_id      = (int) f_igosja_request_get('player_id');
+    $schedule_id    = (int) f_igosja_request_get('schedule_id');
 
     $sql = "DELETE FROM `phisicalchange`
             WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_schedule_id`>$schedule_id
             AND `phisicalchange_season_id`=$igosja_season_id";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             FROM `phisicalchange`
             WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_season_id`=$igosja_season_id
             AND `phisicalchange_schedule_id`=$schedule_id";
-    $check_sql = f_igosja_mysqli_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql, false);
 
     $check_array = $check_sql->fetch_all(1);
     $count_check = $check_array[0]['count'];
@@ -52,7 +52,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 WHERE `phisicalchange_player_id`=$player_id
                 AND `phisicalchange_season_id`=$igosja_season_id
                 AND `phisicalchange_schedule_id`=$schedule_id";
-        f_igosja_mysqli_query($sql);
+        f_igosja_mysqli_query($sql, false);
     }
     else
     {
@@ -60,7 +60,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 FROM `phisicalchange`
                 WHERE `phisicalchange_team_id`=$auth_team_id
                 AND `phisicalchange_season_id`=$igosja_season_id";
-        $phisical_used_sql = f_igosja_mysqli_query($sql);
+        $phisical_used_sql = f_igosja_mysqli_query($sql, false);
 
         $phisical_used_array = $phisical_used_sql->fetch_all(1);
 
@@ -73,7 +73,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                         `phisicalchange_season_id`=$igosja_season_id,
                         `phisicalchange_schedule_id`=$schedule_id,
                         `phisicalchange_team_id`=$auth_team_id";
-            f_igosja_mysqli_query($sql);
+            f_igosja_mysqli_query($sql, false);
         }
         else
         {
@@ -105,7 +105,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                        `phisical_value`
                 FROM `phisical`
                 ORDER BY `phisical_id` ASC";
-        $phisical_sql = f_igosja_mysqli_query($sql);
+        $phisical_sql = f_igosja_mysqli_query($sql, false);
 
         $phisical_sql = $phisical_sql->fetch_all(1);
 
@@ -122,9 +122,9 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
         $sql = "SELECT `schedule_id`
                 FROM `schedule`
                 WHERE `schedule_id`>=$schedule_id
-                AND `schedule_tournamenttype_id`!='" . TOURNAMENTTYPE_CONFERENCE . "'
+                AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
                 ORDER BY `schedule_id` ASC";
-        $schedule_sql = f_igosja_mysqli_query($sql);
+        $schedule_sql = f_igosja_mysqli_query($sql, false);
 
         $count_schedule = $schedule_sql->num_rows;
         $schedule_array = $schedule_sql->fetch_all(1);
@@ -182,26 +182,13 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             FROM `phisicalchange`
             WHERE `phisicalchange_team_id`=$auth_team_id
             AND `phisicalchange_season_id`=$igosja_season_id";
-    $phisical_used_sql = f_igosja_mysqli_query($sql);
+    $phisical_used_sql = f_igosja_mysqli_query($sql, false);
 
     $phisical_used_array = $phisical_used_sql->fetch_all(1);
 
     $phisical_available = $basephisical_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 
     $result['available'] = $phisical_available;
-}
-elseif ($line_id = (int) f_igosja_request_get('line_id'))
-{
-    $player_id = (int) f_igosja_request_get('player_id');
-
-    $sql = "UPDATE `player`
-            SET `player_line_id`=$line_id
-            WHERE `player_id`=$player_id
-            AND `player_team_id`=$auth_team_id
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    $result = true;
 }
 
 print json_encode($result);

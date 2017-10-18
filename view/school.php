@@ -2,8 +2,13 @@
 /**
  * @var $baseschool_array array
  * @var $confirm_data array
- * @var $school_available integer
+ * @var $count_school integer
  * @var $on_building boolean
+ * @var $player_array array
+ * @var $position_array array
+ * @var $school_available integer
+ * @var $special_array array
+ * @var $style_array array
  */
 ?>
 <div class="row margin-top">
@@ -80,7 +85,7 @@
         </div>
     </form>
 <?php } else { ?>
-    <?php if ($school_sql->num_rows) { ?>
+    <?php if ($count_school) { ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 Сейчас происходит подготовка юниора:
@@ -103,6 +108,7 @@
                         <td class="text-center">
                             <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                                 <img
+                                    alt="<?= $player_array[0]['country_name']; ?>"
                                     src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
                                     title="<?= $player_array[0]['country_name']; ?>"
                                 />
@@ -137,6 +143,7 @@
                             <td class="text-center">
                                 <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                                     <img
+                                        alt="<?= $player_array[0]['country_name']; ?>"
                                         src="/img/country/12/<?= $player_array[0]['country_id']; ?>.png"
                                         title="<?= $player_array[0]['country_name']; ?>"
                                     />
@@ -146,7 +153,7 @@
                             <td class="text-center">
                                 <label class="hidden" for="position">Position</label>
                                 <select class="form-control" id="position" name="data[position_id]">
-                                    <option value="0"></option>
+                                    <option value="0">-</option>
                                     <?php foreach ($position_array as $item) { ?>
                                         <option value="<?= $item['position_id']; ?>">
                                             <?= $item['position_name']; ?>
@@ -157,7 +164,7 @@
                             <td class="text-center">
                                 <label class="hidden" for="special">Special</label>
                                 <select class="form-control" id="special" name="data[special_id]">
-                                    <option value="0"></option>
+                                    <option value="0">-</option>
                                     <?php foreach ($special_array as $item) { ?>
                                         <option value="<?= $item['special_id']; ?>">
                                             <?= $item['special_name']; ?>
@@ -168,7 +175,7 @@
                             <td class="text-center">
                                 <label class="hidden" for="style">Style</label>
                                 <select class="form-control" id="style" name="data[style_id]">
-                                    <option value="0"></option>
+                                    <option value="0">-</option>
                                     <?php foreach ($style_array as $item) { ?>
                                         <option value="<?= $item['style_id']; ?>">
                                             <?= $item['style_name']; ?>

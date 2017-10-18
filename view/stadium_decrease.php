@@ -4,12 +4,18 @@
  * @var $new_capacity integer
  */
 ?>
-    <div class="row margin-top">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"></div>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
     </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
+                Строительство стадиона
+            </div>
+        </div>
+    </div>
+</div>
 <?php if ($count_buildingstadium) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
@@ -42,7 +48,7 @@
         </div>
     </div>
 <?php } else { ?>
-    <form method="POST">
+    <form id="capacity-form" method="POST">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                 Текушая вместимость
@@ -53,11 +59,18 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                <label for="stadium-capacity">Новая вместимость</label>
+                <label for="capacity">Новая вместимость</label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-                <input class="form-control" id="stadium-capacity" name="data[new_capacity]" />
+                <input
+                    class="form-control"
+                    data-current="<?= $stadium_array[0]['stadium_capacity']; ?>"
+                    data-sit_price="<?= STADIUM_ONE_SIT_PICE_SELL; ?>"
+                    id="capacity"
+                    name="data[new_capacity]"
+                />
             </div>
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 xs-text-center capacity-error notification-error"></div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
@@ -81,8 +94,4 @@
             </div>
         </div>
     </form>
-    <script>
-        var capacity_current = <?= $stadium_array[0]['stadium_capacity']; ?>;
-        var one_sit_price    = <?= STADIUM_ONE_SIT_PICE_SELL; ?>;
-    </script>
 <?php } ?>

@@ -33,3 +33,4 @@ $q[] = 'CREATE TABLE `ratingteam`
             `ratingteam_visitor_place_country` INT(3) DEFAULT 0,
             `ratingteam_visitor_place_division` INT(2) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `ratingteam_team_id` ON `ratingteam` (`ratingteam_team_id`);';

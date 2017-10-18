@@ -3,7 +3,7 @@ jQuery(document).ready(function () {
     var capacity_current    = capacity_input.data('current');
     var one_sit_price       = capacity_input.data('sit_price');
 
-    capacity_input.on('blur', function() {
+    capacity_input.on('change', function() {
         var capacity_new = parseInt($(this).val());
 
         if (isNaN(capacity_new))
@@ -23,7 +23,7 @@ jQuery(document).ready(function () {
         var price = get_price(capacity_new, capacity_current, one_sit_price);
 
         $(this).val(capacity_new);
-        $('#stadium-price').html(price);
+        $('#stadium-price').html(price.toLocaleString('ru-RU'));
 
         check_capacity($(this).val(), capacity_current, one_sit_price);
     });
@@ -43,10 +43,6 @@ function check_capacity(capacity, capacity_current, one_sit_price)
     var capacity_input = $('#capacity');
     var capacity_error = $('.capacity-error');
     var price = get_price(capacity, capacity_current, one_sit_price);
-
-    console.log(capacity);
-    console.log(capacity_current);
-    console.log(one_sit_price);
 
     price = parseInt(price);
 
@@ -76,5 +72,5 @@ function check_capacity(capacity, capacity_current, one_sit_price)
 
 function get_price(capacity_new, capacity_current, one_sit_price)
 {
-    return parseInt((Math.pow(capacity_new, 1.1) - Math.pow(capacity_current, 1.1)) * one_sit_price)
+    return parseInt((Math.pow(capacity_new, 1.1) - Math.pow(capacity_current, 1.1)) * one_sit_price);
 }

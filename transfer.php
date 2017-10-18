@@ -33,7 +33,7 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`t_country`.`country_id`
         WHERE `transfer_ready`=0
         ORDER BY `transfer_id` ASC";
-$transfer_sql = f_igosja_mysqli_query($sql);
+$transfer_sql = f_igosja_mysqli_query($sql, false);
 
 $count_transfer = $transfer_sql->num_rows;
 $transfer_array = $transfer_sql->fetch_all(1);
@@ -56,7 +56,7 @@ if (count($player_id))
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id` IN ($player_id)
             ORDER BY `playerposition_position_id` ASC";
-    $playerposition_sql = f_igosja_mysqli_query($sql);
+    $playerposition_sql = f_igosja_mysqli_query($sql, false);
 
     $playerposition_array = $playerposition_sql->fetch_all(1);
 
@@ -68,7 +68,7 @@ if (count($player_id))
             ON `playerspecial_special_id`=`special_id`
             WHERE `playerspecial_player_id` IN ($player_id)
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-    $playerspecial_sql = f_igosja_mysqli_query($sql);
+    $playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(1);
 }

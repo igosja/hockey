@@ -14,6 +14,10 @@ $tpl        = $file_name;
 $controller = explode('_', $file_name);
 $controller = $controller[0];
 
+if (!in_array($controller, array('country'))) {
+    $controller = '';
+}
+
 if ('admin' == $chapter)
 {
     if (!isset($auth_user_id) || USERROLE_USER == $auth_userrole_id)

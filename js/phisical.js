@@ -5,11 +5,10 @@ jQuery(document).ready(function () {
         var schedule_id  = $(this).data('schedule');
 
         $.ajax({
-            url: '/json.php?phisical_id=' + phisical_id + '&player_id=' + player_id + '&schedule_id=' + schedule_id,
+            url: '/json/phisical.php?phisical_id=' + phisical_id + '&player_id=' + player_id + '&schedule_id=' + schedule_id,
             dataType: 'json',
             success: function (data)
             {
-                console.log(data);
                 for (var i=0; i<data['list'].length; i++)
                 {
                     var list_id = $('#' + data['list'][i].id);

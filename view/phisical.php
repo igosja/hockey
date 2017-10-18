@@ -53,9 +53,13 @@
                 <th title="Позиция">Поз</th>
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
-                <?php foreach ($schedule_array as $schedule) { ?>
+                <?php foreach ($schedule_array as $item) { ?>
                     <th>
-                        <img src="/phisical_image.php?num=<?= $schedule['schedule_date']; ?>"/>
+                        <img
+                            alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                            src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
+                            title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                        />
                     </th>
                 <?php } ?>
             </tr>
@@ -78,6 +82,7 @@
                             id="<?= $phisical['id']; ?>"
                         >
                             <img
+                                alt="<?= $phisical['phisical_value']; ?>%"
                                 src="/img/phisical/<?= $phisical['phisical_id']; ?>.png"
                                 title="<?= $phisical['phisical_value']; ?>%"
                             />
@@ -90,9 +95,13 @@
                 <th title="Позиция">Поз</th>
                 <th title="Возраст">В</th>
                 <th title="Номинальная сила">С</th>
-                <?php foreach ($schedule_array as $schedule) { ?>
+                <?php foreach ($schedule_array as $item) { ?>
                     <th>
-                        <img src="/phisical_image.php?num=<?= $schedule['schedule_date']; ?>"/>
+                        <img
+                            alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                            src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
+                            title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                        />
                     </th>
                 <?php } ?>
             </tr>

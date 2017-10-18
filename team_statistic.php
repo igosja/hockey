@@ -20,78 +20,72 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 include(__DIR__ . '/include/sql/team_view_left.php');
 include(__DIR__ . '/include/sql/team_view_right.php');
 
-$sql = "SELECT `stadium_capacity`,
-               `team_finance`,
-               `team_power_c_16`,
-               `team_power_c_21`,
-               `team_power_c_27`,
-               `team_power_s_16`,
-               `team_power_s_21`,
-               `team_power_s_27`,
-               `team_power_v`,
+$sql = "SELECT `base_level`,
+               `basemedical_level`+`basephisical_level`+`baseschool_level`+`basescout_level`+`basetraining_level` AS `base_used`,
+               `player`,
+               `stadium_capacity`,
+               `team_age`,
                `team_power_vs`,
                `team_price_base`,
                `team_price_stadium`,
-               `team_price_player`,
                `team_price_total`,
                `team_salary`,
                `team_visitor`,
-               `teamrating_capacity_country`,
-               `teamrating_capacity_division`,
-               `teamrating_capacity_league`,
-               `teamrating_power_c_16_country`,
-               `teamrating_power_c_16_division`,
-               `teamrating_power_c_16_league`,
-               `teamrating_power_c_21_country`,
-               `teamrating_power_c_21_division`,
-               `teamrating_power_c_21_league`,
-               `teamrating_power_c_27_country`,
-               `teamrating_power_c_27_division`,
-               `teamrating_power_c_27_league`,
-               `teamrating_power_s_16_country`,
-               `teamrating_power_s_16_division`,
-               `teamrating_power_s_16_league`,
-               `teamrating_power_s_21_country`,
-               `teamrating_power_s_21_division`,
-               `teamrating_power_s_21_league`,
-               `teamrating_power_s_27_country`,
-               `teamrating_power_s_27_division`,
-               `teamrating_power_s_27_league`,
-               `teamrating_power_v_country`,
-               `teamrating_power_v_division`,
-               `teamrating_power_v_league`,
-               `teamrating_power_vs_country`,
-               `teamrating_power_vs_division`,
-               `teamrating_power_vs_league`,
-               `teamrating_price_base_country`,
-               `teamrating_price_base_division`,
-               `teamrating_price_base_league`,
-               `teamrating_price_finance_country`,
-               `teamrating_price_finance_division`,
-               `teamrating_price_finance_league`,
-               `teamrating_price_player_country`,
-               `teamrating_price_player_division`,
-               `teamrating_price_player_league`,
-               `teamrating_price_stadium_country`,
-               `teamrating_price_stadium_division`,
-               `teamrating_price_stadium_league`,
-               `teamrating_price_total_country`,
-               `teamrating_price_total_division`,
-               `teamrating_price_total_league`,
-               `teamrating_salary_country`,
-               `teamrating_salary_division`,
-               `teamrating_salary_league`,
-               `teamrating_visitor_country`,
-               `teamrating_visitor_division`,
-               `teamrating_visitor_league`
+               `ratingteam_age_place`,
+               `ratingteam_age_place_country`,
+               `ratingteam_age_place_division`,
+               `ratingteam_base_place`,
+               `ratingteam_base_place_country`,
+               `ratingteam_base_place_division`,
+               `ratingteam_player_place`,
+               `ratingteam_player_place_country`,
+               `ratingteam_player_place_division`,
+               `ratingteam_power_vs_place_country`,
+               `ratingteam_power_vs_place_division`,
+               `ratingteam_power_vs_place`,
+               `ratingteam_price_base_place`,
+               `ratingteam_price_base_place_country`,
+               `ratingteam_price_base_place_division`,
+               `ratingteam_price_stadium_place`,
+               `ratingteam_price_stadium_place_country`,
+               `ratingteam_price_stadium_place_division`,
+               `ratingteam_price_total_place`,
+               `ratingteam_price_total_place_country`,
+               `ratingteam_price_total_place_division`,
+               `ratingteam_stadium_place`,
+               `ratingteam_stadium_place_country`,
+               `ratingteam_stadium_place_division`,
+               `ratingteam_visitor_place`,
+               `ratingteam_visitor_place_country`,
+               `ratingteam_visitor_place_division`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
-        LEFT JOIN `teamrating`
-        ON `team_id`=`teamrating_team_id`
+        LEFT JOIN `ratingteam`
+        ON `team_id`=`ratingteam_team_id`
+        LEFT JOIN `base`
+        ON `team_base_id`=`base_id`
+        LEFT JOIN `basemedical`
+        ON `team_basemedical_id`=`basemedical_id`
+        LEFT JOIN `basephisical`
+        ON `team_basephisical_id`=`basephisical_id`
+        LEFT JOIN `baseschool`
+        ON `team_baseschool_id`=`baseschool_id`
+        LEFT JOIN `basescout`
+        ON `team_basescout_id`=`basescout_id`
+        LEFT JOIN `basetraining`
+        ON `team_basetraining_id`=`basetraining_id`
+        LEFT JOIN
+        (
+            SELECT COUNT(`player_id`) AS `player`,
+                   `player_team_id`
+            FROM `player`
+            WHERE `player_team_id`=$num_get
+        ) AS `t1`
+        ON `team_id`=`player_team_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$rating_sql = f_igosja_mysqli_query($sql);
+$rating_sql = f_igosja_mysqli_query($sql, false);
 
 $rating_array = $rating_sql->fetch_all(1);
 

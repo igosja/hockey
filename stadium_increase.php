@@ -2,6 +2,7 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $team_array array
  */
 
 include(__DIR__ . '/include/include.php');
@@ -9,6 +10,11 @@ include(__DIR__ . '/include/include.php');
 if (!isset($auth_team_id))
 {
     redirect('/wrong_page.php');
+}
+
+if (0 == $auth_team_id)
+{
+    redirect('/team_ask.php');
 }
 
 $num_get = $auth_team_id;

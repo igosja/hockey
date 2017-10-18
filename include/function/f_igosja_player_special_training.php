@@ -11,7 +11,7 @@ function f_igosja_player_special_training($player_id)
             FROM `playerspecial`
             WHERE `playerspecial_player_id`=$player_id
             AND `playerspecial_level`=4";
-    $check_sql = f_igosja_mysqli_query($sql);
+    $check_sql = f_igosja_mysqli_query($sql, false);
 
     $check_array = $check_sql->fetch_all(1);
 
@@ -28,11 +28,11 @@ function f_igosja_player_special_training($player_id)
                     AND `playerspecial_level`=4
                 )
                 ORDER BY `special_id` ASC";
-        $special_sql = f_igosja_mysqli_query($sql);
+        $special_sql = f_igosja_mysqli_query($sql, false);
 
         $special_array = $special_sql->fetch_all(1);
 
-        $return = '<select class="form-control form-small" name="data[special][]"><option></option>';
+        $return = '<select class="form-control form-small" name="data[special][]"><option>-</option>';
 
         foreach ($special_array as $item)
         {
