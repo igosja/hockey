@@ -32,7 +32,7 @@
                     <?= $item['voteanswer_text']; ?>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                    <?= $item['count_answer']; ?>
+                    <?= $item['voteanswer_count']; ?>
                 </div>
             </div>
         <?php } ?>

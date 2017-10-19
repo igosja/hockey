@@ -20,7 +20,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
             OR (`message_user_id_from`=$auth_user_id
             AND `message_support_to`=1))
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql, false);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Сообщение успешно удалено.';

@@ -3,6 +3,7 @@
  * @var $count_page integer
  * @var $message_array array
  * @var $num_get integer
+ * @var $page integer
  * @var $total integer
  */
 ?>
@@ -55,8 +56,8 @@
                     </a>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right">
-                    <a href="/dialog_delete.php?num=<?= $item['message_id']; ?>">
-                        <img alt="Удалить сообщение" src="/img/delete.png" title="Удалить сообщение" />
+                    <a href="/dialog_delete.php?num=<?= $item['message_id']; ?>" title="Удалить сообщение">
+                        &times;
                     </a>
                 </div>
             </div>

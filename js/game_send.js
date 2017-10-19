@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
 
     for (var i=1; i<=5; i++)
     {
-        if (1 == i)
+        if (1 === i)
         {
             current_1       = ld_1_id;
             other_1         = [ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
@@ -21,7 +21,7 @@ jQuery(document).ready(function () {
             position_array  = ld_array;
             promt           = 'LD -';
         }
-        else if (2 == i)
+        else if (2 === i)
         {
             current_1       = rd_1_id;
             other_1         = [ld_1_id, ld_2_id, ld_3_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
@@ -32,7 +32,7 @@ jQuery(document).ready(function () {
             position_array  = rd_array;
             promt           = 'RD -';
         }
-        else if (3 == i)
+        else if (3 === i)
         {
             current_1       = lw_1_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
@@ -43,7 +43,7 @@ jQuery(document).ready(function () {
             position_array  = lw_array;
             promt           = 'LW -';
         }
-        else if (4 == i)
+        else if (4 === i)
         {
             current_1       = c_1_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_2_id, c_3_id, rw_1_id, rw_2_id, rw_3_id];
@@ -54,7 +54,7 @@ jQuery(document).ready(function () {
             position_array  = c_array;
             promt           = 'C -';
         }
-        else if (5 == i)
+        else if (5 === i)
         {
             current_1       = rw_1_id;
             other_3         = [ld_1_id, ld_2_id, ld_3_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, c_1_id, c_2_id, c_3_id, rw_2_id, rw_3_id];
@@ -72,29 +72,29 @@ jQuery(document).ready(function () {
 
         for (var j=0; j<position_array.length; j++)
         {
-            if (position_array[j][0] == current_1)
+            if (position_array[j][0] === current_1)
             {
                 select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
             }
-            else if (-1 == $.inArray(position_array[j][0], other_1))
+            else if (-1 === $.inArray(position_array[j][0], other_1))
             {
                 select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
             }
 
-            if (position_array[j][0] == current_2)
+            if (position_array[j][0] === current_2)
             {
                 select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
             }
-            else if (-1 == $.inArray(position_array[j][0], other_2))
+            else if (-1 === $.inArray(position_array[j][0], other_2))
             {
                 select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
             }
 
-            if (position_array[j][0] == current_3)
+            if (position_array[j][0] === current_3)
             {
                 select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
             }
-            else if (-1 == $.inArray(position_array[j][0], other_3))
+            else if (-1 === $.inArray(position_array[j][0], other_3))
             {
                 select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
             }
@@ -108,9 +108,9 @@ jQuery(document).ready(function () {
     player_change();
 
     $('.lineup-change').on('change', function() {
-        var position    = $(this).data('position');
-        var line        = $(this).data('line');
-        var player_id   = $(this).val();
+        var position    = parseInt($(this).data('position'));
+        var line        = parseInt($(this).data('line'));
+        var player_id   = parseInt($(this).val());
 
         var player_id_array =
         [
@@ -131,37 +131,39 @@ jQuery(document).ready(function () {
             parseInt($('#line-3-5').val())
         ];
 
-        if      (1 == position) { position_array = ld_array; }
-        else if (2 == position) { position_array = rd_array; }
-        else if (3 == position) { position_array = lw_array; }
-        else if (4 == position) { position_array =  c_array; }
-        else if (5 == position) { position_array = rw_array; }
+        if      (1 === position) { position_array = ld_array; }
+        else if (2 === position) { position_array = rd_array; }
+        else if (3 === position) { position_array = lw_array; }
+        else if (4 === position) { position_array =  c_array; }
+        else if (5 === position) { position_array = rw_array; }
 
         for (var i=1; i<=3; i++)
         {
             for (var k=1; k<=5; k++)
             {
-                if      (1 == k) { position_array = ld_array; promt = 'LD -'; }
-                else if (2 == k) { position_array = rd_array; promt = 'RD -'; }
-                else if (3 == k) { position_array = lw_array; promt = 'LW -'; }
-                else if (4 == k) { position_array =  c_array; promt = 'C -'; }
-                else if (5 == k) { position_array = rw_array; promt = 'RW -'; }
+                if      (1 === k) { position_array = ld_array; promt = 'LD -'; }
+                else if (2 === k) { position_array = rd_array; promt = 'RD -'; }
+                else if (3 === k) { position_array = lw_array; promt = 'LW -'; }
+                else if (4 === k) { position_array =  c_array; promt = 'C -'; }
+                else if (5 === k) { position_array = rw_array; promt = 'RW -'; }
 
-                var line_player_id = $('#line-' + i + '-' + k).val();
+                var line_player = $('#line-' + i + '-' + k);
+
+                var line_player_id = parseInt(line_player.val());
 
                 var select_html = '<option value="0">' + promt + '</option>';
 
                 for (var j=0; j<position_array.length; j++)
                 {
-                    if (position_array[j][0] == player_id)
+                    if (position_array[j][0] === player_id)
                     {
-                        if (i == line && k == position)
+                        if (i === line && k === position)
                         {
                             select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
                         }
                         else
                         {
-                            if (-1 == $.inArray(position_array[j][0], player_id_array))
+                            if (-1 === $.inArray(position_array[j][0], player_id_array))
                             {
                                 select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
                             }
@@ -169,13 +171,13 @@ jQuery(document).ready(function () {
                     }
                     else
                     {
-                        if (position_array[j][0] == line_player_id)
+                        if (position_array[j][0] === line_player_id)
                         {
                             select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
                         }
                         else
                         {
-                            if (-1 == $.inArray(position_array[j][0], player_id_array))
+                            if (-1 === $.inArray(position_array[j][0], player_id_array))
                             {
                                 select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
                             }
@@ -183,7 +185,7 @@ jQuery(document).ready(function () {
                     }
                 }
 
-                $('#line-' + i + '-' + k).html(select_html);
+                line_player.html(select_html);
             }
         }
     });

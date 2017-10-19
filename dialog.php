@@ -2,7 +2,7 @@
 
 /**
  * @var $auth_user_id
- * */
+ */
 
 include(__DIR__ . '/include/include.php');
 

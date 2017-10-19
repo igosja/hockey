@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $country_array array
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -9,40 +13,59 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 include(__DIR__ . '/include/sql/country_view.php');
 
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 10;
+$offset = ($page - 1) * $limit;
+
 $sql = "UPDATE `vote`
         SET `vote_votestatus_id`=" . VOTESTATUS_CLOSE . "
         WHERE `vote_votestatus_id`=" . VOTESTATUS_OPEN . "
         AND `vote_date`<UNIX_TIMESTAMP()-604800";
-f_igosja_mysqli_query($sql);
+f_igosja_mysqli_query($sql, false);
 
-$sql = "SELECT `count_answer`,
+$sql = "SELECT SQL_CALC_FOUND_ROWS
                `user_id`,
                `user_login`,
                `vote_id`,
                `vote_text`,
-               `voteanswer_text`,
                `votestatus_name`
         FROM `vote`
         LEFT JOIN `votestatus`
         ON `vote_votestatus_id`=`votestatus_id`
         LEFT JOIN `user`
         ON `vote_user_id`=`user_id`
-        LEFT JOIN `voteanswer`
-        ON `vote_id`=`voteanswer_vote_id`
-        LEFT JOIN
-        (
-            SELECT COUNT(`voteuser_user_id`) AS `count_answer`,
-                   `voteuser_answer_id`
-            FROM `voteuser`
-            GROUP BY `voteuser_answer_id`
-        ) AS `t1`
-        ON `voteuser_answer_id`=`voteanswer_id`
         WHERE `vote_country_id`=$num_get
         AND `votestatus_id`>" . VOTESTATUS_NEW . "
-        ORDER BY `votestatus_id` ASC, `vote_id` DESC, `count_answer` DESC, `voteanswer_id` ASC";
-$vote_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `votestatus_id` ASC, `vote_id` DESC
+        LIMIT $offset, $limit";
+$vote_sql = f_igosja_mysqli_query($sql, false);
 
 $vote_array = $vote_sql->fetch_all(1);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql, false);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
+
+for ($i=0, $count_vote=count($vote_array); $i<$count_vote; $i++)
+{
+    $vote_id = $vote_array[$i]['vote_id'];
+
+    $sql = "SELECT `voteanswer_count`,
+                   `voteanswer_text`
+            FROM `voteanswer`
+            WHERE `voteanswer_vote_id`=$vote_id
+            ORDER BY `voteanswer_count` DESC, `voteanswer_id` ASC";
+    $answer_sql = f_igosja_mysqli_query($sql, false);
+
+    $vote_array[$i]['answer'] = $answer_sql->fetch_all(1);
+}
 
 $seo_title          = $country_array[0]['country_name'] . '. Список опросов фередации';
 $seo_description    = $country_array[0]['country_name'] . '. Список опросов фередации на сайте Вирутальной Хоккейной Лиги.';

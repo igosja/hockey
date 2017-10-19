@@ -1,8 +1,23 @@
 <?php
 /**
  * @var $auth_team_id integer
+ * @var $c_array array
+ * @var $current_array array
+ * @var $game_array array
+ * @var $gk_array array
+ * @var $ld_array array
  * @var $line integer
+ * @var $lw_array array
+ * @var $mood_array array
  * @var $num_get integer
+ * @var $player_array array
+ * @var $playerposition_array array
+ * @var $playerspecial_array array
+ * @var $rd_array array
+ * @var $rude_array array
+ * @var $rw_array array
+ * @var $style_array array
+ * @var $tactic_array array
  */
 ?>
 <div class="row margin-top">
@@ -10,8 +25,8 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Дата</th>
-                <th>Тип матча</th>
-                <th>Стадия</th>
+                <th class="hidden-xs">Тип матча</th>
+                <th class="hidden-xs">Стадия</th>
                 <th></th>
                 <th>Соперник</th>
                 <th></th>
@@ -20,8 +35,8 @@
             <?php foreach ($game_array as $item) { ?>
                 <tr <?php if ($num_get == $item['game_id']) { ?>class="info"<?php } ?>>
                     <td class="text-center"><?= f_igosja_ufu_date_time($item['schedule_date']); ?></td>
-                    <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
-                    <td class="text-center"><?= $item['stage_name']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['tournamenttype_name']; ?></td>
+                    <td class="hidden-xs text-center"><?= $item['stage_name']; ?></td>
                     <td class="text-center"><?= $item['home_guest']; ?></td>
                     <td class="text-center">
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
@@ -100,7 +115,7 @@
                         <select class="form-control" id="tactic-1" name="data[tactic_1_id]">
                             <?php foreach ($tactic_array as $item) { ?>
                                 <option
-                                        value="<?= $item['tactic_id']; ?>"
+                                    value="<?= $item['tactic_id']; ?>"
                                     <?php if ($current_array[0]['game_tactic_1_id'] == $item['tactic_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -115,7 +130,7 @@
                         <select class="form-control" id="rude-1" name="data[rude_1_id]">
                             <?php foreach ($rude_array as $item) { ?>
                                 <option
-                                        value="<?= $item['rude_id']; ?>"
+                                    value="<?= $item['rude_id']; ?>"
                                     <?php if ($current_array[0]['game_rude_1_id'] == $item['rude_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -130,7 +145,7 @@
                         <select class="form-control" id="style-1" name="data[style_1_id]">
                             <?php foreach ($style_array as $item) { ?>
                                 <option
-                                        value="<?= $item['style_id']; ?>"
+                                    value="<?= $item['style_id']; ?>"
                                     <?php if ($current_array[0]['game_style_1_id'] == $item['style_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -148,7 +163,7 @@
                         <select class="form-control" id="tactic-2" name="data[tactic_2_id]">
                             <?php foreach ($tactic_array as $item) { ?>
                                 <option
-                                        value="<?= $item['tactic_id']; ?>"
+                                    value="<?= $item['tactic_id']; ?>"
                                     <?php if ($current_array[0]['game_tactic_2_id'] == $item['tactic_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -163,7 +178,7 @@
                         <select class="form-control" id="rude-2" name="data[rude_2_id]">
                             <?php foreach ($rude_array as $item) { ?>
                                 <option
-                                        value="<?= $item['rude_id']; ?>"
+                                    value="<?= $item['rude_id']; ?>"
                                     <?php if ($current_array[0]['game_rude_2_id'] == $item['rude_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -178,7 +193,7 @@
                         <select class="form-control" id="style-2" name="data[style_2_id]">
                             <?php foreach ($style_array as $item) { ?>
                                 <option
-                                        value="<?= $item['style_id']; ?>"
+                                    value="<?= $item['style_id']; ?>"
                                     <?php if ($current_array[0]['game_style_2_id'] == $item['style_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -196,7 +211,7 @@
                         <select class="form-control" id="tactic-3" name="data[tactic_3_id]">
                             <?php foreach ($tactic_array as $item) { ?>
                                 <option
-                                        value="<?= $item['tactic_id']; ?>"
+                                    value="<?= $item['tactic_id']; ?>"
                                     <?php if ($current_array[0]['game_tactic_3_id'] == $item['tactic_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -211,7 +226,7 @@
                         <select class="form-control" id="rude-3" name="data[rude_3_id]">
                             <?php foreach ($rude_array as $item) { ?>
                                 <option
-                                        value="<?= $item['rude_id']; ?>"
+                                    value="<?= $item['rude_id']; ?>"
                                     <?php if ($current_array[0]['game_rude_3_id'] == $item['rude_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -226,7 +241,7 @@
                         <select class="form-control" id="style-3" name="data[style_3_id]">
                             <?php foreach ($style_array as $item) { ?>
                                 <option
-                                        value="<?= $item['style_id']; ?>"
+                                    value="<?= $item['style_id']; ?>"
                                     <?php if ($current_array[0]['game_style_3_id'] == $item['style_id']) { ?>
                                         selected
                                     <?php } ?>
@@ -249,7 +264,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <select class="form-control player-change" name="data[line][0][0]">
+                    <label for="line-0-0" class="hidden"></label>
+                    <select class="form-control player-change" id="line-0-0" name="data[line][0][0]">
                         <option value="0">GK -</option>
                         <?php foreach ($gk_array as $item) { ?>
                             <option
@@ -283,6 +299,7 @@
                 <?php for ($j=1; $j<=5; $j++) { ?>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label for="line-<?= $i; ?>-<?= $j; ?>"></label>
                             <select
                                 class="form-control lineup-change player-change"
                                 data-line="<?= $i; ?>"
@@ -304,11 +321,11 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <th>Игрок</th>
-                    <th class="col-1" title="Национальность">Нац</th>
+                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
                     <th title="Позиция">Поз</th>
-                    <th title="Возраст">В</th>
-                    <th title="Сила">С</th>
-                    <th title="Усталость">У</th>
+                    <th class="hidden-xs" title="Возраст">В</th>
+                    <th class="hidden-xs" title="Сила">С</th>
+                    <th class="hidden-xs" title="Усталость">У</th>
                     <th title="Реальная сила">РС</th>
                     <th title="Спецвозможности">Спец</th>
                 </tr>
@@ -320,18 +337,19 @@
                                 <?= $item['surname_name']; ?>
                             </a>
                         </td>
-                        <td class="text-center">
+                        <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>" target="_blank">
                                 <img
+                                    alt="<?= $item['country_name']; ?>"
                                     src="/img/country/12/<?= $item['country_id']; ?>.png"
                                     title="<?= $item['country_name']; ?>"
                                 >
                             </a>
                         </td>
                         <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
-                        <td class="text-center"><?= $item['player_age']; ?></td>
-                        <td class="text-center"><?= $item['player_power_nominal']; ?></td>
-                        <td class="text-center"><?= $item['player_tire']; ?></td>
+                        <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
+                        <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
+                        <td class="hidden-xs text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>
                         <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     </tr>
@@ -343,17 +361,20 @@
 <script>
     <?php for ($j=1; $j<=5; $j++) { ?>
         <?php
-        if     (1 == $j) { $array = 'ld_array'; }
-        elseif (2 == $j) { $array = 'rd_array'; }
-        elseif (3 == $j) { $array = 'lw_array'; }
-        elseif (4 == $j) { $array =  'c_array'; }
-        elseif (5 == $j) { $array = 'rw_array'; }
+        $array      = '';
+        $f_array    = array();
+
+        if     (1 == $j) { $array = 'ld_array'; $f_array = $ld_array; }
+        elseif (2 == $j) { $array = 'rd_array'; $f_array = $rd_array; }
+        elseif (3 == $j) { $array = 'lw_array'; $f_array = $lw_array; }
+        elseif (4 == $j) { $array =  'c_array'; $f_array =  $c_array; }
+        elseif (5 == $j) { $array = 'rw_array'; $f_array = $rw_array; }
         ?>
         var <?= $array; ?> =
         [
-            <?php foreach ($$array as $item) { ?>
+            <?php foreach ($f_array as $item) { ?>
                 [
-                    <?= $item['player_id']; ?>, 
+                    <?= $item['player_id']; ?>,
                     '<?= $item['position_name']; ?> - <?= $item['player_power_real']; ?> - <?= $item['surname_name']; ?> <?= $item['name_name']; ?>'
                 ],
             <?php } ?>

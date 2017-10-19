@@ -11,3 +11,5 @@ $q[] = 'CREATE TABLE `vote`
             `vote_user_id` INT(11) DEFAULT 0,
             `vote_votestatus_id` INT(1) DEFAULT 1
         );';
+$q[] = 'CREATE INDEX `vote_date` ON `vote` (`vote_date`);';
+$q[] = 'CREATE INDEX `vote_votestatus_id` ON `vote` (`vote_votestatus_id`);';
