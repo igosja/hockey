@@ -67,11 +67,11 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center<?php if ($on_building) { ?> del<?php } ?>">
         <span class="strong">Стоимость тренировок:</span>
         Балл силы
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_power_price']); ?></span>
+        <span class="strong"><?= f_igosja_money_format($basetraining_array[0]['basetraining_power_price']); ?></span>
         Спецвозможность
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_special_price']); ?></span>
+        <span class="strong"><?= f_igosja_money_format($basetraining_array[0]['basetraining_special_price']); ?></span>
         Совмещение
-        <span class="strong"><?= f_igosja_money($basetraining_array[0]['basetraining_position_price']); ?></span>
+        <span class="strong"><?= f_igosja_money_format($basetraining_array[0]['basetraining_position_price']); ?></span>
     </div>
 </div>
 <div class="row margin-top">
@@ -99,7 +99,7 @@
                         <input name="data[special][]" type="hidden" value="<?= $item['id']; ?>:<?= $item['special']['id']; ?>">
                     <?php } ?>
                 </ul>
-                Общая стоимость тренировок <span class="strong"><?= f_igosja_money($confirm_data['price']); ?></span>
+                Общая стоимость тренировок <span class="strong"><?= f_igosja_money_format($confirm_data['price']); ?></span>
             </div>
         </div>
         <div class="row">

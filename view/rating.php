@@ -220,7 +220,7 @@
                                 (<?= $item['city_name']; ?>)
                             </a>
                         </td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_base']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_base']); ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -246,7 +246,7 @@
                                 (<?= $item['city_name']; ?>)
                             </a>
                         </td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_stadium']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_stadium']); ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -275,8 +275,8 @@
                             </a>
                         </td>
                         <td class="text-center"><?= $item['team_player']; ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_player']); ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_salary']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_player']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_salary']); ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -308,11 +308,11 @@
                                 (<?= $item['city_name']; ?>)
                             </a>
                         </td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_base']); ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_stadium']); ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_player']); ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_finance']); ?></td>
-                        <td class="text-center"><?= f_igosja_money($item['team_price_total']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_base']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_stadium']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_player']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_finance']); ?></td>
+                        <td class="text-center"><?= f_igosja_money_format($item['team_price_total']); ?></td>
                     </tr>
                 <?php } ?>
                 <tr>

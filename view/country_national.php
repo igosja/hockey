@@ -26,7 +26,7 @@
                     </a>
                 </td>
                 <td class="text-right">
-                    <?= f_igosja_money($national_array[0]['national_finance']); ?>
+                    <?= f_igosja_money_format($national_array[0]['national_finance']); ?>
                 </td>
             </tr>
             <tr>

@@ -63,7 +63,7 @@
                         </a>
                     </td>
                     <td class="text-right">
-                        <?= f_igosja_money($transfer_array[$i]['transfer_price_buyer']); ?>
+                        <?= f_igosja_money_format($transfer_array[$i]['transfer_price_buyer']); ?>
                     </td>
                 </tr>
             <?php } ?>

@@ -33,7 +33,7 @@
                     <p class="text-center">
                         Игрок находится на трансфере.
                         <br/>
-                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money($transfer_price); ?></span>.
+                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money_format($transfer_price); ?></span>.
                     </p>
                     <form method="POST">
                         <input name="data[off]" type="hidden" value="1" />
@@ -57,7 +57,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center"><?= f_igosja_ufu_date_time($item['transferapplication_date']); ?></td>
-                                <td class="text-right"><?= f_igosja_money($item['transferapplication_price']); ?></td>
+                                <td class="text-right"><?= f_igosja_money_format($item['transferapplication_price']); ?></td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -71,7 +71,7 @@
                     </p>
                     <p>
                         Начальная трансферная цена игрока должна быть не меньше
-                        <span class="strong"><?= f_igosja_money($transfer_price); ?></span>.
+                        <span class="strong"><?= f_igosja_money_format($transfer_price); ?></span>.
                     </p>
                     <form method="POST">
                         <div class="row">
@@ -113,7 +113,7 @@
                             В кассе команды:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
+                            <span class="strong"><?= f_igosja_money_format($team_array[0]['team_finance']); ?></span>
                         </div>
                     </div>
                     <div class="row">
@@ -121,7 +121,7 @@
                             Начальная цена:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span class="strong"><?= f_igosja_money($start_price); ?></span>
+                            <span class="strong"><?= f_igosja_money_format($start_price); ?></span>
                         </div>
                     </div>
                     <form method="POST">

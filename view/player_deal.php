@@ -41,7 +41,7 @@
                             (<?= $item['buyer_city_name']; ?>, <?= $item['buyer_country_name']; ?>)
                         </a>
                     </td>
-                    <td class="text-right"><?= f_igosja_money($item['transfer_price_buyer']); ?></td>
+                    <td class="text-right"><?= f_igosja_money_format($item['transfer_price_buyer']); ?></td>
                 </tr>
             <?php } ?>
         </table>
@@ -86,7 +86,7 @@
                         </a>
                     </td>
                     <td class="text-center"><?= $item['rent_day']; ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['rent_price_buyer']); ?></td>
+                    <td class="text-right"><?= f_igosja_money_format($item['rent_price_buyer']); ?></td>
                 </tr>
             <?php } ?>
         </table>

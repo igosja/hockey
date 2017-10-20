@@ -70,7 +70,7 @@
         </a>
         (<?= $game_array[0]['game_stadium_capacity']; ?>),
         Зрителей: <?= $game_array[0]['game_visitor']; ?>.
-        Билет: <?= f_igosja_money($game_array[0]['game_ticket']); ?>
+        Билет: <?= f_igosja_money_format($game_array[0]['game_ticket']); ?>
     </div>
 </div>
 <div class="row">

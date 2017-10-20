@@ -50,7 +50,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center<?php if ($on_building) { ?> del<?php } ?>">
         <span class="strong">Стоимость изучения:</span>
         Стиля
-        <span class="strong"><?= f_igosja_money($basescout_array[0]['basescout_my_style_price']); ?></span>
+        <span class="strong"><?= f_igosja_money_format($basescout_array[0]['basescout_my_style_price']); ?></span>
     </div>
 </div>
 <div class="row margin-top">
@@ -70,7 +70,7 @@
                         <input name="data[style][]" type="hidden" value="<?= $item['id']; ?>">
                     <?php } ?>
                 </ul>
-                Общая стоимость изучений <span class="strong"><?= f_igosja_money($confirm_data['price']); ?></span>
+                Общая стоимость изучений <span class="strong"><?= f_igosja_money_format($confirm_data['price']); ?></span>
             </div>
         </div>
         <div class="row">

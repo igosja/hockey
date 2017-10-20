@@ -167,14 +167,14 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         elseif ($baseinfo_array[0]['base_price_buy'] > $base_array[0]['team_finance'])
                         {
                             $_SESSION['message']['class']   = 'error';
-                            $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy']) . '</span>.';
+                            $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money_format($baseinfo_array[0]['base_price_buy']) . '</span>.';
 
                             redirect('/base.php');
                         }
                         elseif (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'Строительство базы <span class="strong">' . $baseinfo_array[0]['base_level']
-                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money($baseinfo_array[0]['base_price_buy'])
+                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0]['base_price_buy'])
                                          . '</span> и займет <span class="strong">' . $baseinfo_array[0]['base_build_speed']
                                          . '</span> ' . f_igosja_count_case($baseinfo_array[0]['base_build_speed'], 'день', 'дня', 'дней') . '.';
                         }
@@ -296,14 +296,14 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             elseif ($baseinfo_array[0][$building_name . '_price_buy'] > $base_array[0]['team_finance'])
                             {
                                 $_SESSION['message']['class']   = 'error';
-                                $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy']) . '</span>.';
+                                $_SESSION['message']['text']    = 'Для строительства нужно <span class="strong">' . f_igosja_money_format($baseinfo_array[0][$building_name . '_price_buy']) . '</span>.';
 
                                 redirect('/base.php');
                             }
                             elseif (!f_igosja_request_get('ok'))
                             {
                                 $base_accept = 'Строительство здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
-                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money($baseinfo_array[0][$building_name . '_price_buy'])
+                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0][$building_name . '_price_buy'])
                                          . '</span> и займет <span class="strong">' . $baseinfo_array[0][$building_name . '_build_speed']
                                          . '</span> ' . f_igosja_count_case($baseinfo_array[0][$building_name . '_build_speed'], 'день', 'дня', 'дней') . '.';
                             }
@@ -420,7 +420,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         elseif (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'При строительстве базы <span class="strong">' . $baseinfo_array[0]['base_level']
-                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($buildingbase_price)
+                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
                                          . '</span>. Это займет <span class="strong">1</span> день.';
                         }
                         else
@@ -543,7 +543,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             if (!f_igosja_request_get('ok'))
                             {
                                 $base_accept = 'При строительстве здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
-                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money($buildingbase_price)
+                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
                                          . '</span>. Это займет <span class="strong">1</span> день.';
                             }
                             else

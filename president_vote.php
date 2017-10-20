@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $auth_country_id integer
  * @var $auth_user_id integer
  */
 
@@ -11,13 +12,30 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
+if (!$auth_country_id)
+{
+    redirect('/team_ask.php');
+}
+
+if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
+
+if ($num_get != $auth_country_id)
+{
+    redirect('/wrong_page.php');
+}
+
+include(__DIR__ . '/include/sql/country_view.php');
+
 $sql = "SELECT `electionpresident_id`
         FROM `electionpresident`
         WHERE `electionpresident_country_id`=$num_get
         AND `electionpresident_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
         ORDER BY `electionpresident_id` DESC
         LIMIT 1";
-$electionpresident_sql = f_igosja_mysqli_query($sql);
+$electionpresident_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $electionpresident_sql->num_rows)
 {
@@ -28,16 +46,15 @@ $electionpresident_array = $electionpresident_sql->fetch_all(1);
 
 $electionpresident_id = $electionpresident_array[0]['electionpresident_id'];
 
-$sql = "SELECT `count_answer`,
-               `electionpresident_id`,
+$sql = "SELECT `electionpresident_id`,
+               `electionpresidentapplication_count`,
                `electionpresidentapplication_id`,
                `electionpresidentapplication_text`,
                `electionstatus_id`,
                `electionstatus_name`,
                `user_date_register`,
                `user_id`,
-               `user_login`,
-               `userrating_rating`
+               `user_login`
         FROM `electionpresident`
         LEFT JOIN `electionstatus`
         ON `electionpresident_electionstatus_id`=`electionstatus_id`
@@ -45,27 +62,10 @@ $sql = "SELECT `count_answer`,
         ON `electionpresident_id`=`electionpresidentapplication_electionpresident_id`
         LEFT JOIN `user`
         ON `electionpresidentapplication_user_id`=`user_id`
-        LEFT JOIN
-        (
-            SELECT `userrating_rating`,
-                   `userrating_user_id`
-            FROM `userrating`
-            WHERE `userrating_season_id`=0
-        ) AS `t3`
-        ON `user_id`=`userrating_user_id`
-        LEFT JOIN
-        (
-            SELECT COUNT(`electionpresidentuser_user_id`) AS `count_answer`,
-                   `electionpresidentuser_electionpresidentapplication_id`
-            FROM `electionpresidentuser`
-            WHERE `electionpresidentuser_electionpresidentapplication_id`=$electionpresident_id
-            GROUP BY `electionpresidentuser_electionpresidentapplication_id`
-        ) AS `t1`
-        ON `electionpresidentapplication_id`=`electionpresidentuser_electionpresidentapplication_id`
         WHERE `electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
         AND `electionpresident_id`=$electionpresident_id
-        ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC";
-$electionpresident_sql = f_igosja_mysqli_query($sql);
+        ORDER BY `electionpresidentapplication_count` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC";
+$electionpresident_sql = f_igosja_mysqli_query($sql, false);
 
 if (0 == $electionpresident_sql->num_rows)
 {
@@ -109,6 +109,14 @@ if ($data = f_igosja_request_post('data'))
                 `electionpresidentuser_electionpresident_id`=$electionpresident_id";
     f_igosja_mysqli_query($sql);
 
+    $electionpresidentapplication_id = $electionpresident_array[0]['electionpresidentapplication_id'];
+
+    $sql = "UPDATE `electionpresidentapplication`
+            SET `electionpresidentapplication_count`=`electionpresidentapplication_count`+1
+            WHERE `electionpresidentapplication_id`=$electionpresidentapplication_id
+            LIMIT 1";
+    f_igosja_mysqli_query($sql);
+
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Вы успешно проголосовали.';
 
@@ -121,7 +129,7 @@ if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionpresident_array[0]['
             FROM `electionpresidentuser`
             WHERE `electionpresidentuser_electionpresidentapplication_id`=$electionpresident_id
             AND `electionpresidentuser_user_id`=$auth_user_id";
-    $electionpresidentuser_sql = f_igosja_mysqli_query($sql);
+    $electionpresidentuser_sql = f_igosja_mysqli_query($sql, false);
 
     $electionpresidentuser_array = $electionpresidentuser_sql->fetch_all(1);
 

@@ -71,6 +71,15 @@ if ($data = f_igosja_request_get('data'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql, false);
 
+        $money = array(
+            'money_moneytext_id' => MONEYTEXT_OUTCOME_VIP,
+            'money_user_id' => $auth_user_id,
+            'money_value' => -$price,
+            'money_value_after' => $user_array[0]['user_money'] - $price,
+            'money_value_before' => $user_array[0]['user_money'],
+        );
+        f_igosja_money($money);
+
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Ваш VIP успешно продлен.';
 
@@ -115,6 +124,15 @@ if ($data = f_igosja_request_get('data'))
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql, false);
+
+            $money = array(
+                'money_moneytext_id' => MONEYTEXT_OUTCOME_POINT,
+                'money_user_id' => $auth_user_id,
+                'money_value' => -$price,
+                'money_value_after' => $user_array[0]['user_money'] - $price,
+                'money_value_before' => $user_array[0]['user_money'],
+            );
+            f_igosja_money($money);
         }
         elseif (SHOP_PRODUCT_MONEY == $data['product'])
         {
@@ -123,6 +141,15 @@ if ($data = f_igosja_request_get('data'))
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql, false);
+
+            $money = array(
+                'money_moneytext_id' => MONEYTEXT_OUTCOME_TEAM_FINANCE,
+                'money_user_id' => $auth_user_id,
+                'money_value' => -$price,
+                'money_value_after' => $user_array[0]['user_money'] - $price,
+                'money_value_before' => $user_array[0]['user_money'],
+            );
+            f_igosja_money($money);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
@@ -155,8 +182,17 @@ if ($data = f_igosja_request_get('data'))
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql, false);
+
+            $money = array(
+                'money_moneytext_id' => MONEYTEXT_OUTCOME_POSITION,
+                'money_user_id' => $auth_user_id,
+                'money_value' => -$price,
+                'money_value_after' => $user_array[0]['user_money'] - $price,
+                'money_value_before' => $user_array[0]['user_money'],
+            );
+            f_igosja_money($money);
         }
-        elseif (SHOP_PRODUCT_MONEY == $data['product'])
+        elseif (SHOP_PRODUCT_SPECIAL == $data['product'])
         {
             $sql = "UPDATE `user`
                     SET `user_money`=`user_money`-$price,
@@ -164,6 +200,15 @@ if ($data = f_igosja_request_get('data'))
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql, false);
+
+            $money = array(
+                'money_moneytext_id' => MONEYTEXT_OUTCOME_SPECIAL,
+                'money_user_id' => $auth_user_id,
+                'money_value' => -$price,
+                'money_value_after' => $user_array[0]['user_money'] - $price,
+                'money_value_before' => $user_array[0]['user_money'],
+            );
+            f_igosja_money($money);
         }
 
         $_SESSION['message']['class']   = 'error';

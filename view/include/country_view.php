@@ -90,7 +90,7 @@
         Фонд федерации:
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <?= f_igosja_money($country_array[0]['country_finance']); ?>
+        <?= f_igosja_money_format($country_array[0]['country_finance']); ?>
     </div>
 </div>
 <?php if (isset($relation_array)) { ?>

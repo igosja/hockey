@@ -10,3 +10,4 @@ $q[] = 'CREATE TABLE `payment`
             `payment_sum` INT(11) DEFAULT 0,
             `payment_user_id` INT(11) DEFAULT 0
         );';
+$q[] = 'CREATE INDEX `payment_status` ON `payment` (`payment_status`);';

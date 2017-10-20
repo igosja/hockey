@@ -30,7 +30,7 @@ if (0 == $country_sql->num_rows)
 
 $country_array = $country_sql->fetch_all(1);
 
-$sql = "SELECT IFNULL(COUNT(`team_id`), 0) AS `total`
+$sql = "SELECT COUNT(`team_id`) AS `total`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
@@ -43,7 +43,7 @@ $rating_positive_sql = f_igosja_mysqli_query($sql, false);
 
 $rating_positive_array = $rating_positive_sql->fetch_all(1);
 
-$sql = "SELECT IFNULL(COUNT(`team_id`), 0) AS `total`
+$sql = "SELECT COUNT(`team_id`) AS `total`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
@@ -56,7 +56,7 @@ $rating_negative_sql = f_igosja_mysqli_query($sql, false);
 
 $rating_negative_array = $rating_negative_sql->fetch_all(1);
 
-$sql = "SELECT IFNULL(COUNT(`team_id`), 1) AS `total`
+$sql = "SELECT IF(COUNT(`team_id`)=0, 1, COUNT(`team_id`)) AS `total`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`

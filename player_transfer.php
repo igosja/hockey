@@ -91,7 +91,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 if ($transfer_price > $price)
                 {
                     $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Начальная цена должна быть не меньше ' . f_igosja_money($transfer_price) . '.';
+                    $_SESSION['message']['text']    = 'Начальная цена должна быть не меньше ' . f_igosja_money_format($transfer_price) . '.';
 
                     refresh();
                 }
@@ -185,7 +185,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     if ($start_price > $price)
                     {
                         $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money($start_price) . '.';
+                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
 
                         refresh();
                     }
@@ -216,7 +216,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     if ($start_price > $price)
                     {
                         $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money($start_price) . '.';
+                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
 
                         refresh();
                     }

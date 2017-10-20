@@ -58,7 +58,7 @@
                         <?= $item['team_power_vs']; ?>
                     </td>
                     <td class="hidden-xs text-right">
-                        <?= f_igosja_money($item['team_price_total']); ?>
+                        <?= f_igosja_money_format($item['team_price_total']); ?>
                     </td>
                 </tr>
             <?php } ?>

@@ -10,7 +10,7 @@ $sql = "SELECT `ratingchapter_id`,
         LEFT JOIN `ratingchapter`
         ON `ratingtype_ratingchapter_id`=`ratingchapter_id`
         ORDER BY `ratingchapter_id` ASC, `ratingtype_id` ASC";
-$ratingtype_sql = f_igosja_mysqli_query($sql);
+$ratingtype_sql = f_igosja_mysqli_query($sql, false);
 
 $count_ratingtype = $ratingtype_sql->num_rows;
 $ratingtype_array = $ratingtype_sql->fetch_all(1);
@@ -41,7 +41,7 @@ if (RATING_TEAM_POWER == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_power_vs_place` ASC";
+            ORDER BY `ratingteam_power_vs_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_AGE == $num_get)
 {
@@ -61,7 +61,7 @@ elseif (RATING_TEAM_AGE == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_age_place` ASC";
+            ORDER BY `ratingteam_age_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_STADIUM == $num_get)
 {
@@ -81,7 +81,7 @@ elseif (RATING_TEAM_STADIUM == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_stadium_place` ASC";
+            ORDER BY `ratingteam_stadium_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_VISITOR == $num_get)
 {
@@ -101,7 +101,7 @@ elseif (RATING_TEAM_VISITOR == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_visitor_place` ASC";
+            ORDER BY `ratingteam_visitor_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_BASE == $num_get)
 {
@@ -139,7 +139,7 @@ elseif (RATING_TEAM_BASE == $num_get)
             ON `team_basescout_id`=`basescout_id`
             LEFT JOIN `basetraining`
             ON `team_basetraining_id`=`basetraining_id`
-            ORDER BY `ratingteam_base_place` ASC";
+            ORDER BY `ratingteam_base_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_PRICE_BASE == $num_get)
 {
@@ -159,7 +159,7 @@ elseif (RATING_TEAM_PRICE_BASE == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_price_building_place` ASC";
+            ORDER BY `ratingteam_price_base_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_PRICE_STADIUM == $num_get)
 {
@@ -179,7 +179,7 @@ elseif (RATING_TEAM_PRICE_STADIUM == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_finance_place` ASC";
+            ORDER BY `ratingteam_price_stadium_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_PLAYER == $num_get)
 {
@@ -201,7 +201,7 @@ elseif (RATING_TEAM_PLAYER == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_player_place` ASC";
+            ORDER BY `ratingteam_player_place` ASC, `team_id` ASC";
 }
 elseif (RATING_TEAM_PRICE_TOTAL == $num_get)
 {
@@ -225,7 +225,7 @@ elseif (RATING_TEAM_PRICE_TOTAL == $num_get)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            ORDER BY `ratingteam_price_total_place` ASC";
+            ORDER BY `ratingteam_price_total_place` ASC, `team_id` ASC";
 }
 elseif (RATING_USER_RATING == $num_get)
 {
@@ -240,7 +240,7 @@ elseif (RATING_USER_RATING == $num_get)
             ON `ratinguser_user_id`=`user_id`
             LEFT JOIN `country`
             ON `user_country_id`=`country_id`
-            ORDER BY `ratinguser_rating_place` ASC";
+            ORDER BY `ratinguser_rating_place` ASC, `user_id` ASC";
 }
 elseif (RATING_COUNTRY_STADIUM == $num_get)
 {
@@ -251,7 +251,7 @@ elseif (RATING_COUNTRY_STADIUM == $num_get)
             FROM `ratingcountry`
             LEFT JOIN `country`
             ON `ratingcountry_country_id`=`country_id`
-            ORDER BY `ratingcountry_stadium_place` ASC";
+            ORDER BY `ratingcountry_stadium_place` ASC, `country_id` ASC";
 }
 elseif (RATING_COUNTRY_AUTO == $num_get)
 {
@@ -263,10 +263,10 @@ elseif (RATING_COUNTRY_AUTO == $num_get)
             FROM `ratingcountry`
             LEFT JOIN `country`
             ON `ratingcountry_country_id`=`country_id`
-            ORDER BY `ratingcountry_auto_place` ASC";
+            ORDER BY `ratingcountry_auto_place` ASC, `country_id` ASC";
 }
 
-$rating_sql = f_igosja_mysqli_query($sql);
+$rating_sql = f_igosja_mysqli_query($sql, false);
 
 $rating_array = $rating_sql->fetch_all(1);
 

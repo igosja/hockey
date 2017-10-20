@@ -83,7 +83,7 @@ if (isset($new_capacity))
         if (!f_igosja_request_get('ok'))
         {
             $stadium_accept = 'При уменьшении стадиона до <span class="strong">' . $new_capacity
-                            . '</span> мест вы получите компенсацию <span class="strong">' . f_igosja_money($buildingstadium_price)
+                            . '</span> мест вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingstadium_price)
                             . '</span>. Это займет <span class="strong">1</span> день.';
         }
         else

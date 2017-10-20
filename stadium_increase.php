@@ -83,12 +83,12 @@ if (isset($new_capacity))
 
         if ($buildingstadium_price > $stadium_array[0]['team_finance'])
         {
-            $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money($buildingstadium_price) . '</span>.';
+            $base_error = 'Для строительства нужно <span class="strong">' . f_igosja_money_format($buildingstadium_price) . '</span>.';
         }
         elseif (!f_igosja_request_get('ok'))
         {
             $stadium_accept = 'Увеличение стадиона до <span class="strong">' . $new_capacity
-                            . '</span> мест будет стоить <span class="strong">' . f_igosja_money($buildingstadium_price)
+                            . '</span> мест будет стоить <span class="strong">' . f_igosja_money_format($buildingstadium_price)
                             . '</span> и займет <span class="strong">' . $buildingstadium_day
                             . '</span> ' . f_igosja_count_case($buildingstadium_day, 'день', 'дня', 'дней') . '.';
         }

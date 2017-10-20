@@ -95,7 +95,7 @@
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
-                    <td class="hidden-xs text-right"><?= f_igosja_money($item['player_price']); ?></td>
+                    <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                     <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>
@@ -164,7 +164,7 @@
                 - Стоимость строений
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= f_igosja_money($rating_array[0]['team_price_base']); ?>
+                <?= f_igosja_money_format($rating_array[0]['team_price_base']); ?>
             </div>
         </div>
         <div class="row">
@@ -172,7 +172,7 @@
                 - Общая стоимость
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= f_igosja_money($rating_array[0]['team_price_total']); ?>
+                <?= f_igosja_money_format($rating_array[0]['team_price_total']); ?>
             </div>
         </div>
         <div class="row margin-top">

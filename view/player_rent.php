@@ -36,7 +36,7 @@
                     <p class="text-center">
                         Игрок находится на рынке аренды.
                         <br/>
-                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money($rent_price); ?></span> за 1 день арены.
+                        Начальная стоимоcть игрока составляет <span class="strong"><?= f_igosja_money_format($rent_price); ?></span> за 1 день арены.
                         <br/>
                         Срок аренды составляет <span class="strong"><?= $rent_day_min; ?>-<?= $rent_day_max; ?></span> дней.
                     </p>
@@ -64,7 +64,7 @@
                                 </td>
                                 <td class="text-center"><?= f_igosja_ufu_date_time($item['rentapplication_date']); ?></td>
                                 <td class="text-center"><?= $item['rentapplication_day']; ?></td>
-                                <td class="text-right"><?= f_igosja_money($item['rentapplication_price']); ?></td>
+                                <td class="text-right"><?= f_igosja_money_format($item['rentapplication_price']); ?></td>
                             </tr>
                         <?php } ?>
                     </table>
@@ -78,7 +78,7 @@
                     </p>
                     <p>
                         Начальная цена аренды игрока должна быть не меньше
-                        <span class="strong"><?= f_igosja_money($rent_price); ?></span>.
+                        <span class="strong"><?= f_igosja_money_format($rent_price); ?></span>.
                     </p>
                     <form method="POST">
                         <div class="row">
@@ -129,7 +129,7 @@
                             В кассе команды:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
+                            <span class="strong"><?= f_igosja_money_format($team_array[0]['team_finance']); ?></span>
                         </div>
                     </div>
                     <div class="row">
@@ -137,7 +137,7 @@
                             Начальная цена за 1 день аренды:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span class="strong"><?= f_igosja_money($start_price); ?></span>
+                            <span class="strong"><?= f_igosja_money_format($start_price); ?></span>
                         </div>
                     </div>
                     <div class="row">

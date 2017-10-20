@@ -85,6 +85,6 @@
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Финансы:
-        <span class="strong"><?= f_igosja_money($team_array[0]['team_finance']); ?></span>
+        <span class="strong"><?= f_igosja_money_format($team_array[0]['team_finance']); ?></span>
     </div>
 </div>

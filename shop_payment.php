@@ -17,7 +17,7 @@ if ($data = f_igosja_request('data'))
 {
     $sum = (int) $data['sum'];
 
-    if (0 == $sum)
+    if ($sum < 1)
     {
         $sum = 1;
     }
@@ -30,15 +30,15 @@ if ($data = f_igosja_request('data'))
     else
     {
         $sql = "DELETE FROM `payment`
-                WHERE `payment_date`<UNIX_TIMESTAMP()-'86400'
-                AND `payment_status`='0'";
-        f_igosja_mysqli_query($sql);
+                WHERE `payment_date`<UNIX_TIMESTAMP()-86400
+                AND `payment_status`=0";
+        f_igosja_mysqli_query($sql, false);
 
         $sql = "INSERT INTO `payment`
                 SET `payment_date`=UNIX_TIMESTAMP(),
-                    `payment_sum`='$sum',
-                    `payment_user_id`='$num_get'";
-        f_igosja_mysqli_query($sql);
+                    `payment_sum`=$sum,
+                    `payment_user_id`=$auth_user_id";
+        f_igosja_mysqli_query($sql, false);
 
         $merchant_id    = 27937;
         $secret_key     = 's3lyp66r';
@@ -47,7 +47,7 @@ if ($data = f_igosja_request('data'))
         $params = array (
             'm'     => $merchant_id,
             'oa'    => $sum,
-            'o'     => $mysqli->insert_id,
+            'o'     => $order_id,
             's'     => md5($merchant_id . ':' . $sum . ':' . $secret_key . ':' . $order_id),
             'lang'  => 'ru',
         );
@@ -62,7 +62,7 @@ $sql = "SELECT `user_money`
         FROM `user`
         WHERE `user_id`=$auth_user_id
         LIMIT 1";
-$user_sql = f_igosja_mysqli_query($sql);
+$user_sql = f_igosja_mysqli_query($sql, false);
 
 $user_array = $user_sql->fetch_all(1);
 

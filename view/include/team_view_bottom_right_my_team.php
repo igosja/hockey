@@ -37,7 +37,7 @@
             - Стоимость строений
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?= f_igosja_money(0); ?>
+            <?= f_igosja_money_format(0); ?>
         </div>
     </div>
     <div class="row">
@@ -45,7 +45,7 @@
             - Общая стоимость
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?= f_igosja_money(0); ?>
+            <?= f_igosja_money_format(0); ?>
         </div>
     </div>
 </div>

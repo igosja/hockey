@@ -84,7 +84,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_base) { ?> del<?php } ?>">
-                                Стоимость: <span class="strong"><?= f_igosja_money($base_array[0]['base_price_buy']); ?></span>
+                                Стоимость: <span class="strong"><?= f_igosja_money_format($base_array[0]['base_price_buy']); ?></span>
                             </div>
                         </div>
                         <div class="row">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_base) { ?> del<?php } ?>">
-                                Содержание: <span class="strong"><?= f_igosja_money($base_array[0]['base_maintenance']); ?></span>
+                                Содержание: <span class="strong"><?= f_igosja_money_format($base_array[0]['base_maintenance']); ?></span>
                             </div>
                         </div>
                     </div>

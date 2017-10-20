@@ -89,7 +89,7 @@
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
-                    <td class="hidden-xs text-right"><?= f_igosja_money($item['player_price']); ?></td>
+                    <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                     <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>

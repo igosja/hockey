@@ -31,7 +31,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Личный счет: <span class="strong"><?= f_igosja_money($user_array[0]['user_finance']); ?></span>
+        Личный счет: <span class="strong"><?= f_igosja_money_format($user_array[0]['user_finance']); ?></span>
     </div>
 </div>
 <?php if (isset($auth_user_id) && $num_get == $auth_user_id) { ?>

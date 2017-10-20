@@ -81,7 +81,7 @@
                     Доступно:
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
-                    <span class="strong"><?= f_igosja_money($user_array[0]['user_finance']); ?></span>
+                    <span class="strong"><?= f_igosja_money_format($user_array[0]['user_finance']); ?></span>
                 </div>
             </div>
             <div class="row">

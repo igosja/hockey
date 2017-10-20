@@ -67,21 +67,21 @@
             </tr>
             <tr>
                 <td>Стоимость базы:</td>
-                <td class="text-center"><?= f_igosja_money($rating_array[0]['team_price_base']); ?></td>
+                <td class="text-center"><?= f_igosja_money_format($rating_array[0]['team_price_base']); ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_base_place']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_base_place_country']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_base_place_division']; ?></td>
             </tr>
             <tr>
                 <td>Стоимость стадиона:</td>
-                <td class="text-center"><?= f_igosja_money($rating_array[0]['team_price_stadium']); ?></td>
+                <td class="text-center"><?= f_igosja_money_format($rating_array[0]['team_price_stadium']); ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_stadium_place']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_stadium_place_country']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_stadium_place_division']; ?></td>
             </tr>
             <tr>
                 <td>Общая стоимость команды:</td>
-                <td class="text-center"><?= f_igosja_money($rating_array[0]['team_price_total']); ?></td>
+                <td class="text-center"><?= f_igosja_money_format($rating_array[0]['team_price_total']); ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_total_place']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_total_place_country']; ?></td>
                 <td class="hidden-xs text-center"><?= $rating_array[0]['ratingteam_price_total_place_division']; ?></td>

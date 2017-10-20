@@ -67,7 +67,7 @@
                         <?= $rent_array[$i]['rent_day_min']; ?>-<?= $rent_array[$i]['rent_day_max']; ?>
                     </td>
                     <td class="text-right">
-                        <?= f_igosja_money($rent_array[$i]['rent_price_buyer']); ?>
+                        <?= f_igosja_money_format($rent_array[$i]['rent_price_buyer']); ?>
                     </td>
                 </tr>
             <?php } ?>

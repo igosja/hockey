@@ -217,7 +217,7 @@
                         </a>
                     </td>
                     <td class="hidden-xs text-right">
-                        <?= f_igosja_money($player_array[$i]['player_price']); ?>
+                        <?= f_igosja_money_format($player_array[$i]['player_price']); ?>
                     </td>
                 </tr>
             <?php } ?>

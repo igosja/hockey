@@ -143,7 +143,7 @@
                         Зарплата за тур:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?= f_igosja_money($player_array[0]['player_salary']); ?>
+                        <?= f_igosja_money_format($player_array[0]['player_salary']); ?>
                     </div>
                 </div>
                 <div class="row">
@@ -151,7 +151,7 @@
                         Стоимость:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?= f_igosja_money($player_array[0]['player_price']); ?>
+                        <?= f_igosja_money_format($player_array[0]['player_price']); ?>
                     </div>
                 </div>
             </div>

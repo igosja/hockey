@@ -56,9 +56,9 @@
             <?php foreach ($finance_array as $item) { ?>
                 <tr>
                     <td class="text-center"><?= f_igosja_ufu_date($item['finance_date']); ?></td>
-                    <td class="hidden-xs text-right"><?= f_igosja_money($item['finance_value_before']); ?></td>
-                    <td class="text-right"><?= f_igosja_money($item['finance_value']); ?></td>
-                    <td class="hidden-xs text-right"><?= f_igosja_money($item['finance_value_after']); ?></td>
+                    <td class="hidden-xs text-right"><?= f_igosja_money_format($item['finance_value_before']); ?></td>
+                    <td class="text-right"><?= f_igosja_money_format($item['finance_value']); ?></td>
+                    <td class="hidden-xs text-right"><?= f_igosja_money_format($item['finance_value_after']); ?></td>
                     <td class="hidden-xs"><?= $item['financetext_name']; ?></td>
                 </tr>
             <?php } ?>

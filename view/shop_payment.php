@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var $payment_accept string
+ * @var $sum integer
+ * @var $user_array array
+ */
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>Пополнение денежного счета</h1>
@@ -41,7 +48,7 @@
             </p>
             <p class="text-justify">
                 Средства на денежном счёте менеджера являются игровым понятием и могут быть использованы только для покупки
-                <a href="/shop.php">игровых товаров</a> на нашем сайте или <a href="/shop_gift.php">подарков другим менеджерам</a>.
+                <a href="/shop.php">игровых товаров</a> на нашем сайте.
                 Средства на денежном счёте менеджера хранятся неограниченное время до удаления аккаунта менеджера.
             </p>
         </div>
@@ -60,11 +67,9 @@
                 />
             </div>
         </div>
-        <div class="row margin-top">
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <button type="submit" class="btn">
-                    Пополнить
-                </button>
+                <input type="submit" class="btn margin" value="Пополнить" />
             </div>
         </div>
     </form>
