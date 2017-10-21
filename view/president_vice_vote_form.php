@@ -1,8 +1,14 @@
+<?php
+/**
+ * @var $electionpresidentvice_array array
+ */
+?>
+<?php include(__DIR__ . '/include/country_view.php'); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <h1>Выборы президента федерации</h1>
+                <h2>Выборы заместителя президента федерации</h2>
             </div>
         </div>
         <div class="row margin-top">
@@ -14,13 +20,13 @@
         </div>
         <form method="POST">
             <?php foreach ($electionpresidentvice_array as $item) { ?>
-                <div class="row margin-top">
+                <div class="row border-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <input
-                            id="answer-<?= $item['electionpresidentviceapplication_id']; ?>"
-                            name="data[answer]"
-                            type="radio"
-                            value="<?= $item['electionpresidentviceapplication_id']; ?>"
+                                id="answer-<?= $item['electionpresidentviceapplication_id']; ?>"
+                                name="data[answer]"
+                                type="radio"
+                                value="<?= $item['electionpresidentviceapplication_id']; ?>"
                         />
                         <label for="answer-<?= $item['electionpresidentviceapplication_id']; ?>">
                             <a href="/user_view.php?num=<?= $item['user_id']; ?>">
@@ -37,14 +43,6 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Рейтинг менеджера:
-                        <?= $item['userrating_rating']; ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Текст программы:
-                        <br/>
                         <?= nl2br($item['electionpresidentviceapplication_text']); ?>
                     </div>
                 </div>

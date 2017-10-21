@@ -147,6 +147,19 @@ if ($electionpresidentapplication_sql->num_rows)
     $electionpresidentapplication_id = $electionpresidentapplication_array[0]['electionpresidentapplication_id'];
 }
 
+if (isset($data['text']))
+{
+    $text = $data['text'];
+}
+elseif (isset($electionpresidentapplication_sql[0]))
+{
+    $text = $electionpresidentapplication_sql[0]['electionpresidentapplication_text'];
+}
+else
+{
+    $text = '';
+}
+
 $seo_title          = 'Подача заявки на президента федерации';
 $seo_description    = 'Подача заявки на президента федерации на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'подача заявки на президента федерации';

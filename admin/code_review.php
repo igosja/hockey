@@ -525,6 +525,7 @@ $exception_array = array(
         'js/player_list.js',
         'js/player_view.js',
         'js/president_application.js',
+        'js/president_vice_application.js',
         'js/raphael.js',
         'js/rating.js',
         'js/sb-admin-2.js',
@@ -565,6 +566,8 @@ $exception_array = array(
         'player_transfer.php',
         'player_view.php', //!
         'president_application.php',
+        'president_vice_application.php',
+        'president_vice_vote.php',
         'president_vote.php',
         'rating.php', //!Проверка каждого показателя после пересчёта
         'rent.php', //!Поиск и пагинация
@@ -672,6 +675,9 @@ $exception_array = array(
         'view/player_transfer.php',
         'view/player_view.php', //!
         'view/president_application.php',
+        'view/president_vice_application.php',
+        'view/president_vice_vote.php',
+        'view/president_vice_vote_form.php',
         'view/president_vote.php',
         'view/president_vote_form.php',
         'view/rating.php',

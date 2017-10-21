@@ -123,7 +123,7 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionpresident_array[0]['electionstatus_id'])
+if (ELECTIONSTATUS_OPEN == $electionpresident_array[0]['electionstatus_id'])
 {
     $sql = "SELECT COUNT(`electionpresidentuser_electionpresidentapplication_id`) AS `count`
             FROM `electionpresidentuser`
