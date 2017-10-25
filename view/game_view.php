@@ -34,7 +34,7 @@
                         <?= $game_array[0]['game_home_score_2']; ?>:<?= $game_array[0]['game_guest_score_2']; ?>
                         |
                         <?= $game_array[0]['game_home_score_3']; ?>:<?= $game_array[0]['game_guest_score_3']; ?><?php
-                        if ($game_array[0]['game_home_score_over'] && $game_array[0]['game_guest_score_over'])
+                        if ($game_array[0]['game_home_score_over'] || $game_array[0]['game_guest_score_over'])
                         {
                             print ' | ' . $game_array[0]['game_home_score_over'] . ':' . $game_array[0]['game_guest_score_over'] . ' ОТ';
                         }

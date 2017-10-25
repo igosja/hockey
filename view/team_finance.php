@@ -51,7 +51,7 @@
                 <th class="col-10 hidden-xs">Было</th>
                 <th class="col-10">+/-</th>
                 <th class="col-10 hidden-xs">Стало</th>
-                <th class="hidden-xs">Комментарий</th>
+                <th>Комментарий</th>
             </tr>
             <?php foreach ($finance_array as $item) { ?>
                 <tr>
@@ -59,7 +59,7 @@
                     <td class="hidden-xs text-right"><?= f_igosja_money_format($item['finance_value_before']); ?></td>
                     <td class="text-right"><?= f_igosja_money_format($item['finance_value']); ?></td>
                     <td class="hidden-xs text-right"><?= f_igosja_money_format($item['finance_value_after']); ?></td>
-                    <td class="hidden-xs"><?= $item['financetext_name']; ?></td>
+                    <td><?= $item['financetext_name']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -67,7 +67,7 @@
                 <th class="hidden-xs">Было</th>
                 <th>+/-</th>
                 <th class="hidden-xs">Стало</th>
-                <th class="hidden-xs">Комментарий</th>
+                <th>Комментарий</th>
             </tr>
         </table>
     </div>

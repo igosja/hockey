@@ -13,11 +13,11 @@ function f_igosja_player_assist_1_increase($game_result, $team, $opponent)
     $count_team_penalty     = count($game_result[$team]['team']['penalty']['current']);
     $count_opponent_penalty = count($game_result[$opponent]['team']['penalty']['current']);
 
-    if ($count_team_penalty < $count_opponent_penalty || 2 > $count_team_penalty)
+    if ($count_team_penalty < $count_opponent_penalty && 2 > $count_team_penalty)
     {
         $power_short = 'assist_power';
     }
-    elseif ($count_team_penalty > $count_opponent_penalty || 2 > $count_opponent_penalty)
+    elseif ($count_team_penalty > $count_opponent_penalty && 2 > $count_opponent_penalty)
     {
         $power_short = 'assist_short';
     }

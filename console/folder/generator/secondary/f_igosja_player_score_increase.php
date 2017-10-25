@@ -14,11 +14,11 @@ function f_igosja_player_score_increase($game_result, $team, $opponent)
     $draw                   = '';
     $power_short            = '';
 
-    if ($count_team_penalty < $count_opponent_penalty || 2 > $count_team_penalty)
+    if ($count_team_penalty < $count_opponent_penalty && 2 > $count_team_penalty)
     {
         $power_short = 'score_power';
     }
-    elseif ($count_team_penalty > $count_opponent_penalty || 2 > $count_opponent_penalty)
+    elseif ($count_team_penalty > $count_opponent_penalty && 2 > $count_opponent_penalty)
     {
         $power_short = 'score_short';
     }

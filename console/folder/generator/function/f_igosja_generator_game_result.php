@@ -567,6 +567,17 @@ function f_igosja_generator_game_result()
         $stage_id           = $statistic_array[0]['schedule_stage_id'];
         $tournamenttype_id  = $statistic_array[0]['schedule_tournamenttype_id'];
 
+        if (in_array($tournamenttype_id, array(
+            TOURNAMENTTYPE_FRIENDLY,
+            TOURNAMENTTYPE_CONFERENCE,
+            TOURNAMENTTYPE_LEAGUE,
+            TOURNAMENTTYPE_OFFSEASON
+        )))
+        {
+            $country_id = 0;
+            $division_id = 0;
+        }
+
         if (!$country_id)
         {
             $country_id = 0;
@@ -621,7 +632,7 @@ function f_igosja_generator_game_result()
                         `statisticplayer_face_off_win`=`statisticplayer_face_off_win`+" . $player['face_off_win'] . ",
                         `statisticplayer_game`=`statisticplayer_game`+" . $player['game'] . ",
                         `statisticplayer_loose`=`statisticplayer_loose`+" . $player['loose'] . ",
-                        `statisticplayer_penalty`=`statisticplayer_penalty`+" . $player['penalty'] . ",
+                        `statisticplayer_penalty`=`statisticplayer_penalty`+" . $player['penalty'] . "*2,
                         `statisticplayer_plus_minus`=`statisticplayer_plus_minus`+" . $player['plus_minus'] . ",
                         `statisticplayer_point`=`statisticplayer_point`+" . $player['point'] . ",
                         `statisticplayer_score`=`statisticplayer_score`+" . $player['score'] . ",
@@ -678,7 +689,7 @@ function f_igosja_generator_game_result()
                         `statisticplayer_face_off_win`=`statisticplayer_face_off_win`+" . $player['face_off_win'] . ",
                         `statisticplayer_game`=`statisticplayer_game`+" . $player['game'] . ",
                         `statisticplayer_loose`=`statisticplayer_loose`+" . $player['loose'] . ",
-                        `statisticplayer_penalty`=`statisticplayer_penalty`+" . $player['penalty'] . ",
+                        `statisticplayer_penalty`=`statisticplayer_penalty`+" . $player['penalty'] . "*2,
                         `statisticplayer_plus_minus`=`statisticplayer_plus_minus`+" . $player['plus_minus'] . ",
                         `statisticplayer_point`=`statisticplayer_point`+" . $player['point'] . ",
                         `statisticplayer_score`=`statisticplayer_score`+" . $player['score'] . ",
@@ -708,8 +719,8 @@ function f_igosja_generator_game_result()
                     `statisticteam_loose_bullet`=`statisticteam_loose_bullet`+" . $game_result['guest']['team']['loose_bullet'] . ",
                     `statisticteam_loose_over`=`statisticteam_loose_over`+" . $game_result['guest']['team']['loose_over'] . ",
                     `statisticteam_pass`=`statisticteam_pass`+" . $game_result['guest']['team']['pass'] . ",
-                    `statisticteam_penalty`=`statisticteam_penalty`+" . $game_result['guest']['team']['penalty']['total'] . ",
-                    `statisticteam_penalty_opponent`=`statisticteam_penalty_opponent`+" . $game_result['guest']['team']['penalty']['total'] . ",
+                    `statisticteam_penalty`=`statisticteam_penalty`+" . $game_result['guest']['team']['penalty']['total'] . "*2,
+                    `statisticteam_penalty_opponent`=`statisticteam_penalty_opponent`+" . $game_result['guest']['team']['penalty']['total'] . "*2,
                     `statisticteam_score`=`statisticteam_score`+" . $game_result['guest']['team']['score']['total'] . ",
                     `statisticteam_win`=`statisticteam_win`+" . $game_result['guest']['team']['win'] . ",
                     `statisticteam_win_bullet`=`statisticteam_win_bullet`+" . $game_result['guest']['team']['win_bullet'] . ",
@@ -731,8 +742,8 @@ function f_igosja_generator_game_result()
                     `statisticteam_loose_bullet`=`statisticteam_loose_bullet`+" . $game_result['home']['team']['loose_bullet'] . ",
                     `statisticteam_loose_over`=`statisticteam_loose_over`+" . $game_result['home']['team']['loose_over'] . ",
                     `statisticteam_pass`=`statisticteam_pass`+" . $game_result['home']['team']['pass'] . ",
-                    `statisticteam_penalty`=`statisticteam_penalty`+" . $game_result['home']['team']['penalty']['total'] . ",
-                    `statisticteam_penalty_opponent`=`statisticteam_penalty_opponent`+" . $game_result['home']['team']['penalty']['total'] . ",
+                    `statisticteam_penalty`=`statisticteam_penalty`+" . $game_result['home']['team']['penalty']['total'] . "*2,
+                    `statisticteam_penalty_opponent`=`statisticteam_penalty_opponent`+" . $game_result['home']['team']['penalty']['total'] . "*2,
                     `statisticteam_score`=`statisticteam_score`+" . $game_result['home']['team']['score']['total'] . ",
                     `statisticteam_win`=`statisticteam_win`+" . $game_result['home']['team']['win'] . ",
                     `statisticteam_win_bullet`=`statisticteam_win_bullet`+" . $game_result['home']['team']['win_bullet'] . ",

@@ -9,7 +9,7 @@
  */
 function f_igosja_assist_1($game_result, $team)
 {
-    if (rand(0, 3))
+    if (rand(0, 5))
     {
         $game_result = f_igosja_select_assist_1($game_result, $team);
     }

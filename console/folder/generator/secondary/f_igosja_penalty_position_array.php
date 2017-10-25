@@ -19,7 +19,7 @@ function f_igosja_penalty_position_array($game_result, $team)
 
     for ($i=0; $i<$count_penalty; $i++)
     {
-        $penalty_position_home[] = $game_result[$team]['team']['penalty']['current'][$i]['position'];
+        $penalty_position_array[] = $game_result[$team]['team']['penalty']['current'][$i]['position'];
     }
 
     return $penalty_position_array;

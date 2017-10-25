@@ -13,11 +13,11 @@ function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
     $count_team_penalty     = count($game_result[$team]['team']['penalty']['current']);
     $count_opponent_penalty = count($game_result[$opponent]['team']['penalty']['current']);
 
-    if ($count_team_penalty < $count_opponent_penalty || 2 > $count_team_penalty)
+    if ($count_team_penalty < $count_opponent_penalty && 2 > $count_team_penalty)
     {
         $power_short = 'assist_power';
     }
-    elseif ($count_team_penalty > $count_opponent_penalty || 2 > $count_opponent_penalty)
+    elseif ($count_team_penalty > $count_opponent_penalty && 2 > $count_opponent_penalty)
     {
         $power_short = 'assist_short';
     }
@@ -50,7 +50,7 @@ function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
             $player = 'ld_3';
         }
     }
-    elseif (POSITION_RD == $game_result['assist_1'])
+    elseif (POSITION_RD == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -65,7 +65,7 @@ function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
             $player = 'rd_3';
         }
     }
-    elseif (POSITION_LW == $game_result['assist_1'])
+    elseif (POSITION_LW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -80,7 +80,7 @@ function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
             $player = 'lw_3';
         }
     }
-    elseif (POSITION_C == $game_result['assist_1'])
+    elseif (POSITION_C == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {
@@ -95,7 +95,7 @@ function f_igosja_player_assist_2_increase($game_result, $team, $opponent)
             $player = 'c_3';
         }
     }
-    elseif (POSITION_RW == $game_result['assist_1'])
+    elseif (POSITION_RW == $game_result['assist_2'])
     {
         if (0 == $game_result['minute'] % 3)
         {

@@ -41,6 +41,17 @@ function f_igosja_generator_lineup_to_statistic()
         $stage_id           = $game['schedule_stage_id'];
         $tournamenttype_id  = $game['schedule_tournamenttype_id'];
 
+        if (in_array($tournamenttype_id, array(
+            TOURNAMENTTYPE_FRIENDLY,
+            TOURNAMENTTYPE_CONFERENCE,
+            TOURNAMENTTYPE_LEAGUE,
+            TOURNAMENTTYPE_OFFSEASON
+        )))
+        {
+            $country_id = 0;
+            $division_id = 0;
+        }
+
         if (!$country_id)
         {
             $country_id = 0;

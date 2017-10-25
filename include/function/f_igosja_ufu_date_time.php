@@ -7,5 +7,5 @@
  */
 function f_igosja_ufu_date_time($date)
 {
-    return date('H:i d.m.Y', $date);
+    return '<span class="hidden-xs">' . date('H:i', $date) . '</span> ' . date('d.m.Y', $date);
 }

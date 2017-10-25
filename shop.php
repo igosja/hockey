@@ -89,7 +89,7 @@ if ($data = f_igosja_request_get('data'))
     {
         if (!in_array($data['product'], array(SHOP_PRODUCT_POINT, SHOP_PRODUCT_MONEY, SHOP_PRODUCT_POSITION, SHOP_PRODUCT_SPECIAL)))
         {
-            $_SESSION['message']['class']   = 'success';
+            $_SESSION['message']['class']   = 'error';
             $_SESSION['message']['text']    = 'Игровой товар выбран неправильно.';
 
             redirect('/shop.php');
@@ -211,7 +211,7 @@ if ($data = f_igosja_request_get('data'))
             f_igosja_money($money);
         }
 
-        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Покупка совершена успешно.';
 
         redirect('/shop.php');

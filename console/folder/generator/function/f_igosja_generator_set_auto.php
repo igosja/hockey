@@ -64,7 +64,7 @@ function f_igosja_generator_set_auto()
         $home_tactic_2_id   = $game['game_home_tactic_2_id'];
         $home_tactic_3_id   = $game['game_home_tactic_3_id'];
 
-        if (0 == $guest_auto)
+        if (0 == $guest_mood_id)
         {
             $guest_auto         = 1;
             $guest_mood_id      = MOOD_NORMAL;

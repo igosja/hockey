@@ -64,7 +64,7 @@ if (in_array($num_get, array(
             ON `city_country_id`=`country_id`
             WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
             AND `statisticteam_season_id`=$season_id
-            ORDER BY $select $sort
+            ORDER BY $select $sort, `team_id` ASC
             LIMIT 100";
 }
 elseif (in_array($num_get, array(
@@ -139,7 +139,7 @@ elseif (in_array($num_get, array(
             WHERE `statisticplayer_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
             AND `statisticplayer_season_id`=$season_id
             $where
-            ORDER BY $select $sort
+            ORDER BY $select $sort, `player_id` ASC
             LIMIT 100";
 }
 
