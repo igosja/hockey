@@ -182,24 +182,25 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
-               `position_name`
-        FROM `playerposition`
-        LEFT JOIN `position`
-        ON `playerposition_position_id`=`position_id`
-        WHERE `playerposition_player_id` IN ($player_id)
-        ORDER BY `playerposition_position_id` ASC";
+                   `position_name`
+            FROM `playerposition`
+            LEFT JOIN `position`
+            ON `playerposition_position_id`=`position_id`
+            WHERE `playerposition_player_id` IN ($player_id)
+            ORDER BY `playerposition_position_id` ASC";
     $playerposition_sql = f_igosja_mysqli_query($sql, false);
 
     $playerposition_array = $playerposition_sql->fetch_all(1);
 
     $sql = "SELECT `playerspecial_level`,
-               `playerspecial_player_id`,
-               `special_name`
-        FROM `playerspecial`
-        LEFT JOIN `special`
-        ON `playerspecial_special_id`=`special_id`
-        WHERE `playerspecial_player_id` IN ($player_id)
-        ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+                   `playerspecial_player_id`,
+                   `special_name`,
+                   `special_short`
+            FROM `playerspecial`
+            LEFT JOIN `special`
+            ON `playerspecial_special_id`=`special_id`
+            WHERE `playerspecial_player_id` IN ($player_id)
+            ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
     $playerspecial_sql = f_igosja_mysqli_query($sql, false);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(1);

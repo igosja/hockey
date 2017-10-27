@@ -16,6 +16,8 @@ function f_igosja_generator_school()
 
     $sql = "SELECT `basemedical_tire`,
                    `baseschool_power`,
+                   `baseschool_with_special`,
+                   `baseschool_with_style`,
                    `city_country_id`,
                    `school_id`,
                    `school_position_id`,
@@ -36,7 +38,7 @@ function f_igosja_generator_school()
             ON `team_basemedical_id`=`basemedical_id`
             WHERE `school_ready`=0
             AND `school_day`<=0
-            ORDER BY `school_id`";
+            ORDER BY `school_id` ASC";
     $school_sql = f_igosja_mysqli_query($sql, false);
 
     $school_array = $school_sql->fetch_all(1);
@@ -52,6 +54,35 @@ function f_igosja_generator_school()
         $team_id        = $item['team_id'];
         $tire           = $item['basemedical_tire'];
         $user_id        = $item['team_user_id'];
+        $with_special   = $item['baseschool_with_special'];
+        $with_style     = $item['baseschool_with_style'];
+
+        if ($with_special || $with_style)
+        {
+            $sql = "SELECT COUNT(`school_id`) AS `check`
+                    FROM `school`
+                    WHERE `school_team_id`=$team_id
+                    AND `school_ready`=1
+                    AND `school_season_id`=$igosja_season_id";
+            $check_sql = f_igosja_mysqli_query($sql, false);
+
+            $check_array = $check_sql->fetch_all(1);
+
+            if ($check_array >= $with_special)
+            {
+                $special_id = 0;
+            }
+
+            if ($check_array >= $with_style)
+            {
+                $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
+            }
+        }
+        else
+        {
+            $special_id = 0;
+            $style_id   = rand(STYLE_POWER, STYLE_TECHNIQUE);
+        }
 
         $sql ="SELECT `phisical_id`,
                       `phisical_value`

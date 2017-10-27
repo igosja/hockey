@@ -16,16 +16,12 @@ function f_igosja_generator_training()
             WHERE `training_ready`=0";
     f_igosja_mysqli_query($sql, false);
 
-    $sql = "SELECT `team_id`,
-                   `team_user_id`,
-                   `training_id`,
+    $sql = "SELECT `training_id`,
                    `training_player_id`,
                    `training_position_id`,
                    `training_power`,
                    `training_special_id`
             FROM `training`
-            LEFT JOIN `team`
-            ON `training_team_id`=`team_id`
             WHERE `training_percent`>=100
             AND `training_ready`=0
             ORDER BY `training_id` ASC";
@@ -37,8 +33,6 @@ function f_igosja_generator_training()
     {
         $training_id    = $item['training_id'];
         $player_id      = $item['training_player_id'];
-        $team_id        = $item['team_id'];
-        $user_id        = $item['team_user_id'];
 
         if ($item['training_power'])
         {
@@ -51,8 +45,6 @@ function f_igosja_generator_training()
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRAINING_POINT,
                 'history_player_id' => $player_id,
-                'history_team_id' => $team_id,
-                'history_user_id' => $user_id,
             );
             f_igosja_history($log);
         }
@@ -69,8 +61,6 @@ function f_igosja_generator_training()
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRAINING_POSITION,
                 'history_player_id' => $player_id,
                 'history_position_id' => $position_id,
-                'history_team_id' => $team_id,
-                'history_user_id' => $user_id,
             );
             f_igosja_history($log);
         }
@@ -80,7 +70,7 @@ function f_igosja_generator_training()
 
             $sql = "SELECT COUNT(`playerspecial_special_id`) AS `count`
                     FROM `playerspecial`
-                    WHERE `playerspecial_player_id`=$player_id,
+                    WHERE `playerspecial_player_id`=$player_id
                     AND `playerspecial_special_id`=$special_id";
             $check_sql = f_igosja_mysqli_query($sql, false);
 
@@ -106,8 +96,6 @@ function f_igosja_generator_training()
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRAINING_SPECIAL,
                 'history_player_id' => $player_id,
                 'history_special_id' => $special_id,
-                'history_team_id' => $team_id,
-                'history_user_id' => $user_id,
             );
             f_igosja_history($log);
         }

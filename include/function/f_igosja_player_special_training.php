@@ -17,6 +17,25 @@ function f_igosja_player_special_training($player_id)
 
     if (4 > $check_array[0]['count'])
     {
+        $sql = "SELECT `player_position_id`
+                FROM `player`
+                WHERE `player_id`=$player_id
+                LIMIT 1";
+        $position_sql = f_igosja_mysqli_query($sql);
+
+        $position_array = $position_sql->fetch_all(1);
+
+        if (POSITION_GK == $position_array[0]['player_position_id'])
+        {
+            $gk     = 1;
+            $field  = 0;
+        }
+        else
+        {
+            $gk     = 0;
+            $field  = 1;
+        }
+
         $sql = "SELECT `special_id`,
                        `special_short`
                 FROM `special`
@@ -27,12 +46,19 @@ function f_igosja_player_special_training($player_id)
                     WHERE `playerspecial_player_id`=$player_id
                     AND `playerspecial_level`=4
                 )
+                AND `special_id` IN
+                (
+                    SELECT `special_id`
+                    FROM `special`
+                    WHERE `special_gk`=$gk
+                    OR `special_field`=$field
+                )
                 ORDER BY `special_id` ASC";
         $special_sql = f_igosja_mysqli_query($sql, false);
 
         $special_array = $special_sql->fetch_all(1);
 
-        $return = '<select class="form-control form-small" name="data[special][]"><option>-</option>';
+        $return = '<select class="form-control form-small" name="data[special][]"><option value="0">-</option>';
 
         foreach ($special_array as $item)
         {

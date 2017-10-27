@@ -16,6 +16,8 @@ include(__DIR__ . '/include/sql/player_view.php');
 $sql = "SELECT `history_date`,
                `history_season_id`,
                `historytext_name`,
+               `position_name`,
+               `special_name`,
                `team_id`,
                `team_name`
         FROM `history`
@@ -23,6 +25,10 @@ $sql = "SELECT `history_date`,
         ON `history_historytext_id`=`historytext_id`
         LEFT JOIN `team`
         ON `history_team_id`=`team_id`
+        LEFT JOIN `special`
+        ON `history_special_id`=`special_id`
+        LEFT JOIN `position`
+        ON `history_position_id`=`position_id`
         WHERE `history_player_id`=$num_get
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql, false);
@@ -41,6 +47,16 @@ for ($i=0; $i<$count_event; $i++)
     $text = str_replace(
         '{player}',
         '<a href="/player_view.php?num=' . $num_get . '">' . $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '</a>',
+        $text
+    );
+    $text = str_replace(
+        '{special}',
+        $event_array[$i]['special_name'],
+        $text
+    );
+    $text = str_replace(
+        '{position}',
+        $event_array[$i]['position_name'],
         $text
     );
 

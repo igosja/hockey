@@ -3,6 +3,7 @@
 /**
  * @var $auth_team_id integer
  * @var $igosja_season_id integer
+ * @var $team_array array
  */
 
 include(__DIR__ . '/include/include.php');
@@ -235,7 +236,8 @@ if (count($player_id))
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
-                   `special_name`
+                   `special_name`,
+                   `special_short`
             FROM `playerspecial`
             LEFT JOIN `special`
             ON `playerspecial_special_id`=`special_id`
@@ -295,7 +297,8 @@ if (count($player_id))
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
-                   `special_name`
+                   `special_name`,
+                   `special_short`
             FROM `playerspecial`
             LEFT JOIN `special`
             ON `playerspecial_special_id`=`special_id`

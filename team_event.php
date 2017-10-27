@@ -42,7 +42,9 @@ $season_sql = f_igosja_mysqli_query($sql, false);
 
 $season_array = $season_sql->fetch_all(1);
 
-$sql = "SELECT `history_date`,
+$sql = "SELECT `history_building_id`,
+               `history_date`,
+               `history_value`,
                `historytext_name`,
                `name_name`,
                `player_id`,
@@ -88,6 +90,35 @@ for ($i=0; $i<$count_event; $i++)
     $text = str_replace(
         '{player}',
         '<a href="/player_view.php?num=' . $event_array[$i]['player_id'] . '">' . $event_array[$i]['name_name'] . ' ' . $event_array[$i]['surname_name'] . '</a>',
+        $text
+    );
+    $text = str_replace(
+        '{level}',
+        $event_array[$i]['history_value'],
+        $text
+    );
+    $text = str_replace(
+        '{capacity}',
+        $event_array[$i]['history_value'],
+        $text
+    );
+    $building = '';
+    if (BUILDING_BASE == $event_array[$i]['history_building_id']) {
+        $building = 'база';
+    } elseif (BUILDING_BASEMEDICAL == $event_array[$i]['history_building_id']) {
+        $building = 'медцентр';
+    } elseif (BUILDING_BASEPHISICAL == $event_array[$i]['history_building_id']) {
+        $building = 'центр физподготовки';
+    } elseif (BUILDING_BASESCHOOL == $event_array[$i]['history_building_id']) {
+        $building = 'спортшкола';
+    } elseif (BUILDING_BASESCOUT == $event_array[$i]['history_building_id']) {
+        $building = 'скаут-центр';
+    } elseif (BUILDING_BASETRAINING == $event_array[$i]['history_building_id']) {
+        $building = 'тренировочный центр';
+    }
+    $text = str_replace(
+        '{building}',
+        $building,
         $text
     );
 

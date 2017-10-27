@@ -45,8 +45,7 @@ function f_igosja_generator_building_stadium()
                 LEFT JOIN `team`
                 ON `stadium_id`=`team_stadium_id`
                 SET `stadium_capacity`=$capacity
-                WHERE `team_id`=$team_id
-                LIMIT 1";
+                WHERE `team_id`=$team_id";
         f_igosja_mysqli_query($sql, false);
 
         $sql = "UPDATE `buildingstadium`

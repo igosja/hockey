@@ -14,7 +14,7 @@ function f_igosja_player_special($player_id, $playerspecial_array)
     {
         if ($item['playerspecial_player_id'] == $player_id)
         {
-            $return_array[] = $item['special_name'] . $item['playerspecial_level'];
+            $return_array[] = '<span title="' . $item['special_name'] . '">' . $item['special_short'] . $item['playerspecial_level'] . '</span>';
         }
     }
 

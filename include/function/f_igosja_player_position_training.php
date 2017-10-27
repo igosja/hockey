@@ -50,7 +50,7 @@ function f_igosja_player_position_training($player_id)
 
             $position_array = $position_sql->fetch_all(1);
 
-            $return = '<select class="form-control form-small" name="data[position][]"><option>-</option>';
+            $return = '<select class="form-control form-small" name="data[position][]"><option value="0">-</option>';
 
             foreach ($position_array as $item)
             {

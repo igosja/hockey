@@ -130,7 +130,8 @@ $sql = "SELECT `name_name`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
-        WHERE `player_team_id`=$num_get";
+        WHERE `player_team_id`=$num_get
+        ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql, false);
 
 $count_player = $player_sql->num_rows;
@@ -247,7 +248,8 @@ if (count($player_id))
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
-                   `special_name`
+                   `special_name`,
+                   `special_short`
             FROM `playerspecial`
             LEFT JOIN `special`
             ON `playerspecial_special_id`=`special_id`
