@@ -57,7 +57,7 @@ function f_igosja_generator_player_tire()
                 ON `player_team_id`=`team_id`
                 LEFT JOIN `basephisical`
                 ON `team_basephisical_id`=`basephisical_id`
-                SET `player_tire`=`player_tire`-IF(`player_game_row`<=-2, 4, IF(`player_game_row`=-1, 5, IF(`player_game_row_old`=1, 15, IF(`player_game_row_old`=2, 12, IF(`player_game_row_old`=3, 10, IF(`player_game_row_old`=4, 8, IF(`player_game_row_old`=5, 6, 5)))))))+`basephisical_tire_bonus`
+                SET `player_tire`=`player_tire`-IF(`player_game_row_old`<=-2, 4, IF(`player_game_row_old`=-1, 5, IF(`player_game_row_old`=1, 15, IF(`player_game_row_old`=2, 12, IF(`player_game_row_old`=3, 10, IF(`player_game_row_old`=4, 8, IF(`player_game_row_old`=5, 6, 5)))))))+`basephisical_tire_bonus`
                 WHERE `player_game_row`<0
                 AND `player_id`
                 NOT IN
