@@ -1,10 +1,15 @@
 <?php
 /**
+ * @var $auth_user_id integer
+ * @var $count_page integer
  * @var $event_array array
  * @var $game_array array
+ * @var $gamecomment_array array
  * @var $guest_array array
  * @var $home_array array
  * @var $num_get integer
+ * @var $page integer
+ * @var $total integer
  */
 ?>
 <div class="row margin-top">
@@ -414,3 +419,72 @@
         </table>
     </div>
 </div>
+<?php if ($gamecomment_array) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="strong">Последние комментарии:</span>
+        </div>
+    </div>
+    <form method="GET">
+        <input type="hidden" name="num" value="<?= $num_get; ?>">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                Всего комментариев: <?= $total; ?>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
+                <label for="page">Страница:</label>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                <select class="form-control" name="page" id="page">
+                    <?php for ($i=1; $i<=$count_page; $i++) { ?>
+                        <option
+                            value="<?= $i; ?>"
+                            <?php if ($page == $i) { ?>
+                                selected
+                            <?php } ?>
+                        >
+                            <?= $i; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+    </form>
+    <?php foreach ($gamecomment_array as $item) { ?>
+        <div class="row border-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
+                <a class="strong" href="/user_view.php?num=<?= $item['user_id']; ?>">
+                    <?= $item['user_login']; ?>
+                </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= nl2br($item['gamecomment_text']); ?>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
+                <?= f_igosja_ufu_date_time($item['gamecomment_date']); ?>
+            </div>
+        </div>
+    <?php } ?>
+<?php } ?>
+<?php if (isset($auth_user_id)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+            <label for="gamecomment">Ваш комментарий:</label>
+        </div>
+    </div>
+    <form id="gamecomment-form" method="POST">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control" id="gamecomment" name="data[text]" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center gamecomment-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button class="btn margin">Комментировать</button>
+            </div>
+        </div>
+    </form>
+<?php } ?>

@@ -161,6 +161,33 @@ if (0 == $game_array[0]['game_played'])
     redirect('/game_preview.php?num=' . $num_get);
 }
 
+if ($data = f_igosja_request_post('data'))
+{
+    if (isset($auth_user_id) && isset($data['text']))
+    {
+        $text = htmlspecialchars($data['text']);
+        $text = trim($text);
+
+        if (!empty($text))
+        {
+            $sql = "INSERT INTO `gamecomment`
+                    SET `gamecomment_date`=UNIX_TIMESTAMP(),
+                        `gamecomment_game_id`=$num_get,
+                        `gamecomment_text`=?,
+                        `gamecomment_user_id`=$auth_user_id";
+            $prepare = $mysqli->prepare($sql);
+            $prepare->bind_param('s', $text);
+            $prepare->execute();
+            $prepare->close();
+
+            $_SESSION['message']['class'] = 'success';
+            $_SESSION['message']['text'] = 'Комментарий успешно сохранен.';
+        }
+    }
+
+    refresh();
+}
+
 $home_team_id   = $game_array[0]['home_team_id'];
 $guest_team_id  = $game_array[0]['guest_team_id'];
 
@@ -295,6 +322,36 @@ $sql = "SELECT `event_guest_score`,
 $event_sql = f_igosja_mysqli_query($sql, false);
 
 $event_array = $event_sql->fetch_all(1);
+
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 10;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               `gamecomment_date`,
+               `gamecomment_text`,
+               `user_id`,
+               `user_login`
+        FROM `gamecomment`
+        LEFT JOIN `user`
+        ON `gamecomment_user_id`=`user_id`
+        WHERE `gamecomment_game_id`=$num_get
+        ORDER BY `gamecomment_id` ASC
+        LIMIT $offset, $limit";
+$gamecomment_sql = f_igosja_mysqli_query($sql, false);
+
+$gamecomment_array = $gamecomment_sql->fetch_all(1);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql, false);
+$total = $total->fetch_all(1);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
 
 $seo_title          = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча';
 $seo_description    = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча на сайте Вирутальной Хоккейной Лиги.';

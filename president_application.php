@@ -151,9 +151,9 @@ if (isset($data['text']))
 {
     $text = $data['text'];
 }
-elseif (isset($electionpresidentapplication_sql[0]))
+elseif (isset($electionpresidentapplication_array[0]))
 {
-    $text = $electionpresidentapplication_sql[0]['electionpresidentapplication_text'];
+    $text = $electionpresidentapplication_array[0]['electionpresidentapplication_text'];
 }
 else
 {
