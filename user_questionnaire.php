@@ -23,9 +23,9 @@ if ($data = f_igosja_request_post('data'))
             FROM `user`
             WHERE `user_id`=$num_get
             LIMIT 1";
-    $user_sql = f_igosja_mysqli_query($sql, false);
+    $user_sql = f_igosja_mysqli_query($sql);
 
-    $user_array = $user_sql->fetch_all(1);
+    $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     if (!isset($data['user_email']) || empty($data['user_email']))
     {
@@ -112,26 +112,26 @@ $sql = "SELECT `user_birth_day`,
         ON `user_country_id`=`country_id`
         WHERE `user_id`=$num_get
         LIMIT 1";
-$questionnaire_sql = f_igosja_mysqli_query($sql, false);
+$questionnaire_sql = f_igosja_mysqli_query($sql);
 
-$questionnaire_array = $questionnaire_sql->fetch_all(1);
+$questionnaire_array = $questionnaire_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         WHERE `country_id`!=0
         ORDER BY `country_name` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `sex_id`,
                `sex_name`
         FROM `sex`
         ORDER BY `sex_id` ASC";
-$sex_sql = f_igosja_mysqli_query($sql, false);
+$sex_sql = f_igosja_mysqli_query($sql);
 
-$sex_array = $sex_sql->fetch_all(1);
+$sex_array = $sex_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $user_array[0]['user_login'] . '. Анкета менеджера';
 $seo_description    = $user_array[0]['user_login'] . '. Анкета менеджера на сайте Вирутальной Хоккейной Лиги.';

@@ -85,9 +85,9 @@ $sql = "SELECT `base_level`,
         ON `team_id`=`player_team_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$rating_sql = f_igosja_mysqli_query($sql, false);
+$rating_sql = f_igosja_mysqli_query($sql);
 
-$rating_array = $rating_sql->fetch_all(1);
+$rating_array = $rating_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $team_array[0]['team_name'] . '. Статистика команды';
 $seo_description    = $team_array[0]['team_name'] . '. Статистика команды на сайте Вирутальной Хоккейной Лиги.';

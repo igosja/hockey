@@ -28,7 +28,7 @@ $sql = "SELECT `country_name`,
         LIMIT 3";
 $latest_sql = f_igosja_mysqli_query($sql);
 
-$latest_array = $latest_sql->fetch_all(1);
+$latest_array = $latest_sql->fetch_all(MYSQLI_ASSOC);
 
 $latest_array = array_reverse($latest_array);
 
@@ -55,4 +55,4 @@ $sql = "SELECT `country_name`,
         LIMIT 2";
 $nearest_sql = f_igosja_mysqli_query($sql);
 
-$nearest_array = $nearest_sql->fetch_all(1);
+$nearest_array = $nearest_sql->fetch_all(MYSQLI_ASSOC);

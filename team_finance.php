@@ -38,9 +38,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `finance_building_id`,
                `finance_capacity`,
@@ -56,10 +56,10 @@ $sql = "SELECT `finance_building_id`,
         WHERE `finance_team_id`=$num_get
         AND `finance_season_id`=$season_id
         ORDER BY `finance_id` DESC";
-$finance_sql = f_igosja_mysqli_query($sql, false);
+$finance_sql = f_igosja_mysqli_query($sql);
 
 $count_finance = $finance_sql->num_rows;
-$finance_array = $finance_sql->fetch_all(1);
+$finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_finance; $i++)
 {

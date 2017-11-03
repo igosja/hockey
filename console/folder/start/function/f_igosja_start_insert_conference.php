@@ -18,12 +18,12 @@ function f_igosja_start_insert_conference()
                 WHERE `championship_season_id`=1
             )
             ORDER BY `team_id` ASC";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `conference`
             SET `conference_place`=`conference_id`
             WHERE `conference_place`=0";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `schedule_id`
             FROM `schedule`
@@ -31,9 +31,9 @@ function f_igosja_start_insert_conference()
             AND `schedule_stage_id`=" . STAGE_1_TOUR . "
             AND `schedule_season_id`=1
             LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql, false);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 
-    $schedule_array = $schedule_sql->fetch_all(1);
+    $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
     $schedule_id = $schedule_array[0]['schedule_id'];
 
@@ -46,10 +46,10 @@ function f_igosja_start_insert_conference()
             ON `team_stadium_id`=`stadium_id`
             WHERE `conference_season_id`=1
             ORDER BY RAND()";
-    $team_sql = f_igosja_mysqli_query($sql, false);
+    $team_sql = f_igosja_mysqli_query($sql);
 
     $count_team = $team_sql->num_rows;
-    $team_array = $team_sql->fetch_all(1);
+    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
     for ($i=0; $i<$count_team; $i=$i+2)
     {
@@ -63,5 +63,5 @@ function f_igosja_start_insert_conference()
 
     $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
             VALUES $game_array;";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

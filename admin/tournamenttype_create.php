@@ -10,7 +10,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "INSERT INTO `tournamenttype`
             SET $set_sql";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/tournamenttype_view.php?num=' . $mysqli->insert_id);
 }

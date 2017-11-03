@@ -32,9 +32,9 @@ $sql = "SELECT `achievement_season_id`,
         ON `achievement_tournamenttype_id`=`tournamenttype_id`
         WHERE `achievement_team_id`=$num_get
         ORDER BY `achievement_id` DESC";
-$achievement_sql = f_igosja_mysqli_query($sql, false);
+$achievement_sql = f_igosja_mysqli_query($sql);
 
-$achievement_array = $achievement_sql->fetch_all(1);
+$achievement_array = $achievement_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $team_array[0]['team_name'] . '. Достижения команды';
 $seo_description    = $team_array[0]['team_name'] . '. Достижения команды на сайте Вирутальной Хоккейной Лиги.';

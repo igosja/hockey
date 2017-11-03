@@ -10,10 +10,10 @@ $sql = "SELECT `ratingchapter_id`,
         LEFT JOIN `ratingchapter`
         ON `ratingtype_ratingchapter_id`=`ratingchapter_id`
         ORDER BY `ratingchapter_id` ASC, `ratingtype_id` ASC";
-$ratingtype_sql = f_igosja_mysqli_query($sql, false);
+$ratingtype_sql = f_igosja_mysqli_query($sql);
 
 $count_ratingtype = $ratingtype_sql->num_rows;
-$ratingtype_array = $ratingtype_sql->fetch_all(1);
+$ratingtype_array = $ratingtype_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$num_get = f_igosja_request_get('num'))
 {
@@ -266,9 +266,9 @@ elseif (RATING_COUNTRY_AUTO == $num_get)
             ORDER BY `ratingcountry_auto_place` ASC, `country_id` ASC";
 }
 
-$rating_sql = f_igosja_mysqli_query($sql, false);
+$rating_sql = f_igosja_mysqli_query($sql);
 
-$rating_array = $rating_sql->fetch_all(1);
+$rating_array = $rating_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Рейтинги';
 $seo_description    = 'Рейтинги на сайте Вирутальной Хоккейной Лиги.';

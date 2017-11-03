@@ -38,7 +38,7 @@ $sql = "SELECT `finance_date`,
         ORDER BY `finance_id` DESC";
 $finance_sql = f_igosja_mysqli_query($sql);
 
-$finance_array = $finance_sql->fetch_all(1);
+$finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $national_array[0]['country_name'] . '. Финансы команды';
 $seo_description    = $national_array[0]['country_name'] . '. Финансы команды на сайте Вирутальной Хоккейной Лиги.';

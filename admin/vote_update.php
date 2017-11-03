@@ -23,7 +23,7 @@ if (0 == $vote_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$vote_array = $vote_sql->fetch_all(1);
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -36,7 +36,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `vote_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     foreach ($answer as $key => $item)
     {
@@ -50,9 +50,9 @@ if ($data = f_igosja_request_post('data'))
                     FROM `voteanswer`
                     WHERE `voteanswer_vote_id`=$num_get
                     AND `voteanswer_id`=$key";
-            $check_sql = f_igosja_mysqli_query($sql, false);
+            $check_sql = f_igosja_mysqli_query($sql);
 
-            $check_array = $check_sql->fetch_all(1);
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
             if ($check_array[0]['count'])
             {
@@ -60,7 +60,7 @@ if ($data = f_igosja_request_post('data'))
                         SET `voteanswer_text`='$item'
                         WHERE `voteanswer_id`=$key
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
             }
             else
             {
@@ -68,7 +68,7 @@ if ($data = f_igosja_request_post('data'))
                         SET `voteanswer_text`='$item',
                             `voteanswer_vote_id`=$num_get
                         WHERE `voteanswer_id`=$key";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
             }
         }
         else
@@ -76,7 +76,7 @@ if ($data = f_igosja_request_post('data'))
             $sql = "DELETE FROM `voteanswer`
                     WHERE `voteanswer_id`=$key
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 

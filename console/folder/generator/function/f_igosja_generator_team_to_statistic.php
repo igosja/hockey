@@ -23,9 +23,9 @@ function f_igosja_generator_team_to_statistic()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $game)
     {
@@ -78,9 +78,9 @@ function f_igosja_generator_team_to_statistic()
                 AND `statisticteam_season_id`=$season_id
                 AND `statisticteam_team_id`=$guest_team_id
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id";
-        $check_sql = f_igosja_mysqli_query($sql, false);
+        $check_sql = f_igosja_mysqli_query($sql);
 
-        $check_array = $check_sql->fetch_all(1);
+        $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
         if (0 == $check_array[0]['count'])
         {
@@ -92,7 +92,7 @@ function f_igosja_generator_team_to_statistic()
                         `statisticteam_season_id`=$season_id,
                         `statisticteam_team_id`=$guest_team_id,
                         `statisticteam_tournamenttype_id`=$tournamenttype_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
 
         $sql = "SELECT COUNT(`statisticteam_id`) AS `count`
@@ -104,9 +104,9 @@ function f_igosja_generator_team_to_statistic()
                 AND `statisticteam_season_id`=$season_id
                 AND `statisticteam_team_id`=$home_team_id
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id";
-        $check_sql = f_igosja_mysqli_query($sql, false);
+        $check_sql = f_igosja_mysqli_query($sql);
 
-        $check_array = $check_sql->fetch_all(1);
+        $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
         if (0 == $check_array[0]['count'])
         {
@@ -118,7 +118,7 @@ function f_igosja_generator_team_to_statistic()
                         `statisticteam_season_id`=$season_id,
                         `statisticteam_team_id`=$home_team_id,
                         `statisticteam_tournamenttype_id`=$tournamenttype_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 }

@@ -11,5 +11,5 @@ function f_igosja_election_national_vice_to_open($electionnationalvice_id)
             WHERE `electionnationalvice_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
             AND `electionnationalvice_id`=$electionnationalvice_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

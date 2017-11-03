@@ -24,7 +24,7 @@ $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASESCOUT . ")";
 $building_sql = f_igosja_mysqli_query($sql);
 
-$building_array = $building_sql->fetch_all(1);
+$building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($building_array[0]['count'])
 {
@@ -48,7 +48,7 @@ $sql = "SELECT `basescout_level`,
         LIMIT 1";
 $basescout_sql = f_igosja_mysqli_query($sql);
 
-$basescout_array = $basescout_sql->fetch_all(1);
+$basescout_array = $basescout_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`scout_id`) AS `count`
         FROM `scout`
@@ -56,7 +56,7 @@ $sql = "SELECT COUNT(`scout_id`) AS `count`
         AND `scout_season_id`=$igosja_season_id";
 $scout_used_sql = f_igosja_mysqli_query($sql);
 
-$scout_used_array = $scout_used_sql->fetch_all(1);
+$scout_used_array = $scout_used_sql->fetch_all(MYSQLI_ASSOC);
 
 $scout_available = $basescout_array[0]['basescout_my_style_count'] - $scout_used_array[0]['count'];
 
@@ -93,12 +93,12 @@ if ($data = f_igosja_request_post('data'))
                         AND `scout_ready`=0";
                 $check_sql = f_igosja_mysqli_query($sql);
 
-                $check_array = $check_sql->fetch_all(1);
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
                 $count_check = $check_array[0]['count'];
 
                 if (0 == $count_check)
                 {
-                    $player_array = $player_sql->fetch_all(1);
+                    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
                     $confirm_data['style'][] = array(
                         'id'    => $item,
@@ -161,7 +161,7 @@ if ($data = f_igosja_request_post('data'))
                     LIMIT 1";
             $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-$price
@@ -210,7 +210,7 @@ $sql = "SELECT `country_id`,
         ORDER BY `scout_id` ASC";
 $scout_sql = f_igosja_mysqli_query($sql);
 
-$scout_array = $scout_sql->fetch_all(1);
+$scout_array = $scout_sql->fetch_all(MYSQLI_ASSOC);
 
 $player_id = array();
 
@@ -232,7 +232,7 @@ if (count($player_id))
             ORDER BY `playerposition_position_id` ASC";
     $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $scoutplayerposition_array = $playerposition_sql->fetch_all(1);
+    $scoutplayerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -245,7 +245,7 @@ if (count($player_id))
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $scoutplayerspecial_array = $playerspecial_sql->fetch_all(1);
+    $scoutplayerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
@@ -271,7 +271,7 @@ $sql = "SELECT `country_id`,
         ORDER BY `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $player_id = array();
 
@@ -293,7 +293,7 @@ if (count($player_id))
             ORDER BY `playerposition_position_id` ASC";
     $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -306,7 +306,7 @@ if (count($player_id))
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {

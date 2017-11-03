@@ -57,7 +57,7 @@ $sql = "SELECT `name_name`,
         ORDER BY `player_position_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $player_id = array();
 
@@ -79,7 +79,7 @@ if (count($player_id))
             ORDER BY `playerposition_position_id` ASC";
     $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -92,7 +92,7 @@ if (count($player_id))
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
@@ -121,7 +121,7 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
 
     if ($check_game_send_sql->num_rows)
     {
-        $check_game_send_array = $check_game_send_sql->fetch_all(1);
+        $check_game_send_array = $check_game_send_sql->fetch_all(MYSQLI_ASSOC);
 
         if (($num_get == $check_game_send_array[0]['game_guest_national_id'] && 0 == $check_game_send_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_game_send_array[0]['game_home_national_id'] && 0 == $check_game_send_array[0]['game_home_mood_id']))
@@ -147,7 +147,7 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
 
     if ($check_mood_sql->num_rows)
     {
-        $check_mood_array = $check_mood_sql->fetch_all(1);
+        $check_mood_array = $check_mood_sql->fetch_all(MYSQLI_ASSOC);
 
         if (($num_get == $check_mood_array[0]['game_guest_national_id'] && MOOD_SUPER == $check_mood_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_mood_array[0]['game_home_national_id'] && MOOD_SUPER == $check_mood_array[0]['game_home_mood_id']))

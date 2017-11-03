@@ -12,14 +12,14 @@ $sql = "SELECT `tournamenttype_id`,
         FROM `tournamenttype`
         WHERE `tournamenttype_id`=$num_get
         LIMIT 1";
-$tournamenttype_sql = f_igosja_mysqli_query($sql, false);
+$tournamenttype_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $tournamenttype_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$tournamenttype_array = $tournamenttype_sql->fetch_all(1);
+$tournamenttype_array = $tournamenttype_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -31,7 +31,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `tournamenttype_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/tournamenttype_view.php?num=' . $num_get);
 }

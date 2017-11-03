@@ -25,14 +25,14 @@ $sql = "SELECT `message_date`,
         OR (`message_user_id_to`=$num_get
         AND `message_support_from`=1)
         ORDER BY `message_id` DESC";
-$message_sql = f_igosja_mysqli_query($sql, false);
+$message_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $message_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$message_array = $message_sql->fetch_all(1);
+$message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
 
 $user_login = end($message_array);
 $user_login = $user_login['user_login'];
@@ -52,7 +52,7 @@ if ($data = f_igosja_request_post('data'))
                         `message_support_from`=1,
                         `message_user_id_from`=$auth_user_id,
                         `message_user_id_to`=$num_get";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 
@@ -63,7 +63,7 @@ $sql = "UPDATE `message`
         SET `message_read`=1
         WHERE `message_user_id_from`=$num_get
         AND `message_support_to`=1";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $breadcrumb_array[] = array('url' => 'support_list.php', 'text' => 'Вопросы в техподдержку');
 $breadcrumb_array[] = $message_array[0]['user_login'];

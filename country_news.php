@@ -49,13 +49,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `news_country_id`=$num_get
         ORDER BY `news_id` DESC
         LIMIT $offset, $limit";
-$news_sql = f_igosja_mysqli_query($sql, false);
+$news_sql = f_igosja_mysqli_query($sql);
 
-$news_array = $news_sql->fetch_all(1);
+$news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);

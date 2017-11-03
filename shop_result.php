@@ -51,7 +51,7 @@ if (0 == $count_payment)
     die('NO. WRONG PAYMENT ID');
 }
 
-$payment_array = $payment_sql->fetch_all(1);
+$payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
 
 $status = $payment_array[0]['payment_status'];
 

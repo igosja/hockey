@@ -9,7 +9,7 @@ function f_igosja_generator_player_game_row()
             SET `player_game_row_old`=`player_game_row`
             WHERE `player_game_row_old`!=`player_game_row`
             AND `player_age`<40";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`
             LEFT JOIN `lineup`
@@ -24,7 +24,7 @@ function f_igosja_generator_player_game_row()
             WHERE `game_played`=0
             AND `tournamenttype_daytype_id` IN (" . DAYTYPE_B . ", " . DAYTYPE_C . ")
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`
             SET `player_game_row`=IF(`player_game_row`<0, `player_game_row`-1, -1)
@@ -42,5 +42,5 @@ function f_igosja_generator_player_game_row()
                 AND `tournamenttype_daytype_id`=" . DAYTYPE_B . "
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             )";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

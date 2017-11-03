@@ -29,7 +29,7 @@ if (isset($data['code']))
         redirect('/activation.php');
     }
 
-    $user_array = $user_sql->fetch_all(1);
+    $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     if ($user_array[0]['user_date_confirm'])
     {
@@ -45,7 +45,7 @@ if (isset($data['code']))
             SET `user_date_confirm`=UNIX_TIMESTAMP()
             WHERE `user_id`=$user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Профиль активирован.';

@@ -23,11 +23,11 @@ function f_igosja_generator_set_injury()
             )
             ORDER BY `player_tire` DESC, RAND()
             LIMIT 1";
-    $player_sql = f_igosja_mysqli_query($sql, false);
+    $player_sql = f_igosja_mysqli_query($sql);
 
     if ($player_sql->num_rows)
     {
-        $player_array = $player_sql->fetch_all(1);
+        $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
         $player_id  = $player_array[0]['lineup_player_id'];
         $day        = rand(1, 9);
@@ -37,7 +37,7 @@ function f_igosja_generator_set_injury()
                     `player_injury_day`=$day
                 WHERE `player_id`=$player_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_PLAYER_INJURY,

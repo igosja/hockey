@@ -36,7 +36,7 @@ $sql = "SELECT `country_id`,
         ORDER BY `country_name`";
 $country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Подача заявки на управление сборной';
 $seo_description    = 'Подача заявки на управление сборной на сайте Вирутальной Хоккейной Лиги.';

@@ -8,7 +8,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
     {
         $sql = "UPDATE `schedule`
                 SET `schedule_date`=`schedule_date`+86400";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         redirect('/admin/schedule_change.php');
     }
@@ -16,7 +16,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
     {
         $sql = "UPDATE `schedule`
                 SET `schedule_date`=`schedule_date`-86400";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         redirect('/admin/schedule_change.php');
     }
@@ -31,9 +31,9 @@ $sql = "SELECT `stage_name`,
         ON `schedule_stage_id`=`stage_id`
         WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
         LIMIT 1";
-$schedule_sql = f_igosja_mysqli_query($sql, false);
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-$schedule_array = $schedule_sql->fetch_all(1);
+$schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Перевод даты';
 

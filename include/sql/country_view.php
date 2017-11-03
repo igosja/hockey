@@ -21,14 +21,14 @@ $sql = "SELECT `country_finance`,
         ON `country_vice_id`=`vice`.`user_id`
         WHERE `country_id`=$num_get
         LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $country_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`team_id`) AS `total`
         FROM `team`
@@ -39,9 +39,9 @@ $sql = "SELECT COUNT(`team_id`) AS `total`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0
         AND `team_vote_president`=" . VOTERATING_POSITIVE;
-$rating_positive_sql = f_igosja_mysqli_query($sql, false);
+$rating_positive_sql = f_igosja_mysqli_query($sql);
 
-$rating_positive_array = $rating_positive_sql->fetch_all(1);
+$rating_positive_array = $rating_positive_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`team_id`) AS `total`
         FROM `team`
@@ -52,9 +52,9 @@ $sql = "SELECT COUNT(`team_id`) AS `total`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0
         AND `team_vote_president`=" . VOTERATING_NEGATIVE;
-$rating_negative_sql = f_igosja_mysqli_query($sql, false);
+$rating_negative_sql = f_igosja_mysqli_query($sql);
 
-$rating_negative_array = $rating_negative_sql->fetch_all(1);
+$rating_negative_array = $rating_negative_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT IF(COUNT(`team_id`)=0, 1, COUNT(`team_id`)) AS `total`
         FROM `team`
@@ -64,9 +64,9 @@ $sql = "SELECT IF(COUNT(`team_id`)=0, 1, COUNT(`team_id`)) AS `total`
         ON `stadium_city_id`=`stadium_id`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0";
-$rating_total_sql = f_igosja_mysqli_query($sql, false);
+$rating_total_sql = f_igosja_mysqli_query($sql);
 
-$rating_total_array = $rating_total_sql->fetch_all(1);
+$rating_total_array = $rating_total_sql->fetch_all(MYSQLI_ASSOC);
 
 $rating_positive    = round($rating_positive_array[0]['total'] / $rating_total_array[0]['total'] * 100);
 $rating_negative    = round($rating_negative_array[0]['total'] / $rating_total_array[0]['total'] * 100);
@@ -83,9 +83,9 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
             $sql = "SELECT COUNT(`relation_id`) AS `check`
                     FROM `relation`
                     WHERE `relation_id`=$vote";
-            $check_sql = f_igosja_mysqli_query($sql, false);
+            $check_sql = f_igosja_mysqli_query($sql);
 
-            $check_array = $check_sql->fetch_all(1);
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
             if (0 == $check_array[0]['check'])
             {
@@ -99,7 +99,7 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
                     SET `team_vote_president`=$vote
                     WHERE `team_id`=$auth_team_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $_SESSION['message']['class']   = 'success';
             $_SESSION['message']['text']    = 'Отношение к президенту успешно сохранено.';
@@ -115,9 +115,9 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
             ON `team_vote_president`=`relation_id`
             WHERE `team_id`=$auth_team_id
             LIMIT 1";
-    $relation_sql = f_igosja_mysqli_query($sql, false);
+    $relation_sql = f_igosja_mysqli_query($sql);
 
-    $relation_array = $relation_sql->fetch_all(1);
+    $relation_array = $relation_sql->fetch_all(MYSQLI_ASSOC);
 
     $auth_relation_id   = $relation_array[0]['relation_id'];
     $auth_relation_name = $relation_array[0]['relation_name'];
@@ -126,7 +126,7 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
                    `relation_name`
             FROM `relation`
             ORDER BY `relation_order` ASC";
-    $relation_sql = f_igosja_mysqli_query($sql, false);
+    $relation_sql = f_igosja_mysqli_query($sql);
 
-    $relation_array = $relation_sql->fetch_all(1);
+    $relation_array = $relation_sql->fetch_all(MYSQLI_ASSOC);
 }

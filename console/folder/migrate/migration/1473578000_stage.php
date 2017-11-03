@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `stage`
         (
-            `stage_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
+            `stage_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
             `stage_name` VARCHAR(255),
             `stage_visitor` INT(3)
         );';

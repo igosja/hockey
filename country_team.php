@@ -28,9 +28,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS `city_name`,
         ON `team_user_id`=`user_id`
         WHERE `city_country_id`=$num_get
         ORDER BY `team_name` ASC";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $country_array[0]['country_name'] . '. Команды фередации';
 $seo_description    = $country_array[0]['country_name'] . '. Список команд фередации на сайте Вирутальной Хоккейной Лиги.';

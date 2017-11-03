@@ -17,7 +17,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql,
                 `vote_date`=UNIX_TIMESTAMP(),
                 `vote_user_id`=$auth_user_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $vote_id    = $mysqli->insert_id;
     $answer_sql = array();
@@ -36,7 +36,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "INSERT INTO `voteanswer` (`voteanswer_text`, `voteanswer_vote_id`)
             VALUES $answer_sql;";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/vote_view.php?num=' . $vote_id);
 }

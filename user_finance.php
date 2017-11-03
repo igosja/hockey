@@ -30,9 +30,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 include(__DIR__ . '/include/sql/user_view.php');
 
@@ -47,9 +47,9 @@ $sql = "SELECT `finance_date`,
         WHERE `finance_user_id`=$num_get
         AND `finance_season_id`=$season_id
         ORDER BY `finance_id` DESC";
-$finance_sql = f_igosja_mysqli_query($sql, false);
+$finance_sql = f_igosja_mysqli_query($sql);
 
-$finance_array = $finance_sql->fetch_all(1);
+$finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $user_array[0]['user_login'] . '. Финансы менеджера';
 $seo_description    = $user_array[0]['user_login'] . '. Финансы менеджера на сайте Вирутальной Хоккейной Лиги.';

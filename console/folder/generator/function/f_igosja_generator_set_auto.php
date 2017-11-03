@@ -34,9 +34,9 @@ function f_igosja_generator_set_auto()
             AND (`game_guest_mood_id`=0
             OR `game_home_mood_id`=0)
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $game)
     {
@@ -119,6 +119,6 @@ function f_igosja_generator_set_auto()
                     `game_home_tactic_3_id`=$home_tactic_3_id
                 WHERE `game_id`=$game_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

@@ -13,9 +13,9 @@ $sql = "SELECT `site_status`,
                `site_version_date`
         FROM `site`
         WHERE `site_id`=1";
-$site_sql = f_igosja_mysqli_query($sql, false);
+$site_sql = f_igosja_mysqli_query($sql);
 
-$site_array = $site_sql->fetch_all(1);
+$site_array = $site_sql->fetch_all(MYSQLI_ASSOC);
 
 if ('admin' != $chapter)
 {

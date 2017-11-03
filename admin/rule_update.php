@@ -13,9 +13,9 @@ $sql = "SELECT `rule_id`,
         FROM `rule`
         WHERE `rule_id`=$num_get
         LIMIT 1";
-$rule_sql = f_igosja_mysqli_query($sql, false);
+$rule_sql = f_igosja_mysqli_query($sql);
 
-$rule_array = $rule_sql->fetch_all(1);
+$rule_array = $rule_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 == $rule_sql->num_rows)
 {
@@ -35,7 +35,7 @@ if ($data = f_igosja_request_post('data'))
                 `rule_date`=UNIX_TIMESTAMP()
             WHERE `rule_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/rule_view.php?num=' . $num_get);
 }

@@ -14,9 +14,9 @@ if (!$season_id = (int) f_igosja_request_get('season_id'))
 $sql = "SELECT COUNT(`conference_id`) AS `count`
         FROM `conference`
         WHERE `conference_season_id`=$season_id";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 $count_team = $team_array[0]['count'];
 
 if (0 == $count_team)
@@ -30,9 +30,9 @@ $sql = "SELECT `season_id`
         ON `conference_season_id`=`season_id`
         GROUP BY `conference_season_id`
         ORDER BY `conference_season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Конференция любительских клубов';
 $seo_description    = 'Конференция любительских клубов, календарь игр и турнирная таблица на сайте Вирутальной Хоккейной Лиги.';

@@ -24,9 +24,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `teamask_date` ASC
         LIMIT $offset, $limit";
-$teamask_sql = f_igosja_mysqli_query($sql, false);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
-$teamask_array = $teamask_sql->fetch_all(1);
+$teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Заявки на команды';
 

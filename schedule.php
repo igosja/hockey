@@ -19,9 +19,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `schedule_date`,
                `schedule_id`,
@@ -34,9 +34,9 @@ $sql = "SELECT `schedule_date`,
         ON `schedule_stage_id`=`stage_id`
         WHERE `schedule_season_id`=$season_id
         ORDER BY `schedule_id`ASC";
-$schedule_sql = f_igosja_mysqli_query($sql, false);
+$schedule_sql = f_igosja_mysqli_query($sql);
 
-$schedule_array = $schedule_sql->fetch_all(1);
+$schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Расписание. Сезон ' . $igosja_season_id;
 $seo_description    = 'Сезон ' . $igosja_season_id . '. Расписание на сайте Вирутальной Хоккейной Лиги.';

@@ -24,7 +24,7 @@ if ($data = f_igosja_request_post('data'))
             SET `user_date_forum_block`=$time
             WHERE `user_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/user_view.php?num=' . $num_get);
 }
@@ -34,14 +34,14 @@ $sql = "SELECT `user_id`,
         FROM `user`
         WHERE `user_id`=$num_get
         LIMIT 1";
-$user_sql = f_igosja_mysqli_query($sql, false);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'user_list.php', 'text' => 'Пользователи');
 $breadcrumb_array[] = array(

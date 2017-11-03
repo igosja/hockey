@@ -14,7 +14,6 @@ $q[] = 'CREATE TABLE `achievementplayer`
             `achievementplayer_season_id` INT(3) DEFAULT 0,
             `achievementplayer_stage_id` INT(2) DEFAULT 0,
             `achievementplayer_team_id` INT(5) DEFAULT 0,
-            `achievementplayer_tournamenttype_id` INT(1) DEFAULT 0,
-            `achievementplayer_user_id` INT(11) DEFAULT 0
+            `achievementplayer_tournamenttype_id` INT(1) DEFAULT 0
         );';
 $q[] = 'CREATE INDEX `achievementplayer_player_id` ON `achievementplayer` (`achievementplayer_player_id`);';

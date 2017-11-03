@@ -11,5 +11,5 @@ function f_igosja_election_president_vice_to_open($electionpresidentvice_id)
             WHERE `electionpresidentvice_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
             AND `electionpresidentvice_id`=$electionpresidentvice_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

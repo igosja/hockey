@@ -7,15 +7,15 @@ if ($num_get = (int) f_igosja_request_get('num'))
     $sql = "DELETE FROM `team`
             WHERE `team_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `player_id`
             FROM `player`
             WHERE `player_team_id`=$num_get
             ORDER BY `player_id` ASC";
-    $player_sql = f_igosja_mysqli_query($sql, false);
+    $player_sql = f_igosja_mysqli_query($sql);
 
-    $player_array = $player_sql->fetch_all(1);
+    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($player_array as $item)
     {
@@ -25,7 +25,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                 SET `player_team_id`=0
                 WHERE `player_id`=$player_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,

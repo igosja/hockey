@@ -13,14 +13,14 @@ $sql = "SELECT `city_country_id`,
         FROM `city`
         WHERE `city_id`=$num_get
         LIMIT 1";
-$city_sql = f_igosja_mysqli_query($sql, false);
+$city_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $city_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$city_array = $city_sql->fetch_all(1);
+$city_array = $city_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -33,7 +33,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `city_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/city_view.php?num=' . $num_get);
 }
@@ -42,9 +42,9 @@ $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         ORDER BY `country_name` ASC, `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'city_list.php', 'text' => 'Города');
 $breadcrumb_array[] = array(

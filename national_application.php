@@ -29,7 +29,7 @@ $sql = "SELECT COUNT(`national_id`) AS `check`
         LIMIT 1";
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 == $chech_array[0]['check'])
 {
@@ -43,7 +43,7 @@ $sql = "SELECT `schedule_nationalvotestep_id`
         LIMIT 1";
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!in_array($chech_array[0]['schedule_nationalvotestep_id'], array(0, NATIONALVOTESTEP_MAIN_APPLICATION)))
 {
@@ -57,7 +57,7 @@ $sql = "SELECT COUNT(`electionnational_id`) AS `check`
         AND `electionnational_nationaltype_id`=$type_get";
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($chech_array[0]['check'])
 {
@@ -74,7 +74,7 @@ $electionnational_sql = f_igosja_mysqli_query($sql);
 
 if ($electionnational_sql->num_rows)
 {
-    $electionnational_array = $electionnational_sql->fetch_all(1);
+    $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
     $electionnational_id = $electionnational_array[0]['electionnational_id'];
 }
@@ -181,7 +181,7 @@ if ($data = f_igosja_request_post('data'))
                         AND `player_age`<=$max_age";
                 $check_sql = f_igosja_mysqli_query($sql);
 
-                $chech_array = $check_sql->fetch_all(1);
+                $chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
                 if (0 == $chech_array[0]['count'])
                 {
@@ -208,7 +208,7 @@ if ($data = f_igosja_request_post('data'))
 
         if ($electionnationalapplication_sql->num_rows)
         {
-            $electionnationalapplication_array = $electionnationalapplication_sql->fetch_all(1);
+            $electionnationalapplication_array = $electionnationalapplication_sql->fetch_all(MYSQLI_ASSOC);
 
             $electionnationalapplication_id = $electionnationalapplication_array[0]['electionnationalapplication_id'];
 
@@ -268,7 +268,7 @@ $sql = "SELECT `country_name`
         LIMIT 1";
 $country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -300,7 +300,7 @@ $sql = "SELECT `city_name`,
         LIMIT 10";
 $gk_sql = f_igosja_mysqli_query($sql);
 
-$gk_array = $gk_sql->fetch_all(1);
+$gk_array = $gk_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -332,7 +332,7 @@ $sql = "SELECT `city_name`,
         LIMIT 25";
 $ld_sql = f_igosja_mysqli_query($sql);
 
-$ld_array = $ld_sql->fetch_all(1);
+$ld_array = $ld_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -364,7 +364,7 @@ $sql = "SELECT `city_name`,
         LIMIT 25";
 $rd_sql = f_igosja_mysqli_query($sql);
 
-$rd_array = $rd_sql->fetch_all(1);
+$rd_array = $rd_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -396,7 +396,7 @@ $sql = "SELECT `city_name`,
         LIMIT 25";
 $lw_sql = f_igosja_mysqli_query($sql);
 
-$lw_array = $lw_sql->fetch_all(1);
+$lw_array = $lw_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -428,7 +428,7 @@ $sql = "SELECT `city_name`,
         LIMIT 25";
 $c_sql = f_igosja_mysqli_query($sql);
 
-$c_array = $c_sql->fetch_all(1);
+$c_array = $c_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_id`,
@@ -460,7 +460,7 @@ $sql = "SELECT `city_name`,
         LIMIT 25";
 $rw_sql = f_igosja_mysqli_query($sql);
 
-$rw_array = $rw_sql->fetch_all(1);
+$rw_array = $rw_sql->fetch_all(MYSQLI_ASSOC);
 
 $player_id = array();
 
@@ -507,7 +507,7 @@ if (count($player_id))
             ORDER BY `playerposition_position_id` ASC";
     $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -520,7 +520,7 @@ if (count($player_id))
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
@@ -538,7 +538,7 @@ $sql = "SELECT `electionnationalapplication_id`,
         LIMIT 1";
 $electionnationalapplication_sql = f_igosja_mysqli_query($sql);
 
-$electionnationalapplication_array = $electionnationalapplication_sql->fetch_all(1);
+$electionnationalapplication_array = $electionnationalapplication_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($electionnationalapplication_sql->num_rows)
 {
@@ -549,7 +549,7 @@ if ($electionnationalapplication_sql->num_rows)
             WHERE `electionnationalapplicationplayer_electionnationalapplication_id`=$electionnationalapplication_id";
     $electionnationalapplicationplayer_sql = f_igosja_mysqli_query($sql);
 
-    $electionnationalapplicationplayer_array = $electionnationalapplicationplayer_sql->fetch_all(1);
+    $electionnationalapplicationplayer_array = $electionnationalapplicationplayer_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($electionnationalapplicationplayer_array as $item)
     {

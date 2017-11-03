@@ -17,9 +17,9 @@ function f_igosja_create_team_players($team_id)
             ON `stadium_city_id`=`city_id`
             WHERE `team_id`=$team_id
             LIMIT 1";
-    $country_sql = f_igosja_mysqli_query($sql, false);
+    $country_sql = f_igosja_mysqli_query($sql);
 
-    $country_array = $country_sql->fetch_all(1);
+    $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
     $country_id = $country_array[0]['city_country_id'];
 
@@ -71,9 +71,9 @@ function f_igosja_create_team_players($team_id)
                FROM `phisical`
                ORDER BY RAND()
                LIMIT 1";
-        $phisical_sql = f_igosja_mysqli_query($sql, false);
+        $phisical_sql = f_igosja_mysqli_query($sql);
 
-        $phisical_array = $phisical_sql->fetch_all(1);
+        $phisical_array = $phisical_sql->fetch_all(MYSQLI_ASSOC);
 
         $phisical_id    = $phisical_array[0]['phisical_id'];
         $phisical_value = $phisical_array[0]['phisical_value'];
@@ -83,9 +83,9 @@ function f_igosja_create_team_players($team_id)
                 WHERE `namecountry_country_id`=$country_id
                 ORDER BY RAND()
                 LIMIT 1";
-        $name_sql = f_igosja_mysqli_query($sql, false);
+        $name_sql = f_igosja_mysqli_query($sql);
 
-        $name_array = $name_sql->fetch_all(1);
+        $name_array = $name_sql->fetch_all(MYSQLI_ASSOC);
 
         $name_id = $name_array[0]['namecountry_name_id'];
 
@@ -112,14 +112,14 @@ function f_igosja_create_team_players($team_id)
                     `player_team_id`=$team_id,
                     `player_tire`=50,
                     `player_training_ability`=$ability";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $player_id = $mysqli->insert_id;
 
         $sql = "INSERT INTO `playerposition`
                 SET `playerposition_player_id`=$player_id,
                     `playerposition_position_id`=$position_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_PLAYER_FROM_SCHOOL,

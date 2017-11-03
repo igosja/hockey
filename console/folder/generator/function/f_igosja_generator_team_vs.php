@@ -9,9 +9,9 @@ function f_igosja_generator_team_vs()
             FROM `team`
             WHERE `team_id`!=0
             ORDER BY `team_id` ASC";
-    $team_sql = f_igosja_mysqli_query($sql, false);
+    $team_sql = f_igosja_mysqli_query($sql);
 
-    $team_array = $team_sql->fetch_all(1);
+    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($team_array as $item)
     {
@@ -31,9 +31,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 15
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power      = $power_array[0]['power'];
         $power_s    = $power_array[0]['power_s'];
@@ -52,9 +52,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 1
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power_c_16 = $power + $power_array[0]['power'];
         $power_s_16 = $power_s + $power_array[0]['power_s'];
@@ -73,9 +73,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 20
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power      = $power_array[0]['power'];
         $power_s    = $power_array[0]['power_s'];
@@ -94,9 +94,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 1
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power_c_21 = $power + $power_array[0]['power'];
         $power_s_21 = $power_s + $power_array[0]['power_s'];
@@ -115,9 +115,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 25
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power      = $power_array[0]['power'];
         $power_s    = $power_array[0]['power_s'];
@@ -136,9 +136,9 @@ function f_igosja_generator_team_vs()
                     ORDER BY `player_power_nominal` DESC, `player_id` ASC
                     LIMIT 2
                 ) AS `t1`";
-        $power_sql = f_igosja_mysqli_query($sql, false);
+        $power_sql = f_igosja_mysqli_query($sql);
 
-        $power_array = $power_sql->fetch_all(1);
+        $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
         $power_c_27 = $power + $power_array[0]['power'];
         $power_s_27 = $power_s + $power_array[0]['power_s'];
@@ -157,6 +157,6 @@ function f_igosja_generator_team_vs()
                     `team_power_vs`=$power_vs
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

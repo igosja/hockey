@@ -19,9 +19,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `vote_id` DESC
         LIMIT $offset, $limit";
-$vote_sql = f_igosja_mysqli_query($sql, false);
+$vote_sql = f_igosja_mysqli_query($sql);
 
-$vote_array = $vote_sql->fetch_all(1);
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Опросы';
 

@@ -10,6 +10,6 @@ $sql = "UPDATE `site`
         SET `site_status`=1-`site_status`
         WHERE `site_id`=1
         LIMIT 1";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 redirect('/admin/');

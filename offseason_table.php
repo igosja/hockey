@@ -46,14 +46,14 @@ $sql = "SELECT `city_name`,
         WHERE `offseason_season_id`=$season_id
         $where
         ORDER BY `offseason_place` ASC";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `season_id`
         FROM `offseason`
@@ -61,9 +61,9 @@ $sql = "SELECT `season_id`
         ON `offseason_season_id`=`season_id`
         GROUP BY `offseason_season_id`
         ORDER BY `offseason_season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
@@ -79,9 +79,9 @@ $sql = "SELECT `country_id`,
         WHERE `offseason_season_id`=$season_id
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Кубок межсезонья';
 $seo_description    = 'Кубок межсезонья, турнирная таблица на сайте Вирутальной Хоккейной Лиги.';

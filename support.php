@@ -67,13 +67,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         AND `message_user_id_to`=$auth_user_id)
         ORDER BY `message_id` DESC
         LIMIT $offset, $limit";
-$message_sql = f_igosja_mysqli_query($sql, false);
+$message_sql = f_igosja_mysqli_query($sql);
 
-$message_array = $message_sql->fetch_all(1);
+$message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
@@ -83,7 +83,7 @@ $sql = "UPDATE `message`
         WHERE `message_user_id_to`=$auth_user_id
         AND `message_support_from`=1
         AND `message_read`=0";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $seo_title          = 'Техническая поддержка';
 $seo_description    = 'Техническая поддержка на сайте Вирутальной Хоккейной Лиги.';

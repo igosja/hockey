@@ -20,7 +20,7 @@ function f_igosja_check_user_by_login($login)
 
     $prepare->close();
 
-    $check_array = $check_sql->fetch_all(1);
+    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
     $check = $check_array[0]['count'];
 

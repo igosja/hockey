@@ -14,9 +14,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `forumchapter_name`
         FROM `forumchapter`
         ORDER BY `forumchapter_id` ASC";
-$forumchapter_sql = f_igosja_mysqli_query($sql, false);
+$forumchapter_sql = f_igosja_mysqli_query($sql);
 
-$forumchapter_array = $forumchapter_sql->fetch_all(1);
+$forumchapter_array = $forumchapter_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `forumchapter_id`,
@@ -29,9 +29,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `forumgroup_id` ASC
         LIMIT $offset, $limit";
-$forumgroup_sql = f_igosja_mysqli_query($sql, false);
+$forumgroup_sql = f_igosja_mysqli_query($sql);
 
-$forumgroup_array = $forumgroup_sql->fetch_all(1);
+$forumgroup_array = $forumgroup_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Группы';
 

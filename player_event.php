@@ -31,10 +31,10 @@ $sql = "SELECT `history_date`,
         ON `history_position_id`=`position_id`
         WHERE `history_player_id`=$num_get
         ORDER BY `history_id` DESC";
-$event_sql = f_igosja_mysqli_query($sql, false);
+$event_sql = f_igosja_mysqli_query($sql);
 
 $count_event = $event_sql->num_rows;
-$event_array = $event_sql->fetch_all(1);
+$event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {

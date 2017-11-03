@@ -16,9 +16,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `user_id` ASC
         LIMIT $offset, $limit";
-$user_sql = f_igosja_mysqli_query($sql, false);
+$user_sql = f_igosja_mysqli_query($sql);
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Пользователи';
 

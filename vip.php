@@ -14,9 +14,9 @@ if (!isset($auth_user_id))
 $sql = "SELECT COUNT(`user_id`) AS `count`
         FROM `user`
         WHERE `user_date_vip`>UNIX_TIMESTAMP()";
-$vip_sql = f_igosja_mysqli_query($sql, false);
+$vip_sql = f_igosja_mysqli_query($sql);
 
-$vip_array = $vip_sql->fetch_all(1);
+$vip_array = $vip_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'VIP клуб';
 $seo_description    = 'VIP клуб на сайте Вирутальной Хоккейной Лиги.';

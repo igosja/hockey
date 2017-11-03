@@ -12,9 +12,9 @@ function f_igosja_event_score($game_result, $team)
             FROM `eventtextgoal`
             ORDER BY RAND()
             LIMIT 1";
-    $eventtextgoal_sql = f_igosja_mysqli_query($sql, false);
+    $eventtextgoal_sql = f_igosja_mysqli_query($sql);
 
-    $eventtextgoal_array = $eventtextgoal_sql->fetch_all(1);
+    $eventtextgoal_array = $eventtextgoal_sql->fetch_all(MYSQLI_ASSOC);
 
     if ('home' == $team)
     {

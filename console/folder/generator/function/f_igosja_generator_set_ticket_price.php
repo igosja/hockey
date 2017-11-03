@@ -12,5 +12,5 @@ function f_igosja_generator_set_ticket_price()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_ticket`=0";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

@@ -11,14 +11,14 @@ $sql = "SELECT `forumchapter_name`
         FROM `forumchapter`
         WHERE `forumchapter_id`=$num_get
         LIMIT 1";
-$forumchapter_sql = f_igosja_mysqli_query($sql, false);
+$forumchapter_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $forumchapter_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$forumchapter_array = $forumchapter_sql->fetch_all(1);
+$forumchapter_array = $forumchapter_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `forumgroup_count_message`,
                `forumgroup_count_theme`,
@@ -37,9 +37,9 @@ $sql = "SELECT `forumgroup_count_message`,
         ON `forumgroup_last_user_id`=`user_id`
         WHERE `forumgroup_forumchapter_id`=$num_get
         ORDER BY `forumgroup_order` ASC";
-$forumgroup_sql = f_igosja_mysqli_query($sql, false);
+$forumgroup_sql = f_igosja_mysqli_query($sql);
 
-$forumgroup_array = $forumgroup_sql->fetch_all(1);
+$forumgroup_array = $forumgroup_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $forumchapter_array[0]['forumchapter_name'] . ' - Форум';
 $seo_description    = $forumchapter_array[0]['forumchapter_name'] . ' - Форум сайта Вирутальной Хоккейной Лиги.';

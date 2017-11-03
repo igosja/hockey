@@ -35,7 +35,7 @@ if ($data = f_igosja_request_post('data'))
         refresh();
     }
 
-    $user_array = $user_sql->fetch_all(1);
+    $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     if ($user_array[0]['user_date_confirm'])
     {

@@ -21,7 +21,7 @@ $sql = "SELECT `nationaltype_id`,
         ORDER BY `nationaltype_id` ASC";
 $nationaltype_sql = f_igosja_mysqli_query($sql);
 
-$nationaltype_array = $nationaltype_sql->fetch_all(1);
+$nationaltype_array = $nationaltype_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$nationaltype_get = (int) f_igosja_request_get('nationaltype'))
 {
@@ -48,7 +48,7 @@ if (0 == $national_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$national_array = $national_sql->fetch_all(1);
+$national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $country_array[0]['country_name'] . '. Сборные';
 $seo_description    = $country_array[0]['country_name'] . '. Сборные на сайте Вирутальной Хоккейной Лиги.';

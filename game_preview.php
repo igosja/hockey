@@ -37,14 +37,14 @@ $sql = "SELECT `game_played`,
         ON `stadium_team`.`team_stadium_id`=`stadium_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
-$game_sql = f_igosja_mysqli_query($sql, false);
+$game_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $game_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $home_team_id   = $game_array[0]['home_team_id'];
 $guest_team_id  = $game_array[0]['guest_team_id'];
@@ -76,9 +76,9 @@ $sql = "SELECT `game_guest_score`,
         OR (`game_home_team_id`=$guest_team_id
         AND `game_guest_team_id`=$home_team_id)
         ORDER BY `game_id` DESC";
-$previous_sql = f_igosja_mysqli_query($sql, false);
+$previous_sql = f_igosja_mysqli_query($sql);
 
-$previous_array = $previous_sql->fetch_all(1);
+$previous_array = $previous_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . '. Информация перед началом матча';
 $seo_description    = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . '. Информация перед началом матча на сайте Вирутальной Хоккейной Лиги.';

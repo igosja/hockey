@@ -60,7 +60,7 @@ else
                     FROM `a_migration`
                     WHERE `migration_file`='$item'";
             $check_sql   = $mysqli->query($sql);
-            $check_array = $check_sql->fetch_all(1);
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
             $check       = $check_array[0]['count'];
 
             if (0 == $check)

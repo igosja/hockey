@@ -38,14 +38,14 @@ $sql = "SELECT `country_id`,
         ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
-$player_sql = f_igosja_mysqli_query($sql, false);
+$player_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $player_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `playerposition_player_id`,
                `position_name`
@@ -54,9 +54,9 @@ $sql = "SELECT `playerposition_player_id`,
         ON `playerposition_position_id`=`position_id`
         WHERE `playerposition_player_id`=$num_get
         ORDER BY `playerposition_position_id` ASC";
-$playerposition_sql = f_igosja_mysqli_query($sql, false);
+$playerposition_sql = f_igosja_mysqli_query($sql);
 
-$playerposition_array = $playerposition_sql->fetch_all(1);
+$playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `playerspecial_level`,
                `playerspecial_player_id`,
@@ -67,9 +67,9 @@ $sql = "SELECT `playerspecial_level`,
         ON `playerspecial_special_id`=`special_id`
         WHERE `playerspecial_player_id`=$num_get
         ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-$playerspecial_sql = f_igosja_mysqli_query($sql, false);
+$playerspecial_sql = f_igosja_mysqli_query($sql);
 
-$playerspecial_array = $playerspecial_sql->fetch_all(1);
+$playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
 if (isset($auth_team_id) && $player_array[0]['team_id'] == $auth_team_id)
 {
@@ -78,7 +78,7 @@ if (isset($auth_team_id) && $player_array[0]['team_id'] == $auth_team_id)
                    `line_name`
             FROM `line`
             ORDER BY `line_id` ASC";
-    $line_sql = f_igosja_mysqli_query($sql, false);
+    $line_sql = f_igosja_mysqli_query($sql);
 
-    $line_array = $line_sql->fetch_all(1);
+    $line_array = $line_sql->fetch_all(MYSQLI_ASSOC);
 }

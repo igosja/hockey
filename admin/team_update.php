@@ -13,14 +13,14 @@ $sql = "SELECT `team_id`,
         FROM `team`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $team_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -33,7 +33,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `team_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/team_view.php?num=' . $num_get);
 }
@@ -42,9 +42,9 @@ $sql = "SELECT `stadium_id`,
                `stadium_name`
         FROM `stadium`
         ORDER BY `stadium_name` ASC, `stadium_id` ASC";
-$stadium_sql = f_igosja_mysqli_query($sql, false);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
-$stadium_array = $stadium_sql->fetch_all(1);
+$stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'team_list.php', 'text' => 'Команды');
 $breadcrumb_array[] = array(

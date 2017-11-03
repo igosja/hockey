@@ -41,9 +41,9 @@ $sql = "SELECT `game_id`,
         WHERE `lineup_player_id`=$num_get
         AND `game_played`=1
         ORDER BY `schedule_id` DESC";
-$game_sql = f_igosja_mysqli_query($sql, false);
+$game_sql = f_igosja_mysqli_query($sql);
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Профиль хоккеиста';
 $seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Профиль хоккеиста на сайте Вирутальной Хоккейной Лиги.';

@@ -26,14 +26,14 @@ $sql = "SELECT `message_id`,
         OR (`message_user_id_from`=$auth_user_id
         AND `message_support_to`=0))
         LIMIT 1";
-$message_sql = f_igosja_mysqli_query($sql, false);
+$message_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $message_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$message_array = $message_sql->fetch_all(1);
+$message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
 
 $message_id = $message_array[0]['message_id'];
 
@@ -52,14 +52,14 @@ $sql = "UPDATE `message`
         SET " . $field . "=1
         WHERE `message_id`=$message_id
         LIMIT 1";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $sql = "DELETE FROM `message`
         WHERE `message_id`=$num_get
         AND `message_delete_from`=1
         AND `message_delete_to`=1
         LIMIT 1";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $_SESSION['message']['class']   = 'success';
 $_SESSION['message']['text']    = 'Сообщение успешно удалено.';

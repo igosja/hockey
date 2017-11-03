@@ -26,7 +26,7 @@ if (0 == $electionnationalvice_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$electionnationalvice_array = $electionnationalvice_sql->fetch_all(1);
+$electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC);
 
 $electionnationalvice_id = $electionnationalvice_array[0]['electionnationalvice_id'];
 
@@ -74,7 +74,7 @@ if (0 == $electionnationalvice_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$electionnationalvice_array = $electionnationalvice_sql->fetch_all(1);
+$electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -92,7 +92,7 @@ if ($data = f_igosja_request_post('data'))
             AND `electionnationalviceuser_user_id`=$auth_user_id";
     $electionnationalviceuser_sql = f_igosja_mysqli_query($sql);
 
-    $electionnationalviceuser_array = $electionnationalviceuser_sql->fetch_all(1);
+    $electionnationalviceuser_array = $electionnationalviceuser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 != $electionnationalviceuser_array[0]['count'])
     {
@@ -125,7 +125,7 @@ if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionnationalvice_array[0
             AND `electionnationalviceuser_user_id`=$auth_user_id";
     $electionnationalviceuser_sql = f_igosja_mysqli_query($sql);
 
-    $electionnationalviceuser_array = $electionnationalviceuser_sql->fetch_all(1);
+    $electionnationalviceuser_array = $electionnationalviceuser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 == $electionnationalviceuser_array[0]['count'])
     {

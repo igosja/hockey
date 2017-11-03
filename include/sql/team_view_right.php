@@ -8,9 +8,9 @@ $sql = "SELECT `rosterphrase_text`
         FROM `rosterphrase`
         ORDER BY RAND()
         LIMIT 1";
-$rosterphrase_sql = f_igosja_mysqli_query($sql, false);
+$rosterphrase_sql = f_igosja_mysqli_query($sql);
 
-$rosterphrase_array = $rosterphrase_sql->fetch_all(1);
+$rosterphrase_array = $rosterphrase_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `game_id`,
                IF(`game_guest_team_id`=$num_get, `game_home_score`, `game_guest_score`) AS `guest_score`,
@@ -32,9 +32,9 @@ $sql = "SELECT `game_id`,
         AND `game_played`=1
         ORDER BY `schedule_date` DESC
         LIMIT 3";
-$latest_sql = f_igosja_mysqli_query($sql, false);
+$latest_sql = f_igosja_mysqli_query($sql);
 
-$latest_array = $latest_sql->fetch_all(1);
+$latest_array = $latest_sql->fetch_all(MYSQLI_ASSOC);
 
 $latest_array = array_reverse($latest_array);
 
@@ -57,6 +57,6 @@ $sql = "SELECT `game_id`,
         AND `game_played`=0
         ORDER BY `schedule_date` ASC
         LIMIT 2";
-$nearest_sql = f_igosja_mysqli_query($sql, false);
+$nearest_sql = f_igosja_mysqli_query($sql);
 
-$nearest_array = $nearest_sql->fetch_all(1);
+$nearest_array = $nearest_sql->fetch_all(MYSQLI_ASSOC);

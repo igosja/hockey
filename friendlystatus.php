@@ -30,7 +30,7 @@ if ($data = f_igosja_request_post('data'))
     $sql = "SELECT COUNT(`friendlystatus_id`) AS `count`
             FROM `friendlystatus`
             WHERE `friendlystatus_id`=$friendlystatus_id";
-    $friendlystatus_sql = f_igosja_mysqli_query($sql, false);
+    $friendlystatus_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $friendlystatus_sql->num_rows)
     {
@@ -40,13 +40,13 @@ if ($data = f_igosja_request_post('data'))
         refresh();
     }
 
-    $friendlystatus_array = $friendlystatus_sql->fetch_all(1);
+    $friendlystatus_array = $friendlystatus_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "UPDATE `user`
             SET `user_friendlystatus_id`=$friendlystatus_id
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
@@ -69,17 +69,17 @@ $sql = "SELECT `city_name`,
         ON `team_user_id`=`user_id`
         WHERE `team_id`=$auth_team_id
         LIMIT 1";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `friendlystatus_id`,
                `friendlystatus_name`
         FROM `friendlystatus`
         ORDER BY `friendlystatus_id` ASC";
-$friendlystatus_sql = f_igosja_mysqli_query($sql, false);
+$friendlystatus_sql = f_igosja_mysqli_query($sql);
 
-$friendlystatus_array = $friendlystatus_sql->fetch_all(1);
+$friendlystatus_array = $friendlystatus_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Изменения статуса в товарищеских матчах';
 $seo_description    = 'Изменения статуса в товарищеских матчах на сайте Вирутальной Хоккейной Лиги.';

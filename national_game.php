@@ -65,7 +65,7 @@ $sql = "SELECT `country_name`,
         ORDER BY `schedule_id` ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $national_array[0]['country_name'] . '. Матчи команды';
 $seo_description    = $national_array[0]['country_name'] . '. Матчи команды на сайте Вирутальной Хоккейной Лиги.';

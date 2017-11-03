@@ -11,7 +11,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "INSERT INTO `forumgroup`
             SET $set_sql";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/forumgroup_view.php?num=' . $mysqli->insert_id);
 }
@@ -20,9 +20,9 @@ $sql = "SELECT `forumchapter_id`,
                `forumchapter_name`
         FROM `forumchapter`
         ORDER BY `forumchapter_name` ASC, `forumchapter_id` ASC";
-$forumchapter_sql = f_igosja_mysqli_query($sql, false);
+$forumchapter_sql = f_igosja_mysqli_query($sql);
 
-$forumchapter_array = $forumchapter_sql->fetch_all(1);
+$forumchapter_array = $forumchapter_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'forumgroup_list.php', 'text' => 'Группы');
 $breadcrumb_array[] = 'Создание';

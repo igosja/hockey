@@ -18,9 +18,9 @@ $sql = "SELECT `country_id`,
         ON `city_country_id`=`country_id`
         GROUP BY `city_country_id`
         ORDER BY `country_name` ASC, `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_id`,
                `city_name`
@@ -29,9 +29,9 @@ $sql = "SELECT `city_id`,
         ON `stadium_city_id`=`city_id`
         GROUP BY `stadium_city_id`
         ORDER BY `city_name` ASC, `city_id` ASC";
-$city_sql = f_igosja_mysqli_query($sql, false);
+$city_sql = f_igosja_mysqli_query($sql);
 
-$city_array = $city_sql->fetch_all(1);
+$city_array = $city_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `city_id`,
@@ -48,9 +48,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `stadium_id` ASC
         LIMIT $offset, $limit";
-$stadium_sql = f_igosja_mysqli_query($sql, false);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
-$stadium_array = $stadium_sql->fetch_all(1);
+$stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Стадионы';
 

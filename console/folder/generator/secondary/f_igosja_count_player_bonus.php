@@ -24,9 +24,9 @@ function f_igosja_count_player_bonus($game_result)
                        `playerspecial_special_id`
                 FROM `playerspecial`
                 WHERE `playerspecial_player_id`=$player_id";
-        $playerspesial_sql = f_igosja_mysqli_query($sql, false);
+        $playerspesial_sql = f_igosja_mysqli_query($sql);
 
-        $playerspecial_array = $playerspesial_sql->fetch_all(1);
+        $playerspecial_array = $playerspesial_sql->fetch_all(MYSQLI_ASSOC);
 
         foreach ($playerspecial_array as $item)
         {
@@ -111,9 +111,9 @@ function f_igosja_count_player_bonus($game_result)
                                `playerspecial_special_id`
                         FROM `playerspecial`
                         WHERE `playerspecial_player_id`=$player_id";
-                $playerspesial_sql = f_igosja_mysqli_query($sql, false);
+                $playerspesial_sql = f_igosja_mysqli_query($sql);
 
-                $playerspecial_array = $playerspesial_sql->fetch_all(1);
+                $playerspecial_array = $playerspesial_sql->fetch_all(MYSQLI_ASSOC);
 
                 foreach ($playerspecial_array as $item)
                 {

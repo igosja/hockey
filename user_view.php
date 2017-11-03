@@ -71,9 +71,9 @@ $sql = "SELECT `championship_place`,
         ON `team_id`=`conference_team_id`
         WHERE `team_user_id`=$num_get
         ORDER BY `team_id` ASC";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `userrating_auto`,
                `userrating_collision_loose`,
@@ -104,7 +104,7 @@ $sql = "SELECT `userrating_auto`,
         WHERE `userrating_user_id`=$num_get
         AND `userrating_season_id`=0
         LIMIT 1";
-$userrating_total_sql = f_igosja_mysqli_query($sql, false);
+$userrating_total_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $userrating_total_sql->num_rows)
 {
@@ -141,10 +141,10 @@ if (0 == $userrating_total_sql->num_rows)
             WHERE `userrating_user_id`=$num_get
             AND `userrating_season_id`=0
             LIMIT 1";
-    $userrating_total_sql = f_igosja_mysqli_query($sql, false);
+    $userrating_total_sql = f_igosja_mysqli_query($sql);
 }
 
-$userrating_total_array = $userrating_total_sql->fetch_all(1);
+$userrating_total_array = $userrating_total_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `userrating_auto`,
                `userrating_collision_loose`,
@@ -176,9 +176,9 @@ $sql = "SELECT `userrating_auto`,
         WHERE `userrating_user_id`=$num_get
         AND `userrating_season_id`!=0
         ORDER BY `userrating_season_id` DESC";
-$userrating_sql = f_igosja_mysqli_query($sql, false);
+$userrating_sql = f_igosja_mysqli_query($sql);
 
-$userrating_array = $userrating_sql->fetch_all(1);
+$userrating_array = $userrating_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `history_date`,
                `history_season_id`,
@@ -196,10 +196,10 @@ $sql = "SELECT `history_date`,
         ON `history_team_id`=`team_id`
         WHERE `history_user_id`=$num_get
         ORDER BY `history_id` DESC";
-$event_sql = f_igosja_mysqli_query($sql, false);
+$event_sql = f_igosja_mysqli_query($sql);
 
 $count_event = $event_sql->num_rows;
-$event_array = $event_sql->fetch_all(1);
+$event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {

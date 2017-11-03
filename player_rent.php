@@ -31,13 +31,13 @@ if (isset($auth_team_id) && $auth_team_id)
                 WHERE `rent_player_id`=$num_get
                 AND `rent_ready`=0
                 LIMIT 1";
-        $rent_sql = f_igosja_mysqli_query($sql, false);
+        $rent_sql = f_igosja_mysqli_query($sql);
 
         if ($rent_sql->num_rows)
         {
             $on_rent = true;
 
-            $rent_array = $rent_sql->fetch_all(1);
+            $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
             $rent_id        = $rent_array[0]['rent_id'];
             $rent_price     = $rent_array[0]['rent_price_buyer'];
@@ -49,11 +49,11 @@ if (isset($auth_team_id) && $auth_team_id)
                 $sql = "DELETE FROM `rent`
                         WHERE `rent_id`=$rent_id
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $sql = "DELETE FROM `rentapplication`
                         WHERE `rentapplication_rent_id`=$rent_id";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
@@ -79,9 +79,9 @@ if (isset($auth_team_id) && $auth_team_id)
                     ON `city_country_id`=`country_id`
                     WHERE `rentapplication_rent_id`=$rent_id
                     ORDER BY `rentapplication_id` ASC";
-            $rentapplication_sql = f_igosja_mysqli_query($sql, false);
+            $rentapplication_sql = f_igosja_mysqli_query($sql);
 
-            $rentapplication_array = $rentapplication_sql->fetch_all(1);
+            $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
         }
         else
         {
@@ -136,7 +136,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             `rent_price_buyer`=$price,
                             `rent_team_seller_id`=$auth_team_id,
                             `rent_user_seller_id`=$auth_user_id";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно выставлен на рынок аренды.';
@@ -157,13 +157,13 @@ if (isset($auth_team_id) && $auth_team_id)
                 WHERE `rent_player_id`=$num_get
                 AND `rent_ready`=0
                 LIMIT 1";
-        $rent_sql = f_igosja_mysqli_query($sql, false);
+        $rent_sql = f_igosja_mysqli_query($sql);
 
         if ($rent_sql->num_rows)
         {
             $on_rent = true;
 
-            $rent_array = $rent_sql->fetch_all(1);
+            $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
             $rent_id = $rent_array[0]['rent_id'];
 
@@ -181,9 +181,9 @@ if (isset($auth_team_id) && $auth_team_id)
                     ON `city_country_id`=`country_id`
                     WHERE `team_id`=$auth_team_id
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "SELECT `rentapplication_day`,
                            `rentapplication_id`,
@@ -193,11 +193,11 @@ if (isset($auth_team_id) && $auth_team_id)
                     AND `rentapplication_team_id`=$auth_team_id
                     AND `rentapplication_user_id`=$auth_user_id
                     LIMIT 1";
-            $rentapplication_sql = f_igosja_mysqli_query($sql, false);
+            $rentapplication_sql = f_igosja_mysqli_query($sql);
 
             if ($rentapplication_sql->num_rows)
             {
-                $rentapplication_array = $rentapplication_sql->fetch_all(1);
+                $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
                 $rent_price     = $rentapplication_array[0]['rentapplication_price'];
                 $start_price    = $rent_array[0]['rent_price_buyer'];
@@ -212,7 +212,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     $sql = "DELETE FROM `rentapplication`
                             WHERE `rentapplication_id`=$rentapplication_id
                             LIMIT 1";
-                    f_igosja_mysqli_query($sql, false);
+                    f_igosja_mysqli_query($sql);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно удалена.';
@@ -255,7 +255,7 @@ if (isset($auth_team_id) && $auth_team_id)
                                 `rentapplication_price`=$price
                             WHERE `rentapplication_id`=$rentapplication_id
                             LIMIT 1";
-                    f_igosja_mysqli_query($sql, false);
+                    f_igosja_mysqli_query($sql);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно отредактирована.';
@@ -307,7 +307,7 @@ if (isset($auth_team_id) && $auth_team_id)
                                 `rentapplication_team_id`=$auth_team_id,
                                 `rentapplication_rent_id`=$rent_id,
                                 `rentapplication_user_id`=$auth_user_id";
-                    f_igosja_mysqli_query($sql, false);
+                    f_igosja_mysqli_query($sql);
 
                     $_SESSION['message']['class']   = 'success';
                     $_SESSION['message']['text']    = 'Заявка успешно сохранена.';

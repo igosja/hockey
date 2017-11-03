@@ -1,8 +1,8 @@
 <?php
 
 $sql        = "SELECT FOUND_ROWS() AS `count`";
-$count_item = f_igosja_mysqli_query($sql, false);
-$count_item = $count_item->fetch_all(1);
+$count_item = f_igosja_mysqli_query($sql);
+$count_item = $count_item->fetch_all(MYSQLI_ASSOC);
 $count_item = $count_item[0]['count'];
 $count_page = ceil($count_item / $limit);
 

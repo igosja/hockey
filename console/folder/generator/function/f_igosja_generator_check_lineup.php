@@ -21,5 +21,5 @@ function f_igosja_generator_check_lineup()
             )
             AND ((`lineup_team_id`!=`player_team_id` AND `player_rent_team_id`=0)
             OR (`lineup_team_id`!=`player_rent_team_id` AND `player_rent_team_id`!=0))";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

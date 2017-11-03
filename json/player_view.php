@@ -18,7 +18,7 @@ if ($line_id = (int) f_igosja_request_get('line_id'))
             WHERE `player_id`=$player_id
             AND `player_team_id`=$auth_team_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $result = true;
 }

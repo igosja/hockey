@@ -16,9 +16,9 @@ function f_igosja_generator_fill_lineup()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $game)
     {
@@ -96,7 +96,7 @@ function f_igosja_generator_fill_lineup()
 
                 if (0 != $lineup_sql->num_rows)
                 {
-                    $lineup_array = $lineup_sql->fetch_all(1);
+                    $lineup_array = $lineup_sql->fetch_all(MYSQLI_ASSOC);
 
                     $lineup_id          = $lineup_array[0]['lineup_id'];
                     $lineup_player_id   = $lineup_array[0]['lineup_player_id'];
@@ -166,7 +166,7 @@ function f_igosja_generator_fill_lineup()
                         $player_sql = f_igosja_mysqli_query($league_sql);
                     }
 
-                    $player_array = $player_sql->fetch_all(1);
+                    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
                     $player_id = $player_array[0]['player_id'];
 

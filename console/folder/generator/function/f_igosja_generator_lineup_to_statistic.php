@@ -25,9 +25,9 @@ function f_igosja_generator_lineup_to_statistic()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $game)
     {
@@ -91,9 +91,9 @@ function f_igosja_generator_lineup_to_statistic()
                 AND `statisticplayer_season_id`=$season_id
                 AND `statisticplayer_team_id`=$team_id
                 AND `statisticplayer_tournamenttype_id`=$tournamenttype_id";
-        $check_sql = f_igosja_mysqli_query($sql, false);
+        $check_sql = f_igosja_mysqli_query($sql);
 
-        $check_array = $check_sql->fetch_all(1);
+        $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
         if (0 == $check_array[0]['count'])
         {
@@ -107,7 +107,7 @@ function f_igosja_generator_lineup_to_statistic()
                         `statisticplayer_season_id`=$season_id,
                         `statisticplayer_team_id`=$team_id,
                         `statisticplayer_tournamenttype_id`=$tournamenttype_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 }

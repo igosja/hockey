@@ -27,9 +27,9 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                 ORDER BY `electionnational_id` ASC";
     }
 
-    $electionnational_sql = f_igosja_mysqli_query($sql, false);
+    $electionnational_sql = f_igosja_mysqli_query($sql);
 
-    $electionnational_array = $electionnational_sql->fetch_all(1);
+    $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($electionnational_array as $item)
     {
@@ -84,11 +84,11 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                 )
                 ORDER BY `count_answer` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC
                 LIMIT 2";
-        $user_sql = f_igosja_mysqli_query($sql, false);
+        $user_sql = f_igosja_mysqli_query($sql);
 
         if ($user_sql->num_rows)
         {
-            $user_array = $user_sql->fetch_all(1);
+            $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
             $user_id = $user_array[0]['electionnationalapplication_user_id'];
 
@@ -97,9 +97,9 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                     WHERE `national_country_id`=$country_id
                     AND `national_nationaltype_id`=$nationaltype_id
                     LIMIT 1";
-            $national_sql = f_igosja_mysqli_query($sql, false);
+            $national_sql = f_igosja_mysqli_query($sql);
 
-            $national_array = $national_sql->fetch_all(1);
+            $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
 
             $national_id = $national_array[0]['national_id'];
 
@@ -131,9 +131,9 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                                 AND `national_vice_id`=$vice_id";
                     }
 
-                    $check_sql = f_igosja_mysqli_query($sql, false);
+                    $check_sql = f_igosja_mysqli_query($sql);
 
-                    $check_array = $check_sql->fetch_all(1);
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
                     if ($check_array[0]['count'])
                     {
@@ -160,7 +160,7 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                         `national_vice_id`=$vice_id
                     WHERE `national_id`=$national_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $application_id = $user_array[0]['electionnationalapplication_user_id'];
 
@@ -169,13 +169,13 @@ function f_igosja_election_national_to_close($nationaltype_id, $country_id = 0)
                     ON `electionnationalapplicationplayer_player_id`=`player_id`
                     SET `player_national_id`=$national_id
                     WHERE `electionnationalapplicationplayer_id`=$application_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `electionnational`
                     SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "
                     WHERE `electionnational_id`=$electionnational_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 }

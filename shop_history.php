@@ -21,9 +21,9 @@ $sql = "SELECT `money_date`,
         ON `money_moneytext_id`=`moneytext_id`
         WHERE `money_user_id`=$auth_user_id
         ORDER BY `money_id` DESC";
-$money_sql = f_igosja_mysqli_query($sql, false);
+$money_sql = f_igosja_mysqli_query($sql);
 
-$money_array = $money_sql->fetch_all(1);
+$money_array = $money_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'История платежей';
 $seo_description    = 'История платежей на сайте Вирутальной Хоккейной Лиги.';

@@ -62,4 +62,4 @@ if (0 == $national_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$national_array = $national_sql->fetch_all(1);
+$national_array = $national_sql->fetch_all(MYSQLI_ASSOC);

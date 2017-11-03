@@ -30,7 +30,7 @@ $sql = "SELECT COUNT(`national_id`) AS `check`
         LIMIT 1";
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 == $chech_array[0]['check'])
 {
@@ -44,7 +44,7 @@ $sql = "SELECT COUNT(`electionnationalvice_id`) AS `check`
         AND `electionnationalvice_nationaltype_id`=$type_get";
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($chech_array[0]['check'])
 {
@@ -61,7 +61,7 @@ $electionnationalvice_sql = f_igosja_mysqli_query($sql);
 
 if ($electionnationalvice_sql->num_rows)
 {
-    $electionnationalvice_array = $electionnationalvice_sql->fetch_all(1);
+    $electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC);
 
     $electionnationalvice_id = $electionnationalvice_array[0]['electionnationalvice_id'];
 }
@@ -95,7 +95,7 @@ if ($data = f_igosja_request_post('data'))
 
         if ($electionnationalviceapplication_sql->num_rows)
         {
-            $electionnationalviceapplication_array = $electionnationalviceapplication_sql->fetch_all(1);
+            $electionnationalviceapplication_array = $electionnationalviceapplication_sql->fetch_all(MYSQLI_ASSOC);
 
             $electionnationalviceapplication_id = $electionnationalviceapplication_array[0]['electionnationalviceapplication_id'];
 
@@ -134,7 +134,7 @@ $sql = "SELECT `country_name`
         LIMIT 1";
 $country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `electionnationalviceapplication_id`,
                `electionnationalviceapplication_text`
@@ -144,7 +144,7 @@ $sql = "SELECT `electionnationalviceapplication_id`,
         LIMIT 1";
 $electionnationalviceapplication_sql = f_igosja_mysqli_query($sql);
 
-$electionnationalviceapplication_array = $electionnationalviceapplication_sql->fetch_all(1);
+$electionnationalviceapplication_array = $electionnationalviceapplication_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($electionnationalviceapplication_sql->num_rows)
 {

@@ -12,9 +12,9 @@ $sql = "SELECT `news_text`,
         WHERE `news_country_id`=0
         ORDER BY `news_id` DESC
         LIMIT 1";
-$news_sql = f_igosja_mysqli_query($sql, false);
+$news_sql = f_igosja_mysqli_query($sql);
 
-$news_array = $news_sql->fetch_all(1);
+$news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_name`,
                `division_name`,
@@ -34,9 +34,9 @@ $sql = "SELECT `country_name`,
         ON `review_user_id`=`user_id`
         ORDER BY `review_id` DESC
         LIMIT 10";
-$review_sql = f_igosja_mysqli_query($sql, false);
+$review_sql = f_igosja_mysqli_query($sql);
 
-$review_array = $review_sql->fetch_all(1);
+$review_array = $review_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`,
@@ -52,9 +52,9 @@ $sql = "SELECT `country_id`,
         WHERE `news_country_id`!=0
         ORDER BY `news_id` DESC
         LIMIT 1";
-$newscountry_sql = f_igosja_mysqli_query($sql, false);
+$newscountry_sql = f_igosja_mysqli_query($sql);
 
-$newscountry_array = $newscountry_sql->fetch_all(1);
+$newscountry_array = $newscountry_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `user_birth_year`,
                `user_id`,
@@ -68,9 +68,9 @@ $sql = "SELECT `user_birth_year`,
         AND `user_date_login`>UNIX_TIMESTAMP()-2592000
         AND `user_id`!=0
         ORDER BY `user_id` ASC";
-$birth_sql = f_igosja_mysqli_query($sql, false);
+$birth_sql = f_igosja_mysqli_query($sql);
 
-$birth_array = $birth_sql->fetch_all(1);
+$birth_array = $birth_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `forumgroup_name`,
                `forumtheme_id`,
@@ -81,9 +81,9 @@ $sql = "SELECT `forumgroup_name`,
         WHERE `forumgroup_forumchapter_id`!=4
         ORDER BY `forumtheme_last_date` DESC
         LIMIT 10";
-$forum_sql = f_igosja_mysqli_query($sql, false);
+$forum_sql = f_igosja_mysqli_query($sql);
 
-$forum_array = $forum_sql->fetch_all(1);
+$forum_array = $forum_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Хоккейный онлайн-менеджер';
 $seo_description    = 'Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн-менеджер.';

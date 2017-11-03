@@ -20,14 +20,14 @@ $sql = "SELECT `team_id`,
         ON `teamask_user_id`=`user_id`
         WHERE `teamask_id`=$num_get
         LIMIT 1";
-$teamask_sql = f_igosja_mysqli_query($sql, false);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $teamask_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$teamask_array = $teamask_sql->fetch_all(1);
+$teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'teamask_list.php', 'text' => 'Заявки на команды');
 $breadcrumb_array[] = $teamask_array[0]['team_name'];

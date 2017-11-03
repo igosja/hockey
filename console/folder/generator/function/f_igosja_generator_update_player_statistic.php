@@ -12,7 +12,7 @@ function f_igosja_generator_update_player_statistic()
                 `statisticplayer_save_percent`=`statisticplayer_save`/`statisticplayer_shot_gk`*100
             WHERE `statisticplayer_season_id`=$igosja_season_id
             AND `statisticplayer_is_gk`=1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `statisticplayer`
             SET `statisticplayer_face_off_percent`=`statisticplayer_face_off_win`/`statisticplayer_face_off`*100,
@@ -20,5 +20,5 @@ function f_igosja_generator_update_player_statistic()
                 `statisticplayer_shot_per_game`=`statisticplayer_shot`/`statisticplayer_game`
             WHERE `statisticplayer_season_id`=$igosja_season_id
             AND `statisticplayer_is_gk`=0";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

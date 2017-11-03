@@ -23,9 +23,9 @@ function f_igosja_generator_plus_minus()
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $item)
     {
@@ -1134,7 +1134,7 @@ function f_igosja_generator_plus_minus()
                     `game_home_plus_minus_score`=$home_score
                 WHERE `game_id`=$game_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 
     $sql = "UPDATE `game`
@@ -1143,7 +1143,7 @@ function f_igosja_generator_plus_minus()
             SET `game_guest_plus_minus`=FLOOR(`game_guest_plus_minus`)+ROUND(RAND())
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `game`
             LEFT JOIN `schedule`
@@ -1151,7 +1151,7 @@ function f_igosja_generator_plus_minus()
             SET `game_home_plus_minus`=FLOOR(`game_home_plus_minus`)+ROUND(RAND())
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `game_id`,
                    `game_guest_plus_minus`,
@@ -1164,9 +1164,9 @@ function f_igosja_generator_plus_minus()
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $item)
     {
@@ -1178,9 +1178,9 @@ function f_igosja_generator_plus_minus()
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . -$item['game_home_plus_minus'];
-            $player_sql = f_igosja_mysqli_query($sql, false);
+            $player_sql = f_igosja_mysqli_query($sql);
 
-            $player_array = $player_sql->fetch_all(1);
+            $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
             foreach ($player_array as $player)
             {
@@ -1188,7 +1188,7 @@ function f_igosja_generator_plus_minus()
                         SET `player_power_nominal`=`player_power_nominal`-1
                         WHERE `player_id`=" . $player['lineup_player_id'] . "
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $log = array(
                     'history_game_id' => $item['game_id'],
@@ -1206,9 +1206,9 @@ function f_igosja_generator_plus_minus()
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . $item['game_home_plus_minus'];
-            $player_sql = f_igosja_mysqli_query($sql, false);
+            $player_sql = f_igosja_mysqli_query($sql);
 
-            $player_array = $player_sql->fetch_all(1);
+            $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
             foreach ($player_array as $player)
             {
@@ -1216,7 +1216,7 @@ function f_igosja_generator_plus_minus()
                         SET `player_power_nominal`=`player_power_nominal`+1
                         WHERE `player_id`=" . $player['lineup_player_id'] . "
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $log = array(
                     'history_game_id' => $item['game_id'],
@@ -1235,9 +1235,9 @@ function f_igosja_generator_plus_minus()
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . -$item['game_guest_plus_minus'];
-            $player_sql = f_igosja_mysqli_query($sql, false);
+            $player_sql = f_igosja_mysqli_query($sql);
 
-            $player_array = $player_sql->fetch_all(1);
+            $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
             foreach ($player_array as $player)
             {
@@ -1245,7 +1245,7 @@ function f_igosja_generator_plus_minus()
                         SET `player_power_nominal`=`player_power_nominal`-1
                         WHERE `player_id`=" . $player['lineup_player_id'] . "
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $log = array(
                     'history_game_id' => $item['game_id'],
@@ -1263,9 +1263,9 @@ function f_igosja_generator_plus_minus()
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . $item['game_guest_plus_minus'];
-            $player_sql = f_igosja_mysqli_query($sql, false);
+            $player_sql = f_igosja_mysqli_query($sql);
 
-            $player_array = $player_sql->fetch_all(1);
+            $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
             foreach ($player_array as $player)
             {
@@ -1273,7 +1273,7 @@ function f_igosja_generator_plus_minus()
                         SET `player_power_nominal`=`player_power_nominal`+1
                         WHERE `player_id`=" . $player['lineup_player_id'] . "
                         LIMIT 1";
-                f_igosja_mysqli_query($sql, false);
+                f_igosja_mysqli_query($sql);
 
                 $log = array(
                     'history_game_id' => $item['game_id'],

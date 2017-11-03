@@ -42,9 +42,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY $order
         LIMIT $offset, $limit";
-$debug_sql = f_igosja_mysqli_query($sql, false);
+$debug_sql = f_igosja_mysqli_query($sql);
 
-$debug_array = $debug_sql->fetch_all(1);
+$debug_array = $debug_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Debugger';
 

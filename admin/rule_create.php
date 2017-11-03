@@ -13,7 +13,7 @@ if ($data = f_igosja_request_post('data'))
     $sql = "INSERT INTO `rule`
             SET $set_sql,
                 `rule_date`=UNIX_TIMESTAMP()";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/rule_view.php?num=' . $mysqli->insert_id);
 }

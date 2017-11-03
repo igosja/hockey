@@ -59,7 +59,7 @@ if ($data = f_igosja_request_post('data'))
                 FROM `team`
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        $team_sql = f_igosja_mysqli_query($sql, false);
+        $team_sql = f_igosja_mysqli_query($sql);
 
         if (0 == $team_sql->num_rows)
         {
@@ -69,13 +69,13 @@ if ($data = f_igosja_request_post('data'))
             refresh();
         }
 
-        $team_array = $team_sql->fetch_all(1);
+        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
         $sql = "UPDATE `team`
                 SET `team_finance`=`team_finance`+$sum
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $data = [
             'finance_comment' => $data['comment'],
@@ -95,7 +95,7 @@ if ($data = f_igosja_request_post('data'))
                 FROM `country`
                 WHERE `country_id`=$country_id
                 LIMIT 1";
-        $country_sql = f_igosja_mysqli_query($sql, false);
+        $country_sql = f_igosja_mysqli_query($sql);
 
         if (0 == $country_sql->num_rows)
         {
@@ -105,13 +105,13 @@ if ($data = f_igosja_request_post('data'))
             refresh();
         }
 
-        $country_array = $country_sql->fetch_all(1);
+        $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
         $sql = "UPDATE `country`
                 SET `country_finance`=`country_finance`+$sum
                 WHERE `country_id`=$country_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $data = [
             'finance_comment' => $data['comment'],
@@ -128,7 +128,7 @@ if ($data = f_igosja_request_post('data'))
             SET `user_finance`=`user_finance`-$sum
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $data = [
         'finance_financetext_id' => FINANCETEXT_USER_TRANSFER,
@@ -158,9 +158,9 @@ $sql = "SELECT `city_name`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`!=0
         ORDER BY `team_name` ASC";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
@@ -171,9 +171,9 @@ $sql = "SELECT `country_id`,
         AND `city_id` IS NOT NULL
         GROUP BY `country_id`
         ORDER BY `country_name` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $user_array[0]['user_login'] . '. Перевод денег с личного счета';
 $seo_description    = $user_array[0]['user_login'] . '. Перевод денег с личного счета на сайте Вирутальной Хоккейной Лиги.';

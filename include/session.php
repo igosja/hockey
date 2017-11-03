@@ -33,9 +33,9 @@ if (isset($_SESSION['user_id']))
             ON `user_id`=`national_user_id`
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    $user_sql = f_igosja_mysqli_query($sql, false);
+    $user_sql = f_igosja_mysqli_query($sql);
 
-    $user_array = $user_sql->fetch_all(1);
+    $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     $auth_country_id    = $user_array[0]['city_country_id'];
     $auth_date_forum    = $user_array[0]['user_date_forum_block'];
@@ -64,9 +64,9 @@ if (isset($_SESSION['user_id']))
             WHERE `message_support_from`=1
             AND `message_user_id_to`=$auth_user_id
             AND `message_read`=0";
-    $support_sql = f_igosja_mysqli_query($sql, false);
+    $support_sql = f_igosja_mysqli_query($sql);
 
-    $support_array = $support_sql->fetch_all(1);
+    $support_array = $support_sql->fetch_all(MYSQLI_ASSOC);
     $count_support = $support_array[0]['count'];
 
     if ($count_support)
@@ -90,9 +90,9 @@ if (isset($_SESSION['user_id']))
                 FROM `voteuser`
                 WHERE `voteuser_user_id`=$auth_user_id
             )";
-    $vote_sql = f_igosja_mysqli_query($sql, false);
+    $vote_sql = f_igosja_mysqli_query($sql);
 
-    $vote_array = $vote_sql->fetch_all(1);
+    $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
     $count_vote = $vote_array[0]['count'];
 
     unset ($vote_array);
@@ -112,7 +112,7 @@ if (isset($_SESSION['user_id']))
             SET `user_date_login`=UNIX_TIMESTAMP()
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }
 else
 {

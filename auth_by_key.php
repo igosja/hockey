@@ -23,7 +23,7 @@ if (!$user_sql->num_rows)
     redirect('/');
 }
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 $_SESSION['user_id'] = $user_array[0]['user_id'];
 

@@ -24,9 +24,9 @@ $sql = "SELECT `user_date_vip`,
         FROM `user`
         WHERE `user_id`=$auth_user_id
         LIMIT 1";
-$user_sql = f_igosja_mysqli_query($sql, false);
+$user_sql = f_igosja_mysqli_query($sql);
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_get('data'))
 {
@@ -69,7 +69,7 @@ if ($data = f_igosja_request_get('data'))
                     `user_money`=`user_money`-$price
                 WHERE `user_id`=$auth_user_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $money = array(
             'money_moneytext_id' => MONEYTEXT_OUTCOME_VIP,
@@ -123,7 +123,7 @@ if ($data = f_igosja_request_get('data'))
                         `user_shop_training`=`user_shop_training`+1
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $money = array(
                 'money_moneytext_id' => MONEYTEXT_OUTCOME_POINT,
@@ -140,7 +140,7 @@ if ($data = f_igosja_request_get('data'))
                     SET `user_money`=`user_money`-$price
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $money = array(
                 'money_moneytext_id' => MONEYTEXT_OUTCOME_TEAM_FINANCE,
@@ -155,15 +155,15 @@ if ($data = f_igosja_request_get('data'))
                     FROM `team`
                     WHERE `team_id`=$auth_team_id
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+1000000
                     WHERE `team_id`=$auth_team_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_VIP,
@@ -181,7 +181,7 @@ if ($data = f_igosja_request_get('data'))
                         `user_shop_position`=`user_shop_position`+1
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $money = array(
                 'money_moneytext_id' => MONEYTEXT_OUTCOME_POSITION,
@@ -199,7 +199,7 @@ if ($data = f_igosja_request_get('data'))
                         `user_shop_special`=`user_shop_special`+1
                     WHERE `user_id`=$auth_user_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $money = array(
                 'money_moneytext_id' => MONEYTEXT_OUTCOME_SPECIAL,

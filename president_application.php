@@ -35,9 +35,9 @@ $sql = "SELECT COUNT(`country_id`) AS `check`
         AND `country_president_id`=0
         AND `country_vice_id`=0
         LIMIT 1";
-$check_sql = f_igosja_mysqli_query($sql, false);
+$check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 == $chech_array[0]['check'])
 {
@@ -48,9 +48,9 @@ $sql = "SELECT COUNT(`electionpresident_id`) AS `check`
         FROM `electionpresident`
         WHERE `electionpresident_country_id`=$num_get
         AND `electionpresident_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES;
-$check_sql = f_igosja_mysqli_query($sql, false);
+$check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(1);
+$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($chech_array[0]['check'])
 {
@@ -62,11 +62,11 @@ $sql = "SELECT `electionpresident_id`
         WHERE `electionpresident_country_id`=$num_get
         AND `electionpresident_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
         LIMIT 1";
-$electionpresident_sql = f_igosja_mysqli_query($sql, false);
+$electionpresident_sql = f_igosja_mysqli_query($sql);
 
 if ($electionpresident_sql->num_rows)
 {
-    $electionpresident_array = $electionpresident_sql->fetch_all(1);
+    $electionpresident_array = $electionpresident_sql->fetch_all(MYSQLI_ASSOC);
 
     $electionpresident_id = $electionpresident_array[0]['electionpresident_id'];
 }
@@ -75,7 +75,7 @@ else
     $sql = "INSERT INTO `electionpresident`
             SET `electionpresident_country_id`=$num_get,
                 `electionpresident_date`=UNIX_TIMESTAMP()";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $electionpresident_id = $mysqli->insert_id;
 }
@@ -95,11 +95,11 @@ if ($data = f_igosja_request_post('data'))
                 FROM `electionpresidentapplication`
                 WHERE `electionpresidentapplication_user_id`=$auth_user_id
                 AND `electionpresidentapplication_electionpresident_id`=$electionpresident_id";
-        $electionpresidentapplication_sql = f_igosja_mysqli_query($sql, false);
+        $electionpresidentapplication_sql = f_igosja_mysqli_query($sql);
 
         if ($electionpresidentapplication_sql->num_rows)
         {
-            $electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(1);
+            $electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
             $electionpresidentapplication_id = $electionpresidentapplication_array[0]['electionpresidentapplication_id'];
 
@@ -138,9 +138,9 @@ $sql = "SELECT `electionpresidentapplication_id`,
         WHERE `electionpresidentapplication_electionpresident_id`=$electionpresident_id
         AND `electionpresidentapplication_user_id`=$auth_user_id
         LIMIT 1";
-$electionpresidentapplication_sql = f_igosja_mysqli_query($sql, false);
+$electionpresidentapplication_sql = f_igosja_mysqli_query($sql);
 
-$electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(1);
+$electionpresidentapplication_array = $electionpresidentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($electionpresidentapplication_sql->num_rows)
 {

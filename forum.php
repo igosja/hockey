@@ -12,9 +12,9 @@ $sql = "SELECT `forumchapter_id`,
                `forumchapter_name`
         FROM `forumchapter`
         ORDER BY `forumchapter_order` ASC";
-$forumchapter_sql = f_igosja_mysqli_query($sql, false);
+$forumchapter_sql = f_igosja_mysqli_query($sql);
 
-$forumchapter_array = $forumchapter_sql->fetch_all(1);
+$forumchapter_array = $forumchapter_sql->fetch_all(MYSQLI_ASSOC);
 
 foreach ($forumchapter_array as $item)
 {
@@ -67,9 +67,9 @@ foreach ($forumchapter_array as $item)
                 ORDER BY `forumgroup_order` ASC";
     }
 
-    $forumgroup_sql = f_igosja_mysqli_query($sql, false);
+    $forumgroup_sql = f_igosja_mysqli_query($sql);
 
-    $forumgroup_array = $forumgroup_sql->fetch_all(1);
+    $forumgroup_array = $forumgroup_sql->fetch_all(MYSQLI_ASSOC);
 
     $forum_array[] = array(
         'forumchapter_id' => $forumchapter_id,

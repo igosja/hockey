@@ -16,9 +16,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `name_id` ASC
         LIMIT $offset, $limit";
-$name_sql = f_igosja_mysqli_query($sql, false);
+$name_sql = f_igosja_mysqli_query($sql);
 
-$name_array = $name_sql->fetch_all(1);
+$name_array = $name_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Имена';
 

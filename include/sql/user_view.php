@@ -25,11 +25,11 @@ $sql = "SELECT `country_name`,
         LEFT JOIN `country`
         ON `user_country_id`=`country_id`
         WHERE `user_id`=$num_get";
-$user_sql = f_igosja_mysqli_query($sql, false);
+$user_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $user_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);

@@ -141,5 +141,5 @@ function f_igosja_history($data)
                 `history_user_id`=$history_user_id,
                 `history_user_2_id`=$history_user_2_id,
                 `history_value`=$history_value";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

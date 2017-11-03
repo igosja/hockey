@@ -24,9 +24,9 @@ if ($num_get = (int) f_igosja_request_get('num'))
             FROM `team`
             WHERE `team_id`=$num_get
             AND `team_user_id`=0";
-    $team_sql = f_igosja_mysqli_query($sql, false);
+    $team_sql = f_igosja_mysqli_query($sql);
 
-    $team_array = $team_sql->fetch_all(1);
+    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 == $team_array[0]['check'])
     {
@@ -39,9 +39,9 @@ if ($num_get = (int) f_igosja_request_get('num'))
     $sql = "SELECT COUNT(`teamask_id`) AS `check`
             FROM `teamask`
             WHERE `teamask_user_id`=$auth_user_id";
-    $teamask_sql = f_igosja_mysqli_query($sql, false);
+    $teamask_sql = f_igosja_mysqli_query($sql);
 
-    $teamask_array = $teamask_sql->fetch_all(1);
+    $teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
     if ($teamask_array[0]['check'])
     {
@@ -55,7 +55,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
             SET `teamask_date`=UNIX_TIMESTAMP(),
                 `teamask_team_id`=$num_get,
                 `teamask_user_id`=$auth_user_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['text']    = 'Заявка успешно подана';
     $_SESSION['message']['class']   = 'success';
@@ -66,9 +66,9 @@ if ($num_get = (int) f_igosja_request_get('num'))
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`
         WHERE `teamask_user_id`=$auth_user_id";
-$teamask_sql = f_igosja_mysqli_query($sql, false);
+$teamask_sql = f_igosja_mysqli_query($sql);
 
-$teamask_array = $teamask_sql->fetch_all(1);
+$teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `base_slot_max`,
                `base_level`,
@@ -129,9 +129,9 @@ $sql = "SELECT `base_slot_max`,
         WHERE `team_user_id`=0
         AND `team_id`!=0
         ORDER BY `team_power_vs` DESC, `team_id` ASC";
-$team_sql = f_igosja_mysqli_query($sql, false);
+$team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(1);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Получение команды';
 $seo_description    = 'Получение команды на сайте Вирутальной Хоккейной Лиги.';

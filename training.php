@@ -22,9 +22,9 @@ $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         WHERE `buildingbase_ready`=0
         AND `buildingbase_team_id`=$auth_team_id
         AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASETRAINING . ")";
-$building_sql = f_igosja_mysqli_query($sql, false);
+$building_sql = f_igosja_mysqli_query($sql);
 
-$building_array = $building_sql->fetch_all(1);
+$building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($building_array[0]['count'])
 {
@@ -50,18 +50,18 @@ $sql = "SELECT `basetraining_level`,
         ON `team_basetraining_id`=`basetraining_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$basetraining_sql = f_igosja_mysqli_query($sql, false);
+$basetraining_sql = f_igosja_mysqli_query($sql);
 
-$basetraining_array = $basetraining_sql->fetch_all(1);
+$basetraining_array = $basetraining_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`training_id`) AS `count`
         FROM `training`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_power`!=0";
-$training_used_power_sql = f_igosja_mysqli_query($sql, false);
+$training_used_power_sql = f_igosja_mysqli_query($sql);
 
-$training_used_power_array = $training_used_power_sql->fetch_all(1);
+$training_used_power_array = $training_used_power_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_power = $basetraining_array[0]['basetraining_power_count'] - $training_used_power_array[0]['count'];
 
@@ -70,9 +70,9 @@ $sql = "SELECT COUNT(`training_id`) AS `count`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_special_id`!=0";
-$training_used_special_sql = f_igosja_mysqli_query($sql, false);
+$training_used_special_sql = f_igosja_mysqli_query($sql);
 
-$training_used_special_array = $training_used_special_sql->fetch_all(1);
+$training_used_special_array = $training_used_special_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_special = $basetraining_array[0]['basetraining_special_count'] - $training_used_special_array[0]['count'];
 
@@ -81,9 +81,9 @@ $sql = "SELECT COUNT(`training_id`) AS `count`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_position_id`!=0";
-$training_used_position_sql = f_igosja_mysqli_query($sql, false);
+$training_used_position_sql = f_igosja_mysqli_query($sql);
 
-$training_used_position_array = $training_used_position_sql->fetch_all(1);
+$training_used_position_array = $training_used_position_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_position = $basetraining_array[0]['basetraining_position_count'] - $training_used_position_array[0]['count'];
 
@@ -116,7 +116,7 @@ if ($data = f_igosja_request_post('data'))
                     WHERE `player_id`=$player_id
                     AND `player_team_id`=$num_get
                     LIMIT 1";
-            $player_sql = f_igosja_mysqli_query($sql, false);
+            $player_sql = f_igosja_mysqli_query($sql);
 
             if ($player_sql->num_rows)
             {
@@ -124,14 +124,14 @@ if ($data = f_igosja_request_post('data'))
                         FROM `training`
                         WHERE `training_player_id`=$player_id
                         AND `training_ready`=0";
-                $check_sql = f_igosja_mysqli_query($sql, false);
+                $check_sql = f_igosja_mysqli_query($sql);
 
-                $check_array = $check_sql->fetch_all(1);
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
                 $count_check = $check_array[0]['count'];
 
                 if (0 == $count_check)
                 {
-                    $player_array = $player_sql->fetch_all(1);
+                    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
                     $confirm_data['power'][] = array(
                         'id' => $item,
@@ -172,7 +172,7 @@ if ($data = f_igosja_request_post('data'))
                         WHERE `player_id`=$player_id
                         AND `player_team_id`=$num_get
                         LIMIT 1";
-                $player_sql = f_igosja_mysqli_query($sql, false);
+                $player_sql = f_igosja_mysqli_query($sql);
 
                 if ($player_sql->num_rows)
                 {
@@ -180,13 +180,13 @@ if ($data = f_igosja_request_post('data'))
                             FROM `training`
                             WHERE `training_player_id`=$player_id
                             AND `training_ready`=0";
-                    $check_sql = f_igosja_mysqli_query($sql, false);
+                    $check_sql = f_igosja_mysqli_query($sql);
 
-                    $check_array = $check_sql->fetch_all(1);
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
                     if (0 == $check_array[0]['count'])
                     {
-                        $player_array = $player_sql->fetch_all(1);
+                        $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
                         $position_id = (int) $item_array[1];
 
@@ -194,9 +194,9 @@ if ($data = f_igosja_request_post('data'))
                                 FROM `position`
                                 WHERE `position_id`=$position_id
                                 LIMIT 1";
-                        $position_sql = f_igosja_mysqli_query($sql, false);
+                        $position_sql = f_igosja_mysqli_query($sql);
 
-                        $position_array = $position_sql->fetch_all(1);
+                        $position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
                         $confirm_data['position'][] = array(
                             'id' => $player_id,
@@ -242,7 +242,7 @@ if ($data = f_igosja_request_post('data'))
                         WHERE `player_id`=$player_id
                         AND `player_team_id`=$num_get
                         LIMIT 1";
-                $player_sql = f_igosja_mysqli_query($sql, false);
+                $player_sql = f_igosja_mysqli_query($sql);
 
                 if ($player_sql->num_rows)
                 {
@@ -250,13 +250,13 @@ if ($data = f_igosja_request_post('data'))
                             FROM `training`
                             WHERE `training_player_id`=$player_id
                             AND `training_ready`=0";
-                    $check_sql = f_igosja_mysqli_query($sql, false);
+                    $check_sql = f_igosja_mysqli_query($sql);
 
-                    $check_array = $check_sql->fetch_all(1);
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
                     if (0 == $check_array[0]['count'])
                     {
-                        $player_array = $player_sql->fetch_all(1);
+                        $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
                         $special_id = (int) $item_array[1];
 
@@ -264,9 +264,9 @@ if ($data = f_igosja_request_post('data'))
                                 FROM `special`
                                 WHERE `special_id`=$special_id
                                 LIMIT 1";
-                        $special_sql = f_igosja_mysqli_query($sql, false);
+                        $special_sql = f_igosja_mysqli_query($sql);
 
-                        $special_array = $special_sql->fetch_all(1);
+                        $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
 
                         $confirm_data['special'][] = array(
                             'id' => $player_id,
@@ -347,21 +347,21 @@ if ($data = f_igosja_request_post('data'))
                         `training_power`=1,
                         `training_season_id`=$igosja_season_id,
                         `training_team_id`=$num_get";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-$price
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_POWER,
@@ -385,21 +385,21 @@ if ($data = f_igosja_request_post('data'))
                         `training_position_id`=$position_id,
                         `training_season_id`=$igosja_season_id,
                         `training_team_id`=$num_get";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-$price
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_POSITION,
@@ -423,21 +423,21 @@ if ($data = f_igosja_request_post('data'))
                         `training_season_id`=$igosja_season_id,
                         `training_special_id`=$special_id,
                         `training_team_id`=$num_get";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-$price
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_SPECIAL,
@@ -484,10 +484,10 @@ $sql = "SELECT `country_id`,
         AND `training_ready`=0
         AND `training_team_id`=$num_get
         ORDER BY `training_id` ASC";
-$training_sql = f_igosja_mysqli_query($sql, false);
+$training_sql = f_igosja_mysqli_query($sql);
 
 $count_training = $training_sql->num_rows;
-$training_array = $training_sql->fetch_all(1);
+$training_array = $training_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`,
@@ -505,9 +505,9 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         WHERE `player_team_id`=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
-$player_sql = f_igosja_mysqli_query($sql, false);
+$player_sql = f_igosja_mysqli_query($sql);
 
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $player_id = array();
 
@@ -527,9 +527,9 @@ if (count($player_id))
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id` IN ($player_id)
             ORDER BY `playerposition_position_id` ASC";
-    $playerposition_sql = f_igosja_mysqli_query($sql, false);
+    $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -540,9 +540,9 @@ if (count($player_id))
             ON `playerspecial_special_id`=`special_id`
             WHERE `playerspecial_player_id` IN ($player_id)
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-    $playerspecial_sql = f_igosja_mysqli_query($sql, false);
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {

@@ -15,14 +15,14 @@ $sql = "SELECT `forumchapter_id`,
         ON `forumgroup_forumchapter_id`=`forumchapter_id`
         WHERE `forumgroup_id`=$num_get
         LIMIT 1";
-$forumgroup_sql = f_igosja_mysqli_query($sql, false);
+$forumgroup_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $forumgroup_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$forumgroup_array = $forumgroup_sql->fetch_all(1);
+$forumgroup_array = $forumgroup_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$page = (int) f_igosja_request_get('page'))
 {
@@ -51,13 +51,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `forumtheme_forumgroup_id`=$num_get
         ORDER BY `forumtheme_last_date` DESC
         LIMIT $offset, $limit";
-$forumtheme_sql = f_igosja_mysqli_query($sql, false);
+$forumtheme_sql = f_igosja_mysqli_query($sql);
 
-$forumtheme_array = $forumtheme_sql->fetch_all(1);
+$forumtheme_array = $forumtheme_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);

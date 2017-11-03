@@ -45,7 +45,7 @@ if ($data = f_igosja_request_post('data'))
         redirect('/');
     }
 
-    $user_array             = $user_sql->fetch_all(1);
+    $user_array             = $user_sql->fetch_all(MYSQLI_ASSOC);
     $_SESSION['user_id']    = $user_array[0]['user_id'];
 
     redirect('/team_view.php');

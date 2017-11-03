@@ -41,9 +41,9 @@ $sql = "SELECT `city_name`,
         AND `message_user_id_to`=$auth_user_id)
         GROUP BY `user_id`
         ORDER BY MAX(`message_id`) DESC";
-$message_sql = f_igosja_mysqli_query($sql, false);
+$message_sql = f_igosja_mysqli_query($sql);
 
-$message_array = $message_sql->fetch_all(1);
+$message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Личная переписка';
 $seo_description    = 'Личная переписка на сайте Вирутальной Хоккейной Лиги.';

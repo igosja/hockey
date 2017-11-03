@@ -27,9 +27,9 @@ $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
         WHERE `buildingbase_ready`=0
         AND `buildingbase_team_id`=$auth_team_id
         AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASESCHOOL . ")";
-$building_sql = f_igosja_mysqli_query($sql, false);
+$building_sql = f_igosja_mysqli_query($sql);
 
-$building_array = $building_sql->fetch_all(1);
+$building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($building_array[0]['count'])
 {
@@ -50,17 +50,17 @@ $sql = "SELECT `baseschool_level`,
         ON `baseschool_id`=`team_baseschool_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$baseschool_sql = f_igosja_mysqli_query($sql, false);
+$baseschool_sql = f_igosja_mysqli_query($sql);
 
-$baseschool_array = $baseschool_sql->fetch_all(1);
+$baseschool_array = $baseschool_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`school_id`) AS `count`
         FROM `school`
         WHERE `school_team_id`=$num_get
         AND `school_season_id`=$igosja_season_id";
-$school_used_sql = f_igosja_mysqli_query($sql, false);
+$school_used_sql = f_igosja_mysqli_query($sql);
 
-$school_used_array = $school_used_sql->fetch_all(1);
+$school_used_array = $school_used_sql->fetch_all(MYSQLI_ASSOC);
 
 $school_available = $baseschool_array[0]['baseschool_player_count'] - $school_used_array[0]['count'];
 
@@ -87,9 +87,9 @@ if ($data = f_igosja_request_post('data'))
             FROM `school`
             WHERE `school_team_id`=$num_get
             AND `school_ready`=0";
-    $check_sql = f_igosja_mysqli_query($sql, false);
+    $check_sql = f_igosja_mysqli_query($sql);
 
-    $check_array = $check_sql->fetch_all(1);
+    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
     $count_check = $check_array[0]['count'];
 
     if ($count_check)
@@ -113,7 +113,7 @@ if ($data = f_igosja_request_post('data'))
             FROM `position`
             WHERE `position_id`=$position_id
             LIMIT 1";
-    $position_sql = f_igosja_mysqli_query($sql, false);
+    $position_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $position_sql->num_rows)
     {
@@ -123,10 +123,10 @@ if ($data = f_igosja_request_post('data'))
                 FROM `position`
                 WHERE `position_id`=$position_id
                 LIMIT 1";
-        $position_sql = f_igosja_mysqli_query($sql, false);
+        $position_sql = f_igosja_mysqli_query($sql);
     }
 
-    $position_array = $position_sql->fetch_all(1);
+    $position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
     $confirm_data['position'] = array(
         'id'    => $position_id,
@@ -146,7 +146,7 @@ if ($data = f_igosja_request_post('data'))
             FROM `special`
             WHERE `special_id`=$special_id
             LIMIT 1";
-    $special_sql = f_igosja_mysqli_query($sql, false);
+    $special_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $special_sql->num_rows)
     {
@@ -156,10 +156,10 @@ if ($data = f_igosja_request_post('data'))
                 FROM `special`
                 WHERE `special_id`=$special_id
                 LIMIT 1";
-        $special_sql = f_igosja_mysqli_query($sql, false);
+        $special_sql = f_igosja_mysqli_query($sql);
     }
 
-    $special_array = $special_sql->fetch_all(1);
+    $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
 
     $confirm_data['special'] = array(
         'id'    => $special_id,
@@ -179,7 +179,7 @@ if ($data = f_igosja_request_post('data'))
             FROM `style`
             WHERE `style_id`=$style_id
             LIMIT 1";
-    $style_sql = f_igosja_mysqli_query($sql, false);
+    $style_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $style_sql->num_rows)
     {
@@ -192,7 +192,7 @@ if ($data = f_igosja_request_post('data'))
         $style_sql = f_igosja_mysqli_query($sql);
     }
 
-    $style_array = $style_sql->fetch_all(1);
+    $style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
 
     $confirm_data['style'] = array(
         'id' => $style_id,
@@ -213,7 +213,7 @@ if ($data = f_igosja_request_post('data'))
                     `school_special_id`=$special_id,
                     `school_style_id`=$style_id,
                     `school_team_id`=$num_get";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
@@ -236,10 +236,10 @@ $sql = "SELECT `position_name`,
         WHERE `school_ready`=0
         AND `school_team_id`=$num_get
         LIMIT 1";
-$school_sql = f_igosja_mysqli_query($sql, false);
+$school_sql = f_igosja_mysqli_query($sql);
 
 $count_school = $school_sql->num_rows;
-$school_array = $school_sql->fetch_all(1);
+$school_array = $school_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
@@ -252,34 +252,34 @@ $sql = "SELECT `country_id`,
         ON `city_country_id`=`country_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$player_sql = f_igosja_mysqli_query($sql, false);
+$player_sql = f_igosja_mysqli_query($sql);
 
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql, false);
+$position_sql = f_igosja_mysqli_query($sql);
 
-$position_array = $position_sql->fetch_all(1);
+$position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `special_id`,
                `special_name`
         FROM `special`
         ORDER BY `special_id` ASC";
-$special_sql = f_igosja_mysqli_query($sql, false);
+$special_sql = f_igosja_mysqli_query($sql);
 
-$special_array = $special_sql->fetch_all(1);
+$special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `style_id`,
                `style_name`
         FROM `style`
         WHERE `style_id`!=" . STYLE_NORMAL . "
         ORDER BY `style_id` ASC";
-$style_sql = f_igosja_mysqli_query($sql, false);
+$style_sql = f_igosja_mysqli_query($sql);
 
-$style_array = $style_sql->fetch_all(1);
+$style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $team_array[0]['team_name'] . '. Спортивная школа';
 $seo_description    = $team_array[0]['team_name'] . '. Спортивная школа на сайте Вирутальной Хоккейной Лиги.';

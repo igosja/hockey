@@ -32,13 +32,13 @@ if ($data = f_igosja_request('data'))
         $sql = "DELETE FROM `payment`
                 WHERE `payment_date`<UNIX_TIMESTAMP()-86400
                 AND `payment_status`=0";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `payment`
                 SET `payment_date`=UNIX_TIMESTAMP(),
                     `payment_sum`=$sum,
                     `payment_user_id`=$auth_user_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $merchant_id    = 27937;
         $secret_key     = 's3lyp66r';
@@ -62,9 +62,9 @@ $sql = "SELECT `user_money`
         FROM `user`
         WHERE `user_id`=$auth_user_id
         LIMIT 1";
-$user_sql = f_igosja_mysqli_query($sql, false);
+$user_sql = f_igosja_mysqli_query($sql);
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Пополнение денежного счета';
 $seo_description    = 'Пополнение денежного счета на сайте Вирутальной Хоккейной Лиги.';

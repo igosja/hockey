@@ -14,7 +14,7 @@ function f_igosja_player_position_training($player_id)
             WHERE `playerposition_player_id`=$player_id
             ORDER BY `playerposition_position_id` ASC
             LIMIT 1, 1";
-    $position_sql = f_igosja_mysqli_query($sql, false);
+    $position_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $position_sql->num_rows)
     {
@@ -25,9 +25,9 @@ function f_igosja_player_position_training($player_id)
                 WHERE `playerposition_player_id`=$player_id
                 ORDER BY `playerposition_position_id` ASC
                 LIMIT 1";
-        $position_sql = f_igosja_mysqli_query($sql, false);
+        $position_sql = f_igosja_mysqli_query($sql);
 
-        $position_array = $position_sql->fetch_all(1);
+        $position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
         if (POSITION_GK == $position_array[0]['position_id'])
         {
@@ -46,9 +46,9 @@ function f_igosja_player_position_training($player_id)
                         WHERE `playerposition_player_id`=$player_id
                     )
                     ORDER BY `position_id` ASC";
-            $position_sql = f_igosja_mysqli_query($sql, false);
+            $position_sql = f_igosja_mysqli_query($sql);
 
-            $position_array = $position_sql->fetch_all(1);
+            $position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
             $return = '<select class="form-control form-small" name="data[position][]"><option value="0">-</option>';
 

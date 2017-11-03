@@ -31,14 +31,14 @@ $sql = "SELECT `forumchapter_id`,
         ON `forumgroup_forumchapter_id`=`forumchapter_id`
         WHERE `forumgroup_id`=$num_get
         LIMIT 1";
-$forumgroup_sql = f_igosja_mysqli_query($sql, false);
+$forumgroup_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $forumgroup_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$forumgroup_array = $forumgroup_sql->fetch_all(1);
+$forumgroup_array = $forumgroup_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -83,7 +83,7 @@ if ($data = f_igosja_request_post('data'))
                     SET `forumtheme_last_forummessage_id`=$forummessage_id
                     WHERE `forumtheme_id`=$forumtheme_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `forumgroup`
                     SET `forumgroup_count_theme`=`forumgroup_count_theme`+1,
@@ -94,7 +94,7 @@ if ($data = f_igosja_request_post('data'))
                         `forumgroup_last_user_id`=$auth_user_id
                     WHERE `forumgroup_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $_SESSION['message']['class'] = 'success';
             $_SESSION['message']['text'] = 'Тема успешно создана.';

@@ -18,14 +18,14 @@ $sql = "SELECT `schedule_date`,
         ON `schedule_stage_id`=`stage_id`
         WHERE `schedule_id`=$num_get
         LIMIT 1";
-$schedule_sql = f_igosja_mysqli_query($sql, false);
+$schedule_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $schedule_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$schedule_array = $schedule_sql->fetch_all(1);
+$schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$page = (int) f_igosja_request_get('page'))
 {
@@ -72,13 +72,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `schedule_id`=$num_get
         ORDER BY `game_id` ASC
         LIMIT $offset, $limit";
-$game_sql = f_igosja_mysqli_query($sql, false);
+$game_sql = f_igosja_mysqli_query($sql);
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);

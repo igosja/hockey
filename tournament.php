@@ -19,9 +19,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`,
@@ -35,9 +35,9 @@ $sql = "SELECT `country_id`,
         WHERE `championship_season_id`=$season_id
         GROUP BY `country_id`, `division_id`
         ORDER BY `country_id` ASC, `division_id` ASC";
-$championship_sql = f_igosja_mysqli_query($sql, false);
+$championship_sql = f_igosja_mysqli_query($sql);
 
-$championship_array = $championship_sql->fetch_all(1);
+$championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
 
 $country_id     = 0;
 $country_array  = array();
@@ -67,9 +67,9 @@ foreach ($championship_array as $item)
 $sql = "SELECT `division_id`
         FROM `division`
         ORDER BY `division_id` ASC";
-$division_sql = f_igosja_mysqli_query($sql, false);
+$division_sql = f_igosja_mysqli_query($sql);
 
-$division_array = $division_sql->fetch_all(1);
+$division_array = $division_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0, $count_country=count($country_array); $i<$count_country; $i++)
 {

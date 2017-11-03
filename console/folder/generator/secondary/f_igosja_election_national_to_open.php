@@ -14,7 +14,7 @@ function f_igosja_election_national_to_open($nationaltype_id, $country_id = 0)
                 WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
                 AND `electionnational_nationaltype_id`=$nationaltype_id
                 AND `electionnational_country_id`=$country_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
     else
     {
@@ -22,6 +22,6 @@ function f_igosja_election_national_to_open($nationaltype_id, $country_id = 0)
                 SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
                 WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
                 AND `electionnational_nationaltype_id`=$nationaltype_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

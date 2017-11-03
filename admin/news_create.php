@@ -17,7 +17,7 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql,
                 `news_date`=UNIX_TIMESTAMP(),
                 `news_user_id`=$auth_user_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/news_view.php?num=' . $mysqli->insert_id);
 }

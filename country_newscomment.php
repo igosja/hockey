@@ -37,14 +37,14 @@ $sql = "SELECT `news_date`,
         WHERE `news_id`=$news_id
         AND `news_country_id`=$num_get
         LIMIT 1";
-$news_sql = f_igosja_mysqli_query($sql, false);
+$news_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $news_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$news_array = $news_sql->fetch_all(1);
+$news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -92,13 +92,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `newscomment_news_id`=$news_id
         ORDER BY `newscomment_id` ASC
         LIMIT $offset, $limit";
-$newscomment_sql = f_igosja_mysqli_query($sql, false);
+$newscomment_sql = f_igosja_mysqli_query($sql);
 
-$newscomment_array = $newscomment_sql->fetch_all(1);
+$newscomment_array = $newscomment_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);

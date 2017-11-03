@@ -23,7 +23,7 @@ if ($data = f_igosja_request_post('data'))
             SET `user_holiday`=$user_holiday
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Изменения сохранены.';
@@ -34,9 +34,9 @@ if ($data = f_igosja_request_post('data'))
 $sql = "SELECT `user_holiday`
         FROM `user`
         WHERE `user_id`=$num_get";
-$holiday_sql = f_igosja_mysqli_query($sql, false);
+$holiday_sql = f_igosja_mysqli_query($sql);
 
-$holiday_array = $holiday_sql->fetch_all(1);
+$holiday_array = $holiday_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $user_array[0]['user_login'] . '. Отпуск менеджера';
 $seo_description    = $user_array[0]['user_login'] . '. Отпуск менеджера на сайте Вирутальной Хоккейной Лиги.';

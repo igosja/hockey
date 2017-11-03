@@ -11,7 +11,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "INSERT INTO `stadium`
             SET $set_sql";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     redirect('/admin/stadium_view.php?num=' . $mysqli->insert_id);
 }
@@ -20,9 +20,9 @@ $sql = "SELECT `city_id`,
                `city_name`
         FROM `city`
         ORDER BY `city_name` ASC, `city_id` ASC";
-$city_sql = f_igosja_mysqli_query($sql, false);
+$city_sql = f_igosja_mysqli_query($sql);
 
-$city_array = $city_sql->fetch_all(1);
+$city_array = $city_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'stadium_list.php', 'text' => 'Стадионы');
 $breadcrumb_array[] = 'Создание';

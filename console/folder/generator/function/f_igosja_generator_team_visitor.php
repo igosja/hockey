@@ -8,9 +8,9 @@ function f_igosja_generator_team_visitor()
     $sql = "SELECT `team_id`
             FROM `team`
             WHERE `team_id`!=0";
-    $team_sql = f_igosja_mysqli_query($sql, false);
+    $team_sql = f_igosja_mysqli_query($sql);
 
-    $team_array = $team_sql->fetch_all(1);
+    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($team_array as $item)
     {
@@ -26,9 +26,9 @@ function f_igosja_generator_team_visitor()
                     ORDER BY `teamvisitor_id` DESC
                     LIMIT 5
                 ) AS `t1`";
-        $visitor_sql = f_igosja_mysqli_query($sql, false);
+        $visitor_sql = f_igosja_mysqli_query($sql);
 
-        $visitor_array = $visitor_sql->fetch_all(1);
+        $visitor_array = $visitor_sql->fetch_all(MYSQLI_ASSOC);
 
         $visitor = $visitor_array[0]['visitor'] / $visitor_array[0]['count'];
 
@@ -36,6 +36,6 @@ function f_igosja_generator_team_visitor()
                 SET `team_visitor`=$visitor
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

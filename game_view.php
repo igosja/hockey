@@ -147,14 +147,14 @@ $sql = "SELECT `game_guest_auto`,
         ON `game_home_tactic_3_id`=`home_tactic_3`.`tactic_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
-$game_sql = f_igosja_mysqli_query($sql, false);
+$game_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $game_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 == $game_array[0]['game_played'])
 {
@@ -221,9 +221,9 @@ $sql = "SELECT `lineup_age`,
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$home_team_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
-$home_sql = f_igosja_mysqli_query($sql, false);
+$home_sql = f_igosja_mysqli_query($sql);
 
-$home_array = $home_sql->fetch_all(1);
+$home_array = $home_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
@@ -255,9 +255,9 @@ $sql = "SELECT `lineup_age`,
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$guest_team_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
-$guest_sql = f_igosja_mysqli_query($sql, false);
+$guest_sql = f_igosja_mysqli_query($sql);
 
-$guest_array = $guest_sql->fetch_all(1);
+$guest_array = $guest_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `event_guest_score`,
                `event_home_score`,
@@ -319,9 +319,9 @@ $sql = "SELECT `event_guest_score`,
         ON `player_penalty`.`player_surname_id`=`surname_penalty`.`surname_id`
         WHERE `event_game_id`=$num_get
         ORDER BY `event_minute` ASC, `event_second` ASC";
-$event_sql = f_igosja_mysqli_query($sql, false);
+$event_sql = f_igosja_mysqli_query($sql);
 
-$event_array = $event_sql->fetch_all(1);
+$event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$page = (int) f_igosja_request_get('page'))
 {
@@ -342,13 +342,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `gamecomment_game_id`=$num_get
         ORDER BY `gamecomment_id` ASC
         LIMIT $offset, $limit";
-$gamecomment_sql = f_igosja_mysqli_query($sql, false);
+$gamecomment_sql = f_igosja_mysqli_query($sql);
 
-$gamecomment_array = $gamecomment_sql->fetch_all(1);
+$gamecomment_array = $gamecomment_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);

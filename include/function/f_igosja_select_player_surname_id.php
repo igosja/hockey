@@ -14,7 +14,7 @@ function f_igosja_select_player_surname_id($team_id, $country_id, $length = 1)
             ON `player_surname_id`=`surname_id`
             WHERE `player_team_id`=$team_id
             ORDER BY `player_id` ASC";
-    $team_surname_sql = f_igosja_mysqli_query($sql, false);
+    $team_surname_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $team_surname_sql->num_rows)
     {
@@ -23,15 +23,15 @@ function f_igosja_select_player_surname_id($team_id, $country_id, $length = 1)
                 WHERE `surnamecountry_country_id`=$country_id
                 ORDER BY RAND()
                 LIMIT 1";
-        $surname_sql = f_igosja_mysqli_query($sql, false);
+        $surname_sql = f_igosja_mysqli_query($sql);
 
-        $surname_array = $surname_sql->fetch_all(1);
+        $surname_array = $surname_sql->fetch_all(MYSQLI_ASSOC);
 
         $surname_id = $surname_array[0]['surnamecountry_surname_id'];
     }
     else
     {
-        $team_surname_array = $team_surname_sql->fetch_all(1);
+        $team_surname_array = $team_surname_sql->fetch_all(MYSQLI_ASSOC);
 
         $surname_exist_array = array();
 
@@ -48,11 +48,11 @@ function f_igosja_select_player_surname_id($team_id, $country_id, $length = 1)
                 AND SUBSTRING(`surname_name`, 1, $length) NOT IN (" . implode(', ', $surname_exist_array) . ")
                 ORDER BY RAND()
                 LIMIT 1";
-        $surname_sql = f_igosja_mysqli_query($sql, false);
+        $surname_sql = f_igosja_mysqli_query($sql);
 
         if ($surname_sql->num_rows)
         {
-            $surname_array = $surname_sql->fetch_all(1);
+            $surname_array = $surname_sql->fetch_all(MYSQLI_ASSOC);
 
             $surname_id = $surname_array[0]['surnamecountry_surname_id'];
         }

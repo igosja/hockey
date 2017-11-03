@@ -56,7 +56,7 @@ $sql = "SELECT `city_name`,
         ORDER BY `transfer_date` DESC";
 $transfer_sell_sql = f_igosja_mysqli_query($sql);
 
-$transfer_sell_array = $transfer_sell_sql->fetch_all(1);
+$transfer_sell_array = $transfer_sell_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `name_name`,
@@ -94,7 +94,7 @@ $sql = "SELECT `city_name`,
         ORDER BY `transfer_date` DESC";
 $transfer_buy_sql = f_igosja_mysqli_query($sql);
 
-$transfer_buy_array = $transfer_buy_sql->fetch_all(1);
+$transfer_buy_array = $transfer_buy_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `name_name`,
@@ -133,7 +133,7 @@ $sql = "SELECT `city_name`,
         ORDER BY `rent_date` DESC";
 $rent_sell_sql = f_igosja_mysqli_query($sql);
 
-$rent_sell_array = $rent_sell_sql->fetch_all(1);
+$rent_sell_array = $rent_sell_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `name_name`,
@@ -172,7 +172,7 @@ $sql = "SELECT `city_name`,
         ORDER BY `rent_date` DESC";
 $rent_buy_sql = f_igosja_mysqli_query($sql);
 
-$rent_buy_array = $rent_buy_sql->fetch_all(1);
+$rent_buy_array = $rent_buy_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `position_id`,
                `position_name`
@@ -180,7 +180,7 @@ $sql = "SELECT `position_id`,
         ORDER BY `position_id` ASC";
 $position_sql = f_igosja_mysqli_query($sql);
 
-$position_array = $position_sql->fetch_all(1);
+$position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `special_id`,
                `special_name`
@@ -188,7 +188,7 @@ $sql = "SELECT `special_id`,
         ORDER BY `special_id` ASC";
 $special_sql = f_igosja_mysqli_query($sql);
 
-$special_array = $special_sql->fetch_all(1);
+$special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $team_array[0]['team_name'] . '. Сделки команды';
 $seo_description    = $team_array[0]['team_name'] . '. Сделки команды на сайте Вирутальной Хоккейной Лиги.';

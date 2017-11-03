@@ -40,7 +40,7 @@ $user_sql = $prepare->get_result();
 
 $prepare->close();
 
-$user_array = $user_sql->fetch_all(1);
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$user_array[0]['count'])
 {

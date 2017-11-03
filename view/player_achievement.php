@@ -14,18 +14,27 @@
         <table class="table table-bordered table-hover">
             <tr>
                 <th title="Сезон" class="col-1">С</th>
+                <th>Команда</th>
                 <th>Турнир</th>
                 <th class="col-10">Позиция</th>
             </tr>
             <?php foreach ($achievement_array as $item) { ?>
                 <tr>
-                    <td class="text-center"><?= $item['achievement_season_id']; ?></td>
+                    <td class="text-center"><?= $item['achievementplayer_season_id']; ?></td>
+                    <td>
+                        <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>"/>
+                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                            <?= $item['team_name']; ?>
+                            (<?= $item['city_name']; ?>)
+                        </a>
+                    </td>
                     <td><?= $item['tournamenttype_name']; ?></td>
-                    <td class="text-center"><?= $item['achievement_position']; ?></td>
+                    <td class="text-center"><?= $item['achievementplayer_position']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
-                <th title="Сезон" class="col-1">С</th>
+                <th title="Сезон">С</th>
+                <th>Команда</th>
                 <th>Турнир</th>
                 <th>Позиция</th>
             </tr>

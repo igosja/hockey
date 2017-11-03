@@ -16,9 +16,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `rule_order` ASC, `rule_id` ASC
         LIMIT $offset, $limit";
-$rule_sql = f_igosja_mysqli_query($sql, false);
+$rule_sql = f_igosja_mysqli_query($sql);
 
-$rule_array = $rule_sql->fetch_all(1);
+$rule_array = $rule_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Правила';
 

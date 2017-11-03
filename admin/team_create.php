@@ -11,7 +11,7 @@ if ($data = f_igosja_request_post('data'))
 
     $sql = "INSERT INTO `team`
             SET $set_sql";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $num_get = $mysqli->insert_id;
 
@@ -29,9 +29,9 @@ $sql = "SELECT `stadium_id`,
                `stadium_name`
         FROM `stadium`
         ORDER BY `stadium_name` ASC, `stadium_id` ASC";
-$stadium_sql = f_igosja_mysqli_query($sql, false);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
-$stadium_array = $stadium_sql->fetch_all(1);
+$stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'team_list.php', 'text' => 'Команды');
 $breadcrumb_array[] = 'Создание';

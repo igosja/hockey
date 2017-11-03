@@ -20,9 +20,9 @@ function f_igosja_generator_transfer()
             ON `transfer_player_id`=`player_id`
             WHERE `transfer_ready`=0
             ORDER BY `transfer_id` ASC";
-    $transfer_sql = f_igosja_mysqli_query($sql, false);
+    $transfer_sql = f_igosja_mysqli_query($sql);
 
-    $transfer_array = $transfer_sql->fetch_all(1);
+    $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($transfer_array as $transfer)
     {
@@ -39,11 +39,11 @@ function f_igosja_generator_transfer()
                 AND `transferapplication_price`<=`team_finance`
                 ORDER BY `transferapplication_price` DESC, `transferapplication_date` ASC
                 LIMIT 1";
-        $transferaplication_sql = f_igosja_mysqli_query($sql, false);
+        $transferaplication_sql = f_igosja_mysqli_query($sql);
 
         if ($transferaplication_sql->num_rows)
         {
-            $transferaplication_array = $transferaplication_sql->fetch_all(1);
+            $transferaplication_array = $transferaplication_sql->fetch_all(MYSQLI_ASSOC);
 
             $transferaplication_price   = $transferaplication_array[0]['transferapplication_price'];
             $school_price               = round($transferaplication_price / 100);
@@ -57,7 +57,7 @@ function f_igosja_generator_transfer()
                     SET `team_finance`=`team_finance`+$transferaplication_price
                     WHERE `team_id`=$team_seller_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER,
@@ -73,15 +73,15 @@ function f_igosja_generator_transfer()
                     FROM `team`
                     WHERE `team_id`=$school_id
                     LIMIT 1";
-            $school_sql = f_igosja_mysqli_query($sql, false);
+            $school_sql = f_igosja_mysqli_query($sql);
 
-            $school_array = $school_sql->fetch_all(1);
+            $school_array = $school_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$school_price
                     WHERE `team_id`=$school_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER_FIRST_TEAM,
@@ -97,7 +97,7 @@ function f_igosja_generator_transfer()
                     SET `team_finance`=`team_finance`-$transferaplication_price
                     WHERE `team_id`=$team_buyer_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_TRANSFER,
@@ -114,7 +114,7 @@ function f_igosja_generator_transfer()
                         `player_transfer_on`=0
                     WHERE `player_id`=$player_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `transfer`
                     LEFT JOIN `player`
@@ -128,19 +128,19 @@ function f_igosja_generator_transfer()
                         `transfer_team_buyer_id`=$team_buyer_id,
                         `transfer_user_buyer_id`=$user_buyer_id
                     WHERE `transfer_id`=$transfer_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `transferposition` (`transferposition_position_id`, `transferposition_transfer_id`)
                     SELECT `playerposition_position_id`, $transfer_id
                     FROM `playerposition`
                     WHERE `playerposition_player_id`=$player_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `transferspecial` (`transferspecial_level`, `transferspecial_special_id`, `transferspecial_transfer_id`)
                     SELECT `playerspecial_level`, `playerspecial_special_id`, $transfer_id
                     FROM `playerspecial`
                     WHERE `playerspecial_player_id`=$player_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_TRANSFER,

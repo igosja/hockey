@@ -34,7 +34,7 @@ $sql = "SELECT `achievement_season_id`,
         ORDER BY `achievement_id` DESC";
 $achievement_sql = f_igosja_mysqli_query($sql);
 
-$achievement_array = $achievement_sql->fetch_all(1);
+$achievement_array = $achievement_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $national_array[0]['country_name'] . '. Достижения команды';
 $seo_description    = $national_array[0]['country_name'] . '. Достижения команды на сайте Вирутальной Хоккейной Лиги.';

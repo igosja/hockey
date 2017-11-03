@@ -12,7 +12,7 @@ $sql = "SELECT `surname_id`,
         FROM `surname`
         WHERE `surname_id`=$num_get
         LIMIT 1";
-$surname_sql = f_igosja_mysqli_query($sql, false);
+$surname_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $surname_sql->num_rows)
 {
@@ -29,11 +29,11 @@ if ($data = f_igosja_request_post('data'))
             SET $set_sql
             WHERE `surname_id`=$num_get
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "DELETE FROM `surnamecountry`
             WHERE `surnamecountry_surname_id`=$num_get";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $country = f_igosja_request_post('array', 'surnamecountry_country_id');
 
@@ -44,29 +44,29 @@ if ($data = f_igosja_request_post('data'))
         $sql = "INSERT INTO `surnamecountry`
                 SET `surnamecountry_surname_id`=$num_get,
                     `surnamecountry_country_id`=$country_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 
     redirect('/admin/surname_view.php?num=' . $num_get);
 }
 
-$surname_array = $surname_sql->fetch_all(1);
+$surname_array = $surname_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `surnamecountry_country_id`
         FROM `surnamecountry`
         WHERE `surnamecountry_surname_id`=$num_get
         ORDER BY `surnamecountry_country_id` ASC";
-$surnamecountry_sql = f_igosja_mysqli_query($sql, false);
+$surnamecountry_sql = f_igosja_mysqli_query($sql);
 
-$surnamecountry_array = $surnamecountry_sql->fetch_all(1);
+$surnamecountry_array = $surnamecountry_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
         FROM `country`
         ORDER BY `country_name` ASC, `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'surname_list.php', 'text' => 'Фамилии');
 $breadcrumb_array[] = array(

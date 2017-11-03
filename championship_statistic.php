@@ -33,14 +33,14 @@ $sql = "SELECT `country_name`,
         AND `championship_division_id`=$division_id
         AND `championship_season_id`=$season_id
         LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $country_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `statisticchapter_id`,
                `statisticchapter_name`,
@@ -50,10 +50,10 @@ $sql = "SELECT `statisticchapter_id`,
         LEFT JOIN `statisticchapter`
         ON `statistictype_statisticchapter_id`=`statisticchapter_id`
         ORDER BY `statisticchapter_id` ASC, `statistictype_id` ASC";
-$statistictype_sql = f_igosja_mysqli_query($sql, false);
+$statistictype_sql = f_igosja_mysqli_query($sql);
 
 $count_statistictype = $statistictype_sql->num_rows;
-$statistictype_array = $statistictype_sql->fetch_all(1);
+$statistictype_array = $statistictype_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$num_get = f_igosja_request_get('num'))
 {
@@ -178,10 +178,10 @@ elseif (in_array($num_get, array(
             LIMIT 100";
 }
 
-$statistic_sql = f_igosja_mysqli_query($sql, false);
+$statistic_sql = f_igosja_mysqli_query($sql);
 
 $count_statistic = $statistic_sql->num_rows;
-$statistic_array = $statistic_sql->fetch_all(1);
+$statistic_array = $statistic_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Статистика. ' . $country_array[0]['country_name'] . ', национальный чемпионат, дивизион ' . $country_array[0]['division_name'];
 $seo_description    = $country_array[0]['country_name'] . '. ' . $country_array[0]['division_name'] . '. Национальный чемпионат, статистика на сайте Вирутальной Хоккейной Лиги.';

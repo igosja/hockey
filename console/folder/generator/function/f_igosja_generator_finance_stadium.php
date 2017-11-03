@@ -24,9 +24,9 @@ function f_igosja_generator_finance_stadium()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $game)
     {
@@ -42,9 +42,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$home_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -68,9 +68,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$guest_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -93,7 +93,7 @@ function f_igosja_generator_finance_stadium()
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$income/2-$outcome/2
                     WHERE `team_id` IN ($home_team_id, $guest_team_id)";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
         elseif (TOURNAMENTTYPE_LEAGUE == $game['schedule_tournamenttype_id'] && STAGE_FINAL == $game['schedule_stage_id'])
         {
@@ -101,9 +101,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$home_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -118,9 +118,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$guest_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -135,9 +135,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$stadium_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -151,7 +151,7 @@ function f_igosja_generator_finance_stadium()
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$income/3
                     WHERE `team_id` IN ($home_team_id, $guest_team_id, $stadium_team_id)";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
         else
         {
@@ -159,9 +159,9 @@ function f_igosja_generator_finance_stadium()
                     FROM `team`
                     WHERE `team_id`=$home_team_id
                     LIMIT 1";
-            $finance_sql = f_igosja_mysqli_query($sql, false);
+            $finance_sql = f_igosja_mysqli_query($sql);
 
-            $finance_array = $finance_sql->fetch_all(1);
+            $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
@@ -185,7 +185,7 @@ function f_igosja_generator_finance_stadium()
                     SET `team_finance`=`team_finance`+$income-$outcome
                     WHERE `team_id`=$home_team_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 }

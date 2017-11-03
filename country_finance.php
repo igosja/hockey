@@ -25,9 +25,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 include(__DIR__ . '/include/sql/country_view.php');
 
@@ -42,9 +42,9 @@ $sql = "SELECT `finance_date`,
         WHERE `finance_country_id`=$num_get
         AND `finance_season_id`=$season_id
         ORDER BY `finance_id` DESC";
-$finance_sql = f_igosja_mysqli_query($sql, false);
+$finance_sql = f_igosja_mysqli_query($sql);
 
-$finance_array = $finance_sql->fetch_all(1);
+$finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $country_array[0]['country_name'] . '. Фонд фередации';
 $seo_description    = $country_array[0]['country_name'] . '. Фонд фередации на сайте Вирутальной Хоккейной Лиги.';

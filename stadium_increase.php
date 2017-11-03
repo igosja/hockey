@@ -28,22 +28,22 @@ $sql = "SELECT `stadium_capacity`,
         ON `team_stadium_id`=`stadium_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$stadium_sql = f_igosja_mysqli_query($sql, false);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $stadium_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$stadium_array = $stadium_sql->fetch_all(1);
+$stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
         FROM `buildingstadium`
         WHERE `buildingstadium_team_id`=$num_get
         AND `buildingstadium_ready`=0";
-$buildingstadium_sql = f_igosja_mysqli_query($sql, false);
+$buildingstadium_sql = f_igosja_mysqli_query($sql);
 
-$buildingstadium_array = $buildingstadium_sql->fetch_all(1);
+$buildingstadium_array = $buildingstadium_sql->fetch_all(MYSQLI_ASSOC);
 $count_buildingstadium = $buildingstadium_array[0]['count'];
 
 if ($data = f_igosja_request_post('data'))
@@ -101,13 +101,13 @@ if (isset($new_capacity))
                         `buildingstadium_constructiontype_id`=$constructiontype_id,
                         `buildingstadium_day`=$buildingstadium_day,
                         `buildingstadium_team_id`=$num_get";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`-$buildingstadium_price
                     WHERE `team_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_capacity' => $new_capacity,

@@ -16,14 +16,14 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         WHERE `city_id`=$num_get
         LIMIT 1";
-$city_sql = f_igosja_mysqli_query($sql, false);
+$city_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $city_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$city_array = $city_sql->fetch_all(1);
+$city_array = $city_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'city_list.php', 'text' => 'Города');
 $breadcrumb_array[] = $city_array[0]['city_name'];

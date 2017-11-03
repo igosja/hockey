@@ -21,14 +21,14 @@ $sql = "SELECT `city_id`,
         ON `city_country_id`=`country_id`
         WHERE `stadium_id`=$num_get
         LIMIT 1";
-$stadium_sql = f_igosja_mysqli_query($sql, false);
+$stadium_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $stadium_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$stadium_array = $stadium_sql->fetch_all(1);
+$stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'stadium_list.php', 'text' => 'Стадионы');
 $breadcrumb_array[] = $stadium_array[0]['stadium_name'];

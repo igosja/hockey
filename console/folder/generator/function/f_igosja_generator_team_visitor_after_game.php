@@ -15,9 +15,9 @@ function f_igosja_generator_team_visitor_after_game()
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql, false);
+    $game_sql = f_igosja_mysqli_query($sql);
 
-    $game_array = $game_sql->fetch_all(1);
+    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($game_array as $item)
     {
@@ -43,6 +43,6 @@ function f_igosja_generator_team_visitor_after_game()
         $sql = "INSERT INTO `teamvisitor` (`teamvisitor_team_id`, `teamvisitor_visitor`)
                 VALUES ($home_team_id, $home_visitor),
                        ($guest_team_id, $guest_visitor);";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

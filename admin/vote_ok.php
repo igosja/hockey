@@ -10,7 +10,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
             WHERE `vote_id`=$num_get
             AND `vote_votestatus_id`=" . VOTESTATUS_NEW . "
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }
 
 redirect('/admin/vote_list.php');

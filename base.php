@@ -25,13 +25,13 @@ $sql = "SELECT `buildingbase_building_id`
         FROM `buildingbase`
         WHERE `buildingbase_team_id`=$num_get
         AND `buildingbase_ready`=0";
-$buildingbase_sql = f_igosja_mysqli_query($sql, false);
+$buildingbase_sql = f_igosja_mysqli_query($sql);
 
 $count_buildingbase = $buildingbase_sql->num_rows;
 
 if ($count_buildingbase)
 {
-    $buildingbase_array = $buildingbase_sql->fetch_all(1);
+    $buildingbase_array = $buildingbase_sql->fetch_all(MYSQLI_ASSOC);
 }
 
 $sql = "SELECT `base_id`,
@@ -87,9 +87,9 @@ $sql = "SELECT `base_id`,
         ON `team_basetraining_id`=`basetraining_id`
         WHERE `team_id`=$num_get
         LIMIT 1";
-$base_sql = f_igosja_mysqli_query($sql, false);
+$base_sql = f_igosja_mysqli_query($sql);
 
-$base_array = $base_sql->fetch_all(1);
+$base_array = $base_sql->fetch_all(MYSQLI_ASSOC);
 
 if (isset($auth_team_id) && $auth_team_id == $num_get)
 {
@@ -123,7 +123,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             FROM `base`
                             WHERE `base_id`=$level
                             LIMIT 1";
-                    $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -155,7 +155,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     else
                     {
-                        $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                        $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                         if ($baseinfo_array[0]['base_slot_min'] > $base_array[0]['base_slot_used'])
                         {
@@ -188,13 +188,13 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                         `buildingbase_constructiontype_id`=$constructiontype_id,
                                         `buildingbase_day`=$buildingbase_day,
                                         `buildingbase_team_id`=$auth_team_id";
-                            f_igosja_mysqli_query($sql, false);
+                            f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
                                     SET `team_finance`=`team_finance`-$buildingbase_price
                                     WHERE `team_id`=$auth_team_id
                                     LIMIT 1";
-                            f_igosja_mysqli_query($sql, false);
+                            f_igosja_mysqli_query($sql);
 
                             $finance = array(
                                 'finance_building_id' => $building_id,
@@ -220,7 +220,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             FROM `building`
                             WHERE `building_id`=$building_id
                             LIMIT 1";
-                    $building_sql = f_igosja_mysqli_query($sql, false);
+                    $building_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $building_sql->num_rows)
                     {
@@ -252,7 +252,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     else
                     {
-                        $building_array = $building_sql->fetch_all(1);
+                        $building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
 
                         $building_name = $building_array[0]['building_name'];
 
@@ -266,7 +266,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                 FROM `" . $building_name . "`
                                 WHERE `" . $building_name . "_id`=$level
                                 LIMIT 1";
-                        $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                        $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                         if (0 == $baseinfo_sql->num_rows)
                         {
@@ -277,7 +277,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         }
                         else
                         {
-                            $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                            $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                             if ($baseinfo_array[0][$building_name . '_base_level'] > $base_array[0]['base_level'])
                             {
@@ -317,13 +317,13 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                             `buildingbase_constructiontype_id`=$constructiontype_id,
                                             `buildingbase_day`=$buildingbase_day,
                                             `buildingbase_team_id`=$auth_team_id";
-                                f_igosja_mysqli_query($sql, false);
+                                f_igosja_mysqli_query($sql);
 
                                 $sql = "UPDATE `team`
                                         SET `team_finance`=`team_finance`-$buildingbase_price
                                         WHERE `team_id`=$auth_team_id
                                         LIMIT 1";
-                                f_igosja_mysqli_query($sql, false);
+                                f_igosja_mysqli_query($sql);
 
                                 $finance = array(
                                     'finance_building_id' => $building_id,
@@ -355,7 +355,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             FROM `base`
                             WHERE `base_id`=$level
                             LIMIT 1";
-                    $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -363,7 +363,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     else
                     {
-                        $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                        $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                         $buildingbase_price = $baseinfo_array[0]['base_price_sell'];
                     }
@@ -376,7 +376,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             FROM `base`
                             WHERE `base_id`=$level
                             LIMIT 1";
-                    $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                    $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $baseinfo_sql->num_rows)
                     {
@@ -408,7 +408,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     else
                     {
-                        $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                        $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                         if ($baseinfo_array[0]['base_slot_max'] < $base_array[0]['base_slot_used'])
                         {
@@ -432,13 +432,13 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                         `buildingbase_constructiontype_id`=$constructiontype_id,
                                         `buildingbase_day`=$buildingbase_day,
                                         `buildingbase_team_id`=$auth_team_id";
-                            f_igosja_mysqli_query($sql, false);
+                            f_igosja_mysqli_query($sql);
 
                             $sql = "UPDATE `team`
                                     SET `team_finance`=`team_finance`+$buildingbase_price
                                     WHERE `team_id`=$auth_team_id
                                     LIMIT 1";
-                            f_igosja_mysqli_query($sql, false);
+                            f_igosja_mysqli_query($sql);
 
                             $finance = array(
                                 'finance_building_id' => $building_id,
@@ -464,7 +464,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             FROM `building`
                             WHERE `building_id`=$building_id
                             LIMIT 1";
-                    $building_sql = f_igosja_mysqli_query($sql, false);
+                    $building_sql = f_igosja_mysqli_query($sql);
 
                     if (0 == $building_sql->num_rows)
                     {
@@ -496,7 +496,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     }
                     else
                     {
-                        $building_array = $building_sql->fetch_all(1);
+                        $building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
 
                         $building_name = $building_array[0]['building_name'];
 
@@ -506,7 +506,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                 FROM `" . $building_name . "`
                                 WHERE `" . $building_name . "_id`=$level
                                 LIMIT 1";
-                        $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                        $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                         if (0 == $baseinfo_sql->num_rows)
                         {
@@ -514,7 +514,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         }
                         else
                         {
-                            $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                            $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                             $buildingbase_price = $baseinfo_array[0][$building_name . '_price_sell'];
                         }
@@ -527,7 +527,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                 FROM `" . $building_name . "`
                                 WHERE `" . $building_name . "_id`=$level
                                 LIMIT 1";
-                        $baseinfo_sql = f_igosja_mysqli_query($sql, false);
+                        $baseinfo_sql = f_igosja_mysqli_query($sql);
 
                         if (0 == $baseinfo_sql->num_rows)
                         {
@@ -538,7 +538,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         }
                         else
                         {
-                            $baseinfo_array = $baseinfo_sql->fetch_all(1);
+                            $baseinfo_array = $baseinfo_sql->fetch_all(MYSQLI_ASSOC);
 
                             if (!f_igosja_request_get('ok'))
                             {
@@ -555,13 +555,13 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                             `buildingbase_constructiontype_id`=$constructiontype_id,
                                             `buildingbase_day`=$buildingbase_day,
                                             `buildingbase_team_id`=$auth_team_id";
-                                f_igosja_mysqli_query($sql, false);
+                                f_igosja_mysqli_query($sql);
 
                                 $sql = "UPDATE `team`
                                         SET `team_finance`=`team_finance`+$buildingbase_price
                                         WHERE `team_id`=$auth_team_id
                                         LIMIT 1";
-                                f_igosja_mysqli_query($sql, false);
+                                f_igosja_mysqli_query($sql);
 
                                 $finance = array(
                                     'finance_building_id' => $building_id,
@@ -592,9 +592,9 @@ $sql = "SELECT COUNT(`training_id`) AS `count`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_power`!=0";
-$training_used_power_sql = f_igosja_mysqli_query($sql, false);
+$training_used_power_sql = f_igosja_mysqli_query($sql);
 
-$training_used_power_array = $training_used_power_sql->fetch_all(1);
+$training_used_power_array = $training_used_power_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_power = $base_array[0]['basetraining_power_count'] - $training_used_power_array[0]['count'];
 
@@ -603,9 +603,9 @@ $sql = "SELECT COUNT(`training_id`) AS `count`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_special_id`!=0";
-$training_used_special_sql = f_igosja_mysqli_query($sql, false);
+$training_used_special_sql = f_igosja_mysqli_query($sql);
 
-$training_used_special_array = $training_used_special_sql->fetch_all(1);
+$training_used_special_array = $training_used_special_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_special = $base_array[0]['basetraining_special_count'] - $training_used_special_array[0]['count'];
 
@@ -614,9 +614,9 @@ $sql = "SELECT COUNT(`training_id`) AS `count`
         WHERE `training_team_id`=$num_get
         AND `training_season_id`=$igosja_season_id
         AND `training_position_id`!=0";
-$training_used_position_sql = f_igosja_mysqli_query($sql, false);
+$training_used_position_sql = f_igosja_mysqli_query($sql);
 
-$training_used_position_array = $training_used_position_sql->fetch_all(1);
+$training_used_position_array = $training_used_position_sql->fetch_all(MYSQLI_ASSOC);
 
 $training_available_position = $base_array[0]['basetraining_position_count'] - $training_used_position_array[0]['count'];
 
@@ -633,9 +633,9 @@ $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             ORDER BY `schedule_date` DESC
             LIMIT 1
         )";
-$phisical_used_sql = f_igosja_mysqli_query($sql, false);
+$phisical_used_sql = f_igosja_mysqli_query($sql);
 
-$phisical_used_array = $phisical_used_sql->fetch_all(1);
+$phisical_used_array = $phisical_used_sql->fetch_all(MYSQLI_ASSOC);
 
 $phisical_available = $base_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 
@@ -652,17 +652,17 @@ $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             ORDER BY `schedule_date` DESC
             LIMIT 1
         )";
-$phisical_plan_sql = f_igosja_mysqli_query($sql, false);
+$phisical_plan_sql = f_igosja_mysqli_query($sql);
 
-$phisical_plan_array = $phisical_plan_sql->fetch_all(1);
+$phisical_plan_array = $phisical_plan_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT COUNT(`school_id`) AS `count`
         FROM `school`
         WHERE `school_team_id`=$num_get
         AND `school_season_id`=$igosja_season_id";
-$school_used_sql = f_igosja_mysqli_query($sql, false);
+$school_used_sql = f_igosja_mysqli_query($sql);
 
-$school_used_array = $school_used_sql->fetch_all(1);
+$school_used_array = $school_used_sql->fetch_all(MYSQLI_ASSOC);
 
 $school_available = $base_array[0]['baseschool_player_count'] - $school_used_array[0]['count'];
 
@@ -670,9 +670,9 @@ $sql = "SELECT COUNT(`scout_id`) AS `count`
         FROM `scout`
         WHERE `scout_team_id`=$num_get
         AND `scout_season_id`=$igosja_season_id";
-$scout_used_sql = f_igosja_mysqli_query($sql, false);
+$scout_used_sql = f_igosja_mysqli_query($sql);
 
-$scout_used_array = $scout_used_sql->fetch_all(1);
+$scout_used_array = $scout_used_sql->fetch_all(MYSQLI_ASSOC);
 
 $scout_available = $base_array[0]['basescout_my_style_count'] - $scout_used_array[0]['count'];
 

@@ -23,9 +23,9 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             ON `basephisical_id`=`team_basephisical_id`
             WHERE `team_id`=$auth_team_id
             LIMIT 1";
-    $basephisical_sql = f_igosja_mysqli_query($sql, false);
+    $basephisical_sql = f_igosja_mysqli_query($sql);
 
-    $basephisical_array = $basephisical_sql->fetch_all(1);
+    $basephisical_array = $basephisical_sql->fetch_all(MYSQLI_ASSOC);
 
     $player_id      = (int) f_igosja_request_get('player_id');
     $schedule_id    = (int) f_igosja_request_get('schedule_id');
@@ -34,16 +34,16 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_schedule_id`>$schedule_id
             AND `phisicalchange_season_id`=$igosja_season_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT COUNT(`phisicalchange_id`) AS `count`
             FROM `phisicalchange`
             WHERE `phisicalchange_player_id`=$player_id
             AND `phisicalchange_season_id`=$igosja_season_id
             AND `phisicalchange_schedule_id`=$schedule_id";
-    $check_sql = f_igosja_mysqli_query($sql, false);
+    $check_sql = f_igosja_mysqli_query($sql);
 
-    $check_array = $check_sql->fetch_all(1);
+    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
     $count_check = $check_array[0]['count'];
 
     if ($count_check)
@@ -52,7 +52,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 WHERE `phisicalchange_player_id`=$player_id
                 AND `phisicalchange_season_id`=$igosja_season_id
                 AND `phisicalchange_schedule_id`=$schedule_id";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
     else
     {
@@ -60,9 +60,9 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 FROM `phisicalchange`
                 WHERE `phisicalchange_team_id`=$auth_team_id
                 AND `phisicalchange_season_id`=$igosja_season_id";
-        $phisical_used_sql = f_igosja_mysqli_query($sql, false);
+        $phisical_used_sql = f_igosja_mysqli_query($sql);
 
-        $phisical_used_array = $phisical_used_sql->fetch_all(1);
+        $phisical_used_array = $phisical_used_sql->fetch_all(MYSQLI_ASSOC);
 
         $phisical_available = $basephisical_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 
@@ -73,7 +73,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                         `phisicalchange_season_id`=$igosja_season_id,
                         `phisicalchange_schedule_id`=$schedule_id,
                         `phisicalchange_team_id`=$auth_team_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
         else
         {
@@ -97,7 +97,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 )";
         $prev_sql = f_igosja_mysqli_query($sql);
 
-        $prev_array = $prev_sql->fetch_all(1);
+        $prev_array = $prev_sql->fetch_all(MYSQLI_ASSOC);
         $count_prev = $prev_array[0]['count'];
 
         $sql = "SELECT `phisical_id`,
@@ -105,9 +105,9 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                        `phisical_value`
                 FROM `phisical`
                 ORDER BY `phisical_id` ASC";
-        $phisical_sql = f_igosja_mysqli_query($sql, false);
+        $phisical_sql = f_igosja_mysqli_query($sql);
 
-        $phisical_sql = $phisical_sql->fetch_all(1);
+        $phisical_sql = $phisical_sql->fetch_all(MYSQLI_ASSOC);
 
         $phisical_array = array();
 
@@ -124,10 +124,10 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
                 WHERE `schedule_id`>=$schedule_id
                 AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
                 ORDER BY `schedule_id` ASC";
-        $schedule_sql = f_igosja_mysqli_query($sql, false);
+        $schedule_sql = f_igosja_mysqli_query($sql);
 
         $count_schedule = $schedule_sql->num_rows;
-        $schedule_array = $schedule_sql->fetch_all(1);
+        $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
         for ($i=0; $i<$count_schedule; $i++)
         {
@@ -182,9 +182,9 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             FROM `phisicalchange`
             WHERE `phisicalchange_team_id`=$auth_team_id
             AND `phisicalchange_season_id`=$igosja_season_id";
-    $phisical_used_sql = f_igosja_mysqli_query($sql, false);
+    $phisical_used_sql = f_igosja_mysqli_query($sql);
 
-    $phisical_used_array = $phisical_used_sql->fetch_all(1);
+    $phisical_used_array = $phisical_used_sql->fetch_all(MYSQLI_ASSOC);
 
     $phisical_available = $basephisical_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 

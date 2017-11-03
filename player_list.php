@@ -157,15 +157,15 @@ if (count($bind_param_array))
 }
 else
 {
-    $player_sql = f_igosja_mysqli_query($sql, false);
+    $player_sql = f_igosja_mysqli_query($sql);
 }
 
 $count_player = $player_sql->num_rows;
-$player_array = $player_sql->fetch_all(1);
+$player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
@@ -188,9 +188,9 @@ if (count($player_id))
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id` IN ($player_id)
             ORDER BY `playerposition_position_id` ASC";
-    $playerposition_sql = f_igosja_mysqli_query($sql, false);
+    $playerposition_sql = f_igosja_mysqli_query($sql);
 
-    $playerposition_array = $playerposition_sql->fetch_all(1);
+    $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "SELECT `playerspecial_level`,
                    `playerspecial_player_id`,
@@ -201,9 +201,9 @@ if (count($player_id))
             ON `playerspecial_special_id`=`special_id`
             WHERE `playerspecial_player_id` IN ($player_id)
             ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
-    $playerspecial_sql = f_igosja_mysqli_query($sql, false);
+    $playerspecial_sql = f_igosja_mysqli_query($sql);
 
-    $playerspecial_array = $playerspecial_sql->fetch_all(1);
+    $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
@@ -215,9 +215,9 @@ $sql = "SELECT `position_id`,
                `position_name`
         FROM `position`
         ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql, false);
+$position_sql = f_igosja_mysqli_query($sql);
 
-$position_array = $position_sql->fetch_all(1);
+$position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`
@@ -228,9 +228,9 @@ $sql = "SELECT `country_id`,
         AND `country_id`!=0
         GROUP BY `country_id`
         ORDER BY `country_id` ASC";
-$country_sql = f_igosja_mysqli_query($sql, false);
+$country_sql = f_igosja_mysqli_query($sql);
 
-$country_array = $country_sql->fetch_all(1);
+$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = 'Список хоккеистов';
 $seo_description    = 'Список хоккеистов на сайте Вирутальной Хоккейной Лиги.';

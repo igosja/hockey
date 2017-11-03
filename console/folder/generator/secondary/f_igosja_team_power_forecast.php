@@ -24,9 +24,9 @@ function f_igosja_team_power_forecast($game_result)
                 FROM `team`
                 WHERE `team_id`=$team_id
                 LIMIT 1";
-        $team_sql = f_igosja_mysqli_query($sql, false);
+        $team_sql = f_igosja_mysqli_query($sql);
 
-        $team_array = $team_sql->fetch_all(1);
+        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
         $game_result[$team]['team']['power']['forecast'] = $team_array[0]['team_power_vs'];
     }

@@ -17,9 +17,9 @@ function f_igosja_generator_rent()
             ON `rent_team_seller_id`=`team_id`
             WHERE `rent_ready`=0
             ORDER BY `rent_id` ASC";
-    $rent_sql = f_igosja_mysqli_query($sql, false);
+    $rent_sql = f_igosja_mysqli_query($sql);
 
-    $rent_array = $rent_sql->fetch_all(1);
+    $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($rent_array as $rent)
     {
@@ -37,11 +37,11 @@ function f_igosja_generator_rent()
                 AND `rentapplication_price`*`rentapplication_day`<=`team_finance`
                 ORDER BY `rentapplication_price`*`rentapplication_day` DESC, `rentapplication_date` ASC
                 LIMIT 1";
-        $rentaplication_sql = f_igosja_mysqli_query($sql, false);
+        $rentaplication_sql = f_igosja_mysqli_query($sql);
 
         if ($rentaplication_sql->num_rows)
         {
-            $rentaplication_array = $rentaplication_sql->fetch_all(1);
+            $rentaplication_array = $rentaplication_sql->fetch_all(MYSQLI_ASSOC);
 
             $rentaplication_day     = $rentaplication_array[0]['rentapplication_day'];
             $rentaplication_price   = $rentaplication_array[0]['rentapplication_price'] * $rentaplication_array[0]['rentapplication_day'];
@@ -54,7 +54,7 @@ function f_igosja_generator_rent()
                     SET `team_finance`=`team_finance`+$rentaplication_price
                     WHERE `team_id`=$team_seller_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_RENT,
@@ -70,7 +70,7 @@ function f_igosja_generator_rent()
                     SET `team_finance`=`team_finance`-$rentaplication_price
                     WHERE `team_id`=$team_buyer_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_OUTCOME_RENT,
@@ -88,7 +88,7 @@ function f_igosja_generator_rent()
                         `player_rent_team_id`=$team_buyer_id
                     WHERE `player_id`=$player_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "UPDATE `rent`
                     LEFT JOIN `player`
@@ -104,19 +104,19 @@ function f_igosja_generator_rent()
                         `rent_user_buyer_id`=$user_buyer_id
                     WHERE `rent_id`=$rent_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `rentposition` (`rentposition_position_id`, `rentposition_rent_id`)
                     SELECT `playerposition_position_id`, $rent_id
                     FROM `playerposition`
                     WHERE `playerposition_player_id`=$player_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `rentspecial` (`rentspecial_level`, `rentspecial_special_id`, `rentspecial_rent_id`)
                     SELECT `playerspecial_level`, `playerspecial_special_id`, $rent_id
                     FROM `playerspecial`
                     WHERE `playerspecial_player_id`=$player_id";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_RENT,

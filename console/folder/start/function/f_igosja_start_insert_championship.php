@@ -17,9 +17,9 @@ function f_igosja_start_insert_championship()
             GROUP BY `city_country_id`
             HAVING COUNT(`team_id`)>=16
             ORDER BY `city_country_id` ASC";
-    $country_sql = f_igosja_mysqli_query($sql, false);
+    $country_sql = f_igosja_mysqli_query($sql);
 
-    $country_array = $country_sql->fetch_all(1);
+    $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
     foreach ($country_array as $country)
     {
@@ -38,7 +38,7 @@ function f_igosja_start_insert_championship()
                 AND `city_country_id`=$country_id
                 ORDER BY `team_id` ASC
                 LIMIT 16";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `championship` (`championship_country_id`, `championship_division_id`, `championship_season_id`, `championship_team_id`)
                 SELECT `city_country_id`, 2, 1, `team_id`
@@ -51,13 +51,13 @@ function f_igosja_start_insert_championship()
                 AND `city_country_id`=$country_id
                 ORDER BY `team_id` ASC
                 LIMIT 16, 16";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 
     $sql = "UPDATE `championship`
             SET `championship_place`=`championship_id`-((CEIL(`championship_id`/16)-1)*16)
             WHERE `championship_place`=0";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `schedule_id`
             FROM `schedule`
@@ -65,9 +65,9 @@ function f_igosja_start_insert_championship()
             AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
             ORDER BY `schedule_id` ASC
             LIMIT 30";
-    $schedule_sql = f_igosja_mysqli_query($sql, false);
+    $schedule_sql = f_igosja_mysqli_query($sql);
 
-    $schedule_array = $schedule_sql->fetch_all(1);
+    $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
     $schedule_id_01 = $schedule_array[0]['schedule_id'];
     $schedule_id_02 = $schedule_array[1]['schedule_id'];
@@ -115,9 +115,9 @@ function f_igosja_start_insert_championship()
                     AND `championship_division_id`=$i
                     AND `championship_season_id`=1
                     ORDER BY RAND()";
-            $team_sql = f_igosja_mysqli_query($sql, false);
+            $team_sql = f_igosja_mysqli_query($sql);
 
-            $team_array = $team_sql->fetch_all(1);
+            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $team_id_01 = $team_array[0]['championship_team_id'];
             $team_id_02 = $team_array[1]['championship_team_id'];
@@ -394,7 +394,7 @@ function f_igosja_start_insert_championship()
                            ($team_id_03, $team_id_14, $schedule_id_30, $stadium_id_03),
                            ($team_id_02, $team_id_15, $schedule_id_30, $stadium_id_02),
                            ($team_id_01, $team_id_16, $schedule_id_30, $stadium_id_01);";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
         }
     }
 }

@@ -38,9 +38,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `history_building_id`,
                `history_date`,
@@ -69,10 +69,10 @@ $sql = "SELECT `history_building_id`,
         WHERE `history_team_id`=$num_get
         AND `history_season_id`=$season_id
         ORDER BY `history_id` DESC";
-$event_sql = f_igosja_mysqli_query($sql, false);
+$event_sql = f_igosja_mysqli_query($sql);
 
 $count_event = $event_sql->num_rows;
-$event_array = $event_sql->fetch_all(1);
+$event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {

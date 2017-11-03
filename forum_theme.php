@@ -24,14 +24,14 @@ $sql = "SELECT `forumchapter_id`,
         ON `forumgroup_forumchapter_id`=`forumchapter_id`
         WHERE `forumtheme_id`=$num_get
         LIMIT 1";
-$forumtheme_sql = f_igosja_mysqli_query($sql, false);
+$forumtheme_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $forumtheme_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$forumtheme_array = $forumtheme_sql->fetch_all(1);
+$forumtheme_array = $forumtheme_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -62,7 +62,7 @@ if ($data = f_igosja_request_post('data'))
                         `forumtheme_last_user_id`=$auth_user_id
                     WHERE `forumtheme_id`=$num_get
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $forumgroup_id = $forumtheme_array[0]['forumgroup_id'];
 
@@ -74,7 +74,7 @@ if ($data = f_igosja_request_post('data'))
                         `forumgroup_last_user_id`=$auth_user_id
                     WHERE `forumgroup_id`=$forumgroup_id
                     LIMIT 1";
-            f_igosja_mysqli_query($sql, false);
+            f_igosja_mysqli_query($sql);
 
             $_SESSION['message']['class'] = 'success';
             $_SESSION['message']['text'] = 'Сообщение успешно добавлено.';
@@ -118,13 +118,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE `forummessage_forumtheme_id`=$num_get
         ORDER BY `forummessage_id` ASC
         LIMIT $offset, $limit";
-$forummessage_sql = f_igosja_mysqli_query($sql, false);
+$forummessage_sql = f_igosja_mysqli_query($sql);
 
-$forummessage_array = $forummessage_sql->fetch_all(1);
+$forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
@@ -133,7 +133,7 @@ $sql = "UPDATE `forumtheme`
         SET `forumtheme_count_view`=`forumtheme_count_view`+1
         WHERE `forumtheme_id`=$num_get
         LIMIT 1";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $seo_title          = $forumtheme_array[0]['forumtheme_name'] . ' - Форум';
 $seo_description    = $forumtheme_array[0]['forumtheme_name'] . ' - Форум сайта Вирутальной Хоккейной Лиги.';

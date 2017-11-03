@@ -9,5 +9,5 @@ function f_igosja_generator_site_close()
             SET `site_status`=0
             WHERE `site_id`=1
             LIMIT 1";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 }

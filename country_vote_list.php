@@ -25,7 +25,7 @@ $sql = "UPDATE `vote`
         SET `vote_votestatus_id`=" . VOTESTATUS_CLOSE . "
         WHERE `vote_votestatus_id`=" . VOTESTATUS_OPEN . "
         AND `vote_date`<UNIX_TIMESTAMP()-604800";
-f_igosja_mysqli_query($sql, false);
+f_igosja_mysqli_query($sql);
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `user_id`,
@@ -42,13 +42,13 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         AND `votestatus_id`>" . VOTESTATUS_NEW . "
         ORDER BY `votestatus_id` ASC, `vote_id` DESC
         LIMIT $offset, $limit";
-$vote_sql = f_igosja_mysqli_query($sql, false);
+$vote_sql = f_igosja_mysqli_query($sql);
 
-$vote_array = $vote_sql->fetch_all(1);
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
-$total = f_igosja_mysqli_query($sql, false);
-$total = $total->fetch_all(1);
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
@@ -62,9 +62,9 @@ for ($i=0, $count_vote=count($vote_array); $i<$count_vote; $i++)
             FROM `voteanswer`
             WHERE `voteanswer_vote_id`=$vote_id
             ORDER BY `voteanswer_count` DESC, `voteanswer_id` ASC";
-    $answer_sql = f_igosja_mysqli_query($sql, false);
+    $answer_sql = f_igosja_mysqli_query($sql);
 
-    $vote_array[$i]['answer'] = $answer_sql->fetch_all(1);
+    $vote_array[$i]['answer'] = $answer_sql->fetch_all(MYSQLI_ASSOC);
 }
 
 $seo_title          = $country_array[0]['country_name'] . '. Список опросов фередации';

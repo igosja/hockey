@@ -16,9 +16,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         WHERE $sql_filter
         ORDER BY `forumchapter_id` ASC
         LIMIT $offset, $limit";
-$forumchapter_sql = f_igosja_mysqli_query($sql, false);
+$forumchapter_sql = f_igosja_mysqli_query($sql);
 
-$forumchapter_array = $forumchapter_sql->fetch_all(1);
+$forumchapter_array = $forumchapter_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = 'Разделы';
 

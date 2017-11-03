@@ -26,7 +26,7 @@ if (0 == $electionnational_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$electionnational_array = $electionnational_sql->fetch_all(1);
+$electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
 $electionnational_id = $electionnational_array[0]['electionnational_id'];
 
@@ -93,7 +93,7 @@ if (0 == $electionnational_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$electionnational_array = $electionnational_sql->fetch_all(1);
+$electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -111,7 +111,7 @@ if ($data = f_igosja_request_post('data'))
             AND `electionnationaluser_user_id`=$auth_user_id";
     $electionnationaluser_sql = f_igosja_mysqli_query($sql);
 
-    $electionnationaluser_array = $electionnationaluser_sql->fetch_all(1);
+    $electionnationaluser_array = $electionnationaluser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 != $electionnationaluser_array[0]['count'])
     {
@@ -144,7 +144,7 @@ if (isset($auth_user_id) && ELECTIONSTATUS_OPEN == $electionnational_array[0]['e
             AND `electionnationaluser_user_id`=$auth_user_id";
     $electionnationaluser_sql = f_igosja_mysqli_query($sql);
 
-    $electionnationaluser_array = $electionnationaluser_sql->fetch_all(1);
+    $electionnationaluser_array = $electionnationaluser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 == $electionnationaluser_array[0]['count'])
     {

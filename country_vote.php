@@ -39,14 +39,14 @@ $sql = "SELECT `user_id`,
         AND `vote_country_id`=$num_get
         AND `vote_id`=$vote_id
         ORDER BY `voteanswer_count` DESC, `voteanswer_id` ASC";
-$vote_sql = f_igosja_mysqli_query($sql, false);
+$vote_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $vote_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
 
-$vote_array = $vote_sql->fetch_all(1);
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -62,9 +62,9 @@ if ($data = f_igosja_request_post('data'))
             FROM `voteuser`
             WHERE `voteuser_user_id`=$auth_user_id
             AND `voteuser_vote_id`=$vote_id";
-    $voteuser_sql = f_igosja_mysqli_query($sql, false);
+    $voteuser_sql = f_igosja_mysqli_query($sql);
 
-    $voteuser_array = $voteuser_sql->fetch_all(1);
+    $voteuser_array = $voteuser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 != $voteuser_array[0]['count'])
     {
@@ -81,13 +81,13 @@ if ($data = f_igosja_request_post('data'))
                 `voteuser_date`=UNIX_TIMESTAMP(),
                 `voteuser_user_id`=$auth_user_id,
                 `voteuser_vote_id`=$vote_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `voteanswer`
             SET `voteanswer_count`=`voteanswer_count`+1
             WHERE `voteanswer_id`=$answer
             AND `voteanswer_vote_id`=$vote_id";
-    f_igosja_mysqli_query($sql, false);
+    f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Вы успешно проголосовали.';
@@ -101,9 +101,9 @@ if (isset($auth_user_id) && VOTESTATUS_OPEN == $vote_array[0]['votestatus_id'])
             FROM `voteuser`
             WHERE `voteuser_user_id`=$auth_user_id
             AND `voteuser_vote_id`=$vote_id";
-    $voteuser_sql = f_igosja_mysqli_query($sql, false);
+    $voteuser_sql = f_igosja_mysqli_query($sql);
 
-    $voteuser_array = $voteuser_sql->fetch_all(1);
+    $voteuser_array = $voteuser_sql->fetch_all(MYSQLI_ASSOC);
 
     if (0 == $voteuser_array[0]['count'])
     {

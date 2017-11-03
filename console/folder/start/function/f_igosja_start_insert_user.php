@@ -199,6 +199,6 @@ function f_igosja_start_insert_user()
                     `user_email`='$user_email',
                     `user_login`='$user_login',
                     `user_password`='$user_password'";
-        f_igosja_mysqli_query($sql, false);
+        f_igosja_mysqli_query($sql);
     }
 }

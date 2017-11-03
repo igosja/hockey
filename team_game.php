@@ -38,9 +38,9 @@ if ($season_id > $igosja_season_id)
 $sql = "SELECT `season_id`
         FROM `season`
         ORDER BY `season_id` DESC";
-$season_sql = f_igosja_mysqli_query($sql, false);
+$season_sql = f_igosja_mysqli_query($sql);
 
-$season_array = $season_sql->fetch_all(1);
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_name`,
@@ -85,9 +85,9 @@ $sql = "SELECT `city_name`,
         OR `game_home_team_id`=$num_get)
         AND `schedule_season_id`=$season_id
         ORDER BY `schedule_id` ASC";
-$game_sql = f_igosja_mysqli_query($sql, false);
+$game_sql = f_igosja_mysqli_query($sql);
 
-$game_array = $game_sql->fetch_all(1);
+$game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $team_array[0]['team_name'] . '. Матчи команды';
 $seo_description    = $team_array[0]['team_name'] . '. Матчи команды на сайте Вирутальной Хоккейной Лиги.';
