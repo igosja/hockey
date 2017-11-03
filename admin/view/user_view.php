@@ -77,6 +77,21 @@
                     <?= f_igosja_ufu_date_time($user_array[0]['user_date_register']); ?>
                 </td>
             </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Доступ к форуму
+                </td>
+                <td>
+                    <?php if (time() < $user_array[0]['user_date_forum_block']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_forum_block']); ?>
+                    <?php } else { ?>
+                        Открыт
+                        <a class="btn btn-default btn-xs" href="/admin/user_forum_block.php?num=<?= $num_get; ?>" target="_blank">
+                            Блокировать
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

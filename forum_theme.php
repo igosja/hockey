@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_date_forum integer
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -30,7 +35,7 @@ $forumtheme_array = $forumtheme_sql->fetch_all(1);
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id) && isset($data['text']))
+    if (isset($auth_user_id) && isset($data['text']) && $auth_date_forum < time())
     {
         $text = trim($data['text']);
 

@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_date_forum integer
  * @var $count_page integer
  * @var $forumtheme_array array
  * @var $forummessage_array array
@@ -109,7 +110,7 @@
         <?php } ?>
     </div>
 </div>
-<?php if (isset($auth_user_id)) { ?>
+<?php if (isset($auth_user_id) && $auth_date_forum < time()) { ?>
     <form method="POST" id="forumtheme-form">
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">

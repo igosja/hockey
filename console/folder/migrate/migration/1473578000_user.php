@@ -12,6 +12,7 @@ $q[] = 'CREATE TABLE `user`
             `user_code` CHAR(32),
             `user_country_id` INT(3) DEFAULT 0,
             `user_date_confirm` INT(11) DEFAULT 0,
+            `user_date_forum_block` INT(11) DEFAULT 0,
             `user_date_holiday` INT(11) DEFAULT 0,
             `user_date_login` INT(11) DEFAULT 0,
             `user_date_register` INT(11) DEFAULT 0,

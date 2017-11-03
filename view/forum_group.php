@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_date_forum integer
  * @var $count_page integer
  * @var $forumgroup_array array
  * @var $forumtheme_array array
@@ -27,7 +28,7 @@
                 <h1><?= $forumgroup_array[0]['forumgroup_name']; ?></h1>
             </div>
         </div>
-        <?php if (isset($auth_user_id)) { ?>
+        <?php if (isset($auth_user_id) && $auth_date_forum < time()) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a class="btn margin" href="/forum_theme_create.php?num=<?= $num_get; ?>">

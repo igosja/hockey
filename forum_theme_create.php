@@ -1,12 +1,18 @@
 <?php
 
 /**
+ * @var $auth_date_forum
  * @var $auth_user_id
  */
 
 include(__DIR__ . '/include/include.php');
 
 if (!isset($auth_user_id))
+{
+    redirect('/wrong_page.php');
+}
+
+if ($auth_date_forum > time())
 {
     redirect('/wrong_page.php');
 }

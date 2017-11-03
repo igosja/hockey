@@ -19,6 +19,7 @@ if (isset($_SESSION['user_id']))
     $sql = "SELECT `city_country_id`,
                    `national_id`,
                    `team_id`,
+                   `user_date_forum_block`,
                    `user_login`,
                    `user_userrole_id`
             FROM `user`
@@ -37,6 +38,7 @@ if (isset($_SESSION['user_id']))
     $user_array = $user_sql->fetch_all(1);
 
     $auth_country_id    = $user_array[0]['city_country_id'];
+    $auth_date_forum    = $user_array[0]['user_date_forum_block'];
     $auth_team_id       = $user_array[0]['team_id'];
     $auth_national_id   = $user_array[0]['national_id'];
     $auth_user_login    = $user_array[0]['user_login'];
