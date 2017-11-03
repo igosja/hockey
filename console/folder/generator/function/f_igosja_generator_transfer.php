@@ -110,7 +110,8 @@ function f_igosja_generator_transfer()
             f_igosja_finance($finance);
 
             $sql = "UPDATE `player`
-                    SET `player_team_id`=$team_buyer_id,
+                    SET `player_line_id`=0,
+                        `player_team_id`=$team_buyer_id,
                         `player_transfer_on`=0
                     WHERE `player_id`=$player_id
                     LIMIT 1";
@@ -152,6 +153,16 @@ function f_igosja_generator_transfer()
                 'history_value' => $transferaplication_price,
             );
             f_igosja_history($log);
+
+            $sql = "DELETE FROM `transfer`
+                    WHERE `transfer_player_id`=$player_id
+                    AND `transfer_ready`=0";
+            f_igosja_mysqli_query($sql);
+
+            $sql = "DELETE FROM `rent`
+                    WHERE `rent_player_id`=$player_id
+                    AND `rent_ready`=0";
+            f_igosja_mysqli_query($sql);
         }
     }
 }
