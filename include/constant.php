@@ -174,6 +174,8 @@ define('STAGE_12_TOUR', 13);
 define('STAGE_30_TOUR', 31);
 define('STAGE_41_TOUR', 42);
 define('STAGE_1_QUALIFY', 43);
+define('STAGE_QUATER', 54);
+define('STAGE_SEMI', 55);
 define('STAGE_FINAL', 56);
 define('STATISTIC_TEAM_NO_PASS', 1);
 define('STATISTIC_TEAM_NO_SCORE', 2);
