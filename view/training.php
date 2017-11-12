@@ -215,8 +215,10 @@
                             <td class="text-center"><?= $item['player_age']; ?></td>
                             <td class="text-center">
                                 <?= $item['player_power_nominal']; ?>
-                                <label class="hidden" for="power-<?= $item['player_id']; ?>">+1</label>
-                                <input id="power-<?= $item['player_id']; ?>" name="data[power][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                <?php if ($item['player_noaction'] < time()) { ?>
+                                    <label class="hidden" for="power-<?= $item['player_id']; ?>">+1</label>
+                                    <input id="power-<?= $item['player_id']; ?>" name="data[power][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                <?php } ?>
                             </td>
                             <td class="text-center">
                                 <div class="row">
@@ -224,7 +226,9 @@
                                         <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?= f_igosja_player_position_training($item['player_id']); ?>
+                                        <?php if ($item['player_noaction'] < time()) { ?>
+                                            <?= f_igosja_player_position_training($item['player_id']); ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </td>
@@ -234,7 +238,9 @@
                                         <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?= f_igosja_player_special_training($item['player_id']); ?>
+                                        <?php if ($item['player_noaction'] < time()) { ?>
+                                            <?= f_igosja_player_special_training($item['player_id']); ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </td>

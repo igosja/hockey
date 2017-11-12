@@ -97,6 +97,14 @@ if (isset($auth_team_id) && $auth_team_id)
                 $day_min    = (int) $data['day_min'];
                 $day_max    = (int) $data['day_max'];
 
+                if ($player_array[0]['player_noaction'] > time())
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.';
+
+                    refresh();
+                }
+
                 if ($rent_price > $price)
                 {
                     $_SESSION['message']['class']   = 'error';

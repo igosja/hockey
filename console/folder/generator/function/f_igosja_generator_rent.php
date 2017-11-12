@@ -84,6 +84,7 @@ function f_igosja_generator_rent()
 
             $sql = "UPDATE `player`
                     SET `player_line_id`=0,
+                        `player_noaction`=UNIX_TIMESTAMP()+604800,
                         `player_rent_on`=0,
                         `player_rent_day`=$rentaplication_day,
                         `player_rent_team_id`=$team_buyer_id

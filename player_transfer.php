@@ -88,6 +88,14 @@ if (isset($auth_team_id) && $auth_team_id)
             {
                 $price = (int) $data['price'];
 
+                if ($player_array[0]['player_noaction'] > time())
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.';
+
+                    refresh();
+                }
+
                 if ($transfer_price > $price)
                 {
                     $_SESSION['message']['class']   = 'error';

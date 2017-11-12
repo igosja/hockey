@@ -114,6 +114,7 @@ if ($data = f_igosja_request_post('data'))
                     LEFT JOIN `surname`
                     ON `player_surname_id`=`surname_id`
                     WHERE `player_id`=$player_id
+                    AND `player_noaction`>UNIX_TIMESTAMP()
                     AND `player_team_id`=$num_get
                     LIMIT 1";
             $player_sql = f_igosja_mysqli_query($sql);
@@ -170,6 +171,7 @@ if ($data = f_igosja_request_post('data'))
                         LEFT JOIN `surname`
                         ON `player_surname_id`=`surname_id`
                         WHERE `player_id`=$player_id
+                        AND `player_noaction`>UNIX_TIMESTAMP()
                         AND `player_team_id`=$num_get
                         LIMIT 1";
                 $player_sql = f_igosja_mysqli_query($sql);
@@ -240,6 +242,7 @@ if ($data = f_igosja_request_post('data'))
                         LEFT JOIN `surname`
                         ON `player_surname_id`=`surname_id`
                         WHERE `player_id`=$player_id
+                        AND `player_noaction`>UNIX_TIMESTAMP()
                         AND `player_team_id`=$num_get
                         LIMIT 1";
                 $player_sql = f_igosja_mysqli_query($sql);
@@ -461,6 +464,7 @@ $sql = "SELECT `country_id`,
                `name_name`,
                `player_age`,
                `player_id`,
+               `player_noaction`,
                `player_power_nominal`,
                `position_name`,
                `surname_name`,

@@ -13,11 +13,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Административный раздел</title>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/metisMenu.css" rel="stylesheet">
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
-    <link href="/css/morris.css" rel="stylesheet">
-    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.css?v=<?= filemtime(__DIR__ . '/../../../css/bootstrap.css'); ?>" rel="stylesheet">
+    <link href="/css/metisMenu.css?v=<?= filemtime(__DIR__ . '/../../../css/bootstrap.css'); ?>" rel="stylesheet">
+    <link href="/css/sb-admin-2.css?v=<?= filemtime(__DIR__ . '/../../../css/sb-admin-2.css'); ?>" rel="stylesheet">
+    <link href="/css/morris.css?v=<?= filemtime(__DIR__ . '/../../../css/morris.css'); ?>" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.min.css?v=<?= filemtime(__DIR__ . '/../../../font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="wrapper">
@@ -32,6 +32,27 @@
             <a class="navbar-brand" href="/admin">Админ</a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-bell-o fa-fw"></i>
+                    <span class="badge" id="admin-bell"></span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <a href="/admin/teamask_list.php">
+                            <i class="fa fa-user fa-fw"></i> Заявки на команды
+                            <span class="badge" id="admin-teamask"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/support_list.php">
+                            <i class="fa fa-comments fa-fw"></i> Тех. поддержка
+                            <span class="badge" id="admin-support"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-gear fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -49,13 +70,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/site_version.php"><i class="fa fa-signal fa-fw"></i> Версия сайта</a>
+                        <a href="/admin/site_version.php">
+                            <i class="fa fa-signal fa-fw"></i> Версия сайта
+                        </a>
                     </li>
                     <li>
-                        <a href="/admin/debug_list.php"><i class="fa fa-bug fa-fw"></i> Debugger</a>
+                        <a href="/admin/debug_list.php">
+                            <i class="fa fa-bug fa-fw"></i> Debugger
+                        </a>
                     </li>
                     <li>
-                        <a href="/admin/code_review.php"><i class="fa fa-file-code-o fa-fw"></i> Code review</a>
+                        <a href="/admin/code_review.php">
+                            <i class="fa fa-file-code-o fa-fw"></i> Code review
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -193,16 +220,16 @@
         <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
     </div>
 </div>
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/metisMenu.js"></script>
-<script src="/js/raphael.js"></script>
+<script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../../js/jquery.js'); ?>"></script>
+<script src="/js/bootstrap.js?v=<?= filemtime(__DIR__ . '/../../../js/bootstrap.js'); ?>"></script>
+<script src="/js/metisMenu.js?v=<?= filemtime(__DIR__ . '/../../../js/metisMenu.js'); ?>"></script>
+<script src="/js/raphael.js?v=<?= filemtime(__DIR__ . '/../../../js/raphael.js'); ?>"></script>
 <?php if ('index' == $tpl && false) { ?>
-    <script src="/js/morris.js"></script>
-    <script src="/js/morris-data.js"></script>
+    <script src="/js/morris.js?v=<?= filemtime(__DIR__ . '/../../../js/morris.js'); ?>"></script>
+    <script src="/js/morris-data.js?v=<?= filemtime(__DIR__ . '/../../../js/morris-data.js'); ?>"></script>
 <?php } ?>
-<script src="/js/sb-admin-2.js"></script>
-<script src="/js/admin.js"></script>
+<script src="/js/sb-admin-2.js?v=<?= filemtime(__DIR__ . '/../../../js/sb-admin-2.js'); ?>"></script>
+<script src="/js/admin.js?v=<?= filemtime(__DIR__ . '/../../../js/admin.js'); ?>"></script>
 </body>
 </html>
 <?php f_igosja_get_count_query(); ?>

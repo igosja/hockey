@@ -57,6 +57,8 @@ for ($i=1, $count_file_list=count($file_list); $i<=$count_file_list; $i++)
     f_igosja_console_progress($i, count($file_list));
 }
 
+//f_igosja_generator_prize();
+
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"
     . 'Database queries: ' . f_igosja_get_count_query() . "\r\n"
