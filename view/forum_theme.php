@@ -79,25 +79,34 @@
                             <?= $item['user_rating']; ?>
                         </div>
                     </div>
-                    <div class="row text-size-2 hidden-xs">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Команда:
-                            <img
-                                alt="<?= $item['country_name']; ?>"
-                                src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                title="<?= $item['country_name']; ?>"
-                            />
-                            <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
-                                <?= $item['team_name']; ?>
-                                (<?= $item['city_name']; ?>)
-                            </a>
+                    <?php if ($item['team_id']) { ?>
+                        <div class="row text-size-2 hidden-xs">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                Команда:
+                                <img
+                                    alt="<?= $item['country_name']; ?>"
+                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                    title="<?= $item['country_name']; ?>"
+                                />
+                                <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
+                                    <?= $item['team_name']; ?>
+                                    (<?= $item['city_name']; ?>)
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <div class="row text-size-2 font-grey">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
                             <?= f_igosja_ufu_date_time($item['forummessage_date']); ?>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-right">
+                            <?php if (isset($auth_user_id) && $auth_user_id == $item['user_id']) { ?>
+                                <a href="/forum_message_delete.php?num=<?= $item['forummessage_id']; ?>" title="Удалить сообщение">
+                                    &times;
+                                </a>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="row">

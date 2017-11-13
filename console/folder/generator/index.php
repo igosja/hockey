@@ -58,6 +58,8 @@ for ($i=1, $count_file_list=count($file_list); $i<=$count_file_list; $i++)
 }
 
 //f_igosja_generator_prize();
+//f_igosja_generator_president_fire();
+//f_igosja_generator_national_fire();
 
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"

@@ -23,22 +23,22 @@ foreach ($forumchapter_array as $item)
     if (FORUMGROUP_NATIONAL != $forumchapter_id)
     {
         $sql = "SELECT `forumgroup_count_message`,
-                   `forumgroup_count_theme`,
-                   `forumgroup_description`,
-                   `forumgroup_id`,
-                   `forumgroup_name`,
-                   `forumgroup_last_date`,
-                   `forumtheme_id`,
-                   `forumtheme_name`,
-                   `user_id`,
-                   `user_login`
-            FROM `forumgroup`
-            LEFT JOIN `forumtheme`
-            ON `forumgroup_last_forumtheme_id`=`forumtheme_id`
-            LEFT JOIN `user`
-            ON `forumgroup_last_user_id`=`user_id`
-            WHERE `forumgroup_forumchapter_id`=$forumchapter_id
-            ORDER BY `forumgroup_order` ASC";
+                       `forumgroup_count_theme`,
+                       `forumgroup_description`,
+                       `forumgroup_id`,
+                       `forumgroup_name`,
+                       `forumgroup_last_date`,
+                       `forumtheme_id`,
+                       `forumtheme_name`,
+                       `user_id`,
+                       `user_login`
+                FROM `forumgroup`
+                LEFT JOIN `forumtheme`
+                ON `forumgroup_last_forumtheme_id`=`forumtheme_id`
+                LEFT JOIN `user`
+                ON `forumgroup_last_user_id`=`user_id`
+                WHERE `forumgroup_forumchapter_id`=$forumchapter_id
+                ORDER BY `forumgroup_order` ASC";
     }
     else
     {

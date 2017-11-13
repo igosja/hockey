@@ -97,6 +97,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `country_id`,
                `country_name`,
                `forummessage_date`,
+               `forummessage_id`,
                `forummessage_text`,
                `team_id`,
                `team_name`,
