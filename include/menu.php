@@ -2,7 +2,7 @@
 
 $igosja_menu = array(
     array('label' => 'VIP-клуб',        'url' => '/vip.php'),
-    array('label' => 'Аренда',          'url' => '/rent.php'),
+    array('label' => 'Аренда',          'url' => '/rent_list.php'),
     array('label' => 'Главная',         'url' => '/'),
     array('label' => 'Забыли пароль?',  'url' => '/password.php'),
     array('label' => 'Игроки',          'url' => '/player_list.php'),
@@ -21,7 +21,7 @@ $igosja_menu = array(
     array('label' => 'Сборная',         'url' => '/national_view.php'),
     array('label' => 'Сменить клуб',    'url' => '/team_change.php'),
     array('label' => 'Тех.поддержка',   'url' => '/support.php',    'css' => 'count_support'),
-    array('label' => 'Трансфер',        'url' => '/transfer.php'),
+    array('label' => 'Трансфер',        'url' => '/transfer_list.php'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
     array('label' => 'Федерация',       'url' => '/country_news.php'),
     array('label' => 'Форум',           'url' => '/forum.php'),

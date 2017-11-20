@@ -7,18 +7,23 @@ jQuery(document).ready(function () {
         $(this).parents('form').submit();
     });
 
+    admin_bell();
+
     if ($('#admin-bell').length)
     {
-        setInterval(function() {
-            $.ajax({
-                dataType: 'json',
-                success: function (data) {
-                    $('#admin-bell').html(data.bell);
-                    $('#admin-support').html(data.support);
-                    $('#admin-teamask').html(data.teamask);
-                },
-                url: '/admin/json/bell.php'
-            });
-        }, 30000);
+        setInterval(function() { admin_bell(); }, 30000);
     }
 });
+
+function admin_bell()
+{
+    $.ajax({
+        dataType: 'json',
+        success: function (data) {
+            $('#admin-bell').html(data.bell);
+            $('#admin-support').html(data.support);
+            $('#admin-teamask').html(data.teamask);
+        },
+        url: '/admin/json/bell.php'
+    });
+}

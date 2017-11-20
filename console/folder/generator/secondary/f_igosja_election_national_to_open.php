@@ -2,26 +2,14 @@
 
 /**
  * Переводимо голосування за тренера збірної зі статуса збір кандидатур в статус відкрито
- * @param $nationaltype_id integer id типу збірної
- * @param $country_id integer id країни
+ * @param $electionnational_id integer id голосування
  */
-function f_igosja_election_national_to_open($nationaltype_id, $country_id = 0)
+function f_igosja_election_national_to_open($electionnational_id)
 {
-    if ($country_id)
-    {
-        $sql = "UPDATE `electionnational`
-                SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
-                WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
-                AND `electionnational_nationaltype_id`=$nationaltype_id
-                AND `electionnational_country_id`=$country_id";
-        f_igosja_mysqli_query($sql);
-    }
-    else
-    {
-        $sql = "UPDATE `electionnational`
-                SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
-                WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
-                AND `electionnational_nationaltype_id`=$nationaltype_id";
-        f_igosja_mysqli_query($sql);
-    }
+    $sql = "UPDATE `electionnational`
+            SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
+            WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
+            AND `electionnational_id`=$electionnational_id
+            LIMIT 1";
+    f_igosja_mysqli_query($sql);
 }

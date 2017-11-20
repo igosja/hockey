@@ -12,6 +12,7 @@ function f_igosja_generator_national_fire()
                    `national_vice_id`
             FROM `national`
             WHERE `national_user_id`!=0
+            AND `national_vice_id`!=0
             ORDER BY `national_id` ASC";
     $national_sql = f_igosja_mysqli_query($sql);
 
@@ -22,22 +23,6 @@ function f_igosja_generator_national_fire()
         $country_id     = $item['national_country_id'];
         $national_id    = $item['national_id'];
 
-        if (NATIONALTYPE_19 == $item['national_nationaltype_id'])
-        {
-            $vote_column    = '`team_vote_u19`';
-            $national_news  = 'сборной U-19';
-        }
-        elseif (NATIONALTYPE_21 == $item['national_nationaltype_id'])
-        {
-            $vote_column = '`team_vote_u21`';
-            $national_news = 'сборной U-21';
-        }
-        else
-        {
-            $vote_column    = '`team_vote_national`';
-            $national_news  = 'национальной сборной';
-        }
-
         $sql = "SELECT COUNT(`team_id`) AS `total`
                 FROM `team`
                 LEFT JOIN `stadium`
@@ -46,7 +31,7 @@ function f_igosja_generator_national_fire()
                 ON `stadium_city_id`=`stadium_id`
                 WHERE `city_country_id`=$country_id
                 AND `team_user_id`!=0
-                AND $vote_column=" . VOTERATING_NEGATIVE;
+                AND `team_vote_national`=" . VOTERATING_NEGATIVE;
         $rating_negative_sql = f_igosja_mysqli_query($sql);
 
         $rating_negative_array = $rating_negative_sql->fetch_all(MYSQLI_ASSOC);
@@ -74,22 +59,19 @@ function f_igosja_generator_national_fire()
             );
             f_igosja_history($log);
 
-            if ($item['national_vice_id'])
-            {
-                $log = array(
-                    'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_OUT,
-                    'history_national_id' => $national_id,
-                    'history_user_id' => $item['national_vice_id'],
-                );
-                f_igosja_history($log);
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_OUT,
+                'history_national_id' => $national_id,
+                'history_user_id' => $item['national_vice_id'],
+            );
+            f_igosja_history($log);
 
-                $log = array(
-                    'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_IN,
-                    'history_national_id' => $national_id,
-                    'history_user_id' => $item['national_vice_id'],
-                );
-                f_igosja_history($log);
-            }
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_IN,
+                'history_national_id' => $national_id,
+                'history_user_id' => $item['national_vice_id'],
+            );
+            f_igosja_history($log);
 
             $sql = "UPDATE `national`
                     SET `national_user_id`=`national_vice_id`,
@@ -103,22 +85,12 @@ function f_igosja_generator_national_fire()
                     ON `team_stadium_id`=`stadium_id`
                     LEFT JOIN `city`
                     ON `stadium_city_id`=`stadium_id`
-                    SET $vote_column=" . VOTERATING_NEUTRAL . "
+                    SET `team_vote_national`=" . VOTERATING_NEUTRAL . "
                     WHERE `city_country_id`=$country_id";
             f_igosja_mysqli_query($sql);
 
-            $news_text = 'Действующий тренер ' . $national_news . ' отправлен в отставку по причине высокого уровня недоверия менеджеров федерации.';
-
-            if ($item['country_vice_id'])
-            {
-                $news_text = $news_text . ' Заместитель тренера занял вакантную должность.';
-            }
-            else
-            {
-                $news_text = $news_text . ' Поскольку заместителя у тренера не было, должность стала вакантной.';
-            }
-
-            $news_title = 'Увольнение тренера ' . $national_news;
+            $news_text  = 'Действующий тренер национальной сборной отправлен в отставку по причине высокого уровня недоверия менеджеров федерации. Заместитель тренера занял вакантную должность.';
+            $news_title = 'Увольнение тренера национальной сборной';
 
             $sql = "INSERT INTO `news`
                     SET `news_country_id`=$country_id,

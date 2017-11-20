@@ -5,61 +5,38 @@
  */
 function f_igosja_generator_national_vote_status()
 {
-    $sql = "SELECT `schedule_nationalvotestep_id`
-            FROM `schedule`
-            WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
-            AND `schedule_nationalvotestep_id` IN (
-                ".NATIONALVOTESTEP_MAIN_APPLICATION.",
-                ".NATIONALVOTESTEP_MAIN_VOTE.",
-                ".NATIONALVOTESTEP_21_APPLICATION.",
-                ".NATIONALVOTESTEP_21_VOTE.",
-                ".NATIONALVOTESTEP_19_APPLICATION.",
-                ".NATIONALVOTESTEP_19_VOTE."
-            )
-            LIMIT 1";
-    $schedule_sql = f_igosja_mysqli_query($sql);
+    $sql = "SELECT `electionnational_id`
+            FROM `electionnational`
+            LEFT JOIN
+            (
+                SELECT COUNT(`electionnationalapplication_id`) AS `count`,
+                       `electionnationalapplication_electionnational_id`
+                FROM `electionnationalapplication`
+                GROUP BY `electionnationalapplication_electionnational_id`
+            ) AS `t1`
+            ON `electionnational_id`=`electionnationalapplication_electionnational_id`
+            WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CANDIDATES . "
+            AND `electionnational_date`<UNIX_TIMESTAMP()-172800
+            AND `count`>0";
+    $electionnational_sql = f_igosja_mysqli_query($sql);
 
-    if ($schedule_sql->num_rows)
+    $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($electionnational_array as $item)
     {
-        $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
+        f_igosja_election_national_to_open($item['electionnational_id']);
+    }
 
-        $sql = "SELECT `schedule_nationalvotestep_id`
-                FROM `schedule`
-                WHERE FROM_UNIXTIME(`schedule_date`-86400, '%Y-%m-%d')=CURDATE()
-                LIMIT 1";
-        $tomorrow_sql = f_igosja_mysqli_query($sql);
+    $sql = "SELECT `electionnational_id`
+            FROM `electionnational`
+            WHERE `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
+            AND `electionnational_date`<UNIX_TIMESTAMP()-432000";
+    $electionnational_sql = f_igosja_mysqli_query($sql);
 
-        $tomorrow_array = $tomorrow_sql->fetch_all(MYSQLI_ASSOC);
+    $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
-        if (NATIONALVOTESTEP_MAIN_APPLICATION == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-            NATIONALVOTESTEP_MAIN_VOTE == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_open(NATIONALTYPE_MAIN);
-        }
-        elseif (NATIONALVOTESTEP_MAIN_VOTE == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-                NATIONALVOTESTEP_21_APPLICATION == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_close(NATIONALTYPE_MAIN);
-        }
-        elseif (NATIONALVOTESTEP_21_APPLICATION == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-                NATIONALVOTESTEP_21_VOTE == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_open(NATIONALTYPE_21);
-        }
-        elseif (NATIONALVOTESTEP_21_VOTE == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-                NATIONALVOTESTEP_19_APPLICATION == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_close(NATIONALTYPE_21);
-        }
-        elseif (NATIONALVOTESTEP_19_APPLICATION == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-                NATIONALVOTESTEP_19_VOTE == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_open(NATIONALTYPE_19);
-        }
-        elseif (NATIONALVOTESTEP_19_VOTE == $schedule_array[0]['schedule_nationalvotestep_id'] &&
-                0 == $tomorrow_array[0]['schedule_nationalvotestep_id'])
-        {
-            f_igosja_election_national_to_close(NATIONALTYPE_19);
-        }
+    foreach ($electionnational_array as $item)
+    {
+        f_igosja_election_national_to_close($item['electionnational_id']);
     }
 }

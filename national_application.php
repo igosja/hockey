@@ -11,6 +11,16 @@ if (!isset($auth_user_id))
     redirect('/wrong_page.php');
 }
 
+if (!$auth_country_id)
+{
+    redirect('/team_ask.php');
+}
+
+if ($num_get != $auth_country_id)
+{
+    redirect('/wrong_page.php');
+}
+
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
@@ -62,6 +72,21 @@ $chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 if ($chech_array[0]['check'])
 {
     redirect('/national_vote.php?num=' . $num_get . '&type=' . $type_get);
+}
+
+$sql = "SELECT COUNT(`national_id`) AS `check`
+        FROM `national`
+        WHERE `national_user_id`=$auth_user_id";
+$check_sql = f_igosja_mysqli_query($sql);
+
+$check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+if (0 != $check_array[0]['check'])
+{
+    $_SESSION['message']['class']   = 'error';
+    $_SESSION['message']['text']    = 'Можно быть тренером только в одной сборной.';
+
+    redirect('/team_view.php');
 }
 
 $sql = "SELECT `electionnational_id`

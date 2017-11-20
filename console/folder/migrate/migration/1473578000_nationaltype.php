@@ -9,6 +9,4 @@ $q[] = 'CREATE TABLE `nationaltype`
         );';
 
 $q[] = "INSERT INTO `nationaltype` (`nationaltype_name`)
-        VALUES ('Национальная'),
-               ('U-21'),
-               ('U-19');";
+        VALUES ('Национальная');";

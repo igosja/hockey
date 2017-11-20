@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Визначаємо команди, які пройдуть до плей-офф національних чемпіонатів
+ * Додаємо матчі 3-5 в плей-офф чемпіонатів за необхідності та помічаємо тих, що вилетіли
  */
-function f_igosja_generator_lot_championship()
+function f_igosja_generator_playoff_championship_add_game()
 {
     global $igosja_season_id;
 
@@ -18,145 +18,112 @@ function f_igosja_generator_lot_championship()
 
     foreach ($schedule_array as $item)
     {
-        $schedule_id = $item['schedule_id'];
-
-        if (TOURNAMENTTYPE_CHAMPIONSHIP == $item['schedule_tournamenttype_id'] && STAGE_30_TOUR == $item['schedule_stage_id'])
+        if (TOURNAMENTTYPE_CHAMPIONSHIP == $item['schedule_tournamenttype_id'])
         {
-            $sql = "SELECT `schedule_id`
-                    FROM `schedule`
-                    WHERE `schedule_season_id`=$igosja_season_id
-                    AND `schedule_stage_id`=" . STAGE_QUATER . "
-                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 2";
-            $stage_sql = f_igosja_mysqli_query($sql);
+            $schedule_id        = $item['schedule_id'];
+            $stage_id           = $item['schedule_stage_id'];
+            $tournamenttype_id  = $item['schedule_tournamenttype_id'];
 
-            $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-            $schedule_1 = $stage_array[0]['schedule_id'];
-            $schedule_2 = $stage_array[1]['schedule_id'];
-
-            $sql = "SELECT `participantchampionship_country_id`
-                    FROM `participantchampionship`
-                    WHERE `participantchampionship_season_id`=$igosja_season_id
-                    GROUP BY `participantchampionship_country_id`
-                    ORDER BY `participantchampionship_country_id` ASC";
-            $country_sql = f_igosja_mysqli_query($sql);
-
-            $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($country_array as $country)
+            if (in_array($stage_id, array(STAGE_QUATER, STAGE_SEMI)))
             {
-                $country_id = $country['participantchampionship_country_id'];
+                $sql = "SELECT `game_guest_team_id`,
+                               `game_home_team_id`
+                        FROM `game`
+                        WHERE `game_schedule_id`=$schedule_id
+                        ORDER BY `game_id`";
+                $game_sql = f_igosja_mysqli_query($sql);
 
-                $sql = "SELECT `participantchampionship_division_id`
-                        FROM `participantchampionship`
-                        WHERE `participantchampionship_country_id`=$country_id
-                        AND `participantchampionship_season_id`=$igosja_season_id
-                        GROUP BY `participantchampionship_division_id`
-                        ORDER BY `participantchampionship_division_id` ASC";
-                $division_sql = f_igosja_mysqli_query($sql);
+                $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
-                $division_array = $division_sql->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($division_array as $division)
+                foreach ($game_array as $game)
                 {
-                    $division_id = $division['participantchampionship_division_id'];
+                    $home_team_id   = $game['game_home_team_id'];
+                    $guest_team_id  = $game['game_home_team_id'];
 
-                    for ($i=1; $i<=4; $i++)
+                    $sql = "SELECT `game_guest_score`+`game_guest_score_bullet` AS `guest_score`,
+                                   `game_guest_team_id`,
+                                   `game_home_score`+`game_home_score_bullet` AS `home_score`,
+                                   `game_home_team_id`
+                            FROM `game`
+                            LEFT JOIN `schedule`
+                            ON `game_schedule_id`=`shedule_id`
+                            WHERE ((`game_home_team_id`=$home_team_id
+                            AND `game_guest_team_id`=$guest_team_id)
+                            OR (`game_home_team_id`=$guest_team_id
+                            AND `game_guest_team_id`=$home_team_id))
+                            AND `game_played`=1
+                            AND `schedule_tournamenttype_id`=$tournamenttype_id
+                            AND `schedule_stage_id`=$stage_id
+                            AND `schedule_season_id`=$igosja_season_id
+                            ORDER BY `game_id` ASC";
+                    $prev_sql = f_igosja_mysqli_query($sql);
+
+                    if ($prev_sql->num_rows > 1)
                     {
-                        $sql = "SELECT `team_id`,
-                                       `team_stadium_id`
-                                FROM `participantchampionship`
-                                LEFT JOIN `championship`
-                                ON
-                                (
-                                    `participantchampionship_country_id`=`championship_country_id`,
-                                    `participantchampionship_division_id`=`championship_division_id`,
-                                    `participantchampionship_season_id`=`championship_season_id`
-                                )
-                                LEFT JOIN `team`
-                                ON `participantchampionship_team_id`=`team_id`
-                                WHERE `participantchampionship_country_id`=$country_id
-                                AND `participantchampionship_division_id`=$division_id
-                                AND `participantchampionship_season_id`=$igosja_season_id
-                                AND `participantchampionship_stage_4`=$i
-                                ORDER BY `championship_place` ASC
-                                LIMIT 2";
-                        $team_sql = f_igosja_mysqli_query($sql);
+                        $home_win   = 0;
+                        $guest_win  = 0;
 
-                        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+                        $prev_array = $prev_sql->fetch_all(MYSQLI_ASSOC);
 
-                        $team_1     = $team_array[0]['team_id'];
-                        $stadium_1  = $team_array[0]['team_stadium_id'];
-                        $team_2     = $team_array[1]['team_id'];
-                        $stadium_2  = $team_array[1]['team_stadium_id'];
-
-                        $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                                VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                                       ($team_1, $team_2, $schedule_2, $stadium_2);";
-                        f_igosja_mysqli_query($sql);
-                    }
-                }
-            }
-        }
-        elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $item['schedule_tournamenttype_id'] && STAGE_QUATER == $item['schedule_stage_id'])
-        {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if (STAGE_SEMI == $check_array[0]['schedule_stage_id'])
-            {
-
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_SEMI . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
-                $sql = "SELECT `participantchampionship_country_id`
-                        FROM `participantchampionship`
-                        WHERE `participantchampionship_season_id`=$igosja_season_id
-                        GROUP BY `participantchampionship_country_id`
-                        ORDER BY `participantchampionship_country_id` ASC";
-                $country_sql = f_igosja_mysqli_query($sql);
-
-                $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($country_array as $country)
-                {
-                    $country_id = $country['participantchampionship_country_id'];
-
-                    $sql = "SELECT `participantchampionship_division_id`
-                            FROM `participantchampionship`
-                            WHERE `participantchampionship_country_id`=$country_id
-                            AND `participantchampionship_season_id`=$igosja_season_id
-                            GROUP BY `participantchampionship_division_id`
-                            ORDER BY `participantchampionship_division_id` ASC";
-                    $division_sql = f_igosja_mysqli_query($sql);
-
-                    $division_array = $division_sql->fetch_all(MYSQLI_ASSOC);
-
-                    foreach ($division_array as $division)
-                    {
-                        $division_id = $division['participantchampionship_division_id'];
-
-                        for ($i=1; $i<=2; $i++)
+                        foreach ($prev_array as $prev)
                         {
+                            if ($prev['home_score'] > $prev['guest_score'])
+                            {
+                                if ($home_team_id == $prev['game_home_team_id'])
+                                {
+                                    $home_win++;
+                                }
+                                else
+                                {
+                                    $guest_win++;
+                                }
+                            }
+                            else
+                            {
+                                if ($home_team_id == $prev['game_home_team_id'])
+                                {
+                                    $guest_win++;
+                                }
+                                else
+                                {
+                                    $home_win++;
+                                }
+                            }
+                        }
+
+                        if (in_array(2, array($home_win, $guest_win)))
+                        {
+                            if (2 == $home_win)
+                            {
+                                $loose_team_id = $guest_team_id;
+                            }
+                            else
+                            {
+                                $loose_team_id = $home_team_id;
+                            }
+
+                            $sql = "UPDATE `participantchampionship_country_id`
+                                    SET `participantchampionship_stage_id`=$stage_id
+                                    WHERE `participantchampionship_team_id`=$loose_team_id
+                                    AND `participantchampionship_season_id`=$igosja_season_id
+                                    LIMIT 1"
+                            f_igosja_mysqli_query($sql);
+                        }
+                        else
+                        {
+                            $sql = "SELECT `schedule_id`
+                                    FROM `schedule`
+                                    WHERE `schedule_season_id`=$igosja_season_id
+                                    AND `schedule_stage_id`=$stage_id
+                                    AND `schedule_tournamenttype_id`=$tournamenttype_id
+                                    ORDER BY `schedule_id` ASC
+                                    LIMIT 2, 1";
+                            $stage_sql = f_igosja_mysqli_query($sql);
+
+                            $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
+
+                            $schedule_id_insert = $stage_array[0]['schedule_id'];
+            
                             $sql = "SELECT `team_id`,
                                            `team_stadium_id`
                                     FROM `participantchampionship`
@@ -169,11 +136,8 @@ function f_igosja_generator_lot_championship()
                                     )
                                     LEFT JOIN `team`
                                     ON `participantchampionship_team_id`=`team_id`
-                                    WHERE `participantchampionship_country_id`=$country_id
-                                    AND `participantchampionship_division_id`=$division_id
+                                    WHERE `participantchampionship_team_id` IN ($home_team_id, $guest_team_id)
                                     AND `participantchampionship_season_id`=$igosja_season_id
-                                    AND `participantchampionship_stage_2`=$i
-                                    AND `participantchampionship_stage_id`=0
                                     ORDER BY `championship_place` ASC
                                     LIMIT 2";
                             $team_sql = f_igosja_mysqli_query($sql);
@@ -181,108 +145,164 @@ function f_igosja_generator_lot_championship()
                             $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
                             $team_1     = $team_array[0]['team_id'];
-                            $stadium_1  = $team_array[0]['team_stadium_id'];
+                            $stadium_id = $team_array[0]['team_stadium_id'];
                             $team_2     = $team_array[1]['team_id'];
-                            $stadium_2  = $team_array[1]['team_stadium_id'];
 
                             $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                                    VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                                           ($team_1, $team_2, $schedule_2, $stadium_2);";
+                                    VALUES ($team_2, $team_1, $schedule_id_insert, $stadium_id);";
                             f_igosja_mysqli_query($sql);
                         }
                     }
                 }
             }
         }
-        elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $item['schedule_tournamenttype_id'] && STAGE_SEMI == $item['schedule_stage_id'])
+        elseif (STAGE_FINAL == $stage_id)
         {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC";
-            $check_sql = f_igosja_mysqli_query($sql);
+                $sql = "SELECT `game_guest_team_id`,
+                               `game_home_team_id`
+                        FROM `game`
+                        WHERE `game_schedule_id`=$schedule_id
+                        ORDER BY `game_id`";
+                $game_sql = f_igosja_mysqli_query($sql);
 
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+                $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
-            if (STAGE_FINAL == $check_array[0]['schedule_stage_id'])
-            {
-
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_FINAL . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 3";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-                $schedule_3 = $stage_array[2]['schedule_id'];
-
-                $sql = "SELECT `participantchampionship_country_id`
-                        FROM `participantchampionship`
-                        WHERE `participantchampionship_season_id`=$igosja_season_id
-                        GROUP BY `participantchampionship_country_id`
-                        ORDER BY `participantchampionship_country_id` ASC";
-                $country_sql = f_igosja_mysqli_query($sql);
-
-                $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($country_array as $country)
+                foreach ($game_array as $game)
                 {
-                    $country_id = $country['participantchampionship_country_id'];
+                    $home_team_id   = $game['game_home_team_id'];
+                    $guest_team_id  = $game['game_home_team_id'];
 
-                    $sql = "SELECT `participantchampionship_division_id`
-                            FROM `participantchampionship`
-                            WHERE `participantchampionship_country_id`=$country_id
-                            AND `participantchampionship_season_id`=$igosja_season_id
-                            GROUP BY `participantchampionship_division_id`
-                            ORDER BY `participantchampionship_division_id` ASC";
-                    $division_sql = f_igosja_mysqli_query($sql);
+                    $sql = "SELECT `game_guest_score`+`game_guest_score_bullet` AS `guest_score`,
+                                   `game_guest_team_id`,
+                                   `game_home_score`+`game_home_score_bullet` AS `home_score`,
+                                   `game_home_team_id`
+                            FROM `game`
+                            LEFT JOIN `schedule`
+                            ON `game_schedule_id`=`shedule_id`
+                            WHERE ((`game_home_team_id`=$home_team_id
+                            AND `game_guest_team_id`=$guest_team_id)
+                            OR (`game_home_team_id`=$guest_team_id
+                            AND `game_guest_team_id`=$home_team_id))
+                            AND `game_played`=1
+                            AND `schedule_tournamenttype_id`=$tournamenttype_id
+                            AND `schedule_stage_id`=$stage_id
+                            AND `schedule_season_id`=$igosja_season_id
+                            ORDER BY `game_id` ASC";
+                    $prev_sql = f_igosja_mysqli_query($sql);
 
-                    $division_array = $division_sql->fetch_all(MYSQLI_ASSOC);
-
-                    foreach ($division_array as $division)
+                    if ($prev_sql->num_rows > 1)
                     {
-                        $division_id = $division['participantchampionship_division_id'];
+                        $home_win   = 0;
+                        $guest_win  = 0;
 
-                        $sql = "SELECT `team_id`,
-                                       `team_stadium_id`
-                                FROM `participantchampionship`
-                                LEFT JOIN `championship`
-                                ON
-                                (
-                                    `participantchampionship_country_id`=`championship_country_id`,
-                                    `participantchampionship_division_id`=`championship_division_id`,
-                                    `participantchampionship_season_id`=`championship_season_id`
-                                )
-                                LEFT JOIN `team`
-                                ON `participantchampionship_team_id`=`team_id`
-                                WHERE `participantchampionship_country_id`=$country_id
-                                AND `participantchampionship_division_id`=$division_id
-                                AND `participantchampionship_season_id`=$igosja_season_id
-                                AND `participantchampionship_stage_1`=1
-                                AND `participantchampionship_stage_id`=0
-                                ORDER BY `championship_place` ASC
-                                LIMIT 2";
-                        $team_sql = f_igosja_mysqli_query($sql);
+                        $prev_array = $prev_sql->fetch_all(MYSQLI_ASSOC);
 
-                        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+                        foreach ($prev_array as $prev)
+                        {
+                            if ($prev['home_score'] > $prev['guest_score'])
+                            {
+                                if ($home_team_id == $prev['game_home_team_id'])
+                                {
+                                    $home_win++;
+                                }
+                                else
+                                {
+                                    $guest_win++;
+                                }
+                            }
+                            else
+                            {
+                                if ($home_team_id == $prev['game_home_team_id'])
+                                {
+                                    $guest_win++;
+                                }
+                                else
+                                {
+                                    $home_win++;
+                                }
+                            }
+                        }
 
-                        $team_1     = $team_array[0]['team_id'];
-                        $stadium_1  = $team_array[0]['team_stadium_id'];
-                        $team_2     = $team_array[1]['team_id'];
-                        $stadium_2  = $team_array[1]['team_stadium_id'];
+                        if (in_array(3, array($home_win, $guest_win)))
+                        {
+                            if (3 == $home_win)
+                            {
+                                $loose_team_id = $guest_team_id;
+                            }
+                            else
+                            {
+                                $loose_team_id = $home_team_id;
+                            }
 
-                        $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                                VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                                       ($team_1, $team_2, $schedule_2, $stadium_2),
-                                       ($team_2, $team_1, $schedule_3, $stadium_1);";
-                        f_igosja_mysqli_query($sql);
+                            $sql = "UPDATE `participantchampionship_country_id`
+                                    SET `participantchampionship_stage_id`=$stage_id
+                                    WHERE `participantchampionship_team_id`=$loose_team_id
+                                    AND `participantchampionship_season_id`=$igosja_season_id
+                                    LIMIT 1"
+                            f_igosja_mysqli_query($sql);
+                        }
+                        elseif  ((3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win))) ||
+                                 4 == $prev_sql->num_rows)
+                        {
+                            if (3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win)))
+                            {
+                                $offset = 3;
+                            }
+                            elseif (4 == $prev_sql->num_rows)
+                            {
+                                $offset = 4;
+                            }
+
+                            $sql = "SELECT `schedule_id`
+                                    FROM `schedule`
+                                    WHERE `schedule_season_id`=$igosja_season_id
+                                    AND `schedule_stage_id`=$stage_id
+                                    AND `schedule_tournamenttype_id`=$tournamenttype_id
+                                    ORDER BY `schedule_id` ASC
+                                    LIMIT $offset, 1";
+                            $stage_sql = f_igosja_mysqli_query($sql);
+
+                            $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
+
+                            $schedule_id_insert = $stage_array[0]['schedule_id'];
+            
+                            $sql = "SELECT `team_id`,
+                                           `team_stadium_id`
+                                    FROM `participantchampionship`
+                                    LEFT JOIN `championship`
+                                    ON
+                                    (
+                                        `participantchampionship_country_id`=`championship_country_id`,
+                                        `participantchampionship_division_id`=`championship_division_id`,
+                                        `participantchampionship_season_id`=`championship_season_id`
+                                    )
+                                    LEFT JOIN `team`
+                                    ON `participantchampionship_team_id`=`team_id`
+                                    WHERE `participantchampionship_team_id` IN ($home_team_id, $guest_team_id)
+                                    AND `participantchampionship_season_id`=$igosja_season_id
+                                    ORDER BY `championship_place` ASC
+                                    LIMIT 2";
+                            $team_sql = f_igosja_mysqli_query($sql);
+
+                            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+
+                            if (in_array($prev_sql->num_rows, array(2, 3)) && in_array(1, array($home_win, $guest_win)))
+                            {
+                                $team_1     = $team_array[1]['team_id'];
+                                $stadium_id = $team_array[1]['team_stadium_id'];
+                                $team_2     = $team_array[0]['team_id'];
+                            }
+                            elseif (4 == $prev_sql->num_rows)
+                            {
+                                $team_1     = $team_array[0]['team_id'];
+                                $stadium_id = $team_array[0]['team_stadium_id'];
+                                $team_2     = $team_array[1]['team_id'];
+                            }
+
+                            $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
+                                    VALUES ($team_2, $team_1, $schedule_id_insert, $stadium_id);";
+                            f_igosja_mysqli_query($sql);
+                        }
                     }
                 }
             }

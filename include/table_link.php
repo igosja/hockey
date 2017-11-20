@@ -46,6 +46,10 @@ $team_link_array = array(
     array('url' => 'team_finance',      'text' => 'Финансы'),
     array('url' => 'team_achievement',  'text' => 'Достижения'),
 );
+$transfer_link_array = array(
+    array('url' => 'transfer_list',     'text' => 'Игроки на рынке'),
+    array('url' => 'transfer_history',  'text' => 'Результаты сделок'),
+);
 $user_link_array = array(
     array('url' => 'user_view',             'text' => 'Информация', 'auth' => false),
     array('url' => 'user_achievement',      'text' => 'Достижения', 'auth' => false),

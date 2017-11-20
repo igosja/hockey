@@ -14,8 +14,9 @@ function f_igosja_election_national_vice_to_close($electionnationalvice_id)
     $electionnationalvice_sql = f_igosja_mysqli_query($sql);
 
     $electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC);
-    $country_id                 = $electionnationalvice_array[0]['electionnationalvice_country_id'];
-    $nationaltype_id            = $electionnationalvice_array[0]['electionnationalvice_nationaltype_id'];
+
+    $country_id         = $electionnationalvice_array[0]['electionnationalvice_country_id'];
+    $nationaltype_id    = $electionnationalvice_array[0]['electionnationalvice_nationaltype_id'];
 
     $sql = "SELECT `electionnationalviceapplication_user_id`
             FROM `electionnationalviceapplication`
@@ -29,15 +30,6 @@ function f_igosja_election_national_vice_to_close($electionnationalvice_id)
                 WHERE `userrating_season_id`=0
             ) AS `t3`
             ON `user_id`=`userrating_user_id`
-            LEFT JOIN
-            (
-                SELECT COUNT(`electionnationalviceuser_user_id`) AS `count_answer`,
-                       `electionnationalviceuser_electionnationalviceapplication_id`
-                FROM `electionnationalviceuser`
-                WHERE `electionnationalviceuser_electionnationalviceapplication_id`=$electionnationalvice_id
-                GROUP BY `electionnationalviceuser_electionnationalviceapplication_id`
-            ) AS `t1`
-            ON `electionnationalviceapplication_id`=`electionnationalviceuser_electionnationalviceapplication_id`
             WHERE `electionnationalviceapplication_electionnationalvice_id`=$electionnationalvice_id
             AND `user_id` NOT IN
             (
@@ -49,7 +41,7 @@ function f_igosja_election_national_vice_to_close($electionnationalvice_id)
                 SELECT `national_vice_id`
                 FROM `national`
             )
-            ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionnationalviceapplication_id` ASC
+            ORDER BY `electionnationalviceapplication_count` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionnationalviceapplication_id` ASC
             LIMIT 1";
     $user_sql = f_igosja_mysqli_query($sql);
 

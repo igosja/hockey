@@ -24,7 +24,7 @@ if (isset($auth_team_id) && $auth_team_id)
         $my_player = true;
 
         $sql = "SELECT `transfer_id`,
-                       `transfer_price_buyer`
+                       `transfer_price_seller`
                 FROM `transfer`
                 WHERE `transfer_player_id`=$num_get
                 AND `transfer_ready`=0
@@ -38,7 +38,7 @@ if (isset($auth_team_id) && $auth_team_id)
             $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
             $transfer_id    = $transfer_array[0]['transfer_id'];
-            $transfer_price = $transfer_array[0]['transfer_price_buyer'];
+            $transfer_price = $transfer_array[0]['transfer_price_seller'];
 
             if (isset($data['off']))
             {
@@ -106,7 +106,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 $sql = "INSERT INTO `transfer`
                         SET `transfer_player_id`=$num_get,
-                            `transfer_price_buyer`=$price,
+                            `transfer_price_seller`=$price,
                             `transfer_team_seller_id`=$auth_team_id,
                             `transfer_user_seller_id`=$auth_user_id";
                 f_igosja_mysqli_query($sql);
@@ -123,7 +123,7 @@ if (isset($auth_team_id) && $auth_team_id)
         $my_player = false;
 
         $sql = "SELECT `transfer_id`,
-                       `transfer_price_buyer`
+                       `transfer_price_seller`
                 FROM `transfer`
                 WHERE `transfer_player_id`=$num_get
                 AND `transfer_ready`=0
@@ -170,7 +170,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);
 
                 $transfer_price = $transferapplication_array[0]['transferapplication_price'];
-                $start_price    = $transfer_array[0]['transfer_price_buyer'];
+                $start_price    = $transfer_array[0]['transfer_price_seller'];
 
                 if (isset($data['off']))
                 {
@@ -214,8 +214,8 @@ if (isset($auth_team_id) && $auth_team_id)
             }
             else
             {
-                $transfer_price = $transfer_array[0]['transfer_price_buyer'];
-                $start_price    = $transfer_array[0]['transfer_price_buyer'];
+                $transfer_price = $transfer_array[0]['transfer_price_seller'];
+                $start_price    = $transfer_array[0]['transfer_price_seller'];
 
                 if (isset($data['price']))
                 {

@@ -26,7 +26,7 @@ if (isset($auth_team_id) && $auth_team_id)
         $sql = "SELECT `rent_day_max`,
                        `rent_day_min`,
                        `rent_id`,
-                       `rent_price_buyer`
+                       `rent_price_seller`
                 FROM `rent`
                 WHERE `rent_player_id`=$num_get
                 AND `rent_ready`=0
@@ -40,7 +40,7 @@ if (isset($auth_team_id) && $auth_team_id)
             $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
             $rent_id        = $rent_array[0]['rent_id'];
-            $rent_price     = $rent_array[0]['rent_price_buyer'];
+            $rent_price     = $rent_array[0]['rent_price_seller'];
             $rent_day_min   = $rent_array[0]['rent_day_min'];
             $rent_day_max   = $rent_array[0]['rent_day_max'];
 
@@ -141,7 +141,7 @@ if (isset($auth_team_id) && $auth_team_id)
                         SET `rent_day_max`=$day_max,
                             `rent_day_min`=$day_min,
                             `rent_player_id`=$num_get,
-                            `rent_price_buyer`=$price,
+                            `rent_price_seller`=$price,
                             `rent_team_seller_id`=$auth_team_id,
                             `rent_user_seller_id`=$auth_user_id";
                 f_igosja_mysqli_query($sql);
@@ -160,7 +160,7 @@ if (isset($auth_team_id) && $auth_team_id)
         $sql = "SELECT `rent_day_max`,
                        `rent_day_min`,
                        `rent_id`,
-                       `rent_price_buyer`
+                       `rent_price_seller`
                 FROM `rent`
                 WHERE `rent_player_id`=$num_get
                 AND `rent_ready`=0
@@ -208,7 +208,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
                 $rent_price     = $rentapplication_array[0]['rentapplication_price'];
-                $start_price    = $rent_array[0]['rent_price_buyer'];
+                $start_price    = $rent_array[0]['rent_price_seller'];
                 $rent_day       = $rentapplication_array[0]['rentapplication_day'];
                 $rent_day_min   = $rent_array[0]['rent_day_min'];
                 $rent_day_max   = $rent_array[0]['rent_day_max'];
@@ -273,8 +273,8 @@ if (isset($auth_team_id) && $auth_team_id)
             }
             else
             {
-                $rent_price     = $rent_array[0]['rent_price_buyer'];
-                $start_price    = $rent_array[0]['rent_price_buyer'];
+                $rent_price     = $rent_array[0]['rent_price_seller'];
+                $start_price    = $rent_array[0]['rent_price_seller'];
                 $rent_day       = $rent_array[0]['rent_day_min'];
                 $rent_day_min   = $rent_array[0]['rent_day_min'];
                 $rent_day_max   = $rent_array[0]['rent_day_max'];

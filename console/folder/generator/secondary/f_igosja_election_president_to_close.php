@@ -28,27 +28,19 @@ function f_igosja_election_president_to_close($electionpresident_id)
                 WHERE `userrating_season_id`=0
             ) AS `t3`
             ON `user_id`=`userrating_user_id`
-            LEFT JOIN
-            (
-                SELECT COUNT(`electionpresidentuser_user_id`) AS `count_answer`,
-                       `electionpresidentuser_electionpresidentapplication_id`
-                FROM `electionpresidentuser`
-                WHERE `electionpresidentuser_electionpresidentapplication_id`=$electionpresident_id
-                GROUP BY `electionpresidentuser_electionpresidentapplication_id`
-            ) AS `t1`
-            ON `electionpresidentapplication_id`=`electionpresidentuser_electionpresidentapplication_id`
             WHERE `electionpresidentapplication_electionpresident_id`=$electionpresident_id
             AND `user_id` NOT IN
             (
-                SELECT `national_user_id`
-                FROM `national`
+                SELECT `country_president_id`
+                FROM `country`
             )
             AND `user_id` NOT IN
             (
-                SELECT `national_vice_id`
-                FROM `national`
+                SELECT `country_vice_id`
+                FROM `country`
             )
-            ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC
+            AND `user_id`
+            ORDER BY `electionpresidentapplication_count` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC
             LIMIT 2";
     $user_sql = f_igosja_mysqli_query($sql);
 

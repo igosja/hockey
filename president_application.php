@@ -50,11 +50,27 @@ $sql = "SELECT COUNT(`electionpresident_id`) AS `check`
         AND `electionpresident_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES;
 $check_sql = f_igosja_mysqli_query($sql);
 
-$chech_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+$check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-if ($chech_array[0]['check'])
+if ($check_array[0]['check'])
 {
     redirect('/president_vote.php?num=' . $num_get);
+}
+
+$sql = "SELECT COUNT(`country_id`) AS `check`
+        FROM `country`
+        WHERE `country_president_id`=$auth_user_id
+        OR `country_vice_id`=$auth_user_id";
+$check_sql = f_igosja_mysqli_query($sql);
+
+$check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+if (0 != $check_array[0]['check'])
+{
+    $_SESSION['message']['class']   = 'error';
+    $_SESSION['message']['text']    = 'Можно быть президентом или заместителем президента только в одной федерации.';
+
+    redirect('/team_view.php');
 }
 
 $sql = "SELECT `electionpresident_id`

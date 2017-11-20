@@ -106,7 +106,8 @@ function f_igosja_generator_playoff_championship_lot()
                     FROM `schedule`
                     WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
                     AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC";
+                    ORDER BY `schedule_id` ASC
+                    LIMIT 1";
             $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -200,7 +201,8 @@ function f_igosja_generator_playoff_championship_lot()
                     FROM `schedule`
                     WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
                     AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC";
+                    ORDER BY `schedule_id` ASC
+                    LIMIT 1";
             $check_sql = f_igosja_mysqli_query($sql);
 
             $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
