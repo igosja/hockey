@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @var $country_link_array array
  * @var $file_name string
  * @var $nationaltype_get integer
  * @var $num_get integer

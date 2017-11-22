@@ -3,6 +3,7 @@
  * @var $latest_array array
  * @var $nearest_array integer
  * @var $num_get integer
+ * @var $rosterphrase_array array
  */
 ?>
 <div class="row">

@@ -3,6 +3,7 @@
 /**
  * @var $file_name string
  * @var $num_get integer
+ * @var $team_link_array array
  */
 
 $table_link = array();

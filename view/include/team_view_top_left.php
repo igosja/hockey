@@ -1,6 +1,8 @@
 <?php
 /**
+ * @var $auth_user_id integer
  * @var $num_get integer
+ * @var $team_array array
  */
 ?>
 <div class="row">

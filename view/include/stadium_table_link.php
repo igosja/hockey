@@ -2,6 +2,7 @@
 
 /**
  * @var $file_name string
+ * @var $stadium_link_array array
  */
 
 $table_link = array();

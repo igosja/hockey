@@ -2,7 +2,6 @@
 
 /**
  * @var $file_name string
- * @var $num_get integer
  * @var $shop_link_array array
  */
 

@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_user_id integer
  * @var $num_get integer
  * @var $national_array integer
  */

@@ -28,6 +28,10 @@ $register_link_array = array(
     array('url' => 'password',      'url2' => 'password_restore',   'text' => 'Забыли пароль?'),
     array('url' => 'activation',    'url2' => 'activation_repeat',  'text' => 'Активация аккаунта'),
 );
+$rent_link_array = array(
+    array('url' => 'rent_list',     'text' => 'Игроки на рынке'),
+    array('url' => 'rent_history',  'text' => 'Результаты сделок'),
+);
 $shop_link_array = array(
     array('url' => 'shop',          'text' => 'Виртуальный магазин'),
     array('url' => 'shop_payment',  'text' => 'Пополнить счет'),

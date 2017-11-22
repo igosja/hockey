@@ -104,8 +104,7 @@ function f_igosja_generator_rent()
                         `rent_season_id`=$igosja_season_id,
                         `rent_team_buyer_id`=$team_buyer_id,
                         `rent_user_buyer_id`=$user_buyer_id
-                    WHERE `rent_id`=$rent_id
-                    LIMIT 1";
+                    WHERE `rent_id`=$rent_id";
             f_igosja_mysqli_query($sql);
 
             $sql = "INSERT INTO `rentposition` (`rentposition_position_id`, `rentposition_rent_id`)
