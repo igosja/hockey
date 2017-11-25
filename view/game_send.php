@@ -18,6 +18,7 @@
  * @var $rw_array array
  * @var $style_array array
  * @var $tactic_array array
+ * @var $teammood_array array
  */
 ?>
 <div class="row margin-top">
@@ -88,12 +89,20 @@
             <select class="form-control" id="mood" name="data[mood_id]">
                 <?php foreach ($mood_array as $item) { ?>
                     <option
-                            value="<?= $item['mood_id']; ?>"
+                        value="<?= $item['mood_id']; ?>"
                         <?php if ($current_array[0]['game_mood_id'] == $item['mood_id']) { ?>
                             selected
                         <?php } ?>
+                        <?php if ((MOOD_SUPER == $item['mood_id'] && $teammood_array[0]['team_mood_super'] <= 0) || (MOOD_REST == $item['mood_id'] && $teammood_array[0]['team_mood_rest'] <= 0) || (MOOD_NORMAL != $item['mood_id'] && TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'])) { ?>
+                            disabled
+                        <?php } ?>
                     >
                         <?= $item['mood_name']; ?>
+                        <?php if (MOOD_SUPER == $item['mood_id']) { ?>
+                            (<?= $teammood_array[0]['team_mood_super']; ?>)
+                        <?php } elseif (MOOD_REST == $item['mood_id']) { ?>
+                            (<?= $teammood_array[0]['team_mood_rest']; ?>)
+                        <?php } ?>
                     </option>
                 <?php } ?>
             </select>

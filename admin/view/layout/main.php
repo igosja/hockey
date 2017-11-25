@@ -51,6 +51,12 @@
                             <span class="badge" id="admin-support"></span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/admin/vote_list.php">
+                            <i class="fa fa-bar-chart  fa-fw"></i> Опросы
+                            <span class="badge" id="admin-vote"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">

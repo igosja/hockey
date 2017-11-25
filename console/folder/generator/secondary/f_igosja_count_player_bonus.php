@@ -105,6 +105,11 @@ function f_igosja_count_player_bonus($game_result)
 
                 $key = $key . '_' . $line;
 
+                if ($game_result[$team]['team']['style'][$line] == $game_result[$team]['player']['field'][$key]['style'])
+                {
+                    $game_result[$team]['player']['field'][$key]['style'] = $game_result[$team]['player']['field'][$key]['style'] + 5;
+                }
+
                 $player_id = $game_result[$team]['player']['field'][$key]['player_id'];
 
                 $sql = "SELECT `playerspecial_level`,

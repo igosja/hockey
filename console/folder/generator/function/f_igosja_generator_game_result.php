@@ -36,16 +36,6 @@ function f_igosja_generator_game_result()
             FROM `game`
             LEFT JOIN `schedule`
             ON `game_schedule_id`=`schedule_id`
-            LEFT JOIN `tournamenttype`
-            ON `schedule_tournamenttype_id`=`tournamenttype_id`
-            LEFT JOIN `stage`
-            ON `schedule_stage_id`=`stage_id`
-            LEFT JOIN `team` AS `guest_team`
-            ON `game_guest_team_id`=`guest_team`.`team_id`
-            LEFT JOIN `team` AS `home_team`
-            ON `game_home_team_id`=`home_team`.`team_id`
-            LEFT JOIN `stadium`
-            ON `game_stadium_id`=`stadium_id`
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";

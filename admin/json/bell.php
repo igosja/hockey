@@ -20,7 +20,16 @@ $support_array = $support_sql->fetch_all(MYSQLI_ASSOC);
 
 $support = $support_array[0]['count'];
 
-$bell = $teamask + $support;
+$sql = "SELECT COUNT(`vote_id`) AS `count`
+        FROM `vote`
+        WHERE `vote_votestatus_id`=" . VOTESTATUS_NEW;
+$vote_sql = f_igosja_mysqli_query($sql);
+
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
+
+$vote = $vote_array[0]['count'];
+
+$bell = $teamask + $support + $vote;
 
 if (0 == $teamask)
 {
@@ -32,12 +41,17 @@ if (0 == $support)
     $support = '';
 }
 
+if (0 == $vote)
+{
+    $vote = '';
+}
+
 if (0 == $bell)
 {
     $bell = '';
 }
 
-$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support);
+$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote);
 
 print json_encode($return);
 exit;

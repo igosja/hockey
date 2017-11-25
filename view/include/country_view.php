@@ -2,6 +2,7 @@
 /**
  * @var $auth_relation_id integer
  * @var $auth_relation_name string
+ * @var $auth_user_id integer
  * @var $country_array array
  * @var $file_name string
  * @var $rating_negative integer
@@ -129,4 +130,29 @@
             </div>
         </div>
     </form>
+<?php } ?>
+<?php if(isset($auth_user_id) && in_array($auth_user_id, array($country_array[0]['president_id'], $country_array[0]['vice_id']))) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+            <a href="/country_news_create.php?num=<?= $num_get; ?>">
+                Создать новость
+            </a>
+            |
+            <a href="/country_vote_create.php?num=<?= $num_get; ?>">
+                Создать опрос
+            </a>
+            <?php if ($auth_user_id == $country_array[0]['president_id']) { ?>
+                |
+                <a href="/country_transfermoney.php?num=<?= $num_get; ?>">
+                    Распределить фонд
+                </a>
+            <?php } ?>
+            <?php if (($auth_user_id == $country_array[0]['president_id'] && $country_array[0]['vice_id']) || $auth_user_id == $country_array[0]['vice_id']) { ?>
+                |
+                <a href="/country_fire.php?num=<?= $num_get; ?>">
+                    Отказаться от должности
+                </a>
+            <?php } ?>
+        </div>
+    </div>
 <?php } ?>

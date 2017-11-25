@@ -24,4 +24,11 @@ $support_sql = f_igosja_mysqli_query($sql);
 
 $support_array = $support_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT COUNT(`vote_id`) AS `count`
+        FROM `vote`
+        WHERE `vote_votestatus_id`=" . VOTESTATUS_NEW;
+$vote_sql = f_igosja_mysqli_query($sql);
+
+$vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
+
 include(__DIR__ . '/view/layout/main.php');

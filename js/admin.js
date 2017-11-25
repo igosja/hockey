@@ -23,6 +23,7 @@ function admin_bell()
             $('#admin-bell').html(data.bell);
             $('#admin-support').html(data.support);
             $('#admin-teamask').html(data.teamask);
+            $('#admin-vote').html(data.vote);
         },
         url: '/admin/json/bell.php'
     });

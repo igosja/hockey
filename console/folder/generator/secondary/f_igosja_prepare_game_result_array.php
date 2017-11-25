@@ -48,6 +48,7 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
                 'score_short'   => 0,
                 'score_win'     => 0,
                 'shot'          => 0,
+                'style'         => 0,
                 'win'           => 0,
             );
         }

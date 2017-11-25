@@ -38,6 +38,17 @@
             <div class="row border-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
                     <?= $item['news_title']; ?>
+                    <?php if (isset($auth_user_id) && $item['user_id'] == $auth_user_id && in_array($auth_user_id, array($country_array[0]['president_id'], $country_array[0]['vice_id']))) { ?>
+                        <span class="text-size-3 font-grey">
+                            <a href="/country_news_update.php?num=<?= $num_get; ?>&news_id=<?= $item['news_id']; ?>">
+                                Редактировать
+                            </a>
+                            |
+                            <a href="/country_news_delete.php?num=<?= $num_get; ?>&news_id=<?= $item['news_id']; ?>">
+                                Удалить
+                            </a>
+                        </span>
+                    <?php } ?>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
                     <?= f_igosja_ufu_date_time($item['news_date']); ?>
@@ -51,7 +62,7 @@
                     </a>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?= $item['news_text']; ?>
+                    <?= f_igosja_bb_decode($item['news_text']); ?>
                 </div>
             </div>
         <?php } ?>

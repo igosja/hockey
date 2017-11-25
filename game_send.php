@@ -32,7 +32,8 @@ $sql = "SELECT `game_guest_team_id`,
                IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_1_id`, `game_home_tactic_1_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_1_id`, `game_guest_tactic_1_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_1_id`,
                IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_2_id`, `game_home_tactic_2_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_2_id`, `game_guest_tactic_2_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_2_id`,
                IF(`game_home_team_id`=$auth_team_id, IF(`game_home_tactic_3_id`, `game_home_tactic_3_id`, " . TACTIC_NORMAL . "), IF(`game_guest_tactic_3_id`, `game_guest_tactic_3_id`, " . TACTIC_NORMAL . ")) AS `game_tactic_3_id`,
-               `game_ticket`
+               `game_ticket`,
+               `schedule_tournamenttype_id`
         FROM `game`
         LEFT JOIN `schedule`
         ON `game_schedule_id`=`schedule_id`
@@ -47,6 +48,15 @@ if (0 == $current_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
+
+$sql = "SELECT `team_mood_rest`,
+               `team_mood_super`
+        FROM `team`
+        WHERE `team_id`=$auth_team_id
+        LIMIT 1";
+$teammood_sql = f_igosja_mysqli_query($sql);
+
+$teammood_array = $teammood_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -94,6 +104,11 @@ if ($data = f_igosja_request_post('data'))
     $lw_3_id        = (int) $data['line'][3][3];
     $c_3_id         = (int) $data['line'][3][4];
     $rw_3_id        = (int) $data['line'][3][5];
+
+    if ((MOOD_SUPER == $mood_id && $teammood_array[0]['team_mood_super'] <= 0) || (MOOD_REST == $mood_id && $teammood_array[0]['team_mood_rest'] <= 0) || (MOOD_NORMAL != $mood_id && TOURNAMENTTYPE_FRIENDLY != $current_array[0]['schedule_tournamenttype_id']))
+    {
+        $mood_id = MOOD_NORMAL;
+    }
 
     if (!in_array($tactic_1_id, array(TACTIC_DEFENCE_SUPER, TACTIC_DEFENCE, TACTIC_NORMAL, TACTIC_ATACK, TACTIC_ATACK_SUPER)))
     {

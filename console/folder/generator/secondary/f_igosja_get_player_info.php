@@ -22,7 +22,8 @@ function f_igosja_get_player_info($game_result)
                        `player_age`,
                        `player_id`,
                        `player_power_nominal`,
-                       `player_power_real`
+                       `player_power_real`,
+                       `player_style_id`
                 FROM `lineup`
                 LEFT JOIN `player`
                 ON `lineup_player_id`=`player_id`
@@ -62,6 +63,7 @@ function f_igosja_get_player_info($game_result)
             $game_result[$team]['player']['field'][$key]['player_id']       = $lineup_array[$j]['player_id'];
             $game_result[$team]['player']['field'][$key]['power_nominal']   = $lineup_array[$j]['player_power_nominal'];
             $game_result[$team]['player']['field'][$key]['power_optimal']   = $lineup_array[$j]['player_power_real'];
+            $game_result[$team]['player']['field'][$key]['style']           = $lineup_array[$j]['player_style_id'];
         }
     }
 
