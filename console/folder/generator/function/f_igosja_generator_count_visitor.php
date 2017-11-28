@@ -71,6 +71,11 @@ function f_igosja_generator_count_visitor()
         $game_visitor = $game_visitor / 1000000;
         $game_visitor = round($game_visitor);
 
+        if ($game_visitor > $stadium_capacity)
+        {
+            $game_visitor = $stadium_capacity;
+        }
+
         $sql = "UPDATE `game`
                 SET `game_stadium_capacity`=$stadium_capacity,
                     `game_visitor`=$game_visitor
