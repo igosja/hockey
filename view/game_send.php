@@ -80,7 +80,7 @@
             />
         </div>
         <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4" style="height: 20px">
-            [<a href="javascript:">Зрители</a>]
+            [<a href="/game_visitor.php?num=<?= $num_get; ?>" target="_blank">Зрители</a>]
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-right strong">
             <label for="mood">Настрой:</label>
