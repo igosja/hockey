@@ -2,6 +2,7 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $auth_user_id integer
  * @var $igosja_season_id integer
  * @var $team_array array
  */
@@ -17,75 +18,15 @@ $num_get = $auth_team_id;
 
 include(__DIR__ . '/include/sql/team_view_left.php');
 
-$sql = "SELECT COUNT(`buildingbase_id`) AS `count`
-        FROM `buildingbase`
-        WHERE `buildingbase_ready`=0
-        AND `buildingbase_team_id`=$auth_team_id
-        AND `buildingbase_building_id` IN (" . BUILDING_BASE . ", " . BUILDING_BASETRAINING . ")";
-$building_sql = f_igosja_mysqli_query($sql);
-
-$building_array = $building_sql->fetch_all(MYSQLI_ASSOC);
-
-if ($building_array[0]['count'])
-{
-    $on_building = true;
-}
-else
-{
-    $on_building = false;
-}
-
-$sql = "SELECT `basetraining_level`,
-               `basetraining_position_count`,
-               `basetraining_position_price`,
-               `basetraining_power_count`,
-               `basetraining_power_price`,
-               `basetraining_special_count`,
-               `basetraining_special_price`,
-               `basetraining_training_speed_max`,
-               `basetraining_training_speed_min`,
-               `team_finance`
-        FROM `team`
-        LEFT JOIN `basetraining`
-        ON `team_basetraining_id`=`basetraining_id`
-        WHERE `team_id`=$num_get
+$sql = "SELECT `user_shop_position`,
+               `user_shop_special`,
+               `user_shop_training`
+        FROM `user`
+        WHERE `user_id`=$auth_user_id
         LIMIT 1";
-$basetraining_sql = f_igosja_mysqli_query($sql);
+$user_sql = f_igosja_mysqli_query($sql);
 
-$basetraining_array = $basetraining_sql->fetch_all(MYSQLI_ASSOC);
-
-$sql = "SELECT COUNT(`training_id`) AS `count`
-        FROM `training`
-        WHERE `training_team_id`=$num_get
-        AND `training_season_id`=$igosja_season_id
-        AND `training_power`!=0";
-$training_used_power_sql = f_igosja_mysqli_query($sql);
-
-$training_used_power_array = $training_used_power_sql->fetch_all(MYSQLI_ASSOC);
-
-$training_available_power = $basetraining_array[0]['basetraining_power_count'] - $training_used_power_array[0]['count'];
-
-$sql = "SELECT COUNT(`training_id`) AS `count`
-        FROM `training`
-        WHERE `training_team_id`=$num_get
-        AND `training_season_id`=$igosja_season_id
-        AND `training_special_id`!=0";
-$training_used_special_sql = f_igosja_mysqli_query($sql);
-
-$training_used_special_array = $training_used_special_sql->fetch_all(MYSQLI_ASSOC);
-
-$training_available_special = $basetraining_array[0]['basetraining_special_count'] - $training_used_special_array[0]['count'];
-
-$sql = "SELECT COUNT(`training_id`) AS `count`
-        FROM `training`
-        WHERE `training_team_id`=$num_get
-        AND `training_season_id`=$igosja_season_id
-        AND `training_position_id`!=0";
-$training_used_position_sql = f_igosja_mysqli_query($sql);
-
-$training_used_position_array = $training_used_position_sql->fetch_all(MYSQLI_ASSOC);
-
-$training_available_position = $basetraining_array[0]['basetraining_position_count'] - $training_used_position_array[0]['count'];
+$user_array = $user_sql->fetch_all(1);
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -93,7 +34,6 @@ if ($data = f_igosja_request_post('data'))
         'power' => array(),
         'position' => array(),
         'special' => array(),
-        'price' => 0,
     );
 
     $player_id_array = array();
@@ -138,8 +78,6 @@ if ($data = f_igosja_request_post('data'))
                         'id' => $item,
                         'name' => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
                     );
-
-                    $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_power_price'];
                 }
                 else
                 {
@@ -208,8 +146,6 @@ if ($data = f_igosja_request_post('data'))
                                 'name' => $position_array[0]['position_name'],
                             ),
                         );
-
-                        $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_position_price'];
                     }
                     else
                     {
@@ -279,8 +215,6 @@ if ($data = f_igosja_request_post('data'))
                                 'name' => $special_array[0]['special_name'],
                             ),
                         );
-
-                        $confirm_data['price'] = $confirm_data['price'] + $basetraining_array[0]['basetraining_special_price'];
                     }
                     else
                     {
@@ -294,28 +228,21 @@ if ($data = f_igosja_request_post('data'))
         }
     }
 
-    if ($on_building)
-    {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
-
-        refresh();
-    }
-    elseif (count($confirm_data['power']) > $training_available_power)
+    if (count($confirm_data['power']) > $user_array[0]['user_shop_training'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'У вас недостаточно баллов для тренировки.';
 
         refresh();
     }
-    elseif (count($confirm_data['position']) > $training_available_position)
+    elseif (count($confirm_data['position']) > $user_array[0]['user_shop_position'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'У вас недостаточно совмещений для тренировки.';
 
         refresh();
     }
-    elseif (count($confirm_data['special']) > $training_available_special)
+    elseif (count($confirm_data['special']) > $user_array[0]['user_shop_special'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'У вас недостаточно спецвозможностей для тренировки.';
@@ -329,131 +256,103 @@ if ($data = f_igosja_request_post('data'))
 
         refresh();
     }
-    elseif ($confirm_data['price'] > $basetraining_array[0]['team_finance'])
-    {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно денег для тренировки.';
-
-        refresh();
-    }
 
     if (isset($data['ok']))
     {
-        $price = $basetraining_array[0]['basetraining_power_price'];
-
         foreach($confirm_data['power'] as $item)
         {
             $player_id = $item['id'];
 
-            $sql = "INSERT INTO `training`
-                    SET `training_player_id`=$player_id,
-                        `training_power`=1,
-                        `training_season_id`=$igosja_season_id,
-                        `training_team_id`=$num_get";
-            f_igosja_mysqli_query($sql);
-
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$num_get
-                    LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql);
-
-            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`-$price
-                    WHERE `team_id`=$num_get
+            $sql = "UPDATE `player`
+                    SET `player_power_nominal`=`player_power_nominal`+1
+                    WHERE `player_id`=$player_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_POWER,
-                'finance_team_id' => $auth_team_id,
-                'finance_value' => -$price,
-                'finance_value_after' => $team_array[0]['team_finance'] - $price,
-                'finance_value_before' => $team_array[0]['team_finance'],
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_PLAYER_BONUS_POINT,
+                'history_player_id' => $player_id,
+                'history_user_id' => $auth_user_id,
             );
-            f_igosja_finance($finance);
-        }
+            f_igosja_history($log);
 
-        $price = $basetraining_array[0]['basetraining_position_price'];
+            $sql = "UPDATE `user`
+                    SET `user_shop_training`=`user_shop_training`-1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         foreach($confirm_data['position'] as $item)
         {
             $player_id      = $item['id'];
             $position_id    = $item['position']['id'];
 
-            $sql = "INSERT INTO `training`
-                    SET `training_player_id`=$player_id,
-                        `training_position_id`=$position_id,
-                        `training_season_id`=$igosja_season_id,
-                        `training_team_id`=$num_get";
+            $sql = "INSERT INTO `playerposition`
+                    SET `playerposition_player_id`=$player_id,
+                        `playerposition_position_id`=$position_id";
             f_igosja_mysqli_query($sql);
 
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$num_get
-                    LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql);
-
-            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`-$price
-                    WHERE `team_id`=$num_get
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
-
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_POSITION,
-                'finance_team_id' => $auth_team_id,
-                'finance_value' => -$price,
-                'finance_value_after' => $team_array[0]['team_finance'] - $price,
-                'finance_value_before' => $team_array[0]['team_finance'],
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_PLAYER_BONUS_POSITION,
+                'history_player_id' => $player_id,
+                'history_position_id' => $position_id,
+                'history_user_id' => $auth_user_id,
             );
-            f_igosja_finance($finance);
-        }
+            f_igosja_history($log);
 
-        $price = $basetraining_array[0]['basetraining_special_price'];
+            $sql = "UPDATE `user`
+                    SET `user_shop_position`=`user_shop_position`-1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         foreach($confirm_data['special'] as $item)
         {
             $player_id  = $item['id'];
             $special_id = $item['special']['id'];
 
-            $sql = "INSERT INTO `training`
-                    SET `training_player_id`=$player_id,
-                        `training_season_id`=$igosja_season_id,
-                        `training_special_id`=$special_id,
-                        `training_team_id`=$num_get";
-            f_igosja_mysqli_query($sql);
+            $sql = "SELECT COUNT(`playerspecial_special_id`) AS `count`
+                    FROM `playerspecial`
+                    WHERE `playerspecial_player_id`=$player_id
+                    AND `playerspecial_special_id`=$special_id";
+            $check_sql = f_igosja_mysqli_query($sql);
 
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$num_get
-                    LIMIT 1";
-            $team_sql = f_igosja_mysqli_query($sql);
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-            $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+            if ($check_array[0]['count'])
+            {
+                $sql = "UPDATE `playerspecial`
+                        SET `playerspecial_level`=`playerspecial_level`+1
+                        WHERE `playerspecial_player_id`=$player_id
+                        AND `playerspecial_special_id`=$special_id";
+                f_igosja_mysqli_query($sql);
+            }
+            else
+            {
+                $sql = "INSERT INTO `playerspecial`
+                        SET `playerspecial_player_id`=$player_id,
+                            `playerspecial_special_id`=$special_id";
+                f_igosja_mysqli_query($sql);
+            }
 
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`-$price
-                    WHERE `team_id`=$num_get
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
-
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_OUTCOME_TRAINING_SPECIAL,
-                'finance_team_id' => $auth_team_id,
-                'finance_value' => -$price,
-                'finance_value_after' => $team_array[0]['team_finance'] - $price,
-                'finance_value_before' => $team_array[0]['team_finance'],
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_PLAYER_BONUS_SPECIAL,
+                'history_player_id' => $player_id,
+                'history_special_id' => $special_id,
             );
-            f_igosja_finance($finance);
+            f_igosja_history($log);
+
+            $sql = "UPDATE `user`
+                    SET `user_shop_special`=`user_shop_special`-1
+                    WHERE `user_id`=$auth_user_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
         }
 
         $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Тренировка успешно началась.';
+        $_SESSION['message']['text']    = 'Тренировка прошла успешно.';
 
         refresh();
     }

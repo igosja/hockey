@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $auth_country_id integer
  * @var $auth_team_id integer
  * @var $auth_user_id integer
  * @var $igosja_season_id integer
@@ -50,10 +51,6 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
-        LEFT JOIN `playerposition`
-        ON `player_id`=`playerposition_player_id`
-        LEFT JOIN `playerspecial`
-        ON `player_id`=`playerspecial_player_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
@@ -297,6 +294,22 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         {
             $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/president_vice_vote.php?num=' . $auth_country_id . '">здесь</a>';
         }
+    }
+
+    $sql = "SELECT COUNT(`user_id`) AS `check`
+            FROM `user`
+            WHERE `user_id`=$auth_user_id
+            AND (`user_shop_position`=0
+            OR `user_shop_special`!=0
+            OR `user_shop_training`!=0)
+            LIMIT 1";
+    $user_training_sql = f_igosja_mysqli_query($sql);
+
+    $user_training_array = $user_training_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (0 != $user_training_array)
+    {
+        $notification_array[] = 'У вас есть бонусные <a href="/training_bonus.php">тренировки</a> для хоккеистов';
     }
 }
 
