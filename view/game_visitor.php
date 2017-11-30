@@ -1,17 +1,10 @@
 <?php
 /**
- * @var $visitor_array array
+ * @var $s_data array
+ * @var $x_data array
  */
 ?>
 <script src="/js/highchart/highcharts.js"></script>
-<!--<style type="text/css">-->
-<!--    #container {-->
-<!--        min-width: 310px;-->
-<!--        max-width: 800px;-->
-<!--        height: 400px;-->
-<!--        margin: 0 auto-->
-<!--    }-->
-<!--</style>-->
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="container"></div>

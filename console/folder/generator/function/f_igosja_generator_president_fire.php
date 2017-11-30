@@ -92,7 +92,7 @@ function f_igosja_generator_president_fire()
             $sql = "INSERT INTO `news`
                     SET `news_country_id`=$country_id,
                         `news_date`=UNIX_TIMESTAMP(),
-                        `news_text`=$news_text,
+                        `news_text`='$news_text',
                         `news_title`='$news_title',
                         `news_user_id`=1";
             f_igosja_mysqli_query($sql);

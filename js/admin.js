@@ -24,6 +24,9 @@ function admin_bell()
             $('#admin-support').html(data.support);
             $('#admin-teamask').html(data.teamask);
             $('#admin-vote').html(data.vote);
+            if (data.bell > 0) {
+                $('title').text('(' + data.bell + ') Административный раздел');
+            }
         },
         url: '/admin/json/bell.php'
     });

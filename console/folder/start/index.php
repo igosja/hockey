@@ -13,11 +13,12 @@ $function_array = array(
     'f_igosja_start_insert_championship',
     'f_igosja_start_insert_conference',
 );
-for ($i=1, $count_function=count($function_array); $i<=$count_function; $i++)
+
+for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)
 {
     $function_array[$i]();
 
-    f_igosja_console_progress($i, $count_function);
+    f_igosja_console_progress($i+1, $count_function);
 }
 
 print "\r\n"
