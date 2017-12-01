@@ -17,6 +17,7 @@ $q[] = 'CREATE TABLE `transfer`
             `transfer_season_id` INT(5) DEFAULT 0,
             `transfer_team_buyer_id` INT(11) DEFAULT 0,
             `transfer_team_seller_id` INT(11) DEFAULT 0,
+            `transfer_to_league` INT(1) DEFAULT 0,
             `transfer_user_buyer_id` INT(11) DEFAULT 0,
             `transfer_user_seller_id` INT(11) DEFAULT 0
         );';

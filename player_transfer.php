@@ -24,7 +24,8 @@ if (isset($auth_team_id) && $auth_team_id)
         $my_player = true;
 
         $sql = "SELECT `transfer_id`,
-                       `transfer_price_seller`
+                       `transfer_price_seller`,
+                       `transfer_to_league`
                 FROM `transfer`
                 WHERE `transfer_player_id`=$num_get
                 AND `transfer_ready`=0
@@ -42,6 +43,22 @@ if (isset($auth_team_id) && $auth_team_id)
 
             if (isset($data['off']))
             {
+                $sql = "SELECT `team_finance`
+                        FROM `team`
+                        WHERE `team_id`=$auth_team_id
+                        LIMIT 1";
+                $finance_sql = f_igosja_mysqli_query($sql);
+
+                $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($finance_array[0]['team_finance'] < 0)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя снимать игроков с трансферного рынка, если в команде отрицательный баланс.';
+
+                    refresh();
+                }
+
                 $sql = "DELETE FROM `transfer`
                         WHERE `transfer_id`=$transfer_id
                         LIMIT 1";
@@ -88,10 +105,133 @@ if (isset($auth_team_id) && $auth_team_id)
             {
                 $price = (int) $data['price'];
 
+                if (0 != $player_array[0]['player_national_id'])
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя продать игрока сборной.';
+
+                    refresh();
+                }
+
                 if ($player_array[0]['player_noaction'] > time())
                 {
                     $_SESSION['message']['class']   = 'error';
                     $_SESSION['message']['text']    = 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.';
+
+                    refresh();
+                }
+
+                if (0 != $player_array[0]['player_rent_team_id'])
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя выставить на трансфер игроков, отданных в данный момент в аренду.';
+
+                    refresh();
+                }
+
+                $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                        FROM `transfer`
+                        WHERE `transfer_team_seller_id`=$auth_team_id
+                        AND `transfer_ready`=0";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($check_array > 5)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.';
+
+                    refresh();
+                }
+
+                if (POSITION_GK == $player_array[0]['player_position_id'])
+                {
+                    $sql = "SELECT COUNT(`player_id`) AS `check`
+                            FROM `player`
+                            WHERE `player_position_id`=" . POSITION_GK . "
+                            AND `player_team_id`=$auth_team_id";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    $check_in_team = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                            FROM `transfer`
+                            LEFT JOIN `player`
+                            ON `transfer_player_id`=`player_id`
+                            WHERE `transfer_team_seller_id`=$auth_team_id
+                            AND `player_position_id`=" . POSITION_GK . "
+                            AND `transfer_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_transfer = $check_array[0]['check'];
+
+                    $check = $check_in_team - $check_on_transfer - 1;
+
+                    if ($check < 2)
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Нельзя продать вратаря, если у вас в команде останется менее двух вратарей.';
+
+                        refresh();
+                    }
+                }
+                else
+                {
+                    $sql = "SELECT COUNT(`player_id`) AS `check`
+                            FROM `player`
+                            WHERE `player_position_id`!=" . POSITION_GK . "
+                            AND `player_team_id`=$auth_team_id";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    $check_in_team = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                            FROM `transfer`
+                            LEFT JOIN `player`
+                            ON `transfer_player_id`=`player_id`
+                            WHERE `transfer_team_seller_id`=$auth_team_id
+                            AND `player_position_id`!=" . POSITION_GK . "
+                            AND `transfer_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_transfer = $check_array[0]['check'];
+
+                    $check = $check_in_team - $check_on_transfer - 1;
+
+                    if ($check < 20)
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Нельзя продать полевого игрока, если у вас в команде останется менее двадцати полевых игроков.';
+
+                        refresh();
+                    }
+                }
+
+                if ($check_array > 5)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.';
+
+                    refresh();
+                }
+
+                if ($player_array[0]['player_age'] < 19)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя продавать игроков младше 19 лет.';
+
+                    refresh();
+                }
+
+                if ($player_array[0]['player_age'] > 38)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя продавать игроков старше 38 лет.';
 
                     refresh();
                 }
@@ -104,10 +244,20 @@ if (isset($auth_team_id) && $auth_team_id)
                     refresh();
                 }
 
+                if (isset($data['to_league']))
+                {
+                    $to_league = 1;
+                }
+                else
+                {
+                    $to_league = 0;
+                }
+
                 $sql = "INSERT INTO `transfer`
                         SET `transfer_player_id`=$num_get,
                             `transfer_price_seller`=$price,
                             `transfer_team_seller_id`=$auth_team_id,
+                            `transfer_to_league`=$to_league,
                             `transfer_user_seller_id`=$auth_user_id";
                 f_igosja_mysqli_query($sql);
 
