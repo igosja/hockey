@@ -105,6 +105,144 @@ if (isset($auth_team_id) && $auth_team_id)
                     refresh();
                 }
 
+                if (0 != $player_array[0]['player_rent_team_id'])
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя отдавать в аренду игроков, которые уже находятся в аренде.';
+
+                    refresh();
+                }
+
+                $sql = "SELECT COUNT(`rent_id`) AS `check`
+                        FROM `rent`
+                        WHERE `rent_team_seller_id`=$auth_team_id
+                        AND `rent_ready`=0";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check1_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                $sql = "SELECT COUNT(`player_id`) AS `check`
+                        FROM `player`
+                        WHERE `player_rent_team_id`=$auth_team_id";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check2_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($check1_array[0]['check'] + $check2_array[0]['check'] > 5)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя отдавать в аренду более пяти игроков из одной команды одновременно.';
+
+                    refresh();
+                }
+
+                if (POSITION_GK == $player_array[0]['player_position_id'])
+                {
+                    $sql = "SELECT COUNT(`player_id`) AS `check`
+                            FROM `player`
+                            WHERE `player_position_id`=" . POSITION_GK . "
+                            AND `player_team_id`=$auth_team_id
+                            AND `player_rent_team_id`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    $check_in_team = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                            FROM `transfer`
+                            LEFT JOIN `player`
+                            ON `transfer_player_id`=`player_id`
+                            WHERE `transfer_team_seller_id`=$auth_team_id
+                            AND `player_position_id`=" . POSITION_GK . "
+                            AND `transfer_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_transfer = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`rent_id`) AS `check`
+                            FROM `rent`
+                            LEFT JOIN `player`
+                            ON `rent_player_id`=`player_id`
+                            WHERE `rent_team_seller_id`=$auth_team_id
+                            AND `player_position_id`=" . POSITION_GK . "
+                            AND `rent_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_rent = $check_array[0]['check'];
+
+                    $check = $check_in_team - $check_on_transfer - $check_on_rent - 1;
+
+                    if ($check < 2)
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Нельзя отдать в аренду вратаря, если у вас в команде останется менее двух вратарей.';
+
+                        refresh();
+                    }
+                }
+                else
+                {
+                    $sql = "SELECT COUNT(`player_id`) AS `check`
+                            FROM `player`
+                            WHERE `player_position_id`!=" . POSITION_GK . "
+                            AND `player_team_id`=$auth_team_id
+                            AND `player_rent_team_id`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    $check_in_team = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                            FROM `transfer`
+                            LEFT JOIN `player`
+                            ON `transfer_player_id`=`player_id`
+                            WHERE `transfer_team_seller_id`=$auth_team_id
+                            AND `player_position_id`!=" . POSITION_GK . "
+                            AND `transfer_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_transfer = $check_array[0]['check'];
+
+                    $sql = "SELECT COUNT(`rent_id`) AS `check`
+                            FROM `rent`
+                            LEFT JOIN `player`
+                            ON `rent_player_id`=`player_id`
+                            WHERE `rent_team_seller_id`=$auth_team_id
+                            AND `player_position_id`!=" . POSITION_GK . "
+                            AND `rent_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_rent = $check_array[0]['check'];
+
+                    $check = $check_in_team - $check_on_transfer - 1;
+
+                    if ($check < 20)
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Нельзя отдать в аренду полевого игрока, если у вас в команде останется менее двадцати полевых игроков.';
+
+                        refresh();
+                    }
+                }
+
+                if ($player_array[0]['player_age'] < 19)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игроков младше 19 лет.';
+
+                    refresh();
+                }
+
+                if ($player_array[0]['player_age'] > 38)
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игроков старше 38 лет.';
+
+                    refresh();
+                }
+
                 if ($rent_price > $price)
                 {
                     $_SESSION['message']['class']   = 'error';

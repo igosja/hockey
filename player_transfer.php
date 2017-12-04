@@ -137,7 +137,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-                if ($check_array > 5)
+                if ($check_array[0]['check'] > 5)
                 {
                     $_SESSION['message']['class']   = 'error';
                     $_SESSION['message']['text']    = 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.';
@@ -150,7 +150,8 @@ if (isset($auth_team_id) && $auth_team_id)
                     $sql = "SELECT COUNT(`player_id`) AS `check`
                             FROM `player`
                             WHERE `player_position_id`=" . POSITION_GK . "
-                            AND `player_team_id`=$auth_team_id";
+                            AND `player_team_id`=$auth_team_id
+                            AND `player_rent_team_id`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -168,7 +169,18 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $check_on_transfer = $check_array[0]['check'];
 
-                    $check = $check_in_team - $check_on_transfer - 1;
+                    $sql = "SELECT COUNT(`rent_id`) AS `check`
+                            FROM `rent`
+                            LEFT JOIN `player`
+                            ON `rent_player_id`=`player_id`
+                            WHERE `rent_team_seller_id`=$auth_team_id
+                            AND `player_position_id`=" . POSITION_GK . "
+                            AND `rent_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_rent = $check_array[0]['check'];
+
+                    $check = $check_in_team - $check_on_transfer - $check_on_rent - 1;
 
                     if ($check < 2)
                     {
@@ -183,7 +195,8 @@ if (isset($auth_team_id) && $auth_team_id)
                     $sql = "SELECT COUNT(`player_id`) AS `check`
                             FROM `player`
                             WHERE `player_position_id`!=" . POSITION_GK . "
-                            AND `player_team_id`=$auth_team_id";
+                            AND `player_team_id`=$auth_team_id
+                            AND `player_rent_team_id`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -201,6 +214,17 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $check_on_transfer = $check_array[0]['check'];
 
+                    $sql = "SELECT COUNT(`rent_id`) AS `check`
+                            FROM `rent`
+                            LEFT JOIN `player`
+                            ON `rent_player_id`=`player_id`
+                            WHERE `rent_team_seller_id`=$auth_team_id
+                            AND `player_position_id`!=" . POSITION_GK . "
+                            AND `rent_ready`=0";
+                    $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_on_rent = $check_array[0]['check'];
+
                     $check = $check_in_team - $check_on_transfer - 1;
 
                     if ($check < 20)
@@ -210,14 +234,6 @@ if (isset($auth_team_id) && $auth_team_id)
 
                         refresh();
                     }
-                }
-
-                if ($check_array > 5)
-                {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.';
-
-                    refresh();
                 }
 
                 if ($player_array[0]['player_age'] < 19)
