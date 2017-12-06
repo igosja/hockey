@@ -49,7 +49,8 @@ function f_igosja_generator_player_tire()
                 WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 AND `player_game_row`>0
                 AND `player_age`<40
-                AND `player_mood_id`>0";
+                AND `player_mood_id`>0
+                AND `player_team_id`!=0";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `player`
@@ -70,7 +71,8 @@ function f_igosja_generator_player_tire()
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 )
-                AND `player_age`<40";
+                AND `player_age`<40
+                AND `player_team_id`!=0";
         f_igosja_mysqli_query($sql);
     }
     elseif (DAYTYPE_C == $schedule_array[0]['tournamenttype_daytype_id'])
@@ -94,7 +96,8 @@ function f_igosja_generator_player_tire()
                 WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 AND `player_game_row`>0
                 AND `player_age`<40
-                AND `player_mood_id`>0";
+                AND `player_mood_id`>0
+                AND `player_team_id`!=0";
         f_igosja_mysqli_query($sql);
     }
 
@@ -113,5 +116,10 @@ function f_igosja_generator_player_tire()
             SET `player_tire`=0
             WHERE `player_tire`<0
             AND `player_age`<40";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `player`
+            SET `player_tire`=50
+            WHERE `player_team_id`=0";
     f_igosja_mysqli_query($sql);
 }

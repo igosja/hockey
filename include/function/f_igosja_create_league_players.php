@@ -48,12 +48,7 @@ function f_igosja_create_team_players($team_id)
     {
         $position_id = $position_array[$i];
 
-        $age = 17 + $i;
-
-        if (39 < $age)
-        {
-            $age = $age - 17;
-        }
+        $age = 18;
 
         $sql ="SELECT `phisical_id`,
                       `phisical_value`
@@ -81,7 +76,7 @@ function f_igosja_create_team_players($team_id)
         $surname_id = f_igosja_select_player_surname_id($team_id, $country_id);
 
         $style_id   = 1;
-        $ability    = rand(1, 5);
+        $ability    = 1;
 
         $sql = "INSERT INTO `player`
                 SET `player_age`=$age,
@@ -89,17 +84,17 @@ function f_igosja_create_team_players($team_id)
                     `player_name_id`=$name_id,
                     `player_phisical_id`=$phisical_id,
                     `player_position_id`=$position_id,
-                    `player_power_nominal`=20,
+                    `player_power_nominal`=$age*2,
                     `player_power_nominal_s`=`player_power_nominal`,
                     `player_power_old`=`player_power_nominal`,
-                    `player_power_real`=`player_power_nominal`*$phisical_value/100,
-                    `player_price`=POW(150-(28-$age), 2)*20,
+                    `player_power_real`=`player_power_nominal`*50/100*$phisical_value/100,
+                    `player_price`=POW(150-(28-$age), 2)*$age*2,
                     `player_salary`=`player_price`/999,
                     `player_school_id`=$team_id,
                     `player_style_id`=$style_id,
                     `player_surname_id`=$surname_id,
                     `player_team_id`=0,
-                    `player_tire`=0,
+                    `player_tire`=50,
                     `player_training_ability`=$ability";
         f_igosja_mysqli_query($sql);
 

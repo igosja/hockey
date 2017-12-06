@@ -109,27 +109,27 @@ function f_igosja_generator_fill_lineup()
 
                 if (0 == $lineup_player_id)
                 {
-                    $league_sql = "SELECT `player_id`,
-                                   `lineup_player_id`
-                            FROM `player`
-                            LEFT JOIN `playerposition`
-                            ON `playerposition_player_id`=`player_id`
-                            LEFT JOIN
-                            (
-                                SELECT `lineup_player_id`
-                                FROM `lineup`
-                                LEFT JOIN `game`
-                                ON `lineup_game_id` = `game_id`
-                                LEFT JOIN `schedule`
-                                ON `game_schedule_id` = `schedule_id`
-                                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
-                            ) AS `t`
-                            ON `player_id`=`lineup_player_id`
-                            WHERE `player_team_id`=0
-                            AND `playerposition_position_id`=$position_id
-                            AND `lineup_player_id` IS NULL
-                            ORDER BY `player_tire` ASC, `player_power_real` DESC
-                            LIMIT 1";
+                    $league_sql =  "SELECT `player_id`,
+                                           `lineup_player_id`
+                                    FROM `player`
+                                    LEFT JOIN `playerposition`
+                                    ON `playerposition_player_id`=`player_id`
+                                    LEFT JOIN
+                                    (
+                                        SELECT `lineup_player_id`
+                                        FROM `lineup`
+                                        LEFT JOIN `game`
+                                        ON `lineup_game_id` = `game_id`
+                                        LEFT JOIN `schedule`
+                                        ON `game_schedule_id` = `schedule_id`
+                                        WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                                    ) AS `t`
+                                    ON `player_id`=`lineup_player_id`
+                                    WHERE `player_team_id`=0
+                                    AND `playerposition_position_id`=$position_id
+                                    AND `lineup_player_id` IS NULL
+                                    ORDER BY `player_tire` ASC, `player_power_real` DESC
+                                    LIMIT 1";
 
                     if (0 == $mood_id)
                     {
@@ -149,7 +149,9 @@ function f_igosja_generator_fill_lineup()
                                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                                 ) AS `t`
                                 ON `player_id`=`lineup_player_id`
-                                WHERE `player_team_id`=$team_id
+                                WHERE ((`player_team_id`=$team_id
+                                AND `player_rent_team_id`=0)
+                                OR `player_rent_team_id`=$team_id)
                                 AND `playerposition_position_id`=$position_id
                                 AND `lineup_player_id` IS NULL
                                 ORDER BY `player_tire` ASC, `player_power_real` DESC
