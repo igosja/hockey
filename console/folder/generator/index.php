@@ -45,6 +45,7 @@ $function_array = array(
     'f_igosja_generator_transfer',
     'f_igosja_generator_transfer_check',
     'f_igosja_generator_rent',
+    'f_igosja_generator_player_league_power',
     'f_igosja_generator_player_price_and_salary',
     'f_igosja_generator_player_power_s',
     'f_igosja_generator_player_real_power',
