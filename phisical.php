@@ -131,6 +131,7 @@ $sql = "SELECT `name_name`,
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
         WHERE `player_team_id`=$num_get
+        AND `player_rent_team_id`=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 

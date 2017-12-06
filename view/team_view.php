@@ -99,6 +99,110 @@
                     <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>
+            <?php if ($player_rent_in_array) { ?>
+                <tr>
+                    <th colspan="15">Взятые в аренду</th>
+                </tr>
+                <?php foreach ($player_rent_in_array as $item) { ?>
+                    <tr>
+                        <td>
+                            <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                <?= $item['name_name']; ?>
+                                <?= $item['surname_name']; ?>
+                            </a>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <img
+                                    alt="<?= $item['country_name']; ?>"
+                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                    title="<?= $item['country_name']; ?>"
+                                />
+                            </a>
+                        </td>
+                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                        <td class="text-center"><?= $item['player_age']; ?></td>
+                        <td
+                            class="text-center
+                            <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
+                                font-green
+                            <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
+                                font-red
+                            <?php } ?>"
+                        >
+                            <?= $item['player_power_nominal']; ?>
+                        </td>
+                        <td class="text-center"><?= $item['player_tire']; ?></td>
+                        <td class="text-center">
+                            <img
+                                alt="<?= $item['phisical_value']; ?>%"
+                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                title="<?= $item['phisical_value']; ?>%"
+                            />
+                        </td>
+                        <td class="text-center"><?= $item['player_power_real']; ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                        <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
+            <?php if ($player_rent_out_array) { ?>
+                <tr>
+                    <th colspan="15">Отданные в аренду</th>
+                </tr>
+                <?php foreach ($player_rent_out_array as $item) { ?>
+                    <tr>
+                        <td>
+                            <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                <?= $item['name_name']; ?>
+                                <?= $item['surname_name']; ?>
+                            </a>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <img
+                                    alt="<?= $item['country_name']; ?>"
+                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                    title="<?= $item['country_name']; ?>"
+                                />
+                            </a>
+                        </td>
+                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                        <td class="text-center"><?= $item['player_age']; ?></td>
+                        <td
+                            class="text-center
+                            <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
+                                font-green
+                            <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
+                                font-red
+                            <?php } ?>"
+                        >
+                            <?= $item['player_power_nominal']; ?>
+                        </td>
+                        <td class="text-center"><?= $item['player_tire']; ?></td>
+                        <td class="text-center">
+                            <img
+                                alt="<?= $item['phisical_value']; ?>%"
+                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                title="<?= $item['phisical_value']; ?>%"
+                            />
+                        </td>
+                        <td class="text-center"><?= $item['player_power_real']; ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                        <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
             <tr>
                 <th>Игрок</th>
                 <th class="hidden-xs" title="Национальность">Нац</th>

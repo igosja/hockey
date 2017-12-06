@@ -275,6 +275,22 @@ if (isset($auth_team_id) && $auth_team_id)
                     refresh();
                 }
 
+                $sql = "SELECT COUNT(`training_id`) AS `check`
+                        FROM `training`
+                        WHERE `training_ready`=0
+                        AND `training_player_id`=$num_get";
+                $training_sql = f_igosja_mysqli_query($sql);
+
+                $training_array = $training_sql->fetch_all(MYSQLI_ASSOC);
+
+                if (0 != $training_array[0]['check'])
+                {
+                    $_SESSION['message']['class']   = 'error';
+                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игрока, который находится на тренировке.';
+
+                    refresh();
+                }
+
                 $sql = "INSERT INTO `rent`
                         SET `rent_day_max`=$day_max,
                             `rent_day_min`=$day_min,

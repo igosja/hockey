@@ -24,9 +24,11 @@ $sql = "SELECT `country_id`,
                `player_rent_team_id`,
                `player_salary`,
                `player_tire`,
+               `rent_team`.`team_id` AS `rent_team_id`,
+               `rent_team`.`team_name` AS `rent_team_name`,
                `surname_name`,
-               `team_id`,
-               `team_name`
+               `team`.`team_id` AS `team_id`,
+               `team`.`team_name` AS `team_name`
         FROM `player`
         LEFT JOIN `name`
         ON `player_name_id`=`name_id`
@@ -38,6 +40,8 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
+        LEFT JOIN `team` AS `rent_team`
+        ON `player_rent_team_id`=`rent_team`.`team_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get

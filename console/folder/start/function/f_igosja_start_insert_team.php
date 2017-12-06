@@ -543,6 +543,7 @@ function f_igosja_start_insert_team()
             );
             f_igosja_history($log);
             f_igosja_create_team_players($team_id);
+            f_igosja_create_league_players($team_id);
 
             $sql = "SELECT SUM(`player_power_nominal`) AS `power`
                     FROM

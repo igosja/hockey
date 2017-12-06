@@ -215,7 +215,9 @@ if ($data = f_igosja_request_post('data'))
         $sql = "SELECT COUNT(`player_id`) AS `check`
                 FROM `player`
                 WHERE `player_id`=$player_id
-                AND `player_team_id`=$auth_team_id";
+                AND ((`player_team_id`=$auth_team_id
+                AND `player_rent_team_id`=0)
+                OR `player_rent_team_id`=$auth_team_id)";
         $check_sql = f_igosja_mysqli_query($sql);
 
         $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -359,7 +361,9 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
@@ -420,7 +424,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);
@@ -441,7 +447,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);
@@ -462,7 +470,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);
@@ -483,7 +493,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);
@@ -504,7 +516,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);
@@ -525,7 +539,9 @@ $sql = "SELECT `name_name`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `player_team_id`=$auth_team_id
+        WHERE ((`player_team_id`=$auth_team_id
+        AND `player_rent_team_id`=0)
+        OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
         ORDER BY `player_power_real` DESC";
 $result_sql = f_igosja_mysqli_query($sql);

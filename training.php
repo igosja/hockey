@@ -116,10 +116,27 @@ if ($data = f_igosja_request_post('data'))
                     WHERE `player_id`=$player_id
                     AND `player_noaction`<UNIX_TIMESTAMP()
                     AND `player_team_id`=$num_get
+                    AND `player_rent_team_id`=0
                     LIMIT 1";
             $player_sql = f_igosja_mysqli_query($sql);
 
-            if ($player_sql->num_rows)
+            $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                    FROM `transfer`
+                    WHERE `transfer_player_id`=$player_id
+                    AND `transfer_ready`=0";
+            $transfer_sql = f_igosja_mysqli_query($sql);
+
+            $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+            $sql = "SELECT COUNT(`rent_id`) AS `check`
+                    FROM `rent`
+                    WHERE `rent_player_id`=$player_id
+                    AND `rent_ready`=0";
+            $rent_sql = f_igosja_mysqli_query($sql);
+
+            $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
+
+            if ($player_sql->num_rows && 0 == $transfer_array[0]['check'] && 0 == $rent_array[0]['check'])
             {
                 $sql = "SELECT COUNT(`training_id`) AS `count`
                         FROM `training`
@@ -173,10 +190,27 @@ if ($data = f_igosja_request_post('data'))
                         WHERE `player_id`=$player_id
                         AND `player_noaction`<UNIX_TIMESTAMP()
                         AND `player_team_id`=$num_get
+                        AND `player_rent_team_id`=0
                         LIMIT 1";
                 $player_sql = f_igosja_mysqli_query($sql);
 
-                if ($player_sql->num_rows)
+                $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                        FROM `transfer`
+                        WHERE `transfer_player_id`=$player_id
+                        AND `transfer_ready`=0";
+                $transfer_sql = f_igosja_mysqli_query($sql);
+
+                $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+                $sql = "SELECT COUNT(`rent_id`) AS `check`
+                        FROM `rent`
+                        WHERE `rent_player_id`=$player_id
+                        AND `rent_ready`=0";
+                $rent_sql = f_igosja_mysqli_query($sql);
+
+                $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($player_sql->num_rows && 0 == $transfer_array[0]['check'] && 0 == $rent_array[0]['check'])
                 {
                     $sql = "SELECT COUNT(`training_id`) AS `count`
                             FROM `training`
@@ -244,10 +278,27 @@ if ($data = f_igosja_request_post('data'))
                         WHERE `player_id`=$player_id
                         AND `player_noaction`<UNIX_TIMESTAMP()
                         AND `player_team_id`=$num_get
+                        AND `player_rent_team_id`=0
                         LIMIT 1";
                 $player_sql = f_igosja_mysqli_query($sql);
 
-                if ($player_sql->num_rows)
+                $sql = "SELECT COUNT(`transfer_id`) AS `check`
+                        FROM `transfer`
+                        WHERE `transfer_player_id`=$player_id
+                        AND `transfer_ready`=0";
+                $transfer_sql = f_igosja_mysqli_query($sql);
+
+                $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+                $sql = "SELECT COUNT(`rent_id`) AS `check`
+                        FROM `rent`
+                        WHERE `rent_player_id`=$player_id
+                        AND `rent_ready`=0";
+                $rent_sql = f_igosja_mysqli_query($sql);
+
+                $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($player_sql->num_rows && 0 == $transfer_array[0]['check'] && 0 == $rent_array[0]['check'])
                 {
                     $sql = "SELECT COUNT(`training_id`) AS `count`
                             FROM `training`
@@ -341,7 +392,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $price = $basetraining_array[0]['basetraining_power_price'];
 
-        foreach($confirm_data['power'] as $item)
+        foreach ($confirm_data['power'] as $item)
         {
             $player_id = $item['id'];
 
@@ -378,7 +429,7 @@ if ($data = f_igosja_request_post('data'))
 
         $price = $basetraining_array[0]['basetraining_position_price'];
 
-        foreach($confirm_data['position'] as $item)
+        foreach ($confirm_data['position'] as $item)
         {
             $player_id      = $item['id'];
             $position_id    = $item['position']['id'];
@@ -416,7 +467,7 @@ if ($data = f_igosja_request_post('data'))
 
         $price = $basetraining_array[0]['basetraining_special_price'];
 
-        foreach($confirm_data['special'] as $item)
+        foreach ($confirm_data['special'] as $item)
         {
             $player_id  = $item['id'];
             $special_id = $item['special']['id'];
@@ -486,6 +537,16 @@ $sql = "SELECT `country_id`,
         WHERE `training_season_id`=$igosja_season_id
         AND `training_ready`=0
         AND `training_team_id`=$num_get
+        AND `player_id` NOT IN (
+            SELECT `rent_player_id`
+            FROM `rent`
+            WHERE `rent_ready`=0
+        )
+        AND `player_id` NOT IN (
+            SELECT `transfer_player_id`
+            FROM `transfer`
+            WHERE `transfer_ready`=0
+        )
         ORDER BY `training_id` ASC";
 $training_sql = f_igosja_mysqli_query($sql);
 
@@ -508,6 +569,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
         WHERE `player_team_id`=$num_get
+        AND `player_rent_team_id`=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 

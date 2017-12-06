@@ -120,6 +120,16 @@ function f_igosja_generator_transfer()
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
+            $sql = "DELETE FROM `phisicalchange`
+                    WHERE `phisicalchange_player_id`=$player_id
+                    AND `phisicalchange_schedule_id`>
+                    (
+                        SELECT `schedule_id`
+                        FROM `schedule`
+                        WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    )";
+            f_igosja_mysqli_query($sql);
+
             $sql = "UPDATE `transfer`
                     LEFT JOIN `player`
                     ON `transfer_player_id`=`player_id`

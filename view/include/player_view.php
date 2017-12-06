@@ -122,6 +122,18 @@
                         </a>
                     </div>
                 </div>
+                <?php if ($player_array[0]['rent_team_id']) { ?>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            В аренде:
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <a href="/team_view.php?num=<?= $player_array[0]['rent_team_id']; ?>">
+                                <?= $player_array[0]['rent_team_name']; ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php } ?>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         Позиция:

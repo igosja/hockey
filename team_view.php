@@ -40,6 +40,8 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
+               `player_rent_team_id`,
+               `player_team_id`,
                `player_tire`,
                `surname_name`
         FROM `player`
@@ -54,10 +56,81 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
+        AND `player_rent_team_id`=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `country_id`,
+               `country_name`,
+               `line_color`,
+               `name_name`,
+               `phisical_id`,
+               `phisical_value`,
+               `player_age`,
+               `player_game_row`,
+               `player_id`,
+               `player_power_nominal`,
+               `player_power_old`,
+               `player_power_real`,
+               `player_price`,
+               `player_rent_team_id`,
+               `player_team_id`,
+               `player_tire`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        LEFT JOIN `country`
+        ON `player_country_id`=`country_id`
+        LEFT JOIN `phisical`
+        ON `player_phisical_id`=`phisical_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
+        WHERE `player_team_id`=$num_get
+        AND `player_rent_team_id`!=0
+        ORDER BY `player_position_id` ASC, `player_id` ASC";
+$player_rent_out_sql = f_igosja_mysqli_query($sql);
+
+$player_rent_out_array = $player_rent_out_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `country_id`,
+               `country_name`,
+               `line_color`,
+               `name_name`,
+               `phisical_id`,
+               `phisical_value`,
+               `player_age`,
+               `player_game_row`,
+               `player_id`,
+               `player_power_nominal`,
+               `player_power_old`,
+               `player_power_real`,
+               `player_price`,
+               `player_rent_team_id`,
+               `player_team_id`,
+               `player_tire`,
+               `surname_name`
+        FROM `player`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        LEFT JOIN `country`
+        ON `player_country_id`=`country_id`
+        LEFT JOIN `phisical`
+        ON `player_phisical_id`=`phisical_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
+        WHERE `player_rent_team_id`=$num_get
+        AND `player_team_id`!=$num_get
+        ORDER BY `player_position_id` ASC, `player_id` ASC";
+$player_rent_in_sql = f_igosja_mysqli_query($sql);
+
+$player_rent_in_array = $player_rent_in_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `team_power_s_16`,
                `team_power_s_21`,
@@ -75,6 +148,16 @@ $rating_array = $rating_sql->fetch_all(MYSQLI_ASSOC);
 $player_id = array();
 
 foreach ($player_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
+
+foreach ($player_rent_out_array as $item)
+{
+    $player_id[] = $item['player_id'];
+}
+
+foreach ($player_rent_in_array as $item)
 {
     $player_id[] = $item['player_id'];
 }
