@@ -126,6 +126,7 @@ function f_igosja_generator_fill_lineup()
                                     ) AS `t`
                                     ON `player_id`=`lineup_player_id`
                                     WHERE `player_team_id`=0
+                                    AND `player_rent_team_id`=0
                                     AND `playerposition_position_id`=$position_id
                                     AND `lineup_player_id` IS NULL
                                     ORDER BY `player_tire` ASC, `player_power_real` DESC

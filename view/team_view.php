@@ -6,6 +6,7 @@
  * @var $player_array array
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $playerstatistic_array array
  */
 ?>
 <div class="row margin-top">
@@ -91,10 +92,10 @@
                     </td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
                     <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                    <td class="hidden-xs text-center">0</td>
-                    <td class="hidden-xs text-center">0</td>
-                    <td class="hidden-xs text-center">0</td>
-                    <td class="hidden-xs text-center">0</td>
+                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                     <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                     <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
@@ -142,10 +143,10 @@
                         </td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                         <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
@@ -194,10 +195,10 @@
                         </td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
-                        <td class="hidden-xs text-center">0</td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                         <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
@@ -277,11 +278,6 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
                 <?= f_igosja_money_format($rating_array[0]['team_price_total']); ?>
-            </div>
-        </div>
-        <div class="row margin-top">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Расскажите всем о лиге - vk, fb, ok, tw
             </div>
         </div>
     </div>

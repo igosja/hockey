@@ -5,7 +5,7 @@
  * і записуємо це в БД (`history`)
  * @param $team_id integer id команди
  */
-function f_igosja_create_team_players($team_id)
+function f_igosja_create_league_players($team_id)
 {
     global $mysqli;
 

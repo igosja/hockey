@@ -5,6 +5,8 @@
  */
 function f_igosja_generator_player_price_and_salary()
 {
+    global $igosja_season_id;
+
     $sql = "UPDATE `player`
             LEFT JOIN
             (
@@ -31,7 +33,35 @@ function f_igosja_generator_player_price_and_salary()
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `player`
-            SET `player_salary`=`player_price`/999
-            WHERE `player_age`<40";
+            LEFT JOIN `team`
+            ON `player_team_id`=`team_id`
+            LEFT JOIN `base`
+            ON `team_base_id`=`base_id`
+            LEFT JOIN
+            (
+                SELECT `championship_team_id`,
+                       `championship_division_id`
+                FROM `championship`
+                WHERE `championship_season_id`=$igosja_season_id
+            ) AS `t1`
+            ON `team_id`=`championship_team_id`
+            SET `player_salary`=`player_price`*(`base_level`+3)/10000*IF(`championship_division_id`=1, 1, IF(`championship_division_id`=2, 0.95, IF(`championship_division_id`=3, 0.90, 0.8)))
+            WHERE `championship_team_id` IS NOT NULL";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `player`
+            LEFT JOIN `team`
+            ON `player_team_id`=`team_id`
+            LEFT JOIN `base`
+            ON `team_base_id`=`base_id`
+            LEFT JOIN
+            (
+                SELECT `conference_team_id`
+                FROM `conference`
+                WHERE `conference_season_id`=$igosja_season_id
+            ) AS `t1`
+            ON `team_id`=`conference_team_id`
+            SET `player_salary`=`player_price`*(`base_level`+3)/10000*0.7
+            WHERE `conference_team_id` IS NOT NULL";
     f_igosja_mysqli_query($sql);
 }

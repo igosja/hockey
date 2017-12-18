@@ -49,8 +49,10 @@ $function_array = array(
     'f_igosja_generator_player_price_and_salary',
     'f_igosja_generator_player_power_s',
     'f_igosja_generator_player_real_power',
+    'f_igosja_generator_salary',
     'f_igosja_generator_team_vs',
     'f_igosja_generator_team_price',
+    'f_igosja_generator_country_stadium',
     'f_igosja_generator_user_deprive_team',
     'f_igosja_generator_user_holiday_end',
     'f_igosja_generator_national_vote_status',
@@ -59,6 +61,7 @@ $function_array = array(
     'f_igosja_generator_president_vote_status',
     'f_igosja_generator_president_vice_vote_status',
     'f_igosja_generator_president_fire',
+    'f_igosja_generator_rating',
     'f_igosja_generator_site_open',
 );
 

@@ -189,11 +189,24 @@ if (count($player_id))
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT `statisticplayer_assist`,
+                   `statisticplayer_game`,
+                   `statisticplayer_player_id`,
+                   `statisticplayer_plus_minus`,
+                   `statisticplayer_score`
+            FROM `statisticplayer`
+            WHERE `statisticplayer_player_id` IN ($player_id)
+            AND `statisticplayer_season_id`=$igosja_season_id";
+    $playerstatistic_sql = f_igosja_mysqli_query($sql);
+
+    $playerstatistic_array = $playerstatistic_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
     $playerposition_array   = array();
     $playerspecial_array    = array();
+    $playerstatistic_array  = array();
 }
 
 $notification_array = array();
@@ -396,18 +409,39 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
-$sql = "SELECT `forumtheme_id`,
-               `forumtheme_last_date`,
-               `forumtheme_name`
-        FROM `forumtheme`
-        LEFT JOIN `forumgroup`
-        ON `forumtheme_forumgroup_id`=`forumgroup_id`
-        WHERE `forumgroup_forumchapter_id`=" . FORUMGROUP_NATIONAL . "
-        ORDER BY `forumtheme_last_date` DESC
-        LIMIT 4";
-$forum_sql = f_igosja_mysqli_query($sql);
+if (isset($auth_team_id))
+{
+    if ($num_get == $auth_team_id)
+    {
+        $sql = "SELECT `forumtheme_id`,
+                       `forumtheme_last_date`,
+                       `forumtheme_name`
+                FROM `forumtheme`
+                LEFT JOIN `forumgroup`
+                ON `forumtheme_forumgroup_id`=`forumgroup_id`
+                WHERE `forumgroup_forumchapter_id`=" . FORUMGROUP_NATIONAL . "
+                ORDER BY `forumtheme_last_date` DESC
+                LIMIT 4";
+        $forum_sql = f_igosja_mysqli_query($sql);
 
-$forum_array = $forum_sql->fetch_all(MYSQLI_ASSOC);
+        $forum_array = $forum_sql->fetch_all(MYSQLI_ASSOC);
+    }
+    else
+    {
+        $sql = "SELECT `team_power_s_16`,
+                       `team_power_s_21`,
+                       `team_power_s_27`,
+                       `team_price_base`,
+                       `team_price_total`,
+                       `team_power_vs`
+                FROM `team`
+                WHERE `team_id`=$auth_team_id
+                LIMIT 1";
+        $my_team_sql = f_igosja_mysqli_query($sql);
+
+        $my_team_array = $my_team_sql->fetch_all(MYSQLI_ASSOC);
+    }
+}
 
 $seo_title          = $team_array[0]['team_name'] . '. Профиль команды';
 $seo_description    = $team_array[0]['team_name'] . '. Профиль команды на сайте Вирутальной Хоккейной Лиги.';
