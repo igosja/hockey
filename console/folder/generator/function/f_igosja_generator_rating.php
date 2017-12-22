@@ -37,7 +37,7 @@ function f_igosja_generator_rating()
             ORDER BY `team_id` ASC";
     f_igosja_mysqli_query($sql);
 
-    $sql = "INSERT INTO `ratinguser` (`ratinguser_use_id`)
+    $sql = "INSERT INTO `ratinguser` (`ratinguser_user_id`)
             SELECT `user_id`
             FROM `user`
             LEFT JOIN `team`
@@ -60,7 +60,7 @@ function f_igosja_generator_rating()
         if (RATING_TEAM_POWER == $item['ratingtype_id'])
         {
             $order = '`team_power_vs` DESC';
-            $place = '';
+            $place = 'ratingteam_power_vs_place';
         }
         elseif (RATING_TEAM_AGE == $item['ratingtype_id'])
         {
@@ -290,7 +290,7 @@ function f_igosja_generator_rating()
                 $sql = "UPDATE `ratingcountry`
                         SET `$place`=$position
                         WHERE `ratingcountry_country_id`=$country_id
-                        LIMTI 1";
+                        LIMIT 1";
                 f_igosja_mysqli_query($sql);
             }
         }

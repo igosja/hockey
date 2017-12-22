@@ -32,7 +32,7 @@ function f_igosja_generator_transfer_check()
 
         $sql = "SELECT SUM(`transfervote_rating`) AS `rating`
                 FROM `tranfervote`
-                WHERE `transfervote_transfer_id`=$transfer_id"
+                WHERE `transfervote_transfer_id`=$transfer_id";
         $transfervote_sql = f_igosja_mysqli_query($sql);
 
         $transfervote_array = $transfervote_sql->fetch_all(MYSQLI_ASSOC);
@@ -121,7 +121,7 @@ function f_igosja_generator_transfer_check()
             $sql = "UPDATE `player`
                     SET `player_line_id`=0,
                         `player_noaction`=0,
-                        `player_team_id`=$team_selle_id
+                        `player_team_id`=$team_seller_id
                     WHERE `player_id`=$player_id
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
@@ -133,7 +133,7 @@ function f_igosja_generator_transfer_check()
                 'history_team_2_id' => $team_seller_id,
                 'history_user_id' => $transfer['transfer_user_buyer_id'],
                 'history_user_2_id' => $transfer['transfer_user_seller_id'],
-                'history_value' => $transferaplication_price,
+                'history_value' => $price,
             );
             f_igosja_history($log);
 

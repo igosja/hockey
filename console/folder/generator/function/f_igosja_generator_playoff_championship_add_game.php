@@ -46,7 +46,7 @@ function f_igosja_generator_playoff_championship_add_game()
                                    `game_home_team_id`
                             FROM `game`
                             LEFT JOIN `schedule`
-                            ON `game_schedule_id`=`shedule_id`
+                            ON `game_schedule_id`=`schedule_id`
                             WHERE ((`game_home_team_id`=$home_team_id
                             AND `game_guest_team_id`=$guest_team_id)
                             OR (`game_home_team_id`=$guest_team_id
@@ -102,11 +102,11 @@ function f_igosja_generator_playoff_championship_add_game()
                                 $loose_team_id = $home_team_id;
                             }
 
-                            $sql = "UPDATE `participantchampionship_country_id`
+                            $sql = "UPDATE `participantchampionship`
                                     SET `participantchampionship_stage_id`=$stage_id
                                     WHERE `participantchampionship_team_id`=$loose_team_id
                                     AND `participantchampionship_season_id`=$igosja_season_id
-                                    LIMIT 1"
+                                    LIMIT 1";
                             f_igosja_mysqli_query($sql);
                         }
                         else
@@ -155,9 +155,8 @@ function f_igosja_generator_playoff_championship_add_game()
                     }
                 }
             }
-        }
-        elseif (STAGE_FINAL == $stage_id)
-        {
+            elseif (STAGE_FINAL == $stage_id)
+            {
                 $sql = "SELECT `game_guest_team_id`,
                                `game_home_team_id`
                         FROM `game`
@@ -178,7 +177,7 @@ function f_igosja_generator_playoff_championship_add_game()
                                    `game_home_team_id`
                             FROM `game`
                             LEFT JOIN `schedule`
-                            ON `game_schedule_id`=`shedule_id`
+                            ON `game_schedule_id`=`schedule_id`
                             WHERE ((`game_home_team_id`=$home_team_id
                             AND `game_guest_team_id`=$guest_team_id)
                             OR (`game_home_team_id`=$guest_team_id
@@ -234,15 +233,15 @@ function f_igosja_generator_playoff_championship_add_game()
                                 $loose_team_id = $home_team_id;
                             }
 
-                            $sql = "UPDATE `participantchampionship_country_id`
+                            $sql = "UPDATE `participantchampionship`
                                     SET `participantchampionship_stage_id`=$stage_id
                                     WHERE `participantchampionship_team_id`=$loose_team_id
                                     AND `participantchampionship_season_id`=$igosja_season_id
-                                    LIMIT 1"
+                                    LIMIT 1";
                             f_igosja_mysqli_query($sql);
                         }
                         elseif  ((3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win))) ||
-                                 4 == $prev_sql->num_rows)
+                            4 == $prev_sql->num_rows)
                         {
                             if (3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win)))
                             {
@@ -265,7 +264,7 @@ function f_igosja_generator_playoff_championship_add_game()
                             $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
 
                             $schedule_id_insert = $stage_array[0]['schedule_id'];
-            
+
                             $sql = "SELECT `team_id`,
                                            `team_stadium_id`
                                     FROM `participantchampionship`
