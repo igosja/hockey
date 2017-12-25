@@ -176,6 +176,7 @@ class Mail
                                                                     <td valign="top" class="textContent">
                                                                         ' . $this->message . '
                                                                         <br/>
+                                                                        <br/>
                                                                         Администрация <a href="' . SITE_URL . '" target="_blank">Виртуальной Хоккейной Лиги</a>
                                                                     </td>
                                                                 </tr>

@@ -69,7 +69,7 @@ function f_igosja_generator_check_mood_limit()
                         $sql = "UPDATE `team`
                                 SET `team_mood_super`=`team_mood_super`-1
                                 WHERE `team_id`=$home_team_id
-                                LIMI 1";
+                                LIMIT 1";
                         f_igosja_mysqli_query($sql);
                     }
                 }
@@ -88,7 +88,7 @@ function f_igosja_generator_check_mood_limit()
                         $sql = "UPDATE `team`
                                 SET `team_mood_rest`=`team_mood_rest`-1
                                 WHERE `team_id`=$home_team_id
-                                LIMI 1";
+                                LIMIT 1";
                         f_igosja_mysqli_query($sql);
                     }
                 }
@@ -117,7 +117,7 @@ function f_igosja_generator_check_mood_limit()
                         $sql = "UPDATE `team`
                                 SET `team_mood_super`=`team_mood_super`-1
                                 WHERE `team_id`=$guest_team_id
-                                LIMI 1";
+                                LIMIT 1";
                         f_igosja_mysqli_query($sql);
                     }
                 }
@@ -136,7 +136,7 @@ function f_igosja_generator_check_mood_limit()
                         $sql = "UPDATE `team`
                                 SET `team_mood_rest`=`team_mood_rest`-1
                                 WHERE `team_id`=$guest_team_id
-                                LIMI 1";
+                                LIMIT 1";
                         f_igosja_mysqli_query($sql);
                     }
                 }
