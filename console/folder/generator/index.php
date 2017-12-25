@@ -62,6 +62,8 @@ $function_array = array(
     'f_igosja_generator_president_vice_vote_status',
     'f_igosja_generator_president_fire',
     'f_igosja_generator_rating',
+    'f_igosja_generator_rating_change_player.php',
+    'f_igosja_generator_rating_change_team.php',
     'f_igosja_generator_site_open',
 );
 

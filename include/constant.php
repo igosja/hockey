@@ -149,6 +149,7 @@ define('RATING_TEAM_PRICE_TOTAL', 9);
 define('RATING_TEAM_STADIUM', 3);
 define('RATING_TEAM_VISITOR', 4);
 define('RATING_USER_RATING', 10);
+define('RATINGCHAPTER_TEAM', 1);
 define('ROLE_ADMIN', 10);
 define('RUDE_NORMAL', 1);
 define('RUDE_PENALTY', 6);

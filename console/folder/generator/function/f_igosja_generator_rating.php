@@ -79,7 +79,7 @@ function f_igosja_generator_rating()
         }
         elseif (RATING_TEAM_BASE == $item['ratingtype_id'])
         {
-            $order = '`team_base_id` DESC';
+            $order = '`team_base_id`+`team_basemedical_id`+`team_basephisical_id`+`team_baseschool_id`+`team_basescout_id`+`team_basetraining_id` DESC';
             $place = 'ratingteam_base_place';
         }
         elseif (RATING_TEAM_PRICE_BASE == $item['ratingtype_id'])
