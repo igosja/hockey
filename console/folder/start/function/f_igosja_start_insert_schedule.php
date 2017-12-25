@@ -31,8 +31,8 @@ function f_igosja_start_insert_schedule()
         38, 39, 40, 41, 42,  1, 1
     );
 
-//    $start_date = strtotime('Mon') + 12 * 60 * 60;
-    $start_date = time();
+    $start_date = strtotime('Mon') + 12 * 60 * 60;
+//    $start_date = time();
 
     for ($i=0; $i<63; $i++)
     {
