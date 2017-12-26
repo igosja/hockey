@@ -23,12 +23,6 @@
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
     <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-9189986235139627",
-                enable_page_level_ads: true
-            });
-        </script>
     <?php } ?>
 </head>
 <body>
@@ -133,6 +127,11 @@
         </div>
     </div>
 </div>
+<?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+<?php } ?>
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js') || file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
     <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
     <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
