@@ -21,6 +21,15 @@
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
+    <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9189986235139627",
+                enable_page_level_ads: true
+            });
+        </script>
+    <?php } ?>
 </head>
 <body>
 <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
