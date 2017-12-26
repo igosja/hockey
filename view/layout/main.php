@@ -76,15 +76,6 @@
                 <?= $igosja_menu_mobile; ?>
             </div>
         </div>
-        <div class="row margin-top">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
-                Сайт находится в стадии разработки.
-                <br/>
-                Часть функций ограничена.
-                <br/>
-                Ориентированная дата выхода игры - 01 января 2018 года
-            </div>
-        </div>
         <noscript>
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
