@@ -10,7 +10,19 @@ $email_text = '
 <br/>
 А пока мы бы хотели поблагодарить вас за вашу поддержку и веру в наш проект!';
 $mail = new Mail();
-$mail->setTo('igosja@ukr.net');
 $mail->setSubject('Виртуальная Хоккейная Лига начинает работу');
 $mail->setHtml($email_text);
-$mail->send();
+
+$sql = "SELECT `user_email`
+        FROM `user`
+        WHERE `user_id`!=0
+        ORDER BY `user_id` ASC";
+$user_sql = f_igosja_mysqli_query($sql);
+
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+
+foreach ($user_array as $item)
+{
+    $mail->setTo($item['user_email']);
+    $mail->send();
+}
