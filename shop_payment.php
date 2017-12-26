@@ -46,9 +46,9 @@ if ($data = f_igosja_request('data'))
 
         $params = array (
             'm'     => $merchant_id,
-            'oa'    => $sum,
+            'oa'    => $sum * 50,
             'o'     => $order_id,
-            's'     => md5($merchant_id . ':' . $sum . ':' . $secret_key . ':' . $order_id),
+            's'     => md5($merchant_id . ':' . $sum * 50 . ':' . $secret_key . ':' . $order_id),
             'lang'  => 'ru',
         );
 
