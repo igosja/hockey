@@ -1,5 +1,7 @@
 <?php
 /**
+ * @var $auth_date_vip integer
+ * @var $auth_user_id integer
  * @var $auth_user_login string
  * @var $controller string
  * @var $igosja_menu array
@@ -95,17 +97,19 @@
             </div>
         <?php } ?>
         <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <ins
-                    class="adsbygoogle"
-                    data-ad-client="ca-pub-9189986235139627"
-                    data-ad-slot="8459831805"
-                    data-ad-format="auto"
-                    style="display:block"
-                ></ins>
+        <?php if (!isset($auth_user_id) || $auth_date_vip < time()) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <ins
+                        class="adsbygoogle"
+                        data-ad-client="ca-pub-9189986235139627"
+                        data-ad-slot="8459831805"
+                        data-ad-format="auto"
+                        style="display:block"
+                    ></ins>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">

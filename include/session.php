@@ -20,6 +20,7 @@ if (isset($_SESSION['user_id']))
                    `national_id`,
                    `team_id`,
                    `user_date_forum_block`,
+                   `user_date_vip`,
                    `user_login`,
                    `user_userrole_id`
             FROM `user`
@@ -39,6 +40,7 @@ if (isset($_SESSION['user_id']))
 
     $auth_country_id    = $user_array[0]['city_country_id'];
     $auth_date_forum    = $user_array[0]['user_date_forum_block'];
+    $auth_date_vip      = $user_array[0]['user_date_vip'];
     $auth_team_id       = $user_array[0]['team_id'];
     $auth_national_id   = $user_array[0]['national_id'];
     $auth_user_login    = $user_array[0]['user_login'];
