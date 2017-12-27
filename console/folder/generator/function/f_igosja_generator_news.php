@@ -24,4 +24,7 @@ function f_igosja_generator_achievement()
     $tomorrow_sql = f_igosja_mysqli_query($sql);
 
     $tomorrow_array = $tomorrow_sql->fetch_all(MYSQLI_ASSOC);
+
+    $title = 'Вести с арен';
+    $text = 'Завтра';
 }
