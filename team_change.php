@@ -128,8 +128,8 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
-$seo_title          = 'Получение команды';
-$seo_description    = 'Получение команды на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = 'получение команды';
+$seo_title          = 'Смена команды';
+$seo_description    = 'Смена команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = 'Смена команды';
 
 include(__DIR__ . '/view/layout/main.php');
