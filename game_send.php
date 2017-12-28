@@ -49,6 +49,8 @@ if (0 == $current_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
+$current_array = $current_sql->fetch_all(MYSQLI_ASSOC);
+
 $sql = "SELECT `team_mood_rest`,
                `team_mood_super`
         FROM `team`
@@ -265,8 +267,6 @@ if ($data = f_igosja_request_post('data'))
 
     refresh();
 }
-
-$current_array = $current_sql->fetch_all(MYSQLI_ASSOC);
 
 $gk_id      = 0;
 $ld_1_id    = 0;
