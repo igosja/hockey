@@ -64,6 +64,7 @@ $function_array = array(
     'f_igosja_generator_rating',
     'f_igosja_generator_rating_change_player',
     'f_igosja_generator_rating_change_team',
+    'f_igosja_generator_news',
     'f_igosja_generator_site_open',
 );
 
@@ -77,4 +78,4 @@ for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)
 print "\r\n"
     . 'Time ' . round(microtime(true) - $start_time, 5) . ' sec. at ' . date('H:i:s') . "\r\n"
     . 'Database queries: ' . f_igosja_get_count_query() . "\r\n"
-    . 'Memory usage: ' . number_format(memory_get_usage(), 0, ",", " ") . ' bytes' . "\r\n";
+    . 'Memory usage: ' . number_format(memory_get_peak_usage(), 0, ",", " ") . ' bytes' . "\r\n";

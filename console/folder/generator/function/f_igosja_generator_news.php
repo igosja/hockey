@@ -3,9 +3,12 @@
 /**
  * Авто новини після генерації ігрового дня
  */
-function f_igosja_generator_achievement()
+function f_igosja_generator_news()
 {
-    $sql = "SELECT `stage_name`,
+    global $mysqli;
+
+    $sql = "SELECT `stage_id`,
+                   `stage_name`,
                    `schedule_tournamenttype_id`
             FROM `schedule`
             LEFT JOIN `stage`
@@ -14,6 +17,8 @@ function f_igosja_generator_achievement()
     $today_sql = f_igosja_mysqli_query($sql);
 
     $today_array = $today_sql->fetch_all(MYSQLI_ASSOC);
+
+    $today = f_igosja_news_text($today_array);
 
     $sql = "SELECT `stage_name`,
                    `schedule_tournamenttype_id`
@@ -25,6 +30,58 @@ function f_igosja_generator_achievement()
 
     $tomorrow_array = $tomorrow_sql->fetch_all(MYSQLI_ASSOC);
 
-    $title = 'Вести с арен';
-    $text = 'Завтра';
+    $tomorrow = f_igosja_news_text($tomorrow_array);
+
+    $day = date('w', strtotime('+1day'));
+
+    if (0 == $day)
+    {
+        $day = 'воскресенье';
+    }
+    elseif (1 == $day)
+    {
+        $day = 'понедельник';
+    }
+    elseif (2 == $day)
+    {
+        $day = 'вторник';
+    }
+    elseif (3 == $day)
+    {
+        $day = 'среду';
+    }
+    elseif (4 == $day)
+    {
+        $day = 'четверг';
+    }
+    elseif (5 == $day)
+    {
+        $day = 'пятницу';
+    }
+    else
+    {
+        $day = 'понедельник';
+    }
+
+    $title  = 'Вести с арен';
+    $text   = '';
+
+    if ($today)
+    {
+        $text = $text . '<p class="strong">СЕГОДНЯ</p><p>Сегодня состоялись ' . $tomorrow . '.</p>';
+    }
+
+    if ($tomorrow)
+    {
+        $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p><p>В ' . $day . ' в Лиге будут сыграны ' . $today .'.</p>';
+    }
+
+    $sql = "INSERT INTO `news`
+            SET `news_date`=UNIX_TIMESTAMP(),
+                `news_text`=?,
+                `news_title`=?,
+                `news_user_id`=1";
+    $prepare = $mysqli->prepare($sql);
+    $prepare->bind_param('ss', $text, $title);
+    $prepare->execute();
 }
