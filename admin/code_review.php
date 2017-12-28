@@ -394,7 +394,7 @@ $exception_array = array(
         'console/folder/start/function/f_igosja_start_insert_name.php',
         'console/folder/start/function/f_igosja_start_insert_national.php',
         'console/folder/start/function/f_igosja_start_insert_offseason.php',
-        'console/folder/start/function/f_igosja_start_insert_shedule.php',
+        'console/folder/start/function/f_igosja_start_insert_schedule.php',
         'console/folder/start/function/f_igosja_start_insert_surname.php',
         'console/folder/start/function/f_igosja_start_insert_team.php',
         'console/folder/start/function/f_igosja_start_insert_user.php',

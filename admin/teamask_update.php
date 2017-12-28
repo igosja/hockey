@@ -54,11 +54,30 @@ $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($team_array[0]['check'])
 {
-    $sql = "DELETE FROM `teamask`
-            WHERE `teamask_user_id`=$user_id";
-    f_igosja_mysqli_query($sql);
+    $sql = "SELECT `team_id`
+            FROM `team`
+            WHERE `team_user_id`=$user_id";
+    $team_sql = f_igosja_mysqli_query($sql);
 
-    redirect('/admin/teamask.php');
+    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($team_array as $item)
+    {
+        $del_team_id = $item['team_id'];
+
+        $sql = "UPDATE `team`
+                SET `team_user_id`=0
+                WHERE `team_id`=$del_team_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $log = array(
+            'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_OUT,
+            'history_team_id' => $del_team_id,
+            'history_user_id' => $user_id,
+        );
+        f_igosja_history($log);
+    }
 }
 
 $sql = "UPDATE `team`
