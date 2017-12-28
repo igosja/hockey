@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `user`
         (
             `user_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `user_auto` INT(1) DEFAULT 0,
             `user_birth_day` INT(2) DEFAULT 0,
             `user_birth_month` INT(2) DEFAULT 0,
             `user_birth_year` INT(4) DEFAULT 0,
