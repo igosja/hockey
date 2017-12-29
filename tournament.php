@@ -40,6 +40,7 @@ $championship_sql = f_igosja_mysqli_query($sql);
 $championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
 
 $country_id     = 0;
+$country_name   = '';
 $country_array  = array();
 $division_array = array();
 
@@ -50,19 +51,25 @@ foreach ($championship_array as $item)
         if ($country_id)
         {
             $country_array[] = array(
-                'country_id'    => $item['country_id'],
-                'country_name'  => $item['country_name'],
+                'country_id'    => $country_id,
+                'country_name'  => $country_name,
                 'division'      => $division_array,
             );
         }
 
-        $country_id = $item['country_id'];
-
+        $country_id     = $item['country_id'];
+        $country_name   = $item['country_name'];
         $division_array = array();
     }
 
     $division_array[$item['division_id']] = $item['division_name'];
 }
+
+$country_array[] = array(
+    'country_id'    => $country_id,
+    'country_name'  => $country_name,
+    'division'      => $division_array,
+);
 
 $sql = "SELECT `division_id`
         FROM `division`
