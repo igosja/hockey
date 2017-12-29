@@ -69,10 +69,62 @@ $sql = "UPDATE `payment`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
+$sql = "SELECT `user_money`,
+               `user_referrer_id`
+        FROM `user`
+        WHERE `user_id`=$user_id
+        LIMIT 1";
+$user_sql = f_igosja_mysqli_query($sql);
+
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+
 $sql = "UPDATE `user`
         SET `user_money`=`user_money`+$sum
         WHERE `user_id`=$user_id
         LIMIT 1";
 f_igosja_mysqli_query($sql);
+
+$money = array(
+    'money_moneytext_id' => MONEYTEXT_INCOME_ADD_FUNDS,
+    'money_user_id' => $user_id,
+    'money_value' => -$sum,
+    'money_value_after' => $user_array[0]['user_money'] - $sum,
+    'money_value_before' => $user_array[0]['user_money'],
+);
+f_igosja_money($money);
+
+if ($user_array[0]['user_referrer_id'])
+{
+    $referrer_id = $user_array[0]['user_referrer_id'];
+
+    $sum = $sum / 10;
+
+    $sql = "SELECT `user_money`,
+                   `user_referrer_id`
+            FROM `user`
+            WHERE `user_id`=$referrer_id
+            LIMIT 1";
+    $user_sql = f_igosja_mysqli_query($sql);
+
+    if ($user_sql->num_rows)
+    {
+        $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "UPDATE `user`
+                SET `user_money`=`user_money`+$sum
+                WHERE `user_id`=$referrer_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $money = array(
+            'money_moneytext_id' => MONEYTEXT_INCOME_REFERRAL,
+            'money_user_id' => $referrer_id,
+            'money_value' => -$sum,
+            'money_value_after' => $user_array[0]['user_money'] - $sum,
+            'money_value_before' => $user_array[0]['user_money'],
+        );
+        f_igosja_money($money);
+    }
+}
 
 die('YES');
