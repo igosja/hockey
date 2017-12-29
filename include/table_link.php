@@ -8,6 +8,10 @@ $country_link_array = array(
     array('url' => 'country_vote_list', 'text' => 'Опросы'),
 //    array('url' => 'country_league',    'text' => 'Лига Чемпионов'),
 );
+$championship_round_array = array(
+    array('round_id' => ROUND_SEASON,   'text' => 'Регулярный сезон'),
+    array('round_id' => ROUND_PLAYOFF,  'text' => 'Плей-офф'),
+);
 $national_link_array = array(
     array('url' => 'national_view',         'text' => 'Игроки'),
     array('url' => 'national_game',         'text' => 'Матчи'),

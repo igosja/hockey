@@ -4,7 +4,7 @@
  * Генеруємо текст новини на основі данних з БД
  * @param $schedule_array array
  * @param $team string home або guest
- * @return array
+ * @return string
  */
 function f_igosja_news_text($schedule_array)
 {

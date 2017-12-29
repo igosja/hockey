@@ -5,6 +5,7 @@
  * @var $division_id integer
  * @var $review_array array
  * @var $review_create boolean
+ * @var $round_id integer
  * @var $season_array array
  * @var $season_id integer
  * @var $schedule_id integer
@@ -63,104 +64,16 @@
         </p>
     </div>
 </div>
-<form method="GET">
-    <input name="country_id" type="hidden" value="<?= $country_id; ?>">
-    <input name="division_id" type="hidden" value="<?= $division_id; ?>">
-    <input name="season_id" type="hidden" value="<?= $season_id; ?>">
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-            <label for="stage_id">Тур:</label>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-            <select class="form-control" name="stage_id" id="stage_id">
-                <?php foreach ($stage_array as $item) { ?>
-                    <option
-                        value="<?= $item['stage_id']; ?>"
-                        <?php if ($stage_id == $item['stage_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['stage_name']; ?>, <?= f_igosja_ufu_date($item['schedule_date']); ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
-    </div>
-</form>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table">
-            <?php foreach ($game_array as $item) { ?>
-                <tr>
-                    <td class="text-right col-45">
-                        <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
-                            <?= $item['home_team_name']; ?>
-                            <span class="hidden-xs">(<?= $item['home_city_name']; ?>)</span>
-                        </a>
-                    </td>
-                    <td class="text-center col-10">
-                        <?= f_igosja_game_score($item['game_home_score'], $item['game_guest_score'], $item['game_played']); ?>
-                    </td>
-                    <td>
-                        <a href="/team_view.php?num=<?= $item['guest_team_id']; ?>">
-                            <?= $item['guest_team_name']; ?>
-                            <span class="hidden-xs">(<?= $item['guest_city_name']; ?>)</span>
-                        </a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?php include(__DIR__ . '/include/championship_table_round_link.php'); ?>
     </div>
 </div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th class="col-5" title="Место">М</th>
-                <th>Команда</th>
-                <th class="col-5" title="Игры">И</th>
-                <th class="col-5" title="Победы">В</th>
-                <th class="col-5" title="Победы в овертайте/по буллитам">ВО</th>
-                <th class="col-5" title="Поражения в овертайте/по буллитам">ПО</th>
-                <th class="col-5" title="Поражения">П</th>
-                <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
-                <th class="col-5" title="Очки">О</th>
-            </tr>
-            <?php foreach ($team_array as $item) { ?>
-                <tr>
-                    <td class="text-center"><?= $item['championship_place']; ?></td>
-                    <td>
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                            <?= $item['team_name']; ?>
-                            <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
-                        </a>
-                    </td>
-                    <td class="text-center"><?= $item['championship_game']; ?></td>
-                    <td class="text-center"><?= $item['championship_win']; ?></td>
-                    <td class="text-center"><?= $item['championship_win_over']; ?></td>
-                    <td class="text-center"><?= $item['championship_loose_over']; ?></td>
-                    <td class="text-center"><?= $item['championship_loose']; ?></td>
-                    <td class="col-5 hidden-xs text-center"><?= $item['championship_score']; ?></td>
-                    <td class="col-5 hidden-xs text-center"><?= $item['championship_pass']; ?></td>
-                    <td class="text-center strong"><?= $item['championship_point']; ?></td>
-                </tr>
-            <?php } ?>
-            <tr>
-                <th title="Место">М</th>
-                <th>Команда</th>
-                <th title="Игры">И</th>
-                <th title="Победы">В</th>
-                <th title="Победы в овертайте/по буллитам">ВО</th>
-                <th title="Поражения в овертайте/по буллитам">ПО</th>
-                <th title="Поражения">П</th>
-                <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
-                <th title="Очки">О</th>
-            </tr>
-        </table>
-    </div>
-</div>
+<?php if (ROUND_SEASON == $round_id) { ?>
+    <?php include(__DIR__ . '/include/championship_season.php'); ?>
+<?php } else { ?>
+    <?php include(__DIR__ . '/include/championship_playoff.php'); ?>
+<?php } ?>
 <?php if ($review_array) { ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong margin-top text-center">

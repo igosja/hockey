@@ -77,12 +77,12 @@ function f_igosja_generator_participant_championship()
                                 `participantchampionship_team_id`
                             )
                             VALUES ($country_id, $division_id, $igosja_season_id, 1, 1, 1, $team_1),
-                                   ($country_id, $division_id, $igosja_season_id, 3, 2, 1, $team_2),
-                                   ($country_id, $division_id, $igosja_season_id, 4, 2, 1, $team_3),
-                                   ($country_id, $division_id, $igosja_season_id, 2, 1, 1, $team_4),
-                                   ($country_id, $division_id, $igosja_season_id, 2, 1, 1, $team_5),
-                                   ($country_id, $division_id, $igosja_season_id, 4, 2, 1, $team_6),
-                                   ($country_id, $division_id, $igosja_season_id, 3, 2, 1, $team_7),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 2, 3, $team_2),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 2, 4, $team_3),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 1, 2, $team_4),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 1, 2, $team_5),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 2, 4, $team_6),
+                                   ($country_id, $division_id, $igosja_season_id, 1, 2, 3, $team_7),
                                    ($country_id, $division_id, $igosja_season_id, 1, 1, 1, $team_8);";
                     f_igosja_mysqli_query($sql);
                 }

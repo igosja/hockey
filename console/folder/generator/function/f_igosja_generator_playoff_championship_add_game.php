@@ -30,7 +30,7 @@ function f_igosja_generator_playoff_championship_add_game()
                                `game_home_team_id`
                         FROM `game`
                         WHERE `game_schedule_id`=$schedule_id
-                        ORDER BY `game_id`";
+                        ORDER BY `game_id` ASC";
                 $game_sql = f_igosja_mysqli_query($sql);
 
                 $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
@@ -38,7 +38,7 @@ function f_igosja_generator_playoff_championship_add_game()
                 foreach ($game_array as $game)
                 {
                     $home_team_id   = $game['game_home_team_id'];
-                    $guest_team_id  = $game['game_home_team_id'];
+                    $guest_team_id  = $game['game_guest_team_id'];
 
                     $sql = "SELECT `game_guest_score`+`game_guest_score_bullet` AS `guest_score`,
                                    `game_guest_team_id`,
@@ -130,8 +130,8 @@ function f_igosja_generator_playoff_championship_add_game()
                                     LEFT JOIN `championship`
                                     ON
                                     (
-                                        `participantchampionship_country_id`=`championship_country_id`,
-                                        `participantchampionship_division_id`=`championship_division_id`,
+                                        `participantchampionship_country_id`=`championship_country_id` AND
+                                        `participantchampionship_division_id`=`championship_division_id` AND
                                         `participantchampionship_season_id`=`championship_season_id`
                                     )
                                     LEFT JOIN `team`
@@ -169,7 +169,7 @@ function f_igosja_generator_playoff_championship_add_game()
                 foreach ($game_array as $game)
                 {
                     $home_team_id   = $game['game_home_team_id'];
-                    $guest_team_id  = $game['game_home_team_id'];
+                    $guest_team_id  = $game['game_guest_team_id'];
 
                     $sql = "SELECT `game_guest_score`+`game_guest_score_bullet` AS `guest_score`,
                                    `game_guest_team_id`,
@@ -271,8 +271,8 @@ function f_igosja_generator_playoff_championship_add_game()
                                     LEFT JOIN `championship`
                                     ON
                                     (
-                                        `participantchampionship_country_id`=`championship_country_id`,
-                                        `participantchampionship_division_id`=`championship_division_id`,
+                                        `participantchampionship_country_id`=`championship_country_id` AND
+                                        `participantchampionship_division_id`=`championship_division_id` AND
                                         `participantchampionship_season_id`=`championship_season_id`
                                     )
                                     LEFT JOIN `team`

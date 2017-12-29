@@ -20,7 +20,8 @@ function f_igosja_generator_news()
 
     $today = f_igosja_news_text($today_array);
 
-    $sql = "SELECT `stage_name`,
+    $sql = "SELECT `stage_id`,
+                   `stage_name`,
                    `schedule_tournamenttype_id`
             FROM `schedule`
             LEFT JOIN `stage`

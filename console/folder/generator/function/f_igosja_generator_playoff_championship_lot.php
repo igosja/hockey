@@ -71,8 +71,8 @@ function f_igosja_generator_playoff_championship_lot()
                                 LEFT JOIN `championship`
                                 ON
                                 (
-                                    `participantchampionship_country_id`=`championship_country_id`,
-                                    `participantchampionship_division_id`=`championship_division_id`,
+                                    `participantchampionship_country_id`=`championship_country_id` AND
+                                    `participantchampionship_division_id`=`championship_division_id` AND
                                     `participantchampionship_season_id`=`championship_season_id`
                                 )
                                 LEFT JOIN `team`
@@ -164,8 +164,8 @@ function f_igosja_generator_playoff_championship_lot()
                                     LEFT JOIN `championship`
                                     ON
                                     (
-                                        `participantchampionship_country_id`=`championship_country_id`,
-                                        `participantchampionship_division_id`=`championship_division_id`,
+                                        `participantchampionship_country_id`=`championship_country_id` AND
+                                        `participantchampionship_division_id`=`championship_division_id` AND
                                         `participantchampionship_season_id`=`championship_season_id`
                                     )
                                     LEFT JOIN `team`
@@ -258,8 +258,8 @@ function f_igosja_generator_playoff_championship_lot()
                                 LEFT JOIN `championship`
                                 ON
                                 (
-                                    `participantchampionship_country_id`=`championship_country_id`,
-                                    `participantchampionship_division_id`=`championship_division_id`,
+                                    `participantchampionship_country_id`=`championship_country_id` AND
+                                    `participantchampionship_division_id`=`championship_division_id` AND
                                     `participantchampionship_season_id`=`championship_season_id`
                                 )
                                 LEFT JOIN `team`
