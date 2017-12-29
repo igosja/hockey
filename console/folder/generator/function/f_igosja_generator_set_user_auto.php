@@ -68,4 +68,9 @@ function f_igosja_generator_set_user_auto()
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             )";
     f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `user`
+            SET `user_auto`=5
+            WHERE `user_auto`>5";
+    f_igosja_mysqli_query($sql);
 }

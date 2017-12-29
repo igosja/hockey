@@ -1,5 +1,15 @@
 <?php
 
+/*
+SELECT FROM_UNIXTIME({date_field}, '{date_format}'), COUNT(*) AS '{value}'
+FROM lm_buyer_balance_transfer
+WHERE transfer_type IN (101, 127)
+AND FROM_UNIXTIME({date_field}, '{date_format}') >= '{from}'
+AND FROM_UNIXTIME({date_field}, '{date_format}') <= '{to}'
+GROUP BY FROM_UNIXTIME({date_field}, '{date_format}')
+ORDER BY {date_field} ASC
+*/
+
 include(__DIR__ . '/../include/include.php');
 
 $sql = "SELECT COUNT(`team_id`) AS `count`

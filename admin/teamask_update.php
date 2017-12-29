@@ -63,20 +63,7 @@ if ($team_array[0]['check'])
 
     foreach ($team_array as $item)
     {
-        $del_team_id = $item['team_id'];
-
-        $sql = "UPDATE `team`
-                SET `team_user_id`=0
-                WHERE `team_id`=$del_team_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $log = array(
-            'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_OUT,
-            'history_team_id' => $del_team_id,
-            'history_user_id' => $user_id,
-        );
-        f_igosja_history($log);
+        f_igosja_fire_user($user_id, $item['team_id']);
     }
 }
 

@@ -54,7 +54,7 @@ $function_array = array(
     'f_igosja_generator_team_vs',
     'f_igosja_generator_team_price',
     'f_igosja_generator_country_stadium',
-    'f_igosja_generator_user_deprive_team',
+    'f_igosja_generator_user_fire',
     'f_igosja_generator_user_holiday_end',
     'f_igosja_generator_national_vote_status',
     'f_igosja_generator_national_vice_vote_status',

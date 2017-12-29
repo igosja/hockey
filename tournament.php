@@ -65,11 +65,14 @@ foreach ($championship_array as $item)
     $division_array[$item['division_id']] = $item['division_name'];
 }
 
-$country_array[] = array(
-    'country_id'    => $country_id,
-    'country_name'  => $country_name,
-    'division'      => $division_array,
-);
+if ($country_id)
+{
+    $country_array[] = array(
+        'country_id'    => $country_id,
+        'country_name'  => $country_name,
+        'division'      => $division_array,
+    );
+}
 
 $sql = "SELECT `division_id`
         FROM `division`
