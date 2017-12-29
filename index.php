@@ -2,6 +2,13 @@
 
 include(__DIR__ . '/include/include.php');
 
+if ($num_get = (int) f_igosja_request_get('num'))
+{
+    SetCookie('user_referrer_id', $num_get, time() + 31536000); //365 днів
+
+    redirect('/');
+}
+
 $sql = "SELECT `news_text`,
                `news_title`,
                `user_id`,

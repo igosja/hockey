@@ -65,6 +65,7 @@ $function_array = array(
     'f_igosja_generator_rating',
     'f_igosja_generator_rating_change_player',
     'f_igosja_generator_rating_change_team',
+    'f_igosja_generator_referrer_bonus',
     'f_igosja_generator_news',
     'f_igosja_generator_site_open',
 );

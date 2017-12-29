@@ -53,7 +53,7 @@
             Используйте для приглашения <span class="strong">вашу личную ссылку</span> на наш сайт - вот она:
         </p>
         <p class="text-center text-size-1 strong alert info">
-            https://<?= $_SERVER['HTTP_HOST']; ?>?num=<?= $num_get; ?>
+            <?= SITE_URL; ?>/?num=<?= $num_get; ?>
         </p>
         <p class="text-justify">
             Все, кто зайдет на сайт по этой ссылке и зарегистрируется в игре,

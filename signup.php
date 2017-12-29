@@ -87,13 +87,20 @@ if ($data = f_igosja_request_post('data'))
     {
         $password   = f_igosja_hash_password($data['password']);
         $code       = f_igosja_generate_user_code();
+        $ref_id     = f_igosja_cookie('user_referrer_id');
+
+        if (!$ref_id)
+        {
+            $ref_id = 0;
+        }
 
         $sql = "INSERT INTO `user`
                 SET `user_code`='$code',
                     `user_date_register`=UNIX_TIMESTAMP(),
                     `user_email`=?,
                     `user_login`=?,
-                    `user_password`='$password'";
+                    `user_password`='$password',
+                    `user_referrer_id`=$ref_id";
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('ss', $email, $login);
         $prepare->execute();
