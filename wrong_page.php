@@ -4,7 +4,7 @@ include(__DIR__ . '/include/include.php');
 
 if (isset($_SESSION['wrong_page_referrer']))
 {
-    error_log($_SESSION['wrong_page_referrer']);
+    error_log('wrong-page - ' . $_SESSION['wrong_page_referrer']);
     unset($_SESSION['wrong_page_referrer']);
 }
 else
