@@ -2,6 +2,9 @@
 
 include(__DIR__ . '/include/include.php');
 
+print '<pre>';
+print_r($_SESSION);
+exit;
 if (isset($_SESSION['wrong_page_referrer']))
 {
     error_log($_SESSION['wrong_page_referrer']);
