@@ -2,7 +2,7 @@
 
 include(__DIR__ . '/include/include.php');
 
-error_log($_SERVER['HTTP_REFERER']);
+error_log($_SERVER['REQUEST_URI']);
 
 $seo_title          = 'Страница выбрана неправильно';
 $seo_description    = 'Страница выбрана неправильно на сайте Вирутальной Хоккейной Лиги.';
