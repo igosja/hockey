@@ -6,7 +6,7 @@
  */
 function redirect($location)
 {
-    if ('/worng_page.php' == $location)
+    if ('/wrong_page.php' == $location)
     {
         $_SESSION['wrong_page_referrer'] = $_SERVER['REQUEST_URI'];
     }
