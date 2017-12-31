@@ -219,7 +219,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">Счётчик</legend>
-                    <a href="//www.liveinternet.ru/click" target="_blank">
+                    <a href="//www.liveinternet.ru/click"  rel="nofollow" target="_blank">
                         <img
                             alt="LiveInternet counter"
                             height="120"
