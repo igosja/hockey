@@ -420,6 +420,7 @@ if (isset($auth_team_id))
                 LEFT JOIN `forumgroup`
                 ON `forumtheme_forumgroup_id`=`forumgroup_id`
                 WHERE `forumgroup_forumchapter_id`=" . FORUMGROUP_NATIONAL . "
+                AND `forumgroup_country_id`=$auth_country_id
                 ORDER BY `forumtheme_last_date` DESC
                 LIMIT 4";
         $forum_sql = f_igosja_mysqli_query($sql);
