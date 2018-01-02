@@ -26,7 +26,7 @@ function f_igosja_generator_news()
             FROM `schedule`
             LEFT JOIN `stage`
             ON `schedule_stage_id`=`stage_id`
-            WHERE FROM_UNIXTIME(`schedule_date`+86400, '%Y-%m-%d')=CURDATE()";
+            WHERE FROM_UNIXTIME(`schedule_date`-86400, '%Y-%m-%d')=CURDATE()";
     $tomorrow_sql = f_igosja_mysqli_query($sql);
 
     $tomorrow_array = $tomorrow_sql->fetch_all(MYSQLI_ASSOC);
@@ -69,12 +69,12 @@ function f_igosja_generator_news()
 
     if ($today)
     {
-        $text = $text . '<p class="strong">СЕГОДНЯ</p><p>Сегодня состоялись ' . $tomorrow . '.</p>';
+        $text = $text . '<p class="strong">СЕГОДНЯ</p><p>Сегодня состоялись ' . $today . '.</p>';
     }
 
     if ($tomorrow)
     {
-        $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p><p>В ' . $day . ' в Лиге будут сыграны ' . $today .'.</p>';
+        $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p><p>В ' . $day . ' в Лиге будут сыграны ' . $tomorrow .'.</p>';
     }
 
     $sql = "INSERT INTO `news`
