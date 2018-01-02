@@ -62,7 +62,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                            <a href="/user_view.php?num=<?= $item['user_id']; ?>" <?php if (USERROLE_ADMIN == $item['user_userrole_id']) { ?>class="red"<?php } ?>>
                                 <?= $item['user_login']; ?>
                             </a>
                         </div>

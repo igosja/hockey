@@ -105,7 +105,8 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `user_date_register`,
                `user_id`,
                `user_login`,
-               `user_rating`
+               `user_rating`,
+               `user_userrole_id`
         FROM `forummessage`
         LEFT JOIN `user`
         ON `forummessage_user_id`=`user_id`
