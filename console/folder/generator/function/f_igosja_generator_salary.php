@@ -39,7 +39,7 @@ function f_igosja_generator_salary()
         f_igosja_finance($finance);
 
         $sql = "UPDATE `team`
-                SET `team_finance`=`team_finance`+$salary
+                SET `team_finance`=`team_finance`-$salary
                 WHERE `team_id`=$team_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
