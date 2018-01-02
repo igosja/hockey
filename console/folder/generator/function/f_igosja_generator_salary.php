@@ -32,7 +32,7 @@ function f_igosja_generator_salary()
         $finance = array(
             'finance_financetext_id' => FINANCETEXT_OUTCOME_SALARY,
             'finance_team_id' => $team_id,
-            'finance_value' => $salary,
+            'finance_value' => -$salary,
             'finance_value_after' => $item['team_finance'] - $salary,
             'finance_value_before' => $item['team_finance'],
         );
