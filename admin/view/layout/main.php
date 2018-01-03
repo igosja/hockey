@@ -229,11 +229,6 @@
 <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../../js/jquery.js'); ?>"></script>
 <script src="/js/bootstrap.js?v=<?= filemtime(__DIR__ . '/../../../js/bootstrap.js'); ?>"></script>
 <script src="/js/metisMenu.js?v=<?= filemtime(__DIR__ . '/../../../js/metisMenu.js'); ?>"></script>
-<script src="/js/raphael.js?v=<?= filemtime(__DIR__ . '/../../../js/raphael.js'); ?>"></script>
-<?php if ('index' == $tpl && false) { ?>
-    <script src="/js/morris.js?v=<?= filemtime(__DIR__ . '/../../../js/morris.js'); ?>"></script>
-    <script src="/js/morris-data.js?v=<?= filemtime(__DIR__ . '/../../../js/morris-data.js'); ?>"></script>
-<?php } ?>
 <script src="/js/sb-admin-2.js?v=<?= filemtime(__DIR__ . '/../../../js/sb-admin-2.js'); ?>"></script>
 <script src="/js/admin.js?v=<?= filemtime(__DIR__ . '/../../../js/admin.js'); ?>"></script>
 </body>
