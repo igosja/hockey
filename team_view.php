@@ -403,7 +403,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
     $user_training_array = $user_training_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $user_training_array)
+    if (0 != $user_training_array[0]['check'])
     {
         $notification_array[] = 'У вас есть бонусные <a href="/training_bonus.php">тренировки</a> для хоккеистов';
     }
