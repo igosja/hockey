@@ -41,4 +41,48 @@ $vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT FROM_UNIXTIME(`payment_date`, '%b %Y') AS `date`,
+               SUM(`payment_sum`) AS `total`
+        FROM `payment`
+        WHERE `payment_status`=1
+        GROUP BY FROM_UNIXTIME(`payment_date`, '%b-%Y')";
+$payment_sql = f_igosja_mysqli_query($sql);
+
+$payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
+
+$date_start = strtotime('-1year');
+$date_end   = strtotime(date('Y-m-t'));
+
+$date_array = array();
+
+while ($date_start < $date_end)
+{
+    $date_array[]   = date('M Y', $date_start);
+    $date_start     = strtotime('+1month', strtotime(date('Y-m-d', $date_start)));
+}
+
+$value_array = array();
+
+foreach ($date_array as $date)
+{
+    $in_array = false;
+
+    foreach ($payment_array as $item)
+    {
+        if ($item['date'] == $date)
+        {
+            $value_array[]  = $item['total'];
+            $in_array       = true;
+        }
+    }
+
+    if (false == $in_array)
+    {
+        $value_array[] = 0;
+    }
+}
+
+$payment_categories = '"' . implode('","', $date_array) . '"';
+$payment_data       = implode(',', $value_array);
+
 include(__DIR__ . '/view/layout/main.php');

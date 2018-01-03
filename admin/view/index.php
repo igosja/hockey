@@ -1,10 +1,13 @@
 <?php
 /**
  * @var $freeteam_array array
+ * @var $payment_categories string
+ * @var $payment_data string
  * @var $teamask_array array
  * @var $support_array array
  */
 ?>
+<script src="/js/highchart/highcharts.js"></script>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Админ</h1>
@@ -106,3 +109,47 @@
         </div>
     <?php } ?>
 </div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Оплаты
+            </div>
+            <div class="panel-body">
+                <div id="chart-payment"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    Highcharts.chart('chart-payment', {
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        series: [{
+            name: 'Оплаты',
+            data: [<?= $payment_data; ?>]
+        }],
+        title: {
+            text: 'Оплаты'
+        },
+        tooltip: {
+            headerFormat: '<b>{point.key}</b><br/>',
+            pointFormat: '{series.name}: <b>{point.y}</b>'
+        },
+        xAxis: {
+            categories: [<?= $payment_categories; ?>],
+            title: {
+                text: 'Месяц'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Сумма'
+            }
+        }
+    });
+</script>
