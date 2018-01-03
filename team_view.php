@@ -395,7 +395,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     $sql = "SELECT COUNT(`user_id`) AS `check`
             FROM `user`
             WHERE `user_id`=$auth_user_id
-            AND (`user_shop_position`=0
+            AND (`user_shop_position`!=0
             OR `user_shop_special`!=0
             OR `user_shop_training`!=0)
             LIMIT 1";
