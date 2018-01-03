@@ -32,7 +32,7 @@ if ($data = f_igosja_request('data'))
         $sql = "DELETE FROM `payment`
                 WHERE `payment_date`<UNIX_TIMESTAMP()-86400
                 AND `payment_status`=0";
-        f_igosja_mysqli_query($sql);
+//        f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `payment`
                 SET `payment_date`=UNIX_TIMESTAMP(),
