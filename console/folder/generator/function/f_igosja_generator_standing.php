@@ -256,31 +256,31 @@ function f_igosja_generator_standing()
     }
 
     $sql = "UPDATE `worldcup`
-            SET `worldcup_point`=`worldcup_win`*3+`worldcup_win_over`*2+`worldcup_loose_over`,
+            SET `worldcup_point`=`worldcup_win`*3+`worldcup_win_over`*2+`worldcup_win_bullet`*2+`worldcup_loose_over`+`worldcup_loose_bullet`,
                 `worldcup_difference`=`worldcup_score`-`worldcup_pass`
             WHERE `worldcup_season_id`=" . $igosja_season_id;
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `league`
-            SET `league_point`=`league_win`*3+`league_win_over`*2+`league_loose_over`,
+            SET `league_point`=`league_win`*3+`league_win_over`*2+`league_win_bullet`*2+`league_loose_over`+`league_loose_bullet`,
                 `league_difference`=`league_score`-`league_pass`
             WHERE `league_season_id`=" . $igosja_season_id;
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `championship`
-            SET `championship_point`=`championship_win`*3+`championship_win_over`*2+`championship_loose_over`,
+            SET `championship_point`=`championship_win`*3+`championship_win_over`*2+`championship_win_bullet`*2+`championship_loose_over`+`championship_loose_bullet`,
                 `championship_difference`=`championship_score`-`championship_pass`
             WHERE `championship_season_id`=" . $igosja_season_id;
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `conference`
-            SET `conference_point`=`conference_win`*3+`conference_win_over`*2+`conference_loose_over`,
+            SET `conference_point`=`conference_win`*3+`conference_win_over`*2+`conference_win_bullet`*2+`conference_loose_over`+`conference_loose_bullet`,
                 `conference_difference`=`conference_score`-`conference_pass`
             WHERE `conference_season_id`=" . $igosja_season_id;
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `offseason`
-            SET `offseason_point`=`offseason_win`*3+`offseason_win_over`*2+`offseason_loose_over`,
+            SET `offseason_point`=`offseason_win`*3+`offseason_win_over`*2+`offseason_win_bullet`*2+`offseason_loose_over`+`offseason_loose_bullet`,
                 `offseason_difference`=`offseason_score`-`offseason_pass`
             WHERE `offseason_season_id`=" . $igosja_season_id;
     f_igosja_mysqli_query($sql);
