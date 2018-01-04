@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if (isset($auth_team_id) && $auth_team_id == $player_array[0]['team_id']) { ?>
-                            <?= $player_array[0]['player_power_real']; ?>%
+                            <?= $player_array[0]['player_power_real']; ?>
                         <?php } else { ?>
                             ~<?= $player_array[0]['player_power_nominal']; ?>
                         <?php } ?>
