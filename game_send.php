@@ -107,7 +107,7 @@ if ($data = f_igosja_request_post('data'))
     $c_3_id         = (int) $data['line'][3][4];
     $rw_3_id        = (int) $data['line'][3][5];
 
-    if ((MOOD_SUPER == $mood_id && $teammood_array[0]['team_mood_super'] <= 0) || (MOOD_REST == $mood_id && $teammood_array[0]['team_mood_rest'] <= 0) || (MOOD_NORMAL != $mood_id && TOURNAMENTTYPE_FRIENDLY != $current_array[0]['schedule_tournamenttype_id']))
+    if ((MOOD_SUPER == $mood_id && $teammood_array[0]['team_mood_super'] <= 0) || (MOOD_REST == $mood_id && $teammood_array[0]['team_mood_rest'] <= 0) || (MOOD_NORMAL != $mood_id && TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id']))
     {
         $mood_id = MOOD_NORMAL;
     }
