@@ -30,7 +30,7 @@ function f_igosja_generator_team_visitor()
 
         $visitor_array = $visitor_sql->fetch_all(MYSQLI_ASSOC);
 
-        $visitor = $visitor_array[0]['visitor'] / $visitor_array[0]['count'];
+        $visitor = $visitor_array[0]['visitor'] / $visitor_array[0]['count'] * 100;
 
         $sql = "UPDATE `team`
                 SET `team_visitor`=$visitor
