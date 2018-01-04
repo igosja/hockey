@@ -49,7 +49,7 @@ function f_igosja_start_insert_offseason()
     {
         $team_1_id      = $team_array[$i]['offseason_team_id'];
         $team_2_id      = $team_array[$i+1]['offseason_team_id'];
-        $stadium_id     = $team_array[$i]['stadium_id'];
+        $stadium_id     = $team_array[$i+1]['stadium_id'];
         $game_array[]   = '(' . $team_1_id . ',' . $team_2_id . ',' . $schedule_id . ',' . $stadium_id . ')';
     }
 
