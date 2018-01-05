@@ -815,93 +815,49 @@ function f_igosja_generator_plus_minus()
         {
             $guest_optimality_2 = 0.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 79)
+        elseif ($item['game_guest_optimality_2'] > 49)
         {
             $guest_optimality_2 = 0;
         }
-        elseif ($item['game_guest_optimality_2'] > 75)
+        elseif ($item['game_guest_optimality_2'] > 45)
         {
             $guest_optimality_2 = -0.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 72)
+        elseif ($item['game_guest_optimality_2'] > 42)
         {
             $guest_optimality_2 = -1;
         }
-        elseif ($item['game_guest_optimality_2'] > 69)
+        elseif ($item['game_guest_optimality_2'] > 39)
         {
             $guest_optimality_2 = -1.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 66)
+        elseif ($item['game_guest_optimality_2'] > 36)
         {
             $guest_optimality_2 = -2;
         }
-        elseif ($item['game_guest_optimality_2'] > 64)
+        elseif ($item['game_guest_optimality_2'] > 34)
         {
             $guest_optimality_2 = -2.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 62)
+        elseif ($item['game_guest_optimality_2'] > 32)
         {
             $guest_optimality_2 = -3;
         }
-        elseif ($item['game_guest_optimality_2'] > 60)
+        elseif ($item['game_guest_optimality_2'] > 30)
         {
             $guest_optimality_2 = -3.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 58)
+        elseif ($item['game_guest_optimality_2'] > 28)
         {
             $guest_optimality_2 = -4;
         }
-        elseif ($item['game_guest_optimality_2'] > 56)
+        elseif ($item['game_guest_optimality_2'] > 26)
         {
             $guest_optimality_2 = -4.5;
         }
-        elseif ($item['game_guest_optimality_2'] > 54)
-        {
-            $guest_optimality_2 = -5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 52)
-        {
-            $guest_optimality_2 = -5.5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 50)
-        {
-            $guest_optimality_2 = -6;
-        }
-        elseif ($item['game_guest_optimality_2'] > 48)
-        {
-            $guest_optimality_2 = -6.5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 46)
-        {
-            $guest_optimality_2 = -7;
-        }
-        elseif ($item['game_guest_optimality_2'] > 44)
-        {
-            $guest_optimality_2 = -7.5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 42)
-        {
-            $guest_optimality_2 = -8;
-        }
-        elseif ($item['game_guest_optimality_2'] > 40)
-        {
-            $guest_optimality_2 = -8.5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 38)
-        {
-            $guest_optimality_2 = -9;
-        }
-        elseif ($item['game_guest_optimality_2'] > 36)
-        {
-            $guest_optimality_2 = -9.5;
-        }
-        elseif ($item['game_guest_optimality_2'] > 34)
-        {
-            $guest_optimality_2 = -10;
-        }
         else
         {
-            $guest_optimality_2 = -10.5;
+            $guest_optimality_2 = -5;
         }
 
         if ($item['game_home_optimality_2'] > 134)
@@ -924,93 +880,49 @@ function f_igosja_generator_plus_minus()
         {
             $home_optimality_2 = 0.5;
         }
-        elseif ($item['game_home_optimality_2'] > 79)
+        elseif ($item['game_home_optimality_2'] > 49)
         {
             $home_optimality_2 = 0;
         }
-        elseif ($item['game_home_optimality_2'] > 75)
+        elseif ($item['game_home_optimality_2'] > 45)
         {
             $home_optimality_2 = -0.5;
         }
-        elseif ($item['game_home_optimality_2'] > 72)
+        elseif ($item['game_home_optimality_2'] > 42)
         {
             $home_optimality_2 = -1;
         }
-        elseif ($item['game_home_optimality_2'] > 69)
+        elseif ($item['game_home_optimality_2'] > 39)
         {
             $home_optimality_2 = -1.5;
         }
-        elseif ($item['game_home_optimality_2'] > 66)
+        elseif ($item['game_home_optimality_2'] > 36)
         {
             $home_optimality_2 = -2;
         }
-        elseif ($item['game_home_optimality_2'] > 64)
+        elseif ($item['game_home_optimality_2'] > 34)
         {
             $home_optimality_2 = -2.5;
         }
-        elseif ($item['game_home_optimality_2'] > 62)
+        elseif ($item['game_home_optimality_2'] > 32)
         {
             $home_optimality_2 = -3;
         }
-        elseif ($item['game_home_optimality_2'] > 60)
+        elseif ($item['game_home_optimality_2'] > 30)
         {
             $home_optimality_2 = -3.5;
         }
-        elseif ($item['game_home_optimality_2'] > 58)
+        elseif ($item['game_home_optimality_2'] > 28)
         {
             $home_optimality_2 = -4;
         }
-        elseif ($item['game_home_optimality_2'] > 56)
+        elseif ($item['game_home_optimality_2'] > 26)
         {
             $home_optimality_2 = -4.5;
         }
-        elseif ($item['game_home_optimality_2'] > 54)
-        {
-            $home_optimality_2 = -5;
-        }
-        elseif ($item['game_home_optimality_2'] > 52)
-        {
-            $home_optimality_2 = -5.5;
-        }
-        elseif ($item['game_home_optimality_2'] > 50)
-        {
-            $home_optimality_2 = -6;
-        }
-        elseif ($item['game_home_optimality_2'] > 48)
-        {
-            $home_optimality_2 = -6.5;
-        }
-        elseif ($item['game_home_optimality_2'] > 46)
-        {
-            $home_optimality_2 = -7;
-        }
-        elseif ($item['game_home_optimality_2'] > 44)
-        {
-            $home_optimality_2 = -7.5;
-        }
-        elseif ($item['game_home_optimality_2'] > 42)
-        {
-            $home_optimality_2 = -8;
-        }
-        elseif ($item['game_home_optimality_2'] > 40)
-        {
-            $home_optimality_2 = -8.5;
-        }
-        elseif ($item['game_home_optimality_2'] > 38)
-        {
-            $home_optimality_2 = -9;
-        }
-        elseif ($item['game_home_optimality_2'] > 36)
-        {
-            $home_optimality_2 = -9.5;
-        }
-        elseif ($item['game_home_optimality_2'] > 34)
-        {
-            $home_optimality_2 = -10;
-        }
         else
         {
-            $home_optimality_2 = -10.5;
+            $home_optimality_2 = -5;
         }
 
         if ($item['game_guest_score'] - $item['game_home_score'] > 8)
