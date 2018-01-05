@@ -25,6 +25,10 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_fire_national',
             'f_igosja_newseason_tire_base_level',
             'f_igosja_newseason_pension',
+            'f_igosja_newseason_player_power_change',
+            'f_igosja_newseason_player_from_national',
+            'f_igosja_newseason_training',
+            'f_igosja_newseason_school',
         );
 
         /*
@@ -38,10 +42,10 @@ function f_igosja_generator_new_season()
          * участники лиги чемпионов
          * + старение игроков
          * + пенсия игроков (с обесцвечиванием линии)
-         * рост силы молодых игроков
+         * + рост силы молодых игроков
          * + компенсиция за ветеранов
-         * уход игроков из сборных
-         * завершение тренировок, изучений, подготовки молодежи
+         * + уход игроков из сборных
+         * + завершение тренировок, изучений, подготовки молодежи
          * + очистка таблицы физцентра phisicalchange
          * достижения команд и менеджеров
          * достижения хоккеистов

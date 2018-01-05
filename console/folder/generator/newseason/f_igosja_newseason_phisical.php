@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Нова фіз форма для хоккеїстів
+ * Нова фіз форма для хокеїстів
  */
 function f_igosja_newseason_phisical()
 {
