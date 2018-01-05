@@ -88,7 +88,7 @@ $igosja_menu_login = array(
     ),
     array(
         $igosja_menu[16],
-        $igosja_menu[17],
+//        $igosja_menu[17],
         $igosja_menu[12],
         $igosja_menu[13],
         $igosja_menu[21],
@@ -120,7 +120,7 @@ $igosja_menu_login_mobile = array(
     ),
     array(
         $igosja_menu[16],
-        $igosja_menu[17],
+//        $igosja_menu[17],
         $igosja_menu[12],
         $igosja_menu[13],
     ),
