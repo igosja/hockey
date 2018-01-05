@@ -33,7 +33,7 @@ function f_igosja_newseason_maintenance()
         $maintenance    = $item['maintenance'];
 
         $finance = array(
-            'finance_financetext_id' => FINANCETEXT_OUTCOME_SALARY,
+            'finance_financetext_id' => FINANCETEXT_OUTCOME_MAINTENANCE,
             'finance_team_id' => $team_id,
             'finance_value' => -$maintenance,
             'finance_value_after' => $item['team_finance'] - $maintenance,
