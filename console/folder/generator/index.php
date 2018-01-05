@@ -53,6 +53,7 @@ $function_array = array(
     'f_igosja_generator_salary',
     'f_igosja_generator_team_vs',
     'f_igosja_generator_team_price',
+    'f_igosja_generator_team_age',
     'f_igosja_generator_country_stadium',
     'f_igosja_generator_user_fire',
     'f_igosja_generator_user_holiday_end',
