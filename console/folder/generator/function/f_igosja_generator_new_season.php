@@ -30,6 +30,8 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_training',
             'f_igosja_newseason_school',
             'f_igosja_newseason_championship_rotate',
+            'f_igosja_newseason_league_participant',
+            'f_igosja_newseason_league_limit',
         );
 
         /*
@@ -40,7 +42,8 @@ function f_igosja_generator_new_season()
          * призовые
          * новые календари чемп, конференция, межсезонье, сборные, ЛЧ
          * + увольнение тренеров сборных
-         * участники лиги чемпионов
+         * + участники лиги чемпионов (команды)
+         * + лимиты лиги чемпионов на следующий сезон (страны)
          * + старение игроков
          * + пенсия игроков (с обесцвечиванием линии)
          * + рост силы молодых игроков
