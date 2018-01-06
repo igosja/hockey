@@ -410,7 +410,7 @@ else
     $playerspecial_array    = array();
 }
 
-if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id')
+if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'])
 {
     $power_field = '`player_power_nominal`';
 }
