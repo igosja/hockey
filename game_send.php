@@ -410,9 +410,18 @@ else
     $playerspecial_array    = array();
 }
 
+if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id')
+{
+    $power_field = '`player_power_nominal`';
+}
+else
+{
+    $power_field = '`player_power_real`';
+}
+
 $sql = "SELECT `name_name`,
                `player_id`,
-               `player_power_real`,
+               $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -435,7 +444,7 @@ $gk_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -451,14 +460,14 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
-        ORDER BY `player_power_real` DESC";
+        ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
 $ld_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -474,14 +483,14 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
-        ORDER BY `player_power_real` DESC";
+        ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
 $rd_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -497,14 +506,14 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
-        ORDER BY `player_power_real` DESC";
+        ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
 $lw_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_LW . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -520,14 +529,14 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
-        ORDER BY `player_power_real` DESC";
+        ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
 $c_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", `player_power_real`, IF(`playerposition_position_id`=" . POSITION_C . ", `player_power_real`*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", `player_power_real`*0.9, `player_power_real`*0.8)))) AS `player_power_real`,
+               ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
                `position_name`,
                `surname_name`
         FROM `player`
@@ -543,7 +552,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
-        ORDER BY `player_power_real` DESC";
+        ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
 $rw_array = $result_sql->fetch_all(MYSQLI_ASSOC);
