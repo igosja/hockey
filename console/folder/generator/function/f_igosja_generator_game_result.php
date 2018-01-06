@@ -32,7 +32,8 @@ function f_igosja_generator_game_result()
                    `game_home_tactic_3_id`,
                    `game_home_team_id`,
                    `game_stadium_capacity`,
-                   `game_visitor`
+                   `game_visitor`,
+                   `schedule_tournamenttype_id`
             FROM `game`
             LEFT JOIN `schedule`
             ON `game_schedule_id`=`schedule_id`
@@ -51,8 +52,9 @@ function f_igosja_generator_game_result()
         $game_guest_team_id     = $game['game_guest_team_id'];
         $game_stadium_capacity  = $game['game_stadium_capacity'];
         $game_visitor           = $game['game_visitor'];
+        $tournamenttype_id      = $game['schedule_tournamenttype_id'];
 
-        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id);
+        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id, $tournamenttype_id);
 
         $game_result['guest']['team']['auto']      = $game['game_guest_auto'];
         $game_result['guest']['team']['mood']      = $game['game_guest_mood_id'];
