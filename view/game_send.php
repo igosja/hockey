@@ -285,7 +285,7 @@
                             >
                                 <?= $item['position_name']; ?>
                                 -
-                                <?= $item['player_power_real']; ?>
+                                <?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?>
                                 -
                                 <?= $item['surname_name']; ?>
                                 <?= $item['name_name']; ?>
