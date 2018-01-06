@@ -358,8 +358,8 @@
                         <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                         <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
                         <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_tire']; ?></td>
-                        <td class="text-center"><?= $item['player_power_real']; ?></td>
+                        <td class="hidden-xs text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
+                        <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?></td>
                         <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     </tr>
                 <?php } ?>
@@ -384,7 +384,7 @@
             <?php foreach ($f_array as $item) { ?>
                 [
                     <?= $item['player_id']; ?>,
-                    '<?= $item['position_name']; ?> - <?= $item['player_power_real']; ?> - <?= $item['surname_name']; ?> <?= $item['name_name']; ?>'
+                    '<?= $item['position_name']; ?> - <?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?> - <?= $item['surname_name']; ?> <?= $item['name_name']; ?>'
                 ],
             <?php } ?>
         ];
