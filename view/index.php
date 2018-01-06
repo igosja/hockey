@@ -230,5 +230,20 @@
                 </fieldset>
             </div>
         </div>
+        <div class="row margin">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <fieldset>
+                    <legend class="text-center strong">Платежи</legend>
+                    <!-- begin WebMoney Transfer : attestation label -->
+                    <a href="https://passport.webmoney.ru/asp/certview.asp?wmid=274662367507" target="_blank">
+                        <img src="/img/webmoney.png" title="Здесь находится аттестат нашего WM идентификатора 274662367507" border="0">
+                    </a>
+                    <!-- end WebMoney Transfer : attestation label -->
+                    <a href="http://www.free-kassa.ru/" target="_blank">
+                        <img src="http://www.free-kassa.ru/img/fk_btn/13.png" border="0">
+                    </a>
+                </fieldset>
+            </div>
+        </div>
     </div>
 </div>
