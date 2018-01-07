@@ -47,7 +47,7 @@ function f_igosja_election_president_vice_to_close($electionpresidentvice_id)
     {
         $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-        $user_id = $user_array[0]['electionpresidentapplication_user_id'];
+        $user_id = $user_array[0]['electionpresidentviceapplication_user_id'];
 
         $log = array(
             'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_IN,
