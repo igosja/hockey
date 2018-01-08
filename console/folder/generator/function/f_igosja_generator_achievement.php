@@ -17,7 +17,7 @@ function f_igosja_generator_achievement()
 
     foreach ($schedule_array as $item)
     {
-        if (TOURNAMENTTYPE_OFFSEASON == $item['schedule_tournamenttype_id'] && STAGE_30_TOUR == $item['schedule_stage_id'])
+        if (TOURNAMENTTYPE_OFFSEASON == $item['schedule_tournamenttype_id'] && STAGE_12_TOUR == $item['schedule_stage_id'])
         {
             $sql = "INSERT INTO `achievement` (`achievement_position`, `achievement_season_id`, `achievement_team_id`, `achievement_tournamenttype_id`, `achievement_user_id`)
                     SELECT `offseason_place`, $igosja_season_id, `team_id`, " . TOURNAMENTTYPE_OFFSEASON . ", `team_user_id`
