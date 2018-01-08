@@ -17,7 +17,7 @@ function f_igosja_generator_prize()
 
     foreach ($schedule_array as $item)
     {
-        if (TOURNAMENTTYPE_OFFSEASON == $item['schedule_tournamenttype_id'] && STAGE_30_TOUR == $item['schedule_stage_id'])
+        if (TOURNAMENTTYPE_OFFSEASON == $item['schedule_tournamenttype_id'] && STAGE_12_TOUR == $item['schedule_stage_id'])
         {
             $sql = "SELECT `offseason_place`,
                            `team_finance`,
