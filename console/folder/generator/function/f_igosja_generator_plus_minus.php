@@ -1018,7 +1018,7 @@ function f_igosja_generator_plus_minus()
             $guest_total = -5;
         }
 
-        $home_total  = $home_competition + $guest_mood + $guest_optimality_1 + $guest_optimality_2 + $guest_power + $guest_score;
+        $home_total  = $home_competition + $home_mood + $home_optimality_1 + $home_optimality_2 + $home_power + $home_score;
 
         if ($home_total > 5)
         {
