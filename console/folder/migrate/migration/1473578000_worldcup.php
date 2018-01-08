@@ -12,6 +12,7 @@ $q[] = 'CREATE TABLE `worldcup`
             `worldcup_loose_bullet` INT(2) DEFAULT 0,
             `worldcup_loose_over` INT(2) DEFAULT 0,
             `worldcup_national_id` INT(3) DEFAULT 0,
+            `worldcup_nationaltype_id` INT(1) DEFAULT 0,
             `worldcup_pass` INT(3) DEFAULT 0,
             `worldcup_place` INT(2) DEFAULT 0,
             `worldcup_point` INT(2) DEFAULT 0,
@@ -23,4 +24,5 @@ $q[] = 'CREATE TABLE `worldcup`
         );';
 $q[] = 'CREATE INDEX `worldcup_division_id` ON `worldcup` (`worldcup_division_id`);';
 $q[] = 'CREATE INDEX `worldcup_national_id` ON `worldcup` (`worldcup_national_id`);';
+$q[] = 'CREATE INDEX `worldcup_nationaltype_id` ON `worldcup` (`worldcup_nationaltype_id`);';
 $q[] = 'CREATE INDEX `worldcup_season_id` ON `worldcup` (`worldcup_season_id`);';
