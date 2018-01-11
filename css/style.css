@@ -457,13 +457,13 @@ input.submit-blue {
     width: 58%;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
     .col-30-sm {
         width: 30%;
     }
 
-    .col-35-sm {
-        width: 35%;
+    .col-40-sm {
+        width: 40%;
     }
 }
 

@@ -123,7 +123,7 @@ function f_igosja_generator_playoff_championship_add_game()
                             $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
 
                             $schedule_id_insert = $stage_array[0]['schedule_id'];
-            
+
                             $sql = "SELECT `team_id`,
                                            `team_stadium_id`
                                     FROM `participantchampionship`
@@ -240,8 +240,7 @@ function f_igosja_generator_playoff_championship_add_game()
                                     LIMIT 1";
                             f_igosja_mysqli_query($sql);
                         }
-                        elseif  ((3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win))) ||
-                            4 == $prev_sql->num_rows)
+                        elseif ((3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win))) || 4 == $prev_sql->num_rows)
                         {
                             if (3 == $prev_sql->num_rows && in_array(1, array($home_win, $guest_win)))
                             {

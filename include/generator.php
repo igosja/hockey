@@ -24,3 +24,11 @@ foreach ($file_list as $item)
 {
     include(__DIR__ . '/../console/folder/generator/secondary/' . $item);
 }
+
+$file_list = scandir(__DIR__ . '/../console/folder/generator/newseason');
+$file_list = array_slice($file_list, 2);
+
+foreach ($file_list as $item)
+{
+    include(__DIR__ . '/../console/folder/generator/newseason/' . $item);
+}

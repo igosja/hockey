@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Списуємо ЗП хоккеїстів
+ * Списуємо ЗП хокеїстів
  */
 function f_igosja_generator_salary()
 {
