@@ -48,7 +48,7 @@
                     </td>
                     <td class="text-center col-10">
                         <a href="/game_view.php?num=<?= $item['game_id']; ?>">
-                            <?= f_igosja_game_score($item['game_home_score'], $item['game_guest_score'], $item['game_played']); ?>
+                            <?= f_igosja_game_score($item['game_played'], $item['game_home_score'], $item['game_guest_score']); ?>
                         </a>
                     </td>
                     <td>

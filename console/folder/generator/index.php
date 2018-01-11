@@ -46,6 +46,7 @@ $function_array = array(
     'f_igosja_generator_transfer',
     'f_igosja_generator_transfer_check',
     'f_igosja_generator_rent',
+    'f_igosja_generator_tire_base_level',
     'f_igosja_generator_player_league_power',
     'f_igosja_generator_player_price_and_salary',
     'f_igosja_generator_player_power_s',
@@ -67,6 +68,7 @@ $function_array = array(
     'f_igosja_generator_rating_change_player',
     'f_igosja_generator_rating_change_team',
     'f_igosja_generator_referrer_bonus',
+    'f_igosja_generator_new_season',
     'f_igosja_generator_news',
     'f_igosja_generator_site_open',
 );

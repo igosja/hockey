@@ -41,7 +41,7 @@ function f_igosja_newseason_league_participant()
 
         if ($item['leaguedistribution_total'] > 1)
         {
-            $partisipant = implode(',', $participant_array);
+            $participant = implode(',', $participant_array);
 
             $sql = "SELECT `championship_team_id`
                     FROM `championship`
@@ -77,7 +77,7 @@ function f_igosja_newseason_league_participant()
             }
             else
             {
-                $partisipant = implode(',', $participant_array);
+                $participant = implode(',', $participant_array);
 
                 $sql = "SELECT `championship_team_id`
                         FROM `championship`
@@ -98,7 +98,7 @@ function f_igosja_newseason_league_participant()
         if ($item['leaguedistribution_total'] > 3)
         {
             $limit          = $item['leaguedistribution_total'] - count($participant_array);
-            $partisipant    = implode(',', $participant_array);
+            $participant    = implode(',', $participant_array);
 
             $sql = "SELECT `championship_team_id`
                     FROM `championship`

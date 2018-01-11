@@ -43,7 +43,7 @@ function f_igosja_newseason_league()
         $team_1_id      = $team_array[$i]['team_id'];
         $team_2_id      = $team_array[$i+1]['team_id'];
         $stadium_1_id   = $team_array[$i]['stadium_id'];
-        $stadium_1_id   = $team_array[$i+1]['stadium_id'];
+        $stadium_2_id   = $team_array[$i+1]['stadium_id'];
         $game_1_array[] = '(' . $team_2_id . ',' . $team_1_id . ',' . $schedule_1_id . ',' . $stadium_1_id . ')';
         $game_2_array[] = '(' . $team_1_id . ',' . $team_2_id . ',' . $schedule_2_id . ',' . $stadium_2_id . ')';
     }

@@ -54,15 +54,26 @@ function f_igosja_newseason_championship()
     $schedule_id_29 = $schedule_array[28]['schedule_id'];
     $schedule_id_30 = $schedule_array[29]['schedule_id'];
 
-    foreach ($championship_country_array as $item)
+    $sql = "SELECT `championship_country_id`
+            FROM `championship`
+            WHERE `championship_season_id`=$igosja_season_id+1
+            GROUP BY `championship_country_id`
+            ORDER BY `championship_country_id` ASC";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($country_array as $country)
     {
+        $country_id = $country['championship_country_id'];
+
         $sql = "SELECT `championship_division_id`
                 FROM `championship`
                 LEFT JOIN `team`
                 ON `championship_team_id`=`team_id`
                 LEFT JOIN `stadium`
                 ON `team_stadium_id`=`stadium_id`
-                WHERE `championship_country_id`=$item
+                WHERE `championship_country_id`=$country_id
                 AND `championship_season_id`=$igosja_season_id+1
                 GROUP BY `championship_division_id`
                 ORDER BY `championship_division_id` ASC";

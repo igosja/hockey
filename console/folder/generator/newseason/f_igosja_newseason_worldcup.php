@@ -63,7 +63,7 @@ function f_igosja_start_insert_championship()
 
         $sql = "SELECT `worldcup_national_id`
                 FROM `worldcup`
-                WHERE `worldcup_nationaltype_id`=$nationaltype_array
+                WHERE `worldcup_nationaltype_id`=$nationaltype_id
                 AND `worldcup_division_id`=1
                 AND `worldcup_season_id`=$igosja_season_id+1
                 ORDER BY RAND()";

@@ -123,7 +123,7 @@ function f_igosja_generator_playoff_championship_add_game()
                             $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
 
                             $schedule_id_insert = $stage_array[0]['schedule_id'];
-            
+
                             $sql = "SELECT `team_id`,
                                            `team_stadium_id`
                                     FROM `participantchampionship`
