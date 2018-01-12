@@ -71,7 +71,7 @@ if (f_igosja_request_get('ok'))
                 LEFT JOIN `stadium`
                 ON `team_stadium_id`=`stadium_id`
                 LEFT JOIN `city`
-                ON `stadium_city_id`=`stadium_id`
+                ON `stadium_city_id`=`city_id`
                 SET `team_vote_president`=" . VOTERATING_NEUTRAL . "
                 WHERE `city_country_id`=$num_get";
         f_igosja_mysqli_query($sql);

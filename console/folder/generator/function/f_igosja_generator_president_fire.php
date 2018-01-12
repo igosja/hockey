@@ -25,7 +25,7 @@ function f_igosja_generator_president_fire()
                 LEFT JOIN `stadium`
                 ON `team_stadium_id`=`stadium_id`
                 LEFT JOIN `city`
-                ON `stadium_city_id`=`stadium_id`
+                ON `stadium_city_id`=`city_id`
                 WHERE `city_country_id`=$country_id
                 AND `team_user_id`!=0
                 AND `team_vote_president`=" . VOTERATING_NEGATIVE;
@@ -38,7 +38,7 @@ function f_igosja_generator_president_fire()
                 LEFT JOIN `stadium`
                 ON `team_stadium_id`=`stadium_id`
                 LEFT JOIN `city`
-                ON `stadium_city_id`=`stadium_id`
+                ON `stadium_city_id`=`city_id`
                 WHERE `city_country_id`=$country_id
                 AND `team_user_id`!=0";
         $rating_total_sql = f_igosja_mysqli_query($sql);
@@ -81,7 +81,7 @@ function f_igosja_generator_president_fire()
                     LEFT JOIN `stadium`
                     ON `team_stadium_id`=`stadium_id`
                     LEFT JOIN `city`
-                    ON `stadium_city_id`=`stadium_id`
+                    ON `stadium_city_id`=`city_id`
                     SET `team_vote_president`=" . VOTERATING_NEUTRAL . "
                     WHERE `city_country_id`=$country_id";
             f_igosja_mysqli_query($sql);
