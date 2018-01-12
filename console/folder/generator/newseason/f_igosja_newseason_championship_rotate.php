@@ -216,7 +216,7 @@ function f_igosja_newseason_championship_rotate()
                     WHERE `conference_season_id`=$igosja_season_id
                     AND `city_country_id`=$country_id
                     ORDER BY `conference_place` ASC
-                    OFFSET 2";
+                    LIMIT 0,2";
             $conference_sql = f_igosja_mysqli_query($sql);
 
             $conference_array = $conference_sql->fetch_all(MYSQLI_ASSOC);

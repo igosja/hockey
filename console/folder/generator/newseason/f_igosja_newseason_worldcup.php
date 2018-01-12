@@ -3,7 +3,7 @@
 /**
  * Формуємо таблиці та матчі національних чемпіонатів
  */
-function f_igosja_start_insert_championship()
+function f_igosja_newseason_worldcup()
 {
     global $igosja_season_id;
 
@@ -29,8 +29,8 @@ function f_igosja_start_insert_championship()
 
         $sql = "UPDATE `worldcup`
                 SET `worldcup_place`=`worldcup_id`-((CEIL(`worldcup_id`/12)-1)*12)
-                WHERE `worldcup_place`=0,
-                AND `national_nationaltype_id`=$nationaltype_id
+                WHERE `worldcup_place`=0
+                AND `worldcup_nationaltype_id`=$nationaltype_id
                 AND `worldcup_season_id`=$igosja_season_id+1";
         f_igosja_mysqli_query($sql);
     }
