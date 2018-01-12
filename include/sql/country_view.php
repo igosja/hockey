@@ -35,7 +35,7 @@ $sql = "SELECT COUNT(`team_id`) AS `total`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
-        ON `stadium_city_id`=`stadium_id`
+        ON `stadium_city_id`=`city_id`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0
         AND `team_vote_president`=" . VOTERATING_POSITIVE;
@@ -48,7 +48,7 @@ $sql = "SELECT COUNT(`team_id`) AS `total`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
-        ON `stadium_city_id`=`stadium_id`
+        ON `stadium_city_id`=`city_id`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0
         AND `team_vote_president`=" . VOTERATING_NEGATIVE;
@@ -61,7 +61,7 @@ $sql = "SELECT IF(COUNT(`team_id`)=0, 1, COUNT(`team_id`)) AS `total`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
-        ON `stadium_city_id`=`stadium_id`
+        ON `stadium_city_id`=`city_id`
         WHERE `city_country_id`=$num_get
         AND `team_user_id`!=0";
 $rating_total_sql = f_igosja_mysqli_query($sql);
