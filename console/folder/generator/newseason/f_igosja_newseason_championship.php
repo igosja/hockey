@@ -92,7 +92,7 @@ function f_igosja_newseason_championship()
                     ON `championship_team_id`=`team_id`
                     LEFT JOIN `stadium`
                     ON `team_stadium_id`=`stadium_id`
-                    WHERE `championship_country_id`=$item
+                    WHERE `championship_country_id`=$country_id
                     AND `championship_division_id`=$division_id
                     AND `championship_season_id`=$igosja_season_id+1
                     ORDER BY RAND()";

@@ -8,7 +8,7 @@ function f_igosja_newseason_schedule()
     global $igosja_season_id;
 
     $schedule_insert_array      = array();
-    $schedule_friendly_array    = array(6, 13, 20, 27, 34, 41, 48, 55, 61, 62, 69, 76, 83, 90, 97);
+    $schedule_friendly_array    = array(6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, 90, 97);
     $schedule_offseason_array   = array(0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12);
     $schedule_league_array      = array(15, 17, 22, 24, 29, 31, 36, 38, 43, 45, 50, 52, 57, 59, 64, 66, 71, 73, 78, 80);
     $schedule_worldcup_array    = array(19, 26, 33, 40, 47, 54, 61, 68, 75, 82, 96);
@@ -48,7 +48,7 @@ function f_igosja_newseason_schedule()
     $start_date = strtotime('Mon') + 12 * 60 * 60;
 //    $start_date = time();
 
-    for ($i=0; $i<63; $i++)
+    for ($i=0; $i<98; $i++)
     {
         $date       = $start_date + $i * 24 * 60 *60;
         $conference = 0;
