@@ -167,6 +167,8 @@ if (isset($auth_team_id) && $auth_team_id)
                             AND `transfer_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
                     $check_on_transfer = $check_array[0]['check'];
 
                     $sql = "SELECT COUNT(`rent_id`) AS `check`
@@ -177,6 +179,8 @@ if (isset($auth_team_id) && $auth_team_id)
                             AND `player_position_id`=" . POSITION_GK . "
                             AND `rent_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
+
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
                     $check_on_rent = $check_array[0]['check'];
 
@@ -212,6 +216,8 @@ if (isset($auth_team_id) && $auth_team_id)
                             AND `transfer_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
                     $check_on_transfer = $check_array[0]['check'];
 
                     $sql = "SELECT COUNT(`rent_id`) AS `check`
@@ -223,9 +229,11 @@ if (isset($auth_team_id) && $auth_team_id)
                             AND `rent_ready`=0";
                     $check_sql = f_igosja_mysqli_query($sql);
 
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
                     $check_on_rent = $check_array[0]['check'];
 
-                    $check = $check_in_team - $check_on_transfer - 1;
+                    $check = $check_in_team - $check_on_transfer - $check_on_rent - 1;
 
                     if ($check < 20)
                     {
