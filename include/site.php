@@ -19,7 +19,7 @@ $site_array = $site_sql->fetch_all(MYSQLI_ASSOC);
 
 if ('admin' != $chapter)
 {
-    if (0 == $site_array[0]['site_status'] && 'closed' != $tpl)
+    if (0 == $site_array[0]['site_status'] && in_array($tpl, array('closed', 'admin_login')))
     {
         redirect('/closed.php');
     }
