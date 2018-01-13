@@ -8,9 +8,9 @@ include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
-               `message_date`,
-               `message_id`,
-               `message_read`,
+               MAX(`message_date`),
+               MAX(`message_id`),
+               MIN(`message_read`),
                `user_id`,
                `user_login`
         FROM `message`
@@ -18,6 +18,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ON `message_user_id_from`=`user_id`
         WHERE $sql_filter
         AND `message_support_to`=1
+        GOUUP BY `user_id`
         ORDER BY `message_read` ASC, `message_id` DESC
         LIMIT $offset, $limit";
 $message_sql = f_igosja_mysqli_query($sql);
