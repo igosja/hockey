@@ -18,7 +18,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ON `message_user_id_from`=`user_id`
         WHERE $sql_filter
         AND `message_support_to`=1
-        GOUUP BY `user_id`
+        GROUP BY `user_id`
         ORDER BY `message_read` ASC, `message_id` DESC
         LIMIT $offset, $limit";
 $message_sql = f_igosja_mysqli_query($sql);
