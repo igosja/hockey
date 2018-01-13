@@ -8,9 +8,9 @@ include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
-               MAX(`message_date`),
-               MAX(`message_id`),
-               MIN(`message_read`),
+               MAX(`message_date`) AS `message_date`,
+               MAX(`message_id`) AS `message_id`,
+               MIN(`message_read`) AS `message_read`,
                `user_id`,
                `user_login`
         FROM `message`
