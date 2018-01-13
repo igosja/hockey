@@ -27,7 +27,7 @@
                             <?= $item['user_login']; ?>
                         </a>
                         <br/>
-                        <?= $item['message_text']; ?>
+                        <?= nl2br($item['message_text']); ?>
                     </td>
                 </tr>
             <?php } ?>
