@@ -63,7 +63,7 @@ $phisical_used_array = $phisical_used_sql->fetch_all(MYSQLI_ASSOC);
 $phisical_available = $basephisical_array[0]['basephisical_change_count'] - $phisical_used_array[0]['count'];
 
 $sql = "SELECT `phisical_id`,
-               `phisical_value`
+               `phisical_name`
         FROM `phisical`
         ORDER BY `phisical_id` ASC";
 $phisical_sql = f_igosja_mysqli_query($sql);
@@ -74,7 +74,7 @@ $phisical_array = array();
 
 foreach ($phisical_sql as $item)
 {
-    $phisical_array[$item['phisical_id']] = $item['phisical_value'];
+    $phisical_array[$item['phisical_id']] = $item['phisical_name'];
 }
 
 $sql = "SELECT `schedule_date`,
@@ -116,7 +116,7 @@ foreach ($phisicalchange_array as $item)
 
 $sql = "SELECT `name_name`,
                `phisical_id`,
-               `phisical_value`,
+               `phisical_name`,
                `player_age`,
                `player_id`,
                `player_power_nominal`,
@@ -174,7 +174,7 @@ for ($i=0; $i<$count_player; $i++)
                 'class'             => $class,
                 'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
                 'phisical_id'       => $phisical_id,
-                'phisical_value'    => $phisical_array[$phisical_id],
+                'phisical_name'    => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
                 'schedule_id'       => $schedule_array[$j]['schedule_id'],
             );
@@ -215,7 +215,7 @@ for ($i=0; $i<$count_player; $i++)
                 'class'             => $class,
                 'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
                 'phisical_id'       => $phisical_id,
-                'phisical_value'    => $phisical_array[$phisical_id],
+                'phisical_name'    => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
                 'schedule_id'        => $schedule_array[$j]['schedule_id'],
             );

@@ -92,9 +92,9 @@
                     <td class="text-center">
                         <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
                             <img
-                                alt="<?= $item['phisical_value']; ?>%"
+                                alt="<?= $item['phisical_name']; ?>"
                                 src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_value']; ?>%"
+                                title="<?= $item['phisical_name']; ?>"
                             />
                         <?php } else { ?>
                             ?
@@ -152,9 +152,9 @@
                         <td class="text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center">
                             <img
-                                alt="<?= $item['phisical_value']; ?>%"
+                                alt="<?= $item['phisical_name']; ?>"
                                 src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_value']; ?>%"
+                                title="<?= $item['phisical_name']; ?>"
                             />
                         </td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>
@@ -204,9 +204,9 @@
                         <td class="text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center">
                             <img
-                                alt="<?= $item['phisical_value']; ?>%"
+                                alt="<?= $item['phisical_name']; ?>"
                                 src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_value']; ?>%"
+                                title="<?= $item['phisical_name']; ?>"
                             />
                         </td>
                         <td class="text-center"><?= $item['player_power_real']; ?></td>

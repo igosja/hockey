@@ -113,7 +113,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
 
             $sql = "SELECT `phisical_id`,
                            `phisical_opposite`,
-                           `phisical_value`
+                           `phisical_name`
                     FROM `phisical`
                     ORDER BY `phisical_id` ASC";
             $phisical_sql = f_igosja_mysqli_query($sql);
@@ -126,7 +126,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             {
                 $phisical_array[$item['phisical_id']] = array(
                     'opposite'  => (int) $item['phisical_opposite'],
-                    'value'     => (int) $item['phisical_value'],
+                    'value'     => (int) $item['phisical_name'],
                 );
             }
 
