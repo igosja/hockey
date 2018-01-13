@@ -34,7 +34,7 @@ function f_igosja_generator_prize()
             foreach ($offseason_array as $offseason)
             {
                 $team_id    = $offseason['team_id'];
-                $prize      = 2000000 * 0.98 ^ ( $offseason['offseason_place'] - 1 );
+                $prize      = round(2000000 * pow(0.98, $offseason['offseason_place'] - 1));
 
                 $finance = array(
                     'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_OFFSEASON,
@@ -86,7 +86,7 @@ function f_igosja_generator_prize()
                 }
 
                 $team_id    = $championship['team_id'];
-                $prize      = $prize * 0.98 ^ (( $championship['participantchampionship_division_id'] - 1 ) * 16 );
+                $prize      = round($prize * pow(0.98, ($championship['participantchampionship_division_id'] - 1) * 16));
 
                 $finance = array(
                     'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CHAMPIONSHIP,
@@ -119,7 +119,7 @@ function f_igosja_generator_prize()
             foreach ($conference_array as $conference)
             {
                 $team_id    = $conference['team_id'];
-                $prize      = 5000000 * 0.98 ^ ( $conference['conference_place'] - 1 );
+                $prize      = round(5000000 * pow(0.98, $conference['conference_place'] - 1));
 
                 $finance = array(
                     'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CONFERENCE,
@@ -155,7 +155,7 @@ function f_igosja_generator_prize()
             foreach ($championship_array as $championship)
             {
                 $team_id    = $championship['team_id'];
-                $prize      = 20000000 * 0.98 ^ (( $championship['championship_place'] - 1 ) + ( $championship['championship_division_id'] - 1) * 16 );
+                $prize      = round(20000000 * pow(0.98, ($championship['championship_place'] - 1) + ($championship['championship_division_id'] - 1) * 16));
 
                 $finance = array(
                     'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CHAMPIONSHIP,

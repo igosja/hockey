@@ -2,36 +2,81 @@
 
 include(__DIR__ . '/include/include.php');
 
-$sql = "SELECT `team_id`
-        FROM `team`
-        WHERE `team_id`!=0";
-$team_sql = f_igosja_mysqli_query($sql);
+$sql = "SELECT `offseason_place`,
+               `team_finance`,
+               `team_id`
+        FROM `offseason`
+        LEFT JOIN `team`
+        ON `offseason_team_id`=`team_id`
+        WHERE `offseason_season_id`=$igosja_season_id
+        ORDER BY `offseason_id` ASC";
+$offseason_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+$offseason_array = $offseason_sql->fetch_all(MYSQLI_ASSOC);
 
-foreach ($team_array as $item)
+foreach ($offseason_array as $offseason)
 {
-    $team_id = $item['team_id'];
-
-    $sql = "SELECT IF(COUNT(`teamvisitor_visitor`)=0, 1, COUNT(`teamvisitor_visitor`)) AS `count`,
-                   IF(SUM(`teamvisitor_visitor`) IS NULL, 1, SUM(`teamvisitor_visitor`)) AS `visitor`
-            FROM
-            (
-                SELECT `teamvisitor_visitor`
-                FROM `teamvisitor`
-                WHERE `teamvisitor_team_id`=$team_id
-                ORDER BY `teamvisitor_id` DESC
-                LIMIT 5
-            ) AS `t1`";
-    $visitor_sql = f_igosja_mysqli_query($sql);
-
-    $visitor_array = $visitor_sql->fetch_all(MYSQLI_ASSOC);
-
-    $visitor = $visitor_array[0]['visitor'] / $visitor_array[0]['count'] * 100;
+    $team_id    = $offseason['team_id'];
+    $prize_old  = 2000000 * 0.98 ^ ($offseason['offseason_place'] - 1);
+    $prize      = round(2000000 * pow(0.98, $offseason['offseason_place'] - 1));
 
     $sql = "UPDATE `team`
-            SET `team_visitor`=$visitor
+            SET `team_finance`=`team_finance`-$prize_old+$prize
             WHERE `team_id`=$team_id
             LIMIT 1";
     f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `finance`
+            SET `finance_value`=$prize
+            WHERE `finance_team_id`=$team_id
+            AND `finance_financetext_id`=".FINANCETEXT_INCOME_PRIZE_OFFSEASON;
+    f_igosja_mysqli_query($sql);
+
+    $sql = "SELECT `finance_id`,
+                   `finance_value`,
+                   `finance_value_before`
+            FROM `finance`
+            WHERE `finance_team_id`=$team_id
+            AND FROM_UNIXTIME(`finance_date`, '%Y-%m-%d')=CURDATE()
+            ORDER BY `finance_id` ASC";
+    $finance_array = f_igosja_mysqli_query($sql);
+
+    $before = 0;
+
+    foreach ($finance_array as $item)
+    {
+        if (0 == $before)
+        {
+            $before = $item['finance_value_before'];
+        }
+        
+        $value = $item['finance_value'];
+        $after = $before + $value;
+        $finance_id = $item['finance_id'];
+        
+        $sql = "UPDATE `finance`
+                SET `finance_value`=$value,
+                    `finance_value_before`=$before,
+                    `finance_value_after`=$after
+                WHERE `finance_id`=$finance_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+        
+        $before = $after;
+    }
+            
+//    $finance = array(
+//        'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_OFFSEASON,
+//        'finance_team_id' => $team_id,
+//        'finance_value' => $prize,
+//        'finance_value_after' => $offseason['team_finance'] + $prize,
+//        'finance_value_before' => $offseason['team_finance'],
+//    );
+//    f_igosja_finance($finance);
+
+//    $sql = "UPDATE `team`
+//            SET `team_finance`=`team_finance`+$prize
+//            WHERE `team_id`=$team_id
+//            LIMIT 1";
+//    f_igosja_mysqli_query($sql);
 }
