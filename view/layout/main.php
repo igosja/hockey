@@ -23,9 +23,6 @@
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
-    <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <?php } ?>
 </head>
 <body>
 <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
@@ -97,16 +94,19 @@
             </div>
         <?php } ?>
         <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
-        <?php if (!isset($auth_user_id) || $auth_date_vip < time()) { ?>
+        <?php if ((!isset($auth_user_id) || $auth_date_vip < time()) && 'vhol.org' == $_SERVER['HTTP_HOST']) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <ins
-                        class="adsbygoogle"
-                        data-ad-client="ca-pub-9189986235139627"
-                        data-ad-slot="8459831805"
-                        data-ad-format="auto"
-                        style="display:block"
-                    ></ins>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- vhol -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9189986235139627"
+                         data-ad-slot="1648848584"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </div>
         <?php } ?>
@@ -131,11 +131,6 @@
         </div>
     </div>
 </div>
-<?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-<?php } ?>
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js') || file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
     <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
     <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
