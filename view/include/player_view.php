@@ -89,9 +89,9 @@
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if (isset($auth_team_id) && $auth_team_id == $player_array[0]['team_id']) { ?>
                             <img
-                                alt="<?= $player_array[0]['phisical_value']; ?>%"
+                                alt="<?= $player_array[0]['phisical_name']; ?>"
                                 src="/img/phisical/<?= $player_array[0]['phisical_id']; ?>.png"
-                                title="<?= $player_array[0]['phisical_value']; ?>%"
+                                title="<?= $player_array[0]['phisical_name']; ?>"
                             />
                         <?php } else { ?>
                             ?

@@ -82,9 +82,9 @@
                             id="<?= $phisical['id']; ?>"
                         >
                             <img
-                                alt="<?= $phisical['phisical_value']; ?>%"
+                                alt="<?= $phisical['phisical_name']; ?>"
                                 src="/img/phisical/<?= $phisical['phisical_id']; ?>.png"
-                                title="<?= $phisical['phisical_value']; ?>%"
+                                title="<?= $phisical['phisical_name']; ?>"
                             />
                         </td>
                     <?php } ?>

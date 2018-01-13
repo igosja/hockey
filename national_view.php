@@ -28,7 +28,7 @@ include(__DIR__ . '/include/sql/national_view_right.php');
 
 $sql = "SELECT `name_name`,
                `phisical_id`,
-               `phisical_value`,
+               `phisical_name`,
                `player_age`,
                `player_game_row`,
                `player_id`,
