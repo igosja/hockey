@@ -599,6 +599,22 @@ if (!$selected_game)
                 AND `schedule_season_id`=$igosja_season_id
                 AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_FRIENDLY . "
             )
+            AND `team_id` NOT IN
+            (
+                SELECT `game_home_team_id`
+                FROM `game`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
+                WHERE `schedule_id`=$num_get
+            )
+            AND `team_id` NOT IN
+            (
+                SELECT `game_guest_team_id`
+                FROM `game`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
+                WHERE `schedule_id`=$num_get
+            )
             ORDER BY `team_power_vs` DESC";
     $team_sql = f_igosja_mysqli_query($sql);
 
