@@ -63,6 +63,27 @@ if (isset($_SESSION['user_id']))
 
     $sql = "SELECT COUNT(`message_id`) AS `count`
             FROM `message`
+            WHERE `message_support_from`=0
+            AND `message_user_id_to`=$auth_user_id
+            AND `message_read`=0";
+    $dialog_sql = f_igosja_mysqli_query($sql);
+
+    $dialog_array = $dialog_sql->fetch_all(MYSQLI_ASSOC);
+    $count_dialog = $dialog_array[0]['count'];
+
+    if ($count_dialog)
+    {
+        $igosja_menu        = str_replace('count_dialog', 'red', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_dialog', 'red', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('count_dialog', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_dialog', '', $igosja_menu_mobile);
+    }
+
+    $sql = "SELECT COUNT(`message_id`) AS `count`
+            FROM `message`
             WHERE `message_support_from`=1
             AND `message_user_id_to`=$auth_user_id
             AND `message_read`=0";
