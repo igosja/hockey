@@ -160,7 +160,7 @@
                         <span class="strong"><?= $newscountry_array[0]['country_name']; ?>: <?= $newscountry_array[0]['news_title']; ?></span>
                     </p>
                     <p class="text-justify">
-                        <?= $newscountry_array[0]['news_text']; ?>
+                        <?= f_igosja_bb_decode($newscountry_array[0]['news_text']); ?>
                     </p>
                     <a href="/user_view.php?num=<?= $newscountry_array[0]['user_id']; ?>">
                         <?= $newscountry_array[0]['user_login']; ?>

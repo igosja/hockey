@@ -30,6 +30,7 @@ function f_igosja_bb_decode($text)
     $text = str_replace('[s]', '<del>', $text);
     $text = str_replace('[/s]', '</del>', $text);
     $text = preg_replace("/\[link(?:\=(?:[\"|'])?(.*)(?:[^[]+)?)?\](.*)\[\/link\]/i", '<a href="$1">$2</a>', $text);
+    $text = nl2br($text);
 
     return $text;
 }
