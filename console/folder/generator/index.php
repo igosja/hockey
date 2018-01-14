@@ -33,6 +33,7 @@ $function_array = array(
     'f_igosja_generator_training',
     'f_igosja_generator_phisical',
     'f_igosja_generator_school',
+    'f_igosja_generator_scout',
     'f_igosja_generator_building_base',
     'f_igosja_generator_building_stadium',
     'f_igosja_generator_decrease_injury',
