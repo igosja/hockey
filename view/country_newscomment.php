@@ -27,7 +27,7 @@
         </a>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $news_array[0]['news_text']; ?>
+        <?= f_igosja_bb_decode($news_array[0]['news_text']); ?>
     </div>
 </div>
 <?php if ($newscomment_array) { ?>
