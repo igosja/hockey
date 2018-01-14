@@ -70,7 +70,7 @@ function f_igosja_generator_rating()
         elseif (RATING_TEAM_STADIUM == $item['ratingtype_id'])
         {
             $order = '`team_price_stadium` DESC';
-            $place = 'ratingteam_price_stadium_place';
+            $place = 'ratingteam_stadium_place';
         }
         elseif (RATING_TEAM_VISITOR == $item['ratingtype_id'])
         {
@@ -85,12 +85,12 @@ function f_igosja_generator_rating()
         elseif (RATING_TEAM_PRICE_BASE == $item['ratingtype_id'])
         {
             $order = '`team_price_base` DESC';
-            $place = 'ratingteam_price_stadium_place';
+            $place = 'ratingteam_price_base_place';
         }
         elseif (RATING_TEAM_PRICE_STADIUM == $item['ratingtype_id'])
         {
             $order = '`team_price_stadium` DESC';
-            $place = 'ratingteam_stadium_place';
+            $place = 'ratingteam_price_stadium_place';
         }
         elseif (RATING_TEAM_PLAYER == $item['ratingtype_id'])
         {
@@ -132,6 +132,7 @@ function f_igosja_generator_rating()
         {
             $sql = "SELECT `team_id`
                     FROM `team`
+                    WHERE `team_id`!=0
                     ORDER BY $order, `team_id` ASC";
             $team_sql = f_igosja_mysqli_query($sql);
 
@@ -201,6 +202,7 @@ function f_igosja_generator_rating()
                     LEFT JOIN `team`
                     ON `user_id`=`team_user_id`
                     WHERE `team_id` IS NOT NULL
+                    AND `user_id`!=0
                     ORDER BY $order, `user_id` ASC";
             $user_sql = f_igosja_mysqli_query($sql);
 
