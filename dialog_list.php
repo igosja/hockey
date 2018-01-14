@@ -18,7 +18,7 @@ include(__DIR__ . '/include/sql/user_view.php');
 $sql = "SELECT `city_name`,
                `country_id`,
                `country_name`,
-               MAX(`message_read`) AS `message_read`,
+               MIN(`message_read`) AS `message_read`,
                `team_id`,
                `team_name`,
                `user_date_login`,
@@ -41,7 +41,7 @@ $sql = "SELECT `city_name`,
         OR (`message_support_from`=0
         AND `message_user_id_to`=$auth_user_id)
         GROUP BY `user_id`
-        ORDER BY MAX(`message_read`) ASC, MAX(`message_id`) DESC";
+        ORDER BY MIN(`message_read`) ASC, MAX(`message_id`) DESC";
 $message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
