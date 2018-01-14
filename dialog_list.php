@@ -36,10 +36,10 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
-        WHERE (`message_support_to`=0
-        AND `message_user_id_from`=$auth_user_id)
-        OR (`message_support_from`=0
-        AND `message_user_id_to`=$auth_user_id)
+        WHERE (`message_user_id_from`=$auth_user_id
+        OR `message_user_id_to`=$auth_user_id)
+        AND `message_support_to`=0
+        AND `message_support_from`=0
         GROUP BY `user_id`
         ORDER BY MIN(`message_read`) ASC, MAX(`message_id`) DESC";
 $message_sql = f_igosja_mysqli_query($sql);

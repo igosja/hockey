@@ -64,6 +64,7 @@ if (isset($_SESSION['user_id']))
     $sql = "SELECT COUNT(`message_id`) AS `count`
             FROM `message`
             WHERE `message_support_from`=0
+            AND`message_support_to`=0
             AND `message_user_id_to`=$auth_user_id
             AND `message_read`=0";
     $dialog_sql = f_igosja_mysqli_query($sql);

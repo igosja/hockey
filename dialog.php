@@ -67,6 +67,8 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         OR (`message_user_id_from`=$num_get
         AND `message_user_id_to`=$auth_user_id
         AND `message_delete_to`=0)
+        AND `message_support_to`=0
+        AND `message_support_from`=0
         ORDER BY `message_id` DESC
         LIMIT $offset, $limit";
 $message_sql = f_igosja_mysqli_query($sql);
@@ -84,6 +86,8 @@ $sql = "UPDATE `message`
         SET `message_read`=1
         WHERE `message_user_id_to`=$auth_user_id
         AND `message_user_id_from`=$num_get
+        AND `message_support_to`=0
+        AND `message_support_from`=0
         AND `message_read`=0";
 f_igosja_mysqli_query($sql);
 
