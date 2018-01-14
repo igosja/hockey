@@ -36,78 +36,72 @@
             </a>
         </div>
     </div>
-    <?php if ($teamask_array[0]['count']) { ?>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-user fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge"><?= $teamask_array[0]['count']; ?></div>
-                            <div>Заявки на команды!</div>
-                        </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-primary panel-teamask" <?php if (0 == $teamask_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge admin-teamask"><?= $teamask_array[0]['count']; ?></div>
+                        <div>Заявки на команды!</div>
                     </div>
                 </div>
-                <a href="/admin/teamask_list.php">
-                    <div class="panel-footer">
-                        <span class="pull-left">Подробнее</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
+            <a href="/admin/teamask_list.php">
+                <div class="panel-footer">
+                    <span class="pull-left">Подробнее</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
-    <?php } ?>
-    <?php if ($support_array[0]['count']) { ?>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-            <div class="panel panel-yellow">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-comments fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge"><?= $support_array[0]['count']; ?></div>
-                            <div>Новые вопросы</div>
-                        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-red panel-support" <?php if (0 == $support_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge admin-support"><?= $support_array[0]['count']; ?></div>
+                        <div>Новые вопросы</div>
                     </div>
                 </div>
-                <a href="/admin/support_list.php">
-                    <div class="panel-footer">
-                        <span class="pull-left">Подробнее</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
+            <a href="/admin/support_list.php">
+                <div class="panel-footer">
+                    <span class="pull-left">Подробнее</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
-    <?php } ?>
-    <?php if ($vote_array[0]['count']) { ?>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-            <div class="panel panel-red">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-bar-chart fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge"><?= $vote_array[0]['count']; ?></div>
-                            <div>Новые опросы</div>
-                        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-yellow panel-vote" <?php if (0 == $vote_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-bar-chart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge admin-vote"><?= $vote_array[0]['count']; ?></div>
+                        <div>Новые опросы</div>
                     </div>
                 </div>
-                <a href="/admin/vote_list.php">
-                    <div class="panel-footer">
-                        <span class="pull-left">Подробнее</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
+            <a href="/admin/vote_list.php">
+                <div class="panel-footer">
+                    <span class="pull-left">Подробнее</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
-    <?php } ?>
+    </div>
 </div>
 <div class="row">
     <div class="col-lg-8">

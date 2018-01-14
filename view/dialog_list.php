@@ -36,18 +36,24 @@
                     Рейтинг: <span class="strong"><?= $item['user_rating']; ?></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    Команда:
-                    <img alt="<?= $item['country_name'] ?>" src="/img/country/12/<?= $item['country_id'] ?>.png" title="country" />
-                    <a href="/team_view.php?num=<?= $item['team_id'] ?>">
-                        <?= $item['team_name'] ?>
-                        <span class="hidden-xs">(<?= $item['city_name'] ?>)</span>
-                    </a>
+            <?php if ($item['team_id']) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        Команда:
+                        <img alt="<?= $item['country_name']; ?>" src="/img/country/12/<?= $item['country_id']; ?>.png" title="country" />
+                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                            <?= $item['team_name']; ?>
+                            <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <?php if (0 == $item['message_read']) { ?>
+                        <a class="strong" href="/dialog.php?num=<?= $item['user_id']; ?>">Читать новые</a>
+                        |
+                    <?php } ?>
                     <a href="/dialog.php?num=<?= $item['user_id']; ?>">Написать</a>
                 </div>
             </div>
