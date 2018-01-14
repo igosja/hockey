@@ -23,6 +23,7 @@
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
+    <meta name='advmaker-verification' content='8c9c1fd4f68997b42a16379bac71f980'/>
 </head>
 <body>
 <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
