@@ -55,6 +55,7 @@ function f_igosja_generator_transfer()
             $player_id                  = $transfer['player_id'];
             $school_id                  = $transfer['player_school_id'];
 
+if ($player_id != 3115) {
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$transferaplication_price
                     WHERE `team_id`=$team_seller_id
@@ -127,8 +128,10 @@ function f_igosja_generator_transfer()
                         SELECT `schedule_id`
                         FROM `schedule`
                         WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                        LIMIT 1
                     )";
             f_igosja_mysqli_query($sql);
+            }
 
             $sql = "UPDATE `transfer`
                     LEFT JOIN `player`
