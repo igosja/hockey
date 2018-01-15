@@ -189,15 +189,15 @@ function f_igosja_generator_plus_minus()
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
-                $guest_power = -1;
+                $guest_power = 1;
             }
             elseif ($item['game_guest_score'] == $item['game_home_score'])
             {
-                $guest_power = -0.5;
+                $guest_power = 0.5;
             }
             else
             {
-                $guest_power = -0;
+                $guest_power = 0;
             }
         }
         elseif ($item['game_guest_power_percent'] > 46)
@@ -505,15 +505,15 @@ function f_igosja_generator_plus_minus()
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
-                $home_power = -1;
+                $home_power = 1;
             }
             elseif ($item['game_home_score'] == $item['game_guest_score'])
             {
-                $home_power = -0.5;
+                $home_power = 0.5;
             }
             else
             {
-                $home_power = -0;
+                $home_power = 0;
             }
         }
         elseif ($item['game_home_power_percent'] > 46)
