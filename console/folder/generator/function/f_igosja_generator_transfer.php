@@ -127,6 +127,7 @@ function f_igosja_generator_transfer()
                         SELECT `schedule_id`
                         FROM `schedule`
                         WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                        LIMIT 1
                     )";
             f_igosja_mysqli_query($sql);
 
