@@ -688,7 +688,7 @@ function f_igosja_generator_plus_minus()
             $guest_mood = $guest_mood - 1;
             $home_mood  = $home_mood + 0.5;
         }
-        elseif (MOOD_REST == $item['schedule_tournamenttype_id'])
+        elseif (MOOD_REST == $item['game_guest_mood_id'])
         {
             $guest_mood = $guest_mood + 0.5;
             $home_mood  = $home_mood - 1;
