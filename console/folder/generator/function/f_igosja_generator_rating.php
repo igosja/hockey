@@ -229,7 +229,7 @@ function f_igosja_generator_rating()
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
                     WHERE `team_id`!=0
-                    AND `user_id`!=0
+                    AND `team_user_id`!=0
                     GROUP BY `country_id`
                     ORDER BY `country_id` ASC";
             $country_sql = f_igosja_mysqli_query($sql);
