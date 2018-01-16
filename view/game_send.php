@@ -335,6 +335,7 @@
                     <th class="hidden-xs" title="Возраст">В</th>
                     <th class="hidden-xs" title="Сила">С</th>
                     <th class="hidden-xs" title="Усталость">У</th>
+                    <th class="hidden-xs" title="Форма">Ф</th>
                     <th title="Реальная сила">РС</th>
                     <th title="Спецвозможности">Спец</th>
                 </tr>
@@ -359,6 +360,21 @@
                         <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
                         <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
                         <td class="hidden-xs text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
+                        <td class="hidden-xs text-center">
+                            <?php if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id']) { ?>
+                                <img
+                                    alt="100%"
+                                    src="/img/phisical/16.png"
+                                    title="100%"
+                                />
+                            <?php } else { ?>
+                                <img
+                                    alt="<?= $item['phisical_name']; ?>"
+                                    src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                    title="<?= $item['phisical_name']; ?>"
+                                />
+                            <?php } ?>
+                        </td>
                         <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?></td>
                         <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     </tr>

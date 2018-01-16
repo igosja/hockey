@@ -346,6 +346,8 @@ $sql = "SELECT `country_id`,
                `country_name`,
                `line_color`,
                `name_name`,
+               `phisical_id`,
+               `phisical_name`,
                `player_age`,
                `player_id`,
                `player_power_nominal`,
@@ -361,6 +363,8 @@ $sql = "SELECT `country_id`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
+        LEFT JOIN `phisical`
+        ON `player_phisical_id`=`phisical_id`
         WHERE ((`player_team_id`=$auth_team_id
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
