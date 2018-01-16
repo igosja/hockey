@@ -43,6 +43,8 @@ function f_igosja_generator_rating()
             LEFT JOIN `team`
             ON `user_id`=`team_user_id`
             WHERE `team_id` IS NOT NULL
+            AND `user_id`!=0
+            GROUP BY `user_id`
             ORDER BY `user_id` ASC";
     f_igosja_mysqli_query($sql);
 
