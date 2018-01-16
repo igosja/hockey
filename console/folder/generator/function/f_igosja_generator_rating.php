@@ -43,6 +43,8 @@ function f_igosja_generator_rating()
             LEFT JOIN `team`
             ON `user_id`=`team_user_id`
             WHERE `team_id` IS NOT NULL
+            AND `user_id`!=0
+            GROUP BY `user_id`
             ORDER BY `user_id` ASC";
     f_igosja_mysqli_query($sql);
 
@@ -109,7 +111,7 @@ function f_igosja_generator_rating()
         }
         elseif (RATING_COUNTRY_STADIUM == $item['ratingtype_id'])
         {
-            $order = '`stadium_capacity` DESC';
+            $order = '`country_stadium` DESC';
             $place = 'ratingcountry_stadium_place';
         }
         elseif (RATING_COUNTRY_AUTO == $item['ratingtype_id'])
@@ -272,14 +274,10 @@ function f_igosja_generator_rating()
         elseif (in_array($item['ratingtype_id'], array(RATING_COUNTRY_AUTO, RATING_COUNTRY_STADIUM)))
         {
             $sql = "SELECT `country_id`
-                    FROM `team`
-                    LEFT JOIN `stadium`
-                    ON `team_stadium_id`=`stadium_id`
-                    LEFT JOIN `city`
-                    ON `stadium_city_id`=`city_id`
+                    FROM `city`
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
-                    WHERE `team_id`!=0
+                    WHERE `city_id`!=0
                     GROUP BY `country_id`
                     ORDER BY $order, `country_id` ASC";
             $country_sql = f_igosja_mysqli_query($sql);
