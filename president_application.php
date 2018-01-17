@@ -47,7 +47,7 @@ if (0 == $chech_array[0]['check'])
 $sql = "SELECT COUNT(`electionpresident_id`) AS `check`
         FROM `electionpresident`
         WHERE `electionpresident_country_id`=$num_get
-        AND `electionpresident_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES;
+        AND `electionpresident_electionstatus_id`=" . ELECTIONSTATUS_OPEN;
 $check_sql = f_igosja_mysqli_query($sql);
 
 $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
