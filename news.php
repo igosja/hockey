@@ -43,6 +43,22 @@ $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
 
+if (isset($auth_user_id))
+{
+    $sql = "UPDATE `user`
+            SET `user_news_id`=
+            (
+                SELECT `news_id`
+                FROM `news`
+                WHERE `news_country_id`=0
+                ORDER BY `news_id` DESC
+                LIMIT 1
+            )
+            WHERE `user_id`=$auth_user_id
+            LIMIT 1";
+    f_igosja_mysqli_query($sql);
+}
+
 $seo_title          = 'Новости сайта';
 $seo_description    = 'Новости на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'новости сайта';
