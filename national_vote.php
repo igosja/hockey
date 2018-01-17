@@ -15,7 +15,7 @@ if (!$type_get = (int) f_igosja_request_get('type'))
 $sql = "SELECT `electionnational_id`
         FROM `electionnational`
         WHERE `electionnational_country_id`=$num_get
-        AND `electionnational_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        AND `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnational_nationaltype_id`=$type_get
         ORDER BY `electionnational_id` DESC
         LIMIT 1";
@@ -83,7 +83,7 @@ $sql = "SELECT `count_answer`,
             GROUP BY `electionnationalapplicationplayer_electionnationalapplication_id`
         ) AS `t2`
         ON `electionnationalapplication_id`=`electionnationalapplicationplayer_electionnationalapplication_id`
-        WHERE `electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        WHERE `electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnational_id`=$electionnational_id
         ORDER BY `count_answer` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC";
 $electionnational_sql = f_igosja_mysqli_query($sql);

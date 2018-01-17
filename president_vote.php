@@ -32,7 +32,7 @@ include(__DIR__ . '/include/sql/country_view.php');
 $sql = "SELECT `electionpresident_id`
         FROM `electionpresident`
         WHERE `electionpresident_country_id`=$num_get
-        AND `electionpresident_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        AND `electionpresident_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         ORDER BY `electionpresident_id` DESC
         LIMIT 1";
 $electionpresident_sql = f_igosja_mysqli_query($sql);
@@ -62,7 +62,7 @@ $sql = "SELECT `electionpresident_id`,
         ON `electionpresident_id`=`electionpresidentapplication_electionpresident_id`
         LEFT JOIN `user`
         ON `electionpresidentapplication_user_id`=`user_id`
-        WHERE `electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        WHERE `electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionpresident_id`=$electionpresident_id
         ORDER BY `electionpresidentapplication_count` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC";
 $electionpresident_sql = f_igosja_mysqli_query($sql);
