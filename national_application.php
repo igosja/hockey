@@ -63,7 +63,7 @@ if (!in_array($chech_array[0]['schedule_nationalvotestep_id'], array(0, NATIONAL
 $sql = "SELECT COUNT(`electionnational_id`) AS `check`
         FROM `electionnational`
         WHERE `electionnational_country_id`=$num_get
-        AND `electionnational_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        AND `electionnational_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnational_nationaltype_id`=$type_get";
 $check_sql = f_igosja_mysqli_query($sql);
 

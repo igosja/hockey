@@ -50,7 +50,7 @@ if (0 == $chech_array[0]['check'])
 $sql = "SELECT COUNT(`electionnationalvice_id`) AS `check`
         FROM `electionnationalvice`
         WHERE `electionnationalvice_country_id`=$num_get
-        AND `electionnationalvice_electionstatus_id`>" . ELECTIONSTATUS_CANDIDATES . "
+        AND `electionnationalvice_electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnationalvice_nationaltype_id`=$type_get";
 $check_sql = f_igosja_mysqli_query($sql);
 
