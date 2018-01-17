@@ -163,7 +163,7 @@ for ($i=0; $i<$count_player; $i++)
 
                 $opposite_array = $opposite_sql->fetch_all(MYSQLI_ASSOC);
 
-                $opposite_id = $opposite_array[0]['phisical_opposite'];
+                $phisical_id = $opposite_array[0]['phisical_opposite'];
             }
             else
             {
@@ -174,7 +174,7 @@ for ($i=0; $i<$count_player; $i++)
                 'class'             => $class,
                 'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
                 'phisical_id'       => $phisical_id,
-                'phisical_name'    => $phisical_array[$phisical_id],
+                'phisical_name'     => $phisical_array[$phisical_id],
                 'player_id'         => $player_array[$i]['player_id'],
                 'schedule_id'       => $schedule_array[$j]['schedule_id'],
             );
