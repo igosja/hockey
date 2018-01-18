@@ -22,6 +22,7 @@ function f_igosja_generator_plus_minus()
             ON `game_schedule_id`=`schedule_id`
             WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             AND `game_played`=0
+            AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_FRIENDLY . "
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 
