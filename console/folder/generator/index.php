@@ -20,6 +20,7 @@ $function_array = array(
     'f_igosja_generator_update_team_statistic',
     'f_igosja_generator_update_player_statistic',
     'f_igosja_generator_user_rating',
+    'f_igosja_generator_country_auto',
     'f_igosja_generator_team_visitor_after_game',
     'f_igosja_generator_team_visitor',
     'f_igosja_generator_plus_minus',

@@ -116,7 +116,7 @@ function f_igosja_generator_rating()
         }
         elseif (RATING_COUNTRY_AUTO == $item['ratingtype_id'])
         {
-            $order = '`country_auto`';
+            $order = '`country_auto`/`country_game`';
             $place = 'ratingcountry_auto_place';
         }
 
