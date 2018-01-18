@@ -13,6 +13,11 @@ if (!isset($auth_user_id))
     redirect('/wrong_page.php');
 }
 
+if (0 == $auth_team_id)
+{
+    redirect('/team_ask.php');
+}
+
 $num_get = $auth_user_id;
 
 include(__DIR__ . '/include/sql/user_view.php');
@@ -33,25 +38,25 @@ if ($data = f_igosja_request_get('ok'))
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: база команды достигла 5-го уровня';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`player_id`) AS `count`
+    $sql = "SELECT COUNT(`player_id`) AS `check`
             FROM `player`
             WHERE `player_rent_team_id`=$auth_team_id";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: в команде находятся арендованные игроки';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`player_id`) AS `count`
+    $sql = "SELECT COUNT(`player_id`) AS `check`
             FROM `player`
             WHERE `player_team_id`=$auth_team_id
             AND `player_rent_team_id`!=0";
@@ -59,15 +64,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды находятся в аренде';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`player_id`) AS `count`
+    $sql = "SELECT COUNT(`player_id`) AS `check`
             FROM `player`
             WHERE `player_team_id`=$auth_team_id
             AND `player_national_id`!=0";
@@ -75,15 +80,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: в команде есть игроки сборной';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+    $sql = "SELECT COUNT(`buildingbase_id`) AS `check`
             FROM `buildingbase`
             WHERE `buildingbase_team_id`=$auth_team_id
             AND `buildingbase_ready`=0";
@@ -91,15 +96,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`buildingbase_id`) AS `count`
+    $sql = "SELECT COUNT(`buildingbase_id`) AS `check`
             FROM `buildingbase`
             WHERE `buildingbase_team_id`=$auth_team_id
             AND `buildingbase_ready`=0";
@@ -107,15 +112,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
+    $sql = "SELECT COUNT(`buildingstadium_id`) AS `check`
             FROM `buildingstadium`
             WHERE `buildingstadium_team_id`=$auth_team_id
             AND `buildingstadium_ready`=0";
@@ -123,15 +128,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
+    $sql = "SELECT COUNT(`buildingstadium_id`) AS `check`
             FROM `buildingstadium`
             WHERE `buildingstadium_team_id`=$auth_team_id
             AND `buildingstadium_ready`=0";
@@ -139,15 +144,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`rent_id`) AS `count`
+    $sql = "SELECT COUNT(`rent_id`) AS `check`
             FROM `rent`
             WHERE `rent_team_seller_id`=$auth_team_id
             AND `rent_ready`=0";
@@ -155,15 +160,15 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды выставлены на аренду';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
-    $sql = "SELECT COUNT(`transfer_id`) AS `count`
+    $sql = "SELECT COUNT(`transfer_id`) AS `check`
             FROM `transfer`
             WHERE `transfer_team_seller_id`=$auth_team_id
             AND `transfer_ready`=0";
@@ -171,12 +176,12 @@ if ($data = f_igosja_request_get('ok'))
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (0 != $check_array)
+    if (0 != $check_array[0]['check'])
     {
         $_SESSION['message']['class']   = 'error';
         $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды выставлены на продажу';
 
-        refresh();
+        redirect('/user_re_registration.php');
     }
 
     $sql = "SELECT `player_id`
@@ -192,9 +197,16 @@ if ($data = f_igosja_request_get('ok'))
         $player_id = $item['player_id'];
 
         $log = array(
-            'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,
+            'history_historytext_id' => HISTORYTEXT_PLAYER_PENSION_SAY,
+            'history_player_id' => $player_id,
             'history_team_id' => $auth_team_id,
-            'history_user_id' => $auth_user_id,
+        );
+        f_igosja_history($log);
+
+        $log = array(
+            'history_historytext_id' => HISTORYTEXT_PLAYER_PENSION_GO,
+            'history_player_id' => $player_id,
+            'history_team_id' => $auth_team_id,
         );
         f_igosja_history($log);
     }
@@ -244,8 +256,7 @@ if ($data = f_igosja_request_get('ok'))
             ON `stadium_id`=`team_stadium_id`
             SET `stadium_capacity`=100,
                 `stadium_maintenance`=ROUND(POW(100, 1.3))
-            WHERE `team_id`=$auth_team_id
-            LIMIT 1";
+            WHERE `team_id`=$auth_team_id";
     f_igosja_mysqli_query($sql);
 
     $log = array(
@@ -471,8 +482,8 @@ if ($data = f_igosja_request_get('ok'))
     redirect('/team_view.php');
 }
 
-$seo_title          = $user_array[0]['user_login'] . '. Отказ от команды';
-$seo_description    = $user_array[0]['user_login'] . '. Отказ от команды на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = $user_array[0]['user_login'] . ' oтказ от команды';
+$seo_title          = $user_array[0]['user_login'] . '. Преререгистрация команды';
+$seo_description    = $user_array[0]['user_login'] . '. Преререгистрация команды на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = $user_array[0]['user_login'] . ' преререгистрация команды';
 
 include(__DIR__ . '/view/layout/main.php');

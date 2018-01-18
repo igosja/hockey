@@ -12,6 +12,11 @@ if (!isset($auth_user_id))
     redirect('/wrong_page.php');
 }
 
+if (0 == $auth_team_id)
+{
+    redirect('/team_ask.php');
+}
+
 $num_get = $auth_user_id;
 
 include(__DIR__ . '/include/sql/user_view.php');
