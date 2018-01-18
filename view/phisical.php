@@ -25,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($on_building) { ?> del<?php } ?>">
-                Бонус к изменению услатости:
+                Бонус к изменению усталости:
                 <span class="strong"><?= $basephisical_array[0]['basephisical_tire_bonus']; ?>%</span>
             </div>
         </div>
