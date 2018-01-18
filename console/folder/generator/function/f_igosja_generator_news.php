@@ -61,7 +61,7 @@ function f_igosja_generator_news()
     }
     else
     {
-        $day = 'понедельник';
+        $day = 'субботу';
     }
 
     $title  = 'Вести с арен';
