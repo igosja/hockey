@@ -20,21 +20,32 @@ function admin_bell()
     $.ajax({
         dataType: 'json',
         success: function (data) {
-            $('.admin-bell').html(data.bell);
-            $('.admin-support').html(data.support);
-            $('.admin-teamask').html(data.teamask);
-            $('.admin-vote').html(data.vote);
+            $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
                 $('title').text('(' + data.bell + ') Административный раздел');
+            } else {
+                $('title').text('Административный раздел');
             }
+
+            $('.admin-support').html(data.support);
             if (data.support > 0) {
                 $('.panel-support').show();
+            } else {
+                $('.panel-support').hide();
             }
+
+            $('.admin-teamask').html(data.teamask);
             if (data.teamask > 0) {
                 $('.panel-teamask').show();
+            } else {
+                $('.panel-teamask').hide();
             }
+
+            $('.admin-vote').html(data.vote);
             if (data.vote > 0) {
                 $('.panel-vote').show();
+            } else {
+                $('.panel-vote').hide();
             }
         },
         url: '/admin/json/bell.php'
