@@ -36,8 +36,8 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-        <div class="panel panel-primary panel-teamask" <?php if (0 == $teamask_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-teamask" <?php if (0 == $teamask_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -58,8 +58,8 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-        <div class="panel panel-red panel-support" <?php if (0 == $support_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-support" <?php if (0 == $support_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+        <div class="panel panel-red panel-support">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -80,8 +80,8 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-        <div class="panel panel-yellow panel-vote" <?php if (0 == $vote_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-vote" <?php if (0 == $vote_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+        <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">

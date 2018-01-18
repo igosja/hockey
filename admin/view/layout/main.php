@@ -42,19 +42,19 @@
                     <li>
                         <a href="/admin/teamask_list.php">
                             <i class="fa fa-user fa-fw"></i> Заявки на команды
-                            <span class="badge" class="admin-teamask"></span>
+                            <span class="badge admin-teamask"></span>
                         </a>
                     </li>
                     <li>
                         <a href="/admin/support_list.php">
                             <i class="fa fa-comments fa-fw"></i> Тех. поддержка
-                            <span class="badge" class="admin-support"></span>
+                            <span class="badge admin-support"></span>
                         </a>
                     </li>
                     <li>
                         <a href="/admin/vote_list.php">
                             <i class="fa fa-bar-chart  fa-fw"></i> Опросы
-                            <span class="badge" class="admin-vote"></span>
+                            <span class="badge admin-vote"></span>
                         </a>
                     </li>
                 </ul>
