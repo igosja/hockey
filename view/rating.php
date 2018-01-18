@@ -401,7 +401,7 @@
                         </td>
                         <td class="text-center"><?= $item['country_game']; ?></td>
                         <td class="text-center"><?= $item['country_auto']; ?></td>
-                        <td class="text-center"><?= round($item['country_auto'] / ($item['country_game'] ? $item['country_game'] : 1), 1); ?></td>
+                        <td class="text-center"><?= round($item['country_auto'] / ($item['country_game'] ? $item['country_game'] : 1) * 100, 1); ?>%</td>
                     </tr>
                 <?php } ?>
                 <tr>
