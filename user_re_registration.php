@@ -19,6 +19,23 @@ include(__DIR__ . '/include/sql/user_view.php');
 
 if ($data = f_igosja_request_get('ok'))
 {
+    $sql = "SELECT `base_level`
+            FROM `team`
+            LEFT JOIN `base`
+            ON `team_base_id`=`base_id`
+            WHERE `team_id`=$auth_team_id";
+    $check_sql = f_igosja_mysqli_query($sql);
+
+    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+    if ($check_array[0]['base_level'] >= 5)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: база команды достигла 5-го уровня';
+
+        refresh();
+    }
+
     $sql = "SELECT COUNT(`player_id`) AS `count`
             FROM `player`
             WHERE `player_rent_team_id`=$auth_team_id";
