@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @var $auth_country_id integer
+ * @var $auth_user_id integer
  * @var $country_array array
  */
 
@@ -59,6 +61,22 @@ $total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
+
+if (isset($auth_user_id) && isset($auth_country_id) && $num_get = $auth_country_id)
+{
+    $sql = "UPDATE `user`
+            SET `user_countrynews_id`=
+            (
+                SELECT `news_id`
+                FROM `news`
+                WHERE `news_country_id`=$auth_country_id
+                ORDER BY `news_id` DESC
+                LIMIT 1
+            )
+            WHERE `user_id`=$auth_user_id
+            LIMIT 1";
+    f_igosja_mysqli_query($sql);
+}
 
 $seo_title          = $country_array[0]['country_name'] . '. Новости фередации';
 $seo_description    = $country_array[0]['country_name'] . '. Новости фередации на сайте Вирутальной Хоккейной Лиги.';

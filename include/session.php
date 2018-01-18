@@ -119,8 +119,6 @@ if (isset($_SESSION['user_id']))
     $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
     $count_vote = $vote_array[0]['count'];
 
-    unset ($vote_array);
-
     if ($count_vote)
     {
         $igosja_menu        = str_replace('count_vote', 'red', $igosja_menu);
@@ -130,6 +128,56 @@ if (isset($_SESSION['user_id']))
     {
         $igosja_menu        = str_replace('count_vote', '', $igosja_menu);
         $igosja_menu_mobile = str_replace('count_vote', '', $igosja_menu_mobile);
+    }
+
+    $sql = "SELECT COUNT(`news_id`) AS `count`
+            FROM `news`
+            WHERE `news_id`>
+            (
+                SELECT `user_news_id`
+                FROM `user`
+                WHERE `user_id`=$auth_user_id
+            )
+            AND `news_country_id`=0";
+    $news_sql = f_igosja_mysqli_query($sql);
+
+    $news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
+    $count_news = $news_array[0]['count'];
+
+    if ($count_news)
+    {
+        $igosja_menu        = str_replace('count_news', 'red', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_news', 'red', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('count_news', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_news', '', $igosja_menu_mobile);
+    }
+
+    $sql = "SELECT COUNT(`news_id`) AS `count`
+            FROM `news`
+            WHERE `news_id`>
+            (
+                SELECT `user_countrynews_id`
+                FROM `user`
+                WHERE `user_id`=$auth_user_id
+            )
+            AND `news_country_id`=$auth_country_id";
+    $countrynews_sql = f_igosja_mysqli_query($sql);
+
+    $countrynews_array = $countrynews_sql->fetch_all(MYSQLI_ASSOC);
+    $count_countrynews = $countrynews_array[0]['count'];
+
+    if ($count_countrynews)
+    {
+        $igosja_menu        = str_replace('count_countrynews', 'red', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_countrynews', 'red', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('count_countrynews', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('count_countrynews', '', $igosja_menu_mobile);
     }
 
     $sql = "UPDATE `user`

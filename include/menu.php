@@ -8,7 +8,7 @@ $igosja_menu = array(
     array('label' => 'Игроки',          'url' => '/player_list.php'),
     array('label' => 'Команды',         'url' => '/team_list.php'),
     array('label' => 'Магазин',         'url' => '/shop.php'),
-    array('label' => 'Новости',         'url' => '/news.php'),
+    array('label' => 'Новости',         'url' => '/news.php',           'css' => 'count_news'),
     array('label' => 'Обмены',          'url' => 'javascript:;'),
     array('label' => 'Общение',         'url' => '/dialog_list.php',    'css' => 'count_dialog'),
     array('label' => 'Опросы',          'url' => '/vote_list.php',      'css' => 'count_vote'),
@@ -23,7 +23,7 @@ $igosja_menu = array(
     array('label' => 'Тех.поддержка',   'url' => '/support.php',        'css' => 'count_support'),
     array('label' => 'Трансфер',        'url' => '/transfer_list.php'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
-    array('label' => 'Федерация',       'url' => '/country_news.php'),
+    array('label' => 'Федерация',       'url' => '/country_news.php',   'css' => 'count_countrynews'),
     array('label' => 'Форум',           'url' => '/forum.php'),
 );
 
