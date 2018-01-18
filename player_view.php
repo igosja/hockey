@@ -19,7 +19,7 @@ $sql = "SELECT `game_id`,
                `lineup_assist`,
                `lineup_power_real`,
                `lineup_score`,
-               `position_name`,
+               `position_short`,
                `schedule_date`,
                `stage_name`,
                `tournamenttype_name`

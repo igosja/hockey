@@ -182,7 +182,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
-                   `position_name`
+                   `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
@@ -212,7 +212,7 @@ else
 }
 
 $sql = "SELECT `position_id`,
-               `position_name`
+               `position_short`
         FROM `position`
         ORDER BY `position_id` ASC";
 $position_sql = f_igosja_mysqli_query($sql);

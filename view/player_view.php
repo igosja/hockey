@@ -37,7 +37,7 @@
                     </td>
                     <td class="text-center"><?= $item['tournamenttype_name']; ?></td>
                     <td class="text-center"><?= $item['stage_name']; ?></td>
-                    <td class="text-center"><?= $item['position_name']; ?></td>
+                    <td class="text-center"><?= $item['position_short']; ?></td>
                     <td class="text-center"><?= $item['lineup_power_real']; ?></td>
                     <td class="text-center"><?= $item['lineup_score']; ?></td>
                     <td class="text-center"><?= $item['lineup_assist']; ?></td>

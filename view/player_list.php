@@ -70,7 +70,7 @@
                             selected
                         <?php } ?>
                     >
-                        <?= $item['position_name']; ?>
+                        <?= $item['position_short']; ?>
                     </option>
                 <?php } ?>
             </select>

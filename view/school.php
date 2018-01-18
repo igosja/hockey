@@ -115,7 +115,7 @@
                             </a>
                         </td>
                         <td class="text-center">17</td>
-                        <td class="text-center"><?= $school_array[0]['position_name']; ?></td>
+                        <td class="text-center"><?= $school_array[0]['position_short']; ?></td>
                         <td class="text-center"><?= $school_array[0]['special_name']; ?></td>
                         <td class="text-center"><?= $school_array[0]['style_name']; ?></td>
                         <td class="text-center"><?= $school_array[0]['school_day']; ?></td>
@@ -156,7 +156,7 @@
                                     <option value="0">-</option>
                                     <?php foreach ($position_array as $item) { ?>
                                         <option value="<?= $item['position_id']; ?>">
-                                            <?= $item['position_name']; ?>
+                                            <?= $item['position_short']; ?>
                                         </option>
                                     <?php } ?>
                                 </select>

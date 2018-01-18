@@ -122,8 +122,8 @@
                             </td>
                             <td class="text-center">
                                 <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
-                                <?php if ($item['position_name']) { ?>
-                                    + <?= $item['position_name']; ?>
+                                <?php if ($item['position_short']) { ?>
+                                    + <?= $item['position_short']; ?>
                                 <?php } ?>
                             </td>
                             <td class="text-center">

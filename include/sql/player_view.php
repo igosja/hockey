@@ -56,7 +56,7 @@ if (0 == $player_sql->num_rows)
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `playerposition_player_id`,
-               `position_name`
+               `position_short`
         FROM `playerposition`
         LEFT JOIN `position`
         ON `playerposition_position_id`=`position_id`

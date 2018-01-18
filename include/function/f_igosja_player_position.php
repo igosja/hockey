@@ -14,7 +14,7 @@ function f_igosja_player_position($player_id, $playerposition_array)
     {
         if ($item['playerposition_player_id'] == $player_id)
         {
-            $return_array[] = $item['position_name'];
+            $return_array[] = $item['position_short'];
         }
     }
 

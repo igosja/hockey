@@ -16,7 +16,7 @@ include(__DIR__ . '/include/sql/player_view.php');
 $sql = "SELECT `history_date`,
                `history_season_id`,
                `historytext_name`,
-               `position_name`,
+               `position_short`,
                `special_name`,
                `team_id`,
                `team_name`
@@ -56,7 +56,7 @@ for ($i=0; $i<$count_event; $i++)
     );
     $text = str_replace(
         '{position}',
-        $event_array[$i]['position_name'],
+        $event_array[$i]['position_short'],
         $text
     );
 

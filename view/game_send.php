@@ -283,7 +283,7 @@
                                     selected
                                 <?php } ?>
                             >
-                                <?= $item['position_name']; ?>
+                                <?= $item['position_short']; ?>
                                 -
                                 <?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?>
                                 -
@@ -400,7 +400,7 @@
             <?php foreach ($f_array as $item) { ?>
                 [
                     <?= $item['player_id']; ?>,
-                    '<?= $item['position_name']; ?> - <?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?> - <?= $item['surname_name']; ?> <?= $item['name_name']; ?>'
+                    '<?= $item['position_short']; ?> - <?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?> - <?= $item['surname_name']; ?> <?= $item['name_name']; ?>'
                 ],
             <?php } ?>
         ];

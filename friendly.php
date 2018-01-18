@@ -155,7 +155,15 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     if (FRIENDLY_STATUS_ALL == $team_array[0]['user_friendlystatus_id'])
     {
-        $stadium_id             = $team_array[0]['stadium_id'];
+        $sql = "SELECT `team_stadium_id`
+                FROM `team`
+                WHERE `team_id`=$auth_team_id
+                LIMIT 1";
+        $stadium_sql = f_igosja_mysqli_query($sql);
+
+        $stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
+
+        $stadium_id             = $stadium_array[0]['team_stadium_id'];
         $user_friendlystatus_id = $team_array[0]['user_friendlystatus_id'];
         $user_id                = $team_array[0]['user_id'];
 

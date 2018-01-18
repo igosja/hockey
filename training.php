@@ -226,7 +226,7 @@ if ($data = f_igosja_request_post('data'))
 
                         $position_id = (int) $item_array[1];
 
-                        $sql = "SELECT `position_name`
+                        $sql = "SELECT `position_short`
                                 FROM `position`
                                 WHERE `position_id`=$position_id
                                 LIMIT 1";
@@ -239,7 +239,7 @@ if ($data = f_igosja_request_post('data'))
                             'name' => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
                             'position' => array(
                                 'id' => $position_id,
-                                'name' => $position_array[0]['position_name'],
+                                'name' => $position_array[0]['position_short'],
                             ),
                         );
 
@@ -516,7 +516,7 @@ $sql = "SELECT `country_id`,
                `player_age`,
                `player_id`,
                `player_power_nominal`,
-               `position_name`,
+               `position_short`,
                `surname_name`,
                `special_name`,
                `training_percent`,
@@ -587,7 +587,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
-                   `position_name`
+                   `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
