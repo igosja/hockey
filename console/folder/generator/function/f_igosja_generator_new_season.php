@@ -29,7 +29,6 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_worldcup',
             'f_igosja_newseason_building_base',
             'f_igosja_newseason_building_stadium',
-            'f_igosja_newseason_phisicalchange',
             'f_igosja_newseason_phisical',
             'f_igosja_newseason_tire_base_level',
             'f_igosja_newseason_player_power_change',

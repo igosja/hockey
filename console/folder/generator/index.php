@@ -37,6 +37,7 @@ $function_array = array(
     'f_igosja_generator_scout',
     'f_igosja_generator_building_base',
     'f_igosja_generator_building_stadium',
+    'f_igosja_generator_stadium_maintenance',
     'f_igosja_generator_decrease_injury',
     'f_igosja_generator_set_injury',
     'f_igosja_generator_make_played',

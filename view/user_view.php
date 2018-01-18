@@ -71,6 +71,13 @@
         </table>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a href="/user_re_registration.php?num=<?= $num_get; ?>">Перерегистрировать команду</a>
+        |
+        <a href="/user_drop_team.php?num=<?= $num_get; ?>">Отказаться от команды</a>
+    </div>
+</div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
