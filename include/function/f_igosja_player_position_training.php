@@ -7,7 +7,7 @@
  */
 function f_igosja_player_position_training($player_id)
 {
-    $sql = "SELECT `position_name`
+    $sql = "SELECT `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
@@ -36,7 +36,7 @@ function f_igosja_player_position_training($player_id)
         else
         {
             $sql = "SELECT `position_id`,
-                           `position_name`
+                           `position_short`
                     FROM `position`
                     WHERE `position_id`!=" . POSITION_GK . "
                     AND `position_id` NOT IN
@@ -58,7 +58,7 @@ function f_igosja_player_position_training($player_id)
                     . '<option value="'
                     . $player_id . ':' . $item['position_id']
                     . '">'
-                    . $item['position_name']
+                    . $item['position_short']
                     . '</option>';
             }
 

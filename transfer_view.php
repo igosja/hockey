@@ -78,7 +78,7 @@ if (0 == $transfer_sql->num_rows)
 $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `transferposition_transfer_id` AS `playerposition_player_id`,
-               `position_name`
+               `position_short`
         FROM `transferposition`
         LEFT JOIN `position`
         ON `transferposition_position_id`=`position_id`

@@ -137,58 +137,58 @@ if ($data = f_igosja_request_post('data'))
         {
             $array_key          = 'gk';
             $count_player       = 2;
-            $position_name_1    = 'вратарей';
-            $position_name_2    = 'вратаря';
-            $position_name_3    = 'Вратари';
+            $position_short_1    = 'вратарей';
+            $position_short_2    = 'вратаря';
+            $position_short_3    = 'Вратари';
         }
         elseif (POSITION_LD == $position)
         {
             $array_key          = 'ld';
             $count_player       = 5;
-            $position_name_1    = 'левых защитников';
-            $position_name_2    = 'левых защитников';
-            $position_name_3    = 'Левые защитники';
+            $position_short_1    = 'левых защитников';
+            $position_short_2    = 'левых защитников';
+            $position_short_3    = 'Левые защитники';
         }
         elseif (POSITION_RD == $position)
         {
             $array_key          = 'rd';
             $count_player       = 5;
-            $position_name_1    = 'правых защитников';
-            $position_name_2    = 'правых защитников';
-            $position_name_3    = 'Правые защитники';
+            $position_short_1    = 'правых защитников';
+            $position_short_2    = 'правых защитников';
+            $position_short_3    = 'Правые защитники';
         }
         elseif (POSITION_LW == $position)
         {
             $array_key          = 'lw';
             $count_player       = 5;
-            $position_name_1    = 'левых нападающих';
-            $position_name_2    = 'левых нападающих';
-            $position_name_3    = 'Левые нападающие';
+            $position_short_1    = 'левых нападающих';
+            $position_short_2    = 'левых нападающих';
+            $position_short_3    = 'Левые нападающие';
         }
         elseif (POSITION_C == $position)
         {
             $array_key          = 'c';
             $count_player       = 5;
-            $position_name_1    = 'центральных нападающих';
-            $position_name_2    = 'центральных нападающих';
-            $position_name_3    = 'Центральные нападающие';
+            $position_short_1    = 'центральных нападающих';
+            $position_short_2    = 'центральных нападающих';
+            $position_short_3    = 'Центральные нападающие';
         }
         else
         {
             $array_key          = 'rw';
             $count_player       = 5;
-            $position_name_1    = 'правых нападающих';
-            $position_name_2    = 'правых нападающих';
-            $position_name_3    = 'Правые нападающие';
+            $position_short_1    = 'правых нападающих';
+            $position_short_2    = 'правых нападающих';
+            $position_short_3    = 'Правые нападающие';
         }
 
         if (!isset($data[$array_key]))
         {
-            $error_array[] = 'Нужно выбрать ' . $position_name_1;
+            $error_array[] = 'Нужно выбрать ' . $position_short_1;
         }
         elseif ($count_player != count($data[$array_key]))
         {
-            $error_array[] = 'В заявке должно быть ' . $count_player . ' ' . $position_name_2;
+            $error_array[] = 'В заявке должно быть ' . $count_player . ' ' . $position_short_2;
         }
         else
         {
@@ -210,7 +210,7 @@ if ($data = f_igosja_request_post('data'))
 
                 if (0 == $chech_array[0]['count'])
                 {
-                    $error_array[] = $position_name_3 . ' выбраны неправильно';
+                    $error_array[] = $position_short_3 . ' выбраны неправильно';
                 }
             }
         }
@@ -524,7 +524,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
-                   `position_name`
+                   `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`

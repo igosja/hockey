@@ -109,7 +109,7 @@ if ($data = f_igosja_request_post('data'))
         $position_id = rand(POSITION_GK, POSITION_RW);
     }
 
-    $sql = "SELECT `position_name`
+    $sql = "SELECT `position_short`
             FROM `position`
             WHERE `position_id`=$position_id
             LIMIT 1";
@@ -119,7 +119,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $position_id = rand(POSITION_GK, POSITION_RW);
 
-        $sql = "SELECT `position_name`
+        $sql = "SELECT `position_short`
                 FROM `position`
                 WHERE `position_id`=$position_id
                 LIMIT 1";
@@ -130,7 +130,7 @@ if ($data = f_igosja_request_post('data'))
 
     $confirm_data['position'] = array(
         'id'    => $position_id,
-        'name'  => $position_array[0]['position_name'],
+        'name'  => $position_array[0]['position_short'],
     );
 
     if (isset($data['special_id']))
@@ -222,7 +222,7 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
-$sql = "SELECT `position_name`,
+$sql = "SELECT `position_short`,
                `school_day`,
                `special_name`,
                `style_name`
@@ -257,7 +257,7 @@ $player_sql = f_igosja_mysqli_query($sql);
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `position_id`,
-               `position_name`
+               `position_short`
         FROM `position`
         ORDER BY `position_id` ASC";
 $position_sql = f_igosja_mysqli_query($sql);

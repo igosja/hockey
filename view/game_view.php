@@ -256,7 +256,7 @@
             <?php foreach ($home_array as $item) { ?>
                 <tr>
                     <td class="text-center">
-                        <?= $item['position_name']; ?>
+                        <?= $item['position_short']; ?>
                     </td>
                     <td>
                         <a href="/player_view.php?num=<?= $item['player_id']; ?>">
@@ -316,7 +316,7 @@
             <?php foreach ($guest_array as $item) { ?>
                 <tr>
                     <td class="text-center">
-                        <?= $item['position_name']; ?>
+                        <?= $item['position_short']; ?>
                     </td>
                     <td>
                         <a href="/player_view.php?num=<?= $item['player_id']; ?>">

@@ -385,7 +385,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
-                   `position_name`
+                   `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
@@ -426,7 +426,7 @@ else
 $sql = "SELECT `name_name`,
                `player_id`,
                $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -449,7 +449,7 @@ $gk_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `name_name`,
                `player_id`,
                ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -472,7 +472,7 @@ $ld_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `name_name`,
                `player_id`,
                ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -495,7 +495,7 @@ $rd_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `name_name`,
                `player_id`,
                ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -518,7 +518,7 @@ $lw_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `name_name`,
                `player_id`,
                ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -541,7 +541,7 @@ $c_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `name_name`,
                `player_id`,
                ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_name`,
+               `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`

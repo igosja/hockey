@@ -47,7 +47,7 @@ if (count($transfer_id))
     $transfer_id = implode(', ', $transfer_id);
 
     $sql = "SELECT `transferposition_transfer_id` AS `playerposition_player_id`,
-                   `position_name`
+                   `position_short`
             FROM `transferposition`
             LEFT JOIN `position`
             ON `transferposition_position_id`=`position_id`
