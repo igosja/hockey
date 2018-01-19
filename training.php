@@ -510,6 +510,104 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
+if ($cancel_get = (int) f_igosja_request_get('cancel'))
+{
+    $sql = "SELECT `name_name`,
+                   `position_short`,
+                   `special_name`,
+                   `surname_name`,
+                   `training_power`
+            FROM `training`
+            LEFT JOIN `player`
+            ON `training_player_id`=`player_id`
+            LEFT JOIN `name`
+            ON `player_name_id`=`name_id`
+            LEFT JOIN `surname`
+            ON `player_surname_id`=`surname_id`
+            LEFT JOIN `position`
+            ON `training_position_id`=`position_id`
+            LEFT JOIN `special`
+            ON `training_special_id`=`special_id`
+            WHERE `training_season_id`=$igosja_season_id
+            AND `training_ready`=0
+            AND `training_team_id`=$num_get
+            AND `training_id`=$cancel_get
+            LIMIT 1";
+    $cancel_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $cancel_sql->num_rows)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+
+        redirect('/training.php');
+    }
+
+    $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
+
+    if ($cancel_array['special_name'])
+    {
+        $cancel_price = $basetraining_array[0]['basetraining_special_price'];
+    }
+    elseif ($cancel_array['position_short'])
+    {
+        $cancel_price = $basetraining_array[0]['basetraining_position_price'];
+    }
+    else
+    {
+        $cancel_price = $basetraining_array[0]['basetraining_power_price'];
+    }
+
+    if (f_igosja_request_get('ok'))
+    {
+        $sql = "SELECT `team_finance`
+                FROM `team`
+                WHERE `team_id`=$num_get
+                LIMIT 1";
+        $team_sql = f_igosja_mysqli_query($sql);
+
+        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "UPDATE `team`
+                SET `team_finance`=`team_finance`+$cancel_price
+                WHERE `team_id`=$num_get
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        if ($cancel_array['special_name'])
+        {
+            $financetext_id = FINANCETEXT_INCOME_TRAINING_SPECIAL;
+        }
+        elseif ($cancel_array['position_short'])
+        {
+            $financetext_id = FINANCETEXT_INCOME_TRAINING_POSITION;
+        }
+        else
+        {
+            $financetext_id = FINANCETEXT_INCOME_TRAINING_POWER;
+        }
+
+        $finance = array(
+            'finance_financetext_id' => $financetext_id,
+            'finance_team_id' => $auth_team_id,
+            'finance_value' => $cancel_price,
+            'finance_value_after' => $team_array[0]['team_finance'] + $cancel_price,
+            'finance_value_before' => $team_array[0]['team_finance'],
+        );
+        f_igosja_finance($finance);
+
+        $sql = "DELETE FROM `training`
+                WHERE `training_id`=$cancel_get
+                LIMIT 1";
+        f_igosja_request_get($sql);
+
+        $_SESSION['message']['class']   = 'success';
+        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+
+        redirect('/training.php');
+    }
+}
+
 $sql = "SELECT `country_id`,
                `country_name`,
                `name_name`,
@@ -517,8 +615,9 @@ $sql = "SELECT `country_id`,
                `player_id`,
                `player_power_nominal`,
                `position_short`,
-               `surname_name`,
                `special_name`,
+               `surname_name`,
+               `training_id`,
                `training_percent`,
                `training_power`
         FROM `training`
