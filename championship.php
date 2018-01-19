@@ -148,7 +148,7 @@ if (ROUND_SEASON == $round_id)
         $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
         $schedule_id    = $schedule_array[0]['schedule_id'];
-        $stage_id       = $schedule_array[0]['schedule_id'];
+        $stage_id       = $schedule_array[0]['schedule_stage_id'];
     }
     else
     {
