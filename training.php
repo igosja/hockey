@@ -558,7 +558,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         $cancel_price = $basetraining_array[0]['basetraining_power_price'];
     }
 
-    if (f_igosja_request_get('ok'))
+    if (1 == f_igosja_request_get('ok'))
     {
         $sql = "SELECT `team_finance`
                 FROM `team`
