@@ -15,6 +15,9 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
                 Строительство стадиона
+                <a href="/stadium_cancel.php">
+                    <img alt="Отменить строительство" src="/img/delete.png" title="Отменить строительство" />
+                </a>
             </div>
         </div>
     </div>
