@@ -61,12 +61,12 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         FROM `message`
         LEFT JOIN `user`
         ON `message_user_id_from`=`user_id`
-        WHERE (`message_user_id_to`=$num_get
+        WHERE ((`message_user_id_to`=$num_get
         AND `message_user_id_from`=$auth_user_id
         AND `message_delete_from`=0)
         OR (`message_user_id_from`=$num_get
         AND `message_user_id_to`=$auth_user_id
-        AND `message_delete_to`=0)
+        AND `message_delete_to`=0))
         AND `message_support_to`=0
         AND `message_support_from`=0
         ORDER BY `message_id` DESC
