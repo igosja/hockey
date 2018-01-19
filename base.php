@@ -588,7 +588,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
-if ($cancel = f_igosja_request_get('cancel'))
+if ($cancel_get = (int) f_igosja_request_get('cancel'))
 {
     $sql = "SELECT `buildingbase_building_id`,
                    `buildingbase_constructiontype_id`,
@@ -620,22 +620,22 @@ if ($cancel = f_igosja_request_get('cancel'))
 
     $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
-    $price = -$finance_array[0]['finance_value'];
+    $cancel_price = -$finance_array[0]['finance_value'];
 
     if (1 == f_igosja_request_get('ok'))
     {
         $sql = "DELETE FROM `buildingbase`
-                WHERE `buildingbase_id`=$cancel
+                WHERE `buildingbase_id`=$cancel_get
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `team`
-                SET `team_finance`=`team_finance`+$price
+                SET `team_finance`=`team_finance`+$cancel_price
                 WHERE `team_id`=$num_get
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        if ($price > 0)
+        if ($cancel_price > 0)
         {
             $financetext_id = FINANCETEXT_INCOME_BUILDING_BASE;
         }
@@ -648,8 +648,8 @@ if ($cancel = f_igosja_request_get('cancel'))
             'finance_capacity' => $stadium_array[0]['stadium_capacity'],
             'finance_financetext_id' => $financetext_id,
             'finance_team_id' => $num_get,
-            'finance_value' => $price,
-            'finance_value_after' => $stadium_array[0]['team_finance'] + $price,
+            'finance_value' => $cancel_price,
+            'finance_value_after' => $stadium_array[0]['team_finance'] + $cancel_price,
             'finance_value_before' => $stadium_array[0]['team_finance'],
         );
         f_igosja_finance($finance);
