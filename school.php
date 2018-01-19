@@ -222,8 +222,52 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
+if ($cancel_get = (int) f_igosja_request_get('cancel'))
+{
+    $sql = "SELECT `position_short`,
+                   `special_name`,
+                   `style_name`
+            FROM `school`
+            LEFT JOIN `position`
+            ON `school_position_id`=`position_id`
+            LEFT JOIN `special`
+            ON `school_special_id`=`special_id`
+            LEFT JOIN `style`
+            ON `school_style_id`=`style_id`
+            WHERE `school_ready`=0
+            AND `school_team_id`=$num_get
+            AND `school_id`=$cancel_get
+            LIMIT 1";
+    $cancel_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $cancel_sql->num_rows)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+
+        redirect('/school.php');
+    }
+
+    $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (f_igosja_request_get('ok'))
+    {
+        $sql = "DELETE FROM `school`
+                WHERE `school_id`=$cancel_get
+                LIMIT 1";
+        f_igosja_request_get($sql);
+
+        $_SESSION['message']['class']   = 'success';
+        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+
+
+        redirect('/school.php');
+    }
+}
+
 $sql = "SELECT `position_short`,
                `school_day`,
+               `school_id`,
                `special_name`,
                `style_name`
         FROM `school`
