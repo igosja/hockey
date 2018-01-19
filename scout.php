@@ -215,7 +215,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (f_igosja_request_get('ok'))
+    if (1 == f_igosja_request_get('ok'))
     {
         $cancel_price = $basescout_array[0]['basescout_my_style_price'];
 
