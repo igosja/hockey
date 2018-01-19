@@ -630,9 +630,9 @@ if ($cancel = f_igosja_request_get('cancel'))
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `team`
-            SET `team_finance`=`team_finance`+$price
-            WHERE `team_id`=$num_get
-            LIMIT 1";
+                SET `team_finance`=`team_finance`+$price
+                WHERE `team_id`=$num_get
+                LIMIT 1";
         f_igosja_mysqli_query($sql);
 
         if ($price > 0)
