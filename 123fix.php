@@ -1,5 +1,7 @@
 <?php
 
+/* @var $igosja_season_id integer */
+
 include(__DIR__ . '/include/include.php');
 
 $sql = "UPDATE `championship`
@@ -69,7 +71,7 @@ foreach ($game_array as $game) {
             $home_loose_over++;
         }
     } elseif ($game['game_guest_score'] == $game['game_home_score']) {
-        if (0 == $game['game_home_score_bullet']) {
+        if ($game['game_guest_score_bullet'] > $game['game_home_score_bullet']) {
             $guest_win_bullet++;
             $home_loose_bullet++;
         } else {
