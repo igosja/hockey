@@ -83,10 +83,12 @@ $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 $price = -$finance_array[0]['finance_value'];
 
-if (f_igosja_request_get('ok'))
+if (1 == f_igosja_request_get('ok'))
 {
     $sql = "DELETE FROM `buildingstadium`
-            WHERE `buildingstadium_ready`=0";
+            WHERE `buildingstadium_ready`=0
+            AND `buildingstadium_team_id`=$num_get
+            LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `team`
