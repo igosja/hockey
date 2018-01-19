@@ -186,6 +186,74 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
+if ($cancel_get = (int) f_igosja_request_get('cancel'))
+{
+    $sql = "SELECT `name_name`,
+                   `scout_style`,
+                   `surname_name`
+            FROM `scout`
+            LEFT JOIN `player`
+            ON `scout_player_id`=`player_id`
+            LEFT JOIN `name`
+            ON `player_name_id`=`name_id`
+            LEFT JOIN `surname`
+            ON `player_surname_id`=`surname_id`
+            WHERE `scout_season_id`=$igosja_season_id
+            AND `scout_ready`=0
+            AND `scout_team_id`=$num_get
+            AND `scout_id`=$cancel_get
+            ORDER BY `scout_id` ASC";
+    $cancel_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $cancel_sql->num_rows)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+
+        refresh();
+    }
+
+    $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (f_igosja_request_get('ok'))
+    {
+        $cancel_price = $basescout_array[0]['basescout_my_style_price'];
+
+        $sql = "SELECT `team_finance`
+                FROM `team`
+                WHERE `team_id`=$num_get
+                LIMIT 1";
+        $team_sql = f_igosja_mysqli_query($sql);
+
+        $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "UPDATE `team`
+                SET `team_finance`=`team_finance`+$cancel_price
+                WHERE `team_id`=$num_get
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $finance = array(
+            'finance_financetext_id' => FINANCETEXT_INCOME_SCOUT_STYLE,
+            'finance_team_id' => $auth_team_id,
+            'finance_value' => $cancel_price,
+            'finance_value_after' => $team_array[0]['team_finance'] + $cancel_price,
+            'finance_value_before' => $team_array[0]['team_finance'],
+        );
+        f_igosja_finance($finance);
+
+        $sql = "DELETE FROM `scout`
+                WHERE `scout_id`=$cancel_get
+                LIMIT 1";
+        f_igosja_request_get($sql);
+
+        $_SESSION['message']['class']   = 'success';
+        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+
+        redirect('/scout.php');
+    }
+}
+
 $sql = "SELECT `country_id`,
                `country_name`,
                `name_name`,
@@ -193,6 +261,7 @@ $sql = "SELECT `country_id`,
                `player_id`,
                `player_power_nominal`,
                `surname_name`,
+               `scout_id`,
                `scout_percent`,
                `scout_style`
         FROM `scout`
