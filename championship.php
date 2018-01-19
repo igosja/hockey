@@ -122,7 +122,8 @@ if (ROUND_SEASON == $round_id)
 
     if (!$stage_id = (int) f_igosja_request_get('stage_id'))
     {
-        $sql = "SELECT `schedule_id`
+        $sql = "SELECT `schedule_id`,
+                       `schedule_stage_id`
                 FROM `schedule`
                 WHERE `schedule_date`<=UNIX_TIMESTAMP()
                 AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
@@ -133,7 +134,8 @@ if (ROUND_SEASON == $round_id)
 
         if (0 == $schedule_sql->num_rows)
         {
-            $sql = "SELECT `schedule_id`
+            $sql = "SELECT `schedule_id`,
+                           `schedule_stage_id`
                     FROM `schedule`
                     WHERE `schedule_date`>UNIX_TIMESTAMP()
                     AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
@@ -145,7 +147,8 @@ if (ROUND_SEASON == $round_id)
 
         $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
-        $schedule_id = $schedule_array[0]['schedule_id'];
+        $schedule_id    = $schedule_array[0]['schedule_id'];
+        $stage_id       = $schedule_array[0]['schedule_id'];
     }
     else
     {
@@ -169,7 +172,9 @@ if (ROUND_SEASON == $round_id)
     }
 
     $sql = "SELECT `game_id`,
+                   `game_guest_auto`,
                    `game_guest_score`,
+                   `game_home_auto`,
                    `game_home_score`,
                    `game_played`,
                    `guest_team`.`team_id` AS `guest_team_id`,
