@@ -250,7 +250,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (f_igosja_request_get('ok'))
+    if (1 == f_igosja_request_get('ok'))
     {
         $sql = "DELETE FROM `school`
                 WHERE `school_id`=$cancel_get
