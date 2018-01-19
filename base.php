@@ -21,7 +21,8 @@ include(__DIR__ . '/include/sql/team_view_left.php');
 
 $buildingbase_array = array();
 
-$sql = "SELECT `buildingbase_building_id`
+$sql = "SELECT `buildingbase_building_id`,
+               `buildingbase_id`
         FROM `buildingbase`
         WHERE `buildingbase_team_id`=$num_get
         AND `buildingbase_ready`=0";
@@ -587,6 +588,79 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     }
 }
 
+if ($cancel = f_igosja_request_get('cancel'))
+{
+    $sql = "SELECT `buildingbase_building_id`,
+                   `buildingbase_constructiontype_id`,
+            FROM `buildingbase`
+            WHERE `buildingbase_team_id`=$num_get
+            AND `buildingbase_ready`=0
+            AND `buildingbase_id`=$igosja_season_id";
+    $buildingbase_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $buildingbase_sql->num_rows)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Строительство выбрано неправильно';
+    }
+
+    $sql = "SELECT `finance_value`
+            FROM `finance`
+            WHERE `finance_team_id`=$num_get
+            AND `finance_financetext_id` IN (" . FINANCETEXT_INCOME_BUILDING_BASE . ", " . FINANCETEXT_OUTCOME_BUILDING_BASE . ")
+            ORDER BY `finance_id` DESC
+            LIMIT 1";
+    $finance_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $finance_sql->num_rows)
+    {
+        $_SESSION['message']['class']   = 'error';
+        $_SESSION['message']['text']    = 'Строительство выбрано неправильно';
+    }
+
+    $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
+
+    $price = -$finance_array[0]['finance_value'];
+
+    if (1 == f_igosja_request_get('ok'))
+    {
+        $sql = "DELETE FROM `buildingbase`
+                WHERE `buildingbase_id`=$cancel
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `team`
+            SET `team_finance`=`team_finance`+$price
+            WHERE `team_id`=$num_get
+            LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        if ($price > 0)
+        {
+            $financetext_id = FINANCETEXT_INCOME_BUILDING_BASE;
+        }
+        else
+        {
+            $financetext_id = FINANCETEXT_OUTCOME_BUILDING_BASE;
+        }
+
+        $finance = array(
+            'finance_capacity' => $stadium_array[0]['stadium_capacity'],
+            'finance_financetext_id' => $financetext_id,
+            'finance_team_id' => $num_get,
+            'finance_value' => $price,
+            'finance_value_after' => $stadium_array[0]['team_finance'] + $price,
+            'finance_value_before' => $stadium_array[0]['team_finance'],
+        );
+        f_igosja_finance($finance);
+
+        $_SESSION['message']['class']   = 'success';
+        $_SESSION['message']['text']    = 'Строительство успешно отменено.';
+
+        redirect('/base.php');
+    }
+}
+
 $sql = "SELECT COUNT(`training_id`) AS `count`
         FROM `training`
         WHERE `training_team_id`=$num_get
@@ -753,8 +827,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASE == $buildingbase_array[0]['buildingbase_building_id'])
     {
         $link_base_array[] = array(
-            'href' => 'javascript:',
-            'text' => 'Идет строительство',
+            'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+            'text' => 'Отменить строительство',
         );
 
         $link_training_array[] = array(
@@ -810,8 +884,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASETRAINING == $buildingbase_array[0]['buildingbase_building_id'])
         {
             $link_training_array[] = array(
-                'href' => 'javascript:',
-                'text' => 'Идет строительство',
+                'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+                'text' => 'Отменить строительство',
             );
 
             $del_training   = true;
@@ -846,8 +920,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEPHISICAL == $buildingbase_array[0]['buildingbase_building_id'])
         {
             $link_phisical_array[] = array(
-                'href' => 'javascript:',
-                'text' => 'Идет строительство',
+                'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+                'text' => 'Отменить строительство',
             );
 
             $del_phisical   = true;
@@ -882,8 +956,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCHOOL == $buildingbase_array[0]['buildingbase_building_id'])
         {
             $link_school_array[] = array(
-                'href' => 'javascript:',
-                'text' => 'Идет строительство',
+                'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+                'text' => 'Отменить строительство',
             );
 
             $del_medical    = true;
@@ -918,8 +992,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASESCOUT == $buildingbase_array[0]['buildingbase_building_id'])
         {
             $link_scout_array[] = array(
-                'href' => 'javascript:',
-                'text' => 'Идет строительство',
+                'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+                'text' => 'Отменить строительство',
             );
 
             $del_scout      = true;
@@ -954,8 +1028,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         if ($count_buildingbase && isset($buildingbase_array[0]['buildingbase_building_id']) && BUILDING_BASEMEDICAL == $buildingbase_array[0]['buildingbase_building_id'])
         {
             $link_medical_array[] = array(
-                'href' => 'javascript:',
-                'text' => 'Идет строительство',
+                'href' => '/base.php?cancel=' . $buildingbase_array[0]['buildingbase_id'],
+                'text' => 'Отменить строительство',
             );
 
             $del_medical    = true;
