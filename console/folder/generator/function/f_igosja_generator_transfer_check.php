@@ -5,8 +5,6 @@
  */
 function f_igosja_generator_transfer_check()
 {
-    global $igosja_season_id;
-
     $sql = "SELECT `player_id`,
                    `player_school_id`,
                    `transfer_id`,
