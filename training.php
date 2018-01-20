@@ -545,11 +545,11 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
 
-    if ($cancel_array['special_name'])
+    if ($cancel_array[0]['special_name'])
     {
         $cancel_price = $basetraining_array[0]['basetraining_special_price'];
     }
-    elseif ($cancel_array['position_short'])
+    elseif ($cancel_array[0]['position_short'])
     {
         $cancel_price = $basetraining_array[0]['basetraining_position_price'];
     }
@@ -574,11 +574,11 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        if ($cancel_array['special_name'])
+        if ($cancel_array[0]['special_name'])
         {
             $financetext_id = FINANCETEXT_INCOME_TRAINING_SPECIAL;
         }
-        elseif ($cancel_array['position_short'])
+        elseif ($cancel_array[0]['position_short'])
         {
             $financetext_id = FINANCETEXT_INCOME_TRAINING_POSITION;
         }
@@ -599,7 +599,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         $sql = "DELETE FROM `training`
                 WHERE `training_id`=$cancel_get
                 LIMIT 1";
-        f_igosja_request_get($sql);
+        f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Изменения успешно сохранены.';

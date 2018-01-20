@@ -96,7 +96,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <a href="/scout.php?cancel=<?= $cancel_get; ?>" class="btn margin">Отменить изучение</a>
+            <a href="/scout.php?cancel=<?= $cancel_get; ?>&ok=1" class="btn margin">Отменить изучение</a>
             <a href="/scout.php" class="btn margin">Вернуться</a>
         </div>
     </div>
@@ -144,7 +144,7 @@
                         <td class="text-center">Стиль</td>
                         <td class="text-center"><?= $item['scout_percent']; ?>%</td>
                         <td class="text-center">
-                            <a href="/scout.php?cancel=<?= $school_array[0]['scout_id']; ?>">
+                            <a href="/scout.php?cancel=<?= $item['scout_id']; ?>">
                                 <img alt="Отменить изучение стиля" src="/img/delete.png" title="Отменить изучение стиля" />
                             </a>
                         </td>

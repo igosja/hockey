@@ -20,9 +20,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         Вы собираетесь отменить строительство стадиона.
         <?php if ($price > 0) { ?>
-            Компенсансация за отмену строительства составит <?= f_igosja_money_format($price); ?>.
+            Компенсансация за отмену строительства составит <span class="strong"><?= f_igosja_money_format($price); ?></span>.
         <?php } else { ?>
-            Оплата за отмену строительства составит <?= f_igosja_money_format(-$price); ?>.
+            Оплата за отмену строительства составит <span class="strong"><?= f_igosja_money_format(-$price); ?></span>.
         <?php } ?>
     </div>
 </div>
