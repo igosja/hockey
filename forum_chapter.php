@@ -28,6 +28,7 @@ $sql = "SELECT `forumgroup_count_message`,
                `forumgroup_last_date`,
                `forumtheme_id`,
                `forumtheme_name`,
+               CEIL(`forumtheme_count_message`/20) AS `last_page`,
                `user_id`,
                `user_login`
         FROM `forumgroup`

@@ -415,7 +415,8 @@ if (isset($auth_team_id))
     {
         $sql = "SELECT `forumtheme_id`,
                        `forumtheme_last_date`,
-                       `forumtheme_name`
+                       `forumtheme_name`,
+                       CEIL(`forumtheme_count_message`/20) AS `last_page`
                 FROM `forumtheme`
                 LEFT JOIN `forumgroup`
                 ON `forumtheme_forumgroup_id`=`forumgroup_id`
