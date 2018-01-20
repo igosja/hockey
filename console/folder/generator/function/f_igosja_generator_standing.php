@@ -73,7 +73,7 @@ function f_igosja_generator_standing()
         }
         elseif ($game['game_guest_score'] == $game['game_home_score'])
         {
-            if (0 == $game['game_home_score_bullet'])
+            if ($game['game_guest_score_bullet'] > $game['game_home_score_bullet'])
             {
                 $guest_win_bullet++;
                 $home_loose_bullet++;

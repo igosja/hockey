@@ -2578,50 +2578,50 @@ function f_igosja_start_insert_surname()
     );
 
     $surname_array = array(
-        array(
-            'country' => 'Канада',
-            'list' => $eng_surname,
-        ),
-        array(
-            'country' => 'Россия',
-            'list' => $rus_surname,
-        ),
-        array(
-            'country' => 'США',
-            'list' => $eng_surname,
-        ),
-        array(
-            'country' => 'Финляндия',
-            'list' => $fin_surname,
-        ),
-        array(
-            'country' => 'Швеция',
-            'list' => $swe_surname,
-        ),
-        array(
-            'country' => 'Чехия',
-            'list' => $che_surname,
-        ),
-        array(
-            'country' => 'Швейцария',
-            'list' => $ger_surname,
-        ),
-        array(
-            'country' => 'Словакия',
-            'list' => $che_surname,
-        ),
-        array(
-            'country' => 'Белоруссия',
-            'list' => $bel_surname,
-        ),
-        array(
-            'country' => 'Германия',
-            'list' => $ger_surname,
-        ),
-        array(
-            'country' => 'Норвегия',
-            'list' => $nor_surname,
-        ),
+        // array(
+            // 'country' => 'Канада',
+            // 'list' => $eng_surname,
+        // ),
+        // array(
+            // 'country' => 'Россия',
+            // 'list' => $rus_surname,
+        // ),
+        // array(
+            // 'country' => 'США',
+            // 'list' => $eng_surname,
+        // ),
+        // array(
+            // 'country' => 'Финляндия',
+            // 'list' => $fin_surname,
+        // ),
+        // array(
+            // 'country' => 'Швеция',
+            // 'list' => $swe_surname,
+        // ),
+        // array(
+            // 'country' => 'Чехия',
+            // 'list' => $che_surname,
+        // ),
+        // array(
+            // 'country' => 'Швейцария',
+            // 'list' => $ger_surname,
+        // ),
+        // array(
+            // 'country' => 'Словакия',
+            // 'list' => $che_surname,
+        // ),
+        // array(
+            // 'country' => 'Белоруссия',
+            // 'list' => $bel_surname,
+        // ),
+        // array(
+            // 'country' => 'Германия',
+            // 'list' => $ger_surname,
+        // ),
+        // array(
+            // 'country' => 'Норвегия',
+            // 'list' => $nor_surname,
+        // ),
         array(
             'country' => 'Украина',
             'list' => $ukr_surname,

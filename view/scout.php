@@ -1,6 +1,9 @@
 <?php
 /**
  * @var $basescout_array array
+ * @var $cancel_array array
+ * @var $cancel_get integer
+ * @var $cancel_price integer
  * @var $confirm_data array
  * @var $on_building boolean
  * @var $playerposition_array array
@@ -81,11 +84,27 @@
             </div>
         </div>
     </form>
+<?php } elseif (isset($cancel_array)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Будут отменены следующие изучения:
+            <ul>
+                <li><?= $cancel_array[0]['name_name']; ?> <?= $cancel_array[0]['surname_name']; ?> - любимый стиль</li>
+            </ul>
+            Общая компенсация за отмену изучений <span class="strong"><?= f_igosja_money_format($cancel_price); ?></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/scout.php?cancel=<?= $cancel_get; ?>&ok=1" class="btn margin">Отменить изучение</a>
+            <a href="/scout.php" class="btn margin">Вернуться</a>
+        </div>
+    </div>
 <?php } else { ?>
     <?php if ($scout_array) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            Игроки вашей команды, находящиеся на тренировке:
+            Игроки вашей команды, находящиеся на изучении:
         </div>
     </div>
     <div class="row">
@@ -99,7 +118,8 @@
                     <th class="col-10" title="Номинальная сила">С</th>
                     <th class="col-15" title="Спецвозможности">Спец</th>
                     <th class="col-10">Изучение</th>
-                    <th class="col-10" title="Прогресс тренировки">%</th>
+                    <th class="col-10" title="Прогресс изучения">%</th>
+                    <th class="col-1"></th>
                 </tr>
                 <?php foreach ($scout_array as $item) { ?>
                     <tr>
@@ -123,6 +143,11 @@
                         <td class="text-center"><?= f_igosja_player_special($item['player_id'], $scoutplayerspecial_array); ?></td>
                         <td class="text-center">Стиль</td>
                         <td class="text-center"><?= $item['scout_percent']; ?>%</td>
+                        <td class="text-center">
+                            <a href="/scout.php?cancel=<?= $item['scout_id']; ?>">
+                                <img alt="Отменить изучение стиля" src="/img/delete.png" title="Отменить изучение стиля" />
+                            </a>
+                        </td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -133,7 +158,8 @@
                     <th title="Номинальная сила">С</th>
                     <th title="Спецвозможности">Спец</th>
                     <th>Изучение</th>
-                    <th title="Прогресс тренировки">%</th>
+                    <th title="Прогресс изучения">%</th>
+                    <th class="col-1"></th>
                 </tr>
             </table>
         </div>

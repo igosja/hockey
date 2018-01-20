@@ -1,6 +1,9 @@
 <?php
 /**
  * @var $basetraining_array array
+ * @var $cancel_array array
+ * @var $cancel_get integer
+ * @var $cancel_price integer
  * @var $confirm_data array
  * @var $count_training integer
  * @var $on_building boolean
@@ -110,6 +113,31 @@
             </div>
         </div>
     </form>
+<?php } elseif (isset($cancel_array)) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Будут отменены следующие тренировки:
+            <ul>
+                <li>
+                    <?= $cancel_array[0]['name_name']; ?> <?= $cancel_array[0]['surname_name']; ?>
+                    <?php if ($cancel_array[0]['position_short']) { ?>
+                        позиция <?= $cancel_array[0]['position_short']; ?>
+                    <?php } elseif ($cancel_array[0]['special_name']) { ?>
+                        спецвозможность <?= $cancel_array[0]['special_name']; ?>
+                    <?php } else { ?>
+                        +1 балл силы
+                    <?php } ?>
+                </li>
+            </ul>
+            Общая компенсация за отмену тренировок <span class="strong"><?= f_igosja_money_format($cancel_price); ?></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/training.php?cancel=<?= $cancel_get; ?>&ok=1" class="btn margin">Отменить тренировку</a>
+            <a href="/training.php" class="btn margin">Вернуться</a>
+        </div>
+    </div>
 <?php } else { ?>
     <?php if ($count_training) { ?>
         <div class="row margin-top">
@@ -128,6 +156,7 @@
                         <th class="col-10" title="Позиция">Поз</th>
                         <th class="col-10" title="Спецвозможности">Спец</th>
                         <th class="col-10" title="Прогресс тренировки">%</th>
+                        <th class="col-1"></th>
                     </tr>
                     <?php foreach ($training_array as $item) { ?>
                         <tr>
@@ -168,6 +197,11 @@
                             <td class="text-center">
                                 <?= $item['training_percent']; ?>%
                             </td>
+                            <td class="text-center">
+                                <a href="/training.php?cancel=<?= $item['training_id']; ?>">
+                                    <img alt="Отменить тренировку" src="/img/delete.png" title="Отменить тренировку" />
+                                </a>
+                            </td>
                         </tr>
                     <?php } ?>
                     <tr>
@@ -178,6 +212,7 @@
                         <th title="Номинальная сила">С</th>
                         <th title="Спецвозможности">Спец</th>
                         <th title="Прогресс тренировки">%</th>
+                        <th></th>
                     </tr>
                 </table>
             </div>
