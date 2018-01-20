@@ -29,7 +29,7 @@ $sql = "SELECT `bteam`.`team_id` AS `bteam_id`,
         LEFT JOIN `team` AS `steam`
         ON `transfer_team_seller_id`=`steam`.`team_id`
         WHERE `transfer_ready`=1
-        ORDER BY `transfer_id` ASC";
+        ORDER BY `transfer_date` DESC";
 $transfer_sql = f_igosja_mysqli_query($sql);
 
 $count_transfer = $transfer_sql->num_rows;
