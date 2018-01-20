@@ -31,7 +31,7 @@ function f_igosja_generator_transfer_check()
         $transfer_id = $transfer['transfer_id'];
 
         $sql = "SELECT SUM(`transfervote_rating`) AS `rating`
-                FROM `tranfervote`
+                FROM `transfervote`
                 WHERE `transfervote_transfer_id`=$transfer_id";
         $transfervote_sql = f_igosja_mysqli_query($sql);
 
