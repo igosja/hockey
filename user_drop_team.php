@@ -23,18 +23,7 @@ include(__DIR__ . '/include/sql/user_view.php');
 
 if ($data = f_igosja_request_get('ok'))
 {
-    $sql = "UPDATE `team`
-            SET `team_user_id`=0
-            WHERE `team_id`=$auth_team_id
-            LIMIT 1";
-    f_igosja_mysqli_query($sql);
-
-    $log = array(
-        'history_historytext_id' => HISTORYTEXT_USER_MANAGER_TEAM_OUT,
-        'history_team_id' => $auth_team_id,
-        'history_user_id' => $auth_user_id,
-    );
-    f_igosja_history($log);
+    f_igosja_fire_user($auth_user_id, $auth_team_id);
 
     $_SESSION['message']['class']   = 'success';
     $_SESSION['message']['text']    = 'Изменения сохранены.';
