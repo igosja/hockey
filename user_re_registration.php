@@ -244,6 +244,7 @@ if ($data = f_igosja_request_get('ok'))
                 `team_basescout_id`=1,
                 `team_basetraining_id`=1,
                 `team_finance`=1000000,
+                `team_free_base`=5,
                 `team_mood_rest`=3,
                 `team_mood_super`=3,
                 `team_visitor`=100
