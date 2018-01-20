@@ -45,6 +45,7 @@
                             <?= $item['home_team_name']; ?>
                             <span class="hidden-xs">(<?= $item['home_city_name']; ?>)</span>
                         </a>
+                        <?= f_igosja_game_auto($item['game_home_auto']); ?>
                     </td>
                     <td class="text-center col-10">
                         <a href="/game_view.php?num=<?= $item['game_id']; ?>">
@@ -56,6 +57,7 @@
                             <?= $item['guest_team_name']; ?>
                             <span class="hidden-xs">(<?= $item['guest_city_name']; ?>)</span>
                         </a>
+                        <?= f_igosja_game_auto($item['game_guest_auto']); ?>
                     </td>
                 </tr>
             <?php } ?>
