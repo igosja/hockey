@@ -2,7 +2,7 @@
 
 include(__DIR__ . '/include/include.php');
 
-$array = (
+$array = array(
     array(
         'team_seller_id' => 96,
         'transfer_user_seller_id' => 46,
@@ -30,7 +30,7 @@ $array = (
     array(
         'team_seller_id' => 37,
         'transfer_user_seller_id' => 137,
-        'team_buyer_id' => ,
+        'team_buyer_id' => 0,
         'transfer_user_buyer_id' => 0,
         'price' => 954010,
         'player_id' => 1570,
