@@ -37,7 +37,7 @@ function f_igosja_generator_transfer_check()
 
         if ($transfervote_array[0]['rating'] < 0)
         {
-            $player_id      = $transfer['transfer_price_buyer'];
+            $player_id      = $transfer['player_id'];
             $price          = $transfer['transfer_price_buyer'];
             $school_id      = $transfer['player_school_id'];
             $school_price   = round($price / 100);
@@ -111,7 +111,7 @@ function f_igosja_generator_transfer_check()
                 'finance_player_id' => $player_id,
                 'finance_team_id' => $team_buyer_id,
                 'finance_value' => $price,
-                'finance_value_after' => $buyer_array[0]['team_finance'] - $price,
+                'finance_value_after' => $buyer_array[0]['team_finance'] + $price,
                 'finance_value_before' => $buyer_array[0]['team_finance'],
             );
             f_igosja_finance($finance);
