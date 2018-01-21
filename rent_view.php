@@ -29,6 +29,8 @@ $sql = "SELECT `bcity`.`city_name` AS `bcity_name`,
                `suser`.`user_login` AS `suser_login`,
                `surname_name`,
                `rent_age`,
+               `rent_cancel`,
+               `rent_checked`,
                `rent_date`,
                `rent_day`,
                `rent_id`,
@@ -124,6 +126,37 @@ $sql = "SELECT `city_name`,
 $rentapplication_sql = f_igosja_mysqli_query($sql);
 
 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`rentvote_rent_id`) AS `rating`
+        FROM `rentvote`
+        WHERE `rentvote_rent_id`=$num_get
+        AND `rentvote_rating`=1";
+$rating_plus_sql = f_igosja_mysqli_query($sql);
+
+$rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`rentvote_rent_id`) AS `rating`
+        FROM `rentvote`
+        WHERE `rentvote_rent_id`=$num_get
+        AND `rentvote_rating`=-1";
+$rating_minus_sql = f_igosja_mysqli_query($sql);
+
+$rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);
+
+$rating_my = 1;
+
+if (0 == $rent_array[0]['rent_checked'] && isset($auth_user_id))
+{
+    $sql = "SELECT COUNT(`rentvote_rent_id`) AS `check`
+            FROM `rentvote`
+            WHERE `rentvote_rent_id`=$num_get
+            AND `rentvote_user_id`=$auth_user_id";
+    $rating_my_sql = f_igosja_mysqli_query($sql);
+
+    $rating_my_array = $rating_my_sql->fetch_all(MYSQLI_ASSOC);
+
+    $rating_my = $rating_my_array[0]['check'];
+}
 
 $seo_title          = 'Арендная сделка';
 $seo_description    = 'Арендная сделка на сайте Вирутальной Хоккейной Лиги.';

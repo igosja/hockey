@@ -407,6 +407,19 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     {
         $notification_array[] = 'У вас есть бонусные <a href="/training_bonus.php">тренировки</a> для хоккеистов';
     }
+    
+    $sql = "SELECT `team_free_base`
+            FROM `team`
+            WHERE `team_id`=$auth_team_id
+            LIMIT 1";
+    $free_base_sql = f_igosja_mysqli_query($sql);
+
+    $free_base_array = $free_base_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (0 != $free_base_array[0]['team_free_base'])
+    {
+        $notification_array[] = 'У вас есть бесплатные <a href="/base_free.php">улучшения</a> базы';
+    }
 }
 
 if (isset($auth_team_id))
@@ -415,7 +428,8 @@ if (isset($auth_team_id))
     {
         $sql = "SELECT `forumtheme_id`,
                        `forumtheme_last_date`,
-                       `forumtheme_name`
+                       `forumtheme_name`,
+                       CEIL(`forumtheme_count_message`/20) AS `last_page`
                 FROM `forumtheme`
                 LEFT JOIN `forumgroup`
                 ON `forumtheme_forumgroup_id`=`forumgroup_id`

@@ -28,7 +28,7 @@ $sql = "SELECT `bteam`.`team_id` AS `bteam_id`,
         LEFT JOIN `team` AS `steam`
         ON `rent_team_seller_id`=`steam`.`team_id`
         WHERE `rent_ready`=1
-        ORDER BY `rent_id` ASC";
+        ORDER BY `rent_date` DESC";
 $rent_sql = f_igosja_mysqli_query($sql);
 
 $count_rent = $rent_sql->num_rows;
