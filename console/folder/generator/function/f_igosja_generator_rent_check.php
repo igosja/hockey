@@ -36,7 +36,7 @@ function f_igosja_generator_rent_check()
 
         if ($rentvote_array[0]['rating'] < 0)
         {
-            $player_id      = $rent['rent_price_buyer'];
+            $player_id      = $rent['player_id'];
             $price          = $rent['rent_price_buyer'];
             $team_buyer_id  = $rent['rent_team_buyer_id'];
             $team_seller_id = $rent['rent_team_seller_id'];
@@ -84,7 +84,7 @@ function f_igosja_generator_rent_check()
                 'finance_player_id' => $player_id,
                 'finance_team_id' => $team_buyer_id,
                 'finance_value' => $price,
-                'finance_value_after' => $buyer_array[0]['team_finance'] - $price,
+                'finance_value_after' => $buyer_array[0]['team_finance'] + $price,
                 'finance_value_before' => $buyer_array[0]['team_finance'],
             );
             f_igosja_finance($finance);
