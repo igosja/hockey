@@ -75,6 +75,13 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player_array[0]['player_power_nominal']; ?>
+                        <?php if (in_array(1, array($player_array[0]['player_rent_on'], $player_array[0]['player_transfer_on']))) { ?>
+                            <img
+                                    alt="Выставлен на трансфер/аренду"
+                                    src="/img/market.png"
+                                    title="Выставлен на трансфер/аренду"
+                            />
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row">

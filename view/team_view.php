@@ -148,6 +148,27 @@
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>
                             </a>
+                            <?php if (39 == $item['player_age']) { ?>
+                                <img
+                                        alt="Завершает карьеру в конце сезона"
+                                        src="/img/palm.png"
+                                        title="Завершает карьеру в конце сезона"
+                                />
+                            <?php } ?>
+                            <?php if (1 == $item['player_injury']) { ?>
+                                <img
+                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        src="/img/injury.png"
+                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                />
+                            <?php } ?>
+                            <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
+                                <img
+                                        alt="Выставлен на трансфер/аренду"
+                                        src="/img/market.png"
+                                        title="Выставлен на трансфер/аренду"
+                                />
+                            <?php } ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
@@ -216,6 +237,27 @@
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>
                             </a>
+                            <?php if (39 == $item['player_age']) { ?>
+                                <img
+                                        alt="Завершает карьеру в конце сезона"
+                                        src="/img/palm.png"
+                                        title="Завершает карьеру в конце сезона"
+                                />
+                            <?php } ?>
+                            <?php if (1 == $item['player_injury']) { ?>
+                                <img
+                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        src="/img/injury.png"
+                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                />
+                            <?php } ?>
+                            <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
+                                <img
+                                        alt="Выставлен на трансфер/аренду"
+                                        src="/img/market.png"
+                                        title="Выставлен на трансфер/аренду"
+                                />
+                            <?php } ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
