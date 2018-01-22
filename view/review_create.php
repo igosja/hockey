@@ -1,15 +1,8 @@
 <?php
 /**
  * @var $country_array array
- * @var $country_id integer
- * @var $division_id integer
- * @var $review_array array
- * @var $review_create boolean
- * @var $round_id integer
- * @var $season_array array
+ * @var $game_array array
  * @var $season_id integer
- * @var $schedule_id integer
- * @var $stage_id integer
  */
 ?>
 <div class="row">

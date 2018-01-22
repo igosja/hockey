@@ -401,8 +401,15 @@ if (isset($auth_team_id) && $game_array[0]['game_played'])
     }
 }
 
-$sql = "SELECT `review_title`
+$sql = "SELECT `review_title`,
+               `review_id`,
+               `stage_name`,
+               `user_login`
         FROM `review`
+        LEFT JOIN `stage`
+        ON `review_stage_id`=`stage_id`
+        LEFT JOIN `user`
+        ON `review_user_id`=`user_id`
         WHERE `review_country_id`=$country_id
         AND `review_division_id`=$division_id
         AND `review_season_id`=$season_id
