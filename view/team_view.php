@@ -60,6 +60,20 @@
                             <?= $item['name_name']; ?>
                             <?= $item['surname_name']; ?>
                         </a>
+                        <?php if (39 == $item['player_age']) { ?>
+                            <img
+                                alt="Завершает карьеру в конце сезона"
+                                src="/img/palm.png"
+                                title="Завершает карьеру в конце сезона"
+                            />
+                        <?php } ?>
+                        <?php if (1 == $item['player_injury']) { ?>
+                            <img
+                                alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                src="/img/injury.png"
+                                title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                            />
+                        <?php } ?>
                     </td>
                     <td class="hidden-xs text-center">
                         <a href="/country_news.php?num=<?= $item['country_id']; ?>">
@@ -149,15 +163,31 @@
                         >
                             <?= $item['player_power_nominal']; ?>
                         </td>
-                        <td class="text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center">
-                            <img
-                                alt="<?= $item['phisical_name']; ?>"
-                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_name']; ?>"
-                            />
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <?= $item['player_tire']; ?>
+                            <?php } else { ?>
+                                ?
+                            <?php } ?>
                         </td>
-                        <td class="text-center"><?= $item['player_power_real']; ?></td>
+                        <td class="text-center">
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <img
+                                        alt="<?= $item['phisical_name']; ?>"
+                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                        title="<?= $item['phisical_name']; ?>"
+                                />
+                            <?php } else { ?>
+                                ?
+                            <?php } ?>
+                        </td>
+                        <td class="text-center">
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <?= $item['player_power_real']; ?>
+                            <?php } else { ?>
+                                ~<?= $item['player_power_nominal']; ?>
+                            <?php } ?>
+                        </td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
@@ -201,15 +231,31 @@
                         >
                             <?= $item['player_power_nominal']; ?>
                         </td>
-                        <td class="text-center"><?= $item['player_tire']; ?></td>
                         <td class="text-center">
-                            <img
-                                alt="<?= $item['phisical_name']; ?>"
-                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_name']; ?>"
-                            />
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <?= $item['player_tire']; ?>
+                            <?php } else { ?>
+                                ?
+                            <?php } ?>
                         </td>
-                        <td class="text-center"><?= $item['player_power_real']; ?></td>
+                        <td class="text-center">
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <img
+                                        alt="<?= $item['phisical_name']; ?>"
+                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                        title="<?= $item['phisical_name']; ?>"
+                                />
+                            <?php } else { ?>
+                                ?
+                            <?php } ?>
+                        </td>
+                        <td class="text-center">
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <?= $item['player_power_real']; ?>
+                            <?php } else { ?>
+                                ~<?= $item['player_power_nominal']; ?>
+                            <?php } ?>
+                        </td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
