@@ -42,9 +42,11 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
+               `player_rent_on`,
                `player_rent_team_id`,
                `player_team_id`,
                `player_tire`,
+               `player_transfer_on`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -79,9 +81,11 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
+               `player_rent_on`,
                `player_rent_team_id`,
                `player_team_id`,
                `player_tire`,
+               `player_transfer_on`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -116,9 +120,11 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
+               `player_rent_on`,
                `player_rent_team_id`,
                `player_team_id`,
                `player_tire`,
+               `player_transfer_on`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`

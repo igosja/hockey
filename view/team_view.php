@@ -69,9 +69,16 @@
                         <?php } ?>
                         <?php if (1 == $item['player_injury']) { ?>
                             <img
-                                alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                src="/img/injury.png"
-                                title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    src="/img/injury.png"
+                                    title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                            />
+                        <?php } ?>
+                        <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
+                            <img
+                                    alt="Выставлен на трансфер/аренду"
+                                    src="/img/market.png"
+                                    title="Выставлен на трансфер/аренду"
                             />
                         <?php } ?>
                     </td>
