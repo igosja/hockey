@@ -416,7 +416,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     
     $sql = "SELECT `team_free_base`
             FROM `team`
-            WHERE `team_id`=$auth_team_id
+            WHERE `team_id`=$num_get
             LIMIT 1";
     $free_base_sql = f_igosja_mysqli_query($sql);
 
@@ -425,6 +425,21 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     if (0 != $free_base_array[0]['team_free_base'])
     {
         $notification_array[] = 'У вас есть бесплатные <a href="/base_free.php">улучшения</a> базы';
+    }
+
+    $sql = "SELECT `friendlyinvite_schedule_id`
+            FROM `friendlyinvite`
+            WHERE `friendlyinvite_guest_team_id`=$num_get
+            AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW . "
+            ORDER BY `friendlyinvite_schedule_id` ASC
+            LIMIT 1";
+    $friendly_sql = f_igosja_mysqli_query($sql);
+
+    if (0 != $friendly_sql->num_rows)
+    {
+        $friendly_array = $friendly_sql->fetch_all(MYSQLI_ASSOC);
+
+        $notification_array[] = 'У вас есть новые <a href="/friendly.php?num=' . $friendly_array[0]['friendlyinvite_schedule_id'] . '">приглашения</a> сыграть товарищеский матч';
     }
 }
 
