@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            Список хоккеистов, проданных на трансфере
+            Список хоккеистов, отданных в аренду
         </h1>
     </div>
 </div>
@@ -31,7 +31,7 @@
                 <th class="hidden-xs">Спец</th>
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
-                <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Общая стоимость аренды">Цена</th>
             </tr>
             <?php for ($i=0; $i<$count_rent; $i++) { ?>
                 <tr>
@@ -87,7 +87,7 @@
                 <th class="hidden-xs">Спец</th>
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
-                <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Общая стоимость аренды">Цена</th>
             </tr>
         </table>
     </div>

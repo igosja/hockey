@@ -91,15 +91,15 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             Будут отменены подготовка юниора:
             <ul>
-                <li>позиция - <?= $confirm_data[0]['position_short']; ?></li>
-                <li>спецвозможность - <?= $confirm_data[0]['special_name']; ?></li>
-                <li>стиль - <?= $confirm_data[0]['style_name']; ?></li>
+                <li>позиция - <?= $cancel_array[0]['position_short']; ?></li>
+                <li>спецвозможность - <?= $cancel_array[0]['special_name']; ?></li>
+                <li>стиль - <?= $cancel_array[0]['style_name']; ?></li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <a href="/school.php?cancel=<?= $cancel_get; ?>" class="btn margin">Отменить подготовку</a>
+            <a href="/school.php?cancel=<?= $cancel_get; ?>&ok=1" class="btn margin">Отменить подготовку</a>
             <a href="/school.php" class="btn margin">Вернуться</a>
         </div>
     </div>

@@ -49,6 +49,7 @@ $function_array = array(
     'f_igosja_generator_transfer',
     'f_igosja_generator_transfer_check',
     'f_igosja_generator_rent',
+    'f_igosja_generator_rent_check',
     'f_igosja_generator_tire_base_level',
     'f_igosja_generator_game_row_reset',
     'f_igosja_generator_mood_reset',

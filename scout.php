@@ -215,10 +215,10 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     $cancel_array = $cancel_sql->fetch_all(MYSQLI_ASSOC);
 
+    $cancel_price = $basescout_array[0]['basescout_my_style_price'];
+
     if (1 == f_igosja_request_get('ok'))
     {
-        $cancel_price = $basescout_array[0]['basescout_my_style_price'];
-
         $sql = "SELECT `team_finance`
                 FROM `team`
                 WHERE `team_id`=$num_get
@@ -245,7 +245,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         $sql = "DELETE FROM `scout`
                 WHERE `scout_id`=$cancel_get
                 LIMIT 1";
-        f_igosja_request_get($sql);
+        f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Изменения успешно сохранены.';

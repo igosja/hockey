@@ -23,7 +23,8 @@ $sql = "SELECT `forumchapter_id`,
                `forumgroup_name`,
                `forummessage_text`,
                `forumtheme_id`,
-               `forumtheme_name`
+               `forumtheme_name`,
+               CEIL(`forumtheme_count_message`/20) AS `last_page`
         FROM `forummessage`
         LEFT JOIN `forumtheme`
         ON `forummessage_forumtheme_id`=`forumtheme_id`
@@ -42,6 +43,8 @@ if (0 == $forummessage_sql->num_rows)
 }
 
 $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
+
+$forumtheme_id = $forummessage_array[0]['forumtheme_id'];
 
 if ($data = f_igosja_request_post('data'))
 {
@@ -67,10 +70,16 @@ if ($data = f_igosja_request_post('data'))
         }
     }
 
-    redirect('/forum_theme.php?num=' . $forummessage_array[0]['forumtheme_id']);
-}
+    $sql = "SELECT CEIL(`forumtheme_count_message`/20) AS `last_page`
+            FROM `forumtheme`
+            WHERE `forumtheme_id`=$forumtheme_id
+            LIMIT 1";
+    $last_page_sql = f_igosja_mysqli_query($sql);
 
-$forumtheme_id = $forummessage_array[0]['forumtheme_id'];
+    $last_page_array = $last_page_sql->fetch_all(MYSQLI_ASSOC);
+
+    redirect('/forum_theme.php?num=' . $forummessage_array[0]['forumtheme_id'] . '&page=' . $last_page_array[0]['last_page']);
+}
 
 $seo_title          = 'Редактирование сообщения - ' . $forummessage_array[0]['forumtheme_name'] . ' - Форум';
 $seo_description    = 'Редактирование сообщения - ' . $forummessage_array[0]['forumtheme_name'] . ' - Форум сайта Вирутальной Хоккейной Лиги.';

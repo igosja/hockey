@@ -55,7 +55,7 @@
                         <?php if ($item['forumtheme_id']) { ?>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>">
+                                    <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>&page=<?= $item['last_page']; ?>">
                                         <?= $item['forumtheme_name']; ?>
                                     </a>
                                 </div>

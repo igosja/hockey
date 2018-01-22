@@ -175,9 +175,9 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         elseif (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'Строительство базы <span class="strong">' . $baseinfo_array[0]['base_level']
-                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0]['base_price_buy'])
-                                         . '</span> и займет <span class="strong">' . $baseinfo_array[0]['base_build_speed']
-                                         . '</span> ' . f_igosja_count_case($baseinfo_array[0]['base_build_speed'], 'день', 'дня', 'дней') . '.';
+                                . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0]['base_price_buy'])
+                                . '</span> и займет <span class="strong">' . $baseinfo_array[0]['base_build_speed']
+                                . '</span> ' . f_igosja_count_case($baseinfo_array[0]['base_build_speed'], 'день', 'дня', 'дней') . '.';
                         }
                         else
                         {
@@ -304,9 +304,9 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             elseif (!f_igosja_request_get('ok'))
                             {
                                 $base_accept = 'Строительство здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
-                                         . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0][$building_name . '_price_buy'])
-                                         . '</span> и займет <span class="strong">' . $baseinfo_array[0][$building_name . '_build_speed']
-                                         . '</span> ' . f_igosja_count_case($baseinfo_array[0][$building_name . '_build_speed'], 'день', 'дня', 'дней') . '.';
+                                    . '</span> уровня будет стоить <span class="strong">' . f_igosja_money_format($baseinfo_array[0][$building_name . '_price_buy'])
+                                    . '</span> и займет <span class="strong">' . $baseinfo_array[0][$building_name . '_build_speed']
+                                    . '</span> ' . f_igosja_count_case($baseinfo_array[0][$building_name . '_build_speed'], 'день', 'дня', 'дней') . '.';
                             }
                             else
                             {
@@ -421,8 +421,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                         elseif (!f_igosja_request_get('ok'))
                         {
                             $base_accept = 'При строительстве базы <span class="strong">' . $baseinfo_array[0]['base_level']
-                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
-                                         . '</span>. Это займет <span class="strong">1</span> день.';
+                                . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
+                                . '</span>. Это займет <span class="strong">1</span> день.';
                         }
                         else
                         {
@@ -544,8 +544,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                             if (!f_igosja_request_get('ok'))
                             {
                                 $base_accept = 'При строительстве здания <span class="strong">' . $baseinfo_array[0][$building_name . '_level']
-                                         . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
-                                         . '</span>. Это займет <span class="strong">1</span> день.';
+                                    . '</span> уровня вы получите компенсацию <span class="strong">' . f_igosja_money_format($buildingbase_price)
+                                    . '</span>. Это займет <span class="strong">1</span> день.';
                             }
                             else
                             {
@@ -566,7 +566,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
                                 $finance = array(
                                     'finance_building_id' => $building_id,
-                                    'finance_financetext_id' => FINANCETEXT_OUTCOME_BUILDING_BASE,
+                                    'finance_financetext_id' => FINANCETEXT_INCOME_BUILDING_BASE,
                                     'finance_level' => $baseinfo_array[0][$building_name . '_level'],
                                     'finance_team_id' => $auth_team_id,
                                     'finance_value' => $buildingbase_price,
@@ -591,11 +591,12 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 if ($cancel_get = (int) f_igosja_request_get('cancel'))
 {
     $sql = "SELECT `buildingbase_building_id`,
-                   `buildingbase_constructiontype_id`,
+                   `buildingbase_constructiontype_id`
             FROM `buildingbase`
             WHERE `buildingbase_team_id`=$num_get
             AND `buildingbase_ready`=0
-            AND `buildingbase_id`=$igosja_season_id";
+            AND `buildingbase_id`=$cancel_get
+            LIMIT 1";
     $buildingbase_sql = f_igosja_mysqli_query($sql);
 
     if (0 == $buildingbase_sql->num_rows)
@@ -645,12 +646,11 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         }
 
         $finance = array(
-            'finance_capacity' => $stadium_array[0]['stadium_capacity'],
             'finance_financetext_id' => $financetext_id,
             'finance_team_id' => $num_get,
             'finance_value' => $cancel_price,
-            'finance_value_after' => $stadium_array[0]['team_finance'] + $cancel_price,
-            'finance_value_before' => $stadium_array[0]['team_finance'],
+            'finance_value_after' => $base_array[0]['team_finance'] + $cancel_price,
+            'finance_value_before' => $base_array[0]['team_finance'],
         );
         f_igosja_finance($finance);
 

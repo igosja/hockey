@@ -4,6 +4,9 @@
  * @var $num_get integer
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $rating_minus_array array
+ * @var $rating_my integer
+ * @var $rating_plus_array array
  * @var $rent_array array
  * @var $rentapplication_array array
  */
@@ -20,6 +23,15 @@
         <?php include(__DIR__ . '/include/rent_link.php'); ?>
     </div>
 </div>
+<?php if (0 == $rating_my) { ?>
+    <div class="row text-center margin">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a href="/rent_rating_plus.php?num=<?= $num_get; ?>">Честная сделка</a>
+            |
+            <a href="/rent_rating_minus.php?num=<?= $num_get; ?>">Нечестная сделка</a>
+        </div>
+    </div>
+<?php } ?>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="row">
@@ -68,6 +80,16 @@
             </div>
             <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                 <?= f_igosja_player_special($rent_array[0]['rent_id'], $playerspecial_array); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
+                Оценка сделки (+/-):
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
+                <span class="font-green"><?= $rating_plus_array[0]['rating']; ?></span>
+                |
+                <span class="font-red"><?= $rating_minus_array[0]['rating']; ?></span>
             </div>
         </div>
     </div>

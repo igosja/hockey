@@ -23,11 +23,6 @@ if (!$news_id = (int) f_igosja_request_get('news_id'))
     redirect('/wrong_page.php');
 }
 
-if ($num_get != $auth_country_id)
-{
-    redirect('/wrong_page.php');
-}
-
 include(__DIR__ . '/include/sql/country_view.php');
 
 if (!in_array($auth_user_id, array($country_array[0]['president_id'], $country_array[0]['vice_id'])))

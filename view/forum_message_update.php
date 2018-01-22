@@ -19,7 +19,7 @@
                     <?= $forummessage_array[0]['forumgroup_name']; ?>
                 </a>
                 /
-                <a href="/forum_theme.php?num=<?= $forummessage_array[0]['forumtheme_id']; ?>">
+                <a href="/forum_theme.php?num=<?= $forummessage_array[0]['forumtheme_id']; ?>&page=<?= $forummessage_array[0]['last_page']; ?>">
                     <?= $forummessage_array[0]['forumtheme_name']; ?>
                 </a>
                 /

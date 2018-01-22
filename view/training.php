@@ -134,7 +134,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <a href="/training.php?cancel=<?= $cancel_get; ?>" class="btn margin">Отменить тренировку</a>
+            <a href="/training.php?cancel=<?= $cancel_get; ?>&ok=1" class="btn margin">Отменить тренировку</a>
             <a href="/training.php" class="btn margin">Вернуться</a>
         </div>
     </div>

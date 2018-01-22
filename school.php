@@ -255,7 +255,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         $sql = "DELETE FROM `school`
                 WHERE `school_id`=$cancel_get
                 LIMIT 1";
-        f_igosja_request_get($sql);
+        f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
         $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
