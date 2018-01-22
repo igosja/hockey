@@ -238,26 +238,6 @@ if (ROUND_SEASON == $round_id)
     $team_sql = f_igosja_mysqli_query($sql);
 
     $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-    if (isset($auth_team_id) && $game_array[0]['game_played'])
-    {
-        $sql = "SELECT COUNT(`review_id`) AS `check`
-                FROM `review`
-                WHERE `review_country_id`=$country_id
-                AND `review_stage_id`=$stage_id
-                AND `review_season_id`=$season_id
-                AND `review_division_id`=$division_id
-                AND `review_schedule_id`=$schedule_id
-                AND `review_user_id`=$auth_user_id";
-        $review_sql = f_igosja_mysqli_query($sql);
-
-        $review_array = $review_sql->fetch_all(MYSQLI_ASSOC);
-
-        if (0 == $review_array[0]['check'])
-        {
-            $review_create = true;
-        }
-    }
 }
 else
 {
@@ -400,6 +380,26 @@ $conference_sql = f_igosja_mysqli_query($sql);
 $conference_array = $conference_sql->fetch_all(MYSQLI_ASSOC);
 
 $review_create = false;
+
+if (isset($auth_team_id) && $game_array[0]['game_played'])
+{
+    $sql = "SELECT COUNT(`review_id`) AS `check`
+            FROM `review`
+            WHERE `review_country_id`=$country_id
+            AND `review_division_id`=$division_id
+            AND `review_schedule_id`=$schedule_id
+            AND `review_season_id`=$igosja_season_id
+            AND `review_stage_id`=$stage_id
+            AND `review_user_id`=$auth_user_id";
+    $review_sql = f_igosja_mysqli_query($sql);
+
+    $review_array = $review_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (0 == $review_array[0]['check'])
+    {
+        $review_create = true;
+    }
+}
 
 $sql = "SELECT `review_title`
         FROM `review`
