@@ -60,6 +60,13 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player_array[0]['player_age']; ?>
+                        <?php if (39 == $player_array[0]['player_age']) { ?>
+                            <img
+                                alt="Завершает карьеру в конце сезона"
+                                src="/img/palm.png"
+                                title="Завершает карьеру в конце сезона"
+                            />
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row">
@@ -68,6 +75,13 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player_array[0]['player_power_nominal']; ?>
+                        <?php if (in_array(1, array($player_array[0]['player_rent_on'], $player_array[0]['player_transfer_on']))) { ?>
+                            <img
+                                    alt="Выставлен на трансфер/аренду"
+                                    src="/img/market.png"
+                                    title="Выставлен на трансфер/аренду"
+                            />
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row">
@@ -79,6 +93,13 @@
                             <?= $player_array[0]['player_tire']; ?>%
                         <?php } else { ?>
                             ?
+                        <?php } ?>
+                        <?php if (1 == $player_array[0]['player_injury']) { ?>
+                            <img
+                                alt="Травмирован на <?= $player_array[0]['player_injury_day']; ?> <?= f_igosja_count_case($player_array[0]['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                src="/img/injury.png"
+                                title="Травмирован на <?= $player_array[0]['player_injury_day']; ?> <?= f_igosja_count_case($player_array[0]['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                            />
                         <?php } ?>
                     </div>
                 </div>

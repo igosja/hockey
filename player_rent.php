@@ -55,6 +55,12 @@ if (isset($auth_team_id) && $auth_team_id)
                         WHERE `rentapplication_rent_id`=$rent_id";
                 f_igosja_mysqli_query($sql);
 
+                $sql = "UPDATE `player`
+                        SET `player_rent_on`=0
+                        WHERE `player_id`=$num_get
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
 
@@ -306,6 +312,12 @@ if (isset($auth_team_id) && $auth_team_id)
                             `rent_price_seller`=$price,
                             `rent_team_seller_id`=$auth_team_id,
                             `rent_user_seller_id`=$auth_user_id";
+                f_igosja_mysqli_query($sql);
+
+                $sql = "UPDATE `player`
+                        SET `player_rent_on`=1
+                        WHERE `player_id`=$num_get
+                        LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
                 $_SESSION['message']['class']   = 'success';

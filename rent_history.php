@@ -11,6 +11,7 @@ $sql = "SELECT `bteam`.`team_id` AS `bteam_id`,
                `steam`.`team_name` AS `steam_name`,
                `surname_name`,
                `rent_age`,
+               `rent_cancel`,
                `rent_id`,
                `rent_power`,
                `rent_price_buyer`

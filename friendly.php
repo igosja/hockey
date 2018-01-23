@@ -475,7 +475,7 @@ for ($i=0; $i<$count_schedule; $i++)
     {
         $sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
                 FROM `friendlyinvite`
-                WHERE `friendlyinvite_schedule_id`=$num_get
+                WHERE `friendlyinvite_schedule_id`=$schedule_id
                 AND `friendlyinvite_guest_team_id`=$auth_team_id
                 AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW;
         $check_recieve_sql = f_igosja_mysqli_query($sql);

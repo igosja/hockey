@@ -68,6 +68,12 @@ if (isset($auth_team_id) && $auth_team_id)
                         WHERE `transferapplication_transfer_id`=$transfer_id";
                 f_igosja_mysqli_query($sql);
 
+                $sql = "UPDATE `player`
+                        SET `player_transfer_on`=0
+                        WHERE `player_id`=$num_get
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
                 $_SESSION['message']['class']   = 'success';
                 $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
 
@@ -299,6 +305,12 @@ if (isset($auth_team_id) && $auth_team_id)
                             `transfer_team_seller_id`=$auth_team_id,
                             `transfer_to_league`=$to_league,
                             `transfer_user_seller_id`=$auth_user_id";
+                f_igosja_mysqli_query($sql);
+
+                $sql = "UPDATE `player`
+                        SET `player_transfer_on`=1
+                        WHERE `player_id`=$num_get
+                        LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
                 $_SESSION['message']['class']   = 'success';

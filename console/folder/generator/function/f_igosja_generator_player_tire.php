@@ -122,4 +122,11 @@ function f_igosja_generator_player_tire()
             SET `player_tire`=50
             WHERE `player_team_id`=0";
     f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `player`
+            SET `player_tire`=50
+            WHERE `player_team_id`!=0
+            AND `player_tire`=1
+            AND `player_tire`<50";
+    f_igosja_mysqli_query($sql);
 }

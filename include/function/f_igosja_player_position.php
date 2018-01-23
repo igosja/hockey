@@ -12,7 +12,7 @@ function f_igosja_player_position($player_id, $playerposition_array)
 
     foreach ($playerposition_array as $item)
     {
-        if ($item['playerposition_player_id'] == $player_id)
+        if (isset($item['playerposition_player_id']) && $item['playerposition_player_id'] == $player_id)
         {
             $return_array[] = $item['position_short'];
         }
