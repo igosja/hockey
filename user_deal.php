@@ -388,7 +388,6 @@ else
     $playerspecial_array    = array();
 }
 
-
 $seo_title          = $user_array[0]['user_login'] . '. Сделки менеджера';
 $seo_description    = $user_array[0]['user_login'] . '. Сделки менеджера на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = $user_array[0]['user_login'] . ' сделки менеджера';
