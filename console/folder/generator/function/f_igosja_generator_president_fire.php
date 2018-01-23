@@ -10,7 +10,7 @@ function f_igosja_generator_president_fire()
                    `country_vice_id`
             FROM `country`
             WHERE `country_president_id`!=0
-            AND `country_vice_id`=0
+            AND `country_vice_id`!=0
             ORDER BY `country_id` ASC";
     $country_sql = f_igosja_mysqli_query($sql);
 
