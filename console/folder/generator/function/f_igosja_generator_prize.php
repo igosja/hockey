@@ -119,7 +119,7 @@ function f_igosja_generator_prize()
             foreach ($conference_array as $conference)
             {
                 $team_id    = $conference['team_id'];
-                $prize      = round(5000000 * pow(0.98, $conference['conference_place'] - 1));
+                $prize      = round(10000000 * pow(0.98, $conference['conference_place'] - 1));
 
                 $finance = array(
                     'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CONFERENCE,
