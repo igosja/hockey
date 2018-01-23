@@ -437,7 +437,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             FROM `friendlyinvite`
             WHERE `friendlyinvite_guest_team_id`=$num_get
             AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW . "
-            ORDER BY `friendlyinvite_schedule_id` ASC
+            ORDER BY `friendlyinvite_schedule_id` DESC
             LIMIT 1";
     $friendly_sql = f_igosja_mysqli_query($sql);
 
