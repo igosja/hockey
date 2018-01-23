@@ -78,6 +78,7 @@ $function_array = array(
     'f_igosja_generator_new_season',
     'f_igosja_generator_news',
     'f_igosja_generator_president_vip',
+    'f_igosja_generator_friendlyinvite_delete',
     'f_igosja_generator_site_open',
 );
 
