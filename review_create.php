@@ -113,7 +113,7 @@ $sql = "SELECT `game_id`,
         ORDER BY `game_id` ASC";
 $game_sql = f_igosja_mysqli_query($sql);
 
-if (0 != $game_sql->num_rows)
+if (0 == $game_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
