@@ -69,12 +69,12 @@ function f_igosja_generator_news()
 
     if ($today)
     {
-        $text = $text . '<p class="strong">СЕГОДНЯ</p><p>Сегодня состоялись ' . $today . '.</p>';
+        $text = $text . '<p class="strong">СЕГОДНЯ</p>' . "\r\n" . '<p>Сегодня состоялись ' . $today . '.</p>' . "\r\n";
     }
 
     if ($tomorrow)
     {
-        $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p><p>В ' . $day . ' в Лиге будут сыграны ' . $tomorrow .'.</p>';
+        $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p>' . "\r\n" . '<p>В ' . $day . ' в Лиге будут сыграны ' . $tomorrow .'.</p>' . "\r\n";
     }
 
     $sql = "INSERT INTO `news`
