@@ -90,13 +90,30 @@ $rent_sql = f_igosja_mysqli_query($sql);
 
 $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT `position_id`,
+$sql = "SELECT `playerposition_player_id`,
+               `position_name`,
                `position_short`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+        FROM `playerposition`
+        LEFT JOIN `position`
+        ON `playerposition_position_id`=`position_id`
+        WHERE `playerposition_player_id`=$num_get
+        ORDER BY `playerposition_position_id` ASC";
+$playerposition_sql = f_igosja_mysqli_query($sql);
 
-$position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
+$playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `playerspecial_level`,
+               `playerspecial_player_id`,
+               `special_name`,
+               `special_short`
+        FROM `playerspecial`
+        LEFT JOIN `special`
+        ON `playerspecial_special_id`=`special_id`
+        WHERE `playerspecial_player_id`=$num_get
+        ORDER BY `playerspecial_level` DESC, `playerspecial_special_id` ASC";
+$playerspecial_sql = f_igosja_mysqli_query($sql);
+
+$playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
 $seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста';
 $seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста на сайте Вирутальной Хоккейной Лиги.';

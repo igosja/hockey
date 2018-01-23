@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $rent_array array
+ * @var $transfer_array array
+ */
+?>
 <?php include(__DIR__ . '/include/player_view.php'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +34,7 @@
                     <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['transfer_age']; ?></td>
                     <td class="text-center"><?= $item['transfer_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerposition_array); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['seller_team_id']; ?>">
                             <?= $item['seller_team_name']; ?>
@@ -69,10 +75,10 @@
                 <tr>
                     <td class="text-center"><?= $item['rent_season_id']; ?></td>
                     <td class="text-center"><?= f_igosja_ufu_date($item['rent_date']); ?></td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['rent_age']; ?></td>
                     <td class="text-center"><?= $item['rent_power']; ?></td>
-                    <td class="text-center"><?= f_igosja_player_special($item['player_id']); ?></td>
+                    <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['seller_team_id']; ?>">
                             <?= $item['seller_team_name']; ?>

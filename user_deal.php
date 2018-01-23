@@ -273,6 +273,7 @@ $rent_buy_sql = f_igosja_mysqli_query($sql);
 $rent_buy_array = $rent_buy_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `position_id`,
+               `position_name`,
                `position_short`
         FROM `position`
         ORDER BY `position_id` ASC";
