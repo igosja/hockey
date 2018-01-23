@@ -51,7 +51,7 @@
                 <th class="col-5 hidden-xs" title="Шайб">Ш</th>
                 <th class="col-5 hidden-xs" title="Результативных передач">П</th>
                 <th class="col-10 hidden-xs">Цена</th>
-                <th class="col-5 hidden-xs" title="Играл/отдыхал подряд">ИО</th>
+                <th class="col-5" title="Играл/отдыхал подряд">ИО</th>
             </tr>
             <?php foreach ($player_array as $item) { ?>
                 <tr>
@@ -134,7 +134,7 @@
                     <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
                     <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                     <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
-                    <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                    <td class="text-center"><?= $item['player_game_row']; ?></td>
                 </tr>
             <?php } ?>
             <?php if ($player_rent_in_array) { ?>
@@ -222,7 +222,7 @@
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                        <td class="text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>
@@ -311,7 +311,7 @@
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
                         <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                        <td class="text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>
@@ -330,7 +330,7 @@
                 <th class="hidden-xs" title="Шайб">Ш</th>
                 <th class="hidden-xs" title="Результативных передач">П</th>
                 <th class="hidden-xs">Цена</th>
-                <th class="hidden-xs" title="Играл/отдыхал подряд">ИО</th>
+                <th title="Играл/отдыхал подряд">ИО</th>
             </tr>
         </table>
     </div>
