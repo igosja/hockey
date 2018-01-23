@@ -42,7 +42,8 @@ if (0 == $review_sql->num_rows)
     redirect('/wrong_page.php');
 }
 
-$review_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+$review_array = $review_sql->fetch_all(MYSQLI_ASSOC);
+
 $seo_title          = 'Обзор национального чемпионата';
 $seo_description    = 'Обзор национального чемпионата на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'обзор национального чемпионата';
