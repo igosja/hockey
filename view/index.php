@@ -138,7 +138,7 @@
                                 <?= $item['country_name']; ?>
                                 (<?= $item['division_name']; ?>),
                                 <?= $item['stage_name']; ?>:
-                                <a href="/review_view.php?num=<?= $item['review_id']; ?>">
+                                <a href="/review.php?num=<?= $item['review_id']; ?>">
                                     <?= $item['review_title']; ?>
                                 </a>
                                 (<a href="/user_view.php?num=<?= $item['user_id']; ?>"><?= $item['user_login']; ?></a>)
