@@ -37,8 +37,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p>
             <?= f_igosja_ufu_date_time($review_array[0]['review_date']); ?>,
-            <a href="/user_view.php?num=<?= $review_array['user_id']; ?>">
-                <?= $review_array['user_login']; ?>
+            <a href="/user_view.php?num=<?= $review_array[0]['user_id']; ?>">
+                <?= $review_array[0]['user_login']; ?>
             </a>
         </p>
     </div>
