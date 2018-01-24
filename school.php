@@ -133,13 +133,45 @@ if ($data = f_igosja_request_post('data'))
         'name'  => $position_array[0]['position_short'],
     );
 
-    if (isset($data['special_id']))
+    if (POSITION_GK == $position_id)
     {
-        $special_id = (int) $data['special_id'];
+        if (isset($data['special_gk_id']))
+        {
+            $special_id = (int) $data['special_gk_id'];
+        }
+        else
+        {
+            $sql = "SELECT `special_id`
+                    FROM `special`
+                    WHERE `special_gk`=1
+                    ORDER BY RAND()
+                    LIMIT 1";
+            $special_sql = f_igosja_mysqli_query($sql);
+
+            $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
+
+            $special_id = $special_array[0]['special_id'];
+        }
     }
     else
     {
-        $special_id = rand(SPECIAL_SPEED, SPECIAL_SHOT);
+        if (isset($data['special_field_id']))
+        {
+            $special_id = (int) $data['special_field_id'];
+        }
+        else
+        {
+            $sql = "SELECT `special_id`
+                    FROM `special`
+                    WHERE `special_field`=1
+                    ORDER BY RAND()
+                    LIMIT 1";
+            $special_sql = f_igosja_mysqli_query($sql);
+
+            $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
+
+            $special_id = $special_array[0]['special_id'];
+        }
     }
 
     $sql = "SELECT `special_name`
@@ -150,7 +182,28 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $special_sql->num_rows)
     {
-        $special_id = rand(SPECIAL_SPEED, SPECIAL_SHOT);
+        if (POSITION_GK == $position_id)
+        {
+            $sql = "SELECT `special_id`
+                    FROM `special`
+                    WHERE `special_gk`=1
+                    ORDER BY RAND()
+                    LIMIT 1";
+        }
+        else
+        {
+            $sql = "SELECT `special_id`
+                    FROM `special`
+                    WHERE `special_field`=1
+                    ORDER BY RAND()
+                    LIMIT 1";
+        }
+
+        $special_sql = f_igosja_mysqli_query($sql);
+
+        $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
+
+        $special_id = $special_array[0]['special_id'];
 
         $sql = "SELECT `special_name`
                 FROM `special`
@@ -311,10 +364,20 @@ $position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `special_id`,
                `special_name`
         FROM `special`
+        WHERE `special_field`=1
         ORDER BY `special_id` ASC";
-$special_sql = f_igosja_mysqli_query($sql);
+$special_field_sql = f_igosja_mysqli_query($sql);
 
-$special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
+$special_field_array = $special_field_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `special_id`,
+               `special_name`
+        FROM `special`
+        WHERE `special_gk`=1
+        ORDER BY `special_id` ASC";
+$special_gk_sql = f_igosja_mysqli_query($sql);
+
+$special_gk_array = $special_gk_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `style_id`,
                `style_name`
