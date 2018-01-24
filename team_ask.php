@@ -154,7 +154,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
     $_SESSION['message']['text']    = 'Заявка успешно подана';
     $_SESSION['message']['class']   = 'success';
 
-    redirect('/team_ask.php');
+    redirect('/team_view.php');
 }
 
 $sql = "SELECT COUNT(`teamask_id`) AS `count`

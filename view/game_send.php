@@ -338,7 +338,7 @@
                     <th class="hidden-xs" title="Форма">Ф</th>
                     <th title="Реальная сила">РС</th>
                     <th title="Спецвозможности">Спец</th>
-                    <th class="hidden-xs" title="Играл/отдыхал подряд">ИО</th>
+                    <th title="Играл/отдыхал подряд">ИО</th>
                 </tr>
                 <?php foreach ($player_array as $item) { ?>
                     <tr class="tr-player" id="tr-<?= $item['player_id']; ?>">
@@ -378,7 +378,7 @@
                         </td>
                         <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?></td>
                         <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_game_row']; ?></td>
+                        <td class="text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
                 <?php } ?>
             </table>

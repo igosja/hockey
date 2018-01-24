@@ -85,7 +85,7 @@
             <div class="col-lg-2 col-md-2 col-sm-1 hidden-xs"></div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <?= $item['stage_name']; ?> -
-                <a href="/review.php?num=<?= $item['review_id']; ?>">
+                <a href="/review_view.php?num=<?= $item['review_id']; ?>">
                     <?= $item['review_title']; ?>
                 </a>
                 -

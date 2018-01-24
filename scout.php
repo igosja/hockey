@@ -293,6 +293,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
+                   `position_name`,
                    `position_short`
             FROM `playerposition`
             LEFT JOIN `position`
@@ -354,6 +355,7 @@ if (count($player_id))
     $player_id = implode(', ', $player_id);
 
     $sql = "SELECT `playerposition_player_id`,
+                   `position_name`,
                    `position_short`
             FROM `playerposition`
             LEFT JOIN `position`

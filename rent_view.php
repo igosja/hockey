@@ -78,6 +78,7 @@ if (0 == $rent_sql->num_rows)
 $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `rentposition_rent_id` AS `playerposition_player_id`,
+               `position_name`,
                `position_short`
         FROM `rentposition`
         LEFT JOIN `position`

@@ -15,7 +15,8 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `news_title`
         FROM `news`
         WHERE $sql_filter
-        ORDER BY `news_id` ASC
+        AND `news_country_id`=0
+        ORDER BY `news_id` DESC
         LIMIT $offset, $limit";
 $news_sql = f_igosja_mysqli_query($sql);
 

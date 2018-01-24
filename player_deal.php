@@ -20,6 +20,7 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
                `seller_team`.`team_name` AS `seller_team_name`,
                `transfer_age`,
                `transfer_date`,
+               `transfer_id`,
                `transfer_power`,
                `transfer_price_buyer`,
                `transfer_season_id`
@@ -49,6 +50,13 @@ $transfer_sql = f_igosja_mysqli_query($sql);
 
 $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
+$transfer_id = array();
+
+foreach ($transfer_array as $item)
+{
+    $transfer_id[] = $item['transfer_id'];
+}
+
 $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
                `buyer_city`.`city_name` AS `buyer_city_name`,
                `buyer_team`.`team_id` AS `buyer_team_id`,
@@ -61,6 +69,7 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
                `rent_age`,
                `rent_date`,
                `rent_day`,
+               `rent_id`,
                `rent_power`,
                `rent_price_buyer`,
                `rent_season_id`
@@ -90,13 +99,96 @@ $rent_sql = f_igosja_mysqli_query($sql);
 
 $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT `position_id`,
-               `position_short`
-        FROM `position`
-        ORDER BY `position_id` ASC";
-$position_sql = f_igosja_mysqli_query($sql);
+$rent_id = array();
 
-$position_array = $position_sql->fetch_all(MYSQLI_ASSOC);
+foreach ($rent_array as $item)
+{
+    $rent_id[] = $item['rent_id'];
+}
+
+if (count($transfer_id) || count($rent_id))
+{
+    if (count($transfer_id))
+    {
+        $transfer_id = implode(', ', $transfer_id);
+
+        $sql = "SELECT `transferposition_transfer_id` AS `playerposition_player_id`,
+                       `position_name`,
+                       `position_short`
+                FROM `transferposition`
+                LEFT JOIN `position`
+                ON `transferposition_position_id`=`position_id`
+                WHERE `transferposition_transfer_id` IN ($transfer_id)
+                ORDER BY `transferposition_position_id` ASC";
+        $playerposition_sql = f_igosja_mysqli_query($sql);
+
+        $playerposition_1_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "SELECT `transferspecial_level` AS `playerspecial_level`,
+                       `transferspecial_transfer_id` AS `playerspecial_player_id`,
+                       `special_name`,
+                       `special_short`
+                FROM `transferspecial`
+                LEFT JOIN `special`
+                ON `transferspecial_special_id`=`special_id`
+                WHERE `transferspecial_transfer_id` IN ($transfer_id)
+                ORDER BY `transferspecial_level` DESC, `transferspecial_special_id` ASC";
+        $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+        $playerspecial_1_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
+    }
+
+    if (count($rent_id))
+    {
+        $rent_id = implode(', ', $rent_id);
+
+        $sql = "SELECT `rentposition_rent_id` AS `playerposition_player_id`,
+                       `position_name`,
+                       `position_short`
+                FROM `rentposition`
+                LEFT JOIN `position`
+                ON `rentposition_position_id`=`position_id`
+                WHERE `rentposition_rent_id` IN ($rent_id)
+                ORDER BY `rentposition_position_id` ASC";
+        $playerposition_sql = f_igosja_mysqli_query($sql);
+
+        $playerposition_2_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
+
+        $sql = "SELECT `rentspecial_level` AS `playerspecial_level`,
+                       `rentspecial_rent_id` AS `playerspecial_player_id`,
+                       `special_name`,
+                       `special_short`
+                FROM `rentspecial`
+                LEFT JOIN `special`
+                ON `rentspecial_special_id`=`special_id`
+                WHERE `rentspecial_rent_id` IN ($rent_id)
+                ORDER BY `rentspecial_level` DESC, `rentspecial_special_id` ASC";
+        $playerspecial_sql = f_igosja_mysqli_query($sql);
+
+        $playerspecial_2_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
+    }
+
+    if ($playerposition_1_array && $playerposition_2_array)
+    {
+        $playerposition_array   = array_merge($playerposition_1_array, $playerposition_2_array);
+        $playerspecial_array    = array_merge($playerspecial_1_array, $playerspecial_2_array);
+    }
+    elseif ($playerposition_1_array)
+    {
+        $playerposition_array   = $playerposition_1_array;
+        $playerspecial_array    = $playerspecial_1_array;
+    }
+    else
+    {
+        $playerposition_array   = $playerposition_2_array;
+        $playerspecial_array    = $playerspecial_2_array;
+    }
+}
+else
+{
+    $playerposition_array   = array();
+    $playerspecial_array    = array();
+}
 
 $seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста';
 $seo_description    = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. Сделки хоккеиста на сайте Вирутальной Хоккейной Лиги.';
