@@ -8,18 +8,14 @@ jQuery(document).ready(function () {
 
 function toggle_special_select()
 {
-    if (1 === parseInt($('#position').val))
+    if (1 === parseInt($('#position').val()))
     {
         $('#special-field').hide();
-        $('label[for=special-field]').hide();
         $('#special-gk').show();
-        $('label[for=special-gk]').show();
     }
     else
     {
         $('#special-field').show();
-        $('label[for=special-field]').show();
         $('#special-gk').hide();
-        $('label[for=special-gk]').hide();
     }
 }
