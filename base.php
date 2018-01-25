@@ -605,7 +605,8 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         $_SESSION['message']['text']    = 'Строительство выбрано неправильно';
     }
 
-    $sql = "SELECT `finance_value`
+    $sql = "SELECT `finance_level`,
+                   `finance_value`
             FROM `finance`
             WHERE `finance_team_id`=$num_get
             AND `finance_financetext_id` IN (" . FINANCETEXT_INCOME_BUILDING_BASE . ", " . FINANCETEXT_OUTCOME_BUILDING_BASE . ")
@@ -639,14 +640,17 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
         if ($cancel_price > 0)
         {
             $financetext_id = FINANCETEXT_INCOME_BUILDING_BASE;
+            $base_level     = $finance_array[0]['finance_level'] + 1;
         }
         else
         {
             $financetext_id = FINANCETEXT_OUTCOME_BUILDING_BASE;
+            $base_level     = $finance_array[0]['finance_level'] - 1;
         }
 
         $finance = array(
             'finance_financetext_id' => $financetext_id,
+            'finance_level' => $base_level,
             'finance_team_id' => $num_get,
             'finance_value' => $cancel_price,
             'finance_value_after' => $base_array[0]['team_finance'] + $cancel_price,

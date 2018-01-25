@@ -9,7 +9,8 @@
  * @var $player_array array
  * @var $position_array array
  * @var $school_available integer
- * @var $special_array array
+ * @var $special_field_array array
+ * @var $special_gk_array array
  * @var $style_array array
  */
 ?>
@@ -187,10 +188,19 @@
                                 </select>
                             </td>
                             <td class="text-center">
-                                <label class="hidden" for="special">Special</label>
-                                <select class="form-control" id="special" name="data[special_id]">
+                                <label class="hidden" for="special-field">Special</label>
+                                <select class="form-control" id="special-field" name="data[special_field_id]">
                                     <option value="0">-</option>
-                                    <?php foreach ($special_array as $item) { ?>
+                                    <?php foreach ($special_field_array as $item) { ?>
+                                        <option value="<?= $item['special_id']; ?>">
+                                            <?= $item['special_name']; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                                <label class="hidden" for="special-gk">Special</label>
+                                <select class="form-control" id="special-gk" name="data[special_gk_id]">
+                                    <option value="0">-</option>
+                                    <?php foreach ($special_gk_array as $item) { ?>
                                         <option value="<?= $item['special_id']; ?>">
                                             <?= $item['special_name']; ?>
                                         </option>

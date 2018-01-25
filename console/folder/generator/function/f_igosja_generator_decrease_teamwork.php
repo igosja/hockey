@@ -10,8 +10,8 @@ function f_igosja_generator_decrease_teamwork()
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `teamwork`
-            SET `teamwork_value`=50
-            WHERE `teamwork_value`>50";
+            SET `teamwork_value`=45
+            WHERE `teamwork_value`>45";
     f_igosja_mysqli_query($sql);
 
     $sql = "DELETE FROM `teamwork`

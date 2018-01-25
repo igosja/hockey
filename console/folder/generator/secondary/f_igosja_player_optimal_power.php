@@ -21,7 +21,7 @@ function f_igosja_player_optimal_power($game_result)
         $game_result[$team]['player']['gk']['power_optimal'] = round(
             $game_result[$team]['player']['gk']['power_optimal']
             * (100 + $game_result[$team]['player']['gk']['bonus'] + $game_result[$team]['team']['leader']) / 100
-            * (100 + $game_result[$team]['team']['teamwork'][1] + $game_result[$team]['team']['teamwork'][2] + $game_result[$team]['team']['teamwork'][3]) / 100
+            * (100 + ($game_result[$team]['team']['teamwork'][1] + $game_result[$team]['team']['teamwork'][2] + $game_result[$team]['team']['teamwork'][3]) / 3) / 100
             * (10 - $game_result[$team]['team']['mood'] + 2) / 10
             * (100 - AUTO_PENALTY * $game_result[$team]['team']['auto']) / 100
         );
