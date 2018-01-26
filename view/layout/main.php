@@ -97,7 +97,7 @@
         <?php include(__DIR__ . '/../' . $tpl . '.php'); ?>
         <?php if ((!isset($auth_user_id) || $auth_date_vip < time()) && 'vhol.org' == $_SERVER['HTTP_HOST']) { ?>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center hidden">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- vhol footer -->
                     <ins class="adsbygoogle"
