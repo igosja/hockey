@@ -15,6 +15,11 @@ jQuery(document).ready(function () {
             return false;
         }
     });
+
+    $("#message").wysibb({
+        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+        lang: "ru",
+    });
 });
 
 function check_text(message)

@@ -38,21 +38,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
-                    Используйте [bb]-коды:
-                    <ul>
-                        <li>[p]Новый абзац[/p]</li>
-                        <li>[table][tr][th]Вставка[/th][/tr][tr][td]таблицы[/td][/tr][/table]</li>
-                        <li>[ul][li]Список[/li][/ul]</li>
-                        <li>[b]Полужирный текст[/b]</li>
-                        <li>[i]Курсивный текст[/i]</li>
-                        <li>[u]Подчеркнутый текст[/u]</li>
-                        <li>[s]Зачеркнутый текст[/s]</li>
-                        <li>[link="url"]Cсылка[/link]</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <textarea class="form-control" id="newstext" name="data[text]" rows="5"></textarea>
                 </div>
