@@ -16,6 +16,11 @@ jQuery(document).ready(function () {
             return false;
         }
     });
+
+    $("#text").wysibb({
+        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+        lang: "ru",
+    });
 });
 
 function check_name(name)

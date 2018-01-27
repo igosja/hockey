@@ -136,6 +136,10 @@
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js') || file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
     <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
     <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
+    <?php if (in_array($tpl, array('forum_theme', 'forum_theme_create', 'forum_message_update', 'country_news_create', 'country_news_update', 'support', 'dialog', 'review_create'))) { ?>
+        <script src="/js/wysibb/jquery.wysibb.min.js"></script>
+        <link rel="stylesheet" href="/js/wysibb/theme/default/wbbtheme.css" type="text/css" />
+    <?php } ?>
     <?php if (file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
         <script src="/js/<?= $controller; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $controller . '.js'); ?>"></script>
     <?php } ?>

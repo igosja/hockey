@@ -63,7 +63,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?= nl2br($item['message_text']); ?>
+                    <?= f_igosja_bb_decode($item['message_text']); ?>
                 </div>
             </div>
         <?php } ?>

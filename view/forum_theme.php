@@ -123,7 +123,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <?= nl2br($item['forummessage_text']); ?>
+                            <?= f_igosja_bb_decode($item['forummessage_text']); ?>
                         </div>
                     </div>
                     <?php if ($item['forummessage_date_update']) { ?>

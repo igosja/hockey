@@ -29,7 +29,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-justify">
-            <?= nl2br($review_array[0]['review_text']); ?>
+            <?= f_igosja_bb_decode($review_array[0]['review_text']); ?>
         </p>
     </div>
 </div>

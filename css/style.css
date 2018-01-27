@@ -862,3 +862,17 @@ fieldset legend {
     border: 1px solid #00529B;
     border-top: none;
 }
+
+blockquote {
+    margin: 5px;
+    padding: 5px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 30px;
+    margin-right: 5px;
+    vertical-align: -10px;
+}
