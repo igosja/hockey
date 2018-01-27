@@ -128,7 +128,7 @@ if (ELECTIONSTATUS_OPEN == $electionpresidentvice_array[0]['electionstatus_id'])
 {
     $sql = "SELECT COUNT(`electionpresidentviceuser_electionpresidentviceapplication_id`) AS `count`
             FROM `electionpresidentviceuser`
-            WHERE `electionpresidentviceuser_electionpresidentviceapplication_id`=$electionpresidentvice_id
+            WHERE `electionpresidentviceuser_electionpresidentvice_id`=$electionpresidentvice_id
             AND `electionpresidentviceuser_user_id`=$auth_user_id";
     $electionpresidentviceuser_sql = f_igosja_mysqli_query($sql);
 
