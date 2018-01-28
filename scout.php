@@ -98,14 +98,33 @@ if ($data = f_igosja_request_post('data'))
 
                 if (0 == $count_check)
                 {
-                    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
+                    $sql = "SELECT COUNT(`scout_id`) AS `count`
+                            FROM `scout`
+                            WHERE `scout_player_id`=$player_id
+                            AND `scout_ready`=1";
+                    $check_sql = f_igosja_mysqli_query($sql);
 
-                    $confirm_data['style'][] = array(
-                        'id'    => $item,
-                        'name'  => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
-                    );
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+                    $count_check = $check_array[0]['count'];
 
-                    $confirm_data['price'] = $confirm_data['price'] + $basescout_array[0]['basescout_my_style_price'];
+                    if ($count_check < 2)
+                    {
+                        $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
+
+                        $confirm_data['style'][] = array(
+                            'id'    => $item,
+                            'name'  => $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'],
+                        );
+
+                        $confirm_data['price'] = $confirm_data['price'] + $basescout_array[0]['basescout_my_style_price'];
+                    }
+                    else
+                    {
+                        $_SESSION['message']['class']   = 'error';
+                        $_SESSION['message']['text']    = 'Игрок уже полностью изучен.';
+
+                        refresh();
+                    }
                 }
                 else
                 {
@@ -323,7 +342,8 @@ else
     $scoutplayerspecial_array   = array();
 }
 
-$sql = "SELECT `country_id`,
+$sql = "SELECT `count_scout`,
+               `country_id`,
                `country_name`,
                `name_name`,
                `player_age`,
@@ -337,8 +357,18 @@ $sql = "SELECT `country_id`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
+        LEFT JOIN
+        (
+            SELECT COUNT(`scout_id`) AS `count_scout`,
+                   `scout_player_id`
+            FROM `scout`
+            WHERE `scout_team_id`=$auth_team_id
+            AND `scout_ready`=1
+            GROUP BY `scout_player_id`
+        ) AS `t1`
+        ON `player_id`=`scout_player_id`
         WHERE `player_team_id`=$num_get
-        ORDER BY `player_id` ASC";
+        ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);

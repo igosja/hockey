@@ -35,124 +35,39 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Игрок</th>
-                <th class="col-1 hidden-xs" title="Национальность">Нац</th>
-                <th class="col-5" title="Позиция">Поз</th>
-                <th class="col-5" title="Возраст">В</th>
-                <th class="col-5" title="Номинальная сила">С</th>
-                <th class="col-5" title="Усталость">У</th>
-                <th class="col-5" title="Форма">Ф</th>
-                <th class="col-5" title="Реальная сила">РС</th>
-                <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
-                <th class="col-5 hidden-xs" title="Плюс/минус">+/-</th>
-                <th class="col-5 hidden-xs" title="Игр">И</th>
-                <th class="col-5 hidden-xs" title="Шайб">Ш</th>
-                <th class="col-5 hidden-xs" title="Результативных передач">П</th>
-                <th class="col-10 hidden-xs">Цена</th>
-                <th class="col-5" title="Играл/отдыхал подряд">ИО</th>
-            </tr>
-            <?php foreach ($player_array as $item) { ?>
+        <table class="table table-bordered table-hover" id="grid">
+            <thead>
                 <tr>
-                    <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
-                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                            <?= $item['name_name']; ?>
-                            <?= $item['surname_name']; ?>
-                        </a>
-                        <?php if (39 == $item['player_age']) { ?>
-                            <img
-                                alt="Завершает карьеру в конце сезона"
-                                src="/img/palm.png"
-                                title="Завершает карьеру в конце сезона"
-                            />
-                        <?php } ?>
-                        <?php if (1 == $item['player_injury']) { ?>
-                            <img
-                                    alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                    src="/img/injury.png"
-                                    title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                            />
-                        <?php } ?>
-                        <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
-                            <img
-                                    alt="Выставлен на трансфер/аренду"
-                                    src="/img/market.png"
-                                    title="Выставлен на трансфер/аренду"
-                            />
-                        <?php } ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                            <img
-                                alt="<?= $item['country_name']; ?>"
-                                src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                title="<?= $item['country_name']; ?>"
-                            />
-                        </a>
-                    </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
-                    <td class="text-center"><?= $item['player_age']; ?></td>
-                    <td
-                        class="text-center
-                        <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
-                            font-green
-                        <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
-                            font-red
-                        <?php } ?>"
-                    >
-                        <?= $item['player_power_nominal']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                            <?= $item['player_tire']; ?>
-                        <?php } else { ?>
-                            ?
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                            <img
-                                alt="<?= $item['phisical_name']; ?>"
-                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                title="<?= $item['phisical_name']; ?>"
-                            />
-                        <?php } else { ?>
-                            ?
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                            <?= $item['player_power_real']; ?>
-                        <?php } else { ?>
-                            ~<?= $item['player_power_nominal']; ?>
-                        <?php } ?>
-                    </td>
-                    <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
-                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
-                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
-                    <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
-                    <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
-                    <td class="text-center"><?= $item['player_game_row']; ?></td>
+                    <th data-type="player">Игрок</th>
+                    <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
+                    <th class="col-5" data-type="position" title="Позиция">Поз</th>
+                    <th class="col-5" data-type="number" title="Возраст">В</th>
+                    <th class="col-5" data-type="number" title="Номинальная сила">С</th>
+                    <th class="col-5" data-type="number" title="Усталость">У</th>
+                    <th class="col-5" data-type="phisical" title="Форма">Ф</th>
+                    <th class="col-5" data-type="number" title="Реальная сила">РС</th>
+                    <th class="col-10 hidden-xs" data-type="string" title="Спецвозможности">Спец</th>
+                    <th class="col-5 hidden-xs" data-type="number" title="Плюс/минус">+/-</th>
+                    <th class="col-5 hidden-xs" data-type="number" title="Игр">И</th>
+                    <th class="col-5 hidden-xs" data-type="number" title="Шайб">Ш</th>
+                    <th class="col-5 hidden-xs" data-type="number" title="Результативных передач">П</th>
+                    <th class="col-10 hidden-xs" data-type="price">Цена</th>
+                    <th class="col-5" data-type="number" title="Играл/отдыхал подряд">ИО</th>
                 </tr>
-            <?php } ?>
-            <?php if ($player_rent_in_array) { ?>
-                <tr>
-                    <th colspan="15">Взятые в аренду</th>
-                </tr>
-                <?php foreach ($player_rent_in_array as $item) { ?>
-                    <tr>
-                        <td>
+            </thead>
+            <tbody>
+                <?php $i=0; foreach ($player_array as $item) { ?>
+                    <tr data-order="<?= $i; ?>">
+                        <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>
                             </a>
                             <?php if (39 == $item['player_age']) { ?>
                                 <img
-                                        alt="Завершает карьеру в конце сезона"
-                                        src="/img/palm.png"
-                                        title="Завершает карьеру в конце сезона"
+                                    alt="Завершает карьеру в конце сезона"
+                                    src="/img/palm.png"
+                                    title="Завершает карьеру в конце сезона"
                                 />
                             <?php } ?>
                             <?php if (1 == $item['player_injury']) { ?>
@@ -201,9 +116,9 @@
                         <td class="text-center">
                             <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
                                 <img
-                                        alt="<?= $item['phisical_name']; ?>"
-                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                        title="<?= $item['phisical_name']; ?>"
+                                    alt="<?= $item['phisical_name']; ?>"
+                                    src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                    title="<?= $item['phisical_name']; ?>"
                                 />
                             <?php } else { ?>
                                 ?
@@ -224,114 +139,205 @@
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                         <td class="text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
-                <?php } ?>
-            <?php } ?>
-            <?php if ($player_rent_out_array) { ?>
-                <tr>
-                    <th colspan="15">Отданные в аренду</th>
-                </tr>
-                <?php foreach ($player_rent_out_array as $item) { ?>
+                <?php $i++; } ?>
+            </tbody>
+            <tfoot>
+                <?php if ($player_rent_in_array) { ?>
                     <tr>
-                        <td>
-                            <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                                <?= $item['name_name']; ?>
-                                <?= $item['surname_name']; ?>
-                            </a>
-                            <?php if (39 == $item['player_age']) { ?>
-                                <img
-                                        alt="Завершает карьеру в конце сезона"
-                                        src="/img/palm.png"
-                                        title="Завершает карьеру в конце сезона"
-                                />
-                            <?php } ?>
-                            <?php if (1 == $item['player_injury']) { ?>
-                                <img
-                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                        src="/img/injury.png"
-                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                />
-                            <?php } ?>
-                            <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
-                                <img
-                                        alt="Выставлен на трансфер/аренду"
-                                        src="/img/market.png"
-                                        title="Выставлен на трансфер/аренду"
-                                />
-                            <?php } ?>
-                        </td>
-                        <td class="hidden-xs text-center">
-                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                                <img
-                                    alt="<?= $item['country_name']; ?>"
-                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                    title="<?= $item['country_name']; ?>"
-                                />
-                            </a>
-                        </td>
-                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
-                        <td class="text-center"><?= $item['player_age']; ?></td>
-                        <td
-                            class="text-center
-                            <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
-                                font-green
-                            <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
-                                font-red
-                            <?php } ?>"
-                        >
-                            <?= $item['player_power_nominal']; ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                                <?= $item['player_tire']; ?>
-                            <?php } else { ?>
-                                ?
-                            <?php } ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                                <img
-                                        alt="<?= $item['phisical_name']; ?>"
-                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                        title="<?= $item['phisical_name']; ?>"
-                                />
-                            <?php } else { ?>
-                                ?
-                            <?php } ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                                <?= $item['player_power_real']; ?>
-                            <?php } else { ?>
-                                ~<?= $item['player_power_nominal']; ?>
-                            <?php } ?>
-                        </td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
-                        <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
-                        <td class="text-center"><?= $item['player_game_row']; ?></td>
+                        <th colspan="15">Взятые в аренду</th>
                     </tr>
+                    <?php foreach ($player_rent_in_array as $item) { ?>
+                        <tr>
+                            <td>
+                                <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                    <?= $item['name_name']; ?>
+                                    <?= $item['surname_name']; ?>
+                                </a>
+                                <?php if (39 == $item['player_age']) { ?>
+                                    <img
+                                            alt="Завершает карьеру в конце сезона"
+                                            src="/img/palm.png"
+                                            title="Завершает карьеру в конце сезона"
+                                    />
+                                <?php } ?>
+                                <?php if (1 == $item['player_injury']) { ?>
+                                    <img
+                                            alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                            src="/img/injury.png"
+                                            title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    />
+                                <?php } ?>
+                                <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
+                                    <img
+                                            alt="Выставлен на трансфер/аренду"
+                                            src="/img/market.png"
+                                            title="Выставлен на трансфер/аренду"
+                                    />
+                                <?php } ?>
+                            </td>
+                            <td class="hidden-xs text-center">
+                                <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                    <img
+                                        alt="<?= $item['country_name']; ?>"
+                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                        title="<?= $item['country_name']; ?>"
+                                    />
+                                </a>
+                            </td>
+                            <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                            <td class="text-center"><?= $item['player_age']; ?></td>
+                            <td
+                                class="text-center
+                                <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
+                                    font-green
+                                <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $item['player_power_nominal']; ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <?= $item['player_tire']; ?>
+                                <?php } else { ?>
+                                    ?
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <img
+                                            alt="<?= $item['phisical_name']; ?>"
+                                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                            title="<?= $item['phisical_name']; ?>"
+                                    />
+                                <?php } else { ?>
+                                    ?
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <?= $item['player_power_real']; ?>
+                                <?php } else { ?>
+                                    ~<?= $item['player_power_nominal']; ?>
+                                <?php } ?>
+                            </td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
+                            <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                            <td class="text-center"><?= $item['player_game_row']; ?></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-            <tr>
-                <th>Игрок</th>
-                <th class="hidden-xs" title="Национальность">Нац</th>
-                <th title="Позиция">Поз</th>
-                <th title="Возраст">В</th>
-                <th title="Номинальная сила">С</th>
-                <th title="Усталость">У</th>
-                <th title="Форма">Ф</th>
-                <th title="Реальная сила">РС</th>
-                <th class="hidden-xs" title="Спецвозможности">Спец</th>
-                <th title="Плюс/минус" class="hidden-xs">+/-</th>
-                <th class="hidden-xs" title="Игр">И</th>
-                <th class="hidden-xs" title="Шайб">Ш</th>
-                <th class="hidden-xs" title="Результативных передач">П</th>
-                <th class="hidden-xs">Цена</th>
-                <th title="Играл/отдыхал подряд">ИО</th>
-            </tr>
+                <?php if ($player_rent_out_array) { ?>
+                    <tr>
+                        <th colspan="15">Отданные в аренду</th>
+                    </tr>
+                    <?php foreach ($player_rent_out_array as $item) { ?>
+                        <tr>
+                            <td>
+                                <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                    <?= $item['name_name']; ?>
+                                    <?= $item['surname_name']; ?>
+                                </a>
+                                <?php if (39 == $item['player_age']) { ?>
+                                    <img
+                                            alt="Завершает карьеру в конце сезона"
+                                            src="/img/palm.png"
+                                            title="Завершает карьеру в конце сезона"
+                                    />
+                                <?php } ?>
+                                <?php if (1 == $item['player_injury']) { ?>
+                                    <img
+                                            alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                            src="/img/injury.png"
+                                            title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    />
+                                <?php } ?>
+                                <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
+                                    <img
+                                            alt="Выставлен на трансфер/аренду"
+                                            src="/img/market.png"
+                                            title="Выставлен на трансфер/аренду"
+                                    />
+                                <?php } ?>
+                            </td>
+                            <td class="hidden-xs text-center">
+                                <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                    <img
+                                        alt="<?= $item['country_name']; ?>"
+                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                        title="<?= $item['country_name']; ?>"
+                                    />
+                                </a>
+                            </td>
+                            <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                            <td class="text-center"><?= $item['player_age']; ?></td>
+                            <td
+                                class="text-center
+                                <?php if ($item['player_power_nominal'] > $item['player_power_old']) { ?>
+                                    font-green
+                                <?php } elseif ($item['player_power_nominal'] < $item['player_power_old']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $item['player_power_nominal']; ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <?= $item['player_tire']; ?>
+                                <?php } else { ?>
+                                    ?
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <img
+                                            alt="<?= $item['phisical_name']; ?>"
+                                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                            title="<?= $item['phisical_name']; ?>"
+                                    />
+                                <?php } else { ?>
+                                    ?
+                                <?php } ?>
+                            </td>
+                            <td class="text-center">
+                                <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                    <?= $item['player_power_real']; ?>
+                                <?php } else { ?>
+                                    ~<?= $item['player_power_nominal']; ?>
+                                <?php } ?>
+                            </td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_plus_minus'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_game'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
+                            <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                            <td class="text-center"><?= $item['player_game_row']; ?></td>
+                        </tr>
+                    <?php } ?>
+                <?php } ?>
+                <tr>
+                    <th>Игрок</th>
+                    <th class="hidden-xs" title="Национальность">Нац</th>
+                    <th title="Позиция">Поз</th>
+                    <th title="Возраст">В</th>
+                    <th title="Номинальная сила">С</th>
+                    <th title="Усталость">У</th>
+                    <th title="Форма">Ф</th>
+                    <th title="Реальная сила">РС</th>
+                    <th class="hidden-xs" title="Спецвозможности">Спец</th>
+                    <th title="Плюс/минус" class="hidden-xs">+/-</th>
+                    <th class="hidden-xs" title="Игр">И</th>
+                    <th class="hidden-xs" title="Шайб">Ш</th>
+                    <th class="hidden-xs" title="Результативных передач">П</th>
+                    <th class="hidden-xs">Цена</th>
+                    <th title="Играл/отдыхал подряд">ИО</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>

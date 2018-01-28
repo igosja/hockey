@@ -91,7 +91,7 @@ function f_igosja_create_team_players($team_id)
 
         $surname_id = f_igosja_select_player_surname_id($team_id, $country_id);
 
-        $style_id   = 1;
+        $style_id   = rand(STYLE_POWER, STYLE_TECHNIQUE);
         $ability    = rand(1, 5);
 
         $sql = "INSERT INTO `player`

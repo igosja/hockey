@@ -6,6 +6,7 @@
  * @var $player_array array
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $style_array array
  */
 ?>
 <div class="row margin-top">
@@ -129,6 +130,14 @@
                         <?php } else { ?>
                             ~<?= $player_array[0]['player_power_nominal']; ?>
                         <?php } ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        Стиль:
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <?= implode(' | ', $style_array); ?>
                     </div>
                 </div>
             </div>

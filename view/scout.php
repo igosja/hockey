@@ -112,11 +112,11 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <th>Игрок</th>
-                    <th class="col-1" title="Национальность">Нац</th>
+                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
                     <th class="col-10" title="Позиция">Поз</th>
                     <th class="col-5" title="Возраст">В</th>
                     <th class="col-10" title="Номинальная сила">С</th>
-                    <th class="col-15" title="Спецвозможности">Спец</th>
+                    <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
                     <th class="col-10">Изучение</th>
                     <th class="col-10" title="Прогресс изучения">%</th>
                     <th class="col-1"></th>
@@ -129,7 +129,7 @@
                                 <?= $item['surname_name']; ?>
                             </a>
                         </td>
-                        <td class="text-center">
+                        <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                                 <img
                                     src="/img/country/12/<?= $item['country_id']; ?>.png"
@@ -140,7 +140,7 @@
                         <td class="text-center"><?= f_igosja_player_position($item['player_id'], $scoutplayerposition_array); ?></td>
                         <td class="text-center"><?= $item['player_age']; ?></td>
                         <td class="text-center"><?= $item['player_power_nominal']; ?></td>
-                        <td class="text-center"><?= f_igosja_player_special($item['player_id'], $scoutplayerspecial_array); ?></td>
+                        <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $scoutplayerspecial_array); ?></td>
                         <td class="text-center">Стиль</td>
                         <td class="text-center"><?= $item['scout_percent']; ?>%</td>
                         <td class="text-center">
@@ -152,11 +152,11 @@
                 <?php } ?>
                 <tr>
                     <th>Игрок</th>
-                    <th title="Национальность">Нац</th>
+                    <th class="hidden-xs" title="Национальность">Нац</th>
                     <th title="Позиция">Поз</th>
                     <th title="Возраст">В</th>
                     <th title="Номинальная сила">С</th>
-                    <th title="Спецвозможности">Спец</th>
+                    <th class="hidden-xs" title="Спецвозможности">Спец</th>
                     <th>Изучение</th>
                     <th title="Прогресс изучения">%</th>
                     <th class="col-1"></th>
@@ -171,11 +171,11 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>Игрок</th>
-                        <th class="col-1" title="Национальность">Нац</th>
+                        <th class="col-1 hidden-xs" title="Национальность">Нац</th>
                         <th class="col-10" title="Позиция">Поз</th>
                         <th class="col-5" title="Возраст">В</th>
                         <th class="col-10" title="Номинальная сила">С</th>
-                        <th class="col-15" title="Спецвозможности">Спец</th>
+                        <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
                         <th class="col-10">Стиль</th>
                     </tr>
                     <?php foreach ($player_array as $item) { ?>
@@ -186,7 +186,7 @@
                                     <?= $item['surname_name']; ?>
                                 </a>
                             </td>
-                            <td class="text-center">
+                            <td class="hidden-xs text-center">
                                 <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                                     <img
                                         src="/img/country/12/<?= $item['country_id']; ?>.png"
@@ -201,22 +201,24 @@
                             <td class="text-center">
                                 <?= $item['player_power_nominal']; ?>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center hidden-xs">
                                 <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
                             </td>
                             <td class="text-center">
-                                <label class="hidden" for="style-<?= $item['player_id']; ?>"></label>
-                                <input id="style-<?= $item['player_id']; ?>" name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                <?php if ($item['count_scout'] < 2) { ?>
+                                    <label class="hidden" for="style-<?= $item['player_id']; ?>"></label>
+                                    <input id="style-<?= $item['player_id']; ?>" name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>
                     <tr>
                         <th>Игрок</th>
-                        <th title="Национальность">Нац</th>
+                        <th class="hidden-xs" title="Национальность">Нац</th>
                         <th title="Позиция">Поз</th>
                         <th title="Возраст">В</th>
                         <th title="Номинальная сила">С</th>
-                        <th title="Спецвозможности">Спец</th>
+                        <th class="hidden-xs" title="Спецвозможности">Спец</th>
                         <th>Стиль</th>
                     </tr>
                 </table>
