@@ -63,7 +63,7 @@
         </table>
     </div>
 </div>
-<form class="margin-no" method="POST">
+<form class="margin-no game-form" method="POST">
     <div class="row margin-top">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-right strong">
             <label for="ticket">Билет, $:</label>
@@ -267,6 +267,22 @@
     <div class="row margin-top">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+                    Сила состава: <span class="strong span-power">0</span>
+                    <br/>
+                    Отпимальность позиций: <span class="strong span-position-percent">0</span>%
+                    <br/>
+                    Отпимальность состава: <span class="strong span-lineup-percent">0</span>%
+                    <br/>
+                    Сыгранность:
+                    <span class="strong span-teamwork-1">0</span>%
+                    |
+                    <span class="strong span-teamwork-2">0</span>%
+                    |
+                    <span class="strong span-teamwork-3">0</span>%
+                </div>
+            </div>
+            <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
                     Вратарь:
                 </div>

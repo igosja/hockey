@@ -211,7 +211,31 @@ function player_change()
     {
         $('#tr-' + $(player_change[i]).val()).addClass('info');
     }
-}function sort_grid(grid, type, colNum)
+
+    send_ajax();
+}
+
+function send_ajax()
+{
+    var form_data = $('.game-form').serialize();
+
+    $.ajax({
+        data: form_data,
+        dataType: 'json',
+        method: 'post',
+        url: '/json/game_send.php',
+        success: function (data) {
+            $('.span-power').html(data.power);
+            $('.span-position-percent').html(data.position);
+            $('.span-lineup-percent').html(data.lineup);
+            $('.span-teamwork-1').html(data.teamwork_1);
+            $('.span-teamwork-2').html(data.teamwork_2);
+            $('.span-teamwork-3').html(data.teamwork_3);
+        }
+    })
+}
+
+function sort_grid(grid, type, colNum)
 {
     var position = ['GK', 'LD', 'RD', 'LW', 'C', 'RW'];
     var phisical = [11, 10, 12, 9, 13, 8, 14, 7, 15, 6, 16, 5, 17, 4, 18, 3, 19, 2, 20, 1];
