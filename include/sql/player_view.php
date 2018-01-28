@@ -26,6 +26,7 @@ $sql = "SELECT `country_id`,
                `player_rent_on`,
                `player_rent_team_id`,
                `player_salary`,
+               `player_style_id`,
                `player_tire`,
                `player_transfer_on`,
                `rent_team`.`team_id` AS `rent_team_id`,
@@ -84,14 +85,87 @@ $playerspecial_sql = f_igosja_mysqli_query($sql);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
-if (isset($auth_team_id) && $player_array[0]['team_id'] == $auth_team_id)
+if (isset($auth_team_id))
 {
-    $sql = "SELECT `line_color`,
-                   `line_id`,
-                   `line_name`
-            FROM `line`
-            ORDER BY `line_id` ASC";
-    $line_sql = f_igosja_mysqli_query($sql);
+    $sql = "SELECT COUNT(`scout_id`) AS `count_scout`
+            FROM `scout`
+            WHERE `scout_player_id`=$num_get
+            AND `scout_team_id`=$auth_team_id
+            AND `scout_style`=1
+            AND `scout_ready`=1";
+    $scout_sql = f_igosja_mysqli_query($sql);
 
-    $line_array = $line_sql->fetch_all(MYSQLI_ASSOC);
+    $scout_array = $scout_sql->fetch_all(MYSQLI_ASSOC);
+
+    $count_scout = $scout_array[0]['count_scout'];
+
+    if ($player_array[0]['team_id'] == $auth_team_id)
+    {
+        $sql = "SELECT `line_color`,
+                       `line_id`,
+                       `line_name`
+                FROM `line`
+                ORDER BY `line_id` ASC";
+        $line_sql = f_igosja_mysqli_query($sql);
+
+        $line_array = $line_sql->fetch_all(MYSQLI_ASSOC);
+    }
 }
+else
+{
+    $count_scout = 0;
+}
+
+$style_id = $player_array[0]['player_style_id'];
+
+if (2 == $count_scout)
+{
+    $sql = "SELECT `style_name`
+            FROM `style`
+            WHERE `style_id`=$style_id
+            AND `style_id`!=" . STYLE_NORMAL . "
+            ORDER BY `style_id` ASC";
+}
+else
+{
+    $limit = 2 - $count_scout;
+
+    $sql = "SELECT `style_id`
+            FROM `style`
+            WHERE `style_id`!=$style_id
+            AND `style_id`!=" . STYLE_NORMAL . "
+            ORDER BY `style_id` ASC
+            LIMIT $limit";
+    $style_sql = f_igosja_mysqli_query($sql);
+
+    $style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
+
+    $style_id_array = array();
+
+    foreach ($style_array as $item)
+    {
+        $style_id_array[] = $item['style_id'];
+    }
+
+    $style_id_array = implode(',', $style_id_array);
+
+    $sql = "SELECT `style_name`
+            FROM `style`
+            WHERE (`style_id`=$style_id
+            OR `style_id` IN ($style_id_array))
+            AND `style_id`!=" . STYLE_NORMAL . "
+            ORDER BY `style_id` ASC";
+}
+
+$style_sql = f_igosja_mysqli_query($sql);
+
+$style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
+
+$style_name_array = array();
+
+foreach ($style_array as $item)
+{
+    $style_name_array[] = $item['style_name'];
+}
+
+$style_array = $style_name_array;
