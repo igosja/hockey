@@ -46,7 +46,7 @@
                     <th class="col-5" data-type="number" title="Усталость">У</th>
                     <th class="col-5" data-type="phisical" title="Форма">Ф</th>
                     <th class="col-5" data-type="number" title="Реальная сила">РС</th>
-                    <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
+                    <th class="col-10 hidden-xs" data-type="string" title="Спецвозможности">Спец</th>
                     <th class="col-5 hidden-xs" data-type="number" title="Плюс/минус">+/-</th>
                     <th class="col-5 hidden-xs" data-type="number" title="Игр">И</th>
                     <th class="col-5 hidden-xs" data-type="number" title="Шайб">Ш</th>

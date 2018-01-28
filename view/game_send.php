@@ -327,60 +327,64 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>Игрок</th>
-                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
-                    <th title="Позиция">Поз</th>
-                    <th class="hidden-xs" title="Возраст">В</th>
-                    <th class="hidden-xs" title="Сила">С</th>
-                    <th class="hidden-xs" title="Усталость">У</th>
-                    <th class="hidden-xs" title="Форма">Ф</th>
-                    <th title="Реальная сила">РС</th>
-                    <th title="Спецвозможности">Спец</th>
-                    <th title="Играл/отдыхал подряд">ИО</th>
-                </tr>
-                <?php foreach ($player_array as $item) { ?>
-                    <tr class="tr-player" id="tr-<?= $item['player_id']; ?>">
-                        <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
-                            <a href="/player_view.php?num=<?= $item['player_id']; ?>" target="_blank">
-                                <?= $item['name_name']; ?>
-                                <?= $item['surname_name']; ?>
-                            </a>
-                        </td>
-                        <td class="hidden-xs text-center">
-                            <a href="/country_news.php?num=<?= $item['country_id']; ?>" target="_blank">
-                                <img
-                                    alt="<?= $item['country_name']; ?>"
-                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                    title="<?= $item['country_name']; ?>"
-                                >
-                            </a>
-                        </td>
-                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
-                        <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
-                        <td class="hidden-xs text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
-                        <td class="hidden-xs text-center">
-                            <?php if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id']) { ?>
-                                <img
-                                    alt="100%"
-                                    src="/img/phisical/16.png"
-                                    title="100%"
-                                />
-                            <?php } else { ?>
-                                <img
-                                    alt="<?= $item['phisical_name']; ?>"
-                                    src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                    title="<?= $item['phisical_name']; ?>"
-                                />
-                            <?php } ?>
-                        </td>
-                        <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?></td>
-                        <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
-                        <td class="text-center"><?= $item['player_game_row']; ?></td>
+            <table class="table table-bordered table-hover" id="grid">
+                <thead>
+                    <tr>
+                        <th data-type="player">Игрок</th>
+                        <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
+                        <th data-type="position" title="Позиция">Поз</th>
+                        <th class="hidden-xs" data-type="number" title="Возраст">В</th>
+                        <th class="hidden-xs" data-type="number" title="Сила">С</th>
+                        <th class="hidden-xs" data-type="number" title="Усталость">У</th>
+                        <th class="hidden-xs" data-type="phisical" title="Форма">Ф</th>
+                        <th data-type="number" title="Реальная сила">РС</th>
+                        <th data-type="string" title="Спецвозможности">Спец</th>
+                        <th data-type="number" title="Играл/отдыхал подряд">ИО</th>
                     </tr>
-                <?php } ?>
+                </thead>
+                <tbody>
+                    <?php $i=0; foreach ($player_array as $item) { ?>
+                        <tr class="tr-player" data-order="<?= $i; ?>" id="tr-<?= $item['player_id']; ?>">
+                            <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
+                                <a href="/player_view.php?num=<?= $item['player_id']; ?>" target="_blank">
+                                    <?= $item['name_name']; ?>
+                                    <?= $item['surname_name']; ?>
+                                </a>
+                            </td>
+                            <td class="hidden-xs text-center">
+                                <a href="/country_news.php?num=<?= $item['country_id']; ?>" target="_blank">
+                                    <img
+                                        alt="<?= $item['country_name']; ?>"
+                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                        title="<?= $item['country_name']; ?>"
+                                    >
+                                </a>
+                            </td>
+                            <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                            <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
+                            <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
+                            <td class="hidden-xs text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
+                            <td class="hidden-xs text-center">
+                                <?php if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id']) { ?>
+                                    <img
+                                        alt="100%"
+                                        src="/img/phisical/16.png"
+                                        title="100%"
+                                    />
+                                <?php } else { ?>
+                                    <img
+                                        alt="<?= $item['phisical_name']; ?>"
+                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                        title="<?= $item['phisical_name']; ?>"
+                                    />
+                                <?php } ?>
+                            </td>
+                            <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? round($item['player_power_nominal'] * 0.75) : $item['player_power_real']; ?></td>
+                            <td class="text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
+                            <td class="text-center"><?= $item['player_game_row']; ?></td>
+                        </tr>
+                    <?php $i++; } ?>
+                </tbody>
             </table>
         </div>
     </div>

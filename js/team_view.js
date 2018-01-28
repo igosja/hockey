@@ -2,7 +2,6 @@ jQuery(document).ready(function () {
     var grid = $('#grid');
     var grid_th = grid.find('thead').find('th');
     grid_th.on('click', function() {
-        // console.log($.inArray(this, grid_th));
         sort_grid(grid, $(this).data('type'), $.inArray(this, grid_th));
     });
 });
@@ -103,6 +102,21 @@ function sort_grid(grid, type, colNum)
         compare = function(rowA, rowB) {
             var a = $.trim($(rowA.cells[colNum]).find('a').html().replace(/\s/g, ''));
             var b = $.trim($(rowB.cells[colNum]).find('a').html().replace(/\s/g, ''));
+            if (a !== b)
+            {
+                var sort_array = [a, b];
+                sort_array.sort();
+                return $.inArray(a, sort_array) - $.inArray(b, sort_array);
+            }
+            else
+            {
+                return $(rowA).data('order') - $(rowB).data('order');
+            }
+        };
+    } else if ('string' === type) {
+        compare = function(rowA, rowB) {
+            var a = rowA.cells[colNum].innerHTML;
+            var b = rowB.cells[colNum].innerHTML;
             if (a !== b)
             {
                 var sort_array = [a, b];
