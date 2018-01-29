@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_use_bb integer
  * @var $forummessage_array array
  */
 ?>
@@ -35,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label class="hidden" for="text"></label>
-                    <textarea class="form-control" id="text" name="data[text]" rows="5"><?= $forummessage_array[0]['forummessage_text']; ?></textarea>
+                    <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="text" name="data[text]" rows="5"><?= $forummessage_array[0]['forummessage_text']; ?></textarea>
                 </div>
             </div>
             <div class="row">

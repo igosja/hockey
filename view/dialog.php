@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_use_bb integer
  * @var $count_page integer
  * @var $message_array array
  * @var $num_get integer
@@ -75,7 +76,7 @@
         <form id="message-form" method="POST">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" id="message" name="data[text]" rows="5"></textarea>
+                    <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="message" name="data[text]" rows="5"></textarea>
                 </div>
             </div>
             <div class="row">

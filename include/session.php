@@ -22,6 +22,7 @@ if (isset($_SESSION['user_id']))
                    `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
+                   `user_use_bb`,
                    `user_userrole_id`
             FROM `user`
             LEFT JOIN `team`
@@ -44,6 +45,7 @@ if (isset($_SESSION['user_id']))
     $auth_team_id       = $user_array[0]['team_id'];
     $auth_national_id   = $user_array[0]['national_id'];
     $auth_user_login    = $user_array[0]['user_login'];
+    $auth_use_bb        = $user_array[0]['user_use_bb'];
     $auth_userrole_id   = $user_array[0]['user_userrole_id'];
 
     if (!$auth_country_id)

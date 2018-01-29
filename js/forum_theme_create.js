@@ -1,9 +1,11 @@
 jQuery(document).ready(function () {
+    var textarea = $('#text');
+
     $('#name').on('blur', function () {
         check_name($(this).val());
     });
 
-    $('#text').on('blur', function () {
+    textarea.on('blur', function () {
         check_text($(this).val());
     });
 
@@ -17,10 +19,13 @@ jQuery(document).ready(function () {
         }
     });
 
-    $("#text").wysibb({
-        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
-        lang: "ru",
-    });
+    if (1 === textarea.data('bb'))
+    {
+        textarea.wysibb({
+            buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+            lang: "ru"
+        });
+    }
 });
 
 function check_name(name)

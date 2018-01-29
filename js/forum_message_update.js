@@ -1,5 +1,7 @@
 jQuery(document).ready(function () {
-    $('#text').on('blur', function () {
+    var textarea = $('#text');
+
+    textarea.on('blur', function () {
         check_text($(this).val());
     });
 
@@ -12,10 +14,13 @@ jQuery(document).ready(function () {
         }
     });
 
-    $("#text").wysibb({
-        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
-        lang: "ru",
-    });
+    if (1 === textarea.data('bb'))
+    {
+        textarea.wysibb({
+            buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+            lang: "ru"
+        });
+    }
 });
 
 function check_text(text)

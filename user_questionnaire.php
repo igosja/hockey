@@ -46,6 +46,7 @@ if ($data = f_igosja_request_post('data'))
     $user_name          = $data['user_name'];
     $user_sex_id        = (int) $data['user_sex_id'];
     $user_surname       = $data['user_surname'];
+    $user_use_bb        = (int) $data['user_use_bb'];
 
     $sql = "UPDATE `user`
             SET `user_birth_day`=$user_birth_day,
@@ -55,7 +56,8 @@ if ($data = f_igosja_request_post('data'))
                 `user_country_id`=$user_country_id,
                 `user_name`=?,
                 `user_sex_id`=$user_sex_id,
-                `user_surname`=?
+                `user_surname`=?,
+                `user_use_bb`=$user_use_bb
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
     $prepare = $mysqli->prepare($sql);
@@ -104,7 +106,8 @@ $sql = "SELECT `user_birth_day`,
                `user_login`,
                `user_name`,
                `user_sex_id`,
-               `user_surname`
+               `user_surname`,
+               `user_use_bb`
         FROM `user`
         LEFT JOIN `sex`
         ON `user_sex_id`=`sex_id`
