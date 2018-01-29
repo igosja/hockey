@@ -532,7 +532,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -548,7 +548,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -564,7 +564,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -580,7 +580,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -596,7 +596,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -612,7 +612,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -628,7 +628,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -644,7 +644,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -660,7 +660,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -676,7 +676,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_2 = $teamwork_2 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -692,7 +692,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -708,7 +708,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -724,7 +724,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -740,7 +740,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -756,7 +756,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -772,7 +772,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -788,7 +788,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -804,7 +804,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -820,7 +820,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $sql = "SELECT `teamwork_value`
@@ -836,7 +836,7 @@ if ($data = f_igosja_request_post('data', 'line'))
     {
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
-        $teamwork_1= $teamwork_1+ $teamwork_array[0]['teamwork_value'];
+        $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
     }
 
     $position = round($position / $power * 100);
