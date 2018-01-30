@@ -184,22 +184,26 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <label for="ии">
-                        Использовать текстовый редактор
-                    </label>
-                    <input name="data[user_use_bb]" type="hidden" value="0" />
-                    <input
-                        id="ии"
-                        name="data[user_use_bb]"
-                        type="checkbox"
-                        value="1"
-                    <?php if ($holiday_array[0]['user_use_bb']) { ?>
-                        checked
-                    <?php } ?>
-                    />
-                </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
+            <label for="bb">
+                Использовать текстовый редактор
+            </label>
+        </div>
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+            <input name="data[user_use_bb]" type="hidden" value="0" />
+            <input
+                    id="bb"
+                    name="data[user_use_bb]"
+                    type="checkbox"
+                    value="1"
+                <?php if ($holiday_array[0]['user_use_bb']) { ?>
+                    checked
+                <?php } ?>
+            />
         </div>
     </div>
     <div class="row">
