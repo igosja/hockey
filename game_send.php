@@ -450,8 +450,8 @@ $gk_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_short`,
+               MAX(ROUND(IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8))))) AS $power_field,
+               GROUP_CONCAT(`position_short` SEPARATOR '/') AS `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -474,8 +474,8 @@ $ld_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_short`,
+               MAX(ROUND(IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8))))) AS $power_field,
+               GROUP_CONCAT(`position_short` SEPARATOR '/') AS `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -498,8 +498,8 @@ $rd_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_short`,
+               MAX(ROUND(IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_LD . ", $power_field*0.9, $power_field*0.8))))) AS $power_field,
+               GROUP_CONCAT(`position_short` SEPARATOR '/') AS `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -522,8 +522,8 @@ $lw_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_short`,
+               MAX(ROUND(IF(`playerposition_position_id`=" . POSITION_C . ", $power_field, IF(`playerposition_position_id`=" . POSITION_LW . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field*0.9, $power_field*0.8))))) AS $power_field,
+               GROUP_CONCAT(`position_short` SEPARATOR '/') AS `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
@@ -546,8 +546,8 @@ $c_array = $result_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `name_name`,
                `player_id`,
-               ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8)))) AS $power_field,
-               `position_short`,
+               MAX(ROUND(IF(`playerposition_position_id`=" . POSITION_RW . ", $power_field, IF(`playerposition_position_id`=" . POSITION_C . ", $power_field*0.9, IF(`playerposition_position_id`=" . POSITION_RD . ", $power_field*0.9, $power_field*0.8))))) AS $power_field,
+               GROUP_CONCAT(`position_short` SEPARATOR '/') AS `position_short`,
                `surname_name`
         FROM `player`
         LEFT JOIN `playerposition`
