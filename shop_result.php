@@ -62,6 +62,14 @@ if (1 == $status)
 
 $user_id    = $payment_array[0]['payment_user_id'];
 $sum        = $payment_array[0]['payment_sum'];
+$bonus      = f_igosja_get_user_payment_bonus($user_id);
+
+if ($sum >= 100)
+{
+    $bonus = $bonus + 10;
+}
+
+$sum = round($sum * ( 100 + $bonus ) / 100, 2);
 
 $sql = "UPDATE `payment`
         SET `payment_status`=1
@@ -87,8 +95,8 @@ f_igosja_mysqli_query($sql);
 $money = array(
     'money_moneytext_id' => MONEYTEXT_INCOME_ADD_FUNDS,
     'money_user_id' => $user_id,
-    'money_value' => -$sum,
-    'money_value_after' => $user_array[0]['user_money'] - $sum,
+    'money_value' => $sum,
+    'money_value_after' => $user_array[0]['user_money'] + $sum,
     'money_value_before' => $user_array[0]['user_money'],
 );
 f_igosja_money($money);
@@ -97,7 +105,7 @@ if ($user_array[0]['user_referrer_id'])
 {
     $referrer_id = $user_array[0]['user_referrer_id'];
 
-    $sum = $sum / 10;
+    $sum = round($sum / 10, 2);
 
     $sql = "SELECT `user_money`,
                    `user_referrer_id`
@@ -119,8 +127,8 @@ if ($user_array[0]['user_referrer_id'])
         $money = array(
             'money_moneytext_id' => MONEYTEXT_INCOME_REFERRAL,
             'money_user_id' => $referrer_id,
-            'money_value' => -$sum,
-            'money_value_after' => $user_array[0]['user_money'] - $sum,
+            'money_value' => $sum,
+            'money_value_after' => $user_array[0]['user_money'] + $sum,
             'money_value_before' => $user_array[0]['user_money'],
         );
         f_igosja_money($money);

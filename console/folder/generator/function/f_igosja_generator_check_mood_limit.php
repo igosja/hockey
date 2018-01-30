@@ -121,7 +121,7 @@ function f_igosja_generator_check_mood_limit()
                         f_igosja_mysqli_query($sql);
                     }
                 }
-                elseif (MOOD_REST == $home_mood_id)
+                elseif (MOOD_REST == $guest_mood_id)
                 {
                     if ($team_array[0]['team_mood_rest'] <= 0)
                     {
