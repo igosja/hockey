@@ -200,7 +200,7 @@
                     name="data[user_use_bb]"
                     type="checkbox"
                     value="1"
-                <?php if ($holiday_array[0]['user_use_bb']) { ?>
+                <?php if ($questionnaire_array[0]['user_use_bb']) { ?>
                     checked
                 <?php } ?>
             />
