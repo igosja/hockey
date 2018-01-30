@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_use_bb integer
  * @var $news_array array
  */
 ?>
@@ -27,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" id="newstext" name="data[text]" rows="5"><?= $news_array[0]['news_text']; ?></textarea>
+                    <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="newstext" name="data[text]" rows="5"><?= $news_array[0]['news_text']; ?></textarea>
                 </div>
             </div>
             <div class="row">

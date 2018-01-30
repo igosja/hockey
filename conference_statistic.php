@@ -64,7 +64,7 @@ if (in_array($num_get, array(
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
+            WHERE `statisticteam_tournamenttype_id`=" . TOURNAMENTTYPE_CONFERENCE . "
             AND `statisticteam_season_id`=$season_id
             ORDER BY $select $sort
             LIMIT 100";
@@ -138,7 +138,7 @@ elseif (in_array($num_get, array(
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `country`
             ON `city_country_id`=`country_id`
-            WHERE `statisticplayer_tournamenttype_id`=" . TOURNAMENTTYPE_OFFSEASON . "
+            WHERE `statisticplayer_tournamenttype_id`=" . TOURNAMENTTYPE_CONFERENCE . "
             AND `statisticplayer_season_id`=$season_id
             $where
             ORDER BY $select $sort

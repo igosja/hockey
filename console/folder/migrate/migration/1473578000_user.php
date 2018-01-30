@@ -1,4 +1,4 @@
-<?php
+*<?php
 
 $q = array();
 
@@ -37,6 +37,7 @@ $q[] = 'CREATE TABLE `user`
             `user_shop_special` INT(3) DEFAULT 0,
             `user_shop_training` INT(3) DEFAULT 0,
             `user_surname` VARCHAR(255),
+            `user_use_bb` INT(1) DEFAULT 1,
             `user_userrole_id` INT(1) DEFAULT 1
         );';
 $q[] = "INSERT INTO `user`

@@ -1,9 +1,11 @@
 jQuery(document).ready(function () {
+    var textarea = $('#message');
+
     $('#newstitle').on('blur', function () {
         check_newstitle($(this).val());
     });
 
-    $('#newstext').on('blur', function () {
+    textarea.on('blur', function () {
         check_newstext($(this).val());
     });
 
@@ -17,10 +19,13 @@ jQuery(document).ready(function () {
         }
     });
 
-    $("#newstext").wysibb({
-        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
-        lang: "ru",
-    });
+    if (1 === textarea.data('bb'))
+    {
+        textarea.wysibb({
+            buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+            lang: "ru"
+        });
+    }
 });
 
 function check_newstitle(newstitle)

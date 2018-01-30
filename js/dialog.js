@@ -1,9 +1,11 @@
 jQuery(document).ready(function () {
+    var textarea = $('#message');
+
     $('#page').on('change', function () {
         $(this).closest('form').submit();
     });
 
-    $('#message').on('blur', function () {
+    textarea.on('blur', function () {
         check_text($(this).val());
     });
 
@@ -16,10 +18,13 @@ jQuery(document).ready(function () {
         }
     });
 
-    $("#message").wysibb({
-        buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
-        lang: "ru",
-    });
+    if (1 === textarea.data('bb'))
+    {
+        textarea.wysibb({
+            buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table",
+            lang: "ru"
+        });
+    }
 });
 
 function check_text(message)
