@@ -466,6 +466,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
+        GROUP BY `player_id`
         ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
@@ -489,6 +490,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
+        GROUP BY `player_id`
         ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
@@ -512,6 +514,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
+        GROUP BY `player_id`
         ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
@@ -535,6 +538,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
+        GROUP BY `player_id`
         ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
@@ -558,6 +562,7 @@ $sql = "SELECT `name_name`,
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
         AND `playerposition_position_id`!=" . POSITION_GK . "
+        GROUP BY `player_id`
         ORDER BY $power_field DESC";
 $result_sql = f_igosja_mysqli_query($sql);
 
