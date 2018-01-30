@@ -53,6 +53,25 @@
             </p>
         </div>
     </div>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-center">
+                <span class="strong">Ваш личный бонус</span>
+                <?php include(__DIR__ . '/include/payment_bonus.php'); ?>
+            </p>
+        </div>
+    </div>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-center">
+                <span class="strong">Внимание!</span>
+                При пополнении денежного счета одним платежом на большую сумму полагаются бонусы:
+                <br/>
+                если сумма пополнения счёта <span class="strong">от 100</span> единиц денежного счета,
+                то вы получите <span class="strong">+10% от суммы</span> в подарок.
+            </p>
+        </div>
+    </div>
     <form method="POST">
         <div class="row margin-top">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-right xs-text-center">

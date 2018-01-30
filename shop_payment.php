@@ -66,6 +66,16 @@ $user_sql = f_igosja_mysqli_query($sql);
 
 $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT SUM(`payment_sum`) AS `payment_sum`
+        FROM `payment`
+        WHERE `payment_status`=1
+        AND `payment_user_id`=$auth_user_id";
+$total_sql = f_igosja_mysqli_query($sql);
+
+$total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+$total_sum = $total_array[0]['payment_sum'];
+
 $seo_title          = 'Пополнение денежного счета';
 $seo_description    = 'Пополнение денежного счета на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'пополнение денежного счета';
