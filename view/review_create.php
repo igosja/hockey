@@ -83,6 +83,9 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <a href="/review_create.php?<?= http_build_query(array_merge($_GET, array('edit' => 1))); ?>" class="btn margin">
+                    Редактировать
+                </a>
                 <input class="btn margin" type="submit" value="Сохранить">
             </div>
         </div>
