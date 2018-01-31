@@ -11,10 +11,6 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
-print '<pre>';
-print_r($team_array);
-exit;
-
 foreach ($team_array as $item)
 {
     $team_id    = $item['team_id'];
