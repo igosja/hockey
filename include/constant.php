@@ -4,6 +4,7 @@ define('ADMIN_ITEMS_ON_PAGE', 10);
 define('ADMIN_PAGES_IN_PAGINATION', 5);
 define('ALERT_SUCCESS', 'Изменения успешно сохранены.');
 define('AUTO_PENALTY', 25);
+define('BALANCE_TEAM_BASE', 10000000);
 define('BUILDING_BASE', 1);
 define('BUILDING_BASEMEDICAL', 2);
 define('BUILDING_BASEPHISICAL', 3);

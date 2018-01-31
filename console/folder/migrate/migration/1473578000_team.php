@@ -12,7 +12,7 @@ $q[] = 'CREATE TABLE `team`
             `team_baseschool_id` INT(2) DEFAULT 1,
             `team_basescout_id` INT(2) DEFAULT 1,
             `team_basetraining_id` INT(2) DEFAULT 1,
-            `team_finance` INT(11) DEFAULT 1000000,
+            `team_finance` INT(11) DEFAULT 10000000,
             `team_free_base` INT(1) DEFAULT 5,
             `team_mood_rest` INT(1) DEFAULT 3,
             `team_mood_super` INT(1) DEFAULT 3,

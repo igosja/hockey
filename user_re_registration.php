@@ -236,6 +236,23 @@ if ($data = f_igosja_request_get('ok'))
             WHERE `phisicalchange_team_id`=$auth_team_id";
     f_igosja_mysqli_query($sql);
 
+    $sql = "SELECT `team_finance`
+            FROM `team`
+            WHERE `team_id`=$auth_team_id
+            LIMIT 1";
+    $team_sql = f_igosja_mysqli_query($sql);
+
+    $team_array = $team_sql->fetch_array(MYSQLI_ASSOC);
+
+    $finance = array(
+        'finance_financetext_id' => FINANCETEXT_TEAM_REREGISTER,
+        'finance_team_id' => $auth_team_id,
+        'finance_value' => BALANCE_TEAM_BASE - $team_array[0]['team_finance'],
+        'finance_value_after' => BALANCE_TEAM_BASE,
+        'finance_value_before' => $item['team_finance'],
+    );
+    f_igosja_finance($finance);
+
     $sql = "UPDATE `team`
             SET `team_base_id`=1,
                 `team_basemedical_id`=1,
@@ -243,7 +260,7 @@ if ($data = f_igosja_request_get('ok'))
                 `team_baseschool_id`=1,
                 `team_basescout_id`=1,
                 `team_basetraining_id`=1,
-                `team_finance`=1000000,
+                `team_finance`=" . BALANCE_TEAM_BASE . ",
                 `team_free_base`=5,
                 `team_mood_rest`=3,
                 `team_mood_super`=3,
