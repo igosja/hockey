@@ -69,4 +69,4 @@ $user_link_array = array(
     array('url' => 'user_password',         'text' => 'Пароль', 'auth' => true),
     array('url' => 'user_referral',         'text' => 'Подопечные', 'auth' => true),
 );
-$bonus_array = array(2 => 10, 4 => 25, 6 => 50, 8 => 75, 10 => 100, 15 => 200, 20 => 300, 25 => 500);
+$bonus_array = array(0 => 0, 10 => 2, 25 => 4, 50 => 6, 75 => 8, 100 => 10, 200 => 15, 300 => 20, 500 => 25);

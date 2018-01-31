@@ -1,17 +1,19 @@
 <?php
 
 /**
+ * @var $auth_user_id integer
  * @var $bonus_array array
- * @var $total_sum integer
  */
+
+$user_bonus = f_igosja_get_user_payment_bonus($auth_user_id, $bonus_array);
 
 $bonus = array();
 
-foreach ($bonus_array as $key => $value) {
-    if ($total_sum < $value) {
-        $bonus[] = '<span class="strong">' . $key . '%</span>';
+foreach ($bonus_array as $item) {
+    if ($user_bonus = $item) {
+        $bonus[] = '<span class="strong">' . $item . '%</span>';
     } else {
-        $bonus[] = $key . '%';
+        $bonus[] = $item . '%';
     }
 }
 

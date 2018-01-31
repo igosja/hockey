@@ -62,7 +62,7 @@ if (1 == $status)
 
 $user_id    = $payment_array[0]['payment_user_id'];
 $sum        = $payment_array[0]['payment_sum'];
-$bonus      = f_igosja_get_user_payment_bonus($user_id);
+$bonus      = f_igosja_get_user_payment_bonus($user_id, $bonus_array);
 
 if ($sum >= 100)
 {
