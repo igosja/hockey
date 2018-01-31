@@ -24,7 +24,7 @@ foreach ($team_array as $item)
             SET `team_finance`=`team_finance`+$prize
             WHERE `team_id`=$team_id
             LIMIT 1";
-    f_igosja_mysqli_query($sql);
+//    f_igosja_mysqli_query($sql);
 
     $finance = array(
         'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_VIP,
@@ -33,5 +33,5 @@ foreach ($team_array as $item)
         'finance_value_after' => $item['team_finance'] + $prize,
         'finance_value_before' => $item['team_finance'],
     );
-    f_igosja_finance($finance);
+//    f_igosja_finance($finance);
 }
