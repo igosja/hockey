@@ -56,7 +56,7 @@
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="text-center">
-                <span class="strong">Ваш личный бонус</span>
+                <span class="strong">Ваш личный бонус</span>:
                 <?php include(__DIR__ . '/include/payment_bonus.php'); ?>
             </p>
         </div>
