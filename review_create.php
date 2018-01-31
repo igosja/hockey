@@ -37,7 +37,7 @@ if (!$schedule_id = (int) f_igosja_request_get('schedule_id'))
     redirect('/wrong_page.php');
 }
 
-if ((int) f_igosja_request_get('schedule_id'))
+if ((int) f_igosja_request_get('edit'))
 {
     unset($_SESSION['review']);
 }
