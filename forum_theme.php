@@ -126,7 +126,7 @@ $forumheader_array = $forumheader_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 != $forumheader_sql->num_rows)
 {
-    $forumheader_id = $forummessage_array[0]['forummessage_id'];
+    $forumheader_id = $forumheader_array[0]['forummessage_id'];
 }
 else
 {
