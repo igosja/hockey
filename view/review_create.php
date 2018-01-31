@@ -3,6 +3,9 @@
  * @var $auth_use_bb integer
  * @var $country_array array
  * @var $game_array array
+ * @var $preview boolean
+ * @var $review_text string
+ * @var $review_title string
  * @var $season_id integer
  */
 ?>
@@ -61,29 +64,54 @@
     </div>
 </div>
 <form method="POST">
-    <div class="row">
-        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 text-right">
-            <label for="title">Заголовок:</label>
+    <?php if ($preview) { ?>
+        <input name="data[title]" type="hidden" value="<?= $review_title; ?>" />
+        <input name="data[text]" type="hidden" value="<?= $review_text; ?>" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1>
+                    <?= $review_title; ?>
+                </h1>
+            </div>
         </div>
-        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-            <input class="form-control" id="title" name="data[title]"/>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p class="text-justify">
+                    <?= f_igosja_bb_decode($review_text); ?>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center title-error notification-error"></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <label class="hidden" for="text"></label>
-            <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="text" name="data[text]" rows="20"></textarea>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <input class="btn margin" type="submit" value="Сохранить">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <input class="btn margin" type="submit" value="Создать">
+    <?php } else { ?>
+        <input name="data[preview]" type="hidden" value="1" />
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 text-right">
+                <label for="title">Заголовок:</label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+                <input class="form-control" id="title" name="data[title]" value="<?= $review_title; ?>" />
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center title-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="hidden" for="text"></label>
+                <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="text" name="data[text]" rows="20"><?= $review_text; ?></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <input class="btn margin" type="submit" value="Предварительный просмотр">
+            </div>
+        </div>
+    <?php } ?>
 </form>
