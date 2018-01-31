@@ -8,7 +8,7 @@
  */
 function f_igosja_get_user_payment_bonus($user_id, $bonus_array)
 {
-    $sql = "SELECT SUM(`payment_sum`) AS `payment_sum`
+    $sql = "SELECT IFNULL(SUM(`payment_sum`), 0) AS `payment_sum`
             FROM `payment`
             WHERE `payment_user_id`=$user_id
             AND `payment_status`=1";
