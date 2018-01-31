@@ -92,6 +92,47 @@ if (!$page = (int) f_igosja_request_get('page'))
 $limit  = 20;
 $offset = ($page - 1) * $limit;
 
+$sql = "SELECT `city_name`,
+               `country_id`,
+               `country_name`,
+               `forummessage_date`,
+               `forummessage_date_update`,
+               `forummessage_id`,
+               `forummessage_text`,
+               `team_id`,
+               `team_name`,
+               `user_date_register`,
+               `user_id`,
+               `user_login`,
+               `user_rating`,
+               `user_userrole_id`
+        FROM `forummessage`
+        LEFT JOIN `user`
+        ON `forummessage_user_id`=`user_id`
+        LEFT JOIN `team`
+        ON `user_id`=`team_user_id`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        LEFT JOIN `country`
+        ON `city_country_id`=`country_id`
+        WHERE `forummessage_forumtheme_id`=$num_get
+        ORDER BY `forummessage_id` ASC
+        LIMIT 1";
+$forumheader_sql = f_igosja_mysqli_query($sql);
+
+$forumheader_array = $forumheader_sql->fetch_all(MYSQLI_ASSOC);
+
+if (0 != $forumheader_sql->num_rows)
+{
+    $forumheader_id = $forummessage_array[0]['forummessage_id'];
+}
+else
+{
+    $forumheader_id = 0;
+}
+
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `city_name`,
                `country_id`,
@@ -119,11 +160,14 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
         WHERE `forummessage_forumtheme_id`=$num_get
+        AND `forummessage_id`!=$forumheader_id
         ORDER BY `forummessage_id` ASC
         LIMIT $offset, $limit";
 $forummessage_sql = f_igosja_mysqli_query($sql);
 
 $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
+
+$forummessage_array = array_merge($forumheader_array, $forummessage_array);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
 $total = f_igosja_mysqli_query($sql);
