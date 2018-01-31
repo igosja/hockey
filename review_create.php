@@ -37,6 +37,11 @@ if (!$schedule_id = (int) f_igosja_request_get('schedule_id'))
     redirect('/wrong_page.php');
 }
 
+if ((int) f_igosja_request_get('schedule_id'))
+{
+    unset($_SESSION['review']);
+}
+
 $sql = "SELECT COUNT(`review_id`) AS `check`
         FROM `review`
         WHERE `review_country_id`=$country_id
