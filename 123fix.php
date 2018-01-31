@@ -5,11 +5,11 @@ include(__DIR__ . '/include/include.php');
 $sql = "SELECT `team_id`,
                `team_finance`
         FROM `team`
-        WHERE `team_id`!=0
+        WHERE `team_id` NOT IN (0, 1, 6)
         ORDER BY `team_id` ASC";
 $team_sql = f_igosja_mysqli_query($sql);
 
-$team_array = $team_sql->fetch_array(MYSQLI_ASSOC);
+$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
 print '<pre>';
 print_r($team_array);
@@ -24,7 +24,7 @@ foreach ($team_array as $item)
             SET `team_finance`=`team_finance`+$prize
             WHERE `team_id`=$team_id
             LIMIT 1";
-//    f_igosja_mysqli_query($sql);
+    f_igosja_mysqli_query($sql);
 
     $finance = array(
         'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_VIP,
@@ -33,5 +33,5 @@ foreach ($team_array as $item)
         'finance_value_after' => $item['team_finance'] + $prize,
         'finance_value_before' => $item['team_finance'],
     );
-//    f_igosja_finance($finance);
+    f_igosja_finance($finance);
 }
