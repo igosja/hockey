@@ -63,7 +63,7 @@
         </p>
     </div>
 </div>
-<form method="POST">
+<form action="<?= http_build_query(array_merge($_GET, array('edit' => 0))); ?>" method="POST">
     <?php if ($preview) { ?>
         <input name="data[title]" type="hidden" value="<?= $review_title; ?>" />
         <input name="data[text]" type="hidden" value="<?= $review_text; ?>" />
