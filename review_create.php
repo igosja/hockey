@@ -37,11 +37,6 @@ if (!$schedule_id = (int) f_igosja_request_get('schedule_id'))
     redirect('/wrong_page.php');
 }
 
-if ((int) f_igosja_request_get('edit'))
-{
-    unset($_SESSION['review']);
-}
-
 $sql = "SELECT COUNT(`review_id`) AS `check`
         FROM `review`
         WHERE `review_country_id`=$country_id
@@ -202,7 +197,15 @@ if (isset($_SESSION['review']['title']) && isset($_SESSION['review']['text']))
 {
     $review_title   = $_SESSION['review']['title'];
     $review_text    = $_SESSION['review']['text'];
-    $preview        = true;
+
+    if ((int) f_igosja_request_get('edit'))
+    {
+        $preview = false;
+    }
+    else
+    {
+        $preview = true;
+    }
 }
 else
 {
