@@ -167,14 +167,7 @@ $forummessage_sql = f_igosja_mysqli_query($sql);
 
 $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
 
-print '<pre>';
-print_r(count($forummessage_array));
-
 $forummessage_array = array_merge($forumheader_array, $forummessage_array);
-
-print '<pre>';
-print_r(count($forummessage_array));
-exit;
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
 $total = f_igosja_mysqli_query($sql);
