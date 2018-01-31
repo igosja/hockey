@@ -37,8 +37,6 @@ if (!$schedule_id = (int) f_igosja_request_get('schedule_id'))
     redirect('/wrong_page.php');
 }
 
-$preview = false;
-
 $sql = "SELECT COUNT(`review_id`) AS `check`
         FROM `review`
         WHERE `review_country_id`=$country_id
@@ -138,8 +136,6 @@ if ($data = f_igosja_request_post('data'))
             {
                 $_SESSION['review']['title']    = $title;
                 $_SESSION['review']['text']     = $text;
-
-                $preview = true;
             }
             else
             {
@@ -201,11 +197,13 @@ if (isset($_SESSION['review']['title']) && isset($_SESSION['review']['text']))
 {
     $review_title   = $_SESSION['review']['title'];
     $review_text    = $_SESSION['review']['text'];
+    $preview        = true;
 }
 else
 {
     $review_title   = '';
     $review_text    = '';
+    $preview        = false;
 }
 
 $seo_title          = 'Написание обзора';
