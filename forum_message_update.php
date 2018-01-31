@@ -46,9 +46,20 @@ $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
 
 $forumtheme_id = $forummessage_array[0]['forumtheme_id'];
 
+$sql = "SELECT `forummessage_id`
+        FROM `forummessage`
+        WHERE `forummessage_forumtheme_id`=$forumtheme_id
+        ORDER BY `forummessage_id` ASC
+        LIMIT 1";
+$forumheader_sql = f_igosja_mysqli_query($sql);
+
+$forumheader_array = $forumheader_sql->fetch_all(MYSQLI_ASSOC);
+
+$forumheader_id = $forumheader_array[0]['forummessage_id'];
+
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id) && isset($data['text']) && $auth_date_forum < time())
+    if (isset($data['text']) && $auth_date_forum < time())
     {
         $text = trim($data['text']);
 
@@ -67,6 +78,24 @@ if ($data = f_igosja_request_post('data'))
 
             $_SESSION['message']['class'] = 'success';
             $_SESSION['message']['text'] = 'Сообщение успешно отредактировано.';
+        }
+    }
+
+    if ($forumheader_id == $num_get && isset($data['name']))
+    {
+        $name = trim($data['name']);
+
+        if (!empty($name))
+        {
+            $name = htmlspecialchars($name);
+
+            $sql = "UPDATE `forumtheme`
+                    SET `forumtheme_name`=?
+                    WHERE `forumtheme_id`=$forumtheme_id";
+            $prepare = $mysqli->prepare($sql);
+            $prepare->bind_param('s', $name);
+            $prepare->execute();
+            $prepare->close();
         }
     }
 

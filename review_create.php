@@ -132,55 +132,86 @@ if ($data = f_igosja_request_post('data'))
             $title  = htmlspecialchars($title);
             $text   = htmlspecialchars($text);
 
-            $sql = "INSERT INTO `review`
-                    SET `review_country_id`=$country_id,
-                        `review_date`=UNIX_TIMESTAMP(),
-                        `review_division_id`=$division_id,
-                        `review_season_id`=$season_id,
-                        `review_schedule_id`=$schedule_id,
-                        `review_stage_id`=$stage_id,
-                        `review_text`=?,
-                        `review_title`=?,
-                        `review_user_id`=$auth_user_id";
-            $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('ss', $text, $title);
-            $prepare->execute();
-            $prepare->close();
+            if ($data['preview'])
+            {
+                $_SESSION['review']['title']    = $title;
+                $_SESSION['review']['text']     = $text;
+            }
+            else
+            {
+                $sql = "INSERT INTO `review`
+                        SET `review_country_id`=$country_id,
+                            `review_date`=UNIX_TIMESTAMP(),
+                            `review_division_id`=$division_id,
+                            `review_season_id`=$season_id,
+                            `review_schedule_id`=$schedule_id,
+                            `review_stage_id`=$stage_id,
+                            `review_text`=?,
+                            `review_title`=?,
+                            `review_user_id`=$auth_user_id";
+                $prepare = $mysqli->prepare($sql);
+                $prepare->bind_param('ss', $text, $title);
+                $prepare->execute();
+                $prepare->close();
 
-            $prize = 25000;
+                $prize = 25000;
 
-            $sql = "SELECT `user_finance`
-                    FROM `user`
-                    WHERE `user_id`=$auth_user_id
-                    LIMIT 1";
-            $user_sql = f_igosja_mysqli_query($sql);
+                $sql = "SELECT `user_finance`
+                        FROM `user`
+                        WHERE `user_id`=$auth_user_id
+                        LIMIT 1";
+                $user_sql = f_igosja_mysqli_query($sql);
 
-            $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+                $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_INCOME_REVIEW,
-                'finance_user_id' => $auth_user_id,
-                'finance_value' => $prize,
-                'finance_value_after' => $user_array[0]['user_finance'] + $prize,
-                'finance_value_before' => $user_array[0]['user_finance'],
-            );
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_REVIEW,
+                    'finance_user_id' => $auth_user_id,
+                    'finance_value' => $prize,
+                    'finance_value_after' => $user_array[0]['user_finance'] + $prize,
+                    'finance_value_before' => $user_array[0]['user_finance'],
+                );
 
-            f_igosja_finance($finance);
+                f_igosja_finance($finance);
 
-            $sql = "UPDATE `user`
-                    SET `user_finance`=`user_finance`+$prize
-                    WHERE `user_id`=$auth_user_id
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
+                $sql = "UPDATE `user`
+                        SET `user_finance`=`user_finance`+$prize
+                        WHERE `user_id`=$auth_user_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
 
-            $_SESSION['message']['class'] = 'success';
-            $_SESSION['message']['text'] = 'Обзор упешно сохранен.';
+                $_SESSION['message']['class'] = 'success';
+                $_SESSION['message']['text'] = 'Обзор упешно сохранен.';
 
-            redirect('/championship.php?country_id=' . $country_id . '&division_id=' . $division_id . '&season_id=' . $season_id . '&stage_id=' . $stage_id);
+                unset($_SESSION['review']);
+
+                redirect('/championship.php?country_id=' . $country_id . '&division_id=' . $division_id . '&season_id=' . $season_id . '&stage_id=' . $stage_id);
+            }
         }
     }
 
     refresh();
+}
+
+if (isset($_SESSION['review']['title']) && isset($_SESSION['review']['text']))
+{
+    $review_title   = $_SESSION['review']['title'];
+    $review_text    = $_SESSION['review']['text'];
+
+    if ((int) f_igosja_request_get('edit'))
+    {
+        $preview = false;
+    }
+    else
+    {
+        $preview = true;
+    }
+}
+else
+{
+    $review_title   = '';
+    $review_text    = '';
+    $preview        = false;
 }
 
 $seo_title          = 'Написание обзора';

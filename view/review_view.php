@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-center">
-            <?= $review_array[0]['country_name']; ?>, <?= $review_array[0]['division_name']; ?>, <?= $review_array[0]['stage_id']; ?>, <?= $review_array[0]['review_season_id']; ?> сезон
+            <?= $review_array[0]['country_name']; ?>, <?= $review_array[0]['division_name']; ?>, <?= $review_array[0]['stage_name']; ?>, <?= $review_array[0]['review_season_id']; ?> сезон
         </p>
     </div>
 </div>

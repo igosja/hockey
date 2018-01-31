@@ -1,7 +1,9 @@
 <?php
 /**
  * @var $auth_use_bb integer
+ * @var $forumheader_id integer
  * @var $forummessage_array array
+ * @var $num_get integer
  */
 ?>
 <div class="row">
@@ -33,6 +35,14 @@
             </div>
         </div>
         <form method="POST" id="forummessage-form">
+            <?php if ($forumheader_id == $num_get) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label class="hidden" for="name"></label>
+                        <input class="form-control" id="name" name="data[name]" value="<?= $forummessage_array[0]['forumtheme_name']; ?>" />
+                    </div>
+                </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label class="hidden" for="text"></label>
