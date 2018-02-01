@@ -2,6 +2,7 @@
 /**
  * @var $auth_date_forum integer
  * @var $auth_use_bb integer
+ * @var $auth_userrole_id integer
  * @var $count_page integer
  * @var $forumtheme_array array
  * @var $forummessage_array array

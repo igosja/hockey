@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $auth_date_forum integer
+ * @var $auth_userrole_id integer
  * @var $count_page integer
  * @var $forumgroup_array array
  * @var $forumtheme_array array
@@ -86,6 +87,12 @@
                             <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>&page=<?= $item['last_page']; ?>">
                                 <?= $item['forumtheme_name']; ?>
                             </a>
+                            <?php if (USERROLE_USER != $auth_userrole_id) { ?>
+                                |
+                                <a class="font-grey" href="/forum_theme_delete.php?num=<?= $item['forumtheme_id']; ?>">
+                                    удалить
+                                </a>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="row text-size-2">
