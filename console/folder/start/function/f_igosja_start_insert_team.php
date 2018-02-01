@@ -230,7 +230,7 @@ function f_igosja_start_insert_team()
                 // array('team' => 'Дукла', 'city' => 'Йиглава', 'stadium' => 'Йиглава'),
                 // array('team' => 'Зноймы Орлы', 'city' => 'Зноймо', 'stadium' => 'Хостан'),
                 // array('team' => 'Кадань', 'city' => 'Кадань', 'stadium' => 'Кадань'),
-                // array('team' => 'Оломоуц', 'city' => 'Оломоуц', 'stadium' => 'Оломоуц'),
+                // array('team' => 'Яромерж', 'city' => 'Яромерж', 'stadium' => 'Яромерж'),
                 // array('team' => 'Салис Шумперк', 'city' => 'Шумперк', 'stadium' => 'Шумперк'),
                 // array('team' => 'Слезань Опава', 'city' => 'Опава', 'stadium' => 'Опава'),
                 // array('team' => 'Табор', 'city' => 'Табор', 'stadium' => 'Табор'),
