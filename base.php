@@ -964,7 +964,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                 'text' => 'Отменить строительство',
             );
 
-            $del_medical    = true;
+            $del_school    = true;
         }
         else
         {
