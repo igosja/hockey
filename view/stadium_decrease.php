@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $buildingstadium_day string
  * @var $count_buildingstadium integer
  * @var $new_capacity integer
  */
@@ -20,8 +21,10 @@
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
             На стадионе сейчас идет строительство.
+            Дата окончания строительства - <?= $buildingstadium_day; ?>
+            <br/>
             <a href="/stadium_cancel.php">
-                <img alt="Отменить строительство" src="/img/delete.png" title="Отменить строительство" />
+                Отменить строительство
             </a>
         </div>
     </div>

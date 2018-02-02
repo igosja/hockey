@@ -22,17 +22,25 @@ include(__DIR__ . '/include/sql/team_view_left.php');
 $buildingbase_array = array();
 
 $sql = "SELECT `buildingbase_building_id`,
+               `buildingbase_day`,
                `buildingbase_id`
         FROM `buildingbase`
         WHERE `buildingbase_team_id`=$num_get
         AND `buildingbase_ready`=0";
 $buildingbase_sql = f_igosja_mysqli_query($sql);
 
-$count_buildingbase = $buildingbase_sql->num_rows;
-
-if ($count_buildingbase)
+if ($count_buildingbase = $buildingbase_sql->num_rows)
 {
     $buildingbase_array = $buildingbase_sql->fetch_all(MYSQLI_ASSOC);
+
+    $buildingbase_day = $buildingbase_array[0]['buildingbase_day'];
+
+    if (strtotime(date('Y-m-d 12:00:00')) > time())
+    {
+        $buildingbase_day = $buildingbase_day - 1;
+    }
+
+    $buildingbase_day = f_igosja_ufu_date(strtotime('+' . $buildingbase_day . 'days'));
 }
 
 $sql = "SELECT `base_id`,

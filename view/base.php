@@ -1,7 +1,8 @@
 <?php
 /**
  * @var $building_id integer
- * @var $buildingbase_array integer
+ * @var $buildingbase_array array
+ * @var $buildingbase_day string
  * @var $cancel_get integer
  * @var $cancel_price integer
  * @var $constructiontype_id integer
@@ -33,12 +34,12 @@
  * @var $training_available_special integer
  */
 ?>
-    <div class="row margin-top">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"></div>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?php include(__DIR__ . '/include/team_view_top_left.php'); ?>
     </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"></div>
+</div>
 <?php if (isset($cancel_price)) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -61,6 +62,7 @@
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
                 На базе сейчас идет строительство.
+                Дата окончания строительства - <?= $buildingbase_day; ?>
             </div>
         </div>
     <?php } ?>
