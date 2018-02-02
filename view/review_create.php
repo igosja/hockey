@@ -12,13 +12,33 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
+            Написать обзор прошедшего тура
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>
             <?= $country_array[0]['country_name']; ?>
         </h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        Сезон <?= $season_id; ?>, <?= $country_array[0]['division_name']; ?>, <?= $game_array[0]['stage_name']; ?>
+        <?= $country_array[0]['country_name']; ?>, <?= $country_array[0]['division_name']; ?>, <?= $game_array[0]['stage_name']; ?>, <?= $season_id; ?> сезон
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p class="text-justify">
+            Текст обзора должен быть информативным, выдержанным в тоне публикаций в спортивных СМИ,
+            освещать все матчи игрового дня в дивизионе, не должен содержать бурного выражения личных эмоций,
+            ненормативной лексики и оскорблений в чей-либо адрес,
+            не должен являться ответом на другой обзор или высказывание участника игры.
+        </p>
+        <p class="text-justify">
+            Будьте внимательны! Обзор нельзя отредактировать после сохранения.
+        </p>
     </div>
 </div>
 <form action="/review_create.php?<?= http_build_query(array_merge($_GET, array('edit' => 0))); ?>" method="POST">
@@ -75,19 +95,6 @@
                         </tr>
                     <?php } ?>
                 </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify">
-                    Текст обзора должен быть информативным, выдержанным в тоне публикаций в спортивных СМИ,
-                    освещать все матчи игрового дня в дивизионе, не должен содержать бурного выражения личных эмоций,
-                    ненормативной лексики и оскорблений в чей-либо адрес,
-                    не должен являться ответом на другой обзор или высказывание участника игры.
-                </p>
-                <p class="text-justify">
-                    Будьте внимательны! Обзор нельзя отредактировать после сохранения.
-                </p>
             </div>
         </div>
         <input name="data[preview]" type="hidden" value="1" />
