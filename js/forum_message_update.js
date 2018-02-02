@@ -2,11 +2,13 @@ jQuery(document).ready(function () {
     var textarea = $('#text');
 
     textarea.on('blur', function () {
+        textarea.sync();
         check_text($(this).val());
     });
 
     $('#forummessage-form').on('submit', function () {
-        check_text($('#text').val());
+        textarea.sync();
+        check_text(textarea.val());
 
         if ($('textarea.has-error').length)
         {

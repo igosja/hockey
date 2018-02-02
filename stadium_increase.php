@@ -37,14 +37,27 @@ if (0 == $stadium_sql->num_rows)
 
 $stadium_array = $stadium_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`buildingstadium_id`) AS `count`
+
+$sql = "SELECT `buildingstadium_day`
         FROM `buildingstadium`
         WHERE `buildingstadium_team_id`=$num_get
-        AND `buildingstadium_ready`=0";
+        AND `buildingstadium_ready`=0
+        LIMIT 1";
 $buildingstadium_sql = f_igosja_mysqli_query($sql);
 
-$buildingstadium_array = $buildingstadium_sql->fetch_all(MYSQLI_ASSOC);
-$count_buildingstadium = $buildingstadium_array[0]['count'];
+if ($count_buildingstadium = $buildingstadium_sql->num_rows)
+{
+    $buildingstadium_array = $buildingstadium_sql->fetch_all(MYSQLI_ASSOC);
+
+    $buildingstadium_day = $buildingstadium_array[0]['buildingstadium_day'];
+
+    if (strtotime(date('Y-m-d 12:00:00')) > time())
+    {
+        $buildingstadium_day = $buildingstadium_day - 1;
+    }
+
+    $buildingstadium_day = f_igosja_ufu_date(strtotime('+' . $buildingstadium_day . 'days'));
+}
 
 if ($data = f_igosja_request_post('data'))
 {

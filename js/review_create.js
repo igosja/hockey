@@ -2,16 +2,19 @@ jQuery(document).ready(function () {
     var textarea = $('#text');
 
     $('#title').on('blur', function () {
+        textarea.sync();
         check_title($(this).val());
     });
 
     textarea.on('blur', function () {
+        textarea.sync();
         check_text($(this).val());
     });
 
     $('#forumtheme-form').on('submit', function () {
+        textarea.sync();
         check_title($('#title').val());
-        check_text($('#text').val());
+        check_text(textarea.val());
 
         if ($('textarea.has-error').length || $('input.has-error').length)
         {

@@ -1,17 +1,19 @@
 jQuery(document).ready(function () {
-    var textarea = $('#message');
+    var textarea = $('#newstext');
 
     $('#newstitle').on('blur', function () {
         check_newstitle($(this).val());
     });
 
     textarea.on('blur', function () {
+        textarea.sync();
         check_newstext($(this).val());
     });
 
     $('#news-form').on('submit', function () {
+        textarea.sync();
         check_newstitle($('#newstitle').val());
-        check_newstext($('#newstext').val());
+        check_newstext(textarea.val());
 
         if ($('textarea.has-error').length || $('input.has-error').length)
         {

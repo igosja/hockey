@@ -56,7 +56,7 @@ $sql = "UPDATE `forumgroup`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
-$sql = "SELECT CEIL(`forumtheme_count_message`/20) AS `last_page`
+$sql = "SELECT CEIL((`forumtheme_count_message`-1)/20) AS `last_page`
         FROM `forumtheme`
         WHERE `forumtheme_id`=$forumtheme_id
         LIMIT 1";

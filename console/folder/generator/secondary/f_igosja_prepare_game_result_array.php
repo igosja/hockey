@@ -182,7 +182,7 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
             'guest_team_id'     => $game_guest_team_id,
             'home_bonus'        => 1,
             'home_team_id'      => $game_home_team_id,
-            'tournamenttype_id' => $game_home_team_id,
+            'tournamenttype_id' => $tournamenttype_id,
         ),
         'guest'             => $team_array,
         'home'              => $team_array,

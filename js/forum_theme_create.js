@@ -6,12 +6,14 @@ jQuery(document).ready(function () {
     });
 
     textarea.on('blur', function () {
+        textarea.sync();
         check_text($(this).val());
     });
 
     $('#forumtheme-form').on('submit', function () {
+        textarea.sync();
         check_name($('#name').val());
-        check_text($('#text').val());
+        check_text(textarea.val());
 
         if ($('textarea.has-error').length || $('input.has-error').length)
         {

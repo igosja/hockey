@@ -203,14 +203,15 @@ if (count($player_id))
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT `statisticplayer_assist`,
-                   `statisticplayer_game`,
+    $sql = "SELECT SUM(`statisticplayer_assist`) AS `statisticplayer_assist`,
+                   SUM(`statisticplayer_game`) AS `statisticplayer_game`,
                    `statisticplayer_player_id`,
-                   `statisticplayer_plus_minus`,
-                   `statisticplayer_score`
+                   SUM(`statisticplayer_plus_minus`) AS `statisticplayer_plus_minus`,
+                   SUM(`statisticplayer_score`) AS `statisticplayer_score`
             FROM `statisticplayer`
             WHERE `statisticplayer_player_id` IN ($player_id)
-            AND `statisticplayer_season_id`=$igosja_season_id";
+            AND `statisticplayer_season_id`=$igosja_season_id
+            GROUP BY `statisticplayer_player_id`";
     $playerstatistic_sql = f_igosja_mysqli_query($sql);
 
     $playerstatistic_array = $playerstatistic_sql->fetch_all(MYSQLI_ASSOC);
