@@ -24,7 +24,7 @@ $sql = "SELECT `forumchapter_id`,
                `forummessage_text`,
                `forumtheme_id`,
                `forumtheme_name`,
-               CEIL(`forumtheme_count_message`/20) AS `last_page`
+               CEIL((`forumtheme_count_message`-1)/20) AS `last_page`
         FROM `forummessage`
         LEFT JOIN `forumtheme`
         ON `forummessage_forumtheme_id`=`forumtheme_id`
@@ -99,7 +99,7 @@ if ($data = f_igosja_request_post('data'))
         }
     }
 
-    $sql = "SELECT CEIL(`forumtheme_count_message`/20) AS `last_page`
+    $sql = "SELECT CEIL((`forumtheme_count_message`-1)/20) AS `last_page`
             FROM `forumtheme`
             WHERE `forumtheme_id`=$forumtheme_id
             LIMIT 1";
