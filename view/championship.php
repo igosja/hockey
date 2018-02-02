@@ -82,8 +82,8 @@
     </div>
     <?php foreach ($review_array as $item) { ?>
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-1 hidden-xs"></div>
-            <div class="col-lg-10 col-md-10 col-sm-11 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-11">
                 <?= $item['stage_name']; ?> -
                 <a href="/review_view.php?num=<?= $item['review_id']; ?>">
                     <?= $item['review_title']; ?>
