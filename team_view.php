@@ -210,7 +210,8 @@ if (count($player_id))
                    `statisticplayer_score`
             FROM `statisticplayer`
             WHERE `statisticplayer_player_id` IN ($player_id)
-            AND `statisticplayer_season_id`=$igosja_season_id";
+            AND `statisticplayer_season_id`=$igosja_season_id
+            GROUP BY `statisticplayer_player_id`";
     $playerstatistic_sql = f_igosja_mysqli_query($sql);
 
     $playerstatistic_array = $playerstatistic_sql->fetch_all(MYSQLI_ASSOC);
