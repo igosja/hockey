@@ -6,8 +6,8 @@
  */
 ?>
 <div class="row">
-    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4">
-        <img alt="<?= $team_array[0]['team_name']; ?>" class="img-responsive" src="//fan.in.ua/i/ATEK_UKR_Shaybo.png">
+    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center">
+        <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="//fan.in.ua/i/ATEK_UKR_Shaybo.png">
     </div>
     <div class="col-lg-9 col-md-8 col-sm-9 col-xs-8">
         <div class="row">
