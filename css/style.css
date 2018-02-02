@@ -876,3 +876,8 @@ blockquote:before {
     margin-right: 5px;
     vertical-align: -10px;
 }
+
+.team-logo {
+    height: 125px;
+    max-width: 100%;
+}
