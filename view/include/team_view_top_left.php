@@ -7,7 +7,13 @@
 ?>
 <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center">
-        <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="//fan.in.ua/i/ATEK_UKR_Shaybo.png">
+        <a class="team-logo-link" href="/team_logo_add.php?num=<?= $num_get; ?>">
+            <?php if (file_exists(__DIR__ . '/../../img/team/150/' . $num_get . '.png')) { ?>
+                <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="/img/team/150/<?= $num_get; ?>.png">
+            <?php } else { ?>
+                Добавить<br/>эмблему
+            <?php } ?>
+        </a>
     </div>
     <div class="col-lg-9 col-md-8 col-sm-9 col-xs-8">
         <div class="row">
