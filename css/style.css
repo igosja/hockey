@@ -878,6 +878,8 @@ blockquote:before {
 }
 
 .team-logo {
-    height: 125px;
+    height: auto;
+    max-height: 125px;
     max-width: 100%;
+    width: auto;
 }
