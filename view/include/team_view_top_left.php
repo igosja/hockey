@@ -6,19 +6,16 @@
  */
 ?>
 <div class="row">
-    <?php if (false) { ?>
     <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center">
         <a class="team-logo-link" href="/team_logo_add.php?num=<?= $num_get; ?>">
-            <?php if (file_exists(__DIR__ . '/../../img/team/150/' . $num_get . '.png')) { ?>
-                <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="/img/team/150/<?= $num_get; ?>.png">
+            <?php if (file_exists(__DIR__ . '/../../img/team/125/' . $num_get . '.png')) { ?>
+                <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="/img/team/125/<?= $num_get; ?>.png">
             <?php } else { ?>
                 Добавить<br/>эмблему
             <?php } ?>
         </a>
     </div>
     <div class="col-lg-9 col-md-8 col-sm-9 col-xs-8">
-    <?php } ?>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
                 <?= $team_array[0]['team_name']; ?>

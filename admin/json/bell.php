@@ -29,7 +29,15 @@ $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
 $vote = $vote_array[0]['count'];
 
-$bell = $teamask + $support + $vote;
+$sql = "SELECT COUNT(`logo_id`) AS `count`
+        FROM `logo`";
+$logo_sql = f_igosja_mysqli_query($sql);
+
+$logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
+
+$logo = $logo_array[0]['count'];
+
+$bell = $teamask + $support + $vote + $logo;
 
 if (0 == $teamask)
 {
@@ -46,12 +54,17 @@ if (0 == $vote)
     $vote = '';
 }
 
+if (0 == $logo)
+{
+    $logo = '';
+}
+
 if (0 == $bell)
 {
     $bell = '';
 }
 
-$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote);
+$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote, 'logo' => $logo);
 
 print json_encode($return);
 exit;

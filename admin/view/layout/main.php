@@ -46,6 +46,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/logo_list.php">
+                            <i class="fa fa-shield fa-fw"></i> Логотипы
+                            <span class="badge admin-teamask"></span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/support_list.php">
                             <i class="fa fa-comments fa-fw"></i> Тех. поддержка
                             <span class="badge admin-support"></span>
