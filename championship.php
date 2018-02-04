@@ -73,7 +73,7 @@ if (!$round_id = (int) f_igosja_request_get('round_id'))
             FROM `schedule`
             WHERE `schedule_date`<=UNIX_TIMESTAMP()
             AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-            AND `schedule_season_id`=$igosja_season_id
+            AND `schedule_season_id`=$season_id
             ORDER BY `schedule_id` DESC
             LIMIT 1";
     $stage_sql = f_igosja_mysqli_query($sql);
@@ -84,7 +84,7 @@ if (!$round_id = (int) f_igosja_request_get('round_id'))
                 FROM `schedule`
                 WHERE `schedule_date`>UNIX_TIMESTAMP()
                 AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_season_id`=$season_id
                 ORDER BY `schedule_id` ASC
                 LIMIT 1";
         $stage_sql = f_igosja_mysqli_query($sql);
@@ -127,7 +127,8 @@ if (ROUND_SEASON == $round_id)
                 FROM `schedule`
                 WHERE `schedule_date`<=UNIX_TIMESTAMP()
                 AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_season_id`=$season_id
+                AND `schedule_stage_id`<=" . STAGE_30_TOUR . "
                 ORDER BY `schedule_id` DESC
                 LIMIT 1";
         $schedule_sql = f_igosja_mysqli_query($sql);
@@ -139,7 +140,8 @@ if (ROUND_SEASON == $round_id)
                     FROM `schedule`
                     WHERE `schedule_date`>UNIX_TIMESTAMP()
                     AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
-                    AND `schedule_season_id`=$igosja_season_id
+                    AND `schedule_season_id`=$season_id
+                    AND `schedule_stage_id`<=" . STAGE_30_TOUR . "
                     ORDER BY `schedule_id` ASC
                     LIMIT 1";
             $schedule_sql = f_igosja_mysqli_query($sql);
@@ -155,7 +157,7 @@ if (ROUND_SEASON == $round_id)
         $sql = "SELECT `schedule_id`
                 FROM `schedule`
                 WHERE `schedule_stage_id`=$stage_id
-                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_season_id`=$season_id
                 AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
                 ORDER BY `schedule_id` ASC
                 LIMIT 1";
@@ -259,7 +261,7 @@ else
         $sql = "SELECT `schedule_id`
                 FROM `schedule`
                 WHERE `schedule_stage_id`=$stage_id
-                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_season_id`=$season_id
                 ORDER BY `schedule_id` ASC";
         $schedule_sql = f_igosja_mysqli_query($sql);
 
@@ -363,6 +365,34 @@ else
             }
         }
     }
+
+    $sql = "SELECT `schedule_id`,
+                   `schedule_stage_id`
+            FROM `schedule`
+            WHERE `schedule_date`<=UNIX_TIMESTAMP()
+            AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+            AND `schedule_season_id`=$season_id
+            ORDER BY `schedule_id` DESC
+            LIMIT 1";
+    $schedule_sql = f_igosja_mysqli_query($sql);
+
+    if (0 == $schedule_sql->num_rows)
+    {
+        $sql = "SELECT `schedule_id`,
+                       `schedule_stage_id`
+                FROM `schedule`
+                WHERE `schedule_date`>UNIX_TIMESTAMP()
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+                AND `schedule_season_id`=$season_id
+                ORDER BY `schedule_id` ASC
+                LIMIT 1";
+        $schedule_sql = f_igosja_mysqli_query($sql);
+    }
+
+    $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
+
+    $schedule_id    = $schedule_array[0]['schedule_id'];
+    $stage_id       = $schedule_array[0]['schedule_stage_id'];
 }
 
 $sql = "SELECT COUNT(`conference_id`) AS `count`
@@ -381,14 +411,14 @@ $conference_array = $conference_sql->fetch_all(MYSQLI_ASSOC);
 
 $review_create = false;
 
-if (isset($auth_team_id) && $game_array[0]['game_played'])
+if (isset($auth_team_id) && $game_array && $game_array[0]['game_played'])
 {
     $sql = "SELECT COUNT(`review_id`) AS `check`
             FROM `review`
             WHERE `review_country_id`=$country_id
             AND `review_division_id`=$division_id
             AND `review_schedule_id`=$schedule_id
-            AND `review_season_id`=$igosja_season_id
+            AND `review_season_id`=$season_id
             AND `review_stage_id`=$stage_id
             AND `review_user_id`=$auth_user_id";
     $review_sql = f_igosja_mysqli_query($sql);
