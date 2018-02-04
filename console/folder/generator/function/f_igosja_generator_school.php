@@ -18,6 +18,7 @@ function f_igosja_generator_school()
                    `baseschool_power`,
                    `baseschool_with_special`,
                    `baseschool_with_style`,
+                   `basescout_level`,
                    `city_country_id`,
                    `school_id`,
                    `school_position_id`,
@@ -36,6 +37,8 @@ function f_igosja_generator_school()
             ON `team_baseschool_id`=`baseschool_id`
             LEFT JOIN `basemedical`
             ON `team_basemedical_id`=`basemedical_id`
+            LEFT JOIN `basescout`
+            ON `team_basescout_id`=`basescout_id`
             WHERE `school_ready`=0
             AND `school_day`<=0
             ORDER BY `school_id` ASC";
@@ -50,6 +53,7 @@ function f_igosja_generator_school()
         $power          = $item['baseschool_power'];
         $special_id     = $item['school_special_id'];
         $school_id      = $item['school_id'];
+        $scout_level    = $item['basescout_level'];
         $style_id       = $item['school_style_id'];
         $team_id        = $item['team_id'];
         $tire           = $item['basemedical_tire'];
@@ -68,12 +72,12 @@ function f_igosja_generator_school()
 
             $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-            if ($check_array >= $with_special)
+            if ($check_array[0]['check'] >= $with_special)
             {
                 $special_id = 0;
             }
 
-            if ($check_array >= $with_style)
+            if ($check_array[0]['check'] >= $with_style)
             {
                 $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
             }
@@ -144,6 +148,25 @@ function f_igosja_generator_school()
                     SET `playerspecial_level`=1,
                         `playerspecial_player_id`=$player_id,
                         `playerspecial_special_id`=$special_id";
+            f_igosja_mysqli_query($sql);
+        }
+
+        if ($scout_level >= 5)
+        {
+            $sql = "INSERT INTO `scout`
+                    SET `scout_percent`=100,
+                        `scout_player_id`=$player_id,
+                        `scout_ready`=1,
+                        `scout_style`=1,
+                        `scout_team_id`=$team_id";
+            f_igosja_mysqli_query($sql);
+
+            $sql = "INSERT INTO `scout`
+                    SET `scout_percent`=100,
+                        `scout_player_id`=$player_id,
+                        `scout_ready`=1,
+                        `scout_style`=1,
+                        `scout_team_id`=$team_id";
             f_igosja_mysqli_query($sql);
         }
 
