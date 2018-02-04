@@ -38,13 +38,13 @@ function f_igosja_generator_referrer_bonus()
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $data = [
+        $data = array(
             'finance_financetext_id' => FINANCETEXT_INCOME_REFERRAL,
             'finance_user_id' => $referrer_id,
             'finance_value' => +$sum,
             'finance_value_after' => $referrer_array[0]['user_finance'] + $sum,
             'finance_value_before' => $referrer_array[0]['user_finance'],
-        ];
+        );
         f_igosja_finance($data);
 
         $user_id = $item['user_id'];
