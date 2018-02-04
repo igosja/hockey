@@ -12,6 +12,11 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
+if (USERROLE_USER == $auth_userrole_id)
+{
+    redirect('/wrong_page.php');
+}
+
 $sql = "SELECT `forumtheme_count_message`,
                `forumtheme_forumgroup_id`
         FROM `forumtheme`
