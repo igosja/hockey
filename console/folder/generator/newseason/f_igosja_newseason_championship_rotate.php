@@ -45,6 +45,7 @@ function f_igosja_newseason_championship_rotate()
                 $sql = "SELECT `championship_team_id`
                         FROM `championship`
                         WHERE `championship_division_id`=$division_id
+                        AND `championship_country_id`=$country_id
                         AND `championship_season_id`=$igosja_season_id
                         ORDER BY `championship_place` ASC
                         LIMIT 14";
@@ -61,6 +62,7 @@ function f_igosja_newseason_championship_rotate()
                         FROM `participantchampionship`
                         WHERE `participantchampionship_country_id`=$country_id
                         AND `participantchampionship_division_id`=$division_id+1
+                        AND `participantchampionship_season_id`=$igosja_season_id
                         AND `participantchampionship_stage_id` IN (0, " . STAGE_FINAL . ")";
                 $championship_sql = f_igosja_mysqli_query($sql);
 
@@ -76,6 +78,7 @@ function f_igosja_newseason_championship_rotate()
                 $sql = "SELECT `championship_team_id`
                         FROM `championship`
                         WHERE `championship_division_id`=$division_id
+                        AND `championship_country_id`=$country_id
                         AND `championship_season_id`=$igosja_season_id
                         ORDER BY `championship_place` ASC
                         LIMIT 2, 12";
@@ -93,6 +96,7 @@ function f_igosja_newseason_championship_rotate()
                     $sql = "SELECT `championship_team_id`
                             FROM `championship`
                             WHERE `championship_division_id`=$division_id-1
+                            AND `championship_country_id`=$country_id
                             AND `championship_season_id`=$igosja_season_id
                             ORDER BY `championship_place` ASC
                             LIMIT 14, 2";
@@ -109,6 +113,7 @@ function f_igosja_newseason_championship_rotate()
                             FROM `participantchampionship`
                             WHERE `participantchampionship_country_id`=$country_id
                             AND `participantchampionship_division_id`=$division_id+1
+                            AND `participantchampionship_season_id`=$igosja_season_id
                             AND `participantchampionship_stage_id` IN (0, " . STAGE_FINAL . ")";
                     $championship_sql = f_igosja_mysqli_query($sql);
 
@@ -151,6 +156,7 @@ function f_igosja_newseason_championship_rotate()
                             $sql = "SELECT `championship_team_id`
                                     FROM `championship`
                                     WHERE `championship_division_id`=$division_id
+                                    AND `championship_country_id`=$country_id
                                     AND `championship_season_id`=$igosja_season_id
                                     ORDER BY `championship_place` ASC
                                     LIMIT 14, 2";
@@ -194,7 +200,7 @@ function f_igosja_newseason_championship_rotate()
                     WHERE `championship_season_id`=$igosja_season_id
                     AND `championship_country_id`=$country_id
                     AND `championship_division_id`=$division_id
-                    ORDER BY `championship_team_id` DESC
+                    ORDER BY `championship_place` DESC
                     LIMIT 2";
             $championship_sql = f_igosja_mysqli_query($sql);
 
@@ -216,7 +222,7 @@ function f_igosja_newseason_championship_rotate()
                     WHERE `conference_season_id`=$igosja_season_id
                     AND `city_country_id`=$country_id
                     ORDER BY `conference_place` ASC
-                    LIMIT 0,2";
+                    LIMIT 2,999";
             $conference_sql = f_igosja_mysqli_query($sql);
 
             $conference_array = $conference_sql->fetch_all(MYSQLI_ASSOC);

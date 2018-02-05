@@ -30,7 +30,7 @@ foreach ($forumchapter_array as $item)
                        `forumgroup_last_date`,
                        `forumtheme_id`,
                        `forumtheme_name`,
-                       CEIL(`forumtheme_count_message`/20) AS `last_page`,
+                       CEIL((`forumtheme_count_message`-1)/20) AS `last_page`,
                        `user_id`,
                        `user_login`
                 FROM `forumgroup`
@@ -56,7 +56,7 @@ foreach ($forumchapter_array as $item)
                        `forumgroup_last_date`,
                        `forumtheme_id`,
                        `forumtheme_name`,
-                       CEIL(`forumtheme_count_message`/20) AS `last_page`,
+                       CEIL((`forumtheme_count_message`-1)/20) AS `last_page`,
                        `user_id`,
                        `user_login`
                 FROM `forumgroup`

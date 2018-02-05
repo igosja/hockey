@@ -41,7 +41,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `forumtheme_id`,
                `forumtheme_last_date`,
                `forumtheme_name`,
-               CEIL(`forumtheme_count_message`/20) AS `last_page`,
+               CEIL((`forumtheme_count_message`-1)/20) AS `last_page`,
                `lastuser`.`user_id` AS `lastuser_id`,
                `lastuser`.`user_login` AS `lastuser_login`
         FROM `forumtheme`

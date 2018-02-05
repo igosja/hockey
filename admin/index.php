@@ -1,15 +1,5 @@
 <?php
 
-/*
-SELECT FROM_UNIXTIME({date_field}, '{date_format}'), COUNT(*) AS '{value}'
-FROM lm_buyer_balance_transfer
-WHERE transfer_type IN (101, 127)
-AND FROM_UNIXTIME({date_field}, '{date_format}') >= '{from}'
-AND FROM_UNIXTIME({date_field}, '{date_format}') <= '{to}'
-GROUP BY FROM_UNIXTIME({date_field}, '{date_format}')
-ORDER BY {date_field} ASC
-*/
-
 include(__DIR__ . '/../include/include.php');
 
 $sql = "SELECT COUNT(`team_id`) AS `count`
@@ -40,6 +30,12 @@ $sql = "SELECT COUNT(`vote_id`) AS `count`
 $vote_sql = f_igosja_mysqli_query($sql);
 
 $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`logo_id`) AS `count`
+        FROM `logo`";
+$logo_sql = f_igosja_mysqli_query($sql);
+
+$logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT FROM_UNIXTIME(`payment_date`, '%b %Y') AS `date`,
                SUM(`payment_sum`) AS `total`

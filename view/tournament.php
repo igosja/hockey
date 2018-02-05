@@ -38,13 +38,13 @@
 </form>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a href="/offseason.php">Кубок межсезонья</a>
+        <a href="/offseason.php?season_id=<?= $season_id; ?>">Кубок межсезонья</a>
         |
-        <a href="/conference.php">Конференция</a>
+        <a href="/conference.php?season_id=<?= $season_id; ?>">Конференция</a>
         |
-        <a href="/worldcup.php">Чемпионат мира</a>
+        <a href="/worldcup.php?season_id=<?= $season_id; ?>">Чемпионат мира</a>
         |
-        <a href="/league.php">Лига чемпионов</a>
+        <a href="/league.php?season_id=<?= $season_id; ?>">Лига чемпионов</a>
     </div>
 </div>
 <div class="row margin-top">
@@ -65,7 +65,7 @@
                             <?php if ('-' == $value) { ?>
                                 -
                             <?php } else { ?>
-                                <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $key; ?>">
+                                <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $key; ?>&season_id=<?= $season_id; ?>">
                                     <?= $value; ?>
                                 </a>
                             <?php } ?>

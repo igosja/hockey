@@ -60,11 +60,14 @@ function f_igosja_newseason_league_participant()
 
         if ($item['leaguedistribution_total'] > 2)
         {
+            $participant = implode(',', $participant_array);
+
             $sql = "SELECT `participantchampionship_team_id`
                     FROM `participantchampionship`
                     WHERE `participantchampionship_country_id`=$country_id
                     AND `participantchampionship_division_id`=1
                     AND `participantchampionship_season_id`=$igosja_season_id
+                    AND `participantchampionship_team_id` NOT IN ($participant)
                     AND `participantchampionship_stage_id`=" . STAGE_FINAL . "
                     LIMIT 1";
             $team_sql = f_igosja_mysqli_query($sql);
@@ -123,7 +126,7 @@ function f_igosja_newseason_league_participant()
         if (0 != $item['leaguedistribution_group'])
         {
             $group_array        = array_slice($participant_array, 0, $item['leaguedistribution_group']);
-            $participant_array  = array_splice($participant_array, 0, $item['leaguedistribution_group']);
+            array_splice($participant_array, 0, $item['leaguedistribution_group']);
 
             foreach ($group_array as $value)
             {
@@ -153,7 +156,7 @@ function f_igosja_newseason_league_participant()
                 }
 
                 $qualify_array      = array_slice($participant_array, 0, $item['leaguedistribution_qualification_' . $i]);
-                $participant_array  = array_splice($participant_array, 0, $item['leaguedistribution_qualification_' . $i]);
+                array_splice($participant_array, 0, $item['leaguedistribution_qualification_' . $i]);
 
                 foreach ($qualify_array as $value)
                 {
