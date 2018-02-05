@@ -883,3 +883,13 @@ blockquote:before {
     max-width: 100%;
     width: auto;
 }
+
+.team-logo-link {
+    height: 125px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.team-logo-div {
+    display: table;
+}

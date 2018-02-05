@@ -13,47 +13,53 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
                 <div class="row">
-                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                    <div class="col-lg-5 col-md-4 col-sm-3 hidden-xs"></div>
+                    <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11">
                         <span class="strong">Старая эмблема</span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                        <?php if (file_exists(__DIR__ . '/../img/team/125/' . $num_get . '.png')) { ?>
-                            <img
-                                alt="<?= $team_array[0]['team_name']; ?>"
-                                class="team-logo"
-                                src="/img/team/125/<?= $num_get; ?>.png"
-                                title="<?= $team_array[0]['team_name']; ?>"
-                            />
-                        <?php } else { ?>
-                            Нет эмблемы
-                        <?php } ?>
+                    <div class="col-lg-5 col-md-4 col-sm-3 hidden-xs"></div>
+                    <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 team-logo-div">
+                        <span class="team-logo-link">
+                            <?php if (file_exists(__DIR__ . '/../img/team/125/' . $num_get . '.png')) { ?>
+                                <img
+                                    alt="<?= $team_array[0]['team_name']; ?>"
+                                    class="team-logo"
+                                    src="/img/team/125/<?= $num_get; ?>.png"
+                                    title="<?= $team_array[0]['team_name']; ?>"
+                                />
+                            <?php } else { ?>
+                                Нет эмблемы
+                            <?php } ?>
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                    <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11">
                         <span class="strong">Новая эмблема</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                        <?php if (file_exists(__DIR__ . '/../upload/img/team/125/' . $num_get . '.png')) { ?>
-                            <img
-                                alt="<?= $team_array[0]['team_name']; ?>"
-                                class="team-logo"
-                                src="/upload/img/team/125/<?= $num_get; ?>.png"
-                                title="<?= $team_array[0]['team_name']; ?>"
-                            />
-                        <?php } else { ?>
-                            Нет эмблемы
-                        <?php } ?>
+                    <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 team-logo-div">
+                        <span class="team-logo-link">
+                            <?php if (file_exists(__DIR__ . '/../upload/img/team/125/' . $num_get . '.png')) { ?>
+                                <img
+                                    alt="<?= $team_array[0]['team_name']; ?>"
+                                    class="team-logo"
+                                    src="/upload/img/team/125/<?= $num_get; ?>.png"
+                                    title="<?= $team_array[0]['team_name']; ?>"
+                                />
+                            <?php } else { ?>
+                                Нет эмблемы
+                            <?php } ?>
+                        </span>
                     </div>
                 </div>
             </div>

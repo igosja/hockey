@@ -48,7 +48,7 @@
                     <li>
                         <a href="/admin/logo_list.php">
                             <i class="fa fa-shield fa-fw"></i> Логотипы
-                            <span class="badge admin-teamask"></span>
+                            <span class="badge admin-logo"></span>
                         </a>
                     </li>
                     <li>
