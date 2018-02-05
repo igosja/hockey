@@ -14,6 +14,8 @@ for ($game_list = 0; $game_list<$max_i; $game_list++)
 
 $field_player_array = array();
 
+for ($h=0; $h<2; $h++)
+{
 for ($j=1; $j<=3; $j++)
 {
     for ($k=POSITION_LD; $k<=POSITION_RW; $k++)
@@ -44,7 +46,7 @@ for ($j=1; $j<=3; $j++)
             'point'         => 0,
             'power_nominal' => 0,
             'power_optimal' => 0,
-            'power_real'    => 50,
+            'power_real'    => 50 + $h * 25,
             'score'         => 0,
             'score_draw'    => 0,
             'score_power'   => 0,
@@ -57,7 +59,7 @@ for ($j=1; $j<=3; $j++)
     }
 }
 
-$team_array = array(
+$team_array[$h] = array(
     'player' => array(
         'gk' => array(
             'age'               => 0,
@@ -74,7 +76,7 @@ $team_array = array(
             'point'             => 0,
             'power_nominal'     => 0,
             'power_optimal'     => 0,
-            'power_real'        => 50,
+            'power_real'        => 50 + $h * 25,
             'save'              => 0,
             'shot'              => 0,
             'shutout'           => 0,
@@ -174,6 +176,7 @@ $team_array = array(
         'win_over' => 0,
     ),
 );
+}
 
 $game_result = array(
     'event'             => array(),
@@ -182,8 +185,8 @@ $game_result = array(
     'game_info'         => array(
         'home_bonus'        => 1,
     ),
-    'guest'             => $team_array,
-    'home'              => $team_array,
+    'guest'             => $team_array[0],
+    'home'              => $team_array[1],
     'minute'            => 0,
     'player'            => 0,
     'assist_1'          => 0,
@@ -312,6 +315,7 @@ for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']
             $gk_power   = $game_result['guest']['team']['power']['gk'];
 
             $score_koeff = (100 + 10 / ($game_result['home']['team']['score']['total'] + 1) * 10 - 55) / 100;
+            $score_koeff = 1;
 
             if (rand(0, $shot_power * $score_koeff) > rand(0, $gk_power * 6))
             {
@@ -346,6 +350,7 @@ for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']
             $gk_power   = $game_result['home']['team']['power']['gk'];
 
             $score_koeff = (100 + 10 / ($game_result['guest']['team']['score']['total'] + 1) * 10 - 55) / 100;
+            $score_koeff = 1;
 
             if (rand(0, $shot_power * $score_koeff) > rand(0, $gk_power * 6))
             {
