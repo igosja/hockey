@@ -21,6 +21,7 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-5 col-md-4 col-sm-3 hidden-xs"></div>
                     <div class="col-lg-6 col-md-7 col-sm-8 col-xs-11 team-logo-div">
                         <span class="team-logo-link">
                             <?php if (file_exists(__DIR__ . '/../img/team/125/' . $num_get . '.png')) { ?>
