@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $freeteam_array array
+ * @var $logo_array array
  * @var $payment_categories string
  * @var $payment_data string
  * @var $teamask_array array
@@ -50,6 +51,28 @@
                 </div>
             </div>
             <a href="/admin/teamask_list.php">
+                <div class="panel-footer">
+                    <span class="pull-left">Подробнее</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-logo" <?php if (0 == $logo_array[0]['count']) { ?>style="display:none;"<?php } ?>>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shield fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge admin-logo"><?= $logo_array[0]['count']; ?></div>
+                        <div>Логотипы!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="/admin/logo_list.php">
                 <div class="panel-footer">
                     <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

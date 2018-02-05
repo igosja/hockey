@@ -47,6 +47,13 @@ function admin_bell()
             } else {
                 $('.panel-vote').hide();
             }
+
+            $('.admin-logo').html(data.logo);
+            if (data.logo > 0) {
+                $('.panel-logo').show();
+            } else {
+                $('.panel-logo').hide();
+            }
         },
         url: '/admin/json/bell.php'
     });
