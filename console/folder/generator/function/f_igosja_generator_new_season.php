@@ -38,6 +38,7 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_older_player',
             'f_igosja_newseason_pension',
             'f_igosja_newseason_pension_inform',
+            'f_igosja_newseason_maintenance',
         );
 
         for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)

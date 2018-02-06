@@ -154,7 +154,7 @@ function f_igosja_generator_game_result()
                     $shot_power = $game_result['home']['team']['power']['shot'];
                     $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                    if (rand(0, $shot_power) > rand(0, $gk_power * 6))
+                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
                     {
                         $game_result = f_igosja_assist_1($game_result, 'home');
                         $game_result = f_igosja_assist_2($game_result, 'home');
@@ -187,7 +187,7 @@ function f_igosja_generator_game_result()
                     $shot_power = $game_result['guest']['team']['power']['shot'];
                     $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                    if (rand(0, $shot_power) > rand(0, $gk_power * 6))
+                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
                     {
                         $game_result = f_igosja_assist_1($game_result, 'guest');
                         $game_result = f_igosja_assist_2($game_result, 'guest');
@@ -265,7 +265,7 @@ function f_igosja_generator_game_result()
                         $shot_power = $game_result['home']['team']['power']['shot'];
                         $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                        if (rand(0, $shot_power) > rand(0, $gk_power * 6))
+                        if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
                         {
                             $game_result = f_igosja_assist_1($game_result, 'home');
                             $game_result = f_igosja_assist_2($game_result, 'home');
@@ -302,7 +302,7 @@ function f_igosja_generator_game_result()
                             $shot_power = $game_result['guest']['team']['power']['shot'];
                             $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                            if (rand(0, $shot_power) > rand(0, $gk_power * 6))
+                            if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
                             {
                                 $game_result = f_igosja_assist_1($game_result, 'guest');
                                 $game_result = f_igosja_assist_2($game_result, 'guest');
