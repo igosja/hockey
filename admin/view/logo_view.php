@@ -73,7 +73,7 @@
                     <?php if (file_exists(__DIR__ . '/../../img/team/125/' . $logo_array[0]['team_id'] . '.png')) { ?>
                         <img
                             alt="<?= $logo_array[0]['team_name']; ?>"
-                            src="/img/team/125/<?= $logo_array[0]['team_id']; ?>.png"
+                            src="/img/team/125/<?= $logo_array[0]['team_id']; ?>.png?v=<?= filemtime(__DIR__ . '/../../img/team/125/' . $logo_array[0]['team_id'] . '.png'); ?>"
                             title="<?= $logo_array[0]['team_name']; ?>"
                         />
                     <?php } ?>
@@ -86,7 +86,7 @@
                 <td>
                     <img
                         alt="<?= $logo_array[0]['team_name']; ?>"
-                        src="/upload/img/team/125/<?= $logo_array[0]['team_id']; ?>.png"
+                        src="/upload/img/team/125/<?= $logo_array[0]['team_id']; ?>.png?v=<?= filemtime(__DIR__ . '/../../upload/img/team/125/' . $logo_array[0]['team_id'] . '.png'); ?>"
                         title="<?= $logo_array[0]['team_name']; ?>"
                     />
                 </td>

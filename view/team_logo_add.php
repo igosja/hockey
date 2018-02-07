@@ -28,7 +28,7 @@
                                 <img
                                     alt="<?= $team_array[0]['team_name']; ?>"
                                     class="team-logo"
-                                    src="/img/team/125/<?= $num_get; ?>.png"
+                                    src="/img/team/125/<?= $num_get; ?>.png?v=<?= filemtime(__DIR__ . '/../img/team/125/' . $num_get . '.png'); ?>"
                                     title="<?= $team_array[0]['team_name']; ?>"
                                 />
                             <?php } else { ?>
@@ -53,7 +53,7 @@
                                 <img
                                     alt="<?= $team_array[0]['team_name']; ?>"
                                     class="team-logo"
-                                    src="/upload/img/team/125/<?= $num_get; ?>.png"
+                                    src="/upload/img/team/125/<?= $num_get; ?>.png?v=<?= filemtime(__DIR__ . '/../upload/img/team/125/' . $num_get . '.png'); ?>"
                                     title="<?= $team_array[0]['team_name']; ?>"
                                 />
                             <?php } else { ?>
