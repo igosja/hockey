@@ -7,15 +7,6 @@
  */
 function f_igosja_login_code($user_code)
 {
-    if (isset($_SERVER['REMOTE_ADDR']))
-    {
-        $user_ip = $_SERVER['REMOTE_ADDR'];
-    }
-    else
-    {
-        $user_ip = '';
-    }
-
     if (isset($_SERVER['HTTP_USER_AGENT']))
     {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -25,7 +16,7 @@ function f_igosja_login_code($user_code)
         $user_agent = '';
     }
 
-    $login_code = md5($user_ip . $user_agent . $user_code);
+    $login_code = md5($user_agent . $user_code);
 
     return $login_code;
 }
