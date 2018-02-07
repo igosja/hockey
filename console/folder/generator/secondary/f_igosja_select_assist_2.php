@@ -12,13 +12,17 @@ function f_igosja_select_assist_2($game_result, $team)
     {
         $game_result['assist_2'] = POSITION_GK;
     }
+    elseif (1 == rand(1, 3))
+    {
+        $game_result['assist_2'] = rand(POSITION_LD, POSITION_RD);
+    }
     else
     {
-        $game_result['assist_2'] = rand(POSITION_LD, POSITION_RW);
+        $game_result['assist_2'] = rand(POSITION_LW, POSITION_RW);
     }
 
-    $penalty_position           = f_igosja_penalty_position_array($game_result, $team);
-    $penalty_position[]         = $game_result['player'];
+    $penalty_position   = f_igosja_penalty_position_array($game_result, $team);
+    $penalty_position[] = $game_result['player'];
 
     if (in_array($game_result['assist_2'], $penalty_position) || $game_result['assist_2'] == $game_result['assist_1'])
     {
