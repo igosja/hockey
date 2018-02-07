@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">Админ</a>
+            <a class="navbar-brand" href="/admin/">Админ</a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
