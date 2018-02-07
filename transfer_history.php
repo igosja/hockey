@@ -71,7 +71,7 @@ if (count($transfer_id))
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT SUM(`transfervote_id`) AS `rating`,
+    $sql = "SELECT SUM(`transfervote_rating`) AS `rating`,
                    `transfervote_transfer_id`
             FROM `transfervote`
             WHERE `transfervote_transfer_id` IN ($transfer_id)
@@ -81,7 +81,7 @@ if (count($transfer_id))
 
     $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT SUM(`transfervote_id`) AS `rating`,
+    $sql = "SELECT SUM(`transfervote_rating`) AS `rating`,
                    `transfervote_transfer_id`
             FROM `transfervote`
             WHERE `transfervote_transfer_id` IN ($transfer_id)

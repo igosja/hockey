@@ -71,7 +71,7 @@ if (count($rent_id))
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT SUM(`rentvote_id`) AS `rating`,
+    $sql = "SELECT SUM(`rentvote_rating`) AS `rating`,
                    `rentvote_rent_id`
             FROM `rentvote`
             WHERE `rentvote_rent_id` IN ($rent_id)
@@ -81,7 +81,7 @@ if (count($rent_id))
 
     $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT SUM(`rentvote_id`) AS `rating`,
+    $sql = "SELECT SUM(`rentvote_rating`) AS `rating`,
                    `rentvote_rent_id`
             FROM `rentvote`
             WHERE `rentvote_rent_id` IN ($rent_id)
