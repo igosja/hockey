@@ -449,6 +449,70 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
         $notification_array[] = 'У вас есть новые <a href="/friendly.php?num=' . $friendly_array[0]['friendlyinvite_schedule_id'] . '">приглашения</a> сыграть товарищеский матч';
     }
+
+    $sql = "SELECT `transfer_id`
+            FROM `transfer`
+            LEFT JOIN
+            (
+                SELECT SUM(`transfervote_rating`) AS `rating`,
+                       `transfervote_transfer_id`
+                FROM `transfervote`
+                WHERE `transfervote_transfer_id` IN
+                (
+                    SELECT `transfer_id`
+                    FROM `transfer`
+                    WHERE `transfer_checked`=0
+                    AND (`transfer_team_buyer_id`=$num_get
+                    OR `transfer_team_seller_id`=$num_get)
+                )
+                GROUP BY `transfervote_transfer_id`
+            ) AS `t1`
+            ON `transfer_id`=`transfervote_transfer_id`
+            WHERE `transfer_checked`=0
+            AND `rating`<0
+            AND (`transfer_team_buyer_id`=$num_get
+            OR `transfer_team_seller_id`=$num_get)
+            ORDER BY `transfer_id` ASC";
+    $transfer_sql = f_igosja_mysqli_query($sql);
+
+    $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($transfer_array as $item)
+    {
+        $notification_array[] = 'Ваша <a href="/transfer_view.php?num=' . $item['transfer_id'] . '">трансферная сделка</a> имеет отрицательную оценку и будет отменена после завершения голосования';
+    }
+
+    $sql = "SELECT `rent_id`
+            FROM `rent`
+            LEFT JOIN
+            (
+                SELECT SUM(`rentvote_rating`) AS `rating`,
+                       `rentvote_rent_id`
+                FROM `rentvote`
+                WHERE `rentvote_rent_id` IN
+                (
+                    SELECT `rent_id`
+                    FROM `rent`
+                    WHERE `rent_checked`=0
+                    AND (`rent_team_buyer_id`=$num_get
+                    OR `rent_team_seller_id`=$num_get)
+                )
+                GROUP BY `rentvote_rent_id`
+            ) AS `t1`
+            ON `rent_id`=`rentvote_rent_id`
+            WHERE `rent_checked`=0
+            AND `rating`<0
+            AND (`rent_team_buyer_id`=$num_get
+            OR `rent_team_seller_id`=$num_get)
+            ORDER BY `rent_id` ASC";
+    $rent_sql = f_igosja_mysqli_query($sql);
+
+    $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($rent_array as $item)
+    {
+        $notification_array[] = 'Ваша <a href="/rent_view.php?num=' . $item['rent_id'] . '">арендная сделка</a> имеет отрицательную оценку и будет отменена после завершения голосования';
+    }
 }
 
 if (isset($auth_team_id))
