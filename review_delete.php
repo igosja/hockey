@@ -76,4 +76,4 @@ f_igosja_mysqli_query($sql);
 $_SESSION['message']['class']   = 'success';
 $_SESSION['message']['text']    = 'Обзор упешно удален.';
 
-redirect('/championship.php?country_id=' . $review_array[0]['review_country_id'] . '&division_id=' . $review_array[0]['review_division_id'] . '&season_id=' . $review_array[0]['review_review_season_id'])
+redirect('/championship.php?country_id=' . $review_array[0]['review_country_id'] . '&division_id=' . $review_array[0]['review_division_id'] . '&season_id=' . $review_array[0]['review_review_season_id']);
