@@ -9,7 +9,12 @@
     <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center team-logo-div">
         <a class="team-logo-link" href="/team_logo_add.php?num=<?= $num_get; ?>">
             <?php if (file_exists(__DIR__ . '/../../img/team/125/' . $num_get . '.png')) { ?>
-                <img alt="<?= $team_array[0]['team_name']; ?>" class="team-logo" src="/img/team/125/<?= $num_get; ?>.png">
+                <img
+                    alt="<?= $team_array[0]['team_name']; ?>"
+                    class="team-logo"
+                    src="/img/team/125/<?= $num_get; ?>.png?v=<?= filemtime(__DIR__ . '/../../img/team/125/' . $num_get . '.png'); ?>"
+                    title="<?= $team_array[0]['team_name']; ?>"
+                >
             <?php } else { ?>
                 Добавить<br/>эмблему
             <?php } ?>
