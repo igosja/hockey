@@ -70,11 +70,33 @@ if (count($transfer_id))
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT SUM(`transfervote_id`) AS `rating`,
+                   `transfervote_transfer_id`
+            FROM `transfervote`
+            WHERE `transfervote_transfer_id` IN ($transfer_id)
+            AND `transfervote_rating`=1
+            GROUP BY `transfervote_transfer_id`";
+    $rating_plus_sql = f_igosja_mysqli_query($sql);
+
+    $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT SUM(`transfervote_id`) AS `rating`,
+                   `transfervote_transfer_id`
+            FROM `transfervote`
+            WHERE `transfervote_transfer_id` IN ($transfer_id)
+            AND `transfervote_rating`=-1
+            GROUP BY `transfervote_transfer_id`";
+    $rating_minus_sql = f_igosja_mysqli_query($sql);
+
+    $rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
     $playerposition_array   = array();
     $playerspecial_array    = array();
+    $rating_plus_array      = array();
+    $rating_minus_array     = array();
 }
 
 $seo_title          = 'Трансфер хоккеистов';
