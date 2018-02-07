@@ -20,12 +20,22 @@ function f_igosja_deal_rating($deal_id, $plus_array, $minus_array, $deal_type)
         }
     }
 
+    if (0 == count($return_array))
+    {
+        $return_array[] = '<span class="font-green">0</span>';
+    }
+
     foreach ($minus_array as $item)
     {
         if (isset($item[$deal_type . 'vote_' . $deal_type . '_id']) && $item[$deal_type . 'vote_' . $deal_type . '_id'] == $deal_id)
         {
             $return_array[] = '<span class="font-red">' . $item['rating'] . '</span>';
         }
+    }
+
+    if (1 == count($return_array))
+    {
+        $return_array[] = '<span class="font-red">0</span>';
     }
 
     $return = implode('/', $return_array);
