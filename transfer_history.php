@@ -99,6 +99,10 @@ else
     $rating_minus_array     = array();
 }
 
+print '<pre>';
+print_r($rating_minus_array);
+exit;
+
 $seo_title          = 'Трансфер хоккеистов';
 $seo_description    = 'Трансфер хоккеистов на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'трансфер хоккеистов';
