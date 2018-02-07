@@ -38,7 +38,7 @@ function f_igosja_deal_rating($deal_id, $plus_array, $minus_array, $deal_type)
         $return_array[] = '<span class="font-red">0</span>';
     }
 
-    $return = implode('/', $return_array);
+    $return = implode(' / ', $return_array);
 
     return $return;
 }
