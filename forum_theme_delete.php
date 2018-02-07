@@ -3,11 +3,17 @@
 /**
  * @var $auth_date_forum integer
  * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  */
 
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
+
+if (!isset($auth_user_id))
 {
     redirect('/wrong_page.php');
 }

@@ -1,8 +1,11 @@
 <?php
 /**
+ * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  * @var $country_array array
  * @var $country_id integer
  * @var $division_id integer
+ * @var $num_get integer
  * @var $review_array array
  * @var $review_create boolean
  * @var $round_id integer
@@ -26,6 +29,19 @@
         </p>
     </div>
 </div>
+<?php if (isset($auth_user_id) && USERROLE_USER != $auth_userrole_id) { ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/review_delete.php?num=<?= $num_get; ?>">
+                Удалить
+            </a>
+            |
+            <a href="/review_delete.php?num=<?= $num_get; ?>&penalty=1">
+                Удалить со штрафом
+            </a>
+        </div>
+    </div>
+<?php } ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-justify">
@@ -45,7 +61,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top">
-        <a href="/championship.php?country_id=<?= $review_array[0]['country_id']; ?>&division_id=<?= $review_array[0]['division_id']; ?>&season_id=<?= $review_array[0]['review_season_id']; ?>&stage_id=<?= $review_array[0]['stage_id']; ?>">
+        <a href="/championship.php?country_id=<?= $review_array[0]['country_id']; ?>&division_id=<?= $review_array[0]['division_id']; ?>&season_id=<?= $review_array[0]['review_season_id']; ?>">
             Назад
         </a>
     </div>
