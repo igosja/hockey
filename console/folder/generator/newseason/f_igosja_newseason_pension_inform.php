@@ -5,6 +5,10 @@
  */
 function f_igosja_newseason_pension_inform()
 {
+    global $igosja_season_id;
+
+    $igosja_season_id++;
+
     $sql = "SELECT `player_id`,
                    `player_price`,
                    `player_team_id`

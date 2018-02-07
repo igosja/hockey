@@ -12,5 +12,6 @@ if (!isset($auth_user_id))
 }
 
 session_destroy();
+setcookie('login_code', '');
 
 redirect('/');

@@ -8,7 +8,15 @@
  */
 function f_igosja_select_assist_1($game_result, $team)
 {
-    $game_result['assist_1']    = rand(POSITION_LD, POSITION_RW);
+    if (1 == rand(1, 3))
+    {
+        $game_result['assist_1'] = rand(POSITION_LD, POSITION_RD);
+    }
+    else
+    {
+        $game_result['assist_1'] = rand(POSITION_LW, POSITION_RW);
+    }
+
     $penalty_position           = f_igosja_penalty_position_array($game_result, $team);
     $penalty_position[]         = $game_result['player'];
 
