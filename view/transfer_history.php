@@ -78,7 +78,7 @@
                     <td class="text-right <?php if ($transfer_array[$i]['transfer_cancel']) { ?>del<?php } ?>">
                         <?= f_igosja_money_format($transfer_array[$i]['transfer_price_buyer']); ?>
                     </td>
-                    <td class="text-right <?php if ($transfer_array[$i]['transfer_cancel']) { ?>del<?php } ?>">
+                    <td class="text-center">
                         <?= f_igosja_deal_rating($transfer_array[$i]['transfer_id'], $rating_plus_array, $rating_minus_array, 'transfer'); ?>
                     </td>
                 </tr>

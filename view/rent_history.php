@@ -78,6 +78,9 @@
                     <td class="text-right <?php if ($rent_array[$i]['rent_cancel']) { ?>del<?php } ?>">
                         <?= f_igosja_money_format($rent_array[$i]['rent_price_buyer']); ?>
                     </td>
+                    <td class="text-center">
+                        <?= f_igosja_deal_rating($transfer_array[$i]['transfer_id'], $rating_plus_array, $rating_minus_array, 'transfer'); ?>
+                    </td>
                 </tr>
             <?php } ?>
             <tr>

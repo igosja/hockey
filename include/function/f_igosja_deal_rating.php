@@ -14,7 +14,7 @@ function f_igosja_deal_rating($deal_id, $plus_array, $minus_array, $deal_type)
 
     foreach ($plus_array as $item)
     {
-        if (isset($item[$deal_type . 'vote_' . $deal_type . 'id']) && $item[$deal_type . 'vote_' . $deal_type . 'id'] == $deal_id)
+        if (isset($item[$deal_type . 'vote_' . $deal_type . 'id']) && $item[$deal_type . 'vote_' . $deal_type . '_id'] == $deal_id)
         {
             $return_array[] = '<span class="font-green">' . $item['rating'] . '</span>';
         }
@@ -22,7 +22,7 @@ function f_igosja_deal_rating($deal_id, $plus_array, $minus_array, $deal_type)
 
     foreach ($minus_array as $item)
     {
-        if (isset($item[$deal_type . 'vote_' . $deal_type . 'id']) && $item[$deal_type . 'vote_' . $deal_type . 'id'] == $deal_id)
+        if (isset($item[$deal_type . 'vote_' . $deal_type . 'id']) && $item[$deal_type . 'vote_' . $deal_type . '_id'] == $deal_id)
         {
             $return_array[] = '<span class="font-red">' . $item['rating'] . '</span>';
         }
