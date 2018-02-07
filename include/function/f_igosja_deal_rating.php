@@ -29,7 +29,7 @@ function f_igosja_deal_rating($deal_id, $plus_array, $minus_array, $deal_type)
     {
         if (isset($item[$deal_type . 'vote_' . $deal_type . '_id']) && $item[$deal_type . 'vote_' . $deal_type . '_id'] == $deal_id)
         {
-            $return_array[] = '<span class="font-red">' . $item['rating'] . '</span>';
+            $return_array[] = '<span class="font-red">' . -$item['rating'] . '</span>';
         }
     }
 
