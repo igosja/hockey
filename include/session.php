@@ -16,6 +16,17 @@ if (isset($_SESSION['user_id']))
     $igosja_menu        = $igosja_menu_login;
     $igosja_menu_mobile = $igosja_menu_login_mobile;
 
+    if (isset($_SESSION['team_id']))
+    {
+        $auth_team_id = $_SESSION['team_id'];
+
+        $and_where = "AND `team_id`=$auth_team_id";
+    }
+    else
+    {
+        $and_where = "";
+    }
+
     $sql = "SELECT `city_country_id`,
                    `national_id`,
                    `team_id`,
@@ -34,6 +45,7 @@ if (isset($_SESSION['user_id']))
             LEFT JOIN `national`
             ON `user_id`=`national_user_id`
             WHERE `user_id`=$auth_user_id
+            $and_where
             LIMIT 1";
     $user_sql = f_igosja_mysqli_query($sql);
 
@@ -181,6 +193,22 @@ if (isset($_SESSION['user_id']))
         $igosja_menu        = str_replace('count_countrynews', '', $igosja_menu);
         $igosja_menu_mobile = str_replace('count_countrynews', '', $igosja_menu_mobile);
     }
+
+    $sql = "SELECT `country_id`,
+                   `team_id`,
+                   `team_name`
+            FROM `team`
+            LEFT JOIN `stadium`
+            ON `team_stadium_id`=`stadium_id`
+            LEFT JOIN `city`
+            ON `stadium_city_id`=`city_id`
+            LEFT JOIN `country`
+            ON `city_country_id`=`country_id`
+            WHERE `team_user_id`=$auth_user_id
+            ORDER BY `team_id` ASC";
+    $auth_team_sql = f_igosja_mysqli_query($sql);
+
+    $auth_team_array = $auth_team_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "UPDATE `user`
             SET `user_date_login`=UNIX_TIMESTAMP()
