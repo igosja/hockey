@@ -49,6 +49,13 @@ if (isset($_SESSION['user_id']))
             LIMIT 1";
     $user_sql = f_igosja_mysqli_query($sql);
 
+    if (0 == $user_sql->num_rows)
+    {
+        unset($_SESSION['team_id']);
+
+        refresh();
+    }
+
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     $auth_country_id    = $user_array[0]['city_country_id'];
@@ -194,7 +201,7 @@ if (isset($_SESSION['user_id']))
         $igosja_menu_mobile = str_replace('count_countrynews', '', $igosja_menu_mobile);
     }
 
-    $sql = "SELECT `country_id`,
+    $sql = "SELECT `country_name`,
                    `team_id`,
                    `team_name`
             FROM `team`

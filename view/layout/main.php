@@ -60,9 +60,9 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
                 <br/>
                 <?php if (isset($auth_user_id)) { ?>
-                    <form id="auth-team-form" method="post">
-                        <label class="hidden" for="auth-team-team"></label>
-                        <select id="auth-team-team" name="auth_team_id" onchange="this.form.submit();">
+                    <form action="/team_view.php" class="form-inline" id="auth-team-form" method="post">
+                        <label class="hidden" for="auth-team-select"></label>
+                        <select class="form-control" id="auth-team-select" name="auth_team_id" onchange="this.form.submit();">
                             <?php foreach ($auth_team_array as $item) { ?>
                                 <option
                                     <?php if ($item['team_id'] == $auth_team_id) { ?>selected<?php } ?>
@@ -72,8 +72,8 @@
                                 </option>
                             <?php } ?>
                         </select>
+                        <a href="/logout.php" class="btn margin">Выйти</a>
                     </form>
-                    <a href="/logout.php" class="btn margin">Выйти</a>
                 <?php } else { ?>
                     <form action="/login.php" class="form-inline" method="POST">
                         <label for="t-form-login">Логин</label>
