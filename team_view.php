@@ -9,6 +9,13 @@
 
 include(__DIR__ . '/include/include.php');
 
+if ($auth_team_select = f_igosja_request_post('auth_team_id'))
+{
+    $_SESSION['team_id'] = $auth_team_select;
+
+    refresh();
+}
+
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
     if (!isset($auth_team_id))

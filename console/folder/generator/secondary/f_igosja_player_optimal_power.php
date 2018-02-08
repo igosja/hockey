@@ -92,13 +92,22 @@ function f_igosja_player_optimal_power($game_result)
                     }
                 }
 
+                if (-1 == $game_result[$team]['team']['collision'][$line])
+                {
+                    $collision = 0;
+                }
+                else
+                {
+                    $collision = $game_result[$team]['team']['collision'][$line];
+                }
+
                 $game_result[$team]['player']['field'][$key]['power_optimal'] = round(
                     $game_result[$team]['player']['field'][$key]['power_optimal']
                     * (100 + $game_result[$team]['player']['field'][$key]['bonus'] + $game_result[$team]['team']['leader']) / 100
                     * (100 + $game_result[$team]['team']['teamwork'][$line]) / 100
                     * (10 - $game_result[$team]['team']['mood'] + 2) / 10
                     * (100 + $game_result[$team]['team']['rude'][$line] - 1) / 100
-                    * (10 + $game_result[$team]['team']['collision'][$line]) / 10
+                    * (10 + $collision) / 10
                     * (100 + $tactic) / 100
                     * (100 - AUTO_PENALTY * $game_result[$team]['team']['auto']) / 100
                 );
