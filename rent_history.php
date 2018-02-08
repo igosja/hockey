@@ -70,11 +70,33 @@ if (count($rent_id))
     $playerspecial_sql = f_igosja_mysqli_query($sql);
 
     $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT SUM(`rentvote_rating`) AS `rating`,
+                   `rentvote_rent_id`
+            FROM `rentvote`
+            WHERE `rentvote_rent_id` IN ($rent_id)
+            AND `rentvote_rating`=1
+            GROUP BY `rentvote_rent_id`";
+    $rating_plus_sql = f_igosja_mysqli_query($sql);
+
+    $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT SUM(`rentvote_rating`) AS `rating`,
+                   `rentvote_rent_id`
+            FROM `rentvote`
+            WHERE `rentvote_rent_id` IN ($rent_id)
+            AND `rentvote_rating`=-1
+            GROUP BY `rentvote_rent_id`";
+    $rating_minus_sql = f_igosja_mysqli_query($sql);
+
+    $rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);
 }
 else
 {
     $playerposition_array   = array();
     $playerspecial_array    = array();
+    $rating_plus_array      = array();
+    $rating_minus_array     = array();
 }
 
 $seo_title          = 'Аренда хоккеистов';

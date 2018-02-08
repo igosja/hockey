@@ -3,6 +3,8 @@
  * @var $count_transfer integer
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $rating_minus_array array
+ * @var $rating_plus_array array
  * @var $transfer_array array
  */
 ?>
@@ -32,6 +34,7 @@
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
                 <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Оценка сделки менеджерами">+/-</th>
             </tr>
             <?php for ($i=0; $i<$count_transfer; $i++) { ?>
                 <tr>
@@ -75,6 +78,9 @@
                     <td class="text-right <?php if ($transfer_array[$i]['transfer_cancel']) { ?>del<?php } ?>">
                         <?= f_igosja_money_format($transfer_array[$i]['transfer_price_buyer']); ?>
                     </td>
+                    <td class="text-center">
+                        <?= f_igosja_deal_rating($transfer_array[$i]['transfer_id'], $rating_plus_array, $rating_minus_array, 'transfer'); ?>
+                    </td>
                 </tr>
             <?php } ?>
             <tr>
@@ -88,6 +94,7 @@
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
                 <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Оценка сделки менеджерами">+/-</th>
             </tr>
         </table>
     </div>

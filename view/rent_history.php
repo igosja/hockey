@@ -3,6 +3,8 @@
  * @var $count_rent integer
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $rating_minus_array array
+ * @var $rating_plus_array array
  * @var $rent_array array
  */
 ?>
@@ -31,7 +33,8 @@
                 <th class="hidden-xs">Спец</th>
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
-                <th title="Общая стоимость аренды">Цена</th>
+                <th title="Общая стоимость аренды">Цена
+                <th title="Оценка сделки менеджерами">+/-</th>
             </tr>
             <?php for ($i=0; $i<$count_rent; $i++) { ?>
                 <tr>
@@ -75,6 +78,9 @@
                     <td class="text-right <?php if ($rent_array[$i]['rent_cancel']) { ?>del<?php } ?>">
                         <?= f_igosja_money_format($rent_array[$i]['rent_price_buyer']); ?>
                     </td>
+                    <td class="text-center">
+                        <?= f_igosja_deal_rating($rent_array[$i]['rent_id'], $rating_plus_array, $rating_minus_array, 'rent'); ?>
+                    </td>
                 </tr>
             <?php } ?>
             <tr>
@@ -88,6 +94,7 @@
                 <th class="hidden-xs">Продавец</th>
                 <th class="hidden-xs">Покупатель</th>
                 <th title="Общая стоимость аренды">Цена</th>
+                <th title="Оценка сделки менеджерами">+/-</th>
             </tr>
         </table>
     </div>
