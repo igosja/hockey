@@ -2,6 +2,16 @@
 
 include(__DIR__ . '/../../include/include.php');
 
+$sql = "SELECT COUNT(`team_id`) AS `count`
+        FROM `team`
+        WHERE `team_user_id`=0
+        AND `team_id`!=0";
+$freeteam_sql = f_igosja_mysqli_query($sql);
+
+$freeteam_array = $freeteam_sql->fetch_all(MYSQLI_ASSOC);
+
+$freeteam = $freeteam_array[0]['count'];
+
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
         FROM `teamask`";
 $teamask_sql = f_igosja_mysqli_query($sql);
@@ -64,7 +74,7 @@ if (0 == $bell)
     $bell = '';
 }
 
-$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote, 'logo' => $logo);
+$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote, 'logo' => $logo, 'freeteam' => $freeteam);
 
 print json_encode($return);
 exit;

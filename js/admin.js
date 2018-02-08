@@ -54,6 +54,8 @@ function admin_bell()
             } else {
                 $('.panel-logo').hide();
             }
+
+            $('.admin-freeteam').html(data.freeteam);
         },
         url: '/admin/json/bell.php'
     });

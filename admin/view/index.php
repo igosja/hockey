@@ -23,7 +23,7 @@
                         <i class="fa fa-dribbble fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><?= $freeteam_array[0]['count']; ?></div>
+                        <div class="huge admin-freeteam"><?= $freeteam_array[0]['count']; ?></div>
                         <div>Свободные команды</div>
                     </div>
                 </div>
