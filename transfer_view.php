@@ -33,7 +33,7 @@ $sql = "SELECT `bcity`.`city_name` AS `bcity_name`,
                `transfer_checked`,
                `transfer_date`,
                `transfer_id`,
-               ROUND(`transfer_price_buyer`/`transfer_price_seller`*100) AS `transfer_percent`,
+               ROUND(`transfer_price_buyer`/`transfer_player_price`*100) AS `transfer_percent`,
                `transfer_power`,
                `transfer_price_buyer`
         FROM `transfer`

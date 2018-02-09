@@ -10,6 +10,7 @@ $q[] = 'CREATE TABLE `transfer`
             `transfer_checked` INT(1) DEFAULT 0,
             `transfer_date` INT(11) DEFAULT 0,
             `transfer_player_id` INT(11) DEFAULT 0,
+            `transfer_player_price` INT(11) DEFAULT 0,
             `transfer_power` INT(3) DEFAULT 0,
             `transfer_price_buyer` INT(11) DEFAULT 0,
             `transfer_price_seller` INT(11) DEFAULT 0,
