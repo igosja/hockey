@@ -2,7 +2,16 @@
 
 include(__DIR__ . '/include/include.php');
 
-$sql = "SELECT `bteam`.`team_id` AS `bteam_id`,
+if (!$page = (int) f_igosja_request_get('page'))
+{
+    $page = 1;
+}
+
+$limit  = 10;
+$offset = ($page - 1) * $limit;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS
+               `bteam`.`team_id` AS `bteam_id`,
                `bteam`.`team_name` AS `bteam_name`,
                `name_name`,
                `pl_country`.`country_id` AS `pl_country_id`,
@@ -29,11 +38,19 @@ $sql = "SELECT `bteam`.`team_id` AS `bteam_id`,
         LEFT JOIN `team` AS `steam`
         ON `transfer_team_seller_id`=`steam`.`team_id`
         WHERE `transfer_ready`=1
-        ORDER BY `transfer_date` DESC";
+        ORDER BY `transfer_date` DESC
+        LIMIT $offset, $limit";
 $transfer_sql = f_igosja_mysqli_query($sql);
 
 $count_transfer = $transfer_sql->num_rows;
 $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT FOUND_ROWS() AS `count`";
+$total = f_igosja_mysqli_query($sql);
+$total = $total->fetch_all(MYSQLI_ASSOC);
+$total = $total[0]['count'];
+
+$count_page = ceil($total / $limit);
 
 $transfer_id = array();
 
