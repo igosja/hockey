@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <input name="num" type="hidden" value="<?= $num_get; ?>" />
-                <input name="ol" type="hidden" value="1" />
+                <input name="ok" type="hidden" value="1" />
                 <label for="select-leave">Какую команду вы отдаете взамен:</label>
                 <select class="form-control form-small" id="select-leave" name="leave_id">
                     <?php foreach ($option_array as $key => $value) { ?>

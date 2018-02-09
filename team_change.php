@@ -98,14 +98,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
             $teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
-            $country_id = array();
-
-            foreach ($team_array as $item)
-            {
-                $country_id[] = $item['country_id'];
-            }
-
-            $country_id = implode(',', $country_id);
+            $country_id = $teamask_array[0]['city_country_id'];
 
             $sql = "SELECT `country_id`,
                            `country_name`,
@@ -119,7 +112,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
                     WHERE `team_user_id`=$auth_user_id
-                    AND `country_id` IN $country_id
+                    AND `country_id`=$country_id
                     ORDER BY `team_id` ASC";
             $team_country_sql = f_igosja_mysqli_query($sql);
 
@@ -195,14 +188,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
             $teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
 
-            $country_id = array();
-
-            foreach ($team_array as $item)
-            {
-                $country_id[] = $item['country_id'];
-            }
-
-            $country_id = implode(',', $country_id);
+            $country_id = $teamask_array[0]['city_country_id'];
 
             $sql = "SELECT `country_id`,
                            `country_name`,
@@ -216,7 +202,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
                     WHERE `team_user_id`=$auth_user_id
-                    AND `country_id` IN $country_id
+                    AND `country_id`=$country_id
                     ORDER BY `team_id` ASC";
             $team_country_sql = f_igosja_mysqli_query($sql);
 
