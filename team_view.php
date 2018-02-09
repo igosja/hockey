@@ -521,6 +521,8 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         $notification_array[] = 'Ваша <a href="/rent_view.php?num=' . $item['rent_id'] . '">арендная сделка</a> имеет отрицательную оценку и будет отменена после завершения голосования';
     }
 
+    if (false) {
+
     $sql = "SELECT COUNT(`country_id`) AS `count`
             FROM `country`
             WHERE `country_president_id`=$auth_user_id
@@ -602,6 +604,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
 
             $notification_array[] = 'У вас есть <a href="/rent_view.php?num=' . $rent_array[0]['rent_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная арендная сделка', 'непроверенная арендные сделки', 'непроверенных арендных сделкок') . '</a>';
         }
+    }
     }
 }
 
