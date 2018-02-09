@@ -179,7 +179,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                 $option_array[0] = 'Беру дополнительную команду';
             }
 
-            $option_array[$item['team_id']] = $item['team_name'] . ' (' . $item['country_name'] . ')';
+            $option_array[$team_array[0]['team_id']] = $team_array[0]['team_name'] . ' (' . $team_array[0]['country_name'] . ')';
         }
         else
         {
