@@ -64,7 +64,7 @@
             </tr>
             <?php for ($i=0; $i<$count_rent; $i++) { ?>
                 <tr>
-                    <td class="text-center"><?= $i + 1; ?></td>
+                    <td class="text-center"><?= $offset + $i + 1; ?></td>
                     <td>
                         <a href="/rent_view.php?num=<?= $rent_array[$i]['rent_id']; ?>">
                             <?= $rent_array[$i]['name_name']; ?> <?= $rent_array[$i]['surname_name']; ?>

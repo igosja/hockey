@@ -64,7 +64,7 @@
             </tr>
             <?php for ($i=0; $i<$count_transfer; $i++) { ?>
                 <tr>
-                    <td class="text-center"><?= $i + 1; ?></td>
+                    <td class="text-center"><?= $offset + $i + 1; ?></td>
                     <td>
                         <a href="/transfer_view.php?num=<?= $transfer_array[$i]['transfer_id']; ?>">
                             <?= $transfer_array[$i]['name_name']; ?> <?= $transfer_array[$i]['surname_name']; ?>
