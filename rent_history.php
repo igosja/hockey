@@ -7,7 +7,7 @@ if (!$page = (int) f_igosja_request_get('page'))
     $page = 1;
 }
 
-$limit  = 10;
+$limit  = 50;
 $offset = ($page - 1) * $limit;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
