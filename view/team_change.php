@@ -1,6 +1,11 @@
 <?php
 /**
+ * @var $num_get integer
+ * @var $option_array array
  * @var $teamask_array array
+ * @var $teamask_city string
+ * @var $teamask_country string
+ * @var $teamask_name string
  */
 ?>
 <div class="row">
