@@ -564,7 +564,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             $total = $total->fetch_all(MYSQLI_ASSOC);
             $total = $total[0]['count'];
 
-            $notification_array[] = 'У вас есть <a href="/transfer_view.php?num=' . $transfer_array[0]['transfer_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная трансферная сделка', 'непроверенныя трансферные сделки', 'непроверенных трансферных сделкок') . '</a>';
+            $notification_array[] = 'У вас есть <a href="/transfer_view.php?num=' . $transfer_array[0]['transfer_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная трансферная сделка', 'непроверенные трансферные сделки', 'непроверенных трансферных сделкок') . '</a>';
         }
 
         $sql = "SELECT SQL_CALC_FOUND_ROWS
@@ -600,7 +600,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             $total = $total->fetch_all(MYSQLI_ASSOC);
             $total = $total[0]['count'];
 
-            $notification_array[] = 'У вас есть <a href="/rent_view.php?num=' . $rent_array[0]['rent_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная арендная сделка', 'непроверенныя арендные сделки', 'непроверенных арендных сделкок') . '</a>';
+            $notification_array[] = 'У вас есть <a href="/rent_view.php?num=' . $rent_array[0]['rent_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная арендная сделка', 'непроверенные арендные сделки', 'непроверенных арендных сделкок') . '</a>';
         }
     }
 }
