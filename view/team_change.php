@@ -15,7 +15,7 @@
         </div>
     </div>
 <?php } ?>
-<?php if (isset($num_get)) { ?>
+<?php if ($num_get) { ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="text-center">
