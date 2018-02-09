@@ -31,7 +31,7 @@
             <?php foreach ($team_array as $item) { ?>
                 <tr>
                     <td class="text-center">
-                        <a href="/team_change.php?num=<?= $item['team_id']; ?>">
+                        <a href="/team_ask.php?num=<?= $item['team_id']; ?>">
                             <img alt="Выбрать" src="/img/check.png" title="Выбрать" />
                         </a>
                     </td>

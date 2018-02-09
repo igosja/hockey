@@ -75,7 +75,7 @@
                 <?php foreach ($team_array as $item) { ?>
                     <tr>
                         <td class="text-center">
-                            <a href="/team_ask.php?num=<?= $item['team_id']; ?>">
+                            <a href="/team_change.php?num=<?= $item['team_id']; ?>">
                                 <img alt="Выбрать" src="/img/check.png" title="Выбрать" />
                             </a>
                         </td>
@@ -88,8 +88,8 @@
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
                                 <img alt="<?= $item['country_name']; ?>" src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>" />
                                 <span class="hidden-xs">
-                                    <?= $item['country_name']; ?>
-                                </span>
+                                <?= $item['country_name']; ?>
+                            </span>
                             </a>
                         </td>
                         <td class="hidden-xs text-center">
