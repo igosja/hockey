@@ -7,6 +7,8 @@
  */
 function f_igosja_player_power_change($power_change)
 {
+    $result = '';
+
     if ($power_change > 0)
     {
         $result = '<img alt="Получил балл силы по результатам матча" src="/img/plus.png" title="Получил балл силы по результатам матча" />';
