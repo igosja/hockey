@@ -534,12 +534,23 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         $sql = "SELECT SQL_CALC_FOUND_ROWS
                        `transfer_id`
                 FROM `transfer`
-                LEFT JOIN `transfervote`
+                LEFT JOIN
+                (
+                    SELECT `transfervote_transfer_id`
+                    FROM `transfervote`
+                    WHERE `transfervote_transfer_id` IN
+                    (
+                        SELECT `transfer_id`
+                        FROM `transfer`
+                        WHERE `transfer_ready`=1
+                        AND `transfer_checked`=0
+                    )
+                    AND `transfervote_user_id`=$auth_user_id
+                ) AS `t1`
                 ON `transfer_id`=`transfervote_transfer_id`
                 WHERE `transfer_ready`=1
                 AND `transfer_checked`=0
                 AND `transfervote_transfer_id` IS NULL
-                AND `transfervote_user_id`=$auth_user_id
                 ORDER BY `transfer_id` ASC
                 LIMIT 1";
         $transfer_sql = f_igosja_mysqli_query(MYSQLI_ASSOC);
@@ -559,12 +570,23 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         $sql = "SELECT SQL_CALC_FOUND_ROWS
                        `rent_id`
                 FROM `rent`
-                LEFT JOIN `rentvote`
+                LEFT JOIN
+                (
+                    SELECT `rentvote_rent_id`
+                    FROM `rentvote`
+                    WHERE `rentvote_rent_id` IN
+                    (
+                        SELECT `rent_id`
+                        FROM `rent`
+                        WHERE `rent_ready`=1
+                        AND `rent_checked`=0
+                    )
+                    AND `rentvote_user_id`=$auth_user_id
+                ) AS `t1`
                 ON `rent_id`=`rentvote_rent_id`
                 WHERE `rent_ready`=1
                 AND `rent_checked`=0
                 AND `rentvote_rent_id` IS NULL
-                AND `rentvote_user_id`=$auth_user_id
                 ORDER BY `rent_id` ASC
                 LIMIT 1";
         $rent_sql = f_igosja_mysqli_query(MYSQLI_ASSOC);
