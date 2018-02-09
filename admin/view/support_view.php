@@ -27,7 +27,7 @@
                             <?= $item['user_login']; ?>
                         </a>
                         <br/>
-                        <?= nl2br($item['message_text']); ?>
+                        <?= f_igosja_bb_decode($item['message_text']); ?>
                     </td>
                 </tr>
             <?php } ?>
