@@ -87,7 +87,7 @@
                             <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>&page=<?= $item['last_page']; ?>">
                                 <?= $item['forumtheme_name']; ?>
                             </a>
-                            <?php if (USERROLE_USER != $auth_userrole_id) { ?>
+                            <?php if (isset($auth_user_id) && USERROLE_USER != $auth_userrole_id) { ?>
                                 |
                                 <a class="font-grey" href="/forum_theme_delete.php?num=<?= $item['forumtheme_id']; ?>">
                                     удалить
