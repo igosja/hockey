@@ -1083,9 +1083,10 @@ function f_igosja_generator_plus_minus()
 
     foreach ($game_array as $item)
     {
-        if (0 > $item['game_home_plus_minus'])
+        if ($item['game_home_plus_minus'] < 0)
         {
-            $sql = "SELECT `lineup_player_id`
+            $sql = "SELECT `lineup_id`,
+                           `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_home_team_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
@@ -1103,6 +1104,12 @@ function f_igosja_generator_plus_minus()
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
+                $sql = "UPDATE `lineup`
+                        SET `lineup_power_change`=-1
+                        WHERE `lineup_id`=" . $player['lineup_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
                 $log = array(
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
@@ -1113,7 +1120,8 @@ function f_igosja_generator_plus_minus()
         }
         elseif ($item['game_home_plus_minus'] > 0)
         {
-            $sql = "SELECT `lineup_player_id`
+            $sql = "SELECT `lineup_id`,
+                           `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_home_team_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
@@ -1131,6 +1139,12 @@ function f_igosja_generator_plus_minus()
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
+                $sql = "UPDATE `lineup`
+                        SET `lineup_power_change`=1
+                        WHERE `lineup_id`=" . $player['lineup_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
                 $log = array(
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_PLUS,
@@ -1140,9 +1154,10 @@ function f_igosja_generator_plus_minus()
             }
         }
 
-        if (0 > $item['game_guest_plus_minus'])
+        if ($item['game_guest_plus_minus'] < 0)
         {
-            $sql = "SELECT `lineup_player_id`
+            $sql = "SELECT `lineup_id`,
+                           `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_guest_team_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
@@ -1160,6 +1175,12 @@ function f_igosja_generator_plus_minus()
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
+                $sql = "UPDATE `lineup`
+                        SET `lineup_power_change`=-1
+                        WHERE `lineup_id`=" . $player['lineup_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
                 $log = array(
                     'history_game_id' => $item['game_id'],
                     'history_historytext_id' => HISTORYTEXT_PLAYER_GAME_POINT_MINUS,
@@ -1170,7 +1191,8 @@ function f_igosja_generator_plus_minus()
         }
         elseif ($item['game_guest_plus_minus'] > 0)
         {
-            $sql = "SELECT `lineup_player_id`
+            $sql = "SELECT `lineup_id`,
+                           `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_guest_team_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
@@ -1185,6 +1207,12 @@ function f_igosja_generator_plus_minus()
                 $sql = "UPDATE `player`
                         SET `player_power_nominal`=`player_power_nominal`+1
                         WHERE `player_id`=" . $player['lineup_player_id'] . "
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $sql = "UPDATE `lineup`
+                        SET `lineup_power_change`=1
+                        WHERE `lineup_id`=" . $player['lineup_id'] . "
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 

@@ -262,6 +262,7 @@
                         <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                             <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
                         </a>
+                        <?= f_igosja_player_power_change($item['lineup_power_change']); ?>
                     </td>
                     <td class="hidden-xs text-center">
                         <?= $item['lineup_age']; ?>
@@ -322,6 +323,7 @@
                         <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                             <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
                         </a>
+                        <?= f_igosja_player_power_change($item['lineup_power_change']); ?>
                     </td>
                     <td class="hidden-xs text-center">
                         <?= $item['lineup_age']; ?>
