@@ -22,14 +22,30 @@
             <tr>
                 <th>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                        <a href="/team_view.php?num=<?= $game_array[0]['home_team_id']; ?>">
-                            <?= $game_array[0]['home_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $game_array[0]['home_team_id'],
+                                'team_name' => $game_array[0]['home_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $game_array[0]['home_national_name'],
+                                'national_id'   => $game_array[0]['home_national_id'],
+                            ),
+                            false
+                        ); ?>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                        <a href="/team_view.php?num=<?= $game_array[0]['guest_team_id']; ?>">
-                            <?= $game_array[0]['guest_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $game_array[0]['guest_team_id'],
+                                'team_name' => $game_array[0]['guest_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $game_array[0]['guest_national_name'],
+                                'national_id'   => $game_array[0]['guest_national_id'],
+                            ),
+                            false
+                        ); ?>
                     </div>
                 </th>
             </tr>
@@ -43,14 +59,16 @@
         <?= $game_array[0]['stage_name']; ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a href="/team_view.php?num=<?= $game_array[0]['stadium_team_id']; ?>">
-            <?= $game_array[0]['stadium_name']; ?>
-        </a>
-        (<?= $game_array[0]['stadium_capacity']; ?>)
+<?php if (0 != $game_array[0]['stadium_team_id']) { ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/team_view.php?num=<?= $game_array[0]['stadium_team_id']; ?>">
+                <?= $game_array[0]['stadium_name']; ?>
+            </a>
+            (<?= $game_array[0]['stadium_capacity']; ?>)
+        </div>
     </div>
-</div>
+<?php } ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
@@ -102,13 +120,29 @@
                     <td class="hidden-xs text-center"><?= $item['tournamenttype_name']; ?></td>
                     <td class="hidden-xs text-center"><?= $item['stage_name']; ?></td>
                     <td>
-                        <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
-                            <?= $item['home_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $item['home_team_id'],
+                                'team_name' => $item['home_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $item['home_national_name'],
+                                'national_id'   => $item['home_national_id'],
+                            ),
+                            false
+                        ); ?>
                         -
-                        <a href="/team_view.php?num=<?= $item['guest_team_id']; ?>">
-                            <?= $item['guest_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $item['guest_team_id'],
+                                'team_name' => $item['guest_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $item['guest_national_name'],
+                                'national_id'   => $item['guest_national_id'],
+                            ),
+                            false
+                        ); ?>
                     </td>
                     <td class="text-center">
                         <a href="game_view.php?num=<?= $item['game_id']; ?>">
