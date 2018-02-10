@@ -112,6 +112,7 @@ function f_igosja_generator_rent()
                     SET `rent_age`=`player_age`,
                         `rent_date`=UNIX_TIMESTAMP(),
                         `rent_day`=$rentaplication_day,
+                        `rent_player_price`=`player_price`,
                         `rent_power`=`player_power_nominal`,
                         `rent_price_buyer`=$rentaplication_price,
                         `rent_ready`=1,

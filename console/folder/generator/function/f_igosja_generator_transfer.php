@@ -55,7 +55,6 @@ function f_igosja_generator_transfer()
             $player_id                  = $transfer['player_id'];
             $school_id                  = $transfer['player_school_id'];
 
-if ($player_id != 3115) {
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$transferaplication_price
                     WHERE `team_id`=$team_seller_id
@@ -131,7 +130,6 @@ if ($player_id != 3115) {
                         LIMIT 1
                     )";
             f_igosja_mysqli_query($sql);
-            }
 
             $sql = "UPDATE `transfer`
                     LEFT JOIN `player`
@@ -244,6 +242,7 @@ if ($player_id != 3115) {
                     ON `transfer_player_id`=`player_id`
                     SET `transfer_age`=`player_age`,
                         `transfer_date`=UNIX_TIMESTAMP(),
+                        `transfer_player_price`=`player_price`,
                         `transfer_power`=`player_power_nominal`,
                         `transfer_price_buyer`=$transferaplication_price,
                         `transfer_ready`=1,

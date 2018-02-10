@@ -168,12 +168,12 @@ if (count($transfer_id) || count($rent_id))
         $playerspecial_2_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
     }
 
-    if ($playerposition_1_array && $playerposition_2_array)
+    if (isset($playerposition_1_array) && isset($playerposition_2_array))
     {
         $playerposition_array   = array_merge($playerposition_1_array, $playerposition_2_array);
         $playerspecial_array    = array_merge($playerspecial_1_array, $playerspecial_2_array);
     }
-    elseif ($playerposition_1_array)
+    elseif (isset($playerposition_1_array))
     {
         $playerposition_array   = $playerposition_1_array;
         $playerspecial_array    = $playerspecial_1_array;

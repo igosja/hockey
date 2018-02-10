@@ -520,6 +520,89 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
     {
         $notification_array[] = 'Ваша <a href="/rent_view.php?num=' . $item['rent_id'] . '">арендная сделка</a> имеет отрицательную оценку и будет отменена после завершения голосования';
     }
+
+    $sql = "SELECT COUNT(`country_id`) AS `count`
+            FROM `country`
+            WHERE `country_president_id`=$auth_user_id
+            OR `country_vice_id`=$auth_user_id";
+    $president_sql = f_igosja_mysqli_query($sql);
+
+    $president_array = $president_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (0 != $president_array[0]['count'])
+    {
+        $sql = "SELECT SQL_CALC_FOUND_ROWS
+                       `transfer_id`
+                FROM `transfer`
+                LEFT JOIN
+                (
+                    SELECT `transfervote_transfer_id`
+                    FROM `transfervote`
+                    WHERE `transfervote_transfer_id` IN
+                    (
+                        SELECT `transfer_id`
+                        FROM `transfer`
+                        WHERE `transfer_ready`=1
+                        AND `transfer_checked`=0
+                    )
+                    AND `transfervote_user_id`=$auth_user_id
+                ) AS `t1`
+                ON `transfer_id`=`transfervote_transfer_id`
+                WHERE `transfer_ready`=1
+                AND `transfer_checked`=0
+                AND `transfervote_transfer_id` IS NULL
+                ORDER BY `transfer_id` ASC
+                LIMIT 1";
+        $transfer_sql = f_igosja_mysqli_query($sql);
+
+        if (0 != $transfer_sql->num_rows)
+        {
+            $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
+
+            $sql = "SELECT FOUND_ROWS() AS `count`";
+            $total = f_igosja_mysqli_query($sql);
+            $total = $total->fetch_all(MYSQLI_ASSOC);
+            $total = $total[0]['count'];
+
+            $notification_array[] = 'У вас есть <a href="/transfer_view.php?num=' . $transfer_array[0]['transfer_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная трансферная сделка', 'непроверенные трансферные сделки', 'непроверенных трансферных сделкок') . '</a>';
+        }
+
+        $sql = "SELECT SQL_CALC_FOUND_ROWS
+                       `rent_id`
+                FROM `rent`
+                LEFT JOIN
+                (
+                    SELECT `rentvote_rent_id`
+                    FROM `rentvote`
+                    WHERE `rentvote_rent_id` IN
+                    (
+                        SELECT `rent_id`
+                        FROM `rent`
+                        WHERE `rent_ready`=1
+                        AND `rent_checked`=0
+                    )
+                    AND `rentvote_user_id`=$auth_user_id
+                ) AS `t1`
+                ON `rent_id`=`rentvote_rent_id`
+                WHERE `rent_ready`=1
+                AND `rent_checked`=0
+                AND `rentvote_rent_id` IS NULL
+                ORDER BY `rent_id` ASC
+                LIMIT 1";
+        $rent_sql = f_igosja_mysqli_query($sql);
+
+        if (0 != $rent_sql->num_rows)
+        {
+            $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
+
+            $sql = "SELECT FOUND_ROWS() AS `count`";
+            $total = f_igosja_mysqli_query($sql);
+            $total = $total->fetch_all(MYSQLI_ASSOC);
+            $total = $total[0]['count'];
+
+            $notification_array[] = 'У вас есть <a href="/rent_view.php?num=' . $rent_array[0]['rent_id'] . '">' . $total . ' ' . f_igosja_count_case($total, 'непроверенная арендная сделка', 'непроверенные арендные сделки', 'непроверенных арендных сделкок') . '</a>';
+        }
+    }
 }
 
 if (isset($auth_team_id))

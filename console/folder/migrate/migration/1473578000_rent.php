@@ -13,6 +13,7 @@ $q[] = 'CREATE TABLE `rent`
             `rent_day_max` INT(2) DEFAULT 0,
             `rent_day_min` INT(2) DEFAULT 0,
             `rent_player_id` INT(11) DEFAULT 0,
+            `rent_player_price` INT(11) DEFAULT 0,
             `rent_power` INT(3) DEFAULT 0,
             `rent_price_buyer` INT(11) DEFAULT 0,
             `rent_price_seller` INT(11) DEFAULT 0,
