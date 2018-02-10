@@ -158,6 +158,8 @@ define('RATING_TEAM_VISITOR', 4);
 define('RATING_USER_RATING', 10);
 define('RATINGCHAPTER_TEAM', 1);
 define('ROLE_ADMIN', 10);
+define('ROUND_QUALIFICATION', 3);
+define('ROUND_GROUP', 4);
 define('ROUND_PLAYOFF', 2);
 define('ROUND_SEASON', 1);
 define('RUDE_NORMAL', 1);

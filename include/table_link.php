@@ -12,6 +12,11 @@ $championship_round_array = array(
     array('round_id' => ROUND_SEASON,   'text' => 'Регулярный сезон'),
     array('round_id' => ROUND_PLAYOFF,  'text' => 'Плей-офф'),
 );
+$league_round_array = array(
+    array('round_id' => ROUND_QUALIFICATION,    'text' => 'Отборочный раунд'),
+    array('round_id' => ROUND_GROUP,            'text' => 'Групповой этап'),
+    array('round_id' => ROUND_PLAYOFF,          'text' => 'Плей-офф'),
+);
 $national_link_array = array(
     array('url' => 'national_view',         'text' => 'Игроки'),
     array('url' => 'national_game',         'text' => 'Матчи'),
