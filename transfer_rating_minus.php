@@ -50,6 +50,9 @@ $sql = "INSERT INTO `transfervote`
             `transfervote_user_id`=$auth_user_id";
 f_igosja_mysqli_query($sql);
 
+$_SESSION['message']['class']   = 'success';
+$_SESSION['message']['text']    = 'Ваш голос успешно сохранён.';
+
 $sql = "SELECT COUNT(`country_id`) AS `count`
         FROM `country`
         WHERE `country_president_id`=$auth_user_id
