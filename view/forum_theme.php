@@ -7,6 +7,7 @@
  * @var $forumtheme_array array
  * @var $forummessage_array array
  * @var $num_get integer
+ * @var $userteam_array array
  * @var $total integer
  */
 ?>
@@ -81,22 +82,12 @@
                             <?= $item['user_rating']; ?>
                         </div>
                     </div>
-                    <?php if ($item['team_id']) { ?>
-                        <div class="row text-size-2 hidden-xs">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                Команда:
-                                <img
-                                    alt="<?= $item['country_name']; ?>"
-                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                    title="<?= $item['country_name']; ?>"
-                                />
-                                <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
-                                    <?= $item['team_name']; ?>
-                                    (<?= $item['city_name']; ?>)
-                                </a>
-                            </div>
+                    <div class="row text-size-2 hidden-xs">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Команды:
+                            <?= f_igosja_team_user($item['user_id'], $userteam_array)?>
                         </div>
-                    <?php } ?>
+                    </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <div class="row text-size-2 font-grey">
