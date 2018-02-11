@@ -173,6 +173,7 @@ define('SITE_URL', 'https://vhol.org');
 define('SPACE', '&nbsp;');
 define('SPECIAL_ATHLETIC', 5);
 define('SPECIAL_COMBINE', 3);
+define('SPECIAL_IDOL', 9);
 define('SPECIAL_LEADER', 4);
 define('SPECIAL_POWER', 2);
 define('SPECIAL_REACTION', 7);
