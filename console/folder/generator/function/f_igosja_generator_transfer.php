@@ -21,6 +21,7 @@ function f_igosja_generator_transfer()
             LEFT JOIN `player`
             ON `transfer_player_id`=`player_id`
             WHERE `transfer_ready`=0
+            AND `transfer_date`<=UNIXTIMESTAMP()-86400
             ORDER BY `player_price` DESC, `transfer_id` ASC";
     $transfer_sql = f_igosja_mysqli_query($sql);
 

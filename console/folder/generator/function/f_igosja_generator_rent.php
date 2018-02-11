@@ -19,6 +19,7 @@ function f_igosja_generator_rent()
             LEFT JOIN `player`
             ON `rent_player_id`=`player_id`
             WHERE `rent_ready`=0
+            AND `rent_date`<UNIXTIMESTAMP()-86400
             ORDER BY `player_price` DESC, `rent_id` ASC";
     $rent_sql = f_igosja_mysqli_query($sql);
 
