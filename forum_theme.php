@@ -92,15 +92,10 @@ if (!$page = (int) f_igosja_request_get('page'))
 $limit  = 20;
 $offset = ($page - 1) * $limit;
 
-$sql = "SELECT `city_name`,
-               `country_id`,
-               `country_name`,
-               `forummessage_date`,
+$sql = "SELECT `forummessage_date`,
                `forummessage_date_update`,
                `forummessage_id`,
                `forummessage_text`,
-               `team_id`,
-               `team_name`,
                `user_date_register`,
                `user_id`,
                `user_login`,
@@ -109,14 +104,6 @@ $sql = "SELECT `city_name`,
         FROM `forummessage`
         LEFT JOIN `user`
         ON `forummessage_user_id`=`user_id`
-        LEFT JOIN `team`
-        ON `user_id`=`team_user_id`
-        LEFT JOIN `stadium`
-        ON `team_stadium_id`=`stadium_id`
-        LEFT JOIN `city`
-        ON `stadium_city_id`=`city_id`
-        LEFT JOIN `country`
-        ON `city_country_id`=`country_id`
         WHERE `forummessage_forumtheme_id`=$num_get
         ORDER BY `forummessage_id` ASC
         LIMIT 1";
@@ -134,15 +121,10 @@ else
 }
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
-               `city_name`,
-               `country_id`,
-               `country_name`,
                `forummessage_date`,
                `forummessage_date_update`,
                `forummessage_id`,
                `forummessage_text`,
-               `team_id`,
-               `team_name`,
                `user_date_register`,
                `user_id`,
                `user_login`,
@@ -151,14 +133,6 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         FROM `forummessage`
         LEFT JOIN `user`
         ON `forummessage_user_id`=`user_id`
-        LEFT JOIN `team`
-        ON `user_id`=`team_user_id`
-        LEFT JOIN `stadium`
-        ON `team_stadium_id`=`stadium_id`
-        LEFT JOIN `city`
-        ON `stadium_city_id`=`city_id`
-        LEFT JOIN `country`
-        ON `city_country_id`=`country_id`
         WHERE `forummessage_forumtheme_id`=$num_get
         AND `forummessage_id`!=$forumheader_id
         ORDER BY `forummessage_id` ASC
@@ -175,6 +149,40 @@ $total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
+
+if ($forummessage_array)
+{
+    $user_id = array();
+
+    foreach ($forummessage_array as $item)
+    {
+        $user_id[] = $item['user_id'];
+    }
+
+    $user_id = implode(', ', $user_id);
+
+    $sql = "SELECT `city_name`,
+                   `country_id`,
+                   `country_name`,
+                   `team_id`,
+                   `team_name`,
+                   `team_user_id`
+            FROM `team`
+            LEFT JOIN `stadium`
+            ON `team_stadium_id`=`stadium_id`
+            LEFT JOIN `city`
+            ON `stadium_city_id`=`city_id`
+            LEFT JOIN `country`
+            ON `city_country_id`=`country_id`
+            WHERE `team_user_id` IN ($user_id)";
+    $userteam_sql = f_igosja_mysqli_query($sql);
+
+    $userteam_array = $userteam_sql->fetch_all(MYSQLI_ASSOC);
+}
+else
+{
+    $userteam_array = array();
+}
 
 $sql = "UPDATE `forumtheme`
         SET `forumtheme_count_view`=`forumtheme_count_view`+1

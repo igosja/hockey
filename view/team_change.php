@@ -20,6 +20,11 @@
         </div>
     </div>
 <?php } ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>Здесь вы можете подать заявку на смену текущего клуба либо получения дополнительного.</p>
+    </div>
+</div>
 <?php if ($num_get) { ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -9,6 +9,7 @@ function f_igosja_generator_count_visitor()
                    `game_ticket`,
                    `guest_team`.`team_visitor` AS `guest_team_visitor`,
                    `home_team`.`team_visitor` AS `home_team_visitor`,
+                   IFNULL(`playerspecial_level`, 0) AS `playerspecial_level`,
                    `stadium_capacity`,
                    `stage_visitor`,
                    `tournamenttype_id`,
@@ -26,6 +27,26 @@ function f_igosja_generator_count_visitor()
             ON `game_home_team_id`=`home_team`.`team_id`
             LEFT JOIN `stadium`
             ON `game_stadium_id`=`stadium_id`
+            LEFT JOIN
+            (
+                SELECT `lineup_game_id`,
+                       SUM(`playerspecial_level`) AS `playerspecial_level`
+                FROM `playerspecial`
+                LEFT JOIN `lineup`
+                ON `playerspecial_player_id`=`lineup_player_id`
+                WHERE `playerspecial_special_id`=" . SPECIAL_IDOL . "
+                AND `lineup_game_id` IN
+                (
+                    SELECT `game_id`
+                    FROM `game`
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    WHERE `game_played`=0
+                    AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                )
+                GROUP BY `lineup_game_id`
+            ) AS `t1`
+            ON `game_id`=`lineup_game_id`
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
@@ -39,6 +60,7 @@ function f_igosja_generator_count_visitor()
         $game_ticket            = $game['game_ticket'];
         $guest_visitor          = $game['guest_team_visitor'];
         $home_visitor           = $game['home_team_visitor'];
+        $special                = $game['playerspecial_level'];
         $stadium_capacity       = $game['stadium_capacity'];
         $stage_visitor          = $game['stage_visitor'];
         $tournamenttype_id      = $game['tournamenttype_id'];
@@ -47,6 +69,7 @@ function f_igosja_generator_count_visitor()
         $game_visitor = $stadium_capacity;
         $game_visitor = $game_visitor * $tournamenttype_visitor;
         $game_visitor = $game_visitor * $stage_visitor;
+        $game_visitor = $game_visitor * (100 + $special * 5) / 100;
 
         if ($game_ticket < GAME_TICKET_MIN_PRICE)
         {

@@ -1,3 +1,4 @@
+
 <?php
 /**
  * @var $auth_team_id integer
@@ -59,7 +60,7 @@
                                 'team_name'     => $item['home_team_name'],
                             ),
                             array(
-                                'country_name'      => $item['home_national_country_name'],
+                                'country_name'      => $item['home_national_name'],
                                 'national_id'       => $item['home_national_id'],
                                 'nationaltype_name' => $item['home_nationaltype_name'],
                             )
@@ -80,7 +81,7 @@
                                 'team_name'     => $item['guest_team_name'],
                             ),
                             array(
-                                'country_name'      => $item['guest_national_country_name'],
+                                'country_name'      => $item['guest_national_name'],
                                 'national_id'       => $item['guest_national_id'],
                                 'nationaltype_name' => $item['guest_nationaltype_name'],
                             )

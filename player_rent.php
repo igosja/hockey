@@ -308,6 +308,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 $sql = "INSERT INTO `rent`
                         SET `rent_day_max`=$day_max,
                             `rent_day_min`=$day_min,
+                            `rent_date`=UNIX_TIMESTAMP(),
                             `rent_player_id`=$num_get,
                             `rent_price_seller`=$price,
                             `rent_team_seller_id`=$auth_team_id,

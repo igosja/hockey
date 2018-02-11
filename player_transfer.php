@@ -300,7 +300,8 @@ if (isset($auth_team_id) && $auth_team_id)
                 }
 
                 $sql = "INSERT INTO `transfer`
-                        SET `transfer_player_id`=$num_get,
+                        SET `transfer_date`=UNIX_TIMESTAMP(),
+                            `transfer_player_id`=$num_get,
                             `transfer_price_seller`=$price,
                             `transfer_team_seller_id`=$auth_team_id,
                             `transfer_to_league`=$to_league,
