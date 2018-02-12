@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge admin-complain"><?= $complain_array[0]['count']; ?></div>
-                        <div>Новые вопросы</div>
+                        <div>Новые жалобы</div>
                     </div>
                 </div>
             </div>
