@@ -21,7 +21,7 @@ function f_igosja_generator_transfer()
             LEFT JOIN `player`
             ON `transfer_player_id`=`player_id`
             WHERE `transfer_ready`=0
-            AND `transfer_date`<=UNIXTIMESTAMP()-86400
+            AND `transfer_date`<=UNIX_TIMESTAMP()-86400
             ORDER BY `player_price` DESC, `transfer_id` ASC";
     $transfer_sql = f_igosja_mysqli_query($sql);
 
@@ -30,8 +30,8 @@ function f_igosja_generator_transfer()
     foreach ($transfer_array as $transfer)
     {
         $transfer_id    = $transfer['transfer_id'];
-        $team_id        = $rent['transfer_team_seller_id'];
-        $user_id        = $rent['transfer_user_seller_id'];
+        $team_id        = $transfer['transfer_team_seller_id'];
+        $user_id        = $transfer['transfer_user_seller_id'];
 
         $team_array = array(-1);
         $user_array = array(-1);
@@ -52,8 +52,15 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            $team_array[] = $item['transfer_team_buyer_id'];
-            $team_array[] = $item['transfer_team_seller_id'];
+            if (0 != $item['transfer_team_buyer_id'])
+            {
+                $team_array[] = $item['transfer_team_buyer_id'];
+            }
+
+            if (0 != $item['transfer_team_seller_id'])
+            {
+                $team_array[] = $item['transfer_team_seller_id'];
+            }
         }
 
         $sql = "SELECT `transfer_user_buyer_id`,
@@ -72,8 +79,15 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            $user_array[] = $item['transfer_user_buyer_id'];
-            $user_array[] = $item['transfer_user_seller_id'];
+            if (0 != $item['transfer_user_buyer_id'])
+            {
+                $user_array[] = $item['transfer_user_buyer_id'];
+            }
+
+            if (0 != $item['transfer_user_seller_id'])
+            {
+                $user_array[] = $item['transfer_user_seller_id'];
+            }
         }
 
         $sql = "SELECT `rent_team_buyer_id`,
@@ -92,8 +106,15 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            $team_array[] = $item['rent_team_buyer_id'];
-            $team_array[] = $item['rent_team_seller_id'];
+            if (0 != $item['rent_team_buyer_id'])
+            {
+                $team_array[] = $item['rent_team_buyer_id'];
+            }
+
+            if (0 != $item['rent_team_seller_id'])
+            {
+                $team_array[] = $item['rent_team_seller_id'];
+            }
         }
 
         $sql = "SELECT `rent_user_buyer_id`,
@@ -112,8 +133,15 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            $user_array[] = $item['rent_user_buyer_id'];
-            $user_array[] = $item['rent_user_seller_id'];
+            if (0 != $item['rent_user_buyer_id'])
+            {
+                $user_array[] = $item['rent_user_buyer_id'];
+            }
+
+            if (0 != $item['rent_user_seller_id'])
+            {
+                $user_array[] = $item['rent_user_seller_id'];
+            }
         }
 
         $team_array = implode(',', $team_array);
@@ -128,7 +156,7 @@ function f_igosja_generator_transfer()
                 ON `transferapplication_team_id`=`team_id`
                 WHERE `transferapplication_transfer_id`=$transfer_id
                 AND `transferapplication_price`<=`team_finance`
-                AND `transferapplication_team_id` NOT IN ($team_id)
+                AND `transferapplication_team_id` NOT IN ($team_array)
                 AND `transferapplication_user_id` NOT IN ($user_array)
                 ORDER BY `transferapplication_price` DESC, `transferapplication_date` ASC
                 LIMIT 1";

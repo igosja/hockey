@@ -19,7 +19,7 @@ function f_igosja_generator_rent()
             LEFT JOIN `player`
             ON `rent_player_id`=`player_id`
             WHERE `rent_ready`=0
-            AND `rent_date`<UNIXTIMESTAMP()-86400
+            AND `rent_date`<UNIX_TIMESTAMP()-86400
             ORDER BY `player_price` DESC, `rent_id` ASC";
     $rent_sql = f_igosja_mysqli_query($sql);
 
@@ -50,8 +50,15 @@ function f_igosja_generator_rent()
 
         foreach ($history_array as $item)
         {
-            $team_array[] = $item['transfer_team_buyer_id'];
-            $team_array[] = $item['transfer_team_seller_id'];
+            if (0 != $item['transfer_team_buyer_id'])
+            {
+                $team_array[] = $item['transfer_team_buyer_id'];
+            }
+
+            if (0 != $item['transfer_team_seller_id'])
+            {
+                $team_array[] = $item['transfer_team_seller_id'];
+            }
         }
 
         $sql = "SELECT `transfer_user_buyer_id`,
@@ -70,8 +77,15 @@ function f_igosja_generator_rent()
 
         foreach ($history_array as $item)
         {
-            $user_array[] = $item['transfer_user_buyer_id'];
-            $user_array[] = $item['transfer_user_seller_id'];
+            if (0 != $item['transfer_user_buyer_id'])
+            {
+                $user_array[] = $item['transfer_user_buyer_id'];
+            }
+
+            if (0 != $item['transfer_user_seller_id'])
+            {
+                $user_array[] = $item['transfer_user_seller_id'];
+            }
         }
 
         $sql = "SELECT `rent_team_buyer_id`,
@@ -90,8 +104,15 @@ function f_igosja_generator_rent()
 
         foreach ($history_array as $item)
         {
-            $team_array[] = $item['rent_team_buyer_id'];
-            $team_array[] = $item['rent_team_seller_id'];
+            if (0 != $item['rent_team_buyer_id'])
+            {
+                $team_array[] = $item['rent_team_buyer_id'];
+            }
+
+            if (0 != $item['rent_team_seller_id'])
+            {
+                $team_array[] = $item['rent_team_seller_id'];
+            }
         }
 
         $sql = "SELECT `rent_user_buyer_id`,
@@ -110,8 +131,15 @@ function f_igosja_generator_rent()
 
         foreach ($history_array as $item)
         {
-            $user_array[] = $item['rent_user_buyer_id'];
-            $user_array[] = $item['rent_user_seller_id'];
+            if (0 != $item['rent_user_buyer_id'])
+            {
+                $user_array[] = $item['rent_user_buyer_id'];
+            }
+
+            if (0 != $item['rent_user_seller_id'])
+            {
+                $user_array[] = $item['rent_user_seller_id'];
+            }
         }
 
         $team_array = implode(',', $team_array);
@@ -127,7 +155,7 @@ function f_igosja_generator_rent()
                 ON `rentapplication_team_id`=`team_id`
                 WHERE `rentapplication_rent_id`=$rent_id
                 AND `rentapplication_price`*`rentapplication_day`<=`team_finance`
-                AND `rentapplication_team_id` NOT IN ($team_id)
+                AND `rentapplication_team_id` NOT IN ($team_array)
                 AND `rentapplication_user_id` NOT IN ($user_array)
                 ORDER BY `rentapplication_price`*`rentapplication_day` DESC, `rentapplication_date` ASC
                 LIMIT 1";
