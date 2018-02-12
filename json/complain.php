@@ -12,7 +12,7 @@ if ($url = f_igosja_request_post('url') && isset($auth_user_id))
 {
     $sql = "SELECT COUNT(`complain_id`) AS `count`
             FROM `complain`
-            WHERE `complai_url`=?";
+            WHERE `complain_url`=?";
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('s', $url);
     $prepare->execute();
