@@ -22,7 +22,7 @@
 </div>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Менежер:
+        Менеджер:
         <?php if (isset($auth_user_id) && $national_array[0]['user_id'] && $national_array[0]['user_id'] != $auth_user_id) { ?>
             <a href="/dialog.php?num=<?= $national_array[0]['user_id']; ?>">
                 <img src="/img/letter.png" title="Написать письмо" />
