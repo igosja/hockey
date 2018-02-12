@@ -64,8 +64,8 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a href="/admin/support_view.php?num=<?= $item['user_id']; ?>" class="no-underline">
-                                    <i class="fa fa-eye fa-fw"></i>
+                                <a href="/admin/complain_delete.php?num=<?= $item['user_id']; ?>" class="no-underline">
+                                    <i class="fa fa-trash fa-fw"></i>
                                 </a>
                             </td>
                         </tr>

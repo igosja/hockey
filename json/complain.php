@@ -8,8 +8,9 @@ include(__DIR__ . '/../include/include.php');
 
 $result = ['class' => 'error', 'message' => 'Не удалось сохранить вашу жалобу.'];
 
-if ($url = f_igosja_request_post('url') && isset($auth_user_id))
+if (($url = f_igosja_request_post('url')) && (isset($auth_user_id)))
 {
+
     $sql = "SELECT COUNT(`complain_id`) AS `count`
             FROM `complain`
             WHERE `complain_url`=?";
