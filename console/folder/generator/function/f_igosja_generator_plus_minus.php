@@ -40,21 +40,6 @@ function f_igosja_generator_plus_minus()
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
-                $guest_power = -4;
-            }
-            elseif ($item['game_guest_score'] == $item['game_home_score'])
-            {
-                $guest_power = -4.5;
-            }
-            else
-            {
-                $guest_power = -5;
-            }
-        }
-        elseif ($item['game_guest_power_percent'] > 70)
-        {
-            if ($item['game_guest_score'] > $item['game_home_score'])
-            {
                 $guest_power = -3.5;
             }
             elseif ($item['game_guest_score'] == $item['game_home_score'])
@@ -66,7 +51,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -4.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 67)
+        elseif ($item['game_guest_power_percent'] > 70)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -78,10 +63,10 @@ function f_igosja_generator_plus_minus()
             }
             else
             {
-                $guest_power = -5;
+                $guest_power = -4;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 64)
+        elseif ($item['game_guest_power_percent'] > 67)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -96,7 +81,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -3.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 61)
+        elseif ($item['game_guest_power_percent'] > 64)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -111,7 +96,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -3;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 58)
+        elseif ($item['game_guest_power_percent'] > 61)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -126,7 +111,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -2.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 56)
+        elseif ($item['game_guest_power_percent'] > 58)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -141,7 +126,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -2;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 54)
+        elseif ($item['game_guest_power_percent'] > 56)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -156,7 +141,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -1.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 52)
+        elseif ($item['game_guest_power_percent'] > 54)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -171,7 +156,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -1;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 50)
+        elseif ($item['game_guest_power_percent'] > 52)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -186,7 +171,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = -0.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 48)
+        elseif ($item['game_guest_power_percent'] > 50)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -201,7 +186,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 0;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 46)
+        elseif ($item['game_guest_power_percent'] > 48)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -216,7 +201,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 0.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 44)
+        elseif ($item['game_guest_power_percent'] > 46)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -231,7 +216,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 1;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 42)
+        elseif ($item['game_guest_power_percent'] > 44)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -246,7 +231,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 1.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 40)
+        elseif ($item['game_guest_power_percent'] > 42)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -261,7 +246,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 2;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 37)
+        elseif ($item['game_guest_power_percent'] > 40)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -276,7 +261,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 2.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 34)
+        elseif ($item['game_guest_power_percent'] > 37)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -291,7 +276,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 3;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 31)
+        elseif ($item['game_guest_power_percent'] > 34)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -306,7 +291,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 3.5;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 28)
+        elseif ($item['game_guest_power_percent'] > 31)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -321,7 +306,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 4;
             }
         }
-        elseif ($item['game_guest_power_percent'] > 24)
+        elseif ($item['game_guest_power_percent'] > 28)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -336,7 +321,7 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 4.5;
             }
         }
-        else
+        elseif ($item['game_guest_power_percent'] > 24)
         {
             if ($item['game_guest_score'] > $item['game_home_score'])
             {
@@ -351,23 +336,23 @@ function f_igosja_generator_plus_minus()
                 $guest_power = 5;
             }
         }
-
-        if ($item['game_home_power_percent'] > 74)
+        else
         {
-            if ($item['game_home_score'] > $item['game_guest_score'])
+            if ($item['game_guest_score'] > $item['game_home_score'])
             {
-                $home_power = -4;
+                $guest_power = 6.5;
             }
-            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            elseif ($item['game_guest_score'] == $item['game_home_score'])
             {
-                $home_power = -4.5;
+                $guest_power = 6;
             }
             else
             {
-                $home_power = -5;
+                $guest_power = 5.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 70)
+
+        if ($item['game_home_power_percent'] > 74)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -382,7 +367,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -4.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 67)
+        elseif ($item['game_home_power_percent'] > 70)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -394,10 +379,10 @@ function f_igosja_generator_plus_minus()
             }
             else
             {
-                $home_power = -5;
+                $home_power = -4;
             }
         }
-        elseif ($item['game_home_power_percent'] > 64)
+        elseif ($item['game_home_power_percent'] > 67)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -412,7 +397,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -3.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 61)
+        elseif ($item['game_home_power_percent'] > 64)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -427,7 +412,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -3;
             }
         }
-        elseif ($item['game_home_power_percent'] > 58)
+        elseif ($item['game_home_power_percent'] > 61)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -442,7 +427,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -2.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 56)
+        elseif ($item['game_home_power_percent'] > 58)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -457,7 +442,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -2;
             }
         }
-        elseif ($item['game_home_power_percent'] > 54)
+        elseif ($item['game_home_power_percent'] > 56)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -472,7 +457,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -1.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 52)
+        elseif ($item['game_home_power_percent'] > 54)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -487,7 +472,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -1;
             }
         }
-        elseif ($item['game_home_power_percent'] > 50)
+        elseif ($item['game_home_power_percent'] > 52)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -502,7 +487,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = -0.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 48)
+        elseif ($item['game_home_power_percent'] > 50)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -517,7 +502,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 0;
             }
         }
-        elseif ($item['game_home_power_percent'] > 46)
+        elseif ($item['game_home_power_percent'] > 48)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -532,7 +517,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 0.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 44)
+        elseif ($item['game_home_power_percent'] > 46)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -547,7 +532,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 1;
             }
         }
-        elseif ($item['game_home_power_percent'] > 42)
+        elseif ($item['game_home_power_percent'] > 44)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -562,7 +547,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 1.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 40)
+        elseif ($item['game_home_power_percent'] > 42)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -577,7 +562,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 2;
             }
         }
-        elseif ($item['game_home_power_percent'] > 37)
+        elseif ($item['game_home_power_percent'] > 40)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -592,7 +577,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 2.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 34)
+        elseif ($item['game_home_power_percent'] > 37)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -607,7 +592,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 3;
             }
         }
-        elseif ($item['game_home_power_percent'] > 31)
+        elseif ($item['game_home_power_percent'] > 34)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -622,7 +607,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 3.5;
             }
         }
-        elseif ($item['game_home_power_percent'] > 28)
+        elseif ($item['game_home_power_percent'] > 31)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -637,7 +622,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 4;
             }
         }
-        elseif ($item['game_home_power_percent'] > 24)
+        elseif ($item['game_home_power_percent'] > 28)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -652,7 +637,7 @@ function f_igosja_generator_plus_minus()
                 $home_power = 4.5;
             }
         }
-        else
+        elseif ($item['game_home_power_percent'] > 24)
         {
             if ($item['game_home_score'] > $item['game_guest_score'])
             {
@@ -665,6 +650,21 @@ function f_igosja_generator_plus_minus()
             else
             {
                 $home_power = 5;
+            }
+        }
+        else
+        {
+            if ($item['game_home_score'] > $item['game_guest_score'])
+            {
+                $home_power = 6.5;
+            }
+            elseif ($item['game_home_score'] == $item['game_guest_score'])
+            {
+                $home_power = 6;
+            }
+            else
+            {
+                $home_power = 5.5;
             }
         }
 
@@ -708,92 +708,92 @@ function f_igosja_generator_plus_minus()
 
         if ($item['game_guest_optimality_1'] > 99)
         {
-            $guest_optimality_1 = 0;
+            $guest_optimality_1 = 0.5;
         }
         elseif ($item['game_guest_optimality_1'] > 96)
         {
-            $guest_optimality_1 = -0.5;
+            $guest_optimality_1 = 0;
         }
         elseif ($item['game_guest_optimality_1'] > 93)
         {
-            $guest_optimality_1 = -1;
+            $guest_optimality_1 = -0.5;
         }
         elseif ($item['game_guest_optimality_1'] > 90)
         {
-            $guest_optimality_1 = -1.5;
+            $guest_optimality_1 = -1;
         }
         elseif ($item['game_guest_optimality_1'] > 87)
         {
-            $guest_optimality_1 = -2;
+            $guest_optimality_1 = -1.5;
         }
         elseif ($item['game_guest_optimality_1'] > 84)
         {
-            $guest_optimality_1 = -2.5;
+            $guest_optimality_1 = -2;
         }
         elseif ($item['game_guest_optimality_1'] > 81)
         {
-            $guest_optimality_1 = -3;
+            $guest_optimality_1 = -2.5;
         }
         elseif ($item['game_guest_optimality_1'] > 78)
         {
-            $guest_optimality_1 = -3.5;
+            $guest_optimality_1 = -3;
         }
         elseif ($item['game_guest_optimality_1'] > 75)
         {
-            $guest_optimality_1 = -4;
+            $guest_optimality_1 = -3.5;
         }
         elseif ($item['game_guest_optimality_1'] > 72)
         {
-            $guest_optimality_1 = -4.5;
+            $guest_optimality_1 = -4;
         }
         else
         {
-            $guest_optimality_1 = -5;
+            $guest_optimality_1 = -4.5;
         }
 
         if ($item['game_home_optimality_1'] > 99)
         {
-            $home_optimality_1 = 0;
+            $home_optimality_1 = 0.5;
         }
         elseif ($item['game_home_optimality_1'] > 96)
         {
-            $home_optimality_1 = -0.5;
+            $home_optimality_1 = 0;
         }
         elseif ($item['game_home_optimality_1'] > 93)
         {
-            $home_optimality_1 = -1;
+            $home_optimality_1 = -0.5;
         }
         elseif ($item['game_home_optimality_1'] > 90)
         {
-            $home_optimality_1 = -1.5;
+            $home_optimality_1 = -1;
         }
         elseif ($item['game_home_optimality_1'] > 87)
         {
-            $home_optimality_1 = -2;
+            $home_optimality_1 = -1.5;
         }
         elseif ($item['game_home_optimality_1'] > 84)
         {
-            $home_optimality_1 = -2.5;
+            $home_optimality_1 = -2;
         }
         elseif ($item['game_home_optimality_1'] > 81)
         {
-            $home_optimality_1 = -3;
+            $home_optimality_1 = -2.5;
         }
         elseif ($item['game_home_optimality_1'] > 78)
         {
-            $home_optimality_1 = -3.5;
+            $home_optimality_1 = -3;
         }
         elseif ($item['game_home_optimality_1'] > 75)
         {
-            $home_optimality_1 = -4;
+            $home_optimality_1 = -3.5;
         }
         elseif ($item['game_home_optimality_1'] > 72)
         {
-            $home_optimality_1 = -4.5;
+            $home_optimality_1 = -4;
         }
         else
         {
-            $home_optimality_1 = -5;
+            $home_optimality_1 = -4.5;
         }
 
         if ($item['game_guest_optimality_2'] > 134)
@@ -928,84 +928,84 @@ function f_igosja_generator_plus_minus()
 
         if ($item['game_guest_score'] - $item['game_home_score'] > 8)
         {
-            $guest_score    = 7.5;
-            $home_score     = -7.5;
+            $guest_score    = 8.5;
+            $home_score     = -6.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 7)
         {
-            $guest_score    = 6.5;
-            $home_score     = -6.5;
+            $guest_score    = 7.5;
+            $home_score     = -5.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 6)
         {
-            $guest_score    = 5.5;
-            $home_score     = -5.5;
+            $guest_score    = 6.5;
+            $home_score     = -4.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 5)
         {
-            $guest_score    = 4.5;
-            $home_score     = -4.5;
+            $guest_score    = 5.5;
+            $home_score     = -3.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 4)
         {
-            $guest_score    = 3.5;
-            $home_score     = -3.5;
+            $guest_score    = 4.5;
+            $home_score     = -2.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 3)
         {
-            $guest_score    = 2.5;
-            $home_score     = -2.5;
+            $guest_score    = 3.5;
+            $home_score     = -1.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 2)
         {
-            $guest_score    = 1.5;
-            $home_score     = -1.5;
+            $guest_score    = 2.5;
+            $home_score     = -0.5;
         }
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 1)
         {
-            $guest_score    = 0.5;
-            $home_score     = -0.5;
+            $guest_score    = 1.5;
+            $home_score     = 0.5;
         }
 
         if ($item['game_home_score'] - $item['game_guest_score'] > 8)
         {
-            $home_score     = 7.5;
-            $guest_score    = -7.5;
+            $home_score     = 8.5;
+            $guest_score    = -6.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 7)
         {
-            $home_score     = 6.5;
-            $guest_score    = -6.5;
+            $home_score     = 7.5;
+            $guest_score    = -5.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 6)
         {
-            $home_score     = 5.5;
-            $guest_score    = -5.5;
+            $home_score     = 6.5;
+            $guest_score    = -4.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 5)
         {
-            $home_score     = 4.5;
-            $guest_score    = -4.5;
+            $home_score     = 5.5;
+            $guest_score    = -3.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 4)
         {
-            $home_score     = 3.5;
-            $guest_score    = -3.5;
+            $home_score     = 4.5;
+            $guest_score    = -2.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 3)
         {
-            $home_score     = 2.5;
-            $guest_score    = -2.5;
+            $home_score     = 3.5;
+            $guest_score    = -1.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 2)
         {
-            $home_score     = 1.5;
-            $guest_score    = -1.5;
+            $home_score     = 2.5;
+            $guest_score    = -0.5;
         }
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 1)
         {
-            $home_score     = 0.5;
-            $guest_score    = -0.5;
+            $home_score     = 1.5;
+            $guest_score    = 0.5;
         }
 
         $guest_total = $guest_competition + $guest_mood + $guest_optimality_1 + $guest_optimality_2 + $guest_power + $guest_score;
