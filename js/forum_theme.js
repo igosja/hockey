@@ -27,6 +27,29 @@ jQuery(document).ready(function () {
             lang: "ru"
         });
     }
+
+    $('.forum-complain').on('click', function () {
+        var message = $(this).data('message');
+        $.ajax({
+            data: {url: '/forum_message_update.php?num=' + message},
+            dataType: 'json',
+            method: 'POST',
+            url: '/json/complain.php',
+            success: function (data) {
+                var html = '<div class="row margin-top">' +
+                    '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert ' + data.class + '">' +
+                    data.text +
+                    '</div>' +
+                    '</div>';
+                var alert = $(document).find('.alert');
+                if (alert.length) {
+                    alert.replace(html);
+                } else {
+                    $('noscript').after(html);
+                }
+            }
+        })
+    })
 });
 
 function check_text(text)

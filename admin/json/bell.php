@@ -47,7 +47,15 @@ $logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
 
 $logo = $logo_array[0]['count'];
 
-$bell = $teamask + $support + $vote + $logo;
+$sql = "SELECT COUNT(`complain_id`) AS `count`
+        FROM `complain`";
+$complain_sql = f_igosja_mysqli_query($sql);
+
+$complain_array = $complain_sql->fetch_all(MYSQLI_ASSOC);
+
+$complain = $complain_array[0]['count'];
+
+$bell = $teamask + $support + $vote + $logo + $complain;
 
 if (0 == $teamask)
 {
@@ -69,12 +77,17 @@ if (0 == $logo)
     $logo = '';
 }
 
+if (0 == $complain)
+{
+    $complain = '';
+}
+
 if (0 == $bell)
 {
     $bell = '';
 }
 
-$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote, 'logo' => $logo, 'freeteam' => $freeteam);
+$return = array('bell' => $bell, 'teamask' => $teamask, 'support' => $support, 'vote' => $vote, 'logo' => $logo, 'freeteam' => $freeteam, 'complain' => $complain);
 
 print json_encode($return);
 exit;

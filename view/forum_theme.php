@@ -105,6 +105,11 @@
                                         Удалить
                                     </a>
                                 <?php } ?>
+                                <?php if ($auth_user_id != $item['user_id']) { ?>
+                                    <a class="forum-complain" data-message="<?= $item['forummessage_id']; ?>" href="javascript:">
+                                        Пожаловаться
+                                    </a>
+                                <?php } ?>
                                 <?php if (USERROLE_USER != $auth_userrole_id) { ?>
                                     |
                                     <a href="/forum_message_moove.php?num=<?= $item['forummessage_id']; ?>">
