@@ -35,7 +35,7 @@ if ($url = f_igosja_request_post('url') && isset($auth_user_id))
     }
 
     $result['class']    = 'success';
-    $result['text']     = 'Жалоба успешно добавлена.';
+    $result['text']     = 'Жалоба успешно сохранена.';
 }
 
 print json_encode($result);
