@@ -3,6 +3,7 @@
 /**
  * @var $auth_date_forum
  * @var $auth_user_id
+ * @var $auth_userrole_id
  */
 
 include(__DIR__ . '/include/include.php');
@@ -17,6 +18,15 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
+if (USERROLE_USER == $auth_userrole_id)
+{
+    $where = "`forummessage_user_id`=$auth_user_id";
+}
+else
+{
+    $where = "";
+}
+
 $sql = "SELECT `forumtheme_id`,
                `forumgroup_id`
         FROM `forummessage`
@@ -25,7 +35,7 @@ $sql = "SELECT `forumtheme_id`,
         LEFT JOIN `forumgroup`
         ON `forumtheme_forumgroup_id`=`forumgroup_id`
         WHERE `forummessage_id`=$num_get
-        AND `forummessage_user_id`=$auth_user_id
+        $where
         LIMIT 1";
 $forummessage_sql = f_igosja_mysqli_query($sql);
 

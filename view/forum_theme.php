@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                             <?php if (isset($auth_user_id)) { ?>
-                                <?php if ($auth_user_id == $item['user_id']) { ?>
+                                <?php if ($auth_user_id == $item['user_id'] || USERROLE_USER != $auth_userrole_id) { ?>
                                     <a href="/forum_message_update.php?num=<?= $item['forummessage_id']; ?>">
                                         Редактировать
                                     </a>
