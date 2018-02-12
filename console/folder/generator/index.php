@@ -70,6 +70,7 @@ $function_array = array(
     'f_igosja_generator_president_vote_status',
     'f_igosja_generator_president_vice_vote_status',
     'f_igosja_generator_president_fire',
+    'f_igosja_generator_president_vice_fire',
     'f_igosja_generator_user_rating_total',
     'f_igosja_generator_rating',
     'f_igosja_generator_rating_change_player',
