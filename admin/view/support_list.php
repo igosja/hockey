@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $num_get integer
- * @var $stadium_array array
+ * @var $message_array array
  */
 ?>
 <div class="row">
