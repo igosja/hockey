@@ -964,7 +964,12 @@ function f_igosja_generator_plus_minus()
         elseif ($item['game_guest_score'] - $item['game_home_score'] > 1)
         {
             $guest_score    = 1.5;
-            $home_score     = 0.5;
+            $home_score     = 0;
+        }
+        elseif ($item['game_guest_score'] - $item['game_home_score'] > 0)
+        {
+            $guest_score    = 0.5;
+            $home_score     = 0;
         }
 
         if ($item['game_home_score'] - $item['game_guest_score'] > 8)
@@ -1005,7 +1010,12 @@ function f_igosja_generator_plus_minus()
         elseif ($item['game_home_score'] - $item['game_guest_score'] > 1)
         {
             $home_score     = 1.5;
-            $guest_score    = 0.5;
+            $guest_score    = 0;
+        }
+        elseif ($item['game_home_score'] - $item['game_guest_score'] > 0)
+        {
+            $home_score     = 0.5;
+            $guest_score    = 0;
         }
 
         $guest_total = $guest_competition + $guest_mood + $guest_optimality_1 + $guest_optimality_2 + $guest_power + $guest_score;
