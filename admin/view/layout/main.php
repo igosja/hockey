@@ -58,6 +58,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/support_list.php">
+                            <i class="fa fa-exclamation-circle fa-fw"></i> Жалобы
+                            <span class="badge admin-complain"></span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/vote_list.php">
                             <i class="fa fa-bar-chart  fa-fw"></i> Опросы
                             <span class="badge admin-vote"></span>

@@ -55,6 +55,13 @@ function admin_bell()
                 $('.panel-logo').hide();
             }
 
+            $('.admin-complain').html(data.complain);
+            if (data.complain > 0) {
+                $('.panel-complain').show();
+            } else {
+                $('.panel-complain').hide();
+            }
+
             $('.admin-freeteam').html(data.freeteam);
         },
         url: '/admin/json/bell.php'

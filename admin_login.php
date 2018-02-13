@@ -25,11 +25,11 @@ if ($data = f_igosja_request_post('data'))
     $login      = trim($data['login']);
     $password   = f_igosja_hash_password($data['password']);
 
-    $sql = "SELECT `user_id`,
-                   `user_userrole_id`
+    $sql = "SELECT `user_id`
             FROM `user`
             WHERE `user_login`=?
             AND `user_password`=?
+            AND `user_userrole_id`=" . USERROLE_ADMIN . "
             LIMIT 1";
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('ss', $login, $password);
@@ -49,15 +49,7 @@ if ($data = f_igosja_request_post('data'))
 
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-    if (2 > $user_array[0]['user_userrole_id'])
-    {
-        $_SESSION['message']['class']   = 'danger';
-        $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
-
-        refresh();
-    }
-
-    $_SESSION['user_id'] = $user_array[0]['user_id'];
+    $_SESSION['admin_user_id'] = $user_array[0]['user_id'];
 
     redirect('/admin/');
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var $auth_userrole_id integer
+ * @var $auth_admin_user_id integer
  */
 
 $file_name  = $_SERVER['PHP_SELF'];
@@ -20,7 +20,7 @@ if (!in_array($controller, array('country'))) {
 
 if ('admin' == $chapter)
 {
-    if (!isset($auth_user_id) || USERROLE_USER == $auth_userrole_id)
+    if (!isset($auth_admin_user_id))
     {
         redirect('/admin_login.php');
     }

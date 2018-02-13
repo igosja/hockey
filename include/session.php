@@ -228,3 +228,8 @@ else
     $igosja_menu        = $igosja_menu_guest;
     $igosja_menu_mobile = $igosja_menu_guest_mobile;
 }
+
+if (isset($_SESSION['admin_user_id']))
+{
+    $auth_admin_user_id = $_SESSION['admin_user_id'];
+}

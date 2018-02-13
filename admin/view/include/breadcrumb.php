@@ -6,7 +6,7 @@
 <?php if (count($breadcrumb_array)) { ?>
     <ol class="breadcrumb">
         <li>
-            <a href="/admin">
+            <a href="/admin/">
                 Главная
             </a>
         </li>

@@ -37,6 +37,12 @@ $logo_sql = f_igosja_mysqli_query($sql);
 
 $logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT COUNT(`complain_id`) AS `count`
+        FROM `complain`";
+$complain_sql = f_igosja_mysqli_query($sql);
+
+$complain_array = $complain_sql->fetch_all(MYSQLI_ASSOC);
+
 $sql = "SELECT FROM_UNIXTIME(`payment_date`, '%b %Y') AS `date`,
                SUM(`payment_sum`) AS `total`
         FROM `payment`
