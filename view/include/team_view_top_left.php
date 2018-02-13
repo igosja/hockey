@@ -63,9 +63,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Ник:
-                <?php if ($team_array[0]['user_date_vip'] > time()) { ?>
-                    <img src="/img/vip.png" title="VIP" />
-                <?php } ?>
+                <?= f_igosja_user_vip($team_array[0]['user_date_vip']); ?>
                 <a class="strong" href="/user_view.php?num=<?= $team_array[0]['user_id']; ?>">
                     <?= $team_array[0]['user_login']; ?>
                 </a>

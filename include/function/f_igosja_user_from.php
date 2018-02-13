@@ -2,7 +2,7 @@
 
 /**
  * Формат інформації про те, звізки наш користувач
- * @param $item array масив с данными БД (`user`)
+ * @param $item array масив с данними БД (`user`)
  * @return string місто і країна або 'Не указано'
  */
 function f_igosja_user_from($item)

@@ -23,6 +23,7 @@
                         </a>
                     </td>
                     <td class="text-center">
+                        <?= f_igosja_user_vip($item['user_date_vip']); ?>
                         <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                             <?= $item['user_login']; ?>
                         </a>

@@ -17,6 +17,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS `city_name`,
                `team_id`,
                `team_name`,
                `user_date_login`,
+               `user_date_vip`,
                `user_id`,
                `user_login`
         FROM `team`
