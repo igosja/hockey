@@ -4,7 +4,7 @@ $q = array();
 
 $q[] = 'CREATE TABLE `rentvote`
         (
-            `rentvote_rating` INT(1) DEFAULT 0,
+            `rentvote_rating` INT(2) DEFAULT 0,
             `rentvote_rent_id` INT(11) DEFAULT 0,
             `rentvote_user_id` INT(11) DEFAULT 0
         );';

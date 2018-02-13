@@ -109,11 +109,9 @@ if ($data = f_igosja_request_post('data'))
                 `electionpresidentuser_electionpresident_id`=$electionpresident_id";
     f_igosja_mysqli_query($sql);
 
-    $electionpresidentapplication_id = $electionpresident_array[0]['electionpresidentapplication_id'];
-
     $sql = "UPDATE `electionpresidentapplication`
             SET `electionpresidentapplication_count`=`electionpresidentapplication_count`+1
-            WHERE `electionpresidentapplication_id`=$electionpresidentapplication_id
+            WHERE `electionpresidentapplication_id`=$answer
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
