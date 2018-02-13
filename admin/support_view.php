@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var $auth_user_id integer
+ * @var $auth_admin_user_id integer
  * @var $mysqli mysqli
  */
 
@@ -50,7 +50,7 @@ if ($data = f_igosja_request_post('data'))
                     SET `message_date`=UNIX_TIMESTAMP(),
                         `message_text`='$text',
                         `message_support_from`=1,
-                        `message_user_id_from`=$auth_user_id,
+                        `message_user_id_from`=$auth_admin_user_id,
                         `message_user_id_to`=$num_get";
             f_igosja_mysqli_query($sql);
         }

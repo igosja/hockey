@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var $auth_user_id integer
+ * @var $auth_admin_user_id integer
  */
 
 include(__DIR__ . '/../include/include.php');
@@ -16,7 +16,7 @@ if ($data = f_igosja_request_post('data'))
     $sql = "INSERT INTO `news`
             SET $set_sql,
                 `news_date`=UNIX_TIMESTAMP(),
-                `news_user_id`=$auth_user_id";
+                `news_user_id`=$auth_admin_user_id";
     f_igosja_mysqli_query($sql);
 
     redirect('/admin/news_view.php?num=' . $mysqli->insert_id);

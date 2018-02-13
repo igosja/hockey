@@ -102,18 +102,18 @@ $playerspecial_sql = f_igosja_mysqli_query($sql);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`transfervote_transfer_id`) AS `rating`
+$sql = "SELECT SUM(`transfervote_rating`) AS `rating`
         FROM `transfervote`
         WHERE `transfervote_transfer_id`=$num_get
-        AND `transfervote_rating`=1";
+        AND `transfervote_rating`>0";
 $rating_plus_sql = f_igosja_mysqli_query($sql);
 
 $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`transfervote_transfer_id`) AS `rating`
+$sql = "SELECT SUM(`transfervote_rating`) AS `rating`
         FROM `transfervote`
         WHERE `transfervote_transfer_id`=$num_get
-        AND `transfervote_rating`=-1";
+        AND `transfervote_rating`<0";
 $rating_minus_sql = f_igosja_mysqli_query($sql);
 
 $rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);

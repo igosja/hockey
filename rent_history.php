@@ -92,7 +92,7 @@ if (count($rent_id))
                    `rentvote_rent_id`
             FROM `rentvote`
             WHERE `rentvote_rent_id` IN ($rent_id)
-            AND `rentvote_rating`=1
+            AND `rentvote_rating`>0
             GROUP BY `rentvote_rent_id`";
     $rating_plus_sql = f_igosja_mysqli_query($sql);
 
@@ -102,7 +102,7 @@ if (count($rent_id))
                    `rentvote_rent_id`
             FROM `rentvote`
             WHERE `rentvote_rent_id` IN ($rent_id)
-            AND `rentvote_rating`=-1
+            AND `rentvote_rating`<0
             GROUP BY `rentvote_rent_id`";
     $rating_minus_sql = f_igosja_mysqli_query($sql);
 
