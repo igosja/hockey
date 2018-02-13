@@ -17,12 +17,12 @@ if (!$auth_country_id)
     redirect('/team_ask.php');
 }
 
-if ($num_get != $auth_country_id)
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     redirect('/wrong_page.php');
 }
 
-if (!$num_get = (int) f_igosja_request_get('num'))
+if ($num_get != $auth_country_id)
 {
     redirect('/wrong_page.php');
 }

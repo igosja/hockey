@@ -191,6 +191,7 @@ define('STAGE_1_QUALIFY', 43);
 define('STAGE_2_QUALIFY', 44);
 define('STAGE_3_QUALIFY', 45);
 define('STAGE_4_QUALIFY', 46);
+define('STAGE_1_8_FINAL', 53);
 define('STAGE_QUATER', 54);
 define('STAGE_SEMI', 55);
 define('STAGE_FINAL', 56);

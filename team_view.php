@@ -413,6 +413,123 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
     }
 
+    if (false)
+    {
+        $sql = "SELECT COUNT(`national_id`) AS `count`
+                FROM `national`
+                LEFT JOIN `country`
+                ON `national_country_id`=`country_id`
+                WHERE `country_id`=$auth_country_id
+                AND `national_user_id`=0
+                AND `national_vice_id`=0";
+        $check_sql = f_igosja_mysqli_query($sql);
+
+        $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+        if ($check_array[0]['count'])
+        {
+            $sql = "SELECT COUNT(`electionnational_id`) AS `count`
+                    FROM `electionnational`
+                    WHERE `electionnational_country_id`=$auth_country_id
+                    AND `electionnational_electionstatus_id` IN (
+                        " . ELECTIONSTATUS_CANDIDATES . ",
+                        " . ELECTIONSTATUS_OPEN . "
+                    )";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+            if (0 == $check_array[0]['count'])
+            {
+                $sql = "INSERT INTO `electionnational`
+                        SET `electionnational_country_id`=$auth_country_id,
+                            `electionnational_date`=UNIX_TIMESTAMP(),
+                            `electionnational_nationaltype_id`=" . NATIONALTYPE_MAIN;
+                f_igosja_mysqli_query($sql);
+            }
+        }
+
+        $sql = "SELECT `electionnational_electionstatus_id`
+                FROM `electionnational`
+                WHERE `electionnational_country_id`=$auth_country_id
+                AND `electionnational_electionstatus_id` IN (
+                    " . ELECTIONSTATUS_CANDIDATES . ",
+                    " . ELECTIONSTATUS_OPEN . "
+                )";
+        $election_sql = f_igosja_mysqli_query($sql);
+
+        $election_array = $election_sql->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($election_array as $item)
+        {
+            if (ELECTIONSTATUS_CANDIDATES == $item['electionnational_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране открыт <a href="/national_application.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов тренеров сборных';
+            }
+            elseif (ELECTIONSTATUS_OPEN == $item['electionnational_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране проходят выборы тренера сборной, результаты можно посмотреть <a href="/national_vote.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+            }
+        }
+
+        $sql = "SELECT COUNT(`national_id`) AS `count`
+                FROM `national`
+                LEFT JOIN `country`
+                ON `national_country_id`=`country_id`
+                WHERE `country_id`=$auth_country_id
+                AND `national_user_id`!=0
+                AND `national_vice_id`=0";
+        $check_sql = f_igosja_mysqli_query($sql);
+
+        $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+        if ($check_array[0]['count'])
+        {
+            $sql = "SELECT COUNT(`electionnationalvice_id`) AS `count`
+                    FROM `electionnationalvice`
+                    WHERE `electionnationalvice_country_id`=$auth_country_id
+                    AND `electionnationalvice_electionstatus_id` IN (
+                        " . ELECTIONSTATUS_CANDIDATES . ",
+                        " . ELECTIONSTATUS_OPEN . "
+                    )";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+            if (0 == $check_array[0]['count'])
+            {
+                $sql = "INSERT INTO `electionnationalvice`
+                        SET `electionnationalvice_country_id`=$auth_country_id,
+                            `electionnationalvice_date`=UNIX_TIMESTAMP(),
+                            `electionnationalvice_nationaltype_id`=" . NATIONALTYPE_MAIN;
+                f_igosja_mysqli_query($sql);
+            }
+        }
+
+        $sql = "SELECT `electionnationalvice_electionstatus_id`
+                FROM `electionnationalvice`
+                WHERE `electionnationalvice_country_id`=$auth_country_id
+                AND `electionnationalvice_electionstatus_id` IN (
+                    " . ELECTIONSTATUS_CANDIDATES . ",
+                    " . ELECTIONSTATUS_OPEN . "
+                )";
+        $election_sql = f_igosja_mysqli_query($sql);
+
+        $election_array = $election_sql->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($election_array as $item)
+        {
+            if (ELECTIONSTATUS_CANDIDATES == $item['electionnationalvice_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране открыт <a href="/national_vice_application.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">прием заявок</a> от кандидатов заместителей тренера сборной';
+            }
+            elseif (ELECTIONSTATUS_OPEN == $item['electionnationalvice_electionstatus_id'])
+            {
+                $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/president_vice_vote.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+            }
+        }
+    }
+
     $sql = "SELECT COUNT(`user_id`) AS `check`
             FROM `user`
             WHERE `user_id`=$auth_user_id
