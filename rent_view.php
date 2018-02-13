@@ -128,18 +128,18 @@ $rentapplication_sql = f_igosja_mysqli_query($sql);
 
 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`rentvote_rent_id`) AS `rating`
+$sql = "SELECT SUM(`rentvote_rating`) AS `rating`
         FROM `rentvote`
         WHERE `rentvote_rent_id`=$num_get
-        AND `rentvote_rating`=1";
+        AND `rentvote_rating`>0";
 $rating_plus_sql = f_igosja_mysqli_query($sql);
 
 $rating_plus_array = $rating_plus_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`rentvote_rent_id`) AS `rating`
+$sql = "SELECT SUM(`rentvote_rating`) AS `rating`
         FROM `rentvote`
         WHERE `rentvote_rent_id`=$num_get
-        AND `rentvote_rating`=-1";
+        AND `rentvote_rating`<0";
 $rating_minus_sql = f_igosja_mysqli_query($sql);
 
 $rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);

@@ -92,7 +92,7 @@ if (count($transfer_id))
                    `transfervote_transfer_id`
             FROM `transfervote`
             WHERE `transfervote_transfer_id` IN ($transfer_id)
-            AND `transfervote_rating`=1
+            AND `transfervote_rating`>0
             GROUP BY `transfervote_transfer_id`";
     $rating_plus_sql = f_igosja_mysqli_query($sql);
 
@@ -102,7 +102,7 @@ if (count($transfer_id))
                    `transfervote_transfer_id`
             FROM `transfervote`
             WHERE `transfervote_transfer_id` IN ($transfer_id)
-            AND `transfervote_rating`=-1
+            AND `transfervote_rating`<0
             GROUP BY `transfervote_transfer_id`";
     $rating_minus_sql = f_igosja_mysqli_query($sql);
 
