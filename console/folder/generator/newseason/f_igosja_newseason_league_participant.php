@@ -167,7 +167,7 @@ function f_igosja_newseason_league_participant()
 
         $values = implode(',', $values);
 
-        $sql = "INSERT INTO `participantleague` (`participantleague_season_id`, `participantleague_stage_id`, `participantleague_team_id`)
+        $sql = "INSERT INTO `participantleague` (`participantleague_season_id`, `participantleague_stage_in`, `participantleague_team_id`)
                 VALUES $values;";
         f_igosja_mysqli_query($sql);
     }

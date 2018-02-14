@@ -31,7 +31,7 @@ function f_igosja_newseason_league()
             LEFT JOIN `stadium`
             ON `team_stadium_id`=`stadium_id`
             WHERE `participantleague_season_id`=$igosja_season_id+1
-            AND `participantleague_stage_id`=" . STAGE_1_QUALIFY . "
+            AND `participantleague_stage_in`=" . STAGE_1_QUALIFY . "
             ORDER BY RAND()";
     $team_sql = f_igosja_mysqli_query($sql);
 

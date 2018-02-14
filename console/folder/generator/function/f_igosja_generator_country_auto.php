@@ -8,7 +8,8 @@ function f_igosja_generator_country_auto()
     $sql = "UPDATE `country`
             LEFT JOIN
             (
-                SELECT COUNT(`game_id`) AS `count_home_game`, `city_country_id`
+                SELECT COUNT(`game_id`) AS `count_home_game`,
+                       `city_country_id`
                 FROM `game`
                 LEFT JOIN `team`
                 ON `game_home_team_id`=`team_id`
@@ -24,7 +25,8 @@ function f_igosja_generator_country_auto()
             ON `country_id`=`t1`.`city_country_id`
             LEFT JOIN
             (
-                SELECT COUNT(`game_id`) AS `count_guest_game`, `city_country_id`
+                SELECT COUNT(`game_id`) AS `count_guest_game`,
+                       `city_country_id`
                 FROM `game`
                 LEFT JOIN `team`
                 ON `game_guest_team_id`=`team_id`
@@ -40,7 +42,8 @@ function f_igosja_generator_country_auto()
             ON `country_id`=`t2`.`city_country_id`
             LEFT JOIN
             (
-                SELECT COUNT(`game_id`) AS `count_home_game_auto`, `city_country_id`
+                SELECT COUNT(`game_id`) AS `count_home_game_auto`,
+                       `city_country_id`
                 FROM `game`
                 LEFT JOIN `team`
                 ON `game_home_team_id`=`team_id`
@@ -57,7 +60,8 @@ function f_igosja_generator_country_auto()
             ON `country_id`=`t3`.`city_country_id`
             LEFT JOIN
             (
-                SELECT COUNT(`game_id`) AS `count_guest_game_auto`, `city_country_id`
+                SELECT COUNT(`game_id`) AS `count_guest_game_auto`,
+                       `city_country_id`
                 FROM `game`
                 LEFT JOIN `team`
                 ON `game_guest_team_id`=`team_id`
@@ -72,8 +76,8 @@ function f_igosja_generator_country_auto()
                 GROUP BY `city_country_id`
             ) AS `t4`
             ON `country_id`=`t4`.`city_country_id`
-            SET `country_game`=`country_game`+`count_home_game`+`count_guest_game`,
-                `country_auto`=`country_auto`+`count_home_game_auto`+`count_guest_game_auto`
+            SET `country_game`=`country_game`+IFNULL(`count_home_game`, 0)+IFNULL(`count_guest_game`, 0),
+                `country_auto`=`country_auto`+IFNULL(`count_home_game_auto`, 0)+IFNULL(`count_guest_game_auto`, 0)
             WHERE `t1`.`city_country_id` IS NOT NULL
             AND `t2`.`city_country_id` IS NOT NULL";
     f_igosja_mysqli_query($sql);

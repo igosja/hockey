@@ -289,7 +289,7 @@ function f_igosja_newseason_championship_rotate()
         }
 
         $sql = "UPDATE `championship`
-                SET `championship_place`=`championship_id`-((CEIL(`championship_id`/16)-1)*16)
+                SET `championship_place`=`championship_id`-(CEIL(`championship_id`/16)-1)*16
                 WHERE `championship_place`=0";
         f_igosja_mysqli_query($sql);
 
