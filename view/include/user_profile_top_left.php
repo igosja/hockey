@@ -21,7 +21,9 @@
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Ник: <span class="strong"><?= $user_array[0]['user_login']; ?></span>
+        Ник:
+        <?= f_igosja_user_vip($user_array[0]['user_date_vip']); ?>
+        <span class="strong"><?= $user_array[0]['user_login']; ?></span>
         <?php if (isset($auth_user_id) && $auth_user_id != $num_get) { ?>
             <a href="/dialog.php?num=<?= $user_array[0]['user_id']; ?>">
                 <img alt="Letter" src="/img/letter.png" title="Написать письмо" />

@@ -115,7 +115,6 @@ function f_igosja_generator_playoff_championship_lot()
 
             if (STAGE_SEMI == $check_array[0]['schedule_stage_id'])
             {
-
                 $sql = "SELECT `schedule_id`
                         FROM `schedule`
                         WHERE `schedule_season_id`=$igosja_season_id
