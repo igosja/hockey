@@ -19,6 +19,7 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_fire_national',
             'f_igosja_newseason_player_from_national',
             'f_igosja_newseason_league_participant',
+            'f_igosja_newseason_league_coefficient',
             'f_igosja_newseason_league_limit',
             'f_igosja_newseason_schedule',
             'f_igosja_newseason_championship_rotate',
