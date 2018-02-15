@@ -9,6 +9,7 @@
  * @var $rating_plus_array array
  * @var $rent_array array
  * @var $rentapplication_array array
+ * @var $rentcomment_array array
  */
 ?>
 <div class="row">
@@ -28,7 +29,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <a href="/rent_rating_plus.php?num=<?= $num_get; ?>">Честная сделка</a>
             |
-            <a href="/rent_rating_minus.php?num=<?= $num_get; ?>">Нечестная сделка</a>
+            <a class="reject" href="javascript:">Нечестная сделка</a>
         </div>
     </div>
 <?php } ?>
@@ -198,3 +199,49 @@
         </table>
     </div>
 </div>
+<?php if ($rentcomment_array) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="strong">Последние комментарии:</span>
+        </div>
+    </div>
+    <?php foreach ($rentcomment_array as $item) { ?>
+        <div class="row border-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
+                <a class="strong" href="/user_view.php?num=<?= $item['user_id']; ?>">
+                    <?= $item['user_login']; ?>
+                </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= nl2br($item['rentcomment_text']); ?>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
+                <?= f_igosja_ufu_date_time($item['rentcomment_date']); ?>
+            </div>
+        </div>
+    <?php } ?>
+<?php } ?>
+<?php if (0 == $rating_my) { ?>
+    <div class="deal-comment-block">
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                <label for="rentcomment">Ваш комментарий:</label>
+            </div>
+        </div>
+        <form action="/rent_rating_minus.php?num=<?= $num_get; ?>" id="rentcomment-form" method="POST">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" id="rentcomment" name="data[text]" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center rentcomment-error notification-error"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <button class="btn margin">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<?php } ?>

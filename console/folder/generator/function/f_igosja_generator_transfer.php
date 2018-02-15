@@ -255,6 +255,7 @@ function f_igosja_generator_transfer()
                     ON `transfer_player_id`=`player_id`
                     SET `transfer_age`=`player_age`,
                         `transfer_date`=UNIX_TIMESTAMP(),
+                        `transfer_player_price`=`player_price`,
                         `transfer_power`=`player_power_nominal`,
                         `transfer_price_buyer`=$transferaplication_price,
                         `transfer_ready`=1,

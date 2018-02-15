@@ -897,3 +897,7 @@ blockquote:before {
 .team-logo-div {
     display: table;
 }
+
+.deal-comment-block {
+    display: none;
+}
