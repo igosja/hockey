@@ -133,6 +133,138 @@ function f_igosja_generator_league_out()
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
                 }
+
+                $sql = "SELECT `league_group`,
+                               `league_place`,
+                               `league_team_id`
+                        FROM `league`
+                        WHERE `league_place` IN (1, 2)
+                        AND `league_season_id`=$igosja_season_id
+                        ORDER BY `league_id` ASC";
+                $league_sql = f_igosja_mysqli_query($sql);
+
+                $league_array = $league_sql->fetch_all(MYSQLI_ASSOC);
+
+                foreach ($league_array as $league)
+                {
+                    $team_id = $league['league_team_id'];
+                    $stage_8 = 0;
+                    $stage_4 = 0;
+                    $stage_2 = 0;
+
+                    if (1 == $league['league_place'])
+                    {
+                        if (1 == $league['league_group'])
+                        {
+                            $stage_8 = 1;
+                            $stage_4 = 1;
+                            $stage_2 = 1;
+                        }
+                        elseif (2 == $league['league_group'])
+                        {
+                            $stage_8 = 5;
+                            $stage_4 = 3;
+                            $stage_2 = 2;
+                        }
+                        elseif (3 == $league['league_group'])
+                        {
+                            $stage_8 = 2;
+                            $stage_4 = 1;
+                            $stage_2 = 1;
+                        }
+                        elseif (4 == $league['league_group'])
+                        {
+                            $stage_8 = 6;
+                            $stage_4 = 3;
+                            $stage_2 = 2;
+                        }
+                        elseif (5 == $league['league_group'])
+                        {
+                            $stage_8 = 3;
+                            $stage_4 = 2;
+                            $stage_2 = 1;
+                        }
+                        elseif (6 == $league['league_group'])
+                        {
+                            $stage_8 = 7;
+                            $stage_4 = 4;
+                            $stage_2 = 2;
+                        }
+                        elseif (7 == $league['league_group'])
+                        {
+                            $stage_8 = 4;
+                            $stage_4 = 2;
+                            $stage_2 = 1;
+                        }
+                        elseif (8 == $league['league_group'])
+                        {
+                            $stage_8 = 8;
+                            $stage_4 = 4;
+                            $stage_2 = 2;
+                        }
+                    }
+                    elseif (2 == $league['league_place'])
+                    {
+                        if (1 == $league['league_group'])
+                        {
+                            $stage_8 = 8;
+                            $stage_4 = 4;
+                            $stage_2 = 2;
+                        }
+                        elseif (2 == $league['league_group'])
+                        {
+                            $stage_8 = 1;
+                            $stage_4 = 1;
+                            $stage_2 = 1;
+                        }
+                        elseif (3 == $league['league_group'])
+                        {
+                            $stage_8 = 5;
+                            $stage_4 = 3;
+                            $stage_2 = 2;
+                        }
+                        elseif (4 == $league['league_group'])
+                        {
+                            $stage_8 = 2;
+                            $stage_4 = 1;
+                            $stage_2 = 1;
+                        }
+                        elseif (5 == $league['league_group'])
+                        {
+                            $stage_8 = 6;
+                            $stage_4 = 3;
+                            $stage_2 = 2;
+                        }
+                        elseif (6 == $league['league_group'])
+                        {
+                            $stage_8 = 3;
+                            $stage_4 = 2;
+                            $stage_2 = 1;
+                        }
+                        elseif (7 == $league['league_group'])
+                        {
+                            $stage_8 = 7;
+                            $stage_4 = 4;
+                            $stage_2 = 2;
+                        }
+                        elseif (8 == $league['league_group'])
+                        {
+                            $stage_8 = 4;
+                            $stage_4 = 2;
+                            $stage_2 = 1;
+                        }
+                    }
+
+                    $sql = "UPDATE `participantleague`
+                            SET `participantleague_stage_1`=1,
+                                `participantleague_stage_2`=$stage_2,
+                                `participantleague_stage_4`=$stage_4,
+                                `participantleague_stage_8`=$stage_8
+                            WHERE `participantleague_team_id`=$team_id
+                            AND `participantleague_season_id`=$igosja_season_id
+                            LIMIT 1";
+                    f_igosja_mysqli_query($sql);
+                }
             }
         }
     }
