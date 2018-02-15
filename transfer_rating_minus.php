@@ -67,6 +67,28 @@ $sql = "INSERT INTO `transfervote`
             `transfervote_user_id`=$auth_user_id";
 f_igosja_mysqli_query($sql);
 
+if ($data = f_igosja_request_post('data'))
+{
+    if (isset($auth_user_id) && isset($data['text']))
+    {
+        $text = htmlspecialchars($data['text']);
+        $text = trim($text);
+
+        if (!empty($text))
+        {
+            $sql = "INSERT INTO `transfercomment`
+                    SET `transfercomment_date`=UNIX_TIMESTAMP(),
+                        `transfercomment_transfer_id`=$num_get,
+                        `transfercomment_text`=?,
+                        `transfercomment_user_id`=$auth_user_id";
+            $prepare = $mysqli->prepare($sql);
+            $prepare->bind_param('s', $text);
+            $prepare->execute();
+            $prepare->close();
+        }
+    }
+}
+
 $_SESSION['message']['class']   = 'success';
 $_SESSION['message']['text']    = 'Ваш голос успешно сохранён.';
 

@@ -158,6 +158,19 @@ $transferapplication_sql = f_igosja_mysqli_query($sql);
 
 $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT `transfercomment_date`,
+               `transfercomment_text`,
+               `user_id`,
+               `user_login`
+        FROM `transfercomment`
+        LEFT JOIN `user`
+        ON `transfercomment_user_id`=`user_id`
+        WHERE `transfercomment_transfer_id`=$num_get
+        ORDER BY `transfercomment_id` ASC";
+$transfercomment_sql = f_igosja_mysqli_query($sql);
+
+$transfercomment_array = $transfercomment_sql->fetch_all(MYSQLI_ASSOC);
+
 $seo_title          = 'Трансферная сделка';
 $seo_description    = 'Трансферная сделка на сайте Вирутальной Хоккейной Лиги.';
 $seo_keywords       = 'трансферная сделка';

@@ -9,6 +9,7 @@
  * @var $rating_plus_array array
  * @var $transfer_array array
  * @var $transferapplication_array array
+ * @var $transfercomment_array array
  */
 ?>
 <div class="row">
@@ -28,7 +29,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <a href="/transfer_rating_plus.php?num=<?= $num_get; ?>">Честная сделка</a>
             |
-            <a href="/transfer_rating_minus.php?num=<?= $num_get; ?>">Нечестная сделка</a>
+            <a class="reject" href="javascript:">Нечестная сделка</a>
         </div>
     </div>
 <?php } ?>
@@ -194,3 +195,49 @@
         </table>
     </div>
 </div>
+<?php if ($transfercomment_array) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="strong">Последние комментарии:</span>
+        </div>
+    </div>
+    <?php foreach ($transfercomment_array as $item) { ?>
+        <div class="row border-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
+                <a class="strong" href="/user_view.php?num=<?= $item['user_id']; ?>">
+                    <?= $item['user_login']; ?>
+                </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= nl2br($item['transfercomment_text']); ?>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
+                <?= f_igosja_ufu_date_time($item['transfercomment_date']); ?>
+            </div>
+        </div>
+    <?php } ?>
+<?php } ?>
+<?php if (0 == $rating_my) { ?>
+    <div class="deal-comment-block">
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                <label for="transfercomment">Ваш комментарий:</label>
+            </div>
+        </div>
+        <form action="/transfer_rating_minus.php?num=<?= $num_get; ?>" id="transfercomment-form" method="POST">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" id="transfercomment" name="data[text]" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transfercomment-error notification-error"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <button class="btn margin">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+<?php } ?>
