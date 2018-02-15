@@ -20,7 +20,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 if (USERROLE_USER == $auth_userrole_id)
 {
-    $where = "`forummessage_user_id`=$auth_user_id";
+    $where = "AND `forummessage_user_id`=$auth_user_id";
 }
 else
 {
