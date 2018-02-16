@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $auth_country_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$page = (int) f_igosja_request_get('page'))
@@ -10,6 +14,15 @@ if (!$page = (int) f_igosja_request_get('page'))
 $limit  = 10;
 $offset = ($page - 1) * $limit;
 
+if (isset($auth_country_id))
+{
+    $country = '(0, ' . $auth_country_id . ')';
+}
+else
+{
+    $country = '(0)';
+}
+
 $sql = "UPDATE `vote`
         SET `vote_votestatus_id`=" . VOTESTATUS_CLOSE . "
         WHERE `vote_votestatus_id`=" . VOTESTATUS_OPEN . "
@@ -19,6 +32,7 @@ f_igosja_mysqli_query($sql);
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `user_id`,
                `user_login`,
+               `vote_country_id`,
                `vote_id`,
                `vote_text`,
                `votestatus_name`
@@ -27,7 +41,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ON `vote_votestatus_id`=`votestatus_id`
         LEFT JOIN `user`
         ON `vote_user_id`=`user_id`
-        WHERE `vote_country_id`=0
+        WHERE `vote_country_id` IN $country
         AND `votestatus_id`>" . VOTESTATUS_NEW . "
         ORDER BY `votestatus_id` ASC, `vote_id` DESC
         LIMIT $offset, $limit";

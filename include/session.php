@@ -128,7 +128,7 @@ if (isset($_SESSION['user_id']))
     $sql = "SELECT COUNT(`vote_id`) AS `count`
             FROM `vote`
             WHERE `vote_votestatus_id`=" . VOTESTATUS_OPEN . "
-            AND `vote_country_id`=0
+            AND `vote_country_id` IN (0, $auth_country_id)
             AND `vote_id`>
             (
                 SELECT IF(MAX(`voteuser_vote_id`) IS NULL, 0, MAX(`voteuser_vote_id`))
