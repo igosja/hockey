@@ -245,7 +245,7 @@
                     </a>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
-                <th class="hidden-xs" title="Номиральная сила">НС</th>
+                <th class="hidden-xs" title="Номинальная сила">НС</th>
                 <th title="Реальная сила">РС</th>
                 <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
                 <th class="hidden-xs" title="Броски">Б</th>
@@ -306,7 +306,7 @@
                     </a>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
-                <th class="hidden-xs" title="Номиральная сила">НС</th>
+                <th class="hidden-xs" title="Номинальная сила">НС</th>
                 <th title="Реальная сила">РС</th>
                 <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
                 <th class="hidden-xs" title="Броски">Б</th>
