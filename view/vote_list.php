@@ -42,7 +42,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                            <a href="/<?php if (0 != $item['vote_country_id']) { ?>country_<?php } ?>vote.php?num=<?= $item['vote_id']; ?>">
+                            <a href="/<?php if (0 != $item['vote_country_id']) { ?>country_<?php } ?>vote.php?num=<?php if (0 != $item['vote_country_id']) { ?><?= $item['vote_country_id']; ?>&vote_id=<?php } ?><?= $item['vote_id']; ?>">
                                 <span class="strong"><?= $item['vote_text']; ?></span>
                             </a>
                         </div>
