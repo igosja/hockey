@@ -47,64 +47,70 @@
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Игрок</th>
-                <th title="Позиция">Поз</th>
-                <th title="Возраст">В</th>
-                <th title="Номинальная сила">С</th>
-                <?php foreach ($schedule_array as $item) { ?>
-                    <th>
-                        <img
-                            alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                            src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                            title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                        />
-                    </th>
-                <?php } ?>
-            </tr>
-            <?php foreach ($player_array as $item) { ?>
-                <tr class="phisical-change-row">
-                    <td>
-                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                            <?= $item['name_name']; ?>&nbsp;<?= $item['surname_name']; ?>
-                        </a>
-                    </td>
-                    <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
-                    <td class="text-center"><?= $item['player_age']; ?></td>
-                    <td class="text-center"><?= $item['player_power_nominal']; ?></td>
-                    <?php foreach ($item['phisical_array'] as $phisical) { ?>
-                        <td
-                            class="text-center <?= $phisical['class']; ?>"
-                            data-phisical="<?= $phisical['phisical_id']; ?>"
-                            data-player="<?= $phisical['player_id']; ?>"
-                            data-schedule="<?= $phisical['schedule_id']; ?>"
-                            id="<?= $phisical['id']; ?>"
-                        >
+        <table class="table table-bordered table-hover" id="grid">
+            <thead>
+                <tr>
+                    <th data-type="player">Игрок</th>
+                    <th data-type="position" title="Позиция">Поз</th>
+                    <th data-type="number" title="Возраст">В</th>
+                    <th data-type="number" title="Номинальная сила">С</th>
+                    <?php foreach ($schedule_array as $item) { ?>
+                        <th>
                             <img
-                                alt="<?= $phisical['phisical_name']; ?>"
-                                src="/img/phisical/<?= $phisical['phisical_id']; ?>.png"
-                                title="<?= $phisical['phisical_name']; ?>"
+                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
+                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
                             />
-                        </td>
+                        </th>
                     <?php } ?>
                 </tr>
-            <?php } ?>
-            <tr>
-                <th>Игрок</th>
-                <th title="Позиция">Поз</th>
-                <th title="Возраст">В</th>
-                <th title="Номинальная сила">С</th>
-                <?php foreach ($schedule_array as $item) { ?>
-                    <th>
-                        <img
-                            alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                            src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                            title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                        />
-                    </th>
-                <?php } ?>
-            </tr>
+            </thead>
+            <tbody>
+                <?php $i=0; foreach ($player_array as $item) { ?>
+                    <tr class="phisical-change-row" data-order="<?= $i; ?>">
+                        <td>
+                            <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                <?= $item['name_name']; ?>&nbsp;<?= $item['surname_name']; ?>
+                            </a>
+                        </td>
+                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
+                        <td class="text-center"><?= $item['player_age']; ?></td>
+                        <td class="text-center"><?= $item['player_power_nominal']; ?></td>
+                        <?php foreach ($item['phisical_array'] as $phisical) { ?>
+                            <td
+                                class="text-center <?= $phisical['class']; ?>"
+                                data-phisical="<?= $phisical['phisical_id']; ?>"
+                                data-player="<?= $phisical['player_id']; ?>"
+                                data-schedule="<?= $phisical['schedule_id']; ?>"
+                                id="<?= $phisical['id']; ?>"
+                            >
+                                <img
+                                    alt="<?= $phisical['phisical_name']; ?>"
+                                    src="/img/phisical/<?= $phisical['phisical_id']; ?>.png"
+                                    title="<?= $phisical['phisical_name']; ?>"
+                                />
+                            </td>
+                        <?php } ?>
+                    </tr>
+                <?php $i++; } ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Игрок</th>
+                    <th title="Позиция">Поз</th>
+                    <th title="Возраст">В</th>
+                    <th title="Номинальная сила">С</th>
+                    <?php foreach ($schedule_array as $item) { ?>
+                        <th>
+                            <img
+                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
+                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                            />
+                        </th>
+                    <?php } ?>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
