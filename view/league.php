@@ -49,8 +49,8 @@
         <?php include(__DIR__ . '/include/league_table_round_link.php'); ?>
     </div>
 </div>
-<?php if (ROUND_SEASON == $round_id) { ?>
-    <?php include(__DIR__ . '/include/league_season.php'); ?>
+<?php if (ROUND_GROUP == $round_id) { ?>
+    <?php include(__DIR__ . '/include/league_group.php'); ?>
 <?php } else { ?>
     <?php include(__DIR__ . '/include/league_playoff.php'); ?>
 <?php } ?>

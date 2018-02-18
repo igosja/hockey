@@ -186,6 +186,8 @@ define('STAGE_1_TOUR', 2);
 define('STAGE_6_TOUR', 7);
 define('STAGE_12_TOUR', 13);
 define('STAGE_30_TOUR', 31);
+define('STAGE_33_TOUR', 34);
+define('STAGE_36_TOUR', 37);
 define('STAGE_41_TOUR', 42);
 define('STAGE_1_QUALIFY', 43);
 define('STAGE_2_QUALIFY', 44);
