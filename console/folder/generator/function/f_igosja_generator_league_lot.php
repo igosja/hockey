@@ -70,8 +70,11 @@ function f_igosja_generator_league_lot()
                     $team_2_id      = $team_array[$i+1]['team_id'];
                     $stadium_1_id   = $team_array[$i]['stadium_id'];
                     $stadium_2_id   = $team_array[$i+1]['stadium_id'];
-                    $game_1_array[] = '(' . $team_2_id . ',' . $team_1_id . ',' . $schedule_1 . ',' . $stadium_1_id . ')';
-                    $game_2_array[] = '(' . $team_1_id . ',' . $team_2_id . ',' . $schedule_2 . ',' . $stadium_2_id . ')';
+
+                    $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
+                            VALUES ($team_2_id, $team_1_id, $schedule_1, $stadium_1_id),
+                                   ($team_1_id, $team_2_id, $schedule_2, $stadium_2_id);";
+                    f_igosja_mysqli_query($sql);
                 }
             }
         }
@@ -125,8 +128,11 @@ function f_igosja_generator_league_lot()
                     $team_2_id      = $team_array[$i+1]['team_id'];
                     $stadium_1_id   = $team_array[$i]['stadium_id'];
                     $stadium_2_id   = $team_array[$i+1]['stadium_id'];
-                    $game_1_array[] = '(' . $team_2_id . ',' . $team_1_id . ',' . $schedule_1 . ',' . $stadium_1_id . ')';
-                    $game_2_array[] = '(' . $team_1_id . ',' . $team_2_id . ',' . $schedule_2 . ',' . $stadium_2_id . ')';
+
+                    $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
+                            VALUES ($team_2_id, $team_1_id, $schedule_1, $stadium_1_id),
+                                   ($team_1_id, $team_2_id, $schedule_2, $stadium_2_id);";
+                    f_igosja_mysqli_query($sql);
                 }
             }
         }
@@ -151,10 +157,11 @@ function f_igosja_generator_league_lot()
                         ON `participantleague_team_id`=`team_id`
                         LEFT JOIN `stadium`
                         ON `team_stadium_id`=`stadium_id`
+                        LEFT JOIN `city`
+                        ON `stadium_city_id`=`city_id`
                         WHERE `participantleague_season_id`=$igosja_season_id
-                        AND `participantleague_stage_in` IN (" . STAGE_1_QUALIFY . ", " . STAGE_2_QUALIFY . ", " . STAGE_3_QUALIFY . ")
                         AND `participantleague_stage_id`=0
-                        ORDER BY `team_power_vs`";
+                        ORDER BY `city_country_id` ASC, RAND()";
                 f_igosja_mysqli_query($sql);
 
                 $sql = "UPDATE `league`
@@ -166,7 +173,7 @@ function f_igosja_generator_league_lot()
                 $sql = "SELECT `schedule_id`
                         FROM `schedule`
                         WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`<" . STAGE_6_TOUR . "
+                        AND `schedule_stage_id`<=" . STAGE_6_TOUR . "
                         AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
                         ORDER BY `schedule_id` ASC
                         LIMIT 6";
@@ -306,7 +313,7 @@ function f_igosja_generator_league_lot()
                 $schedule_1 = $stage_array[0]['schedule_id'];
                 $schedule_2 = $stage_array[1]['schedule_id'];
 
-                for ($i=1; $i<=2; $i++)
+                for ($i=1; $i<=4; $i++)
                 {
                     $sql = "SELECT `team_id`,
                                    `team_stadium_id`
@@ -404,12 +411,11 @@ function f_igosja_generator_league_lot()
 
             if (STAGE_FINAL == $check_array[0]['schedule_stage_id'])
             {
-
                 $sql = "SELECT `schedule_id`
                         FROM `schedule`
                         WHERE `schedule_season_id`=$igosja_season_id
                         AND `schedule_stage_id`=" . STAGE_FINAL . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
+                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
                         ORDER BY `schedule_id` ASC
                         LIMIT 2";
                 $stage_sql = f_igosja_mysqli_query($sql);

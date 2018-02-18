@@ -52,6 +52,78 @@ function f_igosja_generator_prize()
                 f_igosja_mysqli_query($sql);
             }
         }
+        elseif (TOURNAMENTTYPE_CONFERENCE == $item['schedule_tournamenttype_id'] && STAGE_33_TOUR == $item['schedule_stage_id'])
+        {
+            $sql = "SELECT `participantchampionship_division_id`,
+                           `participantchampionship_stage_id`,
+                           `team_finance`,
+                           `team_id`
+                    FROM `participantchampionship`
+                    LEFT JOIN `team`
+                    ON `participantchampionship_team_id`=`team_id`
+                    WHERE `participantchampionship_season_id`=$igosja_season_id
+                    AND `participantchampionship_stage_id`=" . STAGE_QUATER;
+            $championship_sql = f_igosja_mysqli_query($sql);
+
+            $championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($championship_array as $championship)
+            {
+                $team_id    = $championship['team_id'];
+                $prize      = round(2000000 * pow(0.98, ($championship['participantchampionship_division_id'] - 1) * 16));
+
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CHAMPIONSHIP,
+                    'finance_team_id' => $team_id,
+                    'finance_value' => $prize,
+                    'finance_value_after' => $championship['team_finance'] + $prize,
+                    'finance_value_before' => $championship['team_finance'],
+                );
+                f_igosja_finance($finance);
+
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`+$prize
+                        WHERE `team_id`=$team_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+            }
+        }
+        elseif (TOURNAMENTTYPE_CONFERENCE == $item['schedule_tournamenttype_id'] && STAGE_36_TOUR == $item['schedule_stage_id'])
+        {
+            $sql = "SELECT `participantchampionship_division_id`,
+                           `participantchampionship_stage_id`,
+                           `team_finance`,
+                           `team_id`
+                    FROM `participantchampionship`
+                    LEFT JOIN `team`
+                    ON `participantchampionship_team_id`=`team_id`
+                    WHERE `participantchampionship_season_id`=$igosja_season_id
+                    AND `participantchampionship_stage_id`=" . STAGE_SEMI;
+            $championship_sql = f_igosja_mysqli_query($sql);
+
+            $championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($championship_array as $championship)
+            {
+                $team_id    = $championship['team_id'];
+                $prize      = round(3000000 * pow(0.98, ($championship['participantchampionship_division_id'] - 1) * 16));
+
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_CHAMPIONSHIP,
+                    'finance_team_id' => $team_id,
+                    'finance_value' => $prize,
+                    'finance_value_after' => $championship['team_finance'] + $prize,
+                    'finance_value_before' => $championship['team_finance'],
+                );
+                f_igosja_finance($finance);
+
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`+$prize
+                        WHERE `team_id`=$team_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+            }
+        }
         elseif (TOURNAMENTTYPE_CONFERENCE == $item['schedule_tournamenttype_id'] && STAGE_41_TOUR == $item['schedule_stage_id'])
         {
             $sql = "SELECT `participantchampionship_division_id`,
@@ -61,22 +133,15 @@ function f_igosja_generator_prize()
                     FROM `participantchampionship`
                     LEFT JOIN `team`
                     ON `participantchampionship_team_id`=`team_id`
-                    WHERE `participantchampionship_season_id`=$igosja_season_id";
+                    WHERE `participantchampionship_season_id`=$igosja_season_id
+                    AND `participantleague_stage_id` IN (" . STAGE_FINAL . ", 0)";
             $championship_sql = f_igosja_mysqli_query($sql);
 
             $championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
 
             foreach ($championship_array as $championship)
             {
-                if (STAGE_QUATER == $championship['participantchampionship_stage_id'])
-                {
-                    $prize = 2000000;
-                }
-                elseif (STAGE_SEMI == $championship['participantchampionship_stage_id'])
-                {
-                    $prize = 3000000;
-                }
-                elseif (STAGE_FINAL == $championship['participantchampionship_stage_id'])
+                if (STAGE_FINAL == $championship['participantchampionship_stage_id'])
                 {
                     $prize = 4000000;
                 }
@@ -171,6 +236,175 @@ function f_igosja_generator_prize()
                         WHERE `team_id`=$team_id
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
+            }
+        }
+        elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && in_array($item['schedule_stage_id'], array(STAGE_1_QUALIFY, STAGE_2_QUALIFY, STAGE_3_QUALIFY, STAGE_1_8_FINAL, STAGE_QUATER, STAGE_SEMI)))
+        {
+            $sql = "SELECT `schedule_stage_id`
+                    FROM `schedule`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')>CURDATE()
+                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
+                    ORDER BY `schedule_id` ASC
+                    LIMIT 1";
+            $next_stage_sql = f_igosja_mysqli_query($sql);
+
+            $next_stage_array = $next_stage_sql->fetch_all(MYSQLI_ASSOC);
+
+            if ($next_stage_array[0]['schedule_stage_id'] != $item['schedule_stage_id'])
+            {
+                $sql = "SELECT `participantleague_stage_id`,
+                               `team_finance`,
+                               `team_id`
+                        FROM `participantleague`
+                        LEFT JOIN `team`
+                        ON `participantleague_team_id`=`team_id`
+                        WHERE `participantleague_season_id`=$igosja_season_id
+                        AND `participantleague_stage_id`=" . $item['schedule_stage_id'];
+                $league_sql = f_igosja_mysqli_query($sql);
+
+                $league_array = $league_sql->fetch_all(MYSQLI_ASSOC);
+
+                foreach ($league_array as $league)
+                {
+                    $team_id = $league['team_id'];
+
+                    if (STAGE_SEMI == $league['participantleague_stage_id'])
+                    {
+                        $prize = 21000000;
+                    }
+                    elseif (STAGE_QUATER == $league['participantleague_stage_id'])
+                    {
+                        $prize = 19000000;
+                    }
+                    elseif (STAGE_1_8_FINAL == $league['participantleague_stage_id'])
+                    {
+                        $prize = 17000000;
+                    }
+                    elseif (STAGE_3_QUALIFY == $league['participantleague_stage_id'])
+                    {
+                        $prize = 9000000;
+                    }
+                    elseif (STAGE_2_QUALIFY == $league['participantleague_stage_id'])
+                    {
+                        $prize = 7000000;
+                    }
+                    else
+                    {
+                        $prize = 5000000;
+                    }
+
+                    $finance = array(
+                        'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_LEAGUE,
+                        'finance_team_id' => $team_id,
+                        'finance_value' => $prize,
+                        'finance_value_after' => $league['team_finance'] + $prize,
+                        'finance_value_before' => $league['team_finance'],
+                    );
+                    f_igosja_finance($finance);
+
+                    $sql = "UPDATE `team`
+                            SET `team_finance`=`team_finance`+$prize
+                            WHERE `team_id`=$team_id
+                            LIMIT 1";
+                    f_igosja_mysqli_query($sql);
+                }
+            }
+        }
+        elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_6_TOUR == $item['schedule_stage_id'])
+        {
+            $sql = "SELECT `participantleague_stage_id`,
+                           `team_finance`,
+                           `team_id`
+                    FROM `participantleague`
+                    LEFT JOIN `team`
+                    ON `participantleague_team_id`=`team_id`
+                    WHERE `participantleague_season_id`=$igosja_season_id
+                    AND `participantleague_stage_id` IN (3, 4)";
+            $league_sql = f_igosja_mysqli_query($sql);
+
+            $league_array = $league_sql->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($league_array as $league)
+            {
+                $team_id = $league['team_id'];
+
+                if (4 == $league['participantleague_stage_id'])
+                {
+                    $prize = 13000000;
+                }
+                else
+                {
+                    $prize = 15000000;
+                }
+
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_LEAGUE,
+                    'finance_team_id' => $team_id,
+                    'finance_value' => $prize,
+                    'finance_value_after' => $league['team_finance'] + $prize,
+                    'finance_value_before' => $league['team_finance'],
+                );
+                f_igosja_finance($finance);
+
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`+$prize
+                        WHERE `team_id`=$team_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+            }
+        }
+        elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_FINAL == $item['schedule_stage_id'])
+        {
+            $sql = "SELECT `schedule_stage_id`
+                    FROM `schedule`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')>CURDATE()
+                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
+                    ORDER BY `schedule_id` ASC
+                    LIMIT 1";
+            $next_stage_sql = f_igosja_mysqli_query($sql);
+
+            if (0 == $next_stage_sql->num_rows)
+            {
+                $sql = "SELECT `participantleague_stage_id`,
+                               `team_finance`,
+                               `team_id`
+                        FROM `participantleague`
+                        LEFT JOIN `team`
+                        ON `participantleague_team_id`=`team_id`
+                        WHERE `participantleague_season_id`=$igosja_season_id
+                        AND `participantleague_stage_id` IN (" . STAGE_FINAL . ", 0)";
+                $league_sql = f_igosja_mysqli_query($sql);
+
+                $league_array = $league_sql->fetch_all(MYSQLI_ASSOC);
+
+                foreach ($league_array as $league)
+                {
+                    $team_id = $league['team_id'];
+
+                    if (STAGE_FINAL == $league['participantleague_stage_id'])
+                    {
+                        $prize = 23000000;
+                    }
+                    else
+                    {
+                        $prize = 25000000;
+                    }
+
+                    $finance = array(
+                        'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_LEAGUE,
+                        'finance_team_id' => $team_id,
+                        'finance_value' => $prize,
+                        'finance_value_after' => $league['team_finance'] + $prize,
+                        'finance_value_before' => $league['team_finance'],
+                    );
+                    f_igosja_finance($finance);
+
+                    $sql = "UPDATE `team`
+                            SET `team_finance`=`team_finance`+$prize
+                            WHERE `team_id`=$team_id
+                            LIMIT 1";
+                    f_igosja_mysqli_query($sql);
+                }
             }
         }
     }

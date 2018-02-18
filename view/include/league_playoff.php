@@ -14,13 +14,13 @@
             <table class="table">
                 <?php foreach ($round['participant'] as $participant) { ?>
                     <tr>
-                        <td class="text-right col-35">
+                        <td class="text-right col-45">
                             <a href="/team_view.php?num=<?= $participant['home_team_id']; ?>">
                                 <?= $participant['home_team_name']; ?>
                                 <span class="hidden-xs">(<?= $participant['home_city_name']; ?>)</span>
                             </a>
                         </td>
-                        <td class="text-center col-30">
+                        <td class="text-center col-10">
                             <?= implode(' | ', $participant['game']); ?>
                         </td>
                         <td>
