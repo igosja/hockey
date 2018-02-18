@@ -89,6 +89,7 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
                `seller_team`.`team_name` AS `seller_team_name`,
                `surname_name`,
                `transfer_age`,
+               `transfer_id`,
                `transfer_date`,
                `transfer_power`,
                `transfer_price_buyer`
