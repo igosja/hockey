@@ -157,7 +157,8 @@ if ($data = f_igosja_request_post('data'))
     {
         if (isset($data['special_field_id']))
         {
-            $special_id = (int) $data['special_field_id'];
+            $special_id     = (int) $data['special_field_id'];
+            $with_special   = 1;
         }
         else
         {
@@ -182,6 +183,8 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $special_sql->num_rows)
     {
+        $with_special = 0;
+
         if (POSITION_GK == $position_id)
         {
             $sql = "SELECT `special_id`
@@ -214,14 +217,25 @@ if ($data = f_igosja_request_post('data'))
 
     $special_array = $special_sql->fetch_all(MYSQLI_ASSOC);
 
+    if (isset($data['with_special']))
+    {
+        $with_special = (int) $data['with_special'];
+    }
+    elseif (isset($with_special))
+    {
+        $with_special = 0;
+    }
+
     $confirm_data['special'] = array(
         'id'    => $special_id,
         'name'  => $special_array[0]['special_name'],
+        'with'  => $with_special,
     );
 
     if (isset($data['style_id']))
     {
-        $style_id = (int) $data['style_id'];
+        $style_id   = (int) $data['style_id'];
+        $with_style = 1;
     }
     else
     {
@@ -236,7 +250,8 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $style_sql->num_rows)
     {
-        $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
+        $with_style = 1;
+        $style_id   = rand(STYLE_POWER, STYLE_TECHNIQUE);
 
         $sql = "SELECT `style_name`
                 FROM `style`
@@ -247,16 +262,28 @@ if ($data = f_igosja_request_post('data'))
 
     $style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
 
+    if (isset($data['with_style']))
+    {
+        $with_style = (int) $data['with_style'];
+    }
+    elseif (isset($with_style))
+    {
+        $with_style = 0;
+    }
+
     $confirm_data['style'] = array(
-        'id' => $style_id,
-        'name' => $style_array[0]['style_name'],
+        'id'    => $style_id,
+        'name'  => $style_array[0]['style_name'],
+        'with'  => $with_style,
     );
 
     if (isset($data['ok']))
     {
         $position_id    = $confirm_data['position']['id'];
         $special_id     = $confirm_data['special']['id'];
+        $with_special   = $confirm_data['special']['with'];
         $style_id       = $confirm_data['style']['id'];
+        $with_style     = $confirm_data['style']['with'];
         $day            = $baseschool_array[0]['baseschool_school_speed'];
 
         $sql = "INSERT INTO `school`
@@ -265,7 +292,9 @@ if ($data = f_igosja_request_post('data'))
                     `school_season_id`=$igosja_season_id,
                     `school_special_id`=$special_id,
                     `school_style_id`=$style_id,
-                    `school_team_id`=$num_get";
+                    `school_team_id`=$num_get,
+                    `school_with_special`=$with_special,
+                    `school_with_style`=$with_style";
         f_igosja_mysqli_query($sql);
 
         $_SESSION['message']['class']   = 'success';
