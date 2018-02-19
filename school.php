@@ -221,7 +221,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $with_special = (int) $data['with_special'];
     }
-    elseif (isset($with_special))
+    elseif (!isset($with_special))
     {
         $with_special = 0;
     }
@@ -266,7 +266,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $with_style = (int) $data['with_style'];
     }
-    elseif (isset($with_style))
+    elseif (!isset($with_style))
     {
         $with_style = 0;
     }
