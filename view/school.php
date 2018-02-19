@@ -80,7 +80,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <input name="data[position_id]" type="hidden" value="<?= $confirm_data['position']['id']; ?>" />
                 <input name="data[special_id]" type="hidden" value="<?= $confirm_data['special']['id']; ?>" />
+                <input name="data[with_special]" type="hidden" value="<?= $confirm_data['special']['with']; ?>" />
                 <input name="data[style_id]" type="hidden" value="<?= $confirm_data['style']['id']; ?>" />
+                <input name="data[with_style]" type="hidden" value="<?= $confirm_data['style']['with']; ?>" />
                 <input name="data[ok]" type="hidden" value="1">
                 <input class="btn margin" type="submit" value="Начать подготовку"/>
                 <a href="/school.php" class="btn margin">Отказаться</a>

@@ -67,6 +67,7 @@ function f_igosja_generator_school()
                     FROM `school`
                     WHERE `school_team_id`=$team_id
                     AND `school_ready`=1
+                    AND `school_with_special`=1
                     AND `school_season_id`=$igosja_season_id";
             $check_sql = f_igosja_mysqli_query($sql);
 
@@ -76,6 +77,16 @@ function f_igosja_generator_school()
             {
                 $special_id = 0;
             }
+
+            $sql = "SELECT COUNT(`school_id`) AS `check`
+                    FROM `school`
+                    WHERE `school_team_id`=$team_id
+                    AND `school_ready`=1
+                    AND `school_with_style`=1
+                    AND `school_season_id`=$igosja_season_id";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
             if ($check_array[0]['check'] >= $with_style)
             {
