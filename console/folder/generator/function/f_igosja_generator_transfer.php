@@ -52,12 +52,12 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            if (0 != $item['transfer_team_buyer_id'])
+            if (!in_array($item['transfer_team_buyer_id'], array(0, $team_id)))
             {
                 $team_array[] = $item['transfer_team_buyer_id'];
             }
 
-            if (0 != $item['transfer_team_seller_id'])
+            if (!in_array($item['transfer_team_seller_id'], array(0, $team_id)))
             {
                 $team_array[] = $item['transfer_team_seller_id'];
             }
@@ -79,12 +79,12 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            if (0 != $item['transfer_user_buyer_id'])
+            if (!in_array($item['transfer_user_buyer_id'], array(0, $user_id)))
             {
                 $user_array[] = $item['transfer_user_buyer_id'];
             }
 
-            if (0 != $item['transfer_user_seller_id'])
+            if (!in_array($item['transfer_user_seller_id'], array(0, $user_id)))
             {
                 $user_array[] = $item['transfer_user_seller_id'];
             }
@@ -106,12 +106,12 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            if (0 != $item['rent_team_buyer_id'])
+            if (!in_array($item['rent_team_buyer_id'], array(0, $team_id)))
             {
                 $team_array[] = $item['rent_team_buyer_id'];
             }
 
-            if (0 != $item['rent_team_seller_id'])
+            if (!in_array($item['rent_team_seller_id'], array(0, $team_id)))
             {
                 $team_array[] = $item['rent_team_seller_id'];
             }
@@ -133,12 +133,12 @@ function f_igosja_generator_transfer()
 
         foreach ($history_array as $item)
         {
-            if (0 != $item['rent_user_buyer_id'])
+            if (!in_array($item['rent_user_buyer_id'], array(0, $user_id)))
             {
                 $user_array[] = $item['rent_user_buyer_id'];
             }
 
-            if (0 != $item['rent_user_seller_id'])
+            if (!in_array($item['rent_user_seller_id'], array(0, $user_id)))
             {
                 $user_array[] = $item['rent_user_seller_id'];
             }

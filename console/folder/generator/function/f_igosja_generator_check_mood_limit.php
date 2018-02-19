@@ -32,7 +32,7 @@ function f_igosja_generator_check_mood_limit()
         $home_team_id       = $game['game_home_team_id'];
         $tournamenttype_id  = $game['schedule_tournamenttype_id'];
 
-        if (MOOD_NORMAL != $home_mood_id)
+        if (MOOD_NORMAL != $home_mood_id || MOOD_NORMAL != $guest_mood_id)
         {
             if (TOURNAMENTTYPE_FRIENDLY == $tournamenttype_id)
             {

@@ -24,6 +24,8 @@ function f_igosja_generator_school()
                    `school_position_id`,
                    `school_special_id`,
                    `school_style_id`,
+                   `school_with_special`,
+                   `school_with_style`,
                    `team_id`,
                    `team_user_id`
             FROM `school`
@@ -48,49 +50,59 @@ function f_igosja_generator_school()
 
     foreach ($school_array as $item)
     {
-        $country_id     = $item['city_country_id'];
-        $position_id    = $item['school_position_id'];
-        $power          = $item['baseschool_power'];
-        $special_id     = $item['school_special_id'];
-        $school_id      = $item['school_id'];
-        $scout_level    = $item['basescout_level'];
-        $style_id       = $item['school_style_id'];
-        $team_id        = $item['team_id'];
-        $tire           = $item['basemedical_tire'];
-        $user_id        = $item['team_user_id'];
-        $with_special   = $item['baseschool_with_special'];
-        $with_style     = $item['baseschool_with_style'];
+        $country_id         = $item['city_country_id'];
+        $position_id        = $item['school_position_id'];
+        $power              = $item['baseschool_power'];
+        $special_id         = $item['school_special_id'];
+        $school_id          = $item['school_id'];
+        $scout_level        = $item['basescout_level'];
+        $style_id           = $item['school_style_id'];
+        $team_id            = $item['team_id'];
+        $tire               = $item['basemedical_tire'];
+        $user_id            = $item['team_user_id'];
+        $with_special       = $item['baseschool_with_special'];
+        $with_style         = $item['baseschool_with_style'];
+        $with_special_db    = $item['school_with_special'];
+        $with_style_db      = $item['school_with_style'];
 
         if ($with_special || $with_style)
         {
-            $sql = "SELECT COUNT(`school_id`) AS `check`
-                    FROM `school`
-                    WHERE `school_team_id`=$team_id
-                    AND `school_ready`=1
-                    AND `school_with_special`=1
-                    AND `school_season_id`=$igosja_season_id";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if ($check_array[0]['check'] >= $with_special)
+            if (0 != $with_special_db)
             {
-                $special_id = 0;
+                $sql = "SELECT COUNT(`school_id`) AS `check`
+                        FROM `school`
+                        WHERE `school_team_id`=$team_id
+                        AND `school_ready`=1
+                        AND `school_with_special`=1
+                        AND `school_season_id`=$igosja_season_id";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($check_array[0]['check'] >= $with_special)
+                {
+                    $special_id         = 0;
+                    $with_special_db    = 0;
+                }
             }
 
-            $sql = "SELECT COUNT(`school_id`) AS `check`
-                    FROM `school`
-                    WHERE `school_team_id`=$team_id
-                    AND `school_ready`=1
-                    AND `school_with_style`=1
-                    AND `school_season_id`=$igosja_season_id";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if ($check_array[0]['check'] >= $with_style)
+            if (0 != $with_style_db)
             {
-                $style_id = rand(STYLE_POWER, STYLE_TECHNIQUE);
+                $sql = "SELECT COUNT(`school_id`) AS `check`
+                        FROM `school`
+                        WHERE `school_team_id`=$team_id
+                        AND `school_ready`=1
+                        AND `school_with_style`=1
+                        AND `school_season_id`=$igosja_season_id";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($check_array[0]['check'] >= $with_style)
+                {
+                    $style_id       = rand(STYLE_POWER, STYLE_TECHNIQUE);
+                    $with_style_db  = 0;
+                }
             }
         }
         else
@@ -191,7 +203,9 @@ function f_igosja_generator_school()
 
         $sql = "UPDATE `school`
                 SET `school_ready`=1,
-                    `school_season_id`=$igosja_season_id
+                    `school_season_id`=$igosja_season_id,
+                    `school_with_special`=$with_special_db,
+                    `school_with_style`=$with_style_db
                 WHERE `school_id`=$school_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
