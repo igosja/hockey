@@ -15,5 +15,5 @@ function f_igosja_deal_date($date)
         $today = $today + 86400;
     }
 
-    return f_igosja_ufu_date(strtotime($today));
+    return f_igosja_ufu_date($today);
 }
