@@ -32,6 +32,7 @@
                 <th class="hidden-xs">Команда</th>
                 <th title="Срок аренды (календарных дней)">Дней</th>
                 <th title="Минимальная запрашиваемая цена за 1 день аренды">Цена</th>
+                <th title="Дата проведения торгов">Торги</th>
             </tr>
             <?php for ($i=0; $i<$count_rent; $i++) { ?>
                 <tr>
@@ -74,6 +75,9 @@
                     <td class="text-right">
                         <?= f_igosja_money_format($rent_array[$i]['rent_price_seller']); ?>
                     </td>
+                    <td class="text-center">
+                        <?= f_igosja_deal_date($rent_array[$i]['rent_date']); ?>
+                    </td>
                 </tr>
             <?php } ?>
             <tr>
@@ -87,6 +91,7 @@
                 <th class="hidden-xs">Команда</th>
                 <th title="Срок аренды (календарных дней)">Дней</th>
                 <th title="Минимальная запрашиваемая цена за 1 день аренды">Цена</th>
+                <th title="Дата проведения торгов">Торги</th>
             </tr>
         </table>
     </div>
