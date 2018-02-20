@@ -31,6 +31,7 @@
                 <th class="hidden-xs">Спец</th>
                 <th class="hidden-xs">Команда</th>
                 <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Дата проведения торгов">Торги</th>
             </tr>
             <?php for ($i=0; $i<$count_transfer; $i++) { ?>
                 <tr>
@@ -70,6 +71,9 @@
                     <td class="text-right">
                         <?= f_igosja_money_format($transfer_array[$i]['transfer_price_seller']); ?>
                     </td>
+                    <td class="text-center">
+                        <?= f_igosja_deal_date($transfer_array[$i]['transfer_date']); ?>
+                    </td>
                 </tr>
             <?php } ?>
             <tr>
@@ -82,6 +86,7 @@
                 <th class="hidden-xs">Спец</th>
                 <th class="hidden-xs">Команда</th>
                 <th title="Минимальная запрашиваемая цена">Цена</th>
+                <th title="Дата проведения торгов">Торги</th>
             </tr>
         </table>
     </div>
