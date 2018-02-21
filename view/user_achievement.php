@@ -25,7 +25,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th title="Сезон" class="col-1">С</th>
+                <th title="Сезон" class="col-5">С</th>
                 <th>Команда</th>
                 <th>Турнир</th>
                 <th class="col-10">Позиция</th>
@@ -40,8 +40,8 @@
                             (<?= $item['city_name']; ?>)
                         </a>
                     </td>
-                    <td><?= $item['tournamenttype_name']; ?></td>
-                    <td class="text-center"><?= $item['achievement_position']; ?></td>
+                    <td><?= f_igosja_achievement_tournament($item); ?></td>
+                    <td class="text-center"><?= f_igosja_achievement_position($item); ?></td>
                 </tr>
             <?php } ?>
             <tr>
