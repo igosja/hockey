@@ -10,12 +10,18 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 include(__DIR__ . '/include/sql/player_view.php');
 
 $sql = "SELECT `achievementplayer_season_id`,
-               `achievementplayer_position`,
+               `achievementplayer_position` AS `achievement_position`,
                `city_name`,
-               `country_id`,
-               `country_name`,
+               `tournament_country`.`country_id` AS `country_id`,
+               `tournament_country`.`country_name` AS `country_name`,
+               `division_id`,
+               `division_name`,
+               `stage_name`,
+               `team_country`.`country_id` AS `team_country_id`,
+               `team_country`.`country_name` AS `team_country_name`,
                `team_id`,
                `team_name`,
+               `tournamenttype_id`,
                `tournamenttype_name`
         FROM `achievementplayer`
         LEFT JOIN `tournamenttype`
@@ -26,8 +32,14 @@ $sql = "SELECT `achievementplayer_season_id`,
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
-        LEFT JOIN `country`
-        ON `city_country_id`=`country_id`
+        LEFT JOIN `country` AS `team_country`
+        ON `city_country_id`=`team_country`.`country_id`
+        LEFT JOIN `division`
+        ON `achievementplayer_division_id`=`division_id`
+        LEFT JOIN `country` AS `tournament_country`
+        ON `achievementplayer_country_id`=`tournament_country`.`country_id`
+        LEFT JOIN `stage`
+        ON `achievementplayer_stage_id`=`stage_id`
         WHERE `achievementplayer_player_id`=$num_get
         ORDER BY `achievementplayer_id` DESC";
 $achievement_sql = f_igosja_mysqli_query($sql);
