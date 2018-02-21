@@ -205,7 +205,7 @@ foreach ($player_schedule_array as $item)
         }
     }
 
-    $chart_array[date('d.m.Y', $item['schedule_date'])] = $player_power;
+    $chart_array['"' . date('d.m.Y', $item['schedule_date']) . '"'] = $player_power;
 }
 
 $x_data = array_keys($chart_array);
