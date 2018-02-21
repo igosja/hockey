@@ -38,7 +38,7 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference)
                 OR `game_guest_team_id`=$home_id)
                 AND `schedule_tournamenttype_id`=$tournamenttype_id
                 AND `schedule_season_id`=$igosja_season_id
-                HAVING COUNT(`game_id`)<=2
+                HAVING COUNT(`game_id`)>2
             )
             ORDER BY RAND()
             LIMIT 1";
