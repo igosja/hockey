@@ -26,13 +26,13 @@ $sql = "SELECT `achievement_season_id`,
                `tournament_country`.`country_name` AS `country_name`,
                `division_id`,
                `division_name`,
-               `team_country`.`country_id` AS `team_county_id`,
-               `team_country`.`country_name` AS `team_county_name`,
+               `stage_name`,
+               `team_country`.`country_id` AS `team_country_id`,
+               `team_country`.`country_name` AS `team_country_name`,
                `team_id`,
                `team_name`,
                `tournamenttype_id`,
-               `tournamenttype_name`,
-               `stage_name`
+               `tournamenttype_name`
         FROM `achievement`
         LEFT JOIN `tournamenttype`
         ON `achievement_tournamenttype_id`=`tournamenttype_id`
