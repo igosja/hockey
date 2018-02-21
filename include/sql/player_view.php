@@ -193,7 +193,7 @@ $player_schedule_array = $player_schedule_sql->fetch_all(MYSQLI_ASSOC);
 
 $chart_array = array();
 
-$player_power = 0;
+$player_power = $player_rating_array[0]['ratingchangeplayer_power'];
 
 foreach ($player_schedule_array as $item)
 {
