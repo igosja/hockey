@@ -28,7 +28,7 @@
                 <tr>
                     <td class="text-center"><?= $item['achievement_season_id']; ?></td>
                     <td><?= f_igosja_achievement_tournament($item); ?></td>
-                    <td class="text-center"><?= f_igosja_achievement_position($item['achievement_position']); ?></td>
+                    <td class="text-center"><?= f_igosja_achievement_position($item); ?></td>
                 </tr>
             <?php } ?>
             <tr>
