@@ -10,16 +10,28 @@ function f_igosja_achievement_tournament($achievement)
 {
     $result = $achievement['tournamenttype_name'];
 
-    if ($achievement['country_name'] || $achievement['division_name'])
+    if (TOURNAMENTTYPE_CHAMPIONSHIP == $achievement['tournamenttype_id'])
+    {
+        if (0 != $achievement['achievement_position'])
+        {
+            $result = $result . ', регулярный сезон';
+        }
+        else
+        {
+            $result = $result . ', плейофф';
+        }
+    }
+
+    if ($achievement['country_id'] || $achievement['division_id'])
     {
         $additional = [];
 
-        if ($achievement['country_name'])
+        if ($achievement['country_id'])
         {
             $additional[] = $achievement['country_name'];
         }
 
-        if ($achievement['division_name'])
+        if ($achievement['division_id'])
         {
             $additional[] = $achievement['division_name'];
         }

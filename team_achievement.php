@@ -26,9 +26,12 @@ include(__DIR__ . '/include/sql/team_view_right.php');
 
 $sql = "SELECT `achievement_position`,
                `achievement_season_id`,
+               `country_id`,
                `country_name`,
+               `division_id`,
                `division_name`,
                `stage_name`,
+               `tournamenttype_id`,
                `tournamenttype_name`
         FROM `achievement`
         LEFT JOIN `tournamenttype`
