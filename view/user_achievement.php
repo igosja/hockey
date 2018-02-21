@@ -34,7 +34,7 @@
                 <tr>
                     <td class="text-center"><?= $item['achievement_season_id']; ?></td>
                     <td>
-                        <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>"/>
+                        <img src="/img/country/12/<?= $item['team_country_id']; ?>.png" title="<?= $item['team_country_name']; ?>"/>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
                             (<?= $item['city_name']; ?>)
