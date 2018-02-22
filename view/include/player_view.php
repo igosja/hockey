@@ -202,6 +202,7 @@
         </div>
     </div>
 </div>
+<?php if (false) { ?>
 <script src="/js/highchart/highcharts.js"></script>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -240,3 +241,4 @@
         </script>
     </div>
 </div>
+<?php } ?>
