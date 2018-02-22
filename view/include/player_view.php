@@ -6,7 +6,9 @@
  * @var $player_array array
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $s_data string
  * @var $style_array array
+ * @var $x_data string
  */
 ?>
 <div class="row margin-top">
@@ -200,3 +202,43 @@
         </div>
     </div>
 </div>
+<?php if (false) { ?>
+<script src="/js/highchart/highcharts.js"></script>
+<div class="row margin-top">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div id="container"></div>
+        <script type="text/javascript">
+            Highcharts.chart('container', {
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Сила игрока',
+                    data: [<?= $s_data; ?>]
+                }],
+                title: {
+                    text: 'Сила игрока'
+                },
+                tooltip: {
+                    headerFormat: 'Дата: <b>{point.key}</b><br/>',
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                xAxis: {
+                    categories: [<?= $x_data; ?>],
+                    title: {
+                        text: 'Дата'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Сила игрока'
+                    }
+                }
+            });
+        </script>
+    </div>
+</div>
+<?php } ?>
