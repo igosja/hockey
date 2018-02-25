@@ -28,7 +28,8 @@ if (isset($_SESSION['user_id']))
     }
 
     $sql = "SELECT `city_country_id`,
-                   `national_id`,
+                   `national`.`national_id` AS `national_id`,
+                   `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
                    `user_date_forum_block`,
                    `user_date_vip`,
@@ -42,8 +43,10 @@ if (isset($_SESSION['user_id']))
             ON `team_stadium_id`=`stadium_id`
             LEFT JOIN `city`
             ON `stadium_city_id`=`city_id`
-            LEFT JOIN `national`
-            ON `user_id`=`national_user_id`
+            LEFT JOIN `national` AS `national`
+            ON `user_id`=`national`.`national_user_id`
+            LEFT JOIN `national` AS `nationalvice`
+            ON `user_id`=`nationalvice`.`national_vice_id`
             WHERE `user_id`=$auth_user_id
             $and_where
             LIMIT 1";
@@ -58,14 +61,15 @@ if (isset($_SESSION['user_id']))
 
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-    $auth_country_id    = $user_array[0]['city_country_id'];
-    $auth_date_forum    = $user_array[0]['user_date_forum_block'];
-    $auth_date_vip      = $user_array[0]['user_date_vip'];
-    $auth_team_id       = $user_array[0]['team_id'];
-    $auth_national_id   = $user_array[0]['national_id'];
-    $auth_user_login    = $user_array[0]['user_login'];
-    $auth_use_bb        = $user_array[0]['user_use_bb'];
-    $auth_userrole_id   = $user_array[0]['user_userrole_id'];
+    $auth_country_id        = $user_array[0]['city_country_id'];
+    $auth_date_forum        = $user_array[0]['user_date_forum_block'];
+    $auth_date_vip          = $user_array[0]['user_date_vip'];
+    $auth_team_id           = $user_array[0]['team_id'];
+    $auth_national_id       = $user_array[0]['national_id'];
+    $auth_nationalvice_id   = $user_array[0]['nationalvice_id'];
+    $auth_user_login        = $user_array[0]['user_login'];
+    $auth_use_bb            = $user_array[0]['user_use_bb'];
+    $auth_userrole_id       = $user_array[0]['user_userrole_id'];
 
     if (!$auth_country_id)
     {

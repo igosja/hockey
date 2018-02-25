@@ -27,10 +27,18 @@
             <tr>
                 <th>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <a href="/team_view.php?num=<?= $game_array[0]['home_team_id']; ?>">
-                            <?= $game_array[0]['home_team_name']; ?>
-                            <?= f_igosja_game_auto($game_array[0]['game_home_auto']); ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $game_array[0]['home_team_id'],
+                                'team_name' => $game_array[0]['home_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $game_array[0]['home_national_name'],
+                                'national_id'   => $game_array[0]['home_national_id'],
+                            ),
+                            false
+                        ); ?>
+                        <?= f_igosja_game_auto($game_array[0]['game_home_auto']); ?>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <?= $game_array[0]['game_home_score']; ?>:<?= $game_array[0]['game_guest_score']; ?>
@@ -51,10 +59,18 @@
                         ?>)
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <a href="/team_view.php?num=<?= $game_array[0]['guest_team_id']; ?>">
-                            <?= $game_array[0]['guest_team_name']; ?>
-                            <?= f_igosja_game_auto($game_array[0]['game_guest_auto']); ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $game_array[0]['guest_team_id'],
+                                'team_name' => $game_array[0]['guest_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $game_array[0]['guest_national_name'],
+                                'national_id'   => $game_array[0]['guest_national_id'],
+                            ),
+                            false
+                        ); ?>
+                        <?= f_igosja_game_auto($game_array[0]['game_guest_auto']); ?>
                     </div>
                 </th>
             </tr>

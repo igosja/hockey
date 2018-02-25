@@ -62,6 +62,9 @@ $sql = "SELECT `game_guest_auto`,
                `game_ticket`,
                `game_visitor`,
                `guest_mood`.`mood_name` AS `guest_mood_name`,
+               `guest_national`.`national_id` AS `guest_national_id`,
+               `guest_country`.`country_name` AS `guest_national_name`,
+               `guest_national`.`national_power_vs` AS `guest_national_power_vs`,
                `guest_rude_1`.`rude_name` AS `guest_rude_1_name`,
                `guest_rude_2`.`rude_name` AS `guest_rude_2_name`,
                `guest_rude_3`.`rude_name` AS `guest_rude_3_name`,
@@ -74,6 +77,9 @@ $sql = "SELECT `game_guest_auto`,
                `guest_team`.`team_id` AS `guest_team_id`,
                `guest_team`.`team_name` AS `guest_team_name`,
                `home_mood`.`mood_name` AS `home_mood_name`,
+               `home_national`.`national_id` AS `home_national_id`,
+               `home_country`.`country_name` AS `home_national_name`,
+               `home_national`.`national_power_vs` AS `home_national_power_vs`,
                `home_rude_1`.`rude_name` AS `home_rude_1_name`,
                `home_rude_2`.`rude_name` AS `home_rude_2_name`,
                `home_rude_3`.`rude_name` AS `home_rude_3_name`,
@@ -93,8 +99,16 @@ $sql = "SELECT `game_guest_auto`,
         FROM `game`
         LEFT JOIN `team` AS `guest_team`
         ON `game_guest_team_id`=`guest_team`.`team_id`
+        LEFT JOIN `national` AS `guest_national`
+        ON `game_guest_national_id`=`guest_national`.`national_id`
+        LEFT JOIN `country` AS `guest_country`
+        ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
         LEFT JOIN `team` AS `home_team`
         ON `game_home_team_id`=`home_team`.`team_id`
+        LEFT JOIN `national` AS `home_national`
+        ON `game_home_national_id`=`home_national`.`national_id`
+        LEFT JOIN `country` AS `home_country`
+        ON `home_national`.`national_country_id`=`home_country`.`country_id`
         LEFT JOIN `schedule`
         ON `game_schedule_id`=`schedule_id`
         LEFT JOIN `tournamenttype`
@@ -188,8 +202,10 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-$home_team_id   = $game_array[0]['home_team_id'];
-$guest_team_id  = $game_array[0]['guest_team_id'];
+$home_team_id       = $game_array[0]['home_team_id'];
+$home_national_id   = $game_array[0]['home_national_id'];
+$guest_team_id      = $game_array[0]['guest_team_id'];
+$guest_national_id  = $game_array[0]['guest_national_id'];
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
@@ -221,6 +237,7 @@ $sql = "SELECT `lineup_age`,
         ON `lineup_team_id`=`team_id`
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$home_team_id
+        AND `lineup_national_id`=$home_national_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
 $home_sql = f_igosja_mysqli_query($sql);
 
@@ -256,6 +273,7 @@ $sql = "SELECT `lineup_age`,
         ON `lineup_team_id`=`team_id`
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$guest_team_id
+        AND `lineup_national_id`=$guest_national_id
         ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
 $guest_sql = f_igosja_mysqli_query($sql);
 
@@ -355,8 +373,8 @@ $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
 
-$seo_title          = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча';
-$seo_description    = $game_array[0]['home_team_name'] . ' - ' . $game_array[0]['guest_team_name'] . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча на сайте Вирутальной Хоккейной Лиги.';
-$seo_keywords       = $game_array[0]['home_team_name'] . ' ' . $game_array[0]['guest_team_name'] . ' ' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . ' результат матча';
+$seo_title          = ($game_array[0]['home_team_id'] ? $game_array[0]['home_team_name'] : $game_array[0]['home_national_name']) . ' - ' . ($game_array[0]['guest_team_id'] ? $game_array[0]['guest_team_name'] : $game_array[0]['guest_national_name']) . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча';
+$seo_description    = ($game_array[0]['home_team_id'] ? $game_array[0]['home_team_name'] : $game_array[0]['home_national_name']) . ' - ' . ($game_array[0]['guest_team_id'] ? $game_array[0]['guest_team_name'] : $game_array[0]['guest_national_name']) . ' (' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . '). Результат матча на сайте Вирутальной Хоккейной Лиги.';
+$seo_keywords       = ($game_array[0]['home_team_id'] ? $game_array[0]['home_team_name'] : $game_array[0]['home_national_name']) . ' - ' . ($game_array[0]['guest_team_id'] ? $game_array[0]['guest_team_name'] : $game_array[0]['guest_national_name']) . ' ' . $game_array[0]['game_home_score'] . ':' . $game_array[0]['game_guest_score'] . ' результат матча';
 
 include(__DIR__ . '/view/layout/main.php');

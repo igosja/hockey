@@ -40,11 +40,35 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         Ник:
-        <?php if ($national_array[0]['user_date_vip'] > time()) { ?>
-            <img src="/img/vip.png" title="VIP" />
-        <?php } ?>
+        <?= f_igosja_user_vip($national_array[0]['user_date_vip']); ?>
         <a class="strong" href="/user_view.php?num=<?= $national_array[0]['user_id']; ?>">
             <?= $national_array[0]['user_login']; ?>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        Заместитель:
+        <?php if (isset($auth_user_id) && $national_array[0]['vice_user_id'] && $national_array[0]['vice_user_id'] != $auth_user_id) { ?>
+            <a href="/dialog.php?num=<?= $national_array[0]['vice_user_id']; ?>">
+                <img src="/img/letter.png" title="Написать письмо" />
+            </a>
+        <?php } ?>
+        <a class="strong" href="/user_view.php?num=<?= $national_array[0]['vice_user_id']; ?>">
+            <?php if ($national_array[0]['vice_user_name'] || $national_array[0]['vice_user_surname']) { ?>
+                <?= $national_array[0]['vice_user_name']; ?> <?= $national_array[0]['vice_user_surname']; ?>
+            <?php } else { ?>
+                Новый менеджер
+            <?php } ?>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        Ник:
+        <?= f_igosja_user_vip($national_array[0]['vice_user_date_vip']); ?>
+        <a class="strong" href="/user_view.php?num=<?= $national_array[0]['vice_user_id']; ?>">
+            <?= $national_array[0]['vice_user_login']; ?>
         </a>
     </div>
 </div>

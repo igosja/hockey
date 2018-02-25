@@ -13,13 +13,17 @@ function f_igosja_generator_team_to_statistic()
                    `game_home_team_id`,
                    `schedule_season_id`,
                    `schedule_stage_id`,
-                   `schedule_tournamenttype_id`
+                   `schedule_tournamenttype_id`,
+                   `worldcup_division_id`
             FROM `game`
             LEFT JOIN `schedule`
             ON `game_schedule_id`=`schedule_id`
             LEFT JOIN `championship`
             ON (`game_home_team_id`=`championship_team_id`
             AND `schedule_season_id`=`championship_season_id`)
+            LEFT JOIN `worldcup`
+            ON (`game_home_national_id`=`worldcup_national_id`
+            AND `schedule_season_id`=`worldcup_season_id`)
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
@@ -48,6 +52,11 @@ function f_igosja_generator_team_to_statistic()
         {
             $country_id = 0;
             $division_id = 0;
+        }
+
+        if (TOURNAMENTTYPE_NATIONAL == $tournamenttype_id)
+        {
+            $division_id = $game['worldcup_division_id'];
         }
 
         if (!$country_id)

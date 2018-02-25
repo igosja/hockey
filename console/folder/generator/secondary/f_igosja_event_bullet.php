@@ -19,6 +19,7 @@ function f_igosja_event_bullet($game_result, $team, $eventtextbullet_id, $player
         'event_guest_score' => $game_result['guest']['team']['score']['total'] + $game_result['guest']['team']['score']['bullet'],
         'event_home_score' => $game_result['home']['team']['score']['total'] + $game_result['home']['team']['score']['bullet'],
         'event_minute' => $game_result['minute'],
+        'event_national_id' => $game_result['game_info'][$team . '_national_id'],
         'event_player_assist_1_id' => 0,
         'event_player_assist_2_id' => 0,
         'event_player_score_id' => $game_result[$team]['player']['field'][$player_key]['player_id'],

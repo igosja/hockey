@@ -28,6 +28,7 @@ function f_igosja_get_player_info($game_result)
                 LEFT JOIN `player`
                 ON `lineup_player_id`=`player_id`
                 WHERE `lineup_game_id`=" . $game_result['game_info']['game_id'] . "
+                AND `lineup_national_id`=" . $game_result['game_info'][$team . '_national_id'] . "
                 AND `lineup_team_id`=" . $game_result['game_info'][$team . '_team_id'] . "
                 ORDER BY `lineup_line_id` ASC, `lineup_position_id` ASC";
         $lineup_sql = f_igosja_mysqli_query($sql);

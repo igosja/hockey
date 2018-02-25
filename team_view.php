@@ -413,13 +413,14 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         }
     }
 
-    if (false)
+    if ($igosja_season_id > 1)
     {
         $sql = "SELECT COUNT(`national_id`) AS `count`
                 FROM `national`
                 LEFT JOIN `country`
                 ON `national_country_id`=`country_id`
                 WHERE `country_id`=$auth_country_id
+                AND `national_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                 AND `national_user_id`=0
                 AND `national_vice_id`=0";
         $check_sql = f_igosja_mysqli_query($sql);
@@ -431,6 +432,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             $sql = "SELECT COUNT(`electionnational_id`) AS `count`
                     FROM `electionnational`
                     WHERE `electionnational_country_id`=$auth_country_id
+                    AND `electionnational_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                     AND `electionnational_electionstatus_id` IN (
                         " . ELECTIONSTATUS_CANDIDATES . ",
                         " . ELECTIONSTATUS_OPEN . "
@@ -452,6 +454,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         $sql = "SELECT `electionnational_electionstatus_id`
                 FROM `electionnational`
                 WHERE `electionnational_country_id`=$auth_country_id
+                AND `electionnational_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                 AND `electionnational_electionstatus_id` IN (
                     " . ELECTIONSTATUS_CANDIDATES . ",
                     " . ELECTIONSTATUS_OPEN . "
@@ -477,6 +480,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                 LEFT JOIN `country`
                 ON `national_country_id`=`country_id`
                 WHERE `country_id`=$auth_country_id
+                AND `national_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                 AND `national_user_id`!=0
                 AND `national_vice_id`=0";
         $check_sql = f_igosja_mysqli_query($sql);
@@ -488,6 +492,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             $sql = "SELECT COUNT(`electionnationalvice_id`) AS `count`
                     FROM `electionnationalvice`
                     WHERE `electionnationalvice_country_id`=$auth_country_id
+                    AND `electionnationalvice_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                     AND `electionnationalvice_electionstatus_id` IN (
                         " . ELECTIONSTATUS_CANDIDATES . ",
                         " . ELECTIONSTATUS_OPEN . "
@@ -509,6 +514,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
         $sql = "SELECT `electionnationalvice_electionstatus_id`
                 FROM `electionnationalvice`
                 WHERE `electionnationalvice_country_id`=$auth_country_id
+                AND `electionnationalvice_nationaltype_id`=" . NATIONALTYPE_MAIN . "
                 AND `electionnationalvice_electionstatus_id` IN (
                     " . ELECTIONSTATUS_CANDIDATES . ",
                     " . ELECTIONSTATUS_OPEN . "

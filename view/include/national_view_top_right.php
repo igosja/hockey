@@ -1,11 +1,18 @@
 <?php
 /**
+ * @var $auth_national_id array
+ * @var $auth_nationalvice_id array
  * @var $latest_array array
  * @var $nearest_array array
  * @var $num_get integer
  */
 ?>
 <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a class="no-underline" href="/national_player.php">
+            <img alt="Изменить состав сборной" src="/img/roster/substitute.png" title="Изменить состав сборной"/>
+        </a>
+    </div>
     <?php foreach ($latest_array as $item) { ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
             <?= f_igosja_ufu_date_time($item['schedule_date']); ?>
@@ -14,8 +21,8 @@
             -
             <?= $item['home_guest']; ?>
             -
-            <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                <?= $item['team_name']; ?>
+            <a href="/national_view.php?num=<?= $item['national_id']; ?>">
+                <?= $item['country_name']; ?>
             </a>
             -
             <a href="/game_view.php?num=<?= $item['game_id']; ?>">
@@ -34,12 +41,12 @@
             -
             <?= $item['home_guest']; ?>
             -
-            <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                <?= $item['team_name']; ?>
+            <a href="/national_view.php?num=<?= $item['national_id']; ?>">
+                <?= $item['country_name']; ?>
             </a>
             -
-            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
-                <a href="/game_send.php?num=<?= $item['game_id']; ?>">
+            <?php if (isset($auth_national_id) && in_array($num_get, array($auth_national_id, $auth_nationalvice_id))) { ?>
+                <a href="/game_send_national.php?num=<?= $item['game_id']; ?>">
                     <?php if ($item['game_tactic_id']) { ?>Ред.<?php } else { ?>Отпр.<?php } ?>
                 </a>
             <?php } else { ?>

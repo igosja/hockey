@@ -29,8 +29,26 @@ function f_igosja_election_national_to_close($electionnational_id)
                        `userrating_user_id`
                 FROM `userrating`
                 WHERE `userrating_season_id`=0
-            ) AS `t3`
+            ) AS `t1`
             ON `user_id`=`userrating_user_id`
+            LEFT JOIN
+            (
+                SELECT `electionnationalapplicationplayer_electionnationalapplication_id`,
+                       SUM(`player_power_nominal_s`) AS `electionnationalapplication_power`
+                FROM `electionnationalapplicationplayer`
+                LEFT JOIN `player`
+                ON `electionnationalapplicationplayer_player_id`=`player_id`
+                WHERE `electionnationalapplicationplayer_electionnationalapplication_id` IN
+                (
+                    SELECT `electionnationalapplication_id`
+                    FROM `electionnational`
+                    LEFT JOIN `electionnationalapplication`
+                    ON `electionnational_id`=`electionnationalapplication_electionnational_id`
+                    WHERE `electionnational_id`=$electionnational_id
+                )
+                GROUP BY `electionnationalapplicationplayer_electionnationalapplication_id`
+            ) AS `t2`
+            ON `electionnationalapplication_id`=`electionnationalapplicationplayer_electionnationalapplication_id`
             WHERE `electionnationalapplication_electionnational_id`=$electionnational_id
             AND `user_id` NOT IN
             (
@@ -100,7 +118,7 @@ function f_igosja_election_national_to_close($electionnational_id)
                 LEFT JOIN `player`
                 ON `electionnationalapplicationplayer_player_id`=`player_id`
                 SET `player_national_id`=$national_id
-                WHERE `electionnationalapplicationplayer_id`=$application_id";
+                WHERE `electionnationalapplicationplayer_electionnationalapplication_id`=$application_id";
         f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `electionnational`

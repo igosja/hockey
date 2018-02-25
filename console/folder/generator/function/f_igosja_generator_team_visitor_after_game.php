@@ -14,6 +14,7 @@ function f_igosja_generator_team_visitor_after_game()
             ON `game_schedule_id`=`schedule_id`
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+            AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_NATIONAL . "
             ORDER BY `game_id` ASC";
     $game_sql = f_igosja_mysqli_query($sql);
 

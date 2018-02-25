@@ -7,6 +7,8 @@ function f_igosja_generator_count_visitor()
 {
     $sql = "SELECT `game_id`,
                    `game_ticket`,
+                   `guest_national`.`national_visitor` AS `guest_national_visitor`,
+                   `home_national`.`national_visitor` AS `home_national_visitor`,
                    `guest_team`.`team_visitor` AS `guest_team_visitor`,
                    `home_team`.`team_visitor` AS `home_team_visitor`,
                    IFNULL(`playerspecial_level`, 0) AS `playerspecial_level`,
@@ -25,6 +27,10 @@ function f_igosja_generator_count_visitor()
             ON `game_guest_team_id`=`guest_team`.`team_id`
             LEFT JOIN `team` AS `home_team`
             ON `game_home_team_id`=`home_team`.`team_id`
+            LEFT JOIN `national` AS `guest_national`
+            ON `game_guest_national_id`=`guest_national`.`national_id`
+            LEFT JOIN `national` AS `home_national`
+            ON `game_home_national_id`=`home_national`.`national_id`
             LEFT JOIN `stadium`
             ON `game_stadium_id`=`stadium_id`
             LEFT JOIN
@@ -65,6 +71,17 @@ function f_igosja_generator_count_visitor()
         $stage_visitor          = $game['stage_visitor'];
         $tournamenttype_id      = $game['tournamenttype_id'];
         $tournamenttype_visitor = $game['tournamenttype_visitor'];
+
+        if (TOURNAMENTTYPE_NATIONAL == $tournamenttype_id)
+        {
+            $guest_visitor  = $game['guest_national_visitor'];
+            $home_visitor   = $game['home_national_visitor'];
+        }
+        else
+        {
+            $guest_visitor  = $game['guest_team_visitor'];
+            $home_visitor   = $game['home_team_visitor'];
+        }
 
         $game_visitor = $stadium_capacity;
         $game_visitor = $game_visitor * $tournamenttype_visitor;

@@ -5,7 +5,9 @@
  */
 function f_igosja_generator_finance_stadium()
 {
-    $sql = "SELECT `game_guest_team_id`,
+    $sql = "SELECT `game_guest_national_id`,
+                   `game_guest_team_id`,
+                   `game_home_national_id`,
                    `game_home_team_id`,
                    `game_ticket`,
                    `game_visitor`,
@@ -30,7 +32,9 @@ function f_igosja_generator_finance_stadium()
 
     foreach ($game_array as $game)
     {
+        $home_national_id   = $game['game_home_national_id'];
         $home_team_id       = $game['game_home_team_id'];
+        $guest_national_id  = $game['game_guest_national_id'];
         $guest_team_id      = $game['game_guest_team_id'];
         $stadium_team_id    = $game['stadium_team_id'];
         $outcome            = $game['stadium_maintenance'];
@@ -95,11 +99,11 @@ function f_igosja_generator_finance_stadium()
                     WHERE `team_id` IN ($home_team_id, $guest_team_id)";
             f_igosja_mysqli_query($sql);
         }
-        elseif (TOURNAMENTTYPE_LEAGUE == $game['schedule_tournamenttype_id'] && STAGE_FINAL == $game['schedule_stage_id'])
+        elseif (TOURNAMENTTYPE_NATIONAL == $game['schedule_tournamenttype_id'])
         {
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$home_team_id
+            $sql = "SELECT `national_finance`
+                    FROM `national`
+                    WHERE `national_id`=$home_national_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -107,16 +111,16 @@ function f_igosja_generator_finance_stadium()
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
-                'finance_team_id' => $home_team_id,
+                'finance_national_id' => $home_national_id,
                 'finance_value' => $income / 3,
-                'finance_value_after' => $finance_array[0]['team_finance'] + $income / 3,
-                'finance_value_before' => $finance_array[0]['team_finance'],
+                'finance_value_after' => $finance_array[0]['national_finance'] + $income / 3,
+                'finance_value_before' => $finance_array[0]['national_finance'],
             );
             f_igosja_finance($finance);
 
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$guest_team_id
+            $sql = "SELECT `national_finance`
+                    FROM `national`
+                    WHERE `national_id`=$guest_national_id
                     LIMIT 1";
             $finance_sql = f_igosja_mysqli_query($sql);
 
@@ -124,12 +128,17 @@ function f_igosja_generator_finance_stadium()
 
             $finance = array(
                 'finance_financetext_id' => FINANCETEXT_INCOME_TICKET,
-                'finance_team_id' => $guest_team_id,
+                'finance_national_id' => $guest_national_id,
                 'finance_value' => $income / 3,
-                'finance_value_after' => $finance_array[0]['team_finance'] + $income / 3,
-                'finance_value_before' => $finance_array[0]['team_finance'],
+                'finance_value_after' => $finance_array[0]['national_finance'] + $income / 3,
+                'finance_value_before' => $finance_array[0]['national_finance'],
             );
             f_igosja_finance($finance);
+
+            $sql = "UPDATE `national`
+                    SET `national_finance`=`national_finance`+$income/3
+                    WHERE `national_id` IN ($home_national_id, $guest_national_id)";
+            f_igosja_mysqli_query($sql);
 
             $sql = "SELECT `team_finance`
                     FROM `team`
@@ -150,7 +159,7 @@ function f_igosja_generator_finance_stadium()
 
             $sql = "UPDATE `team`
                     SET `team_finance`=`team_finance`+$income/3
-                    WHERE `team_id` IN ($home_team_id, $guest_team_id, $stadium_team_id)";
+                    WHERE `team_id`=$stadium_team_id";
             f_igosja_mysqli_query($sql);
         }
         else

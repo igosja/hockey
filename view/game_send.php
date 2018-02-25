@@ -9,6 +9,7 @@
  * @var $line integer
  * @var $lw_array array
  * @var $mood_array array
+ * @var $nationalmood_array array
  * @var $num_get integer
  * @var $player_array array
  * @var $playerposition_array array
@@ -40,9 +41,15 @@
                     <td class="hidden-xs text-center"><?= $item['stage_name']; ?></td>
                     <td class="text-center"><?= $item['home_guest']; ?></td>
                     <td class="text-center">
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
-                            <?= $item['team_name']; ?>
-                        </a>
+                        <?php if (isset($item['team_id'])) { ?>
+                            <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
+                                <?= $item['team_name']; ?>
+                            </a>
+                        <?php } else { ?>
+                            <a href="/national_view.php?num=<?= $item['national_id']; ?>" target="_blank">
+                                <?= $item['country_name']; ?>
+                            </a>
+                        <?php } ?>
                     </td>
                     <td class="text-center">
                         <a href="/game_preview.php?num=<?= $item['game_id']; ?>" target="_blank">
@@ -74,7 +81,7 @@
                 id="ticket"
                 name="data[ticket]"
                 value="<?= $current_array[0]['game_ticket'] ? $current_array[0]['game_ticket'] : 20; ?>"
-                <?php if ($auth_team_id == $current_array[0]['game_guest_team_id']) { ?>
+                <?php if ((isset($current_array[0]['game_guest_team_id']) && $auth_team_id == $current_array[0]['game_guest_team_id']) || (isset($current_array[0]['game_guest_national_id']) && $auth_national_id == $current_array[0]['game_guest_national_id'])) { ?>
                     disabled
                 <?php } ?>
             />
@@ -93,15 +100,15 @@
                         <?php if ($current_array[0]['game_mood_id'] == $item['mood_id']) { ?>
                             selected
                         <?php } ?>
-                        <?php if ((MOOD_SUPER == $item['mood_id'] && $teammood_array[0]['team_mood_super'] <= 0) || (MOOD_REST == $item['mood_id'] && $teammood_array[0]['team_mood_rest'] <= 0) || (MOOD_NORMAL != $item['mood_id'] && TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'])) { ?>
+                        <?php if ((MOOD_SUPER == $item['mood_id'] && ((isset($teammood_array) && $teammood_array[0]['team_mood_super'] <= 0) || (isset($nationalmood_array) && $nationalmood_array[0]['national_mood_super'] <= 0))) || (MOOD_REST == $item['mood_id'] && ((isset($teammood_array) && $teammood_array[0]['team_mood_rest'] <= 0) || (isset($nationalmood_array) && $nationalmood_array[0]['national_mood_rest'] <= 0))) || (MOOD_NORMAL != $item['mood_id'] && TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'])) { ?>
                             disabled
                         <?php } ?>
                     >
                         <?= $item['mood_name']; ?>
                         <?php if (MOOD_SUPER == $item['mood_id']) { ?>
-                            (<?= $teammood_array[0]['team_mood_super']; ?>)
+                            (<?php if (isset($teammood_array)) { print $teammood_array[0]['team_mood_super']; } else { print $nationalmood_array[0]['national_mood_super']; } ?>)
                         <?php } elseif (MOOD_REST == $item['mood_id']) { ?>
-                            (<?= $teammood_array[0]['team_mood_rest']; ?>)
+                            (<?php if (isset($teammood_array)) { print $teammood_array[0]['team_mood_rest']; } else { print $nationalmood_array[0]['national_mood_rest']; } ?>)
                         <?php } ?>
                     </option>
                 <?php } ?>

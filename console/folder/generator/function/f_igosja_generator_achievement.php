@@ -37,6 +37,24 @@ function f_igosja_generator_achievement()
                     WHERE `offseason_season_id`=$igosja_season_id";
             f_igosja_mysqli_query($sql);
         }
+        elseif (TOURNAMENTTYPE_NATIONAL == $item['schedule_tournamenttype_id'] && STAGE_11_TOUR == $item['schedule_stage_id'])
+        {
+            $sql = "INSERT INTO `achievement` (`achievement_position`, `achievement_season_id`, `achievement_national_id`, `achievement_tournamenttype_id`, `achievement_user_id`)
+                    SELECT `worldcup_place`, $igosja_season_id, `national_id`, " . TOURNAMENTTYPE_NATIONAL . ", `national_user_id`
+                    FROM `worldcup`
+                    LEFT JOIN `national`
+                    ON `worldcup_national_id`=`national_id`
+                    WHERE `worldcup_season_id`=$igosja_season_id";
+            f_igosja_mysqli_query($sql);
+
+            $sql = "INSERT INTO `achievementplayer` (`achievementplayer_player_id`, `achievementplayer_position`, `achievementplayer_season_id`, `achievementplayer_national_id`, `achievementplayer_tournamenttype_id`)
+                    SELECT `nationalplayerday_player_id`, `worldcup_place`, $igosja_season_id, `nationalplayerday_national_id`, " . TOURNAMENTTYPE_NATIONAL . "
+                    FROM `nationalplayerday`
+                    LEFT JOIN `worldcup`
+                    ON `nationalplayerday_national_id`=`worldcup_national_id`
+                    WHERE `worldcup_season_id`=$igosja_season_id";
+            f_igosja_mysqli_query($sql);
+        }
         elseif (TOURNAMENTTYPE_CONFERENCE == $item['schedule_tournamenttype_id'] && STAGE_41_TOUR == $item['schedule_stage_id'])
         {
             $sql = "INSERT INTO `achievement` (`achievement_country_id`, `achievement_division_id`, `achievement_is_playoff`, `achievement_season_id`, `achievement_stage_id`, `achievement_team_id`, `achievement_tournamenttype_id`, `achievement_user_id`)
