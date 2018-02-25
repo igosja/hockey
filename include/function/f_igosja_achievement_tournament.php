@@ -24,7 +24,7 @@ function f_igosja_achievement_tournament($achievement)
 
     if ($achievement['country_id'] || $achievement['division_id'])
     {
-        $additional = [];
+        $additional = array();
 
         if ($achievement['country_id'])
         {

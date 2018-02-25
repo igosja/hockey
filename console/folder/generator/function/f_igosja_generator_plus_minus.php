@@ -1029,7 +1029,7 @@ function f_igosja_generator_plus_minus()
             $guest_total = -5;
         }
 
-        $home_total  = $home_competition + $home_mood + $home_optimality_1 + $home_optimality_2 + $home_power + $home_score;
+        $home_total = $home_competition + $home_mood + $home_optimality_1 + $home_optimality_2 + $home_power + $home_score;
 
         if ($home_total > 5)
         {
@@ -1038,6 +1038,19 @@ function f_igosja_generator_plus_minus()
         elseif ($home_total < -5)
         {
             $home_total = -5;
+        }
+
+        if (TOURNAMENTTYPE_NATIONAL == $tournamenttype_id)
+        {
+            if ($home_total < 0)
+            {
+                $home_total = 0;
+            }
+
+            if ($guest_total < 0)
+            {
+                $guest_total = 0;
+            }
         }
 
         $sql = "UPDATE `game`

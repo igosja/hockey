@@ -153,15 +153,15 @@ function f_igosja_generator_standing_place()
                     GROUP BY `worldcup_division_id`
                     ORDER BY `worldcup_division_id` ASC";
             $division_sql = f_igosja_mysqli_query($sql);
-            
+
             $division_array = $division_sql->fetch_all(MYSQLI_ASSOC);
-            
+
             foreach ($division_array as $division)
             {
                 $sql = "SELECT `worldcup_id`
                         FROM `worldcup`
                         WHERE `worldcup_season_id`=" . $schedule['schedule_season_id'] . "
-                        AND `worldcup_division_id`=" . $division['division_id'] . "
+                        AND `worldcup_division_id`=" . $division['worldcup_division_id'] . "
                         ORDER BY `worldcup_point` DESC, `worldcup_win` DESC, `worldcup_win_over` DESC, `worldcup_win_bullet` DESC, `worldcup_loose_bullet` DESC, `worldcup_loose_over` DESC, `worldcup_score`-`worldcup_pass` DESC, `worldcup_score` DESC, `worldcup_national_id` ASC";
                 $worldcup_sql = f_igosja_mysqli_query($sql);
 

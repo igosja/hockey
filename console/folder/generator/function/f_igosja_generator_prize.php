@@ -238,6 +238,42 @@ function f_igosja_generator_prize()
                 f_igosja_mysqli_query($sql);
             }
         }
+        elseif (TOURNAMENTTYPE_NATIONAL == $item['schedule_tournamenttype_id'] && STAGE_11_TOUR == $item['schedule_stage_id'])
+        {
+            $sql = "SELECT `worldcup_division_id`,
+                           `worldcup_place`,
+                           `national_finance`,
+                           `national_id`
+                    FROM `worldcup`
+                    LEFT JOIN `national`
+                    ON `worldcup_national_id`=`national_id`
+                    WHERE `worldcup_season_id`=$igosja_season_id
+                    ORDER BY `worldcup_id` ASC";
+            $worldcup_sql = f_igosja_mysqli_query($sql);
+
+            $worldcup_array = $worldcup_sql->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($worldcup_array as $worldcup)
+            {
+                $national_id    = $worldcup['national_id'];
+                $prize          = round(25000000 * pow(0.98, ($worldcup['worldcup_place'] - 1) + ($worldcup['worldcup_division_id'] - 1) * 12));
+
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_PRIZE_WORLDCUP,
+                    'finance_national_id' => $national_id,
+                    'finance_value' => $prize,
+                    'finance_value_after' => $worldcup['national_finance'] + $prize,
+                    'finance_value_before' => $worldcup['national_finance'],
+                );
+                f_igosja_finance($finance);
+
+                $sql = "UPDATE `national`
+                        SET `national_finance`=`national_finance`+$prize
+                        WHERE `national_id`=$national_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+            }
+        }
         elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && in_array($item['schedule_stage_id'], array(STAGE_1_QUALIFY, STAGE_2_QUALIFY, STAGE_3_QUALIFY, STAGE_1_8_FINAL, STAGE_QUATER, STAGE_SEMI)))
         {
             $sql = "SELECT `schedule_stage_id`

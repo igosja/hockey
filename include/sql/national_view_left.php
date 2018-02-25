@@ -5,22 +5,30 @@
  * @var $num_get integer
  */
 
-$sql = "SELECT `country_name`,
+$sql = "SELECT `country_id`,
+               `country_name`,
                `division_id`,
                `division_name`,
                `national_finance`,
                `nationaltype_name`,
                `stadium_capacity`,
                `stadium_name`,
-               `user_date_vip`,
-               `user_id`,
-               `user_login`,
-               `user_name`,
-               `user_surname`,
+               `coach`.`user_date_vip` AS `user_date_vip`,
+               `coach`.`user_id` AS `user_id`,
+               `coach`.`user_login` AS `user_login`,
+               `coach`.`user_name` AS `user_name`,
+               `coach`.`user_surname` AS `user_surname`,
+               `vice`.`user_date_vip` AS `vice_user_date_vip`,
+               `vice`.`user_id` AS `vice_user_id`,
+               `vice`.`user_login` AS `vice_user_login`,
+               `vice`.`user_name` AS `vice_user_name`,
+               `vice`.`user_surname` AS `vice_user_surname`,
                `worldcup_place`
         FROM `national`
-        LEFT JOIN `user`
-        ON `national_user_id`=`user_id`
+        LEFT JOIN `user` AS `coach`
+        ON `national_user_id`=`coach`.`user_id`
+        LEFT JOIN `user` AS `vice`
+        ON `national_vice_id`=`vice`.`user_id`
         LEFT JOIN `country`
         ON `national_country_id`=`country_id`
         LEFT JOIN `nationaltype`
@@ -45,7 +53,7 @@ $sql = "SELECT `country_name`,
                    `stadium_name`
             FROM `stadium`
             LEFT JOIN `city`
-            ON `stadium_city_id`
+            ON `stadium_city_id`=`city_id`
             LEFT JOIN `national`
             ON `city_country_id`=`national_country_id`
             WHERE `national_id`=$num_get

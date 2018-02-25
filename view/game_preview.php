@@ -76,30 +76,57 @@
                 Прогноз на матч
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                <table class="table table-bordered">
-                    <tr>
-                        <td
-                            class="text-center
-                            <?php if ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
-                                font-green
-                            <?php } elseif ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
-                                font-red
-                            <?php } ?>"
-                        >
-                            <?= $game_array[0]['home_team_power_vs']; ?>
-                        </td>
-                        <td
-                            class="text-center
-                            <?php if ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
-                                font-green
-                            <?php } elseif ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
-                                font-red
-                            <?php } ?>"
-                        >
-                            <?= $game_array[0]['guest_team_power_vs']; ?>
-                        </td>
-                    </tr>
-                </table>
+                <?php if (0 != $game_array[0]['home_team_id']) { ?>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td
+                                class="text-center
+                                <?php if ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
+                                    font-green
+                                <?php } elseif ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $game_array[0]['home_team_power_vs']; ?>
+                            </td>
+                            <td
+                                class="text-center
+                                <?php if ($game_array[0]['home_team_power_vs'] < $game_array[0]['guest_team_power_vs']) { ?>
+                                    font-green
+                                <?php } elseif ($game_array[0]['home_team_power_vs'] > $game_array[0]['guest_team_power_vs']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $game_array[0]['guest_team_power_vs']; ?>
+                            </td>
+                        </tr>
+                    </table>
+                <?php } else { ?>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td
+                                class="text-center
+                                <?php if ($game_array[0]['home_national_power_vs'] > $game_array[0]['guest_national_power_vs']) { ?>
+                                    font-green
+                                <?php } elseif ($game_array[0]['home_national_power_vs'] < $game_array[0]['guest_national_power_vs']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $game_array[0]['home_national_power_vs']; ?>
+                            </td>
+                            <td
+                                class="text-center
+                                <?php if ($game_array[0]['home_national_power_vs'] < $game_array[0]['guest_national_power_vs']) { ?>
+                                    font-green
+                                <?php } elseif ($game_array[0]['home_national_power_vs'] > $game_array[0]['guest_national_power_vs']) { ?>
+                                    font-red
+                                <?php } ?>"
+                            >
+                                <?= $game_array[0]['guest_national_power_vs']; ?>
+                            </td>
+                        </tr>
+                    </table>
+                <?php } ?>
             </div>
         </div>
     </div>

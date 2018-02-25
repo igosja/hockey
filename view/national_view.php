@@ -59,9 +59,12 @@
                             <?= $item['surname_name']; ?>
                         </a>
                         <br/>
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                            <?= $item['team_name']; ?>
-                        </a>
+                        <span class="font-grey text-size-3">
+                            <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                                <?= $item['team_name']; ?>
+                                (<?= $item['city_name']; ?>, <?= $item['country_name']; ?>)
+                            </a>
+                        </span>
                     </td>
                     <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                     <td class="text-center"><?= $item['player_age']; ?></td>

@@ -7,6 +7,8 @@ $q[] = 'CREATE TABLE `national`
             `national_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
             `national_country_id` INT(3) DEFAULT 0,
             `national_finance` INT(11) DEFAULT 0,
+            `national_mood_rest` INT(1) DEFAULT 2,
+            `national_mood_super` INT(1) DEFAULT 2,
             `national_nationaltype_id` INT(1) DEFAULT 0,
             `national_power_c_16` INT(5) DEFAULT 0,
             `national_power_c_21` INT(5) DEFAULT 0,

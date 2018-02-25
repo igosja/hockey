@@ -15,18 +15,23 @@ if (!$num_get = (int) f_igosja_request_get('num'))
         redirect('/wrong_page.php');
     }
 
-    if (0 == $auth_national_id)
+    if (0 == $auth_national_id && 0 == $auth_nationalvice_id)
     {
         redirect('/wrong_page.php');
     }
 
-    $num_get = $auth_national_id;
+    if (!$num_get = $auth_national_id)
+    {
+        $num_get = $auth_nationalvice_id;
+    }
 }
 
 include(__DIR__ . '/include/sql/national_view_left.php');
 include(__DIR__ . '/include/sql/national_view_right.php');
 
-$sql = "SELECT `name_name`,
+$sql = "SELECT `city_name`,
+               `country_name`,
+               `name_name`,
                `phisical_id`,
                `phisical_name`,
                `player_age`,
@@ -53,6 +58,12 @@ $sql = "SELECT `name_name`,
         ON `player_id`=`playerspecial_player_id`
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        LEFT JOIN `country`
+        ON `city_country_id`=`country_id`
         WHERE `player_national_id`=$num_get
         ORDER BY `player_position_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
@@ -127,7 +138,7 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
         if (($num_get == $check_game_send_array[0]['game_guest_national_id'] && 0 == $check_game_send_array[0]['game_guest_mood_id']) ||
             ($num_get == $check_game_send_array[0]['game_home_national_id'] && 0 == $check_game_send_array[0]['game_home_mood_id']))
         {
-            $notification_array[] = 'Вы не отправили состав на ближайший <a href="/game_send.php?num=' . $check_game_send_array[0]['game_id'] . '">матч</a> своей команды.';
+            $notification_array[] = 'Вы не отправили состав на ближайший <a href="/game_send_national.php?num=' . $check_game_send_array[0]['game_id'] . '">матч</a> своей команды.';
         }
     }
 

@@ -30,8 +30,8 @@ $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
 $electionnational_id = $electionnational_array[0]['electionnational_id'];
 
-$sql = "SELECT `count_answer`,
-               `electionnational_id`,
+$sql = "SELECT `electionnational_id`,
+               `electionnationalapplication_count`,
                `electionnationalapplication_id`,
                `electionnationalapplication_text`,
                `electionstatus_id`,
@@ -58,15 +58,6 @@ $sql = "SELECT `count_answer`,
         ON `user_id`=`userrating_user_id`
         LEFT JOIN
         (
-            SELECT COUNT(`electionnationaluser_user_id`) AS `count_answer`,
-                   `electionnationaluser_electionnationalapplication_id`
-            FROM `electionnationaluser`
-            WHERE `electionnationaluser_electionnationalapplication_id`=$electionnational_id
-            GROUP BY `electionnationaluser_electionnationalapplication_id`
-        ) AS `t1`
-        ON `electionnationalapplication_id`=`electionnationaluser_electionnationalapplication_id`
-        LEFT JOIN
-        (
             SELECT `electionnationalapplicationplayer_electionnationalapplication_id`,
                    SUM(`player_power_nominal_s`) AS `electionnationalapplication_power`
             FROM `electionnationalapplicationplayer`
@@ -85,7 +76,7 @@ $sql = "SELECT `count_answer`,
         ON `electionnationalapplication_id`=`electionnationalapplicationplayer_electionnationalapplication_id`
         WHERE `electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnational_id`=$electionnational_id
-        ORDER BY `count_answer` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC";
+        ORDER BY `electionnationalapplication_count` DESC, `userrating_rating` DESC, `electionnationalapplication_power` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC";
 $electionnational_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $electionnational_sql->num_rows)
@@ -128,6 +119,12 @@ if ($data = f_igosja_request_post('data'))
                 `electionnationaluser_date`=UNIX_TIMESTAMP(),
                 `electionnationaluser_user_id`=$auth_user_id,
                 `electionnationaluser_electionnational_id`=$electionnational_id";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `electionnationalapplication`
+            SET `electionnationalapplication_count`=`electionnationalapplication_count`+1
+            WHERE `electionnationalapplication_id`=$answer
+            LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     $_SESSION['message']['class']   = 'success';

@@ -11,6 +11,7 @@ function f_igosja_generator_game_result()
                    `game_bonus_home`,
                    `game_guest_auto`,
                    `game_guest_mood_id`,
+                   `game_guest_national_id`,
                    `game_guest_rude_1_id`,
                    `game_guest_rude_2_id`,
                    `game_guest_rude_3_id`,
@@ -23,6 +24,7 @@ function f_igosja_generator_game_result()
                    `game_guest_team_id`,
                    `game_home_auto`,
                    `game_home_mood_id`,
+                   `game_home_national_id`,
                    `game_home_rude_1_id`,
                    `game_home_rude_2_id`,
                    `game_home_rude_3_id`,
@@ -51,14 +53,16 @@ function f_igosja_generator_game_result()
     {
         $game_id                = $game['game_id'];
         $game_bonus_home        = $game['game_bonus_home'];
+        $game_home_national_id  = $game['game_home_national_id'];
         $game_home_team_id      = $game['game_home_team_id'];
+        $game_guest_national_id = $game['game_guest_national_id'];
         $game_guest_team_id     = $game['game_guest_team_id'];
         $game_stadium_capacity  = $game['game_stadium_capacity'];
         $game_visitor           = $game['game_visitor'];
         $tournamenttype_id      = $game['schedule_tournamenttype_id'];
         $stage_id               = $game['schedule_stage_id'];
 
-        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id, $tournamenttype_id);
+        $game_result = f_igosja_prepare_game_result_array($game_id, $game_home_national_id, $game_home_team_id, $game_guest_national_id, $game_guest_team_id, $tournamenttype_id);
 
         $game_result['guest']['team']['auto']      = $game['game_guest_auto'];
         $game_result['guest']['team']['mood']      = $game['game_guest_mood_id'];
@@ -559,12 +563,13 @@ function f_igosja_generator_game_result()
                         `event_guest_score`=" . $event['event_guest_score'] . ",
                         `event_home_score`=" . $event['event_home_score'] . ",
                         `event_minute`=" . $event['event_minute'] . ",
+                        `event_national_id`=" . $event['event_national_id'] . ",
                         `event_player_assist_1_id`=" . $event['event_player_assist_1_id'] . ",
                         `event_player_assist_2_id`=" . $event['event_player_assist_2_id'] . ",
                         `event_player_penalty_id`=" . $event['event_player_penalty_id'] . ",
                         `event_player_score_id`=" . $event['event_player_score_id'] . ",
                         `event_second`=" . $event['event_second'] . ",
-                        `event_team_id`=" . $event['event_team_id'] . " ";
+                        `event_team_id`=" . $event['event_team_id'];
             f_igosja_mysqli_query($sql);
         }
 
@@ -638,7 +643,8 @@ function f_igosja_generator_game_result()
                        `championship_division_id`,
                        `schedule_season_id`,
                        `schedule_stage_id`,
-                       `schedule_tournamenttype_id`
+                       `schedule_tournamenttype_id`,
+                       `worldcup_division_id`
                 FROM `lineup`
                 LEFT JOIN `game`
                 ON `game_id`=`lineup_game_id`
@@ -647,6 +653,9 @@ function f_igosja_generator_game_result()
                 LEFT JOIN `championship`
                 ON (`lineup_team_id`=`championship_team_id`
                 AND `schedule_season_id`=`championship_season_id`)
+                LEFT JOIN `worldcup`
+                ON (`lineup_national_id`=`worldcup_national_id`
+                AND `schedule_season_id`=`worldcup_season_id`)
                 WHERE `lineup_id`=" . $game_result['guest']['player']['gk']['lineup_id'] . "
                 LIMIT 1";
         $statistic_sql = f_igosja_mysqli_query($sql);
@@ -668,6 +677,11 @@ function f_igosja_generator_game_result()
         {
             $country_id = 0;
             $division_id = 0;
+        }
+
+        if (TOURNAMENTTYPE_NATIONAL == $tournamenttype_id)
+        {
+            $division_id = $statistic_array[0]['worldcup_division_id'];
         }
 
         if (!$country_id)
@@ -708,6 +722,7 @@ function f_igosja_generator_game_result()
                     AND `statisticplayer_country_id`=$country_id
                     AND `statisticplayer_division_id`=$division_id
                     AND `statisticplayer_is_gk`=1
+                    AND `statisticplayer_national_id`=" . $game_result['game_info']['guest_national_id'] . "
                     AND `statisticplayer_player_id`=" . $game_result['guest']['player']['gk']['player_id'] . "
                     AND `statisticplayer_season_id`=$season_id
                     AND `statisticplayer_team_id`=" . $game_result['game_info']['guest_team_id'] . "
@@ -743,6 +758,7 @@ function f_igosja_generator_game_result()
                         AND `statisticplayer_country_id`=$country_id
                         AND `statisticplayer_division_id`=$division_id
                         AND `statisticplayer_is_gk`=0
+                        AND `statisticplayer_national_id`=" . $game_result['game_info']['guest_national_id'] . "
                         AND `statisticplayer_player_id`=" . $player['player_id'] . "
                         AND `statisticplayer_season_id`=$season_id
                         AND `statisticplayer_team_id`=" . $game_result['game_info']['guest_team_id'] . "
@@ -771,6 +787,7 @@ function f_igosja_generator_game_result()
                     AND `statisticplayer_country_id`=$country_id
                     AND `statisticplayer_division_id`=$division_id
                     AND `statisticplayer_is_gk`=1
+                    AND `statisticplayer_national_id`=" . $game_result['game_info']['home_national_id'] . "
                     AND `statisticplayer_player_id`=" . $game_result['home']['player']['gk']['player_id'] . "
                     AND `statisticplayer_season_id`=$season_id
                     AND `statisticplayer_team_id`=" . $game_result['game_info']['home_team_id'] . "
@@ -806,6 +823,7 @@ function f_igosja_generator_game_result()
                         AND `statisticplayer_country_id`=$country_id
                         AND `statisticplayer_division_id`=$division_id
                         AND `statisticplayer_is_gk`=0
+                        AND `statisticplayer_national_id`=" . $game_result['game_info']['home_national_id'] . "
                         AND `statisticplayer_player_id`=" . $player['player_id'] . "
                         AND `statisticplayer_season_id`=$season_id
                         AND `statisticplayer_team_id`=" . $game_result['game_info']['home_team_id'] . "
@@ -832,6 +850,7 @@ function f_igosja_generator_game_result()
                 WHERE `statisticteam_championship_playoff`=$is_playoff
                 AND `statisticteam_country_id`=$country_id
                 AND `statisticteam_division_id`=$division_id
+                AND `statisticteam_national_id`=" . $game_result['game_info']['guest_national_id'] . "
                 AND `statisticteam_season_id`=$season_id
                 AND `statisticteam_team_id`=" . $game_result['game_info']['guest_team_id'] . "
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id
@@ -855,6 +874,7 @@ function f_igosja_generator_game_result()
                 WHERE `statisticteam_championship_playoff`=$is_playoff
                 AND `statisticteam_country_id`=$country_id
                 AND `statisticteam_division_id`=$division_id
+                AND `statisticteam_national_id`=" . $game_result['game_info']['home_national_id'] . "
                 AND `statisticteam_season_id`=$season_id
                 AND `statisticteam_team_id`=" . $game_result['game_info']['home_team_id'] . "
                 AND `statisticteam_tournamenttype_id`=$tournamenttype_id

@@ -3,12 +3,14 @@
 /**
  * Готуємо массив для генерації результату гри
  * @param $game_id integer
+ * @param $game_home_national_id integer
  * @param $game_home_team_id integer
+ * @param $game_guest_national_id integer
  * @param $game_guest_team_id integer
  * @param $tournamenttype_id integer
  * @return array
  */
-function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_guest_team_id, $tournamenttype_id)
+function f_igosja_prepare_game_result_array($game_id, $game_home_national_id, $game_home_team_id, $game_guest_national_id, $game_guest_team_id, $tournamenttype_id)
 {
     $field_player_array = array();
 
@@ -179,8 +181,10 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_team_id, $game_
         'face_off_home'     => 0,
         'game_info'         => array(
             'game_id'           => $game_id,
+            'guest_national_id' => $game_guest_national_id,
             'guest_team_id'     => $game_guest_team_id,
             'home_bonus'        => 1,
+            'home_national_id'  => $game_home_national_id,
             'home_team_id'      => $game_home_team_id,
             'tournamenttype_id' => $tournamenttype_id,
         ),
