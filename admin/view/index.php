@@ -3,6 +3,7 @@
  * @var $complain_array array
  * @var $freeteam_array array
  * @var $logo_array array
+ * @var $payment_array array
  * @var $payment_categories string
  * @var $payment_data string
  * @var $teamask_array array
@@ -150,13 +151,42 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-bar-chart-o fa-fw"></i> Оплаты
             </div>
             <div class="panel-body">
                 <div id="chart-payment"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Оплаты
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <th>Время</th>
+                            <th>Сумма</th>
+                            <th>Пользователь</th>
+                        </tr>
+                        <?php foreach ($payment_array as $item) { ?>
+                            <tr>
+                                <td><?= f_igosja_ufu_date_time($item['payment_date']); ?></td>
+                                <td><?= $item['payment_sum']; ?></td>
+                                <td>
+                                    <a href="/admin/user_view.php?num=<?= $item['user_id']; ?>" target="_blank">
+                                        <?= $item['user_login']; ?>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
