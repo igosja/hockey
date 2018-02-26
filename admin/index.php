@@ -96,7 +96,7 @@ $sql = "SELECT `payment_date`,
         ON `payment_user_id`=`user_id`
         WHERE `payment_status`=1
         ORDER BY `payment_id` DESC
-        LIMIT 15";
+        LIMIT 10";
 $payment_sql = f_igosja_mysqli_query($sql);
 
 $payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
