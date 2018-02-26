@@ -132,7 +132,7 @@ if (0 != $rent_sql->num_rows)
 {
     $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
-    redirect('/rent_view.php?num=' . $transfer_array[0]['transfer_id']);
+    redirect('/rent_view.php?num=' . $rent_array[0]['rent_id']);
 }
 
 redirect('/transfer_view.php?num=' . $num_get);
