@@ -55,8 +55,7 @@ $buildingstadium_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $buildingstadium_sql->num_rows)
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Строительство выбрано неправильно.';
+    f_igosja_session_front_flash_set('error', 'Строительство выбрано неправильно.');
 
     redirect($redirect);
 }
@@ -73,8 +72,7 @@ $finance_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $finance_sql->num_rows)
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Строительство выбрано неправильно.';
+    f_igosja_session_front_flash_set('error', 'Строительство выбрано неправильно.');
 
     redirect($redirect);
 }
@@ -116,8 +114,7 @@ if (1 == f_igosja_request_get('ok'))
     );
     f_igosja_finance($finance);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Строительство успешно отменено.';
+    f_igosja_session_front_flash_set('success', 'Строительство успешно отменено.');
 
     redirect('/stadium_increase.php');
 }

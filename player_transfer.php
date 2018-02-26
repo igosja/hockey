@@ -53,8 +53,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($finance_array[0]['team_finance'] < 0)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя снимать игроков с трансферного рынка, если в команде отрицательный баланс.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя снимать игроков с трансферного рынка, если в команде отрицательный баланс.');
 
                     refresh();
                 }
@@ -74,8 +73,7 @@ if (isset($auth_team_id) && $auth_team_id)
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
-                $_SESSION['message']['class']   = 'success';
-                $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
+                f_igosja_session_front_flash_set('success', 'Игрок успешно снят с трансфера.');
 
                 refresh();
             }
@@ -113,24 +111,21 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if (0 != $player_array[0]['player_national_id'])
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя продать игрока сборной.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя продать игрока сборной.');
 
                     refresh();
                 }
 
                 if ($player_array[0]['player_noaction'] > time())
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.';
+                    f_igosja_session_front_flash_set('error', 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.');
 
                     refresh();
                 }
 
                 if (0 != $player_array[0]['player_rent_team_id'])
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя выставить на трансфер игроков, отданных в данный момент в аренду.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя выставить на трансфер игроков, отданных в данный момент в аренду.');
 
                     refresh();
                 }
@@ -145,8 +140,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($check_array[0]['check'] > 5)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.');
 
                     refresh();
                 }
@@ -194,8 +188,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($check < 2)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Нельзя продать вратаря, если у вас в команде останется менее двух вратарей.';
+                        f_igosja_session_front_flash_set('error', 'Нельзя продать вратаря, если у вас в команде останется менее двух вратарей.');
 
                         refresh();
                     }
@@ -243,8 +236,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($check < 20)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Нельзя продать полевого игрока, если у вас в команде останется менее двадцати полевых игроков.';
+                        f_igosja_session_front_flash_set('error', 'Нельзя продать полевого игрока, если у вас в команде останется менее двадцати полевых игроков.');
 
                         refresh();
                     }
@@ -252,24 +244,21 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($player_array[0]['player_age'] < 19)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя продавать игроков младше 19 лет.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя продавать игроков младше 19 лет.');
 
                     refresh();
                 }
 
                 if ($player_array[0]['player_age'] > 38)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя продавать игроков старше 38 лет.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя продавать игроков старше 38 лет.');
 
                     refresh();
                 }
 
                 if ($transfer_price > $price)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Начальная цена должна быть не меньше ' . f_igosja_money_format($transfer_price) . '.';
+                    f_igosja_session_front_flash_set('error', 'Начальная цена должна быть не меньше ' . f_igosja_money_format($transfer_price) . '.');
 
                     refresh();
                 }
@@ -284,8 +273,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if (0 != $training_array[0]['check'])
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя продать игрока, который находится на тренировке.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя продать игрока, который находится на тренировке.');
 
                     refresh();
                 }
@@ -314,8 +302,7 @@ if (isset($auth_team_id) && $auth_team_id)
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
-                $_SESSION['message']['class']   = 'success';
-                $_SESSION['message']['text']    = 'Игрок успешно выставлен на трансфер.';
+                f_igosja_session_front_flash_set('success', 'Игрок успешно выставлен на трансфер.');
 
                 refresh();
             }
@@ -384,8 +371,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно удалена.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно удалена.');
 
                     redirect('/player_transfer.php?num=' . $num_get);
                 }
@@ -395,8 +381,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($start_price > $price)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
+                        f_igosja_session_front_flash_set('error', 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.');
 
                         refresh();
                     }
@@ -409,8 +394,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно отредактирована.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно отредактирована.');
 
                     refresh();
                 }
@@ -426,8 +410,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($start_price > $price)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
+                        f_igosja_session_front_flash_set('error', 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.');
 
                         refresh();
                     }
@@ -440,8 +423,7 @@ if (isset($auth_team_id) && $auth_team_id)
                                 `transferapplication_user_id`=$auth_user_id";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно сохранена.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно сохранена.');
 
                     refresh();
                 }

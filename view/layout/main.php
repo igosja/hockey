@@ -100,11 +100,11 @@
                 </div>
             </div>
         </noscript>
-        <?php if (isset($_SESSION['message'])) { ?>
+        <?php if (isset($_SESSION['frontend']['message'])) { ?>
             <div class="row margin-top">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert <?= $_SESSION['message']['class']; ?>">
-                    <?= $_SESSION['message']['text']; ?>
-                    <?php unset($_SESSION['message']); ?>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert <?= $_SESSION['frontend']['message']['class']; ?>">
+                    <?= $_SESSION['frontend']['message']['text']; ?>
+                    <?php unset($_SESSION['frontend']['message']); ?>
                 </div>
             </div>
         <?php } ?>

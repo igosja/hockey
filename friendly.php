@@ -77,8 +77,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     if (0 == $check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Команда выбрана неправильно.';
+        f_igosja_session_front_flash_set('error', 'Команда выбрана неправильно.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -94,8 +93,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     if ($check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Эта команда уже организовала товарищеский матч.';
+        f_igosja_session_front_flash_set('error', 'Эта команда уже организовала товарищеский матч.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -111,8 +109,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     if ($check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Вы уже играете матч в этот игровой день.';
+        f_igosja_session_front_flash_set('error', 'Вы уже играете матч в этот игровой день.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -133,8 +130,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
     if ($check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Вы уже играли товарищеский матч с этой командой в этом сезоне.';
+        f_igosja_session_front_flash_set('error', 'Вы уже играли товарищеский матч с этой командой в этом сезоне.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -193,8 +189,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
                 OR `friendlyinvite_guest_team_id`=$auth_team_id)";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Игра успешно организована.';
+        f_igosja_session_front_flash_set('success', 'Игра успешно организована.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -211,8 +206,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
 
         if ($check_array[0]['count'] >= 5)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'На один игровой день можно отправить не более 5 предложений.';
+            f_igosja_session_front_flash_set('error', 'На один игровой день можно отправить не более 5 предложений.');
 
             redirect('/friendly.php?num=' . $num_get);
         }
@@ -230,8 +224,7 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
                     `friendlyinvite_schedule_id`=$num_get";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Приглашение успешно отправлено.';
+        f_igosja_session_front_flash_set('success', 'Приглашение успешно отправлено.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -250,16 +243,14 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
     if (0 == $check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Приглашение выбрано неправильно.';
+        f_igosja_session_front_flash_set('error', 'Приглашение выбрано неправильно.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
 
     if (!in_array($friendlyinivitestatus_id, array(FRIENDLY_INVITE_STATUS_APPROVE, FRIENDLY_INVITE_STATUS_REJECT)))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Действие выбрано неправильно.';
+        f_igosja_session_front_flash_set('error', 'Действие выбрано неправильно.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -273,8 +264,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Приглашение успешно отклонено.';
+        f_igosja_session_front_flash_set('success', 'Приглашение успешно отклонено.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -301,8 +291,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         if ($check_array[0]['count'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Эта команда уже организовала товарищеский матч.';
+            f_igosja_session_front_flash_set('error', 'Эта команда уже организовала товарищеский матч.');
 
             redirect('/friendly.php?num=' . $num_get);
         }
@@ -318,8 +307,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         if ($check_array[0]['count'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Вы уже играете матч в этот игровой день.';
+            f_igosja_session_front_flash_set('error', 'Вы уже играете матч в этот игровой день.');
 
             redirect('/friendly.php?num=' . $num_get);
         }
@@ -340,8 +328,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
 
         if ($check_array[0]['count'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Вы уже играли товарищеский матч с этой командой в этом сезоне.';
+            f_igosja_session_front_flash_set('error', 'Вы уже играли товарищеский матч с этой командой в этом сезоне.');
 
             redirect('/friendly.php?num=' . $num_get);
         }
@@ -386,8 +373,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
                 OR `friendlyinvite_guest_team_id`=$auth_team_id)";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Игра успешно организована.';
+        f_igosja_session_front_flash_set('success', 'Игра успешно организована.');
 
         redirect('/friendly.php?num=' . $num_get);
     }

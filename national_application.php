@@ -70,8 +70,7 @@ $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 != $check_array[0]['check'])
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Можно быть тренером только в одной сборной.';
+    f_igosja_session_front_flash_set('error', 'Можно быть тренером только в одной сборной.');
 
     redirect('/team_view.php');
 }
@@ -268,8 +267,7 @@ if ($data = f_igosja_request_post('data'))
                 VALUES $values;";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
         refresh();
     }

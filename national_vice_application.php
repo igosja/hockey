@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $auth_country_id integer
  * @var $auth_user_id integer
  */
 
@@ -76,8 +77,7 @@ $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
 if (0 != $check_array[0]['check'])
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Можно быть тренером или заместителем тренера только в одной сборной.';
+    f_igosja_session_front_flash_set('error', 'Можно быть тренером или заместителем тренера только в одной сборной.');
 
     redirect('/team_view.php');
 }
@@ -152,8 +152,7 @@ if ($data = f_igosja_request_post('data'))
             $electionnationalviceapplication_id = $mysqli->insert_id;
         }
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
         refresh();
     }

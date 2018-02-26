@@ -23,8 +23,7 @@ if (isset($data['code']))
 
     if (!$user_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Активировать профиль не удалось.';
+        f_igosja_session_front_flash_set('error', 'Активировать профиль не удалось.');
 
         redirect('/activation.php');
     }
@@ -33,8 +32,7 @@ if (isset($data['code']))
 
     if ($user_array[0]['user_date_confirm'])
     {
-        $_SESSION['message']['class']   = 'info';
-        $_SESSION['message']['text']    = 'Профиль уже активирован.';
+        f_igosja_session_front_flash_set('info', 'Профиль уже активирован.');
 
         redirect('/activation.php');
     }
@@ -47,8 +45,7 @@ if (isset($data['code']))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Профиль активирован.';
+    f_igosja_session_front_flash_set('success', 'Профиль успешно активирован.');
 
     refresh();
 }

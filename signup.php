@@ -17,8 +17,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_password = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите пароль.';
+        f_igosja_session_front_flash_set('error', 'Введите пароль.');
 
         refresh();
     }
@@ -37,8 +36,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_login = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите логин.';
+        f_igosja_session_front_flash_set('error', 'Введите логин.');
 
         refresh();
     }
@@ -48,8 +46,7 @@ if ($data = f_igosja_request_post('data'))
 
         if (!$check_login)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Такой логин уже занят.';
+            f_igosja_session_front_flash_set('error', 'Такой логин уже занят.');
 
             refresh();
         }
@@ -65,8 +62,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_email = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите email.';
+        f_igosja_session_front_flash_set('error', 'Введите email.');
 
         refresh();
     }
@@ -76,8 +72,7 @@ if ($data = f_igosja_request_post('data'))
 
         if (!$check_email)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Такой email уже занят.';
+            f_igosja_session_front_flash_set('error', 'Такой email уже занят.');
 
             refresh();
         }
@@ -120,8 +115,7 @@ if ($data = f_igosja_request_post('data'))
         $mail->setHtml($email_text);
         $mail->send();
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Регистрация прошла успешно. Осталось активировать ваш email.';
+        f_igosja_session_front_flash_set('success', 'Регистрация прошла успешно. Осталось активировать ваш email.');
 
         redirect('/activation.php');
     }

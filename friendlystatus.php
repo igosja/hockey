@@ -21,8 +21,7 @@ if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['friendlystatus_id']))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Статус выбран неправильно.';
+        f_igosja_session_front_flash_set('error', 'Статус выбран неправильно.');
     }
 
     $friendlystatus_id = (int) $data['friendlystatus_id'];
@@ -34,8 +33,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $friendlystatus_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Статус выбран неправильно.';
+        f_igosja_session_front_flash_set('error', 'Статус выбран неправильно.');
 
         refresh();
     }
@@ -48,8 +46,7 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+    f_igosja_session_front_flash_set('success', 'Изменения успешно сохранены.');
 
     refresh();
 }

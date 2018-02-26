@@ -73,7 +73,6 @@ $sql = "DELETE FROM `review`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
-$_SESSION['message']['class']   = 'success';
-$_SESSION['message']['text']    = 'Обзор упешно удален.';
+f_igosja_session_front_flash_set('success', 'Обзор упешно удалён.');
 
 redirect('/championship.php?country_id=' . $review_array[0]['review_country_id'] . '&division_id=' . $review_array[0]['review_division_id'] . '&season_id=' . $review_array[0]['review_season_id']);

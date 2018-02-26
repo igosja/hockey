@@ -89,8 +89,7 @@ if ($data = f_igosja_request_post('data'))
     }
 }
 
-$_SESSION['message']['class']   = 'success';
-$_SESSION['message']['text']    = 'Ваш голос успешно сохранён.';
+f_igosja_session_front_flash_set('success', 'Ваш голос успешно сохранён.');
 
 if (1 == $rating)
 {

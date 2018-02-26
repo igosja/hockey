@@ -36,8 +36,7 @@ if ($data = f_igosja_request_post('data'))
             $prepare->execute();
             $prepare->close();
 
-            $_SESSION['message']['class'] = 'success';
-            $_SESSION['message']['text'] = 'Сообщение успешно отправлено.';
+            f_igosja_session_front_flash_set('success', 'Сообщение успешно отправлено.');
         }
     }
 

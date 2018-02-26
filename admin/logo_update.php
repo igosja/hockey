@@ -32,7 +32,6 @@ $sql = "DELETE FROM `logo`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
-$_SESSION['message']['class']   = 'success';
-$_SESSION['message']['text']    = ALERT_SUCCESS;
+f_igosja_session_back_flash_set('success', ALERT_SUCCESS);
 
 redirect('/admin/logo_list.php');

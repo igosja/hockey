@@ -20,8 +20,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
     }
     else
     {
-        $_SESSION['message']['class']   = 'danger';
-        $_SESSION['message']['text']    = 'В группе есть темы';
+        f_igosja_session_back_flash_set('danger', 'В группе есть темы.');
     }
 }
 

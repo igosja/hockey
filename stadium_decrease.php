@@ -126,8 +126,7 @@ if (isset($new_capacity))
             );
             f_igosja_finance($finance);
 
-            $_SESSION['message']['class']   = 'success';
-            $_SESSION['message']['text']    = 'Строительство успешно началось.';
+            f_igosja_session_front_flash_set('success', 'Строительство успешно началось.');
 
             redirect('/stadium_decrease.php');
         }

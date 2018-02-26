@@ -160,8 +160,7 @@ if ($data = f_igosja_request_post('data'))
                 }
                 else
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                    f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                     refresh();
                 }
@@ -247,8 +246,7 @@ if ($data = f_igosja_request_post('data'))
                     }
                     else
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                         refresh();
                     }
@@ -335,8 +333,7 @@ if ($data = f_igosja_request_post('data'))
                     }
                     else
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                         refresh();
                     }
@@ -347,43 +344,37 @@ if ($data = f_igosja_request_post('data'))
 
     if ($on_building)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+        f_igosja_session_front_flash_set('error', 'На базе сейчас идет строительство.');
 
         refresh();
     }
     elseif (count($confirm_data['power']) > $training_available_power)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно баллов для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно баллов для тренировки.');
 
         refresh();
     }
     elseif (count($confirm_data['position']) > $training_available_position)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно совмещений для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно совмещений для тренировки.');
 
         refresh();
     }
     elseif (count($confirm_data['special']) > $training_available_special)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно спецвозможностей для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно спецвозможностей для тренировки.');
 
         refresh();
     }
     elseif (count($player_id_array) != count(array_unique($player_id_array)))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
         refresh();
     }
     elseif ($confirm_data['price'] > $basetraining_array[0]['team_finance'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно денег для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно денег для тренировки.');
 
         refresh();
     }
@@ -503,8 +494,7 @@ if ($data = f_igosja_request_post('data'))
             f_igosja_finance($finance);
         }
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Тренировка успешно началась.';
+        f_igosja_session_front_flash_set('success', 'Тренировка успешно началась.');
 
         refresh();
     }
@@ -537,8 +527,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     if (0 == $cancel_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+        f_igosja_session_front_flash_set('error', 'Игрок выбран неправильно.');
 
         redirect('/training.php');
     }
@@ -601,8 +590,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успешно сохранены.');
 
         redirect('/training.php');
     }

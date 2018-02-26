@@ -35,8 +35,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if ($check_array[0]['base_level'] >= 5)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: база команды достигла 5-го уровня';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: база команды достигла 5-го уровня.');
 
         redirect('/user_re_registration.php');
     }
@@ -50,8 +49,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: в команде находятся арендованные игроки';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: в команде находятся арендованные игроки.');
 
         redirect('/user_re_registration.php');
     }
@@ -66,8 +64,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды находятся в аренде';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: игроки команды находятся в аренде.');
 
         redirect('/user_re_registration.php');
     }
@@ -82,8 +79,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: в команде есть игроки сборной';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: в команде есть игроки сборной.');
 
         redirect('/user_re_registration.php');
     }
@@ -98,24 +94,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
-
-        redirect('/user_re_registration.php');
-    }
-
-    $sql = "SELECT COUNT(`buildingbase_id`) AS `check`
-            FROM `buildingbase`
-            WHERE `buildingbase_team_id`=$auth_team_id
-            AND `buildingbase_ready`=0";
-    $check_sql = f_igosja_mysqli_query($sql);
-
-    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-    if (0 != $check_array[0]['check'])
-    {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: на базе идет строительство.');
 
         redirect('/user_re_registration.php');
     }
@@ -130,24 +109,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
-
-        redirect('/user_re_registration.php');
-    }
-
-    $sql = "SELECT COUNT(`buildingstadium_id`) AS `check`
-            FROM `buildingstadium`
-            WHERE `buildingstadium_team_id`=$auth_team_id
-            AND `buildingstadium_ready`=0";
-    $check_sql = f_igosja_mysqli_query($sql);
-
-    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-    if (0 != $check_array[0]['check'])
-    {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: на базе идет строительство';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: на стадионе идет строительство.');
 
         redirect('/user_re_registration.php');
     }
@@ -162,8 +124,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды выставлены на аренду';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: игроки команды выставлены на аренду.');
 
         redirect('/user_re_registration.php');
     }
@@ -178,8 +139,7 @@ if ($data = f_igosja_request_get('ok'))
 
     if (0 != $check_array[0]['check'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Перерегистрировать нельзя: игроки команды выставлены на продажу';
+        f_igosja_session_front_flash_set('error', 'Перерегистрировать нельзя: игроки команды выставлены на продажу.');
 
         redirect('/user_re_registration.php');
     }
@@ -494,8 +454,7 @@ if ($data = f_igosja_request_get('ok'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Изменения сохранены.';
+    f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
     redirect('/team_view.php');
 }

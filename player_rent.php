@@ -61,8 +61,7 @@ if (isset($auth_team_id) && $auth_team_id)
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
-                $_SESSION['message']['class']   = 'success';
-                $_SESSION['message']['text']    = 'Игрок успешно снят с трансфера.';
+                f_igosja_session_front_flash_set('success', 'Игрок успешно снят с трансфера.');
 
                 refresh();
             }
@@ -105,16 +104,14 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($player_array[0]['player_noaction'] > time())
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.';
+                    f_igosja_session_front_flash_set('error', 'С игроком нельзя совершать никаких действий до ' . f_igosja_ufu_date($player_array[0]['player_noaction']) . '.');
 
                     refresh();
                 }
 
                 if (0 != $player_array[0]['player_rent_team_id'])
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя отдавать в аренду игроков, которые уже находятся в аренде.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдавать в аренду игроков, которые уже находятся в аренде.');
 
                     refresh();
                 }
@@ -136,8 +133,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($check1_array[0]['check'] + $check2_array[0]['check'] > 5)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя отдавать в аренду более пяти игроков из одной команды одновременно.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдавать в аренду более пяти игроков из одной команды одновременно.');
 
                     refresh();
                 }
@@ -185,8 +181,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($check < 2)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Нельзя отдать в аренду вратаря, если у вас в команде останется менее двух вратарей.';
+                        f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду вратаря, если у вас в команде останется менее двух вратарей.');
 
                         refresh();
                     }
@@ -234,8 +229,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($check < 20)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Нельзя отдать в аренду полевого игрока, если у вас в команде останется менее двадцати полевых игроков.';
+                        f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду полевого игрока, если у вас в команде останется менее двадцати полевых игроков.');
 
                         refresh();
                     }
@@ -243,48 +237,42 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if ($player_array[0]['player_age'] < 19)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игроков младше 19 лет.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду игроков младше 19 лет.');
 
                     refresh();
                 }
 
                 if ($player_array[0]['player_age'] > 38)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игроков старше 38 лет.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду игроков старше 38 лет.');
 
                     refresh();
                 }
 
                 if ($rent_price > $price)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Начальная цена должна быть не меньше ' . f_igosja_money_format($rent_price) . '.';
+                    f_igosja_session_front_flash_set('error', 'Начальная цена должна быть не меньше ' . f_igosja_money_format($rent_price) . '.');
 
                     refresh();
                 }
 
                 if ($rent_day_min > $day_min)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Минимальный срок аренды должен быть не меньше ' . $rent_day_min . ' ' . f_igosja_count_case($rent_day_min, 'дня', 'дней', 'дней') . '.';
+                    f_igosja_session_front_flash_set('error', 'Минимальный срок аренды должен быть не меньше ' . $rent_day_min . ' ' . f_igosja_count_case($rent_day_min, 'дня', 'дней', 'дней') . '.');
 
                     refresh();
                 }
 
                 if ($rent_day_max < $day_max)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' ' . f_igosja_count_case($rent_day_max, 'дня', 'дней', 'дней') . '.';
+                    f_igosja_session_front_flash_set('error', 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' ' . f_igosja_count_case($rent_day_max, 'дня', 'дней', 'дней') . '.');
 
                     refresh();
                 }
 
                 if ($day_min > $day_max)
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Максимальный срок аренды должен быть больше минимального.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду игроков младше 19 лет.');
 
                     refresh();
                 }
@@ -299,8 +287,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if (0 != $training_array[0]['check'])
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Нельзя отдать в аренду игрока, который находится на тренировке.';
+                    f_igosja_session_front_flash_set('error', 'Нельзя отдать в аренду игрока, который находится на тренировке.');
 
                     refresh();
                 }
@@ -321,8 +308,7 @@ if (isset($auth_team_id) && $auth_team_id)
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
-                $_SESSION['message']['class']   = 'success';
-                $_SESSION['message']['text']    = 'Игрок успешно выставлен на рынок аренды.';
+                f_igosja_session_front_flash_set('success', 'Игрок успешно выставлен на рынок аренды.');
 
                 refresh();
             }
@@ -397,8 +383,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно удалена.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно удалена.');
 
                     redirect('/player_rent.php?num=' . $num_get);
                 }
@@ -409,24 +394,21 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($start_price > $price)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
+                        f_igosja_session_front_flash_set('error', 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.');
 
                         refresh();
                     }
 
                     if ($rent_day_min > $day)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Минимальный срок аренды должен быть не меньше ' . $rent_day_min . ' ' . f_igosja_count_case($rent_day_min, 'дня', 'дней', 'дней') . '.';
+                        f_igosja_session_front_flash_set('error', 'Минимальный срок аренды должен быть не меньше ' . $rent_day_min . ' ' . f_igosja_count_case($rent_day_min, 'дня', 'дней', 'дней') . '.');
 
                         refresh();
                     }
 
                     if ($rent_day_max < $day)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' ' . f_igosja_count_case($rent_day_max, 'дня', 'дней', 'дней') . '.';
+                        f_igosja_session_front_flash_set('error', 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' ' . f_igosja_count_case($rent_day_max, 'дня', 'дней', 'дней') . '.');
 
                         refresh();
                     }
@@ -440,8 +422,7 @@ if (isset($auth_team_id) && $auth_team_id)
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно отредактирована.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно отредактирована.');
 
                     refresh();
                 }
@@ -461,24 +442,21 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     if ($start_price > $price)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.';
+                        f_igosja_session_front_flash_set('error', 'Цена должна быть не меньше ' . f_igosja_money_format($start_price) . '.');
 
                         refresh();
                     }
 
                     if ($rent_day_min > $day)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Минимальный срок аренды должен быть не меньше ' . $rent_day_min . ' дней.';
+                        f_igosja_session_front_flash_set('error', 'Заявка успешно отредактирована.');
 
                         refresh();
                     }
 
                     if ($rent_day_max < $day)
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' дней.';
+                        f_igosja_session_front_flash_set('error', 'Максимальный срок аренды должен быть не больше ' . $rent_day_max . ' дней.');
 
                         refresh();
                     }
@@ -492,8 +470,7 @@ if (isset($auth_team_id) && $auth_team_id)
                                 `rentapplication_user_id`=$auth_user_id";
                     f_igosja_mysqli_query($sql);
 
-                    $_SESSION['message']['class']   = 'success';
-                    $_SESSION['message']['text']    = 'Заявка успешно сохранена.';
+                    f_igosja_session_front_flash_set('success', 'Заявка успешно сохранена.');
 
                     refresh();
                 }

@@ -68,8 +68,7 @@ if ($data = f_igosja_request_post('data'))
 
         $prepare->close();
 
-        $_SESSION['message']['class'] = 'success';
-        $_SESSION['message']['text']  = 'Голосование успешно создано и ожидает проверки модератором.';
+        f_igosja_session_front_flash_set('success', 'Голосование успешно создано и ожидает проверки модератором.');
     }
 
     refresh();

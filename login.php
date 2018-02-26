@@ -15,8 +15,7 @@ if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['login']) || !isset($data['password']))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
+        f_igosja_session_front_flash_set('error', 'Неправильная комбинация логин/пароль.');
 
         redirect('/');
     }
@@ -40,8 +39,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (!$user_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Неправильная комбинация логин/пароль.';
+        f_igosja_session_front_flash_set('error', 'Неправильная комбинация логин/пароль.');
 
         redirect('/');
     }
