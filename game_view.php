@@ -202,10 +202,10 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-$home_team_id       = $game_array[0]['home_team_id'];
-$home_national_id   = $game_array[0]['home_national_id'];
-$guest_team_id      = $game_array[0]['guest_team_id'];
-$guest_national_id  = $game_array[0]['guest_national_id'];
+$home_team_id       = (int) $game_array[0]['home_team_id'];
+$home_national_id   = (int) $game_array[0]['home_national_id'];
+$guest_team_id      = (int) $game_array[0]['guest_team_id'];
+$guest_national_id  = (int) $game_array[0]['guest_national_id'];
 
 $sql = "SELECT `lineup_age`,
                `lineup_assist`,
