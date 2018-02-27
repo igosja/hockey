@@ -171,7 +171,7 @@
                 <th>Цена</th>
             </tr>
             <?php foreach ($rentapplication_array as $item) { ?>
-                <tr <?php if ($item['team_id'] == $transfer_array[0]['bteam_id']) { ?>class="info"<?php } ?>>
+                <tr <?php if ($item['team_id'] == $rent_array[0]['bteam_id']) { ?>class="info"<?php } ?>>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">
                             <?= $item['team_name']; ?>
