@@ -29,24 +29,21 @@ if ($data = f_igosja_request_post('data'))
 {
     if ((!isset($data['team_id']) || 0 == $data['team_id']) && (!isset($data['country_id']) || 0 == $data['country_id']))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Выберите команду или федерацию.';
+        f_igosja_session_front_flash_set('error', 'Выберите команду или федерацию.');
 
         refresh();
     }
 
     if (!isset($data['sum']) || 0 == $data['sum'] || 0 > $data['sum'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите сумму.';
+        f_igosja_session_front_flash_set('error', 'Введите сумму.');
 
         refresh();
     }
 
     if (!isset($data['comment']) || !$data['comment'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите комментарий.';
+        f_igosja_session_front_flash_set('error', 'Введите комментарий.');
 
         refresh();
     }
@@ -55,8 +52,7 @@ if ($data = f_igosja_request_post('data'))
 
     if ($sum > $country_array[0]['country_finance'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Недостаточно денег на счету.';
+        f_igosja_session_front_flash_set('error', 'Недостаточно денег на счету.');
 
         refresh();
     }
@@ -73,8 +69,7 @@ if ($data = f_igosja_request_post('data'))
 
         if (0 == $team_sql->num_rows)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Команда выбрана неправильно.';
+            f_igosja_session_front_flash_set('error', 'Команда выбрана неправильно.');
 
             refresh();
         }
@@ -109,8 +104,7 @@ if ($data = f_igosja_request_post('data'))
 
         if (0 == $country_sql->num_rows)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Федерация выбрана неправильно.';
+            f_igosja_session_front_flash_set('error', 'Федерация выбрана неправильно.');
 
             refresh();
         }
@@ -149,8 +143,7 @@ if ($data = f_igosja_request_post('data'))
     ];
     f_igosja_finance($data);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Деньги успешно переведены.';
+    f_igosja_session_front_flash_set('success', 'Деньги успешно переведены.');
 
     refresh();
 }

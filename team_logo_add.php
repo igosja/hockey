@@ -41,8 +41,7 @@ if (($data = f_igosja_request_post('data')) && ($file = f_igosja_request_files('
 
     if (0 != $check_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Логотип этой команды уже находится на проверке.';
+        f_igosja_session_front_flash_set('error', 'Логотип этой команды уже находится на проверке.');
 
         refresh();
     }
@@ -51,15 +50,13 @@ if (($data = f_igosja_request_post('data')) && ($file = f_igosja_request_files('
     {
         if ($file['size']['logo'] > 51200)
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Объем файла должен быть не более 50 килобайт.';
+            f_igosja_session_front_flash_set('error', 'Объем файла должен быть не более 50 килобайт.');
 
             refresh();
         }
         elseif ('image/png' != $file['type']['logo'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Картинка должна быть в png-формате.';
+            f_igosja_session_front_flash_set('error', 'Картинка должна быть в png-формате.');
 
             refresh();
         }
@@ -68,8 +65,7 @@ if (($data = f_igosja_request_post('data')) && ($file = f_igosja_request_files('
 
         if (100 != $image_size[0] && 125 != $image_size[1])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Размер картинки должен быть 100x125 пикселей.';
+            f_igosja_session_front_flash_set('error', 'Размер картинки должен быть 100x125 пикселей.');
 
             refresh();
         }
@@ -88,8 +84,7 @@ if (($data = f_igosja_request_post('data')) && ($file = f_igosja_request_files('
         }
         else
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Не удалось загрузить файл на сервер. Попробуйте еще раз.';
+            f_igosja_session_front_flash_set('error', 'Не удалось загрузить файл на сервер. Попробуйте еще раз.');
 
             refresh();
         }
@@ -129,13 +124,13 @@ if (($data = f_igosja_request_post('data')) && ($file = f_igosja_request_files('
                             `logo_text`=?
                         WHERE `logo_id`=$logo_id";
             }
+
             $prepare = $mysqli->prepare($sql);
             $prepare->bind_param('s', $text);
             $prepare->execute();
             $prepare->close();
 
-            $_SESSION['message']['class']   = 'success';
-            $_SESSION['message']['text']    = 'Эмблема успешно отправлена на модерацию.';
+            f_igosja_session_front_flash_set('success', 'Эмблема успешно отправлена на проверку.');
         }
     }
 

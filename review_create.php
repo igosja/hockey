@@ -180,8 +180,7 @@ if ($data = f_igosja_request_post('data'))
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
 
-                $_SESSION['message']['class']   = 'success';
-                $_SESSION['message']['text']    = 'Обзор упешно сохранен.';
+                f_igosja_session_front_flash_set('success', 'Обзор упешно сохранён.');
 
                 unset($_SESSION['review']);
 

@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @var $auth_date_forum
- * @var $auth_user_id
+ * @var $auth_date_forum integer
+ * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -96,8 +97,7 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class'] = 'success';
-    $_SESSION['message']['text'] = 'Сообщение успешно перемещено.';
+    f_igosja_session_front_flash_set('success', 'Сообщение успешно перемещено.');
 
     $sql = "SELECT CEIL((`forumtheme_count_message`-1)/20) AS `last_page`
             FROM `forumtheme`

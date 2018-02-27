@@ -32,8 +32,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     if (0 == $team_sql->num_rows)
     {
-        $_SESSION['message']['text']    = 'Команда выбрана неправильно';
-        $_SESSION['message']['class']   = 'error';
+        f_igosja_session_front_flash_set('error', 'Команда выбрана неправильно.');
 
         redirect('/team_change.php');
     }
@@ -53,8 +52,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     if ($teamask_array[0]['check'])
     {
-        $_SESSION['message']['text']    = 'Вы уже подали заявку';
-        $_SESSION['message']['class']   = 'error';
+        f_igosja_session_front_flash_set('error', 'Вы уже подали заявку.');
 
         redirect('/team_change.php');
     }
@@ -233,8 +231,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
                     `teamask_user_id`=$auth_user_id";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['text']    = 'Заявка успешно подана';
-        $_SESSION['message']['class']   = 'success';
+        f_igosja_session_front_flash_set('success', 'Заявка успешно подана.');
 
         redirect('/team_view.php');
     }

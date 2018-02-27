@@ -66,8 +66,7 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "INSERT INTO `voteanswer`
                         SET `voteanswer_text`='$item',
-                            `voteanswer_vote_id`=$num_get
-                        WHERE `voteanswer_id`=$key";
+                            `voteanswer_vote_id`=$num_get";
                 f_igosja_mysqli_query($sql);
             }
         }

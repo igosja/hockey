@@ -5,10 +5,10 @@
                 <h3 class="panel-title text-center">Вход</h3>
             </div>
             <div class="panel-body">
-                <?php if (isset($_SESSION['message'])) { ?>
-                    <div class="alert alert-<?= $_SESSION['message']['class']; ?> text-center">
-                        <?= $_SESSION['message']['text']; ?>
-                        <?php unset($_SESSION['message']); ?>
+                <?php if (isset($_SESSION['backend']['message'])) { ?>
+                    <div class="alert alert-<?= $_SESSION['backend']['message']['class']; ?> text-center">
+                        <?= $_SESSION['backend']['message']['text']; ?>
+                        <?php unset($_SESSION['backend']['message']); ?>
                     </div>
                 <?php } ?>
                 <form method="POST">

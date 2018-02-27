@@ -81,8 +81,7 @@ if ($data = f_igosja_request_post('data'))
                 }
                 else
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                    f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                     refresh();
                 }
@@ -149,8 +148,7 @@ if ($data = f_igosja_request_post('data'))
                     }
                     else
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                         refresh();
                     }
@@ -218,8 +216,7 @@ if ($data = f_igosja_request_post('data'))
                     }
                     else
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+                        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
                         refresh();
                     }
@@ -230,29 +227,25 @@ if ($data = f_igosja_request_post('data'))
 
     if (count($confirm_data['power']) > $user_array[0]['user_shop_training'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно баллов для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно баллов для тренировки.');
 
         refresh();
     }
     elseif (count($confirm_data['position']) > $user_array[0]['user_shop_position'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно совмещений для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно совмещений для тренировки.');
 
         refresh();
     }
     elseif (count($confirm_data['special']) > $user_array[0]['user_shop_special'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно спецвозможностей для тренировки.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно спецвозможностей для тренировки.');
 
         refresh();
     }
     elseif (count($player_id_array) != count(array_unique($player_id_array)))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Одному игроку нельзя назначить несколько тренировок одновременно.';
+        f_igosja_session_front_flash_set('error', 'Одному игроку нельзя назначить несколько тренировок одновременно.');
 
         refresh();
     }
@@ -351,8 +344,7 @@ if ($data = f_igosja_request_post('data'))
             f_igosja_mysqli_query($sql);
         }
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Тренировка прошла успешно.';
+        f_igosja_session_front_flash_set('success', 'Тренировка прошла успешно.');
 
         refresh();
     }

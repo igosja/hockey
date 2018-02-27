@@ -120,16 +120,14 @@ if ($data = f_igosja_request_post('data'))
                     }
                     else
                     {
-                        $_SESSION['message']['class']   = 'error';
-                        $_SESSION['message']['text']    = 'Игрок уже полностью изучен.';
+                        f_igosja_session_front_flash_set('error', 'Игрок уже полностью изучен.');
 
                         refresh();
                     }
                 }
                 else
                 {
-                    $_SESSION['message']['class']   = 'error';
-                    $_SESSION['message']['text']    = 'Одного игрока нельзя одновременно изучать несколько раз.';
+                    f_igosja_session_front_flash_set('error', 'Одного игрока нельзя одновременно изучать несколько раз.');
 
                     refresh();
                 }
@@ -139,22 +137,19 @@ if ($data = f_igosja_request_post('data'))
 
     if ($on_building)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+        f_igosja_session_front_flash_set('error', 'На базе сейчас идет строительство.');
 
         refresh();
     }
     elseif (count($confirm_data['style']) > $scout_available)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно стилей для изучения.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно стилей для изучения.');
 
         refresh();
     }
     elseif ($confirm_data['price'] > $basescout_array[0]['team_finance'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас недостаточно денег для изучения.';
+        f_igosja_session_front_flash_set('error', 'У вас недостаточно денег для изучения.');
 
         refresh();
     }
@@ -198,8 +193,7 @@ if ($data = f_igosja_request_post('data'))
             f_igosja_finance($finance);
         }
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изучение успешно началось.';
+        f_igosja_session_front_flash_set('success', 'Изучение успешно началось.');
 
         refresh();
     }
@@ -226,8 +220,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     if (0 == $cancel_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+        f_igosja_session_front_flash_set('error', 'Игрок выбран неправильно.');
 
         refresh();
     }
@@ -266,8 +259,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успешно сохранены.');
 
         redirect('/scout.php');
     }

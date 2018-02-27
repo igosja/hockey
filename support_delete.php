@@ -22,8 +22,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Сообщение успешно удалено.';
+    f_igosja_session_front_flash_set('success', 'Сообщение успешно удалено.');
 }
 
 redirect('/support.php');

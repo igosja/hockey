@@ -68,15 +68,13 @@ if ($data = f_igosja_request_post('data'))
 {
     if ($on_building)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'На базе сейчас идет строительство.';
+        f_igosja_session_front_flash_set('error', 'На базе сейчас идет строительство.');
 
         refresh();
     }
     elseif (0 == $school_available)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'У вас нет юниоров для подготовки в спортшколе.';
+        f_igosja_session_front_flash_set('error', 'У вас нет юниоров для подготовки в спортшколе.');
 
         refresh();
     }
@@ -94,8 +92,7 @@ if ($data = f_igosja_request_post('data'))
 
     if ($count_check)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Нельзя готовить в спортшколе более одного игрока одновременно.';
+        f_igosja_session_front_flash_set('error', 'Нельзя готовить в спортшколе более одного игрока одновременно.');
 
         refresh();
     }
@@ -297,8 +294,7 @@ if ($data = f_igosja_request_post('data'))
                     `school_with_style`=$with_style";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успешно сохранены.');
 
         refresh();
     }
@@ -324,8 +320,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
 
     if (0 == $cancel_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Игрок выбран неправильно.';
+        f_igosja_session_front_flash_set('error', 'Игрок выбран неправильно.');
 
         redirect('/school.php');
     }
@@ -339,8 +334,7 @@ if ($cancel_get = (int) f_igosja_request_get('cancel'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Изменения успешно сохранены.';
+        f_igosja_session_front_flash_set('success', 'Изменения успешно сохранены.');
 
 
         redirect('/school.php');

@@ -262,8 +262,7 @@ if ($data = f_igosja_request_post('data'))
         }
     }
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Состав успешно отправлен.';
+    f_igosja_session_front_flash_set('success', 'Состав успешно отправлен.');
 
     refresh();
 }

@@ -25,8 +25,7 @@ if ($data = f_igosja_request_get('ok'))
 {
     f_igosja_fire_user($auth_user_id, $auth_team_id);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Изменения сохранены.';
+    f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
     redirect('/team_ask.php');
 }

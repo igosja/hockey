@@ -90,8 +90,7 @@ if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Авторизуйтесь, чтобы проголосовать.';
+        f_igosja_session_front_flash_set('error', 'Авторизуйтесь, чтобы проголосовать.');
 
         refresh();
     }
@@ -106,8 +105,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 != $electionnationaluser_array[0]['count'])
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Вы уже проголосовали.';
+        f_igosja_session_front_flash_set('error', 'Вы уже проголосовали.');
 
         refresh();
     }
@@ -127,8 +125,7 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Вы успешно проголосовали.';
+    f_igosja_session_front_flash_set('success', 'Вы успешно проголосовали.');
 
     refresh();
 }

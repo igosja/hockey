@@ -96,7 +96,6 @@ $mail->setSubject('Получение команды на сайте Вирту�
 $mail->setHtml($email_text);
 $mail->send();
 
-$_SESSION['message']['class']   = 'success';
-$_SESSION['message']['text']    = ALERT_SUCCESS;
+f_igosja_session_back_flash_set('success', ALERT_SUCCESS);
 
 redirect('/admin/teamask_list.php');

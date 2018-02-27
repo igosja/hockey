@@ -31,8 +31,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_password_new = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите email.';
+        f_igosja_session_front_flash_set('error', 'Введите email.');
 
         refresh();
     }
@@ -90,8 +89,7 @@ if ($data = f_igosja_request_post('data'))
         $mail->send();
     }
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Изменения сохранены.';
+    f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
     refresh();
 }

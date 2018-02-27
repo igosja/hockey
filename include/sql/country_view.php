@@ -89,8 +89,7 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
 
             if (0 == $check_array[0]['check'])
             {
-                $_SESSION['message']['class']   = 'error';
-                $_SESSION['message']['text']    = 'Отношение к президенту выбрано неправильно.';
+                f_igosja_session_front_flash_set('error', 'Отношение к президенту выбрано неправильно.');
 
                 refresh();
             }
@@ -101,8 +100,7 @@ if (isset($auth_country_id) && $auth_country_id == $num_get)
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
-            $_SESSION['message']['class']   = 'success';
-            $_SESSION['message']['text']    = 'Отношение к президенту успешно сохранено.';
+            f_igosja_session_front_flash_set('success', 'Отношение к президенту успешно сохранено.');
 
             refresh();
         }

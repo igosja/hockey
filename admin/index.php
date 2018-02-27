@@ -87,4 +87,18 @@ foreach ($date_array as $date)
 $payment_categories = '"' . implode('","', $date_array) . '"';
 $payment_data       = implode(',', $value_array);
 
+$sql = "SELECT `payment_date`,
+               `payment_sum`,
+               `user_login`,
+               `user_id`
+        FROM `payment`
+        LEFT JOIN `user`
+        ON `payment_user_id`=`user_id`
+        WHERE `payment_status`=1
+        ORDER BY `payment_id` DESC
+        LIMIT 10";
+$payment_sql = f_igosja_mysqli_query($sql);
+
+$payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
+
 include(__DIR__ . '/view/layout/main.php');

@@ -49,8 +49,7 @@ if ($data = f_igosja_request_get('data'))
 
         if ($price > $user_array[0]['user_money'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Недостаточно средств на счету.';
+            f_igosja_session_front_flash_set('error', 'Недостаточно средств на счету.');
 
             redirect('/shop.php');
         }
@@ -80,8 +79,7 @@ if ($data = f_igosja_request_get('data'))
         );
         f_igosja_money($money);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Ваш VIP успешно продлен.';
+        f_igosja_session_front_flash_set('success', 'Ваш VIP успешно продлен.');
 
         redirect('/shop.php');
     }
@@ -89,8 +87,7 @@ if ($data = f_igosja_request_get('data'))
     {
         if (!in_array($data['product'], array(SHOP_PRODUCT_POINT, SHOP_PRODUCT_MONEY, SHOP_PRODUCT_POSITION, SHOP_PRODUCT_SPECIAL)))
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Игровой товар выбран неправильно.';
+            f_igosja_session_front_flash_set('error', 'Игровой товар выбран неправильно.');
 
             redirect('/shop.php');
         }
@@ -110,8 +107,7 @@ if ($data = f_igosja_request_get('data'))
 
         if ($price > $user_array[0]['user_money'])
         {
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Недостаточно средств на счету.';
+            f_igosja_session_front_flash_set('error', 'Недостаточно средств на счету.');
 
             redirect('/shop.php');
         }
@@ -211,8 +207,7 @@ if ($data = f_igosja_request_get('data'))
             f_igosja_money($money);
         }
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Покупка совершена успешно.';
+        f_igosja_session_front_flash_set('success', 'Покупка совершена успешно.');
 
         redirect('/shop.php');
     }

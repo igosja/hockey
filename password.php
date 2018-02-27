@@ -33,8 +33,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (empty($login) && empty($email))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите логин/email.';
+        f_igosja_session_front_flash_set('error', 'Введите логин/email.');
 
         refresh();
     }
@@ -55,8 +54,7 @@ if ($data = f_igosja_request_post('data'))
 
     if (0 == $user_sql->num_rows)
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Пользователь не найден.';
+        f_igosja_session_front_flash_set('error', 'Пользователь не найден.');
 
         refresh();
     }
@@ -77,8 +75,7 @@ if ($data = f_igosja_request_post('data'))
     $mail->setHtml($email_text);
     $mail->send();
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Данные успешно отправлены на email.';
+    f_igosja_session_front_flash_set('success', 'Данные успешно отправлены на email.');
 
     refresh();
 }

@@ -25,8 +25,7 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Изменения сохранены.';
+    f_igosja_session_front_flash_set('success', 'Изменения успшено сохранены.');
 
     refresh();
 }

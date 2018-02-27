@@ -98,8 +98,7 @@ if (f_igosja_request_get('ok'))
         f_igosja_mysqli_query($sql);
     }
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Вы успешно отказались от должности.';
+    f_igosja_session_front_flash_set('success', 'Вы успешно отказались от должности.');
 
     redirect('/country_news.php?num=' . $num_get);
 }

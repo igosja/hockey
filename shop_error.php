@@ -2,7 +2,6 @@
 
 include (__DIR__ . '/include/include.php');
 
-$_SESSION['message']['class']   = 'error';
-$_SESSION['message']['text']    = 'Счет пополнить не удалось.';
+f_igosja_session_front_flash_set('error', 'Счет пополнить не удалось.');
 
 redirect('/shop.php');

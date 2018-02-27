@@ -21,8 +21,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_password_old = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите текущий пароль.';
+        f_igosja_session_front_flash_set('error', 'Введите текущий пароль.');
 
         refresh();
     }
@@ -32,8 +31,7 @@ if ($data = f_igosja_request_post('data'))
         {
             $check_password_old = false;
 
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Текущий пароль неверен.';
+            f_igosja_session_front_flash_set('error', 'Текущий пароль неверен.');
 
             refresh();
         }
@@ -45,8 +43,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_password_new = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите новый пароль.';
+        f_igosja_session_front_flash_set('error', 'Введите новый пароль.');
 
         refresh();
     }
@@ -59,8 +56,7 @@ if ($data = f_igosja_request_post('data'))
     {
         $check_password_confirm = false;
 
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Повторите новый пароль.';
+        f_igosja_session_front_flash_set('error', 'Повторите новый пароль.');
 
         refresh();
     }
@@ -70,8 +66,7 @@ if ($data = f_igosja_request_post('data'))
         {
             $check_password_confirm = false;
 
-            $_SESSION['message']['class']   = 'error';
-            $_SESSION['message']['text']    = 'Новые пароли не совпадают.';
+            f_igosja_session_front_flash_set('error', 'Новые пароли не совпадают.');
 
             refresh();
         }
@@ -89,8 +84,7 @@ if ($data = f_igosja_request_post('data'))
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
 
-        $_SESSION['message']['class']   = 'success';
-        $_SESSION['message']['text']    = 'Пароль успешно изменен.';
+        f_igosja_session_front_flash_set('success', 'Пароль успешно изменён.');
 
         refresh();
     }

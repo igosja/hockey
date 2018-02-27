@@ -50,7 +50,6 @@ $sql = "DELETE FROM `news`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
-$_SESSION['message']['class'] = 'success';
-$_SESSION['message']['text']  = 'Новость успешно удалена.';
+f_igosja_session_front_flash_set('success', 'Новость успешно удалена.');
 
 redirect('/country_news.php?num=' . $num_get);

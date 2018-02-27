@@ -13,16 +13,14 @@ if (isset($auth_user_id))
 
 if (!$data = f_igosja_request_get('data'))
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Пользователь не найден.';
+    f_igosja_session_front_flash_set('error', 'Пользователь не найден.');
 
     redirect('/password.php');
 }
 
 if (!isset($data['code']))
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Пользователь не найден.';
+    f_igosja_session_front_flash_set('error', 'Пользователь не найден.');
 
     redirect('/password.php');
 }
@@ -44,8 +42,7 @@ $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
 if (!$user_array[0]['count'])
 {
-    $_SESSION['message']['class']   = 'error';
-    $_SESSION['message']['text']    = 'Пользователь не найден.';
+    f_igosja_session_front_flash_set('error', 'Пользователь не найден.');
 
     redirect('/password.php');
 }
@@ -54,8 +51,7 @@ if ($data = f_igosja_request_post('data'))
 {
     if (!isset($data['password']) || empty($data['password']))
     {
-        $_SESSION['message']['class']   = 'error';
-        $_SESSION['message']['text']    = 'Введите пароль.';
+        f_igosja_session_front_flash_set('error', 'Введите пароль.');
 
         refresh();
     }
@@ -70,8 +66,7 @@ if ($data = f_igosja_request_post('data'))
     $prepare->bind_param('ss', $password, $code);
     $prepare->execute();
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Пароль успешно изменен.';
+    f_igosja_session_front_flash_set('success', 'Пароль успешно изменён.');
 
     redirect('/password.php');
 }

@@ -63,8 +63,7 @@ if ($auth_national_id == $auth_nationalvice_id && !in_array($current_array[0]['g
 {
     $allow_post = false;
 
-    $_SESSION['message']['class']   = 'info';
-    $_SESSION['message']['text']    = 'Тренер сборной уже отправил состав на игру. Вы не можете его изменить.';
+    f_igosja_session_front_flash_set('info', 'Тренер сборной уже отправил состав на игру. Вы не можете его изменить.');
 }
 else
 {
@@ -282,8 +281,7 @@ if (($data = f_igosja_request_post('data')) && $allow_post)
         }
     }
 
-    $_SESSION['message']['class']   = 'success';
-    $_SESSION['message']['text']    = 'Состав успешно отправлен.';
+    f_igosja_session_front_flash_set('success', 'Состав успешно отправлен.');
 
     refresh();
 }

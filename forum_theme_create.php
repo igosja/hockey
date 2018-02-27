@@ -96,8 +96,7 @@ if ($data = f_igosja_request_post('data'))
                     LIMIT 1";
             f_igosja_mysqli_query($sql);
 
-            $_SESSION['message']['class']   = 'success';
-            $_SESSION['message']['text']    = 'Тема успешно создана.';
+            f_igosja_session_front_flash_set('success', 'Тема успешно создана.');
 
             redirect('/forum_theme.php?num=' . $forumtheme_id);
         }
