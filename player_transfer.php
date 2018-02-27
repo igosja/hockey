@@ -329,135 +329,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
             $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
-            $transfer_id        = $transfer_array[0]['transfer_id'];
-            $transfer_team_id   = $transfer_array[0]['transfer_team_seller_id'];
-            $transfer_user_id   = $transfer_array[0]['transfer_user_seller_id'];
-
-            $team_array = array(0);
-
-            $sql = "SELECT `transfer_team_buyer_id`,
-                           `transfer_team_seller_id`
-                    FROM `transfer`
-                    WHERE `transfer_ready`=1
-                    AND (`transfer_team_buyer_id`=$transfer_team_id
-                    OR `transfer_team_seller_id`=$transfer_team_id)
-                    AND `transfer_team_buyer_id`!=0
-                    AND `transfer_team_seller_id`!=0
-                    AND `transfer_season_id`=$igosja_season_id
-                    ORDER BY `transfer_id` ASC";
-            $history_sql = f_igosja_mysqli_query($sql);
-
-            $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($history_array as $item)
-            {
-                if (!in_array($item['transfer_team_buyer_id'], array(0, $transfer_team_id)))
-                {
-                    $team_array[] = $item['transfer_team_buyer_id'];
-                }
-
-                if (!in_array($item['transfer_team_seller_id'], array(0, $transfer_team_id)))
-                {
-                    $team_array[] = $item['transfer_team_seller_id'];
-                }
-            }
-
-            $sql = "SELECT `rent_team_buyer_id`,
-                           `rent_team_seller_id`
-                    FROM `rent`
-                    WHERE `rent_ready`=1
-                    AND (`rent_team_buyer_id`=$transfer_team_id
-                    OR `rent_team_seller_id`=$transfer_team_id)
-                    AND `rent_team_buyer_id`!=0
-                    AND `rent_team_seller_id`!=0
-                    AND `rent_season_id`=$igosja_season_id
-                    ORDER BY `rent_id` ASC";
-            $history_sql = f_igosja_mysqli_query($sql);
-
-            $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($history_array as $item)
-            {
-                if (!in_array($item['rent_team_buyer_id'], array(0, $transfer_team_id)))
-                {
-                    $team_array[] = $item['rent_team_buyer_id'];
-                }
-
-                if (!in_array($item['rent_team_seller_id'], array(0, $transfer_team_id)))
-                {
-                    $team_array[] = $item['rent_team_seller_id'];
-                }
-            }
-
-            if (in_array($auth_team_id, $team_array))
-            {
-                f_igosja_session_front_flash_set('error', 'Ваши команды уже заключали сделку в текущем сезоне.');
-
-                refresh();
-            }
-
-            $user_array = array(0);
-
-            $sql = "SELECT `transfer_user_buyer_id`,
-                           `transfer_user_seller_id`
-                    FROM `transfer`
-                    WHERE `transfer_ready`=1
-                    AND (`transfer_user_buyer_id`=$transfer_user_id
-                    OR `transfer_user_seller_id`=$transfer_user_id)
-                    AND `transfer_user_buyer_id`!=0
-                    AND `transfer_user_seller_id`!=0
-                    AND `transfer_season_id`=$igosja_season_id
-                    ORDER BY `transfer_id` ASC";
-            $history_sql = f_igosja_mysqli_query($sql);
-
-            $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($history_array as $item)
-            {
-                if (!in_array($item['transfer_user_buyer_id'], array(0, $transfer_user_id)))
-                {
-                    $user_array[] = $item['transfer_user_buyer_id'];
-                }
-
-                if (!in_array($item['transfer_user_seller_id'], array(0, $transfer_user_id)))
-                {
-                    $user_array[] = $item['transfer_user_seller_id'];
-                }
-            }
-
-            $sql = "SELECT `rent_user_buyer_id`,
-                           `rent_user_seller_id`
-                    FROM `rent`
-                    WHERE `rent_ready`=1
-                    AND (`rent_user_buyer_id`=$transfer_user_id
-                    OR `rent_user_seller_id`=$transfer_user_id)
-                    AND `rent_user_buyer_id`!=0
-                    AND `rent_user_seller_id`!=0
-                    AND `rent_season_id`=$igosja_season_id
-                    ORDER BY `rent_id` ASC";
-            $history_sql = f_igosja_mysqli_query($sql);
-
-            $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
-
-            foreach ($history_array as $item)
-            {
-                if (!in_array($item['rent_user_buyer_id'], array(0, $transfer_user_id)))
-                {
-                    $user_array[] = $item['rent_user_buyer_id'];
-                }
-
-                if (!in_array($item['rent_user_seller_id'], array(0, $transfer_user_id)))
-                {
-                    $user_array[] = $item['rent_user_seller_id'];
-                }
-            }
-
-            if (in_array($auth_user_id, $user_array))
-            {
-                f_igosja_session_front_flash_set('error', 'Вы уже заключали сделку с этим менеджером в текущем сезоне.');
-
-                refresh();
-            }
+            $transfer_id = $transfer_array[0]['transfer_id'];
 
             $sql = "SELECT `city_name`,
                            `country_name`,
@@ -537,6 +409,135 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if (isset($data['price']))
                 {
+                    $transfer_team_id = $transfer_array[0]['transfer_team_seller_id'];
+                    $transfer_user_id = $transfer_array[0]['transfer_user_seller_id'];
+
+                    $team_array = array(0);
+
+                    $sql = "SELECT `transfer_team_buyer_id`,
+                                   `transfer_team_seller_id`
+                            FROM `transfer`
+                            WHERE `transfer_ready`=1
+                            AND (`transfer_team_buyer_id`=$transfer_team_id
+                            OR `transfer_team_seller_id`=$transfer_team_id)
+                            AND `transfer_team_buyer_id`!=0
+                            AND `transfer_team_seller_id`!=0
+                            AND `transfer_season_id`=$igosja_season_id
+                            ORDER BY `transfer_id` ASC";
+                    $history_sql = f_igosja_mysqli_query($sql);
+
+                    $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
+
+                    foreach ($history_array as $item)
+                    {
+                        if (!in_array($item['transfer_team_buyer_id'], array(0, $transfer_team_id)))
+                        {
+                            $team_array[] = $item['transfer_team_buyer_id'];
+                        }
+
+                        if (!in_array($item['transfer_team_seller_id'], array(0, $transfer_team_id)))
+                        {
+                            $team_array[] = $item['transfer_team_seller_id'];
+                        }
+                    }
+
+                    $sql = "SELECT `rent_team_buyer_id`,
+                                   `rent_team_seller_id`
+                            FROM `rent`
+                            WHERE `rent_ready`=1
+                            AND (`rent_team_buyer_id`=$transfer_team_id
+                            OR `rent_team_seller_id`=$transfer_team_id)
+                            AND `rent_team_buyer_id`!=0
+                            AND `rent_team_seller_id`!=0
+                            AND `rent_season_id`=$igosja_season_id
+                            ORDER BY `rent_id` ASC";
+                    $history_sql = f_igosja_mysqli_query($sql);
+
+                    $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
+
+                    foreach ($history_array as $item)
+                    {
+                        if (!in_array($item['rent_team_buyer_id'], array(0, $transfer_team_id)))
+                        {
+                            $team_array[] = $item['rent_team_buyer_id'];
+                        }
+
+                        if (!in_array($item['rent_team_seller_id'], array(0, $transfer_team_id)))
+                        {
+                            $team_array[] = $item['rent_team_seller_id'];
+                        }
+                    }
+
+                    if (in_array($auth_team_id, $team_array))
+                    {
+                        f_igosja_session_front_flash_set('error', 'Ваши команды уже заключали сделку в текущем сезоне.');
+
+                        refresh();
+                    }
+
+                    $user_array = array(0);
+
+                    $sql = "SELECT `transfer_user_buyer_id`,
+                                   `transfer_user_seller_id`
+                            FROM `transfer`
+                            WHERE `transfer_ready`=1
+                            AND (`transfer_user_buyer_id`=$transfer_user_id
+                            OR `transfer_user_seller_id`=$transfer_user_id)
+                            AND `transfer_user_buyer_id`!=0
+                            AND `transfer_user_seller_id`!=0
+                            AND `transfer_season_id`=$igosja_season_id
+                            ORDER BY `transfer_id` ASC";
+                    $history_sql = f_igosja_mysqli_query($sql);
+
+                    $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
+
+                    foreach ($history_array as $item)
+                    {
+                        if (!in_array($item['transfer_user_buyer_id'], array(0, $transfer_user_id)))
+                        {
+                            $user_array[] = $item['transfer_user_buyer_id'];
+                        }
+
+                        if (!in_array($item['transfer_user_seller_id'], array(0, $transfer_user_id)))
+                        {
+                            $user_array[] = $item['transfer_user_seller_id'];
+                        }
+                    }
+
+                    $sql = "SELECT `rent_user_buyer_id`,
+                                   `rent_user_seller_id`
+                            FROM `rent`
+                            WHERE `rent_ready`=1
+                            AND (`rent_user_buyer_id`=$transfer_user_id
+                            OR `rent_user_seller_id`=$transfer_user_id)
+                            AND `rent_user_buyer_id`!=0
+                            AND `rent_user_seller_id`!=0
+                            AND `rent_season_id`=$igosja_season_id
+                            ORDER BY `rent_id` ASC";
+                    $history_sql = f_igosja_mysqli_query($sql);
+
+                    $history_array = $history_sql->fetch_all(MYSQLI_ASSOC);
+
+                    foreach ($history_array as $item)
+                    {
+                        if (!in_array($item['rent_user_buyer_id'], array(0, $transfer_user_id)))
+                        {
+                            $user_array[] = $item['rent_user_buyer_id'];
+                        }
+
+                        if (!in_array($item['rent_user_seller_id'], array(0, $transfer_user_id)))
+                        {
+                            $user_array[] = $item['rent_user_seller_id'];
+                        }
+                    }
+
+                    if (in_array($auth_user_id, $user_array))
+                    {
+                        f_igosja_session_front_flash_set('error', 'Вы уже заключали сделку с этим менеджером в текущем сезоне.');
+
+                        refresh();
+                    }
+
                     $price = (int) $data['price'];
 
                     if ($start_price > $price)
