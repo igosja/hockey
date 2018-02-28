@@ -22,6 +22,20 @@ if (!$season_id = (int) f_igosja_request_get('season_id'))
     redirect('/wrong_page.php');
 }
 
+if (!$round_id = (int) f_igosja_request_get('round_id'))
+{
+    $round_id = ROUND_SEASON;
+}
+
+if (ROUND_SEASON == $round_id)
+{
+    $playoff = 0;
+}
+else
+{
+    $playoff = 1;
+}
+
 $sql = "SELECT `country_name`,
                `division_name`
         FROM `championship`
@@ -97,6 +111,7 @@ if (in_array($num_get, array(
             AND `statisticteam_season_id`=$season_id
             AND `statisticteam_country_id`=$country_id
             AND `statisticteam_division_id`=$division_id
+            AND `statisticteam_championship_playoff`=$playoff
             ORDER BY $select $sort
             LIMIT 100";
 }
@@ -173,6 +188,7 @@ elseif (in_array($num_get, array(
             AND `statisticplayer_season_id`=$season_id
             AND `statisticplayer_country_id`=$country_id
             AND `statisticplayer_division_id`=$division_id
+            AND `statisticplayer_championship_playoff`=$playoff
             $where
             ORDER BY $select $sort
             LIMIT 100";
