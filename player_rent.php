@@ -440,8 +440,8 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 if (isset($data['price']) && isset($data['day']))
                 {
-                    $rent_team_id = $rent_array[0]['transfer_team_seller_id'];
-                    $rent_user_id = $rent_array[0]['transfer_user_seller_id'];
+                    $rent_team_id = $rent_array[0]['rent_team_seller_id'];
+                    $rent_user_id = $rent_array[0]['rent_user_seller_id'];
 
                     $team_array = array(0);
 
