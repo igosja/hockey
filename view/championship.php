@@ -99,7 +99,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            <a href="/championship_statistic.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>" class="btn">
+            <a href="/championship_statistic.php?country_id=<?= $country_id; ?>&division_id=<?= $division_id; ?>&season_id=<?= $season_id; ?>&round_id=<?= $round_id; ?>" class="btn">
                 Статистика
             </a>
             <?php if ($review_create) { ?>

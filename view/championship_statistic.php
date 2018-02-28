@@ -5,6 +5,7 @@
  * @var $country_id integer
  * @var $division_id integer
  * @var $num_get integer
+ * @var $round_id integer
  * @var $season_id integer
  * @var $select string
  * @var $statistic_array array
@@ -18,17 +19,23 @@
         </h1>
     </div>
 </div>
-<div class="row">
+<div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <a href="/championship.php?country_id=<?= $country_id; ?>&season_id=<?= $season_id; ?>&division_id=<?= $division_id; ?>">
             Турнирная таблица
         </a>
     </div>
 </div>
+<div class="row margin-top-small">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?php include(__DIR__ . '/include/championship_statistic_playoff_link.php'); ?>
+    </div>
+</div>
 <form method="GET">
     <input name="country_id" type="hidden" value="<?= $country_id; ?>" />
     <input name="season_id" type="hidden" value="<?= $season_id; ?>" />
     <input name="division_id" type="hidden" value="<?= $division_id; ?>" />
+    <input name="round_id" type="hidden" value="<?= $round_id; ?>" />
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <label for="statistictype">Статистика:</label>
