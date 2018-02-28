@@ -9,6 +9,7 @@ $function_array = array(
     'f_igosja_generator_check_lineup',
     'f_igosja_generator_fill_lineup',
     'f_igosja_generator_set_auto',
+    'f_igosja_generator_set_default_style',
     'f_igosja_generator_set_user_auto',
     'f_igosja_generator_set_ticket_price',
     'f_igosja_generator_set_stadium',
