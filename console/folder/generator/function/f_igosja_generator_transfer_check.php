@@ -119,6 +119,7 @@ function f_igosja_generator_transfer_check()
             $sql = "UPDATE `player`
                     SET `player_line_id`=0,
                         `player_noaction`=0,
+                        `player_nodeal`=0,
                         `player_team_id`=$team_seller_id
                     WHERE `player_id`=$player_id
                     LIMIT 1";
