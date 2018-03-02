@@ -24,15 +24,6 @@
         <?php include(__DIR__ . '/include/transfer_link.php'); ?>
     </div>
 </div>
-<?php if (0 == $rating_my) { ?>
-    <div class="row text-center margin">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a href="/transfer_rating_plus.php?num=<?= $num_get; ?>">Честная сделка</a>
-            |
-            <a class="reject" href="javascript:">Нечестная сделка</a>
-        </div>
-    </div>
-<?php } ?>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="row">
@@ -217,27 +208,35 @@
         </div>
     <?php } ?>
 <?php } ?>
-<?php if (0 == $rating_my) { ?>
-    <div class="deal-comment-block">
-        <div class="row margin-top">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
-                <label for="transfercomment">Ваш комментарий:</label>
+<?php if (0 == $transfer_array[0]['transfer_checked']) { ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+            <label for="transfercomment">Ваше мнение:</label>
+        </div>
+    </div>
+    <form id="transfercomment-form" method="POST">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label for="transferrating-plus"><input id="transferrating-plus" name="data[rating]" type="radio" value="1" /> Честная сделка</label>
+                <br />
+                <label for="transferrating-minus"><input id="transferrating-minus" name="data[rating]" type="radio" value="-1" /> Нечестная сделка</label>
             </div>
         </div>
-        <form action="/transfer_rating_minus.php?num=<?= $num_get; ?>" id="transfercomment-form" method="POST">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" id="transfercomment" name="data[text]" rows="5"></textarea>
-                </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transferrating-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control" id="transfercomment" name="data[text]" rows="5"></textarea>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transfercomment-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transfercomment-error notification-error"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button class="btn margin">Сохранить</button>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <button class="btn margin">Сохранить</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 <?php } ?>
