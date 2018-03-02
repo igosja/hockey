@@ -134,7 +134,7 @@ function f_igosja_generator_prize()
                     LEFT JOIN `team`
                     ON `participantchampionship_team_id`=`team_id`
                     WHERE `participantchampionship_season_id`=$igosja_season_id
-                    AND `participantleague_stage_id` IN (" . STAGE_FINAL . ", 0)";
+                    AND `participantchampionship_stage_id` IN (" . STAGE_FINAL . ", 0)";
             $championship_sql = f_igosja_mysqli_query($sql);
 
             $championship_array = $championship_sql->fetch_all(MYSQLI_ASSOC);
