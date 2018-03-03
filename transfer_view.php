@@ -79,9 +79,6 @@ $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
-    print '<pre>';
-    print_r($data);
-    exit;
     if (isset($auth_user_id))
     {
         if (!isset($data['rating']))
@@ -90,6 +87,10 @@ if ($data = f_igosja_request_post('data'))
         }
 
         $rating = (int) $data['rating'];
+
+        print '<pre>';
+        print_r($rating);
+        exit;
 
         $sql = "SELECT COUNT(`country_id`) AS `count`
                 FROM `country`
