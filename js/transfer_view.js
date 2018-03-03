@@ -1,16 +1,11 @@
 jQuery(document).ready(function () {
-    $('.reject').on('click', function() {
-        var deal_comment_block = $('.deal-comment-block');
-        deal_comment_block.show();
-        $('body, html').animate({ scrollTop: deal_comment_block.offset().top }, 1000); //1100 - скорость
-    });
-
     $('#transfercomment').on('blur', function () {
         check_transfercomment($(this).val());
     });
 
     $('#transfercomment-form').on('submit', function () {
         check_transfercomment($('#transfercomment').val());
+        check_transferrating();
 
         if ($('textarea.has-error').length)
         {
@@ -22,9 +17,10 @@ jQuery(document).ready(function () {
 function check_transfercomment(transfercomment)
 {
     var transfercomment_input = $('#transfercomment');
+    var transferrating_plus = $('#transferrating-plus');
     var transfercomment_error = $('.transfercomment-error');
 
-    if ('' !== transfercomment)
+    if ('' !== transfercomment || transferrating_plus.is(':checked'))
     {
         transfercomment_error.html('');
 
@@ -37,5 +33,26 @@ function check_transfercomment(transfercomment)
     {
         transfercomment_input.addClass('has-error');
         transfercomment_error.html('Введите комментарий.');
+    }
+}
+
+function check_transferrating()
+{
+    var transferrating_input_1 = $('#transferrating-plus');
+    var transferrating_input_2 = $('#transferrating-minus');
+    var transferrating_error = $('.transferrating-error');
+
+    if (transferrating_input_1.is(':checked') || transferrating_input_2.is(':checked'))
+    {
+        transferrating_error.html('');
+
+        if (transferrating_error.hasClass('has-error'))
+        {
+            transferrating_error.removeClass('has-error');
+        }
+    }
+    else
+    {
+        transferrating_error.html('Укажите свою оценку сделки.');
     }
 }

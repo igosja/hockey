@@ -124,6 +124,13 @@ if (isset($auth_team_id) && $auth_team_id)
                     refresh();
                 }
 
+                if (0 != $player_array[0]['player_nodeal'])
+                {
+                    f_igosja_session_front_flash_set('error', 'Игрока нельзя выставить на трансфер до конца сезона.');
+
+                    refresh();
+                }
+
                 if (0 != $player_array[0]['player_rent_team_id'])
                 {
                     f_igosja_session_front_flash_set('error', 'Нельзя выставить на трансфер игроков, отданных в данный момент в аренду.');

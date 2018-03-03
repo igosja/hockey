@@ -16,6 +16,7 @@ function f_igosja_generator_new_season()
     {
         $function_array = array(
             'f_igosja_newseason_insert_season',
+            'f_igosja_newseason_nodeal',
             'f_igosja_newseason_fire_national',
             'f_igosja_newseason_player_from_national',
             'f_igosja_newseason_league_participant',

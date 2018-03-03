@@ -233,6 +233,7 @@ function f_igosja_generator_transfer()
             $sql = "UPDATE `player`
                     SET `player_line_id`=0,
                         `player_noaction`=UNIX_TIMESTAMP()+604800,
+                        `player_nodeal`=1,
                         `player_team_id`=$team_buyer_id,
                         `player_transfer_on`=0
                     WHERE `player_id`=$player_id
