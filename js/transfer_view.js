@@ -17,9 +17,10 @@ jQuery(document).ready(function () {
 function check_transfercomment(transfercomment)
 {
     var transfercomment_input = $('#transfercomment');
+    var transferrating_plus = $('#transferrating-plus');
     var transfercomment_error = $('.transfercomment-error');
 
-    if ('' !== transfercomment)
+    if ('' !== transfercomment || transferrating_plus.is(':checked'))
     {
         transfercomment_error.html('');
 
