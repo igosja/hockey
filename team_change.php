@@ -225,8 +225,14 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     if ($ok = f_igosja_request_get('ok'))
     {
+        if (!(($leave_id = (int) f_igosja_request_get('leave_id')) && in_array($leave_id, $option_array)))
+        {
+            $leave_id = 0;
+        }
+
         $sql = "INSERT INTO `teamask`
                 SET `teamask_date`=UNIX_TIMESTAMP(),
+                    `teamask_leave_id`=$leave_id,
                     `teamask_team_id`=$num_get,
                     `teamask_user_id`=$auth_user_id";
         f_igosja_mysqli_query($sql);
