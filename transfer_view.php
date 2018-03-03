@@ -88,10 +88,6 @@ if ($data = f_igosja_request_post('data'))
 
         $rating = (int) $data['rating'];
 
-        print '<pre>';
-        print_r($rating);
-        exit;
-
         $sql = "SELECT COUNT(`country_id`) AS `count`
                 FROM `country`
                 WHERE `country_president_id`=$auth_user_id
@@ -149,7 +145,7 @@ if ($data = f_igosja_request_post('data'))
         if (0 != $transfervote_array[0]['check'])
         {
             $sql = "UPDATE `transfervote`
-                    SET `transfervote_rating`=-$rating
+                    SET `transfervote_rating`=$rating
                     WHERE `transfervote_transfer_id`=$num_get
                     AND `transfervote_user_id`=$auth_user_id";
             f_igosja_mysqli_query($sql);
@@ -157,7 +153,7 @@ if ($data = f_igosja_request_post('data'))
         else
         {
             $sql = "INSERT INTO `transfervote`
-                    SET `transfervote_rating`=-$rating,
+                    SET `transfervote_rating`=$rating,
                         `transfervote_transfer_id`=$num_get,
                         `transfervote_user_id`=$auth_user_id";
             f_igosja_mysqli_query($sql);

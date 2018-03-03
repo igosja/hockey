@@ -145,7 +145,7 @@ if ($data = f_igosja_request_post('data'))
         if (0 != $rentvote_array[0]['check'])
         {
             $sql = "UPDATE `rentvote`
-                    SET `rentvote_rating`=-$rating
+                    SET `rentvote_rating`=$rating
                     WHERE `rentvote_rent_id`=$num_get
                     AND `rentvote_user_id`=$auth_user_id";
             f_igosja_mysqli_query($sql);
@@ -153,7 +153,7 @@ if ($data = f_igosja_request_post('data'))
         else
         {
             $sql = "INSERT INTO `rentvote`
-                    SET `rentvote_rating`=-$rating,
+                    SET `rentvote_rating`=$rating,
                         `rentvote_rent_id`=$num_get,
                         `rentvote_user_id`=$auth_user_id";
             f_igosja_mysqli_query($sql);
