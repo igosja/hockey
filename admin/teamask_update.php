@@ -7,7 +7,8 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `teamask_team_id`,
+$sql = "SELECT `teamask_leave_id`,
+               `teamask_team_id`,
                `teamask_user_id`,
                `user_email`
         FROM `teamask`
@@ -45,26 +46,9 @@ if (!$team_array[0]['check'])
     redirect('/admin/teamask.php');
 }
 
-$sql = "SELECT COUNT(`team_id`) AS `check`
-        FROM `team`
-        WHERE `team_user_id`=$user_id";
-$team_sql = f_igosja_mysqli_query($sql);
-
-$team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-if ($team_array[0]['check'])
+if ($leave_id = $teamask_array[0]['teamask_leave_id'])
 {
-    $sql = "SELECT `team_id`
-            FROM `team`
-            WHERE `team_user_id`=$user_id";
-    $team_sql = f_igosja_mysqli_query($sql);
-
-    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-    foreach ($team_array as $item)
-    {
-        f_igosja_fire_user($user_id, $item['team_id']);
-    }
+    f_igosja_fire_user($user_id, $leave_id);
 }
 
 $sql = "UPDATE `team`
