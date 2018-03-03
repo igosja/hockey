@@ -212,7 +212,7 @@
         </div>
     <?php } ?>
 <?php } ?>
-<?php if (0 == $rent_array[0]['transfer_checked']) { ?>
+<?php if (0 == $rent_array[0]['rent_checked']) { ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
             <label for="rentcomment">Ваше мнение:</label>
