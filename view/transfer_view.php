@@ -5,7 +5,7 @@
  * @var $playerposition_array array
  * @var $playerspecial_array array
  * @var $rating_minus_array array
- * @var $rating_my integer
+ * @var $rating_my_array array
  * @var $rating_plus_array array
  * @var $transfer_array array
  * @var $transferapplication_array array
@@ -217,9 +217,23 @@
     <form id="transfercomment-form" method="POST">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="transferrating-plus"><input id="transferrating-plus" name="data[rating]" type="radio" value="1" /> Честная сделка</label>
+                <label for="transferrating-plus">
+                    <input id="transferrating-plus" name="data[rating]" type="radio" value="1"
+                        <?php if (isset($rating_my_array[0]) && $rating_my_array[0]['transfervote_rating'] > 0) { ?>
+                            checked
+                        <?php } ?>
+                    />
+                    Честная сделка
+                </label>
                 <br />
-                <label for="transferrating-minus"><input id="transferrating-minus" name="data[rating]" type="radio" value="-1" /> Нечестная сделка</label>
+                <label for="transferrating-minus">
+                    <input id="transferrating-minus" name="data[rating]" type="radio" value="-1"
+                        <?php if (isset($rating_my_array[0]) && $rating_my_array[0]['transfervote_rating'] < 0) { ?>
+                            checked
+                        <?php } ?>
+                    />
+                    Нечестная сделка
+                </label>
             </div>
         </div>
         <div class="row">

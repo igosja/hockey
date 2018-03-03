@@ -145,7 +145,7 @@ if ($data = f_igosja_request_post('data'))
         if (0 != $transfervote_array[0]['check'])
         {
             $sql = "UPDATE `transfervote`
-                    SET `transfervote_rating`=-$rating,
+                    SET `transfervote_rating`=-$rating
                     WHERE `transfervote_transfer_id`=$num_get
                     AND `transfervote_user_id`=$auth_user_id";
             f_igosja_mysqli_query($sql);
@@ -290,19 +290,15 @@ $rating_minus_sql = f_igosja_mysqli_query($sql);
 
 $rating_minus_array = $rating_minus_sql->fetch_all(MYSQLI_ASSOC);
 
-$rating_my = 1;
-
 if (0 == $transfer_array[0]['transfer_checked'] && isset($auth_user_id))
 {
-    $sql = "SELECT COUNT(`transfervote_transfer_id`) AS `check`
+    $sql = "SELECT `transfervote_rating`
             FROM `transfervote`
             WHERE `transfervote_transfer_id`=$num_get
             AND `transfervote_user_id`=$auth_user_id";
     $rating_my_sql = f_igosja_mysqli_query($sql);
 
     $rating_my_array = $rating_my_sql->fetch_all(MYSQLI_ASSOC);
-
-    $rating_my = $rating_my_array[0]['check'];
 }
 
 $sql = "SELECT `city_name`,

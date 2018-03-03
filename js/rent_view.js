@@ -1,16 +1,11 @@
 jQuery(document).ready(function () {
-    $('.reject').on('click', function() {
-        var deal_comment_block = $('.deal-comment-block');
-        deal_comment_block.show();
-        $('body, html').animate({ scrollTop: deal_comment_block.offset().top }, 1000); //1100 - скорость
+    $('#rentcomment').on('blur', function () {
+        check_rentcomment($(this).val());
     });
 
-    $('#transfercomment').on('blur', function () {
-        check_transfercomment($(this).val());
-    });
-
-    $('#transfercomment-form').on('submit', function () {
-        check_transfercomment($('#transfercomment').val());
+    $('#rentcomment-form').on('submit', function () {
+        check_rentcomment($('#rentcomment').val());
+        check_rentrating();
 
         if ($('textarea.has-error').length)
         {
@@ -19,23 +14,45 @@ jQuery(document).ready(function () {
     });
 });
 
-function check_transfercomment(transfercomment)
+function check_rentcomment(rentcomment)
 {
-    var transfercomment_input = $('#transfercomment');
-    var transfercomment_error = $('.transfercomment-error');
+    var rentcomment_input = $('#rentcomment');
+    var rentrating_plus = $('#rentrating-plus');
+    var rentcomment_error = $('.rentcomment-error');
 
-    if ('' !== transfercomment)
+    if ('' !== rentcomment || rentrating_plus.is(':checked'))
     {
-        transfercomment_error.html('');
+        rentcomment_error.html('');
 
-        if (transfercomment_input.hasClass('has-error'))
+        if (rentcomment_input.hasClass('has-error'))
         {
-            transfercomment_input.removeClass('has-error');
+            rentcomment_input.removeClass('has-error');
         }
     }
     else
     {
-        transfercomment_input.addClass('has-error');
-        transfercomment_error.html('Введите комментарий.');
+        rentcomment_input.addClass('has-error');
+        rentcomment_error.html('Введите комментарий.');
+    }
+}
+
+function check_rentrating()
+{
+    var rentrating_input_1 = $('#rentrating-plus');
+    var rentrating_input_2 = $('#rentrating-minus');
+    var rentrating_error = $('.rentrating-error');
+
+    if (rentrating_input_1.is(':checked') || rentrating_input_2.is(':checked'))
+    {
+        rentrating_error.html('');
+
+        if (rentrating_error.hasClass('has-error'))
+        {
+            rentrating_error.removeClass('has-error');
+        }
+    }
+    else
+    {
+        rentrating_error.html('Укажите свою оценку сделки.');
     }
 }
