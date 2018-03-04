@@ -175,7 +175,8 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
         f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `game`
-                SET `game_guest_team_id`=$team_get,
+                SET `game_bonus_home`=0,
+                    `game_guest_team_id`=$team_get,
                     `game_home_team_id`=$auth_team_id,
                     `game_schedule_id`=$num_get,
                     `game_stadium_id`=$stadium_id";
@@ -359,7 +360,8 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
         f_igosja_mysqli_query($sql);
 
         $sql = "INSERT INTO `game`
-                SET `game_guest_team_id`=$auth_team_id,
+                SET `game_bonus_home`=0,
+                    `game_guest_team_id`=$auth_team_id,
                     `game_home_team_id`=$team_get,
                     `game_schedule_id`=$num_get,
                     `game_stadium_id`=$stadium_id";
