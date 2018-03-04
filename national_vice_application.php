@@ -37,6 +37,8 @@ if (!$type_get = (int) f_igosja_request_get('type'))
     redirect('/wrong_page.php');
 }
 
+include(__DIR__ . '/include/sql/country_view.php');
+
 $sql = "SELECT COUNT(`national_id`) AS `check`
         FROM `national`
         WHERE `national_country_id`=$num_get
@@ -157,14 +159,6 @@ if ($data = f_igosja_request_post('data'))
         refresh();
     }
 }
-
-$sql = "SELECT `country_name`
-        FROM `country`
-        WHERE `country_id`=$num_get
-        LIMIT 1";
-$country_sql = f_igosja_mysqli_query($sql);
-
-$country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `electionnationalviceapplication_id`,
                `electionnationalviceapplication_text`

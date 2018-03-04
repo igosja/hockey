@@ -15,7 +15,9 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            <?= $country_array[0]['country_name']; ?>
+            <a href="/country_news.php?num=<?= $country_id; ?>" class="country-header-link">
+                <?= $country_array[0]['country_name']; ?>
+            </a>
         </h1>
     </div>
 </div>

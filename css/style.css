@@ -901,3 +901,7 @@ blockquote:before {
 .deal-comment-block {
     display: none;
 }
+
+.country-header-link {
+    color: #0f103d;
+}
