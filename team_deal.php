@@ -57,7 +57,6 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `country` AS `team_country`
         ON `city_country_id`=`team_country`.`country_id`
         WHERE `transfer_ready`=1
-        AND `transfer_season_id`=$igosja_season_id
         AND `transfer_team_seller_id`=$num_get
         ORDER BY `transfer_date` DESC";
 $transfer_sell_sql = f_igosja_mysqli_query($sql);
@@ -96,7 +95,6 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `country` AS `team_country`
         ON `city_country_id`=`team_country`.`country_id`
         WHERE `transfer_ready`=1
-        AND `transfer_season_id`=$igosja_season_id
         AND `transfer_team_buyer_id`=$num_get
         ORDER BY `transfer_date` DESC";
 $transfer_buy_sql = f_igosja_mysqli_query($sql);
@@ -148,7 +146,6 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `country` AS `team_country`
         ON `city_country_id`=`team_country`.`country_id`
         WHERE `rent_ready`=1
-        AND `rent_season_id`=$igosja_season_id
         AND `rent_team_seller_id`=$num_get
         ORDER BY `rent_date` DESC";
 $rent_sell_sql = f_igosja_mysqli_query($sql);
@@ -188,7 +185,6 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `country` AS `team_country`
         ON `city_country_id`=`team_country`.`country_id`
         WHERE `rent_ready`=1
-        AND `rent_season_id`=$igosja_season_id
         AND `rent_team_buyer_id`=$num_get
         ORDER BY `rent_date` DESC";
 $rent_buy_sql = f_igosja_mysqli_query($sql);

@@ -322,7 +322,7 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `user`
         ON `rentapplication_user_id`=`user_id`
         WHERE `rentapplication_rent_id`=$num_get
-        ORDER BY `rentapplication_price`*`rentapplication_day` DESC, `rentapplication_date` DESC";
+        ORDER BY `rentapplication_price`*`rentapplication_day` DESC, `rentapplication_date` ASC";
 $rentapplication_sql = f_igosja_mysqli_query($sql);
 
 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
