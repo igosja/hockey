@@ -9,6 +9,8 @@
 
 include(__DIR__ . '/include/include.php');
 
+$schedule_id = 120;
+
 $sql = "SELECT `conference_team_id`,
                `stadium_id`
         FROM `conference`
