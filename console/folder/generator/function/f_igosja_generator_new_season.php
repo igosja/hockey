@@ -42,6 +42,7 @@ function f_igosja_generator_new_season()
             'f_igosja_newseason_pension_inform',
             'f_igosja_newseason_maintenance',
             'f_igosja_newseason_mood_reset',
+            'f_igosja_newseason_player_game_row',
             'f_igosja_newseason_truncate',
         );
 

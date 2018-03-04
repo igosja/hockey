@@ -29,7 +29,6 @@ if ($num_get != $auth_country_id)
 
 include(__DIR__ . '/include/sql/country_view.php');
 
-
 $sql = "SELECT `electionpresidentvice_id`
         FROM `electionpresidentvice`
         WHERE `electionpresidentvice_country_id`=$num_get
