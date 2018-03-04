@@ -321,7 +321,7 @@ $sql = "SELECT `city_name`,
         LEFT JOIN `user`
         ON `transferapplication_user_id`=`user_id`
         WHERE `transferapplication_transfer_id`=$num_get
-        ORDER BY `transferapplication_price` DESC, `transferapplication_date` DESC";
+        ORDER BY `transferapplication_price` DESC, `transferapplication_date` ASC";
 $transferapplication_sql = f_igosja_mysqli_query($sql);
 
 $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);

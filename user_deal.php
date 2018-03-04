@@ -119,7 +119,6 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         LEFT JOIN `country` AS `seller_country`
         ON `seller_city`.`city_country_id`=`seller_country`.`country_id`
         WHERE `transfer_ready`=1
-        AND `transfer_season_id`=$igosja_season_id
         AND `transfer_user_seller_id`=$num_get
         ORDER BY `transfer_date` DESC";
 $transfer_sell_sql = f_igosja_mysqli_query($sql);
@@ -170,7 +169,6 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         LEFT JOIN `country` AS `seller_country`
         ON `seller_city`.`city_country_id`=`seller_country`.`country_id`
         WHERE `transfer_ready`=1
-        AND `transfer_season_id`=$igosja_season_id
         AND `transfer_user_buyer_id`=$num_get
         ORDER BY `transfer_date` DESC";
 $transfer_buy_sql = f_igosja_mysqli_query($sql);
@@ -234,7 +232,6 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         LEFT JOIN `country` AS `seller_country`
         ON `seller_city`.`city_country_id`=`seller_country`.`country_id`
         WHERE `rent_ready`=1
-        AND `rent_season_id`=$igosja_season_id
         AND `rent_user_seller_id`=$num_get
         ORDER BY `rent_date` DESC";
 $rent_sell_sql = f_igosja_mysqli_query($sql);
@@ -286,7 +283,6 @@ $sql = "SELECT `buyer_country`.`country_name` AS `buyer_country_name`,
         LEFT JOIN `country` AS `seller_country`
         ON `seller_city`.`city_country_id`=`seller_country`.`country_id`
         WHERE `rent_ready`=1
-        AND `rent_season_id`=$igosja_season_id
         AND `rent_user_buyer_id`=$num_get
         ORDER BY `rent_date` DESC";
 $rent_buy_sql = f_igosja_mysqli_query($sql);
