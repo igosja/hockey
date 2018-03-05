@@ -12,9 +12,13 @@ function f_igosja_achievement_position($achievement)
     {
         $result = $achievement['achievement_position'];
     }
-    else
+    elseif ($achievement['stage_name'])
     {
         $result = $achievement['stage_name'];
+    }
+    else
+    {
+        $result = 'Чемпион';
     }
 
     return $result;
