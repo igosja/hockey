@@ -7,6 +7,9 @@
  */
 function f_igosja_bb_decode($text)
 {
+    $text = preg_replace('/\[link\=(.*?)\](.*?)\[\/link\]/s', '<a href="$1" target="_blank">$2</a>', $text);
+    $text = preg_replace('/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $text);
+    $text = preg_replace('/\[img\](.*)\[\/img\]/i', '<img src="$1" class="img-responsive" />', $text);
     $text = str_replace('[p]', '<p>', $text);
     $text = str_replace('[/p]', '</p>', $text);
     $text = str_replace('[table]', '<table class="table table-bordered table-hover">', $text);
@@ -37,9 +40,6 @@ function f_igosja_bb_decode($text)
     $text = str_replace('[/s]', '</del>', $text);
     $text = str_replace('[quote]', '<blockquote>', $text);
     $text = str_replace('[/quote]', '</blockquote>', $text);
-    $text = preg_replace("/\[link(?:\=(?:[\"|'])?(.*)(?:[^[]+)?)?\](.*)\[\/link\]/i", '<a href="$1" target="_blank">$2</a>', $text);
-    $text = preg_replace("/\[url(?:\=(?:[\"|'])?(.*)(?:[^[]+)?)?\](.*)\[\/url\]/i", '<a href="$1" target="_blank">$2</a>', $text);
-    $text = preg_replace("/\[img\](.*)\[\/img\]/i", '<img src="$1" class="img-responsive" />', $text);
     $text = nl2br($text);
 
     return $text;
