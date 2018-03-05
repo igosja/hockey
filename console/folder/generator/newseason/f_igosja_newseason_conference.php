@@ -34,7 +34,7 @@ function f_igosja_newseason_conference()
             ON `conference_team_id`=`team_id`
             LEFT JOIN `stadium`
             ON `team_stadium_id`=`stadium_id`
-            WHERE `conference_season_id`=1
+            WHERE `conference_season_id`=$igosja_season_id+1
             ORDER BY RAND()";
     $team_sql = f_igosja_mysqli_query($sql);
 
