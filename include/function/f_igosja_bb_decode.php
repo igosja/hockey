@@ -8,7 +8,7 @@
 function f_igosja_bb_decode($text)
 {
     $text = preg_replace("/\[link(?:\=(?:[\"|'])?(.*)(?:[^[]+)?)?\](.*)\[\/link\]/i", '<a href="$1" target="_blank">$2</a>', $text);
-    $text = preg_replace('"/\[url=(.*)\](.*)\[\/url\]/i",', '<a href="$1" target="_blank">$2</a>', $text);
+    $text = preg_replace('/\[url=(.*)\](.*)\[\/url\]/i', '<a href="$1" target="_blank">$2</a>', $text);
     $text = preg_replace("/\[img\](.*)\[\/img\]/i", '<img src="$1" class="img-responsive" />', $text);
     $text = str_replace('[p]', '<p>', $text);
     $text = str_replace('[/p]', '</p>', $text);
