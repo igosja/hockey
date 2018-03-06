@@ -14,6 +14,7 @@ include(__DIR__ . '/constant.php');
 include(__DIR__ . '/breadcrumb.php');
 include(__DIR__ . '/table_link.php');
 include(__DIR__ . '/season.php');
+include(__DIR__ . '/onecomputer.php');
 include(__DIR__ . '/session.php');
 include(__DIR__ . '/autologin.php');
 include(__DIR__ . '/Mail.php');
