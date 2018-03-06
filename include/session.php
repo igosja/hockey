@@ -62,8 +62,6 @@ if (isset($_SESSION['user_id']))
 
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-    setcookie('computer_code', $user_array[0]['user_code'], time() + 31536000); //365 днів
-
     $auth_country_id        = $user_array[0]['city_country_id'];
     $auth_date_forum        = $user_array[0]['user_date_forum_block'];
     $auth_date_vip          = $user_array[0]['user_date_vip'];

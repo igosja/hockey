@@ -48,6 +48,7 @@ if ($data = f_igosja_request_post('data'))
     $_SESSION['user_id']    = $user_array[0]['user_id'];
 
     setcookie('login_code', $user_array[0]['user_code'] . '-' . f_igosja_login_code($user_array[0]['user_code']), time() + 31536000); //365 днів
+    setcookie('computer_code', $user_array[0]['user_code'], time() + 31536000); //365 днів
 
     redirect('/team_view.php');
 }
