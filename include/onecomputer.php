@@ -1,5 +1,8 @@
 <?php
 
+print '<pre>';
+print_r(321);
+exit;
 if (isset($_SESSION['user_id']))
 {
     print '<pre>';
