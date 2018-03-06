@@ -62,7 +62,7 @@ $total = $total[0]['count'];
 
 $count_page = ceil($total / $limit);
 
-if (isset($auth_user_id) && isset($auth_country_id) && $num_get = $auth_country_id)
+if (isset($auth_user_id) && isset($auth_country_id) && $num_get == $auth_country_id)
 {
     $sql = "UPDATE `user`
             SET `user_countrynews_id`=
