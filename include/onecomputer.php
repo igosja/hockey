@@ -2,6 +2,9 @@
 
 if (isset($_SESSION['user_id']))
 {
+    print '<pre>';
+    print_r($_SESSION['user_id']);
+    exit;
     if ($user_code = f_igosja_cookie('computer_code'))
     {
         $session_user_id = $_SESSION['user_id'];
