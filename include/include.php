@@ -16,6 +16,7 @@ include(__DIR__ . '/table_link.php');
 include(__DIR__ . '/season.php');
 include(__DIR__ . '/session.php');
 include(__DIR__ . '/autologin.php');
+include(__DIR__ . '/onecomputer.php');
 include(__DIR__ . '/Mail.php');
 include(__DIR__ . '/routing.php');
 include(__DIR__ . '/seo.php');

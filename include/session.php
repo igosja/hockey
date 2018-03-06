@@ -31,6 +31,7 @@ if (isset($_SESSION['user_id']))
                    `national`.`national_id` AS `national_id`,
                    `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
+                   `user_code`,
                    `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
