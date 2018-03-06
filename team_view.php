@@ -504,7 +504,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
             }
             elseif (ELECTIONSTATUS_OPEN == $item['electionnational_electionstatus_id'])
             {
-                $electionnational_id = $item['electionnational_electionstatus_id'];
+                $electionnational_id = $item['electionnational_id'];
 
                 $sql = "SELECT COUNT(`electionnationaluser_electionnationalapplication_id`) AS `count`
                         FROM `electionnationaluser`
