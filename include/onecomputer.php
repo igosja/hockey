@@ -6,6 +6,11 @@ if (isset($_SESSION['user_id']))
     {
         $session_user_id = $_SESSION['user_id'];
 
+        print '<pre>';
+        print_r($session_user_id);
+        print_r($user_code);
+        exit;
+
         $sql = "SELECT `user_id`
                 FROM `user`
                 WHERE `user_code`=?
