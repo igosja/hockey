@@ -21,7 +21,22 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ON `teamask_team_id`=`team_id`
         LEFT JOIN `user`
         ON `teamask_user_id`=`user_id`
+        LEFT JOIN
+        (
+            SELECT COUNT(`history_id`) AS `count_history`,
+                   `history_user_id`
+            FROM `history`
+            WHERE `history_historytext_id`=" . HISTORYTEXT_USER_MANAGER_TEAM_IN . "
+            AND `history_user_id` IN
+            (
+                SELECT `teamask_user_id`
+                FROM `teamask`
+            )
+            
+        ) AS `t1`
+        ON `user_id`=`history_user_id`
         WHERE $sql_filter
+        AND `teamask_date`<UNIX_TIMESTAMP()-IF(`count_history`>1, 1, 0)*86400
         ORDER BY `teamask_date` ASC
         LIMIT $offset, $limit";
 $teamask_sql = f_igosja_mysqli_query($sql);
