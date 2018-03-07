@@ -32,6 +32,8 @@ $sql = "SELECT `city_name`,
         ON `stadium_city_id`=`city_id`
         LEFT JOIN `country`
         ON `city_country_id`=`country_id`
+        WHERE `electionnationalapplicationplayer_electionnationalapplication_id`=$num_get
+        GROUP BY `player_id`
         ORDER BY `player_position_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
