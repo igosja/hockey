@@ -12,6 +12,8 @@ if (!$type_get = (int) f_igosja_request_get('type'))
     redirect('/wrong_page.php');
 }
 
+include(__DIR__ . '/include/sql/country_view.php');
+
 $sql = "SELECT `electionnational_id`
         FROM `electionnational`
         WHERE `electionnational_country_id`=$num_get
