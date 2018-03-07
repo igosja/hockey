@@ -13,7 +13,22 @@ $freeteam_array = $freeteam_sql->fetch_all(MYSQLI_ASSOC);
 $freeteam = $freeteam_array[0]['count'];
 
 $sql = "SELECT COUNT(`teamask_id`) AS `count`
-        FROM `teamask`";
+        FROM `teamask`
+        LEFT JOIN
+        (
+            SELECT COUNT(`history_id`) AS `count_history`,
+                   `history_user_id`
+            FROM `history`
+            WHERE `history_historytext_id`=" . HISTORYTEXT_USER_MANAGER_TEAM_IN . "
+            AND `history_user_id` IN
+            (
+                SELECT `teamask_user_id`
+                FROM `teamask`
+            )
+            
+        ) AS `t1`
+        ON `teamask_user_id`=`history_user_id`
+        WHERE `teamask_date`<UNIX_TIMESTAMP()-IF(`count_history`>1, 1, 0)*86400";
 $teamask_sql = f_igosja_mysqli_query($sql);
 
 $teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
