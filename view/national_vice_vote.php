@@ -19,7 +19,7 @@
             </div>
         </div>
         <?php foreach ($electionnationalvice_array as $item) { ?>
-            <div class="row">
+            <div class="row margin-top">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                         <?= $item['user_login']; ?>
