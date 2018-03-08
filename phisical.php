@@ -150,76 +150,48 @@ for ($i=0; $i<$count_player; $i++)
         if (0 == $j)
         {
             $phisical_id = $player_array[$i]['phisical_id'];
-
-            if (isset($change_array[$player_array[$i]['player_id']][$schedule_array[$j]['schedule_id']]))
-            {
-                $class = 'phisical-bordered';
-
-                $sql = "SELECT `phisical_opposite`
-                        FROM `phisical`
-                        WHERE `phisical_id`=$phisical_id
-                        LIMIT 1";
-                $opposite_sql = f_igosja_mysqli_query($sql);
-
-                $opposite_array = $opposite_sql->fetch_all(MYSQLI_ASSOC);
-
-                $phisical_id = $opposite_array[0]['phisical_opposite'];
-            }
-            else
-            {
-                $class = '';
-            }
-
-            $player_phisical_array[] = array(
-                'class'             => $class,
-                'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
-                'phisical_id'       => $phisical_id,
-                'phisical_name'     => $phisical_array[$phisical_id],
-                'player_id'         => $player_array[$i]['player_id'],
-                'schedule_id'       => $schedule_array[$j]['schedule_id'],
-            );
         }
         else
         {
             $phisical_id++;
-
-            if (20 < $phisical_id)
-            {
-                $phisical_id = $phisical_id - 20;
-            }
-
-            if (isset($change_array[$player_array[$i]['player_id']][$schedule_array[$j]['schedule_id']]))
-            {
-                $class = 'phisical-change-cell phisical-bordered';
-
-                $sql = "SELECT `phisical_opposite`
-                        FROM `phisical`
-                        WHERE `phisical_id`=$phisical_id
-                        LIMIT 1";
-                $opposite_sql = f_igosja_mysqli_query($sql);
-
-                $opposite_array = $opposite_sql->fetch_all(MYSQLI_ASSOC);
-
-                $phisical_id = $opposite_array[0]['phisical_opposite'];
-            }
-            elseif (in_array($class, array('phisical-change-cell phisical-bordered', 'phisical-change-cell phisical-yellow', 'phisical-bordered')))
-            {
-                $class = ($on_building ? '' : 'phisical-change-cell') . ' phisical-yellow';
-            }
-            else
-            {
-                $class = ($on_building ? '' : 'phisical-change-cell');
-            }
-
-            $player_phisical_array[] = array(
-                'class'             => $class,
-                'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
-                'phisical_id'       => $phisical_id,
-                'phisical_name'    => $phisical_array[$phisical_id],
-                'player_id'         => $player_array[$i]['player_id'],
-                'schedule_id'        => $schedule_array[$j]['schedule_id'],
-            );
         }
+
+        if (20 < $phisical_id)
+        {
+            $phisical_id = $phisical_id - 20;
+        }
+
+        if (isset($change_array[$player_array[$i]['player_id']][$schedule_array[$j]['schedule_id']]))
+        {
+            $class = 'phisical-change-cell phisical-bordered';
+
+            $sql = "SELECT `phisical_opposite`
+                    FROM `phisical`
+                    WHERE `phisical_id`=$phisical_id
+                    LIMIT 1";
+            $opposite_sql = f_igosja_mysqli_query($sql);
+
+            $opposite_array = $opposite_sql->fetch_all(MYSQLI_ASSOC);
+
+            $phisical_id = $opposite_array[0]['phisical_opposite'];
+        }
+        elseif (in_array($class, array('phisical-change-cell phisical-bordered', 'phisical-change-cell phisical-yellow', 'phisical-bordered')))
+        {
+            $class = ($on_building ? '' : 'phisical-change-cell') . ' phisical-yellow';
+        }
+        else
+        {
+            $class = ($on_building ? '' : 'phisical-change-cell');
+        }
+
+        $player_phisical_array[] = array(
+            'class'             => $class,
+            'id'                => $player_array[$i]['player_id'] . '-' . $schedule_array[$j]['schedule_id'],
+            'phisical_id'       => $phisical_id,
+            'phisical_name'     => $phisical_array[$phisical_id],
+            'player_id'         => $player_array[$i]['player_id'],
+            'schedule_id'       => $schedule_array[$j]['schedule_id'],
+        );
     }
 
     $player_array[$i]['phisical_array'] = $player_phisical_array;
