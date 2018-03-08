@@ -60,17 +60,18 @@ if ($data = f_igosja_request_post('data'))
         $prepare->bind_param('s', $user_code);
         $prepare->execute();
 
-        $user_sql = $prepare->get_result();
+        $child_sql = $prepare->get_result();
 
         $prepare->close();
 
-        if (0 != $user_sql->num_rows)
+        if (0 != $child_sql->num_rows)
         {
-            $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+            $child_array = $child_sql->fetch_all(MYSQLI_ASSOC);
 
-            $user_id = $user_array[0]['user_id'];
+            $user_id = $child_array[0]['user_id'];
 
             $sql = "SELECT COUNT(`onecomputer_id`) AS `count`
+                    FROM `onecomputer`
                     WHERE (`onecomputer_child_id`=$user_id
                     AND `onecomputer_user_id`=$session_user_id)
                     OR (`onecomputer_child_id`=$session_user_id
@@ -90,7 +91,7 @@ if ($data = f_igosja_request_post('data'))
             else
             {
                 $sql = "UPDATE `onecomputer`
-                        SET `onecomputer_date`=UNIX_TIMESTAMP(),
+                        SET `onecomputer_date`=UNIX_TIMESTAMP()
                         WHERE (`onecomputer_child_id`=$user_id
                         AND `onecomputer_user_id`=$session_user_id)
                         OR (`onecomputer_child_id`=$session_user_id
