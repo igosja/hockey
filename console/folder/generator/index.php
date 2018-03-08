@@ -50,7 +50,7 @@ $function_array = array(
     'f_igosja_generator_playoff_championship_lot',
     'f_igosja_generator_achievement',
     'f_igosja_generator_prize',
-//    'f_igosja_generator_swiss',
+    'f_igosja_generator_swiss',
     'f_igosja_generator_rent_decrease_return',
     'f_igosja_generator_transfer',
     'f_igosja_generator_transfer_check',
@@ -90,11 +90,23 @@ $function_array = array(
     'f_igosja_generator_site_open',
 );
 
+$prev_query = f_igosja_get_count_query();
+$prev_time  = $start_time;
+
 for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)
 {
     $function_array[$i]();
 
     f_igosja_console_progress($i+1, $count_function);
+
+    $current_query  = f_igosja_get_count_query();
+    $current_time   = microtime(true);
+
+    print round($current_time - $prev_time, 5) . ' sec.' . "\r\n"
+        . 'Database queries: ' . ($current_query - $prev_query) . "\r\n";
+
+    $prev_query = $current_query;
+    $prev_time  = $current_time;
 }
 
 print "\r\n"
