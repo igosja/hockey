@@ -80,8 +80,17 @@ function f_igosja_newseason_championship_rotate()
                         WHERE `championship_division_id`=$division_id
                         AND `championship_country_id`=$country_id
                         AND `championship_season_id`=$igosja_season_id
+                        AND `championship_team_id` NOT IN
+                        (
+                            SELECT `participantchampionship_team_id`
+                            FROM `participantchampionship`
+                            WHERE `participantchampionship_country_id`=$country_id
+                            AND `participantchampionship_division_id`=$division_id
+                            AND `participantchampionship_season_id`=$igosja_season_id
+                            AND `participantchampionship_stage_id` IN (0, " . STAGE_FINAL . ")
+                        )
                         ORDER BY `championship_place` ASC
-                        LIMIT 2, 12";
+                        LIMIT 12";
                 $championship_sql = f_igosja_mysqli_query($sql);
 
                 if (0 != $championship_sql->num_rows)

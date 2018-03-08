@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $electionnational_array array
+ */
+?>
+<?php include(__DIR__ . '/include/country_view.php'); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
@@ -13,7 +19,7 @@
             </div>
         </div>
         <?php foreach ($electionnational_array as $item) { ?>
-            <div class="row">
+            <div class="row margin-top">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                         <?= $item['user_login']; ?>
