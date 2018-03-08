@@ -50,7 +50,7 @@ $function_array = array(
     'f_igosja_generator_playoff_championship_lot',
     'f_igosja_generator_achievement',
     'f_igosja_generator_prize',
-//    'f_igosja_generator_swiss',
+    'f_igosja_generator_swiss',
     'f_igosja_generator_rent_decrease_return',
     'f_igosja_generator_transfer',
     'f_igosja_generator_transfer_check',

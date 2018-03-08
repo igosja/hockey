@@ -38,17 +38,30 @@ function f_igosja_generator_swiss()
 
         if ($schedule_sql->num_rows)
         {
-            f_igosja_swiss($tournamenttype_id, 1);
+            $game_array = f_igosja_swiss_game($tournamenttype_id);
 
             $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
             $schedule_id = $schedule_array[0]['schedule_id'];
 
-            $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                    SELECT `swissgame_guest_team_id`, `swissgame_home_team_id`, $schedule_id, `team_stadium_id`
-                    FROM `swissgame`
+            $values = array();
+
+            foreach ($game_array as $item)
+            {
+                $values[] = '(' . $item['guest'] . ', ' . $item['home'] . ', ' . $schedule_id . ')';
+            }
+
+            $values = implode(',', $values);
+
+            $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`)
+                    VALUES $values;";
+            f_igosja_mysqli_query($sql);
+
+            $sql = "UPDATE `game`
                     LEFT JOIN `team`
-                    ON `swissgame_home_team_id`=`team_id`";
+                    ON `game_home_team_id`=`team_id`
+                    SET `game_stadium_id`=`team_stadium_id`
+                    WHERE `game_schedule_id`=$schedule_id";
             f_igosja_mysqli_query($sql);
         }
     }
