@@ -35,22 +35,45 @@ if ($tournamenttype_sql->num_rows)
 
     if ($schedule_sql->num_rows)
     {
-        f_igosja_swiss_new($tournamenttype_id, 1);
+        $game_array = f_igosja_swiss_game_new($tournamenttype_id);
 
         $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
         $schedule_id = $schedule_array[0]['schedule_id'];
 
-        $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                SELECT `swissgame_guest_team_id`, `swissgame_home_team_id`, $schedule_id, `team_stadium_id`
-                FROM `swissgame`
+        $values = array();
+
+        foreach ($game_array as $item)
+        {
+            $values[] = '(' . $item['guest'] . ', ' . $item['home'] . ', ' . $schedule_id . ')';
+        }
+
+        $values = implode(',', $values);
+
+        $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`)
+                VALUES $values;";
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `game`
                 LEFT JOIN `team`
-                ON `swissgame_home_team_id`=`team_id`";
+                ON `game_home_team_id`=`team_id`
+                SET `game_stadium_id`=`team_stadium_id`
+                WHERE `game_schedule_id`=$schedule_id";
         f_igosja_mysqli_query($sql);
     }
 }
 
-function f_igosja_swiss_new($tournamenttype_id, $position_difference)
+function f_igosja_swiss_game_new($tournamenttype_id)
+{
+    $position_difference = 1;
+
+    $team_array = f_igosja_swiss_prepare($tournamenttype_id);
+    $game_array = f_igosja_swiss_new($tournamenttype_id, $position_difference, $team_array);
+
+    return $game_array;
+}
+
+function f_igosja_swiss_prepare($tournamenttype_id)
 {
     global $igosja_season_id;
 
@@ -68,6 +91,8 @@ function f_igosja_swiss_new($tournamenttype_id, $position_difference)
                 WHERE `offseason_season_id`=$igosja_season_id
                 ORDER BY `offseason_place` ASC";
         f_igosja_mysqli_query($sql);
+
+        $max_count = 1;
     }
     else
     {
@@ -77,6 +102,8 @@ function f_igosja_swiss_new($tournamenttype_id, $position_difference)
                 WHERE `conference_season_id`=$igosja_season_id
                 ORDER BY `conference_place` ASC";
         f_igosja_mysqli_query($sql);
+
+        $max_count = 2;
     }
 
     $sql = "SELECT `swisstable_guest`,
@@ -89,115 +116,81 @@ function f_igosja_swiss_new($tournamenttype_id, $position_difference)
 
     $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
-    $sql = "SELECT `game_home_team_id`,
-                   `game_guest_team_id`
-            FROM `game`
-            LEFT JOIN `schedule`
-            ON `game_schedule_id`=`schedule_id`
-            WHERE `schedule_tournamenttype_id`=$tournamenttype_id
-            AND `schedule_season_id`=$igosja_season_id
-            ORDER BY `game_id` ASC";
-    $game_sql = f_igosja_mysqli_query($sql);
+    for ($i=0; $i<$team_sql->num_rows; $i++)
+    {
+        $team_id = $team_array[$i]['swisstable_team_id'];
 
-    $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
+        $sql = "SELECT `swisstable_team_id`
+                FROM `swisstable`
+                WHERE `swisstable_team_id`!=$team_id
+                AND `swisstable_team_id` NOT IN
+                (
+                    SELECT IF(`game_home_team_id`=$team_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
+                    FROM `game`
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    WHERE (`game_home_team_id`=$team_id
+                    OR `game_guest_team_id`=$team_id)
+                    AND `schedule_tournamenttype_id`=$tournamenttype_id
+                    AND `schedule_season_id`=$igosja_season_id
+                    HAVING COUNT(`game_id`)>$max_count
+                )
+                ORDER BY swisstable_id` ASC";
+        $free_sql = f_igosja_mysqli_query($sql);
 
-    if (!f_igosja_swiss_one_new($tournamenttype_id, $position_difference, $team_array, $game_array))
+        $free_array = $free_sql->fetch_all(MYSQLI_ASSOC);
+
+        $free_id = array();
+
+        foreach ($free_array as $item)
+        {
+            $free_id[] = $item['swisstable_team_id']
+        }
+
+        $team_array[$i]['opponent'] = $free_id;
+    }
+
+    return $team_array;
+}
+
+function f_igosja_swiss_new($tournamenttype_id, $position_difference, $team_array)
+{
+    if (!$game_array = f_igosja_swiss_one_new($tournamenttype_id, $position_difference, $team_array))
     {
         $position_difference++;
 
-        f_igosja_swiss($tournamenttype_id, $position_difference);
+        $game_array = f_igosja_swiss_new($tournamenttype_id, $position_difference, $team_array);
     }
+
+    return $game_array;
 }
 
-function f_igosja_swiss_one_new($tournamenttype_id, $position_difference, $team_array, $game_array, $ready_game_array = array())
+function f_igosja_swiss_one_new($tournamenttype_id, $position_difference, $team_array, $game_array = array())
 {
-    $home_team = f_igosja_get_swiss_home_team_id($team_array);
+    $home_team  = f_igosja_get_swiss_home_team($team_array);
+    $guest_team = f_igosja_get_swiss_guest_team($team_array, $home_team, $position_difference);
 
-    $home_id    = $home_team['team_id'];
-    $place      = $home_team['place'];
-
-    unset($team_array[$home_team['i']]);
-
-    $team_array = array_values($team_array);
-
-    //продолжить тут
-
-    $sql = "SELECT `swisstable_place`,
-                   `swisstable_team_id`
-            FROM `swisstable`
-            WHERE `swisstable_home`<=`swisstable_guest`
-            ORDER BY `swisstable_place` ASC
-            LIMIT 1";
-    $swisstable_sql = f_igosja_mysqli_query($sql);
-
-    $swisstable_array = $swisstable_sql->fetch_all(MYSQLI_ASSOC);
-
-    $place      = $swisstable_array[0]['swisstable_place'];
-    $home_id    = $swisstable_array[0]['swisstable_team_id'];
-
-    $sql = "SELECT `swisstable_team_id`
-            FROM `swisstable`
-            WHERE `swisstable_team_id`!=$home_id
-            AND `swisstable_home`>=`swisstable_guest`
-            AND `swisstable_place` BETWEEN $place-$position_difference AND $place+$position_difference
-            AND `swisstable_team_id` NOT IN
-            (
-                SELECT IF(`game_home_team_id`=$home_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
-                FROM `game`
-                LEFT JOIN `schedule`
-                ON `game_schedule_id`=`schedule_id`
-                WHERE (`game_home_team_id`=$home_id
-                OR `game_guest_team_id`=$home_id)
-                AND `schedule_tournamenttype_id`=$tournamenttype_id
-                AND `schedule_season_id`=$igosja_season_id
-                HAVING COUNT(`game_id`)>2
-            )
-            ORDER BY RAND()
-            LIMIT 1";
-    $swisstable_sql = f_igosja_mysqli_query($sql);
-
-    if (0 == $swisstable_sql->num_rows)
+    if (!$guest_team)
     {
         return false;
     }
 
-    $swisstable_array = $swisstable_sql->fetch_all(MYSQLI_ASSOC);
+    $game_array[] = array('home' => $home_team['team_id'], 'guest' => $guest_team['team_id']);
 
-    $guest_id = $swisstable_array[0]['swisstable_team_id'];
+    unset($team_array[$home_team['i']]);
+    unset($team_array[$guest_team['i']]);
 
-    $sql = "INSERT INTO `swissgame`
-            SET `swissgame_guest_team_id`=$guest_id,
-                `swissgame_home_team_id`=$home_id";
-    f_igosja_mysqli_query($sql);
+    $team_array = array_values($team_array);
 
-    $sql = "DELETE FROM `swisstable`
-            WHERE `swisstable_team_id` IN ($home_id, $guest_id)";
-    f_igosja_mysqli_query($sql);
-
-    $sql = "SELECT COUNT(`swisstable_id`) AS `check`
-            FROM `swisstable`";
-    $check_sql = f_igosja_mysqli_query($sql);
-
-    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-    if ($check_array[0]['check'])
+    if (count($team_array))
     {
-        if (f_igosja_swiss_one($tournamenttype_id, $position_difference))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        $game_array = f_igosja_swiss_one_new($tournamenttype_id, $position_difference, $team_array, $game_array);
     }
-    else
-    {
-        return true;
-    }
+
+    return $game_array;
 }
 
-function f_igosja_get_swiss_home_team_id($team_array)
+function f_igosja_get_swiss_home_team($team_array)
 {
     for ($i=0, $count_team=count($team_array); $i<$count_team; $i++)
     {
@@ -207,7 +200,31 @@ function f_igosja_get_swiss_home_team_id($team_array)
                 'i'         => $i,
                 'team_id'   => $team_array[$i]['swisstable_team_id'],
                 'place'     => $team_array[$i]['swisstable_place'],
+                'opponent'  => $team_array[$i]['opponent'],
             );
         }
     }
+}
+
+function f_igosja_get_swiss_guest_team($team_array, $home_team, $position_difference)
+{
+    for ($i=0, $count_team=count($team_array); $i<$count_team; $i++)
+    {
+        if (
+            $team_array[$i]['swisstable_home'] <= $team_array[$i]['swisstable_guest']
+            && $team_array[$i]['swisstable_place'] >= $home_team['place'] - $position_difference
+            && $team_array[$i]['swisstable_place'] <= $home_team['place'] + $position_difference
+            && $team_array[$i]['swisstable_team_id'] != $home_team['team_id']
+            && in_array($home_team['team_id'], $team_array[$i]['opponent'])
+            && in_array($team_array[$i]['swisstable_team_id'], $home_team['opponent'])
+        )
+        {
+            return array(
+                'i'         => $i,
+                'team_id'   => $team_array[$i]['swisstable_team_id'],
+            );
+        }
+    }
+
+    return false;
 }
