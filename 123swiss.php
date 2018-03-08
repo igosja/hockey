@@ -146,7 +146,7 @@ function f_igosja_swiss_prepare($tournamenttype_id)
 
         foreach ($free_array as $item)
         {
-            $free_id[] = $item['swisstable_team_id']
+            $free_id[] = $item['swisstable_team_id'];
         }
 
         $team_array[$i]['opponent'] = $free_id;
