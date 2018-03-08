@@ -48,5 +48,6 @@ $q[] = 'CREATE INDEX `statisticplayer_country_id` ON `statisticplayer` (`statist
 $q[] = 'CREATE INDEX `statisticplayer_division_id` ON `statisticplayer` (`statisticplayer_division_id`);';
 $q[] = 'CREATE INDEX `statisticplayer_is_gk` ON `statisticplayer` (`statisticplayer_is_gk`);';
 $q[] = 'CREATE INDEX `statisticplayer_national_id` ON `statisticplayer` (`statisticplayer_national_id`);';
+$q[] = 'CREATE INDEX `statisticplayer_player_id` ON `statisticplayer` (`statisticplayer_player_id`);';
 $q[] = 'CREATE INDEX `statisticplayer_season_id` ON `statisticplayer` (`statisticplayer_season_id`);';
 $q[] = 'CREATE INDEX `statisticplayer_tournamenttype_id` ON `statisticplayer` (`statisticplayer_tournamenttype_id`);';
