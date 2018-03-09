@@ -23,7 +23,7 @@ function f_igosja_generator_user_rating_total()
                        SUM(`userrating_looseover_equal`) AS `userrating_looseover_equal_total`,
                        SUM(`userrating_looseover_strong`) AS `userrating_looseover_strong_total`,
                        SUM(`userrating_looseover_weak`) AS `userrating_looseover_weak_total`,
-                       SUM(`userrating_user_id`) AS `userrating_user_id_total`,
+                       `userrating_user_id` AS `userrating_user_id_total`,
                        SUM(`userrating_vs_super`) AS `userrating_vs_super_total`,
                        SUM(`userrating_vs_rest`) AS `userrating_vs_rest_total`,
                        SUM(`userrating_win`) AS `userrating_win_total`,
