@@ -52,10 +52,6 @@ $sql = "SELECT `city_name`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
-        LEFT JOIN `playerposition`
-        ON `player_id`=`playerposition_player_id`
-        LEFT JOIN `playerspecial`
-        ON `player_id`=`playerspecial_player_id`
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
         LEFT JOIN `stadium`
