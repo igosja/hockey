@@ -12,7 +12,7 @@ function f_igosja_get_swiss_guest_team($team_array, $home_team, $position_differ
     for ($i=0, $count_team=count($team_array); $i<$count_team; $i++)
     {
         if (
-            $team_array[$i]['swisstable_home'] <= $team_array[$i]['swisstable_guest']
+            $team_array[$i]['swisstable_home'] >= $team_array[$i]['swisstable_guest']
             && $team_array[$i]['swisstable_place'] >= $home_team['place'] - $position_difference
             && $team_array[$i]['swisstable_place'] <= $home_team['place'] + $position_difference
             && $team_array[$i]['swisstable_team_id'] != $home_team['team_id']
