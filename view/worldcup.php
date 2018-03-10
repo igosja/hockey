@@ -128,7 +128,7 @@
                 <tr>
                     <td class="text-center"><?= $item['worldcup_place']; ?></td>
                     <td>
-                        <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $statistic_array[$i]['country_name']; ?>"/>
+                        <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>"/>
                         <a href="/national_view.php?num=<?= $item['national_id']; ?>">
                             <?= $item['country_name']; ?>
                         </a>
