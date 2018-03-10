@@ -94,7 +94,12 @@
                     </li>
                     <li>
                         <a href="/admin/debug_list.php">
-                            <i class="fa fa-bug fa-fw"></i> Debugger
+                            <i class="fa fa-bug fa-fw"></i> MySQL
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/error_log.php">
+                            <i class="fa fa-file-text-o fa-fw"></i> Error log
                         </a>
                     </li>
                     <li>

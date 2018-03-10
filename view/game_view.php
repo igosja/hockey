@@ -112,15 +112,15 @@
             </tr>
             <tr>
                 <td class="text-center">
-                    <span title="Первое звено"><?= $game_array[0]['home_style_1_name']; ?></span> |
-                    <span title="Второе звено"><?= $game_array[0]['home_style_2_name']; ?></span> |
-                    <span title="Третье звено"><?= $game_array[0]['home_style_3_name']; ?></span>
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_1_id'], $game_array[0]['game_guest_style_1_id']); ?>" title="Первое звено"><?= $game_array[0]['home_style_1_name']; ?></span> |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_2_id'], $game_array[0]['game_guest_style_2_id']); ?>" title="Второе звено"><?= $game_array[0]['home_style_2_name']; ?></span> |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_3_id'], $game_array[0]['game_guest_style_3_id']); ?>" title="Третье звено"><?= $game_array[0]['home_style_3_name']; ?></span>
                 </td>
                 <td class="text-center">Стиль</td>
                 <td class="text-center">
-                    <span title="Первое звено"><?= $game_array[0]['guest_style_1_name']; ?></span> |
-                    <span title="Второе звено"><?= $game_array[0]['guest_style_2_name']; ?></span> |
-                    <span title="Третье звено"><?= $game_array[0]['guest_style_3_name']; ?></span>
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_1_id'], $game_array[0]['game_home_style_1_id']); ?>" title="Первое звено"><?= $game_array[0]['guest_style_1_name']; ?></span> |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_2_id'], $game_array[0]['game_home_style_2_id']); ?>" title="Второе звено"><?= $game_array[0]['guest_style_2_name']; ?></span> |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_3_id'], $game_array[0]['game_home_style_3_id']); ?>" title="Третье звено"><?= $game_array[0]['guest_style_3_name']; ?></span>
                 </td>
             </tr>
             <tr>

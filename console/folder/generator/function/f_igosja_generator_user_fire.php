@@ -13,6 +13,7 @@ function f_igosja_generator_user_fire()
             WHERE `user_id`!=0
             AND `user_date_vip`<UNIX_TIMESTAMP()
             AND `user_auto`>=5
+            AND `user_holiday`=0
             ORDER BY `user_id` ASC";
     $team_sql = f_igosja_mysqli_query($sql);
 
