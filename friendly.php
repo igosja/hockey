@@ -70,7 +70,10 @@ if ($team_get = (int) f_igosja_request_get('team_id'))
             LEFT JOIN `user`
             ON `team_user_id`=`user_id`
             WHERE `team_id`=$team_get
-            AND `user_friendlystatus_id` IN (" . FRIENDLY_STATUS_ALL . ", " . FRIENDLY_STATUS_CHOOSE . ")";
+            AND `user_friendlystatus_id` IN (" . FRIENDLY_STATUS_ALL . ", " . FRIENDLY_STATUS_CHOOSE . ")
+            AND `team_id`!=$auth_team_id
+            AND `team_user_id`!=$auth_user_id
+            AND `team_user_id`!=0";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -575,6 +578,7 @@ if (!$selected_game)
             ON `city_country_id`=`country_id`
             WHERE `user_friendlystatus_id`!=" . FRIENDLY_STATUS_NONE . "
             AND `user_id`!=0
+            AND `user_id`!=$auth_user_id
             AND `team_id`!=$auth_team_id
             AND `team_id` NOT IN
             (
