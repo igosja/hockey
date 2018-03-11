@@ -70,6 +70,142 @@ function f_igosja_generator_news()
     if ($today)
     {
         $text = $text . '<p class="strong">СЕГОДНЯ</p>' . "\r\n" . '<p>Сегодня состоялись ' . $today . '.</p>' . "\r\n";
+
+        $sql = "SELECT `game_id`,
+                       `game_guest_score`,
+                       `game_home_score`,
+                       `guest_city`.`city_name` AS `guest_city_name`,
+                       `guest_country`.`country_name` AS `guest_country_name`,
+                       `guest_national`.`national_id` AS `guest_national_id`,
+                       `guest_team`.`team_id` AS `guest_team_id`,
+                       `guest_team`.`team_name` AS `guest_team_name`,
+                       `home_city`.`city_name` AS `home_city_name`,
+                       `home_country`.`country_name` AS `home_country_name`,
+                       `home_national`.`national_id` AS `home_national_id`,
+                       `home_team`.`team_id` AS `home_team_id`,
+                       `home_team`.`team_name` AS `home_team_name`
+                FROM `game`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
+                LEFT JOIN `team` AS `home_team`
+                ON `game_home_team_id`=`home_team`.`team_id`
+                LEFT JOIN `stadium` AS `home_stadium`
+                ON `home_team`.`team_stadium_id`=`home_stadium`.`stadium_id`
+                LEFT JOIN `city` AS `home_city`
+                ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
+                LEFT JOIN `team` AS `guest_team`
+                ON `game_guest_team_id`=`guest_team`.`team_id`
+                LEFT JOIN `stadium` AS `guest_stadium`
+                ON `guest_team`.`team_stadium_id`=`guest_stadium`.`stadium_id`
+                LEFT JOIN `city` AS `guest_city`
+                ON `guest_stadium`.`stadium_city_id`=`guest_city`.`city_id`
+                LEFT JOIN `national` AS `home_national`
+                ON `game_home_national_id`=`home_national`.`national_id`
+                LEFT JOIN `country` AS `home_country`
+                ON `home_national`.`national_country_id`=`home_country`.`country_id`
+                LEFT JOIN `national` AS `guest_national`
+                ON `game_guest_national_id`=`guest_national`.`national_id`
+                LEFT JOIN `country` AS `guest_country`
+                ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
+                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                ORDER BY `game_guest_power`+`game_home_power` DESC
+                LIMIT 1";
+        $score_sql = f_igosja_mysqli_query($sql);
+
+        if (0 != $score_sql->num_rows)
+        {
+            $score_array = $score_sql->fetch_all(MYSQLI_ASSOC);
+
+            $text = $text . '<p>Самый крупный счёт в этот день был зафиксирован в матче ' . f_igosja_team_or_national_link(
+                array(
+                    'team_id'   => $game_array[0]['home_team_id'],
+                    'team_name' => $game_array[0]['home_team_name'],
+                ),
+                array(
+                    'country_name'  => $game_array[0]['home_national_name'],
+                    'national_id'   => $game_array[0]['home_national_id'],
+                ),
+                false
+            ) . ' - ' . f_igosja_team_or_national_link(
+                array(
+                    'team_id'   => $game_array[0]['guest_team_id'],
+                    'team_name' => $game_array[0]['guest_team_name'],
+                ),
+                array(
+                    'country_name'  => $game_array[0]['guest_national_name'],
+                    'national_id'   => $game_array[0]['guest_national_id'],
+                ),
+                false
+            ) . ' - <a href="/game_view.php?num=' . $score_array[0]['game_id'] . '">' . $score_array[0]['game_home_score'] . ':' . $score_array[0]['game_guest_score'] . '</a>.</p>' . "\r\n";
+        }
+
+        $sql = "SELECT `game_id`,
+                       `game_guest_score`,
+                       `game_home_score`,
+                       `guest_city`.`city_name` AS `guest_city_name`,
+                       `guest_country`.`country_name` AS `guest_country_name`,
+                       `guest_national`.`national_id` AS `guest_national_id`,
+                       `guest_team`.`team_id` AS `guest_team_id`,
+                       `guest_team`.`team_name` AS `guest_team_name`,
+                       `home_city`.`city_name` AS `home_city_name`,
+                       `home_country`.`country_name` AS `home_country_name`,
+                       `home_national`.`national_id` AS `home_national_id`,
+                       `home_team`.`team_id` AS `home_team_id`,
+                       `home_team`.`team_name` AS `home_team_name`
+                FROM `game`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
+                LEFT JOIN `team` AS `home_team`
+                ON `game_home_team_id`=`home_team`.`team_id`
+                LEFT JOIN `stadium` AS `home_stadium`
+                ON `home_team`.`team_stadium_id`=`home_stadium`.`stadium_id`
+                LEFT JOIN `city` AS `home_city`
+                ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
+                LEFT JOIN `team` AS `guest_team`
+                ON `game_guest_team_id`=`guest_team`.`team_id`
+                LEFT JOIN `stadium` AS `guest_stadium`
+                ON `guest_team`.`team_stadium_id`=`guest_stadium`.`stadium_id`
+                LEFT JOIN `city` AS `guest_city`
+                ON `guest_stadium`.`stadium_city_id`=`guest_city`.`city_id`
+                LEFT JOIN `national` AS `home_national`
+                ON `game_home_national_id`=`home_national`.`national_id`
+                LEFT JOIN `country` AS `home_country`
+                ON `home_national`.`national_country_id`=`home_country`.`country_id`
+                LEFT JOIN `national` AS `guest_national`
+                ON `game_guest_national_id`=`guest_national`.`national_id`
+                LEFT JOIN `country` AS `guest_country`
+                ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
+                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                ORDER BY `game_guest_power`+`game_home_power` DESC
+                LIMIT 1";
+        $power_sql = f_igosja_mysqli_query($sql);
+
+        if (0 != $power_sql->num_rows)
+        {
+            $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
+
+            $text = $text . '<p>Самую большую суммарную силу соперников зрители могли уведеть в матче ' . f_igosja_team_or_national_link(
+                array(
+                    'team_id'   => $game_array[0]['home_team_id'],
+                    'team_name' => $game_array[0]['home_team_name'],
+                ),
+                array(
+                    'country_name'  => $game_array[0]['home_national_name'],
+                    'national_id'   => $game_array[0]['home_national_id'],
+                ),
+                false
+            ) . ' - ' . f_igosja_team_or_national_link(
+                array(
+                    'team_id'   => $game_array[0]['guest_team_id'],
+                    'team_name' => $game_array[0]['guest_team_name'],
+                ),
+                array(
+                    'country_name'  => $game_array[0]['guest_national_name'],
+                    'national_id'   => $game_array[0]['guest_national_id'],
+                ),
+                false
+            ) . ' - <a href="/game_view.php?num=' . $power_array[0]['game_id'] . '">' . $power_array[0]['game_home_power'] . ':' . $power_array[0]['game_guest_power'] . '</a>.</p>' . "\r\n";
+        }
     }
 
     if ($tomorrow)
