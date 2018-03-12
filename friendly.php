@@ -545,6 +545,7 @@ $sql = "SELECT `city_id`,
                `city_name`,
                `country_id`,
                `country_name`,
+               `friendlyinvite_id`,
                `friendlyinvitestatus_name`,
                `team_id`,
                `team_name`
