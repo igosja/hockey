@@ -253,7 +253,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
         redirect('/friendly.php?num=' . $num_get);
     }
 
-    if (!in_array($friendlyinivitestatus_id, array(FRIENDLY_INVITE_STATUS_APPROVE, FRIENDLY_INVITE_STATUS_REJECT)))
+    if (!in_array($friendlyinivitestatus_id, array(FRIENDLY_INVITE_STATUS_APPROVE, FRIENDLY_INVITE_STATUS_REJECT, FRIENDLY_INVITE_STATUS_DELETE)))
     {
         f_igosja_session_front_flash_set('error', 'Действие выбрано неправильно.');
 
