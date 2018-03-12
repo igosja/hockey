@@ -121,7 +121,8 @@ $style_id = $player_array[0]['player_style_id'];
 
 if (2 == $count_scout)
 {
-    $sql = "SELECT `style_name`
+    $sql = "SELECT `style_id`,
+                   `style_name`
             FROM `style`
             WHERE `style_id`=$style_id
             AND `style_id`!=" . STYLE_NORMAL . "
@@ -150,7 +151,8 @@ else
 
     $style_id_array = implode(',', $style_id_array);
 
-    $sql = "SELECT `style_name`
+    $sql = "SELECT `style_id`,
+                   `style_name`
             FROM `style`
             WHERE (`style_id`=$style_id
             OR `style_id` IN ($style_id_array))
@@ -162,11 +164,16 @@ $style_sql = f_igosja_mysqli_query($sql);
 
 $style_array = $style_sql->fetch_all(MYSQLI_ASSOC);
 
-$style_name_array = array();
+$style_img_array = array();
 
 foreach ($style_array as $item)
 {
-    $style_name_array[] = $item['style_name'];
+    $style_img_array[] =
+    '<img
+        alt="' . $item['style_id'] . '"
+        src="/img/style/' . $item['style_id'] . '.png"
+        title="' . $item['style_id'] . '"
+    />';
 }
 
-$style_array = $style_name_array;
+$style_array = $style_img_array;
