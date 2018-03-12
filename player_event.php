@@ -13,23 +13,38 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 
 include(__DIR__ . '/include/sql/player_view.php');
 
-$sql = "SELECT `history_date`,
-               `history_season_id`,
+$sql = "SELECT `history_building_id`,
+               `history_date`,
+               `history_value`,
                `historytext_name`,
+               `name_name`,
+               `player_id`,
                `position_short`,
                `special_name`,
+               `surname_name`,
                `team_id`,
-               `team_name`
+               `team_name`,
+               `user_id`,
+               `user_login`
         FROM `history`
         LEFT JOIN `historytext`
         ON `history_historytext_id`=`historytext_id`
         LEFT JOIN `team`
         ON `history_team_id`=`team_id`
+        LEFT JOIN `user`
+        ON `history_user_id`=`user_id`
         LEFT JOIN `special`
         ON `history_special_id`=`special_id`
         LEFT JOIN `position`
         ON `history_position_id`=`position_id`
-        WHERE `history_player_id`=$num_get
+        LEFT JOIN `player`
+        ON `history_player_id`=`player_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
+        WHERE `history_team_id`=$num_get
+        AND `history_season_id`=$season_id
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
 
@@ -38,29 +53,7 @@ $event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {
-    $text = $event_array[$i]['historytext_name'];
-    $text = str_replace(
-        '{team}',
-        '<a href="/team_view.php?num=' . $event_array[$i]['team_id'] . '">' . $event_array[$i]['team_name'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{player}',
-        '<a href="/player_view.php?num=' . $num_get . '">' . $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{special}',
-        $event_array[$i]['special_name'],
-        $text
-    );
-    $text = str_replace(
-        '{position}',
-        $event_array[$i]['position_short'],
-        $text
-    );
-
-    $event_array[$i]['historytext_name'] = $text;
+    $event_array[$i]['historytext_name'] = f_igosja_event_text($event_array[$i]);
 }
 
 $seo_title          = $player_array[0]['name_name'] . ' ' . $player_array[0]['surname_name'] . '. События хоккеиста';
