@@ -9,7 +9,7 @@
 
 function f_igosja_style_scout($style_id, $count_scout)
 {
-    if (2 == $count_scout)
+    if ($count_scout >= 2)
     {
         $sql = "SELECT `style_id`,
                        `style_name`
