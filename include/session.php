@@ -213,8 +213,8 @@ if (isset($_SESSION['user_id']))
     }
     else
     {
-        $igosja_menu        = str_replace(' | <a href="/hidden_view.php" class="hidden">Сборная</a>', '', $igosja_menu);
-        $igosja_menu_mobile = str_replace(' | <a href="/hidden_view.php" class="hidden">Сборная</a>', 'hidden', $igosja_menu_mobile);
+        $igosja_menu        = str_replace(' | <a href="/national_view.php" class="hidden">Сборная</a>', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace(' | <a href="/national_view.php" class="hidden">Сборная</a>', 'hidden', $igosja_menu_mobile);
     }
 
     $sql = "SELECT `country_name`,
