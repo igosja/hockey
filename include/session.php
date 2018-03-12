@@ -206,6 +206,17 @@ if (isset($_SESSION['user_id']))
         $igosja_menu_mobile = str_replace('count_countrynews', '', $igosja_menu_mobile);
     }
 
+    if (0 != $auth_national_id || 0 != $auth_nationalvice_id)
+    {
+        $igosja_menu        = str_replace('national', '', $igosja_menu);
+        $igosja_menu_mobile = str_replace('national', '', $igosja_menu_mobile);
+    }
+    else
+    {
+        $igosja_menu        = str_replace('national', 'hidden', $igosja_menu);
+        $igosja_menu_mobile = str_replace('national', 'hidden', $igosja_menu_mobile);
+    }
+
     $sql = "SELECT `country_name`,
                    `team_id`,
                    `team_name`

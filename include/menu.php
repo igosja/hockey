@@ -18,7 +18,7 @@ $igosja_menu = array(
     array('label' => 'Рейтинги',        'url' => '/rating.php'),
     array('label' => 'Регистрация',     'url' => '/signup.php',         'css' => 'red'),
     array('label' => 'Ростер',          'url' => '/team_view.php',      'css' => 'red'),
-    array('label' => 'Сборная',         'url' => '/national_view.php'),
+    array('label' => 'Сборная',         'url' => '/national_view.php',  'css' => 'national'),
     array('label' => 'Сменить клуб',    'url' => '/team_change.php'),
     array('label' => 'Тех.поддержка',   'url' => '/support.php',        'css' => 'count_support'),
     array('label' => 'Трансфер',        'url' => '/transfer_list.php'),
@@ -88,7 +88,7 @@ $igosja_menu_login = array(
     ),
     array(
         $igosja_menu[16],
-//        $igosja_menu[17],
+        $igosja_menu[17],
         $igosja_menu[12],
         $igosja_menu[13],
         $igosja_menu[21],
@@ -120,7 +120,7 @@ $igosja_menu_login_mobile = array(
     ),
     array(
         $igosja_menu[16],
-//        $igosja_menu[17],
+        $igosja_menu[17],
         $igosja_menu[12],
         $igosja_menu[13],
     ),
