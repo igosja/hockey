@@ -341,6 +341,7 @@ $sql = "SELECT `count_scout`,
                `player_age`,
                `player_id`,
                `player_power_nominal`,
+               `player_style_id`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`

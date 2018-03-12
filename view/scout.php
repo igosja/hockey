@@ -176,7 +176,7 @@
                         <th class="col-5" title="Возраст">В</th>
                         <th class="col-10" title="Номинальная сила">С</th>
                         <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
-                        <th class="col-10">Стиль</th>
+                        <th class="col-15">Стиль</th>
                     </tr>
                     <?php foreach ($player_array as $item) { ?>
                         <tr>
@@ -209,6 +209,7 @@
                                     <label class="hidden" for="style-<?= $item['player_id']; ?>"></label>
                                     <input id="style-<?= $item['player_id']; ?>" name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
                                 <?php } ?>
+                                <?= f_igosja_style_scout($item['player_style_id'], $item['count_scout']); ?>
                             </td>
                         </tr>
                     <?php } ?>
