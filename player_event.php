@@ -43,8 +43,7 @@ $sql = "SELECT `history_building_id`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `history_team_id`=$num_get
-        AND `history_season_id`=$season_id
+        WHERE `history_player_id`=$num_get
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
 
