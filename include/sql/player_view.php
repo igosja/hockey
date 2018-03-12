@@ -117,4 +117,4 @@ else
     $count_scout = 0;
 }
 
-$style_img = f_igosja_style_scout($count_scout, $player_array[0]['player_style_id']);
+$style_img = f_igosja_style_scout($player_array[0]['player_style_id'], $count_scout);
