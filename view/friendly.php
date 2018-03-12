@@ -84,7 +84,11 @@
                 </tr>
                 <?php foreach ($invite_send_array as $item) { ?>
                     <tr>
-                        <td></td>
+                        <td>
+                            <a href="/friendly.php?num=<?= $num_get; ?>&friendlyinvite_id=<?= $item['friendlyinvite_id']; ?>&friendlyinivitestatus_id=<?= FRIENDLY_INVITE_STATUS_DELETE; ?>">
+                                <img alt="Удалить" src="/img/delete.png" title="Удалить" />
+                            </a>
+                        </td>
                         <td>
                             <img
                                 alt="<?$item['country_name']; ?>"
