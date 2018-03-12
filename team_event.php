@@ -44,6 +44,7 @@ $season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `history_building_id`,
                `history_date`,
+               `history_season_id`,
                `history_value`,
                `historytext_name`,
                `name_name`,

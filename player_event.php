@@ -15,6 +15,7 @@ include(__DIR__ . '/include/sql/player_view.php');
 
 $sql = "SELECT `history_building_id`,
                `history_date`,
+               `history_season_id`,
                `history_value`,
                `historytext_name`,
                `name_name`,
