@@ -108,7 +108,7 @@ function f_igosja_generator_news()
                 LEFT JOIN `country` AS `guest_country`
                 ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
                 WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
-                ORDER BY `game_guest_power`+`game_home_power` DESC
+                ORDER BY `game_guest_score`+`game_home_score` DESC
                 LIMIT 1";
         $score_sql = f_igosja_mysqli_query($sql);
 
@@ -118,22 +118,22 @@ function f_igosja_generator_news()
 
             $text = $text . '<p>Самый крупный счёт в этот день был зафиксирован в матче ' . f_igosja_team_or_national_link(
                 array(
-                    'team_id'   => $game_array[0]['home_team_id'],
-                    'team_name' => $game_array[0]['home_team_name'],
+                    'team_id'   => $score_array[0]['home_team_id'],
+                    'team_name' => $score_array[0]['home_team_name'],
                 ),
                 array(
-                    'country_name'  => $game_array[0]['home_national_name'],
-                    'national_id'   => $game_array[0]['home_national_id'],
+                    'country_name'  => $score_array[0]['home_national_name'],
+                    'national_id'   => $score_array[0]['home_national_id'],
                 ),
                 false
             ) . ' - ' . f_igosja_team_or_national_link(
                 array(
-                    'team_id'   => $game_array[0]['guest_team_id'],
-                    'team_name' => $game_array[0]['guest_team_name'],
+                    'team_id'   => $score_array[0]['guest_team_id'],
+                    'team_name' => $score_array[0]['guest_team_name'],
                 ),
                 array(
-                    'country_name'  => $game_array[0]['guest_national_name'],
-                    'national_id'   => $game_array[0]['guest_national_id'],
+                    'country_name'  => $score_array[0]['guest_national_name'],
+                    'national_id'   => $score_array[0]['guest_national_id'],
                 ),
                 false
             ) . ' - <a href="/game_view.php?num=' . $score_array[0]['game_id'] . '">' . $score_array[0]['game_home_score'] . ':' . $score_array[0]['game_guest_score'] . '</a>.</p>' . "\r\n";
@@ -186,25 +186,25 @@ function f_igosja_generator_news()
 
             $text = $text . '<p>Самую большую суммарную силу соперников зрители могли уведеть в матче ' . f_igosja_team_or_national_link(
                 array(
-                    'team_id'   => $game_array[0]['home_team_id'],
-                    'team_name' => $game_array[0]['home_team_name'],
+                    'team_id'   => $power_array[0]['home_team_id'],
+                    'team_name' => $power_array[0]['home_team_name'],
                 ),
                 array(
-                    'country_name'  => $game_array[0]['home_national_name'],
-                    'national_id'   => $game_array[0]['home_national_id'],
+                    'country_name'  => $power_array[0]['home_national_name'],
+                    'national_id'   => $power_array[0]['home_national_id'],
                 ),
                 false
             ) . ' - ' . f_igosja_team_or_national_link(
                 array(
-                    'team_id'   => $game_array[0]['guest_team_id'],
-                    'team_name' => $game_array[0]['guest_team_name'],
+                    'team_id'   => $power_array[0]['guest_team_id'],
+                    'team_name' => $power_array[0]['guest_team_name'],
                 ),
                 array(
-                    'country_name'  => $game_array[0]['guest_national_name'],
-                    'national_id'   => $game_array[0]['guest_national_id'],
+                    'country_name'  => $power_array[0]['guest_national_name'],
+                    'national_id'   => $power_array[0]['guest_national_id'],
                 ),
                 false
-            ) . ' - <a href="/game_view.php?num=' . $power_array[0]['game_id'] . '">' . $power_array[0]['game_home_power'] . ':' . $power_array[0]['game_guest_power'] . '</a>.</p>' . "\r\n";
+            ) . ' - <a href="/game_view.php?num=' . $power_array[0]['game_id'] . '">' . $power_array[0]['game_home_score'] . ':' . $power_array[0]['game_guest_score'] . '</a>.</p>' . "\r\n";
         }
     }
 

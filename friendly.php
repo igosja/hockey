@@ -239,7 +239,8 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
     $sql = "SELECT COUNT(`friendlyinvite_id`) AS `count`
             FROM `friendlyinvite`
             WHERE `friendlyinvite_id`=$friendlyinvite_id
-            AND `friendlyinvite_guest_team_id`=$auth_team_id
+            AND (`friendlyinvite_guest_team_id`=$auth_team_id
+            OR `friendlyinvite_home_team_id`=$auth_team_id)
             AND `friendlyinvite_friendlyinvitestatus_id`=" . FRIENDLY_INVITE_STATUS_NEW;
     $check_sql = f_igosja_mysqli_query($sql);
 
@@ -252,7 +253,7 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
         redirect('/friendly.php?num=' . $num_get);
     }
 
-    if (!in_array($friendlyinivitestatus_id, array(FRIENDLY_INVITE_STATUS_APPROVE, FRIENDLY_INVITE_STATUS_REJECT)))
+    if (!in_array($friendlyinivitestatus_id, array(FRIENDLY_INVITE_STATUS_APPROVE, FRIENDLY_INVITE_STATUS_REJECT, FRIENDLY_INVITE_STATUS_DELETE)))
     {
         f_igosja_session_front_flash_set('error', 'Действие выбрано неправильно.');
 
@@ -269,6 +270,18 @@ if (($friendlyinvite_id = (int) f_igosja_request_get('friendlyinvite_id')) && ($
         f_igosja_mysqli_query($sql);
 
         f_igosja_session_front_flash_set('success', 'Приглашение успешно отклонено.');
+
+        redirect('/friendly.php?num=' . $num_get);
+    }
+    elseif (FRIENDLY_INVITE_STATUS_DELETE == $friendlyinivitestatus_id)
+    {
+        $sql = "DELETE FROM `friendlyinvite`
+                WHERE `friendlyinvite_home_user_id`=$auth_user_id
+                AND `friendlyinvite_id`=$friendlyinvite_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        f_igosja_session_front_flash_set('success', 'Приглашение успешно удалено.');
 
         redirect('/friendly.php?num=' . $num_get);
     }
@@ -532,6 +545,7 @@ $sql = "SELECT `city_id`,
                `city_name`,
                `country_id`,
                `country_name`,
+               `friendlyinvite_id`,
                `friendlyinvitestatus_name`,
                `team_id`,
                `team_name`

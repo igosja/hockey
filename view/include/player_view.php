@@ -7,7 +7,7 @@
  * @var $playerposition_array array
  * @var $playerspecial_array array
  * @var $s_data string
- * @var $style_array array
+ * @var $style_img string
  * @var $x_data string
  */
 ?>
@@ -139,7 +139,7 @@
                         Стиль:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?= implode(' | ', $style_array); ?>
+                        <?= $style_img; ?>
                     </div>
                 </div>
             </div>

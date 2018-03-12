@@ -44,10 +44,13 @@ $season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `history_building_id`,
                `history_date`,
+               `history_season_id`,
                `history_value`,
                `historytext_name`,
                `name_name`,
                `player_id`,
+               `position_short`,
+               `special_name`,
                `surname_name`,
                `team_id`,
                `team_name`,
@@ -60,6 +63,10 @@ $sql = "SELECT `history_building_id`,
         ON `history_team_id`=`team_id`
         LEFT JOIN `user`
         ON `history_user_id`=`user_id`
+        LEFT JOIN `special`
+        ON `history_special_id`=`special_id`
+        LEFT JOIN `position`
+        ON `history_position_id`=`position_id`
         LEFT JOIN `player`
         ON `history_player_id`=`player_id`
         LEFT JOIN `name`
@@ -76,53 +83,7 @@ $event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {
-    $text = $event_array[$i]['historytext_name'];
-    $text = str_replace(
-        '{user}',
-        '<a href="/user_view.php?num=' . $event_array[$i]['user_id'] . '">' . $event_array[$i]['user_login'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{team}',
-        '<a href="/team_view.php?num=' . $event_array[$i]['team_id'] . '">' . $event_array[$i]['team_name'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{player}',
-        '<a href="/player_view.php?num=' . $event_array[$i]['player_id'] . '">' . $event_array[$i]['name_name'] . ' ' . $event_array[$i]['surname_name'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{level}',
-        $event_array[$i]['history_value'],
-        $text
-    );
-    $text = str_replace(
-        '{capacity}',
-        $event_array[$i]['history_value'],
-        $text
-    );
-    $building = '';
-    if (BUILDING_BASE == $event_array[$i]['history_building_id']) {
-        $building = 'база';
-    } elseif (BUILDING_BASEMEDICAL == $event_array[$i]['history_building_id']) {
-        $building = 'медцентр';
-    } elseif (BUILDING_BASEPHISICAL == $event_array[$i]['history_building_id']) {
-        $building = 'центр физподготовки';
-    } elseif (BUILDING_BASESCHOOL == $event_array[$i]['history_building_id']) {
-        $building = 'спортшкола';
-    } elseif (BUILDING_BASESCOUT == $event_array[$i]['history_building_id']) {
-        $building = 'скаут-центр';
-    } elseif (BUILDING_BASETRAINING == $event_array[$i]['history_building_id']) {
-        $building = 'тренировочный центр';
-    }
-    $text = str_replace(
-        '{building}',
-        $building,
-        $text
-    );
-
-    $event_array[$i]['historytext_name'] = $text;
+    $event_array[$i]['historytext_name'] = f_igosja_event_text($event_array[$i]);
 }
 
 $seo_title          = $team_array[0]['team_name'] . '. События команды';
