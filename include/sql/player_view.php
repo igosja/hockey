@@ -170,9 +170,9 @@ foreach ($style_array as $item)
 {
     $style_img_array[] =
     '<img
-        alt="' . $item['style_id'] . '"
+        alt="' . $item['style_name'] . '"
         src="/img/style/' . $item['style_id'] . '.png"
-        title="' . $item['style_id'] . '"
+        title="' . $item['style_name'] . '"
     />';
 }
 
