@@ -227,9 +227,9 @@
                             <th data-type="player">Игрок</th>
                             <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
                             <th class="col-5" data-type="number" title="Возраст">В</th>
-                            <th class="col-10" title="Номинальная сила">С</th>
-                            <th class="col-15" title="Позиция">Поз</th>
-                            <th class="col-15" title="Спецвозможности">Спец</th>
+                            <th class="col-10" data-type="number" title="Номинальная сила">С</th>
+                            <th class="col-15" data-type="position" title="Позиция">Поз</th>
+                            <th class="col-15" data-type="string" title="Спецвозможности">Спец</th>
                         </tr>
                     </thead>
                     <tbody>
