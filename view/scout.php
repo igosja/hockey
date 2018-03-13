@@ -168,60 +168,66 @@
     <form method="POST">
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>Игрок</th>
-                        <th class="col-1 hidden-xs" title="Национальность">Нац</th>
-                        <th class="col-10" title="Позиция">Поз</th>
-                        <th class="col-5" title="Возраст">В</th>
-                        <th class="col-10" title="Номинальная сила">С</th>
-                        <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
-                        <th class="col-15">Стиль</th>
-                    </tr>
-                    <?php foreach ($player_array as $item) { ?>
+                <table class="table table-bordered table-hover" id="grid">
+                    <thead>
                         <tr>
-                            <td>
-                                <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                                    <?= $item['name_name']; ?>
-                                    <?= $item['surname_name']; ?>
-                                </a>
-                            </td>
-                            <td class="hidden-xs text-center">
-                                <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                                    <img
-                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                        title="<?= $item['country_name']; ?>"
-                                    />
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
-                            </td>
-                            <td class="text-center"><?= $item['player_age']; ?></td>
-                            <td class="text-center">
-                                <?= $item['player_power_nominal']; ?>
-                            </td>
-                            <td class="text-center hidden-xs">
-                                <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
-                            </td>
-                            <td class="text-center">
-                                <?php if ($item['count_scout'] < 2) { ?>
-                                    <label class="hidden" for="style-<?= $item['player_id']; ?>"></label>
-                                    <input id="style-<?= $item['player_id']; ?>" name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
-                                <?php } ?>
-                                <?= f_igosja_style_scout($item['player_style_id'], $item['count_scout']); ?>
-                            </td>
+                            <th data-type="player">Игрок</th>
+                            <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
+                            <th class="col-10" data-type="position" title="Позиция">Поз</th>
+                            <th class="col-5" data-type="number" title="Возраст">В</th>
+                            <th class="col-10" data-type="number" title="Номинальная сила">С</th>
+                            <th class="col-15 hidden-xs" data-type="string" title="Спецвозможности">Спец</th>
+                            <th class="col-15" data-type="string">Стиль</th>
                         </tr>
-                    <?php } ?>
-                    <tr>
-                        <th>Игрок</th>
-                        <th class="hidden-xs" title="Национальность">Нац</th>
-                        <th title="Позиция">Поз</th>
-                        <th title="Возраст">В</th>
-                        <th title="Номинальная сила">С</th>
-                        <th class="hidden-xs" title="Спецвозможности">Спец</th>
-                        <th>Стиль</th>
-                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=0; foreach ($player_array as $item) { ?>
+                            <tr data-order="<?= $i; ?>">
+                                <td>
+                                    <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                        <?= $item['name_name']; ?>
+                                        <?= $item['surname_name']; ?>
+                                    </a>
+                                </td>
+                                <td class="hidden-xs text-center">
+                                    <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                        <img
+                                            src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                            title="<?= $item['country_name']; ?>"
+                                        />
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
+                                </td>
+                                <td class="text-center"><?= $item['player_age']; ?></td>
+                                <td class="text-center">
+                                    <?= $item['player_power_nominal']; ?>
+                                </td>
+                                <td class="text-center hidden-xs">
+                                    <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?php if ($item['count_scout'] < 2) { ?>
+                                        <label class="hidden" for="style-<?= $item['player_id']; ?>"></label>
+                                        <input id="style-<?= $item['player_id']; ?>" name="data[style][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                    <?php } ?>
+                                    <?= f_igosja_style_scout($item['player_style_id'], $item['count_scout']); ?>
+                                </td>
+                            </tr>
+                        <?php $i++; } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Игрок</th>
+                            <th class="hidden-xs" title="Национальность">Нац</th>
+                            <th title="Позиция">Поз</th>
+                            <th title="Возраст">В</th>
+                            <th title="Номинальная сила">С</th>
+                            <th class="hidden-xs" title="Спецвозможности">Спец</th>
+                            <th>Стиль</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
