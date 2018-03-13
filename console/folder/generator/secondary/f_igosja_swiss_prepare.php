@@ -65,7 +65,7 @@ function f_igosja_swiss_prepare($tournamenttype_id)
                     OR `game_guest_team_id`=$team_id)
                     AND `schedule_tournamenttype_id`=$tournamenttype_id
                     AND `schedule_season_id`=$igosja_season_id
-                    HAVING COUNT(`game_id`)>$max_count
+                    HAVING COUNT(`game_id`)>=$max_count
                 )
                 ORDER BY `swisstable_id` ASC";
         $free_sql = f_igosja_mysqli_query($sql);
