@@ -221,74 +221,80 @@
     <form method="POST">
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>Игрок</th>
-                        <th class="col-1 hidden-xs" title="Национальность">Нац</th>
-                        <th class="col-5" title="Возраст">В</th>
-                        <th class="col-10" title="Номинальная сила">С</th>
-                        <th class="col-15" title="Позиция">Поз</th>
-                        <th class="col-15" title="Спецвозможности">Спец</th>
-                    </tr>
-                    <?php foreach ($player_array as $item) { ?>
+                <table class="table table-bordered table-hover" id="grid">
+                    <thead>
                         <tr>
-                            <td>
-                                <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                                    <?= $item['name_name']; ?>
-                                    <?= $item['surname_name']; ?>
-                                </a>
-                            </td>
-                            <td class="hidden-xs text-center">
-                                <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                                    <img
-                                        alt="<?= $item['country_name']; ?>"
-                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                        title="<?= $item['country_name']; ?>"
-                                    />
-                                </a>
-                            </td>
-                            <td class="text-center"><?= $item['player_age']; ?></td>
-                            <td class="text-center">
-                                <?= $item['player_power_nominal']; ?>
-                                <?php if ($item['player_noaction'] < time()) { ?>
-                                    <label class="hidden" for="power-<?= $item['player_id']; ?>">+1</label>
-                                    <input id="power-<?= $item['player_id']; ?>" name="data[power][]" type="checkbox" value="<?= $item['player_id']; ?>" />
-                                <?php } ?>
-                            </td>
-                            <td class="text-center">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?php if ($item['player_noaction'] < time()) { ?>
-                                            <?= f_igosja_player_position_training($item['player_id']); ?>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <?php if ($item['player_noaction'] < time()) { ?>
-                                            <?= f_igosja_player_special_training($item['player_id']); ?>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </td>
+                            <th data-type="player">Игрок</th>
+                            <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
+                            <th class="col-5" data-type="number" title="Возраст">В</th>
+                            <th class="col-10" title="Номинальная сила">С</th>
+                            <th class="col-15" title="Позиция">Поз</th>
+                            <th class="col-15" title="Спецвозможности">Спец</th>
                         </tr>
-                    <?php } ?>
-                    <tr>
-                        <th>Игрок</th>
-                        <th class="hidden-xs" title="Национальность">Нац</th>
-                        <th title="Возраст">В</th>
-                        <th title="Позиция">Поз</th>
-                        <th title="Номинальная сила">С</th>
-                        <th title="Спецвозможности">Спец</th>
-                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=0; foreach ($player_array as $item) { ?>
+                            <tr data-order="<?= $i; ?>">
+                                <td>
+                                    <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                        <?= $item['name_name']; ?>
+                                        <?= $item['surname_name']; ?>
+                                    </a>
+                                </td>
+                                <td class="hidden-xs text-center">
+                                    <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                        <img
+                                            alt="<?= $item['country_name']; ?>"
+                                            src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                            title="<?= $item['country_name']; ?>"
+                                        />
+                                    </a>
+                                </td>
+                                <td class="text-center"><?= $item['player_age']; ?></td>
+                                <td class="text-center">
+                                    <?= $item['player_power_nominal']; ?>
+                                    <?php if ($item['player_noaction'] < time()) { ?>
+                                        <label class="hidden" for="power-<?= $item['player_id']; ?>">+1</label>
+                                        <input id="power-<?= $item['player_id']; ?>" name="data[power][]" type="checkbox" value="<?= $item['player_id']; ?>" />
+                                    <?php } ?>
+                                </td>
+                                <td class="text-center">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <?php if ($item['player_noaction'] < time()) { ?>
+                                                <?= f_igosja_player_position_training($item['player_id']); ?>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <?php if ($item['player_noaction'] < time()) { ?>
+                                                <?= f_igosja_player_special_training($item['player_id']); ?>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php $i++; } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Игрок</th>
+                            <th class="hidden-xs" title="Национальность">Нац</th>
+                            <th title="Возраст">В</th>
+                            <th title="Позиция">Поз</th>
+                            <th title="Номинальная сила">С</th>
+                            <th title="Спецвозможности">Спец</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
