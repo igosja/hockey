@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message-my">
                     <?= f_igosja_bb_decode($item['message_text']); ?>
                 </div>
             </div>
