@@ -78,13 +78,23 @@
                     >
                         <?= $item['player_power_nominal']; ?>
                     </td>
-                    <td class="text-center"><?= $item['player_tire']; ?></td>
                     <td class="text-center">
-                        <img
-                            alt="<?= $item['phisical_name']; ?>"
-                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                            title="<?= $item['phisical_name']; ?>"
-                        />
+                        <?php if (isset($auth_national_id) && $auth_national_id == $num_get) { ?>
+                            <?= $item['player_tire']; ?>
+                        <?php } else { ?>
+                            ?
+                        <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?php if (isset($auth_national_id) && $auth_national_id == $num_get) { ?>
+                            <img
+                                alt="<?= $item['phisical_name']; ?>"
+                                src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                title="<?= $item['phisical_name']; ?>"
+                            />
+                        <?php } else { ?>
+                            ?
+                        <?php } ?>
                     </td>
                     <td class="text-center"><?= $item['player_power_real']; ?></td>
                     <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
