@@ -905,3 +905,8 @@ blockquote:before {
 .country-header-link {
     color: #0f103d;
 }
+
+.message-my {
+    margin-left: 10px;
+    background-color: #1ab7ea;
+}
