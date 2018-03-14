@@ -906,7 +906,18 @@ blockquote:before {
     color: #0f103d;
 }
 
-.message-my {
+.message {
+    padding: 5px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.message-from-me {
+    background-color: #bfe9f9;
     margin-left: 10px;
-    background-color: #1ab7ea;
+}
+
+.message-to-me {
+    background-color: #dcf2fa;
+    margin-right: 10px;
 }
