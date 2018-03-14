@@ -907,16 +907,17 @@ blockquote:before {
 }
 
 .message {
-    background-color: #bfe9f9;
     padding: 5px;
     border-radius: 5px;
     width: auto;
 }
 
 .message-from-me {
+    background-color: #bfe9f9;
     margin-left: 10px;
 }
 
 .message-to-me {
+    background-color: #dcf2fa;
     margin-right: 10px;
 }
