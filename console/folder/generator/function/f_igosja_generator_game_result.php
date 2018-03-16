@@ -107,7 +107,7 @@ function f_igosja_generator_game_result()
             $rude_home  = $game_result['home']['team']['rude'][$game_result['minute'] % 3 + 1];
             $rude_guest = $game_result['guest']['team']['rude'][$game_result['minute'] % 3 + 1];
 
-            if (rand(0, 40) >= 37 - $rude_home * RUDE_PENALTY && 1 == rand(0, 1))
+            if (rand(0, 40) >= 38 - $rude_home * RUDE_PENALTY && 1 == rand(0, 1))
             {
                 $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
@@ -117,7 +117,7 @@ function f_igosja_generator_game_result()
                 $game_result = f_igosja_team_penalty_increase($game_result, 'home');
             }
 
-            if (rand(0, 40) >= 37 - $rude_guest * RUDE_PENALTY && 1 == rand(0, 1))
+            if (rand(0, 40) >= 38 - $rude_guest * RUDE_PENALTY && 1 == rand(0, 1))
             {
                 $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 

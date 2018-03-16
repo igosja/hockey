@@ -96,7 +96,13 @@
                             ?
                         <?php } ?>
                     </td>
-                    <td class="text-center"><?= $item['player_power_real']; ?></td>
+                    <td class="text-center">
+                        <?php if (isset($auth_national_id) && $auth_national_id == $num_get) { ?>
+                            <?= $item['player_power_real']; ?>
+                        <?php } else { ?>
+                            ~<?= $item['player_power_nominal']; ?>
+                        <?php } ?>
+                    </td>
                     <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?></td>
                     <td class="hidden-xs text-center">0</td>
                     <td class="hidden-xs text-center">0</td>
