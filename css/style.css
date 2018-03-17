@@ -914,10 +914,10 @@ blockquote:before {
 
 .message-from-me {
     background-color: #bfe9f9;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .message-to-me {
     background-color: #dcf2fa;
-    margin-right: 10px;
+    margin-right: 20px;
 }
