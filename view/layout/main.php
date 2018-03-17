@@ -30,7 +30,7 @@
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-6160655475641285",
+            google_ad_client: "ca-pub-9189986235139627",
             enable_page_level_ads: true
           });
         </script>
@@ -121,7 +121,6 @@
         <?php if ((!isset($auth_user_id) || $auth_date_vip < time()) && 'vhol.org' == $_SERVER['HTTP_HOST']) { ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- vhol footer -->
                     <ins class="adsbygoogle"
                          style="display:block"
