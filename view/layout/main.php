@@ -26,6 +26,15 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
     <meta name='advmaker-verification' content='8c9c1fd4f68997b42a16379bac71f980'/>
+    <?php if ((!isset($auth_user_id) || $auth_date_vip < time()) && 'vhol.org' == $_SERVER['HTTP_HOST']) { ?>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6160655475641285",
+            enable_page_level_ads: true
+          });
+        </script>
+    <?php } ?>
 </head>
 <body>
 <?php if ('vhol.org' == $_SERVER['HTTP_HOST']) { ?>
