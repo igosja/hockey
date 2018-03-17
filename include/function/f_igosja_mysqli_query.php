@@ -17,26 +17,26 @@ function f_igosja_mysqli_query($sql, $save = true)
     if ($save)
     {
         $start_time = microtime(true);
-        $result = $mysqli->query($sql) or die($mysqli->error . ' ' . $sql);
-        $time = round(microtime(true) - $start_time, 5);
+        $result     = $mysqli->query($sql) or die('<pre>' . $mysqli->error . '<pre>' . $sql);
+        $time       = round(microtime(true) - $start_time, 5);
 
         if ($time > 1)
         {
-            $trace = debug_backtrace();
-            $file = $trace[0]['file'];
-            $file = str_replace(realpath(__DIR__ . '/../../'), '', $file);
+            $trace  = debug_backtrace();
+            $file   = $trace[0]['file'];
+            $file   = str_replace(realpath(__DIR__ . '/../../'), '', $file);
 
             $query_array[] = array(
-                'file' => $file,
-                'line' => $trace[0]['line'],
-                'sql' => $sql,
-                'time' => $time,
+                'file'  => $file,
+                'line'  => $trace[0]['line'],
+                'sql'   => $sql,
+                'time'  => $time,
             );
         }
     }
     else
     {
-        $result = $mysqli->query($sql) or die($mysqli->error . ' ' . $sql);
+        $result = $mysqli->query($sql) or die('<pre>' . $mysqli->error . '<pre>' . $sql);
     }
 
     return $result;
