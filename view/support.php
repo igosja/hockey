@@ -3,6 +3,8 @@
  * @var $auth_use_bb integer
  * @var $auth_user_id integer
  * @var $message_array array
+ * @var $limit integer
+ * @var $lazy integer
  */
 ?>
 <div class="row margin-top">
@@ -20,21 +22,24 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php foreach ($message_array as $item) { ?>
-            <div class="row margin-top">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
-                    <?= f_igosja_ufu_date_time($item['message_date']); ?>,
-                    <a href="/user_view.php?num=<?= $item['user_id']; ?>">
-                        <?= $item['user_login']; ?>
-                    </a>
+        <div class="message-scroll">
+            <div id="lazy" data-continue="<?= $lazy; ?>" data-limit="<?= $limit; ?>" data-offset="<?= $limit; ?>"></div>
+            <?php foreach ($message_array as $item) { ?>
+                <div class="row margin-top">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
+                        <?= f_igosja_ufu_date_time($item['message_date']); ?>,
+                        <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if ($auth_user_id == $item['user_id']) { ?>message-from-me<?php } else { ?>message-to-me<?php } ?>">
-                    <?= f_igosja_bb_decode($item['message_text']); ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if ($auth_user_id == $item['user_id']) { ?>message-from-me<?php } else { ?>message-to-me<?php } ?>">
+                        <?= f_igosja_bb_decode($item['message_text']); ?>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <label for="message"><span class="strong">Ваше сообщение:</span></label>

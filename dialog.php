@@ -43,13 +43,7 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-if (!$page = (int) f_igosja_request_get('page'))
-{
-    $page = 1;
-}
-
-$limit  = 20;
-$offset = ($page - 1) * $limit;
+$limit = 10;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `message_date`,
@@ -69,17 +63,25 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         AND `message_support_to`=0
         AND `message_support_from`=0
         ORDER BY `message_id` DESC
-        LIMIT $offset, $limit";
+        LIMIT $limit";
 $message_sql = f_igosja_mysqli_query($sql);
 
 $message_array = $message_sql->fetch_all(MYSQLI_ASSOC);
+$message_array = array_reverse($message_array);
 
 $sql = "SELECT FOUND_ROWS() AS `count`";
 $total = f_igosja_mysqli_query($sql);
 $total = $total->fetch_all(MYSQLI_ASSOC);
 $total = $total[0]['count'];
 
-$count_page = ceil($total / $limit);
+if ($total > $message_sql->num_rows)
+{
+    $lazy = 1;
+}
+else
+{
+    $lazy = 0;
+}
 
 $sql = "UPDATE `message`
         SET `message_read`=1

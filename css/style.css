@@ -921,3 +921,9 @@ blockquote:before {
     background-color: #dcf2fa;
     margin-right: 20px;
 }
+
+.message-scroll {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
