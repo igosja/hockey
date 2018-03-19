@@ -43,7 +43,7 @@
                         <label class="control-label" for="reason">Причина</label>
                     </td>
                     <td>
-                        <textarea class="form-control" id="readon" name="data[user_reason_block]" />
+                        <textarea class="form-control" id="readon" name="data[user_reason_block]"></textarea>
                     </td>
                 </tr>
             </table>
