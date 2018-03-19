@@ -234,7 +234,8 @@ if (isset($_SESSION['user_id']))
     $auth_team_array = $auth_team_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "UPDATE `user`
-            SET `user_date_login`=UNIX_TIMESTAMP()
+            SET `user_date_login`=UNIX_TIMESTAMP(),
+                `user_ip`=" . ip2long(f_igosja_get_user_ip()) . "
             WHERE `user_id`=$auth_user_id
             LIMIT 1";
     f_igosja_mysqli_query($sql);
