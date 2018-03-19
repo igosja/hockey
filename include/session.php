@@ -78,7 +78,7 @@ if (isset($_SESSION['user_id']))
     {
         f_igosja_session_front_flash_set('error', 'Ваш email не подтвержден.');
 
-        redirect('activation.php');
+        redirect('/activation.php');
     }
 
     if (!$auth_country_id)
