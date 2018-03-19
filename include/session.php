@@ -32,6 +32,7 @@ if (isset($_SESSION['user_id']))
                    `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
                    `user_code`,
+                   `user_date_confirm`,
                    `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
@@ -63,6 +64,7 @@ if (isset($_SESSION['user_id']))
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     $auth_country_id        = $user_array[0]['city_country_id'];
+    $auth_date_confirm      = $user_array[0]['user_date_confirm'];
     $auth_date_forum        = $user_array[0]['user_date_forum_block'];
     $auth_date_vip          = $user_array[0]['user_date_vip'];
     $auth_team_id           = $user_array[0]['team_id'];
@@ -71,6 +73,13 @@ if (isset($_SESSION['user_id']))
     $auth_user_login        = $user_array[0]['user_login'];
     $auth_use_bb            = $user_array[0]['user_use_bb'];
     $auth_userrole_id       = $user_array[0]['user_userrole_id'];
+
+    if (0 == $auth_date_confirm && !in_array($tpl, array('activation', 'activation_repeat', 'user_profile', 'user_questionnaire')))
+    {
+        f_igosja_session_front_flash_set('error', 'Ваш email не подтвержден.');
+
+        redirect('activation.php');
+    }
 
     if (!$auth_country_id)
     {
