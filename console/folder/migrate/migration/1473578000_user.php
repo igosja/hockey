@@ -23,7 +23,7 @@ $q[] = 'CREATE TABLE `user`
             `user_email` VARCHAR(255),
             `user_finance` INT(11) DEFAULT 0,
             `user_friendlystatus_id` INT(11) DEFAULT 2,
-            `user_ip` INT(10) DEFAULT 0,
+            `user_ip` CHAR(15),
             `user_holiday` INT(1) DEFAULT 0,
             `user_holiday_day` INT(2) DEFAULT 0,
             `user_login` VARCHAR(255),
