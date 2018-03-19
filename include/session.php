@@ -74,7 +74,7 @@ if (isset($_SESSION['user_id']))
     $auth_use_bb            = $user_array[0]['user_use_bb'];
     $auth_userrole_id       = $user_array[0]['user_userrole_id'];
 
-    if (0 == $auth_date_confirm && !in_array($tpl, array('activation', 'activation_repeat', 'user_profile', 'user_questionnaire')))
+    if (0 == $auth_date_confirm && !in_array($tpl, array('activation', 'activation_repeat', 'user_view', 'user_questionnaire')))
     {
         f_igosja_session_front_flash_set('error', 'Ваш email не подтвержден.');
 
