@@ -25,7 +25,7 @@ if ($data = f_igosja_request_post('data'))
     $time = $time * 86400 + time();
 
     $sql = "UPDATE `user`
-            SET `user_date_forum_block`=$time,
+            SET `user_date_block`=$time,
                 $set_sql
             WHERE `user_id`=$num_get
             LIMIT 1";
