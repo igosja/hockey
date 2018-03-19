@@ -32,10 +32,12 @@ if (isset($_SESSION['user_id']))
                    `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
                    `user_code`,
+                   `user_date_block`,
                    `user_date_confirm`,
                    `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
+                   `user_reason_block`,
                    `user_use_bb`,
                    `user_userrole_id`
             FROM `user`
@@ -64,7 +66,6 @@ if (isset($_SESSION['user_id']))
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
     $auth_country_id        = $user_array[0]['city_country_id'];
-    $auth_date_confirm      = $user_array[0]['user_date_confirm'];
     $auth_date_forum        = $user_array[0]['user_date_forum_block'];
     $auth_date_vip          = $user_array[0]['user_date_vip'];
     $auth_team_id           = $user_array[0]['team_id'];
@@ -82,7 +83,17 @@ if (isset($_SESSION['user_id']))
     $file_name  = $file_name[0];
     $tpl        = $file_name;
 
-    if (0 == $auth_date_confirm && !in_array($tpl, array('activation', 'activation_repeat', 'user_view', 'user_questionnaire')))
+    if (0 != $user_array[0]['user_date_block'])
+    {
+        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['user_reason_block']);
+
+        if (!in_array($tpl, array('index', 'support')))
+        {
+            redirect('/index.php');
+        }
+    }
+
+    if (0 == $user_array[0]['user_date_confirm'] && !in_array($tpl, array('activation', 'activation_repeat', 'support', 'user_questionnaire', 'user_view')))
     {
         f_igosja_session_front_flash_set('error', 'Ваш email не подтвержден.');
 
