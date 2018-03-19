@@ -87,13 +87,13 @@ if (isset($_SESSION['user_id']))
     {
         f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['user_reason_block']);
 
-        if (!in_array($tpl, array('index', 'support')))
+        if (!in_array($tpl, array('index', 'logout', 'support')))
         {
             redirect('/index.php');
         }
     }
 
-    if (0 == $user_array[0]['user_date_confirm'] && !in_array($tpl, array('activation', 'activation_repeat', 'support', 'user_questionnaire', 'user_view')))
+    if (0 == $user_array[0]['user_date_confirm'] && !in_array($tpl, array('activation', 'activation_repeat', 'logout', 'support', 'user_questionnaire', 'user_view')))
     {
         f_igosja_session_front_flash_set('error', 'Ваш email не подтвержден.');
 
