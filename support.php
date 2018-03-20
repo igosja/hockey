@@ -43,7 +43,7 @@ if ($data = f_igosja_request_post('data'))
     refresh();
 }
 
-$limit = 10;
+$limit = 50;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `message_date`,
