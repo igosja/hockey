@@ -923,7 +923,7 @@ blockquote:before {
 }
 
 .message-scroll {
-    max-height: 50vh;
+    max-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
 }
