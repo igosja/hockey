@@ -30,7 +30,7 @@ jQuery(document).ready(function () {
 
     scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
 
-    $(".message-scroll, body").on('scroll', function() {
+    scroll_div.on('scroll', function() {
         if (scroll_div.scrollTop() + scroll_div.offset().top <= lazy_div.offset().top && 0 === lazy_in_progress && 1 === lazy_div.data('continue'))
         {
             lazy_in_progress = 1;
