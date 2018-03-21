@@ -65,7 +65,7 @@ if ($data = f_igosja_request_post('data'))
                     LIMIT 1";
             $check_sql = f_igosja_mysqli_query($sql);
 
-            if (0 != $check_sql->fetch_all(MYSQLI_ASSOC))
+            if (0 != $check_sql->num_rows)
             {
                 $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
