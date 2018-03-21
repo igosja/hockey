@@ -75,15 +75,7 @@ if (isset($_SESSION['user_id']))
     $auth_use_bb            = $user_array[0]['user_use_bb'];
     $auth_userrole_id       = $user_array[0]['user_userrole_id'];
 
-    $file_name  = $_SERVER['PHP_SELF'];
-    $file_name  = explode('/', $file_name);
-    $chapter    = $file_name[1];
-    $file_name  = end($file_name);
-    $file_name  = explode('.', $file_name);
-    $file_name  = $file_name[0];
-    $tpl        = $file_name;
-
-    if (0 != $user_array[0]['user_date_block'])
+    if ($user_array[0]['user_date_block'] > time())
     {
         f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['user_reason_block']);
 
