@@ -46,21 +46,8 @@ $sql = "SELECT `country_id`,
             AND `worldcup_season_id`=$igosja_season_id
         ) AS `t1`
         ON `national_id`=`worldcup_national_id`
-        LEFT JOIN
-        (
-            SELECT `city_country_id`,
-                   `stadium_capacity`,
-                   `stadium_name`
-            FROM `stadium`
-            LEFT JOIN `city`
-            ON `stadium_city_id`=`city_id`
-            LEFT JOIN `national`
-            ON `city_country_id`=`national_country_id`
-            WHERE `national_id`=$num_get
-            ORDER BY `stadium_capacity` DESC, `stadium_id` ASC
-            LIMIT 1
-        ) AS `t2`
-        ON `city_country_id`=`country_id`
+        LEFT JOIN `stadium`
+        ON `national_stadium_id`=`stadium_id`
         WHERE `national_id`=$num_get
         LIMIT 1";
 $national_sql = f_igosja_mysqli_query($sql);
