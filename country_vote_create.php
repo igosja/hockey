@@ -70,7 +70,7 @@ if ($data = f_igosja_request_post('data'))
 
             if (!empty($item))
             {
-                $prepare->bind_param('s',  $item);
+                $prepare->bind_param('s', $item);
                 $prepare->execute();
             }
         }

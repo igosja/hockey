@@ -44,21 +44,25 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="hidden" for="voteanswer-2"></label>
                     <input class="form-control" id="voteanswer-2" name="data[voteanswer_text][]" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="hidden" for="voteanswer-3"></label>
                     <input class="form-control" id="voteanswer-3" name="data[voteanswer_text][]" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="hidden" for="voteanswer-4"></label>
                     <input class="form-control" id="voteanswer-4" name="data[voteanswer_text][]" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="hidden" for="voteanswer-5"></label>
                     <input class="form-control" id="voteanswer-5" name="data[voteanswer_text][]" />
                 </div>
             </div>
