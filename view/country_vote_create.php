@@ -65,6 +65,19 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center voteanswer-error notification-error"></div>
             </div>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                    <label for="votecountry">Где проводить отпрос:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <select id="votecountry" name="data[vote_country]">
+                        <option value="1">Внутри федерации</option>
+                        <option value="0">По всей Лиге</option>
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <button class="btn margin">Сохранить</button>
