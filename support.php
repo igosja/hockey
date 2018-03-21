@@ -65,7 +65,7 @@ if ($data = f_igosja_request_post('data'))
             }
             else
             {
-                f_igosja_session_front_flash_set('success', 'Нельзя писать подряд два одинаковых сообщения.');
+                f_igosja_session_front_flash_set('error', 'Нельзя писать подряд два одинаковых сообщения.');
             }
         }
     }
