@@ -35,7 +35,7 @@ $sql = "SELECT `user_id`,
                `user_ip`,
                `user_login`
         FROM `user`
-        WHERE `user_ip`=$user_ip
+        WHERE `user_ip`='$user_ip'
         AND `user_id`!=$num_get";
 $ip_sql = f_igosja_mysqli_query($sql);
 
