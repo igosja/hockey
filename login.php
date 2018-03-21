@@ -91,7 +91,8 @@ if ($data = f_igosja_request_post('data'))
             else
             {
                 $sql = "UPDATE `onecomputer`
-                        SET `onecomputer_date`=UNIX_TIMESTAMP()
+                        SET `onecomputer_count`=`onecomputer_count`+1,
+                            `onecomputer_date`=UNIX_TIMESTAMP()
                         WHERE (`onecomputer_child_id`=$user_id
                         AND `onecomputer_user_id`=$session_user_id)
                         OR (`onecomputer_child_id`=$session_user_id

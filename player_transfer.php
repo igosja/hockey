@@ -95,7 +95,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
                     WHERE `transferapplication_transfer_id`=$transfer_id
-                    ORDER BY `transferapplication_id` ASC";
+                    ORDER BY `transferapplication_price` DESC, `transferapplication_date` ASC";
             $transferapplication_sql = f_igosja_mysqli_query($sql);
 
             $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);

@@ -40,25 +40,8 @@ $sql = "SELECT `guest_national`.`national_visitor` AS `guest_national_visitor`,
         ON `game_home_national_id`=`home_national`.`national_id`
         LEFT JOIN `country`
         ON `home_national`.`national_country_id`=`country_id`
-        LEFT JOIN
-        (
-            SELECT `city_country_id`,
-                   `stadium_capacity`
-            FROM `stadium`
-            LEFT JOIN `city`
-            ON `stadium_city_id`=`city_id`
-            LEFT JOIN `national`
-            ON `city_country_id`=`national_country_id`
-            WHERE `national_id`=
-            (
-                SELECT `game_home_national_id`
-                FROM `game`
-                WHERE `game_id`=$num_get
-            )
-            ORDER BY `stadium_capacity` DESC, `stadium_id` ASC
-            LIMIT 1
-        ) AS `t2`
-        ON `city_country_id`=`country_id`
+        LEFT JOIN `stadium`
+        ON `home_national`.`national_stadium_id`=`stadium_id`
         WHERE (`game_guest_national_id`=$auth_national_id
         OR `game_home_national_id`=$auth_national_id)
         AND `game_played`=0

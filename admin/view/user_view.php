@@ -1,7 +1,9 @@
 <?php
 /**
  * @var $num_get integer
- * @var $user_array integer
+ * @var $cookie_array array
+ * @var $ip_array array
+ * @var $user_array array
  */
 ?>
 <div class="row">
@@ -71,6 +73,14 @@
             </tr>
             <tr>
                 <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    IP
+                </td>
+                <td>
+                    <?= $user_array[0]['user_ip']; ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     Дата регистрации
                 </td>
                 <td>
@@ -107,6 +117,48 @@
                     <?php } ?>
                 </td>
             </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th>Пересечение по ip</th>
+                <th>Пользователь</th>
+            </tr>
+            <?php foreach ($ip_array as $item) { ?>
+                <tr>
+                    <td class="text-center"><?= $item['user_ip']; ?></td>
+                    <td>
+                        <a href="/admin/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th>Количество</th>
+                <th>Пересечение по cookie</th>
+                <th>Пользователь</th>
+            </tr>
+            <?php foreach ($cookie_array as $item) { ?>
+                <tr>
+                    <td class="text-center"><?= $item['onecomputer_count']; ?></td>
+                    <td class="text-center"><?= $item['user_ip']; ?></td>
+                    <td>
+                        <a href="/admin/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
 </div>

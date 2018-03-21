@@ -41,42 +41,69 @@ if ($data = f_igosja_request_post('data'))
 
         if (!empty($text))
         {
+            $publish = true;
+
             $text = htmlspecialchars($text);
 
-            $sql = "INSERT INTO `forummessage`
-                    SET `forummessage_date`=UNIX_TIMESTAMP(),
-                        `forummessage_forumtheme_id`=$num_get,
-                        `forummessage_text`=?,
-                        `forummessage_user_id`=$auth_user_id";
-            $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $text);
-            $prepare->execute();
-            $prepare->close();
-
-            $forummessage_id = $mysqli->insert_id;
-
-            $sql = "UPDATE `forumtheme`
-                    SET `forumtheme_count_message`=`forumtheme_count_message`+1,
-                        `forumtheme_last_date`=UNIX_TIMESTAMP(),
-                        `forumtheme_last_forummessage_id`=$forummessage_id,
-                        `forumtheme_last_user_id`=$auth_user_id
-                    WHERE `forumtheme_id`=$num_get
+            $sql = "SELECT `forummessage_text`,
+                           `forummessage_user_id`
+                    FROM `forummessage`
+                    WHERE `forummessage_forumtheme_id`=$num_get
+                    ORDER BY `forummessage_id` DESC
                     LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            $check_sql = f_igosja_mysqli_query($sql);
 
-            $forumgroup_id = $forumtheme_array[0]['forumgroup_id'];
+            if (0 != $check_sql->num_rows)
+            {
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
 
-            $sql = "UPDATE `forumgroup`
-                    SET `forumgroup_count_message`=`forumgroup_count_message`+1,
-                        `forumgroup_last_date`=UNIX_TIMESTAMP(),
-                        `forumgroup_last_forummessage_id`=$forummessage_id,
-                        `forumgroup_last_forumtheme_id`=$num_get,
-                        `forumgroup_last_user_id`=$auth_user_id
-                    WHERE `forumgroup_id`=$forumgroup_id
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
+                if ($auth_user_id == $check_array[0]['forummessage_user_id'] && $text == $check_array[0]['forummessage_text'])
+                {
+                    $publish = false;
+                }
+            }
 
-            f_igosja_session_front_flash_set('success', 'Сообщение успешно добавлено.');
+            if ($publish)
+            {
+                $sql = "INSERT INTO `forummessage`
+                        SET `forummessage_date`=UNIX_TIMESTAMP(),
+                            `forummessage_forumtheme_id`=$num_get,
+                            `forummessage_text`=?,
+                            `forummessage_user_id`=$auth_user_id";
+                $prepare = $mysqli->prepare($sql);
+                $prepare->bind_param('s', $text);
+                $prepare->execute();
+                $prepare->close();
+
+                $forummessage_id = $mysqli->insert_id;
+
+                $sql = "UPDATE `forumtheme`
+                        SET `forumtheme_count_message`=`forumtheme_count_message`+1,
+                            `forumtheme_last_date`=UNIX_TIMESTAMP(),
+                            `forumtheme_last_forummessage_id`=$forummessage_id,
+                            `forumtheme_last_user_id`=$auth_user_id
+                        WHERE `forumtheme_id`=$num_get
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                $forumgroup_id = $forumtheme_array[0]['forumgroup_id'];
+
+                $sql = "UPDATE `forumgroup`
+                        SET `forumgroup_count_message`=`forumgroup_count_message`+1,
+                            `forumgroup_last_date`=UNIX_TIMESTAMP(),
+                            `forumgroup_last_forummessage_id`=$forummessage_id,
+                            `forumgroup_last_forumtheme_id`=$num_get,
+                            `forumgroup_last_user_id`=$auth_user_id
+                        WHERE `forumgroup_id`=$forumgroup_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+
+                f_igosja_session_front_flash_set('success', 'Сообщение успешно добавлено.');
+            }
+            else
+            {
+                f_igosja_session_front_flash_set('error', 'Нельзя писать подряд два одинаковых сообщения.');
+            }
         }
     }
 

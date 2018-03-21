@@ -168,15 +168,38 @@ if ($data = f_igosja_request_post('data'))
 
             if (!empty($text))
             {
-                $sql = "INSERT INTO `rentcomment`
-                        SET `rentcomment_date`=UNIX_TIMESTAMP(),
-                            `rentcomment_rent_id`=$num_get,
-                            `rentcomment_text`=?,
-                            `rentcomment_user_id`=$auth_user_id";
-                $prepare = $mysqli->prepare($sql);
-                $prepare->bind_param('s', $text);
-                $prepare->execute();
-                $prepare->close();
+                $publish = true;
+
+                $sql = "SELECT `rentcomment_text`,
+                               `rentcomment_user_id`
+                        FROM `rentcomment`
+                        WHERE `rentcomment_rent_id`=$num_get
+                        ORDER BY `rentcomment_id` DESC
+                        LIMIT 1";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                if (0 != $check_sql->num_rows)
+                {
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    if ($auth_user_id == $check_array[0]['rentcomment_user_id'] && $text == $check_array[0]['rentcomment_text'])
+                    {
+                        $publish = false;
+                    }
+                }
+
+                if ($publish)
+                {
+                    $sql = "INSERT INTO `rentcomment`
+                            SET `rentcomment_date`=UNIX_TIMESTAMP(),
+                                `rentcomment_rent_id`=$num_get,
+                                `rentcomment_text`=?,
+                                `rentcomment_user_id`=$auth_user_id";
+                    $prepare = $mysqli->prepare($sql);
+                    $prepare->bind_param('s', $text);
+                    $prepare->execute();
+                    $prepare->close();
+                }
             }
         }
 

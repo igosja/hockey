@@ -32,15 +32,24 @@ if (!in_array($auth_user_id, array($country_array[0]['president_id'], $country_a
 
 if ($data = f_igosja_request_post('data'))
 {
-    $text = htmlspecialchars($data['vote_text']);
-    $text = trim($text);
-
-    $answer = $data['voteanswer_text'];
+    $text       = htmlspecialchars($data['vote_text']);
+    $text       = trim($text);
+    $answer     = $data['voteanswer_text'];
+    $country    = $data['votecountry'];
 
     if (!empty($text) && count($answer) > 0)
     {
+        if (0 == $country)
+        {
+            $vote_country_id = 0;
+        }
+        else
+        {
+            $vote_country_id = $auth_country_id;
+        }
+
         $sql = "INSERT INTO `vote`
-                SET `vote_country_id`=$auth_country_id,
+                SET `vote_country_id`=$vote_country_id,
                     `vote_date`=UNIX_TIMESTAMP(),
                     `vote_text`=?,
                     `vote_user_id`=$auth_user_id";

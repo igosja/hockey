@@ -55,6 +55,13 @@
                         <a href="/country_news.php?num=<?= $player_array[0]['country_id']; ?>">
                             <?= $player_array[0]['country_name']; ?>
                         </a>
+                        <?php if (0 != $player_array[0]['player_national_id']) { ?>
+                            <img
+                                alt="Игрок сборной"
+                                src="/img/national.png"
+                                title="Игрок сборной"
+                            />
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row">
@@ -80,9 +87,9 @@
                         <?= $player_array[0]['player_power_nominal']; ?>
                         <?php if (in_array(1, array($player_array[0]['player_rent_on'], $player_array[0]['player_transfer_on']))) { ?>
                             <img
-                                    alt="Выставлен на трансфер/аренду"
-                                    src="/img/market.png"
-                                    title="Выставлен на трансфер/аренду"
+                                alt="Выставлен на трансфер/аренду"
+                                src="/img/market.png"
+                                title="Выставлен на трансфер/аренду"
                             />
                         <?php } ?>
                     </div>

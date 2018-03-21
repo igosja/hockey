@@ -84,7 +84,7 @@ if (isset($auth_team_id) && $auth_team_id)
                     LEFT JOIN `country`
                     ON `city_country_id`=`country_id`
                     WHERE `rentapplication_rent_id`=$rent_id
-                    ORDER BY `rentapplication_id` ASC";
+                    ORDER BY `rentapplication_price`*`rentapplication_day` DESC, `rentapplication_date` ASC";
             $rentapplication_sql = f_igosja_mysqli_query($sql);
 
             $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
