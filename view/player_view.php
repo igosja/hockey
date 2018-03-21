@@ -17,6 +17,7 @@
                 <th title="Сила">С</th>
                 <th title="Шайбы">Ш</th>
                 <th title="Голевые передачи">П</th>
+                <th title="Плюс/минус">+/-</th>
             </tr>
             <?php foreach ($game_array as $item) { ?>
                 <tr>
@@ -41,6 +42,7 @@
                     <td class="text-center"><?= $item['lineup_power_real']; ?></td>
                     <td class="text-center"><?= $item['lineup_score']; ?></td>
                     <td class="text-center"><?= $item['lineup_assist']; ?></td>
+                    <td class="text-center"><?= $item['lineup_plus_minus']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -53,6 +55,7 @@
                 <th title="Сила">С</th>
                 <th title="Шайбы">Ш</th>
                 <th title="Голевые передачи">П</th>
+                <th title="Плюс/минус">+/-</th>
             </tr>
         </table>
     </div>
