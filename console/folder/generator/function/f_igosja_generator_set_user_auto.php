@@ -5,11 +5,11 @@
  */
 function f_igosja_generator_set_user_auto()
 {
-    $sql = "UPDATE `user`
-            SET `user_auto`=`user_auto`+1
-            WHERE `user_id` IN
+    $sql = "UPDATE `team`
+            SET `team_auto`=`team_auto`+1
+            WHERE `team_id` IN
             (
-                SELECT `team_user_id`
+                SELECT `team_id`
                 FROM `schedule`
                 LEFT JOIN `game`
                 ON `schedule_id`=`game_schedule_id`
@@ -21,11 +21,11 @@ function f_igosja_generator_set_user_auto()
             )";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `user`
-            SET `user_auto`=`user_auto`+1
-            WHERE `user_id` IN
+    $sql = "UPDATE `team`
+            SET `team_auto`=`team_auto`+1
+            WHERE `team_id` IN
             (
-                SELECT `team_user_id`
+                SELECT `team_id`
                 FROM `schedule`
                 LEFT JOIN `game`
                 ON `schedule_id`=`game_schedule_id`
@@ -37,11 +37,11 @@ function f_igosja_generator_set_user_auto()
             )";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `user`
-            SET `user_auto`=0
-            WHERE `user_id` IN
+    $sql = "UPDATE `team`
+            SET `team_auto`=0
+            WHERE `team_id` IN
             (
-                SELECT `team_user_id`
+                SELECT `team_id`
                 FROM `schedule`
                 LEFT JOIN `game`
                 ON `schedule_id`=`game_schedule_id`
@@ -53,11 +53,11 @@ function f_igosja_generator_set_user_auto()
             )";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `user`
-            SET `user_auto`=0
-            WHERE `user_id` IN
+    $sql = "UPDATE `team`
+            SET `team_auto`=0
+            WHERE `team_id` IN
             (
-                SELECT `team_user_id`
+                SELECT `team_id`
                 FROM `schedule`
                 LEFT JOIN `game`
                 ON `schedule_id`=`game_schedule_id`
@@ -69,8 +69,8 @@ function f_igosja_generator_set_user_auto()
             )";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `user`
-            SET `user_auto`=5
-            WHERE `user_auto`>5";
+    $sql = "UPDATE `team`
+            SET `team_auto`=5
+            WHERE `team_auto`>5";
     f_igosja_mysqli_query($sql);
 }

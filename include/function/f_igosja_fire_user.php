@@ -8,7 +8,8 @@
 function f_igosja_fire_user($user_id, $team_id)
 {
     $sql = "UPDATE `team`
-            SET `team_user_id`=0,
+            SET `team_auto`=0,
+                `team_user_id`=0,
                 `team_vice_id`=0,
                 `team_vote_national`=" . VOTERATING_NEUTRAL . ",
                 `team_vote_president`=" . VOTERATING_NEUTRAL . ",
