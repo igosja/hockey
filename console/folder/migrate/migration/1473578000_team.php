@@ -6,6 +6,7 @@ $q[] = 'CREATE TABLE `team`
         (
             `team_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
             `team_age` DECIMAL(5,3) DEFAULT 0,
+            `team_auto` INT(1) DEFAULT 0,
             `team_base_id` INT(2) DEFAULT 2,
             `team_basemedical_id` INT(2) DEFAULT 1,
             `team_basephisical_id` INT(2) DEFAULT 1,
