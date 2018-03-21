@@ -72,23 +72,23 @@
                             <?php } ?>
                             <?php if (1 == $item['player_injury']) { ?>
                                 <img
-                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                        src="/img/injury.png"
-                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                    src="/img/injury.png"
+                                    title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
                                 />
                             <?php } ?>
                             <?php if (0 != $item['player_national_id']) { ?>
                                 <img
-                                        alt="Игрок сборной"
-                                        src="/img/national.png"
-                                        title="Игрок сборной"
+                                    alt="Игрок сборной"
+                                    src="/img/national.png"
+                                    title="Игрок сборной"
                                 />
                             <?php } ?>
                             <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
                                 <img
-                                        alt="Выставлен на трансфер/аренду"
-                                        src="/img/market.png"
-                                        title="Выставлен на трансфер/аренду"
+                                    alt="Выставлен на трансфер/аренду"
+                                    src="/img/market.png"
+                                    title="Выставлен на трансфер/аренду"
                                 />
                             <?php } ?>
                         </td>
@@ -162,30 +162,30 @@
                                 </a>
                                 <?php if (39 == $item['player_age']) { ?>
                                     <img
-                                            alt="Завершает карьеру в конце сезона"
-                                            src="/img/palm.png"
-                                            title="Завершает карьеру в конце сезона"
+                                        alt="Завершает карьеру в конце сезона"
+                                        src="/img/palm.png"
+                                        title="Завершает карьеру в конце сезона"
                                     />
                                 <?php } ?>
                                 <?php if (1 == $item['player_injury']) { ?>
                                     <img
-                                            alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                            src="/img/injury.png"
-                                            title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        src="/img/injury.png"
+                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
                                     />
                                 <?php } ?>
                                 <?php if (0 != $item['player_national_id']) { ?>
                                     <img
-                                            alt="Игрок сборной"
-                                            src="/img/national.png"
-                                            title="Игрок сборной"
+                                        alt="Игрок сборной"
+                                        src="/img/national.png"
+                                        title="Игрок сборной"
                                     />
                                 <?php } ?>
                                 <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
                                     <img
-                                            alt="Выставлен на трансфер/аренду"
-                                            src="/img/market.png"
-                                            title="Выставлен на трансфер/аренду"
+                                        alt="Выставлен на трансфер/аренду"
+                                        src="/img/market.png"
+                                        title="Выставлен на трансфер/аренду"
                                     />
                                 <?php } ?>
                             </td>
@@ -220,9 +220,9 @@
                             <td class="text-center">
                                 <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
                                     <img
-                                            alt="<?= $item['phisical_name']; ?>"
-                                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                            title="<?= $item['phisical_name']; ?>"
+                                        alt="<?= $item['phisical_name']; ?>"
+                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                        title="<?= $item['phisical_name']; ?>"
                                     />
                                 <?php } else { ?>
                                     ?
@@ -258,30 +258,30 @@
                                 </a>
                                 <?php if (39 == $item['player_age']) { ?>
                                     <img
-                                            alt="Завершает карьеру в конце сезона"
-                                            src="/img/palm.png"
-                                            title="Завершает карьеру в конце сезона"
+                                        alt="Завершает карьеру в конце сезона"
+                                        src="/img/palm.png"
+                                        title="Завершает карьеру в конце сезона"
                                     />
                                 <?php } ?>
                                 <?php if (1 == $item['player_injury']) { ?>
                                     <img
-                                            alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
-                                            src="/img/injury.png"
-                                            title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        alt="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
+                                        src="/img/injury.png"
+                                        title="Травмирован на <?= $item['player_injury_day']; ?> <?= f_igosja_count_case($item['player_injury_day'], 'день', 'дня', 'дней'); ?>"
                                     />
                                 <?php } ?>
                                 <?php if (0 != $item['player_national_id']) { ?>
                                     <img
-                                            alt="Игрок сборной"
-                                            src="/img/national.png"
-                                            title="Игрок сборной"
+                                        alt="Игрок сборной"
+                                        src="/img/national.png"
+                                        title="Игрок сборной"
                                     />
                                 <?php } ?>
                                 <?php if (in_array(1, array($item['player_rent_on'], $item['player_transfer_on']))) { ?>
                                     <img
-                                            alt="Выставлен на трансфер/аренду"
-                                            src="/img/market.png"
-                                            title="Выставлен на трансфер/аренду"
+                                        alt="Выставлен на трансфер/аренду"
+                                        src="/img/market.png"
+                                        title="Выставлен на трансфер/аренду"
                                     />
                                 <?php } ?>
                             </td>
@@ -316,9 +316,9 @@
                             <td class="text-center">
                                 <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
                                     <img
-                                            alt="<?= $item['phisical_name']; ?>"
-                                            src="/img/phisical/<?= $item['phisical_id']; ?>.png"
-                                            title="<?= $item['phisical_name']; ?>"
+                                        alt="<?= $item['phisical_name']; ?>"
+                                        src="/img/phisical/<?= $item['phisical_id']; ?>.png"
+                                        title="<?= $item['phisical_name']; ?>"
                                     />
                                 <?php } else { ?>
                                     ?
