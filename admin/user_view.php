@@ -36,7 +36,8 @@ $sql = "SELECT `user_id`,
                `user_login`
         FROM `user`
         WHERE `user_ip`='$user_ip'
-        AND `user_id`!=$num_get";
+        AND `user_id`!=$num_get
+        AND `user_date_block`<UNIX_TIMESTAMP()";
 $ip_sql = f_igosja_mysqli_query($sql);
 
 $ip_array = $ip_sql->fetch_all(MYSQLI_ASSOC);
@@ -48,8 +49,9 @@ $sql = "SELECT `onecomputer_count`,
         FROM `onecomputer`
         LEFT JOIN `user`
         ON IF(`onecomputer_user_id`=$num_get, `onecomputer_child_id`, `onecomputer_user_id`)=`user_id`
-        WHERE `onecomputer_user_id`=$num_get
-        OR `onecomputer_child_id`=$num_get";
+        WHERE (`onecomputer_user_id`=$num_get
+        OR `onecomputer_child_id`=$num_get)
+        AND `user_date_block`<UNIX_TIMESTAMP()";
 $cookie_sql = f_igosja_mysqli_query($sql);
 
 $cookie_array = $cookie_sql->fetch_all(MYSQLI_ASSOC);
