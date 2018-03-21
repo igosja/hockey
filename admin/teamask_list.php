@@ -32,7 +32,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                 SELECT `teamask_user_id`
                 FROM `teamask`
             )
-            
+            GROUP BY `history_user_id`
         ) AS `t1`
         ON `user_id`=`history_user_id`
         WHERE $sql_filter

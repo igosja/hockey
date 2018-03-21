@@ -23,10 +23,10 @@ $sql = "SELECT COUNT(`teamask_id`) AS `count`
                 SELECT `teamask_user_id`
                 FROM `teamask`
             )
-            
+            GROUP BY `history_user_id`
         ) AS `t1`
         ON `teamask_user_id`=`history_user_id`
-        WHERE `teamask_date`<UNIX_TIMESTAMP()-IF(`count_history`>1, 1, 0)*86400";
+        WHERE `teamask_date`<UNIX_TIMESTAMP()-IFNULL(`count_history`, 0)*86400";
 $teamask_sql = f_igosja_mysqli_query($sql);
 
 $teamask_array = $teamask_sql->fetch_all(MYSQLI_ASSOC);
