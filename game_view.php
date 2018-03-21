@@ -190,17 +190,44 @@ if ($data = f_igosja_request_post('data'))
 
         if (!empty($text))
         {
-            $sql = "INSERT INTO `gamecomment`
-                    SET `gamecomment_date`=UNIX_TIMESTAMP(),
-                        `gamecomment_game_id`=$num_get,
-                        `gamecomment_text`=?,
-                        `gamecomment_user_id`=$auth_user_id";
-            $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $text);
-            $prepare->execute();
-            $prepare->close();
+            $publish = true;
 
-            f_igosja_session_front_flash_set('success', 'Комментарий успешно сохранён.');
+            $sql = "SELECT `gamecomment_text`,
+                           `gamecomment_user_id`
+                    FROM `gamecomment`
+                    WHERE `gamecomment_game_id`=$num_get
+                    ORDER BY `gamecomment_id` DESC
+                    LIMIT 1";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            if (0 != $check_sql->fetch_all(MYSQLI_ASSOC))
+            {
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($auth_user_id == $check_array[0]['gamecomment_user_id'] && $text == $check_array[0]['gamecomment_text'])
+                {
+                    $publish = false;
+                }
+            }
+
+            if ($publish)
+            {
+                $sql = "INSERT INTO `gamecomment`
+                        SET `gamecomment_date`=UNIX_TIMESTAMP(),
+                            `gamecomment_game_id`=$num_get,
+                            `gamecomment_text`=?,
+                            `gamecomment_user_id`=$auth_user_id";
+                $prepare = $mysqli->prepare($sql);
+                $prepare->bind_param('s', $text);
+                $prepare->execute();
+                $prepare->close();
+
+                f_igosja_session_front_flash_set('success', 'Комментарий успешно сохранён.');
+            }
+            else
+            {
+                f_igosja_session_front_flash_set('success', 'Нельзя писать подряд два одинаковых комментария.');
+            }
         }
     }
 

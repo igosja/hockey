@@ -168,15 +168,38 @@ if ($data = f_igosja_request_post('data'))
 
             if (!empty($text))
             {
-                $sql = "INSERT INTO `transfercomment`
-                        SET `transfercomment_date`=UNIX_TIMESTAMP(),
-                            `transfercomment_transfer_id`=$num_get,
-                            `transfercomment_text`=?,
-                            `transfercomment_user_id`=$auth_user_id";
-                $prepare = $mysqli->prepare($sql);
-                $prepare->bind_param('s', $text);
-                $prepare->execute();
-                $prepare->close();
+                $publish = true;
+
+                $sql = "SELECT `transfercomment_text`,
+                               `transfercomment_user_id`
+                        FROM `transfercomment`
+                        WHERE `transfercomment_transfer_id`=$num_get
+                        ORDER BY `transfercomment_id` DESC
+                        LIMIT 1";
+                $check_sql = f_igosja_mysqli_query($sql);
+
+                if (0 != $check_sql->fetch_all(MYSQLI_ASSOC))
+                {
+                    $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                    if ($auth_user_id == $check_array[0]['transfercomment_user_id'] && $text == $check_array[0]['transfercomment_text'])
+                    {
+                        $publish = false;
+                    }
+                }
+
+                if ($publish)
+                {
+                    $sql = "INSERT INTO `transfercomment`
+                            SET `transfercomment_date`=UNIX_TIMESTAMP(),
+                                `transfercomment_text`=?,
+                                `transfercomment_transfer_id`=$num_get,
+                                `transfercomment_user_id`=$auth_user_id";
+                    $prepare = $mysqli->prepare($sql);
+                    $prepare->bind_param('s', $text);
+                    $prepare->execute();
+                    $prepare->close();
+                }
             }
         }
 

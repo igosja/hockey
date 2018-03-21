@@ -26,17 +26,47 @@ if ($data = f_igosja_request_post('data'))
 
         if (!empty($text))
         {
-            $sql = "INSERT INTO `message`
-                    SET `message_date`=UNIX_TIMESTAMP(),
-                        `message_support_to`=1,
-                        `message_text`=?,
-                        `message_user_id_from`=$auth_user_id";
-            $prepare = $mysqli->prepare($sql);
-            $prepare->bind_param('s', $text);
-            $prepare->execute();
-            $prepare->close();
+            $publish = true;
 
-            f_igosja_session_front_flash_set('success', 'Сообщение успешно отправлено.');
+            $text = htmlspecialchars($text);
+
+            $sql = "SELECT `message_text`,
+                           `message_user_id_from`
+                    FROM `message`
+                    WHERE `message_user_id_from`=$auth_user_id
+                    AND `message_support_to`=1
+                    ORDER BY `message_id` DESC
+                    LIMIT 1";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            if (0 != $check_sql->fetch_all(MYSQLI_ASSOC))
+            {
+                $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+                if ($auth_user_id == $check_array[0]['message_user_id_from'] && $text == $check_array[0]['message_text'])
+                {
+                    $publish = false;
+                }
+            }
+
+            if ($publish)
+            {
+                $sql = "INSERT INTO `message`
+                        SET `message_date`=UNIX_TIMESTAMP(),
+                            `message_support_to`=1,
+                            `message_text`=?,
+                            `message_user_id_from`=$auth_user_id";
+                $prepare = $mysqli->prepare($sql);
+                $prepare->bind_param('s', $text);
+                $prepare->execute();
+                $prepare->close();
+
+                f_igosja_session_front_flash_set('success', 'Сообщение успешно отправлено.');
+            }
+            else
+            {
+                f_igosja_session_front_flash_set('success', 'Нельзя писать подряд два одинаковых сообщения.');
+            }
         }
     }
 
