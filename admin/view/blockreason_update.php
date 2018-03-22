@@ -41,7 +41,7 @@
                         <input
                             class="form-control"
                             id="blockreason_name"
-                            name="data[blockreason_name]"
+                            name="data[blockreason_text]"
                             value="<?= isset($blockreason_array[0]) ? $blockreason_array[0]['blockreason_text'] : ''; ?>"
                         >
                     </td>
