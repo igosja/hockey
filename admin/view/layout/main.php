@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/support_list.php">
+                        <a href="/admin/complain_list.php">
                             <i class="fa fa-exclamation-circle fa-fw"></i> Жалобы
                             <span class="badge admin-complain"></span>
                         </a>
@@ -113,16 +113,6 @@
         <div class="navbar-default sidebar">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </li>
                     <li>
                         <a href="javascript:">
                             Пользователи <span class="fa arrow"></span>
@@ -130,6 +120,9 @@
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/admin/user_list.php">Пользователи</a>
+                            </li>
+                            <li>
+                                <a href="/admin/blockreason_list.php">Причины блокировки</a>
                             </li>
                         </ul>
                     </li>
