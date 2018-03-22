@@ -52,7 +52,7 @@
                 <?php foreach ($blockreason_array as $item) { ?>
                     <tr>
                         <td class="text-center"><?= $item['blockreason_id']; ?></td>
-                        <td><?= $item['blockreason_name']; ?></td>
+                        <td><?= $item['blockreason_text']; ?></td>
                         <td class="text-center">
                             <a href="/admin/blockreason_view.php?num=<?= $item['blockreason_id']; ?>" class="no-underline">
                                 <i class="fa fa-eye fa-fw"></i>
