@@ -44,7 +44,7 @@
                         <label class="control-label" for="reason">Причина</label>
                     </td>
                     <td>
-                        <select class="form-control" id="time" name="data[user_block_blockreason_id]">
+                        <select class="form-control" id="time" name="data[user_block_forum_blockreason_id]">
                             <?php foreach ($blockreason_array as $item) { ?>
                                 <option value="<?= $item['blockreason_id']; ?>">
                                     <?= $item['blockreason_text']; ?>
