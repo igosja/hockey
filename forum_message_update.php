@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @var $auth_date_forum
- * @var $auth_user_id
- * @var $auth_userrole_id
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_forum integer
+ * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -69,7 +70,7 @@ $forumheader_id = $forumheader_array[0]['forummessage_id'];
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($data['text']) && $auth_date_forum < time())
+    if (isset($data['text']) && $auth_date_block_forum < time() && $auth_date_block_comment < time())
     {
         $text = trim($data['text']);
 

@@ -1,5 +1,9 @@
 <?php
 /**
+ * @var $auth_blockcomment_text string
+ * @var $auth_blockdeal_text string
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_dealcomment integer
  * @var $count_transfer integer
  * @var $num_get integer
  * @var $playerposition_array array
@@ -239,14 +243,32 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transferrating-error notification-error"></div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <textarea class="form-control" id="transfercomment" name="data[text]" rows="5"></textarea>
+        <?php if ($auth_date_block_dealcomment < time() && $auth_date_block_comment < time()) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" id="transfercomment" name="data[text]" rows="5"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transfercomment-error notification-error"></div>
-        </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center transfercomment-error notification-error"></div>
+            </div>
+        <?php } elseif ($auth_date_block_dealcomment >= time()) { ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вам заблокирован доступ к комментированию сделок до <?= f_igosja_ufu_date_time($auth_date_block_dealcomment); ?>.
+                    <br/>
+                    Причина - <?= $auth_blockdeal_text; ?>
+                </div>
+            </div>
+        <?php } elseif ($auth_date_block_comment >= time()) { ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вам заблокирован доступ к комментированию сделок до <?= f_igosja_ufu_date_time($auth_date_block_comment); ?>.
+                    <br/>
+                    Причина - <?= $auth_blockcomment_text; ?>
+                </div>
+            </div>
+        <?php } ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <button class="btn margin">Сохранить</button>
