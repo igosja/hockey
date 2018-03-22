@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $chapter string
  * @var $igosja_menu_login array
  * @var $igosja_menu_login_mobile array
  * @var $igosja_menu_guest array
@@ -27,7 +28,8 @@ if (isset($_SESSION['user_id']))
         $and_where = "";
     }
 
-    $sql = "SELECT `city_country_id`,
+    $sql = "SELECT `block`.`blockreason_text` AS `block_text`,
+                   `city_country_id`,
                    `national`.`national_id` AS `national_id`,
                    `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
@@ -37,7 +39,6 @@ if (isset($_SESSION['user_id']))
                    `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
-                   `user_reason_block`,
                    `user_use_bb`,
                    `user_userrole_id`
             FROM `user`
@@ -51,6 +52,8 @@ if (isset($_SESSION['user_id']))
             ON `user_id`=`national`.`national_user_id`
             LEFT JOIN `national` AS `nationalvice`
             ON `user_id`=`nationalvice`.`national_vice_id`
+            LEFT JOIN `blockreason` AS `block`
+            ON `user_block_blockreason_id`=`block`.`blockreason_id`
             WHERE `user_id`=$auth_user_id
             $and_where
             LIMIT 1";
@@ -75,9 +78,9 @@ if (isset($_SESSION['user_id']))
     $auth_use_bb            = $user_array[0]['user_use_bb'];
     $auth_userrole_id       = $user_array[0]['user_userrole_id'];
 
-    if ($user_array[0]['user_date_block'] > time())
+    if ($user_array[0]['user_date_block'] > time() && 'admin' != $chapter)
     {
-        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['user_reason_block']);
+        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['block_text']);
 
         if (!in_array($tpl, array('index', 'logout', 'support')))
         {

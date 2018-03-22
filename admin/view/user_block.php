@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $blockreason_array array
  * @var $num_get integer
  */
 ?>
@@ -30,11 +31,11 @@
                     </td>
                     <td>
                         <select class="form-control" id="time" name="data[time]">
-                            <option value="1">1 день</option>
                             <option value="2">2 дня</option>
-                            <option value="3">3 дня</option>
+                            <option value="5">5 дней</option>
                             <option value="7">7 дней</option>
-                            <option value="30">30 дней</option>
+                            <option value="30">1 месяц</option>
+                            <option value="365">1 год</option>
                         </select>
                     </td>
                 </tr>
@@ -43,6 +44,13 @@
                         <label class="control-label" for="reason">Причина</label>
                     </td>
                     <td>
+                        <select class="form-control" id="time" name="data[user_block_blockreason_id]">
+                            <?php foreach ($blockreason_array as $item) { ?>
+                                <option value="<?= $item['blockreason_id']; ?>">
+                                    <?= $item['blockreason_text']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
                         <input class="form-control" id="readon" name="data[user_reason_block]"/>
                     </td>
                 </tr>

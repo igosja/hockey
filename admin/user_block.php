@@ -10,7 +10,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data, array(
-        'user_reason_block'
+        'user_block_blockreason_id'
     ));
 
     if (isset($data['time']))
@@ -60,6 +60,14 @@ if (0 == $user_sql->num_rows)
 }
 
 $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `blockreason_id`,
+               `blockreason_text`
+        FROM `blockreason`
+        ORDER BY `blockreason_text` ASC";
+$blockreason_sql = f_igosja_mysqli_query($sql);
+
+$blockreason_array = $blockreason_sql->fetch_all(MYSQLI_ASSOC);
 
 $breadcrumb_array[] = array('url' => 'user_list.php', 'text' => 'Пользователи');
 $breadcrumb_array[] = array(
