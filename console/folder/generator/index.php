@@ -3,14 +3,14 @@
 include(__DIR__ . '/../../../include/generator.php');
 
 $function_array = array(
-    'f_igosja_generator_site_close',
-    'f_igosja_generator_player_power_new_to_old',
-    'f_igosja_generator_check_mood_limit',
-    'f_igosja_generator_check_lineup',
-    'f_igosja_generator_fill_lineup',
-    'f_igosja_generator_set_auto',
-    'f_igosja_generator_set_default_style',
-    'f_igosja_generator_set_user_auto',
+//    'f_igosja_generator_site_close',
+//    'f_igosja_generator_player_power_new_to_old',
+//    'f_igosja_generator_check_mood_limit',
+//    'f_igosja_generator_check_lineup',
+//    'f_igosja_generator_fill_lineup',
+//    'f_igosja_generator_set_auto',
+//    'f_igosja_generator_set_default_style',
+//    'f_igosja_generator_set_user_auto',
     'f_igosja_generator_set_ticket_price',
     'f_igosja_generator_set_stadium',
     'f_igosja_generator_count_visitor',
