@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @var $auth_date_block_dealcomment integer
+ * @var $auth_date_block_comment integer
  * @var $auth_user_id integer
  */
 
@@ -161,7 +163,7 @@ if ($data = f_igosja_request_post('data'))
 
         f_igosja_session_front_flash_set('success', 'Ваш голос успешно сохранён.');
 
-        if (isset($data['text']))
+        if (isset($data['text']) && $auth_date_block_dealcomment < time() && $auth_date_block_comment < time())
         {
             $text = htmlspecialchars($data['text']);
             $text = trim($text);

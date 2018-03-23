@@ -96,7 +96,37 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block.php?num=<?= $num_get; ?>">
+                            Блокировать
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Доступ ко всем комментариям
+                </td>
+                <td>
+                    <?php if (time() < $user_array[0]['user_date_block_comment']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_comment']); ?>
+                    <?php } else { ?>
+                        Открыт
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_comment.php?num=<?= $num_get; ?>">
+                            Блокировать
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Доступ к комментариям сделок
+                </td>
+                <td>
+                    <?php if (time() < $user_array[0]['user_date_block_dealcomment']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_dealcomment']); ?>
+                    <?php } else { ?>
+                        Открыт
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_dealcomment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -107,11 +137,41 @@
                     Доступ к форуму
                 </td>
                 <td>
-                    <?php if (time() < $user_array[0]['user_date_forum_block']) { ?>
-                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_forum_block']); ?>
+                    <?php if (time() < $user_array[0]['user_date_block_forum']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_forum']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_forum_block.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_forum.php?num=<?= $num_get; ?>">
+                            Блокировать
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Доступ к комментариям матчей
+                </td>
+                <td>
+                    <?php if (time() < $user_array[0]['user_date_block_gamecomment']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_gamecomment']); ?>
+                    <?php } else { ?>
+                        Открыт
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_gamecomment.php?num=<?= $num_get; ?>">
+                            Блокировать
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Доступ к комментариям новостей
+                </td>
+                <td>
+                    <?php if (time() < $user_array[0]['user_date_block_newscomment']) { ?>
+                        Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_newscomment']); ?>
+                    <?php } else { ?>
+                        Открыт
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_newscomment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @var $auth_date_forum integer
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_forum integer
  * @var $auth_user_id integer
  */
 
@@ -35,7 +36,7 @@ $forumtheme_array = $forumtheme_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id) && isset($data['text']) && $auth_date_forum < time())
+    if (isset($auth_user_id) && isset($data['text']) && $auth_date_block_forum < time() && $auth_date_block_comment < time())
     {
         $text = trim($data['text']);
 

@@ -1,5 +1,9 @@
 <?php
 /**
+ * @var $auth_blockcomment_text string
+ * @var $auth_blockgame_text string
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_gamecomment integer
  * @var $auth_user_id integer
  * @var $count_page integer
  * @var $event_array array
@@ -485,24 +489,42 @@
     <?php } ?>
 <?php } ?>
 <?php if (isset($auth_user_id)) { ?>
-    <div class="row margin-top">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
-            <label for="gamecomment">Ваш комментарий:</label>
-        </div>
-    </div>
-    <form id="gamecomment-form" method="POST">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <textarea class="form-control" id="gamecomment" name="data[text]" rows="5"></textarea>
+    <?php if ($auth_date_block_gamecomment < time() && $auth_date_block_comment < time()) { ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                <label for="gamecomment">Ваш комментарий:</label>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center gamecomment-error notification-error"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <button class="btn margin">Комментировать</button>
+        <form id="gamecomment-form" method="POST">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" id="gamecomment" name="data[text]" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center gamecomment-error notification-error"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <button class="btn margin">Комментировать</button>
+                </div>
+            </div>
+        </form>
+    <?php } elseif ($auth_date_block_gamecomment >= time()) { ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию матчей до <?= f_igosja_ufu_date_time($auth_date_block_gamecomment); ?>.
+                <br/>
+                Причина - <?= $auth_blockgame_text; ?>
             </div>
         </div>
-    </form>
+    <?php } elseif ($auth_date_block_comment >= time()) { ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию матчей до <?= f_igosja_ufu_date_time($auth_date_block_comment); ?>.
+                <br/>
+                Причина - <?= $auth_blockcomment_text; ?>
+            </div>
+        </div>
+    <?php } ?>
 <?php } ?>

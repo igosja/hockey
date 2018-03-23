@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @var $auth_date_forum
- * @var $auth_user_id
- * @var $auth_userrole_id
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_forum integer
+ * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -14,6 +15,11 @@ if (!isset($auth_user_id))
 }
 
 if (!$num_get = (int) f_igosja_request_get('num'))
+{
+    redirect('/wrong_page.php');
+}
+
+if ($auth_date_block_forum >= time() || $auth_date_block_comment >= time())
 {
     redirect('/wrong_page.php');
 }

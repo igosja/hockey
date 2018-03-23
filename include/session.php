@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @var $chapter string
  * @var $igosja_menu_login array
  * @var $igosja_menu_login_mobile array
  * @var $igosja_menu_guest array
@@ -27,17 +28,26 @@ if (isset($_SESSION['user_id']))
         $and_where = "";
     }
 
-    $sql = "SELECT `city_country_id`,
+    $sql = "SELECT `block`.`blockreason_text` AS `block_text`,
+                   `blockcomment`.`blockreason_text` AS `blockcomment_text`,
+                   `blockdeal`.`blockreason_text` AS `blockdeal_text`,
+                   `blockgame`.`blockreason_text` AS `blockgame_text`,
+                   `blockforum`.`blockreason_text` AS `blockforum_text`,
+                   `blocknews`.`blockreason_text` AS `blocknews_text`,
+                   `city_country_id`,
                    `national`.`national_id` AS `national_id`,
                    `nationalvice`.`national_id` AS `nationalvice_id`,
                    `team_id`,
                    `user_code`,
                    `user_date_block`,
+                   `user_date_block_comment`,
+                   `user_date_block_dealcomment`,
+                   `user_date_block_forum`,
+                   `user_date_block_gamecomment`,
+                   `user_date_block_newscomment`,
                    `user_date_confirm`,
-                   `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
-                   `user_reason_block`,
                    `user_use_bb`,
                    `user_userrole_id`
             FROM `user`
@@ -51,6 +61,18 @@ if (isset($_SESSION['user_id']))
             ON `user_id`=`national`.`national_user_id`
             LEFT JOIN `national` AS `nationalvice`
             ON `user_id`=`nationalvice`.`national_vice_id`
+            LEFT JOIN `blockreason` AS `block`
+            ON `user_block_blockreason_id`=`block`.`blockreason_id`
+            LEFT JOIN `blockreason` AS `blockcomment`
+            ON `user_block_comment_blockreason_id`=`blockcomment`.`blockreason_id`
+            LEFT JOIN `blockreason` AS `blockdeal`
+            ON `user_block_dealcomment_blockreason_id`=`blockdeal`.`blockreason_id`
+            LEFT JOIN `blockreason` AS `blockgame`
+            ON `user_block_gamecomment_blockreason_id`=`blockgame`.`blockreason_id`
+            LEFT JOIN `blockreason` AS `blockforum`
+            ON `user_block_forum_blockreason_id`=`blockforum`.`blockreason_id`
+            LEFT JOIN `blockreason` AS `blocknews`
+            ON `user_block_newscomment_blockreason_id`=`blocknews`.`blockreason_id`
             WHERE `user_id`=$auth_user_id
             $and_where
             LIMIT 1";
@@ -65,19 +87,28 @@ if (isset($_SESSION['user_id']))
 
     $user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
 
-    $auth_country_id        = $user_array[0]['city_country_id'];
-    $auth_date_forum        = $user_array[0]['user_date_forum_block'];
-    $auth_date_vip          = $user_array[0]['user_date_vip'];
-    $auth_team_id           = $user_array[0]['team_id'];
-    $auth_national_id       = $user_array[0]['national_id'];
-    $auth_nationalvice_id   = $user_array[0]['nationalvice_id'];
-    $auth_user_login        = $user_array[0]['user_login'];
-    $auth_use_bb            = $user_array[0]['user_use_bb'];
-    $auth_userrole_id       = $user_array[0]['user_userrole_id'];
+    $auth_blockcomment_text         = $user_array[0]['blockcomment_text'];
+    $auth_blockdeal_text            = $user_array[0]['blockdeal_text'];
+    $auth_blockforum_text           = $user_array[0]['blockforum_text'];
+    $auth_blockgame_text            = $user_array[0]['blockgame_text'];
+    $auth_blocknews_text            = $user_array[0]['blocknews_text'];
+    $auth_country_id                = $user_array[0]['city_country_id'];
+    $auth_date_block_comment        = $user_array[0]['user_date_block_comment'];
+    $auth_date_block_dealcomment    = $user_array[0]['user_date_block_dealcomment'];
+    $auth_date_block_forum          = $user_array[0]['user_date_block_forum'];
+    $auth_date_block_gamecomment    = $user_array[0]['user_date_block_gamecomment'];
+    $auth_date_block_newscomment    = $user_array[0]['user_date_block_newscomment'];
+    $auth_date_vip                  = $user_array[0]['user_date_vip'];
+    $auth_team_id                   = $user_array[0]['team_id'];
+    $auth_national_id               = $user_array[0]['national_id'];
+    $auth_nationalvice_id           = $user_array[0]['nationalvice_id'];
+    $auth_user_login                = $user_array[0]['user_login'];
+    $auth_use_bb                    = $user_array[0]['user_use_bb'];
+    $auth_userrole_id               = $user_array[0]['user_userrole_id'];
 
-    if ($user_array[0]['user_date_block'] > time())
+    if ($user_array[0]['user_date_block'] > time() && 'admin' != $chapter)
     {
-        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['user_reason_block']);
+        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту до ' . f_igosja_ufu_date_time($user_array[0]['user_date_block']) . '.<br/>Причина - ' . $user_array[0]['block_text']);
 
         if (!in_array($tpl, array('index', 'logout', 'support')))
         {

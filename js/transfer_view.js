@@ -4,7 +4,12 @@ jQuery(document).ready(function () {
     });
 
     $('#transfercomment-form').on('submit', function () {
-        check_transfercomment($('#transfercomment').val());
+        var transfercomment_input = $('#transfercomment');
+
+        if (transfercomment_input.length) {
+            check_rentcomment(transfercomment_input.val());
+        }
+
         check_transferrating();
 
         if ($('textarea.has-error').length)
@@ -16,9 +21,9 @@ jQuery(document).ready(function () {
 
 function check_transfercomment(transfercomment)
 {
-    var transfercomment_input = $('#transfercomment');
-    var transferrating_plus = $('#transferrating-plus');
-    var transfercomment_error = $('.transfercomment-error');
+    var transfercomment_input   = $('#transfercomment');
+    var transferrating_plus     = $('#transferrating-plus');
+    var transfercomment_error   = $('.transfercomment-error');
 
     if ('' !== transfercomment || transferrating_plus.is(':checked'))
     {

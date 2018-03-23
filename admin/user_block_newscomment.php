@@ -10,7 +10,7 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 if ($data = f_igosja_request_post('data'))
 {
     $set_sql = f_igosja_sql_data($data, array(
-        'user_block_blockreason_id'
+        'user_block_newscomment_blockreason_id'
     ));
 
     if (isset($data['time']))
@@ -25,24 +25,11 @@ if ($data = f_igosja_request_post('data'))
     $time = $time * 86400 + time();
 
     $sql = "UPDATE `user`
-            SET `user_date_block`=$time,
+            SET `user_date_block_newscomment`=$time,
                 $set_sql
             WHERE `user_id`=$num_get
             LIMIT 1";
     f_igosja_mysqli_query($sql);
-
-    $sql = "SELECT `team_id`
-            FROM `team`
-            WHERE `team_user_id`=$num_get
-            ORDER BY `team_id` ASC";
-    $team_sql = f_igosja_mysqli_query($sql);
-
-    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-    foreach ($team_array as $item)
-    {
-        f_igosja_fire_user($num_get, $item['team_id']);
-    }
 
     redirect('/admin/user_view.php?num=' . $num_get);
 }

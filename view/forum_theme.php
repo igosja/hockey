@@ -1,6 +1,9 @@
 <?php
 /**
- * @var $auth_date_forum integer
+ * @var $auth_blockcomment_text string
+ * @var $auth_blockforum_text string
+ * @var $auth_date_block_comment integer
+ * @var $auth_date_block_forum integer
  * @var $auth_use_bb integer
  * @var $auth_userrole_id integer
  * @var $count_page integer
@@ -136,25 +139,43 @@
         <?php } ?>
     </div>
 </div>
-<?php if (isset($auth_user_id) && $auth_date_forum < time()) { ?>
-    <form method="POST" id="forumtheme-form">
+<?php if (isset($auth_user_id)) { ?>
+    <?php if ($auth_date_block_forum < time() && $auth_date_block_comment < time()) { ?>
+        <form method="POST" id="forumtheme-form">
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                    <label for="text">Ваш ответ:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="text" name="data[text]" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <input class="btn margin" type="submit" value="Ответить" />
+                </div>
+            </div>
+        </form>
+    <?php } elseif ($auth_date_block_forum >= time()) { ?>
         <div class="row margin-top">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
-                <label for="text">Ваш ответ:</label>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к форуму до <?= f_igosja_ufu_date_time($auth_date_block_forum); ?>.
+                <br/>
+                Причина - <?= $auth_blockforum_text; ?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <textarea class="form-control" data-bb="<?= $auth_use_bb; ?>" id="text" name="data[text]" rows="5"></textarea>
+    <?php } elseif ($auth_date_block_comment >= time()) { ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к форуму до <?= f_igosja_ufu_date_time($auth_date_block_comment); ?>.
+                <br/>
+                Причина - <?= $auth_blockcomment_text; ?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <input class="btn margin" type="submit" value="Ответить">
-            </div>
-        </div>
-    </form>
+    <?php } ?>
 <?php } ?>
