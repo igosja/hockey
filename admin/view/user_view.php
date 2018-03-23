@@ -96,7 +96,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -111,7 +111,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_comment']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block_comment.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_comment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -126,7 +126,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_dealcomment']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block_dealcomment.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_dealcomment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -141,7 +141,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_forum']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block_forum.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_forum.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -156,7 +156,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_gamecomment']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block_gamecomment.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_gamecomment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
@@ -171,7 +171,7 @@
                         Заблокирован до <?= f_igosja_ufu_date_time($user_array[0]['user_date_block_newscomment']); ?>
                     <?php } else { ?>
                         Открыт
-                        <a class="btn btn-default btn-xs" href="/admin/user_block_newscomment.php?num=<?= $num_get; ?>" target="_blank">
+                        <a class="btn btn-default btn-xs" href="/admin/user_block_newscomment.php?num=<?= $num_get; ?>">
                             Блокировать
                         </a>
                     <?php } ?>
