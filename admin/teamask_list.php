@@ -37,7 +37,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
         ON `user_id`=`history_user_id`
         WHERE $sql_filter
         AND `teamask_date`<UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600
-        ORDER BY `teamask_date` ASC
+        ORDER BY IFNULL(`count_history`, 0) ASC, `teamask_date` ASC
         LIMIT $offset, $limit";
 $teamask_sql = f_igosja_mysqli_query($sql);
 
