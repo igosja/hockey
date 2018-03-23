@@ -91,13 +91,13 @@ if (isset($_SESSION['user_id']))
     $auth_blockdeal_text            = $user_array[0]['blockdeal_text'];
     $auth_blockforum_text           = $user_array[0]['blockforum_text'];
     $auth_blockgame_text            = $user_array[0]['blockgame_text'];
-    $auth_blocknews_text            = $user_array[0]['blocknew_text'];
+    $auth_blocknews_text            = $user_array[0]['blocknews_text'];
     $auth_country_id                = $user_array[0]['city_country_id'];
     $auth_date_block_comment        = $user_array[0]['user_date_block_comment'];
     $auth_date_block_dealcomment    = $user_array[0]['user_date_block_dealcomment'];
     $auth_date_block_forum          = $user_array[0]['user_date_block_forum'];
     $auth_date_block_gamecomment    = $user_array[0]['user_date_block_gamecomment'];
-    $auth_date_block_newscomment    = $user_array[0]['user_date_block_newcomment'];
+    $auth_date_block_newscomment    = $user_array[0]['user_date_block_newscomment'];
     $auth_date_vip                  = $user_array[0]['user_date_vip'];
     $auth_team_id                   = $user_array[0]['team_id'];
     $auth_national_id               = $user_array[0]['national_id'];
