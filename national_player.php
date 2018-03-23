@@ -170,7 +170,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 10";
+        LIMIT 15";
 $gk_sql = f_igosja_mysqli_query($sql);
 
 $gk_array = $gk_sql->fetch_all(MYSQLI_ASSOC);
@@ -203,7 +203,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 25";
+        LIMIT 35";
 $ld_sql = f_igosja_mysqli_query($sql);
 
 $ld_array = $ld_sql->fetch_all(MYSQLI_ASSOC);
@@ -236,7 +236,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 25";
+        LIMIT 35";
 $rd_sql = f_igosja_mysqli_query($sql);
 
 $rd_array = $rd_sql->fetch_all(MYSQLI_ASSOC);
@@ -269,7 +269,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 25";
+        LIMIT 35";
 $lw_sql = f_igosja_mysqli_query($sql);
 
 $lw_array = $lw_sql->fetch_all(MYSQLI_ASSOC);
@@ -302,7 +302,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 25";
+        LIMIT 35";
 $c_sql = f_igosja_mysqli_query($sql);
 
 $c_array = $c_sql->fetch_all(MYSQLI_ASSOC);
@@ -335,7 +335,7 @@ $sql = "SELECT `city_name`,
         AND `player_age`<=$max_age
         AND `player_team_id`!=0
         ORDER BY `player_power_nominal_s` DESC, `player_id` ASC
-        LIMIT 25";
+        LIMIT 35";
 $rw_sql = f_igosja_mysqli_query($sql);
 
 $rw_array = $rw_sql->fetch_all(MYSQLI_ASSOC);
