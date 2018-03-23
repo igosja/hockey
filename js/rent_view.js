@@ -4,7 +4,12 @@ jQuery(document).ready(function () {
     });
 
     $('#rentcomment-form').on('submit', function () {
-        check_rentcomment($('#rentcomment').val());
+        var rentcomment_input = $('#rentcomment');
+
+        if (rentcomment_input.length) {
+            check_rentcomment(rentcomment_input.val());
+        }
+
         check_rentrating();
 
         if ($('textarea.has-error').length)
@@ -16,9 +21,9 @@ jQuery(document).ready(function () {
 
 function check_rentcomment(rentcomment)
 {
-    var rentcomment_input = $('#rentcomment');
-    var rentrating_plus = $('#rentrating-plus');
-    var rentcomment_error = $('.rentcomment-error');
+    var rentcomment_input   = $('#rentcomment');
+    var rentrating_plus     = $('#rentrating-plus');
+    var rentcomment_error   = $('.rentcomment-error');
 
     if ('' !== rentcomment || rentrating_plus.is(':checked'))
     {
