@@ -46,7 +46,6 @@ if (isset($_SESSION['user_id']))
                    `user_date_block_gamecomment`,
                    `user_date_block_newscomment`,
                    `user_date_confirm`,
-                   `user_date_forum_block`,
                    `user_date_vip`,
                    `user_login`,
                    `user_use_bb`,
@@ -99,7 +98,6 @@ if (isset($_SESSION['user_id']))
     $auth_date_block_forum          = $user_array[0]['user_date_block_forum'];
     $auth_date_block_gamecomment    = $user_array[0]['user_date_block_gamecomment'];
     $auth_date_block_newscomment    = $user_array[0]['user_date_block_newcomment'];
-    $auth_date_forum                = $user_array[0]['user_date_forum_block'];
     $auth_date_vip                  = $user_array[0]['user_date_vip'];
     $auth_team_id                   = $user_array[0]['team_id'];
     $auth_national_id               = $user_array[0]['national_id'];
