@@ -31,19 +31,6 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    $sql = "SELECT `team_id`
-            FROM `team`
-            WHERE `team_user_id`=$num_get
-            ORDER BY `team_id` ASC";
-    $team_sql = f_igosja_mysqli_query($sql);
-
-    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-    foreach ($team_array as $item)
-    {
-        f_igosja_fire_user($num_get, $item['team_id']);
-    }
-
     redirect('/admin/user_view.php?num=' . $num_get);
 }
 
