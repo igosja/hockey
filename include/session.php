@@ -110,7 +110,7 @@ if (isset($_SESSION['user_id']))
 
     if ($user_array[0]['user_date_block'] > time() && 'admin' != $chapter)
     {
-        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту.<br/>Причина - ' . $user_array[0]['block_text']);
+        f_igosja_session_front_flash_set('error', 'Вам заблокирован доступ к сайту до ' . f_igosja_ufu_date_time($user_array[0]['user_date_block']) . '.<br/>Причина - ' . $user_array[0]['block_text']);
 
         if (!in_array($tpl, array('index', 'logout', 'support')))
         {

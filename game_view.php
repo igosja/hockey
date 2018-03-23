@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $auth_date_block_gamecomment integer
+ * @var $auth_date_block_comment integer
+ * @var $auth_user_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -183,7 +189,7 @@ if (0 == $game_array[0]['game_played'])
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id) && isset($data['text']))
+    if (isset($auth_user_id) && isset($data['text']) && $auth_date_block_gamecomment < time() && $auth_date_block_comment < time())
     {
         $text = htmlspecialchars($data['text']);
         $text = trim($text);

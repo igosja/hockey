@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @var $auth_date_block_newscomment integer
+ * @var $auth_date_block_comment integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -28,7 +33,7 @@ $news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
 
 if ($data = f_igosja_request_post('data'))
 {
-    if (isset($auth_user_id) && isset($data['text']))
+    if (isset($auth_user_id) && isset($data['text']) && $auth_date_block_newscomment < time() && $auth_date_block_comment < time())
     {
         $text = htmlspecialchars($data['text']);
         $text = trim($text);
