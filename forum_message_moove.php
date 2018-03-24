@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @var $auth_date_forum integer
  * @var $auth_user_id integer
  * @var $auth_userrole_id integer
  */

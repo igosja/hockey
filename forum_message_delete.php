@@ -80,4 +80,6 @@ $last_page_sql = f_igosja_mysqli_query($sql);
 
 $last_page_array = $last_page_sql->fetch_all(MYSQLI_ASSOC);
 
+f_igosja_session_front_flash_set('success', 'Сообшение успешно удалено.');
+
 redirect('/forum_theme.php?num=' . $forumtheme_id . '&page=' . $last_page_array[0]['last_page']);

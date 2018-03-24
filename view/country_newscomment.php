@@ -78,6 +78,12 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
                 <?= f_igosja_ufu_date_time($item['newscomment_date']); ?>
+                <?php if (isset($auth_user_id) && USERROLE_USER != $auth_userrole_id) { ?>
+                    |
+                    <a href="/newscomment_delete.php?num=<?= $item['newscomment_id']; ?>&news_id=<?= $news_id; ?>&country_id=<?= $num_get; ?>">
+                        Удалить
+                    </a>
+                <?php } ?>
             </div>
         </div>
     <?php } ?>

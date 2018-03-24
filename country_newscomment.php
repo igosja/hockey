@@ -111,6 +111,7 @@ $offset = ($page - 1) * $limit;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `newscomment_date`,
+               `newscomment_id`,
                `newscomment_text`,
                `user_id`,
                `user_login`

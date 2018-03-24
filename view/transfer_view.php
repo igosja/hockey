@@ -208,6 +208,12 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
                 <?= f_igosja_ufu_date_time($item['transfercomment_date']); ?>
+                <?php if (isset($auth_user_id) && USERROLE_USER != $auth_userrole_id) { ?>
+                    |
+                    <a href="/transfercomment_delete.php?num=<?= $item['transfercomment_id']; ?>&transfer_id=<?= $num_get; ?>">
+                        Удалить
+                    </a>
+                <?php } ?>
             </div>
         </div>
     <?php } ?>

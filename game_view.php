@@ -391,6 +391,7 @@ $offset = ($page - 1) * $limit;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
                `gamecomment_date`,
+               `gamecomment_id`,
                `gamecomment_text`,
                `user_id`,
                `user_login`
