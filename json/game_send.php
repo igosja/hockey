@@ -172,7 +172,8 @@ if ($data = f_igosja_request_post('data', 'line'))
                 LEFT JOIN `playerposition`
                 ON `player_id`=`playerposition_player_id`
                 WHERE `player_id`=$ld2
-                LIMIT 2";
+                ORDER BY `player_power_position` DESC
+                LIMIT 1";
         $ld2_sql = f_igosja_mysqli_query($sql);
 
         if (0 != $ld2_sql->num_rows)
@@ -851,6 +852,11 @@ if ($data = f_igosja_request_post('data', 'line'))
         $teamwork_array = $teamwork_sql->fetch_all(MYSQLI_ASSOC);
 
         $teamwork_3 = $teamwork_3 + $teamwork_array[0]['teamwork_value'];
+    }
+
+    if (0 == $power)
+    {
+        $power = 1;
     }
 
     $position = round($position / $power * 100);
