@@ -62,7 +62,7 @@ if ($data = f_igosja_request_post('data'))
             $sql = "SELECT `newscomment_text`,
                            `newscomment_user_id`
                     FROM `newscomment`
-                    WHERE `newscomment_news_id`=$num_get
+                    WHERE `newscomment_news_id`=$news_id
                     ORDER BY `newscomment_id` DESC
                     LIMIT 1";
             $check_sql = f_igosja_mysqli_query($sql);
@@ -81,7 +81,7 @@ if ($data = f_igosja_request_post('data'))
             {
                 $sql = "INSERT INTO `newscomment`
                         SET `newscomment_date`=UNIX_TIMESTAMP(),
-                            `newscomment_news_id`=$num_get,
+                            `newscomment_news_id`=$news_id,
                             `newscomment_text`=?,
                             `newscomment_user_id`=$auth_user_id";
                 $prepare = $mysqli->prepare($sql);
