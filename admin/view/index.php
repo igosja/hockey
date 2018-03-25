@@ -158,15 +158,6 @@
             </div>
             <div class="panel-body">
                 <div id="chart-payment"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Оплаты
-            </div>
-            <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped table-condensed">
                         <tr>
@@ -186,6 +177,53 @@
                             </tr>
                         <?php } ?>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> К модерации
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="/admin/moderation_forummessage.php" class="list-group-item">
+                        Сообщения на форуме
+                        <span class="pull-right text-muted small">
+                            <em><?= $forummessage_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_gamecomment.php" class="list-group-item">
+                        Комментарии к матчам
+                        <span class="pull-right text-muted small">
+                            <em><?= $gamecomment_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_news.php" class="list-group-item">
+                        Новости
+                        <span class="pull-right text-muted small">
+                            <em><?= $news_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_newscomment.php" class="list-group-item">
+                        Комментарии к новостям
+                        <span class="pull-right text-muted small">
+                            <em><?= $newscomment_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_rentcomment.php" class="list-group-item">
+                        Комментарии к арендне
+                        <span class="pull-right text-muted small">
+                            <em><?= $rentcomment_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_transfercomment.php" class="list-group-item">
+                        Комментарии к трансферам
+                        <span class="pull-right text-muted small">
+                            <em><?= $transfercomment_array[0]['count']; ?></em>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

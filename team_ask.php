@@ -57,7 +57,7 @@ if ($num_get = (int) f_igosja_request_get('num'))
 
     f_igosja_session_front_flash_set('success', 'Заявка успешно подана.');
 
-    redirect('/team_view.php');
+    redirect('/team_ask.php');
 }
 
 $sql = "SELECT COUNT(`teamask_id`) AS `count`

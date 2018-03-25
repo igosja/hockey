@@ -1,6 +1,10 @@
 <?php
 /**
  * @var $event_array array
+ * @var $national_array array
+ * @var $nationalvice_array array
+ * @var $president_array array
+ * @var $presidentvice_array array
  * @var $team_array array
  * @var $userrating_array array
  * @var $userrating_total_array array
@@ -26,6 +30,38 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <?php if ($president_array || $presidentvice_array || 1 == $num_get) { ?>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Роль в игре</th>
+                </tr>
+                <?php if (1 == $num_get) { ?>
+                    <tr>
+                        <td>
+                            Президент Лиги
+                        </td>
+                    </tr>
+                <?php } ?>
+                <?php foreach ($president_array as $item) { ?>
+                    <tr>
+                        <td>
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <?= $item['country_name']; ?> (Президент федерации)
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <?php foreach ($presidentvice_array as $item) { ?>
+                    <tr>
+                        <td>
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <?= $item['country_name']; ?> (Заместитель президента федерации)
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } ?>
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Команда</th>
@@ -33,6 +69,46 @@
                 <th class="col-10" title="Рейтинг силы команды">Vs</th>
                 <th class="col-20 hidden-xs">Стоимость</th>
             </tr>
+            <?php foreach ($national_array as $item) { ?>
+                <tr class="italic">
+                    <td>
+                        <a href="national_view.php?num=<?= $item['national_id']; ?>">
+                            <?= $item['country_name']; ?>
+                            (<?= $item['nationaltype_name']; ?>)
+                        </a>
+                    </td>
+                    <td class="hidden-xs text-center">
+                        <a href="/worldcup.php?division_id=<?= $item['division_id']; ?>">
+                            <?= $item['division_name']; ?>,
+                            <?= $item['worldcup_place']; ?> место
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <?= $item['national_power_vs']; ?>
+                    </td>
+                    <td class="hidden-xs text-right">-</td>
+                </tr>
+            <?php } ?>
+            <?php foreach ($nationalvice_array as $item) { ?>
+                <tr class="italic">
+                    <td>
+                        <a href="national_view.php?num=<?= $item['national_id']; ?>">
+                            <?= $item['country_name']; ?>
+                            (<?= $item['nationaltype_name']; ?>, зам.)
+                        </a>
+                    </td>
+                    <td class="hidden-xs text-center">
+                        <a href="/worldcup.php?division_id=<?= $item['division_id']; ?>">
+                            <?= $item['division_name']; ?>,
+                            <?= $item['worldcup_place']; ?> место
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <?= $item['national_power_vs']; ?>
+                    </td>
+                    <td class="hidden-xs text-right">-</td>
+                </tr>
+            <?php } ?>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
                     <td>
