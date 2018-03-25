@@ -1040,7 +1040,7 @@ function f_igosja_generator_plus_minus()
             $home_total = -5;
         }
 
-        if (TOURNAMENTTYPE_NATIONAL == $tournamenttype_id)
+        if (TOURNAMENTTYPE_NATIONAL == $item['schedule_tournamenttype_id'])
         {
             if ($home_total < 0)
             {
@@ -1091,8 +1091,10 @@ function f_igosja_generator_plus_minus()
 
     $sql = "SELECT `game_id`,
                    `game_guest_plus_minus`,
+                   `game_guest_national_id`,
                    `game_guest_team_id`,
                    `game_home_plus_minus`,
+                   `game_home_national_id`,
                    `game_home_team_id`
             FROM `game`
             LEFT JOIN `schedule`
@@ -1112,6 +1114,7 @@ function f_igosja_generator_plus_minus()
                            `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_home_team_id'] . "
+                    AND `lineup_national_id`=" . $item['game_home_national_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . -$item['game_home_plus_minus'];
@@ -1147,6 +1150,7 @@ function f_igosja_generator_plus_minus()
                            `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_home_team_id'] . "
+                    AND `lineup_national_id`=" . $item['game_home_national_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . $item['game_home_plus_minus'];
@@ -1183,6 +1187,7 @@ function f_igosja_generator_plus_minus()
                            `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_guest_team_id'] . "
+                    AND `lineup_national_id`=" . $item['game_guest_national_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . -$item['game_guest_plus_minus'];
@@ -1218,6 +1223,7 @@ function f_igosja_generator_plus_minus()
                            `lineup_player_id`
                     FROM `lineup`
                     WHERE `lineup_team_id`=" . $item['game_guest_team_id'] . "
+                    AND`lineup_national_id`=" . $item['game_guest_national_id'] . "
                     AND `lineup_game_id`=" . $item['game_id'] . "
                     ORDER BY RAND()
                     LIMIT " . $item['game_guest_plus_minus'];

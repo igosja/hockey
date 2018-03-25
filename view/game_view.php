@@ -260,9 +260,17 @@
             <tr>
                 <th title="Позиция">П</th>
                 <th>
-                    <a href="/team_view.php?num=<?= $home_array[0]['team_id']; ?>">
-                        <?= $home_array[0]['team_name']; ?>
-                    </a>
+                    <?= f_igosja_team_or_national_link(
+                        array(
+                            'team_id'   => $game_array[0]['home_team_id'],
+                            'team_name' => $game_array[0]['home_team_name'],
+                        ),
+                        array(
+                            'country_name'  => $game_array[0]['home_national_name'],
+                            'national_id'   => $game_array[0]['home_national_id'],
+                        ),
+                        false
+                    ); ?>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
                 <th class="hidden-xs" title="Номинальная сила">НС</th>
@@ -321,9 +329,17 @@
             <tr>
                 <th title="Позиция">П</th>
                 <th>
-                    <a href="/team_view.php?num=<?= $guest_array[0]['team_id']; ?>">
-                        <?= $guest_array[0]['team_name']; ?>
-                    </a>
+                    <?= f_igosja_team_or_national_link(
+                        array(
+                            'team_id'   => $game_array[0]['guest_team_id'],
+                            'team_name' => $game_array[0]['guest_team_name'],
+                        ),
+                        array(
+                            'country_name'  => $game_array[0]['guest_national_name'],
+                            'national_id'   => $game_array[0]['guest_national_id'],
+                        ),
+                        false
+                    ); ?>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
                 <th class="hidden-xs" title="Номинальная сила">НС</th>

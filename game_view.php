@@ -259,9 +259,7 @@ $sql = "SELECT `lineup_age`,
                `player_id`,
                `position_id`,
                `position_short`,
-               `surname_name`,
-               `team_id`,
-               `team_name`
+               `surname_name`
         FROM `player`
         LEFT JOIN `name`
         ON `player_name_id`=`name_id`
@@ -271,8 +269,6 @@ $sql = "SELECT `lineup_age`,
         ON `player_id`=`lineup_player_id`
         LEFT JOIN `position`
         ON `lineup_position_id`=`position_id`
-        LEFT JOIN `team`
-        ON `lineup_team_id`=`team_id`
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$home_team_id
         AND `lineup_national_id`=$home_national_id
@@ -295,9 +291,7 @@ $sql = "SELECT `lineup_age`,
                `player_id`,
                `position_id`,
                `position_short`,
-               `surname_name`,
-               `team_id`,
-               `team_name`
+               `surname_name`
         FROM `player`
         LEFT JOIN `name`
         ON `player_name_id`=`name_id`
@@ -307,8 +301,6 @@ $sql = "SELECT `lineup_age`,
         ON `player_id`=`lineup_player_id`
         LEFT JOIN `position`
         ON `lineup_position_id`=`position_id`
-        LEFT JOIN `team`
-        ON `lineup_team_id`=`team_id`
         WHERE `lineup_game_id`=$num_get
         AND `lineup_team_id`=$guest_team_id
         AND `lineup_national_id`=$guest_national_id
