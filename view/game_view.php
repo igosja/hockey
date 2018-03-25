@@ -410,9 +410,17 @@
                         <?= sprintf("%02d", $item['event_minute']); ?>:<?= sprintf("%02d", $item['event_second']); ?>
                     </td>
                     <td class="text-center">
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                            <?= $item['team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $item['team_id'],
+                                'team_name' => $item['team_name'],
+                            ),
+                            array(
+                                'country_name'  => $item['country_name'],
+                                'national_id'   => $item['national_id'],
+                            ),
+                            false
+                        ); ?>
                     </td>
                     <td class="hidden-xs text-center"><?= $item['eventtype_text']; ?></td>
                     <td>

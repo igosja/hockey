@@ -309,7 +309,8 @@ $guest_sql = f_igosja_mysqli_query($sql);
 
 $guest_array = $guest_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT `event_guest_score`,
+$sql = "SELECT `country_name`,
+               `event_guest_score`,
                `event_home_score`,
                `event_minute`,
                `event_player_assist_1_id`,
@@ -326,6 +327,7 @@ $sql = "SELECT `event_guest_score`,
                `name_assist_2`.`name_name` AS `name_assist_2_name`,
                `name_penalty`.`name_name` AS `name_penalty_name`,
                `name_score`.`name_name` AS `name_score_name`,
+               `national_id`,
                `surname_assist_1`.`surname_name` AS `surname_assist_1_name`,
                `surname_assist_2`.`surname_name` AS `surname_assist_2_name`,
                `surname_penalty`.`surname_name` AS `surname_penalty_name`,
@@ -343,6 +345,10 @@ $sql = "SELECT `event_guest_score`,
         ON `event_eventtype_id`=`eventtype_id`
         LEFT JOIN `team`
         ON `event_team_id`=`team_id`
+        LEFT JOIN `national`
+        ON `event_national_id`=`national_id`
+        LEFT JOIN `country`
+        ON `national_country_id`=`country_id`
         LEFT JOIN `player` AS `player_score`
         ON `event_player_score_id`=`player_score`.`player_id`
         LEFT JOIN `name` AS `name_score`

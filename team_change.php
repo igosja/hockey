@@ -268,7 +268,8 @@ $sql = "SELECT `base_slot_max`,
                `team_id`,
                `team_finance`,
                `team_name`,
-               `team_power_vs`
+               `team_power_vs`,
+               IFNULL(`count`, 0) AS `teamask_count`
         FROM `team`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
@@ -298,14 +299,22 @@ $sql = "SELECT `base_slot_max`,
             ON `championship_division_id`=`division_id`
             WHERE `championship_season_id`=$igosja_season_id
         ) AS `t1`
-        ON `championship_team_id`=`team_id`
+        ON `team_id`=`championship_team_id`
         LEFT JOIN 
         (
             SELECT `conference_team_id`
             FROM `conference`
             WHERE `conference_season_id`=$igosja_season_id
         ) AS `t2`
-        ON `conference_team_id`=`team_id`
+        ON `team_id`=`conference_team_id`
+        LEFT JOIN 
+        (
+            SELECT COUNT(`teamask_id`) AS `count`,
+                   `teamask_team_id`
+            FROM `teamask`
+            GROUP BY `teamask_team_id`
+        ) AS `t3`
+        ON `team_id`=`teamask_team_id`
         WHERE `team_user_id`=0
         AND `team_id`!=0
         ORDER BY `team_power_vs` DESC, `team_id` ASC";

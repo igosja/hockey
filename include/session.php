@@ -240,7 +240,8 @@ if (isset($_SESSION['user_id']))
                 FROM `user`
                 WHERE `user_id`=$auth_user_id
             )
-            AND `news_country_id`=$auth_country_id";
+            AND `news_country_id`=$auth_country_id
+            AND `news_country_id`!=0";
     $countrynews_sql = f_igosja_mysqli_query($sql);
 
     $countrynews_array = $countrynews_sql->fetch_all(MYSQLI_ASSOC);

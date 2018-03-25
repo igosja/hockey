@@ -27,6 +27,7 @@
                 <th class="hidden-xs">Стадион</th>
                 <th class="hidden-xs">Финансы</th>
                 <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
+                <th title="Число заявок">ЧЗ</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
@@ -61,6 +62,7 @@
                     <td class="hidden-xs text-right"><?= $item['stadium_capacity']; ?></td>
                     <td class="hidden-xs text-right"><?= f_igosja_money_format($item['team_finance']); ?></td>
                     <td class="hidden-xs text-right"><?= $item['team_power_vs']; ?></td>
+                    <td class="text-center"><?= $item['teamask_count']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -72,6 +74,7 @@
                 <th class="hidden-xs">Стадион</th>
                 <th class="hidden-xs">Финансы</th>
                 <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
+                <th title="Число заявок">ЧЗ</th>
             </tr>
         </table>
     </div>
