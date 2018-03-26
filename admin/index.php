@@ -116,4 +116,46 @@ $payment_sql = f_igosja_mysqli_query($sql);
 
 $payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT COUNT(`forummessage_id`) AS `count`
+        FROM `forummessage`
+        WHERE `forummessage_check`=0";
+$forummessage_sql = f_igosja_mysqli_query($sql);
+
+$forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`gamecomment_id`) AS `count`
+        FROM `gamecomment`
+        WHERE `gamecomment_check`=0";
+$gamecomment_sql = f_igosja_mysqli_query($sql);
+
+$gamecomment_array = $gamecomment_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`news_id`) AS `count`
+        FROM `news`
+        WHERE `news_check`=0";
+$news_sql = f_igosja_mysqli_query($sql);
+
+$news_array = $news_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`newscomment_id`) AS `count`
+        FROM `newscomment`
+        WHERE `newscomment_check`=0";
+$newscomment_sql = f_igosja_mysqli_query($sql);
+
+$newscomment_array = $newscomment_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`rentcomment_id`) AS `count`
+        FROM `rentcomment`
+        WHERE `rentcomment_check`=0";
+$rentcomment_sql = f_igosja_mysqli_query($sql);
+
+$rentcomment_array = $rentcomment_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`transfercomment_id`) AS `count`
+        FROM `transfercomment`
+        WHERE `transfercomment_check`=0";
+$transfercomment_sql = f_igosja_mysqli_query($sql);
+
+$transfercomment_array = $transfercomment_sql->fetch_all(MYSQLI_ASSOC);
+
 include(__DIR__ . '/view/layout/main.php');

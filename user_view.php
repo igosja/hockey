@@ -75,6 +75,98 @@ $team_sql = f_igosja_mysqli_query($sql);
 
 $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT `country_name`,
+               `division_id`,
+               `division_name`,
+               `national_id`,
+               `national_power_vs`,
+               `nationaltype_name`,
+               `worldcup_place`
+        FROM `national`
+        LEFT JOIN `country`
+        ON `national_country_id`=`country_id`
+        LEFT JOIN `nationaltype`
+        ON `national_nationaltype_id`=`nationaltype_id`
+        LEFT JOIN
+        (
+            SELECT `worldcup_place`,
+                   `worldcup_national_id`,
+                   `division_id`,
+                   `division_name`
+            FROM `worldcup`
+            LEFT JOIN `division`
+            ON `worldcup_division_id`=`division_id`
+            WHERE `worldcup_national_id` IN
+            (
+                SELECT `national_id`
+                FROM `national`
+                WHERE `national_user_id`=$num_get
+            )
+            AND `worldcup_season_id`=$igosja_season_id
+        ) AS `t1`
+        ON `national_id`=`worldcup_national_id`
+        WHERE `national_user_id`=$num_get
+        ORDER BY `national_id` ASC";
+$national_sql = f_igosja_mysqli_query($sql);
+
+$national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `country_name`,
+               `division_id`,
+               `division_name`,
+               `national_id`,
+               `national_power_vs`,
+               `nationaltype_name`,
+               `worldcup_place`
+        FROM `national`
+        LEFT JOIN `country`
+        ON `national_country_id`=`country_id`
+        LEFT JOIN `nationaltype`
+        ON `national_nationaltype_id`=`nationaltype_id`
+        LEFT JOIN
+        (
+            SELECT `worldcup_place`,
+                   `worldcup_national_id`,
+                   `division_id`,
+                   `division_name`
+            FROM `worldcup`
+            LEFT JOIN `division`
+            ON `worldcup_division_id`=`division_id`
+            WHERE `worldcup_national_id` IN
+            (
+                SELECT `national_id`
+                FROM `national`
+                WHERE `national_vice_id`=$num_get
+            )
+            AND `worldcup_season_id`=$igosja_season_id
+        ) AS `t1`
+        ON `national_id`=`worldcup_national_id`
+        WHERE `national_vice_id`=$num_get
+        ORDER BY `national_id` ASC";
+$nationalvice_sql = f_igosja_mysqli_query($sql);
+
+$nationalvice_array = $nationalvice_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `country_id`,
+               `country_name`
+        FROM `country`
+        WHERE `country_president_id`=$num_get
+        AND `country_id`!=0
+        ORDER BY `country_id` ASC";
+$president_sql = f_igosja_mysqli_query($sql);
+
+$president_array = $president_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT `country_id`,
+               `country_name`
+        FROM `country`
+        WHERE `country_vice_id`=$num_get
+        AND `country_id`!=0
+        ORDER BY `country_id` ASC";
+$presidentvice_sql = f_igosja_mysqli_query($sql);
+
+$presidentvice_array = $presidentvice_sql->fetch_all(MYSQLI_ASSOC);
+
 $sql = "SELECT `userrating_auto`,
                `userrating_collision_loose`,
                `userrating_collision_win`,

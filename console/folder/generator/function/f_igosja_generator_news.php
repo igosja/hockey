@@ -122,7 +122,7 @@ function f_igosja_generator_news()
                     'team_name' => $score_array[0]['home_team_name'],
                 ),
                 array(
-                    'country_name'  => $score_array[0]['home_national_name'],
+                    'country_name'  => $score_array[0]['home_country_name'],
                     'national_id'   => $score_array[0]['home_national_id'],
                 ),
                 false
@@ -132,7 +132,7 @@ function f_igosja_generator_news()
                     'team_name' => $score_array[0]['guest_team_name'],
                 ),
                 array(
-                    'country_name'  => $score_array[0]['guest_national_name'],
+                    'country_name'  => $score_array[0]['guest_country_name'],
                     'national_id'   => $score_array[0]['guest_national_id'],
                 ),
                 false
@@ -184,13 +184,13 @@ function f_igosja_generator_news()
         {
             $power_array = $power_sql->fetch_all(MYSQLI_ASSOC);
 
-            $text = $text . '<p>Самую большую суммарную силу соперников зрители могли уведеть в матче ' . f_igosja_team_or_national_link(
+            $text = $text . '<p>Самую большую суммарную силу соперников зрители могли увидеть в матче ' . f_igosja_team_or_national_link(
                 array(
                     'team_id'   => $power_array[0]['home_team_id'],
                     'team_name' => $power_array[0]['home_team_name'],
                 ),
                 array(
-                    'country_name'  => $power_array[0]['home_national_name'],
+                    'country_name'  => $power_array[0]['home_country_name'],
                     'national_id'   => $power_array[0]['home_national_id'],
                 ),
                 false
@@ -200,7 +200,7 @@ function f_igosja_generator_news()
                     'team_name' => $power_array[0]['guest_team_name'],
                 ),
                 array(
-                    'country_name'  => $power_array[0]['guest_national_name'],
+                    'country_name'  => $power_array[0]['guest_country_name'],
                     'national_id'   => $power_array[0]['guest_national_id'],
                 ),
                 false

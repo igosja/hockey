@@ -353,6 +353,7 @@ $rentapplication_sql = f_igosja_mysqli_query($sql);
 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `rentcomment_date`,
+               `rentcomment_id`,
                `rentcomment_text`,
                `user_id`,
                `user_login`

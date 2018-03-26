@@ -352,6 +352,7 @@ $transferapplication_sql = f_igosja_mysqli_query($sql);
 $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `transfercomment_date`,
+               `transfercomment_id`,
                `transfercomment_text`,
                `user_id`,
                `user_login`

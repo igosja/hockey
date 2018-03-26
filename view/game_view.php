@@ -260,9 +260,17 @@
             <tr>
                 <th title="Позиция">П</th>
                 <th>
-                    <a href="/team_view.php?num=<?= $home_array[0]['team_id']; ?>">
-                        <?= $home_array[0]['team_name']; ?>
-                    </a>
+                    <?= f_igosja_team_or_national_link(
+                        array(
+                            'team_id'   => $game_array[0]['home_team_id'],
+                            'team_name' => $game_array[0]['home_team_name'],
+                        ),
+                        array(
+                            'country_name'  => $game_array[0]['home_national_name'],
+                            'national_id'   => $game_array[0]['home_national_id'],
+                        ),
+                        false
+                    ); ?>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
                 <th class="hidden-xs" title="Номинальная сила">НС</th>
@@ -321,9 +329,17 @@
             <tr>
                 <th title="Позиция">П</th>
                 <th>
-                    <a href="/team_view.php?num=<?= $guest_array[0]['team_id']; ?>">
-                        <?= $guest_array[0]['team_name']; ?>
-                    </a>
+                    <?= f_igosja_team_or_national_link(
+                        array(
+                            'team_id'   => $game_array[0]['guest_team_id'],
+                            'team_name' => $game_array[0]['guest_team_name'],
+                        ),
+                        array(
+                            'country_name'  => $game_array[0]['guest_national_name'],
+                            'national_id'   => $game_array[0]['guest_national_id'],
+                        ),
+                        false
+                    ); ?>
                 </th>
                 <th class="hidden-xs" title="Возраст">В</th>
                 <th class="hidden-xs" title="Номинальная сила">НС</th>
@@ -394,9 +410,17 @@
                         <?= sprintf("%02d", $item['event_minute']); ?>:<?= sprintf("%02d", $item['event_second']); ?>
                     </td>
                     <td class="text-center">
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                            <?= $item['team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $item['team_id'],
+                                'team_name' => $item['team_name'],
+                            ),
+                            array(
+                                'country_name'  => $item['country_name'],
+                                'national_id'   => $item['national_id'],
+                            ),
+                            false
+                        ); ?>
                     </td>
                     <td class="hidden-xs text-center"><?= $item['eventtype_text']; ?></td>
                     <td>
@@ -484,6 +508,12 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
                 <?= f_igosja_ufu_date_time($item['gamecomment_date']); ?>
+                <?php if (isset($auth_user_id) && USERROLE_USER != $auth_userrole_id) { ?>
+                    |
+                    <a href="/gamecomment_delete.php?num=<?= $item['gamecomment_id']; ?>&game_id=<?= $num_get; ?>">
+                        Удалить
+                    </a>
+                <?php } ?>
             </div>
         </div>
     <?php } ?>
