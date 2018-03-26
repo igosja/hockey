@@ -21,4 +21,7 @@ if (0 == $forummessage_sql->num_rows)
 
 $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
 
+$breadcrumb_array[] = array('url' => 'moderation_forummessage.php', 'text'  => 'Модерация');
+$breadcrumb_array[] = 'Сообщение на форуме';
+
 include(__DIR__ . '/view/layout/main.php');

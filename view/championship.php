@@ -91,7 +91,7 @@
                     <?= $item['review_title']; ?>
                 </a>
                 -
-                <a href="/user_view.php?num=<?= $item['review_id']; ?>">
+                <a href="/user_view.php?num=<?= $item['user_id']; ?>">
                     <?= $item['user_login']; ?>
                 </a>
             </div>

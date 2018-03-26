@@ -79,7 +79,8 @@ if ($data = f_igosja_request_post('data'))
             $text = htmlspecialchars($text);
 
             $sql = "UPDATE `forummessage`
-                    SET `forummessage_date_update`=UNIX_TIMESTAMP(),
+                    SET `forummessage_check`=0,
+                        `forummessage_date_update`=UNIX_TIMESTAMP(),
                         `forummessage_text`=?
                     WHERE `forummessage_id`=$num_get";
             $prepare = $mysqli->prepare($sql);
