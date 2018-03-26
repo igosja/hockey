@@ -21,14 +21,14 @@
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <tr>
                     <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <label class="control-label" for="forummessage_name">Текст</label>
+                        <label class="control-label" for="forummessage_text">Текст</label>
                     </td>
                     <td>
                         <input
                             class="form-control"
-                            id="forummessage_name"
-                            name="data[forummessage_name]"
-                            value="<?= $forummessage_array[0]['forummessage_name']; ?>"
+                            id="forummessage_text"
+                            name="data[forummessage_text]"
+                            value="<?= $forummessage_array[0]['forummessage_text']; ?>"
                         >
                     </td>
                 </tr>
