@@ -24,12 +24,13 @@
                         <label class="control-label" for="forummessage_text">Текст</label>
                     </td>
                     <td>
-                        <input
+                        <textarea
                             class="form-control"
                             id="forummessage_text"
                             name="data[forummessage_text]"
-                            value="<?= $forummessage_array[0]['forummessage_text']; ?>"
                         >
+                            <?= $forummessage_array[0]['forummessage_text']; ?>
+                        </textarea>
                     </td>
                 </tr>
             </table>
