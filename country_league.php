@@ -51,7 +51,7 @@ for ($i=0; $i<$season_sql->num_rows; $i++)
                    `leaguecoefficient_loose_over`+`leaguecoefficient_loose_bullet` AS `leaguecoefficient_loose_over`,
                    `leaguecoefficient_point`,
                    `leaguecoefficient_win`,
-                   `leaguecoefficient_win_over`+`leaguecoefficient_win_bullet` AS `leaguecoefficient_win_over`,
+                   `leaguecoefficient_win_over`+`leaguecoefficient_win_bullet` AS `leaguecoefficient_win_over`
             FROM `participantleague`
             LEFT JOIN `team`
             ON `participantleague_team_id`=`team_id`

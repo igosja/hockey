@@ -45,6 +45,7 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <th>Команда</th>
+                    <th class="col-20">Стадия</th>
                     <th class="col-5" title="Победы">В</th>
                     <th class="col-5" title="Победы в овертайте/по буллитам">ВО</th>
                     <th class="col-5" title="Поражения в овертайте/по буллитам">ПО</th>
@@ -59,6 +60,7 @@
                                 <span class="hidden-xs">(<?= $item['city_name']; ?>)</span>
                             </a>
                         </td>
+                        <td class="text-center"><?= $item['stage_name']; ?></td>
                         <td class="text-center"><?= $item['leaguecoefficient_win']; ?></td>
                         <td class="text-center"><?= $item['leaguecoefficient_win_over']; ?></td>
                         <td class="text-center"><?= $item['leaguecoefficient_loose_over']; ?></td>
@@ -68,6 +70,7 @@
                 <?php } ?>
                 <tr>
                     <th>Команда</th>
+                    <th>Стадия</th>
                     <th title="Победы">В</th>
                     <th title="Победы в овертайте/по буллитам">ВО</th>
                     <th title="Поражения в овертайте/по буллитам">ПО</th>
