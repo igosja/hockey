@@ -63,7 +63,7 @@ for ($i=0; $i<$season_sql->num_rows; $i++)
             ON `stadium_city_id`=`city_id`
             LEFT JOIN `leaguecoefficient`
             ON (`team_id`=`leaguecoefficient_team_id`
-            AND `participantleague_season_id`=`leaguecoefficient_team_id`)
+            AND `participantleague_season_id`=`leaguecoefficient_season_id`)
             LEFT JOIN `stage`
             ON `participantleague_stage_in`=`stage_id`
             WHERE `city_country_id`=$num_get
