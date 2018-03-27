@@ -438,7 +438,7 @@
                         <?php } ?>
                         <?php if ($item['event_player_score_id']) { ?>
                             <?php if ($item['eventtextgoal_text']) { ?>
-                                Гол -
+                                Шайба -
                             <?php } ?>
                             <a href="/player_view.php?num=<?= $item['event_player_score_id']; ?>">
                                 <?= $item['name_score_name']; ?>
