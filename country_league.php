@@ -35,6 +35,7 @@ $sql = "SELECT `participantleague_season_id`
         LEFT JOIN `city`
         ON `stadium_city_id`=`city_id`
         WHERE `city_country_id`=$num_get
+        GROUP BY `participantleague_season_id`
         ORDER BY `participantleague_season_id` DESC";
 $season_sql = f_igosja_mysqli_query($sql);
 
@@ -45,13 +46,14 @@ for ($i=0; $i<$season_sql->num_rows; $i++)
     $season_id = $season_array[$i]['participantleague_season_id'];
 
     $sql = "SELECT `city_name`,
-                   `team_id`,
-                   `team_name`,
                    `leaguecoefficient_loose`,
                    `leaguecoefficient_loose_over`+`leaguecoefficient_loose_bullet` AS `leaguecoefficient_loose_over`,
                    `leaguecoefficient_point`,
                    `leaguecoefficient_win`,
-                   `leaguecoefficient_win_over`+`leaguecoefficient_win_bullet` AS `leaguecoefficient_win_over`
+                   `leaguecoefficient_win_over`+`leaguecoefficient_win_bullet` AS `leaguecoefficient_win_over`,
+                   `stage_name`,
+                   `team_id`,
+                   `team_name`
             FROM `participantleague`
             LEFT JOIN `team`
             ON `participantleague_team_id`=`team_id`
