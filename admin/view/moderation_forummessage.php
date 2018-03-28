@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?= $forummessage_array[0]['forummessage_text']; ?>
+                    <?= f_igosja_bb_decode($forummessage_array[0]['forummessage_text']); ?>
                 </td>
             </tr>
         </table>

@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?= $transfercomment_array[0]['transfercomment_text']; ?>
+                    <?= f_igosja_bb_decode($transfercomment_array[0]['transfercomment_text']); ?>
                 </td>
             </tr>
         </table>
