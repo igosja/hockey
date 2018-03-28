@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?= $news_array[0]['news_text']; ?>
+                    <?= f_igosja_bb_decode($news_array[0]['news_text']); ?>
                 </td>
             </tr>
         </table>

@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?= $newscomment_array[0]['newscomment_text']; ?>
+                    <?= f_igosja_bb_decode($newscomment_array[0]['newscomment_text']); ?>
                 </td>
             </tr>
         </table>

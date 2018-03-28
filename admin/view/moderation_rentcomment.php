@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <?= $rentcomment_array[0]['rentcomment_text']; ?>
+                    <?= f_igosja_bb_decode($rentcomment_array[0]['rentcomment_text']); ?>
                 </td>
             </tr>
         </table>
