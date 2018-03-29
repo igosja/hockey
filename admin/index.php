@@ -67,7 +67,7 @@ $payment_sql = f_igosja_mysqli_query($sql);
 
 $payment_array = $payment_sql->fetch_all(MYSQLI_ASSOC);
 
-$date_start = strtotime('-2months', strtotime(date('Y-m-01')));
+$date_start = strtotime('-3months', strtotime(date('Y-m-01')));
 $date_end   = strtotime(date('Y-m-t'));
 
 $date_array = array();
