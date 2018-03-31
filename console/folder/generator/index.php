@@ -80,6 +80,7 @@ $function_array = array(
     'f_igosja_generator_team_vs',
     'f_igosja_generator_team_price',
     'f_igosja_generator_team_age',
+    'f_igosja_generator_team_player',
     'f_igosja_generator_country_stadium',
     'f_igosja_generator_user_rating_total',
     'f_igosja_generator_rating',
