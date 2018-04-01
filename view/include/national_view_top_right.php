@@ -12,6 +12,11 @@
         <a class="no-underline" href="/national_player.php">
             <img alt="Изменить состав сборной" src="/img/roster/substitute.png" title="Изменить состав сборной"/>
         </a>
+        <?php if (($auth_user_id == $national_array[0]['user_id'] && $national_array[0]['vice_user_id']) || $auth_user_id == $national_array[0]['vice_user_id']) { ?>
+            <a class="no-underline" href="/national_fire.php">
+                <img alt="Отказаться от должности" src="/img/roster/fire.png" title="Отказаться от должности"/>
+            </a>
+        <?php } ?>
     </div>
     <?php foreach ($latest_array as $item) { ?>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
