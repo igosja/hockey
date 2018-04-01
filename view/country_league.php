@@ -48,7 +48,7 @@
                     <th class="col-20">Стадия</th>
                     <th class="col-5" title="Победы">В</th>
                     <th class="col-5" title="Победы в овертайте/по буллитам">ВО</th>
-                    <th class="col-5" title="Поражения в овертайте/по буллитам">ПО</th>
+                    <th class="col-5" title="Ничьи и поражения в овертайте/по буллитам">Н/ПО</th>
                     <th class="col-5" title="Поражения">П</th>
                     <th class="col-5" title="Очки">О</th>
                 </tr>
