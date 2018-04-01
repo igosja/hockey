@@ -38,6 +38,14 @@
                 <h1><?= $forumtheme_array[0]['forumtheme_name']; ?></h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                <form action="/forum_search.php" class="form-inline" method="GET">
+                    <input class="form-control form-small" name="q" type="text" />
+                    <button class="btn">Поиск</button>
+                </form>
+            </div>
+        </div>
         <form method="GET">
             <input name="num" type="hidden" value="<?= $num_get; ?>">
             <div class="row">
@@ -51,7 +59,7 @@
                     <select class="form-control" name="page" id="page">
                         <?php for ($i=1; $i<=$count_page; $i++) { ?>
                             <option
-                                    value="<?= $i; ?>"
+                                value="<?= $i; ?>"
                                 <?php if ($page == $i) { ?>
                                     selected
                                 <?php } ?>
