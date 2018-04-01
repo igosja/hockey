@@ -29,15 +29,21 @@
                 <h1><?= $forumgroup_array[0]['forumgroup_name']; ?></h1>
             </div>
         </div>
-        <?php if (isset($auth_user_id) && $auth_date_block_forum < time()) { ?>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?php if (isset($auth_user_id) && $auth_date_block_forum < time()) { ?>
                     <a class="btn margin" href="/forum_theme_create.php?num=<?= $num_get; ?>">
                         Создать тему
                     </a>
-                </div>
+                <?php } ?>
             </div>
-        <?php } ?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+                <form action="/forum_search.php" class="form-inline" method="GET">
+                    <input class="form-control" name="q" type="text" />
+                    <button class="btn">Поиск</button>
+                </form>
+            </div>
+        </div>
         <form method="GET">
             <input name="num" type="hidden" value="<?= $num_get; ?>">
             <div class="row">

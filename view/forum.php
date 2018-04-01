@@ -10,6 +10,14 @@
                 <h1>Форум</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                <form action="/forum_search.php" class="form-inline" method="GET">
+                    <input class="form-control form-small" name="q" type="text" />
+                    <button class="btn">Поиск</button>
+                </form>
+            </div>
+        </div>
         <?php foreach ($forum_array as $chapter) { ?>
             <div class="row margin-top forum-row-head">
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
