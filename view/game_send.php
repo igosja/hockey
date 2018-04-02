@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_national_id integer
  * @var $auth_team_id integer
  * @var $c_array array
  * @var $current_array array
@@ -358,7 +359,7 @@
                         <th data-type="position" title="Позиция">Поз</th>
                         <th class="hidden-xs" data-type="number" title="Возраст">В</th>
                         <th class="hidden-xs" data-type="number" title="Сила">С</th>
-                        <th class="hidden-xs" data-type="number" title="Усталость">У</th>
+                        <th data-type="number" title="Усталость">У</th>
                         <th class="hidden-xs" data-type="phisical" title="Форма">Ф</th>
                         <th data-type="number" title="Реальная сила">РС</th>
                         <th data-type="string" title="Спецвозможности">Спец</th>
@@ -386,7 +387,7 @@
                             <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                             <td class="hidden-xs text-center"><?= $item['player_age']; ?></td>
                             <td class="hidden-xs text-center"><?= $item['player_power_nominal']; ?></td>
-                            <td class="hidden-xs text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
+                            <td class="text-center"><?= TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id'] ? 25 : $item['player_tire']; ?></td>
                             <td class="hidden-xs text-center">
                                 <?php if (TOURNAMENTTYPE_FRIENDLY == $current_array[0]['schedule_tournamenttype_id']) { ?>
                                     <img
