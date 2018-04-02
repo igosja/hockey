@@ -29,6 +29,47 @@
                 <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
                 <th title="Число заявок">ЧЗ</th>
             </tr>
+            <?php if ($teamask_array) { ?>
+                <tr>
+                    <th class="text-center" colspan="9">Ваши заявки</th>
+                </tr>
+                <?php foreach ($teamask_array as $item) { ?>
+                    <tr>
+                        <td class="text-center">
+                            <a href="/team_ask_delete.php?num=<?= $item['teamask_id']; ?>">
+                                <img alt="Удалить заявку" src="/img/delete.png" title="Удалить заявку" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                                <?= $item['team_name']; ?> (<?= $item['city_name']; ?>)
+                            </a>
+                        </td>
+                        <td class="xs-text-center">
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <img alt="<?= $item['country_name']; ?>" src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>" />
+                                <span class="hidden-xs">
+                                    <?= $item['country_name']; ?>
+                                </span>
+                            </a>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <?php if ($item['division_id']) { ?>
+                                <a href="/championship.php?country_id=<?= $item['country_id']; ?>&division_id=<?= $item['division_id']; ?>">
+                                    <?= $item['division_name']; ?>
+                                </a>
+                            <?php } else { ?>
+                                <a href="/conference_table.php">КЛК</a>
+                            <?php } ?>
+                        </td>
+                        <td class="hidden-xs text-center"><?= $item['base_slot_used']; ?> из <?= $item['base_slot_max']; ?></td>
+                        <td class="hidden-xs text-right"><?= $item['stadium_capacity']; ?></td>
+                        <td class="hidden-xs text-right"><?= f_igosja_money_format($item['team_finance']); ?></td>
+                        <td class="hidden-xs text-right"><?= $item['team_power_vs']; ?></td>
+                        <td class="text-center"><?= $item['teamask_count']; ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
                     <td class="text-center">
