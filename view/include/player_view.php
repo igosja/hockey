@@ -170,6 +170,7 @@
                             <a href="/team_view.php?num=<?= $player_array[0]['rent_team_id']; ?>">
                                 <?= $player_array[0]['rent_team_name']; ?>
                             </a>
+                            (<?= $player_array[0]['player_rent_day']; ?>)
                         </div>
                     </div>
                 <?php } ?>

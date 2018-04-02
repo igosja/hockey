@@ -188,6 +188,7 @@
                                         title="Выставлен на трансфер/аренду"
                                     />
                                 <?php } ?>
+                                (<?= $item['player_rent_day']; ?>)
                             </td>
                             <td class="hidden-xs text-center">
                                 <a href="/country_news.php?num=<?= $item['country_id']; ?>">
@@ -284,6 +285,7 @@
                                         title="Выставлен на трансфер/аренду"
                                     />
                                 <?php } ?>
+                                (<?= $item['player_rent_day']; ?>)
                             </td>
                             <td class="hidden-xs text-center">
                                 <a href="/country_news.php?num=<?= $item['country_id']; ?>">
