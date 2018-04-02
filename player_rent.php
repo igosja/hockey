@@ -95,7 +95,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
             $rent_price     = ceil($player_array[0]['player_price'] / 1000);
             $rent_day_min   = 1;
-            $rent_day_max   = 10;
+            $rent_day_max   = 7;
 
             if (isset($data['price']) && isset($data['day_min']) && isset($data['day_max']))
             {
