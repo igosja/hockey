@@ -44,6 +44,7 @@ $season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `city_name`,
                `country_name`,
+               `game_home_team_id`,
                IF(`game_guest_team_id`=$num_get, `game_guest_auto`, `game_home_auto`) AS `game_auto`,
                IF(`game_guest_team_id`=$num_get, `game_home_score`, `game_guest_score`) AS `game_guest_score`,
                IF(`game_guest_team_id`=$num_get, `game_guest_score`, `game_home_score`) AS `game_home_score`,
