@@ -69,6 +69,17 @@
                         <td class="text-center"><?= $item['teamask_count']; ?></td>
                     </tr>
                 <?php } ?>
+                <tr>
+                    <th></th>
+                    <th>Команда</th>
+                    <th>Страна</th>
+                    <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
+                    <th class="hidden-xs">База</th>
+                    <th class="hidden-xs">Стадион</th>
+                    <th class="hidden-xs">Финансы</th>
+                    <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
+                    <th title="Число заявок">ЧЗ</th>
+                </tr>
             <?php } ?>
             <?php foreach ($team_array as $item) { ?>
                 <tr>
