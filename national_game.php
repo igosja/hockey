@@ -26,6 +26,7 @@ include(__DIR__ . '/include/sql/national_view_left.php');
 include(__DIR__ . '/include/sql/national_view_right.php');
 
 $sql = "SELECT `country_name`,
+               `game_home_national_id`,
                IF(`game_guest_national_id`=$num_get, `game_guest_auto`, `game_home_auto`) AS `game_auto`,
                `game_guest_score`,
                `game_home_score`,

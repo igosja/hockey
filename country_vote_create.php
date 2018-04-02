@@ -35,7 +35,7 @@ if ($data = f_igosja_request_post('data'))
     $text       = htmlspecialchars($data['vote_text']);
     $text       = trim($text);
     $answer     = $data['voteanswer_text'];
-    $country    = $data['votecountry'];
+    $country    = $data['vote_country'];
 
     if (!empty($text) && count($answer) > 0)
     {
