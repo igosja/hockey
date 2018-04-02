@@ -128,6 +128,7 @@ $sql = "SELECT `base_slot_max`,
             FROM `teamask`
             GROUP BY `teamask_team_id`
         ) AS `t3`
+        ON `team_id`=`t3`.`teamask_team_id`
         WHERE `teamask_user_id`=$auth_user_id";
 $teamask_sql = f_igosja_mysqli_query($sql);
 
