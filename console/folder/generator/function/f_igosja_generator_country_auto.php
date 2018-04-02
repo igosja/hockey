@@ -79,7 +79,7 @@ function f_igosja_generator_country_auto()
             SET `country_game`=`country_game`+IFNULL(`count_home_game`, 0)+IFNULL(`count_guest_game`, 0),
                 `country_auto`=`country_auto`+IFNULL(`count_home_game_auto`, 0)+IFNULL(`count_guest_game_auto`, 0)
             WHERE `t1`.`city_country_id` IS NOT NULL
-            AAND `t1`.`city_country_id`!=0
+            AND `t1`.`city_country_id`!=0
             AND `t2`.`city_country_id` IS NOT NULL
             AND `t2`.`city_country_id`!=0";
     f_igosja_mysqli_query($sql);
