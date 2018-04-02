@@ -61,20 +61,20 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
             <table class="table table-bordered table-hover">
-                <tr>
-                    <th></th>
-                    <th>Команда</th>
-                    <th>Страна</th>
-                    <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
-                    <th class="hidden-xs">База</th>
-                    <th class="hidden-xs">Стадион</th>
-                    <th class="hidden-xs">Финансы</th>
-                    <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
-                    <th title="Число заявок">ЧЗ</th>
-                </tr>
                 <?php if ($teamask_array) { ?>
                     <tr>
                         <th class="text-center" colspan="9">Ваши заявки</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Команда</th>
+                        <th>Страна</th>
+                        <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
+                        <th class="hidden-xs">База</th>
+                        <th class="hidden-xs">Стадион</th>
+                        <th class="hidden-xs">Финансы</th>
+                        <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
+                        <th title="Число заявок">ЧЗ</th>
                     </tr>
                     <?php foreach ($teamask_array as $item) { ?>
                         <tr>
@@ -112,18 +112,18 @@
                             <td class="text-center"><?= $item['teamask_count']; ?></td>
                         </tr>
                     <?php } ?>
-                    <tr>
-                        <th></th>
-                        <th>Команда</th>
-                        <th>Страна</th>
-                        <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
-                        <th class="hidden-xs">База</th>
-                        <th class="hidden-xs">Стадион</th>
-                        <th class="hidden-xs">Финансы</th>
-                        <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
-                        <th title="Число заявок">ЧЗ</th>
-                    </tr>
                 <?php } ?>
+                <tr>
+                    <th></th>
+                    <th>Команда</th>
+                    <th>Страна</th>
+                    <th class="hidden-xs" title="Дивизион, в котором выступает команда">Див</th>
+                    <th class="hidden-xs">База</th>
+                    <th class="hidden-xs">Стадион</th>
+                    <th class="hidden-xs">Финансы</th>
+                    <th class="hidden-xs" title="Рейтинг силы команды в длительных соревнованиях">Vs</th>
+                    <th title="Число заявок">ЧЗ</th>
+                </tr>
                 <?php foreach ($team_array as $item) { ?>
                     <tr>
                         <td class="text-center">
