@@ -5,6 +5,7 @@
  * @var $auth_date_block_comment integer
  * @var $auth_date_block_gamecomment integer
  * @var $auth_user_id integer
+ * @var $auth_userrole_id integer
  * @var $count_page integer
  * @var $event_array array
  * @var $game_array array
@@ -103,28 +104,48 @@
         <table class="table table-bordered">
             <tr>
                 <td class="col-35 text-center">
-                    <span title="Первое звено"><?= $game_array[0]['home_tactic_1_name']; ?></span> |
-                    <span title="Второе звено"><?= $game_array[0]['home_tactic_2_name']; ?></span> |
+                    <span title="Первое звено"><?= $game_array[0]['home_tactic_1_name']; ?></span>
+                    |
+                    <span title="Второе звено"><?= $game_array[0]['home_tactic_2_name']; ?></span>
+                    |
                     <span title="Третье звено"><?= $game_array[0]['home_tactic_3_name']; ?></span>
                 </td>
                 <td class="text-center">Тактика</td>
                 <td class="col-35 text-center">
-                    <span title="Первое звено"><?= $game_array[0]['guest_tactic_1_name']; ?></span> |
-                    <span title="Второе звено"><?= $game_array[0]['guest_tactic_2_name']; ?></span> |
+                    <span title="Первое звено"><?= $game_array[0]['guest_tactic_1_name']; ?></span>
+                    |
+                    <span title="Второе звено"><?= $game_array[0]['guest_tactic_2_name']; ?></span>
+                    |
                     <span title="Третье звено"><?= $game_array[0]['guest_tactic_3_name']; ?></span>
                 </td>
             </tr>
             <tr>
                 <td class="text-center">
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_1_id'], $game_array[0]['game_guest_style_1_id']); ?>" title="Первое звено"><?= $game_array[0]['home_style_1_name']; ?></span> |
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_2_id'], $game_array[0]['game_guest_style_2_id']); ?>" title="Второе звено"><?= $game_array[0]['home_style_2_name']; ?></span> |
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_3_id'], $game_array[0]['game_guest_style_3_id']); ?>" title="Третье звено"><?= $game_array[0]['home_style_3_name']; ?></span>
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_1_id'], $game_array[0]['game_guest_style_1_id']); ?>" title="Первое звено">
+                        <?= $game_array[0]['home_style_1_name']; ?>
+                    </span>
+                    |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_2_id'], $game_array[0]['game_guest_style_2_id']); ?>" title="Второе звено">
+                        <?= $game_array[0]['home_style_2_name']; ?>
+                    </span>
+                    |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_home_style_3_id'], $game_array[0]['game_guest_style_3_id']); ?>" title="Третье звено">
+                        <?= $game_array[0]['home_style_3_name']; ?>
+                    </span>
                 </td>
                 <td class="text-center">Стиль</td>
                 <td class="text-center">
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_1_id'], $game_array[0]['game_home_style_1_id']); ?>" title="Первое звено"><?= $game_array[0]['guest_style_1_name']; ?></span> |
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_2_id'], $game_array[0]['game_home_style_2_id']); ?>" title="Второе звено"><?= $game_array[0]['guest_style_2_name']; ?></span> |
-                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_3_id'], $game_array[0]['game_home_style_3_id']); ?>" title="Третье звено"><?= $game_array[0]['guest_style_3_name']; ?></span>
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_1_id'], $game_array[0]['game_home_style_1_id']); ?>" title="Первое звено">
+                        <?= $game_array[0]['guest_style_1_name']; ?>
+                    </span>
+                    |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_2_id'], $game_array[0]['game_home_style_2_id']); ?>" title="Второе звено">
+                        <?= $game_array[0]['guest_style_2_name']; ?>
+                    </span>
+                    |
+                    <span class="<?= f_igosja_css_style($game_array[0]['game_guest_style_3_id'], $game_array[0]['game_home_style_3_id']); ?>" title="Третье звено">
+                        <?= $game_array[0]['guest_style_3_name']; ?>
+                    </span>
                 </td>
             </tr>
             <tr>
@@ -141,9 +162,17 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-center"><?= $game_array[0]['home_mood_name']; ?></td>
+                <td class="text-center">
+                    <span class="<?= f_igosja_css_mood($game_array[0]['home_mood_id']); ?>">
+                        <?= $game_array[0]['home_mood_name']; ?>
+                    </span>
+                </td>
                 <td class="text-center">Настрой</td>
-                <td class="text-center"><?= $game_array[0]['guest_mood_name']; ?></td>
+                <td class="text-center">
+                    <span class="<?= f_igosja_css_mood($game_array[0]['guest_mood_id']); ?>">
+                        <?= $game_array[0]['guest_mood_name']; ?>
+                    </span>
+                </td>
             </tr>
             <tr>
                 <td class="text-center">
