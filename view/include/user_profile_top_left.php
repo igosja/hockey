@@ -29,6 +29,9 @@
                 <img alt="Letter" src="/img/letter.png" title="Написать письмо" />
             </a>
         <?php } ?>
+        <?php if (1 == $user_array[0]['user_holiday']) { ?>
+            <span class="italic">(в отпуске)</span>
+        <?php } ?>
     </div>
 </div>
 <div class="row">
