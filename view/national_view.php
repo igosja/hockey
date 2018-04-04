@@ -33,10 +33,10 @@
                         <div class="hidden-lg hidden-md hidden-sm col-xs-3"></div>
                         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">
                             <input
-                                    id="rating-<?= $item['relation_id']; ?>"
-                                    name="data[vote_president]"
-                                    type="radio"
-                                    value="<?= $item['relation_id']; ?>"
+                                id="rating-<?= $item['relation_id']; ?>"
+                                name="data[vote_national]"
+                                type="radio"
+                                value="<?= $item['relation_id']; ?>"
                                 <?php if ($auth_relation_id == $item['relation_id']) { ?>
                                     checked
                                 <?php } ?>
