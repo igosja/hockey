@@ -23,13 +23,35 @@
                 <tr>
                     <td class="text-center"><?= f_igosja_ufu_date($item['schedule_date']); ?></td>
                     <td class="text-center">
-                        <a href="/team_view.php?num=<?= $item['home_team_id']; ?>">
-                            <?= $item['home_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'city_name'     => $item['home_city_name'],
+                                'country_name'  => $item['home_country_name'],
+                                'team_id'       => $item['home_team_id'],
+                                'team_name'     => $item['home_team_name'],
+                            ),
+                            array(
+                                'country_name'      => $item['home_national_name'],
+                                'national_id'       => $item['home_national_id'],
+                                'nationaltype_name' => $item['home_nationaltype_name'],
+                            ),
+                            false
+                        ); ?>
                         -
-                        <a href="/team_view.php?num=<?= $item['guest_team_id']; ?>">
-                            <?= $item['guest_team_name']; ?>
-                        </a>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'city_name'     => $item['guest_city_name'],
+                                'country_name'  => $item['guest_country_name'],
+                                'team_id'       => $item['guest_team_id'],
+                                'team_name'     => $item['guest_team_name'],
+                            ),
+                            array(
+                                'country_name'      => $item['guest_national_name'],
+                                'national_id'       => $item['guest_national_id'],
+                                'nationaltype_name' => $item['guest_nationaltype_name'],
+                            ),
+                            false
+                        ); ?>
                     </td>
                     <td class="text-center">
                         <a href="/game_view.php?num=<?= $item['game_id']; ?>">

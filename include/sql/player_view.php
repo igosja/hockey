@@ -1,14 +1,13 @@
 <?php
 
 /**
+ * @var $auth_national_id integer
  * @var $auth_team_id integer
  * @var $num_get integer
  */
 
 $sql = "SELECT `country_id`,
                `country_name`,
-               `line_id`,
-               `line_name`,
                `name_name`,
                `phisical_id`,
                `phisical_name`,
@@ -17,7 +16,9 @@ $sql = "SELECT `country_id`,
                `player_id`,
                `player_injury`,
                `player_injury_day`,
+               `player_line_id`,
                `player_national_id`,
+               `player_national_line_id`,
                `player_noaction`,
                `player_nodeal`,
                `player_position_id`,
@@ -49,8 +50,6 @@ $sql = "SELECT `country_id`,
         ON `player_team_id`=`team_id`
         LEFT JOIN `team` AS `rent_team`
         ON `player_rent_team_id`=`rent_team`.`team_id`
-        LEFT JOIN `line`
-        ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
 $player_sql = f_igosja_mysqli_query($sql);
@@ -101,7 +100,8 @@ if (isset($auth_team_id))
 
     $count_scout = $scout_array[0]['count_scout'];
 
-    if ($player_array[0]['team_id'] == $auth_team_id)
+
+    if ($player_array[0]['team_id'] == $auth_team_id || $player_array[0]['player_national_id'] == $auth_national_id)
     {
         $sql = "SELECT `line_color`,
                        `line_id`,

@@ -68,7 +68,7 @@
             <tbody>
                 <?php $i=0; foreach ($player_array as $item) { ?>
                     <tr class="phisical-change-row" data-order="<?= $i; ?>">
-                        <td>
+                        <td<?php if ($item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>&nbsp;<?= $item['surname_name']; ?>
                             </a>

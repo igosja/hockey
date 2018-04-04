@@ -114,7 +114,8 @@ foreach ($phisicalchange_array as $item)
     $change_array[$item['phisicalchange_player_id']][$item['phisicalchange_schedule_id']] = 1;
 }
 
-$sql = "SELECT `name_name`,
+$sql = "SELECT `line_color`,
+               `name_name`,
                `phisical_id`,
                `phisical_name`,
                `player_age`,
@@ -130,6 +131,8 @@ $sql = "SELECT `name_name`,
         ON `player_country_id`=`country_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
         AND `player_rent_team_id`=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";

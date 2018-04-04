@@ -600,7 +600,7 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                     redirect('/national_vice_vote.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN);
                 }
 
-                $notification_array[] = 'В вашей стране проходят выборы заместителя презитента федерации, результаты можно посмотреть <a href="/national_vice_vote.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
+                $notification_array[] = 'В вашей стране проходят выборы заместителя тренера сборной, результаты можно посмотреть <a href="/national_vice_vote.php?num=' . $auth_country_id . '&type=' . NATIONALTYPE_MAIN . '">здесь</a>';
             }
         }
     }
