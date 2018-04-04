@@ -7,8 +7,6 @@
 
 $sql = "SELECT `country_id`,
                `country_name`,
-               `line_id`,
-               `line_name`,
                `name_name`,
                `phisical_id`,
                `phisical_name`,
@@ -17,7 +15,9 @@ $sql = "SELECT `country_id`,
                `player_id`,
                `player_injury`,
                `player_injury_day`,
+               `player_line_id`,
                `player_national_id`,
+               `player_national_line_id`,
                `player_noaction`,
                `player_nodeal`,
                `player_position_id`,
@@ -49,8 +49,6 @@ $sql = "SELECT `country_id`,
         ON `player_team_id`=`team_id`
         LEFT JOIN `team` AS `rent_team`
         ON `player_rent_team_id`=`rent_team`.`team_id`
-        LEFT JOIN `line`
-        ON `player_line_id`=`line_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
 $player_sql = f_igosja_mysqli_query($sql);

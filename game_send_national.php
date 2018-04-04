@@ -383,7 +383,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
         LEFT JOIN `line`
-        ON `player_line_id`=`line_id`
+        ON `player_national_line_id`=`line_id`
         LEFT JOIN `phisical`
         ON `player_phisical_id`=`phisical_id`
         WHERE `player_national_id`=$auth_national_id
