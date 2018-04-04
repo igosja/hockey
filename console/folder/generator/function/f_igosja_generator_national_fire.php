@@ -88,17 +88,6 @@ function f_igosja_generator_national_fire()
                     SET `team_vote_national`=" . VOTERATING_NEUTRAL . "
                     WHERE `city_country_id`=$country_id";
             f_igosja_mysqli_query($sql);
-
-            $news_text  = 'Действующий тренер национальной сборной отправлен в отставку по причине высокого уровня недоверия менеджеров федерации. Заместитель тренера занял вакантную должность.';
-            $news_title = 'Увольнение тренера национальной сборной';
-
-            $sql = "INSERT INTO `news`
-                    SET `news_country_id`=$country_id,
-                        `news_date`=UNIX_TIMESTAMP(),
-                        `news_text`=$news_text,
-                        `news_title`='$news_title',
-                        `news_user_id`=1";
-            f_igosja_mysqli_query($sql);
         }
     }
 }
