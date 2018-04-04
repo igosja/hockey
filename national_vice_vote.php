@@ -62,7 +62,7 @@ $sql = "SELECT `count_answer`,
             SELECT COUNT(`electionnationalviceuser_user_id`) AS `count_answer`,
                    `electionnationalviceuser_electionnationalviceapplication_id`
             FROM `electionnationalviceuser`
-            WHERE `electionnationalviceuser_electionnationalviceapplication_id`=$electionnationalvice_id
+            WHERE `electionnationalviceuser_electionnationalvice_id`=$electionnationalvice_id
             GROUP BY `electionnationalviceuser_electionnationalviceapplication_id`
         ) AS `t1`
         ON `electionnationalviceapplication_id`=`electionnationalviceuser_electionnationalviceapplication_id`
