@@ -385,6 +385,7 @@ $training_array = $training_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `country_id`,
                `country_name`,
+               `line_color`,
                `name_name`,
                `player_age`,
                `player_id`,
@@ -398,6 +399,8 @@ $sql = "SELECT `country_id`,
         ON `player_surname_id`=`surname_id`
         LEFT JOIN `country`
         ON `player_country_id`=`country_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);

@@ -337,6 +337,7 @@ else
 $sql = "SELECT `count_scout`,
                `country_id`,
                `country_name`,
+               `line_color`,
                `name_name`,
                `player_age`,
                `player_id`,
@@ -360,6 +361,8 @@ $sql = "SELECT `count_scout`,
             GROUP BY `scout_player_id`
         ) AS `t1`
         ON `player_id`=`scout_player_id`
+        LEFT JOIN `line`
+        ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
