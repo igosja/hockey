@@ -34,7 +34,8 @@
                                 'country_name'      => $item['home_national_name'],
                                 'national_id'       => $item['home_national_id'],
                                 'nationaltype_name' => $item['home_nationaltype_name'],
-                            )
+                            ),
+                            false
                         ); ?>
                         -
                         <?= f_igosja_team_or_national_link(
@@ -48,7 +49,8 @@
                                 'country_name'      => $item['guest_national_name'],
                                 'national_id'       => $item['guest_national_id'],
                                 'nationaltype_name' => $item['guest_nationaltype_name'],
-                            )
+                            ),
+                            false
                         ); ?>
                     </td>
                     <td class="text-center">
