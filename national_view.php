@@ -1,7 +1,10 @@
 <?php
 
 /**
+ * @var $auth_country_id integer
  * @var $auth_national_id integer
+ * @var $auth_nationalvice_id integer
+ * @var $auth_team_id integer
  * @var $auth_user_id integer
  * @var $igosja_season_id integer
  */
@@ -168,6 +171,63 @@ if (isset($auth_national_id) && $auth_national_id == $num_get)
             $notification_array[] = 'В ближайшем <a href="/game_send.php?num=' . $check_mood_array[0]['game_id'] . '">матче</a> ваша команда будет использовать отдых.';
         }
     }
+}
+
+if (isset($auth_country_id) && $auth_country_id == $national_array[0]['country_id'])
+{
+    if ($data = f_igosja_request_post('data'))
+    {
+        if (isset($data['vote_national']))
+        {
+            $vote = (int) $data['vote_national'];
+
+            $sql = "SELECT COUNT(`relation_id`) AS `check`
+                    FROM `relation`
+                    WHERE `relation_id`=$vote";
+            $check_sql = f_igosja_mysqli_query($sql);
+
+            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+
+            if (0 == $check_array[0]['check'])
+            {
+                f_igosja_session_front_flash_set('error', 'Отношение к тренеру выбрано неправильно.');
+
+                refresh();
+            }
+
+            $sql = "UPDATE `team`
+                    SET `team_vote_national`=$vote
+                    WHERE `team_id`=$auth_team_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+
+            f_igosja_session_front_flash_set('success', 'Отношение к тренеру успешно сохранено.');
+
+            refresh();
+        }
+    }
+
+    $sql = "SELECT `relation_id`,
+                   `relation_name`
+            FROM `team`
+            LEFT JOIN `relation`
+            ON `team_vote_national`=`relation_id`
+            WHERE `team_id`=$auth_team_id
+            LIMIT 1";
+    $relation_sql = f_igosja_mysqli_query($sql);
+
+    $relation_array = $relation_sql->fetch_all(MYSQLI_ASSOC);
+
+    $auth_relation_id   = $relation_array[0]['relation_id'];
+    $auth_relation_name = $relation_array[0]['relation_name'];
+
+    $sql = "SELECT `relation_id`,
+                   `relation_name`
+            FROM `relation`
+            ORDER BY `relation_order` ASC";
+    $relation_sql = f_igosja_mysqli_query($sql);
+
+    $relation_array = $relation_sql->fetch_all(MYSQLI_ASSOC);
 }
 
 $seo_title          = $national_array[0]['country_name'] . '. Профиль сборной';

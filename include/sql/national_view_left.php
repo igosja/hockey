@@ -58,3 +58,47 @@ if (0 == $national_sql->num_rows)
 }
 
 $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+
+$country_id = $national_array[0]['country_id'];
+
+$sql = "SELECT COUNT(`team_id`) AS `total`
+        FROM `team`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        WHERE `city_country_id`=$country_id
+        AND `team_user_id`!=0
+        AND `team_vote_national`=" . VOTERATING_POSITIVE;
+$rating_positive_sql = f_igosja_mysqli_query($sql);
+
+$rating_positive_array = $rating_positive_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT COUNT(`team_id`) AS `total`
+        FROM `team`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        WHERE `city_country_id`=$country_id
+        AND `team_user_id`!=0
+        AND `team_vote_national`=" . VOTERATING_NEGATIVE;
+$rating_negative_sql = f_igosja_mysqli_query($sql);
+
+$rating_negative_array = $rating_negative_sql->fetch_all(MYSQLI_ASSOC);
+
+$sql = "SELECT IF(COUNT(`team_id`)=0, 1, COUNT(`team_id`)) AS `total`
+        FROM `team`
+        LEFT JOIN `stadium`
+        ON `team_stadium_id`=`stadium_id`
+        LEFT JOIN `city`
+        ON `stadium_city_id`=`city_id`
+        WHERE `city_country_id`=$country_id
+        AND `team_user_id`!=0";
+$rating_total_sql = f_igosja_mysqli_query($sql);
+
+$rating_total_array = $rating_total_sql->fetch_all(MYSQLI_ASSOC);
+
+$rating_positive    = round($rating_positive_array[0]['total'] / $rating_total_array[0]['total'] * 100);
+$rating_negative    = round($rating_negative_array[0]['total'] / $rating_total_array[0]['total'] * 100);
+$rating_neutral     = 100 - $rating_positive - $rating_negative;

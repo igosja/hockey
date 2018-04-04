@@ -85,3 +85,15 @@
         <span class="strong"><?= f_igosja_money_format($national_array[0]['national_finance']); ?></span>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+        Рейтинг тренера:
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <span class="font-green"><?= $rating_positive; ?>%</span>
+        |
+        <span class="font-yellow"><?= $rating_neutral; ?>%</span>
+        |
+        <span class="font-red"><?= $rating_negative; ?>%</span>
+    </div>
+</div>
