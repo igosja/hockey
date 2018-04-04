@@ -19,48 +19,52 @@
                 <?= $player_array[0]['name_name']; ?> <?= $player_array[0]['surname_name']; ?>
             </div>
             <?php if (isset($line_array) && 'player_view' == $file_name) { ?>
-                <?php if ($player_array[0]['team_id'] == $auth_team_id) { ?>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                        <label for="select-line">Состав:</label>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <select class="form-control" id="select-line" data-player="<?= $player_array[0]['player_id']; ?>">
-                            <?php foreach ($line_array as $item) { ?>
-                                <option value="<?= $item['line_id']; ?>"
-                                    <?php if ($player_array[0]['player_line_id'] == $item['line_id']) { ?>
-                                        selected
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="row">
+                        <?php if ($player_array[0]['team_id'] == $auth_team_id) { ?>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                <label for="select-line">Состав:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <select class="form-control" id="select-line" data-player="<?= $player_array[0]['player_id']; ?>">
+                                    <?php foreach ($line_array as $item) { ?>
+                                        <option value="<?= $item['line_id']; ?>"
+                                            <?php if ($player_array[0]['player_line_id'] == $item['line_id']) { ?>
+                                                selected
+                                            <?php } ?>
+                                            <?php if ($item['line_color']) { ?>
+                                                style="background-color: #<?= $item['line_color']; ?>"
+                                            <?php } ?>
+                                        >
+                                            <?= $item['line_name']; ?>
+                                        </option>
                                     <?php } ?>
-                                    <?php if ($item['line_color']) { ?>
-                                        style="background-color: #<?= $item['line_color']; ?>"
+                                </select>
+                            </div>
+                        <?php } ?>
+                        <?php if ($player_array[0]['player_national_id'] == $auth_national_id) { ?>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                <label for="select-national-line">Состав в сборной:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <select class="form-control" id="select-national-line" data-player="<?= $player_array[0]['player_id']; ?>">
+                                    <?php foreach ($line_array as $item) { ?>
+                                        <option value="<?= $item['line_id']; ?>"
+                                            <?php if ($player_array[0]['player_national_line_id'] == $item['line_id']) { ?>
+                                                selected
+                                            <?php } ?>
+                                            <?php if ($item['line_color']) { ?>
+                                                style="background-color: #<?= $item['line_color']; ?>"
+                                            <?php } ?>
+                                        >
+                                            <?= $item['line_name']; ?>
+                                        </option>
                                     <?php } ?>
-                                >
-                                    <?= $item['line_name']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
+                                </select>
+                            </div>
+                        <?php } ?>
                     </div>
-                <?php } ?>
-                <?php if ($player_array[0]['player_national_id'] == $auth_national_id) { ?>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                        <label for="select-line-line">Состав в сборной:</label>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <select class="form-control" id="select-national-line" data-player="<?= $player_array[0]['player_id']; ?>">
-                            <?php foreach ($line_array as $item) { ?>
-                                <option value="<?= $item['line_id']; ?>"
-                                    <?php if ($player_array[0]['player_national_line_id'] == $item['line_id']) { ?>
-                                        selected
-                                    <?php } ?>
-                                    <?php if ($item['line_color']) { ?>
-                                        style="background-color: #<?= $item['line_color']; ?>"
-                                    <?php } ?>
-                                >
-                                    <?= $item['line_name']; ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                <?php } ?>
+                </div>
             <?php } ?>
         </div>
     </div>
