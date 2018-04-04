@@ -6,15 +6,21 @@
 function f_igosja_generator_fill_lineup()
 {
     $sql = "SELECT `game_id`,
+                   `guest_national`.`national_country_id` AS `game_guest_country_id`,
                    `game_guest_mood_id`,
                    `game_guest_national_id`,
                    `game_guest_team_id`,
+                   `home_national`.`national_country_id` AS `game_home_country_id`,
                    `game_home_mood_id`,
                    `game_home_national_id`,
                    `game_home_team_id`
             FROM `game`
             LEFT JOIN `schedule`
             ON `game_schedule_id`=`schedule_id`
+            LEFT JOIN `national` AS `guest_national`
+            ON `game_guest_national_id`=`guest_national`.`national_id`
+            LEFT JOIN `national` AS `home_national`
+            ON `game_home_national_id`=`home_national`.`national_id`
             WHERE `game_played`=0
             AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
             ORDER BY `game_id` ASC";
@@ -32,17 +38,20 @@ function f_igosja_generator_fill_lineup()
             {
                 $home_guest_team        = 'game_guest_team_id';
                 $home_guest_national    = 'game_guest_national_id';
+                $home_guest_country     = 'game_guest_country_id';
                 $home_guest_mood        = 'game_guest_mood_id';
             }
             else
             {
                 $home_guest_team        = 'game_home_team_id';
                 $home_guest_national    = 'game_home_national_id';
+                $home_guest_country     = 'game_home_country_id';
                 $home_guest_mood        = 'game_home_mood_id';
             }
 
             $mood_id        = $game[$home_guest_mood];
             $national_id    = $game[$home_guest_national];
+            $country_id     = $game[$home_guest_country];
             $team_id        = $game[$home_guest_team];
 
             for ($j=0; $j<GAME_LINEUP_QUANTITY; $j++)
@@ -115,6 +124,13 @@ function f_igosja_generator_fill_lineup()
 
                 if (0 == $lineup_player_id)
                 {
+                    $where_country = '';
+
+                    if ($country_id)
+                    {
+                        $where_country = 'AND `player_country_id`=' . $country_id;
+                    }
+
                     $league_sql =  "SELECT `player_id`,
                                            `lineup_player_id`
                                     FROM `player`
@@ -136,6 +152,7 @@ function f_igosja_generator_fill_lineup()
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_age`<40
                                     AND `lineup_player_id` IS NULL
+                                    $where_country
                                     ORDER BY `player_tire` ASC, `player_power_real` DESC
                                     LIMIT 1";
 
