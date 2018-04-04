@@ -100,6 +100,14 @@ if (isset($auth_team_id))
 
     $count_scout = $scout_array[0]['count_scout'];
 
+    print '<pre>';
+    print_r($auth_team_id);
+    print '<pre>';
+    print_r($auth_national_id);
+    print '<pre>';
+    print_r($player_array);
+    exit;
+
     if ($player_array[0]['team_id'] == $auth_team_id && $player_array[0]['player_national_id'] == $auth_national_id)
     {
         $sql = "SELECT `line_color`,
