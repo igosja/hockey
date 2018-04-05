@@ -145,13 +145,15 @@ $sql = "SELECT `country_id`,
                `national_id`,
                `worldcup_game`,
                `worldcup_loose`,
-               `worldcup_loose_bullet`+`worldcup_loose_over` AS `worldcup_loose_over`,
+               `worldcup_loose_bullet`,
+               `worldcup_loose_over`,
                `worldcup_pass`,
                `worldcup_place`,
                `worldcup_point`,
                `worldcup_score`,
                `worldcup_win`,
-               `worldcup_win_bullet`+`worldcup_win_over` AS `worldcup_win_over`
+               `worldcup_win_bullet`,
+               `worldcup_win_over`
         FROM `worldcup`
         LEFT JOIN `national`
         ON `worldcup_national_id`=`national_id`

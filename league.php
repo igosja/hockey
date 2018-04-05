@@ -198,13 +198,15 @@ if (ROUND_GROUP == $round_id)
                        `country_name`,
                        `league_game`,
                        `league_loose`,
-                       `league_loose_bullet`+`league_loose_over` AS `league_loose_over`,
+                       `league_loose_bullet`,
+                       `league_loose_over`,
                        `league_pass`,
                        `league_place`,
                        `league_point`,
                        `league_score`,
                        `league_win`,
-                       `league_win_bullet`+`league_win_over` AS `league_win_over`,
+                       `league_win_bullet`,
+                       `league_win_over`,
                        `team_id`,
                        `team_name`
                 FROM `league`

@@ -217,13 +217,15 @@ if (ROUND_SEASON == $round_id)
     $sql = "SELECT `city_name`,
                    `championship_game`,
                    `championship_loose`,
-                   `championship_loose_bullet`+`championship_loose_over` AS `championship_loose_over`,
+                   `championship_loose_bullet`,
+                   `championship_loose_over`,
                    `championship_pass`,
                    `championship_place`,
                    `championship_point`,
                    `championship_score`,
                    `championship_win`,
-                   `championship_win_bullet`+`championship_win_over` AS `championship_win_over`,
+                   `championship_win_bullet`,
+                   `championship_win_over`,
                    `team_id`,
                    `team_name`
             FROM `championship`
