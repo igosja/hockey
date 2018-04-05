@@ -235,3 +235,4 @@
         </table>
     </div>
 </div>
+<?php include(__DIR__ . '/include/pagination.php'); ?>
