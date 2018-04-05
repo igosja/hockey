@@ -69,8 +69,10 @@
                 <th>Команда</th>
                 <th class="col-5 hidden-xs" title="Игры">И</th>
                 <th class="col-5" title="Победы">В</th>
-                <th class="col-5" title="Победы в овертайте/по буллитам">ВО</th>
-                <th class="col-5" title="Поражения в овертайте/по буллитам">ПО</th>
+                <th class="col-5" title="Победы в овертайте">ВО</th>
+                <th class="col-5" title="Победы по буллитам">ВБ</th>
+                <th class="col-5" title="Поражения по буллитам">ПБ</th>
+                <th class="col-5" title="Поражения в овертайте">ПО</th>
                 <th class="col-5" title="Поражения">П</th>
                 <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th class="col-5" title="Очки">О</th>
@@ -92,6 +94,8 @@
                     <td class="hidden-xs text-center"><?= $item['offseason_game']; ?></td>
                     <td class="text-center"><?= $item['offseason_win']; ?></td>
                     <td class="text-center"><?= $item['offseason_win_over']; ?></td>
+                    <td class="text-center"><?= $item['offseason_win_bullet']; ?></td>
+                    <td class="text-center"><?= $item['offseason_loose_bullet']; ?></td>
                     <td class="text-center"><?= $item['offseason_loose_over']; ?></td>
                     <td class="text-center"><?= $item['offseason_loose']; ?></td>
                     <td class="col-5 hidden-xs text-center"><?= $item['offseason_score']; ?></td>
@@ -104,8 +108,10 @@
                 <th>Команда</th>
                 <th class="hidden-xs" title="Игры">И</th>
                 <th title="Победы">В</th>
-                <th title="Победы в овертайте/по буллитам">ВО</th>
-                <th title="Поражения в овертайте/по буллитам">ПО</th>
+                <th title="Победы в овертайте">ВО</th>
+                <th title="Победы по буллитам">ВБ</th>
+                <th title="Поражения по буллитам">ПБ</th>
+                <th title="Поражения в овертайте">ПО</th>
                 <th title="Поражения">П</th>
                 <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th title="Очки">О</th>

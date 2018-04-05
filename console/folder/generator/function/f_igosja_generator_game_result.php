@@ -99,6 +99,17 @@ function f_igosja_generator_game_result()
         $game_result = f_igosja_team_power_forecast($game_result);
         $game_result = f_igosja_optimality($game_result);
 
+        $should_win = 0;
+
+        if ($game_result['home']['team']['power']['percent'] > 52)
+        {
+            $should_win = 1;
+        }
+        elseif ($game_result['guest']['team']['power']['percent'] > 52)
+        {
+            $should_win = -1;
+        }
+
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
         {
             $game_result = f_igosja_defence($game_result);
@@ -162,7 +173,7 @@ function f_igosja_generator_game_result()
                     $shot_power = $game_result['home']['team']['power']['shot'];
                     $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
+                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                     {
                         $game_result = f_igosja_assist_1($game_result, 'home');
                         $game_result = f_igosja_assist_2($game_result, 'home');
@@ -195,7 +206,7 @@ function f_igosja_generator_game_result()
                     $shot_power = $game_result['guest']['team']['power']['shot'];
                     $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
+                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                     {
                         $game_result = f_igosja_assist_1($game_result, 'guest');
                         $game_result = f_igosja_assist_2($game_result, 'guest');
@@ -325,7 +336,7 @@ function f_igosja_generator_game_result()
                         $shot_power = $game_result['home']['team']['power']['shot'];
                         $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                        if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
+                        if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                         {
                             $game_result = f_igosja_assist_1($game_result, 'home');
                             $game_result = f_igosja_assist_2($game_result, 'home');
@@ -362,7 +373,7 @@ function f_igosja_generator_game_result()
                             $shot_power = $game_result['guest']['team']['power']['shot'];
                             $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                            if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6))
+                            if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                             {
                                 $game_result = f_igosja_assist_1($game_result, 'guest');
                                 $game_result = f_igosja_assist_2($game_result, 'guest');
