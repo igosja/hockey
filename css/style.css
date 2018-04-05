@@ -42,7 +42,7 @@ a:hover, a:focus {
 }
 
 a.btn {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -52,7 +52,7 @@ input.submit-blue {
     background-image: none;
     border: 1px solid #2e6da4;
     border-radius: 3px;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
     display: inline-block;
     font-weight: normal;
@@ -75,6 +75,7 @@ input.submit-blue {
 .pagination:active {
     background-color: #286090;
     border-color: #204d74;
+    color: #ffffff;
     text-decoration: none;
 }
 
