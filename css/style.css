@@ -75,7 +75,7 @@ input.submit-blue {
     text-decoration: none;
 }
 
-.btn-default {
+a.pagination {
     background-color: #f5f5f5;
     color: #0f103d;
 }
