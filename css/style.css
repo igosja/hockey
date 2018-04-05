@@ -69,7 +69,10 @@ input.submit-blue {
     padding: 2px 10px;
 }
 
-.btn:hover, .btn:active {
+.btn:hover,
+.btn:active,
+.pagination,
+.pagination:active {
     background-color: #286090;
     border-color: #204d74;
     text-decoration: none;
@@ -77,6 +80,7 @@ input.submit-blue {
 
 a.pagination {
     background-color: #f5f5f5;
+    border: 1px solid #dddddd;
     color: #0f103d;
 }
 
