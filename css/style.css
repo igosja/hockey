@@ -75,6 +75,11 @@ input.submit-blue {
     text-decoration: none;
 }
 
+.btn-default {
+    background-color: #f5f5f5;
+    color: #0f103d;
+}
+
 .main {
     height: auto;
     margin: 0 auto;
