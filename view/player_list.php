@@ -1,6 +1,5 @@
 <?php
 /**
- * @var $count_page integer
  * @var $count_player integer
  * @var $country_array array
  * @var $data array
@@ -8,7 +7,6 @@
  * @var $playerposition_array array
  * @var $playerspecial_array array
  * @var $position_array array
- * @var $total integer
  */
 ?>
 <div class="row">
@@ -137,28 +135,6 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
             <input class="form-control submit-blue" type="submit" value="Поиск" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            Всего игроков: <?= $total; ?>
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
-            <label for="page">Страница:</label>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-            <select class="form-control" name="page" id="page">
-                <?php for ($i=1; $i<=$count_page; $i++) { ?>
-                    <option
-                        value="<?= $i; ?>"
-                        <?php if ($page == $i) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $i; ?>
-                    </option>
-                <?php } ?>
-            </select>
         </div>
     </div>
 </form>
