@@ -1,8 +1,4 @@
 jQuery(document).ready(function () {
-    $('#page').on('change', function () {
-        $(this).closest('form').submit();
-    });
-
     $('#newscomment').on('blur', function () {
         check_newscomment($(this).val());
     });

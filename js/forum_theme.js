@@ -1,10 +1,6 @@
 jQuery(document).ready(function () {
     var textarea = $('#text');
 
-    $('#page').on('change', function () {
-        $(this).closest('form').submit();
-    });
-
     textarea.on('blur', function () {
         textarea.sync();
         check_text($(this).val());

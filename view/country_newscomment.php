@@ -5,7 +5,7 @@
  * @var $auth_date_block_comment integer
  * @var $auth_date_block_newscomment integer
  * @var $auth_user_id integer
- * @var $count_page integer
+ * @var $auth_userrole_id integer
  * @var $news_array array
  * @var $news_id integer
  * @var $newscomment_array array
@@ -40,32 +40,11 @@
             <span class="strong">Последние комментарии:</span>
         </div>
     </div>
-    <form method="GET">
-        <input type="hidden" name="num" value="<?= $num_get; ?>">
-        <input type="hidden" name="news_id" value="<?= $news_id; ?>">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                Всего комментариев: <?= $total; ?>
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4 text-right">
-                <label for="page">Страница:</label>
-            </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                <select class="form-control" name="page" id="page">
-                    <?php for ($i=1; $i<=$count_page; $i++) { ?>
-                        <option
-                                value="<?= $i; ?>"
-                            <?php if ($page == $i) { ?>
-                                selected
-                            <?php } ?>
-                        >
-                            <?= $i; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Всего комментариев: <?= $total; ?>
         </div>
-    </form>
+    </div>
     <?php foreach ($newscomment_array as $item) { ?>
         <div class="row border-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
@@ -87,6 +66,7 @@
             </div>
         </div>
     <?php } ?>
+    <?php include(__DIR__ . '/include/pagination.php'); ?>
 <?php } ?>
 <?php if (isset($auth_user_id)) { ?>
     <?php if ($auth_date_block_newscomment < time() && $auth_date_block_comment < time()) { ?>
