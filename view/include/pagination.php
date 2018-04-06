@@ -1,8 +1,13 @@
 <?php
 
+$get = $_GET;
+
 print '<pre>';
 print_r($page);
+print '<pre>';
 print_r($count_page);
+print '<pre>';
+print_r($get);
 exit;
 
 ?>
