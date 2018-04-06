@@ -13,7 +13,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
                 <form action="/forum_search.php" class="form-inline" method="GET">
-                    <input class="form-control form-small" name="q" type="text" />
+                    <label class="hidden" for="forum-search"></label>
+                    <input class="form-control form-small" id="forum-search" name="q" />
                     <button class="btn">Поиск</button>
                 </form>
             </div>

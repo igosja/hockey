@@ -1,8 +1,4 @@
 jQuery(document).ready(function () {
-    $('#page').on('change', function () {
-        $(this).closest('form').submit();
-    });
-
     $('#gamecomment').on('blur', function () {
         check_gamecomment($(this).val());
     });
