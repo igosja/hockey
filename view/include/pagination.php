@@ -1,5 +1,9 @@
 <?php
 
+print '<pre>';
+print_r(get_defined_vars());
+exit;
+
 ?>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
