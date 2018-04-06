@@ -141,12 +141,12 @@ $player_sql = f_igosja_mysqli_query($sql);
 $count_player = $player_sql->num_rows;
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
 
-$class          = '';
 $phisical_id    = 0;
 
 for ($i=0; $i<$count_player; $i++)
 {
-    $player_phisical_array = array();
+    $class                  = '';
+    $player_phisical_array  = array();
 
     for ($j=0; $j<$count_schedule; $j++)
     {
