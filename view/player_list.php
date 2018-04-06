@@ -7,6 +7,7 @@
  * @var $playerposition_array array
  * @var $playerspecial_array array
  * @var $position_array array
+ * @var $total integer
  */
 ?>
 <div class="row">
@@ -135,6 +136,11 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
             <input class="form-control submit-blue" type="submit" value="Поиск" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Всего игроков: <?= $total; ?>
         </div>
     </div>
 </form>
