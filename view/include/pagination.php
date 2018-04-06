@@ -1,7 +1,8 @@
 <?php
 
 print '<pre>';
-print_r(get_defined_vars());
+print_r($page);
+print_r($count_page);
 exit;
 
 ?>
