@@ -436,6 +436,7 @@ if (isset($auth_team_id) && $game_array && $game_array[0]['game_played'])
 $sql = "SELECT `review_title`,
                `review_id`,
                `stage_name`,
+               `user_id`,
                `user_login`
         FROM `review`
         LEFT JOIN `stage`
