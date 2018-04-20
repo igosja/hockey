@@ -9,7 +9,7 @@ function f_igosja_generator_president_vip()
             SET `user_date_vip`=UNIX_TIMESTAMP()+2592000
             WHERE `user_id` IN
             (
-                SELECT *
+                SELECT `user_id`
                 FROM (
                     SELECT `user_id`
                     FROM `country`
@@ -18,6 +18,18 @@ function f_igosja_generator_president_vip()
                     WHERE `user_date_vip`<UNIX_TIMESTAMP()+604800
                     AND `user_id`!=0
                 ) AS `t1`
+            )
+            OR `user_id` IN
+            (
+                SELECT `user_id`
+                FROM (
+                    SELECT `user_id`
+                    FROM `country`
+                    LEFT JOIN `user`
+                    ON `country_vice_id`=`user_id`
+                    WHERE `user_date_vip`<UNIX_TIMESTAMP()+604800
+                    AND `user_id`!=0
+                ) AS `t2`
             )";
     f_igosja_mysqli_query($sql);
 }
