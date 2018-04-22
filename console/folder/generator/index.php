@@ -89,6 +89,7 @@ $function_array = array(
     'f_igosja_generator_friendlyinvite_delete',
     'f_igosja_generator_user_fire_extra_team',
     'f_igosja_generator_national_stadium',
+    'f_igosja_generator_set_free_player_on_transfer',
     'f_igosja_generator_site_open',
 );
 

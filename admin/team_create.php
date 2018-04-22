@@ -21,6 +21,7 @@ if ($data = f_igosja_request_post('data'))
     );
     f_igosja_history($log);
     f_igosja_create_team_players($num_get);
+    f_igosja_create_league_players($num_get);
 
     redirect('/admin/team_view.php?num=' . $num_get);
 }
