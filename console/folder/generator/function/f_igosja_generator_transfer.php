@@ -174,21 +174,24 @@ function f_igosja_generator_transfer()
             $player_id                  = $transfer['player_id'];
             $school_id                  = $transfer['player_school_id'];
 
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`+$transferaplication_price
-                    WHERE `team_id`=$team_seller_id
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
+            if (0 != $team_seller_id)
+            {
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`+$transferaplication_price
+                        WHERE `team_id`=$team_seller_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
 
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER,
-                'finance_player_id' => $player_id,
-                'finance_team_id' => $team_seller_id,
-                'finance_value' => $transferaplication_price,
-                'finance_value_after' => $transfer['team_finance'] + $transferaplication_price,
-                'finance_value_before' => $transfer['team_finance'],
-            );
-            f_igosja_finance($finance);
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER,
+                    'finance_player_id' => $player_id,
+                    'finance_team_id' => $team_seller_id,
+                    'finance_value' => $transferaplication_price,
+                    'finance_value_after' => $transfer['team_finance'] + $transferaplication_price,
+                    'finance_value_before' => $transfer['team_finance'],
+                );
+                f_igosja_finance($finance);
+            }
 
             $sql = "SELECT `team_finance`
                     FROM `team`

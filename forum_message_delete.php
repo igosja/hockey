@@ -60,6 +60,10 @@ $sql = "DELETE FROM `forummessage`
         LIMIT 1";
 f_igosja_mysqli_query($sql);
 
+$sql = "DELETE FROM `complain`
+        WHERE `complain_url`='/forum_message_update.php?num=$num_get'";
+f_igosja_mysqli_query($sql);
+
 $sql = "UPDATE `forumtheme`
         SET `forumtheme_count_message`=`forumtheme_count_message`-1
         WHERE `forumtheme_id`=$forumtheme_id
