@@ -2,6 +2,8 @@
 
 /**
  * @var $auth_country_id integer
+ * @var $auth_national_id integer
+ * @var $auth_nationalvice_id integer
  * @var $auth_user_id integer
  * @var $country_array array
  */
@@ -20,14 +22,14 @@ if (!$num_get = (int) f_igosja_request_get('num'))
         redirect('/wrong_page.php');
     }
 
-    if (0 == $auth_national_id && 0 == $auth_nationalvice_user_id)
+    if (0 == $auth_national_id && 0 == $auth_nationalvice_id)
     {
         redirect('/wrong_page.php');
     }
 
     if (!$num_get = $auth_national_id)
     {
-        $num_get = $auth_nationalvice_user_id;
+        $num_get = $auth_nationalvice_id;
     }
 }
 
@@ -85,7 +87,7 @@ if (f_igosja_request_get('ok'))
                 WHERE `city_country_id`=$num_get";
         f_igosja_mysqli_query($sql);
     }
-    elseif ($auth_user_id == $country_array[0]['vice_user_id'])
+    elseif ($auth_user_id == $national_array[0]['vice_user_id'])
     {
         $log = array(
             'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_OUT,
@@ -103,7 +105,7 @@ if (f_igosja_request_get('ok'))
 
     f_igosja_session_front_flash_set('success', 'Вы успешно отказались от должности.');
 
-    redirect('/national.php?num=' . $num_get);
+    redirect('/national_view.php?num=' . $num_get);
 }
 
 $seo_title          = $national_array[0]['country_name'] . '. Отказ от должности';
