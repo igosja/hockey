@@ -90,7 +90,7 @@ function f_igosja_create_league_players($team_id)
                     `player_power_real`=`player_power_nominal`*50/100*$phisical_value/100,
                     `player_price`=POW(150-(28-$age), 2)*$age*2,
                     `player_salary`=`player_price`/999,
-                    `player_school_id`=$team_id,
+                    `player_school_id`=0,
                     `player_style_id`=$style_id,
                     `player_surname_id`=$surname_id,
                     `player_team_id`=0,

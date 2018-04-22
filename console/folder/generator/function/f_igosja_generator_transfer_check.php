@@ -68,53 +68,59 @@ function f_igosja_generator_transfer_check()
             );
             f_igosja_finance($finance);
 
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$team_seller_id
-                    LIMIT 1";
-            $seller_sql = f_igosja_mysqli_query($sql);
+            if (0 != $team_seller_id)
+            {
+                $sql = "SELECT `team_finance`
+                        FROM `team`
+                        WHERE `team_id`=$team_seller_id
+                        LIMIT 1";
+                $seller_sql = f_igosja_mysqli_query($sql);
 
-            $seller_array = $seller_sql->fetch_all(MYSQLI_ASSOC);
+                $seller_array = $seller_sql->fetch_all(MYSQLI_ASSOC);
 
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`-$price
-                    WHERE `team_id`=$team_seller_id
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`-$price
+                        WHERE `team_id`=$team_seller_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
 
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER,
-                'finance_player_id' => $player_id,
-                'finance_team_id' => $team_seller_id,
-                'finance_value' => -$price,
-                'finance_value_after' => $seller_array[0]['team_finance'] - $price,
-                'finance_value_before' => $seller_array[0]['team_finance'],
-            );
-            f_igosja_finance($finance);
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_INCOME_TRANSFER,
+                    'finance_player_id' => $player_id,
+                    'finance_team_id' => $team_seller_id,
+                    'finance_value' => -$price,
+                    'finance_value_after' => $seller_array[0]['team_finance'] - $price,
+                    'finance_value_before' => $seller_array[0]['team_finance'],
+                );
+                f_igosja_finance($finance);
+            }
 
-            $sql = "SELECT `team_finance`
-                    FROM `team`
-                    WHERE `team_id`=$team_buyer_id
-                    LIMIT 1";
-            $buyer_sql = f_igosja_mysqli_query($sql);
+            if (0 != $team_buyer_id)
+            {
+                $sql = "SELECT `team_finance`
+                        FROM `team`
+                        WHERE `team_id`=$team_buyer_id
+                        LIMIT 1";
+                $buyer_sql = f_igosja_mysqli_query($sql);
 
-            $buyer_array = $buyer_sql->fetch_all(MYSQLI_ASSOC);
+                $buyer_array = $buyer_sql->fetch_all(MYSQLI_ASSOC);
 
-            $sql = "UPDATE `team`
-                    SET `team_finance`=`team_finance`+$price
-                    WHERE `team_id`=$team_buyer_id
-                    LIMIT 1";
-            f_igosja_mysqli_query($sql);
+                $sql = "UPDATE `team`
+                        SET `team_finance`=`team_finance`+$price
+                        WHERE `team_id`=$team_buyer_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
 
-            $finance = array(
-                'finance_financetext_id' => FINANCETEXT_OUTCOME_TRANSFER,
-                'finance_player_id' => $player_id,
-                'finance_team_id' => $team_buyer_id,
-                'finance_value' => $price,
-                'finance_value_after' => $buyer_array[0]['team_finance'] + $price,
-                'finance_value_before' => $buyer_array[0]['team_finance'],
-            );
-            f_igosja_finance($finance);
+                $finance = array(
+                    'finance_financetext_id' => FINANCETEXT_OUTCOME_TRANSFER,
+                    'finance_player_id' => $player_id,
+                    'finance_team_id' => $team_buyer_id,
+                    'finance_value' => $price,
+                    'finance_value_after' => $buyer_array[0]['team_finance'] + $price,
+                    'finance_value_before' => $buyer_array[0]['team_finance'],
+                );
+                f_igosja_finance($finance);
+            }
 
             $sql = "UPDATE `player`
                     SET `player_line_id`=0,
