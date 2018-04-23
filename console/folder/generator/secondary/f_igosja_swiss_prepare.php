@@ -35,7 +35,7 @@ function f_igosja_swiss_prepare($tournamenttype_id)
                 ORDER BY `conference_place` ASC";
         f_igosja_mysqli_query($sql);
 
-        $max_count = 3;
+        $max_count = 4;
     }
 
     $sql = "SELECT `swisstable_guest`,
