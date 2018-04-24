@@ -40,7 +40,7 @@ function f_igosja_generator_set_free_player_on_transfer()
                     AND `player_school_id`!=0
                     AND `player_position_id`=$position_id
                     AND `player_transfer_on`=0
-                    AND `player_age`<=39
+                    AND `player_age`<39
                     ORDER BY `player_power_nominal_s` DESC
                     LIMIT 1";
             $player_sql = f_igosja_mysqli_query($sql);

@@ -28,7 +28,8 @@ function f_igosja_generator_swiss()
 
         $schedule_id = $schedule_array[0]['schedule_id'];
 
-        $sql = "SELECT `schedule_id`
+        $sql = "SELECT `schedule_id`,
+                       `schedule_stage_id`
                 FROM `schedule`
                 WHERE `schedule_id`>$schedule_id
                 AND `schedule_tournamenttype_id`=$tournamenttype_id
@@ -38,11 +39,12 @@ function f_igosja_generator_swiss()
 
         if ($schedule_sql->num_rows)
         {
-            $game_array = f_igosja_swiss_game($tournamenttype_id);
-
             $schedule_array = $schedule_sql->fetch_all(MYSQLI_ASSOC);
 
-            $schedule_id = $schedule_array[0]['schedule_id'];
+            $schedule_id    = $schedule_array[0]['schedule_id'];
+            $stage_id       = $schedule_array[0]['schedule_stage_id'];
+
+            $game_array = f_igosja_swiss_game($tournamenttype_id, $stage_id);
 
             $values = array();
 
