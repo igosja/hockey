@@ -27,5 +27,5 @@ function f_igosja_get_swiss_guest_team($team_array, $home_team, $position_differ
         }
     }
 
-    return false;
+    return array();
 }

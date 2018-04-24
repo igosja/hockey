@@ -20,5 +20,5 @@ function f_igosja_get_swiss_home_team($team_array)
         }
     }
 
-    return false;
+    return array();
 }

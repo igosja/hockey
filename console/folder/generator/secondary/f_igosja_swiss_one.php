@@ -12,9 +12,9 @@ function f_igosja_swiss_one($tournamenttype_id, $position_difference, $team_arra
     $home_team  = f_igosja_get_swiss_home_team($team_array);
     $guest_team = f_igosja_get_swiss_guest_team($team_array, $home_team, $position_difference);
 
-    if (!$guest_team)
+    if (!$home_team || !$guest_team)
     {
-        return false;
+        return array();
     }
 
     $game_array[] = array(
