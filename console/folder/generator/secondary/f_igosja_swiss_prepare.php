@@ -23,8 +23,6 @@ function f_igosja_swiss_prepare($tournamenttype_id)
                 WHERE `offseason_season_id`=$igosja_season_id
                 ORDER BY `offseason_place` ASC";
         f_igosja_mysqli_query($sql);
-
-        $max_count = 1;
     }
     else
     {
@@ -32,10 +30,8 @@ function f_igosja_swiss_prepare($tournamenttype_id)
                 SELECT `conference_guest`, `conference_home`, `conference_place`, `conference_team_id`
                 FROM `conference`
                 WHERE `conference_season_id`=$igosja_season_id
-                ORDER BY `conference_place` ASC";
+                ORDER BY `conference_team_id` ASC";
         f_igosja_mysqli_query($sql);
-
-        $max_count = 4;
     }
 
     $sql = "SELECT `swisstable_guest`,
@@ -48,39 +44,44 @@ function f_igosja_swiss_prepare($tournamenttype_id)
 
     $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
-    for ($i=0; $i<$team_sql->num_rows; $i++)
+    if (TOURNAMENTTYPE_OFFSEASON == $tournamenttype_id)
     {
-        $team_id = $team_array[$i]['swisstable_team_id'];
+        $max_count = 1;
 
-        $sql = "SELECT `swisstable_team_id`
-                FROM `swisstable`
-                WHERE `swisstable_team_id`!=$team_id
-                AND `swisstable_team_id` NOT IN
-                (
-                    SELECT IF(`game_home_team_id`=$team_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
-                    FROM `game`
-                    LEFT JOIN `schedule`
-                    ON `game_schedule_id`=`schedule_id`
-                    WHERE (`game_home_team_id`=$team_id
-                    OR `game_guest_team_id`=$team_id)
-                    AND `schedule_tournamenttype_id`=$tournamenttype_id
-                    AND `schedule_season_id`=$igosja_season_id
-                    GROUP BY `team_id`
-                    HAVING COUNT(`game_id`)>=$max_count
-                )
-                ORDER BY `swisstable_id` ASC";
-        $free_sql = f_igosja_mysqli_query($sql);
-
-        $free_array = $free_sql->fetch_all(MYSQLI_ASSOC);
-
-        $free_id = array();
-
-        foreach ($free_array as $item)
+        for ($i=0; $i<$team_sql->num_rows; $i++)
         {
-            $free_id[] = $item['swisstable_team_id'];
-        }
+            $team_id = $team_array[$i]['swisstable_team_id'];
 
-        $team_array[$i]['opponent'] = $free_id;
+            $sql = "SELECT `swisstable_team_id`
+                    FROM `swisstable`
+                    WHERE `swisstable_team_id`!=$team_id
+                    AND `swisstable_team_id` NOT IN
+                    (
+                        SELECT IF(`game_home_team_id`=$team_id, `game_guest_team_id`, `game_home_team_id`) AS `team_id`
+                        FROM `game`
+                        LEFT JOIN `schedule`
+                        ON `game_schedule_id`=`schedule_id`
+                        WHERE (`game_home_team_id`=$team_id
+                        OR `game_guest_team_id`=$team_id)
+                        AND `schedule_tournamenttype_id`=$tournamenttype_id
+                        AND `schedule_season_id`=$igosja_season_id
+                        GROUP BY `team_id`
+                        HAVING COUNT(`game_id`)>=$max_count
+                    )
+                    ORDER BY `swisstable_id` ASC";
+            $free_sql = f_igosja_mysqli_query($sql);
+
+            $free_array = $free_sql->fetch_all(MYSQLI_ASSOC);
+
+            $free_id = array();
+
+            foreach ($free_array as $item)
+            {
+                $free_id[] = $item['swisstable_team_id'];
+            }
+
+            $team_array[$i]['opponent'] = $free_id;
+        }
     }
 
     return $team_array;
