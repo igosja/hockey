@@ -28,9 +28,8 @@
                             class="form-control"
                             id="rentcomment_text"
                             name="data[rentcomment_text]"
-                        >
-                            <?= $rentcomment_array[0]['rentcomment_text']; ?>
-                        </textarea>
+                            rows="10"
+                        ><?= $rentcomment_array[0]['rentcomment_text']; ?></textarea>
                     </td>
                 </tr>
             </table>
