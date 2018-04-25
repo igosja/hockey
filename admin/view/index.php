@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $complain_array array
+ * @var $count_moderation integer
  * @var $freeteam_array array
  * @var $logo_array array
  * @var $payment_array array
@@ -184,7 +185,7 @@
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> К модерации
+                <i class="fa fa-bar-chart-o fa-fw"></i> К модерации (<?= $count_moderation; ?>)
             </div>
             <div class="panel-body">
                 <div class="list-group">
