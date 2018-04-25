@@ -28,9 +28,8 @@
                             class="form-control"
                             id="gamecomment_text"
                             name="data[gamecomment_text]"
-                        >
-                            <?= $gamecomment_array[0]['gamecomment_text']; ?>
-                        </textarea>
+                            rows="10"
+                        ><?= $gamecomment_array[0]['gamecomment_text']; ?></textarea>
                     </td>
                 </tr>
             </table>
