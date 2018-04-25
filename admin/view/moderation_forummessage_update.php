@@ -28,9 +28,8 @@
                             class="form-control"
                             id="forummessage_text"
                             name="data[forummessage_text]"
-                        >
-                            <?= $forummessage_array[0]['forummessage_text']; ?>
-                        </textarea>
+                            rows="10"
+                        ><?= $forummessage_array[0]['forummessage_text']; ?></textarea>
                     </td>
                 </tr>
             </table>

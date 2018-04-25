@@ -28,9 +28,8 @@
                             class="form-control"
                             id="transfercomment_text"
                             name="data[transfercomment_text]"
-                        >
-                            <?= $transfercomment_array[0]['transfercomment_text']; ?>
-                        </textarea>
+                            rows="10"
+                        ><?= $transfercomment_array[0]['transfercomment_text']; ?></textarea>
                     </td>
                 </tr>
             </table>

@@ -28,9 +28,8 @@
                             class="form-control"
                             id="newscomment_text"
                             name="data[newscomment_text]"
-                        >
-                            <?= $newscomment_array[0]['newscomment_text']; ?>
-                        </textarea>
+                            rows="10"
+                        ><?= $newscomment_array[0]['newscomment_text']; ?></textarea>
                     </td>
                 </tr>
             </table>
