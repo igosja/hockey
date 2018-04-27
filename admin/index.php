@@ -158,4 +158,12 @@ $transfercomment_sql = f_igosja_mysqli_query($sql);
 
 $transfercomment_array = $transfercomment_sql->fetch_all(MYSQLI_ASSOC);
 
+$count_moderation = 0;
+$count_moderation = $count_moderation + $forummessage_array[0]['count'];
+$count_moderation = $count_moderation + $gamecomment_array[0]['count'];
+$count_moderation = $count_moderation + $news_array[0]['count'];
+$count_moderation = $count_moderation + $newscomment_array[0]['count'];
+$count_moderation = $count_moderation + $rentcomment_array[0]['count'];
+$count_moderation = $count_moderation + $transfercomment_array[0]['count'];
+
 include(__DIR__ . '/view/layout/main.php');
