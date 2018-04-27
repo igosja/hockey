@@ -18,7 +18,7 @@ function f_igosja_generator_transfer_check()
             ON `transfer_player_id`=`player_id`
             WHERE `transfer_ready`=1
             AND `transfer_checked`=0
-            AND FROM_UNIXTIME(`transfer_date`+604800, '%Y-%m-%d')=CURDATE()
+            AND FROM_UNIXTIME(`transfer_date`+604800, '%Y-%m-%d')<=CURDATE()
             ORDER BY `transfer_id` ASC";
     $transfer_sql = f_igosja_mysqli_query($sql);
 
