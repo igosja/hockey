@@ -42,7 +42,7 @@
                                 </select>
                             </div>
                         <?php } ?>
-                        <?php if ($player_array[0]['player_national_id'] == $auth_national_id) { ?>
+                        <?php if ($player_array[0]['player_national_id'] == $auth_national_id && 0 != $auth_national_id) { ?>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                 <label for="select-national-line">Состав в сборной:</label>
                             </div>

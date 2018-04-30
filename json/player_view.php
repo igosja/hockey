@@ -31,6 +31,7 @@ elseif ($line_id = (int) f_igosja_request_get('national_line_id'))
             SET `player_national_line_id`=$line_id
             WHERE `player_id`=$player_id
             AND `player_national_id`=$auth_national_id
+            AND `player_national_id`!=0
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
