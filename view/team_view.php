@@ -38,6 +38,7 @@
         <table class="table table-bordered table-hover" id="grid">
             <thead>
                 <tr>
+                    <th data-type="increment">№</th>
                     <th data-type="player">Игрок</th>
                     <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
                     <th class="col-5" data-type="position" title="Позиция">Поз</th>
@@ -56,8 +57,11 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $i=0; foreach ($player_array as $item) { ?>
+                <?php $i=0; $player_number=1; foreach ($player_array as $item) { ?>
                     <tr data-order="<?= $i; ?>">
+                        <td class="text-center">
+                            <?= $player_number; ?>
+                        </td>
                         <td<?php if (isset($auth_team_id) && $num_get == $auth_team_id && $item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
@@ -146,15 +150,18 @@
                         <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                         <td class="text-center"><?= $item['player_game_row']; ?></td>
                     </tr>
-                <?php $i++; } ?>
+                <?php $i++; $player_number++; } ?>
             </tbody>
             <tfoot>
                 <?php if ($player_rent_in_array) { ?>
                     <tr>
-                        <th colspan="15">Взятые в аренду</th>
+                        <th colspan="16">Взятые в аренду</th>
                     </tr>
                     <?php foreach ($player_rent_in_array as $item) { ?>
                         <tr>
+                            <td class="text-center">
+                                <?= $player_number; ?>
+                            </td>
                             <td>
                                 <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                     <?= $item['name_name']; ?>
@@ -244,14 +251,17 @@
                             <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                             <td class="text-center"><?= $item['player_game_row']; ?></td>
                         </tr>
-                    <?php } ?>
+                    <?php $player_number++; } ?>
                 <?php } ?>
                 <?php if ($player_rent_out_array) { ?>
                     <tr>
-                        <th colspan="15">Отданные в аренду</th>
+                        <th colspan="16">Отданные в аренду</th>
                     </tr>
                     <?php foreach ($player_rent_out_array as $item) { ?>
                         <tr>
+                            <td class="text-center">
+                                <?= $player_number; ?>
+                            </td>
                             <td>
                                 <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                     <?= $item['name_name']; ?>
@@ -341,9 +351,10 @@
                             <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
                             <td class="text-center"><?= $item['player_game_row']; ?></td>
                         </tr>
-                    <?php } ?>
+                    <?php $player_number++; } ?>
                 <?php } ?>
                 <tr>
+                    <th data-type="increment">№</th>
                     <th>Игрок</th>
                     <th class="hidden-xs" title="Национальность">Нац</th>
                     <th title="Позиция">Поз</th>
