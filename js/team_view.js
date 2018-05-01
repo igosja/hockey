@@ -128,12 +128,18 @@ function sort_grid(grid, type, colNum)
                 return $(rowA).data('order') - $(rowB).data('order');
             }
         };
+    } else if ('increment' === type) {
+        compare = function(rowA, rowB) {
+            return $(rowA).data('order') - $(rowB).data('order');
+        };
     }
 
     rowsArray.sort(compare);
 
     grid.find('tbody').remove();
     for (var i = 0; i < rowsArray.length; i++) {
+        var tdArray = rowsArray[i].getElementsByTagName('td');
+        tdArray[0].innerHTML = i + 1;
         tbody.appendChild(rowsArray[i]);
     }
     grid.append(tbody);
