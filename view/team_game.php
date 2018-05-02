@@ -55,7 +55,7 @@
                 <th>Соперник</th>
                 <th class="col-1 hidden-xs" title="Автосостав">А</th>
                 <th class="col-5">Счёт</th>
-                <th class="col-1 hidden-xs">+/-</th>
+                <th class="col-1 hidden-xs" title="Количество набранных/потерянных баллов"></th>
             </tr>
             <?php foreach ($game_array as $item) { ?>
                 <tr>
@@ -90,7 +90,7 @@
                 <th>Соперник</th>
                 <th class="hidden-xs" title="Автосостав">А</th>
                 <th>Счёт</th>
-                <th class="hidden-xs">+/-</th>
+                <th class="hidden-xs" title="Количество набранных/потерянных баллов"></th>
             </tr>
         </table>
     </div>
