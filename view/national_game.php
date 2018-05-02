@@ -23,8 +23,7 @@
                 <th>Соперник</th>
                 <th class="col-1 hidden-xs" title="Автосостав">А</th>
                 <th class="col-5">Счёт</th>
-                <th class="col-1 hidden-xs">+</th>
-                <th class="col-1 hidden-xs">-</th>
+                <th class="col-1 hidden-xs">+/-</th>
             </tr>
             <?php foreach ($game_array as $item) { ?>
                 <tr>
@@ -44,8 +43,7 @@
                             <?= f_igosja_game_score($item['game_played'], $item['game_home_score'], $item['game_guest_score']); ?>
                         </a>
                     </td>
-                    <td class="hidden-xs text-center"><?= $item['game_plus']; ?></td>
-                    <td class="hidden-xs text-center"><?= $item['game_minus']; ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_plus_necessary($item['game_plus_minus']); ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -57,8 +55,7 @@
                 <th>Соперник</th>
                 <th class="hidden-xs" title="Автосостав">А</th>
                 <th>Счёт</th>
-                <th class="hidden-xs">+</th>
-                <th class="hidden-xs">-</th>
+                <th class="hidden-xs">+/-</th>
             </tr>
         </table>
     </div>

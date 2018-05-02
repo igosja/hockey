@@ -78,7 +78,7 @@
                             <?= f_igosja_game_score($item['game_played'], $item['game_home_score'], $item['game_guest_score']); ?>
                         </a>
                     </td>
-                    <td class="hidden-xs text-center"><?= $item['game_plus_minus']; ?></td>
+                    <td class="hidden-xs text-center"><?= f_igosja_plus_necessary($item['game_plus_minus']); ?></td>
                 </tr>
             <?php } ?>
             <tr>
