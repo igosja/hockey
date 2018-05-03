@@ -180,7 +180,6 @@ $sql = "SELECT `championship_country_id`,
         LEFT JOIN `championship`
         ON (`game_home_team_id`=`championship_team_id`
         AND `schedule_season_id`=`championship_season_id`)
-        ON `game_home_team_id`=`championship_team_id`
         WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);
