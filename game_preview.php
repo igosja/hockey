@@ -29,6 +29,7 @@ $sql = "SELECT `championship_country_id`,
                `stadium_team`.`team_id` AS `stadium_team_id`,
                `stage_id`,
                `stage_name`,
+               `tournamenttype_id`,
                `tournamenttype_name`
         FROM `game`
         LEFT JOIN `team` AS `guest_team`
