@@ -60,38 +60,26 @@ function f_igosja_generator_league_out()
 
                     if ($prev_sql->num_rows > 1)
                     {
-                        $home_win   = 0;
-                        $guest_win  = 0;
+                        $home_score     = 0;
+                        $guest_score    = 0;
 
                         $prev_array = $prev_sql->fetch_all(MYSQLI_ASSOC);
 
                         foreach ($prev_array as $prev)
                         {
-                            if ($prev['home_score'] > $prev['guest_score'])
+                            if ($home_team_id == $prev['game_home_team_id'])
                             {
-                                if ($home_team_id == $prev['game_home_team_id'])
-                                {
-                                    $home_win++;
-                                }
-                                else
-                                {
-                                    $guest_win++;
-                                }
+                                $home_score     = $home_score + $prev['home_score'];
+                                $guest_score    = $guest_score + $prev['guest_score'];
                             }
-                            elseif ($prev['home_score'] < $prev['guest_score'])
+                            else
                             {
-                                if ($home_team_id == $prev['game_home_team_id'])
-                                {
-                                    $guest_win++;
-                                }
-                                else
-                                {
-                                    $home_win++;
-                                }
+                                $home_score     = $home_score + $prev['guest_score'];
+                                $guest_score    = $guest_score + $prev['home_score'];
                             }
                         }
 
-                        if ($home_win > $guest_win)
+                        if ($home_score > $guest_score)
                         {
                             $loose_team_id = $guest_team_id;
                         }
