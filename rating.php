@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 $sql = "SELECT `ratingchapter_id`,
@@ -264,6 +268,66 @@ elseif (RATING_COUNTRY_AUTO == $num_get)
             LEFT JOIN `country`
             ON `ratingcountry_country_id`=`country_id`
             ORDER BY `ratingcountry_auto_place` ASC, `country_id` ASC";
+}
+elseif (RATING_COUNTRY_LEAGUE == $num_get)
+{
+    $sql = "SELECT `country_id`,
+                   `country_name`,
+                   IFNULL(`leaguecoefficient_coeff_1`, 0) AS `leaguecoefficient_coeff_1`,
+                   IFNULL(`leaguecoefficient_coeff_2`, 0) AS `leaguecoefficient_coeff_2`,
+                   IFNULL(`leaguecoefficient_coeff_3`, 0) AS `leaguecoefficient_coeff_3`,
+                   IFNULL(`leaguecoefficient_coeff_4`, 0) AS `leaguecoefficient_coeff_4`,
+                   IFNULL(`leaguecoefficient_coeff_5`, 0) AS `leaguecoefficient_coeff_5`,
+                   `ratingcountry_league_place`
+            FROM `ratingcountry`
+            LEFT JOIN `country`
+            ON `ratingcountry_country_id`=`country_id`
+            LEFT JOIN 
+            (
+                SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_1`,
+                       `leaguecoefficient_country_id`
+                FROM `leaguecoefficient`
+                WHERE `leaguecoefficient_season_id`=$igosja_season_id
+                GROUP BY `leaguecoefficient_country_id`
+            ) AS `t1`
+            ON `country_id`=`t1`.`leaguecoefficient_country_id`
+            LEFT JOIN 
+            (
+                SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_2`,
+                       `leaguecoefficient_country_id`
+                FROM `leaguecoefficient`
+                WHERE `leaguecoefficient_season_id`=$igosja_season_id-1
+                GROUP BY `leaguecoefficient_country_id`
+            ) AS `t2`
+            ON `country_id`=`t2`.`leaguecoefficient_country_id`
+            LEFT JOIN 
+            (
+                SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_3`,
+                       `leaguecoefficient_country_id`
+                FROM `leaguecoefficient`
+                WHERE `leaguecoefficient_season_id`=$igosja_season_id-2
+                GROUP BY `leaguecoefficient_country_id`
+            ) AS `t3`
+            ON `country_id`=`t3`.`leaguecoefficient_country_id`
+            LEFT JOIN 
+            (
+                SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_4`,
+                       `leaguecoefficient_country_id`
+                FROM `leaguecoefficient`
+                WHERE `leaguecoefficient_season_id`=$igosja_season_id-3
+                GROUP BY `leaguecoefficient_country_id`
+            ) AS `t4`
+            ON `country_id`=`t4`.`leaguecoefficient_country_id`
+            LEFT JOIN 
+            (
+                SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_5`,
+                       `leaguecoefficient_country_id`
+                FROM `leaguecoefficient`
+                WHERE `leaguecoefficient_season_id`=$igosja_season_id-4
+                GROUP BY `leaguecoefficient_country_id`
+            ) AS `t5`
+            ON `country_id`=`t5`.`leaguecoefficient_country_id`
+            ORDER BY `ratingcountry_league_place` ASC, `country_id` ASC";
 }
 
 $rating_sql = f_igosja_mysqli_query($sql);
