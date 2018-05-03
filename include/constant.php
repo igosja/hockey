@@ -148,6 +148,7 @@ define('POSITION_LW', 4);
 define('POSITION_C', 5);
 define('POSITION_RW', 6);
 define('RATING_COUNTRY_AUTO', 12);
+define('RATING_COUNTRY_LEAGUE', 13);
 define('RATING_COUNTRY_STADIUM', 11);
 define('RATING_TEAM_AGE', 2);
 define('RATING_TEAM_BASE', 5);

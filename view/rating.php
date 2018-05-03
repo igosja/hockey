@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $count_ratingtype integer
+ * @var $igosja_season_id integer
  * @var $num_get integer
  * @var $rating_array array
  * @var $ratingtype_array array
@@ -410,6 +411,45 @@
                     <th title="Игры">И</th>
                     <th title="Автосоставы">А</th>
                     <th>%</th>
+                </tr>
+            </table>
+        <?php } elseif (RATING_COUNTRY_LEAGUE == $num_get) { ?>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>№</th>
+                    <th>Страна</th>
+                    <th title="Сезон <?= $igosja_season_id; ?>"><?= $igosja_season_id; ?></th>
+                    <th title="Сезон <?= $igosja_season_id - 1; ?>"><?= $igosja_season_id - 1; ?></th>
+                    <th title="Коэффициент">К</th>
+                </tr>
+                <?php foreach ($rating_array as $item) { ?>
+                    <tr>
+                        <td class="text-center"><?= $item['ratingcountry_league_place']; ?></td>
+                        <td>
+                            <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>"/>
+                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                <?= $item['country_name']; ?>
+                            </a>
+                        </td>
+                        <td class="text-center"><?= $item['leaguecoefficient_coeff_1']; ?></td>
+                        <td class="text-center"><?= $item['leaguecoefficient_coeff_2']; ?></td>
+                        <td class="text-center">
+                            <?=
+                            $item['leaguecoefficient_coeff_1'] +
+                            $item['leaguecoefficient_coeff_2'] +
+                            $item['leaguecoefficient_coeff_3'] +
+                            $item['leaguecoefficient_coeff_4'] +
+                            $item['leaguecoefficient_coeff_5'];
+                            ?>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <th>№</th>
+                    <th>Страна</th>
+                    <th title="Сезон <?= $igosja_season_id; ?>"><?= $igosja_season_id; ?></th>
+                    <th title="Сезон <?= $igosja_season_id - 1; ?>"><?= $igosja_season_id - 1; ?></th>
+                    <th title="Коэффициент">К</th>
                 </tr>
             </table>
         <?php } ?>
