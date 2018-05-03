@@ -5,6 +5,8 @@
  */
 function f_igosja_generator_rating()
 {
+    global $igosja_season_id;
+
     $sql = "TRUNCATE `ratingcountry`;";
     f_igosja_mysqli_query($sql);
 
@@ -281,6 +283,72 @@ function f_igosja_generator_rating()
                     WHERE `city_id`!=0
                     GROUP BY `country_id`
                     ORDER BY $order, `country_id` ASC";
+            $country_sql = f_igosja_mysqli_query($sql);
+
+            $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+
+            for ($i=0, $count_country=count($country_array); $i<$count_country; $i++)
+            {
+                $position   = $i + 1;
+                $country_id = $country_array[$i]['country_id'];
+
+                $sql = "UPDATE `ratingcountry`
+                        SET `$place`=$position
+                        WHERE `ratingcountry_country_id`=$country_id
+                        LIMIT 1";
+                f_igosja_mysqli_query($sql);
+            }
+        }
+        elseif (RATING_COUNTRY_LEAGUE == $item['ratingtype_id'])
+        {
+            $sql = "SELECT `country_id`
+                    FROM `country`
+                    LEFT JOIN 
+                    (
+                        SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_1`,
+                               `leaguecoefficient_country_id`
+                        FROM `leaguecoefficient`
+                        WHERE `leaguecoefficient_season_id`=$igosja_season_id
+                        GROUP BY `leaguecoefficient_country_id`
+                    ) AS `t1`
+                    ON `country_id`=`t1`.`leaguecoefficient_country_id`
+                    LEFT JOIN 
+                    (
+                        SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_2`,
+                               `leaguecoefficient_country_id`
+                        FROM `leaguecoefficient`
+                        WHERE `leaguecoefficient_season_id`=$igosja_season_id-1
+                        GROUP BY `leaguecoefficient_country_id`
+                    ) AS `t2`
+                    ON `country_id`=`t2`.`leaguecoefficient_country_id`
+                    LEFT JOIN 
+                    (
+                        SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_3`,
+                               `leaguecoefficient_country_id`
+                        FROM `leaguecoefficient`
+                        WHERE `leaguecoefficient_season_id`=$igosja_season_id-2
+                        GROUP BY `leaguecoefficient_country_id`
+                    ) AS `t3`
+                    ON `country_id`=`t3`.`leaguecoefficient_country_id`
+                    LEFT JOIN 
+                    (
+                        SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_4`,
+                               `leaguecoefficient_country_id`
+                        FROM `leaguecoefficient`
+                        WHERE `leaguecoefficient_season_id`=$igosja_season_id-3
+                        GROUP BY `leaguecoefficient_country_id`
+                    ) AS `t4`
+                    ON `country_id`=`t4`.`leaguecoefficient_country_id`
+                    LEFT JOIN 
+                    (
+                        SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_5`,
+                               `leaguecoefficient_country_id`
+                        FROM `leaguecoefficient`
+                        WHERE `leaguecoefficient_season_id`=$igosja_season_id-4
+                        GROUP BY `leaguecoefficient_country_id`
+                    ) AS `t5`
+                    ON `country_id`=`t5`.`leaguecoefficient_country_id`
+                    ORDER BY IFNULL(`leaguecoefficient_coeff_1`, 0)+IFNULL(`leaguecoefficient_coeff_2`, 0)+IFNULL(`leaguecoefficient_coeff_3`, 0)+IFNULL(`leaguecoefficient_coeff_4`, 0)+IFNULL(`leaguecoefficient_coeff_5`, 0) DESC, `country_id` ASC";
             $country_sql = f_igosja_mysqli_query($sql);
 
             $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
