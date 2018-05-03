@@ -1,4 +1,8 @@
 jQuery(document).ready(function () {
+    $('#season_id').on('change', function () {
+        $(this).closest('form').submit();
+    });
+
     $('#select-line').on('change', function () {
         var line_id     = $(this).val();
         var player_id   = $(this).data('player');
@@ -7,6 +11,7 @@ jQuery(document).ready(function () {
             url: '/json/player_view.php?line_id=' + line_id + '&player_id=' + player_id
         });
     });
+
     $('#select-national-line').on('change', function () {
         var line_id     = $(this).val();
         var player_id   = $(this).data('player');

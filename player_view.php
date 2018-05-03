@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $igosja_season_id integer
+ */
+
 include(__DIR__ . '/include/include.php');
 
 if (!$num_get = (int) f_igosja_request_get('num'))
@@ -8,6 +12,23 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 }
 
 include(__DIR__ . '/include/sql/player_view.php');
+
+if (!$season_id = (int) f_igosja_request_get('season_id'))
+{
+    $season_id = $igosja_season_id;
+}
+
+if ($season_id > $igosja_season_id)
+{
+    redirect('/wrong_page.php');
+}
+
+$sql = "SELECT `season_id`
+        FROM `season`
+        ORDER BY `season_id` DESC";
+$season_sql = f_igosja_mysqli_query($sql);
+
+$season_array = $season_sql->fetch_all(MYSQLI_ASSOC);
 
 $sql = "SELECT `game_id`,
                `game_home_score`,
@@ -75,6 +96,7 @@ $sql = "SELECT `game_id`,
         LEFT JOIN `country` AS `home_national_country`
         ON `home_national`.`national_country_id`=`home_national_country`.`country_id`
         WHERE `lineup_player_id`=$num_get
+        AND `schedule_season_id`=$season_id
         AND `game_played`=1
         ORDER BY `schedule_id` DESC";
 $game_sql = f_igosja_mysqli_query($sql);
