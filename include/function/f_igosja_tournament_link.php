@@ -10,7 +10,7 @@ function f_igosja_game_tournament_link($game_array)
 {
     if (TOURNAMENTTYPE_NATIONAL == $game_array[0]['tournamenttype_id'])
     {
-        $result = '<a href="/worldcup.php?season_id=' . $game_array[0]['schedule_season_id'] . '">' . $game_array[0]['tournamenttype_name'] . ', ' . $game_array[0]['stage_name'] . '</a>';
+        $result = '<a href="/worldcup.php?season_id=' . $game_array[0]['schedule_season_id'] . '&stage_id=' . $game_array[0]['stage_id'] . '">' . $game_array[0]['tournamenttype_name'] . ', ' . $game_array[0]['stage_name'] . '</a>';
     }
     elseif (TOURNAMENTTYPE_LEAGUE == $game_array[0]['tournamenttype_id'])
     {
@@ -31,7 +31,7 @@ function f_igosja_game_tournament_link($game_array)
     }
     elseif (TOURNAMENTTYPE_CHAMPIONSHIP == $game_array[0]['tournamenttype_id'])
     {
-        $result = '<a href="/championship.php?country_id=' . $game_array[0]['championship_country_id'] . '&division_id=' . $game_array[0]['championship_division_id'] . '&season_id=' . $game_array[0]['schedule_season_id'] . '">' . $game_array[0]['tournamenttype_name'] . ', ' . $game_array[0]['stage_name'] . '</a>';
+        $result = '<a href="/championship.php?country_id=' . $game_array[0]['championship_country_id'] . '&division_id=' . $game_array[0]['championship_division_id'] . '&season_id=' . $game_array[0]['schedule_season_id'] . '&stage_id=' . $game_array[0]['stage_id'] . '">' . $game_array[0]['tournamenttype_name'] . ', ' . $game_array[0]['stage_name'] . '</a>';
     }
     elseif (TOURNAMENTTYPE_CONFERENCE == $game_array[0]['tournamenttype_id'])
     {
