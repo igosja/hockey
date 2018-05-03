@@ -13,7 +13,9 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `game_guest_auto`,
+$sql = "SELECT `championship_country_id`,
+               `championship_division_id`,
+               `game_guest_auto`,
                `game_guest_forecast`,
                `game_guest_optimality_1`,
                `game_guest_optimality_2`,
@@ -106,9 +108,12 @@ $sql = "SELECT `game_guest_auto`,
                `home_team`.`team_id` AS `home_team_id`,
                `home_team`.`team_name` AS `home_team_name`,
                `schedule_date`,
+               `schedule_season_id`,
                `stadium_name`,
                `stadium_team`.`team_id` AS `stadium_team_id`,
+               `stage_id`,
                `stage_name`,
+               `tournamenttype_id`,
                `tournamenttype_name`
         FROM `game`
         LEFT JOIN `team` AS `guest_team`
@@ -173,6 +178,9 @@ $sql = "SELECT `game_guest_auto`,
         ON `game_home_tactic_2_id`=`home_tactic_2`.`tactic_id`
         LEFT JOIN `tactic` AS `home_tactic_3`
         ON `game_home_tactic_3_id`=`home_tactic_3`.`tactic_id`
+        LEFT JOIN `championship`
+        ON (`game_home_team_id`=`championship_team_id`
+        AND `schedule_season_id`=`championship_season_id`)
         WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);

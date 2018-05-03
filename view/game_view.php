@@ -85,8 +85,7 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?= f_igosja_ufu_date_time($game_array[0]['schedule_date']); ?>,
-        <?= $game_array[0]['tournamenttype_name']; ?>,
-        <?= $game_array[0]['stage_name']; ?>
+        <?= f_igosja_game_tournament_link($game_array); ?>
     </div>
 </div>
 <div class="row">

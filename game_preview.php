@@ -7,7 +7,9 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
-$sql = "SELECT `game_played`,
+$sql = "SELECT `championship_country_id`,
+               `championship_division_id`,
+               `game_played`,
                `guest_national`.`national_id` AS `guest_national_id`,
                `guest_country`.`country_name` AS `guest_national_name`,
                `guest_national`.`national_power_vs` AS `guest_national_power_vs`,
@@ -21,10 +23,13 @@ $sql = "SELECT `game_played`,
                `home_team`.`team_name` AS `home_team_name`,
                `home_team`.`team_power_vs` AS `home_team_power_vs`,
                `schedule_date`,
+               `schedule_season_id`,
                `stadium_capacity`,
                `stadium_name`,
                `stadium_team`.`team_id` AS `stadium_team_id`,
+               `stage_id`,
                `stage_name`,
+               `tournamenttype_id`,
                `tournamenttype_name`
         FROM `game`
         LEFT JOIN `team` AS `guest_team`
@@ -49,6 +54,9 @@ $sql = "SELECT `game_played`,
         ON `game_stadium_id`=`stadium_id`
         LEFT JOIN `team` AS `stadium_team`
         ON `stadium_team`.`team_stadium_id`=`stadium_id`
+        LEFT JOIN `championship`
+        ON (`game_home_team_id`=`championship_team_id`
+        AND `schedule_season_id`=`championship_season_id`)
         WHERE `game_id`=$num_get
         LIMIT 1";
 $game_sql = f_igosja_mysqli_query($sql);
