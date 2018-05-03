@@ -421,11 +421,10 @@
                     <th title="Сезон <?= $igosja_season_id; ?>"><?= $igosja_season_id; ?></th>
                     <th title="Сезон <?= $igosja_season_id - 1; ?>"><?= $igosja_season_id - 1; ?></th>
                     <th title="Коэффициент">К</th>
-                    <th>%</th>
                 </tr>
                 <?php foreach ($rating_array as $item) { ?>
                     <tr>
-                        <td class="text-center"><?= $item['ratingcountry_auto_place']; ?></td>
+                        <td class="text-center"><?= $item['ratingcountry_league_place']; ?></td>
                         <td>
                             <img src="/img/country/12/<?= $item['country_id']; ?>.png" title="<?= $item['country_name']; ?>"/>
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
@@ -451,7 +450,6 @@
                     <th title="Сезон <?= $igosja_season_id; ?>"><?= $igosja_season_id; ?></th>
                     <th title="Сезон <?= $igosja_season_id - 1; ?>"><?= $igosja_season_id - 1; ?></th>
                     <th title="Коэффициент">К</th>
-                    <th>%</th>
                 </tr>
             </table>
         <?php } ?>
