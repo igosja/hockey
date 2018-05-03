@@ -1,13 +1,15 @@
 <?php
 /**
  * @var $group_array array
+ * @var $round_id integer
  * @var $season_id integer
  * @var $stage_array array
  * @var $stage_id integer
  */
 ?>
 <form method="GET">
-    <input name="season_id" type="hidden" value="<?= $season_id; ?>">
+    <input name="season_id" type="hidden" value="<?= $season_id; ?>" />
+    <input name="round_id" type="hidden" value="<?= $round_id; ?>" />
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
