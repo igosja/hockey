@@ -76,11 +76,6 @@ if ($price_min)
     $where = $where . " AND `player_price`>=$price_min";
 }
 
-if ($price_min)
-{
-    $where = $where . " AND `player_price`>=$price_min";
-}
-
 if ($name)
 {
     $where              = $where . " AND `name_name` LIKE ?";
