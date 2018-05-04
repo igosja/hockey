@@ -2,8 +2,10 @@
 /**
  * @var $count_page integer
  * @var $count_rent integer
+ * @var $country_array array
  * @var $playerposition_array array
  * @var $playerspecial_array array
+ * @var $position_array array
  * @var $rating_minus_array array
  * @var $rating_plus_array array
  * @var $rent_array array
@@ -22,11 +24,133 @@
         <?php include(__DIR__ . '/include/rent_link.php'); ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Всего сделок: <?= $total; ?>
+<form method="GET">
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+            Условия поиска:
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <label class="hidden" for="country_id">Национальность</label>
+            <select class="form-control" id="country_id" name="data[country_id]">
+                <option value="">Национальность</option>
+                <?php foreach ($country_array as $item) { ?>
+                    <option
+                        value="<?= $item['country_id']; ?>"
+                        <?php if (isset($data['country_id']) && $data['country_id'] == $item['country_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $item['country_name']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+            <input
+                class="form-control"
+                name="data[name_name]"
+                placeholder="Имя"
+                <?php if (isset($data['name_name'])) { ?>
+                    value="<?= $data['name_name']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+            <input
+                class="form-control"
+                name="data[surname_name]"
+                placeholder="Фамилия"
+                <?php if (isset($data['surname_name'])) { ?>
+                    value="<?= $data['surname_name']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <label class="hidden" for="position_id">Национальность</label>
+            <select class="form-control" id="position_id" name="data[position_id]">
+                <option value="">Позиция</option>
+                <?php foreach ($position_array as $item) { ?>
+                    <option
+                        value="<?= $item['position_id']; ?>"
+                        <?php if (isset($data['position_id']) && $data['position_id'] == $item['position_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
+                        <?= $item['position_short']; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <input
+                class="form-control"
+                name="data[age_min]"
+                placeholder="Возраст, от"
+                <?php if (isset($data['age_min'])) { ?>
+                    value="<?= $data['age_min']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <input
+                class="form-control"
+                name="data[age_max]"
+                placeholder="Возраст, до"
+                <?php if (isset($data['age_max'])) { ?>
+                    value="<?= $data['age_max']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <input
+                class="form-control"
+                name="data[power_min]"
+                placeholder="Сила, от"
+                <?php if (isset($data['power_min'])) { ?>
+                    value="<?= $data['power_min']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <input
+                class="form-control"
+                name="data[power_max]"
+                placeholder="Сила, до"
+                <?php if (isset($data['power_max'])) { ?>
+                    value="<?= $data['power_max']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <input
+                class="form-control"
+                name="data[price_min]"
+                placeholder="Цена, от"
+                <?php if (isset($data['price_min'])) { ?>
+                    value="<?= $data['price_min']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <input
+                class="form-control"
+                name="data[price_max]"
+                placeholder="Цена, до"
+                <?php if (isset($data['price_max'])) { ?>
+                    value="<?= $data['price_max']; ?>"
+                <?php } ?>
+            />
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <input class="form-control submit-blue" type="submit" value="Поиск" />
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            Всего сделок: <?= $total; ?>
+        </div>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <table class="table table-bordered table-hover">
