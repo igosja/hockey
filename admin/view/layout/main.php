@@ -221,6 +221,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:">
+                            Показатели сайта <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/admin/siteinfo_game.php">Игровая статистика</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
