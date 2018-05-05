@@ -9,6 +9,7 @@
  * @var $rent_day integer
  * @var $rent_day_max integer
  * @var $rent_day_min integer
+ * @var $rent_only_one integer
  * @var $rent_price integer
  * @var $start_price integer
  */
@@ -163,6 +164,14 @@
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">
                                 <input class="form-control" name="data[day]" id="day" type="text" value="<?= $rent_day; ?>" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                <label for="only_one">
+                                    В случае победы удалить все остальные мои заявки
+                                    <input name="data[only_one]" id="only_one" type="checkbox" value="1" <?php if (1 == $rent_only_one) { ?>checked<?php } ?> />
+                                </label>
                             </div>
                         </div>
                         <p class="text-center">

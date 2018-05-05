@@ -332,7 +332,9 @@ if (isset($auth_team_id) && $auth_team_id)
 
         if ($transfer_sql->num_rows)
         {
-            $on_transfer = true;
+            $on_transfer        = true;
+            $only_one           = 0;
+            $transfer_only_one  = 0;
 
             $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
 
@@ -357,6 +359,7 @@ if (isset($auth_team_id) && $auth_team_id)
             $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
 
             $sql = "SELECT `transferapplication_id`,
+                           `transferapplication_only_one`,
                            `transferapplication_price`
                     FROM `transferapplication`
                     WHERE `transferapplication_transfer_id`=$transfer_id
@@ -369,8 +372,9 @@ if (isset($auth_team_id) && $auth_team_id)
             {
                 $transferapplication_array = $transferapplication_sql->fetch_all(MYSQLI_ASSOC);
 
-                $transfer_price = $transferapplication_array[0]['transferapplication_price'];
-                $start_price    = $transfer_array[0]['transfer_price_seller'];
+                $transfer_price     = $transferapplication_array[0]['transferapplication_price'];
+                $transfer_only_one  = $transferapplication_array[0]['transferapplication_only_one'];
+                $start_price        = $transfer_array[0]['transfer_price_seller'];
 
                 if (isset($data['off']))
                 {
@@ -398,8 +402,19 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $transferapplication_id = $transferapplication_array[0]['transferapplication_id'];
 
+                    if (isset($data['only_one']))
+                    {
+                        $only_one = (int) $data['only_one'];
+
+                        if (!in_array($only_one, array(0, 1)))
+                        {
+                            $only_one = 0;
+                        }
+                    }
+
                     $sql = "UPDATE `transferapplication`
-                            SET `transferapplication_price`=$price
+                            SET `transferapplication_price`=$price,
+                                `transferapplication_only_one`=$only_one
                             WHERE `transferapplication_id`=$transferapplication_id
                             LIMIT 1";
                     f_igosja_mysqli_query($sql);
@@ -554,8 +569,19 @@ if (isset($auth_team_id) && $auth_team_id)
                         refresh();
                     }
 
+                    if (isset($data['only_one']))
+                    {
+                        $only_one = (int) $data['only_one'];
+
+                        if (!in_array($only_one, array(0, 1)))
+                        {
+                            $only_one = 0;
+                        }
+                    }
+
                     $sql = "INSERT INTO `transferapplication`
                             SET `transferapplication_date`=UNIX_TIMESTAMP(),
+                                `transferapplication_only_one`=$only_one,
                                 `transferapplication_price`=$price,
                                 `transferapplication_team_id`=$auth_team_id,
                                 `transferapplication_transfer_id`=$transfer_id,
