@@ -23,29 +23,35 @@
                 <div class="row border-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <input
-                                id="answer-<?= $item['electionpresidentviceapplication_id']; ?>"
-                                name="data[answer]"
-                                type="radio"
-                                value="<?= $item['electionpresidentviceapplication_id']; ?>"
+                            id="answer-<?= $item['electionpresidentviceapplication_id']; ?>"
+                            name="data[answer]"
+                            type="radio"
+                            value="<?= $item['electionpresidentviceapplication_id']; ?>"
                         />
                         <label for="answer-<?= $item['electionpresidentviceapplication_id']; ?>">
-                            <a href="/user_view.php?num=<?= $item['user_id']; ?>">
-                                <?= $item['user_login']; ?>
-                            </a>
+                            <?php if (0 != $item['user_id']) { ?>
+                                <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                                    <?= $item['user_login']; ?>
+                                </a>
+                            <?php } else { ?>
+                                Против всех
+                            <?php } ?>
                         </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Дата регистрации:
-                        <?= f_igosja_ufu_date($item['user_date_register']); ?>
+                <?php if (0 != $item['user_id']) { ?>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Дата регистрации:
+                            <?= f_igosja_ufu_date($item['user_date_register']); ?>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?= nl2br($item['electionpresidentviceapplication_text']); ?>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <?= nl2br($item['electionpresidentviceapplication_text']); ?>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
             <?php } ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

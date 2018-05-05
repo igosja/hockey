@@ -71,55 +71,58 @@ function f_igosja_election_national_to_close($electionnational_id)
 
         $user_id = $user_array[0]['electionnationalapplication_user_id'];
 
-        $sql = "SELECT `national_id`
-                FROM `national`
-                WHERE `national_country_id`=$country_id
-                AND `national_nationaltype_id`=$nationaltype_id
-                LIMIT 1";
-        $national_sql = f_igosja_mysqli_query($sql);
-
-        $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
-
-        $national_id = $national_array[0]['national_id'];
-
-        $log = array(
-            'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_IN,
-            'history_national_id' => $national_id,
-            'history_user_id' => $user_id,
-        );
-        f_igosja_history($log);
-
-        if (isset($user_array[1]['electionnationalapplication_user_id']))
+        if (0 != $user_id)
         {
-            $vice_id = $user_array[1]['electionnationalapplication_user_id'];
+            $sql = "SELECT `national_id`
+                    FROM `national`
+                    WHERE `national_country_id`=$country_id
+                    AND `national_nationaltype_id`=$nationaltype_id
+                    LIMIT 1";
+            $national_sql = f_igosja_mysqli_query($sql);
+
+            $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+
+            $national_id = $national_array[0]['national_id'];
 
             $log = array(
-                'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_IN,
+                'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_IN,
                 'history_national_id' => $national_id,
-                'history_user_id' => $vice_id,
+                'history_user_id' => $user_id,
             );
             f_igosja_history($log);
+
+            if (isset($user_array[1]['electionnationalapplication_user_id']))
+            {
+                $vice_id = $user_array[1]['electionnationalapplication_user_id'];
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_IN,
+                    'history_national_id' => $national_id,
+                    'history_user_id' => $vice_id,
+                );
+                f_igosja_history($log);
+            }
+            else
+            {
+                $vice_id = 0;
+            }
+
+            $sql = "UPDATE `national`
+                    SET `national_user_id`=$user_id,
+                        `national_vice_id`=$vice_id
+                    WHERE `national_id`=$national_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+
+            $application_id = $user_array[0]['electionnationalapplication_id'];
+
+            $sql = "UPDATE `electionnationalapplicationplayer`
+                    LEFT JOIN `player`
+                    ON `electionnationalapplicationplayer_player_id`=`player_id`
+                    SET `player_national_id`=$national_id
+                    WHERE `electionnationalapplicationplayer_electionnationalapplication_id`=$application_id";
+            f_igosja_mysqli_query($sql);
         }
-        else
-        {
-            $vice_id = 0;
-        }
-
-        $sql = "UPDATE `national`
-                SET `national_user_id`=$user_id,
-                    `national_vice_id`=$vice_id
-                WHERE `national_id`=$national_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
-
-        $application_id = $user_array[0]['electionnationalapplication_id'];
-
-        $sql = "UPDATE `electionnationalapplicationplayer`
-                LEFT JOIN `player`
-                ON `electionnationalapplicationplayer_player_id`=`player_id`
-                SET `player_national_id`=$national_id
-                WHERE `electionnationalapplicationplayer_electionnationalapplication_id`=$application_id";
-        f_igosja_mysqli_query($sql);
 
         $sql = "UPDATE `electionnational`
                 SET `electionnational_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "

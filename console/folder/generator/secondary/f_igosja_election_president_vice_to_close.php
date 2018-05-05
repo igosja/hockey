@@ -49,18 +49,21 @@ function f_igosja_election_president_vice_to_close($electionpresidentvice_id)
 
         $user_id = $user_array[0]['electionpresidentviceapplication_user_id'];
 
-        $log = array(
-            'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_IN,
-            'history_country_id' => $country_id,
-            'history_user_id' => $user_id,
-        );
-        f_igosja_history($log);
+        if (0!= $user_id)
+        {
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_IN,
+                'history_country_id' => $country_id,
+                'history_user_id' => $user_id,
+            );
+            f_igosja_history($log);
 
-        $sql = "UPDATE `country`
-                SET `country_vice_id`=$user_id
-                WHERE `country_id`=$country_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
+            $sql = "UPDATE `country`
+                    SET `country_vice_id`=$user_id
+                    WHERE `country_id`=$country_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         $sql = "UPDATE `electionpresidentvice`
                 SET `electionpresidentvice_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "
