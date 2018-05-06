@@ -2,6 +2,8 @@
 
 /**
  * @var $auth_team_id integer
+ * @var $auth_team_vice_id integer
+ * @var $auth_user_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -11,7 +13,7 @@ if (!isset($auth_team_id))
     redirect('/wrong_page.php');
 }
 
-if (0 == $auth_team_id)
+if (0 == $auth_team_id && 0 == $auth_team_vice_id)
 {
     redirect('/team_ask.php');
 }
@@ -21,7 +23,13 @@ if (!$num_get = (int) f_igosja_request_get('num'))
     redirect('/wrong_page.php');
 }
 
+if (0 != $auth_team_vice_id)
+{
+    $auth_team_id = $auth_team_vice_id;
+}
+
 $sql = "SELECT `game_guest_team_id`,
+               IF(`game_home_team_id`=$auth_team_id, `game_home_lineup_user_id`, `game_guest_lineup_user_id`) AS `game_lineup_user_id`,
                IF(`game_home_team_id`=$auth_team_id, IF(`game_home_mood_id`, `game_home_mood_id`, " . MOOD_NORMAL . "), IF(`game_guest_mood_id`, `game_guest_mood_id`, " . MOOD_NORMAL . ")) AS `game_mood_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_rude_1_id`, `game_guest_rude_1_id`) AS `game_rude_1_id`,
                IF(`game_home_team_id`=$auth_team_id, `game_home_rude_2_id`, `game_guest_rude_2_id`) AS `game_rude_2_id`,
@@ -51,6 +59,17 @@ if (0 == $current_sql->num_rows)
 
 $current_array = $current_sql->fetch_all(MYSQLI_ASSOC);
 
+if ($auth_team_id == $auth_team_vice_id && !in_array($current_array[0]['game_lineup_user_id'], array(0, $auth_user_id)))
+{
+    $allow_post = false;
+
+    f_igosja_session_front_flash_set('info', 'Тренер клуба уже отправил состав на игру. Вы не можете его изменить.');
+}
+else
+{
+    $allow_post = true;
+}
+
 $sql = "SELECT `team_mood_rest`,
                `team_mood_super`
         FROM `team`
@@ -60,7 +79,7 @@ $teammood_sql = f_igosja_mysqli_query($sql);
 
 $teammood_array = $teammood_sql->fetch_all(MYSQLI_ASSOC);
 
-if ($data = f_igosja_request_post('data'))
+if (($data = f_igosja_request_post('data')) && $allow_post)
 {
     if (isset($data['ticket']))
     {
@@ -163,7 +182,8 @@ if ($data = f_igosja_request_post('data'))
     }
 
     $sql = "UPDATE `game`
-            SET `game_home_mood_id`=$mood_id,
+            SET `game_home_lineup_user_id`=$auth_user_id,
+                `game_home_mood_id`=$mood_id,
                 `game_home_rude_1_id`=$rude_1_id,
                 `game_home_rude_2_id`=$rude_2_id,
                 `game_home_rude_3_id`=$rude_3_id,
@@ -180,7 +200,8 @@ if ($data = f_igosja_request_post('data'))
     f_igosja_mysqli_query($sql);
 
     $sql = "UPDATE `game`
-            SET `game_guest_mood_id`=$mood_id,
+            SET `game_home_lineup_user_id`=$auth_user_id,
+                `game_guest_mood_id`=$mood_id,
                 `game_guest_rude_1_id`=$rude_1_id,
                 `game_guest_rude_2_id`=$rude_2_id,
                 `game_guest_rude_3_id`=$rude_3_id,

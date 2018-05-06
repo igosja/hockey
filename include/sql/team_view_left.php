@@ -25,14 +25,21 @@ $sql = "SELECT `base_level`,
                `stadium_name`,
                `team_finance`,
                `team_name`,
-               `user_date_vip`,
-               `user_id`,
-               `user_login`,
-               `user_name`,
-               `user_surname`
+               `coach`.`user_date_vip` AS `user_date_vip`,
+               `coach`.`user_id` AS `user_id`,
+               `coach`.`user_login` AS `user_login`,
+               `coach`.`user_name` AS `user_name`,
+               `coach`.`user_surname` AS `user_surname`,
+               `vice`.`user_date_vip` AS `vice_user_date_vip`,
+               `vice`.`user_id` AS `vice_user_id`,
+               `vice`.`user_login` AS `vice_user_login`,
+               `vice`.`user_name` AS `vice_user_name`,
+               `vice`.`user_surname` AS `vice_user_surname`
         FROM `team`
-        LEFT JOIN `user`
-        ON `team_user_id`=`user_id`
+        LEFT JOIN `user` AS `coach`
+        ON `team_user_id`=`coach`.`user_id`
+        LEFT JOIN `user` AS `vice`
+        ON `team_vice_id`=`vice`.`user_id`
         LEFT JOIN `stadium`
         ON `team_stadium_id`=`stadium_id`
         LEFT JOIN `city`

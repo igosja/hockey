@@ -1,7 +1,9 @@
 <?php
 /**
+ * @var $auth_team_id array
+ * @var $auth_team_vice_id array
  * @var $latest_array array
- * @var $nearest_array integer
+ * @var $nearest_array array
  * @var $num_get integer
  * @var $rosterphrase_array array
  */
@@ -59,7 +61,7 @@
                 <?= $item['team_name']; ?>
             </a>
             -
-            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+            <?php if (isset($auth_team_id) && $auth_team_id == $num_get || isset($auth_team_vice_id) && $auth_team_vice_id == $num_get) { ?>
                 <a href="/game_send.php?num=<?= $item['game_id']; ?>">
                     <?php if ($item['game_tactic_id']) { ?>Ред.<?php } else { ?>Отпр.<?php } ?>
                 </a>

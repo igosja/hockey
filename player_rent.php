@@ -334,7 +334,6 @@ if (isset($auth_team_id) && $auth_team_id)
         if ($rent_sql->num_rows)
         {
             $on_rent        = true;
-            $only_one       = 0;
             $rent_only_one  = 0;
 
             $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
@@ -422,14 +421,11 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $rentapplication_id = $rentapplication_array[0]['rentapplication_id'];
 
-                    if (isset($data['only_one']))
-                    {
-                        $only_one = (int) $data['only_one'];
+                    $only_one = (int) $data['only_one'];
 
-                        if (!in_array($only_one, array(0, 1)))
-                        {
-                            $only_one = 0;
-                        }
+                    if (!in_array($only_one, array(0, 1)))
+                    {
+                        $only_one = 0;
                     }
 
                     $sql = "UPDATE `rentapplication`
@@ -608,14 +604,11 @@ if (isset($auth_team_id) && $auth_team_id)
                         refresh();
                     }
 
-                    if (isset($data['only_one']))
-                    {
                         $only_one = (int) $data['only_one'];
 
-                        if (!in_array($only_one, array(0, 1)))
-                        {
-                            $only_one = 0;
-                        }
+                    if (!in_array($only_one, array(0, 1)))
+                    {
+                        $only_one = 0;
                     }
 
                     $sql = "INSERT INTO `rentapplication`

@@ -149,6 +149,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                 <label for="only_one">
                                     В случае победы удалить все остальные мои заявки
+                                    <input name="data[only_one]" type="hidden" value="0" />
                                     <input name="data[only_one]" id="only_one" type="checkbox" value="1" <?php if (1 == $transfer_only_one) { ?>checked<?php } ?> />
                                 </label>
                             </div>
