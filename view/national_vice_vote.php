@@ -21,33 +21,39 @@
         <?php foreach ($electionnationalvice_array as $item) { ?>
             <div class="row margin-top">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <a href="/user_view.php?num=<?= $item['user_id']; ?>">
-                        <?= $item['user_login']; ?>
-                    </a>
+                    <?php if (0 != $item['user_id']) { ?>
+                        <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    <?php } else { ?>
+                        Против всех
+                    <?php } ?>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                    <?= $item['count_answer']; ?>
+                    <?= $item['electionnationalviceapplication_count']; ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    Дата регистрации:
-                    <?= f_igosja_ufu_date($item['user_date_register']); ?>
+            <?php if (0 != $item['user_id']) { ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        Дата регистрации:
+                        <?= f_igosja_ufu_date($item['user_date_register']); ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    Рейтинг менеджера:
-                    <?= $item['userrating_rating']; ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        Рейтинг менеджера:
+                        <?= $item['userrating_rating']; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    Текст программы:
-                    <br/>
-                    <?= nl2br($item['electionnationalviceapplication_text']); ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        Текст программы:
+                        <br/>
+                        <?= nl2br($item['electionnationalviceapplication_text']); ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         <?php } ?>
     </div>
 </div>

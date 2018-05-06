@@ -333,7 +333,9 @@ if (isset($auth_team_id) && $auth_team_id)
 
         if ($rent_sql->num_rows)
         {
-            $on_rent = true;
+            $on_rent        = true;
+            $only_one       = 0;
+            $rent_only_one  = 0;
 
             $rent_array = $rent_sql->fetch_all(MYSQLI_ASSOC);
 
@@ -359,6 +361,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
             $sql = "SELECT `rentapplication_day`,
                            `rentapplication_id`,
+                           `rentapplication_only_one`,
                            `rentapplication_price`
                     FROM `rentapplication`
                     WHERE `rentapplication_rent_id`=$rent_id
@@ -372,6 +375,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 $rentapplication_array = $rentapplication_sql->fetch_all(MYSQLI_ASSOC);
 
                 $rent_price     = $rentapplication_array[0]['rentapplication_price'];
+                $rent_only_one  = $rentapplication_array[0]['rentapplication_only_one'];
                 $start_price    = $rent_array[0]['rent_price_seller'];
                 $rent_day       = $rentapplication_array[0]['rentapplication_day'];
                 $rent_day_min   = $rent_array[0]['rent_day_min'];
@@ -418,8 +422,19 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $rentapplication_id = $rentapplication_array[0]['rentapplication_id'];
 
+                    if (isset($data['only_one']))
+                    {
+                        $only_one = (int) $data['only_one'];
+
+                        if (!in_array($only_one, array(0, 1)))
+                        {
+                            $only_one = 0;
+                        }
+                    }
+
                     $sql = "UPDATE `rentapplication`
                             SET `rentapplication_day`=$day,
+                                `rentapplication_only_one`=$only_one,
                                 `rentapplication_price`=$price
                             WHERE `rentapplication_id`=$rentapplication_id
                             LIMIT 1";
@@ -593,9 +608,20 @@ if (isset($auth_team_id) && $auth_team_id)
                         refresh();
                     }
 
+                    if (isset($data['only_one']))
+                    {
+                        $only_one = (int) $data['only_one'];
+
+                        if (!in_array($only_one, array(0, 1)))
+                        {
+                            $only_one = 0;
+                        }
+                    }
+
                     $sql = "INSERT INTO `rentapplication`
                             SET `rentapplication_date`=UNIX_TIMESTAMP(),
                                 `rentapplication_day`=$day,
+                                `rentapplication_only_one`=$only_one,
                                 `rentapplication_price`=$price,
                                 `rentapplication_team_id`=$auth_team_id,
                                 `rentapplication_rent_id`=$rent_id,

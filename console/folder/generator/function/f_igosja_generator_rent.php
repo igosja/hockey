@@ -147,6 +147,7 @@ function f_igosja_generator_rent()
 
         $sql = "SELECT `team_finance`,
                        `rentapplication_day`,
+                       `rentapplication_only_one`,
                        `rentapplication_price`,
                        `rentapplication_team_id`,
                        `rentapplication_user_id`
@@ -273,6 +274,19 @@ function f_igosja_generator_rent()
                     WHERE `rent_player_id`=$player_id
                     AND `rent_ready`=0";
             f_igosja_mysqli_query($sql);
+
+            if (1 == $rentaplication_array[0]['rentapplication_only_one'])
+            {
+                $sql = "DELETE FROM `rentapplication`
+                        WHERE `rentapplication_team_id`=$team_buyer_id
+                        AND `rentapplication_rent_id` IN
+                        (
+                            SELECT `rent_id`
+                            FROM `rent`
+                            WHERE `rent_ready`=0
+                        )";
+                f_igosja_mysqli_query($sql);
+            }
         }
     }
 }

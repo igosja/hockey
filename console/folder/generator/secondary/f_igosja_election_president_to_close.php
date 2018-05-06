@@ -50,35 +50,38 @@ function f_igosja_election_president_to_close($electionpresident_id)
 
         $user_id = $user_array[0]['electionpresidentapplication_user_id'];
 
-        $log = array(
-            'history_historytext_id' => HISTORYTEXT_USER_PRESIDENT_IN,
-            'history_country_id' => $country_id,
-            'history_user_id' => $user_id,
-        );
-        f_igosja_history($log);
-
-        if (isset($user_array[1]['electionpresidentapplication_user_id']))
+        if (0 != $user_id)
         {
-            $vice_id = $user_array[1]['electionpresidentapplication_user_id'];
-
             $log = array(
-                'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_IN,
+                'history_historytext_id' => HISTORYTEXT_USER_PRESIDENT_IN,
                 'history_country_id' => $country_id,
-                'history_user_id' => $vice_id,
+                'history_user_id' => $user_id,
             );
             f_igosja_history($log);
-        }
-        else
-        {
-            $vice_id = 0;
-        }
 
-        $sql = "UPDATE `country`
-                SET `country_president_id`=$user_id,
-                    `country_vice_id`=$vice_id
-                WHERE `country_id`=$country_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
+            if (isset($user_array[1]['electionpresidentapplication_user_id']))
+            {
+                $vice_id = $user_array[1]['electionpresidentapplication_user_id'];
+
+                $log = array(
+                    'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_IN,
+                    'history_country_id' => $country_id,
+                    'history_user_id' => $vice_id,
+                );
+                f_igosja_history($log);
+            }
+            else
+            {
+                $vice_id = 0;
+            }
+
+            $sql = "UPDATE `country`
+                    SET `country_president_id`=$user_id,
+                        `country_vice_id`=$vice_id
+                    WHERE `country_id`=$country_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         $sql = "UPDATE `electionpresident`
                 SET `electionpresident_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "

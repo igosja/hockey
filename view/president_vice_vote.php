@@ -21,9 +21,13 @@
         <?php foreach ($electionpresidentvice_array as $item) { ?>
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <a href="/user_view.php?num=<?= $item['user_id']; ?>">
-                        <?= $item['user_login']; ?>
-                    </a>
+                    <?php if (0 != $item['user_id']) { ?>
+                        <a href="/user_view.php?num=<?= $item['user_id']; ?>">
+                            <?= $item['user_login']; ?>
+                        </a>
+                    <?php } else { ?>
+                        Против всех
+                    <?php } ?>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     <?= $item['electionpresidentviceapplication_count']; ?>

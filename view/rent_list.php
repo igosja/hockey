@@ -168,7 +168,7 @@
                 <tr>
                     <td class="text-center"><?= $offset + $i + 1; ?></td>
                     <td>
-                        <a href="/player_view.php?num=<?= $rent_array[$i]['player_id']; ?>">
+                        <a href="/player_rent.php?num=<?= $rent_array[$i]['player_id']; ?>">
                             <?= $rent_array[$i]['name_name']; ?> <?= $rent_array[$i]['surname_name']; ?>
                         </a>
                     </td>

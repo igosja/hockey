@@ -148,6 +148,7 @@ function f_igosja_generator_transfer()
         $user_array = implode(',', $user_array);
 
         $sql = "SELECT `team_finance`,
+                       `transferapplication_only_one`,
                        `transferapplication_price`,
                        `transferapplication_team_id`,
                        `transferapplication_user_id`
@@ -301,6 +302,19 @@ function f_igosja_generator_transfer()
                     WHERE `rent_player_id`=$player_id
                     AND `rent_ready`=0";
             f_igosja_mysqli_query($sql);
+
+            if (1 == $transferaplication_array[0]['transferapplication_only_one'])
+            {
+                $sql = "DELETE FROM `transferapplication`
+                        WHERE `transferapplication_team_id`=$team_buyer_id
+                        AND `transferapplication_transfer_id` IN
+                        (
+                            SELECT `transfer_id`
+                            FROM `transfer`
+                            WHERE `transfer_ready`=0
+                        )";
+                f_igosja_mysqli_query($sql);
+            }
         }
         elseif (1 == $transfer['transfer_to_league'])
         {

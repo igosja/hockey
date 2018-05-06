@@ -32,8 +32,8 @@ $electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC)
 
 $electionnationalvice_id = $electionnationalvice_array[0]['electionnationalvice_id'];
 
-$sql = "SELECT `count_answer`,
-               `electionnationalvice_id`,
+$sql = "SELECT `electionnationalvice_id`,
+               `electionnationalviceapplication_count`,
                `electionnationalviceapplication_id`,
                `electionnationalviceapplication_text`,
                `electionstatus_id`,
@@ -57,18 +57,9 @@ $sql = "SELECT `count_answer`,
             WHERE `userrating_season_id`=0
         ) AS `t3`
         ON `user_id`=`userrating_user_id`
-        LEFT JOIN
-        (
-            SELECT COUNT(`electionnationalviceuser_user_id`) AS `count_answer`,
-                   `electionnationalviceuser_electionnationalviceapplication_id`
-            FROM `electionnationalviceuser`
-            WHERE `electionnationalviceuser_electionnationalvice_id`=$electionnationalvice_id
-            GROUP BY `electionnationalviceuser_electionnationalviceapplication_id`
-        ) AS `t1`
-        ON `electionnationalviceapplication_id`=`electionnationalviceuser_electionnationalviceapplication_id`
         WHERE `electionstatus_id`=" . ELECTIONSTATUS_OPEN . "
         AND `electionnationalvice_id`=$electionnationalvice_id
-        ORDER BY `count_answer` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionnationalviceapplication_id` ASC";
+        ORDER BY `electionnationalviceapplication_count` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionnationalviceapplication_id` ASC";
 $electionnationalvice_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $electionnationalvice_sql->num_rows)
@@ -109,6 +100,12 @@ if ($data = f_igosja_request_post('data'))
                 `electionnationalviceuser_date`=UNIX_TIMESTAMP(),
                 `electionnationalviceuser_user_id`=$auth_user_id,
                 `electionnationalviceuser_electionnationalvice_id`=$electionnationalvice_id";
+    f_igosja_mysqli_query($sql);
+
+    $sql = "UPDATE `electionnationalviceapplication`
+            SET `electionnationalviceapplication_count`=`electionnationalviceapplication_count`+1
+            WHERE `electionnationalviceapplication_id`=$answer
+            LIMIT 1";
     f_igosja_mysqli_query($sql);
 
     f_igosja_session_front_flash_set('success', 'Вы успешно проголосовали.');

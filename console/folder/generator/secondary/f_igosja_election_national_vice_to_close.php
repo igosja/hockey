@@ -51,29 +51,32 @@ function f_igosja_election_national_vice_to_close($electionnationalvice_id)
 
         $user_id = $user_array[0]['electionnationalviceapplication_user_id'];
 
-        $sql = "SELECT `national_id`
-                FROM `national`
-                WHERE `national_country_id`=$country_id
-                AND `national_nationaltype_id`=$nationaltype_id
-                LIMIT 1";
-        $national_sql = f_igosja_mysqli_query($sql);
+        if (0 != $user_id)
+        {
+            $sql = "SELECT `national_id`
+                    FROM `national`
+                    WHERE `national_country_id`=$country_id
+                    AND `national_nationaltype_id`=$nationaltype_id
+                    LIMIT 1";
+            $national_sql = f_igosja_mysqli_query($sql);
 
-        $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+            $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
 
-        $national_id = $national_array[0]['national_id'];
+            $national_id = $national_array[0]['national_id'];
 
-        $log = array(
-            'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_IN,
-            'history_national_id' => $national_id,
-            'history_user_id' => $user_id,
-        );
-        f_igosja_history($log);
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_IN,
+                'history_national_id' => $national_id,
+                'history_user_id' => $user_id,
+            );
+            f_igosja_history($log);
 
-        $sql = "UPDATE `national`
-                SET `national_vice_id`=$user_id
-                WHERE `national_id`=$national_id
-                LIMIT 1";
-        f_igosja_mysqli_query($sql);
+            $sql = "UPDATE `national`
+                    SET `national_vice_id`=$user_id
+                    WHERE `national_id`=$national_id
+                    LIMIT 1";
+            f_igosja_mysqli_query($sql);
+        }
 
         $sql = "UPDATE `electionnationalvice`
                 SET `electionnationalvice_electionstatus_id`=" . ELECTIONSTATUS_CLOSE . "
