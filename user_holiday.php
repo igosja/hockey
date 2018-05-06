@@ -71,7 +71,7 @@ $sql = "SELECT `user_id`,
                `user_login`
         FROM `user`
         WHERE `user_holiday`=0
-        AND `user_date_login`>UNIX_TIMESTAMP()-806400
+        AND `user_date_login`>UNIX_TIMESTAMP()-604800
         AND `user_id`!=$auth_user_id
         ORDER BY `user_login` ASC";
 $vice_sql = f_igosja_mysqli_query($sql);
