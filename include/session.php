@@ -109,7 +109,7 @@ if (isset($_SESSION['user_id']))
     $auth_use_bb                    = $user_array[0]['user_use_bb'];
     $auth_userrole_id               = $user_array[0]['user_userrole_id'];
 
-    if ($_SESSION['team_id'] == $user_array[0]['team_vice_id'])
+    if (isset($_SESSION['team_id']) && $_SESSION['team_id'] == $user_array[0]['team_vice_id'])
     {
         $auth_team_vice_id = $user_array[0]['team_vice_id'];
     }
