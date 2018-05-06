@@ -333,7 +333,6 @@ if (isset($auth_team_id) && $auth_team_id)
         if ($transfer_sql->num_rows)
         {
             $on_transfer        = true;
-            $only_one           = 0;
             $transfer_only_one  = 0;
 
             $transfer_array = $transfer_sql->fetch_all(MYSQLI_ASSOC);
@@ -402,14 +401,11 @@ if (isset($auth_team_id) && $auth_team_id)
 
                     $transferapplication_id = $transferapplication_array[0]['transferapplication_id'];
 
-                    if (isset($data['only_one']))
-                    {
-                        $only_one = (int) $data['only_one'];
+                    $only_one = (int) $data['only_one'];
 
-                        if (!in_array($only_one, array(0, 1)))
-                        {
-                            $only_one = 0;
-                        }
+                    if (!in_array($only_one, array(0, 1)))
+                    {
+                        $only_one = 0;
                     }
 
                     $sql = "UPDATE `transferapplication`
@@ -569,14 +565,11 @@ if (isset($auth_team_id) && $auth_team_id)
                         refresh();
                     }
 
-                    if (isset($data['only_one']))
-                    {
-                        $only_one = (int) $data['only_one'];
+                    $only_one = (int) $data['only_one'];
 
-                        if (!in_array($only_one, array(0, 1)))
-                        {
-                            $only_one = 0;
-                        }
+                    if (!in_array($only_one, array(0, 1)))
+                    {
+                        $only_one = 0;
                     }
 
                     $sql = "INSERT INTO `transferapplication`

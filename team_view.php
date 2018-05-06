@@ -3,6 +3,7 @@
 /**
  * @var $auth_country_id integer
  * @var $auth_team_id integer
+ * @var $auth_team_vice_id integer
  * @var $auth_user_id integer
  * @var $igosja_season_id integer
  */
@@ -18,7 +19,7 @@ if ($auth_team_select = f_igosja_request_post('auth_team_id'))
 
 if (!$num_get = (int) f_igosja_request_get('num'))
 {
-    if (!isset($auth_team_id))
+    if (!isset($auth_team_id) && !isset($auth_team_vice_id))
     {
         redirect('/wrong_page.php');
     }
@@ -28,7 +29,14 @@ if (!$num_get = (int) f_igosja_request_get('num'))
         redirect('/team_ask.php');
     }
 
-    $num_get = $auth_team_id;
+    if (0 != $auth_team_vice_id)
+    {
+        $num_get = $auth_team_vice_id;
+    }
+    else
+    {
+        $num_get = $auth_team_id;
+    }
 }
 
 include(__DIR__ . '/include/sql/team_view_left.php');

@@ -69,6 +69,34 @@
                 </a>
             </div>
         </div>
+        <?php if (0 != $team_array[0]['vice_user_id']) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    Заместитель:
+                    <?php if (isset($auth_user_id) && $team_array[0]['vice_user_id'] && $team_array[0]['vice_user_id'] != $auth_user_id) { ?>
+                        <a href="/dialog.php?num=<?= $team_array[0]['vice_user_id']; ?>">
+                            <img src="/img/letter.png" title="Написать письмо" />
+                        </a>
+                    <?php } ?>
+                    <a class="strong" href="/user_view.php?num=<?= $team_array[0]['vice_user_id']; ?>">
+                        <?php if ($team_array[0]['vice_user_name'] || $team_array[0]['vice_user_surname']) { ?>
+                            <?= $team_array[0]['vice_user_name']; ?> <?= $team_array[0]['vice_user_surname']; ?>
+                        <?php } else { ?>
+                            Новый менеджер
+                        <?php } ?>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    Ник:
+                    <?= f_igosja_user_vip($team_array[0]['vice_user_date_vip']); ?>
+                    <a class="strong" href="/user_view.php?num=<?= $team_array[0]['vice_user_id']; ?>">
+                        <?= $team_array[0]['vice_user_login']; ?>
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
         <div class="row margin-top-small">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Стадион:

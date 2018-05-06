@@ -3,6 +3,8 @@
  * @var $auth_date_vip integer
  * @var $auth_team_array array
  * @var $auth_team_id integer
+ * @var $auth_team_vice_array array
+ * @var $auth_team_vice_id array
  * @var $auth_user_id integer
  * @var $auth_user_login string
  * @var $controller string
@@ -74,10 +76,18 @@
                         <select class="form-control" id="auth-team-select" name="auth_team_id" onchange="this.form.submit();">
                             <?php foreach ($auth_team_array as $item) { ?>
                                 <option
-                                    <?php if ($item['team_id'] == $auth_team_id) { ?>selected<?php } ?>
+                                    <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
                                     value="<?= $item['team_id']; ?>"
                                 >
                                     <?= $item['team_name']; ?> (<?= $item['country_name']; ?>)
+                                </option>
+                            <?php } ?>
+                            <?php foreach ($auth_team_vice_array as $item) { ?>
+                                <option
+                                    <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
+                                    value="<?= $item['team_id']; ?>"
+                                >
+                                    <?= $item['team_name']; ?> (<?= $item['country_name']; ?>, зам)
                                 </option>
                             <?php } ?>
                         </select>

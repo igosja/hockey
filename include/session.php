@@ -21,7 +21,7 @@ if (isset($_SESSION['user_id']))
     {
         $auth_team_id = $_SESSION['team_id'];
 
-        $and_where = "AND `team_id`=$auth_team_id";
+        $and_where = "AND (`team`.`team_id`=$auth_team_id OR `vice_team`.`team_id`=$auth_team_id)";
     }
     else
     {
@@ -37,7 +37,8 @@ if (isset($_SESSION['user_id']))
                    `city_country_id`,
                    `national`.`national_id` AS `national_id`,
                    `nationalvice`.`national_id` AS `nationalvice_id`,
-                   `team_id`,
+                   `team`.`team_id` AS `team_id`,
+                   `vice_team`.`team_id` AS `team_vice_id`,
                    `user_code`,
                    `user_date_block`,
                    `user_date_block_comment`,
@@ -51,7 +52,7 @@ if (isset($_SESSION['user_id']))
                    `user_use_bb`,
                    `user_userrole_id`
             FROM `user`
-            LEFT JOIN `team`
+            LEFT JOIN `team` AS `team`
             ON `user_id`=`team_user_id`
             LEFT JOIN `stadium`
             ON `team_stadium_id`=`stadium_id`
@@ -73,6 +74,8 @@ if (isset($_SESSION['user_id']))
             ON `user_block_forum_blockreason_id`=`blockforum`.`blockreason_id`
             LEFT JOIN `blockreason` AS `blocknews`
             ON `user_block_newscomment_blockreason_id`=`blocknews`.`blockreason_id`
+            LEFT JOIN `team` AS `vice_team`
+            ON `user_id`=`vice_team`.`team_vice_id`
             WHERE `user_id`=$auth_user_id
             $and_where
             LIMIT 1";
@@ -105,6 +108,15 @@ if (isset($_SESSION['user_id']))
     $auth_user_login                = $user_array[0]['user_login'];
     $auth_use_bb                    = $user_array[0]['user_use_bb'];
     $auth_userrole_id               = $user_array[0]['user_userrole_id'];
+
+    if ($_SESSION['team_id'] == $user_array[0]['team_vice_id'])
+    {
+        $auth_team_vice_id = $user_array[0]['team_vice_id'];
+    }
+    else
+    {
+        $auth_team_vice_id = 0;
+    }
 
     if ($user_array[0]['user_date_block'] > time() && 'admin' != $chapter)
     {
@@ -284,6 +296,22 @@ if (isset($_SESSION['user_id']))
     $auth_team_sql = f_igosja_mysqli_query($sql);
 
     $auth_team_array = $auth_team_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT `country_name`,
+                   `team_id`,
+                   `team_name`
+            FROM `team`
+            LEFT JOIN `stadium`
+            ON `team_stadium_id`=`stadium_id`
+            LEFT JOIN `city`
+            ON `stadium_city_id`=`city_id`
+            LEFT JOIN `country`
+            ON `city_country_id`=`country_id`
+            WHERE `team_vice_id`=$auth_user_id
+            ORDER BY `team_id` ASC";
+    $auth_team_vice_sql = f_igosja_mysqli_query($sql);
+
+    $auth_team_vice_array = $auth_team_vice_sql->fetch_all(MYSQLI_ASSOC);
 
     $sql = "UPDATE `user`
             SET `user_date_login`=UNIX_TIMESTAMP(),
