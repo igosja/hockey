@@ -2,8 +2,7 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$sql = "SELECT `gamecomment_game_id`,
-               `gamecomment_id`,
+$sql = "SELECT `gamecomment_id`,
                `gamecomment_text`,
                `user_id`,
                `user_login`
