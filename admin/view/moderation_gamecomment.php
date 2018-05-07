@@ -40,6 +40,7 @@
             </tr>
             <tr>
                 <td colspan="2">
+                    (<?= $gamecomment_array[0]['gamecomment_game_id']; ?>)
                     <?= f_igosja_bb_decode($gamecomment_array[0]['gamecomment_text']); ?>
                 </td>
             </tr>
