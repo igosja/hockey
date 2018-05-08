@@ -16,7 +16,7 @@ $transfercomment_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $transfercomment_sql->num_rows)
 {
-    redirect('/admin/index.php');
+    redirect('/admin/moderation_review.php');
 }
 
 $transfercomment_array = $transfercomment_sql->fetch_all(MYSQLI_ASSOC);
