@@ -2,12 +2,18 @@
 /**
  * @var $complain_array array
  * @var $count_moderation integer
+ * @var $forummessage_array array
  * @var $freeteam_array array
  * @var $logo_array array
+ * @var $news_array array
+ * @var $newscomment_array array
  * @var $payment_array array
  * @var $payment_categories string
  * @var $payment_data string
+ * @var $rentcomment_array string
+ * @var $review_array string
  * @var $teamask_array array
+ * @var $transfercomment_array array
  * @var $support_array array
  */
 ?>
@@ -223,6 +229,12 @@
                         Комментарии к трансферам
                         <span class="pull-right text-muted small">
                             <em><?= $transfercomment_array[0]['count']; ?></em>
+                        </span>
+                    </a>
+                    <a href="/admin/moderation_review.php" class="list-group-item">
+                        Обзоры
+                        <span class="pull-right text-muted small">
+                            <em><?= $review_array[0]['count']; ?></em>
                         </span>
                     </a>
                 </div>
