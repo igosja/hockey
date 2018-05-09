@@ -548,7 +548,7 @@ $result_array['shot_guest'] = $result_array['shot_guest'] / $total_count;
 $result_array['shot_home'] = $result_array['shot_home'] / $total_count;
 
 print '<pre>';
-print_r($game_result['guest']['player']['gk']);
+print_r($game_result['guest']['player']['gk']['power_real']);
 print_r($game_result['guest']['player']['field']['rd1']['power_real']);
 print_r($game_result['guest']['player']['field']['ld1']['power_real']);
 print_r($game_result['guest']['player']['field']['rw1']['power_real']);
