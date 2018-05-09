@@ -101,13 +101,13 @@ function f_igosja_generator_game_result()
 
         $should_win = 0;
 
-        if ($game_result['home']['team']['power']['percent'] > 52 && $game_result['home']['player']['gk']['power_real'] / $game_result['guest']['team']['power']['total'] * 16 >= 0.75)
+        if ($game_result['home']['team']['power']['percent'] > 52)
         {
-            $should_win = 1;
+            $should_win = ($game_result['home']['team']['power']['percent'] - 52) / 3;
         }
-        elseif ($game_result['guest']['team']['power']['percent'] > 52 && $game_result['guest']['player']['gk']['power_real'] / $game_result['home']['team']['power']['total'] * 16 >= 0.75)
+        elseif ($game_result['guest']['team']['power']['percent'] > 52)
         {
-            $should_win = -1;
+            $should_win = -($game_result['guest']['team']['power']['percent'] - 52) / 3;
         }
 
         for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
