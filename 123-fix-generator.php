@@ -2,7 +2,7 @@
 
 include(__DIR__ . '/include/generator.php');
 
-$total_count = 200;
+$total_count = 1;
 
 $result_array = array(
     'score_per_game' => 0,
@@ -548,6 +548,11 @@ $result_array['shot_guest'] = $result_array['shot_guest'] / $total_count;
 $result_array['shot_home'] = $result_array['shot_home'] / $total_count;
 
 print '<pre>';
-print_r($game_result['guest']['player']);
+print_r($game_result['guest']['player']['gk']);
+print_r($game_result['guest']['player']['field']['rd1']);
+print_r($game_result['guest']['player']['field']['ld1']);
+print_r($game_result['guest']['player']['field']['rw1']);
+print_r($game_result['guest']['player']['field']['c1']);
+print_r($game_result['guest']['player']['field']['lw1']);
 print_r($result_array);
 exit;
