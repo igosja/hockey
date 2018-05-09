@@ -8,6 +8,8 @@ $result_array = array(
     'score_per_game' => 0,
     'score' => array(),
     'diff' => array(),
+    'shot_home' => 0,
+    'shot_guest' => 0,
 );
 
 $game_id            = 1;
@@ -528,6 +530,8 @@ if (!isset($result_array['score'][$total])) {
 $result_array['diff'][$diff]++;
 $result_array['score'][$total]++;
 $result_array['score_per_game'] = $result_array['score_per_game'] + $total;
+$result_array['shot_guest'] = $result_array['shot_guest'] + $game_result['guest']['team']['shot']['total'];
+$result_array['shot_home'] = $result_array['shot_home'] + $game_result['home']['team']['shot']['total'];
 }
 ksort($result_array['diff']);
 ksort($result_array['score']);
