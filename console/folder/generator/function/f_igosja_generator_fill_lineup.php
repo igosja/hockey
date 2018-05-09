@@ -149,6 +149,7 @@ function f_igosja_generator_fill_lineup()
                                     ON `player_id`=`lineup_player_id`
                                     WHERE `player_team_id`=0
                                     AND `player_rent_team_id`=0
+                                    AND `player_injury`=0
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_age`<40
                                     AND `lineup_player_id` IS NULL
@@ -181,6 +182,7 @@ function f_igosja_generator_fill_lineup()
                                     OR `player_rent_team_id`=$team_id)
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_tire`<60
+                                    AND `player_injury`=0
                                     AND `lineup_player_id` IS NULL
                                     ORDER BY `player_tire` ASC, `player_power_real` DESC
                                     LIMIT 1";
@@ -206,6 +208,7 @@ function f_igosja_generator_fill_lineup()
                                     WHERE `player_national_id`=$national_id
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_tire`<60
+                                    AND `player_injury`=0
                                     AND `lineup_player_id` IS NULL
                                     ORDER BY `player_tire` ASC, `player_power_real` DESC
                                     LIMIT 1";
