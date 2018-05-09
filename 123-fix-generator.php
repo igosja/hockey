@@ -67,7 +67,9 @@ for ($i=0; $i<2; $i++)
     $game_result[$team]['player']['gk']['lineup_id']        = 1;
     $game_result[$team]['player']['gk']['player_id']        = 1;
     $game_result[$team]['player']['gk']['power_nominal']    = 100*($i+1);
+    $game_result[$team]['player']['gk']['power_nominal']    = 100;
     $game_result[$team]['player']['gk']['power_optimal']    = 100*($i+1);
+    $game_result[$team]['player']['gk']['power_optimal']    = 100;
 
     for ($j=1; $j<=15; $j++)
     {
@@ -91,7 +93,9 @@ for ($i=0; $i<2; $i++)
         $game_result[$team]['player']['field'][$key]['lineup_id']       = 1;
         $game_result[$team]['player']['field'][$key]['player_id']       = 1;
         $game_result[$team]['player']['field'][$key]['power_nominal']   = 100*($i+1);
+        $game_result[$team]['player']['field'][$key]['power_nominal']   = 100;
         $game_result[$team]['player']['field'][$key]['power_optimal']   = 100*($i+1);
+        $game_result[$team]['player']['field'][$key]['power_optimal']   = 100;
         $game_result[$team]['player']['field'][$key]['style']           = STYLE_NORMAL;
     }
 }
