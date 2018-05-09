@@ -13,11 +13,15 @@ $result_array = array(
 );
 
 $game_id            = 1;
+$stage_id           = 1;
 $guest_national_id  = 0;
 $guest_team_id      = 1;
+$game_guest_team_id = $guest_team_id;
 $home_national_id   = 0;
 $home_team_id       = 2;
+$game_home_team_id  = $home_team_id;
 $tournamenttype_id  = TOURNAMENTTYPE_CHAMPIONSHIP;
+$igosja_season_id   = 1;
 
 for ($z=0; $z<$total_count; $z++)
 {
@@ -536,6 +540,8 @@ $result_array['shot_home'] = $result_array['shot_home'] + $game_result['home']['
 ksort($result_array['diff']);
 ksort($result_array['score']);
 $result_array['score_per_game'] = $result_array['score_per_game'] / $total_count;
+$result_array['shot_guest'] = $result_array['shot_guest'] / $total_count;
+$result_array['shot_home'] = $result_array['shot_home'] / $total_count;
 
 print '<pre>';
 print_r($result_array);
