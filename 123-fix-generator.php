@@ -84,8 +84,8 @@ for ($i=0; $i<2; $i++)
         $game_result[$team]['player']['field'][$key]['age']             = 18;
         $game_result[$team]['player']['field'][$key]['lineup_id']       = 1;
         $game_result[$team]['player']['field'][$key]['player_id']       = 1;
-        $game_result[$team]['player']['field'][$key]['power_nominal']   = 100;
-        $game_result[$team]['player']['field'][$key]['power_optimal']   = 100;
+        $game_result[$team]['player']['field'][$key]['power_nominal']   = 100*($i+1);
+        $game_result[$team]['player']['field'][$key]['power_optimal']   = 100*($i+1);
         $game_result[$team]['player']['field'][$key]['style']           = STYLE_NORMAL;
     }
 }
