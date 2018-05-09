@@ -2,6 +2,8 @@
 
 include(__DIR__ . '/include/generator.php');
 
+$total_count = 1000;
+
 $result_array = array(
     'score_per_game' => 0,
     'score' => array(),
@@ -14,7 +16,6 @@ $guest_team_id      = 1;
 $home_national_id   = 0;
 $home_team_id       = 2;
 $tournamenttype_id  = TOURNAMENTTYPE_CHAMPIONSHIP;
-$total_count        = 10;
 
 for ($z=0; $z<$total_count; $z++)
 {
@@ -101,14 +102,23 @@ $game_result = f_igosja_optimality($game_result);
 
 $should_win = 0;
 
-if ($game_result['home']['team']['power']['percent'] > 52 && $game_result['home']['player']['gk']['power_real'] / $game_result['guest']['team']['power']['total'] * 16 >= 0.75)
+if ($game_result['home']['team']['power']['percent'] > 52)
 {
-    $should_win = 1;
+    $should_win = ($game_result['home']['team']['power']['percent'] - 52) / 3;
 }
-elseif ($game_result['guest']['team']['power']['percent'] > 52 && $game_result['guest']['player']['gk']['power_real'] / $game_result['home']['team']['power']['total'] * 16 >= 0.75)
+elseif ($game_result['guest']['team']['power']['percent'] > 52)
 {
-    $should_win = -1;
+    $should_win = -($game_result['guest']['team']['power']['percent'] - 52) / 3;
 }
+
+//if ($game_result['home']['team']['power']['percent'] > 52 && $game_result['home']['player']['gk']['power_real'] / $game_result['guest']['team']['power']['total'] * 16 >= 0.75)
+//{
+//    $should_win = 1;
+//}
+//elseif ($game_result['guest']['team']['power']['percent'] > 52 && $game_result['guest']['player']['gk']['power_real'] / $game_result['home']['team']['power']['total'] * 16 >= 0.75)
+//{
+//    $should_win = -1;
+//}
 
 for ($game_result['minute']=0; $game_result['minute']<60; $game_result['minute']++)
 {
@@ -519,6 +529,8 @@ $result_array['diff'][$diff]++;
 $result_array['score'][$total]++;
 $result_array['score_per_game'] = $result_array['score_per_game'] + $total;
 }
+ksort($result_array['diff']);
+ksort($result_array['score']);
 $result_array['score_per_game'] = $result_array['score_per_game'] / $total_count;
 
 print '<pre>';

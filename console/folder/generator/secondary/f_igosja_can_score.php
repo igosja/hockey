@@ -16,22 +16,14 @@ function f_igosja_can_score($game_result, $should_win, $team, $opponent)
 
     if ('home' == $team)
     {
-        if (in_array($should_win, array(0, 1)))
-        {
-            $result = true;
-        }
-        elseif (-1 == $should_win && $score_difference <= -2)
+        if ($score_difference < $should_win + 1)
         {
             $result = true;
         }
     }
     else
     {
-        if (in_array($should_win, array(0, -1)))
-        {
-            $result = true;
-        }
-        elseif (1 == $should_win && $score_difference <= -2)
+        if ($score_difference < -$should_win + 1)
         {
             $result = true;
         }
