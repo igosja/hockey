@@ -549,10 +549,10 @@ $result_array['shot_home'] = $result_array['shot_home'] / $total_count;
 
 print '<pre>';
 print_r($game_result['guest']['player']['gk']);
-print_r($game_result['guest']['player']['field']['rd1']);
-print_r($game_result['guest']['player']['field']['ld1']);
-print_r($game_result['guest']['player']['field']['rw1']);
-print_r($game_result['guest']['player']['field']['c1']);
-print_r($game_result['guest']['player']['field']['lw1']);
+print_r($game_result['guest']['player']['field']['rd1']['power_real']);
+print_r($game_result['guest']['player']['field']['ld1']['power_real']);
+print_r($game_result['guest']['player']['field']['rw1']['power_real']);
+print_r($game_result['guest']['player']['field']['c1']['power_real']);
+print_r($game_result['guest']['player']['field']['lw1']['power_real']);
 print_r($result_array);
 exit;
