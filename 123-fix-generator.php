@@ -2,7 +2,7 @@
 
 include(__DIR__ . '/include/generator.php');
 
-$total_count = 1000;
+$total_count = 200;
 
 $result_array = array(
     'score_per_game' => 0,
@@ -60,8 +60,8 @@ for ($i=0; $i<2; $i++)
     $game_result[$team]['player']['gk']['age']              = 18;
     $game_result[$team]['player']['gk']['lineup_id']        = 1;
     $game_result[$team]['player']['gk']['player_id']        = 1;
-    $game_result[$team]['player']['gk']['power_nominal']    = 100;
-    $game_result[$team]['player']['gk']['power_optimal']    = 100;
+    $game_result[$team]['player']['gk']['power_nominal']    = 100*($i+1);
+    $game_result[$team]['player']['gk']['power_optimal']    = 100*($i+1);
 
     for ($j=1; $j<=15; $j++)
     {
