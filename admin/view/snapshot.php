@@ -17,32 +17,36 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <form action="/admin/snapshot.php" class="form-inline" method="GET">
-            <label for="num">Показатель</label>
-            <select class="form-control" id="num" name="num">
-                <?php foreach ($category_array as $key => $value) { ?>
-                    <option
-                        value="<?= $key; ?>"
-                        <?php if ($num_get == $key) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $value['name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-            <label for="season">Сезон</label>
-            <select class="form-control" id="season"  name="season_id">
-                <?php foreach ($season_array as $item) { ?>
-                    <option
-                        value="<?= $item['snapshot_season_id']; ?>"
-                        <?php if ($season_id == $item['snapshot_season_id']) { ?>
-                            selected
-                        <?php } ?>
-                    >
-                        <?= $item['snapshot_season_id']; ?>
-                    </option>
-                <?php } ?>
-            </select>
+            <div class="form-group">
+                <label for="num">Показатель</label>
+                <select class="form-control" id="num" name="num">
+                    <?php foreach ($category_array as $key => $value) { ?>
+                        <option
+                            value="<?= $key; ?>"
+                            <?php if ($num_get == $key) { ?>
+                                selected
+                            <?php } ?>
+                        >
+                            <?= $value['name']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="season">Сезон</label>
+                <select class="form-control" id="season"  name="season_id">
+                    <?php foreach ($season_array as $item) { ?>
+                        <option
+                            value="<?= $item['snapshot_season_id']; ?>"
+                            <?php if ($season_id == $item['snapshot_season_id']) { ?>
+                                selected
+                            <?php } ?>
+                        >
+                            <?= $item['snapshot_season_id']; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
             <button class="btn btn btn-default">Показать</button>
         </form>
     </div>
