@@ -61,11 +61,11 @@
             enabled: false
         },
         series: [{
-            name: 'График',
+            name: <?= $category_array[$num_get]['name']; ?>,
             data: [<?= $snapshot_data; ?>]
         }],
         title: {
-            text: 'График'
+            text: <?= $category_array[$num_get]['name']; ?>
         },
         tooltip: {
             headerFormat: '<b>{point.key}</b><br/>',
@@ -79,7 +79,7 @@
         },
         yAxis: {
             title: {
-                text: 'Значение'
+                text: <?= $category_array[$num_get]['name']; ?>
             }
         }
     });
