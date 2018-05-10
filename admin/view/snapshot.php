@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form action="/admin/snapshot.php" method="GET">
+        <form action="/admin/snapshot.php" class="form-inline" method="GET">
             <label for="num">Показатель</label>
             <select class="form-control" id="num" name="num">
                 <?php foreach ($category_array as $key => $value) { ?>
