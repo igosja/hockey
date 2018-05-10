@@ -5,12 +5,12 @@
  */
 include(__DIR__ . '/../include/include.php');
 
-if ($num_get = (int) f_igosja_request_get('num'))
+if (!$num_get = (int) f_igosja_request_get('num'))
 {
     $num_get = 1;
 }
 
-if ($season_id = (int) f_igosja_request_get('season_id'))
+if (!$season_id = (int) f_igosja_request_get('season_id'))
 {
     $season_id = $igosja_season_id;
 }
