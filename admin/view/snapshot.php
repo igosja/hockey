@@ -61,11 +61,11 @@
             enabled: false
         },
         series: [{
-            name: <?= $category_array[$num_get]['name']; ?>,
+            name: '<?= $category_array[$num_get]['name']; ?>',
             data: [<?= $snapshot_data; ?>]
         }],
         title: {
-            text: <?= $category_array[$num_get]['name']; ?>
+            text: '<?= $category_array[$num_get]['name']; ?>'
         },
         tooltip: {
             headerFormat: '<b>{point.key}</b><br/>',
@@ -79,7 +79,7 @@
         },
         yAxis: {
             title: {
-                text: <?= $category_array[$num_get]['name']; ?>
+                text: '<?= $category_array[$num_get]['name']; ?>'
             }
         }
     });
