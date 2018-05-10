@@ -1,6 +1,9 @@
 <?php
 /**
  * @var $category_array array
+ * @var $num_get integer
+ * @var $season_array array
+ * @var $season_id integer
  * @var $snapshot_categories string
  * @var $snapshot_data string
  */
@@ -17,7 +20,12 @@
             <label for="num">Показатель</label>
             <select class="form-control" id="num" name="num">
                 <?php foreach ($category_array as $key => $value) { ?>
-                    <option value="<?= $key; ?>">
+                    <option
+                        value="<?= $key; ?>"
+                        <?php if ($num_get == $key) { ?>
+                            selected
+                        <?php } ?>
+                    >
                         <?= $value['name']; ?>
                     </option>
                 <?php } ?>
@@ -25,7 +33,12 @@
             <label for="season">Сезон</label>
             <select class="form-control" id="season"  name="season_id">
                 <?php foreach ($season_array as $item) { ?>
-                    <option value="<?= $item['snapshot_season_id']; ?>">
+                    <option
+                        value="<?= $item['snapshot_season_id']; ?>"
+                        <?php if ($season_id == $item['snapshot_season_id']) { ?>
+                            selected
+                        <?php } ?>
+                    >
                         <?= $item['snapshot_season_id']; ?>
                     </option>
                 <?php } ?>
