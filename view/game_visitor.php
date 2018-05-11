@@ -15,7 +15,7 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Расписание
                 Сезон:	45
                 День:	163
@@ -23,7 +23,7 @@
                 Вид матча:	Чемпионат, D4-C
                 Этап:	12 тур
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Прогноз
                 Температура:	0°-6° C
                 Погода:	дождь
@@ -37,14 +37,14 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Посещаемость матча
                 Число болельщиков хозяев:	42 000
                 Число болельщиков гостей:	38 000
                 Стадион "Мюнисипаль Хемис Земамра":	40 000
                 Итого максимально болельщиков на матче:	40 000
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Зрительский интерес к матчу
                 Рейтинг посещаемости хозяев:	0.870 * 0.70 = 0.609
                 Рейтинг посещаемости гостей:	0.750 * 0.70 = 0.525
@@ -57,10 +57,10 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 График посещаемости
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 График суммарной выручки за все билеты
             </div>
         </div>
@@ -69,14 +69,14 @@
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Хозяева
                 От продажи билетов получают:	100%
                 Содержание стадиона:	250 720 $
                 Зарплата игроков за матч:	112 426 $
                 Сумма расходов хозяев:	363 146 $
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 Гости
                 От продажи билетов получают:	0%
                 Содержание стадиона:	0 $
