@@ -35,9 +35,9 @@ for ($z=0; $z<$total_count; $z++)
     $game_result['guest']['team']['style'][1]  = STYLE_NORMAL;
     $game_result['guest']['team']['style'][2]  = STYLE_NORMAL;
     $game_result['guest']['team']['style'][3]  = STYLE_NORMAL;
-    $game_result['guest']['team']['tactic'][1] = TACTIC_ATACK_SUPER;
-    $game_result['guest']['team']['tactic'][2] = TACTIC_ATACK_SUPER;
-    $game_result['guest']['team']['tactic'][3] = TACTIC_ATACK_SUPER;
+    $game_result['guest']['team']['tactic'][1] = TACTIC_NORMAL;
+    $game_result['guest']['team']['tactic'][2] = TACTIC_NORMAL;
+    $game_result['guest']['team']['tactic'][3] = TACTIC_NORMAL;
     $game_result['home']['team']['auto']       = 0;
     $game_result['home']['team']['mood']       = MOOD_NORMAL;
     $game_result['home']['team']['rude'][1]    = RUDE_NORMAL;
@@ -46,9 +46,9 @@ for ($z=0; $z<$total_count; $z++)
     $game_result['home']['team']['style'][1]   = STYLE_NORMAL;
     $game_result['home']['team']['style'][2]   = STYLE_NORMAL;
     $game_result['home']['team']['style'][3]   = STYLE_NORMAL;
-    $game_result['home']['team']['tactic'][1]  = TACTIC_DEFENCE_SUPER;
-    $game_result['home']['team']['tactic'][2]  = TACTIC_DEFENCE_SUPER;
-    $game_result['home']['team']['tactic'][3]  = TACTIC_DEFENCE_SUPER;
+    $game_result['home']['team']['tactic'][1]  = TACTIC_NORMAL;
+    $game_result['home']['team']['tactic'][2]  = TACTIC_NORMAL;
+    $game_result['home']['team']['tactic'][3]  = TACTIC_NORMAL;
 
     $game_result = f_igosja_count_home_bonus($game_result, 0, 10000, 10000);
 
@@ -300,10 +300,10 @@ for ($z=0; $z<$total_count; $z++)
 //
 //        if (rand(0, $defence) > rand(0, $forward))
 //        {
-            $forward = $game_result['home']['team']['power']['forward']['current'] / (9 + $home_penalty_current);
-            $defence = $game_result['guest']['team']['power']['defence']['current'] / (6 + $guest_penalty_current);
+            $forward = $game_result['home']['team']['power']['forward']['current'] / (5 + $home_penalty_current);
+            $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
 
-            if (rand(0, $forward) > rand(0, $defence))
+            if (rand(0, $forward * $game_result['home']['team']['tactic'][1]) > rand(0, $defence))
             {
                 $game_result = f_igosja_select_player_shot($game_result, 'home');
                 $game_result = f_igosja_team_shot_increase($game_result, 'home', 'guest');
@@ -313,7 +313,7 @@ for ($z=0; $z<$total_count; $z++)
                 $shot_power = $game_result['home']['team']['power']['shot'];
                 $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
+                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['guest']['team']['tactic'][1])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                 {
                     $game_result = f_igosja_assist_1($game_result, 'home');
                     $game_result = f_igosja_assist_2($game_result, 'home');
@@ -333,10 +333,10 @@ for ($z=0; $z<$total_count; $z++)
 //
 //        if (rand(0, $defence) > rand(0, $forward))
 //        {
-            $forward = $game_result['guest']['team']['power']['forward']['current'] / (9 + $guest_penalty_current);
-            $defence = $game_result['home']['team']['power']['defence']['current'] / (6 + $home_penalty_current);
+            $forward = $game_result['guest']['team']['power']['forward']['current'] / (5 + $guest_penalty_current);
+            $defence = $game_result['home']['team']['power']['defence']['current'] / (1 + $home_penalty_current);
 
-            if (rand(0, $forward) > rand(0, $defence))
+            if (rand(0, $forward * $game_result['guest']['team']['tactic'][1]) > rand(0, $defence))
             {
                 $game_result = f_igosja_select_player_shot($game_result, 'guest');
                 $game_result = f_igosja_team_shot_increase($game_result, 'guest', 'home');
@@ -346,7 +346,7 @@ for ($z=0; $z<$total_count; $z++)
                 $shot_power = $game_result['guest']['team']['power']['shot'];
                 $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6 + $defence) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
+                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['home']['team']['tactic'][1])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                 {
                     $game_result = f_igosja_assist_1($game_result, 'guest');
                     $game_result = f_igosja_assist_2($game_result, 'guest');
@@ -375,21 +375,21 @@ for ($z=0; $z<$total_count; $z++)
     elseif (TOURNAMENTTYPE_LEAGUE == $tournamenttype_id && in_array($stage_id, array(STAGE_1_QUALIFY, STAGE_2_QUALIFY, STAGE_3_QUALIFY, STAGE_1_8_FINAL, STAGE_QUATER, STAGE_SEMI, STAGE_FINAL)))
     {
         $sql = "SELECT `game_guest_score`+`game_guest_score_bullet` AS `guest_score`,
-                               `game_guest_team_id`,
-                               `game_home_score`+`game_home_score_bullet` AS `home_score`,
-                               `game_home_team_id`
-                        FROM `game`
-                        LEFT JOIN `schedule`
-                        ON `game_schedule_id`=`schedule_id`
-                        WHERE ((`game_guest_team_id`=$game_home_team_id
-                        AND `game_home_team_id`=$game_guest_team_id)
-                        OR (`game_guest_team_id`=$game_guest_team_id
-                        AND `game_home_team_id`=$game_home_team_id))
-                        AND `schedule_season_id`=$igosja_season_id
-                        AND `schedule_tournamenttype_id`=$tournamenttype_id
-                        AND `schedule_stage_id`=$stage_id
-                        AND `game_played`=1
-                        LIMIT 1";
+                       `game_guest_team_id`,
+                       `game_home_score`+`game_home_score_bullet` AS `home_score`,
+                       `game_home_team_id`
+                FROM `game`
+                LEFT JOIN `schedule`
+                ON `game_schedule_id`=`schedule_id`
+                WHERE ((`game_guest_team_id`=$game_home_team_id
+                AND `game_home_team_id`=$game_guest_team_id)
+                OR (`game_guest_team_id`=$game_guest_team_id
+                AND `game_home_team_id`=$game_home_team_id))
+                AND `schedule_season_id`=$igosja_season_id
+                AND `schedule_tournamenttype_id`=$tournamenttype_id
+                AND `schedule_stage_id`=$stage_id
+                AND `game_played`=1
+                LIMIT 1";
         $prev_sql = f_igosja_mysqli_query($sql);
 
         if (0 != $prev_sql->num_rows)
@@ -670,6 +670,7 @@ ksort($result_array['score']);
 $result_array['score_per_game'] = $result_array['score_per_game'] / $total_count;
 $result_array['shot_guest'] = $result_array['shot_guest'] / $total_count;
 $result_array['shot_home'] = $result_array['shot_home'] / $total_count;
+unset($result_array['score']);
 
 print_r($result_array);
 exit;

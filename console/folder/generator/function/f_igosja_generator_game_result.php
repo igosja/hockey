@@ -114,6 +114,7 @@ function f_igosja_generator_game_result()
         {
             $game_result = f_igosja_defence($game_result);
             $game_result = f_igosja_forward($game_result);
+            $game_result = f_igosja_tactic($game_result);
 
             $rude_home  = $game_result['home']['team']['rude'][$game_result['minute'] % 3 + 1];
             $rude_guest = $game_result['guest']['team']['rude'][$game_result['minute'] % 3 + 1];
@@ -155,69 +156,57 @@ function f_igosja_generator_game_result()
                 $guest_penalty_current = 2;
             }
 
-            $defence = $game_result['home']['team']['power']['defence']['current'] / (1 + $home_penalty_current);
-            $forward = $game_result['guest']['team']['power']['forward']['current'] / (2 + $guest_penalty_current);
+            $forward = $game_result['home']['team']['power']['forward']['current'] / (5 + $home_penalty_current);
+            $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
 
-            if (rand(0, $defence) > rand(0, $forward))
+            if (rand(0, $forward * $game_result['home']['team']['tactic']['current']) > rand(0, $defence))
             {
-                $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
-                $defence = $game_result['guest']['team']['power']['defence']['current'] / (2 + $guest_penalty_current);
+                $game_result = f_igosja_select_player_shot($game_result, 'home');
+                $game_result = f_igosja_team_shot_increase($game_result, 'home', 'guest');
+                $game_result = f_igosja_player_shot_increase($game_result, 'home');
+                $game_result = f_igosja_player_shot_power($game_result, 'home');
 
-                if (rand(0, $forward) > rand(0, $defence))
+                $shot_power = $game_result['home']['team']['power']['shot'];
+                $gk_power   = $game_result['guest']['team']['power']['gk'];
+
+                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                 {
-                    $game_result = f_igosja_select_player_shot($game_result, 'home');
-                    $game_result = f_igosja_team_shot_increase($game_result, 'home', 'guest');
-                    $game_result = f_igosja_player_shot_increase($game_result, 'home');
-                    $game_result = f_igosja_player_shot_power($game_result, 'home');
-
-                    $shot_power = $game_result['home']['team']['power']['shot'];
-                    $gk_power   = $game_result['guest']['team']['power']['gk'];
-
-                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
-                    {
-                        $game_result = f_igosja_assist_1($game_result, 'home');
-                        $game_result = f_igosja_assist_2($game_result, 'home');
-                        $game_result = f_igosja_team_score_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_event_score($game_result, 'home');
-                        $game_result = f_igosja_plus_minus_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_player_score_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_player_assist_1_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_player_assist_2_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'home', 'guest');
-                    }
+                    $game_result = f_igosja_assist_1($game_result, 'home');
+                    $game_result = f_igosja_assist_2($game_result, 'home');
+                    $game_result = f_igosja_team_score_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_event_score($game_result, 'home');
+                    $game_result = f_igosja_plus_minus_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_player_score_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_player_assist_1_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_player_assist_2_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'home', 'guest');
                 }
             }
 
-            $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
-            $forward = $game_result['home']['team']['power']['forward']['current'] / (2 + $home_penalty_current);
+            $forward = $game_result['guest']['team']['power']['forward']['current'] / (1 + $guest_penalty_current);
+            $defence = $game_result['home']['team']['power']['defence']['current'] / (2 + $home_penalty_current);
 
-            if (rand(0, $defence) > rand(0, $forward))
+            if (rand(0, $forward * $game_result['guest']['team']['tactic']['current']) > rand(0, $defence))
             {
-                $forward = $game_result['guest']['team']['power']['forward']['current'] / (1 + $guest_penalty_current);
-                $defence = $game_result['home']['team']['power']['defence']['current'] / (2 + $home_penalty_current);
+                $game_result = f_igosja_select_player_shot($game_result, 'guest');
+                $game_result = f_igosja_team_shot_increase($game_result, 'guest', 'home');
+                $game_result = f_igosja_player_shot_increase($game_result, 'guest');
+                $game_result = f_igosja_player_shot_power($game_result, 'guest');
 
-                if (rand(0, $forward) > rand(0, $defence))
+                $shot_power = $game_result['guest']['team']['power']['shot'];
+                $gk_power   = $game_result['home']['team']['power']['gk'];
+
+                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                 {
-                    $game_result = f_igosja_select_player_shot($game_result, 'guest');
-                    $game_result = f_igosja_team_shot_increase($game_result, 'guest', 'home');
-                    $game_result = f_igosja_player_shot_increase($game_result, 'guest');
-                    $game_result = f_igosja_player_shot_power($game_result, 'guest');
-
-                    $shot_power = $game_result['guest']['team']['power']['shot'];
-                    $gk_power   = $game_result['home']['team']['power']['gk'];
-
-                    if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
-                    {
-                        $game_result = f_igosja_assist_1($game_result, 'guest');
-                        $game_result = f_igosja_assist_2($game_result, 'guest');
-                        $game_result = f_igosja_team_score_increase($game_result, 'guest', 'home');
-                        $game_result = f_igosja_event_score($game_result, 'guest');
-                        $game_result = f_igosja_plus_minus_increase($game_result, 'guest', 'home');
-                        $game_result = f_igosja_player_score_increase($game_result, 'guest', 'home');
-                        $game_result = f_igosja_player_assist_1_increase($game_result, 'guest', 'home');
-                        $game_result = f_igosja_player_assist_2_increase($game_result, 'guest', 'home');
-                        $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'guest', 'home');
-                    }
+                    $game_result = f_igosja_assist_1($game_result, 'guest');
+                    $game_result = f_igosja_assist_2($game_result, 'guest');
+                    $game_result = f_igosja_team_score_increase($game_result, 'guest', 'home');
+                    $game_result = f_igosja_event_score($game_result, 'guest');
+                    $game_result = f_igosja_plus_minus_increase($game_result, 'guest', 'home');
+                    $game_result = f_igosja_player_score_increase($game_result, 'guest', 'home');
+                    $game_result = f_igosja_player_assist_1_increase($game_result, 'guest', 'home');
+                    $game_result = f_igosja_player_assist_2_increase($game_result, 'guest', 'home');
+                    $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'guest', 'home');
                 }
             }
         }
@@ -280,6 +269,7 @@ function f_igosja_generator_game_result()
             {
                 $game_result = f_igosja_defence($game_result);
                 $game_result = f_igosja_forward($game_result);
+                $game_result = f_igosja_tactic($game_result);
 
                 if (rand(0, 40) >= 37 && 1 == rand(0, 1))
                 {
@@ -318,38 +308,32 @@ function f_igosja_generator_game_result()
                     $guest_penalty_current = 2;
                 }
 
-                $defence = $game_result['home']['team']['power']['defence']['current'] / (1 + $home_penalty_current);
-                $forward = $game_result['guest']['team']['power']['forward']['current'] / (2 + $guest_penalty_current);
+                $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
+                $defence = $game_result['guest']['team']['power']['defence']['current'] / (2 + $guest_penalty_current);
 
-                if (rand(0, $defence) > rand(0, $forward))
+                if (rand(0, $forward * $game_result['home']['team']['tactic']['current']) > rand(0, $defence))
                 {
-                    $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
-                    $defence = $game_result['guest']['team']['power']['defence']['current'] / (2 + $guest_penalty_current);
+                    $game_result = f_igosja_select_player_shot($game_result, 'home');
+                    $game_result = f_igosja_team_shot_increase($game_result, 'home', 'guest');
+                    $game_result = f_igosja_player_shot_increase($game_result, 'home');
+                    $game_result = f_igosja_player_shot_power($game_result, 'home');
 
-                    if (rand(0, $forward) > rand(0, $defence))
+                    $shot_power = $game_result['home']['team']['power']['shot'];
+                    $gk_power   = $game_result['guest']['team']['power']['gk'];
+
+                    if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                     {
-                        $game_result = f_igosja_select_player_shot($game_result, 'home');
-                        $game_result = f_igosja_team_shot_increase($game_result, 'home', 'guest');
-                        $game_result = f_igosja_player_shot_increase($game_result, 'home');
-                        $game_result = f_igosja_player_shot_power($game_result, 'home');
+                        $game_result = f_igosja_assist_1($game_result, 'home');
+                        $game_result = f_igosja_assist_2($game_result, 'home');
+                        $game_result = f_igosja_team_score_increase($game_result, 'home', 'guest');
+                        $game_result = f_igosja_event_score($game_result, 'home');
+                        $game_result = f_igosja_plus_minus_increase($game_result, 'home', 'guest');
+                        $game_result = f_igosja_player_score_increase($game_result, 'home', 'guest');
+                        $game_result = f_igosja_player_assist_1_increase($game_result, 'home', 'guest');
+                        $game_result = f_igosja_player_assist_2_increase($game_result, 'home', 'guest');
+                        $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'home', 'guest');
 
-                        $shot_power = $game_result['home']['team']['power']['shot'];
-                        $gk_power   = $game_result['guest']['team']['power']['gk'];
-
-                        if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
-                        {
-                            $game_result = f_igosja_assist_1($game_result, 'home');
-                            $game_result = f_igosja_assist_2($game_result, 'home');
-                            $game_result = f_igosja_team_score_increase($game_result, 'home', 'guest');
-                            $game_result = f_igosja_event_score($game_result, 'home');
-                            $game_result = f_igosja_plus_minus_increase($game_result, 'home', 'guest');
-                            $game_result = f_igosja_player_score_increase($game_result, 'home', 'guest');
-                            $game_result = f_igosja_player_assist_1_increase($game_result, 'home', 'guest');
-                            $game_result = f_igosja_player_assist_2_increase($game_result, 'home', 'guest');
-                            $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'home', 'guest');
-
-                            $game_result['minute'] = 65;
-                        }
+                        $game_result['minute'] = 65;
                     }
                 }
 
@@ -358,35 +342,29 @@ function f_igosja_generator_game_result()
                     $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
                     $forward = $game_result['home']['team']['power']['forward']['current'] / (2 + $home_penalty_current);
 
-                    if (rand(0, $defence) > rand(0, $forward))
+                    if (rand(0, $forward * $game_result['home']['guest']['tactic']['current']) > rand(0, $defence))
                     {
-                        $forward = $game_result['guest']['team']['power']['forward']['current'] / (1 + $guest_penalty_current);
-                        $defence = $game_result['home']['team']['power']['defence']['current'] / (2 + $home_penalty_current);
+                        $game_result = f_igosja_select_player_shot($game_result, 'guest');
+                        $game_result = f_igosja_team_shot_increase($game_result, 'guest', 'home');
+                        $game_result = f_igosja_player_shot_increase($game_result, 'guest');
+                        $game_result = f_igosja_player_shot_power($game_result, 'guest');
 
-                        if (rand(0, $forward) > rand(0, $defence))
+                        $shot_power = $game_result['guest']['team']['power']['shot'];
+                        $gk_power   = $game_result['home']['team']['power']['gk'];
+
+                        if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                         {
-                            $game_result = f_igosja_select_player_shot($game_result, 'guest');
-                            $game_result = f_igosja_team_shot_increase($game_result, 'guest', 'home');
-                            $game_result = f_igosja_player_shot_increase($game_result, 'guest');
-                            $game_result = f_igosja_player_shot_power($game_result, 'guest');
+                            $game_result = f_igosja_assist_1($game_result, 'guest');
+                            $game_result = f_igosja_assist_2($game_result, 'guest');
+                            $game_result = f_igosja_team_score_increase($game_result, 'guest', 'home');
+                            $game_result = f_igosja_event_score($game_result, 'guest');
+                            $game_result = f_igosja_plus_minus_increase($game_result, 'guest', 'home');
+                            $game_result = f_igosja_player_score_increase($game_result, 'guest', 'home');
+                            $game_result = f_igosja_player_assist_1_increase($game_result, 'guest', 'home');
+                            $game_result = f_igosja_player_assist_2_increase($game_result, 'guest', 'home');
+                            $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'guest', 'home');
 
-                            $shot_power = $game_result['guest']['team']['power']['shot'];
-                            $gk_power   = $game_result['home']['team']['power']['gk'];
-
-                            if (rand($shot_power / 5, $shot_power) > rand($gk_power / 5, $gk_power * 6) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
-                            {
-                                $game_result = f_igosja_assist_1($game_result, 'guest');
-                                $game_result = f_igosja_assist_2($game_result, 'guest');
-                                $game_result = f_igosja_team_score_increase($game_result, 'guest', 'home');
-                                $game_result = f_igosja_event_score($game_result, 'guest');
-                                $game_result = f_igosja_plus_minus_increase($game_result, 'guest', 'home');
-                                $game_result = f_igosja_player_score_increase($game_result, 'guest', 'home');
-                                $game_result = f_igosja_player_assist_1_increase($game_result, 'guest', 'home');
-                                $game_result = f_igosja_player_assist_2_increase($game_result, 'guest', 'home');
-                                $game_result = f_igosja_current_penalty_decrease_after_goal($game_result, 'guest', 'home');
-
-                                $game_result['minute'] = 65;
-                            }
+                            $game_result['minute'] = 65;
                         }
                     }
                 }

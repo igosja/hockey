@@ -163,6 +163,7 @@ function f_igosja_prepare_game_result_array($game_id, $game_home_national_id, $g
                 1 => 0,
                 2 => 0,
                 3 => 0,
+                'current' => 0,
             ),
             'teamwork' => array(
                 1 => 0,
