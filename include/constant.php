@@ -167,7 +167,7 @@ define('ROUND_GROUP', 4);
 define('ROUND_PLAYOFF', 2);
 define('ROUND_SEASON', 1);
 define('RUDE_NORMAL', 1);
-define('RUDE_PENALTY', 4);
+define('RUDE_PENALTY', 3);
 define('RUDE_RUDE', 2);
 define('SHOP_PRODUCT_POINT', 1);
 define('SHOP_PRODUCT_MONEY', 2);
