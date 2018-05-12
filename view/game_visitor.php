@@ -120,6 +120,14 @@
                     <?= $game_array[0]['guest_team_visitor'] / 100; ?>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Количество кумиров в заявке на матч
+                </td>
+                <td class="text-right">
+                    <?= $game_array[0]['playerspecial_level']; ?>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
