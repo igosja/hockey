@@ -64,8 +64,6 @@ function f_igosja_generator_count_visitor()
     {
         $game_id                = $game['game_id'];
         $game_ticket            = $game['game_ticket'];
-        $guest_visitor          = $game['guest_team_visitor'];
-        $home_visitor           = $game['home_team_visitor'];
         $special                = $game['playerspecial_level'];
         $stadium_capacity       = $game['stadium_capacity'];
         $stage_visitor          = $game['stage_visitor'];
