@@ -39,6 +39,7 @@ $sql = "SELECT `guest_city`.`city_name` AS `guest_city_name`,
                `home_team`.`team_name` AS `home_team_name`,
                `home_team`.`team_salary` AS `home_team_salary`,
                `home_team`.`team_visitor` AS `home_team_visitor`,
+               IFNULL(`playerspecial_level`, 0) AS `playerspecial_level`,
                `schedule_date`,
                `schedule_season_id`,
                `home_stadium`.`stadium_capacity` AS `stadium_capacity`,
@@ -84,6 +85,17 @@ $sql = "SELECT `guest_city`.`city_name` AS `guest_city_name`,
         ON `home_national`.`national_nationaltype_id`=`home_nationaltype`.`nationaltype_id`
         LEFT JOIN `country` AS `home_national_country`
         ON `home_national`.`national_country_id`=`home_national_country`.`country_id`
+        LEFT JOIN
+        (
+            SELECT `lineup_game_id`,
+                   SUM(`playerspecial_level`) AS `playerspecial_level`
+            FROM `playerspecial`
+            LEFT JOIN `lineup`
+            ON `playerspecial_player_id`=`lineup_player_id`
+            WHERE `playerspecial_special_id`=" . SPECIAL_IDOL . "
+            AND `lineup_game_id`=$num_get
+        ) AS `t1`
+        ON `game_id`=`lineup_game_id`
         WHERE (`game_guest_team_id`=$auth_team_id
         OR `game_home_team_id`=$auth_team_id)
         AND `game_played`=0
@@ -100,6 +112,7 @@ $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 
 $guest_visitor          = $game_array[0]['guest_team_visitor'];
 $home_visitor           = $game_array[0]['home_team_visitor'];
+$special                = $game_array[0]['playerspecial_level'];
 $stadium_capacity       = $game_array[0]['stadium_capacity'];
 $stage_visitor          = $game_array[0]['stage_visitor'];
 $tournamenttype_id      = $game_array[0]['tournamenttype_id'];
@@ -124,7 +137,8 @@ for ($i=10; $i<=50; $i++)
         $visitor = $visitor * ($home_visitor * 2 + $guest_visitor) / 3;
     }
 
-    $visitor = $visitor / 1000000;
+    $visitor = $visitor * (100 + $special * 5);
+    $visitor = $visitor / 100000000;
     $visitor = round($visitor);
 
     if ($visitor > $stadium_capacity)
