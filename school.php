@@ -149,6 +149,9 @@ if ($data = f_igosja_request_post('data'))
 
             $special_id = $special_array[0]['special_id'];
         }
+
+        $special_gk     = array(1);
+        $special_field  = array(0, 1);
     }
     else
     {
@@ -170,11 +173,19 @@ if ($data = f_igosja_request_post('data'))
 
             $special_id = $special_array[0]['special_id'];
         }
+
+        $special_gk     = array(0, 1);
+        $special_field  = array(1);
     }
+
+    $special_gk     = implode(',', $special_gk);
+    $special_field  = implode(',', $special_field);
 
     $sql = "SELECT `special_name`
             FROM `special`
             WHERE `special_id`=$special_id
+            AND `special_gk` IN ($special_gk)
+            AND `special_field` IN ($special_field)
             LIMIT 1";
     $special_sql = f_igosja_mysqli_query($sql);
 

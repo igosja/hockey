@@ -87,6 +87,14 @@ function f_igosja_count_player_bonus($game_result)
             {
                 $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
             }
+            elseif (SPECIAL_STICK == $item['playerspecial_special_id'])
+            {
+                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 4 * $item['playerspecial_level'];
+            }
+            elseif (SPECIAL_POSITION == $item['playerspecial_special_id'])
+            {
+                $game_result[$team]['player']['gk']['bonus'] = $game_result[$team]['player']['gk']['bonus'] + 5 * $item['playerspecial_level'];
+            }
             elseif (SPECIAL_LEADER == $item['playerspecial_special_id'])
             {
                 $game_result[$team]['team']['leader'] = $game_result[$team]['team']['leader'] + $item['playerspecial_level'];
