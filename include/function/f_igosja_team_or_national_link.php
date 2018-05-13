@@ -5,15 +5,16 @@
  * @param $team_array array массив з даними команди
  * @param $national_array array массив з даними збірної
  * @param $full boolean назва с містом, країною чи без
+ * @param $link boolean посилання на команду чи просто текстова назва
  * @return string
  */
-function f_igosja_team_or_national_link($team_array, $national_array, $full = true)
+function f_igosja_team_or_national_link($team_array, $national_array, $full = true, $link = true)
 {
     if (0 != $team_array['team_id'])
     {
         $name = $team_array['team_name'];
 
-        if ($full)
+        if (true == $full)
         {
             $name = $name
                     . ' <span class="hidden-xs">('
@@ -23,11 +24,18 @@ function f_igosja_team_or_national_link($team_array, $national_array, $full = tr
                     . ')</span>';
         }
 
-        $result = '<a href="/team_view.php?num='
-                . $team_array['team_id']
-                . '">'
-                . $name
-                . '</a>';
+        if (true == $link)
+        {
+            $result = '<a href="/team_view.php?num='
+                    . $team_array['team_id']
+                    . '">'
+                    . $name
+                    . '</a>';
+        }
+        else
+        {
+            $result = $name;
+        }
     }
     else
     {
@@ -41,11 +49,18 @@ function f_igosja_team_or_national_link($team_array, $national_array, $full = tr
                     . ')</span>';
         }
 
-        $result = '<a href="/national_view.php?num='
-                . $national_array['national_id']
-                . '">'
-                . $name
-                . '</a>';
+        if (true == $link)
+        {
+            $result = '<a href="/national_view.php?num='
+                    . $national_array['national_id']
+                    . '">'
+                    . $name
+                    . '</a>';
+        }
+        else
+        {
+            $result = $name;
+        }
     }
 
     return $result;

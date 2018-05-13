@@ -13,8 +13,7 @@ function f_igosja_generator_building_stadium()
     $sql = "SELECT `buildingstadium_id`,
                    `buildingstadium_capacity`,
                    `buildingstadium_constructiontype_id`,
-                   `team_id`,
-                   `team_user_id`
+                   `team_id`
             FROM `buildingstadium`
             LEFT JOIN `team`
             ON `buildingstadium_team_id`=`team_id`
@@ -30,7 +29,6 @@ function f_igosja_generator_building_stadium()
         $buildingstadium_id = $item['buildingstadium_id'];
         $capacity           = $item['buildingstadium_capacity'];
         $team_id            = $item['team_id'];
-        $user_id            = $item['team_user_id'];
 
         if (CONSTRUCTION_BUILD == $item['buildingstadium_constructiontype_id'])
         {
@@ -57,7 +55,6 @@ function f_igosja_generator_building_stadium()
         $log = array(
             'history_historytext_id' => $historytext_id,
             'history_team_id' => $team_id,
-            'history_user_id' => $user_id,
             'history_value' => $capacity,
         );
         f_igosja_history($log);

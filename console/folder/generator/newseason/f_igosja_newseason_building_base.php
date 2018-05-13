@@ -59,8 +59,7 @@ function f_igosja_newseason_building_base()
             $historytext_id = HISTORYTEXT_BUILDING_DOWN;
         }
 
-        $sql = "SELECT $building_level,
-                       `team_user_id`
+        $sql = "SELECT $building_level
                 FROM team
                 LEFT JOIN $building_table
                 ON $team_building_id=$building_id
@@ -80,7 +79,6 @@ function f_igosja_newseason_building_base()
             'history_building_id' => $buildingbase_building_id,
             'history_historytext_id' => $historytext_id,
             'history_team_id' => $team_id,
-            'history_user_id' => $team_array[0]['team_user_id'],
             'history_value' => $team_array[0][$building_field],
         );
         f_igosja_history($log);

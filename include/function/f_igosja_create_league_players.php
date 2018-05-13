@@ -108,7 +108,6 @@ function f_igosja_create_league_players($team_id)
         $log = array(
             'history_historytext_id' => HISTORYTEXT_PLAYER_FROM_SCHOOL,
             'history_player_id' => $player_id,
-            'history_team_id' => 0,
         );
         f_igosja_history($log);
     }

@@ -173,7 +173,6 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                 'history_building_id' => $building_id,
                                 'history_historytext_id' => HISTORYTEXT_BUILDING_UP,
                                 'history_team_id' => $auth_team_id,
-                                'history_user_id' => $auth_user_id,
                                 'history_value' => $baseinfo_array[0]['base_level'],
                             );
                             f_igosja_history($log);
@@ -277,7 +276,6 @@ if (isset($auth_team_id) && $auth_team_id == $num_get)
                                     'history_building_id' => $building_id,
                                     'history_historytext_id' => HISTORYTEXT_BUILDING_UP,
                                     'history_team_id' => $auth_team_id,
-                                    'history_user_id' => $auth_user_id,
                                     'history_value' => $baseinfo_array[0][$building_name . '_level'],
                                 );
                                 f_igosja_history($log);

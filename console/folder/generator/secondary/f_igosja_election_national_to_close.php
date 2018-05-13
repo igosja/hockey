@@ -60,7 +60,7 @@ function f_igosja_election_national_to_close($electionnational_id)
                 SELECT `national_vice_id`
                 FROM `national`
             )
-            AND `user_id`
+            AND `user_id`!=0
             ORDER BY `electionnationalapplication_count` DESC, `electionnationalapplication_power` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionnationalapplication_id` ASC
             LIMIT 2";
     $user_sql = f_igosja_mysqli_query($sql);

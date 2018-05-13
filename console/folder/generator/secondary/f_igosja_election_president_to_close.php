@@ -39,7 +39,7 @@ function f_igosja_election_president_to_close($electionpresident_id)
                 SELECT `country_vice_id`
                 FROM `country`
             )
-            AND `user_id`
+            AND `user_id`!=0
             ORDER BY `electionpresidentapplication_count` DESC, `userrating_rating` DESC, `user_date_register` ASC, `electionpresidentapplication_id` ASC
             LIMIT 2";
     $user_sql = f_igosja_mysqli_query($sql);

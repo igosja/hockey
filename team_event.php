@@ -52,15 +52,19 @@ $sql = "SELECT `history_building_id`,
                `position_short`,
                `special_name`,
                `surname_name`,
-               `team_id`,
-               `team_name`,
+               `history_team`.`team_id` AS `team_id`,
+               `history_team`.`team_name` AS `team_name`,
+               `history_team2`.`team_id` AS `team2_id`,
+               `history_team2`.`team_name` AS `team2_name`,
                `user_id`,
                `user_login`
         FROM `history`
         LEFT JOIN `historytext`
         ON `history_historytext_id`=`historytext_id`
-        LEFT JOIN `team`
-        ON `history_team_id`=`team_id`
+        LEFT JOIN `team` AS `history_team`
+        ON `history_team_id`=`history_team`.`team_id`
+        LEFT JOIN `team` AS `history_team2`
+        ON `history_team_2_id`=`history_team2`.`team_id`
         LEFT JOIN `user`
         ON `history_user_id`=`user_id`
         LEFT JOIN `special`
@@ -73,7 +77,8 @@ $sql = "SELECT `history_building_id`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
-        WHERE `history_team_id`=$num_get
+        WHERE (`history_team_id`=$num_get
+        OR `history_team_2_id`=$num_get)
         AND `history_season_id`=$season_id
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
