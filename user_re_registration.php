@@ -186,11 +186,31 @@ if ($data = f_igosja_request_get('ok'))
             AND `school_season_id`=$igosja_season_id";
     f_igosja_mysqli_query($sql);
 
-    $sql = "UPDATE `player`
-            SET `player_team_id`=0
+    $sql = "SELECT `player_id`
+            FROM `player`
             WHERE `player_team_id`=$auth_team_id
             ORDER BY `player_id` ASC";
     $player_sql = f_igosja_mysqli_query($sql);
+
+    $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($player_array as $item)
+    {
+        $player_id = $item['player_id'];
+
+        $sql = "UPDATE `player`
+                SET `player_team_id`=0
+                WHERE `player_id`=$player_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $log = array(
+            'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,
+            'history_player_id' => $player_id,
+            'history_team_id' => $auth_team_id,
+        );
+        f_igosja_history($log);
+    }
 
     $sql = "DELETE FROM `phisicalchange`
             WHERE `phisicalchange_team_id`=$auth_team_id";
