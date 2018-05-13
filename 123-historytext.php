@@ -9,6 +9,7 @@ $sql = "UPDATE `history`
         (
             " . HISTORYTEXT_BUILDING_DOWN . ",
             " . HISTORYTEXT_BUILDING_UP . ",
+            " . HISTORYTEXT_PLAYER_FROM_SCHOOL . ",
             " . HISTORYTEXT_PLAYER_BONUS_POINT . ",
             " . HISTORYTEXT_PLAYER_BONUS_POSITION . ",
             " . HISTORYTEXT_PLAYER_RENT . ",
