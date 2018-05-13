@@ -5,8 +5,8 @@ $q = array();
 $q[] = 'CREATE TABLE `special`
         (
             `special_id` INT(2) PRIMARY KEY AUTO_INCREMENT,
-            `special_field` VARCHAR(255),
-            `special_gk` VARCHAR(255),
+            `special_field` INT(1) DEFAULT 0,
+            `special_gk` INT(1) DEFAULT 0,
             `special_name` VARCHAR(255),
             `special_short` VARCHAR(2)
         );';
@@ -19,4 +19,6 @@ $q[] = "INSERT INTO `special` (`special_field`, `special_gk`, `special_name`, `s
                (0, 1, 'Реакция', 'Р'),
                (1, 0, 'Отбор', 'От'),
                (1, 0, 'Бросок', 'Бр'),
-               (1, 1, 'Кумир', 'К');";
+               (1, 1, 'Кумир', 'К'),
+               (0, 1, 'Игра клюшкой', 'Кл'),
+               (0, 1, 'Выбор позиции', 'П');";
