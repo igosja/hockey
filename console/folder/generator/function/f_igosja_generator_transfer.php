@@ -401,7 +401,7 @@ function f_igosja_generator_transfer()
             f_igosja_mysqli_query($sql);
 
             $log = array(
-                'history_historytext_id' => HISTORYTEXT_PLAYER_TRANSFER,
+                'history_historytext_id' => HISTORYTEXT_PLAYER_FREE,
                 'history_player_id' => $player_id,
                 'history_team_id' => $team_seller_id,
                 'history_team_2_id' => $team_buyer_id,

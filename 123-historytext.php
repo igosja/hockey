@@ -21,6 +21,12 @@ $sql = "UPDATE `history`
         )";
 f_igosja_mysqli_query($sql);
 
+$sql = "UPDATE `history`
+        SET `history_historytext_id`=" . HISTORYTEXT_PLAYER_FREE . "
+        WHERE `history_historytext_id`=" . HISTORYTEXT_PLAYER_TRANSFER . "
+        AND `history_team_2_id`=0";
+f_igosja_mysqli_query($sql);
+
 $sql = "SELECT `history_id`,
                FROM_UNIXTIME(`history_date`, '%Y-%m-%d') AS `history_date`,
                `history_player_id`
