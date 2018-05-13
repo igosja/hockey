@@ -43,8 +43,6 @@ function f_igosja_generator_rent_decrease_return()
             'history_player_id' => $player_id,
             'history_team_id' => $item['seller_team_id'],
             'history_team_2_id' => $item['buyer_team_id'],
-            'history_user_id' => $item['seller_user_id'],
-            'history_user_2_id' => $item['buyer_user_id'],
         );
         f_igosja_history($log);
     }

@@ -28,6 +28,9 @@ $sql = "SELECT `history_date`,
                `history_season_id`,
                `historytext_name`,
                `name_name`,
+               `national_id`,
+               `country_name` AS `national_name`,
+               `nationaltype_name`,
                `player_id`,
                `surname_name`,
                `team_id`,
@@ -47,6 +50,12 @@ $sql = "SELECT `history_date`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
+        LEFT JOIN `national`
+        ON `history_national_id`=`national_id`
+        LEFT JOIN `nationaltype`
+        ON `national_nationaltype_id`=`nationaltype_id`
+        LEFT JOIN `country`
+        ON `national_country_id`=`country_id`
         WHERE `history_national_id`=$num_get
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
@@ -56,24 +65,7 @@ $event_array = $event_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_event; $i++)
 {
-    $text = $event_array[$i]['historytext_name'];
-    $text = str_replace(
-        '{user}',
-        '<a href="/user_view.php?num=' . $event_array[$i]['user_id'] . '">' . $event_array[$i]['user_login'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{team}',
-        '<a href="/team_view.php?num=' . $event_array[$i]['team_id'] . '">' . $event_array[$i]['team_name'] . '</a>',
-        $text
-    );
-    $text = str_replace(
-        '{player}',
-        '<a href="/player_view.php?num=' . $event_array[$i]['player_id'] . '">' . $event_array[$i]['name_name'] . ' ' . $event_array[$i]['surname_name'] . '</a>',
-        $text
-    );
-
-    $event_array[$i]['historytext_name'] = $text;
+    $event_array[$i]['historytext_name'] = f_igosja_event_text($event_array[$i]);
 }
 
 $seo_title          = $national_array[0]['country_name'] . '. События команды';

@@ -5,7 +5,8 @@
  */
 function f_igosja_generator_set_injury()
 {
-    $sql = "SELECT `lineup_player_id`
+    $sql = "SELECT `lineup_game_id`,
+                   `lineup_player_id`
             FROM `lineup`
             LEFT JOIN `game`
             ON `lineup_game_id`=`game_id`
@@ -40,6 +41,7 @@ function f_igosja_generator_set_injury()
         f_igosja_mysqli_query($sql);
 
         $log = array(
+            'history_game_id' => $player_array[0]['lineup_game_id'],
             'history_historytext_id' => HISTORYTEXT_PLAYER_INJURY,
             'history_player_id' => $player_id,
             'history_value' => $day,

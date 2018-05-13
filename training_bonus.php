@@ -265,7 +265,6 @@ if ($data = f_igosja_request_post('data'))
             $log = array(
                 'history_historytext_id' => HISTORYTEXT_PLAYER_BONUS_POINT,
                 'history_player_id' => $player_id,
-                'history_user_id' => $auth_user_id,
             );
             f_igosja_history($log);
 
@@ -290,7 +289,6 @@ if ($data = f_igosja_request_post('data'))
                 'history_historytext_id' => HISTORYTEXT_PLAYER_BONUS_POSITION,
                 'history_player_id' => $player_id,
                 'history_position_id' => $position_id,
-                'history_user_id' => $auth_user_id,
             );
             f_igosja_history($log);
 

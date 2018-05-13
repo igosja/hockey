@@ -240,7 +240,6 @@ if ($data = f_igosja_request_get('ok'))
     $log = array(
         'history_historytext_id' => HISTORYTEXT_TEAM_RE_REGISTER,
         'history_team_id' => $auth_team_id,
-        'history_user_id' => $auth_user_id,
     );
     f_igosja_history($log);
 

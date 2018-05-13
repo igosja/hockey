@@ -272,12 +272,17 @@ $userrating_sql = f_igosja_mysqli_query($sql);
 
 $userrating_array = $userrating_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT `history_building_id`,
+$sql = "SELECT `history_country`.`country_name`,
+               `history_building_id`,
+               `history_country_id`,
                `history_date`,
                `history_season_id`,
                `history_value`,
                `historytext_name`,
                `name_name`,
+               `national_id`,
+               `national_country`.`country_name` AS `national_name`,
+               `nationaltype_name`,
                `player_id`,
                `position_short`,
                `special_name`,
@@ -303,6 +308,14 @@ $sql = "SELECT `history_building_id`,
         ON `player_name_id`=`name_id`
         LEFT JOIN `surname`
         ON `player_surname_id`=`surname_id`
+        LEFT JOIN `national`
+        ON `history_national_id`=`national_id`
+        LEFT JOIN `nationaltype`
+        ON `national_nationaltype_id`=`nationaltype_id`
+        LEFT JOIN `country` AS `national_country`
+        ON `national_country_id`=`national_country`.`country_id`
+        LEFT JOIN `country` AS `history_country`
+        ON `history_country_id`=`history_country`.`country_id`
         WHERE `history_user_id`=$num_get
         ORDER BY `history_id` DESC";
 $event_sql = f_igosja_mysqli_query($sql);
