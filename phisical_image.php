@@ -33,6 +33,6 @@ $back_color = imagecolorallocate($image, 40, 96, 144);
 $text_color = imagecolorallocate($image, 255, 255, 255);
 
 //imagestringup($image, 3, 3, 81, iso2uni(convert_cyr_string($text ,"w","i")), $text_color);
-imagettftext($image, 12, 90, 16, 81, $text_color, __DIR__ . '/fonts/helvetiva.otf', $text);
+imagettftext($image, 12, 90, 16, 81, $text_color, __DIR__ . '/fonts/HelveticaNeue.ttf', $text);
 imagepng($image);
 imagedestroy($image);
