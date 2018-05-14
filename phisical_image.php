@@ -2,12 +2,18 @@
 
 include(__DIR__ . '/include/include.php');
 
-if (!$num_get = (int) f_igosja_request_get('num'))
+if (($tournament = f_igosja_request_get('tournament')) && ($stage = f_igosja_request_get('stage')))
 {
-    $num_get = time();
+    $text = $tournament . ', ' . $stage;
 }
-
-$text = f_igosja_ufu_date($num_get);
+elseif ($team = f_igosja_request_get('team'))
+{
+    $text = $team;
+}
+else
+{
+    $text = '-';
+}
 
 header("Content-type: image/png");
 

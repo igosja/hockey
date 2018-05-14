@@ -57,9 +57,9 @@
                     <?php foreach ($schedule_array as $item) { ?>
                         <th>
                             <img
-                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                                alt="<?= $item['tournamenttype_name']; ?>, <?= $item['stage_name']; ?>"
+                                src="/phisical_image.php?stage=<?= $item['stage_name']; ?>&tournament=<?= $item['tournamenttype_name']; ?>"
+                                title="<?= $item['tournamenttype_name']; ?>, <?= $item['stage_name']; ?>"
                             />
                         </th>
                     <?php } ?>
@@ -103,9 +103,9 @@
                     <?php foreach ($schedule_array as $item) { ?>
                         <th>
                             <img
-                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                                alt="<?= f_igosja_ufu_date($item['schedule_id']); ?>"
+                                src="/phisical_image.php?team=<?= $item['schedule_id']; ?>"
+                                title="<?= f_igosja_ufu_date($item['schedule_id']); ?>"
                             />
                         </th>
                     <?php } ?>

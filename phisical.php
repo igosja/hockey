@@ -77,9 +77,14 @@ foreach ($phisical_sql as $item)
     $phisical_array[$item['phisical_id']] = $item['phisical_name'];
 }
 
-$sql = "SELECT `schedule_date`,
-               `schedule_id`
+$sql = "SELECT `schedule_id`,
+               `stage_name`,
+               `tournamenttype_name`
         FROM `schedule`
+        LEFT JOIN `stage`
+        ON `schedule_stage_id`=`stage_id`
+        LEFT JOIN `tournamenttype`
+        ON `schedule_tournamenttype_id`=`tournamenttype_id`
         WHERE `schedule_date`>UNIX_TIMESTAMP()
         AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
         AND `schedule_season_id`=$igosja_season_id
