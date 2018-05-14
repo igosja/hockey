@@ -21,6 +21,7 @@ $image      = imagecreate(20, 90);
 $back_color = imagecolorallocate($image, 40, 96, 144);
 $text_color = imagecolorallocate($image, 255, 255, 255);
 
-imagestringup($image, 3, 3, 81, $text, $text_color);
+//imagestringup($image, 3, 3, 81, $text, $text_color);
+imagettftext($image, 3, 90, 3, 81, $text_color, 'arial.ttf', $text);
 imagepng($image);
 imagedestroy($image);
