@@ -102,11 +102,13 @@
                     <th title="Номинальная сила">С</th>
                     <?php foreach ($schedule_array as $item) { ?>
                         <th>
-                            <img
-                                alt="<?= f_igosja_ufu_date($item['schedule_id']); ?>"
-                                src="/phisical_image.php?team=<?= $item['schedule_id']; ?>"
-                                title="<?= f_igosja_ufu_date($item['schedule_id']); ?>"
-                            />
+                            <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
+                                <img
+                                    alt="<?= f_igosja_ufu_date($item['team_name']); ?>"
+                                    src="/phisical_image.php?team=<?= $item['team_name']; ?>"
+                                    title="<?= f_igosja_ufu_date($item['team_name']); ?>"
+                                />
+                            </a>
                         </th>
                     <?php } ?>
                 </tr>

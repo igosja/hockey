@@ -77,18 +77,34 @@ foreach ($phisical_sql as $item)
     $phisical_array[$item['phisical_id']] = $item['phisical_name'];
 }
 
-$sql = "SELECT `schedule_id`,
-               `stage_name`,
+$sql = "SELECT `stage_name`,
+               `team_id`,
+               `team_name`,
                `tournamenttype_name`
         FROM `schedule`
         LEFT JOIN `stage`
         ON `schedule_stage_id`=`stage_id`
         LEFT JOIN `tournamenttype`
         ON `schedule_tournamenttype_id`=`tournamenttype_id`
+        LEFT JOIN
+        (
+            SELECT `schedule_id`,
+                   `team_id`,
+                   `team_name`
+            FROM `game`
+            LEFT JOIN `schedule`
+            ON `game_schedule_id`=`schedule_id`
+            LEFT JOIN `team`
+            ON IF(`game_guest_team_id`=$auth_team_id, `game_home_team_id`, `game_guest_team_id`)=`team_id`
+            WHERE (`game_guest_team_id`=$auth_team_id
+            OR `game_home_team_id`=$auth_team_id)
+            AND `schedule_season_id`=$igosja_season_id
+        ) AS `t1`
+        ON `schedule`.`schedule_id`=`t1`.`schedule_id`
         WHERE `schedule_date`>UNIX_TIMESTAMP()
         AND `schedule_tournamenttype_id`!=" . TOURNAMENTTYPE_CONFERENCE . "
         AND `schedule_season_id`=$igosja_season_id
-        ORDER BY `schedule_id` ASC";
+        ORDER BY `schedule`.`schedule_id` ASC";
 $schedule_sql = f_igosja_mysqli_query($sql);
 
 $count_schedule = $schedule_sql->num_rows;
