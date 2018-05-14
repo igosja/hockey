@@ -22,6 +22,6 @@ $back_color = imagecolorallocate($image, 40, 96, 144);
 $text_color = imagecolorallocate($image, 255, 255, 255);
 
 //imagestringup($image, 3, 3, 81, iso2uni(convert_cyr_string($text ,"w","i")), $text_color);
-imagettftext($image, 11, 90, 16, 81, $text_color, __DIR__ . '/fonts/HelveticaNeue.ttf', $text);
+imagettftext($image, 11, 190, 16, 81, $text_color, __DIR__ . '/fonts/HelveticaNeue.ttf', $text);
 imagepng($image);
 imagedestroy($image);
