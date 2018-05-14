@@ -77,7 +77,8 @@ foreach ($phisical_sql as $item)
     $phisical_array[$item['phisical_id']] = $item['phisical_name'];
 }
 
-$sql = "SELECT `stage_name`,
+$sql = "SELECT `schedule`.`schedule_id` AS `schedule_id`,
+               `stage_name`,
                `team_id`,
                `team_name`,
                `tournamenttype_name`
