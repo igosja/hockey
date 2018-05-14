@@ -38,8 +38,7 @@ function f_igosja_get_player_real_power_from_optimal($game_result)
 
                 $sql = "SELECT `playerposition_position_id`
                         FROM `playerposition`
-                        WHERE `playerposition_player_id`=$player_id
-                        ORDER BY `playerposition_position_id` ASC";
+                        WHERE `playerposition_player_id`=$player_id";
                 $playerposition_sql = f_igosja_mysqli_query($sql);
 
                 $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);

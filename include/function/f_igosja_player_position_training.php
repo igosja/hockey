@@ -12,7 +12,6 @@ function f_igosja_player_position_training($player_id)
             LEFT JOIN `position`
             ON `playerposition_position_id`=`position_id`
             WHERE `playerposition_player_id`=$player_id
-            ORDER BY `playerposition_position_id` ASC
             LIMIT 1, 1";
     $position_sql = f_igosja_mysqli_query($sql);
 
@@ -23,7 +22,6 @@ function f_igosja_player_position_training($player_id)
                 LEFT JOIN `position`
                 ON `playerposition_position_id`=`position_id`
                 WHERE `playerposition_player_id`=$player_id
-                ORDER BY `playerposition_position_id` ASC
                 LIMIT 1";
         $position_sql = f_igosja_mysqli_query($sql);
 

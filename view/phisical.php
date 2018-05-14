@@ -57,9 +57,9 @@
                     <?php foreach ($schedule_array as $item) { ?>
                         <th>
                             <img
-                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
+                                alt="<?= $item['tournamenttype_name']; ?>, <?= $item['stage_name']; ?>"
+                                src="/phisical_image.php?stage=<?= $item['stage_name']; ?>&tournament=<?= $item['tournamenttype_name']; ?>"
+                                title="<?= $item['tournamenttype_name']; ?>, <?= $item['stage_name']; ?>"
                             />
                         </th>
                     <?php } ?>
@@ -102,11 +102,21 @@
                     <th title="Номинальная сила">С</th>
                     <?php foreach ($schedule_array as $item) { ?>
                         <th>
-                            <img
-                                alt="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                                src="/phisical_image.php?num=<?= $item['schedule_date']; ?>"
-                                title="<?= f_igosja_ufu_date($item['schedule_date']); ?>"
-                            />
+                            <?php if ($item['team_id']) { ?>
+                                <a href="/team_view.php?num=<?= $item['team_id']; ?>" target="_blank">
+                                    <img
+                                        alt="<?= $item['team_name']; ?>"
+                                        src="/phisical_image.php?team=<?= $item['team_name']; ?>"
+                                        title="<?= $item['team_name']; ?>"
+                                    />
+                                </a>
+                            <?php } else { ?>
+                                <img
+                                    alt="<?= $item['team_name']; ?>"
+                                    src="/phisical_image.php?team=<?= $item['team_name']; ?>"
+                                    title="<?= $item['team_name']; ?>"
+                                />
+                            <?php } ?>
                         </th>
                     <?php } ?>
                 </tr>
