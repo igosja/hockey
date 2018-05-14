@@ -183,8 +183,8 @@ function f_igosja_generator_game_result()
                 }
             }
 
-            $forward = $game_result['guest']['team']['power']['forward']['current'] / (1 + $guest_penalty_current);
-            $defence = $game_result['home']['team']['power']['defence']['current'] / (2 + $home_penalty_current);
+            $forward = $game_result['guest']['team']['power']['forward']['current'] / (5 + $guest_penalty_current);
+            $defence = $game_result['home']['team']['power']['defence']['current'] / (1 + $home_penalty_current);
 
             if (rand(0, $forward * $game_result['guest']['team']['tactic']['current']) > rand(0, $defence))
             {
@@ -308,8 +308,8 @@ function f_igosja_generator_game_result()
                     $guest_penalty_current = 2;
                 }
 
-                $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
-                $defence = $game_result['guest']['team']['power']['defence']['current'] / (2 + $guest_penalty_current);
+                $forward = $game_result['home']['team']['power']['forward']['current'] / (5 + $home_penalty_current);
+                $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
 
                 if (rand(0, $forward * $game_result['home']['team']['tactic']['current']) > rand(0, $defence))
                 {
@@ -339,8 +339,8 @@ function f_igosja_generator_game_result()
 
                 if ($game_result['minute'] < 65)
                 {
-                    $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
-                    $forward = $game_result['home']['team']['power']['forward']['current'] / (2 + $home_penalty_current);
+                    $defence = $game_result['guest']['team']['power']['defence']['current'] / (5 + $guest_penalty_current);
+                    $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
 
                     if (rand(0, $forward * $game_result['home']['guest']['tactic']['current']) > rand(0, $defence))
                     {
