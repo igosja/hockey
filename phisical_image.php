@@ -15,20 +15,9 @@ else
     $text = '-';
 }
 
-function iso2uni($isoline)
-{
-    $uniline = '';
-    for ($i = 0; $i < strlen($isoline); $i++) {
-        $thischar = substr($isoline, $i, 1);
-        $charcode = ord($thischar);
-        $uniline .= ($charcode > 175) ? "&#" . (1040 + ($charcode - 176)) . ";" : $thischar;
-    }
-    return $uniline;
-}
-
 header("Content-type: image/png");
 
-$image      = imagecreate(20, 90);
+$image      = imagecreate(20, 200);
 $back_color = imagecolorallocate($image, 40, 96, 144);
 $text_color = imagecolorallocate($image, 255, 255, 255);
 
