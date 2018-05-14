@@ -15,12 +15,13 @@ else
     $text = '-';
 }
 
-function iso2uni ($isoline) {
+function iso2uni($isoline)
+{
     $uniline = '';
-    for ($i=0; $i < strlen($isoline); $i++){
-        $thischar=substr($isoline,$i,1);
-        $charcode=ord($thischar);
-        $uniline.=($charcode>175)?"&#".(1040+($charcode-176)).";":$thischar;
+    for ($i = 0; $i < strlen($isoline); $i++) {
+        $thischar = substr($isoline, $i, 1);
+        $charcode = ord($thischar);
+        $uniline .= ($charcode > 175) ? "&#" . (1040 + ($charcode - 176)) . ";" : $thischar;
     }
     return $uniline;
 }
@@ -31,7 +32,7 @@ $image      = imagecreate(20, 90);
 $back_color = imagecolorallocate($image, 40, 96, 144);
 $text_color = imagecolorallocate($image, 255, 255, 255);
 
-imagestringup($image, 3, 3, 81, iso2uni($text), $text_color);
+imagestringup($image, 3, 3, 81, iso2uni(convert_cyr_string($text ,"w","i")), $text_color);
 //imagettftext($image, 3, 90, 3, 81, $text_color, 'arial.ttf', $text);
 imagepng($image);
 imagedestroy($image);
