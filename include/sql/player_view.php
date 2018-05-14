@@ -67,8 +67,7 @@ $sql = "SELECT `playerposition_player_id`,
         FROM `playerposition`
         LEFT JOIN `position`
         ON `playerposition_position_id`=`position_id`
-        WHERE `playerposition_player_id`=$num_get
-        ORDER BY `playerposition_position_id` ASC";
+        WHERE `playerposition_player_id`=$num_get";
 $playerposition_sql = f_igosja_mysqli_query($sql);
 
 $playerposition_array = $playerposition_sql->fetch_all(MYSQLI_ASSOC);
