@@ -122,6 +122,12 @@
                                 <a href="/admin/user_list.php">Пользователи</a>
                             </li>
                             <li>
+                                <a href="/admin/president_list.php">Президенты федераций</a>
+                            </li>
+                            <li>
+                                <a href="/admin/coach_list.php">Теренера сборных</a>
+                            </li>
+                            <li>
                                 <a href="/admin/blockreason_list.php">Причины блокировки</a>
                             </li>
                         </ul>
