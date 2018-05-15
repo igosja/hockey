@@ -154,7 +154,7 @@
         <table class="table table-bordered table-hover">
             <?php if ($transferapplication_array) { ?>
                 <tr>
-                    <th class="text-center" colspan="11">Ваши заявки</th>
+                    <th class="text-center" colspan="10">Ваши заявки</th>
                 </tr>
                 <tr>
                     <th>№</th>
