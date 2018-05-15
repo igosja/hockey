@@ -165,8 +165,7 @@
                     <th>С</th>
                     <th class="hidden-xs">Спец</th>
                     <th class="hidden-xs">Команда</th>
-                    <th title="Срок аренды (календарных дней)">Дней</th>
-                    <th title="Минимальная запрашиваемая цена за 1 день аренды">Цена</th>
+                    <th title="Минимальная запрашиваемая цена">Цена</th>
                     <th title="Дата проведения торгов">Торги</th>
                 </tr>
                 <?php foreach ($transferapplication_array as $item) { ?>
