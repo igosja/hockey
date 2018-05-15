@@ -7,6 +7,7 @@
  * @var $position_array array
  * @var $total integer
  * @var $transfer_array array
+ * @var $transferapplication_array array
  */
 ?>
 <div class="row">
@@ -151,6 +152,67 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <table class="table table-bordered table-hover">
+            <?php if ($transferapplication_array) { ?>
+                <tr>
+                    <th class="text-center" colspan="11">Ваши заявки</th>
+                </tr>
+                <tr>
+                    <th>№</th>
+                    <th>Игрок</th>
+                    <th class="col-1 hidden-xs">Нац</th>
+                    <th>Поз</th>
+                    <th>В</th>
+                    <th>С</th>
+                    <th class="hidden-xs">Спец</th>
+                    <th class="hidden-xs">Команда</th>
+                    <th title="Срок аренды (календарных дней)">Дней</th>
+                    <th title="Минимальная запрашиваемая цена за 1 день аренды">Цена</th>
+                    <th title="Дата проведения торгов">Торги</th>
+                </tr>
+                <?php foreach ($transferapplication_array as $item) { ?>
+                    <tr>
+                        <td class="text-center"></td>
+                        <td>
+                            <a href="/player_transfer.php?num=<?= $item['player_id']; ?>">
+                                <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
+                            </a>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <a href="/country_news.php?num=<?= $item['pl_country_id']; ?>">
+                                <img
+                                    alt="<?= $item['pl_country_name']; ?>"
+                                    src="/img/country/12/<?= $item['pl_country_id']; ?>.png"
+                                    title="<?= $item['pl_country_name']; ?>"
+                                />
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <?= f_igosja_player_position($item['player_id'], $playerposition_array); ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $item['player_age']; ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $item['player_power_nominal']; ?>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <?= f_igosja_player_special($item['player_id'], $playerspecial_array); ?>
+                        </td>
+                        <td class="hidden-xs">
+                            <a href="/team_view.php?num=<?= $item['team_id']; ?>">
+                                <?= $item['team_name']; ?>
+                                (<?= $item['city_name']; ?>, <?= $item['t_country_name']; ?>)
+                            </a>
+                        </td>
+                        <td class="text-right">
+                            <?= f_igosja_money_format($item['transfer_price_seller']); ?>
+                        </td>
+                        <td class="text-center">
+                            <?= f_igosja_deal_date($item['transfer_date']); ?>
+                        </td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
             <tr>
                 <th>№</th>
                 <th>Игрок</th>
