@@ -9,7 +9,9 @@ function f_igosja_bb_decode($text)
 {
     $text = preg_replace('/\[link\=(.*?)\](.*?)\[\/link\]/s', '<a href="$1" target="_blank">$2</a>', $text);
     $text = preg_replace('/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $text);
-    $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img src="$1" class="img-responsive" />', $text);
+    $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img class="img-responsive" src="$1" />', $text);
+    $text = str_replace('class="img-responsive" src="https://vhol.org/img/', 'src="https://vhol.org/img/', $text);
+    $text = str_replace('class="img-responsive" src="/img/', 'src="/img/', $text);
     $text = str_replace('[p]', '<p>', $text);
     $text = str_replace('[/p]', '</p>', $text);
     $text = str_replace('[table]', '<table class="table table-bordered table-hover">', $text);
