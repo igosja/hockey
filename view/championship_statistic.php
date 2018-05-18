@@ -41,7 +41,7 @@
             <label for="statistictype">Статистика:</label>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-8">
-            <select id="statistictype" class="form-control" name="num">
+            <select class="form-control submit-on-change" id="statistictype" name="num">
                 <?php for ($i=0; $i<$count_statistictype; $i++) { ?>
                     <?php if (0 == $i || $statistictype_array[$i]['statisticchapter_name'] != $statistictype_array[$i-1]['statisticchapter_name']) { ?>
                         <optgroup label="<?= $statistictype_array[$i]['statisticchapter_name']; ?>">
