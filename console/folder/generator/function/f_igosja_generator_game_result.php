@@ -7,6 +7,16 @@ function f_igosja_generator_game_result()
 {
     global $igosja_season_id;
 
+    $coeff_defence = 1;
+    $coeff_defence_gk = 6;
+    $coeff_forward = 4;
+    $coeff_gk = 5;
+    $coeff_rude = 2;
+    $coeff_shot_1 = 5;
+    $coeff_shot_2 = 2;
+    $limit_rude = 38;
+    $max_rude = 40;
+
     $sql = "SELECT `game_id`,
                    `game_bonus_home`,
                    `game_guest_auto`,
@@ -119,7 +129,7 @@ function f_igosja_generator_game_result()
             $rude_home  = $game_result['home']['team']['rude'][$game_result['minute'] % 3 + 1];
             $rude_guest = $game_result['guest']['team']['rude'][$game_result['minute'] % 3 + 1];
 
-            if (rand(0, 40) >= 38 - $rude_home * RUDE_PENALTY && 1 == rand(0, 1))
+            if (rand(0, $max_rude) >= $limit_rude - $rude_home * $coeff_rude && 1 == rand(0, 1))
             {
                 $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
@@ -129,7 +139,7 @@ function f_igosja_generator_game_result()
                 $game_result = f_igosja_team_penalty_increase($game_result, 'home');
             }
 
-            if (rand(0, 40) >= 38 - $rude_guest * RUDE_PENALTY && 1 == rand(0, 1))
+            if (rand(0, $max_rude) >= $limit_rude - $rude_guest * $coeff_rude && 1 == rand(0, 1))
             {
                 $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
@@ -156,8 +166,8 @@ function f_igosja_generator_game_result()
                 $guest_penalty_current = 2;
             }
 
-            $forward = $game_result['home']['team']['power']['forward']['current'] / (5 + $home_penalty_current);
-            $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
+            $forward = $game_result['home']['team']['power']['forward']['current'] / ($coeff_forward + $home_penalty_current);
+            $defence = $game_result['guest']['team']['power']['defence']['current'] / ($coeff_defence + $guest_penalty_current);
 
             if (rand(0, $forward * $game_result['home']['team']['tactic']['current']) > rand(0, $defence))
             {
@@ -169,7 +179,7 @@ function f_igosja_generator_game_result()
                 $shot_power = $game_result['home']['team']['power']['shot'];
                 $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
+                if (rand($shot_power / $coeff_shot_1, $shot_power * $coeff_shot_2) > rand($gk_power / $coeff_gk, $gk_power + $defence * ($coeff_defence_gk - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                 {
                     $game_result = f_igosja_assist_1($game_result, 'home');
                     $game_result = f_igosja_assist_2($game_result, 'home');
@@ -183,8 +193,8 @@ function f_igosja_generator_game_result()
                 }
             }
 
-            $forward = $game_result['guest']['team']['power']['forward']['current'] / (5 + $guest_penalty_current);
-            $defence = $game_result['home']['team']['power']['defence']['current'] / (1 + $home_penalty_current);
+            $forward = $game_result['guest']['team']['power']['forward']['current'] / ($coeff_forward + $guest_penalty_current);
+            $defence = $game_result['home']['team']['power']['defence']['current'] / ($coeff_defence + $home_penalty_current);
 
             if (rand(0, $forward * $game_result['guest']['team']['tactic']['current']) > rand(0, $defence))
             {
@@ -196,7 +206,7 @@ function f_igosja_generator_game_result()
                 $shot_power = $game_result['guest']['team']['power']['shot'];
                 $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
+                if (rand($shot_power / $coeff_shot_1, $shot_power * $coeff_shot_2) > rand($gk_power / $coeff_gk, $gk_power + $defence * ($coeff_defence_gk - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                 {
                     $game_result = f_igosja_assist_1($game_result, 'guest');
                     $game_result = f_igosja_assist_2($game_result, 'guest');
@@ -271,7 +281,10 @@ function f_igosja_generator_game_result()
                 $game_result = f_igosja_forward($game_result);
                 $game_result = f_igosja_tactic($game_result);
 
-                if (rand(0, 40) >= 37 && 1 == rand(0, 1))
+                $rude_home  = $game_result['home']['team']['rude'][$game_result['minute'] % 3 + 1];
+                $rude_guest = $game_result['guest']['team']['rude'][$game_result['minute'] % 3 + 1];
+
+                if (rand(0, $max_rude) >= $limit_rude - $rude_home * $coeff_rude && 1 == rand(0, 1))
                 {
                     $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
@@ -281,7 +294,7 @@ function f_igosja_generator_game_result()
                     $game_result = f_igosja_team_penalty_increase($game_result, 'home');
                 }
 
-                if (rand(0, 40) >= 37 && 1 == rand(0, 1))
+                if (rand(0, $max_rude) >= $limit_rude - $rude_guest * $coeff_rude && 1 == rand(0, 1))
                 {
                     $game_result['player'] = rand(POSITION_LD, POSITION_RW);
 
@@ -308,8 +321,8 @@ function f_igosja_generator_game_result()
                     $guest_penalty_current = 2;
                 }
 
-                $forward = $game_result['home']['team']['power']['forward']['current'] / (5 + $home_penalty_current);
-                $defence = $game_result['guest']['team']['power']['defence']['current'] / (1 + $guest_penalty_current);
+                $forward = $game_result['home']['team']['power']['forward']['current'] / ($coeff_forward + $home_penalty_current);
+                $defence = $game_result['guest']['team']['power']['defence']['current'] / ($coeff_defence + $guest_penalty_current);
 
                 if (rand(0, $forward * $game_result['home']['team']['tactic']['current']) > rand(0, $defence))
                 {
@@ -321,7 +334,7 @@ function f_igosja_generator_game_result()
                     $shot_power = $game_result['home']['team']['power']['shot'];
                     $gk_power   = $game_result['guest']['team']['power']['gk'];
 
-                    if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
+                    if (rand($shot_power / $coeff_shot_1, $shot_power * $coeff_shot_2) > rand($gk_power / $coeff_gk, $gk_power + $defence * ($coeff_defence_gk - $game_result['guest']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'home', 'guest'))
                     {
                         $game_result = f_igosja_assist_1($game_result, 'home');
                         $game_result = f_igosja_assist_2($game_result, 'home');
@@ -339,8 +352,8 @@ function f_igosja_generator_game_result()
 
                 if ($game_result['minute'] < 65)
                 {
-                    $defence = $game_result['guest']['team']['power']['defence']['current'] / (5 + $guest_penalty_current);
-                    $forward = $game_result['home']['team']['power']['forward']['current'] / (1 + $home_penalty_current);
+                    $defence = $game_result['guest']['team']['power']['defence']['current'] / ($coeff_forward + $guest_penalty_current);
+                    $forward = $game_result['home']['team']['power']['forward']['current'] / ($coeff_defence + $home_penalty_current);
 
                     if (rand(0, $forward * $game_result['home']['guest']['tactic']['current']) > rand(0, $defence))
                     {
@@ -352,7 +365,7 @@ function f_igosja_generator_game_result()
                         $shot_power = $game_result['guest']['team']['power']['shot'];
                         $gk_power   = $game_result['home']['team']['power']['gk'];
 
-                        if (rand($shot_power / 5, $shot_power * 2) > rand($gk_power / 5, $gk_power + $defence * (6 - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
+                        if (rand($shot_power / $coeff_shot_1, $shot_power * $coeff_shot_2) > rand($gk_power / $coeff_gk, $gk_power + $defence * ($coeff_defence_gk - $game_result['home']['team']['tactic']['current'])) && f_igosja_can_score($game_result, $should_win, 'guest', 'home'))
                         {
                             $game_result = f_igosja_assist_1($game_result, 'guest');
                             $game_result = f_igosja_assist_2($game_result, 'guest');

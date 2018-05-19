@@ -1,8 +1,4 @@
 jQuery(document).ready(function () {
-    $('#season_id').on('change', function () {
-        $(this).closest('form').submit();
-    });
-
     $('#select-line').on('change', function () {
         var line_id     = $(this).val();
         var player_id   = $(this).data('player');

@@ -18,7 +18,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <form action="/rating.php" method="GET">
             <label for="ratingtype">Рейтинг</label>
-            <select id="ratingtype" class="form-control" name="num">
+            <select class="form-control submit-on-change" id="ratingtype" name="num">
                 <?php for ($i=0; $i<$count_ratingtype; $i++) { ?>
                     <?php if (0 == $i || $ratingtype_array[$i]['ratingchapter_name'] != $ratingtype_array[$i-1]['ratingchapter_name']) { ?>
                         <optgroup label="<?= $ratingtype_array[$i]['ratingchapter_name']; ?>">

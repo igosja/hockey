@@ -19,7 +19,7 @@
             <label for="stage_id">Тур:</label>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-            <select class="form-control" name="stage_id" id="stage_id">
+            <select class="form-control submit-on-change" name="stage_id" id="stage_id">
                 <?php foreach ($stage_array as $item) { ?>
                     <option
                         value="<?= $item['stage_id']; ?>"

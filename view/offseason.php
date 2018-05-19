@@ -19,7 +19,7 @@
             <label for="season_id">Сезон:</label>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-            <select class="form-control" name="season_id" id="season_id">
+            <select class="form-control submit-on-change" name="season_id" id="season_id">
                 <?php foreach ($season_array as $item) { ?>
                     <option
                             value="<?= $item['season_id']; ?>"

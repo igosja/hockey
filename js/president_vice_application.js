@@ -1,8 +1,4 @@
 jQuery(document).ready(function () {
-    $('#page').on('change', function () {
-        $(this).closest('form').submit();
-    });
-
     $('#message').on('blur', function () {
         check_message($(this).val());
     });

@@ -121,6 +121,10 @@ function f_igosja_generator_rating()
             $order = '`country_auto`/`country_game`';
             $place = 'ratingcountry_auto_place';
         }
+        elseif (RATING_COUNTRY_LEAGUE == $item['ratingtype_id'])
+        {
+            $place = 'ratingcountry_league_place';
+        }
 
         if (in_array($item['ratingtype_id'], array(
             RATING_TEAM_AGE,
@@ -302,7 +306,9 @@ function f_igosja_generator_rating()
         elseif (RATING_COUNTRY_LEAGUE == $item['ratingtype_id'])
         {
             $sql = "SELECT `country_id`
-                    FROM `country`
+                    FROM `city`
+                    LEFT JOIN `country`
+                    ON `city_country_id`=`country_id`
                     LEFT JOIN 
                     (
                         SELECT SUM(`leaguecoefficient_point`)/COUNT(`leaguecoefficient_team_id`) AS `leaguecoefficient_coeff_1`,
@@ -348,6 +354,8 @@ function f_igosja_generator_rating()
                         GROUP BY `leaguecoefficient_country_id`
                     ) AS `t5`
                     ON `country_id`=`t5`.`leaguecoefficient_country_id`
+                    WHERE `city_id`!=0
+                    GROUP BY `country_id`
                     ORDER BY IFNULL(`leaguecoefficient_coeff_1`, 0)+IFNULL(`leaguecoefficient_coeff_2`, 0)+IFNULL(`leaguecoefficient_coeff_3`, 0)+IFNULL(`leaguecoefficient_coeff_4`, 0)+IFNULL(`leaguecoefficient_coeff_5`, 0) DESC, `country_id` ASC";
             $country_sql = f_igosja_mysqli_query($sql);
 
