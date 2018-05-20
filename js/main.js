@@ -66,7 +66,13 @@ jQuery(document).ready(function () {
     var grid = $('#grid');
     var grid_th = grid.find('thead').find('th');
     grid_th.on('click', function() {
-        sort_grid(grid, $(this).data('type'), $.inArray(this, grid_th));
+        var sortOrder = $(this).data('order');
+        sort_grid(grid, $(this).data('type'), $.inArray(this, grid_th), sortOrder);
+        if ('desc' === sortOrder) {
+            $(this).data('order', 'asc');
+        } else {
+            $(this).data('order', 'desc');
+        }
     });
 
     $('#signup-login').on('blur', function () {
@@ -388,7 +394,7 @@ function check_questionnaire_email(email)
     }
 }
 
-function sort_grid(grid, type, colNum)
+function sort_grid(grid, type, colNum, sortOrder)
 {
     var position = ['GK', 'LD', 'RD', 'LW', 'C', 'RW'];
     var phisical = [11, 10, 12, 9, 13, 8, 14, 7, 15, 6, 16, 5, 17, 4, 18, 3, 19, 2, 20, 1];
@@ -402,28 +408,62 @@ function sort_grid(grid, type, colNum)
         compare = function(rowA, rowB) {
             var a = parseInt(rowA.cells[colNum].innerHTML);
             var b = parseInt(rowB.cells[colNum].innerHTML);
-            var order = a - b;
+            var order;
+
+            if ('desc' === sortOrder)
+            {
+                order = b - a;
+            }
+            else
+            {
+                order = a - b;
+            }
+
             if (0 !== order)
             {
                 return order;
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('price' === type) {
         compare = function(rowA, rowB) {
             var a = parseInt(rowA.cells[colNum].innerHTML.replace(/\s/g, ''));
             var b = parseInt(rowB.cells[colNum].innerHTML.replace(/\s/g, ''));
-            var order = a - b;
+            var order;
+
+            if ('desc' === sortOrder)
+            {
+                order = b - a;
+            }
+            else
+            {
+                order = a - b;
+            }
+
             if (0 !== order)
             {
                 return order;
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('position' === type) {
@@ -434,11 +474,25 @@ function sort_grid(grid, type, colNum)
             b = b[0];
             if (a !== b)
             {
-                return $.inArray(a, position) - $.inArray(b, position);
+                if ('desc' === sortOrder)
+                {
+                    return $.inArray(b, position) - $.inArray(a, position);
+                }
+                else
+                {
+                    return $.inArray(a, position) - $.inArray(b, position);
+                }
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('phisical' === type) {
@@ -453,11 +507,25 @@ function sort_grid(grid, type, colNum)
             b = parseInt(b[0]);
             if (a !== b)
             {
-                return $.inArray(a, phisical) - $.inArray(b, phisical);
+                if ('desc' === sortOrder)
+                {
+                    return $.inArray(b, phisical) - $.inArray(a, phisical);
+                }
+                else
+                {
+                    return $.inArray(a, phisical) - $.inArray(b, phisical);
+                }
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('country' === type) {
@@ -470,14 +538,31 @@ function sort_grid(grid, type, colNum)
             b = b[4];
             b = b.split('.');
             b = parseInt(b[0]);
-            var order = a - b;
+            var order;
+
+            if ('desc' === sortOrder)
+            {
+                order = b - a;
+            }
+            else
+            {
+                order = a - b;
+            }
+
             if (0 !== order)
             {
                 return order;
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('player' === type) {
@@ -488,11 +573,26 @@ function sort_grid(grid, type, colNum)
             {
                 var sort_array = [a, b];
                 sort_array.sort();
-                return $.inArray(a, sort_array) - $.inArray(b, sort_array);
+
+                if ('desc' === sortOrder)
+                {
+                    return $.inArray(b, sort_array) - $.inArray(a, sort_array);
+                }
+                else
+                {
+                    return $.inArray(a, sort_array) - $.inArray(b, sort_array);
+                }
             }
             else
             {
-                return $(rowA).data('order') - $(rowB).data('order');
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
             }
         };
     } else if ('string' === type) {
@@ -503,16 +603,38 @@ function sort_grid(grid, type, colNum)
             {
                 var sort_array = [a, b];
                 sort_array.sort();
-                return $.inArray(a, sort_array) - $.inArray(b, sort_array);
+
+                if ('desc' === sortOrder)
+                {
+                    return $.inArray(b, sort_array) - $.inArray(a, sort_array);
+                }
+                else
+                {
+                    return $.inArray(a, sort_array) - $.inArray(b, sort_array);
+                }
+            }
+            else
+            {
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
+            }
+        };
+    } else if ('increment' === type) {
+        compare = function(rowA, rowB) {
+            if ('desc' === sortOrder)
+            {
+                return $(rowB).data('order') - $(rowA).data('order');
             }
             else
             {
                 return $(rowA).data('order') - $(rowB).data('order');
             }
-        };
-    } else if ('increment' === type) {
-        compare = function(rowA, rowB) {
-            return $(rowA).data('order') - $(rowB).data('order');
         };
     }
 
