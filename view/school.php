@@ -180,8 +180,8 @@
                             </td>
                             <td class="text-center">17</td>
                             <td class="text-center">
-                                <label class="hidden" for="position">Position</label>
-                                <select class="form-control" id="position" name="data[position_id]">
+                                <label class="hidden" for="school-position">Position</label>
+                                <select class="form-control" id="school-position" name="data[position_id]">
                                     <option value="0">-</option>
                                     <?php foreach ($position_array as $item) { ?>
                                         <option value="<?= $item['position_id']; ?>">
@@ -191,8 +191,8 @@
                                 </select>
                             </td>
                             <td class="text-center">
-                                <label class="hidden" for="special-field">Special</label>
-                                <select class="form-control" id="special-field" name="data[special_field_id]">
+                                <label class="hidden" for="school-special-field">Special</label>
+                                <select class="form-control" id="school-special-field" name="data[special_field_id]">
                                     <option value="0">-</option>
                                     <?php foreach ($special_field_array as $item) { ?>
                                         <option value="<?= $item['special_id']; ?>">
@@ -200,8 +200,8 @@
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <label class="hidden" for="special-gk">Special</label>
-                                <select class="form-control" id="special-gk" name="data[special_gk_id]">
+                                <label class="hidden" for="school-special-gk">Special</label>
+                                <select class="form-control" id="school-special-gk" name="data[special_gk_id]">
                                     <option value="0">-</option>
                                     <?php foreach ($special_gk_array as $item) { ?>
                                         <option value="<?= $item['special_id']; ?>">
@@ -211,8 +211,8 @@
                                 </select>
                             </td>
                             <td class="text-center">
-                                <label class="hidden" for="style">Style</label>
-                                <select class="form-control" id="style" name="data[style_id]">
+                                <label class="hidden" for="school-style">Style</label>
+                                <select class="form-control" id="school-style" name="data[style_id]">
                                     <option value="0">-</option>
                                     <?php foreach ($style_array as $item) { ?>
                                         <option value="<?= $item['style_id']; ?>">
