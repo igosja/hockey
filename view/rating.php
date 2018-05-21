@@ -449,7 +449,7 @@
                                 $item['leaguecoefficient_coeff_3'] +
                                 $item['leaguecoefficient_coeff_4'] +
                                 $item['leaguecoefficient_coeff_5'],
-                                2,
+                                4,
                                 '.',
                                 ' '
                             ); ?>
