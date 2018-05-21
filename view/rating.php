@@ -374,7 +374,7 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <?= number_format($item['country_stadium'], 2, '.', ' '); ?>
+                            <?= number_format($item['country_stadium'], 0, '.', ' '); ?>
                         </td>
                     </tr>
                 <?php } ?>
