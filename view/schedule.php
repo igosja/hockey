@@ -7,7 +7,7 @@
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>Рассписание</h1>
+        <h1>Расписание</h1>
     </div>
 </div>
 <form method="GET">

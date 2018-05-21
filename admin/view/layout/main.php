@@ -206,7 +206,7 @@
                     </li>
                     <li>
                         <a href="javascript:">
-                            Рассписание <span class="fa arrow"></span>
+                            Расписание <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
