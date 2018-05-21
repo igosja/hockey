@@ -54,7 +54,7 @@
         </div>
     </div>
 <?php } else { ?>
-    <form id="capacity-form" method="POST">
+    <form id="stadium-decrease-form" method="POST">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                 Текушая вместимость
@@ -65,18 +65,18 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                <label for="capacity">Новая вместимость</label>
+                <label for="stadium-decrease-input">Новая вместимость</label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                 <input
                     class="form-control"
                     data-current="<?= $stadium_array[0]['stadium_capacity']; ?>"
                     data-sit_price="<?= STADIUM_ONE_SIT_PICE_SELL; ?>"
-                    id="capacity"
+                    id="stadium-decrease-input"
                     name="data[new_capacity]"
                 />
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 xs-text-center capacity-error notification-error"></div>
+            <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 xs-text-center stadium-decrease-error notification-error"></div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
@@ -91,7 +91,7 @@
                 Компенсация
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 strong">
-                <span id="stadium-price">0</span> $
+                <span id="stadium-decrease-price">0</span> $
             </div>
         </div>
         <div class="row">

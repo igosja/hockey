@@ -162,7 +162,146 @@ jQuery(document).ready(function () {
             }
         });
     });
+
+    var stadium_decrease_input      = $('#stadium-decrease-input');
+    var stadium_decrease_current    = stadium_decrease_input.data('current');
+    var stadium_decrease_sit_price  = stadium_decrease_input.data('sit_price');
+
+    stadium_decrease_input.on('change', function() {
+        var capacity_new = parseInt($(this).val());
+
+        if (isNaN(capacity_new))
+        {
+            capacity_new = 0;
+        }
+
+        if (capacity_new > stadium_decrease_current)
+        {
+            capacity_new = stadium_decrease_current;
+        }
+        else if (0 > capacity_new)
+        {
+            capacity_new = 0;
+        }
+
+        var price = get_decrease_price(capacity_new, stadium_decrease_current, stadium_decrease_sit_price);
+
+        $(this).val(capacity_new);
+        $('#stadium-decrease-price').html(price.toLocaleString('ru-RU'));
+
+        check_decrease_capacity($(this).val());
+    });
+
+    $('#stadium-decrease-form').on('submit', function () {
+        check_decrease_capacity(stadium_decrease_input.val());
+
+        if ($('input.has-error').length)
+        {
+            return false;
+        }
+    });
+
+    var stadium_increase_input      = $('#stadium-increase-input');
+    var stadium_increase_current    = stadium_increase_input.data('current');
+    var stadium_increase_sit_price  = stadium_increase_input.data('sit_price');
+
+    stadium_increase_input.on('change', function() {
+        var capacity_new = parseInt($(this).val());
+
+        if (isNaN(capacity_new))
+        {
+            capacity_new = 0;
+        }
+
+        if (capacity_new < stadium_increase_current)
+        {
+            capacity_new = stadium_increase_current;
+        }
+        else if (25000 < capacity_new)
+        {
+            capacity_new = 25000;
+        }
+
+        var price = get_increase_price(capacity_new, stadium_increase_current, stadium_increase_sit_price);
+
+        $(this).val(capacity_new);
+        $('#stadium-increase-price').html(price.toLocaleString('ru-RU'));
+
+        check_increase_capacity($(this).val(), stadium_increase_current, stadium_increase_sit_price);
+    });
+
+    $('#capacity-form').on('submit', function () {
+        check_increase_capacity(stadium_increase_input.val(), stadium_increase_current, stadium_increase_sit_price);
+
+        if ($('input.has-error').length)
+        {
+            return false;
+        }
+    });
 });
+
+function check_increase_capacity(capacity, capacity_current, one_sit_price)
+{
+    var capacity_input = $('#stadium-increase-input');
+    var capacity_error = $('.stadium-increase-error');
+    var price = get_increase_price(capacity, capacity_current, one_sit_price);
+
+    price = parseInt(price);
+
+    if (0 < capacity)
+    {
+        if (parseInt(price) <= parseInt(capacity_input.data('available')))
+        {
+            capacity_error.html('');
+
+            if (capacity_input.hasClass('has-error'))
+            {
+                capacity_input.removeClass('has-error');
+            }
+        }
+        else
+        {
+            capacity_input.addClass('has-error');
+            capacity_error.html('Недостаточно денег на счету.');
+        }
+    }
+    else
+    {
+        capacity_input.addClass('has-error');
+        capacity_error.html('Введите вместимость.');
+    }
+}
+
+function get_increase_price(capacity_new, capacity_current, one_sit_price)
+{
+    return parseInt((Math.pow(capacity_new, 1.1) - Math.pow(capacity_current, 1.1)) * one_sit_price);
+}
+
+function check_decrease_capacity(capacity)
+{
+    var capacity_input = $('#stadium-decrease-input');
+    var capacity_error = $('.stadium-decrease-error');
+
+    if ('' !== capacity)
+    {
+        capacity_error.html('');
+
+        if (capacity_input.hasClass('has-error'))
+        {
+            capacity_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        capacity_input.addClass('has-error');
+        capacity_error.html('Введите вместимость.');
+    }
+}
+
+function get_decrease_price(capacity_new, capacity_current, one_sit_price)
+{
+    return parseInt((Math.pow(capacity_current, 1.1) - Math.pow(capacity_new, 1.1)) * one_sit_price);
+}
 
 function check_gamecomment(gamecomment)
 {
