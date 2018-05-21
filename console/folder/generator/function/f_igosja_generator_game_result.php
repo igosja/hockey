@@ -9,7 +9,7 @@ function f_igosja_generator_game_result()
 
     $coeff_defence = 1;
     $coeff_defence_gk = 6;
-    $coeff_forward = 4;
+    $coeff_forward = 6;
     $coeff_gk = 5;
     $coeff_rude = 2;
     $coeff_shot_1 = 5;
