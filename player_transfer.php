@@ -422,6 +422,20 @@ if (isset($auth_team_id) && $auth_team_id)
             }
             else
             {
+                if ($auth_team_id == $transfer_array[0]['transfer_team_seller_id'])
+                {
+                    f_igosja_session_front_flash_set('error', 'Нельзя покупать игрока у своей команды.');
+
+                    refresh();
+                }
+
+                if ($auth_user_id == $transfer_array[0]['transfer_user_seller_id'])
+                {
+                    f_igosja_session_front_flash_set('error', 'Нельзя покупать игрока у своей команды.');
+
+                    refresh();
+                }
+
                 $transfer_price = $transfer_array[0]['transfer_price_seller'];
                 $start_price    = $transfer_array[0]['transfer_price_seller'];
 

@@ -373,7 +373,9 @@
                                 <?= $item['country_name']; ?>
                             </a>
                         </td>
-                        <td class="text-center"><?= $item['country_stadium']; ?></td>
+                        <td class="text-center">
+                            <?= number_format($item['country_stadium'], 0, '.', ' '); ?>
+                        </td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -402,7 +404,14 @@
                         </td>
                         <td class="text-center"><?= $item['country_game']; ?></td>
                         <td class="text-center"><?= $item['country_auto']; ?></td>
-                        <td class="text-center"><?= round($item['country_auto'] / ($item['country_game'] ? $item['country_game'] : 1) * 100, 1); ?>%</td>
+                        <td class="text-center">
+                            <?= number_format(
+                                round($item['country_auto'] / ($item['country_game'] ? $item['country_game'] : 1) * 100, 2),
+                                2,
+                                '.',
+                                ' '
+                            ); ?>%
+                        </td>
                     </tr>
                 <?php } ?>
                 <tr>
@@ -434,13 +443,16 @@
                         <td class="text-center"><?= $item['leaguecoefficient_coeff_1']; ?></td>
                         <td class="text-center"><?= $item['leaguecoefficient_coeff_2']; ?></td>
                         <td class="text-center">
-                            <?=
-                            $item['leaguecoefficient_coeff_1'] +
-                            $item['leaguecoefficient_coeff_2'] +
-                            $item['leaguecoefficient_coeff_3'] +
-                            $item['leaguecoefficient_coeff_4'] +
-                            $item['leaguecoefficient_coeff_5'];
-                            ?>
+                            <?= number_format(
+                                $item['leaguecoefficient_coeff_1'] +
+                                $item['leaguecoefficient_coeff_2'] +
+                                $item['leaguecoefficient_coeff_3'] +
+                                $item['leaguecoefficient_coeff_4'] +
+                                $item['leaguecoefficient_coeff_5'],
+                                4,
+                                '.',
+                                ' '
+                            ); ?>
                         </td>
                     </tr>
                 <?php } ?>

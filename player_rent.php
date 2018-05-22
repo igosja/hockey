@@ -443,6 +443,20 @@ if (isset($auth_team_id) && $auth_team_id)
             }
             else
             {
+                if ($auth_team_id == $rent_array[0]['rent_team_seller_id'])
+                {
+                    f_igosja_session_front_flash_set('error', 'Нельзя брать в аренду игрока у своей команды.');
+
+                    refresh();
+                }
+
+                if ($auth_user_id == $rent_array[0]['rent_user_seller_id'])
+                {
+                    f_igosja_session_front_flash_set('error', 'Нельзя брать в аренду игрока у своей команды.');
+
+                    refresh();
+                }
+
                 $rent_price     = $rent_array[0]['rent_price_seller'];
                 $start_price    = $rent_array[0]['rent_price_seller'];
                 $rent_day       = $rent_array[0]['rent_day_min'];

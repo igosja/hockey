@@ -31,8 +31,8 @@ function f_igosja_generator_rent()
         $team_id = $rent['rent_team_seller_id'];
         $user_id = $rent['rent_user_seller_id'];
 
-        $team_array = array(-1);
-        $user_array = array(-1);
+        $team_array = array($team_id);
+        $user_array = array($user_id);
 
         $sql = "SELECT `transfer_team_buyer_id`,
                        `transfer_team_seller_id`

@@ -42,6 +42,15 @@ function f_igosja_bb_decode($text)
     $text = str_replace('[/s]', '</del>', $text);
     $text = str_replace('[quote]', '<blockquote>', $text);
     $text = str_replace('[/quote]', '</blockquote>', $text);
+    $text = str_replace(':)', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm01.png" />', $text);
+    $text = str_replace(':(', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm02.png" />', $text);
+    $text = str_replace(':D', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm03.png" />', $text);
+    $text = str_replace(';)', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm04.png" />', $text);
+    $text = str_replace(':boss:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm05.png" />', $text);
+    $text = str_replace(':applause:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm06.png" />', $text);
+    $text = str_replace(':surprise:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm07.png" />', $text);
+    $text = str_replace(':sick:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm08.png" />', $text);
+    $text = str_replace(':angry:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm09.png" />', $text);
     $text = nl2br($text);
 
     return $text;
