@@ -26,7 +26,7 @@ function check_login_email()
 
     if ('' !== login_input.val() || '' !== email_input.val())
     {
-        if ('' === email_input.val() || ('' !== email_input.val() && email_patter.test(email_input.val())))
+        if ('' === email_input.val() || ('' !== email_input.val() && email_pattern.test(email_input.val())))
         {
             password_error.html('');
             email_error.html('');

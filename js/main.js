@@ -1,4 +1,19 @@
-var email_patter = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
+var email_pattern = /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
+var wysibbSettings = {
+    buttons: "bold,italic,underline,strike,|,img,link,|,bullist,numlist,|,quote,table,smilebox",
+    lang: "ru",
+    smileList: [
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm01.png" class="sm">', bbcode:":)"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm02.png" class="sm">', bbcode:":("},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm03.png" class="sm">', bbcode:":D"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm04.png" class="sm">', bbcode:";)"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm05.png" class="sm">', bbcode:":boss:"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm06.png" class="sm">', bbcode:":applause:"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm07.png" class="sm">', bbcode:":surprise:"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm08.png" class="sm">', bbcode:":sick:"},
+        {img: '<img src="{themePrefix}{themeName}/img/smiles/sm09.png" class="sm">', bbcode:":angry:"}
+    ]
+};
 
 jQuery(document).ready(function () {
     $('.submit-on-change').on('change', function () {
@@ -238,7 +253,156 @@ jQuery(document).ready(function () {
             return false;
         }
     });
+    var countryUpdateNewsTextArea = $('#country-news-update-text');
+
+    $('#country-news-update-title').on('blur', function () {
+        check_country_news_update_title($(this).val());
+    });
+
+    countryUpdateNewsTextArea.on('blur', function () {
+        if (1 === countryUpdateNewsTextArea.data('bb'))
+        {
+            countryUpdateNewsTextArea.sync();
+        }
+        check_country_news_update_text($(this).val());
+    });
+
+    $('#country-news-update-form').on('submit', function () {
+        if (1 === countryUpdateNewsTextArea.data('bb'))
+        {
+            countryUpdateNewsTextArea.sync();
+        }
+
+        check_country_news_update_title($('#country-news-update-title').val());
+        check_country_news_update_text(countryUpdateNewsTextArea.val());
+
+        if ($('textarea.has-error').length || $('input.has-error').length)
+        {
+            return false;
+        }
+    });
+
+    if (1 === countryUpdateNewsTextArea.data('bb'))
+    {
+        countryUpdateNewsTextArea.wysibb(wysibbSettings);
+    }
+    var countryNewsCreateTextArea = $('#country-news-create-text');
+
+    $('#country-news-create-title').on('blur', function () {
+        check_country_news_create_title($(this).val());
+    });
+
+    countryNewsCreateTextArea.on('blur', function () {
+        if (1 === countryNewsCreateTextArea.data('bb'))
+        {
+            countryNewsCreateTextArea.sync();
+        }
+        check_country_news_create_text($(this).val());
+    });
+
+    $('#country-news-create-form').on('submit', function () {
+        if (1 === countryNewsCreateTextArea.data('bb'))
+        {
+            countryNewsCreateTextArea.sync();
+        }
+        check_country_news_create_title($('#country-news-create-title').val());
+        check_country_news_create_text(countryNewsCreateTextArea.val());
+
+        if ($('textarea.has-error').length || $('input.has-error').length)
+        {
+            return false;
+        }
+    });
+
+    if (1 === countryNewsCreateTextArea.data('bb'))
+    {
+        countryNewsCreateTextArea.wysibb(wysibbSettings);
+    }
 });
+
+function check_country_news_create_title(newstitle)
+{
+    var newstitle_input = $('#country-news-create-title');
+    var newstitle_error = $('.country-news-create-title-error');
+
+    if ('' !== newstitle)
+    {
+        newstitle_error.html('');
+
+        if (newstitle_input.hasClass('has-error'))
+        {
+            newstitle_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        newstitle_input.addClass('has-error');
+        newstitle_error.html('Введите заголовок.');
+    }
+}
+
+function check_country_news_create_text(newstext)
+{
+    var newstext_input = $('#country-news-create-text');
+    var newstext_error = $('.country-news-create-text-error');
+
+    if ('' !== newstext)
+    {
+        newstext_error.html('');
+
+        if (newstext_input.hasClass('has-error'))
+        {
+            newstext_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        newstext_input.addClass('has-error');
+        newstext_error.html('Введите текст.');
+    }
+}
+
+function check_country_news_update_title(newstitle)
+{
+    var newstitle_input = $('#country-news-update-title');
+    var newstitle_error = $('.country-news-update-title-error');
+
+    if ('' !== newstitle)
+    {
+        newstitle_error.html('');
+
+        if (newstitle_input.hasClass('has-error'))
+        {
+            newstitle_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        newstitle_input.addClass('has-error');
+        newstitle_error.html('Введите заголовок.');
+    }
+}
+
+function check_country_news_update_text(newstext)
+{
+    var newstext_input = $('#country-news-update-text');
+    var newstext_error = $('.country-news-update-text-error');
+
+    if ('' !== newstext)
+    {
+        newstext_error.html('');
+
+        if (newstext_input.hasClass('has-error'))
+        {
+            newstext_input.removeClass('has-error');
+        }
+    }
+    else
+    {
+        newstext_input.addClass('has-error');
+        newstext_error.html('Введите текст.');
+    }
+}
 
 function check_increase_capacity(capacity, capacity_current, one_sit_price)
 {
@@ -421,7 +585,7 @@ function check_signup_email(email)
 {
     if ('' !== email)
     {
-        if (email_patter.test(email))
+        if (email_pattern.test(email))
         {
             $.ajax({
                 data: {signup_email: email},
@@ -511,7 +675,7 @@ function check_questionnaire_email(email)
 
     if ('' !== email)
     {
-        if (email_patter.test(email))
+        if (email_pattern.test(email))
         {
             email_error.html('');
 
