@@ -75,25 +75,25 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                    <label for="logo">Эмблема:</label>
+                    <label for="team-logo-file">Эмблема:</label>
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                    <input id="logo" name="data[logo]" type="file"/>
+                    <input id="team-logo-file" name="data[logo]" type="file"/>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center logo-error notification-error"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center team-logo-file-error notification-error"></div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                    Чем новая эмблема лучше старой:
+                    <label for="team-logo-text">Чем новая эмблема лучше старой:</label>
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                    <textarea class="form-control" id="text" name="data[text]"></textarea>
+                    <textarea class="form-control" id="team-logo-text" name="data[text]"></textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-error notification-error"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center team-logo-text-error notification-error"></div>
             </div>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"></div>
