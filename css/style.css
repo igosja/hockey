@@ -722,6 +722,14 @@ td.table-bordered-right {
     color: #D8000C;
 }
 
+.tournament-table-up {
+    background-color: #DFF2BF;
+}
+
+.tournament-table-down {
+    background-color: #FFBABA;
+}
+
 .notification-error {
     color: #D8000C;
     padding: 2px;

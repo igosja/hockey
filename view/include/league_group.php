@@ -84,7 +84,9 @@
                     <th class="col-5" title="Очки">О</th>
                 </tr>
                 <?php foreach ($group['team'] as $item) { ?>
-                    <tr>
+                    <tr
+                        <?php if ($item['league_place'] <= 2) { ?>class="tournament-table-up" title="Выход из группы"<?php } ?>
+                    >
                         <td class="text-center"><?= $item['league_place']; ?></td>
                         <td>
                             <img
