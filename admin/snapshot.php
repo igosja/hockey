@@ -166,6 +166,14 @@ $category_array = array(
         'name' => 'Средний размер стадиона',
         'select' => '`snapshot_stadium`',
     ),
+    41 => array(
+        'name' => 'Игроков со спецвозможностью Игра клюшкой (Кл)',
+        'select' => '`snapshot_player_special_percent_stick`',
+    ),
+    42 => array(
+        'name' => 'Игроков со спецвозможностью Выбор позиции (П)',
+        'select' => '`snapshot_player_special_percent_position`',
+    ),
 );
 
 if (!$num_get = (int) f_igosja_request_get('num'))
