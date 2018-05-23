@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `forummessage`
         (
             `forummessage_id` INT(11) PRIMARY KEY AUTO_INCREMENT,
+            `forummessage_blocked` INT(1) DEFAULT 0,
             `forummessage_check` INT(11) DEFAULT 0,
             `forummessage_date` INT(11) DEFAULT 0,
             `forummessage_date_update` INT(11) DEFAULT 0,

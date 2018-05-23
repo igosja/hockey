@@ -32,6 +32,7 @@ $sql = "SELECT `forumchapter_id`,
                `forumchapter_name`,
                `forumgroup_id`,
                `forumgroup_name`,
+               `forummessage_blocked`,
                `forummessage_text`,
                `forumtheme_id`,
                `forumtheme_name`,
@@ -55,6 +56,11 @@ if (0 == $forummessage_sql->num_rows)
 
 $forummessage_array = $forummessage_sql->fetch_all(MYSQLI_ASSOC);
 
+if (1 == $forummessage_array[0]['forummessage_blocked'])
+{
+    f_igosja_session_front_flash_set('warning', 'Сообщение заблокировано и не может быть отредактировано.');
+}
+
 $forumtheme_id = $forummessage_array[0]['forumtheme_id'];
 
 $sql = "SELECT `forummessage_id`
@@ -68,7 +74,7 @@ $forumheader_array = $forumheader_sql->fetch_all(MYSQLI_ASSOC);
 
 $forumheader_id = $forumheader_array[0]['forummessage_id'];
 
-if ($data = f_igosja_request_post('data'))
+if ($data = f_igosja_request_post('data') && 0 == $forummessage_array[0]['forummessage_blocked'])
 {
     if (isset($data['text']) && $auth_date_block_forum < time() && $auth_date_block_comment < time())
     {

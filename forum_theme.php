@@ -119,7 +119,8 @@ if (!$page = (int) f_igosja_request_get('page'))
 $limit  = 20;
 $offset = ($page - 1) * $limit;
 
-$sql = "SELECT `forummessage_date`,
+$sql = "SELECT `forummessage_blocked`,
+               `forummessage_date`,
                `forummessage_date_update`,
                `forummessage_id`,
                `forummessage_text`,
@@ -148,6 +149,7 @@ else
 }
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
+               `forummessage_blocked`,
                `forummessage_date`,
                `forummessage_date_update`,
                `forummessage_id`,
