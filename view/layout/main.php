@@ -134,11 +134,13 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- vhol bottom -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6160655475641285"
-                         data-ad-slot="7015735307"
-                         data-ad-format="auto"></ins>
+                    <ins
+                        class="adsbygoogle"
+                        data-ad-client="ca-pub-6160655475641285"
+                        data-ad-slot="7015735307"
+                        data-ad-format="auto"
+                        style="display:block"
+                    ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
