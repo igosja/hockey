@@ -81,7 +81,10 @@
                 <th class="col-5" title="Очки">О</th>
             </tr>
             <?php foreach ($team_array as $item) { ?>
-                <tr>
+                <tr
+                    <?php if ($item['championship_place'] <= 8) { ?>class="tournament-table-up" title="Зона плей-офф"<?php } ?>
+                    <?php if ($item['championship_place'] >= 15) { ?>class="tournament-table-down" title="Зона вылета"<?php } ?>
+                >
                     <td class="text-center"><?= $item['championship_place']; ?></td>
                     <td>
                         <a href="/team_view.php?num=<?= $item['team_id']; ?>">

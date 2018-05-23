@@ -87,28 +87,7 @@
                             <?= f_igosja_ufu_date_time($item['forummessage_date']); ?>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                            <?php if (isset($auth_user_id)) { ?>
-                                <?php if ($auth_user_id == $item['user_id'] || USERROLE_USER != $auth_userrole_id) { ?>
-                                    <a href="/forum_message_update.php?num=<?= $item['forummessage_id']; ?>">
-                                        Редактировать
-                                    </a>
-                                    |
-                                    <a href="/forum_message_delete.php?num=<?= $item['forummessage_id']; ?>">
-                                        Удалить
-                                    </a>
-                                <?php } ?>
-                                <?php if ($auth_user_id != $item['user_id']) { ?>
-                                    <a class="forum-complain" data-message="<?= $item['forummessage_id']; ?>" href="javascript:">
-                                        Пожаловаться
-                                    </a>
-                                <?php } ?>
-                                <?php if (USERROLE_USER != $auth_userrole_id) { ?>
-                                    |
-                                    <a href="/forum_message_moove.php?num=<?= $item['forummessage_id']; ?>">
-                                        Переместить
-                                    </a>
-                                <?php } ?>
-                            <?php } ?>
+                            <?= f_igosja_forum_message_buttons($item); ?>
                         </div>
                     </div>
                     <div class="row">

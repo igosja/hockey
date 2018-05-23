@@ -27,6 +27,7 @@
     <meta name="google-site-verification" content="RBlpWHwlnGqvB36CLDYF58VqxN0bcz5W5JbxcX-PTeQ" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=<?= filemtime(__DIR__ . '/../../css/style.css'); ?>">
+    <link rel="stylesheet" href="/js/wysibb/theme/default/wbbtheme.css?v=<?= filemtime(__DIR__ . '/../../js/wysibb/theme/default/wbbtheme.css'); ?>" type="text/css" />
     <meta name='advmaker-verification' content='8c9c1fd4f68997b42a16379bac71f980'/>
     <?php if (false && (!isset($auth_user_id) || $auth_date_vip < time()) && 'vhol.org' == $_SERVER['HTTP_HOST']) { ?>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -133,11 +134,13 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- vhol bottom -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6160655475641285"
-                         data-ad-slot="7015735307"
-                         data-ad-format="auto"></ins>
+                    <ins
+                        class="adsbygoogle"
+                        data-ad-client="ca-pub-6160655475641285"
+                        data-ad-slot="7015735307"
+                        data-ad-format="auto"
+                        style="display:block"
+                    ></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
@@ -167,11 +170,9 @@
 </div>
 <script src="/js/jquery.js?v=<?= filemtime(__DIR__ . '/../../js/jquery.js'); ?>"></script>
 <script src="/js/main.js?v=<?= filemtime(__DIR__ . '/../../js/main.js'); ?>"></script>
+<script src="/js/wysibb/jquery.wysibb.min.js?v=<?= filemtime(__DIR__ . '/../../js/wysibb/jquery.wysibb.min.js'); ?>"></script>
 <?php if (file_exists(__DIR__ . '/../../js/' . $tpl . '.js') || file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
-    <?php if (in_array($tpl, array('forum_theme', 'forum_theme_create', 'forum_message_update', 'country_news_create', 'country_news_update', 'support', 'dialog', 'review_create'))) { ?>
-        <script src="/js/wysibb/jquery.wysibb.min.js"></script>
-        <link rel="stylesheet" href="/js/wysibb/theme/default/wbbtheme.css" type="text/css" />
-    <?php } ?>
+
     <?php if (file_exists(__DIR__ . '/../../js/' . $controller . '.js')) { ?>
         <script src="/js/<?= $controller; ?>.js?v=<?= filemtime(__DIR__ . '/../../js/' . $controller . '.js'); ?>"></script>
     <?php } ?>
