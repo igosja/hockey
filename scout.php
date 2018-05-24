@@ -90,7 +90,8 @@ if ($data = f_igosja_request_post('data'))
                 $sql = "SELECT COUNT(`scout_id`) AS `count`
                         FROM `scout`
                         WHERE `scout_player_id`=$player_id
-                        AND `scout_ready`=0";
+                        AND `scout_ready`=0
+                        AND `scout_team_id`=$num_get";
                 $check_sql = f_igosja_mysqli_query($sql);
 
                 $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -101,7 +102,8 @@ if ($data = f_igosja_request_post('data'))
                     $sql = "SELECT COUNT(`scout_id`) AS `count`
                             FROM `scout`
                             WHERE `scout_player_id`=$player_id
-                            AND `scout_ready`=1";
+                            AND `scout_ready`=1
+                            AND `scout_team_id`=$num_get";
                     $check_sql = f_igosja_mysqli_query($sql);
 
                     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
