@@ -109,6 +109,13 @@ if (isset($_SESSION['user_id']))
     $auth_use_bb                    = $user_array[0]['user_use_bb'];
     $auth_userrole_id               = $user_array[0]['user_userrole_id'];
 
+    if (USERROLE_USER != $auth_userrole_id && !in_array(f_igosja_get_user_ip(), array('185.38.209.242', '62.205.148.101')))
+    {
+        unset($_SESSION['team_id']);
+
+        refresh();
+    }
+
     if (isset($_SESSION['team_id']) && $_SESSION['team_id'] == $user_array[0]['team_vice_id'])
     {
         $auth_team_vice_id = $user_array[0]['team_vice_id'];
