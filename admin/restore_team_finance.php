@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__ . '/include/include.php');
+include(__DIR__ . '/../include/include.php');
 
 $sql = "SELECT `team_id`
         FROM `team`
@@ -47,3 +47,5 @@ foreach ($team_array as $team)
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 }
+
+redirect('/admin/index.php');
