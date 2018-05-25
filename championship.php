@@ -263,6 +263,7 @@ else
         $sql = "SELECT `schedule_id`
                 FROM `schedule`
                 WHERE `schedule_stage_id`=$stage_id
+                AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_CHAMPIONSHIP . "
                 AND `schedule_season_id`=$season_id
                 ORDER BY `schedule_id` ASC";
         $schedule_sql = f_igosja_mysqli_query($sql);
