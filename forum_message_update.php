@@ -74,7 +74,7 @@ $forumheader_array = $forumheader_sql->fetch_all(MYSQLI_ASSOC);
 
 $forumheader_id = $forumheader_array[0]['forummessage_id'];
 
-if ($data = f_igosja_request_post('data') && 0 == $forummessage_array[0]['forummessage_blocked'])
+if (($data = f_igosja_request_post('data')) && (0 == $forummessage_array[0]['forummessage_blocked']))
 {
     if (isset($data['text']) && $auth_date_block_forum < time() && $auth_date_block_comment < time())
     {
