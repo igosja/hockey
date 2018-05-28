@@ -5,6 +5,7 @@ $q = array();
 $q[] = 'CREATE TABLE `site`
         (
             `site_id` INT(1) PRIMARY KEY AUTO_INCREMENT,
+            `site_date_cron` INT(11) DEFAULT 0,
             `site_status` INT(1) DEFAULT 1,
             `site_version_1` INT(5) DEFAULT 0,
             `site_version_2` INT(5) DEFAULT 0,
