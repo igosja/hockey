@@ -27,6 +27,7 @@ if (!in_array(date('H:i'), array('11:56', '11:57', '11:58', '11:59', '12:00', '1
 
 $function_array = array(
     'f_igosja_generator_update_date_cron',
+    'f_igosja_generator_dump_database',
     'f_igosja_generator_site_close',
     'f_igosja_generator_player_power_new_to_old',
     'f_igosja_generator_check_mood_limit',
