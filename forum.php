@@ -52,15 +52,11 @@ foreach ($forumchapter_array as $item)
                     LEFT JOIN `stadium`
                     ON `team_stadium_id`=`stadium_id`
                     LEFT JOIN `city`
-                    ON `stadium_city_id`=stadium_id
+                    ON `stadium_city_id`=`city_id`
                     WHERE `team_user_id`=$auth_user_id";
             $country_sql = f_igosja_mysqli_query($sql);
 
             $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
-
-            print '<pre>';
-            print_r($country_array);
-            exit;
 
             foreach ($country_array as $country)
             {
