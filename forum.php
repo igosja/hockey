@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var $auth_country_id integer
+ * @var $auth_user_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -43,10 +43,28 @@ foreach ($forumchapter_array as $item)
     }
     else
     {
-        if (!isset($auth_country_id))
+        $country_id = array(0);
+
+        if (isset($auth_user_id))
         {
-            $auth_country_id = 0;
+            $sql = "SELECT `city_country_id`
+                    FROM `team`
+                    LEFT JOIN `stadium`
+                    ON `team_stadium_id`=`stadium_id`
+                    LEFT JOIN `city`
+                    ON `stadium_city_id`=`city_id`
+                    WHERE `team_user_id`=$auth_user_id";
+            $country_sql = f_igosja_mysqli_query($sql);
+
+            $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($country_array as $country)
+            {
+                $country_id[] = $country['city_country_id'];
+            }
         }
+
+        $country_id = implode(',', $country_id);
 
         $sql = "SELECT `forumgroup_count_message`,
                        `forumgroup_count_theme`,
@@ -65,7 +83,7 @@ foreach ($forumchapter_array as $item)
                 LEFT JOIN `user`
                 ON `forumgroup_last_user_id`=`user_id`
                 WHERE `forumgroup_forumchapter_id`=$forumchapter_id
-                AND `forumgroup_country_id`=$auth_country_id
+                AND `forumgroup_country_id` IN ($country_id)
                 ORDER BY `forumgroup_order` ASC";
     }
 
