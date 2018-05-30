@@ -102,68 +102,75 @@
     </div>
 <?php } else { ?>
     <?php if ($scout_array) { ?>
-    <div class="row margin-top">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            Игроки вашей команды, находящиеся на изучении:
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                Игроки вашей команды, находящиеся на изучении:
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>Игрок</th>
-                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
-                    <th class="col-10" title="Позиция">Поз</th>
-                    <th class="col-5" title="Возраст">В</th>
-                    <th class="col-10" title="Номинальная сила">С</th>
-                    <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
-                    <th class="col-10">Изучение</th>
-                    <th class="col-10" title="Прогресс изучения">%</th>
-                    <th class="col-1"></th>
-                </tr>
-                <?php foreach ($scout_array as $item) { ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+                <table class="table table-bordered table-hover">
                     <tr>
-                        <td>
-                            <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                                <?= $item['name_name']; ?>
-                                <?= $item['surname_name']; ?>
-                            </a>
-                        </td>
-                        <td class="hidden-xs text-center">
-                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                                <img
-                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                    title="<?= $item['country_name']; ?>"
-                                />
-                            </a>
-                        </td>
-                        <td class="text-center"><?= f_igosja_player_position($item['player_id'], $scoutplayerposition_array); ?></td>
-                        <td class="text-center"><?= $item['player_age']; ?></td>
-                        <td class="text-center"><?= $item['player_power_nominal']; ?></td>
-                        <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $scoutplayerspecial_array); ?></td>
-                        <td class="text-center">Стиль</td>
-                        <td class="text-center"><?= $item['scout_percent']; ?>%</td>
-                        <td class="text-center">
-                            <a href="/scout.php?cancel=<?= $item['scout_id']; ?>">
-                                <img alt="Отменить изучение стиля" src="/img/delete.png" title="Отменить изучение стиля" />
-                            </a>
-                        </td>
+                        <th>Игрок</th>
+                        <th class="col-1 hidden-xs" title="Национальность">Нац</th>
+                        <th class="col-10" title="Позиция">Поз</th>
+                        <th class="col-5" title="Возраст">В</th>
+                        <th class="col-10" title="Номинальная сила">С</th>
+                        <th class="col-15 hidden-xs" title="Спецвозможности">Спец</th>
+                        <th class="col-10">Изучение</th>
+                        <th class="col-10" title="Прогресс изучения">%</th>
+                        <th class="col-1"></th>
                     </tr>
-                <?php } ?>
-                <tr>
-                    <th>Игрок</th>
-                    <th class="hidden-xs" title="Национальность">Нац</th>
-                    <th title="Позиция">Поз</th>
-                    <th title="Возраст">В</th>
-                    <th title="Номинальная сила">С</th>
-                    <th class="hidden-xs" title="Спецвозможности">Спец</th>
-                    <th>Изучение</th>
-                    <th title="Прогресс изучения">%</th>
-                    <th class="col-1"></th>
-                </tr>
-            </table>
+                    <?php foreach ($scout_array as $item) { ?>
+                        <tr>
+                            <td>
+                                <a href="/player_view.php?num=<?= $item['player_id']; ?>">
+                                    <?= $item['name_name']; ?>
+                                    <?= $item['surname_name']; ?>
+                                </a>
+                            </td>
+                            <td class="hidden-xs text-center">
+                                <a href="/country_news.php?num=<?= $item['country_id']; ?>">
+                                    <img
+                                        src="/img/country/12/<?= $item['country_id']; ?>.png"
+                                        title="<?= $item['country_name']; ?>"
+                                    />
+                                </a>
+                            </td>
+                            <td class="text-center"><?= f_igosja_player_position($item['player_id'], $scoutplayerposition_array); ?></td>
+                            <td class="text-center"><?= $item['player_age']; ?></td>
+                            <td class="text-center"><?= $item['player_power_nominal']; ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_special($item['player_id'], $scoutplayerspecial_array); ?></td>
+                            <td class="text-center">Стиль</td>
+                            <td class="text-center"><?= $item['scout_percent']; ?>%</td>
+                            <td class="text-center">
+                                <a href="/scout.php?cancel=<?= $item['scout_id']; ?>">
+                                    <img alt="Отменить изучение стиля" src="/img/delete.png" title="Отменить изучение стиля" />
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <th>Игрок</th>
+                        <th class="hidden-xs" title="Национальность">Нац</th>
+                        <th title="Позиция">Поз</th>
+                        <th title="Возраст">В</th>
+                        <th title="Номинальная сила">С</th>
+                        <th class="hidden-xs" title="Спецвозможности">Спец</th>
+                        <th>Изучение</th>
+                        <th title="Прогресс изучения">%</th>
+                        <th class="col-1"></th>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a class="btn show-full-table" href="javascript:">
+                    Показать полную таблицу
+                </a>
+            </div>
+        </div>
     <?php } ?>
     <form method="POST">
         <div class="row margin-top">
@@ -229,6 +236,13 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div class="row hidden-lg hidden-md hidden-sm">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a class="btn show-full-table" href="javascript:">
+                    Показать полную таблицу
+                </a>
             </div>
         </div>
         <div class="row">

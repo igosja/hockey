@@ -154,6 +154,13 @@
         <a href="/user_drop_team.php?num=<?= $num_get; ?>">Отказаться от команды</a>
     </div>
 </div>
+<div class="row hidden-lg hidden-md hidden-sm">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a class="btn show-full-table" href="javascript:">
+            Показать полную таблицу
+        </a>
+    </div>
+</div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
@@ -244,6 +251,13 @@
                 <th class="hidden-xs"><?= $userrating_total_array[0]['userrating_vs_rest']; ?></th>
             </tr>
         </table>
+    </div>
+</div>
+<div class="row hidden-lg hidden-md hidden-sm">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a class="btn show-full-table" href="javascript:">
+            Показать полную таблицу
+        </a>
     </div>
 </div>
 <div class="row margin-top">
