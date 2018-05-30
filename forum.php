@@ -61,7 +61,7 @@ foreach ($forumchapter_array as $item)
 
             foreach ($country_array as $country)
             {
-                $country_id[] = $country_array[0]['city_country_id'];
+                $country_id[] = $country['city_country_id'];
             }
         }
 
