@@ -95,7 +95,7 @@ for ($i=0, $count_vote=count($newvote_array); $i<$count_vote; $i++)
     $sql = "SELECT `voteanswer_count`,
                    `voteanswer_text`
             FROM `voteanswer`
-            WHERE `voteanswer_vote_id` IN $country
+            WHERE `voteanswer_vote_id`=$vote_id
             ORDER BY `voteanswer_count` DESC, `voteanswer_id` ASC";
     $answer_sql = f_igosja_mysqli_query($sql);
 
