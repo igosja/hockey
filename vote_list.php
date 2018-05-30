@@ -82,7 +82,7 @@ $sql = "SELECT `user_id`,
         ON `vote_user_id`=`user_id`
         WHERE `vote_country_id` IN $country
         AND `vote_votestatus_id`=" . VOTESTATUS_NEW . "
-        AND `vote_user_id` IN ($user_id)
+        AND `vote_user_id` IN $user_id
         ORDER BY `vote_id` DESC";
 $newvote_sql = f_igosja_mysqli_query($sql);
 
