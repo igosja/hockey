@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @var $auth_country_id integer
- * @var $auth_team_id integer
+ * @var $auth_user_id integer
  */
 
 include(__DIR__ . '/include/include.php');
@@ -46,7 +45,7 @@ foreach ($forumchapter_array as $item)
     {
         $country_id = array(0);
 
-        if (isset($auth_team_id))
+        if (isset($auth_user_id))
         {
             $sql = "SELECT `city_country_id`
                     FROM `team`
@@ -54,14 +53,10 @@ foreach ($forumchapter_array as $item)
                     ON `team_stadium_id`=`stadium_id`
                     LEFT JOIN `city`
                     ON `stadium_city_id`=stadium_id
-                    WHERE `team_user_id`=$auth_team_id";
+                    WHERE `team_user_id`=$auth_user_id";
             $country_sql = f_igosja_mysqli_query($sql);
 
             $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
-
-            print '<pre>';
-            print_r($country_array);
-            exit;
 
             foreach ($country_array as $country)
             {
