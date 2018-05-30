@@ -382,9 +382,9 @@
 </div>
 <div class="row hidden-lg hidden-md hidden-sm">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button class="btn show-full-table">
+        <a class="btn show-full-table" href="javascript:">
             Показать полную таблицу
-        </button>
+        </a>
     </div>
 </div>
 <div class="row margin-top">
