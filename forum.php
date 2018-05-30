@@ -58,6 +58,10 @@ foreach ($forumchapter_array as $item)
 
             $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
 
+            print '<pre>';
+            print_r($country_array);
+            exit;
+
             foreach ($country_array as $country)
             {
                 $country_id[] = $country['city_country_id'];
