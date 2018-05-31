@@ -8,7 +8,7 @@
         <?php include(__DIR__ . '/include/register_link.php'); ?>
     </div>
 </div>
-<form id="password-form" method="POST">
+<form id="password-restore-form" method="POST">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <p>
@@ -20,17 +20,17 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="row">
                 <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
-                    <label class="strong" for="password-password">Пароль:</label>
+                    <label class="strong" for="password-restore">Пароль:</label>
                 </div>
                 <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
                     <input
                         class="form-control"
-                        id="password-password"
+                        id="password-restore"
                         name="data[password]"
                         type="password"
                     />
                 </div>
-                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center password-error notification-error"></div>
+                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12 xs-text-center password-restore-error notification-error"></div>
             </div>
         </div>
     </div>

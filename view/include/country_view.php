@@ -131,7 +131,7 @@
         </div>
     </form>
 <?php } ?>
-<?php if(isset($auth_user_id) && in_array($auth_user_id, array($country_array[0]['president_id'], $country_array[0]['vice_id']))) { ?>
+<?php if (isset($auth_user_id) && in_array($auth_user_id, array($country_array[0]['president_id'], $country_array[0]['vice_id']))) { ?>
     <div class="row margin">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
             <a href="/country_news_create.php?num=<?= $num_get; ?>">

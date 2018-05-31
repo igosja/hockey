@@ -4,6 +4,7 @@
  * @var $auth_blockdeal_text string
  * @var $auth_date_block_comment integer
  * @var $auth_date_block_dealcomment integer
+ * @var $auth_userrole_id integer
  * @var $count_rent integer
  * @var $num_get integer
  * @var $playerposition_array array
@@ -192,6 +193,13 @@
                 </tr>
             <?php } ?>
         </table>
+    </div>
+</div>
+<div class="row hidden-lg hidden-md hidden-sm">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a class="btn show-full-table" href="javascript:">
+            Показать полную таблицу
+        </a>
     </div>
 </div>
 <?php if ($rentcomment_array) { ?>

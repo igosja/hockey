@@ -120,7 +120,9 @@
                             <span class="strong">
                                 <a href="/team_view.php?num=<?= $team_array[0]['team_id']; ?>">
                                     <?= $team_array[0]['team_name']; ?>
-                                    (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
+                                    <span class="hidden-xs">
+                                        (<?= $team_array[0]['city_name']; ?>, <?= $team_array[0]['country_name']; ?>)
+                                    </span>
                                 </a>
                             </span>
                         </div>
