@@ -69,6 +69,15 @@ if (0 == $electionnationalvice_sql->num_rows)
 
 $electionnationalvice_array = $electionnationalvice_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT SUM(`electionnationalviceapplication_count`) AS `count`
+        FROM `electionnationalviceapplication`
+        WHERE `electionnationalviceapplication_electionnationalvice_id`=$electionnationalvice_id";
+$total_sql = f_igosja_mysqli_query($sql);
+
+$total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+$electionnationalvice_array[0]['count'] = $total_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))
