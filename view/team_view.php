@@ -261,6 +261,7 @@
                             <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
                             <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                             <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_style($item['player_id'], $item['style_id'], $item['style_name'], $scout_array); ?></td>
                             <td class="text-center"><?= $item['player_game_row']; ?></td>
                         </tr>
                     <?php $player_number++; } ?>
@@ -361,6 +362,7 @@
                             <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_score'); ?></td>
                             <td class="hidden-xs text-center"><?= f_igosja_player_statistic($item['player_id'], $playerstatistic_array, 'statisticplayer_assist'); ?></td>
                             <td class="hidden-xs text-right"><?= f_igosja_money_format($item['player_price']); ?></td>
+                            <td class="hidden-xs text-center"><?= f_igosja_player_style($item['player_id'], $item['style_id'], $item['style_name'], $scout_array); ?></td>
                             <td class="text-center"><?= $item['player_game_row']; ?></td>
                         </tr>
                     <?php $player_number++; } ?>
@@ -381,6 +383,7 @@
                     <th class="hidden-xs" title="Шайб">Ш</th>
                     <th class="hidden-xs" title="Результативных передач">П</th>
                     <th class="hidden-xs">Цена</th>
+                    <th class="col-1 hidden-xs" data-type="country">Ст</th>
                     <th title="Играл/отдыхал подряд">ИО</th>
                 </tr>
             </tfoot>
