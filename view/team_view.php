@@ -107,15 +107,6 @@
                                 />
                             </a>
                         </td>
-                        <td class="hidden-xs text-center">
-                            <a href="/country_news.php?num=<?= $item['country_id']; ?>">
-                                <img
-                                    alt="<?= $item['country_name']; ?>"
-                                    src="/img/country/12/<?= $item['country_id']; ?>.png"
-                                    title="<?= $item['country_name']; ?>"
-                                />
-                            </a>
-                        </td>
                         <td class="text-center"><?= f_igosja_player_position($item['player_id'], $playerposition_array); ?></td>
                         <td class="text-center"><?= $item['player_age']; ?></td>
                         <td
