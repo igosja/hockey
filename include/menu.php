@@ -24,7 +24,7 @@ $igosja_menu = array(
     array('label' => 'Трансфер',        'url' => '/transfer_list.php'),
     array('label' => 'Турниры',         'url' => '/tournament.php'),
     array('label' => 'Федерация',       'url' => '/country_news.php',   'css' => 'count_countrynews'),
-    array('label' => 'Форум',           'url' => '/forum.php'),
+    array('label' => 'Форум',           'url' => '/forum.php',          'target' => '_blank'),
 );
 
 $igosja_menu_guest = array(
@@ -181,7 +181,16 @@ for ($i=0; $i<4; $i++)
                 $css = '';
             }
 
-            $a_menu[] = '<a href="' . $item['url'] . '" class="' . $css . '">' . $item['label'] . '</a>';
+            if (isset($item['target']))
+            {
+                $target = $item['target'];
+            }
+            else
+            {
+                $target = '';
+            }
+
+            $a_menu[] = '<a href="' . $item['url'] . '" class="' . $css . '" target="' . $target . '">' . $item['label'] . '</a>';
         }
 
         $foreach_menu[$j]   = $a_menu;
