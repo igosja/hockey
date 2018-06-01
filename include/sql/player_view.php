@@ -99,7 +99,6 @@ if (isset($auth_team_id))
 
     $count_scout = $scout_array[0]['count_scout'];
 
-
     if ($player_array[0]['team_id'] == $auth_team_id || $player_array[0]['player_national_id'] == $auth_national_id)
     {
         $sql = "SELECT `line_color`,

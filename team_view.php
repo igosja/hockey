@@ -63,6 +63,8 @@ $sql = "SELECT `country_id`,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
+               `style_id`,
+               `style_name`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -75,6 +77,8 @@ $sql = "SELECT `country_id`,
         ON `player_phisical_id`=`phisical_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
+        LEFT JOIN `style`
+        ON `player_style_id`=`style_id`
         WHERE `player_team_id`=$num_get
         AND `player_rent_team_id`=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
@@ -104,6 +108,8 @@ $sql = "SELECT `country_id`,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
+               `style_id`,
+               `style_name`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -116,6 +122,8 @@ $sql = "SELECT `country_id`,
         ON `player_phisical_id`=`phisical_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
+        LEFT JOIN `style`
+        ON `player_style_id`=`style_id`
         WHERE `player_team_id`=$num_get
         AND `player_rent_team_id`!=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
@@ -145,6 +153,8 @@ $sql = "SELECT `country_id`,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
+               `style_id`,
+               `style_name`,
                `surname_name`
         FROM `player`
         LEFT JOIN `name`
@@ -157,6 +167,8 @@ $sql = "SELECT `country_id`,
         ON `player_phisical_id`=`phisical_id`
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
+        LEFT JOIN `style`
+        ON `player_style_id`=`style_id`
         WHERE `player_rent_team_id`=$num_get
         AND `player_team_id`!=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
@@ -234,12 +246,32 @@ if (count($player_id))
     $playerstatistic_sql = f_igosja_mysqli_query($sql);
 
     $playerstatistic_array = $playerstatistic_sql->fetch_all(MYSQLI_ASSOC);
+
+    if (isset($auth_team_id))
+    {
+        $sql = "SELECT COUNT(`scout_id`) AS `count_scout`,
+                       `scout_player_id`
+                FROM `scout`
+                WHERE `scout_player_id` IN ($player_id)
+                AND `scout_team_id`=$auth_team_id
+                AND `scout_style`=1
+                AND `scout_ready`=1
+                GROUP BY `scout_player_id`";
+        $scout_sql = f_igosja_mysqli_query($sql);
+
+        $scout_array = $scout_sql->fetch_all(MYSQLI_ASSOC);
+    }
+    else
+    {
+        $scout_array = array();
+    }
 }
 else
 {
     $playerposition_array   = array();
     $playerspecial_array    = array();
     $playerstatistic_array  = array();
+    $scout_array            = array();
 }
 
 $notification_array = array();
