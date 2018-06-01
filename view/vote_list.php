@@ -80,6 +80,7 @@
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                                 <?= $answer['voteanswer_count']; ?>
+                                (<?= round($answer['voteanswer_count'] / $item['count'] * 100, 1); ?>%)
                             </div>
                         </div>
                     <?php } ?>

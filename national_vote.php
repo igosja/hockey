@@ -88,6 +88,15 @@ if (0 == $electionnational_sql->num_rows)
 
 $electionnational_array = $electionnational_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT SUM(`electionnationalapplication_count`) AS `count`
+        FROM `electionnationalapplication`
+        WHERE `electionnationalapplication_electionnational_id`=$electionnational_id";
+$total_sql = f_igosja_mysqli_query($sql);
+
+$total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+$electionnational_array[0]['count'] = $total_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))

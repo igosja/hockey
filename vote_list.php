@@ -71,6 +71,15 @@ for ($i=0, $count_vote=count($vote_array); $i<$count_vote; $i++)
     $answer_sql = f_igosja_mysqli_query($sql);
 
     $vote_array[$i]['answer'] = $answer_sql->fetch_all(MYSQLI_ASSOC);
+
+    $sql = "SELECT SUM(`voteanswer_count`) AS `count`
+            FROM `voteanswer`
+            WHERE `voteanswer_vote_id`=$vote_id";
+    $total_sql = f_igosja_mysqli_query($sql);
+
+    $total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+    $vote_array[$i]['count'] = $total_array[0]['count'];
 }
 
 $sql = "SELECT `user_id`,

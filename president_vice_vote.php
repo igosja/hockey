@@ -74,6 +74,15 @@ if (0 == $electionpresidentvice_sql->num_rows)
 
 $electionpresidentvice_array = $electionpresidentvice_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT SUM(`electionpresidentviceapplication_count`) AS `count`
+        FROM `electionpresidentviceapplication`
+        WHERE `electionpresidentviceapplication_electionpresidentvice_id`=$electionpresidentvice_id";
+$total_sql = f_igosja_mysqli_query($sql);
+
+$total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+$electionpresidentvice_array[0]['count'] = $total_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))

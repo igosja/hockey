@@ -33,6 +33,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     <?= $item['voteanswer_count']; ?>
+                    (<?= round($item['voteanswer_count'] / $vote_array[0]['count'] * 100, 1); ?>%)
                 </div>
             </div>
         <?php } ?>

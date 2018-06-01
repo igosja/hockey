@@ -40,6 +40,15 @@ if (0 == $vote_sql->num_rows)
 
 $vote_array = $vote_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT SUM(`voteanswer_count`) AS `count`
+        FROM `voteanswer`
+        WHERE `voteanswer_vote_id`=$num_get";
+$total_sql = f_igosja_mysqli_query($sql);
+
+$total_array = $total_sql->fetch_all(MYSQLI_ASSOC);
+
+$vote_array[0]['count'] = $total_array[0]['count'];
+
 if ($data = f_igosja_request_post('data'))
 {
     if (!isset($auth_user_id))
