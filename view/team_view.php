@@ -54,7 +54,7 @@
                     <th class="col-5 hidden-xs" data-type="number" title="Шайб">Ш</th>
                     <th class="col-5 hidden-xs" data-type="number" title="Результативных передач">П</th>
                     <th class="col-10 hidden-xs" data-type="price">Цена</th>
-                    <th class="col-1 hidden-xs" data-type="country">Ст</th>
+                    <th class="col-1 hidden-xs" data-type="country" title="Стиль">Ст</th>
                     <th class="col-5" data-type="number" title="Играл/отдыхал подряд">ИО</th>
                 </tr>
             </thead>
@@ -374,7 +374,7 @@
                     <th class="hidden-xs" title="Шайб">Ш</th>
                     <th class="hidden-xs" title="Результативных передач">П</th>
                     <th class="hidden-xs">Цена</th>
-                    <th class="col-1 hidden-xs" data-type="country">Ст</th>
+                    <th class="col-1 hidden-xs" title="Стиль">Ст</th>
                     <th title="Играл/отдыхал подряд">ИО</th>
                 </tr>
             </tfoot>
