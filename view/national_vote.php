@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                     <?= $item['electionnationalapplication_count']; ?>
-                    (<?= round($item['electionnationalapplication_count'] / $electionnational_array[0]['count'] * 100, 1); ?>%)
+                    (<?= round($item['electionnationalapplication_count'] / $electionnational_array[0]['count'] * 100); ?>%)
                 </div>
             </div>
             <?php if (0 != $item['user_id']) { ?>
