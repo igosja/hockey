@@ -3,10 +3,18 @@
 /**
  * Виведення оформленого тексту події
  * @param $event array дані з БД
+ * @return string
  */
 function f_igosja_event_text($event)
 {
-    $text = $event['historytext_name'];
+    if (isset($event['financetext_name']))
+    {
+        $text = $event['financetext_name'];
+    }
+    else
+    {
+        $text = $event['historytext_name'];
+    }
 
     if (isset($event['user_id']))
     {
@@ -81,6 +89,24 @@ function f_igosja_event_text($event)
         );
     }
 
+    if (isset($event['finance_level']))
+    {
+        $text = str_replace(
+            '{level}',
+            $event['finance_level'],
+            $text
+        );
+    }
+
+    if (isset($event['finance_capacity']))
+    {
+        $text = str_replace(
+            '{capacity}',
+            $event['finance_capacity'],
+            $text
+        );
+    }
+
     if (isset($event['national_id']))
     {
         $text = str_replace(
@@ -113,6 +139,29 @@ function f_igosja_event_text($event)
         } elseif (BUILDING_BASESCOUT == $event['history_building_id']) {
             $building = 'скаут-центр';
         } elseif (BUILDING_BASETRAINING == $event['history_building_id']) {
+            $building = 'тренировочный центр';
+        }
+        $text = str_replace(
+            '{building}',
+            $building,
+            $text
+        );
+    }
+
+    if (isset($event['finance_building_id']))
+    {
+        $building = '';
+        if (BUILDING_BASE == $event['finance_building_id']) {
+            $building = 'база';
+        } elseif (BUILDING_BASEMEDICAL == $event['finance_building_id']) {
+            $building = 'медцентр';
+        } elseif (BUILDING_BASEPHISICAL == $event['finance_building_id']) {
+            $building = 'центр физподготовки';
+        } elseif (BUILDING_BASESCHOOL == $event['finance_building_id']) {
+            $building = 'спортшкола';
+        } elseif (BUILDING_BASESCOUT == $event['finance_building_id']) {
+            $building = 'скаут-центр';
+        } elseif (BUILDING_BASETRAINING == $event['finance_building_id']) {
             $building = 'тренировочный центр';
         }
         $text = str_replace(

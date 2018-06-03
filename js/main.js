@@ -1045,6 +1045,53 @@ function sort_grid(grid, type, colNum, sortOrder)
                 }
             }
         };
+    } else if ('style' === type) {
+        compare = function(rowA, rowB) {
+            var a = $(rowA.cells[colNum]).find('img');
+            if (a.length) {
+                a = a[0].attr('src').split('/');
+                a = a[4];
+                a = a.split('.');
+                a = parseInt(a[0]);
+            } else {
+                a = 0;
+            }
+            var b = $(rowB.cells[colNum]).find('img');
+            if (b.length) {
+                b = b[0].attr('src').split('/');
+                b = b[4];
+                b = b.split('.');
+                b = parseInt(b[0]);
+            } else {
+                b = 0;
+            }
+            var order;
+
+            if ('desc' === sortOrder)
+            {
+                order = b - a;
+            }
+            else
+            {
+                order = a - b;
+            }
+
+            if (0 !== order)
+            {
+                return order;
+            }
+            else
+            {
+                if ('desc' === sortOrder)
+                {
+                    return $(rowB).data('order') - $(rowA).data('order');
+                }
+                else
+                {
+                    return $(rowA).data('order') - $(rowB).data('order');
+                }
+            }
+        };
     } else if ('player' === type) {
         compare = function(rowA, rowB) {
             var a = $.trim($(rowA.cells[colNum]).find('a').html().replace(/\s/g, ''));
