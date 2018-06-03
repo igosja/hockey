@@ -89,21 +89,20 @@ function f_igosja_event_text($event)
         );
     }
 
-    if (isset($event['finance_value']))
+    if (isset($event['finance_level']))
     {
         $text = str_replace(
             '{level}',
-            $event['finance_value'],
+            $event['finance_level'],
             $text
         );
+    }
+
+    if (isset($event['finance_capacity']))
+    {
         $text = str_replace(
             '{capacity}',
-            $event['finance_value'],
-            $text
-        );
-        $text = str_replace(
-            '{day}',
-            $event['finance_value'] . ' ' . f_igosja_count_case($event['finance_value'], 'день', 'дня', 'дней'),
+            $event['finance_capacity'],
             $text
         );
     }
