@@ -35,7 +35,8 @@ $sql = "SELECT `city_name`,
                `offseason_win_bullet`,
                `offseason_win_over`,
                `team_id`,
-               `team_name`
+               `team_name`,
+               `team_power_vs`
         FROM `offseason`
         LEFT JOIN `team`
         ON `offseason_team_id`=`team_id`

@@ -227,7 +227,8 @@ if (ROUND_SEASON == $round_id)
                    `championship_win_bullet`,
                    `championship_win_over`,
                    `team_id`,
-                   `team_name`
+                   `team_name`,
+                   `team_power_vs`
             FROM `championship`
             LEFT JOIN `team`
             ON `championship_team_id`=`team_id`

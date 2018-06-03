@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_date_vip integer
  * @var $division_id integer
  * @var $national_array array
  * @var $season_array array
@@ -125,6 +126,7 @@
                 <th class="col-5" title="Поражения">П</th>
                 <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th class="col-5" title="Очки">О</th>
+                <th class="col-5 <?php if ((!isset($auth_user_id) || $auth_date_vip < time())) { ?>hidden<?php } ?>" title="Рейтинг силы команды">Vs</th>
             </tr>
             <?php foreach ($national_array as $item) { ?>
                 <tr>
@@ -145,6 +147,7 @@
                     <td class="col-5 hidden-xs text-center"><?= $item['worldcup_score']; ?></td>
                     <td class="col-5 hidden-xs text-center"><?= $item['worldcup_pass']; ?></td>
                     <td class="text-center strong"><?= $item['worldcup_point']; ?></td>
+                    <td class="text-center <?php if (!isset($auth_user_id) || $auth_date_vip < time()) { ?>hidden<?php } ?>"><?= $item['national_power_vs']; ?></td>
                 </tr>
             <?php } ?>
             <tr>
@@ -159,6 +162,7 @@
                 <th title="Поражения">П</th>
                 <th class="hidden-xs" colspan="2" title="Шайбы">Ш</th>
                 <th title="Очки">О</th>
+                <th class="<?php if ((!isset($auth_user_id) || $auth_date_vip < time())) { ?>hidden<?php } ?>" title="Рейтинг силы команды">Vs</th>
             </tr>
         </table>
     </div>

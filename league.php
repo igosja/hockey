@@ -208,7 +208,8 @@ if (ROUND_GROUP == $round_id)
                        `league_win_bullet`,
                        `league_win_over`,
                        `team_id`,
-                       `team_name`
+                       `team_name`,
+                       `team_power_vs`
                 FROM `league`
                 LEFT JOIN `team`
                 ON `league_team_id`=`team_id`

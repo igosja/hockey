@@ -35,7 +35,8 @@ $sql = "SELECT `city_name`,
                `conference_win_bullet`,
                `conference_win_over`,
                `team_id`,
-               `team_name`
+               `team_name`,
+               `team_power_vs`
         FROM `conference`
         LEFT JOIN `team`
         ON `conference_team_id`=`team_id`
