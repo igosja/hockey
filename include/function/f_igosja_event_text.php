@@ -3,10 +3,18 @@
 /**
  * Виведення оформленого тексту події
  * @param $event array дані з БД
+ * @return string
  */
 function f_igosja_event_text($event)
 {
-    $text = $event['historytext_name'];
+    if (isset($event['financetext_name']))
+    {
+        $text = $event['financetext_name'];
+    }
+    else
+    {
+        $text = $event['historytext_name'];
+    }
 
     if (isset($event['user_id']))
     {

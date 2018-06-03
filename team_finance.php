@@ -49,10 +49,19 @@ $sql = "SELECT `finance_building_id`,
                `finance_value`,
                `finance_value_after`,
                `finance_value_before`,
-               `financetext_name`
+               `financetext_name`,
+               `name_name`,
+               `player_id`,
+               `surname_name`
         FROM `finance`
         LEFT JOIN `financetext`
         ON `finance_financetext_id`=`financetext_id`
+        LEFT JOIN `player`
+        ON `finance_player_id`=`player_id`
+        LEFT JOIN `name`
+        ON `player_name_id`=`name_id`
+        LEFT JOIN `surname`
+        ON `player_surname_id`=`surname_id`
         WHERE `finance_team_id`=$num_get
         AND `finance_season_id`=$season_id
         ORDER BY `finance_id` DESC";
@@ -63,38 +72,7 @@ $finance_array = $finance_sql->fetch_all(MYSQLI_ASSOC);
 
 for ($i=0; $i<$count_finance; $i++)
 {
-    $text = $finance_array[$i]['financetext_name'];
-    $text = str_replace(
-        '{level}',
-        $finance_array[$i]['finance_level'],
-        $text
-    );
-    $text = str_replace(
-        '{capacity}',
-        $finance_array[$i]['finance_capacity'],
-        $text
-    );
-    $building = '';
-    if (BUILDING_BASE == $finance_array[$i]['finance_building_id']) {
-        $building = 'база';
-    } elseif (BUILDING_BASEMEDICAL == $finance_array[$i]['finance_building_id']) {
-        $building = 'медцентр';
-    } elseif (BUILDING_BASEPHISICAL == $finance_array[$i]['finance_building_id']) {
-        $building = 'центр физподготовки';
-    } elseif (BUILDING_BASESCHOOL == $finance_array[$i]['finance_building_id']) {
-        $building = 'спортшкола';
-    } elseif (BUILDING_BASESCOUT == $finance_array[$i]['finance_building_id']) {
-        $building = 'скаут-центр';
-    } elseif (BUILDING_BASETRAINING == $finance_array[$i]['finance_building_id']) {
-        $building = 'тренировочный центр';
-    }
-    $text = str_replace(
-        '{building}',
-        $building,
-        $text
-    );
-
-    $finance_array[$i]['financetext_name'] = $text;
+    $finance_array[$i]['financetext_name'] = f_igosja_event_text($finance_array[$i]);
 }
 
 $seo_title          = $team_array[0]['team_name'] . '. Финансы команды';
