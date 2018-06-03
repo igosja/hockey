@@ -1,5 +1,6 @@
 <?php
 
+include (__DIR__ . "/include/include.php");
 
 $sql = "SELECT `player_id`,
                `player_school_id`,
