@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $auth_team_id integer
  * @var $building_id integer
  * @var $buildingbase_array array
  * @var $buildingbase_day string
@@ -93,9 +94,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="База команды"
-                                    class="img-border img-base"
-                                    src="<?= $img_base; ?>"
+                                alt="База команды"
+                                class="img-border img-base"
+                                src="<?= $img_base; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
@@ -143,9 +144,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="Тренировочный центр"
-                                    class="img-border img-base"
-                                    src="<?= $img_training; ?>"
+                                alt="Тренировочный центр"
+                                class="img-border img-base"
+                                src="<?= $img_training; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
@@ -199,9 +200,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="Медцентр"
-                                    class="img-border img-base"
-                                    src="<?= $img_medical; ?>"
+                                alt="Медцентр"
+                                class="img-border img-base"
+                                src="<?= $img_medical; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
@@ -234,9 +235,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="Центр физподготовки"
-                                    class="img-border img-base"
-                                    src="<?= $img_phisical; ?>"
+                                alt="Центр физподготовки"
+                                class="img-border img-base"
+                                src="<?= $img_phisical; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
@@ -255,16 +256,18 @@
                                     Увеличение усталости: <span class="strong"><?= $base_array[0]['basephisical_tire_bonus']; ?>%</span>
                                 </div>
                             </div>
-                            <div class="row margin-top">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_phisical) { ?> del<?php } ?>">
-                                    Осталось изменений: <span class="strong"><?= $phisical_available; ?></span>
+                            <?php if (isset($auth_team_id) && $auth_team_id == $num_get) { ?>
+                                <div class="row margin-top">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_phisical) { ?> del<?php } ?>">
+                                        Осталось изменений: <span class="strong"><?= $phisical_available; ?></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_phisical) { ?> del<?php } ?>">
-                                    Запланировано: <span class="strong"><?= $phisical_plan_array[0]['count']; ?></span>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($del_phisical) { ?> del<?php } ?>">
+                                        Запланировано: <span class="strong"><?= $phisical_plan_array[0]['count']; ?></span>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php if ($link_phisical_array) { ?>
@@ -284,9 +287,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="Спортшкола"
-                                    class="img-border img-base"
-                                    src="<?= $img_school; ?>"
+                                alt="Спортшкола"
+                                class="img-border img-base"
+                                src="<?= $img_school; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
@@ -324,9 +327,9 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6 text-center">
                             <img
-                                    alt="Скаут-центр"
-                                    class="img-border img-base"
-                                    src="<?= $img_scout; ?>"
+                                alt="Скаут-центр"
+                                class="img-border img-base"
+                                src="<?= $img_scout; ?>"
                             />
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
