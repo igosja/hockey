@@ -1049,8 +1049,8 @@ function sort_grid(grid, type, colNum, sortOrder)
         compare = function(rowA, rowB) {
             var a = $(rowA.cells[colNum]).find('img');
             if (a.length) {
-                a = a[0].attr('src').split('/');
-                a = a[4];
+                a = a.attr('src').split('/');
+                a = a[3];
                 a = a.split('.');
                 a = parseInt(a[0]);
             } else {
@@ -1058,8 +1058,8 @@ function sort_grid(grid, type, colNum, sortOrder)
             }
             var b = $(rowB.cells[colNum]).find('img');
             if (b.length) {
-                b = b[0].attr('src').split('/');
-                b = b[4];
+                b = b.attr('src').split('/');
+                b = b[3];
                 b = b.split('.');
                 b = parseInt(b[0]);
             } else {

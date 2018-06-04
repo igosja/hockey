@@ -143,6 +143,7 @@ $game_array = $game_sql->fetch_all(MYSQLI_ASSOC);
 $sql = "SELECT `country_id`,
                `country_name`,
                `national_id`,
+               `national_power_vs`,
                `worldcup_game`,
                `worldcup_loose`,
                `worldcup_loose_bullet`,
