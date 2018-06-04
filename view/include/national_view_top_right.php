@@ -2,6 +2,7 @@
 /**
  * @var $auth_national_id array
  * @var $auth_nationalvice_id array
+ * @var $auth_user_id array
  * @var $latest_array array
  * @var $nearest_array array
  * @var $num_get integer
