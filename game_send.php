@@ -71,13 +71,16 @@ else
 }
 
 $sql = "SELECT `team_mood_rest`,
-               `team_mood_super`
+               `team_mood_super`,
+               `team_power_vs`
         FROM `team`
         WHERE `team_id`=$auth_team_id
         LIMIT 1";
 $teammood_sql = f_igosja_mysqli_query($sql);
 
 $teammood_array = $teammood_sql->fetch_all(MYSQLI_ASSOC);
+
+$my_power_vs = $teammood_array[0]['team_power_vs'];
 
 if (($data = f_igosja_request_post('data')) && $allow_post)
 {
@@ -343,6 +346,7 @@ $sql = "SELECT `game_id`,
                `stage_name`,
                `team_id`,
                `team_name`,
+               `team_power_vs` AS `power_vs`,
                `tournamenttype_name`
         FROM `game`
         LEFT JOIN `schedule`
