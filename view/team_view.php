@@ -8,6 +8,7 @@
  * @var $playerspecial_array array
  * @var $playerstatistic_array array
  * @var $scout_array array
+ * @var $training_array array
  */
 ?>
 <div class="row margin-top">
@@ -97,6 +98,7 @@
                                     title="Выставлен на трансфер/аренду"
                                 />
                             <?php } ?>
+                            <?= f_igosja_player_on_training($item['player_id'], $training_array); ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
