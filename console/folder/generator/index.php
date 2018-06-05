@@ -2,28 +2,28 @@
 
 include(__DIR__ . '/../../../include/generator.php');
 
-$sql = "SELECT `site_date_cron`
-        FROM `site`
-        WHERE `site_id`=1
-        LIMIT 1";
-$cron_sql = f_igosja_mysqli_query($sql);
-
-if (0 == $cron_sql->num_rows)
-{
-    exit;
-}
-
-$cron_array = $cron_sql->fetch_all(MYSQLI_ASSOC);
-
-if (date('Y-m-d', $cron_array[0]['site_date_cron']) == date('Y-m-d'))
-{
-    exit;
-}
-
-if (!in_array(date('H:i'), array('11:56', '11:57', '11:58', '11:59', '12:00', '12:01', '12:02', '12:03', '12:04')))
-{
-    exit;
-}
+//$sql = "SELECT `site_date_cron`
+//        FROM `site`
+//        WHERE `site_id`=1
+//        LIMIT 1";
+//$cron_sql = f_igosja_mysqli_query($sql);
+//
+//if (0 == $cron_sql->num_rows)
+//{
+//    exit;
+//}
+//
+//$cron_array = $cron_sql->fetch_all(MYSQLI_ASSOC);
+//
+//if (date('Y-m-d', $cron_array[0]['site_date_cron']) == date('Y-m-d'))
+//{
+//    exit;
+//}
+//
+//if (!in_array(date('H:i'), array('11:56', '11:57', '11:58', '11:59', '12:00', '12:01', '12:02', '12:03', '12:04')))
+//{
+//    exit;
+//}
 
 $function_array = array(
 //    'f_igosja_generator_update_date_cron',
