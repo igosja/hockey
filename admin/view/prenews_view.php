@@ -10,7 +10,7 @@
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <a class="btn btn-default" href="/admin/news_update.php">
+        <a class="btn btn-default" href="/admin/prenews_update.php">
             Изменить
         </a>
     </li>
