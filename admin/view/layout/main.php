@@ -170,10 +170,10 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/prenews_view.php">Предварительные новости</a>
+                                <a href="/admin/news_list.php">Новости</a>
                             </li>
                             <li>
-                                <a href="/admin/news_list.php">Новости</a>
+                                <a href="/admin/prenews_view.php">Предварительные новости</a>
                             </li>
                         </ul>
                     </li>

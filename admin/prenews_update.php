@@ -9,7 +9,7 @@ $sql = "SELECT `prenews_error`,
         LIMIT 1";
 $prenews_sql = f_igosja_mysqli_query($sql);
 
-if (0 == $news_sql->num_rows)
+if (0 == $prenews_sql->num_rows)
 {
     redirect('/wrong_page.php');
 }
