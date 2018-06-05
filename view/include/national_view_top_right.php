@@ -2,6 +2,7 @@
 /**
  * @var $auth_national_id array
  * @var $auth_nationalvice_id array
+ * @var $auth_user_id array
  * @var $latest_array array
  * @var $nearest_array array
  * @var $num_get integer
@@ -9,12 +10,18 @@
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="no-underline" href="/national_player.php">
-            <img alt="Изменить состав сборной" src="/img/roster/substitute.png" title="Изменить состав сборной"/>
-        </a>
-        <?php if (($auth_user_id == $national_array[0]['user_id'] && $national_array[0]['vice_user_id']) || $auth_user_id == $national_array[0]['vice_user_id']) { ?>
-            <a class="no-underline" href="/national_fire.php">
-                <img alt="Отказаться от должности" src="/img/roster/fire.png" title="Отказаться от должности"/>
+        <?php if (isset($auth_user_id)) { ?>
+            <a class="no-underline" href="/national_player.php">
+                <img alt="Изменить состав сборной" src="/img/roster/substitute.png" title="Изменить состав сборной"/>
+            </a>
+            <?php if (($auth_user_id == $national_array[0]['user_id'] && $national_array[0]['vice_user_id']) || $auth_user_id == $national_array[0]['vice_user_id']) { ?>
+                <a class="no-underline" href="/national_fire.php">
+                    <img alt="Отказаться от должности" src="/img/roster/fire.png" title="Отказаться от должности"/>
+                </a>
+            <?php } ?>
+        <?php } else { ?>
+            <a class="no-underline" href="/signup.php">
+                <img alt="Зарегистрироваться" src="/img/roster/questionnaire.png" title="Зарегистрироваться" />
             </a>
         <?php } ?>
     </div>

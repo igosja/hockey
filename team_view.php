@@ -247,6 +247,14 @@ if (count($player_id))
 
     $playerstatistic_array = $playerstatistic_sql->fetch_all(MYSQLI_ASSOC);
 
+    $sql = "SELECT `training_player_id`
+            FROM `training`
+            WHERE `training_player_id` IN ($player_id)
+            ANd `training_ready`=0";
+    $training_sql = f_igosja_mysqli_query($sql);
+
+    $training_array = $training_sql->fetch_all(MYSQLI_ASSOC);
+
     if (isset($auth_team_id))
     {
         $sql = "SELECT COUNT(`scout_id`) AS `count_scout`,
@@ -271,6 +279,7 @@ else
     $playerposition_array   = array();
     $playerspecial_array    = array();
     $playerstatistic_array  = array();
+    $training_array         = array();
     $scout_array            = array();
 }
 

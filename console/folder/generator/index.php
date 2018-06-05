@@ -86,6 +86,7 @@ $function_array = array(
     'f_igosja_generator_mood_reset',
     'f_igosja_generator_national_user_day',
     'f_igosja_generator_national_player_day',
+    'f_igosja_generator_user_decrement_auto_for_vocation',
     'f_igosja_generator_user_fire',
     'f_igosja_generator_user_holiday_end',
     'f_igosja_generator_national_vote_status',

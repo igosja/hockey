@@ -4,12 +4,12 @@
  * @var $auth_team_id integer
  * @var $file_name string
  * @var $line_array array
+ * @var $num_get integer
  * @var $player_array array
  * @var $playerposition_array array
  * @var $playerspecial_array array
- * @var $s_data string
  * @var $style_img string
- * @var $x_data string
+ * @var $training_array array
  */
 ?>
 <div class="row margin-top">
@@ -120,6 +120,7 @@
                                 title="Выставлен на трансфер/аренду"
                             />
                         <?php } ?>
+                        <?= f_igosja_player_on_training($num_get, $training_array); ?>
                     </div>
                 </div>
                 <div class="row">

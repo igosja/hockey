@@ -10,6 +10,7 @@
  * @var $line integer
  * @var $lw_array array
  * @var $mood_array array
+ * @var $my_power_vs integer
  * @var $nationalmood_array array
  * @var $num_get integer
  * @var $player_array array
@@ -32,6 +33,7 @@
                 <th class="hidden-xs">Стадия</th>
                 <th></th>
                 <th>Соперник</th>
+                <th class="hidden-xs" title="Соотношение сил (чем больше это число, тем сильнее ваш соперник)">C/C</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -51,6 +53,9 @@
                                 <?= $item['country_name']; ?>
                             </a>
                         <?php } ?>
+                    </td>
+                    <td class="text-center">
+                        <?= round($item['power_vs'] / $my_power_vs * 100); ?>%
                     </td>
                     <td class="text-center">
                         <a href="/game_preview.php?num=<?= $item['game_id']; ?>" target="_blank">

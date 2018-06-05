@@ -71,13 +71,16 @@ else
 }
 
 $sql = "SELECT `national_mood_rest`,
-               `national_mood_super`
+               `national_mood_super`,
+               `national_power_vs`
         FROM `national`
         WHERE `national_id`=$auth_national_id
         LIMIT 1";
 $nationalmood_sql = f_igosja_mysqli_query($sql);
 
 $nationalmood_array = $nationalmood_sql->fetch_all(MYSQLI_ASSOC);
+
+$my_power_vs = $nationalmood_array[0]['national_power_vs'];
 
 if (($data = f_igosja_request_post('data')) && $allow_post)
 {
@@ -340,6 +343,7 @@ $sql = "SELECT `game_id`,
                `schedule_date`,
                `stage_name`,
                `national_id`,
+               `national_power_vs` AS `power_vs`,
                `country_name`,
                `tournamenttype_name`
         FROM `game`

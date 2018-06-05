@@ -85,6 +85,14 @@ $playerspecial_sql = f_igosja_mysqli_query($sql);
 
 $playerspecial_array = $playerspecial_sql->fetch_all(MYSQLI_ASSOC);
 
+$sql = "SELECT `training_player_id`
+        FROM `training`
+        WHERE `training_player_id`=$num_get
+        ANd `training_ready`=0";
+$training_sql = f_igosja_mysqli_query($sql);
+
+$training_array = $training_sql->fetch_all(MYSQLI_ASSOC);
+
 if (isset($auth_team_id))
 {
     $sql = "SELECT COUNT(`scout_id`) AS `count_scout`
