@@ -29,7 +29,7 @@ if ($data = f_igosja_request_post('data'))
             LIMIT 1";
     f_igosja_mysqli_query($sql);
 
-    redirect('/admin/prenews_view.php?num=' . $num_get);
+    redirect('/admin/prenews_view.php');
 }
 
 $breadcrumb_array[] = array('url' => 'prenews_view.php', 'text' => 'Предварительные новости');
