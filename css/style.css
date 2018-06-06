@@ -710,13 +710,6 @@ td.table-bordered-right {
     color: #4F8A10;
 }
 
-.text-success,
-.text-success:hover,
-.text-success:visited,
-.text-success:active {
-    color: #4F8A10;
-}
-
 .warning {
     background-color: #FEEFB3;
     border-color: #9F6000;
@@ -726,13 +719,6 @@ td.table-bordered-right {
 .error {
     background-color: #FFBABA;
     border-color: #D8000C;
-    color: #D8000C;
-}
-
-.text-error,
-.text-error:hover,
-.text-error:visited,
-.text-error:active  {
     color: #D8000C;
 }
 
@@ -832,19 +818,23 @@ input[type="checkbox"] {
     text-decoration: none;
 }
 
-.font-green {
+.font-green,
+.font-green:visited {
     color: #3f903f;
 }
 
-.font-yellow {
+.font-yellow,
+.font-yellow:visited {
     color: #dab900;
 }
 
-.font-red {
+.font-red,
+.font-red:visited {
     color: #b52b27;
 }
 
 .font-grey,
+.font-grey:visited,
 .font-grey a {
     color: #afafaf;
 }
