@@ -356,13 +356,15 @@ else
                     if (false == $in_array)
                     {
                         $participant_array[] = array(
-                            'home_team_id' => $game['home_team_id'],
-                            'home_team_name' => $game['home_team_name'],
-                            'home_city_name' => $game['home_city_name'],
-                            'guest_team_id' => $game['guest_team_id'],
-                            'guest_team_name' => $game['guest_team_name'],
-                            'guest_city_name' => $game['guest_city_name'],
-                            'game' => array(
+                            'home_city_name'    => $game['home_city_name'],
+                            'home_stage_id'     => $game['home_stage_id'],
+                            'home_team_id'      => $game['home_team_id'],
+                            'home_team_name'    => $game['home_team_name'],
+                            'guest_city_name'   => $game['guest_city_name'],
+                            'guest_stage_id'    => $game['guest_stage_id'],
+                            'guest_team_id'     => $game['guest_team_id'],
+                            'guest_team_name'   => $game['guest_team_name'],
+                            'game'              => array(
                                 '<a href="/game_view.php?num=' . $game['game_id'] . '">' . f_igosja_game_score($game['game_played'], $game['game_home_score'], $game['game_guest_score']) . '</a>',
                             ),
                         );
