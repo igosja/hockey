@@ -308,7 +308,14 @@ $rentcomment_sql = f_igosja_mysqli_query($sql);
 
 $rentcomment_array = $rentcomment_sql->fetch_all(MYSQLI_ASSOC);
 
-$alert_array = f_igosja_deal_alert($rent_array[0]['steam_id'], $rent_array[0]['suser_id'], $rent_array[0]['bteam_id'], $rent_array[0]['buser_id']);
+if (0 == $rent_array[0]['rent_checked'])
+{
+    $alert_array = f_igosja_deal_alert($rent_array[0]['steam_id'], $rent_array[0]['suser_id'], $rent_array[0]['bteam_id'], $rent_array[0]['buser_id']);
+}
+else
+{
+    $alert_array = array();
+}
 
 $seo_title          = 'Арендная сделка';
 $seo_description    = 'Арендная сделка на сайте Вирутальной Хоккейной Лиги.';

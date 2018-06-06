@@ -307,7 +307,14 @@ $transfercomment_sql = f_igosja_mysqli_query($sql);
 
 $transfercomment_array = $transfercomment_sql->fetch_all(MYSQLI_ASSOC);
 
-$alert_array = f_igosja_deal_alert($transfer_array[0]['steam_id'], $transfer_array[0]['suser_id'], $transfer_array[0]['bteam_id'], $transfer_array[0]['buser_id']);
+if (0 == $transfer_array[0]['transfer_checked'])
+{
+    $alert_array = f_igosja_deal_alert($transfer_array[0]['steam_id'], $transfer_array[0]['suser_id'], $transfer_array[0]['bteam_id'], $transfer_array[0]['buser_id']);
+}
+else
+{
+    $alert_array = array();
+}
 
 $seo_title          = 'Трансферная сделка';
 $seo_description    = 'Трансферная сделка на сайте Вирутальной Хоккейной Лиги.';
