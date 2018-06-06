@@ -73,7 +73,7 @@
                         </a>
                     </td>
                     <td class="hidden-xs text-center"><?= f_igosja_game_auto($item['game_auto']); ?></td>
-                    <td class="text-center">
+                    <td class="text-center <?php if ($item['game_home_score'] > $item['game_guest_score']) { ?>success<?php } elseif ($item['game_home_score'] < $item['game_guest_score']) { ?>error<?php } ?>">
                         <a href="/game_view.php?num=<?= $item['game_id']; ?>">
                             <?= f_igosja_game_score($item['game_played'], $item['game_home_score'], $item['game_guest_score']); ?>
                         </a>
