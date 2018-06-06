@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $alert_array array
  * @var $auth_blockcomment_text string
  * @var $auth_blockdeal_text string
  * @var $auth_date_block_comment integer
@@ -156,6 +157,17 @@
         </div>
     </div>
 </div>
+<?php foreach ($alert_array as $class => $alert) { ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert <?= $class; ?> margin-top-small">
+            <ul>
+                <?php foreach ($alert as $item) { ?>
+                    <li><?= $item; ?></li>
+                <?php } ?>
+            </ul>
+        </div>
+    </div>
+<?php } ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <table class="table table-bordered table-hover">
