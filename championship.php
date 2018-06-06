@@ -286,12 +286,14 @@ else
                            `game_guest_score`,
                            `game_home_score`,
                            `game_played`,
+                           `guest_city`.`city_name` AS `guest_city_name`,
+                           `guest_participant`.`participantchampionship_stage_id` AS `guest_stage_id`,
                            `guest_team`.`team_id` AS `guest_team_id`,
                            `guest_team`.`team_name` AS `guest_team_name`,
-                           `guest_city`.`city_name` AS `guest_city_name`,
+                           `home_city`.`city_name` AS `home_city_name`,
+                           `home_participant`.`participantchampionship_stage_id` AS `home_stage_id`,
                            `home_team`.`team_id` AS `home_team_id`,
-                           `home_team`.`team_name` AS `home_team_name`,
-                           `home_city`.`city_name` AS `home_city_name`
+                           `home_team`.`team_name` AS `home_team_name`
                     FROM `game`
                     LEFT JOIN `team` AS `guest_team`
                     ON `game_guest_team_id`=`guest_team`.`team_id`
@@ -299,12 +301,18 @@ else
                     ON `guest_team`.`team_stadium_id`=`guest_stadium`.`stadium_id`
                     LEFT JOIN `city` AS `guest_city`
                     ON `guest_stadium`.`stadium_city_id`=`guest_city`.`city_id`
+                    LEFT JOIN `participantchampionship` AS `guest_participant`
+                    ON (`guest_team`.`team_id`=`guest_participant`.`participantchampionship_team_id`
+                    AND `guest_participant`.`participantchampionship_season_id`=$season_id)
                     LEFT JOIN `team` AS `home_team`
                     ON `game_home_team_id`=`home_team`.`team_id`
                     LEFT JOIN `stadium` AS `home_stadium`
                     ON `home_team`.`team_stadium_id`=`home_stadium`.`stadium_id`
                     LEFT JOIN `city` AS `home_city`
                     ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
+                    LEFT JOIN `participantchampionship` AS `home_participant`
+                    ON (`home_team`.`team_id`=`home_participant`.`participantchampionship_team_id`
+                    AND `home_participant`.`participantchampionship_season_id`=$season_id)
                     LEFT JOIN `championship`
                     ON `game_guest_team_id`=`championship_team_id`
                     WHERE `game_schedule_id` IN ($schedule_id)
