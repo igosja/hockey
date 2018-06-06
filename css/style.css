@@ -710,6 +710,10 @@ td.table-bordered-right {
     color: #4F8A10;
 }
 
+.text-success {
+    color: #4F8A10;
+}
+
 .warning {
     background-color: #FEEFB3;
     border-color: #9F6000;
@@ -719,6 +723,10 @@ td.table-bordered-right {
 .error {
     background-color: #FFBABA;
     border-color: #D8000C;
+    color: #D8000C;
+}
+
+.text-error {
     color: #D8000C;
 }
 
