@@ -710,7 +710,10 @@ td.table-bordered-right {
     color: #4F8A10;
 }
 
-.text-success {
+.text-success,
+.text-success:hover,
+.text-success:visited,
+.text-success:active {
     color: #4F8A10;
 }
 
@@ -726,7 +729,10 @@ td.table-bordered-right {
     color: #D8000C;
 }
 
-.text-error {
+.text-error,
+.text-error:hover,
+.text-error:visited,
+.text-error:active  {
     color: #D8000C;
 }
 
