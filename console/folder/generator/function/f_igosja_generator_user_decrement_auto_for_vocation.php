@@ -6,9 +6,9 @@
 function f_igosja_generator_user_decrement_auto_for_vocation()
 {
     $sql = "UPDATE `team`
-            SET `team_auto`=4
             LEFT JOIN `user`
             ON `team_user_id`=`user_id`
+            SET `team_auto`=4
             WHERE `team_auto`>=5
             AND `user_id`!=0
             AND `user_holiday`!=0";

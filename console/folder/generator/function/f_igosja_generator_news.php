@@ -213,6 +213,32 @@ function f_igosja_generator_news()
         $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p>' . "\r\n" . '<p>В ' . $day . ' в Лиге будут сыграны ' . $tomorrow .'.</p>' . "\r\n";
     }
 
+    $sql = "SELECT `prenews_error`,
+                   `prenews_new`
+            FROM `prenews`
+            WHERE `prenews_id`=1
+            LIMIT 1";
+    $prenews_sql = f_igosja_mysqli_query($sql);
+
+    $prenews_array = $prenews_sql->fetch_all(MYSQLI_ASSOC);
+
+    if ($prenews_array[0]['prenews_error'])
+    {
+        $text = $text . '<p class="strong">РАБОТА НАД ОШИКАМИ</p>' . "\r\n" . $prenews_array[0]['prenews_error'] . "\r\n";
+    }
+
+    if ($prenews_array[0]['prenews_new'])
+    {
+        $text = $text . '<p class="strong">НОВОЕ НА САЙТЕ</p>' . "\r\n" . $prenews_array[0]['prenews_new'] . "\r\n";
+    }
+
+    $sql = "UPDATE `prenews`
+            SET `prenews_error`='',
+                `prenews_new`=''
+            WHERE `prenews_id`=1
+            LIMIT 1";
+    f_igosja_mysqli_query($sql);
+
     $sql = "INSERT INTO `news`
             SET `news_date`=UNIX_TIMESTAMP(),
                 `news_text`=?,

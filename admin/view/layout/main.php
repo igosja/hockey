@@ -172,6 +172,9 @@
                             <li>
                                 <a href="/admin/news_list.php">Новости</a>
                             </li>
+                            <li>
+                                <a href="/admin/prenews_view.php">Предварительные новости</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
