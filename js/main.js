@@ -373,6 +373,34 @@ jQuery(document).ready(function () {
         table_list.find('th').removeClass('hidden-xs');
         table_list.find('td').removeClass('hidden-xs');
     });
+
+    $(document).on('click', '.up', function () {
+        var currentTr = $(this).parents('tr');
+        var allTr = $(this).parents('tbody').find('tr');
+
+        for (var i=0; i<allTr.length; i++)
+        {
+            if ($(allTr[i]).data('order') === currentTr.data('order'))
+            {
+                var prevTrI = i - 1;
+                break;
+            }
+        }
+
+        if (prevTrI > -1)
+        {
+            allTr[prevTrI + 1] = allTr[prevTrI];
+            allTr[prevTrI] = currentTr;
+
+            var tbody = $(this).parents('tbody');
+            tbody = tbody[0];
+            $(this).parents('tbody').remove();
+            for (i = 0; i < allTr.length; i++) {
+                tbody.appendChild(allTr[i]);
+            }
+            $(this).parents('table').append(tbody);
+        }
+    })
 });
 
 function check_password_login_email()

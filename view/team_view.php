@@ -99,6 +99,8 @@
                                 />
                             <?php } ?>
                             <?= f_igosja_player_on_training($item['player_id'], $training_array); ?>
+                            <span class="up">+</span>
+                            <span class="down">-</span>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
