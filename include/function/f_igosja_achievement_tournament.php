@@ -5,7 +5,6 @@
  * @param $achievement array дані з БД по поточному досягненню
  * @return string
  */
-
 function f_igosja_achievement_tournament($achievement)
 {
     $result = $achievement['tournamenttype_name'];

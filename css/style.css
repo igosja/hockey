@@ -818,19 +818,23 @@ input[type="checkbox"] {
     text-decoration: none;
 }
 
-.font-green {
+.font-green,
+.font-green:visited {
     color: #3f903f;
 }
 
-.font-yellow {
+.font-yellow,
+.font-yellow:visited {
     color: #dab900;
 }
 
-.font-red {
+.font-red,
+.font-red:visited {
     color: #b52b27;
 }
 
 .font-grey,
+.font-grey:visited,
 .font-grey a {
     color: #afafaf;
 }

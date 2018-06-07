@@ -16,7 +16,7 @@
                 <?php foreach ($round['participant'] as $participant) { ?>
                     <tr>
                         <td class="text-right col-35 <?php if (STAGE_FINAL == $round['stage_id']) { ?>col-30-sm<?php } ?>">
-                            <a href="/team_view.php?num=<?= $participant['home_team_id']; ?>">
+                            <a <?php if ($round['stage_id'] == $participant['home_stage_id']) { ?>class="font-grey"<?php } ?> href="/team_view.php?num=<?= $participant['home_team_id']; ?>">
                                 <?= $participant['home_team_name']; ?>
                                 <span class="hidden-xs">(<?= $participant['home_city_name']; ?>)</span>
                             </a>
@@ -25,7 +25,7 @@
                             <?= implode(' | ', $participant['game']); ?>
                         </td>
                         <td>
-                            <a href="/team_view.php?num=<?= $participant['guest_team_id']; ?>">
+                            <a <?php if ($round['stage_id'] == $participant['guest_stage_id']) { ?>class="font-grey"<?php } ?> href="/team_view.php?num=<?= $participant['guest_team_id']; ?>">
                                 <?= $participant['guest_team_name']; ?>
                                 <span class="hidden-xs">(<?= $participant['guest_city_name']; ?>)</span>
                             </a>
