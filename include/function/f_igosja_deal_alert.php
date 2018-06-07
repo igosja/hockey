@@ -78,7 +78,7 @@ function f_igosja_deal_alert($seller_team_id, $seller_user_id, $buyer_team_id, $
 
         foreach ($user_array as $item)
         {
-            if ($item['user_date_login'] > time() - 604800)
+            if ($item['user_date_login'] < time() - 604800)
             {
                 $result['error'][] = 'Менеджер <span class="strong">' . $item['user_login'] . '</span> больше недели не заходил на сайт.';
             }
