@@ -41,7 +41,12 @@
             <thead>
                 <tr>
                     <th data-type="increment">№</th>
-                    <th data-type="player">Игрок</th>
+                    <th data-type="player">
+                        <?php if ($num_get == $auth_team_id) { ?>
+                            <img alt="Тренерская сортировка" class="coach-sort" src="/img/sort.png" title="Тренерская сортировка" />
+                        <?php } ?>
+                        Игрок
+                    </th>
                     <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
                     <th class="col-5" data-type="position" title="Позиция">Поз</th>
                     <th class="col-5" data-type="number" title="Возраст">В</th>
