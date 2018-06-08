@@ -402,7 +402,7 @@ jQuery(document).ready(function () {
 
 function coach_sort_table(table)
 {
-    var tbody = playerTable.find('tbody');
+    var tbody = table.find('tbody');
     tbody = tbody[0];
     var rowsArray = [].slice.call(tbody.rows);
 
@@ -412,11 +412,11 @@ function coach_sort_table(table)
 
     rowsArray.sort(compare);
 
-    playerTable.find('tbody').remove();
+    table.find('tbody').remove();
     for (var i = 0; i < rowsArray.length; i++) {
         tbody.appendChild(rowsArray[i]);
     }
-    playerTable.append(tbody);
+    table.append(tbody);
 }
 
 function check_password_login_email()
