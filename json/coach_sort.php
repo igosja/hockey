@@ -8,6 +8,9 @@ include(__DIR__ . '/../include/include.php');
 
 if ($player_array = f_igosja_request_post('player_array'))
 {
+    print '<pre>';
+    print_r($player_array);
+    exit;
     foreach ($player_array as $item)
     {
         $player     = explode(':', $item);
