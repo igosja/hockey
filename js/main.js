@@ -378,7 +378,7 @@ jQuery(document).ready(function () {
         var currentOrder = $(this).parents('tr').attr('data-order');
 
         if (currentOrder > 0) {
-            $(['tr[data-order=' + (currentOrder - 1) + ']']).attr('data-order', currentOrder);
+            $('tr[data-order=' + (currentOrder - 1) + ']').attr('data-order', currentOrder);
             $(this).parents('tr').attr('data-order', currentOrder - 1);
 
             coach_sort_table($('#grid'));
@@ -392,7 +392,7 @@ jQuery(document).ready(function () {
         lastOrder = $(lastOrder).attr('data-order');
 
         if (currentOrder < lastOrder) {
-            $(['tr[data-order=' + (currentOrder + 1) + ']']).attr('data-order', currentOrder);
+            $('tr[data-order=' + (currentOrder + 1) + ']').attr('data-order', currentOrder);
             $(this).parents('tr').attr('data-order', currentOrder + 1);
 
             coach_sort_table($('#grid'));
