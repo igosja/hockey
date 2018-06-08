@@ -100,8 +100,12 @@
                             <?php } ?>
                             <?= f_igosja_player_on_training($item['player_id'], $training_array); ?>
                             <?php if ($num_get == $auth_team_id) { ?>
-                                <span class="up text-right">+</span>
-                                <span class="down text-right">-</span>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                        <span class="up">+</span>
+                                        <span class="down">-</span>
+                                    </div>
+                                </div>
                             <?php } ?>
                         </td>
                         <td class="hidden-xs text-center">
