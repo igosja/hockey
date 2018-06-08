@@ -410,15 +410,18 @@ function coach_sort_table(table)
     var rowsArray = [].slice.call(tbody.rows);
 
     var compare = function (rowA, rowB) {
-        return $(rowA).attr('data-order') - $(rowB).attr('data-order');
+        return $(rowA).data('order') - $(rowB).data('order');
     };
 
     rowsArray.sort(compare);
 
     table.find('tbody').remove();
+    var data = [];
     for (var i = 0; i < rowsArray.length; i++) {
         tbody.appendChild(rowsArray[i]);
+        data[$(rowsArray[i]).data('player')] = $(rowsArray[i]).data('order');
     }
+    console.log(data);
     table.append(tbody);
 }
 
