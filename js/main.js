@@ -380,9 +380,9 @@ jQuery(document).ready(function () {
         if (currentOrder > 0) {
             $(['tr[data-order=' + (currentOrder - 1) + ']']).attr('data-order', currentOrder);
             $(this).parents('tr').attr('data-order', currentOrder - 1);
-        }
 
-        coach_sort_table($('#grid'));
+            coach_sort_table($('#grid'));
+        }
     });
 
     $(document).on('click', '.down', function () {
@@ -394,9 +394,9 @@ jQuery(document).ready(function () {
         if (currentOrder < lastOrder) {
             $(['tr[data-order=' + (currentOrder + 1) + ']']).attr('data-order', currentOrder);
             $(this).parents('tr').attr('data-order', currentOrder + 1);
-        }
 
-        coach_sort_table($('#grid'));
+            coach_sort_table($('#grid'));
+        }
     });
 });
 
