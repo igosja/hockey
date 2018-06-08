@@ -61,7 +61,7 @@
             </thead>
             <tbody>
                 <?php $i=0; $player_number=1; foreach ($player_array as $item) { ?>
-                    <tr data-order="<?= $i; ?>">
+                    <tr data-order="<?= $i; ?>" data-player="<?= $item['player_id']; ?>">
                         <td class="text-center">
                             <?= $player_number; ?>
                         </td>
