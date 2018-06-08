@@ -419,7 +419,7 @@ function coach_sort_table(table)
     var data = [];
     for (var i = 0; i < rowsArray.length; i++) {
         tbody.appendChild(rowsArray[i]);
-        data[$(rowsArray[i]).data('player')] = $(rowsArray[i]).data('order');
+        data.push($(rowsArray[i]).data('player') + ':' + $(rowsArray[i]).data('order'));
     }
     console.log(data);
     table.append(tbody);
