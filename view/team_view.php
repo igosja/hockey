@@ -99,8 +99,10 @@
                                 />
                             <?php } ?>
                             <?= f_igosja_player_on_training($item['player_id'], $training_array); ?>
-                            <span class="up">+</span>
-                            <span class="down">-</span>
+                            <?php if ($num_get == $auth_team_id) { ?>
+                                <span class="up">+</span>
+                                <span class="down">-</span>
+                            <?php } ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
