@@ -67,8 +67,8 @@
                         </td>
                         <td<?php if (isset($auth_team_id) && $num_get == $auth_team_id && $item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
                             <?php if ($num_get == $auth_team_id) { ?>
-                                <span class="up">+</span>
-                                <span class="down">-</span>
+                                <img alt="Вверх" class="up" src="/img/up.png" />
+                                <img alt="Вниз" class="down" src="/img/down.png" />
                             <?php } ?>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
