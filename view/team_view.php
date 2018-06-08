@@ -66,6 +66,10 @@
                             <?= $player_number; ?>
                         </td>
                         <td<?php if (isset($auth_team_id) && $num_get == $auth_team_id && $item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
+                            <?php if ($num_get == $auth_team_id) { ?>
+                                <span class="up">+</span>
+                                <span class="down">-</span>
+                            <?php } ?>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>
@@ -99,14 +103,6 @@
                                 />
                             <?php } ?>
                             <?= f_igosja_player_on_training($item['player_id'], $training_array); ?>
-                            <?php if ($num_get == $auth_team_id) { ?>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
-                                        <span class="up">+</span>
-                                        <span class="down">-</span>
-                                    </div>
-                                </div>
-                            <?php } ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <a href="/country_news.php?num=<?= $item['country_id']; ?>">
