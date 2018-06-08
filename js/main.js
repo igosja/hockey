@@ -425,7 +425,7 @@ function coach_sort_table(table)
     $.ajax({
         data: 'data[player_array]=' + data,
         method: 'post',
-        url: '/json/coach_sort.php',
+        url: '/json/coach_sort.php'
     });
 
     table.append(tbody);
