@@ -375,31 +375,49 @@ jQuery(document).ready(function () {
     });
 
     $(document).on('click', '.up', function () {
-        var currentOrder = $(this).parents('tr').data('order');
+        var currentOrder = $(this).parents('tr').attr('data-order');
 
         if (currentOrder > 0) {
-            $(['tr[data-order=' + (currentOrder - 1) + ']']).data('order', currentOrder);
-            $(this).parents('tr').data('order', currentOrder - 1);
+            $(['tr[data-order=' + (currentOrder - 1) + ']']).attr('data-order', currentOrder);
+            $(this).parents('tr').attr('data-order', currentOrder - 1);
         }
 
-        var grid = $('#grid');
-        var tbody = grid.find('tbody');
-        tbody = tbody[0];
-        var rowsArray = [].slice.call(tbody.rows);
+        coach_sort_table($('#grid'));
+    });
 
-        var compare = function (rowA, rowB) {
-            return $(rowA).data('order') - $(rowB).data('order');
-        };
+    $(document).on('click', '.down', function () {
+        var currentOrder = $(this).parents('tr').attr('data-order');
+        var lastOrder = $(this).parents('tbody').find('tr');
+        lastOrder = lastOrder[lastOrder.length-1];
+        lastOrder = $(lastOrder).attr('data-order');
 
-        rowsArray.sort(compare);
-
-        grid.find('tbody').remove();
-        for (var i = 0; i < rowsArray.length; i++) {
-            tbody.appendChild(rowsArray[i]);
+        if (currentOrder < lastOrder) {
+            $(['tr[data-order=' + (currentOrder + 1) + ']']).attr('data-order', currentOrder);
+            $(this).parents('tr').attr('data-order', currentOrder + 1);
         }
-        grid.append(tbody);
+
+        coach_sort_table($('#grid'));
     });
 });
+
+function coach_sort_table(table)
+{
+    var tbody = playerTable.find('tbody');
+    tbody = tbody[0];
+    var rowsArray = [].slice.call(tbody.rows);
+
+    var compare = function (rowA, rowB) {
+        return $(rowA).data('order') - $(rowB).data('order');
+    };
+
+    rowsArray.sort(compare);
+
+    playerTable.find('tbody').remove();
+    for (var i = 0; i < rowsArray.length; i++) {
+        tbody.appendChild(rowsArray[i]);
+    }
+    playerTable.append(tbody);
+}
 
 function check_password_login_email()
 {
