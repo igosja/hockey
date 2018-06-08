@@ -365,7 +365,7 @@ $sql = "SELECT `count_scout`,
         LEFT JOIN `line`
         ON `player_line_id`=`line_id`
         WHERE `player_team_id`=$num_get
-        ORDER BY `player_position_id` ASC, `player_id` ASC";
+        ORDER BY `player_order` ASC, `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);
