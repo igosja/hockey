@@ -401,6 +401,10 @@ jQuery(document).ready(function () {
             coach_sort_table($('#grid'));
         }
     });
+
+    $('.coach-sort').on('click', function() {
+        $('.up, .down').toggle();
+    });
 });
 
 function coach_sort_table(table)
@@ -1229,5 +1233,5 @@ function sort_grid(grid, type, colNum, sortOrder)
     }
     grid.append(tbody);
 
-    $('.up, .down').remove();
+    $('.up, .down, .coach-sort').remove();
 }
