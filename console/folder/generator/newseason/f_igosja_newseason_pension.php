@@ -72,7 +72,7 @@ function f_igosja_newseason_pension()
             $special = 50;
         }
 
-        $price = ceil($item['player_price'] / 2 + $price * $special / 100);
+        $price = ceil($item['player_price'] / 2 + $item['player_price'] * $special / 100);
 
         $sql = "UPDATE `team`
                 SET `team_finance`=`team_finance`+$price
@@ -92,6 +92,9 @@ function f_igosja_newseason_pension()
 
     $sql = "UPDATE `player`
             SET `player_line_id`=0,
+                `player_national_line_id`=0,
+                `player_order`=0,
+                `player_rent_day`=0,
                 `player_rent_team_id`=0,
                 `player_team_id`=0
             WHERE `player_age`>=40
