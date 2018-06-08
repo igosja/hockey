@@ -375,32 +375,30 @@ jQuery(document).ready(function () {
     });
 
     $(document).on('click', '.up', function () {
-        var currentTr = $(this).parents('tr');
-        var allTr = $(this).parents('tbody').find('tr');
+        var currentOrder = $(this).parents('tr').data('order');
 
-        for (var i=0; i<allTr.length; i++)
-        {
-            if ($(allTr[i]).data('order') === currentTr.data('order'))
-            {
-                var prevTrI = i - 1;
-                break;
-            }
+        if (currentOrder > 0) {
+            $(['tr[data-order=' + (currentOrder - 1) + ']']).data('order', currentOrder);
+            $(this).parents('tr').data('order', currentOrder - 1);
         }
 
-        if (prevTrI > -1)
-        {
-            allTr[prevTrI + 1] = allTr[prevTrI];
-            allTr[prevTrI] = currentTr;
+        var grid = $('#grid');
+        var tbody = grid.find('tbody');
+        tbody = tbody[0];
+        var rowsArray = [].slice.call(tbody.rows);
 
-            var tbody = $(this).parents('tbody');
-            tbody = tbody[0];
-            $(this).parents('tbody').remove();
-            for (i = 0; i < allTr.length; i++) {
-                tbody.appendChild(allTr[i]);
-            }
-            $(this).parents('table').append(tbody);
+        var compare = function (rowA, rowB) {
+            return $(rowA).data('order') - $(rowB).data('order');
+        };
+
+        rowsArray.sort(compare);
+
+        grid.find('tbody').remove();
+        for (var i = 0; i < rowsArray.length; i++) {
+            tbody.appendChild(rowsArray[i]);
         }
-    })
+        grid.append(tbody);
+    });
 });
 
 function check_password_login_email()
