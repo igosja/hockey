@@ -421,7 +421,13 @@ function coach_sort_table(table)
         tbody.appendChild(rowsArray[i]);
         data.push($(rowsArray[i]).data('player') + ':' + $(rowsArray[i]).data('order'));
     }
-    console.log(data);
+
+    $.ajax({
+        data: 'data[player_array]' + data,
+        method: 'post',
+        url: '/json/coach_sort.php',
+    });
+
     table.append(tbody);
 }
 
