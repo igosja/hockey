@@ -376,6 +376,7 @@ jQuery(document).ready(function () {
 
     $(document).on('click', '.up', function () {
         var currentOrder = $(this).parents('tr').attr('data-order');
+        currentOrder = parseInt(currentOrder);
 
         if (currentOrder > 0) {
             $('tr[data-order=' + (currentOrder - 1) + ']').attr('data-order', currentOrder);
@@ -387,9 +388,11 @@ jQuery(document).ready(function () {
 
     $(document).on('click', '.down', function () {
         var currentOrder = $(this).parents('tr').attr('data-order');
+        currentOrder = parseInt(currentOrder);
         var lastOrder = $(this).parents('tbody').find('tr');
         lastOrder = lastOrder[lastOrder.length-1];
         lastOrder = $(lastOrder).attr('data-order');
+        lastOrder = parseInt(lastOrder);
 
         if (currentOrder < lastOrder) {
             $('tr[data-order=' + (currentOrder + 1) + ']').attr('data-order', currentOrder);
