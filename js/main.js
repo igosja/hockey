@@ -407,7 +407,7 @@ function coach_sort_table(table)
     var rowsArray = [].slice.call(tbody.rows);
 
     var compare = function (rowA, rowB) {
-        return $(rowA).data('order') - $(rowB).data('order');
+        return $(rowA).attr('data-order') - $(rowB).attr('data-order');
     };
 
     rowsArray.sort(compare);
