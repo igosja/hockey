@@ -1228,4 +1228,6 @@ function sort_grid(grid, type, colNum, sortOrder)
         tbody.appendChild(rowsArray[i]);
     }
     grid.append(tbody);
+
+    $('.up, .down').remove();
 }
