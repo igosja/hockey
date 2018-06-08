@@ -69,7 +69,6 @@
                             <?php if ($num_get == $auth_team_id) { ?>
                                 <img alt="Вверх" class="up" src="/img/up.png" style="display: none;" />
                                 <img alt="Вниз" class="down" src="/img/down.png" style="display: none;" />
-                                <span class="down">-</span>
                             <?php } ?>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
