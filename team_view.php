@@ -42,6 +42,13 @@ if (!$num_get = (int) f_igosja_request_get('num'))
 include(__DIR__ . '/include/sql/team_view_left.php');
 include(__DIR__ . '/include/sql/team_view_right.php');
 
+$order = '`player_position_id` ASC, `player_id` ASC';
+
+if ($num_get == $auth_team_id)
+{
+    $order = '`player_order` ASC, ' . $order;
+}
+
 $sql = "SELECT `country_id`,
                `country_name`,
                `line_color`,
@@ -81,7 +88,7 @@ $sql = "SELECT `country_id`,
         ON `player_style_id`=`style_id`
         WHERE `player_team_id`=$num_get
         AND `player_rent_team_id`=0
-        ORDER BY `player_position_id` ASC, `player_id` ASC";
+        ORDER BY $order";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);

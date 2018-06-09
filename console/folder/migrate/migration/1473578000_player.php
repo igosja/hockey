@@ -20,6 +20,7 @@ $q[] = 'CREATE TABLE `player`
             `player_national_line_id` INT(1) DEFAULT 1,
             `player_noaction` INT(11) DEFAULT 0,
             `player_nodeal` INT(1) DEFAULT 0,
+            `player_order` INT(3) DEFAULT 0,
             `player_phisical_id` INT(2) DEFAULT 0,
             `player_position_id` INT(1) DEFAULT 0,
             `player_power_nominal` INT(3) DEFAULT 0,

@@ -41,7 +41,12 @@
             <thead>
                 <tr>
                     <th data-type="increment">№</th>
-                    <th data-type="player">Игрок</th>
+                    <th data-type="player">
+                        <?php if ($num_get == $auth_team_id) { ?>
+                            <img alt="Тренерская сортировка" class="coach-sort" src="/img/sort.png" title="Тренерская сортировка" />
+                        <?php } ?>
+                        Игрок
+                    </th>
                     <th class="col-1 hidden-xs" data-type="country" title="Национальность">Нац</th>
                     <th class="col-5" data-type="position" title="Позиция">Поз</th>
                     <th class="col-5" data-type="number" title="Возраст">В</th>
@@ -61,11 +66,15 @@
             </thead>
             <tbody>
                 <?php $i=0; $player_number=1; foreach ($player_array as $item) { ?>
-                    <tr data-order="<?= $i; ?>">
+                    <tr data-order="<?= $i; ?>" data-player="<?= $item['player_id']; ?>">
                         <td class="text-center">
                             <?= $player_number; ?>
                         </td>
                         <td<?php if (isset($auth_team_id) && $num_get == $auth_team_id && $item['line_color']) { ?> style="background-color: #<?= $item['line_color']; ?>"<?php } ?>>
+                            <?php if ($num_get == $auth_team_id) { ?>
+                                <img alt="Вверх" class="up" src="/img/up.png" style="display: none;" />
+                                <img alt="Вниз" class="down" src="/img/down.png" style="display: none;" />
+                            <?php } ?>
                             <a href="/player_view.php?num=<?= $item['player_id']; ?>">
                                 <?= $item['name_name']; ?>
                                 <?= $item['surname_name']; ?>
@@ -362,7 +371,12 @@
                 <?php } ?>
                 <tr>
                     <th data-type="increment">№</th>
-                    <th>Игрок</th>
+                    <th>
+                        <?php if ($num_get == $auth_team_id) { ?>
+                            <img alt="Тренерская сортировка" class="coach-sort" src="/img/sort.png" title="Тренерская сортировка" />
+                        <?php } ?>
+                        Игрок
+                    </th>
                     <th class="hidden-xs" title="Национальность">Нац</th>
                     <th title="Позиция">Поз</th>
                     <th title="Возраст">В</th>

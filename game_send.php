@@ -393,7 +393,7 @@ $sql = "SELECT `country_id`,
         WHERE ((`player_team_id`=$auth_team_id
         AND `player_rent_team_id`=0)
         OR `player_rent_team_id`=$auth_team_id)
-        ORDER BY `player_position_id` ASC, `player_id` ASC";
+        ORDER BY `player_rent_team_id` ASC, `player_order` ASC, `player_position_id` ASC, `player_id` ASC";
 $player_sql = f_igosja_mysqli_query($sql);
 
 $player_array = $player_sql->fetch_all(MYSQLI_ASSOC);

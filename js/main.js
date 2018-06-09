@@ -373,7 +373,67 @@ jQuery(document).ready(function () {
         table_list.find('th').removeClass('hidden-xs');
         table_list.find('td').removeClass('hidden-xs');
     });
+
+    $(document).on('click', '.up', function () {
+        var currentOrder = $(this).parents('tr').attr('data-order');
+        currentOrder = parseInt(currentOrder);
+
+        if (currentOrder > 0) {
+            $('tr[data-order=' + (currentOrder - 1) + ']').attr('data-order', currentOrder);
+            $(this).parents('tr').attr('data-order', currentOrder - 1);
+
+            coach_sort_table($('#grid'));
+        }
+    });
+
+    $(document).on('click', '.down', function () {
+        var currentOrder = $(this).parents('tr').attr('data-order');
+        currentOrder = parseInt(currentOrder);
+        var lastOrder = $(this).parents('tbody').find('tr');
+        lastOrder = lastOrder[lastOrder.length-1];
+        lastOrder = $(lastOrder).attr('data-order');
+        lastOrder = parseInt(lastOrder);
+
+        if (currentOrder < lastOrder) {
+            $('tr[data-order=' + (currentOrder + 1) + ']').attr('data-order', currentOrder);
+            $(this).parents('tr').attr('data-order', currentOrder + 1);
+
+            coach_sort_table($('#grid'));
+        }
+    });
+
+    $('.coach-sort').on('click', function() {
+        $('.up, .down').toggle();
+    });
 });
+
+function coach_sort_table(table)
+{
+    var tbody = table.find('tbody');
+    tbody = tbody[0];
+    var rowsArray = [].slice.call(tbody.rows);
+
+    var compare = function (rowA, rowB) {
+        return $(rowA).data('order') - $(rowB).data('order');
+    };
+
+    rowsArray.sort(compare);
+
+    table.find('tbody').remove();
+    var data = [];
+    for (var i = 0; i < rowsArray.length; i++) {
+        tbody.appendChild(rowsArray[i]);
+        data.push($(rowsArray[i]).data('player') + ':' + $(rowsArray[i]).data('order'));
+    }
+
+    $.ajax({
+        data: 'player_array=' + data,
+        method: 'post',
+        url: '/json/coach_sort.php'
+    });
+
+    table.append(tbody);
+}
 
 function check_password_login_email()
 {
@@ -1172,4 +1232,6 @@ function sort_grid(grid, type, colNum, sortOrder)
         tbody.appendChild(rowsArray[i]);
     }
     grid.append(tbody);
+
+    $('.up, .down, .coach-sort').remove();
 }

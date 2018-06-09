@@ -199,7 +199,12 @@ if ($data = f_igosja_request_get('ok'))
         $player_id = $item['player_id'];
 
         $sql = "UPDATE `player`
-                SET `player_team_id`=0
+                SET `player_line_id`=0,
+                    `player_national_line_id`=0,
+                    `player_rent_day`=0,
+                    `player_rent_team_id`=0,
+                    `player_team_id`=0,
+                    `player_order`=0
                 WHERE `player_id`=$player_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
