@@ -43,9 +43,9 @@ function f_igosja_generator_national_user_day()
             else
             {
                 $sql = "UPDATE `nationaluserday`
-                        SET `nationaluserday_day`=`nationaluserday_day`+1,
-                            `nationaluserday_national_id`=$national_id,
-                            `nationaluserday_user_id`=$user_id";
+                        SET `nationaluserday_day`=`nationaluserday_day`+1
+                        WHERE `nationaluserday_national_id`=$national_id
+                        AND `nationaluserday_user_id`=$user_id";
                 f_igosja_mysqli_query($sql);
             }
         }
