@@ -283,144 +283,111 @@
     </div>
 </div>
 <div class="row margin-top">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <th title="Позиция">П</th>
-                <th>
-                    <?= f_igosja_team_or_national_link(
-                        array(
-                            'team_id'   => $game_array[0]['home_team_id'],
-                            'team_name' => $game_array[0]['home_team_name'],
-                        ),
-                        array(
-                            'country_name'  => $game_array[0]['home_national_name'],
-                            'national_id'   => $game_array[0]['home_national_id'],
-                        ),
-                        false
-                    ); ?>
-                </th>
-                <th class="hidden-xs" title="Возраст">В</th>
-                <th class="hidden-xs" title="Номинальная сила">НС</th>
-                <th title="Реальная сила">РС</th>
-                <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
-                <th class="hidden-xs" title="Броски">Б</th>
-                <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
-                <th title="Голевые передачи">П</th>
-                <th title="Плюс/минус">+/-</th>
-            </tr>
-            <?php foreach ($home_array as $item) { ?>
+    <?php for ($i=0; $i<2; $i++) { ?>
+        <?php
+        if (0 == $i)
+        {
+            $team       = 'home';
+            $team_array = $home_array;
+        }
+        else
+        {
+            $team       = 'guest';
+            $team_array = $guest_array;
+        }
+        ?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
+            <table class="table table-bordered">
                 <tr>
-                    <td class="text-center">
-                        <?= $item['position_short']; ?>
-                    </td>
-                    <td>
-                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                            <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
-                        </a>
-                        <?= f_igosja_player_power_change($item['lineup_power_change']); ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_age']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_power_nominal']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_power_real']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_penalty']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_shot']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (1 == $item['position_id']) { ?>
-                            <?= $item['lineup_pass']; ?>
-                        <?php } else { ?>
-                            <?= $item['lineup_score']; ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_assist']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_plus_minus']; ?>
-                    </td>
+                    <th title="Позиция">П</th>
+                    <th>
+                        <?= f_igosja_team_or_national_link(
+                            array(
+                                'team_id'   => $game_array[0][$team . '_team_id'],
+                                'team_name' => $game_array[0][$team . '_team_name'],
+                            ),
+                            array(
+                                'country_name'  => $game_array[0][$team . '_national_name'],
+                                'national_id'   => $game_array[0][$team . '_national_id'],
+                            ),
+                            false
+                        ); ?>
+                    </th>
+                    <th class="hidden-xs" title="Возраст">В</th>
+                    <th class="hidden-xs" title="Номинальная сила">НС</th>
+                    <th title="Реальная сила">РС</th>
+                    <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
+                    <th class="hidden-xs" title="Броски">Б</th>
+                    <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
+                    <th title="Голевые передачи">П</th>
+                    <th title="Плюс/минус">+/-</th>
                 </tr>
-            <?php } ?>
-        </table>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <th title="Позиция">П</th>
-                <th>
-                    <?= f_igosja_team_or_national_link(
-                        array(
-                            'team_id'   => $game_array[0]['guest_team_id'],
-                            'team_name' => $game_array[0]['guest_team_name'],
-                        ),
-                        array(
-                            'country_name'  => $game_array[0]['guest_national_name'],
-                            'national_id'   => $game_array[0]['guest_national_id'],
-                        ),
-                        false
-                    ); ?>
-                </th>
-                <th class="hidden-xs" title="Возраст">В</th>
-                <th class="hidden-xs" title="Номинальная сила">НС</th>
-                <th title="Реальная сила">РС</th>
-                <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
-                <th class="hidden-xs" title="Броски">Б</th>
-                <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
-                <th title="Голевые передачи">П</th>
-                <th title="Плюс/минус">+/-</th>
-            </tr>
-            <?php foreach ($guest_array as $item) { ?>
-                <tr>
-                    <td class="text-center">
-                        <?= $item['position_short']; ?>
-                    </td>
-                    <td>
-                        <a href="/player_view.php?num=<?= $item['player_id']; ?>">
-                            <?= $item['name_name']; ?> <?= $item['surname_name']; ?>
-                        </a>
-                        <?= f_igosja_player_power_change($item['lineup_power_change']); ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_age']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_power_nominal']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_power_real']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_penalty']; ?>
-                    </td>
-                    <td class="hidden-xs text-center">
-                        <?= $item['lineup_shot']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (1 == $item['position_id']) { ?>
-                            <?= $item['lineup_pass']; ?>
-                        <?php } else { ?>
-                            <?= $item['lineup_score']; ?>
-                        <?php } ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_assist']; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item['lineup_plus_minus']; ?>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
-    </div>
+                <?php $power = 0; ?>
+                <?php for ($j=0, $count_team = count($team_array); $j<$count_team; $j++) { ?>
+                    <?php if (in_array($j, array(1, 6, 11))) { ?>
+                        <tr>
+                            <td class="text-center text-size-2" colspan="10">
+                                <?php if (1 == $j) { ?>
+                                    Первое
+                                <?php } elseif (6 == $j) { ?>
+                                    Второе
+                                <?php } else { ?>
+                                    Третье
+                                <?php } ?>
+                                звено
+                            </td>
+                        </tr>
+                        <?php $power = 0; ?>
+                    <?php } ?>
+                    <?php $power = $power + $team_array[$j]['lineup_power_real']; ?>
+                    <tr>
+                        <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['position_short']; ?>
+                        </td>
+                        <td <?php if (0 == $j) { ?>class="border-bottom-blue"<?php } ?>>
+                            <a href="/player_view.php?num=<?= $team_array[$j]['player_id']; ?>">
+                                <?= $team_array[$j]['name_name']; ?> <?= $team_array[$j]['surname_name']; ?>
+                            </a>
+                            <?= f_igosja_player_power_change($team_array[$j]['lineup_power_change']); ?>
+                        </td>
+                        <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_age']; ?>
+                        </td>
+                        <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_power_nominal']; ?>
+                        </td>
+                        <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_power_real']; ?>
+                        </td>
+                        <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_penalty']; ?>
+                        </td>
+                        <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_shot']; ?>
+                        </td>
+                        <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?php if (1 == $team_array[$j]['position_id']) { ?>
+                                <?= $team_array[$j]['lineup_pass']; ?>
+                            <?php } else { ?>
+                                <?= $team_array[$j]['lineup_score']; ?>
+                            <?php } ?>
+                        </td>
+                        <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_assist']; ?>
+                        </td>
+                        <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
+                            <?= $team_array[$j]['lineup_plus_minus']; ?>
+                        </td>
+                    </tr>
+                    <?php if (in_array($j, array(5, 10, 15))) { ?>
+                        <tr>
+                            <td class="text-center border-bottom-blue" colspan="10"><span class="text-size-2">Общая сила звена -</span> <?= $power; ?></td>
+                        </tr>
+                    <?php } ?>
+                <?php } ?>
+            </table>
+        </div>
+    <?php } ?>
 </div>
 <div class="row hidden-lg hidden-md hidden-sm">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
