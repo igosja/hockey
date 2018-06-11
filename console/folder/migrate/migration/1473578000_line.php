@@ -11,7 +11,8 @@ $q[] = 'CREATE TABLE `line`
 $q[] = "INSERT INTO `line` (`line_color`, `line_name`)
         VALUES ('', '------'),
                ('DFF2BF', '1 состав'),
-               ('BDE5F8', '2 состав'),
+               ('C9FFCC', '2 состав'),
                ('FEEFB3', '3 состав'),
                ('FFBABA', '4 состав'),
-               ('E0E0E0', '5 состав');";
+               ('E0E0E0', '5 состав'),
+               ('D4AFF7', '6 состав');";
