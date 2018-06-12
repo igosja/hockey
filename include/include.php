@@ -1,5 +1,8 @@
 <?php
 
+header('Location: /');
+exit;
+
 $start_time = microtime(true);
 
 //\usr\local\php5\php.exe www\console\migrate
