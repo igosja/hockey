@@ -9,14 +9,25 @@ $email_text = 'Мне, как владельцу, сайта пришло уве
 <br/>
 Я этим сайтом занимался в свое удовольствие в свободное от основной работы время и не имею возможности доказывать в судах
 что я не верблюд, потому возобновить его работу законным путем не могу. Можно поменять url сайта, регистратора и хостинг,
-но у меня желания ввязываться в это нет.
+но нет гарантии, что новый сайт снова не заблокируют, и желания ввязываться в это у меня нет.
 <br/>
 Приношу свои извинения, но происходящее не зависит от меня.';
 
-$email = 'igosja@ukr.net';
-
 $mail = new Mail();
-$mail->setTo($email);
 $mail->setSubject('Блокировка Виртуальной Хоккейной Лиги');
 $mail->setHtml($email_text);
 $mail->send();
+
+$sql = "SELECT `user_email`
+        FROM `user`
+        WHERE `user_id` NOT IN (0, 125)
+        ORDER BY `user_id` ASC";
+$user_sql = f_igosja_mysqli_query($sql);
+
+$user_array = $user_sql->fetch_all(MYSQLI_ASSOC);
+
+foreach ($user_array as $item)
+{
+    $mail->setTo($item['user_email']);
+    $mail->send();
+}
