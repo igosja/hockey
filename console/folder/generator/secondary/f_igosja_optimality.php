@@ -34,7 +34,7 @@ function f_igosja_optimality($game_result)
         $home_forecast = 1;
     }
 
-    $home_optimal_2 = round($home_power_real / $home_forecast * 100);
+    $home_optimal_2 = round($home_power_real / $game_result['game_info']['home_bonus'] / $home_forecast * 100);
 
     $guest_forecast = $game_result['guest']['team']['power']['forecast'];
 
