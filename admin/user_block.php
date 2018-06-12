@@ -44,6 +44,190 @@ if ($data = f_igosja_request_post('data'))
         f_igosja_fire_user($num_get, $item['team_id']);
     }
 
+    $sql = "SELECT `country_id`,
+                   `country_vice_id`
+            FROM `country`
+            WHERE `country_president_id`=$num_get
+            ORDER BY `country_id` ASC";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($country_array as $item)
+    {
+        $country_id = $item['country_id'];
+
+        $log = array(
+            'history_country_id' => $country_id,
+            'history_historytext_id' => HISTORYTEXT_USER_PRESIDENT_OUT,
+            'history_user_id' => $num_get,
+        );
+        f_igosja_history($log);
+
+        if ($item['country_vice_id'])
+        {
+            $log = array(
+                'history_country_id' => $country_id,
+                'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_OUT,
+                'history_user_id' => $item['country_vice_id'],
+            );
+            f_igosja_history($log);
+
+            $log = array(
+                'history_country_id' => $country_id,
+                'history_historytext_id' => HISTORYTEXT_USER_PRESIDENT_IN,
+                'history_user_id' => $item['country_vice_id'],
+            );
+            f_igosja_history($log);
+
+            $news_text  = 'Действующий президент федерации отправлен в отставку. Заместитель президента занял вакантную должность.';
+            $news_title = 'Увольнение президента';
+
+            $sql = "INSERT INTO `news`
+                    SET `news_country_id`=$country_id,
+                        `news_date`=UNIX_TIMESTAMP(),
+                        `news_text`='$news_text',
+                        `news_title`='$news_title',
+                        `news_user_id`=1";
+            f_igosja_mysqli_query($sql);
+        }
+        else
+        {
+            $news_text  = 'Действующий президент федерации отправлен в отставку.';
+            $news_title = 'Увольнение президента';
+
+            $sql = "INSERT INTO `news`
+                    SET `news_country_id`=$country_id,
+                        `news_date`=UNIX_TIMESTAMP(),
+                        `news_text`='$news_text',
+                        `news_title`='$news_title',
+                        `news_user_id`=1";
+            f_igosja_mysqli_query($sql);
+        }
+
+        $sql = "UPDATE `country`
+                SET `country_president_id`=`country_vice_id`,
+                    `country_vice_id`=0
+                WHERE `country_id`=$country_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `team`
+                LEFT JOIN `stadium`
+                ON `team_stadium_id`=`stadium_id`
+                LEFT JOIN `city`
+                ON `stadium_city_id`=`city_id`
+                SET `team_vote_president`=" . VOTERATING_NEUTRAL . "
+                WHERE `city_country_id`=$country_id";
+        f_igosja_mysqli_query($sql);
+    }
+
+    $sql = "SELECT `country_id`
+            FROM `country`
+            WHERE `country_vice_id`=$num_get
+            ORDER BY `country_id` ASC";
+    $country_sql = f_igosja_mysqli_query($sql);
+
+    $country_array = $country_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($country_array as $item)
+    {
+        $country_id = $item['country_id'];
+
+        $log = array(
+            'history_country_id' => $country_id,
+            'history_historytext_id' => HISTORYTEXT_USER_VICE_PRESIDENT_OUT,
+            'history_user_id' => $num_get,
+        );
+        f_igosja_history($log);
+
+        $sql = "UPDATE `country`
+                SET `country_vice_id`=0
+                WHERE `country_id`=$country_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+    }
+
+    $sql = "SELECT `national_id`,
+                   `national_vice_id`
+            FROM `national`
+            WHERE `national_user_id`=$num_get
+            ORDER BY `national_id` ASC";
+    $national_sql = f_igosja_mysqli_query($sql);
+
+    $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($national_array as $item)
+    {
+        $national_id = $item['national_id'];
+
+        $log = array(
+            'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_OUT,
+            'history_national_id' => $national_id,
+            'history_user_id' => $num_get,
+        );
+        f_igosja_history($log);
+
+        if ($item['national_vice_id'])
+        {
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_OUT,
+                'history_national_id' => $national_id,
+                'history_user_id' => $item['national_vice_id'],
+            );
+            f_igosja_history($log);
+
+            $log = array(
+                'history_historytext_id' => HISTORYTEXT_USER_MANAGER_NATIONAL_IN,
+                'history_national_id' => $national_id,
+                'history_user_id' => $item['national_vice_id'],
+            );
+            f_igosja_history($log);
+        }
+
+        $sql = "UPDATE `national`
+                SET `national_user_id`=`national_vice_id`,
+                    `national_vice_id`=0
+                WHERE `national_id`=$national_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+
+        $sql = "UPDATE `team`
+                LEFT JOIN `stadium`
+                ON `team_stadium_id`=`stadium_id`
+                LEFT JOIN `city`
+                ON `stadium_city_id`=`city_id`
+                SET `team_vote_national`=" . VOTERATING_NEUTRAL . "
+                WHERE `city_country_id`=$national_id";
+        f_igosja_mysqli_query($sql);
+    }
+
+    $sql = "SELECT `national_id`
+            FROM `national`
+            WHERE `national_vice_id`=$num_get
+            ORDER BY `national_id` ASC";
+    $national_sql = f_igosja_mysqli_query($sql);
+
+    $national_array = $national_sql->fetch_all(MYSQLI_ASSOC);
+
+    foreach ($national_array as $item)
+    {
+        $national_id = $item['national_id'];
+
+        $log = array(
+            'history_national_id' => $national_id,
+            'history_historytext_id' => HISTORYTEXT_USER_VICE_NATIONAL_OUT,
+            'history_user_id' => $num_get,
+        );
+        f_igosja_history($log);
+
+        $sql = "UPDATE `national`
+                SET `national_vice_id`=0
+                WHERE `national_id`=$national_id
+                LIMIT 1";
+        f_igosja_mysqli_query($sql);
+    }
+
     redirect('/admin/user_view.php?num=' . $num_get);
 }
 
