@@ -2,11 +2,20 @@
 
 include(__DIR__ . '/../include/include.php');
 
-$sql = "SELECT `forummessage_id`,
+$sql = "SELECT `forumchapter_name`,
+               `forumgroup_name`,
+               `forumtheme_name`,
+               `forummessage_id`,
                `forummessage_text`,
                `user_id`,
                `user_login`
         FROM `forummessage`
+        LEFT JOIN `forumtheme`
+        ON `forummessage_forumtheme_id`=`forumtheme_id`
+        LEFT JOIN `forumgroup`
+        ON `forumtheme_forumgroup_id`=`forumgroup_id`
+        LEFT JOIN `forumchapter`
+        ON `forumgroup_forumchapter_id`=`forumchapter_id`
         LEFT JOIN `user`
         ON `forummessage_user_id`=`user_id`
         WHERE `forummessage_check`=0

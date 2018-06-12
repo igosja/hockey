@@ -39,6 +39,30 @@
                 </td>
             </tr>
             <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Раздел
+                </td>
+                <td>
+                    <?= $forummessage_array[0]['forumchapter_name']; ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Группа
+                </td>
+                <td>
+                    <?= $forummessage_array[0]['forumgroup_name']; ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    Тема
+                </td>
+                <td>
+                    <?= $forummessage_array[0]['forumtheme_name']; ?>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2">
                     <?= f_igosja_bb_decode($forummessage_array[0]['forummessage_text']); ?>
                 </td>
