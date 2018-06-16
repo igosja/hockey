@@ -5,14 +5,9 @@
  * @var $this \yii\web\View
  */
 
-use common\widgets\Alert;
 use common\widgets\Menu;
 use frontend\assets\AppAsset;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\widgets\Breadcrumbs;
 use yii\widgets\Pjax;
 
 AppAsset::register($this);
@@ -79,8 +74,8 @@ AppAsset::register($this);
             <noscript>
                 <div class="row margin-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
-                        В вашем браузере отключен javascript. Для корректной работы сайта рекомендуем включить
-                        javasript.
+                        In your browser, javascript is disabled.
+                        For proper operation of the site is recommended to enable javascript.
                     </div>
                 </div>
             </noscript>

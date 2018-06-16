@@ -44,6 +44,9 @@ class Menu extends Widget
     private $menuItems;
     private $menu;
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $this->generateMenu();

@@ -39,6 +39,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'sign-up' => 'site/sign-up',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],

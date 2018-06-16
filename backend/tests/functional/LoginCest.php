@@ -39,6 +39,6 @@ class LoginCest
 
         $I->see('Logout (erau)', 'form button[type=submit]');
         $I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');
+        $I->dontSeeLink('SignUp');
     }
 }

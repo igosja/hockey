@@ -1,34 +1,64 @@
 <?php
+
 namespace common\models;
 
-use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Class User
+ * @package common\models
  *
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property integer $user_id
+ * @property integer $user_birth_day
+ * @property integer $user_birth_month
+ * @property integer $user_birth_year
+ * @property integer $user_block_block_reason_id
+ * @property integer $user_block_comment_block_reason_id
+ * @property integer $user_block_comment_deal_block_reason_id
+ * @property integer $user_block_comment_game_block_reason_id
+ * @property integer $user_block_comment_news_block_reason_id
+ * @property integer $user_block_forum_block_reason_id
+ * @property string $user_city
+ * @property string $user_code
+ * @property integer $user_country_id
+ * @property integer $user_country_news_id
+ * @property integer $user_date_block
+ * @property integer $user_date_block_comment
+ * @property integer $user_date_block_comment_deal
+ * @property integer $user_date_block_comment_game
+ * @property integer $user_date_block_comment_news
+ * @property integer $user_date_block_forum
+ * @property integer $user_date_confirm
+ * @property integer $user_date_login
+ * @property integer $user_date_register
+ * @property integer $user_date_vip
+ * @property string $user_email
+ * @property integer $user_finance
+ * @property integer $user_holiday
+ * @property integer $user_holiday_day
+ * @property string $user_login
+ * @property float $user_money
+ * @property string $user_name
+ * @property integer $user_news_id
+ * @property string $user_password
+ * @property float $user_rating
+ * @property integer $user_referrer_done
+ * @property integer $user_referrer_id
+ * @property integer $user_sex_id
+ * @property integer $user_shop_point
+ * @property integer $user_shop_position
+ * @property integer $user_shop_special
+ * @property string $user_surname
+ * @property integer $user_user_role_id
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
-
+    const PASSWORD_SALT = 'hockey';
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
@@ -36,36 +66,28 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
+     * @return array
      */
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @param int|string $id
+     * @return User|null|IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['user_id' => $id]);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $token
+     * @param null $type
+     * @return void|IdentityInterface
+     * @throws NotSupportedException
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -73,117 +95,78 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
+     * @return integer
      */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
+    public function getId():int
     {
         return $this->getPrimaryKey();
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getAuthKey()
+    public function getAuthKey():string
     {
-        return $this->auth_key;
+        return $this->user_code;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $authKey
+     * @return bool
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey):bool
     {
         return $this->getAuthKey() === $authKey;
     }
 
     /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
+     * @param $password
+     * @return bool
      */
-    public function validatePassword($password)
+    public function validatePassword($password): bool
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return $this->hashPassword($password) === $this->password;
     }
 
     /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
+     * @param $password
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password = $this->hashPassword($password);
     }
 
     /**
-     * Generates "remember me" authentication key
+     * @param $password
+     * @return string
      */
-    public function generateAuthKey()
+    public function hashPassword($password): string
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        return md5($password . md5(self::PASSWORD_SALT));
+    }
+
+    public function generateUserCode()
+    {
+        $code = md5(uniqid(rand(), 1));
+        if (!self::find()->where(['user_code' => $code])->exists()) {
+            $this->user_code = $code;
+        }
+        $this->generateUserCode();
     }
 
     /**
-     * Generates new password reset token
+     * @param bool $insert
+     * @return bool
      */
-    public function generatePasswordResetToken()
+    public function beforeSave($insert): bool
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-    }
-
-    /**
-     * Removes password reset token
-     */
-    public function removePasswordResetToken()
-    {
-        $this->password_reset_token = null;
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->generateUserCode();
+                $this->user_date_register = time();
+            }
+            return true;
+        }
+        return false;
     }
 }

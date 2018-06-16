@@ -11,8 +11,10 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
+use frontend\models\SignUp;
 use frontend\models\ContactForm;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class SiteController
@@ -28,10 +30,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'sign-up'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['sign-up'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -43,7 +45,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -52,17 +54,13 @@ class SiteController extends Controller
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -72,9 +70,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        \Yii::$app->view->registerMetaTag([
+        $this->view->title = 'Virtual Hockey Online League';
+        $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Description of the page...'
+            'content' => 'Virtual Hockey Online League - the best free hockey online manager'
         ]);
         return $this->render('index');
     }
@@ -140,65 +139,22 @@ class SiteController extends Controller
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return array|string|Response
+     * @throws \yii\db\Exception
      */
-    public function actionSignup()
+    public function actionSignUp()
     {
-        $model = new SignupForm();
+        $model = new SignUp();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+            if ($model->signUp()) {
+                return $this->redirect(['activation']);
             }
         }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-            }
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * @param $token
-     * @return string|\yii\web\Response
-     * @throws BadRequestHttpException
-     */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
+        return $this->render('signUp', [
             'model' => $model,
         ]);
     }
