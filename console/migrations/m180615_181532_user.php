@@ -70,6 +70,10 @@ class m180615_181532_user extends Migration
             'user_user_role_id' => 1
         ]);
 
+        $this->update(self::TABLE, ['user_id' => 0], ['user_id' => 1]);
+
+        Yii::$app->db->createCommand('ALTER TABLE ' . self::TABLE . ' AUTO_INCREMENT=1')->execute();
+
         $this->insert(self::TABLE, [
             'user_code' => '13373e3c14aa77368437c7c972601d70',
             'user_date_confirm' => 1473706009,
@@ -79,9 +83,6 @@ class m180615_181532_user extends Migration
             'user_password' => '8fa914dc4a270abfc2a4561228770426',
             'user_user_role_id' => 3,
         ]);
-
-        $this->update(self::TABLE, ['user_id' => 0], ['user_id' => 1]);
-        $this->update(self::TABLE, ['user_id' => 1], ['user_id' => 2]);
     }
 
     public function safeDown()

@@ -71,6 +71,54 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [
+                [['user_email'], 'email'],
+                [
+                    'user_id',
+                    'user_birth_day',
+                    'user_birth_month',
+                    'user_birth_year',
+                    'user_block_block_reason_id',
+                    'user_block_comment_block_reason_id',
+                    'user_block_comment_deal_block_reason_id',
+                    'user_block_comment_game_block_reason_id',
+                    'user_block_comment_news_block_reason_id',
+                    'user_block_forum_block_reason_id',
+                    'user_country_id',
+                    'user_country_news_id',
+                    'user_date_block',
+                    'user_date_block_comment',
+                    'user_date_block_comment_deal',
+                    'user_date_block_comment_game',
+                    'user_date_block_comment_news',
+                    'user_date_block_forum',
+                    'user_date_confirm',
+                    'user_date_login',
+                    'user_date_register',
+                    'user_date_vip',
+                    'user_email',
+                    'user_finance',
+                    'user_holiday',
+                    'user_holiday_day',
+                    'user_login',
+                    'user_money',
+                    'user_name',
+                    'user_news_id',
+                    'user_referrer_done',
+                    'user_referrer_id',
+                    'user_sex_id',
+                    'user_shop_point',
+                    'user_shop_position',
+                    'user_shop_special',
+                    'user_user_role_id',
+                ],
+                'integer'
+            ],
+            [['user_rating'], 'number'],
+            [['user_email'], 'required'],
+            [['user_city', 'user_name', 'user_surname'], 'string', 'max' => 255],
+            [['user_code', 'user_password'], 'string'],
+            [['user_email'], 'unique'],
         ];
     }
 
@@ -97,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return integer
      */
-    public function getId():int
+    public function getId(): int
     {
         return $this->getPrimaryKey();
     }
@@ -105,7 +153,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function getAuthKey():string
+    public function getAuthKey(): string
     {
         return $this->user_code;
     }
@@ -114,7 +162,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $authKey
      * @return bool
      */
-    public function validateAuthKey($authKey):bool
+    public function validateAuthKey($authKey): bool
     {
         return $this->getAuthKey() === $authKey;
     }
