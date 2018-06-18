@@ -56,8 +56,6 @@ class m180615_181532_user extends Migration
             'user_user_role_id' => $this->integer(5)->defaultValue(1),
         ]);
 
-        $this->createIndex('user_referrer_id', self::TABLE, 'user_referrer_id');
-
         $this->insert(self::TABLE, [
             'user_code' => '00000000000000000000000000000000',
             'user_date_confirm' => 0,

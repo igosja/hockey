@@ -75,7 +75,7 @@ class m180617_184144_country extends Migration
             ['Comoros'],
             ['Congo'],
             ['Costa Rica'],
-            ['Côte d\'Ivoire'],
+            ["Côte d'Ivoire"],
             ['Croatia'],
             ['Cuba'],
             ['Cyprus'],

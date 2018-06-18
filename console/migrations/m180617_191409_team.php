@@ -55,13 +55,6 @@ class m180617_191409_team extends Migration
             'team_vote_u21' => $this->integer(1)->defaultValue(0),
         ]);
 
-        $this->createIndex('team_stadium_id', self::TABLE, 'team_stadium_id');
-        $this->createIndex('team_user_id', self::TABLE, 'team_user_id');
-        $this->createIndex('team_vote_national', self::TABLE, 'team_vote_national');
-        $this->createIndex('team_vote_president', self::TABLE, 'team_vote_president');
-        $this->createIndex('team_vote_u19', self::TABLE, 'team_vote_u19');
-        $this->createIndex('team_vote_u21', self::TABLE, 'team_vote_u21');
-
         $this->insert(self::TABLE, [
             'team_name' => 'Free team',
         ]);

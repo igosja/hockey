@@ -52,11 +52,6 @@ class m180618_125813_player extends Migration
             'player_training_ability' => $this->integer(1)->defaultValue(0),
             'player_transfer_on' => $this->integer(1)->defaultValue(0),
         ]);
-
-        $this->createIndex('player_age', self::TABLE, 'player_age');
-        $this->createIndex('player_injury', self::TABLE, 'player_injury');
-        $this->createIndex('player_rent_team_id', self::TABLE, 'player_rent_team_id');
-        $this->createIndex('player_team_id', self::TABLE, 'player_team_id');
     }
 
     /**

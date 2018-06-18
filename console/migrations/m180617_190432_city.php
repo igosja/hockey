@@ -21,8 +21,6 @@ class m180617_190432_city extends Migration
             'city_name' => $this->string(255),
         ]);
 
-        $this->createIndex('city_country_id', self::TABLE, 'city_country_id');
-
         $this->insert(self::TABLE, [
             'city_name' => 'League'
         ]);
