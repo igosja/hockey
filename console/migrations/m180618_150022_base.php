@@ -23,7 +23,7 @@ class m180618_150022_base extends Migration
             'base_price_buy' => $this->integer(11)->defaultValue(0),
             'base_price_sell' => $this->integer(11)->defaultValue(0),
             'base_slot_max' => $this->integer(2)->defaultValue(0),
-            'base_slot_min' => $this->integer(2)->defaultValue(0)
+            'base_slot_min' => $this->integer(2)->defaultValue(0),
         ]);
 
         $this->batchInsert(self::TABLE, [
