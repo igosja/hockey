@@ -16,13 +16,13 @@ class m180618_181457_base_school extends Migration
     {
         $this->createTable(self::TABLE, [
             'base_school_id' => $this->primaryKey(2),
-            'base_school_base_level' => $this->integer(2)->defaultValue(0),
+            'base_school_base_level' => $this->integer(1)->defaultValue(0),
             'base_school_build_speed' => $this->integer(2)->defaultValue(0),
             'base_school_level' => $this->integer(2)->defaultValue(0),
             'base_school_player_count' => $this->integer(1)->defaultValue(0),
             'base_school_power' => $this->integer(2)->defaultValue(0),
-            'base_school_price_buy' => $this->integer(11)->defaultValue(0),
-            'base_school_price_sell' => $this->integer(11)->defaultValue(0),
+            'base_school_price_buy' => $this->integer(7)->defaultValue(0),
+            'base_school_price_sell' => $this->integer(7)->defaultValue(0),
             'base_school_school_speed' => $this->integer(2)->defaultValue(0),
             'base_school_with_special' => $this->integer(1)->defaultValue(0),
             'base_school_with_style' => $this->integer(1)->defaultValue(0),

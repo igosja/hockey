@@ -16,12 +16,12 @@ class m180618_180846_base_physical extends Migration
     {
         $this->createTable(self::TABLE, [
             'base_physical_id' => $this->primaryKey(2),
-            'base_physical_base_level' => $this->integer(2)->defaultValue(0),
+            'base_physical_base_level' => $this->integer(1)->defaultValue(0),
             'base_physical_build_speed' => $this->integer(2)->defaultValue(0),
             'base_physical_change_count' => $this->integer(2)->defaultValue(0),
             'base_physical_level' => $this->integer(2)->defaultValue(0),
-            'base_physical_price_buy' => $this->integer(11)->defaultValue(0),
-            'base_physical_price_sell' => $this->integer(11)->defaultValue(0),
+            'base_physical_price_buy' => $this->integer(7)->defaultValue(0),
+            'base_physical_price_sell' => $this->integer(7)->defaultValue(0),
             'base_physical_tire_bonus' => $this->integer(1)->defaultValue(0),
         ]);
 

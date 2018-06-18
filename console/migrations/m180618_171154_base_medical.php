@@ -16,11 +16,11 @@ class m180618_171154_base_medical extends Migration
     {
         $this->createTable(self::TABLE, [
             'base_medical_id' => $this->primaryKey(2),
-            'base_medical_base_level' => $this->integer(2)->defaultValue(0),
+            'base_medical_base_level' => $this->integer(1)->defaultValue(0),
             'base_medical_build_speed' => $this->integer(2)->defaultValue(0),
             'base_medical_level' => $this->integer(2)->defaultValue(0),
-            'base_medical_price_buy' => $this->integer(11)->defaultValue(0),
-            'base_medical_price_sell' => $this->integer(11)->defaultValue(0),
+            'base_medical_price_buy' => $this->integer(7)->defaultValue(0),
+            'base_medical_price_sell' => $this->integer(7)->defaultValue(0),
             'base_medical_tire' => $this->integer(2)->defaultValue(0),
         ]);
 

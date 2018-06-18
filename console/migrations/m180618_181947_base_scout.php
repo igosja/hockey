@@ -16,7 +16,7 @@ class m180618_181947_base_scout extends Migration
     {
         $this->createTable(self::TABLE, [
             'base_scout_id' => $this->primaryKey(2),
-            'base_scout_base_level' => $this->integer(2)->defaultValue(0),
+            'base_scout_base_level' => $this->integer(1)->defaultValue(0),
             'base_scout_build_speed' => $this->integer(2)->defaultValue(0),
             'base_scout_distance' => $this->integer(1)->defaultValue(0),
             'base_scout_level' => $this->integer(2)->defaultValue(0),
@@ -24,12 +24,12 @@ class m180618_181947_base_scout extends Migration
             'base_scout_market_physical' => $this->integer(1)->defaultValue(0),
             'base_scout_market_tire' => $this->integer(1)->defaultValue(0),
             'base_scout_my_style_count' => $this->integer(2)->defaultValue(0),
-            'base_scout_my_style_price' => $this->integer(11)->defaultValue(0),
+            'base_scout_my_style_price' => $this->integer(6)->defaultValue(0),
             'base_scout_opponent_game_row' => $this->integer(1)->defaultValue(0),
             'base_scout_opponent_physical' => $this->integer(1)->defaultValue(0),
             'base_scout_opponent_tire' => $this->integer(1)->defaultValue(0),
-            'base_scout_price_buy' => $this->integer(11)->defaultValue(0),
-            'base_scout_price_sell' => $this->integer(11)->defaultValue(0),
+            'base_scout_price_buy' => $this->integer(7)->defaultValue(0),
+            'base_scout_price_sell' => $this->integer(7)->defaultValue(0),
             'base_scout_scout_speed_max' => $this->integer(3)->defaultValue(0),
             'base_scout_scout_speed_min' => $this->integer(3)->defaultValue(0),
         ]);
