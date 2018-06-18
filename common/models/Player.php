@@ -102,7 +102,26 @@ class Player extends ActiveRecord
                 ],
                 'integer'
             ],
-            [['player_age', 'player_country_id', 'player_name_id', 'player_surname_id', 'player_team_id'], 'required'],
+            [['player_country_id', 'player_name_id', 'player_surname_id', 'player_team_id', 'player_power_nominal'], 'required'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->player_age = 17;
+                $this->player_game_row = -1;
+                $this->player_game_row_old = -1;
+                $this->player_line_id = 1;
+                $this->player_national_line_id = 1;
+            }
+            return true;
+        }
+        return false;
     }
 }
