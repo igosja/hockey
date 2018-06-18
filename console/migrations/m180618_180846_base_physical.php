@@ -22,7 +22,7 @@ class m180618_180846_base_physical extends Migration
             'base_physical_level' => $this->integer(2)->defaultValue(0),
             'base_physical_price_buy' => $this->integer(11)->defaultValue(0),
             'base_physical_price_sell' => $this->integer(11)->defaultValue(0),
-            'base_physical_tire_bonus' => $this->integer(2)->defaultValue(0),
+            'base_physical_tire_bonus' => $this->integer(1)->defaultValue(0),
         ]);
 
         $this->batchInsert(self::TABLE, [
