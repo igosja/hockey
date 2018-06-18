@@ -37,10 +37,11 @@ class m180618_191441_base_training extends Migration
             'base_training_level',
             'base_training_position_count',
             'base_training_position_price',
+            'base_training_power_count',
             'base_training_power_price',
             'base_training_price_buy',
-            'base_training_special_count',
             'base_training_price_sell',
+            'base_training_special_count',
             'base_training_special_price',
             'base_training_training_speed_max',
             'base_training_training_speed_min'
