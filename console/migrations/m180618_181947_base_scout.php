@@ -49,7 +49,6 @@ class m180618_181947_base_scout extends Migration
             'base_scout_opponent_tire',
             'base_scout_price_buy',
             'base_scout_price_sell',
-            'base_scout_scout_speed',
             'base_scout_scout_speed_max',
             'base_scout_scout_speed_min'
         ], [
