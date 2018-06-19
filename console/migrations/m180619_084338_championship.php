@@ -21,8 +21,8 @@ class m180619_084338_championship extends Migration
             'championship_division_id' => $this->integer(1)->defaultValue(0),
             'championship_game' => $this->integer(2)->defaultValue(0),
             'championship_loose' => $this->integer(2)->defaultValue(0),
-            'championship_loose_bullet' => $this->integer(2)->defaultValue(0),
             'championship_loose_over' => $this->integer(2)->defaultValue(0),
+            'championship_loose_shootout' => $this->integer(2)->defaultValue(0),
             'championship_pass' => $this->integer(3)->defaultValue(0),
             'championship_place' => $this->integer(2)->defaultValue(0),
             'championship_point' => $this->integer(2)->defaultValue(0),
@@ -30,8 +30,8 @@ class m180619_084338_championship extends Migration
             'championship_season_id' => $this->integer(5)->defaultValue(0),
             'championship_team_id' => $this->integer(5)->defaultValue(0),
             'championship_win' => $this->integer(2)->defaultValue(0),
-            'championship_win_bullet' => $this->integer(2)->defaultValue(0),
             'championship_win_over' => $this->integer(2)->defaultValue(0),
+            'championship_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
     }
 

@@ -21,8 +21,8 @@ class m180619_093316_conference extends Migration
             'conference_guest' => $this->integer(2)->defaultValue(0),
             'conference_home' => $this->integer(2)->defaultValue(0),
             'conference_loose' => $this->integer(2)->defaultValue(0),
-            'conference_loose_bullet' => $this->integer(2)->defaultValue(0),
             'conference_loose_over' => $this->integer(2)->defaultValue(0),
+            'conference_loose_shootout' => $this->integer(2)->defaultValue(0),
             'conference_pass' => $this->integer(3)->defaultValue(0),
             'conference_place' => $this->integer(2)->defaultValue(0),
             'conference_point' => $this->integer(2)->defaultValue(0),
@@ -30,8 +30,8 @@ class m180619_093316_conference extends Migration
             'conference_season_id' => $this->integer(5)->defaultValue(0),
             'conference_team_id' => $this->integer(5)->defaultValue(0),
             'conference_win' => $this->integer(2)->defaultValue(0),
-            'conference_win_bullet' => $this->integer(2)->defaultValue(0),
             'conference_win_over' => $this->integer(2)->defaultValue(0),
+            'conference_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
     }
 

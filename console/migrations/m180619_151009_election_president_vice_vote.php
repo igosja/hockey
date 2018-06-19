@@ -16,9 +16,9 @@ class m180619_151009_election_president_vice_vote extends Migration
     {
         $this->createTable(self::TABLE, [
             'election_president_vice_vote_id' => $this->primaryKey(11),
+            'election_president_vice_vote_application_id' => $this->integer(11)->defaultValue(0),
             'election_president_vice_vote_date' => $this->integer(11)->defaultValue(0),
-            'election_president_vice_vote_election_president_vice_id' => $this->integer(11)->defaultValue(0),
-            'election_president_vice_vote_election_president_vice_application_id' => $this->integer(11)->defaultValue(0),
+            'election_president_vice_vote_election_id' => $this->integer(11)->defaultValue(0),
             'election_president_vice_vote_user_id' => $this->integer(11)->defaultValue(0),
         ]);
     }

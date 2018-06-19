@@ -16,9 +16,9 @@ class m180619_151552_event extends Migration
     {
         $this->createTable(self::TABLE, [
             'event_id' => $this->primaryKey(11),
-            'event_event_text_bullet_id' => $this->integer(1)->defaultValue(0),
             'event_event_text_goal_id' => $this->integer(1)->defaultValue(0),
             'event_event_text_penalty_id' => $this->integer(2)->defaultValue(0),
+            'event_event_text_shootout_id' => $this->integer(1)->defaultValue(0),
             'event_event_type_id' => $this->integer(1)->defaultValue(0),
             'event_game_id' => $this->integer(11)->defaultValue(0),
             'event_guest_score' => $this->integer(2)->defaultValue(0),

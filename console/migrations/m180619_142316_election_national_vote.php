@@ -16,8 +16,8 @@ class m180619_142316_election_national_vote extends Migration
     {
         $this->createTable(self::TABLE, [
             'election_national_vote_id' => $this->primaryKey(11),
-            'election_national_vote_election_national_id' => $this->integer(11)->defaultValue(0),
-            'election_national_vote_election_national_application_id' => $this->integer(11)->defaultValue(0),
+            'election_national_vote_application_id' => $this->integer(11)->defaultValue(0),
+            'election_national_vote_election_id' => $this->integer(11)->defaultValue(0),
             'election_national_vote_user_id' => $this->integer(11)->defaultValue(0),
         ]);
     }
