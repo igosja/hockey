@@ -22,15 +22,6 @@ class m180619_080833_building_base extends Migration
             'building_base_ready' => $this->integer(11)->defaultValue(0),
             'building_base_team_id' => $this->integer(5)->defaultValue(0),
         ]);
-
-        $this->batchInsert(self::TABLE, ['building_name'], [
-            ['base'],
-            ['base_medical'],
-            ['base_physical'],
-            ['base_school'],
-            ['base_scout'],
-            ['base_training'],
-        ]);
     }
 
     /**
