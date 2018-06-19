@@ -1,0 +1,33 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Class m180619_133544_election_national
+ */
+class m180619_133544_election_national extends Migration
+{
+    const TABLE = '{{%election_national}}';
+
+    /**
+     * @return bool|void
+     */
+    public function safeUp()
+    {
+        $this->createTable(self::TABLE, [
+            'election_national_id' => $this->primaryKey(1),
+            'election_national_country_id' => $this->integer(3)->defaultValue(0),
+            'election_national_date' => $this->integer(11)->defaultValue(0),
+            'election_national_election_status_id' => $this->integer(1)->defaultValue(0),
+            'election_national_national_type_id' => $this->integer(1)->defaultValue(0),
+        ]);
+    }
+
+    /**
+     * @return bool|void
+     */
+    public function safeDown()
+    {
+        $this->dropTable(self::TABLE);
+    }
+}
