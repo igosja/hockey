@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m180619_150155_election_president_vice_vice
+ * Class m180619_150155_election_president_vice
  */
-class m180619_150155_election_president_vice_vice extends Migration
+class m180619_150155_election_president_vice extends Migration
 {
     const TABLE = '{{%election_president_vice}}';
 
