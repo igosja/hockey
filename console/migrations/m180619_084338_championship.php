@@ -31,7 +31,7 @@ class m180619_084338_championship extends Migration
             'championship_team_id' => $this->integer(5)->defaultValue(0),
             'championship_win' => $this->integer(2)->defaultValue(0),
             'championship_win_bullet' => $this->integer(2)->defaultValue(0),
-            'championship_win_over' => $this->integer(2)->defaultValue(0)
+            'championship_win_over' => $this->integer(2)->defaultValue(0),
         ]);
     }
 
