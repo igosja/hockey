@@ -44,7 +44,7 @@ class m180617_191409_team extends Migration
             'team_price_player' => $this->integer(11)->defaultValue(0),
             'team_price_stadium' => $this->integer(11)->defaultValue(0),
             'team_price_total' => $this->integer(11)->defaultValue(0),
-            'team_salary' => $this->integer(6)->defaultValue(0),
+            'team_salary' => $this->integer(7)->defaultValue(0),
             'team_stadium_id' => $this->integer(11)->defaultValue(0),
             'team_user_id' => $this->integer(11)->defaultValue(0),
             'team_vice_id' => $this->integer(11)->defaultValue(0),

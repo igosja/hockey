@@ -17,7 +17,7 @@ class m180617_190432_city extends Migration
     {
         $this->createTable(self::TABLE, [
             'city_id' => $this->primaryKey(11),
-            'city_country_id' => $this->integer(11)->defaultValue(0),
+            'city_country_id' => $this->integer(3)->defaultValue(0),
             'city_name' => $this->string(255),
         ]);
 
