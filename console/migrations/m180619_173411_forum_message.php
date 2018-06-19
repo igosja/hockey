@@ -20,7 +20,7 @@ class m180619_173411_forum_message extends Migration
             'forum_message_check' => $this->integer(1)->defaultValue(0),
             'forum_message_date' => $this->integer(1)->defaultValue(0),
             'forum_message_date_update' => $this->integer(1)->defaultValue(0),
-            'forum_message_forumtheme_id' => $this->integer(1)->defaultValue(0),
+            'forum_message_forum_theme_id' => $this->integer(1)->defaultValue(0),
             'forum_message_text' => $this->text(),
             'forum_message_user_id' => $this->string(255),
         ]);
