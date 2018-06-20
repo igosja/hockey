@@ -16,7 +16,7 @@ class m180620_131803_league extends Migration
     {
         $this->createTable(self::TABLE, [
             'league_id' => $this->primaryKey(11),
-            'league_difference' => $this->integer(1)->defaultValue(0),
+            'league_difference' => $this->integer(2)->defaultValue(0),
             'league_game' => $this->integer(1)->defaultValue(0),
             'league_group' => $this->integer(1)->defaultValue(0),
             'league_loose' => $this->integer(1)->defaultValue(0),
