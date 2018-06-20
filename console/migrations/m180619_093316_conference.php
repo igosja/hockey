@@ -28,7 +28,7 @@ class m180619_093316_conference extends Migration
             'conference_point' => $this->integer(2)->defaultValue(0),
             'conference_score' => $this->integer(3)->defaultValue(0),
             'conference_season_id' => $this->integer(5)->defaultValue(0),
-            'conference_team_id' => $this->integer(5)->defaultValue(0),
+            'conference_team_id' => $this->integer(11)->defaultValue(0),
             'conference_win' => $this->integer(2)->defaultValue(0),
             'conference_win_overtime' => $this->integer(2)->defaultValue(0),
             'conference_win_shootout' => $this->integer(2)->defaultValue(0),

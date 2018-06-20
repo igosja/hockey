@@ -28,7 +28,7 @@ class m180619_084338_championship extends Migration
             'championship_point' => $this->integer(2)->defaultValue(0),
             'championship_score' => $this->integer(3)->defaultValue(0),
             'championship_season_id' => $this->integer(5)->defaultValue(0),
-            'championship_team_id' => $this->integer(5)->defaultValue(0),
+            'championship_team_id' => $this->integer(11)->defaultValue(0),
             'championship_win' => $this->integer(2)->defaultValue(0),
             'championship_win_overtime' => $this->integer(2)->defaultValue(0),
             'championship_win_shootout' => $this->integer(2)->defaultValue(0),
