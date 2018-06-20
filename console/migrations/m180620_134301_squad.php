@@ -3,11 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Class m180620_134301_line
+ * Class m180620_134301_squad
  */
-class m180620_134301_line extends Migration
+class m180620_134301_squad extends Migration
 {
-    const TABLE = '{{%league_distribution}}';
+    const TABLE = '{{%squad}}';
 
     /**
      * @return bool|void
@@ -15,12 +15,12 @@ class m180620_134301_line extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'line_id' => $this->primaryKey(1),
-            'line_color' => $this->char(6),
-            'line_name' => $this->string(255),
+            'squad_id' => $this->primaryKey(1),
+            'squad_color' => $this->char(6),
+            'squad_name' => $this->string(255),
         ]);
 
-        $this->batchInsert(self::TABLE, ['line_color', 'line_name'], [
+        $this->batchInsert(self::TABLE, ['squad_color', 'squad_name'], [
             ['', '------'],
             ['DFF2BF', '1 squad'],
             ['C9FFCC', '2 squad'],
