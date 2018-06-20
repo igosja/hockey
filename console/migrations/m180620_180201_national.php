@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180620_180201_national extends Migration
 {
-    const TABLE = '{{%name_country}}';
+    const TABLE = '{{%national}}';
 
     /**
      * @return bool|void
