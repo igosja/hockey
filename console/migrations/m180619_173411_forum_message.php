@@ -16,11 +16,11 @@ class m180619_173411_forum_message extends Migration
     {
         $this->createTable(self::TABLE, [
             'forum_message_id' => $this->primaryKey(11),
-            'forum_message_blocked' => $this->integer(1)->defaultValue(0),
-            'forum_message_check' => $this->integer(1)->defaultValue(0),
-            'forum_message_date' => $this->integer(1)->defaultValue(0),
-            'forum_message_date_update' => $this->integer(1)->defaultValue(0),
-            'forum_message_forum_theme_id' => $this->integer(1)->defaultValue(0),
+            'forum_message_blocked' => $this->integer(11)->defaultValue(0),
+            'forum_message_check' => $this->integer(11)->defaultValue(0),
+            'forum_message_date' => $this->integer(11)->defaultValue(0),
+            'forum_message_date_update' => $this->integer(11)->defaultValue(0),
+            'forum_message_forum_theme_id' => $this->integer(11)->defaultValue(0),
             'forum_message_text' => $this->text(),
             'forum_message_user_id' => $this->string(255),
         ]);

@@ -10,7 +10,7 @@ class m180620_100555_game extends Migration
     const TABLE = '{{%game}}';
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeUp()
     {
@@ -121,7 +121,7 @@ class m180620_100555_game extends Migration
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeDown()
     {
