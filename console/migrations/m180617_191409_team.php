@@ -18,6 +18,10 @@ class m180617_191409_team extends Migration
         $this->createTable(self::TABLE, [
             'team_id' => $this->primaryKey(11),
             'team_age' => $this->decimal(5, 3),
+            'team_attitude_national' => $this->integer(1)->defaultValue(0),
+            'team_attitude_president' => $this->integer(1)->defaultValue(0),
+            'team_attitude_u19' => $this->integer(1)->defaultValue(0),
+            'team_attitude_u21' => $this->integer(1)->defaultValue(0),
             'team_auto' => $this->integer(1)->defaultValue(0),
             'team_base_id' => $this->integer(2)->defaultValue(0),
             'team_base_medical_id' => $this->integer(2)->defaultValue(0),
@@ -49,10 +53,6 @@ class m180617_191409_team extends Migration
             'team_user_id' => $this->integer(11)->defaultValue(0),
             'team_vice_id' => $this->integer(11)->defaultValue(0),
             'team_visitor' => $this->integer(3)->defaultValue(0),
-            'team_vote_national' => $this->integer(1)->defaultValue(0),
-            'team_vote_president' => $this->integer(1)->defaultValue(0),
-            'team_vote_u19' => $this->integer(1)->defaultValue(0),
-            'team_vote_u21' => $this->integer(1)->defaultValue(0),
         ]);
 
         $this->insert(self::TABLE, [
