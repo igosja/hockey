@@ -20,7 +20,7 @@ class m180621_135819_participant_championship extends Migration
             'participant_championship_country_id' => $this->integer(3)->defaultValue(0),
             'participant_championship_division_id' => $this->integer(1)->defaultValue(0),
             'participant_championship_season_id' => $this->integer(3)->defaultValue(0),
-            'participant_championship_stage_id' => $this->integer(3)->defaultValue(0),
+            'participant_championship_stage_id' => $this->integer(2)->defaultValue(0),
             'participant_championship_stage_1' => $this->integer(1)->defaultValue(0),
             'participant_championship_stage_2' => $this->integer(1)->defaultValue(0),
             'participant_championship_stage_4' => $this->integer(1)->defaultValue(0),
