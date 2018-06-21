@@ -1,0 +1,37 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Class m180621_175804_rating_chapter
+ */
+class m180621_175804_rating_chapter extends Migration
+{
+    const TABLE = '{{%rating_chapter}}';
+
+    /**
+     * @return bool|void
+     */
+    public function safeUp()
+    {
+        $this->createTable(self::TABLE, [
+            'rating_chapter_id' => $this->primaryKey(1),
+            'rating_chapter_name' => $this->string(255),
+            'rating_chapter_order' => $this->integer(1)->defaultValue(0),
+        ]);
+
+        $this->batchInsert(self::TABLE, ['rating_chapter_name', 'rating_chapter_order'], [
+            ['Clubs', 1],
+            ['Managers', 2],
+            ['Countries', 3],
+        ]);
+    }
+
+    /**
+     * @return bool|void
+     */
+    public function safeDown()
+    {
+        $this->dropTable(self::TABLE);
+    }
+}

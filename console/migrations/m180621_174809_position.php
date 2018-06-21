@@ -16,7 +16,7 @@ class m180621_174809_position extends Migration
     {
         $this->createTable(self::TABLE, [
             'position_id' => $this->primaryKey(1),
-            'position_name' => $this->integer(2),
+            'position_name' => $this->string(2),
             'position_text' => $this->string(255),
         ]);
 
