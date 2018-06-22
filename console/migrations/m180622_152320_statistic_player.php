@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180622_152320_statistic_player extends Migration
 {
-    const TABLE = '{{%statisticchapter}}';
+    const TABLE = '{{%statistic_player}}';
 
     /**
      * @return bool|void
