@@ -16,7 +16,7 @@ class m180622_130603_sex extends Migration
     {
         $this->createTable(self::TABLE, [
             'sex_id' => $this->primaryKey(1),
-            'sex_name' => $this->primaryKey(3),
+            'sex_name' => $this->string(10),
         ]);
 
         $this->batchInsert(self::TABLE, ['sex_name'], [
