@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180622_150330_statistic_chapter extends Migration
 {
-    const TABLE = '{{%statisticchapter}}';
+    const TABLE = '{{%statistic_chapter}}';
 
     /**
      * @return bool|void
@@ -15,12 +15,12 @@ class m180622_150330_statistic_chapter extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'statisticchapter_id' => $this->primaryKey(1),
-            'statisticchapter_name' => $this->string(10),
-            'statisticchapter_order' => $this->integer(1),
+            'statistic_chapter_id' => $this->primaryKey(1),
+            'statistic_chapter_name' => $this->string(10),
+            'statistic_chapter_order' => $this->integer(1),
         ]);
 
-        $this->batchInsert(self::TABLE, ['statisticchapter', 'statisticchapter_order'], [
+        $this->batchInsert(self::TABLE, ['statistic_chapter_name', 'statistic_chapter_order'], [
             ['Teams', 1],
             ['Players', 2],
         ]);
