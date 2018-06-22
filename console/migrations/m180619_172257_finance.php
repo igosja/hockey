@@ -25,7 +25,7 @@ class m180619_172257_finance extends Migration
             'finance_level' => $this->integer(1)->defaultValue(0),
             'finance_national_id' => $this->integer(3)->defaultValue(0),
             'finance_player_id' => $this->integer(11)->defaultValue(0),
-            'finance_season_id' => $this->integer(5)->defaultValue(0),
+            'finance_season_id' => $this->integer(3)->defaultValue(0),
             'finance_team_id' => $this->integer(5)->defaultValue(0),
             'finance_user_id' => $this->integer(11)->defaultValue(0),
             'finance_value' => $this->integer(11)->defaultValue(0),

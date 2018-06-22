@@ -29,7 +29,7 @@ class m180621_182347_loan extends Migration
             'loan_price_buyer' => $this->integer(11)->defaultValue(0),
             'loan_price_seller' => $this->integer(11)->defaultValue(0),
             'loan_ready' => $this->integer(11)->defaultValue(0),
-            'loan_season_id' => $this->integer(5)->defaultValue(0),
+            'loan_season_id' => $this->integer(3)->defaultValue(0),
             'loan_team_buyer_id' => $this->integer(11)->defaultValue(0),
             'loan_team_seller_id' => $this->integer(11)->defaultValue(0),
             'loan_user_buyer_id' => $this->integer(11)->defaultValue(0),

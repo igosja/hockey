@@ -24,7 +24,7 @@ class m180620_122319_history extends Migration
             'history_national_id' => $this->integer(3)->defaultValue(0),
             'history_player_id' => $this->integer(11)->defaultValue(0),
             'history_position_id' => $this->integer(1)->defaultValue(0),
-            'history_season_id' => $this->integer(5)->defaultValue(0),
+            'history_season_id' => $this->integer(3)->defaultValue(0),
             'history_special_id' => $this->integer(2)->defaultValue(0),
             'history_team_id' => $this->integer(11)->defaultValue(0),
             'history_team_2_id' => $this->integer(11)->defaultValue(0),

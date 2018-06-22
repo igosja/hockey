@@ -26,7 +26,7 @@ class m180620_131803_league extends Migration
             'league_place' => $this->integer(1)->defaultValue(0),
             'league_point' => $this->integer(2)->defaultValue(0),
             'league_score' => $this->integer(2)->defaultValue(0),
-            'league_season_id' => $this->integer(5)->defaultValue(0),
+            'league_season_id' => $this->integer(3)->defaultValue(0),
             'league_team_id' => $this->integer(11)->defaultValue(0),
             'league_win' => $this->integer(1)->defaultValue(0),
             'league_win_overtime' => $this->integer(1)->defaultValue(0),

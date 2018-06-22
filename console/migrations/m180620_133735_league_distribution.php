@@ -22,7 +22,7 @@ class m180620_133735_league_distribution extends Migration
             'league_distribution_qualification_3' => $this->integer(1)->defaultValue(0),
             'league_distribution_qualification_2' => $this->integer(1)->defaultValue(0),
             'league_distribution_qualification_1' => $this->integer(1)->defaultValue(0),
-            'league_distribution_season_id' => $this->integer(5)->defaultValue(0),
+            'league_distribution_season_id' => $this->integer(3)->defaultValue(0),
         ]);
 
         $this->batchInsert(self::TABLE, [

@@ -21,7 +21,7 @@ class m180620_132725_league_coefficient extends Migration
             'league_coefficient_loose_overtime' => $this->integer(2)->defaultValue(0),
             'league_coefficient_loose_shootout' => $this->integer(2)->defaultValue(0),
             'league_coefficient_point' => $this->integer(2)->defaultValue(0),
-            'league_coefficient_season_id' => $this->integer(5)->defaultValue(0),
+            'league_coefficient_season_id' => $this->integer(3)->defaultValue(0),
             'league_coefficient_team_id' => $this->integer(11)->defaultValue(0),
             'league_coefficient_win' => $this->integer(2)->defaultValue(0),
             'league_coefficient_win_overtime' => $this->integer(2)->defaultValue(0),
