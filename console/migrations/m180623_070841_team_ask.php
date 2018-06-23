@@ -15,7 +15,7 @@ class m180623_070841_team_ask extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'team_ask_id' => $this->primaryKey(1),
+            'team_ask_id' => $this->primaryKey(11),
             'team_ask_date' => $this->integer(11)->defaultValue(0),
             'team_ask_leave_id' => $this->integer(11)->defaultValue(0),
             'team_ask_team_id' => $this->integer(11)->defaultValue(0),
