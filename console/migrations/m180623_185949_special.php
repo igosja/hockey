@@ -22,7 +22,7 @@ class m180623_185949_special extends Migration
             'special_text' => $this->string(255),
         ]);
 
-        $this->batchInsert(self::TABLE, ['special_field', 'special_gk', 'special_text', 'special_name'], [
+        $this->batchInsert(self::TABLE, ['special_field', 'special_gk', 'special_name', 'special_text'], [
             [1, 0, 'Ск', 'Скорость'],
             [1, 0, 'Сб', 'Силовая борьба'],
             [1, 0, 'Т', 'Техника'],
