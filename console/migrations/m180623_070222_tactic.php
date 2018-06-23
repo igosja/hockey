@@ -16,7 +16,7 @@ class m180623_070222_tactic extends Migration
     {
         $this->createTable(self::TABLE, [
             'tactic_id' => $this->primaryKey(1),
-            'tactic_name' => $this->string(10),
+            'tactic_name' => $this->string(20),
         ]);
 
         $this->batchInsert(self::TABLE, ['tactic_name'], [
