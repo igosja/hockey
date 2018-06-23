@@ -15,7 +15,7 @@ class m180623_094754_vote_user extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'vote_user_id' => $this->primaryKey(1),
+            'vote_user_id' => $this->primaryKey(11),
             'vote_user_answer_id' => $this->integer(11)->defaultValue(0),
             'vote_user_date' => $this->integer(11)->defaultValue(0),
             'vote_user_user_id' => $this->integer(11)->defaultValue(0),
