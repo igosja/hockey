@@ -15,14 +15,14 @@ class m180623_093512_user_role extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'userrole_id' => $this->primaryKey(1),
-            'userrole_name' => $this->string(20),
+            'user_role_id' => $this->primaryKey(1),
+            'user_role_name' => $this->string(20),
         ]);
 
-        $this->batchInsert(self::TABLE, ['userrole_name'], [
-            'User',
-            'Moderator',
-            'Administrator',
+        $this->batchInsert(self::TABLE, ['user_role_name'], [
+            ['User'],
+            ['Moderator'],
+            ['Administrator'],
         ]);
     }
 

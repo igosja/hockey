@@ -20,9 +20,9 @@ class m180623_094455_vote_status extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['vote_status_name'], [
-            'Pending verification',
-            'Open',
-            'Closed',
+            ['Pending verification'],
+            ['Open'],
+            ['Closed'],
         ]);
     }
 
