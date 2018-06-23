@@ -1,17 +1,32 @@
 <?php
 
-$q = array();
+use yii\db\Migration;
 
-$q[] = 'CREATE TABLE `rule`
-        (
-            `rule_id` INT(3) PRIMARY KEY AUTO_INCREMENT,
-            `rule_date` INT(11) DEFAULT 0,
-            `rule_order` INT(3) DEFAULT 0,
-            `rule_text` TEXT,
-            `rule_title` VARCHAR(255)
-        );';
-$q[] = 'CREATE INDEX `rule_order` ON `rule` (`rule_order`);';
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 1, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+/**
+ * Class m180623_190903_rule
+ */
+class m180623_190903_rule extends Migration
+{
+    const TABLE = '{{%statistic_type}}';
+
+    /**
+     * @return bool|void
+     */
+    public function safeUp()
+    {
+        $this->createTable(self::TABLE, [
+            'rule_id' => $this->primaryKey(2),
+            'rule_date' => $this->integer(11)->defaultValue(0),
+            'rule_order' => $this->integer(2)->defaultValue(0),
+            'rule_text' => $this->text(),
+            'rule_title' => $this->string(255),
+        ]);
+
+        $this->batchInsert(self::TABLE, ['rule_date', 'rule_order', 'rule_text', 'rule_title'], [
+            [
+                time(),
+                1,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие условия.</a>
 <br/>
@@ -76,8 +91,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">В случае досрочного расторжения Соглашения со стороны Пользователя (аннулирование регистрации), каких-либо компенсаций Администрация не выплачивает. Пользователь, принимая условия настоящего Соглашения осознает, что частично платные ресурсы Сайта предоставляются к использованию путем приобретения права на их пользование в объеме и на срок, обусловленными Правилами игры.</p>
 <p class=\"text-justify\">В случае аннулирования регистрации Пользователя Администрацией по причине нарушения им Соглашения и/или Правил игры, каких-либо компенсаций Администрация не выплачивает. Пользователь, принимая условия настоящего Соглашения осознает, что воспользовавшись правом  на использование платных ресурсов Сайта (а таким является участие в игровом процессе начисления «единиц» на «Ваш денежный счет» в разделе Сайта «Магазин»), он лишается возможности вернуть уплаченные денежные средства, так как указанное право будет в таком случае и предоставлено Администрацией и использовано Пользователем.</p>
 <p class=\"text-justify\">Администрация оставляет за собой право не заключать соглашение о пользовании сайтом на частичной платной основе с отдельным Пользователем по своему усмотрению и без указания причин отказа.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Соглашение о пользовании сайтом (оферта)');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 2, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Соглашение о пользовании сайтом (оферта)'
+            ],
+            [
+                time(),
+                2,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Где это я?</a>
 <br/>
@@ -155,8 +175,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">В раздел \"Правила игры\" можно вернуться в любой момент, по каждому конкретному игровому вопросу написан отдельный раздел, расписывающий все детали и нюансы.</p>
 <p class=\"text-justify\">На страницах сайта во многих местах есть подсказки и разъяснения. Опытные менеджеры помогут вам в чате и на форуме.</p>
 <p class=\"text-justify\">При возникновении любых вопросов по игре, сообщать об ошибках, присылать идеи и предложения можно в техническую поддержку сайта. Хорошей игры!</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Для начинающих');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 3, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Для начинающих'
+            ],
+            [
+                time(),
+                3,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое Виртуальная Хоккейная Лига?</a>
 <br/>
@@ -198,8 +223,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 </ul>
 <p class=\"text-justify\">За умышленное разрушение команды Администрация Лиги вправе изъять команду и наказать нерадивого менеджера.</p>
 <p class=\"text-justify\">Апелляции к штрафам, отмена сделок, изъятие команд и другие наказания рассматриваются в тех.поддержке, раздел \"Апелляции по наказаниям\"</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Что такое Виртуальная Хоккейная Лига?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 4, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Что такое Виртуальная Хоккейная Лига?'
+            ],
+            [
+                time(),
+                4,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Как получить команду?</a>
 <br/>
@@ -257,8 +287,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">Автоматическая система проверит возможность передачи/обмена вашей команды и, в случае необходимости, укажет причины, по которым передача/обмен не может состояться. Вы можете отказаться от передачи/обмена клуба только до подтверждения заявки другим менеджером, после передачи/обмена команды претензии и возражения не принимаются.</p>
 <p class=\"text-justify\">Если второй менеджер не ответил на предложение, через неделю оно будет автоматически отменено. Также автоматически отменяться будут те предложения, которые уже точно не могут состояться, например, по причине смены менеджера в одной из команд из заявки.</p>
 <p class=\"text-justify\">Техническая поддержка не будет заниматься другими вариантами передач и обменов, которые не предусмотрены автоматикой.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Как получить команду?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 5, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Как получить команду?'
+            ],
+            [
+                time(),
+                5,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое перерегистрация команды?</a>
 <br/>
@@ -291,8 +326,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>в команде есть игроки сборных;</li>
 <li>база команды уже достигла пятого уровня;</li>
 </ul>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Перерегистрация команды');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 6, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Перерегистрация команды'
+            ],
+            [
+                time(),
+                6,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -441,8 +481,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\" id=\"3.3\"><span class=\"strong\">3.3. Расширение стадиона.</span> У каждой команды есть собственный стадион, на котором проводятся домашние матчи. Стадионы являются источником дохода от продажи зрительских билетов. Количество зрителей зависит от цены билета, вместимости стадиона (которую можно увеличить или уменьшить), интересности матча.</p>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"3.4\"><span class=\"strong\">3.4. Действия на рынке игроков.</span> С игроками Менеджер может совершать следующие действия: продажа/покупка игрока (трансферный рынок) и аренда игрока на время (арендный рынок).</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Как управлять командой?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 7, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Как управлять командой?'
+            ],
+            [
+                time(),
+                7,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Турниры Лиги.</a>
 <br/>
@@ -541,8 +586,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">Регламент проведения чемпионата мира определяется для каждого сезона в отдельности и может меняться из сезона в сезон. Регламент чемпионата мира для конкретного сезона можно посмотреть в отдельном разделе правил.</p>
 <p class=\"text-justify\">Все матчи чемпионата мира являются \"дополнительными\" (тип С).</p>
 <p class=\"text-justify\">Подробнее о регламенте, сроках и условиях проведения ЧМ читайте в отдельном разделе правил.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'В каких турнирах можно участвовать?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 8, '<p class=\"strong text-justify\">События в генерации игрового дня проводятся в следующей очерёдности:</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'В каких турнирах можно участвовать?'
+            ],
+            [
+                time(),
+                8,
+                '<p class=\"strong text-justify\">События в генерации игрового дня проводятся в следующей очерёдности:</p>
 <ol>
 <li>Закрытие сайта.</li>
 <li>Предстартовая подготовка.</li>
@@ -561,8 +611,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>Окончание построек. Т.е. в этот день еще нельзя менять форму игрокам, если идёт стройка.</li>
 <li>Пересчет рейтингов менеджеров и команд.</li>
 <li>Открытие сайта.</li>
-</ol>', 'Очерёдность событий при генерации игрового дня');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 9, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+</ol>',
+                'Очерёдность событий при генерации игрового дня'
+            ],
+            [
+                time(),
+                9,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -621,8 +676,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"9\"><span class=\"strong\">9. Арендованные игроки.</span> Если на момент окончания сезона игрок находится в аренде, то в начале нового сезона он продолжает играть за команду, его арендовавшую. Срок аренды остаётся тем же, что и был на момент окончания сезона.</p>
 <p class=\"text-justify\">Арендованный игрок получает усталость той команды, которая его арендует на момент начала сезона.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Что происходит в конце сезона?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 10, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Что происходит в конце сезона?'
+            ],
+            [
+                time(),
+                10,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Трансферы игроков.</a>
 <br/>
@@ -820,8 +880,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>личная заинтересованность в исходе голосования.</li>
 </ul>
 <p class=\"text-justify\">При обнаружении непонимания голосующим вопроса, на который его просят ответить, т.е. в случае, если ответы, данные участником голосования, некорректны, Администрация Лиги вправе выносить штрафы, запреты на участие в проверке сделок.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Как купить (продать, арендовать) игроков?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 11, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Как купить (продать, арендовать) игроков?'
+            ],
+            [
+                time(),
+                11,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -898,8 +963,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>С (центральный нападающий), RD (правый защитник) с силой 90% от реальной;</li>
 <li>Игроки других позиций с силой 80% от реальной.</li>
 </ul>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Позиции игроков');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 12, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Позиции игроков'
+            ],
+            [
+                time(),
+                12,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое усталость и на что она влияет?</a>
 <br/>
@@ -986,8 +1056,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"7\"><span class=\"strong\">7. Усталость игроков, купленных на рынках.</span> Игроки, купленные (арендованные) в другой команде при переходе сохраняют имеющиеся у них усталость, ИП и ОП, физическую форму. Никуда не исчезают и травмы (поэтому будьте внимательны).</p>
 <p class=\"text-justify\">Игроки, купленные у Лиги имеют параметры ИП=0, ОП=1.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Усталость игроков (У)');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 13, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Усталость игроков (У)'
+            ],
+            [
+                time(),
+                13,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое физическая форма?</a>
 <br/>
@@ -1001,8 +1076,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"2\"><span class=\"strong\">2. Начало сезона.</span> В начале каждого сезона физическая форма всех игроков одной команды становится разной, один из 20 вариантов ее изменения выбирается случайным образом (это происходит один раз в сезон, в отличие от выведения усталости на уровень баз, которая проводится перед началом каждого крупного соревнования). После этого, если выпавшие случайно пики формы тренера не устраивают, он может поменять вариант изменения формы игроков команды на другой с помощью физиоцентра. При этом в зависимости от уровня физцентра он может проводить такие изменения несколько раз в сезон.</p>
 <p class=\"text-justify\">Игроки, приходящие в команду по результатам сделок по ходу сезона по умолчанию имеют тот вариант изменения формы, который у него был натренирован в физцентре предыдущей команды.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Физическая форма игроков (Ф)');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 14, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Физическая форма игроков (Ф)'
+            ],
+            [
+                time(),
+                14,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1069,8 +1149,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td class=\"text-center\">D4</td><td class=\"text-center\">0,80</td></tr>
 <tr><td class=\"text-center\">Конференция</td><td class=\"text-center\">0,70</td></tr>
 </table>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Стоимость и зарплата игроков');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 15, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Стоимость и зарплата игроков'
+            ],
+            [
+                time(),
+                15,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое спецвозможности и как их получить.</a>
 <br/>
@@ -1170,8 +1255,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td class=\"text-center\">3</td><td class=\"text-center\">+15% силы при бросках по воротам</td></tr>
 <tr><td class=\"text-center\">4</td><td class=\"text-center\">+20% силы при бросках по воротам</td></tr>
 </table>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Cпецвозможности игроков');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 16, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Cпецвозможности игроков'
+            ],
+            [
+                time(),
+                16,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1431,8 +1521,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"strong text-justify\" id=\"7.5\">7.5. Секреты работы скаут-центров.</p>
 <p class=\"text-justify\">В любой команде, которая изучает любимый стиль одного и того же игрока, последовательность удаления неправильных стилей - одинаковая. Т.е. если в одной команде первое изучение дало результат, что стиль игрока точно не скоростной, то первое изучение стиля этого же игрока в другой команде тоже даст результат, что стиль точно не скоростной.</p>
 <p class=\"text-justify\">Игрок, находящийся на изучении в скаут-центре, не может участвовать в сделках</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Базы команд');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 17, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Базы команд'
+            ],
+            [
+                time(),
+                17,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Что такое травмы игроков?</a>
 <br/>
@@ -1442,8 +1537,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"2\"><span class=\"strong\">2. Виды травм.</span> Травмы условно подразделяются на микро (1-2 дня), легкие (3-4 дня), тяжелые (5-6 дней) и очень тяжелые (7-9 дней). Понятие \"микротравма на 0 дней\" означает, что игрока успеют вылечить до следующей игры, однако его усталость будет к этому времени уже на уровне базы.</p>
 <p class=\"text-justify\">Все травмы обнаруживаются уже после игры. Виртуальный хоккеист доигрывает матч до конца без потери силы, однако по возвращении на базу оказывается травмирован и подлежит лечению. Вероятность получения травм целиком и полностью зависит от усталости игрока. Чем она больше, тем вероятнее получение послематчевой травмы.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Травмы игроков');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 18, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Травмы игроков'
+            ],
+            [
+                time(),
+                18,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1569,8 +1669,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 </table>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"3.6\"><span class=\"strong\">3.6. Ограничения.</span> В любых случаях командное изменение силы не может превышать 5 набранных или потерянных баллов.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Изменение силы игроков по результатам матча');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 19, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Изменение силы игроков по результатам матча'
+            ],
+            [
+                time(),
+                19,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие сведения о стадионах.</a>
 <br/>
@@ -1687,8 +1792,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>K1 - поправочный коэффициент к типу турнира;</li>
 <li>K2 - поправочный коэффициент к страдии турнира.</li>
 </ul>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Стадионы команд и посещаемость матчей');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 20, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Стадионы команд и посещаемость матчей'
+            ],
+            [
+                time(),
+                20,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1702,8 +1812,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"strong text-justify\" id=\"2\">2. Игроки от Лиги.</p>
 <p class=\"text-justify\">Если у вас недостаточно игроков в команде, вы можете оставить места некоторых игроков пустыми. В этом случае в вашу команду, на время матча можно пригласить некоторое число дополнительных игроков от Лиги, которые и займут пустые места в заявке. Сила таких игроков 15, усталость 0%, спецвозможностей нет, любимых стилей нет, не влияют на сыгранность и взаимопонимание, форма 100%.</p>
 <p class=\"text-justify\">Количество игроков от Лиги неограничено.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Состав команды на матч');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 21, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Состав команды на матч'
+            ],
+            [
+                time(),
+                21,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1742,8 +1857,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"5\"><span class=\"strong\">5. Стадион, деньги и зрители.</span> Товарищеские матчи проводятся на стадионе того из соперников, который отправил приглашение. Тем не менее домашнего бонуса у команды-организатора в товарищеских матчах нет.</p>
 <p class=\"text-justify\">Стоимость билета на товарищеский матч формируется как среднее значение от цен на билеты, указанных обоими участниками матча при отправке своих составов на игру.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Товарищеские матчи');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 22, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Товарищеские матчи'
+            ],
+            [
+                time(),
+                22,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1791,8 +1911,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\" id=\"4\"><span class=\"strong\">4. Призовые.</span> За участие в Кубке межсезонья команды получают призовые, которые рассчитывается по формуле:</p>
 <p class=\"text-justify\">2000000 * 0.98 ^ (место в турнирной таблице - 1)</p>
 <p class=\"text-justify\">Итоговые места команд по результатам кубка межсезонья учитываются только при распределении призового фонда турнира. Создание новых дивизионов и стран проводится по результатам участия команд в конференции любительских клубов (а не кубка межсезонья).</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Кубок межсезонья');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 23, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Кубок межсезонья'
+            ],
+            [
+                time(),
+                23,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1868,8 +1993,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">Обзоры, нарушающие правила написания обзоров, могут быть удалены модератором с дополнительным штрафом менеджеру в размере 100 000$.</p>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"9\"><span class=\"strong\">9. Штрафы.</span> За 5 автосоставов подряд команда автоматически выставляется в свободные (для не VIP-менеджеров). В случае обнаружения договорной игры (в первую очередь касается тех, кто играет с одного компьютера) на клуб может быть наложен штраф, клуб выставляется в свободные, так же может быть лишен места в лиге чемпионов (если он там играет).</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Чемпионаты стран');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 24, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Чемпионаты стран'
+            ],
+            [
+                time(),
+                24,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1920,8 +2050,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">5000000 * 0.98 ^ (место в турнирной таблице - 1)</p>
 <p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>
 <p class=\"text-justify\" id=\"5\"><span class=\"strong\">5. Ротация.</span> Команды, занявшие высокие места в национальном зачете по итогам конференции, в следующем сезоне получают право выступать в чемпионате своей страны вместо последнего и предпоследнего мест низшего дивизиона (или дивизионов).</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Конференция любительских клубов');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 25, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Конференция любительских клубов'
+            ],
+            [
+                time(),
+                25,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -1978,8 +2113,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <tr><td>Проигравшие в первом отборочном раунде</td><td class=\"text-right\">5 000 000$</td></tr>
 </table>
 <p class=\"text-justify\">Призовые выплачиваются в том числе и тем клубам, которые начнут играть с определенной стадии и на этом же этапе и закончат выступление.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Лига чемпионов');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 26, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Лига чемпионов'
+            ],
+            [
+                time(),
+                26,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -2068,8 +2208,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\" id=\"11\"><span class=\"strong\">11. Призовые.</span> По результатам чемпионата команды получают призовые.</p>
 <p class=\"text-justify\">Призовые национальных сбоных рассчитываются по формуле:</p>
 <p class=\"text-justify\">25000000 * 0.98 ^ ( место в турнирной таблице - 1 )</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Чемпионаты мира');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 27, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Чемпионаты мира'
+            ],
+            [
+                time(),
+                27,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -2125,8 +2270,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>покупать и продавать игроков на трансферном рынке;</li>
 </ul>
 <p class=\"text-justify\">Невостребованные на протяжении долгого времени свободные команды могут быть перерегистрированы Лигой.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'За что выставляются команды в свободные?');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 28, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'За что выставляются команды в свободные?'
+            ],
+            [
+                time(),
+                28,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -2236,8 +2386,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <li>команда не может найти постоянного менеджера, а рекомендованный имеет шансы им стать;</li>
 </ul>
 <p class=\"text-justify\">Возможностью получить команду через рекомендации часто пытаются воспользоваться в мошеннических целях. Если незнакомый менеджер настойчиво предлагает вам поставить его в рекомендацию - это скорее всего такой случай.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Президенты национальных федераций');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 29, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Президенты национальных федераций'
+            ],
+            [
+                time(),
+                29,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -2263,8 +2418,13 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 </ul>
 <p class=\"text-justify\">Голосование длится 48 часов с момента создания. Распределение средств происходит только в том случае, если по истечение этого времени более 50% проголосовавших менеджеров согласны с таким распределением. Пополнение денежными средствами на счет указанных в голосовании команд федерации происходит автоматически.</p>
 <p class=\"text-justify\">В разделе \"Опросы\" можно следить за ходом открытых или узнать результаты закрытых голосований.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Фонды федераций');";
-$q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`) VALUES (UNIX_TIMESTAMP(), 30, '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Фонды федераций'
+            ],
+            [
+                time(),
+                30,
+                '<p class=\"strong text-justify\" id=\"0\">Содержание</p>
 <p class=\"text-justify\">
 <a href=\"#1\">1. Общие положения.</a>
 <br/>
@@ -2359,4 +2519,17 @@ $q[] = "INSERT INTO `rule` (`rule_date`, `rule_order`, `rule_text`, `rule_title`
 <p class=\"text-justify\">5.1. Любой посетитель форума может обжаловать вынесенное ему лично наказание от модераторов в специальном топике на форуме \"Жалобы на действия модераторов\". В этой теме он получит ответ от модератора. Запрещается вступать в споры с модераторами после окончательного ответа модераторов на жалобу.</p>
 <p class=\"text-justify\">5.2. Свое возможное несогласие с действиями конкретного модератора можно отправить в техподдержку.</p>
 <p class=\"text-justify\">5.3. Запрещается неоднократное написание необоснованных жалоб. Тем самым вы отвлекаете модераторов от действительно важной работы. В случае нарушения этого правила модераторы могут вынести наказание автору жалобы.</p>
-<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>', 'Правила пользования форумом');";
+<p class=\"text-right text-size-3\">[<a href=\"#0\">к содержанию</a>]</p>',
+                'Правила пользования форумом'
+            ],
+        ]);
+    }
+
+    /**
+     * @return bool|void
+     */
+    public function safeDown()
+    {
+        $this->dropTable(self::TABLE);
+    }
+}

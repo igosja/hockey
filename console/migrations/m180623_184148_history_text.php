@@ -16,10 +16,10 @@ class m180623_184148_history_text extends Migration
     {
         $this->createTable(self::TABLE, [
             'history_text_id' => $this->primaryKey(2),
-            'history_text_name' => $this->string(255),
+            'history_text_text' => $this->string(255),
         ]);
 
-        $this->batchInsert(self::TABLE, ['history_text_name'], [
+        $this->batchInsert(self::TABLE, ['history_text_text'], [
             ['Команда {team} зарегистрирована в Лиге'],
             ['Команда {team} перерегистрирована'],
             ['{user} принят на работу тренером-менеджером в команду {team}'],

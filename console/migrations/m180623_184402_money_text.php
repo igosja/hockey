@@ -16,10 +16,10 @@ class m180623_184402_money_text extends Migration
     {
         $this->createTable(self::TABLE, [
             'money_text_id' => $this->primaryKey(2),
-            'money_text_name' => $this->string(255),
+            'money_text_text' => $this->string(255),
         ]);
 
-        $this->batchInsert(self::TABLE, ['money_text_name'], [
+        $this->batchInsert(self::TABLE, ['money_text_text'], [
             ['Пополнение счёта'],
             ['Бонус партнёрской программе'],
             ['Покупка балла силы'],

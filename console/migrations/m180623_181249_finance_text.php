@@ -16,10 +16,10 @@ class m180623_181249_finance_text extends Migration
     {
         $this->createTable(self::TABLE, [
             'finance_text_id' => $this->primaryKey(2),
-            'finance_text_name' => $this->string(255),
+            'finance_text_text' => $this->string(255),
         ]);
 
-        $this->batchInsert(self::TABLE, ['finance_text_name'], [
+        $this->batchInsert(self::TABLE, ['finance_text_text'], [
             ['VIP-призовые'],
             ['Призовые за чемпионат мира'],
             ['Призовые за Лигу чемпионов'],
