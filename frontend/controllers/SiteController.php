@@ -2,17 +2,16 @@
 
 namespace frontend\controllers;
 
-use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignUp;
+use common\models\News;
+use common\models\Review;
+use common\models\User;
 use frontend\models\ContactForm;
+use frontend\models\SignUp;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -70,12 +69,30 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $birthdays = User::find()
+            ->where(['user_birth_day' => date('d'), 'user_birth_month' => date('Y')])
+            ->orderBy(['news_id' => SORT_ASC])
+            ->all();
+        $countryNews = News::find()
+            ->where(['!=', 'news_country_id', null])
+            ->orderBy(['news_id' => SORT_DESC])
+            ->limit(10)
+            ->one();
+        $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
+        $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
+
         $this->view->title = 'Virtual Hockey Online League';
         $this->view->registerMetaTag([
             'name' => 'description',
             'content' => 'Virtual Hockey Online League - the best free hockey online manager'
         ]);
-        return $this->render('index');
+
+        return $this->render('index', [
+            'birthdays' => $birthdays,
+            'countryNews' => $countryNews,
+            'news' => $news,
+            'reviews' => $reviews,
+        ]);
     }
 
     /**

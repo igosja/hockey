@@ -38,9 +38,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index',
-                'sign-up' => 'site/sign-up',
-                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+                '' => '/site/index',
+                '<language:\w+>' => '/site/index',
+                '<language:\w+>/sign-up' => '/site/sign-up',
+                '<language:\w+>/<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
         'user' => [
