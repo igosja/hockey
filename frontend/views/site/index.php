@@ -102,7 +102,7 @@ use yii\helpers\Html;
                     </li>
                     <li>
                         to activate your registration with the code received in the email,
-                                                on <?= Html::a('this page', ['/site/confirm']); ?>;
+                        on <?= Html::a('this page', ['/site/confirm']); ?>;
                     </li>
                     <li>
                         enter the site under your login / password;
