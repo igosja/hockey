@@ -71,7 +71,7 @@ class SiteController extends Controller
     {
         $birthdays = User::find()
             ->where(['user_birth_day' => date('d'), 'user_birth_month' => date('Y')])
-            ->orderBy(['news_id' => SORT_ASC])
+            ->orderBy(['user_id' => SORT_ASC])
             ->all();
         $countryNews = News::find()
             ->where(['!=', 'news_country_id', null])
