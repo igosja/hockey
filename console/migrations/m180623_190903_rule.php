@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180623_190903_rule extends Migration
 {
-    const TABLE = '{{%statistic_type}}';
+    const TABLE = '{{%rule}}';
 
     /**
      * @return bool|void
