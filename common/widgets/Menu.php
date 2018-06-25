@@ -197,98 +197,98 @@ class Menu extends Widget
         $this->menuItemList = [
             self::ITEM_CHANGE_TEAM => [
                 'label' => 'Change team',
-                'url' => ['/team/change'],
+                'url' => ['team/change'],
             ],
             self::ITEM_FEDERATION => [
                 'label' => 'Federation',
-                'url' => ['/country/news'],
+                'url' => ['country/news'],
             ],
             self::ITEM_FORUM => [
                 'label' => 'Forum',
                 'target' => '_blank',
-                'url' => ['/forum/index'],
+                'url' => ['forum/index'],
             ],
             self::ITEM_HOME => [
                 'label' => 'Home',
-                'url' => ['/site/index'],
+                'url' => ['site/index'],
             ],
             self::ITEM_LOAN => [
                 'label' => 'Loan',
-                'url' => ['/loan/index'],
+                'url' => ['loan/index'],
             ],
             self::ITEM_MESSENGER => [
                 'label' => 'Messenger',
-                'url' => ['/messenger/index'],
+                'url' => ['messenger/index'],
             ],
             self::ITEM_NATIONAL_TEAM => [
                 'label' => 'National team',
-                'url' => ['/national/index'],
+                'url' => ['national/index'],
             ],
             self::ITEM_NEWS => [
                 'label' => 'News',
-                'url' => ['/news/index'],
+                'url' => ['news/index'],
             ],
             self::ITEM_PASSWORD => [
                 'label' => 'Forgot your password?',
-                'url' => ['/password/index'],
+                'url' => ['password/index'],
             ],
             self::ITEM_PLAYER => [
                 'label' => 'Players',
-                'url' => ['/player/index'],
+                'url' => ['player/index'],
             ],
             self::ITEM_POLL => [
                 'label' => 'Polls',
-                'url' => ['/poll/index'],
+                'url' => ['poll/index'],
             ],
             self::ITEM_PROFILE => [
                 'label' => 'Profile',
-                'url' => ['/user/view'],
+                'url' => ['user/view'],
             ],
             self::ITEM_RATING => [
                 'label' => 'Ratings',
-                'url' => ['/rating/index'],
+                'url' => ['rating/index'],
             ],
             self::ITEM_ROSTER => [
                 'css' => 'red',
                 'label' => 'Roster',
-                'url' => ['/roster/index'],
+                'url' => ['roster/index'],
             ],
             self::ITEM_RULE => [
                 'label' => 'Rules',
-                'url' => ['/rule/index'],
+                'url' => ['rule/index'],
             ],
             self::ITEM_SCHEDULE => [
                 'label' => 'Schedule',
-                'url' => ['/schedule/index'],
+                'url' => ['schedule/index'],
             ],
             self::ITEM_SING_UP => [
                 'css' => 'red',
                 'label' => 'Sign up',
-                'url' => ['/site/sign-up'],
+                'url' => ['site/sign-up'],
             ],
             self::ITEM_STORE => [
                 'label' => 'Store',
-                'url' => ['/store/index'],
+                'url' => ['store/index'],
             ],
             self::ITEM_SUPPORT => [
                 'label' => 'Support',
-                'url' => ['/support/index'],
+                'url' => ['support/index'],
             ],
             self::ITEM_TEAM => [
                 'label' => 'Teams',
-                'url' => ['/team/index'],
+                'url' => ['team/index'],
             ],
             self::ITEM_TOURNAMENT => [
                 'label' => 'Tournaments',
-                'url' => ['/tournament/index'],
+                'url' => ['tournament/index'],
             ],
             self::ITEM_TRANSFER => [
                 'label' => 'Transfer',
-                'url' => ['/transfer/index'],
+                'url' => ['transfer/index'],
             ],
             self::ITEM_VIP => [
                 'label' => 'VIP club',
-                'url' => ['/vip/index'],
+                'url' => ['vip/index'],
             ],
         ];
     }

@@ -10,6 +10,10 @@ use yii\db\ActiveRecord;
  *
  * @property integer $team_id
  * @property float $team_age
+ * @property integer $team_attitude_national
+ * @property integer $team_attitude_president
+ * @property integer $team_attitude_u19
+ * @property integer $team_attitude_u21
  * @property integer $team_auto
  * @property integer $team_base_id
  * @property integer $team_base_medical_id
@@ -41,10 +45,6 @@ use yii\db\ActiveRecord;
  * @property integer $team_user_id
  * @property integer $team_vice_id
  * @property integer $team_visitor
- * @property integer $team_vote_national
- * @property integer $team_vote_president
- * @property integer $team_vote_u19
- * @property integer $team_vote_u21
  */
 class Team extends ActiveRecord
 {
@@ -65,6 +65,10 @@ class Team extends ActiveRecord
             [
                 [
                     'team_id',
+                    'team_attitude_national',
+                    'team_attitude_president',
+                    'team_attitude_u19',
+                    'team_attitude_u21',
                     'team_auto',
                     'team_base_id',
                     'team_base_medical_id',
@@ -96,10 +100,6 @@ class Team extends ActiveRecord
                     'team_user_id',
                     'team_vice_id',
                     'team_visitor',
-                    'team_vote_national',
-                    'team_vote_president',
-                    'team_vote_u19',
-                    'team_vote_u21',
                 ],
                 'integer'
             ],
@@ -130,10 +130,10 @@ class Team extends ActiveRecord
                 $this->team_mood_rest = 3;
                 $this->team_mood_super = 3;
                 $this->team_player = 27;
-                $this->team_vote_national = 2;
-                $this->team_vote_president = 2;
-                $this->team_vote_u19 = 2;
-                $this->team_vote_u21 = 2;
+                $this->team_attitude_national = 2;
+                $this->team_attitude_president = 2;
+                $this->team_attitude_u19 = 2;
+                $this->team_attitude_u21 = 2;
             }
             return true;
         }

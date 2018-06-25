@@ -18,6 +18,7 @@ class m180619_173832_forum_theme extends Migration
             'forum_theme_id' => $this->primaryKey(11),
             'forum_theme_count_view' => $this->integer(11)->defaultValue(0),
             'forum_theme_date' => $this->integer(11)->defaultValue(0),
+            'forum_theme_date_update' => $this->integer(11)->defaultValue(0),
             'forum_theme_forum_group_id' => $this->integer(11)->defaultValue(0),
             'forum_theme_name' => $this->string(255),
             'forum_theme_user_id' => $this->integer(11)->defaultValue(0),

@@ -21,7 +21,6 @@ class m180623_181534_forum_group extends Migration
             'forum_group_forum_chapter_id' => $this->integer(11)->defaultValue(0),
             'forum_group_name' => $this->string(255),
             'forum_group_order' => $this->integer(3)->defaultValue(0),
-            'forum_group_user_id' => $this->integer(11)->defaultValue(0),
         ]);
 
         $this->batchInsert(

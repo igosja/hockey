@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /**
- * @var $birthdays \common\models\User[]
- * @var $countryNews \common\models\News
- * @var $news \common\models\News
- * @var $reviews \common\models\Review[]
- * @var $this \yii\web\View
+ * @var \common\models\User[] $birthdays
+ * @var \common\models\News $countryNews
+ * @var \common\models\ForumTheme[] $forumThemes
+ * @var \common\models\News $news
+ * @var \common\models\Review[] $reviews
  */
 
 ?>
@@ -33,7 +33,7 @@ use yii\helpers\Html;
                 </p>
                 <?php if (Yii::$app->user->isGuest): ?>
                     <p class="text-center">
-                        <?= Html::a('Sign Up', ['/site/sign-up'], ['class' => 'btn']); ?>
+                        <?= Html::a('Sign Up', ['site/sign-up'], ['class' => 'btn']); ?>
                     </p>
                 <?php endif; ?>
                 <h4>You do not need to download anything!</h4>
@@ -78,10 +78,10 @@ use yii\helpers\Html;
                     </p>
                     <?= Html::a(
                         $news->user->user_login,
-                        ['/user/view', 'id' => $news->user->user_id]
+                        ['user/view', 'id' => $news->user->user_id]
                     ); ?>
                     <p class="text-justify text-size-3">
-                        [<?= Html::a('Learn More', ['/news/index']); ?>]
+                        [<?= Html::a('Learn More', ['news/index']); ?>]
                     </p>
                 </div>
             </div>
@@ -96,13 +96,12 @@ use yii\helpers\Html;
                 <p class="text-justify">In order to become a participant in the game, you need:</p>
                 <ul>
                     <li>
-                        <?= Html::a('register in the game', ['/site/sign-up'], ['class' => 'strong']); ?>
-                        <a class="strong" href="/signup.php">register in the game</a>,
+                        <?= Html::a('register in the game', ['site/sign-up'], ['class' => 'strong']); ?>,
                         receive a email with the registration confirmation code;
                     </li>
                     <li>
                         to activate your registration with the code received in the email,
-                        on <?= Html::a('this page', ['/site/confirm']); ?>;
+                        on <?= Html::a('this page', ['site/confirm']); ?>;
                     </li>
                     <li>
                         enter the site under your login / password;
@@ -122,9 +121,9 @@ use yii\helpers\Html;
                     </li>
                 </ul>
                 <p class="text-justify">
-                    You can ask your questions to experienced players on the <?= Html::a('forum', ['/forum/index']); ?>.
+                    You can ask your questions to experienced players on the <?= Html::a('forum', ['forum/index']); ?>.
                     For all the problems and questions, you can write to
-                    <?= Html::a('technical support for the site', ['/support/index']); ?>.
+                    <?= Html::a('technical support for the site', ['support/index']); ?>.
                 </p>
             </div>
         </div>
@@ -145,8 +144,8 @@ use yii\helpers\Html;
                                 <?= $item->country->country_name; ?>
                                 (<?= $item->division->division_name; ?>),
                                 <?= $item->stage->stage_name; ?>:
-                                <?= Html::a($item->review_title, ['/review/view', 'id' => $item->review_id]); ?>
-                                (<?= Html::a($item->user->user_login, ['/user/view', 'id' => $item->user->user_id]); ?>)
+                                <?= Html::a($item->review_title, ['review/view', 'id' => $item->review_id]); ?>
+                                (<?= Html::a($item->user->user_login, ['user/view', 'id' => $item->user->user_id]); ?>)
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -169,9 +168,9 @@ use yii\helpers\Html;
                     <p class="text-justify">
                         <?= $countryNews->news_text; ?>
                     </p>
-                    <?= Html::a($countryNews->user->user_login, ['/user/view', 'id' => $countryNews->user->user_id]); ?>
+                    <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
-                        [<?= Html::a('Learn More', ['/country/news', 'id' => $countryNews->news_country_id]); ?>]
+                        [<?= Html::a('Learn More', ['country/news', 'id' => $countryNews->news_country_id]); ?>]
                     </p>
                 </div>
             </div>
@@ -189,7 +188,7 @@ use yii\helpers\Html;
                         <?php foreach ($birthdays as $item) : ?>
                             <li>
                                 <?= $item->user_name; ?> <?= $item->user_surname; ?>
-                                (<?= Html::a($item->user_login, ['/user/view', 'id' => $item->user_id]); ?>)
+                                (<?= Html::a($item->user_login, ['user/view', 'id' => $item->user_id]); ?>)
                                 <?php if ($item->user_birth_year) : ?>
                                     - is <?= date('Y') - $item->user_birth_year; ?> years old!
                                 <?php endif; ?>
@@ -205,19 +204,19 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <fieldset class="text-size-3">
                     <legend class="text-center strong">Forum</legend>
-                    <!--                    --><?php //foreach ($forum_array as $item) { ?>
-                    <!--                        <div class="row margin-top-small">-->
-                    <!--                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-                    <!--                                <a href="/forum_theme.php?num=-->
-                    <? //= $item['forumtheme_id']; ?><!--&page=--><? //= $item['last_page']; ?><!--">-->
-                    <!--                                    --><? //= $item['forumtheme_name']; ?>
-                    <!--                                </a>-->
-                    <!--                            </div>-->
-                    <!--                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-                    <!--                                --><? //= $item['forumgroup_name']; ?>
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    --><?php //} ?>
+                    <?php foreach ($forumThemes as $item): ?>
+                        <div class="row margin-top-small">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <?= Html::a(
+                                    $item->forum_theme_name,
+                                    ['forum/theme', 'id' => $item->forum_theme_id]
+                                ); ?>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <?= $item->forumGroup->forum_group_name; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </fieldset>
             </div>
         </div>
@@ -240,7 +239,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">Payments</legend>
-                    <a href="https://passport.webmoney.ru/asp/certview.asp?wmid=274662367507" rel="nofollow"
+                    <a href="//passport.webmoney.ru/asp/certview.asp?wmid=274662367507" rel="nofollow"
                        target="_blank">
                         <img
                                 alt="WebMoney"

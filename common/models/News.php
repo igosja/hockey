@@ -22,6 +22,8 @@ use yii\db\ActiveRecord;
  */
 class News extends ActiveRecord
 {
+    const PAGE_LIMIT = 10;
+
     /**
      * @return string
      */
