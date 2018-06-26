@@ -3,8 +3,6 @@
 include(__DIR__ . '/../../../include/start.php');
 
 $function_array = array(
-    'f_igosja_start_insert_surname',
-    'f_igosja_start_insert_team',
     'f_igosja_start_insert_national',
     'f_igosja_start_insert_schedule',
     'f_igosja_start_insert_offseason',
@@ -16,7 +14,7 @@ for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)
 {
     $function_array[$i]();
 
-    f_igosja_console_progress($i+1, $count_function);
+    f_igosja_console_progress($i + 1, $count_function, $function_array[$i]);
 }
 
 print "\r\n"

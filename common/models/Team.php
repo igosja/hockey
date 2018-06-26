@@ -62,6 +62,7 @@ class Team extends ActiveRecord
     public function rules(): array
     {
         return [
+            [['team_stadium_id'], 'in', 'range' => Stadium::find()->select(['stadium_id'])->column()],
             [
                 [
                     'team_id',
@@ -96,7 +97,6 @@ class Team extends ActiveRecord
                     'team_price_stadium',
                     'team_price_total',
                     'team_salary',
-                    'team_stadium_id',
                     'team_user_id',
                     'team_vice_id',
                     'team_visitor',
@@ -138,5 +138,12 @@ class Team extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        //here will be code
     }
 }
