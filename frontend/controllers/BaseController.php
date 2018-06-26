@@ -7,7 +7,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
- * Class NewsController
+ * Class BaseController
  * @package frontend\controllers
  */
 class BaseController extends Controller

@@ -3,8 +3,6 @@
 include(__DIR__ . '/../../../include/start.php');
 
 $function_array = array(
-    'f_igosja_start_insert_user',
-    'f_igosja_start_insert_name',
     'f_igosja_start_insert_surname',
     'f_igosja_start_insert_team',
     'f_igosja_start_insert_national',
