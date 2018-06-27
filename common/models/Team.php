@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -45,6 +46,8 @@ use yii\db\ActiveRecord;
  * @property integer $team_user_id
  * @property integer $team_vice_id
  * @property integer $team_visitor
+ *
+ * @property Stadium $stadium
  */
 class Team extends ActiveRecord
 {
@@ -118,6 +121,10 @@ class Team extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
+                $this->team_attitude_national = 2;
+                $this->team_attitude_president = 2;
+                $this->team_attitude_u19 = 2;
+                $this->team_attitude_u21 = 2;
                 $this->team_base_id = 2;
                 $this->team_base_medical_id = 1;
                 $this->team_base_physical_id = 1;
@@ -130,20 +137,194 @@ class Team extends ActiveRecord
                 $this->team_mood_rest = 3;
                 $this->team_mood_super = 3;
                 $this->team_player = 27;
-                $this->team_attitude_national = 2;
-                $this->team_attitude_president = 2;
-                $this->team_attitude_u19 = 2;
-                $this->team_attitude_u21 = 2;
             }
             return true;
         }
         return false;
     }
 
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
 
-        //here will be code
+        if ($insert) {
+            $this->createPlayers();
+            $this->createLeaguePlayers();
+            $this->updatePower();
+            History::log([
+                'history_history_text_id' => HistoryText::TEAM_REGISTER,
+                'history_team_id' => $this->team_id
+            ]);
+        }
+    }
+
+    private function createPlayers()
+    {
+        $position = [
+            Position::GK,
+            Position::GK,
+            Position::LD,
+            Position::LD,
+            Position::LD,
+            Position::LD,
+            Position::LD,
+            Position::RD,
+            Position::RD,
+            Position::RD,
+            Position::RD,
+            Position::RD,
+            Position::LW,
+            Position::LW,
+            Position::LW,
+            Position::LW,
+            Position::LW,
+            Position::CF,
+            Position::CF,
+            Position::CF,
+            Position::CF,
+            Position::CF,
+            Position::RW,
+            Position::RW,
+            Position::RW,
+            Position::RW,
+            Position::RW,
+        ];
+
+        shuffle($position);
+
+        for ($i = 0, $countPosition = count($position); $i < $countPosition; $i++) {
+            $age = 17 + $i;
+
+            if (39 < $age) {
+                $age = $age - 17;
+            }
+
+            $player = new Player();
+            $player->player_age = $age;
+            $player->player_country_id = $this->stadium->city->country->country_id;
+            $player->player_Position::id = $position[$i];
+            $player->player_team_id = $this->team_id;
+            $player->save();
+        }
+    }
+
+    private function createLeaguePlayers()
+    {
+        $position = [
+            Position::GK,
+            Position::LD,
+            Position::LD,
+            Position::LD,
+            Position::RD,
+            Position::RD,
+            Position::RD,
+            Position::LW,
+            Position::LW,
+            Position::LW,
+            Position::CF,
+            Position::CF,
+            Position::CF,
+            Position::RW,
+            Position::RW,
+            Position::RW,
+        ];
+
+        shuffle($position);
+
+        for ($i = 0, $countPosition = count($position); $i < $countPosition; $i++) {
+            $age = 17 + $i;
+
+            if (39 < $age) {
+                $age = $age - 17;
+            }
+
+            $player = new Player();
+            $player->player_age = $age;
+            $player->player_country_id = $this->stadium->city->country->country_id;
+            $player->player_position_id = $position[$i];
+            $player->save();
+        }
+    }
+
+    private function updatePower()
+    {
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(15)->sum('player_power_nominal');
+        $power_c_16 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(1)->sum('player_power_nominal');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(20)->sum('player_power_nominal');
+        $power_c_21 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(1)->sum('player_power_nominal');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(25)->sum('player_power_nominal');
+        $power_c_27 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(2)->sum('player_power_nominal');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(15)->sum('player_power_nominal_s');
+        $power_s_16 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(1)->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(20)->sum('player_power_nominal_s');
+        $power_s_21 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(1)->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
+            '!=',
+            'player_position_id',
+            Position::GK
+        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(25)->sum('player_power_nominal_s');
+        $power_s_27 = $power + Player::find()->where([
+                'player_team_id' => $this->team_id,
+                'player_position_id' => Position::GK
+            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(2)->sum('player_power_nominal_s');
+        $power_v = round(($power_c_16 + $power_c_21 + $power_c_27) / 64 * 16);
+        $power_vs = round(($power_s_16 + $power_s_21 + $power_s_27) / 64 * 16);
+
+        $this->team_power_c_16 = $power_c_16;
+        $this->team_power_c_21 = $power_c_21;
+        $this->team_power_c_27 = $power_c_27;
+        $this->team_power_s_16 = $power_s_16;
+        $this->team_power_s_21 = $power_s_21;
+        $this->team_power_s_27 = $power_s_27;
+        $this->team_power_v = $power_v;
+        $this->team_power_vs = $power_vs;
+        $this->save();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStadium(): ActiveQuery
+    {
+        return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -44,6 +45,8 @@ use yii\db\ActiveRecord;
  * @property integer $player_tire
  * @property integer $player_training_ability
  * @property integer $player_transfer_on
+ *
+ * @property Physical $physical
  */
 class Player extends ActiveRecord
 {
@@ -102,7 +105,7 @@ class Player extends ActiveRecord
                 ],
                 'integer'
             ],
-            [['player_country_id', 'player_name_id', 'player_surname_id', 'player_team_id', 'player_power_nominal'], 'required'],
+            [['player_country_id', 'player_team_id'], 'required'],
         ];
     }
 
@@ -114,14 +117,61 @@ class Player extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->player_age = 17;
+                if (!$this->player_age) {
+                    $this->player_age = 17;
+                }
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
                 $this->player_line_id = 1;
+                $this->player_name_id = NameCountry::find()->select(['name_country_name_id'])->where(['name_country_country_id' => $this->player_country_id])->orderBy('RAND()')->limit(1)->column();
                 $this->player_national_line_id = 1;
+                $this->player_physical_id = Physical::find()->select(['physical_id'])->orderBy('RAND()')->limit(1)->column();
+                $this->player_power_nominal = $this->player_age * 2;
+                $this->player_power_nominal_s = $this->player_power_nominal;
+                $this->player_power_real = $this->player_power_nominal * 50 / 100 * $this->physical->physical_value / 100;
+                $this->player_price = pow(150 - (28 - $this->player_age), 2) * $this->player_power_nominal;
+                $this->player_salary = $this->player_price / 999;
+                $this->player_style_id = Style::find()->select(['style_id'])->where([
+                    '!=',
+                    'style_id',
+                    Style::NORMAL
+                ])->orderBy('RAND()')->limit(1)->column();
+                $this->player_surname_id = SurnameCountry::find()->select(['surname_country_surname_id'])->where(['surname_country_country_id' => $this->player_country_id])->orderBy('RAND()')->limit(1)->column();
+                $this->player_tire = 50;
+                $this->player_training_ability = rand(1, 5);
             }
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if ($insert) {
+            $playerPosition = new PlayerPosition();
+            $playerPosition->player_position_player_id = $this->player_id;
+            $playerPosition->player_position_position_id = $this->player_position_id;
+            $playerPosition->save();
+
+            History::log([
+                'history_history_text_id' => HistoryText::PLAYER_FROM_SCHOOL,
+                'history_player_id' => $this->player_id,
+                'history_team_id' => $this->player_team_id
+            ]);
+        }
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPhysical(): ActiveQuery
+    {
+        return $this->hasOne(Physical::class, ['physical_id' => 'player_physical_id']);
     }
 }

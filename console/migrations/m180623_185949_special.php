@@ -18,7 +18,7 @@ class m180623_185949_special extends Migration
             'special_id' => $this->primaryKey(2),
             'special_field' => $this->integer(1)->defaultValue(0),
             'special_gk' => $this->integer(1)->defaultValue(0),
-            'special_name' => $this->string(255),
+            'special_name' => $this->string(2),
             'special_text' => $this->string(255),
         ]);
 

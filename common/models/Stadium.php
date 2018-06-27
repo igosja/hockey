@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,6 +15,8 @@ use yii\db\ActiveRecord;
  * @property integer $stadium_date
  * @property integer $stadium_maintenance
  * @property string $stadium_name
+ *
+ * @property City $city
  */
 class Stadium extends ActiveRecord
 {
@@ -59,5 +62,13 @@ class Stadium extends ActiveRecord
     public function countMaintenance()
     {
         $this->stadium_maintenance = round(pow($this->stadium_capacity, 2) / 1000);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCity(): ActiveQuery
+    {
+        return $this->hasOne(City::class, ['city_id' => 'stadium_city_id']);
     }
 }

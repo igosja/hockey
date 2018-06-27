@@ -9,14 +9,14 @@ use yii\db\ActiveRecord;
  * @package common\models
  *
  * @property integer $base_id
- * @property integer base_build_speed
- * @property integer base_level
- * @property integer base_maintenance_base
- * @property integer base_maintenance_slot
- * @property integer base_price_buy
- * @property integer base_price_sell
- * @property integer base_slot_max
- * @property integer base_slot_min
+ * @property integer $base_build_speed
+ * @property integer $base_level
+ * @property integer $base_maintenance_base
+ * @property integer $base_maintenance_slot
+ * @property integer $base_price_buy
+ * @property integer $base_price_sell
+ * @property integer $base_slot_max
+ * @property integer $base_slot_min
  */
 class Base extends ActiveRecord
 {

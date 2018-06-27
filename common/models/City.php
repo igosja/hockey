@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -11,6 +12,8 @@ use yii\db\ActiveRecord;
  * @property integer $city_id
  * @property integer $city_country_id
  * @property string $city_name
+ *
+ * @property Country $country
  */
 class City extends ActiveRecord
 {
@@ -34,5 +37,10 @@ class City extends ActiveRecord
             [['city_name'], 'string', 'max' => 255],
             [['city_name'], 'trim'],
         ];
+    }
+
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'city_country_id']);
     }
 }
