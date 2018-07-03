@@ -85,7 +85,6 @@ class Team extends ActiveRecord
                     'team_free_base',
                     'team_mood_rest',
                     'team_mood_super',
-                    'team_name',
                     'team_player',
                     'team_power_c_16',
                     'team_power_c_21',
@@ -206,7 +205,7 @@ class Team extends ActiveRecord
             $player = new Player();
             $player->player_age = $age;
             $player->player_country_id = $this->stadium->city->country->country_id;
-            $player->player_Position::id = $position[$i];
+            $player->player_position_id = $position[$i];
             $player->player_team_id = $this->team_id;
             $player->save();
         }
@@ -252,60 +251,71 @@ class Team extends ActiveRecord
 
     private function updatePower()
     {
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(15)->sum('player_power_nominal');
-        $power_c_16 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(1)->sum('player_power_nominal');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(20)->sum('player_power_nominal');
-        $power_c_21 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(1)->sum('player_power_nominal');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(25)->sum('player_power_nominal');
-        $power_c_27 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal' => SORT_DESC])->limit(2)->sum('player_power_nominal');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(15)->sum('player_power_nominal_s');
-        $power_s_16 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(1)->sum('player_power_nominal_s');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(20)->sum('player_power_nominal_s');
-        $power_s_21 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(1)->sum('player_power_nominal_s');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])->andWhere([
-            '!=',
-            'player_position_id',
-            Position::GK
-        ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(25)->sum('player_power_nominal_s');
-        $power_s_27 = $power + Player::find()->where([
-                'player_team_id' => $this->team_id,
-                'player_position_id' => Position::GK
-            ])->orderBy(['player_power_nominal_s' => SORT_DESC])->limit(2)->sum('player_power_nominal_s');
+        $power = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(15)
+            ->sum('player_power_nominal');
+        $power_c_16 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal' => SORT_DESC])
+                ->limit(1)
+                ->sum('player_power_nominal');
+        $power = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(20)
+            ->sum('player_power_nominal');
+        $power_c_21 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal' => SORT_DESC])
+                ->limit(1)
+                ->sum('player_power_nominal');
+        $power = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(25)
+            ->sum('player_power_nominal');
+        $power_c_27 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal' => SORT_DESC])
+                ->limit(2)
+                ->sum('player_power_nominal');
+        $power = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal_s' => SORT_DESC])
+            ->limit(15)
+            ->sum('player_power_nominal_s');
+        $power_s_16 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                ->limit(1)
+                ->sum('player_power_nominal_s');
+        $power = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal_s' => SORT_DESC])
+            ->limit(20)
+            ->sum('player_power_nominal_s');
+        $power_s_21 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                ->limit(1)
+                ->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal_s' => SORT_DESC])
+            ->limit(25)
+            ->sum('player_power_nominal_s');
+        $power_s_27 = $power + Player::find()
+                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+                ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                ->limit(2)
+                ->sum('player_power_nominal_s');
         $power_v = round(($power_c_16 + $power_c_21 + $power_c_27) / 64 * 16);
         $power_vs = round(($power_s_16 + $power_s_21 + $power_s_27) / 64 * 16);
 

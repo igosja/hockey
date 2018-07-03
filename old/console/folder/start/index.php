@@ -3,7 +3,6 @@
 include(__DIR__ . '/../../../include/start.php');
 
 $function_array = array(
-    'f_igosja_start_insert_national',
     'f_igosja_start_insert_schedule',
     'f_igosja_start_insert_offseason',
     'f_igosja_start_insert_championship',

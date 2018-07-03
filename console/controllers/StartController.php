@@ -7,6 +7,8 @@ use common\models\City;
 use common\models\Country;
 use common\models\Name;
 use common\models\NameCountry;
+use common\models\National;
+use common\models\NationalType;
 use common\models\Stadium;
 use common\models\Surname;
 use common\models\SurnameCountry;
@@ -26,6 +28,7 @@ class StartController extends BaseController
         $this->insertName();
         $this->insertSurname();
         $this->insertTeam();
+        $this->insertNational();
     }
 
     private function insertUser()
@@ -635,13 +638,17 @@ class StartController extends BaseController
                     if (!$name) {
                         $name = new Name();
                         $name->name_name = $item;
-                        $name->save();
+                        if (!$name->save()) {
+                            throw new Exception(ErrorHelper::modelErrorsToString($name));
+                        }
                     }
 
                     $nameCountry = new NameCountry();
-                    $nameCountry->name_country_country_id = $countryId;
+                    $nameCountry->name_country_country_id = $countryId->country_id;
                     $nameCountry->name_country_name_id = $name->name_id;
-                    $nameCountry->save();
+                    if (!$nameCountry->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($nameCountry));
+                    }
                     $transaction->commit();
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -3225,51 +3232,51 @@ class StartController extends BaseController
 
         $surname_array = array(
             array(
-                'country' => 'Канада',
+                'country' => 'Canada',
                 'list' => $eng_surname,
             ),
             array(
-                'country' => 'Россия',
+                'country' => 'Russia',
                 'list' => $rus_surname,
             ),
             array(
-                'country' => 'США',
+                'country' => 'USA',
                 'list' => $eng_surname,
             ),
             array(
-                'country' => 'Финляндия',
+                'country' => 'Finland',
                 'list' => $fin_surname,
             ),
             array(
-                'country' => 'Швеция',
+                'country' => 'Sweden',
                 'list' => $swe_surname,
             ),
             array(
-                'country' => 'Чехия',
+                'country' => 'Czech Republic',
                 'list' => $che_surname,
             ),
             array(
-                'country' => 'Швейцария',
+                'country' => 'Switzerland',
                 'list' => $ger_surname,
             ),
             array(
-                'country' => 'Словакия',
+                'country' => 'Slovakia',
                 'list' => $che_surname,
             ),
             array(
-                'country' => 'Белоруссия',
+                'country' => 'Belarus',
                 'list' => $bel_surname,
             ),
             array(
-                'country' => 'Германия',
+                'country' => 'Germany',
                 'list' => $ger_surname,
             ),
             array(
-                'country' => 'Норвегия',
+                'country' => 'Norway',
                 'list' => $nor_surname,
             ),
             array(
-                'country' => 'Украина',
+                'country' => 'Ukraine',
                 'list' => $ukr_surname,
             ),
         );
@@ -3284,13 +3291,18 @@ class StartController extends BaseController
                     if (!$surname) {
                         $surname = new Surname();
                         $surname->surname_name = $item;
-                        $surname->save();
+                        if (!$surname->save()) {
+                            throw new Exception(ErrorHelper::modelErrorsToString($surname));
+                        }
                     }
 
                     $nameCountry = new SurnameCountry();
-                    $nameCountry->surname_country_country_id = $countryId;
+                    $nameCountry->surname_country_country_id = $countryId->country_id;
                     $nameCountry->surname_country_surname_id = $surname->surname_id;
-                    $nameCountry->save();
+                    if (!$nameCountry->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($nameCountry));
+                    }
+
                     $transaction->commit();
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -3304,7 +3316,7 @@ class StartController extends BaseController
     {
         $team_array = array(
             array(
-                'country' => 'Канада',
+                'country' => 'Canada',
                 'list' => array(
                     array('team' => 'Абботсфорд Хит', 'stadium' => 'Абботсфорд', 'city' => 'Абботсфорд'),
                     array('team' => 'Брамптон Бист', 'stadium' => 'Паверад', 'city' => 'Брамптон'),
@@ -3343,7 +3355,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'США',
+                'country' => 'USA',
                 'list' => array(
                     array('team' => 'Анахайм Дакс', 'stadium' => 'Хонда', 'city' => 'Анахайм'),
                     array('team' => 'Бостон Брюинз', 'stadium' => 'ТД', 'city' => 'Бостон'),
@@ -3382,7 +3394,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Россия',
+                'country' => 'Russia',
                 'list' => array(
                     array('team' => 'Авангард', 'city' => 'Омск', 'stadium' => 'Омск'),
                     array('team' => 'Автомобилист', 'city' => 'Екатеринбург', 'stadium' => 'Уралец'),
@@ -3421,7 +3433,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Финляндия',
+                'country' => 'Finland',
                 'list' => array(
                     array('team' => 'Ильвес', 'city' => 'Тампере', 'stadium' => 'Тампере'),
                     array('team' => 'Йокерит', 'city' => 'Хельсинки', 'stadium' => 'Хартвалл'),
@@ -3460,7 +3472,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Швеция',
+                'country' => 'Sweden',
                 'list' => array(
                     array('team' => 'АИК', 'city' => 'Стокгольм', 'stadium' => 'Ховет'),
                     array('team' => 'Брюнес', 'city' => 'Евле', 'stadium' => 'Лэкерол'),
@@ -3499,7 +3511,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Чехия',
+                'country' => 'Czech Republic',
                 'list' => array(
                     array(
                         'team' => 'Бенатки-над-Йизероу',
@@ -3542,7 +3554,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Швейцария',
+                'country' => 'Switzerland',
                 'list' => array(
                     array('team' => 'Ажуа', 'city' => 'Поррантрюи', 'stadium' => 'Поррантрюи'),
                     array('team' => 'Амбри-Пиотта', 'city' => 'Амбри', 'stadium' => 'Писта ла Валаскиа'),
@@ -3585,7 +3597,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Словакия',
+                'country' => 'Slovakia',
                 'list' => array(
                     array('team' => '37 Пьештяны', 'city' => 'Истон', 'stadium' => 'Пьештяны'),
                     array('team' => '46 Бардеёв', 'city' => 'Бардеёв', 'stadium' => 'Бардеёв'),
@@ -3632,7 +3644,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Белоруссия',
+                'country' => 'Belarus',
                 'list' => array(
                     array('team' => 'Брест', 'city' => 'Брест', 'stadium' => 'Брест'),
                     array('team' => 'Витебск', 'city' => 'Витебск', 'stadium' => 'Витебск'),
@@ -3671,7 +3683,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Германия',
+                'country' => 'Germany',
                 'list' => array(
                     array('team' => 'Адлер Мангейм', 'city' => 'Мангейм', 'stadium' => 'САП'),
                     array('team' => 'Айсберен Берлин', 'city' => 'Берлин', 'stadium' => 'Мерседес-Бенц'),
@@ -3710,7 +3722,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Норвегия',
+                'country' => 'Norway',
                 'list' => array(
                     array('team' => 'Берген', 'city' => 'Берген', 'stadium' => 'Берген'),
                     array('team' => 'Волеренга', 'city' => 'Осло', 'stadium' => 'Юрдаль Амфи'),
@@ -3749,7 +3761,7 @@ class StartController extends BaseController
                 ),
             ),
             array(
-                'country' => 'Украина',
+                'country' => 'Ukraine',
                 'list' => array(
                     array('team' => 'Белый Барс', 'city' => 'Белая Церковь', 'stadium' => 'Белая Церковь'),
                     array('team' => 'Будивельник', 'city' => 'Киев', 'stadium' => 'Киев'),
@@ -3798,21 +3810,51 @@ class StartController extends BaseController
                     $city = City::findOne(['city_name' => $item['city']]);
                     if (!$city) {
                         $city = new City();
-                        $city->city_country_id = $countryId;
+                        $city->city_country_id = $countryId->country_id;
                         $city->city_name = $item['city'];
-                        $city->save();
+                        if (!$city->save()) {
+                            throw new Exception(ErrorHelper::modelErrorsToString($city));
+                        }
                     }
 
                     $stadium = new Stadium();
                     $stadium->stadium_city_id = $city->city_id;
                     $stadium->stadium_name = $item['stadium'];
-                    $stadium->save();
+                    if (!$stadium->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($stadium));
+                    }
 
                     $team = new Team();
                     $team->team_stadium_id = $stadium->stadium_id;
                     $team->team_name = $item['team'];
-                    $team->save();
+                    if (!$team->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($team));
+                    }
 
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+    }
+
+    private function insertNational()
+    {
+        $nationalTypeArray = NationalType::find()->all();
+        $countryArray = Country::find()->where(['!=', 'country_id', 0])->all();
+
+        foreach ($countryArray as $country) {
+            foreach ($nationalTypeArray as $nationalType) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $national = new National();
+                    $national->national_national_type_id = $nationalType->national_type_id;
+                    $national->national_country_id = $country->country_id;
+                    if (!$national->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($national));
+                    }
                     $transaction->commit();
                 } catch (Exception $e) {
                     $transaction->rollBack();

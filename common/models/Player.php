@@ -12,13 +12,13 @@ use yii\db\ActiveRecord;
  * @property integer $player_id
  * @property integer $player_age
  * @property integer $player_country_id
- * @property integer $player_date_noaction
+ * @property integer $player_date_no_action
  * @property integer $player_date_rookie
  * @property integer $player_game_row
  * @property integer $player_game_row_old
  * @property integer $player_injury
  * @property integer $player_injury_day
- * @property integer $player_line_id
+ * @property integer $player_squad_id
  * @property integer $player_mood_id
  * @property integer $player_name_id
  * @property integer $player_national_id
@@ -75,7 +75,6 @@ class Player extends ActiveRecord
                     'player_game_row_old',
                     'player_injury',
                     'player_injury_day',
-                    'player_line_id',
                     'player_mood_id',
                     'player_name_id',
                     'player_national_id',
@@ -96,6 +95,7 @@ class Player extends ActiveRecord
                     'player_rookie',
                     'player_salary',
                     'player_school_id',
+                    'player_squad_id',
                     'player_style_id',
                     'player_surname_id',
                     'player_team_id',
@@ -122,7 +122,7 @@ class Player extends ActiveRecord
                 }
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
-                $this->player_line_id = 1;
+                $this->player_squad_id = 1;
                 $this->player_name_id = NameCountry::find()->select(['name_country_name_id'])->where(['name_country_country_id' => $this->player_country_id])->orderBy('RAND()')->limit(1)->column();
                 $this->player_national_line_id = 1;
                 $this->player_physical_id = Physical::find()->select(['physical_id'])->orderBy('RAND()')->limit(1)->column();

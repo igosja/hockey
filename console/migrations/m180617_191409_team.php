@@ -17,7 +17,7 @@ class m180617_191409_team extends Migration
     {
         $this->createTable(self::TABLE, [
             'team_id' => $this->primaryKey(11),
-            'team_age' => $this->decimal(5, 3),
+            'team_age' => $this->decimal(5, 3)->defaultValue(0),
             'team_attitude_national' => $this->integer(1)->defaultValue(0),
             'team_attitude_president' => $this->integer(1)->defaultValue(0),
             'team_attitude_u19' => $this->integer(1)->defaultValue(0),

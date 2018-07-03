@@ -4,6 +4,7 @@ namespace common\components;
 
 use Exception;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * Class ErrorHelper
@@ -17,5 +18,14 @@ class ErrorHelper
     public static function log(Exception $e)
     {
         Yii::error($e->getMessage() . "\r\n" . $e->getTraceAsString());
+    }
+
+    /**
+     * @param $model ActiveRecord
+     * @return string
+     */
+    public static function modelErrorsToString($model): string
+    {
+        return implode(', ', $model->getErrorSummary(true));
     }
 }

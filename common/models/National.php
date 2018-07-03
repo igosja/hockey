@@ -44,13 +44,17 @@ class National extends ActiveRecord
     {
         return [
             [
+                ['national_national_type_id'],
+                'in',
+                'range' => NationalType::find()->select(['national_type_id'])->column()
+            ],
+            [['national_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
+            [
                 [
                     'national_id',
-                    'national_country_id',
                     'national_finance',
                     'national_mood_rest',
                     'national_mood_super',
-                    'national_national_type_id',
                     'national_power_c_16',
                     'national_power_c_21',
                     'national_power_c_27',
