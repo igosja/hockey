@@ -3843,15 +3843,15 @@ class StartController extends BaseController
     private function insertNational()
     {
         $nationalTypeArray = NationalType::find()->all();
-        $countryArray = Country::find()->where(['!=', 'country_id', 0])->all();
+        $cityArray = City::find()->where(['!=', 'city_country_id', 0])->groupBy('city_country_id')->all();
 
-        foreach ($countryArray as $country) {
+        foreach ($cityArray as $city) {
             foreach ($nationalTypeArray as $nationalType) {
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                     $national = new National();
                     $national->national_national_type_id = $nationalType->national_type_id;
-                    $national->national_country_id = $country->country_id;
+                    $national->national_country_id = $city->city_country_id;
                     if (!$national->save()) {
                         throw new Exception(ErrorHelper::modelErrorsToString($national));
                     }
