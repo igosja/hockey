@@ -16,7 +16,7 @@ class m180622_142742_stage extends Migration
     {
         $this->createTable(self::TABLE, [
             'stage_id' => $this->primaryKey(2),
-            'stage_name' => $this->string(10),
+            'stage_name' => $this->string(20),
             'stage_visitor' => $this->integer(3),
         ]);
 

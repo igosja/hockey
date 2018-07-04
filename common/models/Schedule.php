@@ -37,16 +37,7 @@ class Schedule extends ActiveRecord
                 'in',
                 'range' => TournamentType::find()->select(['tournament_type_id'])->column()
             ],
-            [
-                [
-                    'schedule_id',
-                    'schedule_date',
-                    'schedule_season_id',
-                    'schedule_stage_id',
-                    'schedule_tournament_type_id'
-                ],
-                'integer'
-            ],
+            [['schedule_id', 'schedule_date'], 'integer'],
             [['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'], 'required'],
         ];
     }

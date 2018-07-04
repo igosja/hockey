@@ -13,6 +13,11 @@ use yii\db\ActiveRecord;
  */
 class Division extends ActiveRecord
 {
+    const D1 = 1;
+    const D2 = 2;
+    const D3 = 3;
+    const D4 = 4;
+
     /**
      * @return string
      */

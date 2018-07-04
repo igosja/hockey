@@ -3,16 +3,24 @@
 namespace console\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Championship;
 use common\models\City;
+use common\models\Conference;
 use common\models\Country;
+use common\models\Division;
+use common\models\Game;
 use common\models\Name;
 use common\models\NameCountry;
 use common\models\National;
 use common\models\NationalType;
+use common\models\OffSeason;
+use common\models\Schedule;
 use common\models\Stadium;
+use common\models\Stage;
 use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
+use common\models\TournamentType;
 use Exception;
 use Yii;
 
@@ -22,6 +30,8 @@ use Yii;
  */
 class StartController extends BaseController
 {
+    const SEASON = 1;
+
     public function actionIndex()
     {
         $this->insertUser();
@@ -29,6 +39,10 @@ class StartController extends BaseController
         $this->insertSurname();
         $this->insertTeam();
         $this->insertNational();
+        $this->insertSchedule();
+        $this->insertOffSeason();
+        $this->insertChampionship();
+        $this->insertConference();
     }
 
     private function insertUser()
@@ -36,6 +50,9 @@ class StartController extends BaseController
 
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     private function insertName()
     {
         $cheName = [
@@ -658,6 +675,9 @@ class StartController extends BaseController
         }
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     private function insertSurname()
     {
         $bel_surname = [
@@ -3312,6 +3332,9 @@ class StartController extends BaseController
         }
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     private function insertTeam()
     {
         $team_array = array(
@@ -3840,6 +3863,9 @@ class StartController extends BaseController
         }
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     private function insertNational()
     {
         $nationalTypeArray = NationalType::find()->all();
@@ -3860,6 +3886,714 @@ class StartController extends BaseController
                     $transaction->rollBack();
                     ErrorHelper::log($e);
                 }
+            }
+        }
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function insertSchedule()
+    {
+        $scheduleFriendlyArray = [6, 13, 20, 27, 34, 41, 48, 55, 61, 62];
+        $scheduleOffSeasonArray = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12];
+        $scheduleStageArray = [
+            Stage::TOUR_1,
+            Stage::TOUR_2,
+            Stage::TOUR_3,
+            Stage::TOUR_4,
+            Stage::TOUR_5,
+            Stage::TOUR_6,
+            Stage::FRIENDLY,
+            Stage::TOUR_7,
+            Stage::TOUR_8,
+            Stage::TOUR_9,
+            Stage::TOUR_10,
+            Stage::TOUR_11,
+            Stage::TOUR_12,
+            Stage::FRIENDLY,
+            Stage::TOUR_1,
+            Stage::TOUR_2,
+            Stage::TOUR_3,
+            Stage::TOUR_4,
+            Stage::TOUR_5,
+            Stage::TOUR_6,
+            Stage::FRIENDLY,
+            Stage::TOUR_7,
+            Stage::TOUR_8,
+            Stage::TOUR_9,
+            Stage::TOUR_10,
+            Stage::TOUR_11,
+            Stage::TOUR_12,
+            Stage::FRIENDLY,
+            Stage::TOUR_13,
+            Stage::TOUR_14,
+            Stage::TOUR_15,
+            Stage::TOUR_16,
+            Stage::TOUR_17,
+            Stage::TOUR_18,
+            Stage::FRIENDLY,
+            Stage::TOUR_19,
+            Stage::TOUR_20,
+            Stage::TOUR_21,
+            Stage::TOUR_22,
+            Stage::TOUR_23,
+            Stage::TOUR_24,
+            Stage::FRIENDLY,
+            Stage::TOUR_25,
+            Stage::TOUR_26,
+            Stage::TOUR_27,
+            Stage::TOUR_28,
+            Stage::TOUR_29,
+            Stage::TOUR_30,
+            Stage::FRIENDLY,
+            Stage::QUARTER,
+            Stage::QUARTER,
+            Stage::QUARTER,
+            Stage::SEMI,
+            Stage::SEMI,
+            Stage::SEMI,
+            Stage::FRIENDLY,
+            Stage::FINAL,
+            Stage::FINAL,
+            Stage::FINAL,
+            Stage::FINAL,
+            Stage::FINAL,
+            Stage::FRIENDLY,
+            Stage::FRIENDLY,
+        ];
+        $scheduleConferenceStageArray = [
+            Stage::TOUR_1,
+            Stage::TOUR_2,
+            Stage::TOUR_3,
+            Stage::TOUR_4,
+            Stage::TOUR_5,
+            Stage::TOUR_6,
+            Stage::FRIENDLY,
+            Stage::TOUR_7,
+            Stage::TOUR_8,
+            Stage::TOUR_9,
+            Stage::TOUR_10,
+            Stage::TOUR_11,
+            Stage::TOUR_12,
+            Stage::FRIENDLY,
+            Stage::TOUR_1,
+            Stage::TOUR_2,
+            Stage::TOUR_3,
+            Stage::TOUR_4,
+            Stage::TOUR_5,
+            Stage::TOUR_6,
+            Stage::FRIENDLY,
+            Stage::TOUR_7,
+            Stage::TOUR_8,
+            Stage::TOUR_9,
+            Stage::TOUR_10,
+            Stage::TOUR_11,
+            Stage::TOUR_12,
+            Stage::FRIENDLY,
+            Stage::TOUR_13,
+            Stage::TOUR_14,
+            Stage::TOUR_15,
+            Stage::TOUR_16,
+            Stage::TOUR_17,
+            Stage::TOUR_18,
+            Stage::FRIENDLY,
+            Stage::TOUR_19,
+            Stage::TOUR_20,
+            Stage::TOUR_21,
+            Stage::TOUR_22,
+            Stage::TOUR_23,
+            Stage::TOUR_24,
+            Stage::FRIENDLY,
+            Stage::TOUR_25,
+            Stage::TOUR_26,
+            Stage::TOUR_27,
+            Stage::TOUR_28,
+            Stage::TOUR_29,
+            Stage::TOUR_30,
+            Stage::FRIENDLY,
+            Stage::TOUR_31,
+            Stage::TOUR_32,
+            Stage::TOUR_33,
+            Stage::TOUR_34,
+            Stage::TOUR_35,
+            Stage::TOUR_36,
+            Stage::FRIENDLY,
+            Stage::TOUR_37,
+            Stage::TOUR_38,
+            Stage::TOUR_39,
+            Stage::TOUR_40,
+            Stage::TOUR_41,
+            Stage::FRIENDLY,
+            Stage::FRIENDLY,
+        ];
+
+        $startDate = strtotime('Mon') + 12 * 60 * 60;
+
+        for ($i = 0; $i < 63; $i++) {
+            $date = $startDate + $i * 24 * 60 * 60;
+            $conference = 0;
+
+            if (in_array($i, $scheduleFriendlyArray)) {
+                $tournament_type = TournamentType::FRIENDLY;
+            } elseif (in_array($i, $scheduleOffSeasonArray)) {
+                $tournament_type = TournamentType::OFF_SEASON;
+            } else {
+                $conference = true;
+                $tournament_type = TournamentType::CHAMPIONSHIP;
+            }
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new Schedule();
+                $model->schedule_date = $date;
+                $model->schedule_season_id = self::SEASON;
+                $model->schedule_stage_id = $scheduleStageArray[$i];
+                $model->schedule_tournament_type_id = $tournament_type;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+            }
+
+            if ($conference) {
+                $tournament_type_c = TournamentType::CONFERENCE;
+
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new Schedule();
+                    $model->schedule_date = $date;
+                    $model->schedule_season_id = self::SEASON;
+                    $model->schedule_stage_id = $scheduleConferenceStageArray[$i];
+                    $model->schedule_tournament_type_id = $tournament_type_c;
+                    if (!$model->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($model));
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function insertOffSeason()
+    {
+        $teamArray = Team::find()->where(['!=', 'team_id', 0])->all();
+
+        foreach ($teamArray as $team) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new OffSeason();
+                $model->off_season_season_id = self::SEASON;
+                $model->off_season_team_id = $team->team_id;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+            }
+        }
+
+        $schedule = Schedule::find()->where([
+            'schedule_tournament_type_id' => TournamentType::OFF_SEASON,
+            'schedule_stage_id' => Stage::TOUR_1,
+            'schedule_season_id' => self::SEASON,
+        ])->one();
+
+        $offSeasonArray = OffSeason::find()->all();
+        $countOffSeason = count($offSeasonArray);
+
+        for ($i = 0; $i < $countOffSeason; $i = $i + 2) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new Game();
+                $model->game_guest_team_id = $offSeasonArray[$i]->off_season_team_id;
+                $model->game_home_team_id = $offSeasonArray[$i + 1]->off_season_team_id;
+                $model->game_schedule_id = $schedule->schedule_id;
+                $model->game_stadium_id = $offSeasonArray[$i + 1]->team->stadium->stadium_id;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+            }
+        }
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function insertChampionship()
+    {
+        $countryArray = City::find()->where(['!=', 'city_id', 0])->groupBy('city_country_id')->all();
+
+        foreach ($countryArray as $country) {
+            $teamArray = Team::find()
+                ->joinWith(['stadium.city'])
+                ->where(['city_country_id' => $country->city_country_id])
+                ->orderBy(['team_id' => SORT_ASC])
+                ->limit(16)
+                ->all();
+            foreach ($teamArray as $team) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new Championship();
+                    $model->championship_country_id = $country->city_country_id;
+                    $model->championship_division_id = Division::D1;
+                    $model->championship_season_id = self::SEASON;
+                    $model->championship_team_id = $team->team_id;
+                    if (!$model->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($model));
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+
+            $teamArray = Team::find()
+                ->joinWith(['stadium.city'])
+                ->where(['city_country_id' => $country->city_country_id])
+                ->orderBy(['team_id' => SORT_ASC])
+                ->offset(16)
+                ->limit(16)
+                ->all();
+            foreach ($teamArray as $team) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new Championship();
+                    $model->championship_country_id = $country->city_country_id;
+                    $model->championship_division_id = Division::D2;
+                    $model->championship_season_id = self::SEASON;
+                    $model->championship_team_id = $team->team_id;
+                    if (!$model->save()) {
+                        throw new Exception(ErrorHelper::modelErrorsToString($model));
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+
+        $scheduleArray = Schedule::find()
+            ->where([
+                'schedule_season_id' => self::SEASON,
+                'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP
+            ])
+            ->orderBy(['schedule_id' => SORT_ASC])
+            ->limit(30)
+            ->all();
+
+        $schedule_id_01 = $scheduleArray[0]->schedule_id;
+        $schedule_id_02 = $scheduleArray[1]->schedule_id;
+        $schedule_id_03 = $scheduleArray[2]->schedule_id;
+        $schedule_id_04 = $scheduleArray[3]->schedule_id;
+        $schedule_id_05 = $scheduleArray[4]->schedule_id;
+        $schedule_id_06 = $scheduleArray[5]->schedule_id;
+        $schedule_id_07 = $scheduleArray[6]->schedule_id;
+        $schedule_id_08 = $scheduleArray[7]->schedule_id;
+        $schedule_id_09 = $scheduleArray[8]->schedule_id;
+        $schedule_id_10 = $scheduleArray[9]->schedule_id;
+        $schedule_id_11 = $scheduleArray[10]->schedule_id;
+        $schedule_id_12 = $scheduleArray[11]->schedule_id;
+        $schedule_id_13 = $scheduleArray[12]->schedule_id;
+        $schedule_id_14 = $scheduleArray[13]->schedule_id;
+        $schedule_id_15 = $scheduleArray[14]->schedule_id;
+        $schedule_id_16 = $scheduleArray[15]->schedule_id;
+        $schedule_id_17 = $scheduleArray[16]->schedule_id;
+        $schedule_id_18 = $scheduleArray[17]->schedule_id;
+        $schedule_id_19 = $scheduleArray[18]->schedule_id;
+        $schedule_id_20 = $scheduleArray[19]->schedule_id;
+        $schedule_id_21 = $scheduleArray[20]->schedule_id;
+        $schedule_id_22 = $scheduleArray[21]->schedule_id;
+        $schedule_id_23 = $scheduleArray[22]->schedule_id;
+        $schedule_id_24 = $scheduleArray[23]->schedule_id;
+        $schedule_id_25 = $scheduleArray[24]->schedule_id;
+        $schedule_id_26 = $scheduleArray[25]->schedule_id;
+        $schedule_id_27 = $scheduleArray[26]->schedule_id;
+        $schedule_id_28 = $scheduleArray[27]->schedule_id;
+        $schedule_id_29 = $scheduleArray[28]->schedule_id;
+        $schedule_id_30 = $scheduleArray[29]->schedule_id;
+
+        foreach ($countryArray as $country) {
+            for ($i = Division::D1; $i <= Division::D2; $i++) {
+                /** @var Championship[] $teamArray */
+                $teamArray = Championship::find()
+                    ->where([
+                        'championship_country_id' => $country->city_country_id,
+                        'championship_division_id' => $i,
+                        'championship_season_id' => self::SEASON,
+                    ])
+                    ->orderBy('RAND()')
+                    ->all();
+                $team_id_01 = $teamArray[0]->championship_team_id;
+                $team_id_02 = $teamArray[1]->championship_team_id;
+                $team_id_03 = $teamArray[2]->championship_team_id;
+                $team_id_04 = $teamArray[3]->championship_team_id;
+                $team_id_05 = $teamArray[4]->championship_team_id;
+                $team_id_06 = $teamArray[5]->championship_team_id;
+                $team_id_07 = $teamArray[6]->championship_team_id;
+                $team_id_08 = $teamArray[7]->championship_team_id;
+                $team_id_09 = $teamArray[8]->championship_team_id;
+                $team_id_10 = $teamArray[9]->championship_team_id;
+                $team_id_11 = $teamArray[10]->championship_team_id;
+                $team_id_12 = $teamArray[11]->championship_team_id;
+                $team_id_13 = $teamArray[12]->championship_team_id;
+                $team_id_14 = $teamArray[13]->championship_team_id;
+                $team_id_15 = $teamArray[14]->championship_team_id;
+                $team_id_16 = $teamArray[15]->championship_team_id;
+
+                $stadium_id_01 = $teamArray[0]->team->team_stadium_id;
+                $stadium_id_02 = $teamArray[1]->team->team_stadium_id;
+                $stadium_id_03 = $teamArray[2]->team->team_stadium_id;
+                $stadium_id_04 = $teamArray[3]->team->team_stadium_id;
+                $stadium_id_05 = $teamArray[4]->team->team_stadium_id;
+                $stadium_id_06 = $teamArray[5]->team->team_stadium_id;
+                $stadium_id_07 = $teamArray[6]->team->team_stadium_id;
+                $stadium_id_08 = $teamArray[7]->team->team_stadium_id;
+                $stadium_id_09 = $teamArray[8]->team->team_stadium_id;
+                $stadium_id_10 = $teamArray[9]->team->team_stadium_id;
+                $stadium_id_11 = $teamArray[10]->team->team_stadium_id;
+                $stadium_id_12 = $teamArray[11]->team->team_stadium_id;
+                $stadium_id_13 = $teamArray[12]->team->team_stadium_id;
+                $stadium_id_14 = $teamArray[13]->team->team_stadium_id;
+                $stadium_id_15 = $teamArray[14]->team->team_stadium_id;
+                $stadium_id_16 = $teamArray[15]->team->team_stadium_id;
+
+                $data = [
+                    [$team_id_02, $team_id_01, $schedule_id_01, $stadium_id_02],
+                    [$team_id_03, $team_id_15, $schedule_id_01, $stadium_id_03],
+                    [$team_id_04, $team_id_14, $schedule_id_01, $stadium_id_04],
+                    [$team_id_05, $team_id_13, $schedule_id_01, $stadium_id_05],
+                    [$team_id_06, $team_id_12, $schedule_id_01, $stadium_id_06],
+                    [$team_id_07, $team_id_11, $schedule_id_01, $stadium_id_07],
+                    [$team_id_08, $team_id_10, $schedule_id_01, $stadium_id_08],
+                    [$team_id_16, $team_id_09, $schedule_id_01, $stadium_id_16],
+                    [$team_id_01, $team_id_03, $schedule_id_02, $stadium_id_01],
+                    [$team_id_02, $team_id_16, $schedule_id_02, $stadium_id_02],
+                    [$team_id_10, $team_id_09, $schedule_id_02, $stadium_id_10],
+                    [$team_id_11, $team_id_08, $schedule_id_02, $stadium_id_11],
+                    [$team_id_12, $team_id_07, $schedule_id_02, $stadium_id_12],
+                    [$team_id_13, $team_id_06, $schedule_id_02, $stadium_id_13],
+                    [$team_id_14, $team_id_05, $schedule_id_02, $stadium_id_14],
+                    [$team_id_15, $team_id_04, $schedule_id_02, $stadium_id_15],
+                    [$team_id_03, $team_id_02, $schedule_id_03, $stadium_id_03],
+                    [$team_id_04, $team_id_01, $schedule_id_03, $stadium_id_04],
+                    [$team_id_05, $team_id_15, $schedule_id_03, $stadium_id_05],
+                    [$team_id_06, $team_id_14, $schedule_id_03, $stadium_id_06],
+                    [$team_id_07, $team_id_13, $schedule_id_03, $stadium_id_07],
+                    [$team_id_08, $team_id_12, $schedule_id_03, $stadium_id_08],
+                    [$team_id_09, $team_id_11, $schedule_id_03, $stadium_id_09],
+                    [$team_id_16, $team_id_10, $schedule_id_03, $stadium_id_16],
+                    [$team_id_01, $team_id_05, $schedule_id_04, $stadium_id_01],
+                    [$team_id_02, $team_id_04, $schedule_id_04, $stadium_id_02],
+                    [$team_id_03, $team_id_16, $schedule_id_04, $stadium_id_03],
+                    [$team_id_11, $team_id_10, $schedule_id_04, $stadium_id_11],
+                    [$team_id_12, $team_id_09, $schedule_id_04, $stadium_id_12],
+                    [$team_id_13, $team_id_08, $schedule_id_04, $stadium_id_13],
+                    [$team_id_14, $team_id_07, $schedule_id_04, $stadium_id_14],
+                    [$team_id_15, $team_id_06, $schedule_id_04, $stadium_id_15],
+                    [$team_id_04, $team_id_03, $schedule_id_05, $stadium_id_04],
+                    [$team_id_05, $team_id_02, $schedule_id_05, $stadium_id_05],
+                    [$team_id_06, $team_id_01, $schedule_id_05, $stadium_id_06],
+                    [$team_id_07, $team_id_15, $schedule_id_05, $stadium_id_07],
+                    [$team_id_08, $team_id_14, $schedule_id_05, $stadium_id_08],
+                    [$team_id_09, $team_id_13, $schedule_id_05, $stadium_id_09],
+                    [$team_id_10, $team_id_12, $schedule_id_05, $stadium_id_10],
+                    [$team_id_16, $team_id_11, $schedule_id_05, $stadium_id_16],
+                    [$team_id_01, $team_id_07, $schedule_id_06, $stadium_id_01],
+                    [$team_id_02, $team_id_06, $schedule_id_06, $stadium_id_02],
+                    [$team_id_03, $team_id_05, $schedule_id_06, $stadium_id_03],
+                    [$team_id_04, $team_id_16, $schedule_id_06, $stadium_id_04],
+                    [$team_id_12, $team_id_11, $schedule_id_06, $stadium_id_12],
+                    [$team_id_13, $team_id_10, $schedule_id_06, $stadium_id_13],
+                    [$team_id_14, $team_id_09, $schedule_id_06, $stadium_id_14],
+                    [$team_id_15, $team_id_08, $schedule_id_06, $stadium_id_15],
+                    [$team_id_05, $team_id_04, $schedule_id_07, $stadium_id_05],
+                    [$team_id_06, $team_id_03, $schedule_id_07, $stadium_id_06],
+                    [$team_id_07, $team_id_02, $schedule_id_07, $stadium_id_07],
+                    [$team_id_08, $team_id_01, $schedule_id_07, $stadium_id_08],
+                    [$team_id_09, $team_id_15, $schedule_id_07, $stadium_id_09],
+                    [$team_id_10, $team_id_14, $schedule_id_07, $stadium_id_10],
+                    [$team_id_11, $team_id_13, $schedule_id_07, $stadium_id_11],
+                    [$team_id_16, $team_id_12, $schedule_id_07, $stadium_id_16],
+                    [$team_id_01, $team_id_09, $schedule_id_08, $stadium_id_01],
+                    [$team_id_02, $team_id_08, $schedule_id_08, $stadium_id_02],
+                    [$team_id_03, $team_id_07, $schedule_id_08, $stadium_id_03],
+                    [$team_id_04, $team_id_06, $schedule_id_08, $stadium_id_04],
+                    [$team_id_05, $team_id_16, $schedule_id_08, $stadium_id_05],
+                    [$team_id_13, $team_id_12, $schedule_id_08, $stadium_id_13],
+                    [$team_id_14, $team_id_11, $schedule_id_08, $stadium_id_14],
+                    [$team_id_15, $team_id_10, $schedule_id_08, $stadium_id_15],
+                    [$team_id_06, $team_id_05, $schedule_id_09, $stadium_id_06],
+                    [$team_id_07, $team_id_04, $schedule_id_09, $stadium_id_07],
+                    [$team_id_08, $team_id_03, $schedule_id_09, $stadium_id_08],
+                    [$team_id_09, $team_id_02, $schedule_id_09, $stadium_id_09],
+                    [$team_id_10, $team_id_01, $schedule_id_09, $stadium_id_10],
+                    [$team_id_11, $team_id_15, $schedule_id_09, $stadium_id_11],
+                    [$team_id_12, $team_id_14, $schedule_id_09, $stadium_id_12],
+                    [$team_id_16, $team_id_13, $schedule_id_09, $stadium_id_16],
+                    [$team_id_01, $team_id_11, $schedule_id_10, $stadium_id_01],
+                    [$team_id_02, $team_id_10, $schedule_id_10, $stadium_id_02],
+                    [$team_id_03, $team_id_09, $schedule_id_10, $stadium_id_03],
+                    [$team_id_04, $team_id_08, $schedule_id_10, $stadium_id_04],
+                    [$team_id_05, $team_id_07, $schedule_id_10, $stadium_id_05],
+                    [$team_id_06, $team_id_16, $schedule_id_10, $stadium_id_06],
+                    [$team_id_14, $team_id_13, $schedule_id_10, $stadium_id_14],
+                    [$team_id_15, $team_id_12, $schedule_id_10, $stadium_id_15],
+                    [$team_id_07, $team_id_06, $schedule_id_11, $stadium_id_07],
+                    [$team_id_08, $team_id_05, $schedule_id_11, $stadium_id_08],
+                    [$team_id_09, $team_id_04, $schedule_id_11, $stadium_id_09],
+                    [$team_id_10, $team_id_03, $schedule_id_11, $stadium_id_10],
+                    [$team_id_11, $team_id_02, $schedule_id_11, $stadium_id_11],
+                    [$team_id_12, $team_id_01, $schedule_id_11, $stadium_id_12],
+                    [$team_id_13, $team_id_15, $schedule_id_11, $stadium_id_13],
+                    [$team_id_16, $team_id_14, $schedule_id_11, $stadium_id_16],
+                    [$team_id_01, $team_id_13, $schedule_id_12, $stadium_id_01],
+                    [$team_id_02, $team_id_12, $schedule_id_12, $stadium_id_02],
+                    [$team_id_03, $team_id_11, $schedule_id_12, $stadium_id_03],
+                    [$team_id_04, $team_id_10, $schedule_id_12, $stadium_id_04],
+                    [$team_id_05, $team_id_09, $schedule_id_12, $stadium_id_05],
+                    [$team_id_06, $team_id_08, $schedule_id_12, $stadium_id_06],
+                    [$team_id_07, $team_id_16, $schedule_id_12, $stadium_id_07],
+                    [$team_id_15, $team_id_14, $schedule_id_12, $stadium_id_15],
+                    [$team_id_08, $team_id_07, $schedule_id_13, $stadium_id_08],
+                    [$team_id_09, $team_id_06, $schedule_id_13, $stadium_id_09],
+                    [$team_id_10, $team_id_05, $schedule_id_13, $stadium_id_10],
+                    [$team_id_11, $team_id_04, $schedule_id_13, $stadium_id_11],
+                    [$team_id_12, $team_id_03, $schedule_id_13, $stadium_id_12],
+                    [$team_id_13, $team_id_02, $schedule_id_13, $stadium_id_13],
+                    [$team_id_14, $team_id_01, $schedule_id_13, $stadium_id_14],
+                    [$team_id_16, $team_id_15, $schedule_id_13, $stadium_id_16],
+                    [$team_id_01, $team_id_15, $schedule_id_14, $stadium_id_01],
+                    [$team_id_02, $team_id_14, $schedule_id_14, $stadium_id_02],
+                    [$team_id_03, $team_id_13, $schedule_id_14, $stadium_id_03],
+                    [$team_id_04, $team_id_12, $schedule_id_14, $stadium_id_04],
+                    [$team_id_05, $team_id_11, $schedule_id_14, $stadium_id_05],
+                    [$team_id_06, $team_id_10, $schedule_id_14, $stadium_id_06],
+                    [$team_id_07, $team_id_09, $schedule_id_14, $stadium_id_07],
+                    [$team_id_16, $team_id_08, $schedule_id_14, $stadium_id_16],
+                    [$team_id_09, $team_id_08, $schedule_id_15, $stadium_id_09],
+                    [$team_id_10, $team_id_07, $schedule_id_15, $stadium_id_10],
+                    [$team_id_11, $team_id_06, $schedule_id_15, $stadium_id_11],
+                    [$team_id_12, $team_id_05, $schedule_id_15, $stadium_id_12],
+                    [$team_id_13, $team_id_04, $schedule_id_15, $stadium_id_13],
+                    [$team_id_14, $team_id_03, $schedule_id_15, $stadium_id_14],
+                    [$team_id_15, $team_id_02, $schedule_id_15, $stadium_id_15],
+                    [$team_id_16, $team_id_01, $schedule_id_15, $stadium_id_16],
+                    [$team_id_01, $team_id_02, $schedule_id_16, $stadium_id_01],
+                    [$team_id_15, $team_id_03, $schedule_id_16, $stadium_id_15],
+                    [$team_id_14, $team_id_04, $schedule_id_16, $stadium_id_14],
+                    [$team_id_13, $team_id_05, $schedule_id_16, $stadium_id_13],
+                    [$team_id_12, $team_id_06, $schedule_id_16, $stadium_id_12],
+                    [$team_id_11, $team_id_07, $schedule_id_16, $stadium_id_11],
+                    [$team_id_10, $team_id_08, $schedule_id_16, $stadium_id_10],
+                    [$team_id_09, $team_id_16, $schedule_id_16, $stadium_id_09],
+                    [$team_id_03, $team_id_01, $schedule_id_17, $stadium_id_03],
+                    [$team_id_16, $team_id_02, $schedule_id_17, $stadium_id_16],
+                    [$team_id_09, $team_id_10, $schedule_id_17, $stadium_id_09],
+                    [$team_id_08, $team_id_11, $schedule_id_17, $stadium_id_08],
+                    [$team_id_07, $team_id_12, $schedule_id_17, $stadium_id_07],
+                    [$team_id_06, $team_id_13, $schedule_id_17, $stadium_id_06],
+                    [$team_id_05, $team_id_14, $schedule_id_17, $stadium_id_05],
+                    [$team_id_04, $team_id_15, $schedule_id_17, $stadium_id_04],
+                    [$team_id_02, $team_id_03, $schedule_id_18, $stadium_id_02],
+                    [$team_id_01, $team_id_04, $schedule_id_18, $stadium_id_01],
+                    [$team_id_15, $team_id_05, $schedule_id_18, $stadium_id_15],
+                    [$team_id_14, $team_id_06, $schedule_id_18, $stadium_id_14],
+                    [$team_id_13, $team_id_07, $schedule_id_18, $stadium_id_13],
+                    [$team_id_12, $team_id_08, $schedule_id_18, $stadium_id_12],
+                    [$team_id_11, $team_id_09, $schedule_id_18, $stadium_id_11],
+                    [$team_id_10, $team_id_16, $schedule_id_18, $stadium_id_10],
+                    [$team_id_05, $team_id_01, $schedule_id_19, $stadium_id_05],
+                    [$team_id_04, $team_id_02, $schedule_id_19, $stadium_id_04],
+                    [$team_id_16, $team_id_03, $schedule_id_19, $stadium_id_16],
+                    [$team_id_10, $team_id_11, $schedule_id_19, $stadium_id_10],
+                    [$team_id_09, $team_id_12, $schedule_id_19, $stadium_id_09],
+                    [$team_id_08, $team_id_13, $schedule_id_19, $stadium_id_08],
+                    [$team_id_07, $team_id_14, $schedule_id_19, $stadium_id_07],
+                    [$team_id_06, $team_id_15, $schedule_id_19, $stadium_id_06],
+                    [$team_id_03, $team_id_04, $schedule_id_20, $stadium_id_03],
+                    [$team_id_02, $team_id_05, $schedule_id_20, $stadium_id_02],
+                    [$team_id_01, $team_id_06, $schedule_id_20, $stadium_id_01],
+                    [$team_id_15, $team_id_07, $schedule_id_20, $stadium_id_15],
+                    [$team_id_14, $team_id_08, $schedule_id_20, $stadium_id_14],
+                    [$team_id_13, $team_id_09, $schedule_id_20, $stadium_id_13],
+                    [$team_id_12, $team_id_10, $schedule_id_20, $stadium_id_12],
+                    [$team_id_11, $team_id_16, $schedule_id_20, $stadium_id_11],
+                    [$team_id_07, $team_id_01, $schedule_id_21, $stadium_id_07],
+                    [$team_id_06, $team_id_02, $schedule_id_21, $stadium_id_06],
+                    [$team_id_05, $team_id_03, $schedule_id_21, $stadium_id_05],
+                    [$team_id_16, $team_id_04, $schedule_id_21, $stadium_id_16],
+                    [$team_id_11, $team_id_12, $schedule_id_21, $stadium_id_11],
+                    [$team_id_10, $team_id_13, $schedule_id_21, $stadium_id_10],
+                    [$team_id_09, $team_id_14, $schedule_id_21, $stadium_id_09],
+                    [$team_id_08, $team_id_15, $schedule_id_21, $stadium_id_08],
+                    [$team_id_04, $team_id_05, $schedule_id_22, $stadium_id_04],
+                    [$team_id_03, $team_id_06, $schedule_id_22, $stadium_id_03],
+                    [$team_id_02, $team_id_07, $schedule_id_22, $stadium_id_02],
+                    [$team_id_01, $team_id_08, $schedule_id_22, $stadium_id_01],
+                    [$team_id_15, $team_id_09, $schedule_id_22, $stadium_id_15],
+                    [$team_id_14, $team_id_10, $schedule_id_22, $stadium_id_14],
+                    [$team_id_13, $team_id_11, $schedule_id_22, $stadium_id_13],
+                    [$team_id_12, $team_id_16, $schedule_id_22, $stadium_id_12],
+                    [$team_id_09, $team_id_01, $schedule_id_23, $stadium_id_09],
+                    [$team_id_08, $team_id_02, $schedule_id_23, $stadium_id_08],
+                    [$team_id_07, $team_id_03, $schedule_id_23, $stadium_id_07],
+                    [$team_id_06, $team_id_04, $schedule_id_23, $stadium_id_06],
+                    [$team_id_16, $team_id_05, $schedule_id_23, $stadium_id_16],
+                    [$team_id_12, $team_id_13, $schedule_id_23, $stadium_id_12],
+                    [$team_id_11, $team_id_14, $schedule_id_23, $stadium_id_11],
+                    [$team_id_10, $team_id_15, $schedule_id_23, $stadium_id_10],
+                    [$team_id_05, $team_id_06, $schedule_id_24, $stadium_id_05],
+                    [$team_id_04, $team_id_07, $schedule_id_24, $stadium_id_04],
+                    [$team_id_03, $team_id_08, $schedule_id_24, $stadium_id_03],
+                    [$team_id_02, $team_id_09, $schedule_id_24, $stadium_id_02],
+                    [$team_id_01, $team_id_10, $schedule_id_24, $stadium_id_01],
+                    [$team_id_15, $team_id_11, $schedule_id_24, $stadium_id_15],
+                    [$team_id_14, $team_id_12, $schedule_id_24, $stadium_id_14],
+                    [$team_id_13, $team_id_16, $schedule_id_24, $stadium_id_13],
+                    [$team_id_11, $team_id_01, $schedule_id_25, $stadium_id_11],
+                    [$team_id_10, $team_id_02, $schedule_id_25, $stadium_id_10],
+                    [$team_id_09, $team_id_03, $schedule_id_25, $stadium_id_09],
+                    [$team_id_08, $team_id_04, $schedule_id_25, $stadium_id_08],
+                    [$team_id_07, $team_id_05, $schedule_id_25, $stadium_id_07],
+                    [$team_id_16, $team_id_06, $schedule_id_25, $stadium_id_16],
+                    [$team_id_13, $team_id_14, $schedule_id_25, $stadium_id_13],
+                    [$team_id_12, $team_id_15, $schedule_id_25, $stadium_id_12],
+                    [$team_id_06, $team_id_07, $schedule_id_26, $stadium_id_06],
+                    [$team_id_05, $team_id_08, $schedule_id_26, $stadium_id_05],
+                    [$team_id_04, $team_id_09, $schedule_id_26, $stadium_id_04],
+                    [$team_id_03, $team_id_10, $schedule_id_26, $stadium_id_03],
+                    [$team_id_02, $team_id_11, $schedule_id_26, $stadium_id_02],
+                    [$team_id_01, $team_id_12, $schedule_id_26, $stadium_id_01],
+                    [$team_id_15, $team_id_13, $schedule_id_26, $stadium_id_15],
+                    [$team_id_14, $team_id_16, $schedule_id_26, $stadium_id_14],
+                    [$team_id_13, $team_id_01, $schedule_id_27, $stadium_id_13],
+                    [$team_id_12, $team_id_02, $schedule_id_27, $stadium_id_12],
+                    [$team_id_11, $team_id_03, $schedule_id_27, $stadium_id_11],
+                    [$team_id_10, $team_id_04, $schedule_id_27, $stadium_id_10],
+                    [$team_id_09, $team_id_05, $schedule_id_27, $stadium_id_09],
+                    [$team_id_08, $team_id_06, $schedule_id_27, $stadium_id_08],
+                    [$team_id_16, $team_id_07, $schedule_id_27, $stadium_id_16],
+                    [$team_id_14, $team_id_15, $schedule_id_27, $stadium_id_14],
+                    [$team_id_07, $team_id_08, $schedule_id_28, $stadium_id_07],
+                    [$team_id_06, $team_id_09, $schedule_id_28, $stadium_id_06],
+                    [$team_id_05, $team_id_10, $schedule_id_28, $stadium_id_05],
+                    [$team_id_04, $team_id_11, $schedule_id_28, $stadium_id_04],
+                    [$team_id_03, $team_id_12, $schedule_id_28, $stadium_id_03],
+                    [$team_id_02, $team_id_13, $schedule_id_28, $stadium_id_02],
+                    [$team_id_01, $team_id_14, $schedule_id_28, $stadium_id_01],
+                    [$team_id_15, $team_id_16, $schedule_id_28, $stadium_id_15],
+                    [$team_id_15, $team_id_01, $schedule_id_29, $stadium_id_15],
+                    [$team_id_14, $team_id_02, $schedule_id_29, $stadium_id_14],
+                    [$team_id_13, $team_id_03, $schedule_id_29, $stadium_id_13],
+                    [$team_id_12, $team_id_04, $schedule_id_29, $stadium_id_12],
+                    [$team_id_11, $team_id_05, $schedule_id_29, $stadium_id_11],
+                    [$team_id_10, $team_id_06, $schedule_id_29, $stadium_id_10],
+                    [$team_id_09, $team_id_07, $schedule_id_29, $stadium_id_09],
+                    [$team_id_08, $team_id_16, $schedule_id_29, $stadium_id_08],
+                    [$team_id_08, $team_id_09, $schedule_id_30, $stadium_id_08],
+                    [$team_id_07, $team_id_10, $schedule_id_30, $stadium_id_07],
+                    [$team_id_06, $team_id_11, $schedule_id_30, $stadium_id_06],
+                    [$team_id_05, $team_id_12, $schedule_id_30, $stadium_id_05],
+                    [$team_id_04, $team_id_13, $schedule_id_30, $stadium_id_04],
+                    [$team_id_03, $team_id_14, $schedule_id_30, $stadium_id_03],
+                    [$team_id_02, $team_id_15, $schedule_id_30, $stadium_id_02],
+                    [$team_id_01, $team_id_16, $schedule_id_30, $stadium_id_01],
+                ];
+                Yii::$app->db
+                    ->createCommand()
+                    ->batchInsert(
+                        Game::tableName(),
+                        ['game_home_team_id', 'game_guest_team_id', 'game_schedule_id', 'game_stadium_id'],
+                        $data
+                    )
+                    ->execute();
+            }
+        }
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function insertConference()
+    {
+        $teamArray = Team::find()
+            ->where(['not in', 'team_id', Championship::find()->select(['championship_team_id'])])
+            ->andWhere(['!=', 'team_id', 0])
+            ->all();
+
+        foreach ($teamArray as $team) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new Conference();
+                $model->conference_season_id = self::SEASON;
+                $model->conference_team_id = $team->team_id;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+            }
+        }
+
+        $schedule = Schedule::find()->where([
+            'schedule_tournament_type_id' => TournamentType::CONFERENCE,
+            'schedule_stage_id' => Stage::TOUR_1,
+            'schedule_season_id' => self::SEASON,
+        ])->one();
+
+        /** @var Conference[] $conferenceArray */
+        $conferenceArray = Conference::find()->orderBy(['conference_team_id' => SORT_ASC])->all();
+
+        $key_array = [
+            [0, 1],
+            [22, 2],
+            [21, 3],
+            [20, 4],
+            [19, 5],
+            [18, 6],
+            [17, 7],
+            [16, 8],
+            [15, 9],
+            [14, 10],
+            [13, 11],
+            [12, 23],
+        ];
+
+        foreach ($key_array as $item) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new Game();
+                $model->game_guest_team_id = $conferenceArray[$item[1]]->conference_team_id;
+                $model->game_home_team_id = $conferenceArray[$item[0]]->conference_team_id;
+                $model->game_schedule_id = $schedule->schedule_id;
+                $model->game_stadium_id = $conferenceArray[$item[0]]->team->stadium->stadium_id;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
             }
         }
     }
