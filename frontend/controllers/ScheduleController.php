@@ -19,10 +19,11 @@ class ScheduleController extends BaseController
     public function actionIndex(): string
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
-        $season = Season::find()->orderBy(['season_id' => SORT_DESC])->all();
+        $season = Season::find()->select(['season_id'])->orderBy(['season_id' => SORT_DESC])->all();
 
         $query = Schedule::find()
             ->joinWith(['tournamentType', 'stage'])
+            ->select(['schedule_id', 'schedule_date'])
             ->where(['schedule_season_id' => $seasonId])
             ->orderBy(['schedule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
