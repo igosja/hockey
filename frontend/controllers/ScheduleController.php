@@ -23,7 +23,7 @@ class ScheduleController extends BaseController
 
         $query = Schedule::find()
             ->joinWith(['tournamentType', 'stage'])
-            ->select(['schedule_id', 'schedule_date'])
+            ->select(['schedule_id', 'schedule_date', 'stage_name', 'tournament_type_name'])
             ->where(['schedule_season_id' => $seasonId])
             ->orderBy(['schedule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
