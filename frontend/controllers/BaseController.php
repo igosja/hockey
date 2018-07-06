@@ -25,7 +25,8 @@ class BaseController extends Controller
      */
     public function beforeAction($action): bool
     {
-        $this->seasonId = Season::find()->orderBy(['season_id' => SORT_DESC])->scalar();
+        $season = Season::find()->orderBy(['season_id' => SORT_DESC])->one();
+        $this->seasonId = $season->season_id;
 
         try {
             return parent::beforeAction($action);

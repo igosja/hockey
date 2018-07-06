@@ -21,7 +21,10 @@ class ScheduleController extends BaseController
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $season = Season::find()->orderBy(['season_id' => SORT_DESC])->all();
 
-        $query = Schedule::find()->where(['schedule_season_id' => $seasonId])->orderBy(['schedule_id' => SORT_ASC]);
+        $query = Schedule::find()
+            ->with(['tournamentType', 'stage'])
+            ->where(['schedule_season_id' => $seasonId])
+            ->orderBy(['schedule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,
