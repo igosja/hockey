@@ -34,15 +34,19 @@ class StartController extends BaseController
 
     public function actionIndex()
     {
-        $this->insertUser();
-        $this->insertName();
-        $this->insertSurname();
-        $this->insertTeam();
-        $this->insertNational();
-        $this->insertSchedule();
-        $this->insertOffSeason();
-        $this->insertChampionship();
-        $this->insertConference();
+        try {
+            $this->insertUser();
+            $this->insertName();
+            $this->insertSurname();
+            $this->insertTeam();
+            $this->insertNational();
+            $this->insertSchedule();
+            $this->insertOffSeason();
+            $this->insertChampionship();
+            $this->insertConference();
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
     }
 
     private function insertUser()
