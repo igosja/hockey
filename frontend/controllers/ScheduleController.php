@@ -6,6 +6,7 @@ use common\models\Schedule;
 use common\models\Season;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 
 /**
  * Class ScheduleController
@@ -23,15 +24,14 @@ class ScheduleController extends BaseController
 
         $query = Schedule::find()
             ->joinWith([
-                'tournamentType' => function ($query) {
-                    print '<pre>';
-                    print_r($query);
-                    exit;
-                    return $query->select(['tournament_type_id']);
+                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['tournament_type_id', 'tournament_type_name']);
                 },
-                'stage'
+                'stage' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stage_id', 'stage_name']);
+                },
             ])
-            ->select(['schedule_id', 'schedule_date', 'stage_name', 'tournament_type_name'])
+            ->select(['schedule_id', 'schedule_date', 'schedule_stage_id', 'schedule_tournament_type_id'])
             ->where(['schedule_season_id' => $seasonId])
             ->orderBy(['schedule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
