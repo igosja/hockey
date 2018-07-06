@@ -6,6 +6,7 @@ use common\models\Schedule;
 use common\models\Season;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 
 /**
  * Class ScheduleController
@@ -22,24 +23,20 @@ class ScheduleController extends BaseController
         $season = Season::find()->select(['season_id'])->orderBy(['season_id' => SORT_DESC])->all();
 
         $query = Schedule::find()
-            ->joinWith(['tournamentType', 'stage'])
-//            ->joinWith([
-//                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
-//                    return $query;//->select(['tournament_type_id', 'tournament_type_name']);
-//                },
-//                'stage' => function (ActiveQuery $query): ActiveQuery {
-//                    return $query;//->select(['stage_id', 'stage_name']);
-//                },
-//            ])
-//            ->select(['*', 'stage.*'])
-//            ->select([
-//                'schedule_id',
-//                'schedule_date',
-//                'schedule_stage_id',
-//                'schedule_tournament_type_id',
-//                'stage.stage_name',
-//                'tournament_type.tournament_type_name'
-//            ])
+            ->joinWith([
+                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['tournament_type_id', 'tournament_type_name']);
+                },
+                'stage' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stage_id', 'stage_name']);
+                },
+            ])
+            ->select([
+                'schedule_id',
+                'schedule_date',
+                'schedule_stage_id',
+                'schedule_tournament_type_id',
+            ])
             ->where(['schedule_season_id' => $seasonId])
             ->orderBy(['schedule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
