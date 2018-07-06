@@ -27,6 +27,8 @@ use yii\db\ActiveRecord;
  * @property integer $championship_win_overtime
  * @property integer $championship_win_shootout
  *
+ * @property Country $country
+ * @property Division $division
  * @property Team $team
  */
 class Championship extends ActiveRecord
@@ -34,7 +36,7 @@ class Championship extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%championship}}';
     }
@@ -42,7 +44,7 @@ class Championship extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['championship_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
@@ -79,6 +81,22 @@ class Championship extends ActiveRecord
                 'required'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'championship_country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getDivision(): ActiveQuery
+    {
+        return $this->hasOne(Division::class, ['division_id' => 'championship_division_id']);
     }
 
     /**
