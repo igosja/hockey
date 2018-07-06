@@ -25,10 +25,10 @@ class ScheduleController extends BaseController
         $query = Schedule::find()
             ->joinWith([
                 'tournamentType' => function (ActiveQuery $query): ActiveQuery {
-                    return $query;//->select(['tournament_type_id', 'tournament_type_name']);
+                    return $query->select(['tournament_type_id', 'tournament_type_name']);
                 },
                 'stage' => function (ActiveQuery $query): ActiveQuery {
-                    return $query;//->select(['stage_id', 'stage_name']);
+                    return $query->select(['stage_id', 'stage_name']);
                 },
             ])
             ->select([
