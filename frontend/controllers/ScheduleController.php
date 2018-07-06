@@ -31,6 +31,7 @@ class ScheduleController extends BaseController
                     return $query;//->select(['stage_id', 'stage_name']);
                 },
             ])
+            ->select(['*', 'stage.*'])
 //            ->select([
 //                'schedule_id',
 //                'schedule_date',
