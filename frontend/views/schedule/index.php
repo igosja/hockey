@@ -43,6 +43,7 @@ use yii\helpers\Html;
             [
                 'attribute' => 'schedule_date',
                 'contentOptions' => ['class' => 'text-center'],
+                'enableSorting' => false,
                 'value' => function (Schedule $model) {
                     return Yii::$app->formatter->asDatetime($model->schedule_date);
                 }
@@ -67,7 +68,6 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
-            'sorter' => false,
             'summary' => false,
             'tableOptions' => ['class' => 'table table-bordered table-hover'],
         ]);
