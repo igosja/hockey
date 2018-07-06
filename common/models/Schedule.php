@@ -23,7 +23,7 @@ class Schedule extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%schedule}}';
     }
@@ -31,7 +31,7 @@ class Schedule extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['schedule_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
@@ -43,6 +43,18 @@ class Schedule extends ActiveRecord
             ],
             [['schedule_id', 'schedule_date'], 'integer'],
             [['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'], 'required'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'schedule_date' => 'Date',
+            'stage' => 'Stage',
+            'tournamentType' => 'Tournament',
         ];
     }
 

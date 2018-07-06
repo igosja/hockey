@@ -40,16 +40,19 @@ use yii\helpers\Html;
 try {
     $columns = [
         [
+            'attribute' => 'schedule_date',
             'value' => function (Schedule $model) {
                 return Yii::$app->formatter->asDatetime($model->schedule_date);
             }
         ],
         [
+            'attribute' => 'tournamentType',
             'value' => function (Schedule $model) {
                 return $model->tournamentType->tournament_type_name;
             }
         ],
         [
+            'attribute' => 'stage',
             'value' => function (Schedule $model) {
                 return $model->stage->stage_name;
             }
