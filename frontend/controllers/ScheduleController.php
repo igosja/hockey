@@ -36,7 +36,9 @@ class ScheduleController extends BaseController
                 'schedule_date',
                 'schedule_stage_id',
                 'schedule_tournament_type_id',
+                'stage_id',
                 'stage_name',
+                'tournament_type_id',
                 'tournament_type_name'
             ])
             ->where(['schedule_season_id' => $seasonId])
