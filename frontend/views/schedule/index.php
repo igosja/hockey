@@ -67,6 +67,8 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
+            'sorter' => false,
+            'summary' => false,
             'tableOptions' => ['class' => 'table table-bordered table-hover'],
         ]);
     } catch (Exception $e) {
