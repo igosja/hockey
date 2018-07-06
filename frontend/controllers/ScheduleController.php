@@ -34,6 +34,8 @@ class ScheduleController extends BaseController
             ->select([
                 'schedule_id',
                 'schedule_date',
+                'schedule_stage_id',
+                'schedule_tournament_type_id',
                 'stage.stage_name',
                 'tournament_type.tournament_type_name'
             ])
