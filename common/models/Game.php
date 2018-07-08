@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -110,13 +111,20 @@ use yii\db\ActiveRecord;
  * @property integer $game_stadium_capacity
  * @property integer $game_stadium_id
  * @property integer $game_visitor
+ *
+ * @property National $nationalGuest
+ * @property National $nationalHome
+ * @property Team $teamGuest
+ * @property Team $teamHome
  */
 class Game extends ActiveRecord
 {
+    const PAGE_LIMIT = 50;
+
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%game}}';
     }
@@ -124,7 +132,7 @@ class Game extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['game_schedule_id'], 'in', 'range' => Schedule::find()->select(['schedule_id'])->column()],
@@ -240,5 +248,37 @@ class Game extends ActiveRecord
             ],
             [['game_schedule_id'], 'required'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNationalGuest(): ActiveQuery
+    {
+        return $this->hasOne(National::class, ['national_id' => 'game_guest_national_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNationalHome(): ActiveQuery
+    {
+        return $this->hasOne(National::class, ['national_id' => 'game_home_national_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeamGuest(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'game_guest_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeamHome(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'game_home_team_id']);
     }
 }

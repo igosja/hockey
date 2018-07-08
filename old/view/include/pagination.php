@@ -1,4 +1,4 @@
-<?php
+*<?php
 
 /**
  * @var $page integer

@@ -1,13 +1,11 @@
 <?php
 
-use common\components\ErrorHelper;
 use common\models\Schedule;
-use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var Schedule[] $scheduleArray
  * @var \common\models\Season[] $season
  * @var integer $seasonId
  */
@@ -36,44 +34,34 @@ use yii\helpers\Html;
 </div>
 <?= Html::endForm(); ?>
 <div class="row">
-    <?php
-
-    try {
-        $columns = [
-            [
-                'attribute' => 'schedule_date',
-                'contentOptions' => ['class' => 'text-center'],
-                'enableSorting' => false,
-                'value' => function (Schedule $model) {
-                    return Yii::$app->formatter->asDatetime($model->schedule_date);
-                }
-            ],
-            [
-                'attribute' => 'tournamentType',
-                'contentOptions' => ['class' => 'text-center'],
-                'format' => 'raw',
-                'value' => function (Schedule $model) {
-                    return Html::a($model->tournamentType->tournament_type_name, ['view', 'id' => $model->schedule_id]);
-                }
-            ],
-            [
-                'attribute' => 'stage',
-                'contentOptions' => ['class' => 'text-center'],
-                'value' => function (Schedule $model) {
-                    return $model->stage->stage_name;
-                }
-            ],
-        ];
-        print GridView::widget([
-            'columns' => $columns,
-            'dataProvider' => $dataProvider,
-            'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
-            'summary' => false,
-            'tableOptions' => ['class' => 'table table-bordered table-hover'],
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
-
-    ?>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Date</th>
+                <th>Tournament</th>
+                <th>Stage</th>
+            </tr>
+            <?php foreach ($scheduleArray as $item): ?>
+                <tr>
+                    <td class="text-center">
+                        <?= Yii::$app->formatter->asDatetime($item->schedule_date); ?>
+                    </td>
+                    <td class="text-center">
+                        <?= Html::a(
+                            $item->tournamentType->tournament_type_name,
+                            ['view', 'id' => $item->schedule_id]
+                        ); ?>
+                    </td>
+                    <td class="text-center">
+                        <?= $item->stage->stage_name; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <th>Date</th>
+                <th>Tournament</th>
+                <th>Stage</th>
+            </tr>
+        </table>
+    </div>
 </div>

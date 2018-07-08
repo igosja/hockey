@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -26,13 +27,16 @@ use yii\db\ActiveRecord;
  * @property integer $national_user_id
  * @property integer $national_vice_id
  * @property integer $national_visitor
+ *
+ * @property Country $country
+ * @property NationalType $nationalType
  */
 class National extends ActiveRecord
 {
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%national}}';
     }
@@ -40,7 +44,7 @@ class National extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -71,5 +75,21 @@ class National extends ActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'national_country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNationalType(): ActiveQuery
+    {
+        return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id']);
     }
 }
