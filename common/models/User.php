@@ -173,7 +173,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password): bool
     {
-        return $this->hashPassword($password) === $this->password;
+        return $this->hashPassword($password) === $this->user_password;
     }
 
     /**
@@ -181,7 +181,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password = $this->hashPassword($password);
+        $this->user_password = $this->hashPassword($password);
     }
 
     /**
