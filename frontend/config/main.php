@@ -57,7 +57,7 @@ return [
             'class' => 'codemix\localeurls\UrlManager',
             'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
-            'languages' => ['en'],
+            'languages' => ['en', 'en-*'],
             'rules' => [
                 '' => 'site/index',
                 'news' => 'news/index',
