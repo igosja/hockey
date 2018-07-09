@@ -238,8 +238,6 @@
                             <li>
                                 <a href="/admin/siteinfo_game.php">Игровая статистика</a>
                             </li>
-                        </ul>
-                        <ul class="nav nav-second-level">
                             <li>
                                 <a href="/admin/snapshot.php">Статистические данные</a>
                             </li>

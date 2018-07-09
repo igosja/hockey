@@ -1,13 +1,11 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
 /**
  * @var $model \common\models\LoginForm
  */
-
-use common\components\ErrorHelper;
-use common\widgets\Alert;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 
 ?>
 <div class="row">
@@ -17,15 +15,6 @@ use yii\helpers\Html;
                 <h3 class="panel-title text-center">Login</h3>
             </div>
             <div class="panel-body">
-                <?php
-
-                try {
-                    Alert::widget();
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
                 <?php $form = ActiveForm::begin([
                     'fieldConfig' => [
                         'template' => '{input}{error}'

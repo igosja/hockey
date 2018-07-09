@@ -5,7 +5,6 @@ namespace backend\controllers;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
@@ -22,17 +21,12 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['login', 'error'],
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -55,6 +49,8 @@ class SiteController extends BaseController
      */
     public function actionIndex(): string
     {
+        $this->view->title = 'Admin';
+
         return $this->render('index');
     }
 

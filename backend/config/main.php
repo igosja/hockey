@@ -11,6 +11,9 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
