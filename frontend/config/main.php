@@ -7,7 +7,6 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'container' => [
@@ -38,17 +37,17 @@ return [
             'errorAction' => 'site/error',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
+            'traceLevel' => YII_DEBUG ? 3 : 0,
         ],
         'request' => [
-            'csrfParam' => '_csrf-frontend',
             'baseUrl' => '',
+            'csrfParam' => '_csrf-frontend',
         ],
         'session' => [
             'name' => 'advanced-frontend',
@@ -72,10 +71,11 @@ return [
             'showScriptName' => false,
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'identityClass' => 'common\models\User',
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
     ],
+    'id' => 'app-frontend',
     'params' => $params,
 ];

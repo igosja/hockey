@@ -1,4 +1,5 @@
 <?php
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -7,46 +8,45 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
     'components' => [
-        'request' => [
-            'csrfParam' => '_csrf-backend',
-            'baseUrl' => '/admin',
-        ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+        'errorHandler' => [
+            'errorAction' => 'site/error',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
+            'traceLevel' => YII_DEBUG ? 3 : 0,
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
+        'request' => [
+            'baseUrl' => '/admin',
+            'csrfParam' => '_csrf-backend',
+        ],
+        'session' => [
+            'name' => 'advanced-backend',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
                 'login' => 'site/login',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
+            'showScriptName' => false,
+        ],
+        'user' => [
+            'enableAutoLogin' => true,
+            'identityClass' => 'common\models\User',
+            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
     ],
+    'controllerNamespace' => 'backend\controllers',
+    'id' => 'app-backend',
+    'modules' => [],
     'params' => $params,
 ];
