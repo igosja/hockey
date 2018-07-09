@@ -59,6 +59,7 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showHeader' => false,
+            'showOnEmpty' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);

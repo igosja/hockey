@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'login' => 'site/login',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
