@@ -8,16 +8,16 @@ include(__DIR__ . '/../include/include.php');
 include(__DIR__ . '/../include/pagination_offset.php');
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS
-               `complain_date`,
-               `complain_id`,
+               complaint_date,
+               complaint_id,
                `complain_url`,
                `user_id`,
                `user_login`
         FROM `complain`
         LEFT JOIN `user`
-        ON `complain_user_id`=`user_id`
+        ON complaint_user_id=`user_id`
         WHERE $sql_filter
-        ORDER BY `complain_id` ASC
+        ORDER BY complaint_id ASC
         LIMIT $offset, $limit";
 $complain_sql = f_igosja_mysqli_query($sql);
 

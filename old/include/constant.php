@@ -204,6 +204,3 @@ define('USERROLE_USER', 1);
 define('VOTERATING_NEGATIVE', 1);
 define('VOTERATING_NEUTRAL', 2);
 define('VOTERATING_POSITIVE', 3);
-define('VOTESTATUS_NEW', 1);
-define('VOTESTATUS_OPEN', 2);
-define('VOTESTATUS_CLOSE', 3);

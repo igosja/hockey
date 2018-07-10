@@ -52,8 +52,8 @@ $logo_sql = f_igosja_mysqli_query($sql);
 
 $logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
 
-$sql = "SELECT COUNT(`complain_id`) AS `count`
-        FROM `complain`";
+$sql = "SELECT COUNT(complaint_id) AS `count`
+        FROM complaint";
 $complain_sql = f_igosja_mysqli_query($sql);
 
 $complain_array = $complain_sql->fetch_all(MYSQLI_ASSOC);

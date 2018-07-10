@@ -2,8 +2,25 @@
 
 namespace backend\controllers;
 
+use common\components\HockeyHelper;
+use common\models\Complaint;
+use common\models\ForumMessage;
+use common\models\GameComment;
+use common\models\LoanComment;
 use common\models\LoginForm;
+use common\models\Logo;
+use common\models\Message;
+use common\models\News;
+use common\models\NewsComment;
+use common\models\Payment;
+use common\models\Review;
+use common\models\Team;
+use common\models\TransferComment;
+use common\models\Vote;
+use common\models\VoteStatus;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -49,9 +66,92 @@ class SiteController extends BaseController
      */
     public function actionIndex(): string
     {
+        $complaint = Complaint::find()->count();
+        $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
+        $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
+        $gameComment = GameComment::find()->where(['game_comment_check' => 0])->count();
+        $loanComment = LoanComment::find()->where(['loan_comment_check' => 0])->count();
+        $logo = Logo::find()->count();
+        $news = News::find()->where(['news_check' => 0])->count();
+        $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
+        $review = Review::find()->where(['review_check' => 0])->count();
+        $support = Message::find()->where(['message_support_to' => 1, 'message_read' => 0])->count();
+        $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
+        $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
+
+        $countModeration = 0;
+        $countModeration = $countModeration + $forumMessage;
+        $countModeration = $countModeration + $gameComment;
+        $countModeration = $countModeration + $loanComment;
+        $countModeration = $countModeration + $news;
+        $countModeration = $countModeration + $newsComment;
+        $countModeration = $countModeration + $transferComment;
+        $countModeration = $countModeration + $review;
+
+        $payment = (new Query())
+            ->select(['FROM_UNIXTIME(`payment_date`, \'%b %Y\')' => 'date', 'SUM(`payment_sum`)' => 'total'])
+            ->from(Payment::tableName())
+            ->where(['payment_status' => Payment::PAID])
+            ->groupBy('FROM_UNIXTIME(`payment_date`, \'%b-%Y\')')
+            ->all();
+
+        $dateStart = strtotime('-11months', strtotime(date('Y-m-01')));
+        $dateEnd = strtotime(date('Y-m-t'));
+
+        $dateArray = HockeyHelper::getDateArrayByMonth($dateStart, $dateEnd);
+
+        $valueArray = [];
+
+        foreach ($dateArray as $date) {
+            $inArray = false;
+
+            foreach ($payment as $item) {
+                if ($item['date'] == $date) {
+                    $valueArray[] = $item['total'];
+                    $inArray = true;
+                }
+            }
+
+            if (false == $inArray) {
+                $valueArray[] = 0;
+            }
+        }
+
+        $paymentCategories = '"' . implode('","', $dateArray) . '"';
+        $paymentData = implode(',', $valueArray);
+
+        $payment = Payment::find()
+            ->with([
+                'user' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_id', 'user_login']);
+                }
+            ])
+            ->select(['payment_date', 'payment_sum', 'payment_user_id'])
+            ->where(['payment_status' => Payment::PAID])
+            ->limit(10)
+            ->orderBy(['payment_id' => SORT_DESC])
+            ->all();
+
         $this->view->title = 'Admin';
 
-        return $this->render('index');
+        return $this->render('index', [
+            'complaint' => $complaint,
+            'countModeration' => $countModeration,
+            'forumMessage' => $forumMessage,
+            'freeTeam' => $freeTeam,
+            'gameComment' => $gameComment,
+            'loanComment' => $loanComment,
+            'logo' => $logo,
+            'news' => $news,
+            'newsComment' => $newsComment,
+            'payment' => $payment,
+            'paymentCategories' => $paymentCategories,
+            'paymentData' => $paymentData,
+            'review' => $review,
+            'support' => $support,
+            'transferComment' => $transferComment,
+            'vote' => $vote,
+        ]);
     }
 
     /**

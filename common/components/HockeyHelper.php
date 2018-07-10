@@ -76,4 +76,16 @@ class HockeyHelper
 
         return '';
     }
+
+    public static function getDateArrayByMonth($dateStart, $dateEnd)
+    {
+        $dateArray = [];
+
+        while ($dateStart < $dateEnd) {
+            $dateArray[] = date('M Y', $dateStart);
+            $dateStart = strtotime('+1month', strtotime(date('Y-m-d', $dateStart)));
+        }
+
+        return $dateArray;
+    }
 }

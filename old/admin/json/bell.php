@@ -62,7 +62,7 @@ $logo_array = $logo_sql->fetch_all(MYSQLI_ASSOC);
 
 $logo = $logo_array[0]['count'];
 
-$sql = "SELECT COUNT(`complain_id`) AS `count`
+$sql = "SELECT COUNT(complaint_id) AS `count`
         FROM `complain`";
 $complain_sql = f_igosja_mysqli_query($sql);
 

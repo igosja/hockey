@@ -11,8 +11,8 @@ $result = ['class' => 'error', 'message' => 'Не удалось сохрани�
 if (($url = f_igosja_request_post('url')) && (isset($auth_user_id)))
 {
 
-    $sql = "SELECT COUNT(`complain_id`) AS `count`
-            FROM `complain`
+    $sql = "SELECT COUNT(complaint_id) AS `count`
+            FROM complaint
             WHERE `complain_url`=?";
     $prepare = $mysqli->prepare($sql);
     $prepare->bind_param('s', $url);
@@ -26,10 +26,10 @@ if (($url = f_igosja_request_post('url')) && (isset($auth_user_id)))
 
     if (0 == $check_array[0]['count'])
     {
-        $sql = "INSERT INTO `complain`
-                SET `complain_date`=UNIX_TIMESTAMP(),
+        $sql = "INSERT INTO complaint
+                SET complaint_date=UNIX_TIMESTAMP(),
                     `complain_url`=?,
-                    `complain_user_id`=$auth_user_id";
+                    complaint_user_id=$auth_user_id";
         $prepare = $mysqli->prepare($sql);
         $prepare->bind_param('s', $url);
         $prepare->execute();
