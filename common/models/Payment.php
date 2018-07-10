@@ -4,6 +4,8 @@ namespace common\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * Class Payment
@@ -50,5 +52,59 @@ class Payment extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'payment_user_id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPaymentHighChartsData(): array
+    {
+        $expression = new Expression('FROM_UNIXTIME(`payment_date`, \'%b-%Y\')');
+        $payment = (new Query())
+            ->select(['date' => 'FROM_UNIXTIME(`payment_date`, \'%b %Y\')', 'total' => 'SUM(`payment_sum`)'])
+            ->from(self::tableName())
+            ->where(['payment_status' => self::PAID])
+            ->groupBy($expression)
+            ->all();
+
+        $dateStart = strtotime('-11months', strtotime(date('Y-m-01')));
+        $dateEnd = strtotime(date('Y-m-t'));
+        $dateArray = self::getDateArrayByMonth($dateStart, $dateEnd);
+
+        $valueArray = [];
+
+        foreach ($dateArray as $date) {
+            $inArray = false;
+
+            foreach ($payment as $item) {
+                if ($item['date'] == $date) {
+                    $valueArray[] = $item['total'];
+                    $inArray = true;
+                }
+            }
+
+            if (false == $inArray) {
+                $valueArray[] = 0;
+            }
+        }
+
+        return [$dateArray, $valueArray];
+    }
+
+    /**
+     * @param string $dateStart
+     * @param string $dateEnd
+     * @return array
+     */
+    public static function getDateArrayByMonth(string $dateStart, string $dateEnd): array
+    {
+        $dateArray = [];
+
+        while ($dateStart < $dateEnd) {
+            $dateArray[] = date('M Y', $dateStart);
+            $dateStart = strtotime('+1month', strtotime(date('Y-m-d', $dateStart)));
+        }
+
+        return $dateArray;
     }
 }

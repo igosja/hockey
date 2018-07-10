@@ -2,7 +2,6 @@
 
 namespace backend\controllers;
 
-use common\components\HockeyHelper;
 use common\models\Complaint;
 use common\models\ForumMessage;
 use common\models\GameComment;
@@ -20,7 +19,6 @@ use common\models\Vote;
 use common\models\VoteStatus;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -75,7 +73,7 @@ class SiteController extends BaseController
         $news = News::find()->where(['news_check' => 0])->count();
         $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
         $review = Review::find()->where(['review_check' => 0])->count();
-        $support = Message::find()->where(['message_support_to' => 1, 'message_read' => 0])->count();
+        $support = Message::find()->where(['message_support' => 1, 'message_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
         $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
 
@@ -88,39 +86,9 @@ class SiteController extends BaseController
         $countModeration = $countModeration + $transferComment;
         $countModeration = $countModeration + $review;
 
-        $payment = (new Query())
-            ->select(['FROM_UNIXTIME(`payment_date`, \'%b %Y\')' => 'date', 'SUM(`payment_sum`)' => 'total'])
-            ->from(Payment::tableName())
-            ->where(['payment_status' => Payment::PAID])
-            ->groupBy('FROM_UNIXTIME(`payment_date`, \'%b-%Y\')')
-            ->all();
+        list($paymentCategories, $paymentData) = Payment::getPaymentHighChartsData();
 
-        $dateStart = strtotime('-11months', strtotime(date('Y-m-01')));
-        $dateEnd = strtotime(date('Y-m-t'));
-
-        $dateArray = HockeyHelper::getDateArrayByMonth($dateStart, $dateEnd);
-
-        $valueArray = [];
-
-        foreach ($dateArray as $date) {
-            $inArray = false;
-
-            foreach ($payment as $item) {
-                if ($item['date'] == $date) {
-                    $valueArray[] = $item['total'];
-                    $inArray = true;
-                }
-            }
-
-            if (false == $inArray) {
-                $valueArray[] = 0;
-            }
-        }
-
-        $paymentCategories = '"' . implode('","', $dateArray) . '"';
-        $paymentData = implode(',', $valueArray);
-
-        $payment = Payment::find()
+        $paymentArray = Payment::find()
             ->with([
                 'user' => function (ActiveQuery $query): ActiveQuery {
                     return $query->select(['user_id', 'user_login']);
@@ -144,7 +112,7 @@ class SiteController extends BaseController
             'logo' => $logo,
             'news' => $news,
             'newsComment' => $newsComment,
-            'payment' => $payment,
+            'paymentArray' => $paymentArray,
             'paymentCategories' => $paymentCategories,
             'paymentData' => $paymentData,
             'review' => $review,

@@ -13,7 +13,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
                `complain_url`,
                `user_id`,
                `user_login`
-        FROM `complain`
+        FROM complaint
         LEFT JOIN `user`
         ON complaint_user_id=`user_id`
         WHERE $sql_filter
