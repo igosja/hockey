@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\Game;
 use common\models\Schedule;
 use common\models\Season;
@@ -74,7 +75,11 @@ class ScheduleController extends BaseController
             ->where(['schedule_id' => $id])
             ->limit(1)
             ->one();
-        $this->notFound($schedule);
+        try {
+            $this->notFound($schedule);
+        } catch (\Exception $e) {
+            ErrorHelper::log($e);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => Game::find()
