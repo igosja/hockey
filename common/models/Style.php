@@ -21,7 +21,7 @@ class Style extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%style}}';
     }
@@ -29,7 +29,7 @@ class Style extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['style_id'], 'integer'],

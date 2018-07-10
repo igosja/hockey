@@ -25,7 +25,7 @@ class TournamentType extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%tournament_type}}';
     }
@@ -33,7 +33,7 @@ class TournamentType extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['tournament_type_day_type_id'], 'in', 'range' => DayType::find()->select(['day_type_id'])->column()],

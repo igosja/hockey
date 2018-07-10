@@ -19,7 +19,7 @@ class Special extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%special}}';
     }
@@ -27,7 +27,7 @@ class Special extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['special_id', 'special_field', 'special_gk'], 'integer'],

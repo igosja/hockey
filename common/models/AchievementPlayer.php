@@ -25,7 +25,7 @@ class AchievementPlayer extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%achievement_player}}';
     }
@@ -33,7 +33,7 @@ class AchievementPlayer extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

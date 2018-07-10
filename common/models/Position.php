@@ -24,7 +24,7 @@ class Position extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%position}}';
     }
@@ -32,7 +32,7 @@ class Position extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['position_id'], 'integer'],

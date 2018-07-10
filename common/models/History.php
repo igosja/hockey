@@ -30,22 +30,15 @@ class History extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%history}}';
-    }
-
-    public static function log($data)
-    {
-        $history = new self();
-        $history->setAttributes($data);
-        $history->save();
     }
 
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['history_building_id'], 'in', 'range' => Building::find()->select('building_id')->column()],
@@ -78,5 +71,15 @@ class History extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param array $data
+     */
+    public static function log(array $data)
+    {
+        $history = new self();
+        $history->setAttributes($data);
+        $history->save();
     }
 }

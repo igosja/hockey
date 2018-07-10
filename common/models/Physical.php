@@ -18,7 +18,7 @@ class Physical extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%physical}}';
     }
@@ -26,7 +26,7 @@ class Physical extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['physical_opposite'], 'in', self::find()->select(['physical_id'])->column()],

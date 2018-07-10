@@ -31,7 +31,7 @@ class Review extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%review}}';
     }

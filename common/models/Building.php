@@ -16,7 +16,7 @@ class Building extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%building}}';
     }
@@ -24,7 +24,7 @@ class Building extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['building_id'], 'integer'],

@@ -17,7 +17,7 @@ class DayType extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%day_type}}';
     }
@@ -25,7 +25,7 @@ class DayType extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['day_type_id'], 'integer'],

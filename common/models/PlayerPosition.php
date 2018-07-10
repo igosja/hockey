@@ -17,7 +17,7 @@ class PlayerPosition extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%player_position}}';
     }
@@ -25,7 +25,7 @@ class PlayerPosition extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['player_position_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],

@@ -60,7 +60,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user}}';
     }
@@ -68,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -124,7 +124,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @param int|string $id
-     * @return User|null|IdentityInterface
+     * @return null|IdentityInterface|static
      */
     public static function findIdentity($id)
     {
@@ -177,9 +177,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param $password
+     * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->user_password = $this->hashPassword($password);
     }

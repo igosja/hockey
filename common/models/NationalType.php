@@ -20,7 +20,7 @@ class NationalType extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%national_type}}';
     }
@@ -28,7 +28,7 @@ class NationalType extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['national_type_id'], 'integer'],

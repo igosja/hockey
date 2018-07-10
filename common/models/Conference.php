@@ -34,7 +34,7 @@ class Conference extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%conference}}';
     }
@@ -42,7 +42,7 @@ class Conference extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['conference_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],

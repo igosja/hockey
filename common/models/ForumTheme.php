@@ -24,7 +24,7 @@ class ForumTheme extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%forum_theme}}';
     }
@@ -32,7 +32,7 @@ class ForumTheme extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['forum_theme_forum_group_id'], 'in', 'range' => ForumGroup::find()->select(['forum_group_id'])->column()],

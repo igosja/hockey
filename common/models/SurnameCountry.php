@@ -17,7 +17,7 @@ class SurnameCountry extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%surname_country}}';
     }
@@ -25,7 +25,7 @@ class SurnameCountry extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['surname_country_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],

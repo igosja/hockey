@@ -17,7 +17,7 @@ class ForumChapter extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%forum_chapter}}';
     }
@@ -25,7 +25,7 @@ class ForumChapter extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['forum_chapter_id', 'forum_chapter_order'], 'integer'],

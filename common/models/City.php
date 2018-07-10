@@ -20,7 +20,7 @@ class City extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%city}}';
     }
@@ -28,7 +28,7 @@ class City extends ActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['city_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
