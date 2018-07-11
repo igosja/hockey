@@ -1,4 +1,5 @@
 <?php
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -7,20 +8,19 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-console',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
-    'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'basePath' => dirname(__DIR__),
+    'bootstrap' => ['log'],
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
           ],
     ],
+    'controllerNamespace' => 'console\controllers',
     'components' => [
         'log' => [
             'targets' => [
@@ -31,5 +31,6 @@ return [
             ],
         ],
     ],
+    'id' => 'app-console',
     'params' => $params,
 ];

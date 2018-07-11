@@ -27,7 +27,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header"><?= $this->title; ?></h1>
+        <h1 class="page-header"><?= Html::encode($this->title); ?></h1>
     </div>
 </div>
 <div class="row">
@@ -204,7 +204,20 @@ use yii\helpers\Html;
 
                                     ?>
                                 </td>
-                                <td><?= $item->payment_sum; ?></td>
+                                <td>
+                                    <?php
+
+                                    try {
+                                        Yii::$app->formatter->asCurrency(
+                                            $item->payment_sum,
+                                            Yii::$app->params['currency']
+                                        );
+                                    } catch (Exception $e) {
+                                        ErrorHelper::log($e);
+                                    }
+
+                                    ?>
+                                </td>
                                 <td>
                                     <?= Html::a(
                                         $item->user->user_login,

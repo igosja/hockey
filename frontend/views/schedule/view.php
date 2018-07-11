@@ -18,7 +18,15 @@ use yii\helpers\Html;
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            <?= Yii::$app->formatter->asDatetime($schedule->schedule_date); ?>,
+            <?php
+
+            try {
+                Yii::$app->formatter->asDatetime($schedule->schedule_date);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+            }
+
+            ?>,
             <?= $schedule->stage->stage_name; ?>,
             <?= Yii::t('app', '{n, ordinal} season', ['n' => $schedule->schedule_season_id]); ?>
         </p>

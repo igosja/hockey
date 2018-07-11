@@ -1,5 +1,6 @@
 <?php
 
+use common\components\ErrorHelper;
 use common\models\Schedule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -44,7 +45,15 @@ use yii\helpers\Html;
             <?php foreach ($scheduleArray as $item): ?>
                 <tr>
                     <td class="text-center">
-                        <?= Yii::$app->formatter->asDatetime($item->schedule_date); ?>
+                        <?php
+
+                        try {
+                            Yii::$app->formatter->asDatetime($item->schedule_date);
+                        } catch (Exception $e) {
+                            ErrorHelper::log($e);
+                        }
+
+                        ?>
                     </td>
                     <td class="text-center">
                         <?= Html::a(
