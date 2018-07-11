@@ -48,9 +48,9 @@ class NewsSearch extends News
         }
 
         $query
-            ->andFilterWhere(['id' => $this->news_id])
-            ->andFilterWhere(['like', 'title', $this->news_title])
-            ->andFilterWhere(['like', 'creation_date', $this->news_date]);
+            ->andFilterWhere(['news_id' => $this->news_id])
+            ->andFilterWhere(['news_date' => $this->news_date])
+            ->andFilterWhere(['like', 'news_title', $this->news_title]);
 
         return $dataProvider;
     }

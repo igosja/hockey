@@ -1,8 +1,8 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\widgets\DetailView;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /**
  * @var \common\models\News $model

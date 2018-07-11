@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -69,6 +70,7 @@ class News extends ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->news_date = time();
+                $this->news_user_id = Yii::$app->user->id;
             }
             return true;
         }
