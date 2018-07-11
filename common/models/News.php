@@ -48,6 +48,18 @@ class News extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'news_id' => 'ID',
+            'news_date' => 'Date',
+            'news_title' => 'Title',
+        ];
+    }
+
+    /**
      * @param bool $insert
      * @return bool
      */

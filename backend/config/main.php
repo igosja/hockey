@@ -48,6 +48,14 @@ return [
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
     ],
+    'container' => [
+        'definitions' => [
+            \yii\grid\GridView::class => [
+                'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
+                'tableOptions' => ['class' => 'table table-bordered table-hover'],
+            ],
+        ],
+    ],
     'controllerNamespace' => 'backend\controllers',
     'id' => 'app-backend',
     'modules' => [],

@@ -2,12 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\components\Controller;
 use common\components\ErrorHelper;
 use common\models\Season;
 use Exception;
-use yii\db\ActiveRecord;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
 /**
  * Class BaseController
@@ -35,16 +33,5 @@ class BaseController extends Controller
         }
 
         return true;
-    }
-
-    /**
-     * @param ActiveRecord|null $model
-     * @throws NotFoundHttpException
-     */
-    protected function notFound(ActiveRecord $model = null)
-    {
-        if (!$model) {
-            throw new NotFoundHttpException();
-        }
     }
 }

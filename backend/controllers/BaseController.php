@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
+use common\components\Controller;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 
 /**
  * Class BaseController
