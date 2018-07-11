@@ -18,5 +18,5 @@ use yii\helpers\Html;
         <?= Html::a('List', ['index'], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
-<?php $this->render('_form', ['model' => $model]); ?>
+<?= $this->render('_form', ['model' => $model]); ?>
 

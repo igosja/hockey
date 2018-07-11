@@ -19,4 +19,4 @@ use yii\helpers\Html;
         <?= Html::a('View', ['view', 'id' => $model->news_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
-<?php $this->render('_form', ['model' => $model]); ?>
+<?= $this->render('_form', ['model' => $model]); ?>
