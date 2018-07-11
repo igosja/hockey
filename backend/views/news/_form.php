@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <?= $form->field($model, 'news_title')->textInput(); ?>
         <?= $form->field($model, 'news_text')->textarea(['rows' => 10]); ?>
         <div class="form-group">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-default']); ?>
             </div>
         </div>

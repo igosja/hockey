@@ -56,6 +56,7 @@ class News extends ActiveRecord
             'news_id' => 'ID',
             'news_date' => 'Date',
             'news_title' => 'Title',
+            'news_text' => 'Text',
         ];
     }
 
