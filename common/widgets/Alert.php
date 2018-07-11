@@ -26,6 +26,8 @@ use yii\base\Widget;
  */
 class Alert extends Widget
 {
+    public $options;
+
     /**
      * @var array the alert types configuration for the flash messages.
      * This array is setup as $key => $value, where:
