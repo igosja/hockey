@@ -6,6 +6,7 @@ use common\widgets\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
 
@@ -44,11 +45,13 @@ AppAsset::register($this);
 
     $menuItems = [
         [
-            'label' => '<i class="fa fa-bell-o fa-fw"></i> <span class="badge" id="admin-bell"></span>',
+            'label' => '<i class="fa fa-bell-o fa-fw"></i> <span class="badge" id="admin-bell" data-url="'
+                . Url::to(['bell/index'])
+                . '"></span>',
             'items' => [
                 [
                     'label' => '<i class="fa fa-user fa-fw"></i> Team Requests
-                                <span class="badge admin-team-ask"></span>',
+                                <span class="badge"></span>',
                     'url' => ['team-request/index'],
                 ],
                 [

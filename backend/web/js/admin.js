@@ -1,12 +1,4 @@
 jQuery(document).ready(function () {
-    var element_id_filter = $('#filters');
-    element_id_filter.find('input').on('change', function () {
-        $(this).parents('form').submit();
-    });
-    element_id_filter.find('select').on('change', function () {
-        $(this).parents('form').submit();
-    });
-
     admin_bell();
 
     if ($('#admin-bell').length) {
@@ -22,9 +14,9 @@ function admin_bell() {
         success: function (data) {
             $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
-                $('title').text('(' + data.bell + ') Административный раздел');
+                $('title').text('(' + data.bell + ') Admin');
             } else {
-                $('title').text('Административный раздел');
+                $('title').text('Admin');
             }
 
             $('.admin-support').html(data.support);
@@ -32,13 +24,6 @@ function admin_bell() {
                 $('.panel-support').show();
             } else {
                 $('.panel-support').hide();
-            }
-
-            $('.admin-teamask').html(data.teamask);
-            if (data.teamask > 0) {
-                $('.panel-teamask').show();
-            } else {
-                $('.panel-teamask').hide();
             }
 
             $('.admin-vote').html(data.vote);
@@ -55,15 +40,15 @@ function admin_bell() {
                 $('.panel-logo').hide();
             }
 
-            $('.admin-complain').html(data.complain);
+            $('.admin-complaint').html(data.complaint);
             if (data.complain > 0) {
-                $('.panel-complain').show();
+                $('.panel-complaint').show();
             } else {
-                $('.panel-complain').hide();
+                $('.panel-complaint').hide();
             }
 
-            $('.admin-freeteam').html(data.freeteam);
+            $('.admin-freeTeam').html(data.freeTeam);
         },
-        url: '/admin/json/bell.php'
+        url: $('#admin-bell').data('url')
     });
 }

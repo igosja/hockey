@@ -39,7 +39,7 @@ use yii\helpers\Html;
                         <i class="fa fa-dribbble fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge admin-freeteam"><?= $freeTeam; ?></div>
+                        <div class="huge admin-freeTeam"><?= $freeTeam; ?></div>
                         <div>Free teams</div>
                     </div>
                 </div>
