@@ -6,6 +6,7 @@ use backend\models\NewsSearch;
 use common\components\ErrorHelper;
 use common\models\News;
 use Exception;
+use Throwable;
 use Yii;
 
 /**
@@ -33,12 +34,44 @@ class NewsController extends BaseController
 
     public function actionCreate()
     {
+        $model = new News();
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Record saved');
+
+            return $this->redirect(['view', 'id' => $model->news_id]);
+        }
+
+        $this->view->title = 'Create news';
+        $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     public function actionUpdate($id)
     {
+        $model = News::findOne($id);
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Record saved');
+
+            return $this->redirect(['view', 'id' => $model->news_id]);
+        }
+
+        $this->view->title = 'Update news';
+        $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+        $this->view->params['breadcrumbs'][] = [
+            'label' => $model->news_title,
+            'url' => ['view', 'id' => $model->news_id]
+        ];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -66,6 +99,24 @@ class NewsController extends BaseController
 
     public function actionDelete($id)
     {
+        $model = News::find()->where(['news_id' => $id])->one();
 
+        try {
+            $this->notFound($model);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        try {
+            if ($model->delete()) {
+                Yii::$app->session->setFlash('success', 'Record saved');
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $this->redirect(['index']);
     }
 }

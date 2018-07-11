@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var \common\models\News $model
+ * @var \yii\web\View $this
  */
 
 ?>

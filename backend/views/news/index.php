@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \backend\models\NewsSearch $searchModel
+ * @var \yii\web\View $this
  */
 
 ?>
