@@ -1,5 +1,6 @@
 <?php
 
+use common\components\ErrorHelper;
 use yii\widgets\ListView;
 
 /**
@@ -12,6 +13,15 @@ use yii\widgets\ListView;
             <h1>News</h1>
         </div>
     </div>
-<?= ListView::widget([
-    'dataProvider' => $dataProvider,
-]); ?>
+<?php
+
+try {
+    ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_item',
+    ]);
+} catch (Exception $e) {
+    ErrorHelper::log($e);
+}
+
+?>

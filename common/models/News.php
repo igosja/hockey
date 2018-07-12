@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $news_user_id
  *
  * @property Country $country
+ * @property NewsComment $newsComment
  * @property User $user
  */
 class News extends ActiveRecord
@@ -83,6 +84,14 @@ class News extends ActiveRecord
     public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'news_country_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNewsComment(): ActiveQuery
+    {
+        return $this->hasMany(NewsComment::class, ['news_comment_news_id' => 'news_id']);
     }
 
     /**

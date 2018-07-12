@@ -81,12 +81,7 @@ class NewsController extends BaseController
     public function actionView(int $id): string
     {
         $model = News::find()->where(['news_id' => $id])->one();
-
-        try {
-            $this->notFound($model);
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
+        $this->notFound($model);
 
         $this->view->title = $model->news_title;
         $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
@@ -100,12 +95,7 @@ class NewsController extends BaseController
     public function actionDelete($id)
     {
         $model = News::find()->where(['news_id' => $id])->one();
-
-        try {
-            $this->notFound($model);
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
+        $this->notFound($model);
 
         try {
             if ($model->delete()) {
