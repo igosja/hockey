@@ -33,7 +33,7 @@ class NewsController extends BaseController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 1,//News::PAGE_LIMIT,
+                'pageSize' => News::PAGE_LIMIT,
             ],
         ]);
 
