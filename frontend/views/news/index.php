@@ -16,7 +16,7 @@ use yii\widgets\ListView;
 <?php
 
 try {
-    ListView::widget([
+    print ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => '_item',
     ]);
