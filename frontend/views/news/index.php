@@ -20,7 +20,6 @@ use yii\widgets\ListView;
         print ListView::widget([
             'dataProvider' => $dataProvider,
             'itemView' => '_item',
-            'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12'],
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);

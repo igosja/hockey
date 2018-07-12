@@ -12,9 +12,6 @@ return [
     'bootstrap' => ['log'],
     'container' => [
         'definitions' => [
-            \yii\widgets\LinkPager::class => [
-                'class' => \common\widgets\LinkPager::class,
-            ],
             \yii\grid\GridView::class => [
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
                 'pager' => [
@@ -26,6 +23,20 @@ return [
                     'pageCssClass' => 'btn pagination',
                 ],
                 'tableOptions' => ['class' => 'table table-bordered table-hover'],
+            ],
+            \yii\widgets\ListView::class => [
+                'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12'],
+                'pager' => [
+                    'activePageCssClass' => 'btn',
+                    'options' => [
+                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center margin-top-small',
+                        'tag' => 'div',
+                    ],
+                    'pageCssClass' => 'btn pagination',
+                ],
+            ],
+            \yii\widgets\LinkPager::class => [
+                'class' => \common\widgets\LinkPager::class,
             ],
         ],
     ],
