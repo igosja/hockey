@@ -75,8 +75,9 @@ class NewsController extends BaseController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id): string
     {

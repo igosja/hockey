@@ -16,7 +16,7 @@ use yii\helpers\Html;
         <?php
 
         try {
-            Yii::$app->formatter->asDatetime($model->news_date);
+            print Yii::$app->formatter->asDatetime($model->news_date);
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
