@@ -57,14 +57,14 @@
             position: new google.maps.LatLng(49.987885, 36.231571), //Харків
             map: map
         });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(50.328045, 26.521886), //Острог
-//        map: map
-//    });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(50.619169, 26.252130), //Рівне
-//        map: map
-//    });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(50.328045, 26.521886), //Острог
+            map: map
+        });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(50.619169, 26.252130), //Рівне
+            map: map
+        });
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(48.689164, 26.579659), //Кам'янець-Подільський
             map: map
