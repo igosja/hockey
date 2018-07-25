@@ -36,7 +36,7 @@ function f_igosja_generator_set_free_player_on_transfer()
                            `player_price`
                     FROM `player`
                     WHERE `player_team_id`=0
-                    AND `player_rent_team_id`=0
+                    AND player_loan_team_id=0
                     AND `player_school_id`!=0
                     AND `player_position_id`=$position_id
                     AND `player_transfer_on`=0

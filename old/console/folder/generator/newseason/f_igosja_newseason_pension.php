@@ -94,8 +94,8 @@ function f_igosja_newseason_pension()
             SET `player_line_id`=0,
                 `player_national_line_id`=0,
                 `player_order`=0,
-                `player_rent_day`=0,
-                `player_rent_team_id`=0,
+                player_loan_day=0,
+                player_loan_team_id=0,
                 `player_team_id`=0
             WHERE `player_age`>=40
             AND `player_team_id`!=0";

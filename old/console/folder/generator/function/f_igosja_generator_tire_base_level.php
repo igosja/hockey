@@ -25,7 +25,7 @@ function f_igosja_generator_tire_base_level()
                 ON `team_basemedical_id`=`basemedical_id`
                 SET `player_tire`=`basemedical_tire`
                 WHERE `player_team_id`!=0
-                AND `player_rent_team_id`=0
+                AND player_loan_team_id=0
                 AND `team_id` NOT IN (
                     SELECT `buildingbase_team_id`
                     FROM `buildingbase`
@@ -39,7 +39,7 @@ function f_igosja_generator_tire_base_level()
                 ON `player_team_id`=`team_id`
                 SET `player_tire`=50
                 WHERE `player_team_id`!=0
-                AND `player_rent_team_id`=0
+                AND player_loan_team_id=0
                 AND `team_id` IN (
                     SELECT `buildingbase_team_id`
                     FROM `buildingbase`
@@ -50,12 +50,12 @@ function f_igosja_generator_tire_base_level()
 
         $sql = "UPDATE `player`
                 LEFT JOIN `team`
-                ON `player_rent_team_id`=`team_id`
+                ON player_loan_team_id=`team_id`
                 LEFT JOIN `basemedical`
                 ON `team_basemedical_id`=`basemedical_id`
                 SET `player_tire`=`basemedical_tire`
                 WHERE `player_team_id`!=0
-                AND `player_rent_team_id`!=0
+                AND player_loan_team_id!=0
                 AND `team_id` NOT IN (
                     SELECT `buildingbase_team_id`
                     FROM `buildingbase`
@@ -66,10 +66,10 @@ function f_igosja_generator_tire_base_level()
 
         $sql = "UPDATE `player`
                 LEFT JOIN `team`
-                ON `player_rent_team_id`=`team_id`
+                ON player_loan_team_id=`team_id`
                 SET `player_tire`=50
                 WHERE `player_team_id`!=0
-                AND `player_rent_team_id`!=0
+                AND player_loan_team_id!=0
                 AND `team_id` IN (
                     SELECT `buildingbase_team_id`
                     FROM `buildingbase`

@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Player
@@ -16,9 +17,11 @@ use yii\db\ActiveRecord;
  * @property integer $player_date_rookie
  * @property integer $player_game_row
  * @property integer $player_game_row_old
- * @property integer $player_injury
  * @property integer $player_injury_day
  * @property integer $player_squad_id
+ * @property integer $player_loan_day
+ * @property integer $player_loan_on
+ * @property integer $player_loan_team_id
  * @property integer $player_mood_id
  * @property integer $player_name_id
  * @property integer $player_national_id
@@ -33,9 +36,6 @@ use yii\db\ActiveRecord;
  * @property integer $player_power_old
  * @property integer $player_power_real
  * @property integer $player_price
- * @property integer $player_rent_day
- * @property integer $player_rent_on
- * @property integer $player_rent_team_id
  * @property integer $player_rookie
  * @property integer $player_salary
  * @property integer $player_school_id
@@ -46,10 +46,19 @@ use yii\db\ActiveRecord;
  * @property integer $player_training_ability
  * @property integer $player_transfer_on
  *
+ * @property Country $country
+ * @property Name $name
  * @property Physical $physical
+ * @property PlayerPosition[] $playerPosition
+ * @property PlayerSpecial[] $playerSpecial
+ * @property StatisticPlayer $statisticPlayer
+ * @property Style $style
+ * @property Surname $surname
  */
 class Player extends ActiveRecord
 {
+    const AGE_READY_FOR_PENSION = 39;
+
     /**
      * @return string
      */
@@ -73,8 +82,10 @@ class Player extends ActiveRecord
                     'player_date_rookie',
                     'player_game_row',
                     'player_game_row_old',
-                    'player_injury',
                     'player_injury_day',
+                    'player_loan_day',
+                    'player_loan_on',
+                    'player_loan_team_id',
                     'player_mood_id',
                     'player_name_id',
                     'player_national_id',
@@ -89,9 +100,6 @@ class Player extends ActiveRecord
                     'player_power_old',
                     'player_power_real',
                     'player_price',
-                    'player_rent_day',
-                    'player_rent_on',
-                    'player_rent_team_id',
                     'player_rookie',
                     'player_salary',
                     'player_school_id',
@@ -168,10 +176,172 @@ class Player extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function playerName(): string
+    {
+        return $this->name->name_name . ' ' . $this->surname->surname_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconInjury(): string
+    {
+        $result = '';
+        if ($this->player_injury_day) {
+            $result = ' <i class="fa fa-ambulance" title="Injured for ' . $this->player_injury_day . ' days"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconDeal(): string
+    {
+        $result = '';
+        if (in_array(1, [$this->player_loan_on, $this->player_transfer_on])) {
+            $result = ' <i class="fa fa-usd" title="For sale/loan"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconNational(): string
+    {
+        $result = '';
+        if ($this->player_national_id) {
+            $result = ' <i class="fa fa-flag" title="National team player"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconPension(): string
+    {
+        $result = '';
+        if (self::AGE_READY_FOR_PENSION == $this->player_age) {
+            $result = ' <i class="fa fa-bed" title="Completes his career at the end of the season"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconStyle(): string
+    {
+        return Html::img(
+            '/img/style/' . $this->style->style_id . '.png',
+            [
+                'alt' => $this->style->style_name,
+                'title' => $this->style->style_name,
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function iconTraining(): string
+    {
+        $result = '';
+        if (self::AGE_READY_FOR_PENSION == $this->player_age) {
+            $result = ' <i class="fa fa-caret-square-o-up " title="On training"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function position(): string
+    {
+        $result = [];
+        foreach ($this->playerPosition as $position) {
+            $result[] = $position->position->position_name;
+        }
+        return implode('/', $result);
+    }
+
+    /**
+     * @return string
+     */
+    public function special(): string
+    {
+        $result = [];
+        foreach ($this->playerSpecial as $special) {
+            $result[] = $special->special->special_name . $special->player_special_level;
+        }
+        return implode('', $result);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'player_country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getName(): ActiveQuery
+    {
+        return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getPhysical(): ActiveQuery
     {
         return $this->hasOne(Physical::class, ['physical_id' => 'player_physical_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayerPosition(): ActiveQuery
+    {
+        return $this->hasMany(PlayerPosition::class, ['player_position_player_id' => 'player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayerSpecial(): ActiveQuery
+    {
+        return $this->hasMany(PlayerSpecial::class, ['player_special_player_id' => 'player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStatisticPlayer(): ActiveQuery
+    {
+        return $this->hasOne(StatisticPlayer::class, ['statistic_player_player_id' => 'player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyle(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'player_style_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSurname(): ActiveQuery
+    {
+        return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id']);
     }
 }

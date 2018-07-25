@@ -5,6 +5,7 @@
  * @var $this \yii\web\View
  */
 
+use common\components\ErrorHelper;
 use common\widgets\Menu;
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
@@ -61,14 +62,22 @@ AppAsset::register($this);
                                     </option>
                                 <?php } ?>
                             </select>
-                            <a href="/logout.php" class="btn margin">Выйти</a>
+                            <?= Html::a('Log out', ['site/logout'], ['class' => 'btn margin']); ?>
                         </form>
                     <?php endif; ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 text-center menu">
-                    <?= Menu::widget(); ?>
+                    <?php
+
+                    try {
+                        print Menu::widget();
+                    } catch (Exception $e) {
+                        ErrorHelper::log($e);
+                    }
+
+                    ?>
                 </div>
             </div>
             <noscript>

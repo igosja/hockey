@@ -25,9 +25,9 @@ $sql = "SELECT `country_id`,
                `player_power_nominal`,
                `player_power_real`,
                `player_price`,
-               `player_rent_day`,
-               `player_rent_on`,
-               `player_rent_team_id`,
+               player_loan_day,
+               player_loan_on,
+               player_loan_team_id,
                `player_salary`,
                `player_style_id`,
                `player_tire`,
@@ -49,7 +49,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `team`
         ON `player_team_id`=`team_id`
         LEFT JOIN `team` AS `rent_team`
-        ON `player_rent_team_id`=`rent_team`.`team_id`
+        ON player_loan_team_id=`rent_team`.`team_id`
         WHERE `player_id`=$num_get
         LIMIT 1";
 $player_sql = f_igosja_mysqli_query($sql);

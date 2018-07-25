@@ -114,6 +114,7 @@ use yii\db\ActiveRecord;
  *
  * @property National $nationalGuest
  * @property National $nationalHome
+ * @property Schedule $schedule
  * @property Team $teamGuest
  * @property Team $teamHome
  */
@@ -264,6 +265,14 @@ class Game extends ActiveRecord
     public function getNationalHome(): ActiveQuery
     {
         return $this->hasOne(National::class, ['national_id' => 'game_home_national_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSchedule(): ActiveQuery
+    {
+        return $this->hasOne(Schedule::class, ['schedule_id' => 'game_schedule_id']);
     }
 
     /**

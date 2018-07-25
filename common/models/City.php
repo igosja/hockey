@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property string $city_name
  *
  * @property Country $country
+ * @property Stadium[] $stadium
  */
 class City extends ActiveRecord
 {
@@ -39,8 +40,19 @@ class City extends ActiveRecord
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
     public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'city_country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStadium(): ActiveQuery
+    {
+        return $this->hasMany(Stadium::class, ['stadium_city_id' => 'stadium_id']);
     }
 }

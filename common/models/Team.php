@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Team
@@ -47,7 +49,12 @@ use yii\db\ActiveRecord;
  * @property integer $team_vice_id
  * @property integer $team_visitor
  *
+ * @property Base $base
+ * @property Championship $championship
+ * @property Conference $conference
+ * @property User $manager
  * @property Stadium $stadium
+ * @property User $vice
  */
 class Team extends ActiveRecord
 {
@@ -331,10 +338,94 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function logo(): string
+    {
+        $result = 'Add logo';
+        if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png')) {
+            $result = Html::img(
+                '/img/team/125/' . $this->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png'),
+                [
+                    'alt' => $this->team_name,
+                    'class' => 'team-logo',
+                    'title' => $this->team_name,
+                ]
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function division(): string
+    {
+        if ($this->championship) {
+            $result = Html::a(
+                $this->championship->country->country_name . ', ' .
+                $this->championship->division->division_name . ', ' .
+                $this->championship->championship_place . ' place',
+                [
+                    'championship',
+                    'country_id' => $this->championship->country->country_id,
+                    'division_id' => $this->championship->division->division_id,
+                ]
+            );
+        } else {
+            $result = Html::a(
+                $result = 'Conference, ' . $this->conference->conference_place . ' place',
+                ['conference/table']
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBase(): ActiveQuery
+    {
+        return $this->hasOne(Base::class, ['base_id' => 'team_base_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getChampionship(): ActiveQuery
+    {
+        return $this->hasOne(Championship::class, ['championship_team_id' => 'team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getConference(): ActiveQuery
+    {
+        return $this->hasOne(Conference::class, ['conference_team_id' => 'team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getManager(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'team_user_id']);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getStadium(): ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVice(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'team_vice_id']);
     }
 }

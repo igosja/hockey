@@ -16,7 +16,7 @@ $review_sql = f_igosja_mysqli_query($sql);
 
 if (0 == $review_sql->num_rows)
 {
-    redirect('/admin/index.php');
+    redirect('/admin/team.php');
 }
 
 $review_array = $review_sql->fetch_all(MYSQLI_ASSOC);

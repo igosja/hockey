@@ -48,4 +48,4 @@ foreach ($team_array as $team)
     f_igosja_mysqli_query($sql);
 }
 
-redirect('/admin/index.php');
+redirect('/admin/team.php');

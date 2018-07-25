@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
+use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -216,5 +219,77 @@ class User extends ActiveRecord implements IdentityInterface
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function iconVip(): string
+    {
+        $result = '';
+        if ($this->user_date_vip > time()) {
+            $result = ' <i aria-hidden="true" class="fa fa-star" title="VIP"></i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function fullName(): string
+    {
+        $result = 'New Manager';
+        if ($this->user_name || $this->user_surname) {
+            $result = $this->user_name . ' ' . $this->user_surname;
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function lastVisit(): string
+    {
+        $date = $this->user_date_login;
+        $min_5 = $date + 5 * 60;
+        $min_60 = $date + 60 * 60;
+        $now = time();
+
+        if ($min_5 >= $now) {
+            $date = '<span class="red">online</span>';
+        } elseif ($min_60 >= $now) {
+            $difference = $now - $date;
+            $difference = $difference / 60;
+            $difference = round($difference, 0);
+            $date = $difference . ' min ago';
+        } elseif (0 == $date) {
+            $date = '-';
+        } else {
+            try {
+                $date = Yii::$app->formatter->asDatetime($date);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $date = '-';
+            }
+        }
+
+        return $date;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canDialog(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        if (!$this->user_id) {
+            return false;
+        }
+        if ($this->user_id == Yii::$app->user->id) {
+            return false;
+        }
+        return true;
     }
 }

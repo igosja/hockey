@@ -148,7 +148,7 @@ function f_igosja_generator_fill_lineup()
                                     ) AS `t`
                                     ON `player_id`=`lineup_player_id`
                                     WHERE `player_team_id`=0
-                                    AND `player_rent_team_id`=0
+                                    AND player_loan_team_id=0
                                     AND `player_injury`=0
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_age`<40
@@ -178,8 +178,8 @@ function f_igosja_generator_fill_lineup()
                                     ) AS `t`
                                     ON `player_id`=`lineup_player_id`
                                     WHERE ((`player_team_id`=$team_id
-                                    AND `player_rent_team_id`=0)
-                                    OR `player_rent_team_id`=$team_id)
+                                    AND player_loan_team_id=0)
+                                    OR player_loan_team_id=$team_id)
                                     AND `playerposition_position_id`=$position_id
                                     AND `player_tire`<60
                                     AND `player_injury`=0

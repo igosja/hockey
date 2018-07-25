@@ -21,7 +21,7 @@ use yii\helpers\Html;
             <?php
 
             try {
-                Yii::$app->formatter->asDatetime($schedule->schedule_date);
+                print Yii::$app->formatter->asDatetime($schedule->schedule_date);
             } catch (Exception $e) {
                 ErrorHelper::log($e);
             }
@@ -49,7 +49,9 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'value' => function (Game $model) {
                     return Html::a(
-                        HockeyHelper::formatScore($model->game_home_score, $model->game_guest_score,
+                        HockeyHelper::formatScore(
+                            $model->game_home_score,
+                            $model->game_guest_score,
                             $model->game_played),
                         ['game/view', 'id' => $model->game_id]
                     );

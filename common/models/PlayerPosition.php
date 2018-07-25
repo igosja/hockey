@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -11,6 +12,8 @@ use yii\db\ActiveRecord;
  * @property integer $player_position_id
  * @property integer $player_position_player_id
  * @property integer $player_position_position_id
+ *
+ * @property Position $position
  */
 class PlayerPosition extends ActiveRecord
 {
@@ -33,5 +36,13 @@ class PlayerPosition extends ActiveRecord
             [['player_position_id'], 'integer'],
             [['player_position_player_id', 'player_position_position_id'], 'required'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPosition(): ActiveQuery
+    {
+        return $this->hasOne(Position::class, ['position_id' => 'player_position_position_id']);
     }
 }

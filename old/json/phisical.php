@@ -34,7 +34,7 @@ if ($phisical_id = (int) f_igosja_request_get('phisical_id'))
             FROM `player`
             WHERE `player_id`=$player_id
             AND `player_team_id`=$auth_team_id
-            AND `player_rent_team_id`=0";
+            AND player_loan_team_id=0";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);

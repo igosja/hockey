@@ -48,7 +48,7 @@ use yii\helpers\Html;
                         <?php
 
                         try {
-                            Yii::$app->formatter->asDatetime($item->schedule_date);
+                            print Yii::$app->formatter->asDatetime($item->schedule_date);
                         } catch (Exception $e) {
                             ErrorHelper::log($e);
                         }

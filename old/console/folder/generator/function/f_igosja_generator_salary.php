@@ -21,8 +21,8 @@ function f_igosja_generator_salary()
         $sql = "SELECT SUM(`player_salary`) AS `salary`
                 FROM `player`
                 WHERE (`player_team_id`=$team_id
-                AND `player_rent_team_id`=0)
-                OR `player_rent_team_id`=$team_id";
+                AND player_loan_team_id=0)
+                OR player_loan_team_id=$team_id";
         $salary_sql = f_igosja_mysqli_query($sql);
 
         $salary_array = $salary_sql->fetch_all(MYSQLI_ASSOC);

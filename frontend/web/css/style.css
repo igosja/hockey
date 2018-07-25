@@ -638,8 +638,10 @@ form {
     margin-bottom: 10px;
 }
 
-th {
+th,
+tfoot td {
     font-weight: bold;
+    text-align: center;
 }
 
 .table {
@@ -650,7 +652,9 @@ th {
 }
 
 .table th,
-.table th a {
+.table th a,
+.table tfoot td,
+.table tfoot td a {
     background-color: #286090;
     color: #f0f0f0;
 }

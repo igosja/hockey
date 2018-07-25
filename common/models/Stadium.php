@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $stadium_name
  *
  * @property City $city
+ * @property Team[] $team
  */
 class Stadium extends ActiveRecord
 {
@@ -70,5 +71,13 @@ class Stadium extends ActiveRecord
     public function getCity(): ActiveQuery
     {
         return $this->hasOne(City::class, ['city_id' => 'stadium_city_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id']);
     }
 }

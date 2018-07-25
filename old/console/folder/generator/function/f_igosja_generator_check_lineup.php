@@ -19,8 +19,8 @@ function f_igosja_generator_check_lineup()
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 ORDER BY `game_id` ASC
             )
-            AND ((`lineup_team_id`!=`player_team_id` AND `player_rent_team_id`=0)
-            OR (`lineup_team_id`!=`player_rent_team_id` AND `player_rent_team_id`!=0))
+            AND ((`lineup_team_id`!=`player_team_id` AND player_loan_team_id=0)
+            OR (`lineup_team_id`!=player_loan_team_id AND player_loan_team_id!=0))
             AND `lineup_team_id`!=0";
     f_igosja_mysqli_query($sql);
 

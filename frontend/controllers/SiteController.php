@@ -98,24 +98,36 @@ class SiteController extends BaseController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionLogin(): string
+    public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['team/view']);
         }
 
         $model = new LoginForm();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['team/view']);
         } else {
             $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+
+        $this->view->title = 'Login';
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Login - Virtual Hockey Online League'
+        ]);
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -136,7 +148,8 @@ class SiteController extends BaseController
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success',
+                    'Thank you for contacting us. We will respond to you as soon as possible.');
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }

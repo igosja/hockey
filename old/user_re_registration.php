@@ -42,7 +42,7 @@ if ($data = f_igosja_request_get('ok'))
 
     $sql = "SELECT COUNT(`player_id`) AS `check`
             FROM `player`
-            WHERE `player_rent_team_id`=$auth_team_id";
+            WHERE player_loan_team_id=$auth_team_id";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -57,7 +57,7 @@ if ($data = f_igosja_request_get('ok'))
     $sql = "SELECT COUNT(`player_id`) AS `check`
             FROM `player`
             WHERE `player_team_id`=$auth_team_id
-            AND `player_rent_team_id`!=0";
+            AND player_loan_team_id!=0";
     $check_sql = f_igosja_mysqli_query($sql);
 
     $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -201,8 +201,8 @@ if ($data = f_igosja_request_get('ok'))
         $sql = "UPDATE `player`
                 SET `player_line_id`=0,
                     `player_national_line_id`=0,
-                    `player_rent_day`=0,
-                    `player_rent_team_id`=0,
+                    player_loan_day=0,
+                    player_loan_team_id=0,
                     `player_team_id`=0,
                     `player_order`=0
                 WHERE `player_id`=$player_id

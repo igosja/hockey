@@ -65,8 +65,8 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
-               `player_rent_on`,
-               `player_rent_team_id`,
+               player_loan_on,
+               player_loan_team_id,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
@@ -87,7 +87,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `style`
         ON `player_style_id`=`style_id`
         WHERE `player_team_id`=$num_get
-        AND `player_rent_team_id`=0
+        AND player_loan_team_id=0
         ORDER BY $order";
 $player_sql = f_igosja_mysqli_query($sql);
 
@@ -109,9 +109,9 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
-               `player_rent_day`,
-               `player_rent_on`,
-               `player_rent_team_id`,
+               player_loan_day,
+               player_loan_on,
+               player_loan_team_id,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
@@ -132,7 +132,7 @@ $sql = "SELECT `country_id`,
         LEFT JOIN `style`
         ON `player_style_id`=`style_id`
         WHERE `player_team_id`=$num_get
-        AND `player_rent_team_id`!=0
+        AND player_loan_team_id!=0
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_rent_out_sql = f_igosja_mysqli_query($sql);
 
@@ -154,9 +154,9 @@ $sql = "SELECT `country_id`,
                `player_power_old`,
                `player_power_real`,
                `player_price`,
-               `player_rent_day`,
-               `player_rent_on`,
-               `player_rent_team_id`,
+               player_loan_day,
+               player_loan_on,
+               player_loan_team_id,
                `player_team_id`,
                `player_tire`,
                `player_transfer_on`,
@@ -176,7 +176,7 @@ $sql = "SELECT `country_id`,
         ON `player_line_id`=`line_id`
         LEFT JOIN `style`
         ON `player_style_id`=`style_id`
-        WHERE `player_rent_team_id`=$num_get
+        WHERE player_loan_team_id=$num_get
         AND `player_team_id`!=$num_get
         ORDER BY `player_position_id` ASC, `player_id` ASC";
 $player_rent_in_sql = f_igosja_mysqli_query($sql);

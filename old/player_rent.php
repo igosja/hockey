@@ -57,7 +57,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 f_igosja_mysqli_query($sql);
 
                 $sql = "UPDATE `player`
-                        SET `player_rent_on`=0
+                        SET player_loan_on=0
                         WHERE `player_id`=$num_get
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);
@@ -127,7 +127,7 @@ if (isset($auth_team_id) && $auth_team_id)
 
                 $sql = "SELECT COUNT(`player_id`) AS `check`
                         FROM `player`
-                        WHERE `player_rent_team_id`=$auth_team_id";
+                        WHERE player_loan_team_id=$auth_team_id";
                 $check_sql = f_igosja_mysqli_query($sql);
 
                 $check2_array = $check_sql->fetch_all(MYSQLI_ASSOC);
@@ -304,7 +304,7 @@ if (isset($auth_team_id) && $auth_team_id)
                 f_igosja_mysqli_query($sql);
 
                 $sql = "UPDATE `player`
-                        SET `player_rent_on`=1
+                        SET player_loan_on=1
                         WHERE `player_id`=$num_get
                         LIMIT 1";
                 f_igosja_mysqli_query($sql);

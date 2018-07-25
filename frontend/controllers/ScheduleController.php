@@ -82,6 +82,9 @@ class ScheduleController extends BaseController
         }
 
         $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Game::PAGE_LIMIT,
+            ],
             'query' => Game::find()
                 ->with([
                     'nationalHome' => function (ActiveQuery $query): ActiveQuery {
@@ -139,9 +142,6 @@ class ScheduleController extends BaseController
                 ])
                 ->where(['game_schedule_id' => $id])
                 ->orderBy(['game_id' => SORT_DESC]),
-            'pagination' => [
-                'pageSize' => Game::PAGE_LIMIT,
-            ],
         ]);
 
         $this->view->title = 'Game list';//'Список матчей игрового дня. ' . f_igosja_ufu_date($schedule_array[0]['schedule_date']);

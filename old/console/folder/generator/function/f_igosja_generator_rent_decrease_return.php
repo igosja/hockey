@@ -6,9 +6,9 @@
 function f_igosja_generator_rent_decrease_return()
 {
     $sql = "UPDATE `player`
-            SET `player_rent_day`=`player_rent_day`-1
-            WHERE `player_rent_day`>0
-            AND `player_rent_team_id`!=0";
+            SET player_loan_day=player_loan_day-1
+            WHERE player_loan_day>0
+            AND player_loan_team_id!=0";
     f_igosja_mysqli_query($sql);
 
     $sql = "SELECT `buyer`.`team_id` AS `buyer_team_id`,
@@ -20,9 +20,9 @@ function f_igosja_generator_rent_decrease_return()
             LEFT JOIN `team` AS `seller`
             ON `player_team_id`=`seller`.`team_id`
             LEFT JOIN `team` AS `buyer`
-            ON `player_rent_team_id`=`buyer`.`team_id`
-            WHERE `player_rent_day`<=0
-            AND `player_rent_team_id`!=0
+            ON player_loan_team_id=`buyer`.`team_id`
+            WHERE player_loan_day<=0
+            AND player_loan_team_id!=0
             ORDER BY `player_id` ASC";
     $player_sql = f_igosja_mysqli_query($sql);
 
@@ -33,7 +33,7 @@ function f_igosja_generator_rent_decrease_return()
         $player_id = $item['player_id'];
 
         $sql = "UPDATE `player`
-                SET `player_rent_team_id`=0
+                SET player_loan_team_id=0
                 WHERE `player_id`=$player_id
                 LIMIT 1";
         f_igosja_mysqli_query($sql);
