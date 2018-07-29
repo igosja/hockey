@@ -127,7 +127,7 @@ $nearest = Game::find()
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             Base: <span class="strong"><?= $team->base->base_level; ?></span> level
-                            (<span class="strong"><?= 0; ?></span>
+                            (<span class="strong"><?= $team->baseUsed(); ?></span>
                             of
                             <span class="strong"><?= $team->base->base_slot_max; ?></span> slots)
                         </div>

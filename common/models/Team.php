@@ -50,6 +50,11 @@ use yii\helpers\Html;
  * @property integer $team_visitor
  *
  * @property Base $base
+ * @property BaseMedical $baseMedical
+ * @property BasePhysical $basePhysical
+ * @property BaseSchool $baseSchool
+ * @property BaseScout $baseScout
+ * @property BaseTraining $baseTraining
  * @property Championship $championship
  * @property Conference $conference
  * @property User $manager
@@ -382,11 +387,63 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @return integer
+     */
+    public function baseUsed(): int
+    {
+        return $this->baseMedical->base_medical_level
+            + $this->basePhysical->base_physical_level
+            + $this->baseSchool->base_school_level
+            + $this->baseScout->base_scout_level
+            + $this->baseTraining->base_training_level;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBase(): ActiveQuery
     {
         return $this->hasOne(Base::class, ['base_id' => 'team_base_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBaseMedical(): ActiveQuery
+    {
+        return $this->hasOne(BaseMedical::class, ['base_medical_id' => 'team_base_medical_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBasePhysical(): ActiveQuery
+    {
+        return $this->hasOne(BasePhysical::class, ['base_physical_id' => 'team_base_physical_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBaseSchool(): ActiveQuery
+    {
+        return $this->hasOne(BaseSchool::class, ['base_school_id' => 'team_base_school_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBaseScout(): ActiveQuery
+    {
+        return $this->hasOne(BaseScout::class, ['base_scout_id' => 'team_base_scout_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBaseTraining(): ActiveQuery
+    {
+        return $this->hasOne(BaseTraining::class, ['base_training_id' => 'team_base_training_id']);
     }
 
     /**

@@ -152,9 +152,7 @@ print $this->render('_teamTop');
                 'contentOptions' => ['class' => 'hidden-xs text-right'],
                 'footer' => 'Price',
                 'value' => function (Player $model) {
-                    return Yii::$app->formatter->asCurrency($model->player_price, 'USD', [
-                        NumberFormatter::MIN_SIGNIFICANT_DIGITS => 0
-                    ]);
+                    return Yii::$app->formatter->asCurrency($model->player_price, 'USD');
                 }
             ],
             [

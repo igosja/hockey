@@ -4,8 +4,11 @@ namespace frontend\controllers;
 
 use common\models\Player;
 use common\models\Team;
+use common\models\TeamAsk;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\web\Response;
 
 /**
  * Class TeamController
@@ -52,10 +55,13 @@ class TeamController extends BaseController
 
     /**
      * @param integer $id
-     * @return string
+     * @return string|Response
      */
-    public function actionView(int $id): string
+    public function actionView(int $id = null)
     {
+        if (null === $id) {
+            return $this->redirect(['ask']);
+        }
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Player::find()
@@ -189,6 +195,145 @@ class TeamController extends BaseController
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param null $id
+     * @return string|Response
+     */
+    public function actionAsk($id = null)
+    {
+        if ($id) {
+            if (!Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->count()) {
+                Yii::$app->session->setFlash('error', 'The team was chosen incorrectly.');
+                return $this->redirect(['ask']);
+            }
+
+            if (TeamAsk::find()->where([
+                'team_ask_team_id' => $id,
+                'team_ask_user_id' => Yii::$app->user->id
+            ])->count()) {
+                Yii::$app->session->setFlash('error', 'You have already applied for this team.');
+                return $this->redirect(['ask']);
+            }
+
+            $model = new TeamAsk();
+            $model->team_ask_team_id = $id;
+            $model->save();
+
+            Yii::$app->session->setFlash('success', 'Application successfully submitted.');
+            return $this->redirect(['ask']);
+        }
+
+        $teamAskArray = TeamAsk::find()
+            ->with([
+                'team' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                },
+                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
+                },
+                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_country_id', 'city_id', 'city_name']);
+                },
+                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->select(['team_ask_id', 'team_ask_team_id'])
+            ->where(['team_ask_user_id' => Yii::$app->user->id])
+            ->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Team::find()
+                ->joinWith([
+                    'stadium' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
+                    },
+                    'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->with([
+                    'base' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_id', 'base_level', 'base_slot_max']);
+                    },
+                    'baseMedical' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_medical_id', 'base_medical_level']);
+                    },
+                    'basePhysical' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_physical_id', 'base_physical_level']);
+                    },
+                    'baseSchool' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_school_id', 'base_school_level']);
+                    },
+                    'baseScout' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_scout_id', 'base_scout_level']);
+                    },
+                    'baseTraining' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_training_id', 'base_training_level']);
+                    },
+                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['city_country_id', 'city_id', 'city_name']);
+                    },
+                ])
+                ->select([
+                    'team_id',
+                    'team_name',
+                    'team_power_vs',
+                    'team_base_id',
+                    'team_base_training_id',
+                    'team_base_scout_id',
+                    'team_base_school_id',
+                    'team_base_medical_id',
+                    'team_base_physical_id',
+                    'team_finance',
+                    'team_stadium_id',
+                ])
+                ->where(['!=', 'team_id', 0])
+                ->andWhere(['team_user_id' => 0]),
+            'sort' => [
+                'attributes' => [
+                    'base' => [
+                        'asc' => ['team_base_id' => SORT_ASC],
+                        'desc' => ['team_base_id' => SORT_DESC],
+                    ],
+                    'country' => [
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
+                    ],
+                    'finance' => [
+                        'asc' => ['team_finance' => SORT_ASC],
+                        'desc' => ['team_finance' => SORT_DESC],
+                    ],
+                    'stadium' => [
+                        'asc' => ['stadium_capacity' => SORT_ASC],
+                        'desc' => ['stadium_capacity' => SORT_DESC],
+                    ],
+                    'team' => [
+                        'asc' => ['team_name' => SORT_ASC],
+                        'desc' => ['team_name' => SORT_DESC],
+                    ],
+                    'vs' => [
+                        'asc' => ['team_power_vs' => SORT_ASC],
+                        'desc' => ['team_power_vs' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => ['vs' => SORT_DESC],
+            ],
+        ]);
+
+        $this->view->title = 'Getting the team';
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Getting the team - Virtual Hockey Online League'
+        ]);
+
+        return $this->render('ask', [
+            'dataProvider' => $dataProvider,
+            'teamAskArray' => $teamAskArray,
         ]);
     }
 }

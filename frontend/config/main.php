@@ -12,6 +12,11 @@ return [
     'bootstrap' => ['log'],
     'container' => [
         'definitions' => [
+            \yii\i18n\Formatter::class => [
+                'numberFormatterOptions' => [
+                    NumberFormatter::MIN_SIGNIFICANT_DIGITS => 0,
+                ],
+            ],
             \yii\grid\GridView::class => [
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
                 'pager' => [

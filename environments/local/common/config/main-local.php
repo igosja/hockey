@@ -4,8 +4,8 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=igosja_hockey',
-            'username' => 'igosja_hockey',
+            'dsn' => 'mysql:host=localhost;dbname=vhol',
+            'username' => 'vhol',
             'password' => 'zuI2QbJJ',
             'charset' => 'utf8',
         ],

@@ -251,7 +251,7 @@ class Menu extends Widget
             self::ITEM_ROSTER => [
                 'css' => 'red',
                 'label' => 'Roster',
-                'url' => ['roster/index'],
+                'url' => ['team/view'],
             ],
             self::ITEM_RULE => [
                 'label' => 'Rules',

@@ -6,6 +6,7 @@
  */
 
 use common\components\ErrorHelper;
+use common\widgets\AlertFront;
 use common\widgets\Menu;
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
@@ -39,13 +40,13 @@ AppAsset::register($this);
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
                     <?php if (Yii::$app->user->isGuest): ?>
-                        <?= Html::a('Log in', ['/site/login'], ['class' => 'btn']); ?>
+                        <?= Html::a('Log in', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
                         <form action="/team_view.php" class="form-inline" id="auth-team-form" method="post">
                             <label class="hidden" for="auth-team-select"></label>
                             <select class="form-control" id="auth-team-select" name="auth_team_id"
                                     onchange="this.form.submit();">
-                                <?php foreach ($auth_team_array as $item) { ?>
+                                <?php foreach ($auth_team_array = [] as $item) { ?>
                                     <option
                                         <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
                                         value="<?= $item['team_id']; ?>"
@@ -53,7 +54,7 @@ AppAsset::register($this);
                                         <?= $item['team_name']; ?> (<?= $item['country_name']; ?>)
                                     </option>
                                 <?php } ?>
-                                <?php foreach ($auth_team_vice_array as $item) { ?>
+                                <?php foreach ($auth_team_vice_array = [] as $item) { ?>
                                     <option
                                         <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
                                         value="<?= $item['team_id']; ?>"
@@ -88,6 +89,15 @@ AppAsset::register($this);
                     </div>
                 </div>
             </noscript>
+            <?php
+
+            try {
+                print AlertFront::widget();
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+            }
+
+            ?>
             <?php if (isset($_SESSION['frontend']['message'])) { ?>
                 <div class="row margin-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert <?= $_SESSION['frontend']['message']['class']; ?>">
