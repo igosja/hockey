@@ -226,6 +226,14 @@ class TeamController extends BaseController
             return $this->redirect(['ask']);
         }
 
+        $delete = Yii::$app->request->get('delete');
+        if ($delete) {
+            TeamAsk::deleteAll(['team_ask_id' => $delete, 'team_ask_user_id' => Yii::$app->user->id]);
+
+            Yii::$app->session->setFlash('success', 'Application successfully deleted.');
+            return $this->redirect(['ask']);
+        }
+
         $teamAskArray = TeamAsk::find()
             ->with([
                 'team' => function (ActiveQuery $query): ActiveQuery {

@@ -25,7 +25,7 @@ use Exception;
 use Yii;
 
 /**
- * Class BaseController
+ * Class StartController
  * @package console\controllers
  */
 class StartController extends BaseController
