@@ -30,6 +30,13 @@ return [
                 ],
             ],
         ],
+        'urlManager' => [
+            'baseUrl' => '/',
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'scriptUrl' => 'index.php',
+            'showScriptName' => false,
+        ]
     ],
     'id' => 'app-console',
     'params' => $params,

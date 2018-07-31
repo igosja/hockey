@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -59,6 +61,7 @@ use yii\helpers\Html;
  * @property Conference $conference
  * @property User $manager
  * @property Stadium $stadium
+ * @property TeamAsk[] $teamAsk
  * @property User $vice
  */
 class Team extends ActiveRecord
@@ -342,18 +345,36 @@ class Team extends ActiveRecord
         $this->save();
     }
 
+    /**
+     * @param $user_id
+     * @throws Exception
+     */
     public function managerEmploy($user_id)
     {
         $this->team_user_id = $user_id;
-        $this->save();
+        if (!$this->save()) {
+            throw new Exception(ErrorHelper::modelErrorsToString($this));
+        }
 
         History::log([
             'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_IN,
             'history_team_id' => $this->team_id,
             'history_user_id' => $user_id,
         ]);
+
+        Yii::$app->mailer->compose(
+            ['html' => 'default-html', 'text' => 'default-text'],
+            ['text' => 'Your application for team management is approved.']
+        )
+            ->setTo($this->manager->user_email)
+            ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+            ->setSubject('Getting the team on the Virtual Hockey League website')
+            ->send();
     }
 
+    /**
+     * @throws Exception
+     */
     public function managerFire()
     {
         $user_id = $this->team_user_id;
@@ -366,7 +387,9 @@ class Team extends ActiveRecord
         $this->team_attitude_president = 2;
         $this->team_attitude_u19 = 2;
         $this->team_attitude_u21 = 2;
-        $this->save();
+        if (!$this->save()) {
+            throw new Exception(ErrorHelper::modelErrorsToString($this));
+        }
 
         TransferApplication::deleteAll([
             'transfer_application_team_id' => $this->team_id,
@@ -551,6 +574,14 @@ class Team extends ActiveRecord
     public function getStadium(): ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeamAsk(): ActiveQuery
+    {
+        return $this->hasMany(TeamAsk::class, ['team_ask_team_id' => 'team_id']);
     }
 
     /**

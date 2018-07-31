@@ -1,12 +1,15 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $user common\models\User */
+/**
+ * @var common\models\User $model
+ */
 
-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
+use yii\helpers\Url;
+
+$link = Url::toRoute(['/site/activation', 'code' => $model->user_code], true);
+$page = Url::toRoute(['/site/activation'], true);
+
 ?>
-Hello <?= $user->username ?>,
-
-Follow the link below to reset your password:
-
-<?= $resetLink ?>
+    You are successfully registered on the Virtual Hockey League website under the <?= $model->user_login; ?> login
+    To complete the registration, please confirm your email by clicking <?= $link; ?>
+    or enter the <?= $model->user_code; ?> on the page <?= $page; ?>

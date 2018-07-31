@@ -128,8 +128,18 @@ use yii\helpers\Html;
                 'attribute' => 'vs',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Vs',
+                'headerOptions' => ['title' => 'Team power'],
                 'value' => function (Team $model) {
                     return $model->team_power_vs;
+                }
+            ],
+            [
+                'label' => 'NoA',
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'NoA',
+                'headerOptions' => ['title' => 'Number of applications'],
+                'value' => function (Team $model) {
+                    return count($model->teamAsk);
                 }
             ],
         ];

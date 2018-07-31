@@ -288,7 +288,7 @@ use yii\helpers\Url;
                                                             <td valign="top" class="imageContent">
                                                                 <?= Html::a(
                                                                     Html::img(
-                                                                        Url::home(true) . '/img/logo-letter.png',
+                                                                        Url::base(true) . '/img/logo-letter.png',
                                                                         [
                                                                             'alt' => 'Virtual Hockey League',
                                                                             'class' => 'flexibleImage',
@@ -296,9 +296,10 @@ use yii\helpers\Url;
                                                                                 'max-width' => '560px',
                                                                             ],
                                                                             'width' => 560,
-                                                                        ],
-                                                                        ['target' => '_blank']
-                                                                    )
+                                                                        ]
+                                                                    ),
+                                                                    Url::base(true),
+                                                                    ['target' => '_blank']
                                                                 ) ?>
                                                             </td>
                                                         </tr>
@@ -336,7 +337,7 @@ use yii\helpers\Url;
                                                                 <br/>
                                                                 <?= Html::a(
                                                                     'Virtual Hockey League',
-                                                                    Url::home('true'),
+                                                                    Url::base(true),
                                                                     ['target' => '_blank']
                                                                 ); ?>
                                                             </td>

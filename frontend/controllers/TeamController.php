@@ -2,9 +2,11 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\Player;
 use common\models\Team;
 use common\models\TeamAsk;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -199,8 +201,9 @@ class TeamController extends BaseController
     }
 
     /**
-     * @param null $id
+     * @param integer $id
      * @return string|Response
+     * @throws \yii\db\Exception
      */
     public function actionAsk($id = null)
     {
@@ -218,11 +221,20 @@ class TeamController extends BaseController
                 return $this->redirect(['ask']);
             }
 
-            $model = new TeamAsk();
-            $model->team_ask_team_id = $id;
-            $model->save();
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model = new TeamAsk();
+                $model->team_ask_team_id = $id;
+                if (!$model->save()) {
+                    throw new Exception(ErrorHelper::modelErrorsToString($model));
+                }
+                $transaction->commit();
+                Yii::$app->session->setFlash('success', 'Application successfully submitted.');
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+            }
 
-            Yii::$app->session->setFlash('success', 'Application successfully submitted.');
             return $this->redirect(['ask']);
         }
 
@@ -286,6 +298,9 @@ class TeamController extends BaseController
                     'stadium.city' => function (ActiveQuery $query): ActiveQuery {
                         return $query->select(['city_country_id', 'city_id', 'city_name']);
                     },
+                    'teamAsk' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['team_ask_team_id']);
+                    }
                 ])
                 ->select([
                     'team_id',

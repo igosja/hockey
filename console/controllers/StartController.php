@@ -658,7 +658,6 @@ class StartController extends BaseController
             foreach ($country['list'] as $item) {
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-
                     $name = Name::findOne(['name_name' => $item]);
                     if (!$name) {
                         $name = new Name();

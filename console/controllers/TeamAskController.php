@@ -2,10 +2,13 @@
 
 namespace console\controllers;
 
+use common\components\ErrorHelper;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\Team;
 use common\models\TeamAsk;
+use Exception;
+use Yii;
 use yii\db\Expression;
 use yii\db\Query;
 
@@ -17,8 +20,9 @@ class TeamAskController extends BaseController
 {
     /**
      * @return bool
+     * @throws \yii\db\Exception
      */
-    public function actionIndex()
+    public function actionIndex(): bool
     {
         $expression = new Expression('UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600');
         $teamAsk = (new Query())
@@ -51,14 +55,23 @@ class TeamAskController extends BaseController
             return false;
         }
 
-        if ($teamAsk['team_ask_leave_id']) {
-            Team::findOne($teamAsk['team_ask_leave_id'])->managerFire();
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($teamAsk['team_ask_leave_id']) {
+                Team::findOne($teamAsk['team_ask_leave_id'])->managerFire();
+            }
+
+            Team::findOne($teamAsk['team_ask_team_id'])->managerEmploy($teamAsk['team_ask_user_id']);
+
+            TeamAsk::deleteAll(['team_ask_team_id' => $teamAsk['team_ask_team_id']]);
+            TeamAsk::deleteAll(['team_ask_user_id' => $teamAsk['team_ask_user_id']]);
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollBack();
+            ErrorHelper::log($e);
+
+            return false;
         }
-
-        Team::findOne($teamAsk['team_ask_team_id'])->managerEmploy($teamAsk['team_ask_user_id']);
-
-        TeamAsk::deleteAll(['team_ask_team_id' => $teamAsk['team_ask_team_id']]);
-        TeamAsk::deleteAll(['team_ask_user_id' => $teamAsk['team_ask_user_id']]);
 
         return true;
     }

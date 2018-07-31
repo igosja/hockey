@@ -2,7 +2,6 @@
 
 /**
  * @var common\models\User $model
- * @var yii\web\View $this
  */
 
 use yii\helpers\Html;
@@ -12,6 +11,7 @@ $link = Url::toRoute(['/site/activation', 'code' => $model->user_code], true);
 $page = Url::toRoute(['/site/activation'], true);
 
 ?>
-You are successfully registered on the Virtual Hockey League website under the <strong><?= $model->user_login; ?></strong> login
-To complete the registration, please confirm your email by clicking <?= Html::a($link, $link); ?>
-or enter the <strong><?= $model->user_code; ?></strong> on the page <?= Html::a($page, $page); ?>
+    You are successfully registered on the Virtual Hockey League website
+    under the <strong><?= $model->user_login; ?></strong> login
+    To complete the registration, please confirm your email by clicking <?= Html::a($link, $link); ?>
+    or enter the <strong><?= $model->user_code; ?></strong> on the page <?= Html::a($page, $page); ?>
