@@ -33,7 +33,7 @@ class TransferComment extends ActiveRecord
         return [
             [['transfer_comment_transfer_id'], 'in', 'range' => Transfer::find()->select(['transfer_id'])->column()],
             [['transfer_comment_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['transfer_comment_id', '$transfer_comment_check', 'transfer_comment_date'], 'integer'],
+            [['transfer_comment_id', 'transfer_comment_check', 'transfer_comment_date'], 'integer'],
             [['transfer_comment_transfer_id', 'transfer_comment_text'], 'required'],
             [['transfer_comment_text'], 'safe'],
             [['transfer_comment_text'], 'trim'],

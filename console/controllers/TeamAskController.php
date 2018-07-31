@@ -4,6 +4,7 @@ namespace console\controllers;
 
 use common\models\History;
 use common\models\HistoryText;
+use common\models\Team;
 use common\models\TeamAsk;
 use yii\db\Expression;
 use yii\db\Query;
@@ -14,11 +15,14 @@ use yii\db\Query;
  */
 class TeamAskController extends BaseController
 {
+    /**
+     * @return bool
+     */
     public function actionIndex()
     {
         $expression = new Expression('UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600');
-        $query = (new Query())
-            ->select(['team_ask_id', 'team_ask_team_id', 'team_ask_user_id'])
+        $teamAsk = (new Query())
+            ->select(['team_ask_id', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'])
             ->from(TeamAsk::tableName())
             ->leftJoin(
                 [
@@ -37,5 +41,25 @@ class TeamAskController extends BaseController
             ->orderBy(['IFNULL(`count_history`, 0)' => SORT_ASC, 'team_ask_date' => SORT_ASC])
             ->limit(1)
             ->one();
+
+        if (!$teamAsk) {
+            return false;
+        }
+
+        if (!Team::find()->where(['team_id' => $teamAsk['team_ask_team_id'], 'team_user_id' => 0])->count()) {
+            TeamAsk::deleteAll(['team_ask_id' => $teamAsk['team_ask_id']]);
+            return false;
+        }
+
+        if ($teamAsk['team_ask_leave_id']) {
+            Team::findOne($teamAsk['team_ask_leave_id'])->managerFire();
+        }
+
+        Team::findOne($teamAsk['team_ask_team_id'])->managerEmploy($teamAsk['team_ask_user_id']);
+
+        TeamAsk::deleteAll(['team_ask_team_id' => $teamAsk['team_ask_team_id']]);
+        TeamAsk::deleteAll(['team_ask_user_id' => $teamAsk['team_ask_user_id']]);
+
+        return true;
     }
 }
