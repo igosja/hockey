@@ -1,18 +1,21 @@
 <?php
 
 /**
- * @var $content string
- * @var $this \yii\web\View
+ * @var string $content
+ * @var \yii\web\View $this
+ * @var \frontend\controllers\BaseController $this ->context
  */
 
 use common\components\ErrorHelper;
 use common\widgets\AlertFront;
 use common\widgets\Menu;
 use frontend\assets\AppAsset;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage(); ?>
     <!DOCTYPE html>
@@ -43,26 +46,12 @@ AppAsset::register($this);
                         <?= Html::a('Log in', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
                         <form action="/team_view.php" class="form-inline" id="auth-team-form" method="post">
-                            <label class="hidden" for="auth-team-select"></label>
-                            <select class="form-control" id="auth-team-select" name="auth_team_id"
-                                    onchange="this.form.submit();">
-                                <?php foreach ($auth_team_array = [] as $item) { ?>
-                                    <option
-                                        <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
-                                        value="<?= $item['team_id']; ?>"
-                                    >
-                                        <?= $item['team_name']; ?> (<?= $item['country_name']; ?>)
-                                    </option>
-                                <?php } ?>
-                                <?php foreach ($auth_team_vice_array = [] as $item) { ?>
-                                    <option
-                                        <?php if (($item['team_id'] == $auth_team_id && 0 == $auth_team_vice_id) || $item['team_id'] == $auth_team_vice_id) { ?>selected<?php } ?>
-                                        value="<?= $item['team_id']; ?>"
-                                    >
-                                        <?= $item['team_name']; ?> (<?= $item['country_name']; ?>, зам)
-                                    </option>
-                                <?php } ?>
-                            </select>
+                            <?= Html::dropDownList(
+                                'auth_team_id',
+                                $this->context->myTeam->team_id ?? 0,
+                                ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
+                                ['class' => 'form-control']
+                            ); ?>
                             <?= Html::a('Log out', ['site/logout'], ['class' => 'btn margin']); ?>
                         </form>
                     <?php endif; ?>
@@ -98,14 +87,6 @@ AppAsset::register($this);
             }
 
             ?>
-            <?php if (isset($_SESSION['frontend']['message'])) { ?>
-                <div class="row margin-top">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert <?= $_SESSION['frontend']['message']['class']; ?>">
-                        <?= $_SESSION['frontend']['message']['text']; ?>
-                        <?php unset($_SESSION['frontend']['message']); ?>
-                    </div>
-                </div>
-            <?php } ?>
             <?= $content; ?>
         </div>
         <div class="row">

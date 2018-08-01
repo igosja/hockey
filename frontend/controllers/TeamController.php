@@ -10,6 +10,7 @@ use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\filters\AccessControl;
 use yii\web\Response;
 
 /**
@@ -18,6 +19,26 @@ use yii\web\Response;
  */
 class TeamController extends BaseController
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['ask'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['ask'],
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @return string
      */
@@ -61,9 +82,14 @@ class TeamController extends BaseController
      */
     public function actionView(int $id = null)
     {
-        if (null === $id) {
+        if (!$id && $this->myTeam) {
+            return $this->redirect(['view', 'id' => $this->myTeam->team_id]);
+        }
+
+        if (!$id) {
             return $this->redirect(['ask']);
         }
+
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Player::find()
@@ -201,12 +227,16 @@ class TeamController extends BaseController
     }
 
     /**
-     * @param integer $id
+     * @param null $id
      * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionAsk($id = null)
     {
+        if ($this->myTeam) {
+            return $this->redirect(['view']);
+        }
+
         if ($id) {
             if (!Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->count()) {
                 Yii::$app->session->setFlash('error', 'The team was chosen incorrectly.');
