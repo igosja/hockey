@@ -7,6 +7,7 @@ use common\models\Player;
 use common\models\Team;
 use common\models\TeamAsk;
 use Exception;
+use frontend\models\ChangeMyTeam;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -27,12 +28,12 @@ class TeamController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['ask'],
+                'only' => ['ask', 'change-my-team'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['ask'],
-                        'roles' => ['?'],
+                        'actions' => ['ask', 'change-my-team'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -388,5 +389,18 @@ class TeamController extends BaseController
             'dataProvider' => $dataProvider,
             'teamAskArray' => $teamAskArray,
         ]);
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionChangeMyTeam(): Response
+    {
+        $model = new ChangeMyTeam();
+        if ($model->load(Yii::$app->request->post(), '')) {
+            $model->changeMyTeam();
+        }
+
+        return $this->redirect(['view']);
     }
 }

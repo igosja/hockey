@@ -42,18 +42,19 @@ AppAsset::register($this);
                     ); ?>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
+                    <br/>
                     <?php if (Yii::$app->user->isGuest): ?>
                         <?= Html::a('Log in', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
-                        <form action="/team_view.php" class="form-inline" id="auth-team-form" method="post">
-                            <?= Html::dropDownList(
-                                'auth_team_id',
-                                $this->context->myTeam->team_id ?? 0,
-                                ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
-                                ['class' => 'form-control']
-                            ); ?>
-                            <?= Html::a('Log out', ['site/logout'], ['class' => 'btn margin']); ?>
-                        </form>
+                        <?= Html::beginForm(['team/change-my-team'], 'post', ['class' => 'form-inline']); ?>
+                        <?= Html::dropDownList(
+                            'teamId',
+                            $this->context->myTeam->team_id ?? 0,
+                            ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
+                            ['class' => 'form-control', 'onchange' => 'this.form.submit();']
+                        ); ?>
+                        <?= Html::a('Log out', ['site/logout'], ['class' => 'btn margin']); ?>
+                        <?= Html::endForm(); ?>
                     <?php endif; ?>
                 </div>
             </div>

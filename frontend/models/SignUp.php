@@ -7,11 +7,10 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
-use yii\helpers\Html;
-use yii\helpers\Url;
 
 /**
- * SignUp form
+ * Class SignUp
+ * @package frontend\models
  */
 class SignUp extends Model
 {
@@ -22,7 +21,7 @@ class SignUp extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['email'], 'email'],
