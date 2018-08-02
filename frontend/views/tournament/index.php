@@ -47,6 +47,10 @@ use yii\helpers\Html;
             <?php foreach ($countryArray as $item): ?>
                 <tr>
                     <td>
+                        <?= Html::a(
+                            Html::img('/img/country/12/' . $item['countryId'] . '.png'),
+                            ['country/team', 'id' => $item['countryId']]
+                        ); ?>
                         <?= Html::a($item['countryName'], ['country/team', 'id' => $item['countryId']]); ?>
                     </td>
                     <?php foreach ($item['division'] as $key => $value) : ?>
