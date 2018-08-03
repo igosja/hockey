@@ -6,11 +6,6 @@ use common\models\RosterPhrase;
 use common\models\Team;
 use yii\helpers\Html;
 
-/**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \yii\web\View $this
- */
-
 $teamId = Yii::$app->request->get('id', 1);
 
 $team = Team::find()

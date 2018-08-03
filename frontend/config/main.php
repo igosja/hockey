@@ -83,6 +83,7 @@ return [
                 'schedule' => 'schedule/index',
                 'sign-up' => 'site/sign-up',
                 'tournaments' => 'tournament/index',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
             'showScriptName' => false,

@@ -10,7 +10,7 @@ use yii\helpers\Html;
  * @var \yii\web\View $this
  */
 
-//$this->render('_player');
+print $this->render('_player');
 
 ?>
 <div class="row">
