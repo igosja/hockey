@@ -47,6 +47,7 @@ use yii\helpers\Html;
  * @property integer $player_transfer_on
  *
  * @property Country $country
+ * @property Team $loanTeam
  * @property Name $name
  * @property Physical $physical
  * @property PlayerPosition[] $playerPosition
@@ -54,6 +55,7 @@ use yii\helpers\Html;
  * @property StatisticPlayer $statisticPlayer
  * @property Style $style
  * @property Surname $surname
+ * @property Team $team
  */
 class Player extends ActiveRecord
 {
@@ -292,6 +294,14 @@ class Player extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getLoanTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'player_loan_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getName(): ActiveQuery
     {
         return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
@@ -343,5 +353,13 @@ class Player extends ActiveRecord
     public function getSurname(): ActiveQuery
     {
         return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'player_team_id']);
     }
 }
