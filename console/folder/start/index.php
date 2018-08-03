@@ -18,7 +18,7 @@ for ($i=0, $count_function=count($function_array); $i<$count_function; $i++)
 {
     $function_array[$i]();
 
-    f_igosja_console_progress($i+1, $count_function);
+    f_igosja_console_progress($i+1, $count_function, $function_array[$i]);
 }
 
 print "\r\n"

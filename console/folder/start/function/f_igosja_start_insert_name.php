@@ -289,50 +289,50 @@ function f_igosja_start_insert_name()
     );
 
     $name_array = array(
-        // array(
-            // 'country' => 'Канада',
-            // 'list' => $eng_name,
-        // ),
-        // array(
-            // 'country' => 'Россия',
-            // 'list' => $rus_name,
-        // ),
-        // array(
-            // 'country' => 'США',
-            // 'list' => $eng_name,
-        // ),
-        // array(
-            // 'country' => 'Финляндия',
-            // 'list' => $fin_name,
-        // ),
-        // array(
-            // 'country' => 'Швеция',
-            // 'list' => $swe_name,
-        // ),
-        // array(
-            // 'country' => 'Чехия',
-            // 'list' => $che_name,
-        // ),
-        // array(
-            // 'country' => 'Швейцария',
-            // 'list' => $ger_name,
-        // ),
-        // array(
-            // 'country' => 'Словакия',
-            // 'list' => $che_name,
-        // ),
-        // array(
-            // 'country' => 'Белоруссия',
-            // 'list' => $rus_name,
-        // ),
-        // array(
-            // 'country' => 'Германия',
-            // 'list' => $ger_name,
-        // ),
-        // array(
-            // 'country' => 'Норвегия',
-            // 'list' => $nor_name,
-        // ),
+         array(
+             'country' => 'Канада',
+             'list' => $eng_name,
+         ),
+         array(
+             'country' => 'Россия',
+             'list' => $rus_name,
+         ),
+         array(
+             'country' => 'США',
+             'list' => $eng_name,
+         ),
+         array(
+             'country' => 'Финляндия',
+             'list' => $fin_name,
+         ),
+         array(
+             'country' => 'Швеция',
+             'list' => $swe_name,
+         ),
+         array(
+             'country' => 'Чехия',
+             'list' => $che_name,
+         ),
+         array(
+             'country' => 'Швейцария',
+             'list' => $ger_name,
+         ),
+         array(
+             'country' => 'Словакия',
+             'list' => $che_name,
+         ),
+         array(
+             'country' => 'Белоруссия',
+             'list' => $rus_name,
+         ),
+         array(
+             'country' => 'Германия',
+             'list' => $ger_name,
+         ),
+         array(
+             'country' => 'Норвегия',
+             'list' => $nor_name,
+         ),
         array(
             'country' => 'Украина',
             'list' => $rus_name,
