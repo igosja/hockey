@@ -198,6 +198,10 @@
             map: map
         });
         marker = new google.maps.Marker({
+            position: new google.maps.LatLng(49.792533, 30.1101753), //Біла Церква
+            map: map
+        });
+        marker = new google.maps.Marker({
             position: new google.maps.LatLng(50.2540414, 28.6550473), //Житомир
             map: map
         });
