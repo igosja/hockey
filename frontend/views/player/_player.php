@@ -59,6 +59,7 @@ $player = Player::find()
     ->select([
         'player_age',
         'player_country_id',
+        'player_id',
         'player_injury_day',
         'player_loan_day',
         'player_loan_on',
@@ -85,6 +86,10 @@ $myPlayer = false;
 if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team_id == $player->player_team_id) {
     $myPlayer = true;
     $squadArray = Squad::find()->all();
+    $squardStyle = [];
+    foreach ($squadArray as $item) {
+        $squardStyle[$item->squad_id] = ['style' => ['background-color' => '#' . $item->squad_color]];
+    }
 }
 
 ?>
@@ -106,7 +111,12 @@ if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team
                                     'squad_id',
                                     $player->player_squad_id,
                                     ArrayHelper::map($squadArray, 'squad_id', 'squad_name'),
-                                    ['class' => 'form-control', 'id' => 'select-squad']
+                                    [
+                                        'class' => 'form-control',
+                                        'data' => ['player' => $player->player_id],
+                                        'id' => 'select-squad',
+                                        'options' => $squardStyle,
+                                    ]
                                 ); ?>
                             </div>
                         </div>
@@ -179,7 +189,7 @@ if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if ($myPlayer) : ?>
                             <?= Html::img(
-                                '/img/physical/' . $player->physical->physical_id,
+                                '/img/physical/' . $player->physical->physical_id . '.png',
                                 [
                                     'alt' => $player->physical->physical_name,
                                     'title' => $player->physical->physical_name,

@@ -14,6 +14,8 @@ use yii\db\ActiveRecord;
  */
 class Squad extends ActiveRecord
 {
+    const SQUAD_DEFAULT = 1;
+
     /**
      * @return string
      */

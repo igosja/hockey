@@ -91,7 +91,7 @@ print $this->render('_teamTop');
                 'format' => 'raw',
                 'value' => function (Player $model) {
                     return Html::img(
-                        '/img/phisical/' . $model->physical->physical_id . '.png',
+                        '/img/physical/' . $model->physical->physical_id . '.png',
                         [
                             'alt' => $model->physical->physical_name,
                             'title' => $model->physical->physical_name,

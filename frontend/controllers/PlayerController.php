@@ -3,6 +3,9 @@
 namespace frontend\controllers;
 
 use common\models\Lineup;
+use common\models\Player;
+use common\models\Squad;
+use Yii;
 
 /**
  * Class PlayerController
@@ -31,5 +34,25 @@ class PlayerController extends BaseController
         return $this->render('view', [
             'gameArray' => $gameArray,
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function actionSquad(int $id)
+    {
+        if (!$this->myTeam) {
+            return false;
+        }
+        $player = Player::find()->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])->one();
+        if (!$player) {
+            return false;
+        }
+        $player->player_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
+        if (!$player->save()) {
+            return false;
+        }
+        return true;
     }
 }
