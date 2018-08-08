@@ -37,18 +37,17 @@ class PlayerController extends BaseController
     }
 
     /**
-     * @param int $id
+     * @param integer $id
      * @return bool
+     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionSquad(int $id)
+    public function actionSquad(int $id): bool
     {
         if (!$this->myTeam) {
             return false;
         }
         $player = Player::find()->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])->one();
-        if (!$player) {
-            return false;
-        }
+        $this->notFound($player);
         $player->player_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
         if (!$player->save()) {
             return false;

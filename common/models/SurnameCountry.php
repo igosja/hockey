@@ -34,4 +34,18 @@ class SurnameCountry extends ActiveRecord
             [['surname_country_country_id', 'surname_country_surname_id'], 'required'],
         ];
     }
+
+    /**
+     * @param integer $countryId
+     * @return false|null|string
+     */
+    public static function getRandSurnameId(int $countryId)
+    {
+        return self::find()
+            ->select(['surname_country_name_id'])
+            ->where(['surname_country_country_id' => $countryId])
+            ->orderBy('RAND()')
+            ->limit(1)
+            ->scalar();
+    }
 }

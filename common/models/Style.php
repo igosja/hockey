@@ -38,4 +38,17 @@ class Style extends ActiveRecord
             [['style_name'], 'trim'],
         ];
     }
+
+    /**
+     * @return false|null|string
+     */
+    public static function getRandStyleId()
+    {
+        return self::find()
+            ->select(['style_id'])
+            ->where(['!=', 'style_id', self::NORMAL])
+            ->orderBy('RAND()')
+            ->limit(1)
+            ->scalar();
+    }
 }

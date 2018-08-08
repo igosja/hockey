@@ -36,4 +36,16 @@ class Physical extends ActiveRecord
             [['physical_name'], 'trim'],
         ];
     }
+
+    /**
+     * @return Physical
+     */
+    public static function getRandPhysical(): Physical
+    {
+        return self::find()
+            ->select(['physical_id', 'physical_value'])
+            ->orderBy('RAND()')
+            ->limit(1)
+            ->one();
+    }
 }

@@ -6,6 +6,7 @@ use common\models\Squad;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var \frontend\controllers\BaseController $context
@@ -113,7 +114,7 @@ if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team
                                     ArrayHelper::map($squadArray, 'squad_id', 'squad_name'),
                                     [
                                         'class' => 'form-control',
-                                        'data' => ['player' => $player->player_id],
+                                        'data' => ['url' => Url::to(['squad', 'id' => $player->player_id])],
                                         'id' => 'select-squad',
                                         'options' => $squardStyle,
                                     ]

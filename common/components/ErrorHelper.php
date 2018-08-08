@@ -17,7 +17,7 @@ class ErrorHelper
      */
     public static function log(Exception $e)
     {
-        Yii::error($e->getMessage() . "\r\n" . $e->getTraceAsString());
+        Yii::error($e->__toString());
     }
 
     /**

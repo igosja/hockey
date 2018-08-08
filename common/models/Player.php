@@ -127,28 +127,25 @@ class Player extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
+                $physical = Physical::getRandPhysical();
+
                 if (!$this->player_age) {
                     $this->player_age = 17;
                 }
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
                 $this->player_squad_id = 1;
-                $this->player_name_id = NameCountry::find()->select(['name_country_name_id'])->where(['name_country_country_id' => $this->player_country_id])->orderBy('RAND()')->limit(1)->column();
+                $this->player_name_id = NameCountry::getRandNameId($this->player_country_id);
                 $this->player_national_line_id = 1;
-                $this->player_physical_id = Physical::find()->select(['physical_id'])->orderBy('RAND()')->limit(1)->column();
+                $this->player_physical_id = $physical;
                 $this->player_power_nominal = $this->player_age * 2;
                 $this->player_power_nominal_s = $this->player_power_nominal;
-                $this->player_power_real = $this->player_power_nominal * 50 / 100 * $this->physical->physical_value / 100;
-                $this->player_price = pow(150 - (28 - $this->player_age), 2) * $this->player_power_nominal;
-                $this->player_salary = $this->player_price / 999;
-                $this->player_style_id = Style::find()->select(['style_id'])->where([
-                    '!=',
-                    'style_id',
-                    Style::NORMAL
-                ])->orderBy('RAND()')->limit(1)->column();
-                $this->player_surname_id = SurnameCountry::find()->select(['surname_country_surname_id'])->where(['surname_country_country_id' => $this->player_country_id])->orderBy('RAND()')->limit(1)->column();
+                $this->player_style_id = Style::getRandStyleId();
+                $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
                 $this->player_tire = 50;
                 $this->player_training_ability = rand(1, 5);
+                $this->countPriceAndSalary();
+                $this->countRealPower($physical);
             }
             return true;
         }
@@ -178,11 +175,23 @@ class Player extends ActiveRecord
     }
 
     /**
-     * @return string
+     * @return void
      */
-    public function playerName(): string
+    public function countPriceAndSalary()
     {
-        return $this->name->name_name . ' ' . $this->surname->surname_name;
+        $this->player_price = pow(150 - (28 - $this->player_age), 2) * $this->player_power_nominal;
+        $this->player_salary = $this->player_price / 999;
+    }
+
+    /**
+     * @param Physical $physical
+     */
+    public function countRealPower(Physical $physical = null)
+    {
+        if (!$physical) {
+            $physical = $this->physical;
+        }
+        $this->player_power_real = $this->player_power_nominal * 50 / 100 * $physical->physical_value / 100;
     }
 
     /**
@@ -257,6 +266,14 @@ class Player extends ActiveRecord
             $result = ' <i class="fa fa-caret-square-o-up " title="On training"></i>';
         }
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function playerName(): string
+    {
+        return $this->name->name_name . ' ' . $this->surname->surname_name;
     }
 
     /**
