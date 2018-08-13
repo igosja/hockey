@@ -7,6 +7,7 @@
  */
 
 use common\components\ErrorHelper;
+use common\models\Site;
 use common\widgets\AlertFront;
 use common\widgets\Menu;
 use frontend\assets\AppAsset;
@@ -92,13 +93,10 @@ AppAsset::register($this);
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
-                Страница сгенерирована за <?= round(0.11545465, 5); ?> сек.,
-                <?= 10; ?> запр.<br/>
-                Потребление памяти - <?= number_format(memory_get_peak_usage(), 0, ',', ' '); ?> Б<br/>
-                Версия
-                0.0.0.1
-                от
-                <?= 123; ?>
+                Page is generated in <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> sec.,
+                <?= Yii::getLogger()->getDbProfiling()[0]; ?> queries.<br/>
+                Memory consumption - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?>b<br/>
+                <?= Site::version(); ?>
             </div>
         </div>
     </div>

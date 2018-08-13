@@ -42,7 +42,7 @@ class SurnameCountry extends ActiveRecord
     public static function getRandSurnameId(int $countryId)
     {
         return self::find()
-            ->select(['surname_country_name_id'])
+            ->select(['surname_country_surname_id'])
             ->where(['surname_country_country_id' => $countryId])
             ->orderBy('RAND()')
             ->limit(1)

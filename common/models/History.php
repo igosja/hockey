@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class History
@@ -24,6 +26,10 @@ use yii\db\ActiveRecord;
  * @property integer $history_user_id
  * @property integer $history_user_2_id
  * @property integer $history_value
+ *
+ * @property HistoryText $historyText
+ * @property Player $player
+ * @property Team $team
  */
 class History extends ActiveRecord
 {
@@ -81,5 +87,51 @@ class History extends ActiveRecord
         $history = new self();
         $history->setAttributes($data);
         $history->save();
+    }
+
+    /**
+     * @return string
+     */
+    public function getText(): string
+    {
+        $text = $this->historyText->history_text_text;
+        $text = str_replace(
+            '{team}',
+            Html::a($this->team->team_name, ['team/view', 'id' => $this->history_team_id]),
+            $text
+        );
+        $text = str_replace(
+            '{player}',
+            Html::a(
+                $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
+                ['player/view', 'id' => $this->history_player_id]
+            ),
+            $text
+        );
+        return $text;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getHistoryText(): ActiveQuery
+    {
+        return $this->hasOne(HistoryText::class, ['history_text_id' => 'history_history_text_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'history_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
     }
 }

@@ -84,14 +84,19 @@ $player = Player::find()
 
 $myPlayer = false;
 
-if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team_id == $player->player_team_id) {
+if ($context->myTeam && $context->myTeam->team_id == $player->player_team_id) {
     $myPlayer = true;
-    $squadArray = Squad::find()->all();
-    $squardStyle = [];
-    foreach ($squadArray as $item) {
-        $squardStyle[$item->squad_id] = ['style' => ['background-color' => '#' . $item->squad_color]];
+
+    if ('view' == $context->action->id) {
+        $squadArray = Squad::find()->all();
+        $squardStyle = [];
+        foreach ($squadArray as $item) {
+            $squardStyle[$item->squad_id] = ['style' => ['background-color' => '#' . $item->squad_color]];
+        }
     }
 }
+
+$this->title = $player->name->name_name . ' ' . $player->surname->surname_name . '. ' . $this->title;
 
 ?>
 <div class="row margin-top">
@@ -218,13 +223,7 @@ if ('view' == $context->action->id && $context->myTeam && $context->myTeam->team
                         Style:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?= Html::img(
-                            '/img/style/' . $player->style->style_id . '.png',
-                            [
-                                'alt' => $player->style->style_name,
-                                'title' => $player->style->style_name,
-                            ]
-                        ); ?>
+                        <?= $player->iconStyle(); ?>
                     </div>
                 </div>
             </div>

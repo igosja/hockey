@@ -3,16 +3,19 @@
 return [
     'components' => [
         'db' => [
+            'charset' => 'utf8',
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=vhol',
-            'username' => 'vhol',
+            'enableSchemaCache' => true,
             'password' => 'zuI2QbJJ',
-            'charset' => 'utf8',
+            'schemaCache' => 'cache',
+            'schemaCacheDuration' => 86400,
+            'username' => 'vhol',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
             'useFileTransport' => true,
+            'viewPath' => '@common/mail',
         ],
     ],
 ];

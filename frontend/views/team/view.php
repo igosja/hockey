@@ -161,7 +161,7 @@ print $this->render('_teamTop');
                 'footer' => 'Style',
                 'format' => 'raw',
                 'value' => function (Player $model) {
-                    return $model->iconStyle();
+                    return $model->iconStyle(true);
                 }
             ],
             [

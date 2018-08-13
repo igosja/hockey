@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
@@ -137,7 +138,7 @@ class Player extends ActiveRecord
                 $this->player_squad_id = 1;
                 $this->player_name_id = NameCountry::getRandNameId($this->player_country_id);
                 $this->player_national_line_id = 1;
-                $this->player_physical_id = $physical;
+                $this->player_physical_id = $physical->physical_id;
                 $this->player_power_nominal = $this->player_age * 2;
                 $this->player_power_nominal_s = $this->player_power_nominal;
                 $this->player_style_id = Style::getRandStyleId();
@@ -243,17 +244,53 @@ class Player extends ActiveRecord
     }
 
     /**
+     * @param boolean $showOnlyIfStudied
      * @return string
      */
-    public function iconStyle(): string
+    public function iconStyle($showOnlyIfStudied = false): string
     {
-        return Html::img(
-            '/img/style/' . $this->style->style_id . '.png',
-            [
-                'alt' => $this->style->style_name,
-                'title' => $this->style->style_name,
-            ]
-        );
+        /**
+         * @var Team $myTeam
+         */
+        $myTeam = Yii::$app->controller->myTeam;
+
+        if (!$myTeam) {
+            $styleArray = Style::find()
+                ->select(['style_id', 'style_name'])
+                ->where(['!=', 'style_id', Style::NORMAL])
+                ->orderBy(['style_id' => SORT_ASC])
+                ->all();
+        } else {
+            $countScout = Scout::find()
+                ->where(['scout_player_id' => $this->player_id, 'scout_team_id' => $myTeam->team_id])
+                ->andWhere(['!=', 'scout_ready', 100])
+                ->count();
+
+            if (2 == $countScout || !$showOnlyIfStudied) {
+                $styleArray = Style::find()
+                    ->select(['style_id', 'style_name'])
+                    ->where(['not', ['style_id' => [Style::NORMAL, $this->player_style_id]]])
+                    ->orWhere(['style_id' => $this->player_style_id])
+                    ->orderBy(['style_id' => SORT_ASC])
+                    ->limit(3 - $countScout)
+                    ->all();
+            } else {
+                $styleArray = [];
+            }
+        }
+
+        $result = [];
+        foreach ($styleArray as $item) {
+            $result[] = Html::img(
+                '/img/style/' . $item->style_id . '.png',
+                [
+                    'alt' => $item->style_name,
+                    'title' => ucfirst($item->style_name),
+                ]
+            );
+        }
+
+        return implode(' ', $result);
     }
 
     /**
@@ -261,8 +298,16 @@ class Player extends ActiveRecord
      */
     public function iconTraining(): string
     {
+        $countTraining = Training::find()
+            ->where([
+                'training_player_id' => $this->player_id,
+                'training_team_id' => $this->player_team_id,
+                'training_ready' => 0
+            ])
+            ->count();
+
         $result = '';
-        if (self::AGE_READY_FOR_PENSION == $this->player_age) {
+        if ($countTraining) {
             $result = ' <i class="fa fa-caret-square-o-up " title="On training"></i>';
         }
         return $result;
