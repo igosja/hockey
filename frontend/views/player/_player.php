@@ -14,7 +14,6 @@ use yii\helpers\Url;
  */
 
 $context = $this->context;
-
 $playerId = Yii::$app->request->get('id');
 
 $player = Player::find()

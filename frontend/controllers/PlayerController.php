@@ -91,6 +91,24 @@ class PlayerController extends BaseController
         ]);
     }
 
+    public function actionTransfer(int $id)
+    {
+        $player = Player::find()->where(['player_id' => $id])->one();
+        $myPlayer = true;
+        if (!$this->myTeam) {
+            $myPlayer = false;
+        } elseif ($this->myTeam->team_id != $player->player_team_id) {
+            $myPlayer = false;
+        }
+        $onTransfer = $player->player_transfer_on;
+
+        return $this->render('transfer', [
+            'myPlayer' => $myPlayer,
+            'onTransfer' => $onTransfer,
+            'player' => $player,
+        ]);
+    }
+
     /**
      * @param integer $id
      * @return string
