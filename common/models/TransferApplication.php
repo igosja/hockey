@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -15,6 +16,8 @@ use yii\db\ActiveRecord;
  * @property integer $transfer_application_team_id
  * @property integer $transfer_application_transfer_id
  * @property integer $transfer_application_user_id
+ *
+ * @property Team $team
  */
 class TransferApplication extends ActiveRecord
 {
@@ -49,5 +52,28 @@ class TransferApplication extends ActiveRecord
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->transfer_application_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'transfer_application_team_id']);
     }
 }

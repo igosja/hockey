@@ -1,40 +1,84 @@
+<?php
+
+use common\components\ErrorHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/**
+ * @var \frontend\models\TransferFrom $model
+ */
+
+$applicationArray = $model->getApplication();
+
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <p class="text-center">
-            Игрок находится на трансфере.
+            The player is on a transfer.
             <br/>
-            Начальная стоимоcть игрока составляет <span class="strong"><?= 123; ?></span>.
+            The initial cost of the player is
+            <span class="strong"><?php
+
+                try {
+                    print Yii::$app->formatter->asCurrency($model->getPlayer()->transfer->transfer_price_seller);
+                } catch (Throwable $e) {
+                    ErrorHelper::log($e);
+                }
+
+                ?></span>.
         </p>
-        <?php if (true) { ?>
+        <?php if ($model->getPlayer()->transfer->transfer_to_league): ?>
             <p class="text-center">
-                В случае отсутствия спроса игрок будет продан Лиге
+                In the absence of demand, the player will be sold to the League.
             </p>
-        <?php } ?>
-        <form method="POST">
-            <input name="data[off]" type="hidden" value="1"/>
-            <p class="text-center">
-                <button class="btn" type="submit">Снять с трансфера</button>
-            </p>
-        </form>
-        <p class="text-center">Заявки на вашего игрока:</p>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Команда потенциального покупателя</th>
-                <th class="col-20">Время заявки</th>
-                <th class="col-15">Сумма</th>
-            </tr>
-            <?php foreach ([] as $item) { ?>
+        <?php endif; ?>
+        <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($model, 'off')->hiddenInput(['value' => true])->label(false); ?>
+        <p class="text-center">
+            <?= Html::submitButton('Remove from the transfer', ['class' => 'btn']); ?>
+        </p>
+        <?php $form->end(); ?>
+        <?php if ($applicationArray) : ?>
+            <p class="text-center">Requests for your player:</p>
+            <table class="table table-bordered table-hover">
                 <tr>
-                    <td>
-                        <a href="/team_view.php?num=<?= $item['team_id']; ?>">
-                            <?= $item['team_name']; ?>
-                            (<?= $item['city_name']; ?>, <?= $item['country_name']; ?>)
-                        </a>
-                    </td>
-                    <td class="text-center"><?= ($item['transferapplication_date']); ?></td>
-                    <td class="text-right"><?= ($item['transferapplication_price']); ?></td>
+                    <th>Team of the potential buyer</th>
+                    <th class="col-20">Application time</th>
+                    <th class="col-15">Price</th>
                 </tr>
-            <?php } ?>
-        </table>
+                <?php foreach ($applicationArray as $item): ?>
+                    <tr>
+                        <td>
+                            <?= Html::a(
+                                $item->team->team_name . '(' . $item->team->stadium->city->city_name . ')',
+                                ['team/view', 'id' => $item->transfer_application_team_id]
+                            ); ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
+
+                            try {
+                                print Yii::$app->formatter->asDatetime($item->transfer_application_date);
+                            } catch (Throwable $e) {
+                                ErrorHelper::log($e);
+                            }
+
+                            ?>
+                        </td>
+                        <td class="text-right">
+                            <?php
+
+                            try {
+                                print Yii::$app->formatter->asCurrency($item->transfer_application_price);
+                            } catch (Throwable $e) {
+                                ErrorHelper::log($e);
+                            }
+
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
     </div>
 </div>

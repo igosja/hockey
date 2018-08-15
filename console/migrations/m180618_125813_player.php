@@ -24,7 +24,6 @@ class m180618_125813_player extends Migration
             'player_game_row_old' => $this->integer(2)->defaultValue(0),
             'player_injury_day' => $this->integer(1)->defaultValue(0),
             'player_loan_day' => $this->integer(3)->defaultValue(0),
-            'player_loan_on' => $this->integer(1)->defaultValue(0),
             'player_loan_team_id' => $this->integer(11)->defaultValue(0),
             'player_mood_id' => $this->integer(1)->defaultValue(0),
             'player_name_id' => $this->integer(11)->defaultValue(0),
@@ -49,7 +48,6 @@ class m180618_125813_player extends Migration
             'player_team_id' => $this->integer(11)->defaultValue(0),
             'player_tire' => $this->integer(3)->defaultValue(0),
             'player_training_ability' => $this->integer(1)->defaultValue(0),
-            'player_transfer_on' => $this->integer(1)->defaultValue(0),
         ]);
     }
 

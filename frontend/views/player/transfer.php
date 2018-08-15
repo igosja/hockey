@@ -2,6 +2,9 @@
 
 /**
  * @var \frontend\controllers\BaseController $context
+ * @var \frontend\models\TransferApplication $modelTransferApplication
+ * @var \frontend\models\TransferFrom $modelTransferFrom
+ * @var \frontend\models\TransferTo $modelTransferTo
  * @var boolean $myPlayer
  * @var integer $onTransfer
  * @var \common\models\Player $player
@@ -27,13 +30,19 @@ print $this->render('_links');
     <?= $this->render('_transfer_no_team'); ?>
 <?php elseif ($myPlayer) : ?>
     <?php if ($onTransfer) : ?>
-        <?= $this->render('_transfer_from'); ?>
+        <?= $this->render('_transfer_from', [
+            'model' => $modelTransferFrom,
+        ]); ?>
     <?php else: ?>
-        <?= $this->render('_transfer_to'); ?>
+        <?= $this->render('_transfer_to', [
+            'model' => $modelTransferTo,
+        ]); ?>
     <?php endif; ?>
 <?php else: ?>
     <?php if ($onTransfer) : ?>
-        <?= $this->render('_transfer_application'); ?>
+        <?= $this->render('_transfer_application', [
+            'model' => $modelTransferApplication,
+        ]); ?>
     <?php else: ?>
         <?= $this->render('_transfer_no'); ?>
     <?php endif; ?>

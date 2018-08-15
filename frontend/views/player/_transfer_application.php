@@ -1,67 +1,101 @@
+<?php
+
+use common\components\ErrorHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/**
+ * @var \frontend\models\TransferApplication $model
+ */
+
+$team = $model->getTeam();
+
+?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Ваша команда:
+                Your team:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span class="strong">
-                                <a href="/team_view.php?num=<?= 1; ?>">
-                                    <?= 1; ?>
-                                    <span class="hidden-xs">
-                                        (<?= 2; ?>, <?= 3; ?>)
-                                    </span>
-                                </a>
-                            </span>
+                <span class="strong">
+                    <?= Html::a(
+                        $team->team_name . ' <span class="hidden-xs">(' . $team->stadium->city->city_name . ')</span>',
+                        ['team/view', 'id' => $team->team_id]
+                    ); ?>
+                </span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                В кассе команды:
+                Team finances:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <span class="strong"><?= 1; ?></span>
+                <span class="strong">
+                    <?php
+
+                    try {
+                        print Yii::$app->formatter->asCurrency($team->team_finance);
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+
+                    ?>
+                </span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Начальная цена:
+                Starting price:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <span class="strong"><?= 2; ?></span>
+                <span class="strong">
+                    <?php
+
+                    try {
+                        print Yii::$app->formatter->asCurrency($model->getMinPrice());
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+
+                    ?>
+                </span>
             </div>
         </div>
-        <form method="POST">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                    <label for="price">Ваше предложение, $:</label>
+        <?php $form = ActiveForm::begin([
+            'enableAjaxValidation' => true,
+            'fieldConfig' => [
+                'errorOptions' => [
+                    'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
+                    'tag' => 'div'
+                ],
+            ],
+        ]); ?>
+        <?= $form->field($model, 'price', [
+            'template' => '
+                <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{label}</div>
+                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">{input}</div>
                 </div>
-                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">
-                    <input class="form-control" name="data[price]" id="price" type="text" value="<?= 4; ?>"/>
+                <div class="row">{error}</div>'
+        ])->textInput(); ?>
+        <div class="row">
+            <?= $form->field($model, 'onlyOne', [
+                'template' => '
+                <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{input}</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <label for="only_one">
-                        В случае победы удалить все остальные мои заявки
-                        <input name="data[only_one]" type="hidden" value="0"/>
-                        <input name="data[only_one]" id="only_one" type="checkbox" value="1"
-                               <?php if (1 == 1) { ?>checked<?php } ?> />
-                    </label>
-                </div>
-            </div>
-            <p class="text-center">
-                <?php if (1) { ?>
-                    <button class="btn" type="submit">
-                        Редактировать заявку
-                    </button>
-                    <a href="?num=<?= 2; ?>&data[off]=1" class="btn">Удалить заявку</a>
-                <?php } else { ?>
-                    <button class="btn" type="submit">
-                        Подать заявку
-                    </button>
-                <?php } ?>
-            </p>
-        </form>
+                <div class="row">{error}</div>'
+            ])->checkbox(); ?>
+        </div>
+        <p class="text-center">
+            <?php if (true) : ?>
+                <?= Html::submitButton('Edit application', ['class' => 'btn']); ?>
+                <?= Html::a('Remove application', 'javascript:', ['class' => 'btn']); ?>
+            <?php else: ?>
+                <?= Html::submitButton('Edit Apply', ['class' => 'btn']); ?>
+            <?php endif; ?>
+        </p>
+        <?php $form->end(); ?>
     </div>
 </div>

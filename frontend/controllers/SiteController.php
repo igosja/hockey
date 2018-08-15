@@ -7,7 +7,6 @@ use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
 use common\models\User;
-use frontend\models\ContactForm;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -98,7 +97,7 @@ class SiteController extends BaseController
     }
 
     /**
-     * @return string|Response
+     * @return array|string|Response
      */
     public function actionLogin()
     {
@@ -138,28 +137,6 @@ class SiteController extends BaseController
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success',
-                    'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**

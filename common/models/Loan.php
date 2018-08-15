@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -27,6 +28,8 @@ use yii\db\ActiveRecord;
  * @property integer $loan_team_seller_id
  * @property integer $loan_user_buyer_id
  * @property integer $loan_user_seller_id
+ *
+ * @property Player $player
  */
 class Loan extends ActiveRecord
 {
@@ -75,5 +78,13 @@ class Loan extends ActiveRecord
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'loan_player_id']);
     }
 }

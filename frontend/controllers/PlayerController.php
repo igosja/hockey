@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\AchievementPlayer;
 use common\models\History;
 use common\models\Lineup;
@@ -9,7 +10,13 @@ use common\models\Loan;
 use common\models\Player;
 use common\models\Squad;
 use common\models\Transfer;
+use frontend\models\TransferApplication;
+use frontend\models\TransferFrom;
+use frontend\models\TransferTo;
+use Throwable;
 use Yii;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class PlayerController
@@ -91,21 +98,98 @@ class PlayerController extends BaseController
         ]);
     }
 
+    /**
+     * @param integer $id
+     * @return array|string|Response
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionTransfer(int $id)
     {
-        $player = Player::find()->where(['player_id' => $id])->one();
+        $player = Player::find()
+            ->select([
+                'player_age',
+                'player_country_id',
+                'player_id',
+                'player_loan_team_id',
+                'player_national_id',
+                'player_no_action',
+                'player_no_deal',
+                'player_position_id',
+                'player_price',
+                'player_team_id',
+            ])
+            ->where(['player_id' => $id])
+            ->one();
+        $this->notFound($player);
         $myPlayer = true;
         if (!$this->myTeam) {
             $myPlayer = false;
         } elseif ($this->myTeam->team_id != $player->player_team_id) {
             $myPlayer = false;
         }
-        $onTransfer = $player->player_transfer_on;
+        $onTransfer = $player->transfer ? true : false;
+
+        $modelTransferTo = new TransferTo();
+        $modelTransferFrom = new TransferFrom();
+        $modelTransferApplication = new TransferApplication();
+        if ($myPlayer) {
+            $modelTransferTo->setMaxPrice($this->myTeam->team_finance);
+            $modelTransferTo->setPlayer($player);
+            $modelTransferTo->setTeamId($this->myTeam->team_id);
+            if ($modelTransferTo->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelTransferTo);
+                } else {
+                    try {
+                        $modelTransferTo->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+
+            $modelTransferFrom->setPlayer($player);
+            $modelTransferFrom->setTeamId($this->myTeam->team_id);
+            if ($modelTransferFrom->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelTransferFrom);
+                } else {
+                    try {
+                        $modelTransferFrom->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+        } else {
+            $modelTransferApplication->setTeamId($this->myTeam->team_id);
+            $modelTransferApplication->setMaxPrice($this->myTeam->team_finance);
+            $modelTransferApplication->setPlayer($player);
+            if ($modelTransferApplication->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelTransferApplication);
+                } else {
+                    try {
+                        $modelTransferApplication->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+        }
 
         return $this->render('transfer', [
+            'modelTransferApplication' => $modelTransferApplication,
+            'modelTransferFrom' => $modelTransferFrom,
+            'modelTransferTo' => $modelTransferTo,
             'myPlayer' => $myPlayer,
             'onTransfer' => $onTransfer,
-            'player' => $player,
         ]);
     }
 

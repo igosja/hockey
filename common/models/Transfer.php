@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -25,6 +26,8 @@ use yii\db\ActiveRecord;
  * @property integer $transfer_to_league
  * @property integer $transfer_user_buyer_id
  * @property integer $transfer_user_seller_id
+ *
+ * @property Player $player
  */
 class Transfer extends ActiveRecord
 {
@@ -71,5 +74,28 @@ class Transfer extends ActiveRecord
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->transfer_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'transfer_player_id']);
     }
 }

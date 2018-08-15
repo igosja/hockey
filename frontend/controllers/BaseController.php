@@ -51,7 +51,10 @@ class BaseController extends Controller
 
             $this->checkSessionMyTeamId();
             $this->myTeam = Team::find()
-                ->select(['team_id'])
+                ->select([
+                    'team_finance',
+                    'team_id',
+                ])
                 ->where(['team_user_id' => Yii::$app->user->id])
                 ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])
                 ->limit(1)

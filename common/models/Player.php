@@ -21,7 +21,6 @@ use yii\helpers\Html;
  * @property integer $player_injury_day
  * @property integer $player_squad_id
  * @property integer $player_loan_day
- * @property integer $player_loan_on
  * @property integer $player_loan_team_id
  * @property integer $player_mood_id
  * @property integer $player_name_id
@@ -45,9 +44,9 @@ use yii\helpers\Html;
  * @property integer $player_team_id
  * @property integer $player_tire
  * @property integer $player_training_ability
- * @property integer $player_transfer_on
  *
  * @property Country $country
+ * @property Loan $loan
  * @property Team $loanTeam
  * @property Name $name
  * @property Physical $physical
@@ -57,6 +56,7 @@ use yii\helpers\Html;
  * @property Style $style
  * @property Surname $surname
  * @property Team $team
+ * @property Transfer $transfer
  */
 class Player extends ActiveRecord
 {
@@ -87,7 +87,6 @@ class Player extends ActiveRecord
                     'player_game_row_old',
                     'player_injury_day',
                     'player_loan_day',
-                    'player_loan_on',
                     'player_loan_team_id',
                     'player_mood_id',
                     'player_name_id',
@@ -112,7 +111,6 @@ class Player extends ActiveRecord
                     'player_team_id',
                     'player_tire',
                     'player_training_ability',
-                    'player_transfer_on',
                 ],
                 'integer'
             ],
@@ -213,7 +211,7 @@ class Player extends ActiveRecord
     public function iconDeal(): string
     {
         $result = '';
-        if (in_array(1, [$this->player_loan_on, $this->player_transfer_on])) {
+        if ($this->loan || $this->transfer) {
             $result = ' <i class="fa fa-usd" title="For sale/loan"></i>';
         }
         return $result;
@@ -356,6 +354,14 @@ class Player extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getLoan(): ActiveQuery
+    {
+        return $this->hasOne(Loan::class, ['loan_player_id' => 'player_id'])->andWhere(['loan_ready' => 0]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getLoanTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'player_loan_team_id']);
@@ -423,5 +429,13 @@ class Player extends ActiveRecord
     public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'player_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTransfer(): ActiveQuery
+    {
+        return $this->hasOne(Transfer::class, ['transfer_player_id' => 'player_id'])->andWhere(['transfer_ready' => 0]);
     }
 }

@@ -62,7 +62,6 @@ $player = Player::find()
         'player_id',
         'player_injury_day',
         'player_loan_day',
-        'player_loan_on',
         'player_loan_team_id',
         'player_name_id',
         'player_national_id',
@@ -76,7 +75,6 @@ $player = Player::find()
         'player_surname_id',
         'player_team_id',
         'player_tire',
-        'player_transfer_on',
     ])
     ->where(['player_id' => $playerId])
     ->one();
