@@ -10,7 +10,8 @@ use common\models\Loan;
 use common\models\Player;
 use common\models\Squad;
 use common\models\Transfer;
-use frontend\models\TransferApplication;
+use frontend\models\TransferApplicationFrom;
+use frontend\models\TransferApplicationTo;
 use frontend\models\TransferFrom;
 use frontend\models\TransferTo;
 use Throwable;
@@ -129,13 +130,13 @@ class PlayerController extends BaseController
         }
         $onTransfer = $player->transfer ? true : false;
 
-        $modelTransferTo = new TransferTo();
-        $modelTransferFrom = new TransferFrom();
-        $modelTransferApplication = new TransferApplication();
+        $formConfig = ['player' => $player, 'team' => $this->myTeam];
+
+        $modelTransferTo = new TransferTo($formConfig);
+        $modelTransferFrom = new TransferFrom($formConfig);
+        $modelTransferApplicationTo = new TransferApplicationTo($formConfig);
+        $modelTransferApplicationFrom = new TransferApplicationFrom($formConfig);
         if ($myPlayer) {
-            $modelTransferTo->setMaxPrice($this->myTeam->team_finance);
-            $modelTransferTo->setPlayer($player);
-            $modelTransferTo->setTeamId($this->myTeam->team_id);
             if ($modelTransferTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -150,8 +151,6 @@ class PlayerController extends BaseController
                 }
             }
 
-            $modelTransferFrom->setPlayer($player);
-            $modelTransferFrom->setTeamId($this->myTeam->team_id);
             if ($modelTransferFrom->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -166,16 +165,27 @@ class PlayerController extends BaseController
                 }
             }
         } else {
-            $modelTransferApplication->setTeamId($this->myTeam->team_id);
-            $modelTransferApplication->setMaxPrice($this->myTeam->team_finance);
-            $modelTransferApplication->setPlayer($player);
-            if ($modelTransferApplication->load(Yii::$app->request->post())) {
+            if ($modelTransferApplicationTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
-                    return ActiveForm::validate($modelTransferApplication);
+                    return ActiveForm::validate($modelTransferApplicationTo);
                 } else {
                     try {
-                        $modelTransferApplication->execute();
+                        $modelTransferApplicationTo->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+
+            if ($modelTransferApplicationFrom->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelTransferApplicationTo);
+                } else {
+                    try {
+                        $modelTransferApplicationFrom->execute();
                     } catch (Throwable $e) {
                         ErrorHelper::log($e);
                     }
@@ -185,7 +195,8 @@ class PlayerController extends BaseController
         }
 
         return $this->render('transfer', [
-            'modelTransferApplication' => $modelTransferApplication,
+            'modelTransferApplicationFrom' => $modelTransferApplicationFrom,
+            'modelTransferApplicationTo' => $modelTransferApplicationTo,
             'modelTransferFrom' => $modelTransferFrom,
             'modelTransferTo' => $modelTransferTo,
             'myPlayer' => $myPlayer,

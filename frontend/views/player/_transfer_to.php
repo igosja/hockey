@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
             <span class="strong"><?php
 
                 try {
-                    print Yii::$app->formatter->asCurrency($model->getMinPrice());
+                    print Yii::$app->formatter->asCurrency($model->minPrice);
                 } catch (Throwable $e) {
                     ErrorHelper::log($e);
                 }

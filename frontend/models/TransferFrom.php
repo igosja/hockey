@@ -17,13 +17,29 @@ use yii\base\Model;
  *
  * @property boolean $off
  * @property Player $player
- * @property integer $teamId
+ * @property Team $team
+ * @property TransferApplication[] $transferApplicationArray
  */
 class TransferFrom extends Model
 {
     public $off;
-    private $player;
-    private $teamId;
+    public $player;
+    public $team;
+    public $transferApplicationArray;
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+
+        $this->transferApplicationArray = TransferApplication::find()
+            ->select(['transfer_application_date', 'transfer_application_price', 'transfer_application_team_id'])
+            ->where(['transfer_application_transfer_id' => $this->player->transfer->transfer_id])
+            ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
+            ->all();
+    }
 
     /**
      * @return array
@@ -34,44 +50,6 @@ class TransferFrom extends Model
             [['off'], 'boolean'],
             [['off'], 'required'],
         ];
-    }
-
-    /**
-     * @return Player
-     */
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function setPlayer(Player $player)
-    {
-        $this->player = $player;
-    }
-
-    /**
-     * @return TransferApplication[]
-     */
-    public function getApplication(): array
-    {
-        $result = TransferApplication::find()
-            ->select(['transfer_application_date', 'transfer_application_price', 'transfer_application_team_id'])
-            ->where(['transfer_application_transfer_id' => $this->player->transfer->transfer_id])
-            ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
-            ->all();
-
-        return $result;
-    }
-
-    /**
-     * @param integer $teamId
-     */
-    public function setTeamId(int $teamId)
-    {
-        $this->teamId = $teamId;
     }
 
     /**
@@ -92,10 +70,11 @@ class TransferFrom extends Model
             return false;
         }
 
-        $finance = Team::find()->select(['team_finance'])->where(['team_id' => $this->teamId])->limit(1)->scalar();
-        if ($finance < 0) {
-            Yii::$app->session->setFlash('error',
-                'You can not remove players from the transfer market, if the team has a negative balance.');
+        if ($this->team->team_finance < 0) {
+            Yii::$app->session->setFlash(
+                'error',
+                'You can not remove players from the transfer market, if the team has a negative balance.'
+            );
             return false;
         }
 

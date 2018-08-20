@@ -2,7 +2,8 @@
 
 /**
  * @var \frontend\controllers\BaseController $context
- * @var \frontend\models\TransferApplication $modelTransferApplication
+ * @var \frontend\models\TransferApplicationFrom $modelTransferApplicationFrom
+ * @var \frontend\models\TransferApplicationTo $modelTransferApplicationTo
  * @var \frontend\models\TransferFrom $modelTransferFrom
  * @var \frontend\models\TransferTo $modelTransferTo
  * @var boolean $myPlayer
@@ -41,7 +42,8 @@ print $this->render('_links');
 <?php else: ?>
     <?php if ($onTransfer) : ?>
         <?= $this->render('_transfer_application', [
-            'model' => $modelTransferApplication,
+            'model' => $modelTransferApplicationTo,
+            'modelFrom' => $modelTransferApplicationFrom,
         ]); ?>
     <?php else: ?>
         <?= $this->render('_transfer_no'); ?>

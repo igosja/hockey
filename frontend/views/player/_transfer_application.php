@@ -5,10 +5,16 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \frontend\models\TransferApplication $model
+ * @var \frontend\models\TransferApplicationTo $model
+ * @var \frontend\models\TransferApplicationFrom $modelFrom
  */
 
-$team = $model->getTeam();
+try {
+    $modelFromClassName = $modelFrom->formName();
+} catch (Throwable $e) {
+    ErrorHelper::log($e);
+    $modelFromClassName = 'TransferApplicationFrom';
+}
 
 ?>
 <div class="row">
@@ -20,8 +26,8 @@ $team = $model->getTeam();
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
                     <?= Html::a(
-                        $team->team_name . ' <span class="hidden-xs">(' . $team->stadium->city->city_name . ')</span>',
-                        ['team/view', 'id' => $team->team_id]
+                        $model->team->team_name . ' <span class="hidden-xs">(' . $model->team->stadium->city->city_name . ')</span>',
+                        ['team/view', 'id' => $model->team->team_id]
                     ); ?>
                 </span>
             </div>
@@ -35,7 +41,7 @@ $team = $model->getTeam();
                     <?php
 
                     try {
-                        print Yii::$app->formatter->asCurrency($team->team_finance);
+                        print Yii::$app->formatter->asCurrency($model->team->team_finance);
                     } catch (Throwable $e) {
                         ErrorHelper::log($e);
                     }
@@ -53,7 +59,7 @@ $team = $model->getTeam();
                     <?php
 
                     try {
-                        print Yii::$app->formatter->asCurrency($model->getMinPrice());
+                        print Yii::$app->formatter->asCurrency($model->minPrice);
                     } catch (Throwable $e) {
                         ErrorHelper::log($e);
                     }
@@ -67,7 +73,7 @@ $team = $model->getTeam();
             'fieldConfig' => [
                 'errorOptions' => [
                     'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
-                    'tag' => 'div'
+                    'tag' => 'div',
                 ],
             ],
         ]); ?>
@@ -89,13 +95,28 @@ $team = $model->getTeam();
             ])->checkbox(); ?>
         </div>
         <p class="text-center">
-            <?php if (true) : ?>
+            <?php if ($model->transferApplication) : ?>
                 <?= Html::submitButton('Edit application', ['class' => 'btn']); ?>
-                <?= Html::a('Remove application', 'javascript:', ['class' => 'btn']); ?>
+                <?= Html::a(
+                    'Remove application',
+                    'javascript:',
+                    ['class' => 'btn', 'id' => 'btn' . $modelFromClassName]
+                ); ?>
             <?php else: ?>
-                <?= Html::submitButton('Edit Apply', ['class' => 'btn']); ?>
+                <?= Html::submitButton('Apply', ['class' => 'btn']); ?>
             <?php endif; ?>
         </p>
+        <?php $form->end(); ?>
+        <?php $form = ActiveForm::begin([
+            'enableAjaxValidation' => true,
+            'options' => [
+                'id' => 'form' . $modelFromClassName,
+                'style' => [
+                    'display' => 'none',
+                ],
+            ],
+        ]); ?>
+        <?= $form->field($modelFrom, 'off')->hiddenInput(['value' => true])->label(false); ?>
         <?php $form->end(); ?>
     </div>
 </div>

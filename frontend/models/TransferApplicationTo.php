@@ -7,13 +7,14 @@ use common\models\Loan;
 use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
+use common\models\TransferApplication;
 use frontend\controllers\BaseController;
 use Throwable;
 use Yii;
 use yii\base\Model;
 
 /**
- * Class TransferApplication
+ * Class TransferApplicationTo
  * @package frontend\models
  *
  * @property integer $maxPrice
@@ -21,16 +22,41 @@ use yii\base\Model;
  * @property boolean $onlyOne
  * @property Player $player
  * @property integer $price
- * @property integer $teamId
+ * @property Team $team
+ * @property TransferApplication $transferApplication
  */
-class TransferApplication extends Model
+class TransferApplicationTo extends Model
 {
-    public $onlyOne;
-    public $price;
-    private $maxPrice = 0;
-    private $minPrice = 0;
-    private $player;
-    private $teamId;
+    public $onlyOne = false;
+    public $price = 0;
+    public $maxPrice = 0;
+    public $minPrice = 0;
+    public $player;
+    public $team;
+    public $transferApplication;
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+
+        $this->minPrice = ceil($this->player->player_price / 2);
+        $this->maxPrice = $this->team->team_finance;
+        $this->transferApplication = TransferApplication::find()
+            ->select(['transfer_application_id', 'transfer_application_price', 'transfer_application_only_one'])
+            ->where([
+                'transfer_application_team_id' => $this->team->team_id,
+                'transfer_application_transfer_id' => $this->player->transfer->transfer_id,
+            ])
+            ->limit(1)
+            ->one();
+        if ($this->transferApplication) {
+            $this->onlyOne = $this->transferApplication->transfer_application_only_one;
+            $this->price = $this->transferApplication->transfer_application_price;
+        }
+    }
 
     /**
      * @return array
@@ -56,67 +82,6 @@ class TransferApplication extends Model
     }
 
     /**
-     * @param integer $maxPrice
-     */
-    public function setMaxPrice(int $maxPrice)
-    {
-        $this->maxPrice = $maxPrice;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMinPrice(): int
-    {
-        return $this->minPrice;
-    }
-
-    /**
-     * @return Player
-     */
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function setPlayer(Player $player)
-    {
-        $this->player = $player;
-        $this->minPrice = ceil($player->player_price / 2);
-        $application = \common\models\TransferApplication::find()
-            ->select(['transfer_application_price', 'transfer_application_only_one'])
-            ->where([
-                'transfer_application_team_id' => $this->teamId,
-                'transfer_application_transfer_id' => $this->player->transfer->transfer_id,
-            ])
-            ->limit(1)
-            ->one();
-        if ($application) {
-            $this->onlyOne = $application->transfer_application_only_one;
-            $this->price = $application->transfer_application_price;
-        }
-    }
-
-    /**
-     * @param integer $teamId
-     */
-    public function setTeamId(int $teamId)
-    {
-        $this->teamId = $teamId;
-    }
-
-    /**
-     * @return Team
-     */
-    public function getTeam(): Team
-    {
-        return Team::find()->where(['team_id' => $this->teamId])->one();
-    }
-
-    /**
      * @return bool
      * @throws \yii\db\Exception
      */
@@ -134,7 +99,7 @@ class TransferApplication extends Model
             return false;
         }
 
-        if ($transfer->transfer_team_seller_id == $this->teamId) {
+        if ($transfer->transfer_team_seller_id == $this->team->team_id) {
             Yii::$app->session->setFlash('error', 'You can not buy a player from your team.');
             return false;
         }
@@ -156,8 +121,8 @@ class TransferApplication extends Model
             ->andWhere(['!=', 'transfer_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['transfer_team_buyer_id' => $this->teamId],
-                ['transfer_team_seller_id' => $this->teamId]
+                ['transfer_team_buyer_id' => $this->team->team_id],
+                ['transfer_team_seller_id' => $this->team->team_id]
             ])
             ->all();
 
@@ -178,8 +143,8 @@ class TransferApplication extends Model
             ->andWhere(['!=', 'loan_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_team_buyer_id' => $this->teamId],
-                ['loan_team_seller_id' => $this->teamId]
+                ['loan_team_buyer_id' => $this->team->team_id],
+                ['loan_team_seller_id' => $this->team->team_id]
             ])
             ->all();
 
@@ -193,7 +158,7 @@ class TransferApplication extends Model
             }
         }
 
-        if (in_array($this->teamId, $teamArray)) {
+        if (in_array($this->team->team_id, $teamArray)) {
             Yii::$app->session->setFlash('error', 'Your teams have already made a deal this season.');
             return false;
         }
@@ -255,21 +220,15 @@ class TransferApplication extends Model
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            $model = \common\models\TransferApplication::find()
-                ->where([
-                    'transfer_application_team_id' => $this->teamId,
-                    'transfer_application_transfer_id' => $this->player->transfer->transfer_id,
-                ])
-                ->limit(1)
-                ->one();
+            $model = $this->transferApplication;
             if (!$model) {
-                $model = new \common\models\TransferApplication();
+                $model = new TransferApplication();
+                $model->transfer_application_team_id = $this->team->team_id;
+                $model->transfer_application_transfer_id = $transfer->transfer_id;
+                $model->transfer_application_user_id = Yii::$app->user->id;
             }
             $model->transfer_application_only_one = $this->onlyOne;
             $model->transfer_application_price = $this->price;
-            $model->transfer_application_team_id = $this->teamId;
-            $model->transfer_application_transfer_id = $transfer->transfer_id;
-            $model->transfer_application_user_id = Yii::$app->user->id;
             if (!$model->save()) {
                 throw new Throwable(ErrorHelper::modelErrorsToString($model));
             }

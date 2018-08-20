@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use common\models\Loan;
 use common\models\Player;
 use common\models\Position;
+use common\models\Team;
 use common\models\Training;
 use common\models\Transfer;
 use Throwable;
@@ -20,17 +21,29 @@ use yii\base\Model;
  * @property integer $minPrice
  * @property Player $player
  * @property integer $price
- * @property integer $teamId
+ * @property Team $team
  * @property boolean $toLeague
  */
 class TransferTo extends Model
 {
     public $price;
     public $toLeague;
-    private $maxPrice = 0;
-    private $minPrice = 0;
-    private $player;
-    private $teamId;
+    public $maxPrice = 0;
+    public $minPrice = 0;
+    public $player;
+    public $team;
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+
+        $this->maxPrice = $this->team->team_finance;
+        $this->minPrice = ceil($this->player->player_price / 2);
+        $this->price = $this->minPrice;
+    }
 
     /**
      * @return array
@@ -53,40 +66,6 @@ class TransferTo extends Model
             'price' => 'Starting price',
             'toLeague' => 'Sell the league',
         ];
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMinPrice(): int
-    {
-        return $this->minPrice;
-    }
-
-    /**
-     * @param integer $maxPrice
-     */
-    public function setMaxPrice(int $maxPrice)
-    {
-        $this->maxPrice = $maxPrice;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function setPlayer(Player $player)
-    {
-        $this->player = $player;
-        $this->minPrice = ceil($player->player_price / 2);
-        $this->price = $this->minPrice;
-    }
-
-    /**
-     * @param integer $teamId
-     */
-    public function setTeamId(int $teamId)
-    {
-        $this->teamId = $teamId;
     }
 
     /**
@@ -128,7 +107,9 @@ class TransferTo extends Model
             return false;
         }
 
-        $count = Transfer::find()->where(['transfer_team_seller_id' => $this->teamId, 'transfer_ready' => 0])->count();
+        $count = Transfer::find()
+            ->where(['transfer_team_seller_id' => $this->team->team_id, 'transfer_ready' => 0])
+            ->count();
 
         if ($count > 5) {
             Yii::$app->session->setFlash(
@@ -142,14 +123,14 @@ class TransferTo extends Model
             $countTeam = Player::find()->where([
                 'player_loan_team_id' => 0,
                 'player_position_id' => Position::GK,
-                'player_team_id' => $this->teamId,
+                'player_team_id' => $this->team->team_id,
             ])->count();
 
             $countTransfer = Transfer::find()
                 ->joinWith(['player'])
                 ->where([
                     'player_position_id' => Position::GK,
-                    'transfer_team_seller_id' => $this->teamId,
+                    'transfer_team_seller_id' => $this->team->team_id,
                     'transfer_ready' => 0,
                 ])
                 ->count();
@@ -157,7 +138,7 @@ class TransferTo extends Model
             $countLoan = Loan::find()
                 ->joinWith(['player'])
                 ->where([
-                    'loan_team_seller_id' => $this->teamId,
+                    'loan_team_seller_id' => $this->team->team_id,
                     'loan_ready' => 0,
                     'player_position_id' => Position::GK,
                 ])
@@ -174,19 +155,19 @@ class TransferTo extends Model
             }
         } else {
             $countTeam = Player::find()
-                ->where(['player_loan_team_id' => 0, 'player_team_id' => $this->teamId])
+                ->where(['player_loan_team_id' => 0, 'player_team_id' => $this->team->team_id])
                 ->andWhere(['!=', 'player_position_id', Position::GK])
                 ->count();
 
             $countTransfer = Transfer::find()
                 ->joinWith(['player'])
-                ->where(['transfer_team_seller_id' => $this->teamId, 'transfer_ready' => 0])
+                ->where(['transfer_team_seller_id' => $this->team->team_id, 'transfer_ready' => 0])
                 ->andWhere(['!=', 'player_position_id', Position::GK])
                 ->count();
 
             $countLoan = Loan::find()
                 ->joinWith(['player'])
-                ->where(['loan_team_seller_id' => $this->teamId, 'loan_ready' => 0])
+                ->where(['loan_team_seller_id' => $this->team->team_id, 'loan_ready' => 0])
                 ->andWhere(['!=', 'player_position_id', Position::GK])
                 ->count();
 
@@ -226,7 +207,7 @@ class TransferTo extends Model
             $model = new Transfer();
             $model->transfer_player_id = $this->player->player_id;
             $model->transfer_price_seller = $this->price;
-            $model->transfer_team_seller_id = $this->teamId;
+            $model->transfer_team_seller_id = $this->team->team_id;
             $model->transfer_to_league = $this->toLeague;
             $model->transfer_user_seller_id = Yii::$app->user->id;
             if (!$model->save()) {

@@ -54,6 +54,8 @@ class BaseController extends Controller
                 ->select([
                     'team_finance',
                     'team_id',
+                    'team_name',
+                    'team_stadium_id'
                 ])
                 ->where(['team_user_id' => Yii::$app->user->id])
                 ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])

@@ -12,5 +12,8 @@ jQuery(document).ready(function () {
             $.ajax({
                 url: url + '?squad=' + line_id
             });
+        })
+        .on('click', '#btnTransferApplicationFrom', function () {
+            $('#formTransferApplicationFrom').submit();
         });
 });

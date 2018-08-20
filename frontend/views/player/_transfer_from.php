@@ -8,8 +8,6 @@ use yii\widgets\ActiveForm;
  * @var \frontend\models\TransferFrom $model
  */
 
-$applicationArray = $model->getApplication();
-
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
@@ -20,14 +18,14 @@ $applicationArray = $model->getApplication();
             <span class="strong"><?php
 
                 try {
-                    print Yii::$app->formatter->asCurrency($model->getPlayer()->transfer->transfer_price_seller);
+                    print Yii::$app->formatter->asCurrency($model->player->transfer->transfer_price_seller);
                 } catch (Throwable $e) {
                     ErrorHelper::log($e);
                 }
 
                 ?></span>.
         </p>
-        <?php if ($model->getPlayer()->transfer->transfer_to_league): ?>
+        <?php if ($model->player->transfer->transfer_to_league): ?>
             <p class="text-center">
                 In the absence of demand, the player will be sold to the League.
             </p>
@@ -38,7 +36,7 @@ $applicationArray = $model->getApplication();
             <?= Html::submitButton('Remove from the transfer', ['class' => 'btn']); ?>
         </p>
         <?php $form->end(); ?>
-        <?php if ($applicationArray) : ?>
+        <?php if ($model->transferApplicationArray) : ?>
             <p class="text-center">Requests for your player:</p>
             <table class="table table-bordered table-hover">
                 <tr>
@@ -46,7 +44,7 @@ $applicationArray = $model->getApplication();
                     <th class="col-20">Application time</th>
                     <th class="col-15">Price</th>
                 </tr>
-                <?php foreach ($applicationArray as $item): ?>
+                <?php foreach ($model->transferApplicationArray as $item): ?>
                     <tr>
                         <td>
                             <?= Html::a(

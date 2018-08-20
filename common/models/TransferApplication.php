@@ -6,7 +6,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Class TransferApplication
+ * Class TransferApplicationTo
  * @package common\models
  *
  * @property integer $transfer_application_id
