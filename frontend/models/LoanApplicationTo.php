@@ -144,11 +144,11 @@ class LoanApplicationTo extends Model
             ->all();
 
         foreach ($transferArray as $item) {
-            if (!in_array($item->transfer_team_buyer_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->transfer_team_buyer_id, array(0, $loan->loan_team_seller_id))) {
                 $teamArray[] = $item->transfer_team_buyer_id;
             }
 
-            if (!in_array($item->transfer_team_seller_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->transfer_team_seller_id, array(0, $loan->loan_team_seller_id))) {
                 $teamArray[] = $item->transfer_team_seller_id;
             }
         }
@@ -195,11 +195,11 @@ class LoanApplicationTo extends Model
             ->all();
 
         foreach ($transferArray as $item) {
-            if (!in_array($item->transfer_user_buyer_id, array(0, $transfer->transfer_user_seller_id))) {
+            if (!in_array($item->transfer_user_buyer_id, array(0, $loan->loan_user_seller_id))) {
                 $userArray[] = $item->transfer_user_buyer_id;
             }
 
-            if (!in_array($item->transfer_user_seller_id, array(0, $transfer->transfer_user_seller_id))) {
+            if (!in_array($item->transfer_user_seller_id, array(0, $loan->loan_user_seller_id))) {
                 $userArray[] = $item->transfer_user_seller_id;
             }
         }
