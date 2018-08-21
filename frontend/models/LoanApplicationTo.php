@@ -116,15 +116,15 @@ class LoanApplicationTo extends Model
             return false;
         }
 
-//        if ($loan->loan_team_seller_id == $this->team->team_id) {
-//            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
-//            return false;
-//        }
-//
-//        if ($loan->loan_user_seller_id == Yii::$app->user->id) {
-//            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
-//            return false;
-//        }
+        if ($loan->loan_team_seller_id == $this->team->team_id) {
+            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+            return false;
+        }
+
+        if ($loan->loan_user_seller_id == Yii::$app->user->id) {
+            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+            return false;
+        }
 
         /** @var BaseController $controller */
         $controller = Yii::$app->controller;
