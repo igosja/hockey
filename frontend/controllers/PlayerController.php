@@ -10,6 +10,10 @@ use common\models\Loan;
 use common\models\Player;
 use common\models\Squad;
 use common\models\Transfer;
+use frontend\models\LoanApplicationFrom;
+use frontend\models\LoanApplicationTo;
+use frontend\models\LoanFrom;
+use frontend\models\LoanTo;
 use frontend\models\TransferApplicationFrom;
 use frontend\models\TransferApplicationTo;
 use frontend\models\TransferFrom;
@@ -201,6 +205,111 @@ class PlayerController extends BaseController
             'modelTransferTo' => $modelTransferTo,
             'myPlayer' => $myPlayer,
             'onTransfer' => $onTransfer,
+        ]);
+    }
+
+    /**
+     * @param integer $id
+     * @return array|string|Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionLoan(int $id)
+    {
+        $player = Player::find()
+            ->select([
+                'player_age',
+                'player_country_id',
+                'player_id',
+                'player_loan_team_id',
+                'player_national_id',
+                'player_no_action',
+                'player_no_deal',
+                'player_position_id',
+                'player_price',
+                'player_team_id',
+            ])
+            ->where(['player_id' => $id])
+            ->one();
+        $this->notFound($player);
+        $myPlayer = true;
+        if (!$this->myTeam) {
+            $myPlayer = false;
+        } elseif ($this->myTeam->team_id != $player->player_team_id) {
+            $myPlayer = false;
+        }
+        $onLoan = $player->loan ? true : false;
+
+        $formConfig = ['player' => $player, 'team' => $this->myTeam];
+
+        $modelLoanTo = new LoanTo($formConfig);
+        $modelLoanFrom = new LoanFrom($formConfig);
+        $modelLoanApplicationTo = new LoanApplicationTo($formConfig);
+        $modelLoanApplicationFrom = new LoanApplicationFrom($formConfig);
+        if ($myPlayer) {
+            if ($modelLoanTo->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelLoanTo);
+                } else {
+                    try {
+                        $modelLoanTo->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+
+            if ($modelLoanFrom->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelLoanFrom);
+                } else {
+                    try {
+                        $modelLoanFrom->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+        } else {
+            if ($modelLoanApplicationTo->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelLoanApplicationTo);
+                } else {
+                    try {
+                        $modelLoanApplicationTo->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+
+            if ($modelLoanApplicationFrom->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($modelLoanApplicationTo);
+                } else {
+                    try {
+                        $modelLoanApplicationFrom->execute();
+                    } catch (Throwable $e) {
+                        ErrorHelper::log($e);
+                    }
+                    return $this->refresh();
+                }
+            }
+        }
+
+        return $this->render('loan', [
+            'modelLoanApplicationFrom' => $modelLoanApplicationFrom,
+            'modelLoanApplicationTo' => $modelLoanApplicationTo,
+            'modelLoanFrom' => $modelLoanFrom,
+            'modelLoanTo' => $modelLoanTo,
+            'myPlayer' => $myPlayer,
+            'onLoan' => $onLoan,
         ]);
     }
 

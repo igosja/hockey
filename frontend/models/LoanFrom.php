@@ -3,29 +3,29 @@
 namespace frontend\models;
 
 use common\components\ErrorHelper;
+use common\models\Loan;
+use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
-use common\models\Transfer;
-use common\models\TransferApplication;
 use Throwable;
 use Yii;
 use yii\base\Model;
 
 /**
- * Class TransferFrom
+ * Class LoanFrom
  * @package frontend\models
  *
  * @property boolean $off
  * @property Player $player
  * @property Team $team
- * @property TransferApplication[] $transferApplicationArray
+ * @property LoanApplication[] $loanApplicationArray
  */
-class TransferFrom extends Model
+class LoanFrom extends Model
 {
     public $off;
     public $player;
     public $team;
-    public $transferApplicationArray;
+    public $loanApplicationArray;
 
     /**
      * @param array $config
@@ -34,10 +34,10 @@ class TransferFrom extends Model
     {
         parent::__construct($config);
 
-        $this->transferApplicationArray = TransferApplication::find()
-            ->select(['transfer_application_date', 'transfer_application_price', 'transfer_application_team_id'])
-            ->where(['transfer_application_transfer_id' => $this->player->transfer->transfer_id ?? 0])
-            ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
+        $this->loanApplicationArray = LoanApplication::find()
+            ->select(['loan_application_date', 'loan_application_price', 'loan_application_team_id'])
+            ->where(['loan_application_loan_id' => $this->player->loan->loan_id ?? 0])
+            ->orderBy(['loan_application_price' => SORT_DESC, 'loan_application_date' => SORT_ASC])
             ->all();
     }
 
@@ -62,18 +62,18 @@ class TransferFrom extends Model
             return false;
         }
 
-        $transfer = Transfer::find()
-            ->select(['transfer_id'])
-            ->where(['transfer_player_id' => $this->player->player_id, 'transfer_ready' => 0])
+        $loan = Loan::find()
+            ->select(['loan_id'])
+            ->where(['loan_player_id' => $this->player->player_id, 'loan_ready' => 0])
             ->one();
-        if (!$transfer) {
+        if (!$loan) {
             return false;
         }
 
         if ($this->team->team_finance < 0) {
             Yii::$app->session->setFlash(
                 'error',
-                'You can not remove players from the transfer market, if the team has a negative balance.'
+                'You can not remove players from the loan market, if the team has a negative balance.'
             );
             return false;
         }
@@ -81,11 +81,11 @@ class TransferFrom extends Model
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            TransferApplication::deleteAll(['transfer_application_transfer_id' => $transfer->transfer_id]);
-            $transfer->delete();
+            LoanApplication::deleteAll(['loan_application_loan_id' => $loan->loan_id]);
+            $loan->delete();
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Player successfully removed from the transfer.');
+            Yii::$app->session->setFlash('success', 'Player successfully removed from the loan.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
