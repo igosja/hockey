@@ -15,5 +15,8 @@ jQuery(document).ready(function () {
         })
         .on('click', '#btnTransferApplicationFrom', function () {
             $('#formTransferApplicationFrom').submit();
+        })
+        .on('click', '#btnLoanApplicationFrom', function () {
+            $('#formLoanApplicationFrom').submit();
         });
 });

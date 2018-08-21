@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <p class="text-center">
-            The player is on a loan.
+            The player is on loan.
             <br/>
-            The initial cost of the player is
+            The initial cost for 1 loan day is
             <span class="strong"><?php
 
                 try {
@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
                 ?></span>.
             <br/>
-            The lease term is
+            The term of loan is
             <span class="strong">
                 <?= $model->player->loan->loan_day_min; ?>-<?= $model->player->loan->loan_day_max; ?>
             </span>
@@ -43,6 +43,7 @@ use yii\widgets\ActiveForm;
                 <tr>
                     <th>Team of the potential buyer</th>
                     <th class="col-20">Application time</th>
+                    <th class="col-15">Term of loan</th>
                     <th class="col-15">Price</th>
                 </tr>
                 <?php foreach ($model->loanApplicationArray as $item): ?>
@@ -64,6 +65,7 @@ use yii\widgets\ActiveForm;
 
                             ?>
                         </td>
+                        <td class="text-center"><?= $item->loan_application_day; ?></td>
                         <td class="text-right">
                             <?php
 

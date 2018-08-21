@@ -52,7 +52,7 @@ try {
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Starting price:
+                Starting price for 1 loan day:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
@@ -68,6 +68,14 @@ try {
                 </span>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                Term of loan:
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <span class="strong"><?= $model->minDay; ?>-<?= $model->maxDay; ?></span> дней
+            </div>
+        </div>
         <?php $form = ActiveForm::begin([
             'enableAjaxValidation' => true,
             'fieldConfig' => [
@@ -78,6 +86,14 @@ try {
             ],
         ]); ?>
         <?= $form->field($model, 'price', [
+            'template' => '
+                <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{label}</div>
+                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-6">{input}</div>
+                </div>
+                <div class="row">{error}</div>'
+        ])->textInput(); ?>
+        <?= $form->field($model, 'day', [
             'template' => '
                 <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">{label}</div>

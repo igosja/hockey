@@ -7,6 +7,7 @@ use common\models\Loan;
 use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
+use common\models\Transfer;
 use frontend\controllers\BaseController;
 use Throwable;
 use Yii;
@@ -16,7 +17,10 @@ use yii\base\Model;
  * Class LoanApplicationTo
  * @package frontend\models
  *
+ * @property integer $day
+ * @property integer $maxDay
  * @property integer $maxPrice
+ * @property integer $minDay
  * @property integer $minPrice
  * @property boolean $onlyOne
  * @property Player $player
@@ -26,9 +30,12 @@ use yii\base\Model;
  */
 class LoanApplicationTo extends Model
 {
+    public $day = 0;
     public $onlyOne = false;
     public $price = 0;
+    public $maxDay = 0;
     public $maxPrice = 0;
+    public $minDay = 0;
     public $minPrice = 0;
     public $player;
     public $team;
@@ -41,10 +48,17 @@ class LoanApplicationTo extends Model
     {
         parent::__construct($config);
 
-        $this->minPrice = ceil($this->player->player_price / 2);
+        $this->minPrice = ceil($this->player->player_price / 1000);
         $this->maxPrice = $this->team->team_finance;
+        $this->minDay = $this->player->loan->loan_day_min;
+        $this->maxDay = $this->player->loan->loan_day_max;
         $this->loanApplication = LoanApplication::find()
-            ->select(['loan_application_id', 'loan_application_price', 'loan_application_only_one'])
+            ->select([
+                'loan_application_id',
+                'loan_application_day',
+                'loan_application_price',
+                'loan_application_only_one',
+            ])
             ->where([
                 'loan_application_team_id' => $this->team->team_id,
                 'loan_application_loan_id' => $this->player->loan->loan_id ?? 0,
@@ -52,6 +66,8 @@ class LoanApplicationTo extends Model
             ->limit(1)
             ->one();
         if ($this->loanApplication) {
+            $this->day = $this->loanApplication->loan_application_day;
+            $this->minPrice = $this->loanApplication->loan_application_price;
             $this->onlyOne = $this->loanApplication->loan_application_only_one;
             $this->price = $this->loanApplication->loan_application_price;
         }
@@ -63,6 +79,7 @@ class LoanApplicationTo extends Model
     public function rules(): array
     {
         return [
+            [['day'], 'integer', 'min' => $this->minDay, 'max' => $this->maxDay],
             [['onlyOne'], 'boolean'],
             [['price'], 'integer', 'min' => $this->minPrice, 'max' => $this->maxPrice],
             [['onlyOne', 'price'], 'required'],
@@ -75,8 +92,9 @@ class LoanApplicationTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'price' => 'Your price',
+            'day' => 'Loan days',
             'onlyOne' => 'In case of victory, delete all my other applications',
+            'price' => 'Your price',
         ];
     }
 
@@ -91,47 +109,47 @@ class LoanApplicationTo extends Model
         }
 
         $loan = Loan::find()
-            ->select(['loan_id'])
+            ->select(['loan_id', 'loan_team_seller_id', 'loan_user_seller_id'])
             ->where(['loan_player_id' => $this->player->player_id, 'loan_ready' => 0])
             ->one();
         if (!$loan) {
             return false;
         }
 
-        if ($loan->loan_team_seller_id == $this->team->team_id) {
-            Yii::$app->session->setFlash('error', 'You can not buy a player from your team.');
-            return false;
-        }
-
-        if ($loan->loan_user_seller_id == Yii::$app->user->id) {
-            Yii::$app->session->setFlash('error', 'You can not buy a player from your team.');
-            return false;
-        }
+//        if ($loan->loan_team_seller_id == $this->team->team_id) {
+//            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+//            return false;
+//        }
+//
+//        if ($loan->loan_user_seller_id == Yii::$app->user->id) {
+//            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+//            return false;
+//        }
 
         /** @var BaseController $controller */
         $controller = Yii::$app->controller;
 
         $teamArray = [0];
 
-        $loanArray = Loan::find()
-            ->select(['loan_team_buyer_id', 'loan_team_seller_id'])
-            ->where(['loan_ready' => 1, 'loan_season_id' => $controller->seasonId])
-            ->andWhere(['!=', 'loan_team_buyer_id', 0])
-            ->andWhere(['!=', 'loan_team_seller_id', 0])
+        $transferArray = Transfer::find()
+            ->select(['transfer_team_buyer_id', 'transfer_team_seller_id'])
+            ->where(['transfer_ready' => 1, 'transfer_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'transfer_team_buyer_id', 0])
+            ->andWhere(['!=', 'transfer_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_team_buyer_id' => $this->team->team_id],
-                ['loan_team_seller_id' => $this->team->team_id]
+                ['transfer_team_buyer_id' => $this->team->team_id],
+                ['transfer_team_seller_id' => $this->team->team_id]
             ])
             ->all();
 
-        foreach ($loanArray as $item) {
-            if (!in_array($item->loan_team_buyer_id, array(0, $loan->loan_team_seller_id))) {
-                $teamArray[] = $item->loan_team_buyer_id;
+        foreach ($transferArray as $item) {
+            if (!in_array($item->transfer_team_buyer_id, array(0, $transfer->transfer_team_seller_id))) {
+                $teamArray[] = $item->transfer_team_buyer_id;
             }
 
-            if (!in_array($item->loan_team_seller_id, array(0, $loan->loan_team_seller_id))) {
-                $teamArray[] = $item->loan_team_seller_id;
+            if (!in_array($item->transfer_team_seller_id, array(0, $transfer->transfer_team_seller_id))) {
+                $teamArray[] = $item->transfer_team_seller_id;
             }
         }
 
@@ -164,25 +182,25 @@ class LoanApplicationTo extends Model
 
         $userArray = [0];
 
-        $loanArray = Loan::find()
-            ->select(['loan_user_buyer_id', 'loan_user_seller_id'])
-            ->where(['loan_ready' => 1, 'loan_season_id' => $controller->seasonId])
-            ->andWhere(['!=', 'loan_user_buyer_id', 0])
-            ->andWhere(['!=', 'loan_user_seller_id', 0])
+        $transferArray = Transfer::find()
+            ->select(['transfer_user_buyer_id', 'transfer_user_seller_id'])
+            ->where(['transfer_ready' => 1, 'transfer_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'transfer_user_buyer_id', 0])
+            ->andWhere(['!=', 'transfer_user_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_user_buyer_id' => Yii::$app->user->id],
-                ['loan_user_seller_id' => Yii::$app->user->id]
+                ['transfer_user_buyer_id' => Yii::$app->user->id],
+                ['transfer_user_seller_id' => Yii::$app->user->id]
             ])
             ->all();
 
-        foreach ($loanArray as $item) {
-            if (!in_array($item->loan_user_buyer_id, array(0, $loan->loan_user_seller_id))) {
-                $userArray[] = $item->loan_user_buyer_id;
+        foreach ($transferArray as $item) {
+            if (!in_array($item->transfer_user_buyer_id, array(0, $transfer->transfer_user_seller_id))) {
+                $userArray[] = $item->transfer_user_buyer_id;
             }
 
-            if (!in_array($item->loan_user_seller_id, array(0, $loan->loan_user_seller_id))) {
-                $userArray[] = $item->loan_user_seller_id;
+            if (!in_array($item->transfer_user_seller_id, array(0, $transfer->transfer_user_seller_id))) {
+                $userArray[] = $item->transfer_user_seller_id;
             }
         }
 
@@ -226,6 +244,7 @@ class LoanApplicationTo extends Model
                 $model->loan_application_loan_id = $loan->loan_id;
                 $model->loan_application_user_id = Yii::$app->user->id;
             }
+            $model->loan_application_day = $this->day;
             $model->loan_application_only_one = $this->onlyOne;
             $model->loan_application_price = $this->price;
             if (!$model->save()) {

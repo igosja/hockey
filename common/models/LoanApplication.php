@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,6 +17,8 @@ use yii\db\ActiveRecord;
  * @property integer $loan_application_team_id
  * @property integer $loan_application_loan_id
  * @property integer $loan_application_user_id
+ *
+ * @property Team $team
  */
 class LoanApplication extends ActiveRecord
 {
@@ -37,7 +40,7 @@ class LoanApplication extends ActiveRecord
             [
                 ['loan_application_loan_id'],
                 'in',
-                'range' => Transfer::find()->select(['loan_id'])->column()
+                'range' => Loan::find()->select(['loan_id'])->column()
             ],
             [['loan_application_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [
@@ -51,5 +54,28 @@ class LoanApplication extends ActiveRecord
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->loan_application_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'loan_application_team_id']);
     }
 }

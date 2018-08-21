@@ -53,6 +53,7 @@ class TransferApplicationTo extends Model
             ->limit(1)
             ->one();
         if ($this->transferApplication) {
+            $this->minPrice = $this->transferApplication->transfer_application_price;
             $this->onlyOne = $this->transferApplication->transfer_application_only_one;
             $this->price = $this->transferApplication->transfer_application_price;
         }
@@ -92,7 +93,7 @@ class TransferApplicationTo extends Model
         }
 
         $transfer = Transfer::find()
-            ->select(['transfer_id'])
+            ->select(['transfer_id', 'transfer_team_seller_id', 'transfer_user_seller_id'])
             ->where(['transfer_player_id' => $this->player->player_id, 'transfer_ready' => 0])
             ->one();
         if (!$transfer) {

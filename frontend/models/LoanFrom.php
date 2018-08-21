@@ -35,7 +35,12 @@ class LoanFrom extends Model
         parent::__construct($config);
 
         $this->loanApplicationArray = LoanApplication::find()
-            ->select(['loan_application_date', 'loan_application_price', 'loan_application_team_id'])
+            ->select([
+                'loan_application_date',
+                'loan_application_day',
+                'loan_application_price',
+                'loan_application_team_id',
+            ])
             ->where(['loan_application_loan_id' => $this->player->loan->loan_id ?? 0])
             ->orderBy(['loan_application_price' => SORT_DESC, 'loan_application_date' => SORT_ASC])
             ->all();
