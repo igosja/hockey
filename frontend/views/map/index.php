@@ -89,14 +89,14 @@
 //        position: new google.maps.LatLng(49.843961, 24.025966), //Львів
 //        map: map
 //    });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(51.218192, 24.695277), //Ковель
-//        map: map
-//    });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(50.752370, 25.338809), //Луцьк
-//        map: map
-//    });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(51.218192, 24.695277), //Ковель
+            map: map
+        });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(50.752370, 25.338809), //Луцьк
+            map: map
+        });
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(46.617719, 31.537735), //Очаків
             map: map
