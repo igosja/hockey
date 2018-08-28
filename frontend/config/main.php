@@ -73,7 +73,14 @@ return [
             'class' => 'codemix\localeurls\UrlManager',
             'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
-            'languages' => ['en', 'en-*'],
+            'languages' => [
+                'en',
+                'en-*',
+                'ru',
+                'ru-*',
+                'uk',
+                'uk-*',
+            ],
             'rules' => [
                 '' => 'site/index',
                 'news' => 'news/index',
@@ -83,6 +90,7 @@ return [
                 'schedule' => 'schedule/index',
                 'sign-up' => 'site/sign-up',
                 'tournaments' => 'tournament/index',
+                'transfer' => 'transfer/index',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],

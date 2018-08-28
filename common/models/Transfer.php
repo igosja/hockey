@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -28,9 +31,12 @@ use yii\db\ActiveRecord;
  * @property integer $transfer_user_seller_id
  *
  * @property Player $player
+ * @property Team $seller
  */
 class Transfer extends ActiveRecord
 {
+    const PAGE_LIMIT = 50;
+
     /**
      * @return string
      */
@@ -92,10 +98,39 @@ class Transfer extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function dealDate(): string
+    {
+        $today = strtotime(date('Y-m-d 12:00:00'));
+
+        if ($today < $this->transfer_date + 86400 || $today < time()) {
+            $today = $today + 86400;
+        }
+
+        $result = '';
+        try {
+            $result = Yii::$app->formatter->asDate($today);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $result;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getPlayer(): ActiveQuery
     {
         return $this->hasOne(Player::class, ['player_id' => 'transfer_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSeller(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'transfer_team_seller_id']);
     }
 }
