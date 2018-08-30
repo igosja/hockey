@@ -1,25 +1,23 @@
 {
-  "name": "yiisoft/yii2-app-advanced",
-  "description": "Yii 2 Advanced Project Template",
-  "keywords": [
-    "yii2",
-    "framework",
-    "advanced",
-    "project template"
-  ],
-  "homepage": "http://www.yiiframework.com/",
-  "type": "project",
-  "license": "BSD-3-Clause",
-  "support": {
-    "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-    "forum": "http://www.yiiframework.com/forum/",
-    "wiki": "http://www.yiiframework.com/wiki/",
-    "irc": "irc://irc.freenode.net/yii",
-    "source": "https://github.com/yiisoft/yii2"
+  "config": {
+    "fxp-asset": {
+      "enabled": false
+    },
+    "process-timeout": 1800
   },
+  "homepage": "http://www.yiiframework.com/",
+  "keywords": [
+    "advanced",
+    "framework",
+    "project template",
+    "yii2"
+  ],
+  "license": "BSD-3-Clause",
   "minimum-stability": "stable",
+  "name": "yiisoft/yii2-app-advanced",
   "require": {
     "codemix/yii2-localeurls": "*",
+    "ext-intl": "*",
     "miloschuman/yii2-highcharts-widget": "*",
     "php": ">=5.6.0",
     "phpnt/yii2-metismenu": "*",
@@ -29,22 +27,24 @@
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
   },
   "require-dev": {
-    "yiisoft/yii2-debug": "~2.0.0",
-    "yiisoft/yii2-gii": "~2.0.0",
-    "yiisoft/yii2-faker": "~2.0.0",
     "codeception/base": "^2.2.3",
-    "codeception/verify": "~0.3.1"
-  },
-  "config": {
-    "process-timeout": 1800,
-    "fxp-asset": {
-      "enabled": false
-    }
+    "codeception/verify": "~0.3.1",
+    "yiisoft/yii2-debug": "~2.0.0",
+    "yiisoft/yii2-faker": "~2.0.0",
+    "yiisoft/yii2-gii": "~2.0.0"
   },
   "repositories": [
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
     }
-  ]
+  ],
+  "support": {
+    "forum": "http://www.yiiframework.com/forum/",
+    "irc": "irc://irc.freenode.net/yii",
+    "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+    "source": "https://github.com/yiisoft/yii2",
+    "wiki": "http://www.yiiframework.com/wiki/"
+  },
+  "type": "project"
 }

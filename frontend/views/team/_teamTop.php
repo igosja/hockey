@@ -83,7 +83,7 @@ $nearest = Game::find()
                             ); ?>
                         </div>
                     </div>
-                    <?php if ($team->vice) { ?>
+                    <?php if ($team->team_vice_id) { ?>
                         <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 Vice:
@@ -271,6 +271,10 @@ $nearest = Game::find()
                             ['team/view', 'id' => $item->teamHome->team_id]
                         ); ?>
                         -
+                        <?= Html::a(
+                            'Send',
+                            ['lineup/index', 'id' => $item->game_id]
+                        ); ?>
                         <?= Html::a(
                             '?:?',
                             ['game/preview', 'id' => $item->game_id]

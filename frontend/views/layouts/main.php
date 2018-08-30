@@ -8,9 +8,9 @@
 
 use common\components\ErrorHelper;
 use common\models\Site;
-use common\widgets\AlertFront;
-use common\widgets\Menu;
 use frontend\assets\AppAsset;
+use frontend\widgets\Alert;
+use frontend\widgets\Menu;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
@@ -83,7 +83,7 @@ AppAsset::register($this);
             <?php
 
             try {
-                print AlertFront::widget();
+                print Alert::widget();
             } catch (Exception $e) {
                 ErrorHelper::log($e);
             }

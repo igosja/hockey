@@ -1,6 +1,6 @@
 <?php
 
-namespace common\widgets;
+namespace frontend\widgets;
 
 use Yii;
 use yii\base\Widget;
@@ -25,7 +25,7 @@ use yii\helpers\Html;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class AlertFront extends Widget
+class Alert extends Widget
 {
     /**
      * @var array the alert types configuration for the flash messages.

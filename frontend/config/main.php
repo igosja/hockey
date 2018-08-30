@@ -41,7 +41,7 @@ return [
                 ],
             ],
             \yii\widgets\LinkPager::class => [
-                'class' => \common\widgets\LinkPager::class,
+                'class' => \frontend\widgets\LinkPager::class,
             ],
         ],
     ],
