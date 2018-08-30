@@ -1,0 +1,35 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Class m180622_124605_scout
+ */
+class m180622_124605_scout extends Migration
+{
+    const TABLE = '{{%scout}}';
+
+    /**
+     * @return bool|void
+     */
+    public function safeUp()
+    {
+        $this->createTable(self::TABLE, [
+            'scout_id' => $this->primaryKey(11),
+            'scout_percent' => $this->integer(3)->defaultValue(0),
+            'scout_player_id' => $this->integer(11)->defaultValue(0),
+            'scout_ready' => $this->integer(11)->defaultValue(0),
+            'scout_season_id' => $this->integer(3)->defaultValue(0),
+            'scout_style' => $this->integer(1)->defaultValue(0),
+            'scout_team_id' => $this->integer(11)->defaultValue(0),
+        ]);
+    }
+
+    /**
+     * @return bool|void
+     */
+    public function safeDown()
+    {
+        $this->dropTable(self::TABLE);
+    }
+}
