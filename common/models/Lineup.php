@@ -28,6 +28,7 @@ use yii\db\ActiveRecord;
  * @property integer $lineup_team_id
  *
  * @property Game $game
+ * @property Player $player
  * @property Position $position
  */
 class Lineup extends ActiveRecord
@@ -91,6 +92,14 @@ class Lineup extends ActiveRecord
     public function getGame(): ActiveQuery
     {
         return $this->hasOne(Game::class, ['game_id' => 'lineup_game_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'lineup_player_id']);
     }
 
     /**
