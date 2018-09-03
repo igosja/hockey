@@ -114,6 +114,7 @@ use yii\helpers\Html;
             </a>
         </div>
     </div>
+<?= Html::a('tactic', ['lineup/tactic', 'id' => $game->game_id]); ?>
 <?php foreach ($substitutionArray as $line) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">

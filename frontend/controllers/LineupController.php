@@ -10,6 +10,8 @@ use common\models\Position;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class LineupController
@@ -111,6 +113,36 @@ class LineupController extends BaseController
             'game' => $game,
             'lineupArray' => $lineupArray,
             'substitutionArray' => $substitutionArray,
+        ]);
+    }
+
+    public function actionTactic($id)
+    {
+        $game = Game::find()
+            ->where(['game_id' => $id, 'game_played' => 0])
+            ->andWhere([
+                'or',
+                ['game_guest_team_id' => $this->myTeam->team_id],
+                ['game_home_team_id' => $this->myTeam->team_id]
+            ])
+            ->limit(1)
+            ->one();
+        $this->notFound($game);
+
+        if (Yii::$app->request->isAjax && $game->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($game);
+        }
+
+        if ($game->load(Yii::$app->request->post())) {
+            if ($game->save()) {
+                Yii::$app->session->setFlash('success', 'Тактика успешно сохранена.');
+                return $this->refresh();
+            }
+        }
+
+        return $this->render('tactic', [
+            'game' => $game,
         ]);
     }
 
