@@ -4,6 +4,11 @@ namespace console\controllers;
 
 use common\components\ErrorHelper;
 use console\models\generator\CheckCronDate;
+use console\models\generator\CheckLineup;
+use console\models\generator\CheckTeamMoodLimit;
+use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\SiteClose;
+use console\models\generator\SiteOpen;
 use console\models\generator\UpdateCronDate;
 use Exception;
 
@@ -21,6 +26,11 @@ class GeneratorController extends BaseController
         try {
             $this->checkCronDate();
             $this->updateCronDate();
+            $this->siteClose();
+            $this->playerPowerNewToOld();
+            $this->checkTeamMoodLimit();
+            $this->checkLineup();
+            $this->siteOpen();
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
@@ -40,5 +50,45 @@ class GeneratorController extends BaseController
     private function updateCronDate()
     {
         (new UpdateCronDate())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function siteClose()
+    {
+        (new SiteClose())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function playerPowerNewToOld()
+    {
+        (new PlayerPowerNewToOld())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function checkTeamMoodLimit()
+    {
+        (new CheckTeamMoodLimit())->execute();
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function checkLineup()
+    {
+        (new CheckLineup())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function siteOpen()
+    {
+        (new SiteOpen())->execute();
     }
 }
