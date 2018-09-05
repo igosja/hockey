@@ -33,6 +33,8 @@ use yii\db\ActiveRecord;
  */
 class Lineup extends ActiveRecord
 {
+    const GAME_QUANTITY = 22;
+
     /**
      * @return string
      */

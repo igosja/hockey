@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $game_guest_collision_1
  * @property integer $game_guest_collision_2
  * @property integer $game_guest_collision_3
+ * @property integer $game_guest_collision_4
  * @property integer $game_guest_forecast
  * @property integer $game_guest_mood_id
  * @property integer $game_guest_national_id
@@ -34,9 +35,10 @@ use yii\db\ActiveRecord;
  * @property float $game_guest_plus_minus_score
  * @property integer $game_guest_power
  * @property integer $game_guest_power_percent
- * @property integer $game_guest_rude_1_id
- * @property integer $game_guest_rude_2_id
- * @property integer $game_guest_rude_3_id
+ * @property integer $game_guest_rudeness_id_1
+ * @property integer $game_guest_rudeness_id_2
+ * @property integer $game_guest_rudeness_id_3
+ * @property integer $game_guest_rudeness_id_4
  * @property integer $game_guest_score
  * @property integer $game_guest_score_1
  * @property integer $game_guest_score_2
@@ -48,20 +50,24 @@ use yii\db\ActiveRecord;
  * @property integer $game_guest_shot_2
  * @property integer $game_guest_shot_3
  * @property integer $game_guest_shot_overtime
- * @property integer $game_guest_style_1_id
- * @property integer $game_guest_style_2_id
- * @property integer $game_guest_style_3_id
- * @property integer $game_guest_tactic_1_id
- * @property integer $game_guest_tactic_2_id
- * @property integer $game_guest_tactic_3_id
+ * @property integer $game_guest_style_id_1
+ * @property integer $game_guest_style_id_2
+ * @property integer $game_guest_style_id_3
+ * @property integer $game_guest_style_id_4
+ * @property integer $game_guest_tactic_id_1
+ * @property integer $game_guest_tactic_id_2
+ * @property integer $game_guest_tactic_id_3
+ * @property integer $game_guest_tactic_id_4
  * @property integer $game_guest_team_id
  * @property float $game_guest_teamwork_1
  * @property float $game_guest_teamwork_2
  * @property float $game_guest_teamwork_3
+ * @property float $game_guest_teamwork_4
  * @property integer $game_home_auto
  * @property integer $game_home_collision_1
  * @property integer $game_home_collision_2
  * @property integer $game_home_collision_3
+ * @property integer $game_home_collision_4
  * @property integer $game_home_forecast
  * @property integer $game_home_mood_id
  * @property integer $game_home_national_id
@@ -81,9 +87,10 @@ use yii\db\ActiveRecord;
  * @property float $game_home_plus_minus_score
  * @property integer $game_home_power
  * @property integer $game_home_power_percent
- * @property integer $game_home_rude_1_id
- * @property integer $game_home_rude_2_id
- * @property integer $game_home_rude_3_id
+ * @property integer $game_home_rudeness_id_1
+ * @property integer $game_home_rudeness_id_2
+ * @property integer $game_home_rudeness_id_3
+ * @property integer $game_home_rudeness_id_4
  * @property integer $game_home_score
  * @property integer $game_home_score_1
  * @property integer $game_home_score_2
@@ -95,16 +102,19 @@ use yii\db\ActiveRecord;
  * @property integer $game_home_shot_2
  * @property integer $game_home_shot_3
  * @property integer $game_home_shot_overtime
- * @property integer $game_home_style_1_id
- * @property integer $game_home_style_2_id
- * @property integer $game_home_style_3_id
- * @property integer $game_home_tactic_1_id
- * @property integer $game_home_tactic_2_id
- * @property integer $game_home_tactic_3_id
+ * @property integer $game_home_style_id_1
+ * @property integer $game_home_style_id_2
+ * @property integer $game_home_style_id_3
+ * @property integer $game_home_style_id_4
+ * @property integer $game_home_tactic_id_1
+ * @property integer $game_home_tactic_id_2
+ * @property integer $game_home_tactic_id_3
+ * @property integer $game_home_tactic_id_4
  * @property integer $game_home_team_id
  * @property float $game_home_teamwork_1
  * @property float $game_home_teamwork_2
  * @property float $game_home_teamwork_3
+ * @property float $game_home_teamwork_4
  * @property integer $game_played
  * @property integer $game_ticket
  * @property integer $game_schedule_id
@@ -147,6 +157,7 @@ class Game extends ActiveRecord
                     'game_guest_collision_1',
                     'game_guest_collision_2',
                     'game_guest_collision_3',
+                    'game_guest_collision_4',
                     'game_guest_forecast',
                     'game_guest_mood_id',
                     'game_guest_national_id',
@@ -160,9 +171,10 @@ class Game extends ActiveRecord
                     'game_guest_plus_minus',
                     'game_guest_power',
                     'game_guest_power_percent',
-                    'game_guest_rude_1_id',
-                    'game_guest_rude_2_id',
-                    'game_guest_rude_3_id',
+                    'game_guest_rudeness_id_1',
+                    'game_guest_rudeness_id_2',
+                    'game_guest_rudeness_id_3',
+                    'game_guest_rudeness_id_4',
                     'game_guest_score',
                     'game_guest_score_1',
                     'game_guest_score_2',
@@ -174,16 +186,19 @@ class Game extends ActiveRecord
                     'game_guest_shot_2',
                     'game_guest_shot_3',
                     'game_guest_shot_overtime',
-                    'game_guest_style_1_id',
-                    'game_guest_style_2_id',
-                    'game_guest_style_3_id',
-                    'game_guest_tactic_1_id',
-                    'game_guest_tactic_2_id',
-                    'game_guest_tactic_3_id',
+                    'game_guest_style_id_1',
+                    'game_guest_style_id_2',
+                    'game_guest_style_id_3',
+                    'game_guest_style_id_4',
+                    'game_guest_tactic_id_1',
+                    'game_guest_tactic_id_2',
+                    'game_guest_tactic_id_3',
+                    'game_guest_tactic_id_4',
                     'game_home_auto',
                     'game_home_collision_1',
                     'game_home_collision_2',
                     'game_home_collision_3',
+                    'game_home_collision_4',
                     'game_home_forecast',
                     'game_home_mood_id',
                     'game_home_national_id',
@@ -197,9 +212,10 @@ class Game extends ActiveRecord
                     'game_home_plus_minus',
                     'game_home_power',
                     'game_home_power_percent',
-                    'game_home_rude_1_id',
-                    'game_home_rude_2_id',
-                    'game_home_rude_3_id',
+                    'game_home_rudeness_id_1',
+                    'game_home_rudeness_id_2',
+                    'game_home_rudeness_id_3',
+                    'game_home_rudeness_id_4',
                     'game_home_score',
                     'game_home_score_1',
                     'game_home_score_2',
@@ -211,12 +227,14 @@ class Game extends ActiveRecord
                     'game_home_shot_2',
                     'game_home_shot_3',
                     'game_home_shot_overtime',
-                    'game_home_style_1_id',
-                    'game_home_style_2_id',
-                    'game_home_style_3_id',
-                    'game_home_tactic_1_id',
-                    'game_home_tactic_2_id',
-                    'game_home_tactic_3_id',
+                    'game_home_style_id_1',
+                    'game_home_style_id_2',
+                    'game_home_style_id_3',
+                    'game_home_style_id_4',
+                    'game_home_tactic_id_1',
+                    'game_home_tactic_id_2',
+                    'game_home_tactic_id_3',
+                    'game_home_tactic_id_4',
                     'game_played',
                     'game_ticket',
                     'game_stadium_capacity',
@@ -235,6 +253,7 @@ class Game extends ActiveRecord
                     'game_guest_teamwork_1',
                     'game_guest_teamwork_2',
                     'game_guest_teamwork_3',
+                    'game_guest_teamwork_4',
                     'game_home_plus_minus_competition',
                     'game_home_plus_minus_mood',
                     'game_home_plus_minus_optimality_1',
@@ -244,6 +263,7 @@ class Game extends ActiveRecord
                     'game_home_teamwork_1',
                     'game_home_teamwork_2',
                     'game_home_teamwork_3',
+                    'game_home_teamwork_4',
                 ],
                 'number'
             ],

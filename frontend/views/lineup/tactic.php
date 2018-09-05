@@ -29,22 +29,31 @@ use yii\widgets\ActiveForm;
     ->field($game, 'game_guest_rude_3_id')
     ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_1_id')
+    ->field($game, 'game_guest_rude_4_id')
+    ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
+<?= $form
+    ->field($game, 'game_guest_style_id_1')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_2_id')
+    ->field($game, 'game_guest_style_id_2')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_3_id')
+    ->field($game, 'game_guest_style_id_3')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_1_id')
+    ->field($game, 'game_guest_style_id_4')
+    ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
+<?= $form
+    ->field($game, 'game_guest_tactic_id_1')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_2_id')
+    ->field($game, 'game_guest_tactic_id_2')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_3_id')
+    ->field($game, 'game_guest_tactic_id_3')
+    ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
+<?= $form
+    ->field($game, 'game_guest_tactic_id_4')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= Html::submitButton('Submit') ?>
 <?php ActiveForm::end(); ?>

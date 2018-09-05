@@ -6,7 +6,9 @@ use common\components\ErrorHelper;
 use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
+use console\models\generator\FillLineup;
 use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\SetAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\UpdateCronDate;
@@ -30,6 +32,8 @@ class GeneratorController extends BaseController
             $this->playerPowerNewToOld();
             $this->checkTeamMoodLimit();
             $this->checkLineup();
+            $this->fillLineup();
+            $this->setAuto();
             $this->siteOpen();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -82,6 +86,22 @@ class GeneratorController extends BaseController
     private function checkLineup()
     {
         (new CheckLineup())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function fillLineup()
+    {
+        (new FillLineup())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function setAuto()
+    {
+        (new SetAuto())->execute();
     }
 
     /**
