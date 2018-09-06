@@ -10,6 +10,7 @@ use console\models\generator\FillLineup;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
+use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\UpdateCronDate;
@@ -36,6 +37,7 @@ class GeneratorController extends BaseController
             $this->fillLineup();
             $this->setAuto();
             $this->setDefaultStyle();
+            $this->setUserAuto();
             $this->siteOpen();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -112,6 +114,14 @@ class GeneratorController extends BaseController
     private function setDefaultStyle()
     {
         (new SetDefaultStyle())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function setUserAuto()
+    {
+        (new SetUserAuto())->execute();
     }
 
     /**
