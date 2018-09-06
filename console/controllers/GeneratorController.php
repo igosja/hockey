@@ -9,6 +9,7 @@ use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\FillLineup;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\SetAuto;
+use console\models\generator\SetDefaultStyle;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\UpdateCronDate;
@@ -34,6 +35,7 @@ class GeneratorController extends BaseController
             $this->checkLineup();
             $this->fillLineup();
             $this->setAuto();
+            $this->setDefaultStyle();
             $this->siteOpen();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -102,6 +104,14 @@ class GeneratorController extends BaseController
     private function setAuto()
     {
         (new SetAuto())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function setDefaultStyle()
+    {
+        (new SetDefaultStyle())->execute();
     }
 
     /**
