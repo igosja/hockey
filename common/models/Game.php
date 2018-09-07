@@ -125,13 +125,18 @@ use yii\db\ActiveRecord;
  * @property National $nationalGuest
  * @property National $nationalHome
  * @property Schedule $schedule
+ * @property Stadium $stadium
  * @property Team $teamGuest
  * @property Team $teamHome
  */
 class Game extends ActiveRecord
 {
     const PAGE_LIMIT = 50;
-    const DEFAULT_TICKET_PRICE = 20;
+
+    const TICKET_PRICE_BASE = 9;
+    const TICKET_PRICE_DEFAULT = 20;
+    const TICKET_PRICE_MAX = 50;
+    const TICKET_PRICE_MIN = 10;
 
     /**
      * @return string
@@ -294,6 +299,14 @@ class Game extends ActiveRecord
     public function getSchedule(): ActiveQuery
     {
         return $this->hasOne(Schedule::class, ['schedule_id' => 'game_schedule_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStadium(): ActiveQuery
+    {
+        return $this->hasOne(Stadium::class, ['stadium_id' => 'game_stadium_id']);
     }
 
     /**

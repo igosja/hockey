@@ -17,7 +17,7 @@ class SetTicketPrice
     public function execute()
     {
         Game::updateAll(
-            ['game_ticket' => Game::DEFAULT_TICKET_PRICE],
+            ['game_ticket' => Game::TICKET_PRICE_DEFAULT],
             [
                 'game_played' => 0,
                 'game_schedule_id' => Schedule::find()

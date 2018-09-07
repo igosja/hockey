@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
+use console\models\generator\CountVisitor;
 use console\models\generator\FillLineup;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\SetAuto;
@@ -30,125 +31,22 @@ class GeneratorController extends BaseController
     public function actionIndex()
     {
         try {
-            $this->checkCronDate();
-            $this->updateCronDate();
-            $this->siteClose();
-            $this->playerPowerNewToOld();
-            $this->checkTeamMoodLimit();
-            $this->checkLineup();
-            $this->fillLineup();
-            $this->setAuto();
-            $this->setDefaultStyle();
-            $this->setUserAuto();
-            $this->setTicketPrice();
-            $this->setStadium();
-            $this->siteOpen();
+            (new CheckCronDate)->execute();
+            (new UpdateCronDate())->execute();
+            (new SiteClose())->execute();
+            (new PlayerPowerNewToOld())->execute();
+            (new CheckTeamMoodLimit())->execute();
+            (new CheckLineup())->execute();
+            (new FillLineup())->execute();
+            (new SetAuto())->execute();
+            (new SetDefaultStyle())->execute();
+            (new SetUserAuto())->execute();
+            (new SetTicketPrice())->execute();
+            (new CountVisitor())->execute();
+            (new SetStadium())->execute();
+            (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
-    }
-
-    /**
-     * @throws \yii\base\ExitException
-     */
-    private function checkCronDate()
-    {
-        (new CheckCronDate)->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function updateCronDate()
-    {
-        (new UpdateCronDate())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function siteClose()
-    {
-        (new SiteClose())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function playerPowerNewToOld()
-    {
-        (new PlayerPowerNewToOld())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function checkTeamMoodLimit()
-    {
-        (new CheckTeamMoodLimit())->execute();
-    }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    private function checkLineup()
-    {
-        (new CheckLineup())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function fillLineup()
-    {
-        (new FillLineup())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function setAuto()
-    {
-        (new SetAuto())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function setDefaultStyle()
-    {
-        (new SetDefaultStyle())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function setUserAuto()
-    {
-        (new SetUserAuto())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function setTicketPrice()
-    {
-        (new SetTicketPrice())->execute();
-    }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    private function setStadium()
-    {
-        (new SetStadium())->execute();
-    }
-
-    /**
-     * @return void
-     */
-    private function siteOpen()
-    {
-        (new SiteOpen())->execute();
     }
 }
