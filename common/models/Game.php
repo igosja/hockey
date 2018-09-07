@@ -131,6 +131,7 @@ use yii\db\ActiveRecord;
 class Game extends ActiveRecord
 {
     const PAGE_LIMIT = 50;
+    const DEFAULT_TICKET_PRICE = 20;
 
     /**
      * @return string

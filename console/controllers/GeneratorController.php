@@ -10,6 +10,8 @@ use console\models\generator\FillLineup;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
+use console\models\generator\SetStadium;
+use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
@@ -38,6 +40,8 @@ class GeneratorController extends BaseController
             $this->setAuto();
             $this->setDefaultStyle();
             $this->setUserAuto();
+            $this->setTicketPrice();
+            $this->setStadium();
             $this->siteOpen();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -122,6 +126,22 @@ class GeneratorController extends BaseController
     private function setUserAuto()
     {
         (new SetUserAuto())->execute();
+    }
+
+    /**
+     * @return void
+     */
+    private function setTicketPrice()
+    {
+        (new SetTicketPrice())->execute();
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    private function setStadium()
+    {
+        (new SetStadium())->execute();
     }
 
     /**
