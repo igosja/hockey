@@ -29,6 +29,20 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title); ?></title>
         <?php $this->head(); ?>
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <?php if (YII_ENV_PROD) : ?>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90926144-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
+                gtag('js', new Date());
+                gtag('config', 'UA-90926144-1');
+            </script>
+        <?php endif; ?>
     </head>
     <body>
     <?php $this->beginBody(); ?>
