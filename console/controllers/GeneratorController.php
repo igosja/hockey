@@ -19,6 +19,7 @@ use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\UpdateCronDate;
+use console\models\generator\UserToRating;
 use Exception;
 
 /**
@@ -48,6 +49,7 @@ class GeneratorController extends BaseController
             (new SetStadium())->execute();
             (new FinanceStadium())->execute();
             (new TeamToStatistic())->execute();
+            (new UserToRating())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
