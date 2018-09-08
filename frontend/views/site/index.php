@@ -221,8 +221,8 @@ use yii\helpers\Html;
                     <a href="//www.liveinternet.ru/click" rel="nofollow" target="_blank">
                         <img
                                 alt="LiveInternet counter"
-                                height="120"
-                                src="//counter.yadro.ru/logo?29.19"
+                                height="31"
+                                src="//counter.yadro.ru/logo?14.4"
                                 width="88"
                         />
                     </a>
