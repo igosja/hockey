@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  *
  * @property Country $country
  * @property NationalType $nationalType
+ * @property WorldCup $worldCup
  */
 class National extends ActiveRecord
 {
@@ -91,5 +92,15 @@ class National extends ActiveRecord
     public function getNationalType(): ActiveQuery
     {
         return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getWorldCup(): ActiveQuery
+    {
+        return $this
+            ->hasOne(WorldCup::class, ['world_cup_national_id' => 'national_id'])
+            ->andWhere(['world_cup_season_id' => Season::find()->max('season_id')]);
     }
 }

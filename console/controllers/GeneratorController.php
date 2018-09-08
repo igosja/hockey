@@ -8,6 +8,7 @@ use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountVisitor;
 use console\models\generator\FillLineup;
+use console\models\generator\FinanceStadium;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
@@ -16,6 +17,7 @@ use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
+use console\models\generator\TeamToStatistic;
 use console\models\generator\UpdateCronDate;
 use Exception;
 
@@ -44,6 +46,8 @@ class GeneratorController extends BaseController
             (new SetTicketPrice())->execute();
             (new CountVisitor())->execute();
             (new SetStadium())->execute();
+            (new FinanceStadium())->execute();
+            (new TeamToStatistic())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

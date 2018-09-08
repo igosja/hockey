@@ -549,7 +549,9 @@ class Team extends ActiveRecord
      */
     public function getChampionship(): ActiveQuery
     {
-        return $this->hasOne(Championship::class, ['championship_team_id' => 'team_id']);
+        return $this
+            ->hasOne(Championship::class, ['championship_team_id' => 'team_id'])
+            ->andWhere(['championship_season_id' => Season::find()->max('season_id')]);
     }
 
     /**
