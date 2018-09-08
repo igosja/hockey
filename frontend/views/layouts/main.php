@@ -42,6 +42,18 @@ AppAsset::register($this);
                 gtag('js', new Date());
                 gtag('config', 'UA-90926144-1');
             </script>
+            <!-- /Global site tag (gtag.js) - Google Analytics -->
+            <!--LiveInternet counter-->
+            <script type="text/javascript">
+                new Image().src = "//counter.yadro.ru/hit?r" +
+                    escape(document.referrer) + ((typeof(screen) === "undefined") ? "" :
+                        ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+                        screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+                    ";h" + escape(document.title.substring(0, 150)) +
+                    ";" + Math.random();
+            </script>
+            <!--/LiveInternet-->
+
         <?php endif; ?>
     </head>
     <body>
