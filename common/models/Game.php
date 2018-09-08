@@ -122,6 +122,7 @@ use yii\db\ActiveRecord;
  * @property integer $game_stadium_id
  * @property integer $game_visitor
  *
+ * @property Lineup[] $lineup
  * @property National $nationalGuest
  * @property National $nationalHome
  * @property Schedule $schedule
@@ -275,6 +276,14 @@ class Game extends ActiveRecord
             ],
             [['game_schedule_id'], 'required'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLineup(): ActiveQuery
+    {
+        return $this->hasMany(Lineup::class, ['lineup_game_id' => 'game_id']);
     }
 
     /**
