@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $stadium_name
  *
  * @property City $city
- * @property Team[] $team
+ * @property Team $team
  */
 class Stadium extends ActiveRecord
 {

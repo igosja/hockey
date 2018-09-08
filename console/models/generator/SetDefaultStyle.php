@@ -19,7 +19,6 @@ class SetDefaultStyle
     public function execute()
     {
         $gameArray = Game::find()
-            ->indexBy('game_id')
             ->joinWith(['schedule'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')

@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $player_special_player_id
  * @property integer $player_special_special_id
  *
+ * @property Lineup[] $lineup
  * @property Special $special
  */
 class PlayerSpecial extends ActiveRecord
@@ -37,6 +38,14 @@ class PlayerSpecial extends ActiveRecord
             [['player_special_id', 'player_special_level'], 'integer'],
             [['player_special_level', 'player_special_player_id', 'player_special_special_id'], 'required'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLineup(): ActiveQuery
+    {
+        return $this->hasMany(Lineup::class, ['lineup_player_id' => 'player_special_player_id']);
     }
 
     /**

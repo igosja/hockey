@@ -25,7 +25,6 @@ class CheckTeamMoodLimit
     public function execute()
     {
         $gameArray = Game::find()
-            ->indexBy('game_id')
             ->joinWith(['schedule'])
             ->where(['game_played' => 0])
             ->andWhere(['or', ['!=', 'game_home_mood_id', Mood::NORMAL], ['!=', 'game_guest_mood_id', Mood::NORMAL]])

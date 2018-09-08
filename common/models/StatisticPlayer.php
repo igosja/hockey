@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -50,8 +49,6 @@ use yii\db\ActiveRecord;
  */
 class StatisticPlayer extends ActiveRecord
 {
-    const AGE_READY_FOR_PENSION = 39;
-
     /**
      * @return string
      */
@@ -111,5 +108,20 @@ class StatisticPlayer extends ActiveRecord
             ],
             [['statistic_player_player_id'], 'required'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->statistic_player_season_id = Season::find()->max('season_id');
+            }
+            return true;
+        }
+        return false;
     }
 }

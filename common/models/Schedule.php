@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $schedule_stage_id
  * @property integer $schedule_tournament_type_id
  *
+ * @property Season $season
  * @property Stage $stage
  * @property TournamentType $tournamentType
  */
@@ -56,6 +57,14 @@ class Schedule extends ActiveRecord
             'stage' => 'Stage',
             'tournamentType' => 'Tournament',
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSeason(): ActiveQuery
+    {
+        return $this->hasOne(Season::class, ['season_id' => 'schedule_season_id']);
     }
 
     /**

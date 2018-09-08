@@ -16,6 +16,18 @@ use yii\db\ActiveRecord;
  */
 class Special extends ActiveRecord
 {
+    const ATHLETIC = 5;
+    const COMBINE = 3;
+    const IDOL = 9;
+    const LEADER = 4;
+    const POSITION = 11;
+    const POWER = 2;
+    const REACTION = 7;
+    const SHOT = 8;
+    const SPEED = 1;
+    const STICK = 10;
+    const TACKLE = 6;
+
     /**
      * @return string
      */
