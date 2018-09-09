@@ -101,6 +101,6 @@ class National extends ActiveRecord
     {
         return $this
             ->hasOne(WorldCup::class, ['world_cup_national_id' => 'national_id'])
-            ->andWhere(['world_cup_season_id' => Season::find()->max('season_id')]);
+            ->andWhere(['world_cup_season_id' => Season::getCurrentSeason()]);
     }
 }

@@ -71,7 +71,7 @@ class History extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->history_season_id = Season::find()->max('season_id');
+                $this->history_season_id = Season::getCurrentSeason();
                 $this->history_date = time();
             }
             return true;

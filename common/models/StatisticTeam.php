@@ -86,7 +86,7 @@ class StatisticTeam extends ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 if (!$this->statistic_team_season_id) {
-                    $this->statistic_team_season_id = Season::find()->max('season_id');
+                    $this->statistic_team_season_id = Season::getCurrentSeason();
                 }
             }
             return true;

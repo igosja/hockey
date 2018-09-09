@@ -29,4 +29,12 @@ class Season extends ActiveRecord
             [['season_id'], 'integer'],
         ];
     }
+
+    /**
+     * @return int
+     */
+    public static function getCurrentSeason(): int
+    {
+        return self::find()->max('season_id');
+    }
 }

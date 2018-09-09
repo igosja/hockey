@@ -551,7 +551,7 @@ class Team extends ActiveRecord
     {
         return $this
             ->hasOne(Championship::class, ['championship_team_id' => 'team_id'])
-            ->andWhere(['championship_season_id' => Season::find()->max('season_id')]);
+            ->andWhere(['championship_season_id' => Season::getCurrentSeason()]);
     }
 
     /**

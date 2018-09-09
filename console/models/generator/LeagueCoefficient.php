@@ -105,7 +105,7 @@ class LeagueCoefficient
         ');
         Model::updateAll(
             ['league_coefficient_point' => $expression],
-            ['league_coefficient_season_id' => Season::find()->max('season_id')]
+            ['league_coefficient_season_id' => Season::getCurrentSeason()]
         );
     }
 }

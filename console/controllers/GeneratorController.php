@@ -23,6 +23,7 @@ use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\UpdateCronDate;
+use console\models\generator\UpdateTeamStatistic;
 use console\models\generator\UserToRating;
 use Exception;
 
@@ -58,6 +59,7 @@ class GeneratorController extends BaseController
             (new NationalVs())->execute();
             (new GameResult())->execute();
             (new LeagueCoefficient())->execute();
+            (new UpdateTeamStatistic())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

@@ -17,7 +17,7 @@ class UserToRating
      */
     public function execute()
     {
-        $seasonId = Season::find()->max('season_id');
+        $seasonId = Season::getCurrentSeason();
 
         $teamArray = Team::find()
             ->where(['!=', 'team_user_id', 0])

@@ -118,7 +118,7 @@ class StatisticPlayer extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->statistic_player_season_id = Season::find()->max('season_id');
+                $this->statistic_player_season_id = Season::getCurrentSeason();
             }
             return true;
         }
