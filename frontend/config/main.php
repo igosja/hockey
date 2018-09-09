@@ -75,11 +75,11 @@ return [
             'enablePrettyUrl' => true,
             'languages' => [
                 'en',
-                'en-*',
+                'en-*' => 'en',
                 'ru',
-                'ru-*',
+                'ru-*' => 'ru',
                 'uk',
-                'uk-*',
+                'uk-*' => 'uk',
             ],
             'rules' => [
                 '' => 'site/index',
