@@ -218,14 +218,12 @@ use yii\helpers\Html;
                     <legend class="text-center strong">
                         <?= Yii::t('app', 'frontend-views-site-index-legend-counter'); ?>
                     </legend>
-                    <a href="//www.liveinternet.ru/click" rel="nofollow" target="_blank">
-                        <img
-                                alt="LiveInternet counter"
-                                height="31"
-                                src="//counter.yadro.ru/logo?14.4"
-                                width="88"
-                        />
-                    </a>
+                    <img
+                            alt="LiveInternet counter"
+                            height="31"
+                            src="//counter.yadro.ru/logo?14.4"
+                            width="88"
+                    />
                 </fieldset>
             </div>
         </div>

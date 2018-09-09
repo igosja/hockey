@@ -9,7 +9,7 @@
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
  * Messages that no longer need translation will have their translations
- * enclosed between a pair of '@@' marks.
+ * enclosed between a pair of '' marks.
  *
  * Message string can be used with plural forms format. Check i18n section
  * of the guide for details.
@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'frontend-views-layout-main-development-mode' => 'The site is in development mode.<br/>Some features of the site may not be available.',
     'frontend-views-link-learn-more' => 'Learn More',
     'frontend-views-site-index-h1' => 'Online manager for true hockey fans!',
     'frontend-views-site-index-h2-birthday' => 'Birthdays',
