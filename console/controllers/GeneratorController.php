@@ -27,6 +27,7 @@ use console\models\generator\UpdateCronDate;
 use console\models\generator\UpdateLeagueCoefficient;
 use console\models\generator\UpdatePlayerStatistic;
 use console\models\generator\UpdateTeamStatistic;
+use console\models\generator\UpdateTeamVisitor;
 use console\models\generator\UpdateUserRating;
 use console\models\generator\UserToRating;
 use Exception;
@@ -68,6 +69,7 @@ class GeneratorController extends BaseController
             (new UpdateUserRating())->execute();
             (new CountryAuto())->execute();
             (new TeamVisitorAfterGame())->execute();
+            (new UpdateTeamVisitor())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
