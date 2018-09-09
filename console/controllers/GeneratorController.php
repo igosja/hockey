@@ -14,6 +14,7 @@ use console\models\generator\GameResult;
 use console\models\generator\LineupToStatistic;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\PlusMinus;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
 use console\models\generator\SetStadium;
@@ -70,6 +71,7 @@ class GeneratorController extends BaseController
             (new CountryAuto())->execute();
             (new TeamVisitorAfterGame())->execute();
             (new UpdateTeamVisitor())->execute();
+            (new PlusMinus())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
