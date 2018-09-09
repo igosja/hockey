@@ -7,7 +7,7 @@ use common\models\StatisticTeam;
 use yii\db\Expression;
 
 /**
- * Class CheckLineup
+ * Class UpdateTeamStatistic
  * @package console\models\generator
  */
 class UpdateTeamStatistic
