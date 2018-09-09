@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
+use console\models\generator\CountryAuto;
 use console\models\generator\CountVisitor;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
@@ -25,6 +26,7 @@ use console\models\generator\UpdateCronDate;
 use console\models\generator\UpdateLeagueCoefficient;
 use console\models\generator\UpdatePlayerStatistic;
 use console\models\generator\UpdateTeamStatistic;
+use console\models\generator\UpdateUserRating;
 use console\models\generator\UserToRating;
 use Exception;
 
@@ -62,6 +64,8 @@ class GeneratorController extends BaseController
             (new UpdateLeagueCoefficient())->execute();
             (new UpdateTeamStatistic())->execute();
             (new UpdatePlayerStatistic())->execute();
+            (new UpdateUserRating())->execute();
+            (new CountryAuto())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
