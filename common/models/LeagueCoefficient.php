@@ -5,7 +5,7 @@ namespace common\models;
 use yii\db\ActiveRecord;
 
 /**
- * Class LeagueCoefficient
+ * Class UpdateLeagueCoefficient
  * @package common\models
  *
  * @property integer $league_coefficient_id

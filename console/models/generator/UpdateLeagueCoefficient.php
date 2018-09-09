@@ -3,16 +3,17 @@
 namespace console\models\generator;
 
 use common\models\Game;
-use common\models\LeagueCoefficient as Model;
+use common\models\LeagueCoefficient;
 use common\models\Season;
 use common\models\TournamentType;
 use yii\db\Expression;
 
 /**
- * Class LeagueCoefficient
+ * Class UpdateLeagueCoefficient
  * @package console\models\generator
+ * TODO: refactor to DRY
  */
-class LeagueCoefficient
+class UpdateLeagueCoefficient
 {
     /**
      * @return void
@@ -71,7 +72,7 @@ class LeagueCoefficient
                 }
             }
 
-            $model = Model::find()->where([
+            $model = LeagueCoefficient::find()->where([
                 'league_coefficient_team_id' => $game->game_home_team_id,
                 'league_coefficient_season_id' => $game->schedule->schedule_season_id,
             ])->limit(1)->one();
@@ -83,7 +84,7 @@ class LeagueCoefficient
             $model->league_coefficient_win_shootout = $model->league_coefficient_win_shootout + $homeWinShootout;
             $model->save();
 
-            $model = Model::find()->where([
+            $model = LeagueCoefficient::find()->where([
                 'league_coefficient_team_id' => $game->game_guest_team_id,
                 'league_coefficient_season_id' => $game->schedule->schedule_season_id,
             ])->limit(1)->one();
@@ -103,7 +104,7 @@ class LeagueCoefficient
             league_coefficient_loose_overtime +
             league_coefficient_loose_shootout
         ');
-        Model::updateAll(
+        LeagueCoefficient::updateAll(
             ['league_coefficient_point' => $expression],
             ['league_coefficient_season_id' => Season::getCurrentSeason()]
         );

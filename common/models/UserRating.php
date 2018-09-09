@@ -5,7 +5,7 @@ namespace common\models;
 use yii\db\ActiveRecord;
 
 /**
- * Class UserRating
+ * Class UpdateUserRating
  * @package common\models
  *
  * @property integer $user_rating_id
