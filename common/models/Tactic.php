@@ -16,8 +16,8 @@ class Tactic extends ActiveRecord
     const ALL_DEFENCE = 1;
     const DEFENCE = 2;
     const NORMAL = 3;
-    const ATACK = 4;
-    const ALL_ATACK = 5;
+    const ATTACK = 4;
+    const ALL_ATTACK = 5;
 
     /**
      * @return string

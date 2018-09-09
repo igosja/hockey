@@ -64,4 +64,14 @@ class Event extends ActiveRecord
             ],
         ];
     }
+
+    /**
+     * @param array $data
+     */
+    public static function log(array $data)
+    {
+        $history = new self();
+        $history->setAttributes($data);
+        $history->save();
+    }
 }

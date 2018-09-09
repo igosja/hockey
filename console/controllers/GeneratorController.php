@@ -9,6 +9,7 @@ use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountVisitor;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
+use console\models\generator\GameResult;
 use console\models\generator\LineupToStatistic;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerPowerNewToOld;
@@ -54,6 +55,7 @@ class GeneratorController extends BaseController
             (new UserToRating())->execute();
             (new LineupToStatistic())->execute();
             (new NationalVs())->execute();
+            (new GameResult())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

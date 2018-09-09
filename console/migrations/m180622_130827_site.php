@@ -25,7 +25,8 @@ class m180622_130827_site extends Migration
         ]);
 
         $this->insert(self::TABLE, [
-            'site_version_2' => 9,
+            'site_version_1' => 3,
+            'site_version_2' => 0,
             'site_version_date' => time(),
         ]);
     }
