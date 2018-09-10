@@ -8,6 +8,7 @@ use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountryAuto;
 use console\models\generator\CountVisitor;
+use console\models\generator\DecreaseTeamwork;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
@@ -72,6 +73,7 @@ class GeneratorController extends BaseController
             (new TeamVisitorAfterGame())->execute();
             (new UpdateTeamVisitor())->execute();
             (new PlusMinus())->execute();
+            (new DecreaseTeamwork())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
