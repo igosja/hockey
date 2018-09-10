@@ -23,6 +23,7 @@ use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
+use console\models\generator\Standing;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
 use console\models\generator\UpdateCronDate;
@@ -74,6 +75,7 @@ class GeneratorController extends BaseController
             (new UpdateTeamVisitor())->execute();
             (new PlusMinus())->execute();
             (new DecreaseTeamwork())->execute();
+            (new Standing())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
