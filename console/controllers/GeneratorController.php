@@ -31,6 +31,7 @@ use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
 use console\models\generator\UpdateCronDate;
 use console\models\generator\UpdateLeagueCoefficient;
+use console\models\generator\UpdatePhysical;
 use console\models\generator\UpdatePlayerStatistic;
 use console\models\generator\UpdateTeamStatistic;
 use console\models\generator\UpdateTeamVisitor;
@@ -84,6 +85,7 @@ class GeneratorController extends BaseController
             (new PlayerGameRow())->execute();
             (new PlayerTire())->execute();
             (new UpdateTraining())->execute();
+            (new UpdatePhysical())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
