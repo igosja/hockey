@@ -20,10 +20,7 @@ class PlayerGameRow
      */
     public function execute(): void
     {
-        Player::updateAll(
-            ['player_game_row_old' => new Expression('player_game_row')],
-            ['and', 'player_game_row_old!=player_game_row', ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]]
-        );
+        $this->updatePlayer();
 
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -80,5 +77,18 @@ class PlayerGameRow
                 WHERE `game_played`=0
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
         Yii::$app->db->createCommand($sql)->execute();
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     * @return void
+     */
+    private function updatePlayer(): void
+    {
+
+        Player::updateAll(
+            ['player_game_row_old' => new Expression('player_game_row')],
+            ['and', 'player_game_row_old!=player_game_row', ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]]
+        );
     }
 }

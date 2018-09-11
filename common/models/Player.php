@@ -61,7 +61,9 @@ use yii\helpers\Html;
 class Player extends ActiveRecord
 {
     const AGE_READY_FOR_PENSION = 39;
-    const MAX_TIRE = 60;
+    const TIRE_DEFAULT = 50;
+    const TIRE_MAX = 90;
+    const TIRE_MAX_FOR_LINEUP = 60;
 
     /**
      * @return string
