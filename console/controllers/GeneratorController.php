@@ -16,6 +16,7 @@ use console\models\generator\LineupToStatistic;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
@@ -80,6 +81,7 @@ class GeneratorController extends BaseController
             (new Standing())->execute();
             (new StandingPlace())->execute();
             (new PlayerGameRow())->execute();
+            (new PlayerTire())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
