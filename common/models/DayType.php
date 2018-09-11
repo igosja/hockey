@@ -14,6 +14,10 @@ use yii\db\ActiveRecord;
  */
 class DayType extends ActiveRecord
 {
+    const A = 1;
+    const B = 2;
+    const C = 3;
+
     /**
      * @return string
      */
