@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -10,6 +11,8 @@ use yii\db\ActiveRecord;
  *
  * @property integer $surname_id
  * @property string $surname_name
+ *
+ * @property Player[] $player
  */
 class Surname extends ActiveRecord
 {
@@ -32,5 +35,13 @@ class Surname extends ActiveRecord
             [['surname_name'], 'string', 'max' => 255],
             [['surname_name'], 'trim'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasMany(Player::class, ['player_surname_id' => 'surname_id']);
     }
 }

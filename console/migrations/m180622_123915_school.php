@@ -24,7 +24,9 @@ class m180622_123915_school extends Migration
             'school_style_id' => $this->integer(1)->defaultValue(0),
             'school_team_id' => $this->integer(11)->defaultValue(0),
             'school_with_special' => $this->integer(1)->defaultValue(0),
+            'school_with_special_request' => $this->integer(1)->defaultValue(0),
             'school_with_style' => $this->integer(1)->defaultValue(0),
+            'school_with_style_request' => $this->integer(1)->defaultValue(0),
         ]);
     }
 
