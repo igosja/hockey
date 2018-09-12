@@ -34,6 +34,7 @@ use console\models\generator\UpdateLeagueCoefficient;
 use console\models\generator\UpdatePhysical;
 use console\models\generator\UpdatePlayerStatistic;
 use console\models\generator\UpdateSchool;
+use console\models\generator\UpdateScout;
 use console\models\generator\UpdateTeamStatistic;
 use console\models\generator\UpdateTeamVisitor;
 use console\models\generator\UpdateTraining;
@@ -88,6 +89,7 @@ class GeneratorController extends BaseController
             (new UpdateTraining())->execute();
             (new UpdatePhysical())->execute();
             (new UpdateSchool())->execute();
+            (new UpdateScout())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
