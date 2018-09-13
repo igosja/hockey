@@ -25,6 +25,7 @@ use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
+use console\models\generator\StadiumMaintenance;
 use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
 use console\models\generator\TeamToStatistic;
@@ -94,6 +95,7 @@ class GeneratorController extends BaseController
             (new UpdateScout())->execute();
             (new UpdateBuildingBase())->execute();
             (new UpdateBuildingStadium())->execute();
+            (new StadiumMaintenance())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
