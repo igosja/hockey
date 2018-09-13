@@ -21,6 +21,7 @@ use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
+use console\models\generator\SetInjury;
 use console\models\generator\SetStadium;
 use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
@@ -98,6 +99,7 @@ class GeneratorController extends BaseController
             (new UpdateBuildingStadium())->execute();
             (new StadiumMaintenance())->execute();
             (new DecreaseInjury())->execute();
+            (new SetInjury())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
