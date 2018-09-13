@@ -16,7 +16,7 @@ class CountVisitor
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $subQuery = Game::find()
             ->joinWith(['schedule'])

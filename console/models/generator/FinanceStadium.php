@@ -29,7 +29,7 @@ class FinanceStadium
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])

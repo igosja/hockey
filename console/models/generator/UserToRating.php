@@ -15,7 +15,7 @@ class UserToRating
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $seasonId = Season::getCurrentSeason();
 

@@ -14,7 +14,7 @@ class SetTicketPrice
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         Game::updateAll(
             ['game_ticket' => Game::TICKET_PRICE_DEFAULT],

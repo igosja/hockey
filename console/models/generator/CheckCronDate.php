@@ -13,8 +13,9 @@ class CheckCronDate
 {
     /**
      * @throws \yii\base\ExitException
+     * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $dateCron = Site::find()->select(['site_date_cron'])->where(['site_id' => 1])->limit(1)->scalar();
 

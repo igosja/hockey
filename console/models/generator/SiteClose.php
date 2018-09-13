@@ -13,7 +13,7 @@ class SiteClose
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         Site::updateAll(['site_status' => 0], ['site_id' => 1]);
     }
