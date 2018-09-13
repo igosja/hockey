@@ -6,7 +6,7 @@
  * @var \frontend\models\LoanApplicationTo $modelLoanApplicationTo
  * @var \frontend\models\LoanFrom $modelLoanFrom
  * @var \frontend\models\LoanTo $modelLoanTo
- * @var boolean $myPlayer
+ * @var bool $myPlayer
  * @var int $onLoan
  * @var \common\models\Player $player
  * @var \yii\web\View $this

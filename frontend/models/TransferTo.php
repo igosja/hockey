@@ -22,7 +22,7 @@ use yii\base\Model;
  * @property Player $player
  * @property int $price
  * @property Team $team
- * @property boolean $toLeague
+ * @property bool $toLeague
  */
 class TransferTo extends Model
 {

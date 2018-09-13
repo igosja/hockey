@@ -22,7 +22,7 @@ use yii\base\Model;
  * @property int $maxPrice
  * @property int $minDay
  * @property int $minPrice
- * @property boolean $onlyOne
+ * @property bool $onlyOne
  * @property Player $player
  * @property int $price
  * @property Team $team

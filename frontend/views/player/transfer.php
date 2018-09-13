@@ -6,7 +6,7 @@
  * @var \frontend\models\TransferApplicationTo $modelTransferApplicationTo
  * @var \frontend\models\TransferFrom $modelTransferFrom
  * @var \frontend\models\TransferTo $modelTransferTo
- * @var boolean $myPlayer
+ * @var bool $myPlayer
  * @var int $onTransfer
  * @var \common\models\Player $player
  * @var \yii\web\View $this
