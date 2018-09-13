@@ -9,23 +9,23 @@ use yii\db\ActiveRecord;
  * Class Championship
  * @package common\models
  *
- * @property integer $championship_id
- * @property integer $championship_country_id
- * @property integer $championship_difference
- * @property integer $championship_division_id
- * @property integer $championship_game
- * @property integer $championship_loose
- * @property integer $championship_loose_overtime
- * @property integer $championship_loose_shootout
- * @property integer $championship_pass
- * @property integer $championship_place
- * @property integer $championship_point
- * @property integer $championship_score
- * @property integer $championship_season_id
- * @property integer $championship_team_id
- * @property integer $championship_win
- * @property integer $championship_win_overtime
- * @property integer $championship_win_shootout
+ * @property int $championship_id
+ * @property int $championship_country_id
+ * @property int $championship_difference
+ * @property int $championship_division_id
+ * @property int $championship_game
+ * @property int $championship_loose
+ * @property int $championship_loose_overtime
+ * @property int $championship_loose_shootout
+ * @property int $championship_pass
+ * @property int $championship_place
+ * @property int $championship_point
+ * @property int $championship_score
+ * @property int $championship_season_id
+ * @property int $championship_team_id
+ * @property int $championship_win
+ * @property int $championship_win_overtime
+ * @property int $championship_win_shootout
  *
  * @property Country $country
  * @property Division $division

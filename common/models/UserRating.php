@@ -8,34 +8,34 @@ use yii\db\ActiveRecord;
  * Class UpdateUserRating
  * @package common\models
  *
- * @property integer $user_rating_id
- * @property integer $user_rating_auto
- * @property integer $user_rating_collision_loose
- * @property integer $user_rating_collision_win
- * @property integer $user_rating_game
- * @property integer $user_rating_loose
- * @property integer $user_rating_loose_equal
- * @property integer $user_rating_loose_overtime
- * @property integer $user_rating_loose_overtime_equal
- * @property integer $user_rating_loose_overtime_strong
- * @property integer $user_rating_loose_overtime_weak
- * @property integer $user_rating_loose_strong
- * @property integer $user_rating_loose_super
- * @property integer $user_rating_loose_weak
- * @property integer $user_rating_rating
- * @property integer $user_rating_season_id
- * @property integer $user_rating_user_id
- * @property integer $user_rating_vs_super
- * @property integer $user_rating_vs_rest
- * @property integer $user_rating_win
- * @property integer $user_rating_win_equal
- * @property integer $user_rating_win_overtime
- * @property integer $user_rating_win_overtime_equal
- * @property integer $user_rating_win_overtime_strong
- * @property integer $user_rating_win_overtime_weak
- * @property integer $user_rating_win_strong
- * @property integer $user_rating_win_super
- * @property integer $user_rating_win_weak
+ * @property int $user_rating_id
+ * @property int $user_rating_auto
+ * @property int $user_rating_collision_loose
+ * @property int $user_rating_collision_win
+ * @property int $user_rating_game
+ * @property int $user_rating_loose
+ * @property int $user_rating_loose_equal
+ * @property int $user_rating_loose_overtime
+ * @property int $user_rating_loose_overtime_equal
+ * @property int $user_rating_loose_overtime_strong
+ * @property int $user_rating_loose_overtime_weak
+ * @property int $user_rating_loose_strong
+ * @property int $user_rating_loose_super
+ * @property int $user_rating_loose_weak
+ * @property int $user_rating_rating
+ * @property int $user_rating_season_id
+ * @property int $user_rating_user_id
+ * @property int $user_rating_vs_super
+ * @property int $user_rating_vs_rest
+ * @property int $user_rating_win
+ * @property int $user_rating_win_equal
+ * @property int $user_rating_win_overtime
+ * @property int $user_rating_win_overtime_equal
+ * @property int $user_rating_win_overtime_strong
+ * @property int $user_rating_win_overtime_weak
+ * @property int $user_rating_win_strong
+ * @property int $user_rating_win_super
+ * @property int $user_rating_win_weak
  */
 class UserRating extends ActiveRecord
 {

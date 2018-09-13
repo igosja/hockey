@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Rudeness
  * @package common\models
  *
- * @property integer $rudeness_id
+ * @property int $rudeness_id
  * @property string $rudeness_name
  */
 class Rudeness extends ActiveRecord

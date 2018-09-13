@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /**
  * @var Schedule[] $scheduleArray
  * @var \common\models\Season[] $season
- * @var integer $seasonId
+ * @var int $seasonId
  */
 
 ?>

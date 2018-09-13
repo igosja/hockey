@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class EventTextPenalty
  * @package common\models
  *
- * @property integer $event_text_penalty_id
+ * @property int $event_text_penalty_id
  * @property string $event_text_penalty_text
  */
 class EventTextPenalty extends ActiveRecord

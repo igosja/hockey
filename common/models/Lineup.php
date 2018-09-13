@@ -9,23 +9,23 @@ use yii\db\ActiveRecord;
  * Class Lineup
  * @package common\models
  *
- * @property integer $lineup_id
- * @property integer $lineup_age
- * @property integer $lineup_assist
- * @property integer $lineup_game_id
- * @property integer $lineup_line_id
- * @property integer $lineup_national_id
- * @property integer $lineup_pass
- * @property integer $lineup_penalty
- * @property integer $lineup_player_id
- * @property integer $lineup_plus_minus
- * @property integer $lineup_position_id
- * @property integer $lineup_power_change
- * @property integer $lineup_power_nominal
- * @property integer $lineup_power_real
- * @property integer $lineup_score
- * @property integer $lineup_shot
- * @property integer $lineup_team_id
+ * @property int $lineup_id
+ * @property int $lineup_age
+ * @property int $lineup_assist
+ * @property int $lineup_game_id
+ * @property int $lineup_line_id
+ * @property int $lineup_national_id
+ * @property int $lineup_pass
+ * @property int $lineup_penalty
+ * @property int $lineup_player_id
+ * @property int $lineup_plus_minus
+ * @property int $lineup_position_id
+ * @property int $lineup_power_change
+ * @property int $lineup_power_nominal
+ * @property int $lineup_power_real
+ * @property int $lineup_score
+ * @property int $lineup_shot
+ * @property int $lineup_team_id
  *
  * @property Game $game
  * @property Player $player

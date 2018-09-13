@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Season
  * @package common\models
  *
- * @property integer $season_id
+ * @property int $season_id
  */
 class Season extends ActiveRecord
 {

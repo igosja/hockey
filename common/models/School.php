@@ -9,18 +9,18 @@ use yii\db\ActiveRecord;
  * Class School
  * @package common\models
  *
- * @property integer $school_id
- * @property integer $school_day
- * @property integer $school_position_id
- * @property integer $school_ready
- * @property integer $school_season_id
- * @property integer $school_special_id
- * @property integer $school_style_id
- * @property integer $school_team_id
- * @property integer $school_with_special
- * @property integer $school_with_special_request
- * @property integer $school_with_style
- * @property integer $school_with_style_request
+ * @property int $school_id
+ * @property int $school_day
+ * @property int $school_position_id
+ * @property int $school_ready
+ * @property int $school_season_id
+ * @property int $school_special_id
+ * @property int $school_style_id
+ * @property int $school_team_id
+ * @property int $school_with_special
+ * @property int $school_with_special_request
+ * @property int $school_with_style
+ * @property int $school_with_style_request
  *
  * @property Team $team
  */

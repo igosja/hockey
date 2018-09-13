@@ -9,23 +9,23 @@ use yii\db\ActiveRecord;
  * Class OffSeason
  * @package common\models
  *
- * @property integer $off_season_id
- * @property integer $off_season_difference
- * @property integer $off_season_game
- * @property integer $off_season_guest
- * @property integer $off_season_home
- * @property integer $off_season_loose
- * @property integer $off_season_loose_overtime
- * @property integer $off_season_loose_shootout
- * @property integer $off_season_pass
- * @property integer $off_season_place
- * @property integer $off_season_point
- * @property integer $off_season_score
- * @property integer $off_season_season_id
- * @property integer $off_season_team_id
- * @property integer $off_season_win
- * @property integer $off_season_win_overtime
- * @property integer $off_season_win_shootout
+ * @property int $off_season_id
+ * @property int $off_season_difference
+ * @property int $off_season_game
+ * @property int $off_season_guest
+ * @property int $off_season_home
+ * @property int $off_season_loose
+ * @property int $off_season_loose_overtime
+ * @property int $off_season_loose_shootout
+ * @property int $off_season_pass
+ * @property int $off_season_place
+ * @property int $off_season_point
+ * @property int $off_season_score
+ * @property int $off_season_season_id
+ * @property int $off_season_team_id
+ * @property int $off_season_win
+ * @property int $off_season_win_overtime
+ * @property int $off_season_win_shootout
  *
  * @property Team $team
  */

@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
  * Class Vote
  * @package common\models
  *
- * @property integer $vote_id
- * @property integer $vote_country_id
- * @property integer $vote_date
+ * @property int $vote_id
+ * @property int $vote_country_id
+ * @property int $vote_date
  * @property string $vote_text
- * @property integer $vote_user_id
- * @property integer $vote_vote_status_id
+ * @property int $vote_user_id
+ * @property int $vote_vote_status_id
  */
 class Vote extends ActiveRecord
 {

@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Division
  * @package common\models
  *
- * @property integer $division_id
+ * @property int $division_id
  * @property string $division_name
  */
 class Division extends ActiveRecord

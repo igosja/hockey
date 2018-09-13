@@ -9,23 +9,23 @@ use yii\db\ActiveRecord;
  * Class WorldCup
  * @package common\models
  *
- * @property integer $world_cup_id
- * @property integer $world_cup_difference
- * @property integer $world_cup_division_id
- * @property integer $world_cup_game
- * @property integer $world_cup_loose
- * @property integer $world_cup_loose_overtime
- * @property integer $world_cup_loose_shootout
- * @property integer $world_cup_national_id
- * @property integer $world_cup_national_type_id
- * @property integer $world_cup_pass
- * @property integer $world_cup_place
- * @property integer $world_cup_point
- * @property integer $world_cup_score
- * @property integer $world_cup_season_id
- * @property integer $world_cup_win
- * @property integer $world_cup_win_overtime
- * @property integer $world_cup_win_shootout
+ * @property int $world_cup_id
+ * @property int $world_cup_difference
+ * @property int $world_cup_division_id
+ * @property int $world_cup_game
+ * @property int $world_cup_loose
+ * @property int $world_cup_loose_overtime
+ * @property int $world_cup_loose_shootout
+ * @property int $world_cup_national_id
+ * @property int $world_cup_national_type_id
+ * @property int $world_cup_pass
+ * @property int $world_cup_place
+ * @property int $world_cup_point
+ * @property int $world_cup_score
+ * @property int $world_cup_season_id
+ * @property int $world_cup_win
+ * @property int $world_cup_win_overtime
+ * @property int $world_cup_win_shootout
  *
  * @property Division $division
  * @property National $national

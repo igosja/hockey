@@ -8,23 +8,23 @@ use yii\db\ActiveRecord;
  * Class BaseScout
  * @package common\models
  *
- * @property integer $base_scout_id
- * @property integer $base_scout_base_level
- * @property integer $base_scout_build_speed
- * @property integer $base_scout_distance
- * @property integer $base_scout_level
- * @property integer $base_scout_market_game_row
- * @property integer $base_scout_market_physical
- * @property integer $base_scout_market_tire
- * @property integer $base_scout_my_style_count
- * @property integer $base_scout_my_style_price
- * @property integer $base_scout_opponent_game_row
- * @property integer $base_scout_opponent_physical
- * @property integer $base_scout_opponent_tire
- * @property integer $base_scout_price_buy
- * @property integer $base_scout_price_sell
- * @property integer $base_scout_scout_speed_max
- * @property integer $base_scout_scout_speed_min
+ * @property int $base_scout_id
+ * @property int $base_scout_base_level
+ * @property int $base_scout_build_speed
+ * @property int $base_scout_distance
+ * @property int $base_scout_level
+ * @property int $base_scout_market_game_row
+ * @property int $base_scout_market_physical
+ * @property int $base_scout_market_tire
+ * @property int $base_scout_my_style_count
+ * @property int $base_scout_my_style_price
+ * @property int $base_scout_opponent_game_row
+ * @property int $base_scout_opponent_physical
+ * @property int $base_scout_opponent_tire
+ * @property int $base_scout_price_buy
+ * @property int $base_scout_price_sell
+ * @property int $base_scout_scout_speed_max
+ * @property int $base_scout_scout_speed_min
  */
 class BaseScout extends ActiveRecord
 {

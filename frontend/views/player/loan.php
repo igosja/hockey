@@ -7,7 +7,7 @@
  * @var \frontend\models\LoanFrom $modelLoanFrom
  * @var \frontend\models\LoanTo $modelLoanTo
  * @var boolean $myPlayer
- * @var integer $onLoan
+ * @var int $onLoan
  * @var \common\models\Player $player
  * @var \yii\web\View $this
  */

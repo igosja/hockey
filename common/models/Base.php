@@ -8,15 +8,15 @@ use yii\db\ActiveRecord;
  * Class Base
  * @package common\models
  *
- * @property integer $base_id
- * @property integer $base_build_speed
- * @property integer $base_level
- * @property integer $base_maintenance_base
- * @property integer $base_maintenance_slot
- * @property integer $base_price_buy
- * @property integer $base_price_sell
- * @property integer $base_slot_max
- * @property integer $base_slot_min
+ * @property int $base_id
+ * @property int $base_build_speed
+ * @property int $base_level
+ * @property int $base_maintenance_base
+ * @property int $base_maintenance_slot
+ * @property int $base_price_buy
+ * @property int $base_price_sell
+ * @property int $base_slot_max
+ * @property int $base_slot_min
  */
 class Base extends ActiveRecord
 {

@@ -17,11 +17,11 @@ use yii\base\Model;
  * Class TransferApplicationTo
  * @package frontend\models
  *
- * @property integer $maxPrice
- * @property integer $minPrice
+ * @property int $maxPrice
+ * @property int $minPrice
  * @property boolean $onlyOne
  * @property Player $player
- * @property integer $price
+ * @property int $price
  * @property Team $team
  * @property TransferApplication $transferApplication
  */

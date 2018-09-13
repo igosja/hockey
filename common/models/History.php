@@ -10,22 +10,22 @@ use yii\helpers\Html;
  * Class History
  * @package common\models
  *
- * @property integer $history_id
- * @property integer $history_building_id
- * @property integer $history_country_id
- * @property integer $history_date
- * @property integer $history_game_id
- * @property integer $history_history_text_id
- * @property integer $history_national_id
- * @property integer $history_player_id
- * @property integer $history_position_id
- * @property integer $history_season_id
- * @property integer $history_special_id
- * @property integer $history_team_id
- * @property integer $history_team_2_id
- * @property integer $history_user_id
- * @property integer $history_user_2_id
- * @property integer $history_value
+ * @property int $history_id
+ * @property int $history_building_id
+ * @property int $history_country_id
+ * @property int $history_date
+ * @property int $history_game_id
+ * @property int $history_history_text_id
+ * @property int $history_national_id
+ * @property int $history_player_id
+ * @property int $history_position_id
+ * @property int $history_season_id
+ * @property int $history_special_id
+ * @property int $history_team_id
+ * @property int $history_team_2_id
+ * @property int $history_user_id
+ * @property int $history_user_2_id
+ * @property int $history_value
  *
  * @property HistoryText $historyText
  * @property Player $player

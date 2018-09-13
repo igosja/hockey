@@ -8,8 +8,8 @@ use yii\db\ActiveRecord;
  * Class TeamVisitor
  * @package common\models
  *
- * @property integer $team_visitor_id
- * @property integer $team_visitor_team_id
+ * @property int $team_visitor_id
+ * @property int $team_visitor_team_id
  * @property float $team_visitor_visitor
  */
 class TeamVisitor extends ActiveRecord

@@ -9,14 +9,14 @@ use yii\db\ActiveRecord;
  * Class Country
  * @package common\models
  *
- * @property integer $country_id
- * @property integer $country_auto
- * @property integer $country_finance
- * @property integer $country_game
+ * @property int $country_id
+ * @property int $country_auto
+ * @property int $country_finance
+ * @property int $country_game
  * @property string $country_name
- * @property integer $country_president_id
- * @property integer $country_president_vice_id
- * @property integer $country_stadium_capacity
+ * @property int $country_president_id
+ * @property int $country_president_vice_id
+ * @property int $country_stadium_capacity
  *
  * @property City[] $city
  */

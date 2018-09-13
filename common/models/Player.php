@@ -11,39 +11,39 @@ use yii\helpers\Html;
  * Class Player
  * @package common\models
  *
- * @property integer $player_id
- * @property integer $player_age
- * @property integer $player_country_id
- * @property integer $player_date_no_action
- * @property integer $player_date_rookie
- * @property integer $player_game_row
- * @property integer $player_game_row_old
- * @property integer $player_injury_day
- * @property integer $player_squad_id
- * @property integer $player_loan_day
- * @property integer $player_loan_team_id
- * @property integer $player_mood_id
- * @property integer $player_name_id
- * @property integer $player_national_id
- * @property integer $player_national_line_id
- * @property integer $player_no_action
- * @property integer $player_no_deal
- * @property integer $player_order
- * @property integer $player_physical_id
- * @property integer $player_position_id
- * @property integer $player_power_nominal
- * @property integer $player_power_nominal_s
- * @property integer $player_power_old
- * @property integer $player_power_real
- * @property integer $player_price
- * @property integer $player_rookie
- * @property integer $player_salary
- * @property integer $player_school_id
- * @property integer $player_style_id
- * @property integer $player_surname_id
- * @property integer $player_team_id
- * @property integer $player_tire
- * @property integer $player_training_ability
+ * @property int $player_id
+ * @property int $player_age
+ * @property int $player_country_id
+ * @property int $player_date_no_action
+ * @property int $player_date_rookie
+ * @property int $player_game_row
+ * @property int $player_game_row_old
+ * @property int $player_injury_day
+ * @property int $player_squad_id
+ * @property int $player_loan_day
+ * @property int $player_loan_team_id
+ * @property int $player_mood_id
+ * @property int $player_name_id
+ * @property int $player_national_id
+ * @property int $player_national_line_id
+ * @property int $player_no_action
+ * @property int $player_no_deal
+ * @property int $player_order
+ * @property int $player_physical_id
+ * @property int $player_position_id
+ * @property int $player_power_nominal
+ * @property int $player_power_nominal_s
+ * @property int $player_power_old
+ * @property int $player_power_real
+ * @property int $player_price
+ * @property int $player_rookie
+ * @property int $player_salary
+ * @property int $player_school_id
+ * @property int $player_style_id
+ * @property int $player_surname_id
+ * @property int $player_team_id
+ * @property int $player_tire
+ * @property int $player_training_ability
  *
  * @property Country $country
  * @property Loan $loan

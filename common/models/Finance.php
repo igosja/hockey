@@ -9,22 +9,22 @@ use yii\db\ActiveRecord;
  * Class Finance
  * @package common\models
  *
- * @property integer $finance_id
- * @property integer $finance_building_id
- * @property integer $finance_capacity
+ * @property int $finance_id
+ * @property int $finance_building_id
+ * @property int $finance_capacity
  * @property string $finance_comment
- * @property integer $finance_country_id
- * @property integer $finance_date
- * @property integer $finance_finance_text_id
- * @property integer $finance_level
- * @property integer $finance_national_id
- * @property integer $finance_player_id
- * @property integer $finance_season_id
- * @property integer $finance_team_id
- * @property integer $finance_user_id
- * @property integer $finance_value
- * @property integer $finance_value_after
- * @property integer $finance_value_before
+ * @property int $finance_country_id
+ * @property int $finance_date
+ * @property int $finance_finance_text_id
+ * @property int $finance_level
+ * @property int $finance_national_id
+ * @property int $finance_player_id
+ * @property int $finance_season_id
+ * @property int $finance_team_id
+ * @property int $finance_user_id
+ * @property int $finance_value
+ * @property int $finance_value_after
+ * @property int $finance_value_before
  *
  * @property FinanceText $financeText
  */

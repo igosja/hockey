@@ -7,7 +7,7 @@
  * @var \frontend\models\TransferFrom $modelTransferFrom
  * @var \frontend\models\TransferTo $modelTransferTo
  * @var boolean $myPlayer
- * @var integer $onTransfer
+ * @var int $onTransfer
  * @var \common\models\Player $player
  * @var \yii\web\View $this
  */

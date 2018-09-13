@@ -9,13 +9,13 @@ use yii\db\ActiveRecord;
  * Class TransferApplicationTo
  * @package common\models
  *
- * @property integer $transfer_application_id
- * @property integer $transfer_application_date
- * @property integer $transfer_application_only_one
- * @property integer $transfer_application_price
- * @property integer $transfer_application_team_id
- * @property integer $transfer_application_transfer_id
- * @property integer $transfer_application_user_id
+ * @property int $transfer_application_id
+ * @property int $transfer_application_date
+ * @property int $transfer_application_only_one
+ * @property int $transfer_application_price
+ * @property int $transfer_application_team_id
+ * @property int $transfer_application_transfer_id
+ * @property int $transfer_application_user_id
  *
  * @property Team $team
  */

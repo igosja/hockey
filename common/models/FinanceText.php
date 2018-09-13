@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class FinanceText
  * @package common\models
  *
- * @property integer $finance_text_id
+ * @property int $finance_text_id
  * @property string $finance_text_text
  */
 class FinanceText extends ActiveRecord

@@ -13,43 +13,43 @@ use yii\helpers\Html;
  * Class Team
  * @package common\models
  *
- * @property integer $team_id
+ * @property int $team_id
  * @property float $team_age
- * @property integer $team_attitude_national
- * @property integer $team_attitude_president
- * @property integer $team_attitude_u19
- * @property integer $team_attitude_u21
- * @property integer $team_auto
- * @property integer $team_base_id
- * @property integer $team_base_medical_id
- * @property integer $team_base_physical_id
- * @property integer $team_base_school_id
- * @property integer $team_base_scout_id
- * @property integer $team_base_training_id
- * @property integer $team_finance
- * @property integer $team_friendly_status_id
- * @property integer $team_free_base
- * @property integer $team_mood_rest
- * @property integer $team_mood_super
+ * @property int $team_attitude_national
+ * @property int $team_attitude_president
+ * @property int $team_attitude_u19
+ * @property int $team_attitude_u21
+ * @property int $team_auto
+ * @property int $team_base_id
+ * @property int $team_base_medical_id
+ * @property int $team_base_physical_id
+ * @property int $team_base_school_id
+ * @property int $team_base_scout_id
+ * @property int $team_base_training_id
+ * @property int $team_finance
+ * @property int $team_friendly_status_id
+ * @property int $team_free_base
+ * @property int $team_mood_rest
+ * @property int $team_mood_super
  * @property string $team_name
- * @property integer $team_player
- * @property integer $team_power_c_16
- * @property integer $team_power_c_21
- * @property integer $team_power_c_27
- * @property integer $team_power_s_16
- * @property integer $team_power_s_21
- * @property integer $team_power_s_27
- * @property integer $team_power_v
- * @property integer $team_power_vs
- * @property integer $team_price_base
- * @property integer $team_price_player
- * @property integer $team_price_stadium
- * @property integer $team_price_total
- * @property integer $team_salary
- * @property integer $team_stadium_id
- * @property integer $team_user_id
- * @property integer $team_vice_id
- * @property integer $team_visitor
+ * @property int $team_player
+ * @property int $team_power_c_16
+ * @property int $team_power_c_21
+ * @property int $team_power_c_27
+ * @property int $team_power_s_16
+ * @property int $team_power_s_21
+ * @property int $team_power_s_27
+ * @property int $team_power_v
+ * @property int $team_power_vs
+ * @property int $team_price_base
+ * @property int $team_price_player
+ * @property int $team_price_stadium
+ * @property int $team_price_total
+ * @property int $team_salary
+ * @property int $team_stadium_id
+ * @property int $team_user_id
+ * @property int $team_vice_id
+ * @property int $team_visitor
  *
  * @property Base $base
  * @property BaseMedical $baseMedical

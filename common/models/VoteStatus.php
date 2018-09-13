@@ -8,8 +8,8 @@ use yii\db\ActiveRecord;
  * Class VoteStatus
  * @package common\models
  *
- * @property integer $vote_status_id
- * @property integer $vote_status_name
+ * @property int $vote_status_id
+ * @property int $vote_status_name
  */
 class VoteStatus extends ActiveRecord
 {

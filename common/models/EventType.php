@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class EventType
  * @package common\models
  *
- * @property integer $event_type_id
+ * @property int $event_type_id
  * @property string $event_type_text
  */
 class EventType extends ActiveRecord

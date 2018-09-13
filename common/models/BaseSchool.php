@@ -8,17 +8,17 @@ use yii\db\ActiveRecord;
  * Class BaseSchool
  * @package common\models
  *
- * @property integer $base_school_id
- * @property integer $base_school_base_level
- * @property integer $base_school_build_speed
- * @property integer $base_school_level
- * @property integer $base_school_player_count
- * @property integer $base_school_power
- * @property integer $base_school_price_buy
- * @property integer $base_school_price_sell
- * @property integer $base_school_school_speed
- * @property integer $base_school_with_special
- * @property integer $base_school_with_style
+ * @property int $base_school_id
+ * @property int $base_school_base_level
+ * @property int $base_school_build_speed
+ * @property int $base_school_level
+ * @property int $base_school_player_count
+ * @property int $base_school_power
+ * @property int $base_school_price_buy
+ * @property int $base_school_price_sell
+ * @property int $base_school_school_speed
+ * @property int $base_school_with_special
+ * @property int $base_school_with_style
  */
 class BaseSchool extends ActiveRecord
 {

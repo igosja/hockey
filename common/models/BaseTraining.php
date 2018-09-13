@@ -8,20 +8,20 @@ use yii\db\ActiveRecord;
  * Class BaseTraining
  * @package common\models
  *
- * @property integer $base_training_id
- * @property integer $base_training_base_level
- * @property integer $base_training_build_speed
- * @property integer $base_training_level
- * @property integer $base_training_position_count
- * @property integer $base_training_position_price
- * @property integer $base_training_power_count
- * @property integer $base_training_power_price
- * @property integer $base_training_price_buy
- * @property integer $base_training_price_sell
- * @property integer $base_training_special_count
- * @property integer $base_training_special_price
- * @property integer $base_training_training_speed_max
- * @property integer $base_training_training_speed_min
+ * @property int $base_training_id
+ * @property int $base_training_base_level
+ * @property int $base_training_build_speed
+ * @property int $base_training_level
+ * @property int $base_training_position_count
+ * @property int $base_training_position_price
+ * @property int $base_training_power_count
+ * @property int $base_training_power_price
+ * @property int $base_training_price_buy
+ * @property int $base_training_price_sell
+ * @property int $base_training_special_count
+ * @property int $base_training_special_price
+ * @property int $base_training_training_speed_max
+ * @property int $base_training_training_speed_min
  */
 class BaseTraining extends ActiveRecord
 {

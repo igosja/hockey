@@ -9,14 +9,14 @@ use yii\db\ActiveRecord;
  * Class ForumTheme
  * @package common\models
  *
- * @property integer $forum_message_id
- * @property integer $forum_message_blocked
- * @property integer $forum_message_check
- * @property integer $forum_message_date
- * @property integer $forum_message_date_update
- * @property integer $forum_message_forum_theme_id
+ * @property int $forum_message_id
+ * @property int $forum_message_blocked
+ * @property int $forum_message_check
+ * @property int $forum_message_date
+ * @property int $forum_message_date_update
+ * @property int $forum_message_forum_theme_id
  * @property string $forum_message_text
- * @property integer $forum_message_user_id
+ * @property int $forum_message_user_id
  *
  * @property ForumTheme $forumTheme
  */

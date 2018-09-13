@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
  * Class NameCountry
  * @package common\models
  *
- * @property integer $name_country_id
- * @property integer $name_country_country_id
- * @property integer $name_country_name_id
+ * @property int $name_country_id
+ * @property int $name_country_country_id
+ * @property int $name_country_name_id
  */
 class NameCountry extends ActiveRecord
 {

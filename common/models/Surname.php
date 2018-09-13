@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
  * Class Surname
  * @package common\models
  *
- * @property integer $surname_id
+ * @property int $surname_id
  * @property string $surname_name
  *
  * @property Player[] $player

@@ -10,13 +10,13 @@ use yii\db\ActiveRecord;
  * Class News
  * @package common\models
  *
- * @property integer $news_id
- * @property integer $news_check
- * @property integer $news_country_id
- * @property integer $news_date
+ * @property int $news_id
+ * @property int $news_check
+ * @property int $news_country_id
+ * @property int $news_date
  * @property string $news_text
  * @property string $news_title
- * @property integer $news_user_id
+ * @property int $news_user_id
  *
  * @property Country $country
  * @property NewsComment $newsComment

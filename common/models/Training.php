@@ -8,15 +8,15 @@ use yii\db\ActiveRecord;
  * Class Training
  * @package common\models
  *
- * @property integer $training_id
- * @property integer $training_percent
- * @property integer $training_player_id
- * @property integer $training_position_id
- * @property integer $training_power
- * @property integer $training_ready
- * @property integer $training_season_id
- * @property integer $training_special_id
- * @property integer $training_team_id
+ * @property int $training_id
+ * @property int $training_percent
+ * @property int $training_player_id
+ * @property int $training_position_id
+ * @property int $training_power
+ * @property int $training_ready
+ * @property int $training_season_id
+ * @property int $training_special_id
+ * @property int $training_team_id
  */
 class Training extends ActiveRecord
 {

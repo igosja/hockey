@@ -13,48 +13,48 @@ use yii\web\IdentityInterface;
  * Class User
  * @package common\models
  *
- * @property integer $user_id
- * @property integer $user_birth_day
- * @property integer $user_birth_month
- * @property integer $user_birth_year
- * @property integer $user_block_block_reason_id
- * @property integer $user_block_comment_block_reason_id
- * @property integer $user_block_comment_deal_block_reason_id
- * @property integer $user_block_comment_game_block_reason_id
- * @property integer $user_block_comment_news_block_reason_id
- * @property integer $user_block_forum_block_reason_id
+ * @property int $user_id
+ * @property int $user_birth_day
+ * @property int $user_birth_month
+ * @property int $user_birth_year
+ * @property int $user_block_block_reason_id
+ * @property int $user_block_comment_block_reason_id
+ * @property int $user_block_comment_deal_block_reason_id
+ * @property int $user_block_comment_game_block_reason_id
+ * @property int $user_block_comment_news_block_reason_id
+ * @property int $user_block_forum_block_reason_id
  * @property string $user_city
  * @property string $user_code
- * @property integer $user_country_id
- * @property integer $user_country_news_id
- * @property integer $user_date_block
- * @property integer $user_date_block_comment
- * @property integer $user_date_block_comment_deal
- * @property integer $user_date_block_comment_game
- * @property integer $user_date_block_comment_news
- * @property integer $user_date_block_forum
- * @property integer $user_date_confirm
- * @property integer $user_date_login
- * @property integer $user_date_register
- * @property integer $user_date_vip
+ * @property int $user_country_id
+ * @property int $user_country_news_id
+ * @property int $user_date_block
+ * @property int $user_date_block_comment
+ * @property int $user_date_block_comment_deal
+ * @property int $user_date_block_comment_game
+ * @property int $user_date_block_comment_news
+ * @property int $user_date_block_forum
+ * @property int $user_date_confirm
+ * @property int $user_date_login
+ * @property int $user_date_register
+ * @property int $user_date_vip
  * @property string $user_email
- * @property integer $user_finance
- * @property integer $user_holiday
- * @property integer $user_holiday_day
+ * @property int $user_finance
+ * @property int $user_holiday
+ * @property int $user_holiday_day
  * @property string $user_login
  * @property float $user_money
  * @property string $user_name
- * @property integer $user_news_id
+ * @property int $user_news_id
  * @property string $user_password
  * @property float $user_rating
- * @property integer $user_referrer_done
- * @property integer $user_referrer_id
- * @property integer $user_sex_id
- * @property integer $user_shop_point
- * @property integer $user_shop_position
- * @property integer $user_shop_special
+ * @property int $user_referrer_done
+ * @property int $user_referrer_id
+ * @property int $user_sex_id
+ * @property int $user_shop_point
+ * @property int $user_shop_position
+ * @property int $user_shop_special
  * @property string $user_surname
- * @property integer $user_user_role_id
+ * @property int $user_user_role_id
  */
 class User extends ActiveRecord implements IdentityInterface
 {

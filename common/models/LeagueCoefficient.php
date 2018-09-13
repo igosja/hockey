@@ -8,17 +8,17 @@ use yii\db\ActiveRecord;
  * Class UpdateLeagueCoefficient
  * @package common\models
  *
- * @property integer $league_coefficient_id
- * @property integer $league_coefficient_country_id
- * @property integer $league_coefficient_loose
- * @property integer $league_coefficient_loose_overtime
- * @property integer $league_coefficient_loose_shootout
- * @property integer $league_coefficient_point
- * @property integer $league_coefficient_season_id
- * @property integer $league_coefficient_team_id
- * @property integer $league_coefficient_win
- * @property integer $league_coefficient_win_overtime
- * @property integer $league_coefficient_win_shootout
+ * @property int $league_coefficient_id
+ * @property int $league_coefficient_country_id
+ * @property int $league_coefficient_loose
+ * @property int $league_coefficient_loose_overtime
+ * @property int $league_coefficient_loose_shootout
+ * @property int $league_coefficient_point
+ * @property int $league_coefficient_season_id
+ * @property int $league_coefficient_team_id
+ * @property int $league_coefficient_win
+ * @property int $league_coefficient_win_overtime
+ * @property int $league_coefficient_win_shootout
  */
 class LeagueCoefficient extends ActiveRecord
 {

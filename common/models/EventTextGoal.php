@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class EventTextGoal
  * @package common\models
  *
- * @property integer $event_text_goal_id
+ * @property int $event_text_goal_id
  * @property string $event_text_goal_text
  */
 class EventTextGoal extends ActiveRecord

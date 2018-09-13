@@ -8,13 +8,13 @@ use yii\db\ActiveRecord;
  * Class Message
  * @package common\models
  *
- * @property integer $message_id
- * @property integer $message_date
- * @property integer $message_read
- * @property integer $message_support
+ * @property int $message_id
+ * @property int $message_date
+ * @property int $message_read
+ * @property int $message_support
  * @property string $message_text
- * @property integer $message_user_id_from
- * @property integer $message_user_id_to
+ * @property int $message_user_id_from
+ * @property int $message_user_id_to
  */
 class Message extends ActiveRecord
 {

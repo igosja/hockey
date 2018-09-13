@@ -9,22 +9,22 @@ use yii\db\ActiveRecord;
  * Class League
  * @package common\models
  *
- * @property integer $league_id
- * @property integer $league_difference
- * @property integer $league_game
- * @property integer $league_group
- * @property integer $league_loose
- * @property integer $league_loose_overtime
- * @property integer $league_loose_shootout
- * @property integer $league_pass
- * @property integer $league_place
- * @property integer $league_point
- * @property integer $league_score
- * @property integer $league_season_id
- * @property integer $league_team_id
- * @property integer $league_win
- * @property integer $league_win_overtime
- * @property integer $league_win_shootout
+ * @property int $league_id
+ * @property int $league_difference
+ * @property int $league_game
+ * @property int $league_group
+ * @property int $league_loose
+ * @property int $league_loose_overtime
+ * @property int $league_loose_shootout
+ * @property int $league_pass
+ * @property int $league_place
+ * @property int $league_point
+ * @property int $league_score
+ * @property int $league_season_id
+ * @property int $league_team_id
+ * @property int $league_win
+ * @property int $league_win_overtime
+ * @property int $league_win_shootout
  *
  * @property Team $team
  */

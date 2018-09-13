@@ -8,13 +8,13 @@ use yii\db\ActiveRecord;
  * Class Scout
  * @package common\models
  *
- * @property integer $scout_id
- * @property integer $scout_percent
- * @property integer $scout_player_id
- * @property integer $scout_ready
- * @property integer $scout_season_id
- * @property integer $scout_style
- * @property integer $scout_team_id
+ * @property int $scout_id
+ * @property int $scout_percent
+ * @property int $scout_player_id
+ * @property int $scout_ready
+ * @property int $scout_season_id
+ * @property int $scout_style
+ * @property int $scout_team_id
  */
 class Scout extends ActiveRecord
 {

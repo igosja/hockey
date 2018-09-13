@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
  * Class TransferComment
  * @package common\models
  *
- * @property integer $transfer_comment_id
- * @property integer $transfer_comment_check
- * @property integer $transfer_comment_date
- * @property integer $transfer_comment_transfer_id
+ * @property int $transfer_comment_id
+ * @property int $transfer_comment_check
+ * @property int $transfer_comment_date
+ * @property int $transfer_comment_transfer_id
  * @property string $transfer_comment_text
- * @property integer $transfer_comment_user_id
+ * @property int $transfer_comment_user_id
  */
 class TransferComment extends ActiveRecord
 {

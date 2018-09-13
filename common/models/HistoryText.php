@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class HistoryText
  * @package common\models
  *
- * @property integer $history_text_id
+ * @property int $history_text_id
  * @property string $history_text_text
  */
 class HistoryText extends ActiveRecord

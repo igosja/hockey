@@ -12,7 +12,7 @@ use common\models\TournamentType;
  * @package console\models\generator
  *
  * @property Game $game
- * @property integer $income
+ * @property int $income
  */
 class FinanceStadium
 {
@@ -22,7 +22,7 @@ class FinanceStadium
     private $game;
 
     /**
-     * @var integer $income
+     * @var int $income
      */
     private $income;
 

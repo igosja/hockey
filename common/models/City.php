@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
  * Class City
  * @package common\models
  *
- * @property integer $city_id
- * @property integer $city_country_id
+ * @property int $city_id
+ * @property int $city_country_id
  * @property string $city_name
  *
  * @property Country $country

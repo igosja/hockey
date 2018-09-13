@@ -8,22 +8,22 @@ use yii\db\ActiveRecord;
  * Class Event
  * @package common\models
  *
- * @property integer $event_id
- * @property integer $event_event_text_goal_id
- * @property integer $event_event_text_penalty_id
- * @property integer $event_event_text_shootout_id
- * @property integer $event_event_type_id
- * @property integer $event_game_id
- * @property integer $event_guest_score
- * @property integer $event_home_score
- * @property integer $event_minute
- * @property integer $event_national_id
- * @property integer $event_player_assist_1_id
- * @property integer $event_player_assist_2_id
- * @property integer $event_player_penalty_id
- * @property integer $event_player_score_id
- * @property integer $event_second
- * @property integer $event_team_id
+ * @property int $event_id
+ * @property int $event_event_text_goal_id
+ * @property int $event_event_text_penalty_id
+ * @property int $event_event_text_shootout_id
+ * @property int $event_event_type_id
+ * @property int $event_game_id
+ * @property int $event_guest_score
+ * @property int $event_home_score
+ * @property int $event_minute
+ * @property int $event_national_id
+ * @property int $event_player_assist_1_id
+ * @property int $event_player_assist_2_id
+ * @property int $event_player_penalty_id
+ * @property int $event_player_score_id
+ * @property int $event_second
+ * @property int $event_team_id
  */
 class Event extends ActiveRecord
 {

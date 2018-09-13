@@ -9,23 +9,23 @@ use yii\db\ActiveRecord;
  * Class Conference
  * @package common\models
  *
- * @property integer $conference_id
- * @property integer $conference_difference
- * @property integer $conference_game
- * @property integer $conference_guest
- * @property integer $conference_home
- * @property integer $conference_loose
- * @property integer $conference_loose_overtime
- * @property integer $conference_loose_shootout
- * @property integer $conference_pass
- * @property integer $conference_place
- * @property integer $conference_point
- * @property integer $conference_score
- * @property integer $conference_season_id
- * @property integer $conference_team_id
- * @property integer $conference_win
- * @property integer $conference_win_overtime
- * @property integer $conference_win_shootout
+ * @property int $conference_id
+ * @property int $conference_difference
+ * @property int $conference_game
+ * @property int $conference_guest
+ * @property int $conference_home
+ * @property int $conference_loose
+ * @property int $conference_loose_overtime
+ * @property int $conference_loose_shootout
+ * @property int $conference_pass
+ * @property int $conference_place
+ * @property int $conference_point
+ * @property int $conference_score
+ * @property int $conference_season_id
+ * @property int $conference_team_id
+ * @property int $conference_win
+ * @property int $conference_win_overtime
+ * @property int $conference_win_shootout
  *
  * @property Team $team
  */

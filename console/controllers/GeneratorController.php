@@ -29,6 +29,7 @@ use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
+use console\models\generator\UpdateBuildingBase;
 use console\models\generator\UpdateCronDate;
 use console\models\generator\UpdateLeagueCoefficient;
 use console\models\generator\UpdatePhysical;
@@ -90,6 +91,7 @@ class GeneratorController extends BaseController
             (new UpdatePhysical())->execute();
             (new UpdateSchool())->execute();
             (new UpdateScout())->execute();
+            (new UpdateBuildingBase())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
