@@ -13,6 +13,7 @@ use console\models\generator\DecreaseTeamwork;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
+use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
 use console\models\generator\MakePlayed;
@@ -104,6 +105,7 @@ class GeneratorController extends BaseController
             (new SetInjury())->execute();
             (new MakePlayed())->execute();
             (new LeagueOut())->execute();
+            (new LeagueLot())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

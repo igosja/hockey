@@ -9,6 +9,7 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
+use Yii;
 
 /**
  * Class LeagueLot
@@ -17,6 +18,7 @@ use common\models\TournamentType;
 class LeagueLot
 {
     /**
+     * @throws \yii\db\Exception
      * @return void
      */
     public function execute(): void
@@ -41,381 +43,329 @@ class LeagueLot
                 ->limit(1)
                 ->one();
             if ($check && Stage::QUALIFY_2 == $check->schedule_stage_id) {
-                $team_array = f_igosja_league_lot(STAGE_2_QUALIFY);
+                $teamArray = $this->lot(Stage::QUALIFY_2);
 
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_2_QUALIFY . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_stage_id' => Stage::QUALIFY_2,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    ])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
 
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
+                foreach ($teamArray as $item) {
+                    $model = new Game();
+                    $model->game_guest_team_id = $item['guest'];
+                    $model->game_home_team_id = $item['home'];
+                    $model->game_schedule_id = $stageArray[0]->schedule_id;
+                    $model->save();
 
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
-                $values = array();
-
-                foreach ($team_array as $item) {
-                    $values[] = '(' . $item['guest'] . ', ' . $item['home'] . ', ' . $schedule_1 . ')';
-                    $values[] = '(' . $item['home'] . ', ' . $item['guest'] . ', ' . $schedule_2 . ')';
+                    $model = new Game();
+                    $model->game_guest_team_id = $item['home'];
+                    $model->game_home_team_id = $item['guest'];
+                    $model->game_schedule_id = $stageArray[1]->schedule_id;
+                    $model->save();
                 }
-
-                $values = implode(',', $values);
-
-                $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`)
-                        VALUES $values;";
-                f_igosja_mysqli_query($sql);
 
                 $sql = "UPDATE `game`
                         LEFT JOIN `team`
                         ON `game_home_team_id`=`team_id`
                         SET `game_stadium_id`=`team_stadium_id`
-                        WHERE `game_schedule_id` IN ($schedule_1, $schedule_2)";
-                f_igosja_mysqli_query($sql);
+                        WHERE `game_schedule_id` IN (" . $stageArray[0]->schedule_id . ", " . $stageArray[1]->schedule_id . ")";
+                Yii::$app->db->createCommand($sql)->execute();
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_2_QUALIFY == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $check_sql = f_igosja_mysqli_query($sql);
+        } elseif (Stage::QUALIFY_2 == $schedule->schedule_stage_id) {
+            $check = Schedule::find()
+                ->select(['schedule_stage_id'])
+                ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+                ->andWhere(['>', 'schedule_id', $schedule->schedule_id])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(1)
+                ->one();
+            if ($check && Stage::QUALIFY_3 == $check->schedule_stage_id) {
+                $teamArray = $this->lot(Stage::QUALIFY_3);
 
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_stage_id' => Stage::QUALIFY_3,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    ])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
 
-            if (STAGE_3_QUALIFY == $check_array[0]['schedule_stage_id']) {
-                $team_array = f_igosja_league_lot(STAGE_3_QUALIFY);
+                foreach ($teamArray as $item) {
+                    $model = new Game();
+                    $model->game_guest_team_id = $item['guest'];
+                    $model->game_home_team_id = $item['home'];
+                    $model->game_schedule_id = $stageArray[0]->schedule_id;
+                    $model->save();
 
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_3_QUALIFY . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
-                $values = array();
-
-                foreach ($team_array as $item) {
-                    $values[] = '(' . $item['guest'] . ', ' . $item['home'] . ', ' . $schedule_1 . ')';
-                    $values[] = '(' . $item['home'] . ', ' . $item['guest'] . ', ' . $schedule_2 . ')';
+                    $model = new Game();
+                    $model->game_guest_team_id = $item['home'];
+                    $model->game_home_team_id = $item['guest'];
+                    $model->game_schedule_id = $stageArray[1]->schedule_id;
+                    $model->save();
                 }
-
-                $values = implode(',', $values);
-
-                $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`)
-                        VALUES $values;";
-                f_igosja_mysqli_query($sql);
 
                 $sql = "UPDATE `game`
                         LEFT JOIN `team`
                         ON `game_home_team_id`=`team_id`
                         SET `game_stadium_id`=`team_stadium_id`
-                        WHERE `game_schedule_id` IN ($schedule_1, $schedule_2)";
-                f_igosja_mysqli_query($sql);
+                        WHERE `game_schedule_id` IN (" . $stageArray[0]->schedule_id . ", " . $stageArray[1]->schedule_id . ")";
+                Yii::$app->db->createCommand($sql)->execute();
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_3_QUALIFY == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $check_sql = f_igosja_mysqli_query($sql);
+        } elseif (Stage::QUALIFY_3 == $schedule->schedule_stage_id) {
+            $check = Schedule::find()
+                ->select(['schedule_stage_id'])
+                ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+                ->andWhere(['>', 'schedule_id', $schedule->schedule_id])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(1)
+                ->one();
+            if ($check && Stage::TOUR_LEAGUE_1 == $check->schedule_stage_id) {
+                $teamArray = $this->lot(Stage::TOUR_LEAGUE_1);
 
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if (STAGE_1_TOUR == $check_array[0]['schedule_stage_id']) {
-                $team_array = f_igosja_league_lot(STAGE_1_TOUR);
-
-                $values = array();
-
-                foreach ($team_array as $group => $team) {
+                foreach ($teamArray as $group => $team) {
                     foreach ($team as $place => $item) {
-                        $values[] = '(' . $igosja_season_id . ', ' . $item . ', ' . $group . ', ' . ($place + 1) . ')';
+                        $model = new League();
+                        $model->league_group = $group;
+                        $model->league_place = $place + 1;
+                        $model->league_season_id = $seasonId;
+                        $model->league_team_id = $item;
+                        $model->save();
                     }
                 }
 
-                $values = implode(',', $values);
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE
+                    ])
+                    ->andWhere(['between', 'schedule_stage_id', Stage::TOUR_LEAGUE_1, Stage::TOUR_LEAGUE_6])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(6)
+                    ->all();
+                $schedule_id_1 = $stageArray[0]->schedule_id;
+                $schedule_id_2 = $stageArray[1]->schedule_id;
+                $schedule_id_3 = $stageArray[2]->schedule_id;
+                $schedule_id_4 = $stageArray[3]->schedule_id;
+                $schedule_id_5 = $stageArray[4]->schedule_id;
+                $schedule_id_6 = $stageArray[5]->schedule_id;
 
-                $sql = "INSERT INTO `league` (`league_season_id`, `league_team_id`, `league_group`, `league_place`)
-                        VALUES $values;";
-                f_igosja_mysqli_query($sql);
+                $groupArray = League::find()
+                    ->where(['league_season_id' => $seasonId])
+                    ->groupBy(['league_group'])
+                    ->orderBy(['league_group' => SORT_ASC])
+                    ->all();
+                foreach ($groupArray as $group) {
+                    $teamArray = League::find()
+                        ->where(['league_season_id' => $seasonId, 'league_group' => $group->league_group])
+                        ->orderBy('RAND()')
+                        ->all();
 
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`<=" . STAGE_6_TOUR . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 6";
-                $stage_sql = f_igosja_mysqli_query($sql);
+                    $team_id_1 = $teamArray[0]->league_team_id;
+                    $team_id_2 = $teamArray[1]->league_team_id;
+                    $team_id_3 = $teamArray[2]->league_team_id;
+                    $team_id_4 = $teamArray[3]->league_team_id;
 
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
+                    $stadium_id_1 = $teamArray[0]->team->team_stadium_id;
+                    $stadium_id_2 = $teamArray[1]->team->team_stadium_id;
+                    $stadium_id_3 = $teamArray[2]->team->team_stadium_id;
+                    $stadium_id_4 = $teamArray[3]->team->team_stadium_id;
 
-                $schedule_id_1 = $stage_array[0]['schedule_id'];
-                $schedule_id_2 = $stage_array[1]['schedule_id'];
-                $schedule_id_3 = $stage_array[2]['schedule_id'];
-                $schedule_id_4 = $stage_array[3]['schedule_id'];
-                $schedule_id_5 = $stage_array[4]['schedule_id'];
-                $schedule_id_6 = $stage_array[5]['schedule_id'];
+                    $data = [
+                        [$team_id_2, $team_id_1, $schedule_id_1, $stadium_id_2],
+                        [$team_id_4, $team_id_3, $schedule_id_1, $stadium_id_4],
+                        [$team_id_1, $team_id_3, $schedule_id_2, $stadium_id_1],
+                        [$team_id_2, $team_id_4, $schedule_id_2, $stadium_id_2],
+                        [$team_id_3, $team_id_2, $schedule_id_3, $stadium_id_3],
+                        [$team_id_4, $team_id_1, $schedule_id_3, $stadium_id_4],
+                        [$team_id_1, $team_id_2, $schedule_id_4, $stadium_id_1],
+                        [$team_id_3, $team_id_4, $schedule_id_4, $stadium_id_3],
+                        [$team_id_3, $team_id_1, $schedule_id_5, $stadium_id_3],
+                        [$team_id_4, $team_id_2, $schedule_id_5, $stadium_id_4],
+                        [$team_id_2, $team_id_3, $schedule_id_6, $stadium_id_2],
+                        [$team_id_1, $team_id_4, $schedule_id_6, $stadium_id_1],
+                    ];
 
-                $sql = "SELECT `league_group`
-                        FROM `league`
-                        WHERE `league_season_id`=$igosja_season_id
-                        GROUP BY `league_group`
-                        ORDER BY `league_group` ASC";
-                $group_sql = f_igosja_mysqli_query($sql);
-
-                $group_array = $group_sql->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($group_array as $group) {
-                    $group_id = $group['league_group'];
-
-                    $sql = "SELECT `team_id`,
-                                   `stadium_id`
-                            FROM `league`
-                            LEFT JOIN `team`
-                            ON `league_team_id`=`team_id`
-                            LEFT JOIN `stadium`
-                            ON `team_stadium_id`=`stadium_id`
-                            WHERE `league_season_id`=$igosja_season_id
-                            AND `league_group`=$group_id
-                            ORDER BY RAND()";
-                    $team_sql = f_igosja_mysqli_query($sql);
-
-                    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-                    $team_id_1 = $team_array[0]['team_id'];
-                    $team_id_2 = $team_array[1]['team_id'];
-                    $team_id_3 = $team_array[2]['team_id'];
-                    $team_id_4 = $team_array[3]['team_id'];
-
-                    $stadium_id_1 = $team_array[0]['stadium_id'];
-                    $stadium_id_2 = $team_array[1]['stadium_id'];
-                    $stadium_id_3 = $team_array[2]['stadium_id'];
-                    $stadium_id_4 = $team_array[3]['stadium_id'];
-
-                    $sql = "INSERT INTO `game` (`game_home_team_id`, `game_guest_team_id`, `game_schedule_id`, `game_stadium_id`)
-                            VALUES ($team_id_2, $team_id_1, $schedule_id_1, $stadium_id_2),
-                                   ($team_id_4, $team_id_3, $schedule_id_1, $stadium_id_4),
-                                   ($team_id_1, $team_id_3, $schedule_id_2, $stadium_id_1),
-                                   ($team_id_2, $team_id_4, $schedule_id_2, $stadium_id_2),
-                                   ($team_id_3, $team_id_2, $schedule_id_3, $stadium_id_3),
-                                   ($team_id_4, $team_id_1, $schedule_id_3, $stadium_id_4),
-                                   ($team_id_1, $team_id_2, $schedule_id_4, $stadium_id_1),
-                                   ($team_id_3, $team_id_4, $schedule_id_4, $stadium_id_3),
-                                   ($team_id_3, $team_id_1, $schedule_id_5, $stadium_id_3),
-                                   ($team_id_4, $team_id_2, $schedule_id_5, $stadium_id_4),
-                                   ($team_id_2, $team_id_3, $schedule_id_6, $stadium_id_2),
-                                   ($team_id_1, $team_id_4, $schedule_id_6, $stadium_id_1);";
-                    f_igosja_mysqli_query($sql);
+                    Yii::$app->db
+                        ->createCommand()
+                        ->batchInsert(
+                            Game::tableName(),
+                            ['game_home_team_id', 'game_guest_team_id', 'game_schedule_id', 'game_stadium_id'],
+                            $data
+                        )
+                        ->execute();
                 }
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_6_TOUR == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_id`
-                    FROM `schedule`
-                    WHERE `schedule_season_id`=$igosja_season_id
-                    AND `schedule_stage_id`=" . STAGE_1_8_FINAL . "
-                    AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 2";
-            $stage_sql = f_igosja_mysqli_query($sql);
-
-            $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-            $schedule_1 = $stage_array[0]['schedule_id'];
-            $schedule_2 = $stage_array[1]['schedule_id'];
-
+        } elseif (Stage::TOUR_LEAGUE_6 == $schedule->schedule_stage_id) {
+            $stageArray = Schedule::find()
+                ->where([
+                    'schedule_season_id' => $seasonId,
+                    'schedule_stage_id' => Stage::ROUND_OF_16,
+                    'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                ])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(2)
+                ->all();
             for ($i = 1; $i <= 8; $i++) {
-                $sql = "SELECT `team_id`,
-                               `team_stadium_id`
-                        FROM `participantleague`
-                        LEFT JOIN `team`
-                        ON `participantleague_team_id`=`team_id`
-                        WHERE `participantleague_season_id`=$igosja_season_id
-                        AND `participantleague_stage_8`=$i
-                        AND `participantleague_stage_id`=0
-                        ORDER BY `participantleague_id` ASC
-                        LIMIT 2";
-                $team_sql = f_igosja_mysqli_query($sql);
+                $teamArray = ParticipantLeague::find()
+                    ->where([
+                        'participant_league_season_id' => $seasonId,
+                        'participant_league_stage_8' => $i,
+                        'participant_league_stage_id' => 0,
+                    ])
+                    ->orderBy(['participant_league_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
 
-                $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+                $model = new Game();
+                $model->game_guest_team_id = $teamArray[1]->participant_league_team_id;
+                $model->game_home_team_id = $teamArray[0]->participant_league_team_id;
+                $model->game_schedule_id = $stageArray[0]->schedule_id;
+                $model->game_stadium_id = $teamArray[0]->team->team_stadium_id;
+                $model->save();
 
-                $team_1 = $team_array[0]['team_id'];
-                $stadium_1 = $team_array[0]['team_stadium_id'];
-                $team_2 = $team_array[1]['team_id'];
-                $stadium_2 = $team_array[1]['team_stadium_id'];
-
-                $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                        VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                               ($team_1, $team_2, $schedule_2, $stadium_2);";
-                f_igosja_mysqli_query($sql);
+                $model = new Game();
+                $model->game_guest_team_id = $teamArray[0]->participant_league_team_id;
+                $model->game_home_team_id = $teamArray[1]->participant_league_team_id;
+                $model->game_schedule_id = $stageArray[1]->schedule_id;
+                $model->game_stadium_id = $teamArray[1]->team->team_stadium_id;
+                $model->save();
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_1_8_FINAL == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if (STAGE_QUATER == $check_array[0]['schedule_stage_id']) {
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_QUATER . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
+        } elseif (Stage::ROUND_OF_16 == $schedule->schedule_stage_id) {
+            $check = Schedule::find()
+                ->select(['schedule_stage_id'])
+                ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+                ->andWhere(['>', 'schedule_id', $schedule->schedule_id])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(1)
+                ->one();
+            if ($check && Stage::QUARTER == $check->schedule_stage_id) {
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_stage_id' => Stage::QUARTER,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    ])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
                 for ($i = 1; $i <= 4; $i++) {
-                    $sql = "SELECT `team_id`,
-                                   `team_stadium_id`
-                            FROM `participantleague`
-                            LEFT JOIN `team`
-                            ON `participantleague_team_id`=`team_id`
-                            WHERE `participantleague_season_id`=$igosja_season_id
-                            AND `participantleague_stage_4`=$i
-                            AND `participantleague_stage_id`=0
-                            ORDER BY `participantleague_id` ASC
-                            LIMIT 2";
-                    $team_sql = f_igosja_mysqli_query($sql);
+                    $teamArray = ParticipantLeague::find()
+                        ->where([
+                            'participant_league_season_id' => $seasonId,
+                            'participant_league_stage_4' => $i,
+                            'participant_league_stage_id' => 0,
+                        ])
+                        ->orderBy(['participant_league_id' => SORT_ASC])
+                        ->limit(2)
+                        ->all();
 
-                    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+                    $model = new Game();
+                    $model->game_guest_team_id = $teamArray[1]->participant_league_team_id;
+                    $model->game_home_team_id = $teamArray[0]->participant_league_team_id;
+                    $model->game_schedule_id = $stageArray[0]->schedule_id;
+                    $model->game_stadium_id = $teamArray[0]->team->team_stadium_id;
+                    $model->save();
 
-                    $team_1 = $team_array[0]['team_id'];
-                    $stadium_1 = $team_array[0]['team_stadium_id'];
-                    $team_2 = $team_array[1]['team_id'];
-                    $stadium_2 = $team_array[1]['team_stadium_id'];
-
-                    $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                            VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                                   ($team_1, $team_2, $schedule_2, $stadium_2);";
-                    f_igosja_mysqli_query($sql);
+                    $model = new Game();
+                    $model->game_guest_team_id = $teamArray[0]->participant_league_team_id;
+                    $model->game_home_team_id = $teamArray[1]->participant_league_team_id;
+                    $model->game_schedule_id = $stageArray[1]->schedule_id;
+                    $model->game_stadium_id = $teamArray[1]->team->team_stadium_id;
+                    $model->save();
                 }
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_QUATER == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $check_sql = f_igosja_mysqli_query($sql);
-
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
-
-            if (STAGE_SEMI == $check_array[0]['schedule_stage_id']) {
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_SEMI . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
+        } elseif (Stage::QUARTER == $schedule->schedule_stage_id) {
+            $check = Schedule::find()
+                ->select(['schedule_stage_id'])
+                ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+                ->andWhere(['>', 'schedule_id', $schedule->schedule_id])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(1)
+                ->one();
+            if ($check && Stage::SEMI == $check->schedule_stage_id) {
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_stage_id' => Stage::SEMI,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    ])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
                 for ($i = 1; $i <= 2; $i++) {
-                    $sql = "SELECT `team_id`,
-                                   `team_stadium_id`
-                            FROM `participantleague`
-                            LEFT JOIN `team`
-                            ON `participantleague_team_id`=`team_id`
-                            WHERE `participantleague_season_id`=$igosja_season_id
-                            AND `participantleague_stage_2`=$i
-                            AND `participantleague_stage_id`=0
-                            ORDER BY `participantleague_id` ASC
-                            LIMIT 2";
-                    $team_sql = f_igosja_mysqli_query($sql);
+                    $teamArray = ParticipantLeague::find()
+                        ->where([
+                            'participant_league_season_id' => $seasonId,
+                            'participant_league_stage_2' => $i,
+                            'participant_league_stage_id' => 0,
+                        ])
+                        ->orderBy(['participant_league_id' => SORT_ASC])
+                        ->limit(2)
+                        ->all();
 
-                    $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
+                    $model = new Game();
+                    $model->game_guest_team_id = $teamArray[1]->participant_league_team_id;
+                    $model->game_home_team_id = $teamArray[0]->participant_league_team_id;
+                    $model->game_schedule_id = $stageArray[0]->schedule_id;
+                    $model->game_stadium_id = $teamArray[0]->team->team_stadium_id;
+                    $model->save();
 
-                    $team_1 = $team_array[0]['team_id'];
-                    $stadium_1 = $team_array[0]['team_stadium_id'];
-                    $team_2 = $team_array[1]['team_id'];
-                    $stadium_2 = $team_array[1]['team_stadium_id'];
-
-                    $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                            VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                                   ($team_1, $team_2, $schedule_2, $stadium_2);";
-                    f_igosja_mysqli_query($sql);
+                    $model = new Game();
+                    $model->game_guest_team_id = $teamArray[0]->participant_league_team_id;
+                    $model->game_home_team_id = $teamArray[1]->participant_league_team_id;
+                    $model->game_schedule_id = $stageArray[1]->schedule_id;
+                    $model->game_stadium_id = $teamArray[1]->team->team_stadium_id;
+                    $model->save();
                 }
             }
-        } elseif (TOURNAMENTTYPE_LEAGUE == $item['schedule_tournamenttype_id'] && STAGE_SEMI == $item['schedule_stage_id']) {
-            $sql = "SELECT `schedule_stage_id`
-                    FROM `schedule`
-                    WHERE `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                    AND `schedule_id`>$schedule_id
-                    ORDER BY `schedule_id` ASC
-                    LIMIT 1";
-            $check_sql = f_igosja_mysqli_query($sql);
+        } elseif (Stage::SEMI == $schedule->schedule_stage_id) {
+            $check = Schedule::find()
+                ->select(['schedule_stage_id'])
+                ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+                ->andWhere(['>', 'schedule_id', $schedule->schedule_id])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->limit(1)
+                ->one();
+            if ($check && Stage::FINAL == $check->schedule_stage_id) {
+                $stageArray = Schedule::find()
+                    ->where([
+                        'schedule_season_id' => $seasonId,
+                        'schedule_stage_id' => Stage::FINAL,
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    ])
+                    ->orderBy(['schedule_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
+                $teamArray = ParticipantLeague::find()
+                    ->where([
+                        'participant_league_season_id' => $seasonId,
+                        'participant_league_stage_1' => 1,
+                        'participant_league_stage_id' => 0,
+                    ])
+                    ->orderBy(['participant_league_id' => SORT_ASC])
+                    ->limit(2)
+                    ->all();
 
-            $check_array = $check_sql->fetch_all(MYSQLI_ASSOC);
+                $model = new Game();
+                $model->game_guest_team_id = $teamArray[1]->participant_league_team_id;
+                $model->game_home_team_id = $teamArray[0]->participant_league_team_id;
+                $model->game_schedule_id = $stageArray[0]->schedule_id;
+                $model->game_stadium_id = $teamArray[0]->team->team_stadium_id;
+                $model->save();
 
-            if (STAGE_FINAL == $check_array[0]['schedule_stage_id']) {
-                $sql = "SELECT `schedule_id`
-                        FROM `schedule`
-                        WHERE `schedule_season_id`=$igosja_season_id
-                        AND `schedule_stage_id`=" . STAGE_FINAL . "
-                        AND `schedule_tournamenttype_id`=" . TOURNAMENTTYPE_LEAGUE . "
-                        ORDER BY `schedule_id` ASC
-                        LIMIT 2";
-                $stage_sql = f_igosja_mysqli_query($sql);
-
-                $stage_array = $stage_sql->fetch_all(MYSQLI_ASSOC);
-
-                $schedule_1 = $stage_array[0]['schedule_id'];
-                $schedule_2 = $stage_array[1]['schedule_id'];
-
-                $sql = "SELECT `team_id`,
-                               `team_stadium_id`
-                        FROM `participantleague`
-                        LEFT JOIN `team`
-                        ON `participantleague_team_id`=`team_id`
-                        WHERE `participantleague_season_id`=$igosja_season_id
-                        AND `participantleague_stage_1`=1
-                        AND `participantleague_stage_id`=0
-                        ORDER BY `participantleague_id` ASC
-                        LIMIT 2";
-                $team_sql = f_igosja_mysqli_query($sql);
-
-                $team_array = $team_sql->fetch_all(MYSQLI_ASSOC);
-
-                $team_1 = $team_array[0]['team_id'];
-                $stadium_1 = $team_array[0]['team_stadium_id'];
-                $team_2 = $team_array[1]['team_id'];
-                $stadium_2 = $team_array[1]['team_stadium_id'];
-
-                $sql = "INSERT INTO `game` (`game_guest_team_id`, `game_home_team_id`, `game_schedule_id`, `game_stadium_id`)
-                        VALUES ($team_2, $team_1, $schedule_1, $stadium_1),
-                               ($team_1, $team_2, $schedule_2, $stadium_2);";
-                f_igosja_mysqli_query($sql);
+                $model = new Game();
+                $model->game_guest_team_id = $teamArray[0]->participant_league_team_id;
+                $model->game_home_team_id = $teamArray[1]->participant_league_team_id;
+                $model->game_schedule_id = $stageArray[1]->schedule_id;
+                $model->game_stadium_id = $teamArray[1]->team->team_stadium_id;
+                $model->save();
             }
         }
     }
@@ -525,15 +475,15 @@ class LeagueLot
     /**
      * @param $teamArray
      * @param array $teamResultArray
-     * @return array|bool
+     * @return array
      */
-    private function one($teamArray, $teamResultArray = [])
+    private function one($teamArray, $teamResultArray = []): array
     {
         $homeTeam = $this->teamHome($teamArray);
         $guestTeam = $this->teamGuest($teamArray, $homeTeam);
 
         if (!$guestTeam) {
-            return false;
+            return [];
         }
 
         $teamResultArray[] = [
@@ -566,17 +516,17 @@ class LeagueLot
 
         return [
             'i' => $team,
-            'team_id' => $team->participant_league_team_id,
-            'country_id' => $team->team->stadium->city->city_country_id,
+            'team_id' => $teamArray[0][$team]->participant_league_team_id,
+            'country_id' => $team[0][$team]->team->stadium->city->city_country_id,
         ];
     }
 
     /**
      * @param array $teamArray
      * @param array $homeTeam
-     * @return array|bool
+     * @return array
      */
-    private function teamGuest(array $teamArray, array $homeTeam)
+    private function teamGuest(array $teamArray, array $homeTeam): array
     {
         $shuffleArray = $teamArray[1];
 
@@ -598,7 +548,13 @@ class LeagueLot
         return [];
     }
 
-    private function group($teamArray, $teamResultArray = [], $groupNumber = 1)
+    /**
+     * @param $teamArray
+     * @param array $teamResultArray
+     * @param int $groupNumber
+     * @return array
+     */
+    private function group($teamArray, $teamResultArray = [], $groupNumber = 1): array
     {
         $team1 = $this->team1($teamArray);
         $team2 = $this->team2($teamArray, $team1);
@@ -646,6 +602,10 @@ class LeagueLot
         return $teamResultArray;
     }
 
+    /**
+     * @param array $team_array
+     * @return array
+     */
     private function team1(array $team_array): array
     {
         $team = array_rand($team_array[0]);
@@ -657,7 +617,12 @@ class LeagueLot
         ];
     }
 
-    private function team2($teamArray, $team_1)
+    /**
+     * @param $teamArray
+     * @param $team_1
+     * @return array
+     */
+    private function team2($teamArray, $team_1): array
     {
         $shuffleArray = $teamArray[1];
 
@@ -680,7 +645,13 @@ class LeagueLot
         return [];
     }
 
-    private function team3($teamArray, $team_1, $team_2)
+    /**
+     * @param $teamArray
+     * @param $team_1
+     * @param $team_2
+     * @return array
+     */
+    private function team3($teamArray, $team_1, $team_2): array
     {
         $shuffleArray = $teamArray[1];
 
@@ -703,14 +674,22 @@ class LeagueLot
         return [];
     }
 
-    private function team4($teamArray, $team_1, $team_2, $team_3)
+    /**
+     * @param $teamArray
+     * @param $team_1
+     * @param $team_2
+     * @param $team_3
+     * @return array
+     */
+    private function team4($teamArray, $team_1, $team_2, $team_3): array
     {
         $shuffleArray = $teamArray[1];
 
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if (!in_array($item['city_country_id'], [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']])) {
+            if (!in_array($item['city_country_id'],
+                [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']])) {
                 for ($i = 0, $count_team = count($teamArray[3]); $i < $count_team; $i++) {
                     if ($teamArray[3][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
