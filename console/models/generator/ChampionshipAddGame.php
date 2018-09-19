@@ -23,7 +23,7 @@ class ChampionshipAddGame
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->andWhere(['schedule_tournament_type_id' => TournamentType::LEAGUE])
+            ->andWhere(['schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP])
             ->limit(1)
             ->one();
         if (!$schedule) {
