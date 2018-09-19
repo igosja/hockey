@@ -73,14 +73,14 @@
             position: new google.maps.LatLng(49.422815, 26.989420), //Хмельницький
             map: map
         });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(50.003700, 25.508912), //Почаїв
-//        map: map
-//    });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(49.550566, 25.589158), //Тернопіль
-//        map: map
-//    });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(50.003700, 25.508912), //Почаїв
+            map: map
+        });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(49.550566, 25.589158), //Тернопіль
+            map: map
+        });
 //    marker = new google.maps.Marker({
 //        position: new google.maps.LatLng(49.964430, 24.894155), //Олесько
 //        map: map
