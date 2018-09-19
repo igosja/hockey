@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -17,6 +18,8 @@ use yii\db\ActiveRecord;
  * @property int $participant_championship_stage_4
  * @property int $participant_championship_stage_id
  * @property int $participant_championship_team_id
+ *
+ * @property Championship $championship
  */
 class ParticipantChampionship extends ActiveRecord
 {
@@ -49,5 +52,18 @@ class ParticipantChampionship extends ActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getChampionship(): ActiveQuery
+    {
+        return $this->hasOne(Championship::class, [
+            'championship_country_id' => 'participant_championship_country_id',
+            'championship_division_id' => 'participant_championship_division_id',
+            'championship_season_id' => 'participant_championship_season_id',
+            'championship_team_id' => 'participant_championship_team_id',
+        ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace console\controllers;
 
 use common\components\ErrorHelper;
+use console\models\generator\ChampionshipAddGame;
 use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
@@ -108,6 +109,7 @@ class GeneratorController extends BaseController
             (new LeagueOut())->execute();
             (new LeagueLot())->execute();
             (new InsertParticipantChampionship())->execute();
+            (new ChampionshipAddGame())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
