@@ -15,6 +15,7 @@ use console\models\generator\DecreaseTeamwork;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
+use console\models\generator\InsertAchievement;
 use console\models\generator\InsertParticipantChampionship;
 use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
@@ -112,6 +113,7 @@ class GeneratorController extends BaseController
             (new InsertParticipantChampionship())->execute();
             (new ChampionshipAddGame())->execute();
             (new ChampionshipLot())->execute();
+            (new InsertAchievement())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
