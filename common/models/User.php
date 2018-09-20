@@ -119,8 +119,8 @@ class User extends ActiveRecord implements IdentityInterface
             ],
             [['user_rating'], 'number'],
             [['user_email'], 'required'],
-            [['user_city', 'user_name', 'user_surname'], 'string', 'max' => 255],
-            [['user_code', 'user_password'], 'string'],
+            [['user_city', 'user_name', 'user_password', 'user_surname'], 'string', 'max' => 255],
+            [['user_code'], 'string', 'length' => 32],
             [['user_email'], 'unique'],
         ];
     }
@@ -171,32 +171,31 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param $password
+     * @param string $password
      * @return bool
      */
-    public function validatePassword($password): bool
+    public function validatePassword(string $password): bool
     {
-        return $this->hashPassword($password) === $this->user_password;
+        return Yii::$app->getSecurity()->validatePassword($this->user_password, $password);
     }
 
     /**
      * @param string $password
+     * @return void
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
-        $this->user_password = $this->hashPassword($password);
+        try {
+            $this->user_password = Yii::$app->getSecurity()->generatePasswordHash($password);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
     }
 
     /**
-     * @param $password
-     * @return string
+     * @return void
      */
-    public function hashPassword($password): string
-    {
-        return md5($password . md5(self::PASSWORD_SALT));
-    }
-
-    public function generateUserCode()
+    public function generateUserCode(): void
     {
         $code = md5(uniqid(rand(), 1));
         if (!self::find()->where(['user_code' => $code])->exists()) {
