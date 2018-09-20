@@ -17,6 +17,7 @@ use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
 use console\models\generator\InsertAchievement;
 use console\models\generator\InsertParticipantChampionship;
+use console\models\generator\InsertSwiss;
 use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
@@ -116,6 +117,7 @@ class GeneratorController extends BaseController
             (new ChampionshipLot())->execute();
             (new InsertAchievement())->execute();
             (new Prize())->execute();
+            (new InsertSwiss())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
