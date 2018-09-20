@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property int $participant_championship_team_id
  *
  * @property Championship $championship
+ * @property Team $team
  */
 class ParticipantChampionship extends ActiveRecord
 {
@@ -65,5 +66,13 @@ class ParticipantChampionship extends ActiveRecord
             'championship_season_id' => 'participant_championship_season_id',
             'championship_team_id' => 'participant_championship_team_id',
         ]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'participant_championship_team_id']);
     }
 }

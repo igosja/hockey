@@ -26,6 +26,7 @@ use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
+use console\models\generator\Prize;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
 use console\models\generator\SetInjury;
@@ -114,6 +115,7 @@ class GeneratorController extends BaseController
             (new ChampionshipAddGame())->execute();
             (new ChampionshipLot())->execute();
             (new InsertAchievement())->execute();
+            (new Prize())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
