@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Tactic
  * @package common\models
  *
- * @property integer $tactic_id
+ * @property int $tactic_id
  * @property string $tactic_name
  */
 class Tactic extends ActiveRecord

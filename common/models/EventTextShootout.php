@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class EventTextShootout
  * @package common\models
  *
- * @property integer $event_text_shootout_id
+ * @property int $event_text_shootout_id
  * @property string $event_text_shootout_text
  */
 class EventTextShootout extends ActiveRecord

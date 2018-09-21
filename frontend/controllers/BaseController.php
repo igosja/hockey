@@ -13,7 +13,7 @@ use Yii;
  *
  * @property Team $myTeam
  * @property Team[] $myTeamArray
- * @property integer $seasonId
+ * @property int $seasonId
  */
 class BaseController extends Controller
 {
@@ -28,7 +28,7 @@ class BaseController extends Controller
     public $myTeamArray = [];
 
     /**
-     * @var integer $seasonId
+     * @var int $seasonId
      */
     public $seasonId;
 

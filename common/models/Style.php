@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Style
  * @package common\models
  *
- * @property integer $style_id
+ * @property int $style_id
  * @property string $style_name
  */
 class Style extends ActiveRecord

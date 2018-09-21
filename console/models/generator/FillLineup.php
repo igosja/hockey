@@ -16,7 +16,7 @@ class FillLineup
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -106,7 +106,7 @@ class FillLineup
                                         'player_position_player_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::MAX_TIRE])
+                                    ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])
                                     ->andWhere([
                                         'or',
                                         ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
@@ -123,7 +123,7 @@ class FillLineup
                                         'player_national_id' => $nationalId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::MAX_TIRE])
+                                    ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])
                                     ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                                     ->limit(1);
                             }

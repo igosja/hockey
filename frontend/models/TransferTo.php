@@ -17,12 +17,12 @@ use yii\base\Model;
  * Class TransferTo
  * @package frontend\models
  *
- * @property integer $maxPrice
- * @property integer $minPrice
+ * @property int $maxPrice
+ * @property int $minPrice
  * @property Player $player
- * @property integer $price
+ * @property int $price
  * @property Team $team
- * @property boolean $toLeague
+ * @property bool $toLeague
  */
 class TransferTo extends Model
 {

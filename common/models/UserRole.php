@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class UserRole
  * @package common\models
  *
- * @property integer $user_role_id
+ * @property int $user_role_id
  * @property string $user_role_name
  */
 class UserRole extends ActiveRecord

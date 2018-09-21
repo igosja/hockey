@@ -17,12 +17,12 @@ use yii\base\Model;
  * Class LoanTo
  * @package frontend\models
  *
- * @property integer $maxDay
- * @property integer $maxPrice
- * @property integer $minDay
- * @property integer $minPrice
+ * @property int $maxDay
+ * @property int $maxPrice
+ * @property int $minDay
+ * @property int $minPrice
  * @property Player $player
- * @property integer $price
+ * @property int $price
  * @property Team $team
  */
 class LoanTo extends Model

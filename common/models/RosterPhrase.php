@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class RosterPhrase
  * @package common\models
  *
- * @property integer $roster_phrase_id
+ * @property int $roster_phrase_id
  * @property string $roster_phrase_text
  */
 class RosterPhrase extends ActiveRecord

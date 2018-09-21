@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
  * Class Rule
  * @package common\models
  *
- * @property integer $rule_id
- * @property integer $rule_date
- * @property integer $rule_order
+ * @property int $rule_id
+ * @property int $rule_date
+ * @property int $rule_order
  * @property string $rule_text
  * @property string $rule_title
  */

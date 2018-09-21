@@ -8,12 +8,16 @@ use yii\db\ActiveRecord;
  * Class DayType
  * @package common\models
  *
- * @property integer $day_type_id
+ * @property int $day_type_id
  * @property string $day_type_name
  * @property string $day_type_text
  */
 class DayType extends ActiveRecord
 {
+    const A = 1;
+    const B = 2;
+    const C = 3;
+
     /**
      * @return string
      */

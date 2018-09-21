@@ -13,7 +13,7 @@ class SiteOpen
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         Site::updateAll(['site_status' => 1], ['site_id' => 1]);
     }

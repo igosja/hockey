@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class HistoryText
  * @package common\models
  *
- * @property integer $history_text_id
+ * @property int $history_text_id
  * @property string $history_text_text
  */
 class HistoryText extends ActiveRecord
@@ -27,10 +27,10 @@ class HistoryText extends ActiveRecord
     const PLAYER_GAME_POINT_MINUS = 33;
     const PLAYER_GAME_POINT_PLUS = 32;
     const PLAYER_INJURY = 38;
+    const PLAYER_LOAN = 41;
+    const PLAYER_LOAN_BACK = 42;
     const PLAYER_PENSION_GO = 28;
     const PLAYER_PENSION_SAY = 27;
-    const PLAYER_RENT = 41;
-    const PLAYER_RENT_BACK = 42;
     const PLAYER_TRAINING_POINT = 29;
     const PLAYER_TRAINING_POSITION = 30;
     const PLAYER_TRAINING_SPECIAL = 31;

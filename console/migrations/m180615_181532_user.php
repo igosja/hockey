@@ -44,7 +44,7 @@ class m180615_181532_user extends Migration
             'user_money' => $this->decimal(11, 2)->defaultValue(0),
             'user_name' => $this->string(255),
             'user_news_id' => $this->integer(11)->defaultValue(0),
-            'user_password' => $this->char(32),
+            'user_password' => $this->string(),
             'user_rating' => $this->decimal(6, 2)->defaultValue(500),
             'user_referrer_done' => $this->integer(1)->defaultValue(0),
             'user_referrer_id' => $this->integer(11)->defaultValue(0),
@@ -63,7 +63,7 @@ class m180615_181532_user extends Migration
             'user_email' => 'info@vhol.org',
             'user_login' => 'Free team',
             'user_name' => 'Free',
-            'user_password' => '00000000000000000000000000000000',
+            'user_password' => '0',
             'user_surname' => 'team',
             'user_user_role_id' => 1
         ]);
@@ -78,7 +78,7 @@ class m180615_181532_user extends Migration
             'user_date_register' => 1473705854,
             'user_email' => 'igosja@ukr.net',
             'user_login' => 'igosja',
-            'user_password' => '8fa914dc4a270abfc2a4561228770426',
+            'user_password' => '$2y$13$1CsyXCBKZGqMFMJfriJoP.b6pfjIgwazxWtnGFiN2Cv3umwLJjSHm',
             'user_user_role_id' => 3,
         ]);
     }

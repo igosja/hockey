@@ -8,10 +8,10 @@ use yii\db\ActiveRecord;
  * Class Teamwork
  * @package common\models
  *
- * @property integer $teamwork_id
- * @property integer $teamwork_player_id_1
- * @property integer $teamwork_player_id_2
- * @property integer $teamwork_value
+ * @property int $teamwork_id
+ * @property int $teamwork_player_id_1
+ * @property int $teamwork_player_id_2
+ * @property int $teamwork_value
  */
 class Teamwork extends ActiveRecord
 {

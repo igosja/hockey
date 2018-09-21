@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Mood
  * @package common\models
  *
- * @property integer $mood_id
+ * @property int $mood_id
  * @property string $mood_name
  */
 class Mood extends ActiveRecord

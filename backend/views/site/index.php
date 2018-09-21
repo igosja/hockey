@@ -5,23 +5,23 @@ use miloschuman\highcharts\Highcharts;
 use yii\helpers\Html;
 
 /**
- * @var integer $complaint
- * @var integer $countModeration
- * @var integer $forumMessage
- * @var integer $freeTeam
- * @var integer $gameComment
- * @var integer $loanComment
- * @var integer $logo
- * @var integer $news
- * @var integer $newsComment
+ * @var int $complaint
+ * @var int $countModeration
+ * @var int $forumMessage
+ * @var int $freeTeam
+ * @var int $gameComment
+ * @var int $loanComment
+ * @var int $logo
+ * @var int $news
+ * @var int $newsComment
  * @var \common\models\Payment[] $paymentArray
  * @var array $paymentData
  * @var array $paymentCategories
- * @var integer $review
- * @var integer $support
+ * @var int $review
+ * @var int $support
  * @var \yii\web\View $this
- * @var integer $transferComment
- * @var integer $vote
+ * @var int $transferComment
+ * @var int $vote
  */
 
 ?>

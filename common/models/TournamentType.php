@@ -8,10 +8,10 @@ use yii\db\ActiveRecord;
  * Class TournamentType
  * @package common\models
  *
- * @property integer $tournament_type_id
- * @property integer $tournament_type_day_type_id
+ * @property int $tournament_type_id
+ * @property int $tournament_type_day_type_id
  * @property string $tournament_type_name
- * @property integer $tournament_type_visitor
+ * @property int $tournament_type_visitor
  */
 class TournamentType extends ActiveRecord
 {

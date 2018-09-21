@@ -10,11 +10,11 @@ use yii\db\ActiveRecord;
  * Class TeamAsk
  * @package common\models
  *
- * @property integer $team_ask_id
- * @property integer $team_ask_date
- * @property integer $team_ask_leave_id
- * @property integer $team_ask_team_id
- * @property integer $team_ask_user_id
+ * @property int $team_ask_id
+ * @property int $team_ask_date
+ * @property int $team_ask_leave_id
+ * @property int $team_ask_team_id
+ * @property int $team_ask_user_id
  *
  * @property Team $team
  * @property User $user

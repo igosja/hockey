@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
  * Class Special
  * @package common\models
  *
- * @property integer $special_id
- * @property integer $special_field
- * @property integer $special_gk
+ * @property int $special_id
+ * @property int $special_field
+ * @property int $special_gk
  * @property string $special_name
  * @property string $special_text
  */

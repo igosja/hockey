@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Season
  * @package common\models
  *
- * @property integer $season_id
+ * @property int $season_id
  */
 class Season extends ActiveRecord
 {
@@ -28,5 +28,13 @@ class Season extends ActiveRecord
         return [
             [['season_id'], 'integer'],
         ];
+    }
+
+    /**
+     * @return int
+     */
+    public static function getCurrentSeason(): int
+    {
+        return self::find()->max('season_id');
     }
 }

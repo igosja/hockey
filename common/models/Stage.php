@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
  * Class Stage
  * @package common\models
  *
- * @property integer $stage_id
+ * @property int $stage_id
  * @property string $stage_name
- * @property integer $stage_visitor
+ * @property int $stage_visitor
  */
 class Stage extends ActiveRecord
 {

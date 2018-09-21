@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
  * Class NewsComment
  * @package common\models
  *
- * @property integer $news_comment_id
- * @property integer $news_comment_check
- * @property integer $news_comment_date
- * @property integer $news_comment_news_id
+ * @property int $news_comment_id
+ * @property int $news_comment_check
+ * @property int $news_comment_date
+ * @property int $news_comment_news_id
  * @property string $news_comment_text
- * @property integer $news_comment_user_id
+ * @property int $news_comment_user_id
  */
 class NewsComment extends ActiveRecord
 {

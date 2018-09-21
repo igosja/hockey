@@ -8,10 +8,10 @@ use yii\db\ActiveRecord;
  * Class Physical
  * @package common\models
  *
- * @property integer $physical_id
+ * @property int $physical_id
  * @property string $physical_name
- * @property integer $physical_opposite
- * @property integer $physical_value
+ * @property int $physical_opposite
+ * @property int $physical_value
  */
 class Physical extends ActiveRecord
 {

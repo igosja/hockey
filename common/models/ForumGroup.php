@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
  * Class ForumGroup
  * @package common\models
  *
- * @property integer $forum_group_id
- * @property integer $forum_group_country_id
- * @property integer $forum_group_description
- * @property integer $forum_group_forum_chapter_id
- * @property integer $forum_group_name
- * @property integer $forum_group_order
+ * @property int $forum_group_id
+ * @property int $forum_group_country_id
+ * @property int $forum_group_description
+ * @property int $forum_group_forum_chapter_id
+ * @property int $forum_group_name
+ * @property int $forum_group_order
  */
 class ForumGroup extends ActiveRecord
 {

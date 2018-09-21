@@ -11,11 +11,11 @@ use yii\db\Query;
  * Class Payment
  * @package common\models
  *
- * @property integer $payment_id
- * @property integer $payment_date
- * @property integer $payment_status
+ * @property int $payment_id
+ * @property int $payment_date
+ * @property int $payment_status
  * @property float $payment_sum
- * @property integer $payment_user_id
+ * @property int $payment_user_id
  *
  * @property User $user
  */

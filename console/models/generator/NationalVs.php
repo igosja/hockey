@@ -15,7 +15,7 @@ class NationalVs
     /**
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         $nationalArray = National::find()
             ->where(['!=', 'national_id', 0])

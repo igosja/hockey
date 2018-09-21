@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Squad
  * @package common\models
  *
- * @property integer $squad_id
+ * @property int $squad_id
  * @property string $squad_color
  * @property string $squad_name
  */

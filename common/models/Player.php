@@ -11,39 +11,39 @@ use yii\helpers\Html;
  * Class Player
  * @package common\models
  *
- * @property integer $player_id
- * @property integer $player_age
- * @property integer $player_country_id
- * @property integer $player_date_no_action
- * @property integer $player_date_rookie
- * @property integer $player_game_row
- * @property integer $player_game_row_old
- * @property integer $player_injury_day
- * @property integer $player_squad_id
- * @property integer $player_loan_day
- * @property integer $player_loan_team_id
- * @property integer $player_mood_id
- * @property integer $player_name_id
- * @property integer $player_national_id
- * @property integer $player_national_line_id
- * @property integer $player_no_action
- * @property integer $player_no_deal
- * @property integer $player_order
- * @property integer $player_physical_id
- * @property integer $player_position_id
- * @property integer $player_power_nominal
- * @property integer $player_power_nominal_s
- * @property integer $player_power_old
- * @property integer $player_power_real
- * @property integer $player_price
- * @property integer $player_rookie
- * @property integer $player_salary
- * @property integer $player_school_id
- * @property integer $player_style_id
- * @property integer $player_surname_id
- * @property integer $player_team_id
- * @property integer $player_tire
- * @property integer $player_training_ability
+ * @property int $player_id
+ * @property int $player_age
+ * @property int $player_country_id
+ * @property int $player_date_no_action
+ * @property int $player_date_rookie
+ * @property int $player_game_row
+ * @property int $player_game_row_old
+ * @property int $player_injury_day
+ * @property int $player_squad_id
+ * @property int $player_loan_day
+ * @property int $player_loan_team_id
+ * @property int $player_mood_id
+ * @property int $player_name_id
+ * @property int $player_national_id
+ * @property int $player_national_line_id
+ * @property int $player_no_action
+ * @property int $player_no_deal
+ * @property int $player_order
+ * @property int $player_physical_id
+ * @property int $player_position_id
+ * @property int $player_power_nominal
+ * @property int $player_power_nominal_s
+ * @property int $player_power_old
+ * @property int $player_power_real
+ * @property int $player_price
+ * @property int $player_rookie
+ * @property int $player_salary
+ * @property int $player_school_id
+ * @property int $player_style_id
+ * @property int $player_surname_id
+ * @property int $player_team_id
+ * @property int $player_tire
+ * @property int $player_training_ability
  *
  * @property Country $country
  * @property Loan $loan
@@ -61,7 +61,9 @@ use yii\helpers\Html;
 class Player extends ActiveRecord
 {
     const AGE_READY_FOR_PENSION = 39;
-    const MAX_TIRE = 60;
+    const TIRE_DEFAULT = 50;
+    const TIRE_MAX = 90;
+    const TIRE_MAX_FOR_LINEUP = 60;
 
     /**
      * @return string
@@ -132,20 +134,31 @@ class Player extends ActiveRecord
                 if (!$this->player_age) {
                     $this->player_age = 17;
                 }
+                if (!$this->player_name_id) {
+                    $this->player_name_id = NameCountry::getRandNameId($this->player_country_id);
+                }
+                if (!$this->player_power_nominal) {
+                    $this->player_power_nominal = $this->player_age * 2;
+                }
+                if (!$this->player_style_id) {
+                    $this->player_style_id = Style::getRandStyleId();;
+                }
+                if (!$this->player_tire) {
+                    $this->player_tire = 50;
+                }
+
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
                 $this->player_squad_id = 1;
-                $this->player_name_id = NameCountry::getRandNameId($this->player_country_id);
                 $this->player_national_line_id = 1;
                 $this->player_physical_id = $physical->physical_id;
-                $this->player_power_nominal = $this->player_age * 2;
                 $this->player_power_nominal_s = $this->player_power_nominal;
-                $this->player_style_id = Style::getRandStyleId();
+                $this->player_power_old = $this->player_power_nominal;
+                $this->player_school_id = $this->player_team_id;
                 $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
-                $this->player_tire = 50;
                 $this->player_training_ability = rand(1, 5);
-                $this->countPriceAndSalary();
                 $this->countRealPower($physical);
+                $this->countPriceAndSalary();
             }
             return true;
         }
@@ -191,7 +204,7 @@ class Player extends ActiveRecord
         if (!$physical) {
             $physical = $this->physical;
         }
-        $this->player_power_real = $this->player_power_nominal * 50 / 100 * $physical->physical_value / 100;
+        $this->player_power_real = $this->player_power_nominal * $this->player_tire / 100 * $physical->physical_value / 100;
     }
 
     /**

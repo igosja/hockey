@@ -8,28 +8,28 @@ use yii\db\ActiveRecord;
  * Class StatisticTeam
  * @package common\models
  *
- * @property integer $statistic_team_id
- * @property integer $statistic_team_championship_playoff
- * @property integer $statistic_team_country_id
- * @property integer $statistic_team_division_id
- * @property integer $statistic_team_game
- * @property integer $statistic_team_game_no_pass
- * @property integer $statistic_team_game_no_score
- * @property integer $statistic_team_loose
- * @property integer $statistic_team_loose_over
- * @property integer $statistic_team_loose_shootout
- * @property integer $statistic_team_national_id
- * @property integer $statistic_team_pass
- * @property integer $statistic_team_penalty_minute
- * @property integer $statistic_team_penalty_minute_opponent
- * @property integer $statistic_team_score
- * @property integer $statistic_team_season_id
- * @property integer $statistic_team_team_id
- * @property integer $statistic_team_tournament_type_id
- * @property integer $statistic_team_win
- * @property integer $statistic_team_win_over
+ * @property int $statistic_team_id
+ * @property int $statistic_team_championship_playoff
+ * @property int $statistic_team_country_id
+ * @property int $statistic_team_division_id
+ * @property int $statistic_team_game
+ * @property int $statistic_team_game_no_pass
+ * @property int $statistic_team_game_no_score
+ * @property int $statistic_team_loose
+ * @property int $statistic_team_loose_over
+ * @property int $statistic_team_loose_shootout
+ * @property int $statistic_team_national_id
+ * @property int $statistic_team_pass
+ * @property int $statistic_team_penalty_minute
+ * @property int $statistic_team_penalty_minute_opponent
+ * @property int $statistic_team_score
+ * @property int $statistic_team_season_id
+ * @property int $statistic_team_team_id
+ * @property int $statistic_team_tournament_type_id
+ * @property int $statistic_team_win
+ * @property int $statistic_team_win_over
  * @property float $statistic_team_win_percent
- * @property integer $statistic_team_win_shootout
+ * @property int $statistic_team_win_shootout
  */
 class StatisticTeam extends ActiveRecord
 {
@@ -86,7 +86,7 @@ class StatisticTeam extends ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 if (!$this->statistic_team_season_id) {
-                    $this->statistic_team_season_id = Season::find()->max('season_id');
+                    $this->statistic_team_season_id = Season::getCurrentSeason();
                 }
             }
             return true;

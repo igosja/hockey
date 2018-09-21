@@ -9,24 +9,24 @@ use yii\db\ActiveRecord;
  * Class National
  * @package common\models
  *
- * @property integer $national_id
- * @property integer $national_country_id
- * @property integer $national_finance
- * @property integer $national_mood_rest
- * @property integer $national_mood_super
- * @property integer $national_national_type_id
- * @property integer $national_power_c_16
- * @property integer $national_power_c_21
- * @property integer $national_power_c_27
- * @property integer $national_power_s_16
- * @property integer $national_power_s_21
- * @property integer $national_power_s_27
- * @property integer $national_power_v
- * @property integer $national_power_vs
- * @property integer $national_stadium_id
- * @property integer $national_user_id
- * @property integer $national_vice_id
- * @property integer $national_visitor
+ * @property int $national_id
+ * @property int $national_country_id
+ * @property int $national_finance
+ * @property int $national_mood_rest
+ * @property int $national_mood_super
+ * @property int $national_national_type_id
+ * @property int $national_power_c_16
+ * @property int $national_power_c_21
+ * @property int $national_power_c_27
+ * @property int $national_power_s_16
+ * @property int $national_power_s_21
+ * @property int $national_power_s_27
+ * @property int $national_power_v
+ * @property int $national_power_vs
+ * @property int $national_stadium_id
+ * @property int $national_user_id
+ * @property int $national_vice_id
+ * @property int $national_visitor
  *
  * @property Country $country
  * @property NationalType $nationalType
@@ -101,6 +101,6 @@ class National extends ActiveRecord
     {
         return $this
             ->hasOne(WorldCup::class, ['world_cup_national_id' => 'national_id'])
-            ->andWhere(['world_cup_season_id' => Season::find()->max('season_id')]);
+            ->andWhere(['world_cup_season_id' => Season::getCurrentSeason()]);
     }
 }

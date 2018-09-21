@@ -8,17 +8,17 @@ use yii\db\ActiveRecord;
  * Class Achievement
  * @package common\models
  *
- * @property integer $achievement_id
- * @property integer $achievement_country_id
- * @property integer $achievement_division_id
- * @property integer $achievement_is_playoff
- * @property integer $achievement_national_id
- * @property integer $achievement_place
- * @property integer $achievement_season_id
- * @property integer $achievement_stage_id
- * @property integer $achievement_team_id
- * @property integer $achievement_tournament_type_id
- * @property integer $achievement_user_id
+ * @property int $achievement_id
+ * @property int $achievement_country_id
+ * @property int $achievement_division_id
+ * @property int $achievement_is_playoff
+ * @property int $achievement_national_id
+ * @property int $achievement_place
+ * @property int $achievement_season_id
+ * @property int $achievement_stage_id
+ * @property int $achievement_team_id
+ * @property int $achievement_tournament_type_id
+ * @property int $achievement_user_id
  */
 class Achievement extends ActiveRecord
 {

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /**
  * @var array $countryArray
  * @var \common\models\Season[] $season
- * @var integer $seasonId
+ * @var int $seasonId
  * @var string $tournaments
  */
 

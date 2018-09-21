@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Position
  * @package common\models
  *
- * @property integer $position_id
+ * @property int $position_id
  * @property string $position_name
  * @property string $position_text
  */

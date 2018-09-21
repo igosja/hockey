@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class NationalType
  * @package common\models
  *
- * @property integer $national_type_id
+ * @property int $national_type_id
  * @property string $national_type_name
  */
 class NationalType extends ActiveRecord

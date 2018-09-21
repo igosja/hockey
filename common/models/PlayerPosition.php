@@ -9,9 +9,9 @@ use yii\db\ActiveRecord;
  * Class PlayerPosition
  * @package common\models
  *
- * @property integer $player_position_id
- * @property integer $player_position_player_id
- * @property integer $player_position_position_id
+ * @property int $player_position_id
+ * @property int $player_position_player_id
+ * @property int $player_position_position_id
  *
  * @property Position $position
  */

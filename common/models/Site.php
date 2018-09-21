@@ -11,13 +11,13 @@ use yii\db\ActiveRecord;
  * Class Site
  * @package common\models
  *
- * @property integer $site_id
- * @property integer $site_date_cron
- * @property integer $site_status
- * @property integer $site_version_1
- * @property integer $site_version_2
- * @property integer $site_version_3
- * @property integer $site_version_date
+ * @property int $site_id
+ * @property int $site_date_cron
+ * @property int $site_status
+ * @property int $site_version_1
+ * @property int $site_version_2
+ * @property int $site_version_3
+ * @property int $site_version_date
  */
 class Site extends ActiveRecord
 {

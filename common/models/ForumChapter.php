@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
  * Class ForumChapter
  * @package common\models
  *
- * @property integer $forum_chapter_id
+ * @property int $forum_chapter_id
  * @property string $forum_chapter_name
- * @property integer $forum_chapter_order
+ * @property int $forum_chapter_order
  */
 class ForumChapter extends ActiveRecord
 {

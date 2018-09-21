@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Name
  * @package common\models
  *
- * @property integer $name_id
+ * @property int $name_id
  * @property string $name_name
  */
 class Name extends ActiveRecord

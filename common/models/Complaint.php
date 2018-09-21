@@ -8,10 +8,10 @@ use yii\db\ActiveRecord;
  * Class Complaint
  * @package common\models
  *
- * @property integer $complaint_id
- * @property integer $complaint_date
- * @property integer $complaint_forum_message_id
- * @property integer $complaint_user_id
+ * @property int $complaint_id
+ * @property int $complaint_date
+ * @property int $complaint_forum_message_id
+ * @property int $complaint_user_id
  */
 class Complaint extends ActiveRecord
 {

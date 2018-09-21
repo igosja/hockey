@@ -14,7 +14,7 @@ use yii\base\Model;
  * Class LoanApplicationFrom
  * @package frontend\models
  *
- * @property boolean $off
+ * @property bool $off
  * @property Player $player
  * @property Team $team
  */

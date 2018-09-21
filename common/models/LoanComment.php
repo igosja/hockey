@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
  * Class LoanComment
  * @package common\models
  *
- * @property integer $loan_comment_id
- * @property integer $loan_comment_check
- * @property integer $loan_comment_date
- * @property integer $loan_comment_loan_id
+ * @property int $loan_comment_id
+ * @property int $loan_comment_check
+ * @property int $loan_comment_date
+ * @property int $loan_comment_loan_id
  * @property string $loan_comment_text
- * @property integer $loan_comment_user_id
+ * @property int $loan_comment_user_id
  */
 class LoanComment extends ActiveRecord
 {

@@ -9,11 +9,11 @@ use yii\db\ActiveRecord;
  * Class Schedule
  * @package common\models
  *
- * @property integer $schedule_id
- * @property integer $schedule_date
- * @property integer $schedule_season_id
- * @property integer $schedule_stage_id
- * @property integer $schedule_tournament_type_id
+ * @property int $schedule_id
+ * @property int $schedule_date
+ * @property int $schedule_season_id
+ * @property int $schedule_stage_id
+ * @property int $schedule_tournament_type_id
  *
  * @property Season $season
  * @property Stage $stage

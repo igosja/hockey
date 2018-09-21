@@ -9,13 +9,13 @@ use yii\db\ActiveRecord;
  * Class ForumTheme
  * @package common\models
  *
- * @property integer $forum_theme_id
- * @property integer $forum_theme_count_view
- * @property integer $forum_theme_date
- * @property integer $forum_theme_date_update
- * @property integer $forum_theme_forum_group_id
+ * @property int $forum_theme_id
+ * @property int $forum_theme_count_view
+ * @property int $forum_theme_date
+ * @property int $forum_theme_date_update
+ * @property int $forum_theme_forum_group_id
  * @property string $forum_theme_name
- * @property integer $forum_theme_user_id
+ * @property int $forum_theme_user_id
  *
  * @property ForumGroup $forumGroup
  */

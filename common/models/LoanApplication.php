@@ -9,14 +9,14 @@ use yii\db\ActiveRecord;
  * Class LoanApplication
  * @package common\models
  *
- * @property integer $loan_application_id
- * @property integer $loan_application_date
- * @property integer $loan_application_day
- * @property integer $loan_application_only_one
- * @property integer $loan_application_price
- * @property integer $loan_application_team_id
- * @property integer $loan_application_loan_id
- * @property integer $loan_application_user_id
+ * @property int $loan_application_id
+ * @property int $loan_application_date
+ * @property int $loan_application_day
+ * @property int $loan_application_only_one
+ * @property int $loan_application_price
+ * @property int $loan_application_team_id
+ * @property int $loan_application_loan_id
+ * @property int $loan_application_user_id
  *
  * @property Team $team
  */

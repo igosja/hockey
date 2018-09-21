@@ -9,17 +9,17 @@ use yii\db\ActiveRecord;
  * Class Review
  * @package common\models
  *
- * @property integer $review_id
- * @property integer $review_check
- * @property integer $review_country_id
- * @property integer $review_date
- * @property integer $review_division_id
- * @property integer $review_season_id
- * @property integer $review_schedule_id
- * @property integer $review_stage_id
+ * @property int $review_id
+ * @property int $review_check
+ * @property int $review_country_id
+ * @property int $review_date
+ * @property int $review_division_id
+ * @property int $review_season_id
+ * @property int $review_schedule_id
+ * @property int $review_stage_id
  * @property string $review_text
  * @property string $review_title
- * @property integer $review_user_id
+ * @property int $review_user_id
  *
  * @property Country $country
  * @property Division $division

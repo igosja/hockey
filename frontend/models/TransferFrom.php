@@ -15,7 +15,7 @@ use yii\base\Model;
  * Class TransferFrom
  * @package frontend\models
  *
- * @property boolean $off
+ * @property bool $off
  * @property Player $player
  * @property Team $team
  * @property TransferApplication[] $transferApplicationArray

@@ -8,11 +8,11 @@ use yii\db\ActiveRecord;
  * Class Logo
  * @package common\models
  *
- * @property integer $logo_id
- * @property integer $logo_date
- * @property integer $logo_team_id
- * @property integer $logo_text
- * @property integer $logo_user_id
+ * @property int $logo_id
+ * @property int $logo_date
+ * @property int $logo_team_id
+ * @property int $logo_text
+ * @property int $logo_user_id
  */
 class Logo extends ActiveRecord
 {

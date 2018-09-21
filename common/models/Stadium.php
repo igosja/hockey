@@ -9,11 +9,11 @@ use yii\db\ActiveRecord;
  * Class Stadium
  * @package common\models
  *
- * @property integer $stadium_id
- * @property integer $stadium_capacity
- * @property integer $stadium_city_id
- * @property integer $stadium_date
- * @property integer $stadium_maintenance
+ * @property int $stadium_id
+ * @property int $stadium_capacity
+ * @property int $stadium_city_id
+ * @property int $stadium_date
+ * @property int $stadium_maintenance
  * @property string $stadium_name
  *
  * @property City $city
