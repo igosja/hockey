@@ -26,7 +26,6 @@ use yii\helpers\Html;
  * @property int $player_name_id
  * @property int $player_national_id
  * @property int $player_national_line_id
- * @property int $player_no_action
  * @property int $player_no_deal
  * @property int $player_order
  * @property int $player_physical_id
@@ -52,6 +51,7 @@ use yii\helpers\Html;
  * @property Physical $physical
  * @property PlayerPosition[] $playerPosition
  * @property PlayerSpecial[] $playerSpecial
+ * @property Team $schoolTeam
  * @property StatisticPlayer $statisticPlayer
  * @property Style $style
  * @property Surname $surname
@@ -95,7 +95,6 @@ class Player extends ActiveRecord
                     'player_name_id',
                     'player_national_id',
                     'player_national_line_id',
-                    'player_no_action',
                     'player_no_deal',
                     'player_order',
                     'player_physical_id',
@@ -411,6 +410,14 @@ class Player extends ActiveRecord
     public function getPlayerSpecial(): ActiveQuery
     {
         return $this->hasMany(PlayerSpecial::class, ['player_special_player_id' => 'player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSchoolTeam(): ActiveQuery
+    {
+        return $this->hasOne(School::class, ['team_id' => 'player_school_id']);
     }
 
     /**

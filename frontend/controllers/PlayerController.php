@@ -114,10 +114,10 @@ class PlayerController extends BaseController
             ->select([
                 'player_age',
                 'player_country_id',
+                'player_date_no_action',
                 'player_id',
                 'player_loan_team_id',
                 'player_national_id',
-                'player_no_action',
                 'player_no_deal',
                 'player_position_id',
                 'player_price',
@@ -219,10 +219,10 @@ class PlayerController extends BaseController
             ->select([
                 'player_age',
                 'player_country_id',
+                'player_date_no_action',
                 'player_id',
                 'player_loan_team_id',
                 'player_national_id',
-                'player_no_action',
                 'player_no_deal',
                 'player_position_id',
                 'player_price',

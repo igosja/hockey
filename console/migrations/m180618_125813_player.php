@@ -29,7 +29,6 @@ class m180618_125813_player extends Migration
             'player_name_id' => $this->integer(11)->defaultValue(0),
             'player_national_id' => $this->integer(11)->defaultValue(0),
             'player_national_line_id' => $this->integer(1)->defaultValue(0),
-            'player_no_action' => $this->integer(11)->defaultValue(0),
             'player_no_deal' => $this->integer(1)->defaultValue(0),
             'player_order' => $this->integer(3)->defaultValue(0),
             'player_physical_id' => $this->integer(2)->defaultValue(0),

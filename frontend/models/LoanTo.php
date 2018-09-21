@@ -83,11 +83,11 @@ class LoanTo extends Model
             return false;
         }
 
-        if ($this->player->player_no_action > time()) {
+        if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
                 'With the player you can not take any action until '
-                . Yii::$app->formatter->asDate($this->player->player_no_action)
+                . Yii::$app->formatter->asDate($this->player->player_date_no_action)
                 . '.'
             );
             return false;

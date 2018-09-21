@@ -23,6 +23,7 @@ use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
 use console\models\generator\LoanDecreaseAndReturn;
 use console\models\generator\MakePlayed;
+use console\models\generator\MakeTransfer;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerPowerNewToOld;
@@ -120,6 +121,7 @@ class GeneratorController extends BaseController
             (new Prize())->execute();
             (new InsertSwiss())->execute();
             (new LoanDecreaseAndReturn())->execute();
+            (new MakeTransfer())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
