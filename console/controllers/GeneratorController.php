@@ -21,6 +21,7 @@ use console\models\generator\InsertSwiss;
 use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
+use console\models\generator\LoanDecreaseAndReturn;
 use console\models\generator\MakePlayed;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
@@ -118,6 +119,7 @@ class GeneratorController extends BaseController
             (new InsertAchievement())->execute();
             (new Prize())->execute();
             (new InsertSwiss())->execute();
+            (new LoanDecreaseAndReturn())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
