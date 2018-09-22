@@ -45,6 +45,7 @@ use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
+use console\models\generator\TireBaseLevel;
 use console\models\generator\TransferCheck;
 use console\models\generator\UpdateBuildingBase;
 use console\models\generator\UpdateBuildingStadium;
@@ -128,6 +129,7 @@ class GeneratorController extends BaseController
             (new TransferCheck())->execute();
             (new MakeLoan())->execute();
             (new LoanCheck())->execute();
+            (new TireBaseLevel())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

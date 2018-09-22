@@ -13,6 +13,13 @@ use yii\db\ActiveRecord;
  */
 class Building extends ActiveRecord
 {
+    const BASE = 1;
+    const MEDICAL = 2;
+    const PHYSICAL = 3;
+    const SCHOOL = 4;
+    const SCOUT = 5;
+    const TRAINING = 6;
+
     /**
      * @return string
      */
