@@ -27,6 +27,7 @@ use console\models\generator\LoanDecreaseAndReturn;
 use console\models\generator\MakeLoan;
 use console\models\generator\MakePlayed;
 use console\models\generator\MakeTransfer;
+use console\models\generator\MoodReset;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerPowerNewToOld;
@@ -132,6 +133,7 @@ class GeneratorController extends BaseController
             (new LoanCheck())->execute();
             (new TireBaseLevel())->execute();
             (new GameRowReset())->execute();
+            (new MoodReset())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
