@@ -21,6 +21,7 @@ use console\models\generator\InsertSwiss;
 use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
+use console\models\generator\LoanCheck;
 use console\models\generator\LoanDecreaseAndReturn;
 use console\models\generator\MakeLoan;
 use console\models\generator\MakePlayed;
@@ -126,6 +127,7 @@ class GeneratorController extends BaseController
             (new MakeTransfer())->execute();
             (new TransferCheck())->execute();
             (new MakeLoan())->execute();
+            (new LoanCheck())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

@@ -101,7 +101,7 @@ class TransferCheck
                 'and',
                 ['!=', 'transfer_ready', 0],
                 ['transfer_checked' => 0],
-                'FROM_UNIXTIME(`transfer_date`+604800, "%Y-%m-%d")=CURDATE()',
+                'FROM_UNIXTIME(`transfer_ready`+604800, "%Y-%m-%d")=CURDATE()',
             ]
         );
     }
