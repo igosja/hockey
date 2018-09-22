@@ -15,6 +15,7 @@ use console\models\generator\DecreaseTeamwork;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
+use console\models\generator\GameRowReset;
 use console\models\generator\InsertAchievement;
 use console\models\generator\InsertParticipantChampionship;
 use console\models\generator\InsertSwiss;
@@ -130,6 +131,7 @@ class GeneratorController extends BaseController
             (new MakeLoan())->execute();
             (new LoanCheck())->execute();
             (new TireBaseLevel())->execute();
+            (new GameRowReset())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
