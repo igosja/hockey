@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  * @property int $transfer_user_buyer_id
  * @property int $transfer_user_seller_id
  *
+ * @property Team $buyer
  * @property Player $player
  * @property Team $seller
  */
@@ -116,6 +117,14 @@ class Transfer extends ActiveRecord
         }
 
         return $result;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuyer(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'transfer_team_buyer_id']);
     }
 
     /**

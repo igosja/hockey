@@ -43,6 +43,7 @@ use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
+use console\models\generator\TransferCheck;
 use console\models\generator\UpdateBuildingBase;
 use console\models\generator\UpdateBuildingStadium;
 use console\models\generator\UpdateCronDate;
@@ -122,6 +123,7 @@ class GeneratorController extends BaseController
             (new InsertSwiss())->execute();
             (new LoanDecreaseAndReturn())->execute();
             (new MakeTransfer())->execute();
+            (new TransferCheck())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
