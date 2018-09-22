@@ -131,7 +131,7 @@ class MakeTransfer
                 }
             }
 
-            $transferAplication = TransferApplication::find()
+            $transferApplication = TransferApplication::find()
                 ->joinWith(['team'])
                 ->where(['transfer_application_transfer_id' => $transfer->transfer_id])
                 ->andWhere(['not', ['transfer_application_team_id' => $teamArray]])
@@ -140,22 +140,22 @@ class MakeTransfer
                 ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
                 ->limit(1)
                 ->one();
-            if ($transferAplication) {
+            if ($transferApplication) {
                 if ($transfer->transfer_team_seller_id) {
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                         'finance_player_id' => $transfer->transfer_player_id,
                         'finance_team_id' => $transfer->transfer_team_seller_id,
-                        'finance_value' => $transferAplication->transfer_application_price,
-                        'finance_value_after' => $transfer->seller->team_finance + $transferAplication->transfer_application_price,
+                        'finance_value' => $transferApplication->transfer_application_price,
+                        'finance_value_after' => $transfer->seller->team_finance + $transferApplication->transfer_application_price,
                         'finance_value_before' => $transfer->seller->team_finance,
                     ]);
 
-                    $transfer->seller->team_finance = $transfer->seller->team_finance + $transferAplication->transfer_application_price;
+                    $transfer->seller->team_finance = $transfer->seller->team_finance + $transferApplication->transfer_application_price;
                     $transfer->seller->save();
                 }
 
-                $schoolPrice = round($transferAplication->transfer_application_price / 100);
+                $schoolPrice = round($transferApplication->transfer_application_price / 100);
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
@@ -172,20 +172,20 @@ class MakeTransfer
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
                     'finance_player_id' => $transfer->transfer_player_id,
-                    'finance_team_id' => $transferAplication->transfer_application_team_id,
-                    'finance_value' => $transferAplication->transfer_application_price,
-                    'finance_value_after' => $transferAplication->team->team_finance - $transferAplication->transfer_application_price,
-                    'finance_value_before' => $transferAplication->team->team_finance,
+                    'finance_team_id' => $transferApplication->transfer_application_team_id,
+                    'finance_value' => $transferApplication->transfer_application_price,
+                    'finance_value_after' => $transferApplication->team->team_finance - $transferApplication->transfer_application_price,
+                    'finance_value_before' => $transferApplication->team->team_finance,
                 ]);
 
-                $transferAplication->team->team_finance = $transferAplication->team->team_finance - $transferAplication->transfer_application_price;
-                $transferAplication->team->save();
+                $transferApplication->team->team_finance = $transferApplication->team->team_finance - $transferApplication->transfer_application_price;
+                $transferApplication->team->save();
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
                 $transfer->player->player_no_deal = 0;
                 $transfer->player->player_order = 0;
-                $transfer->player->player_team_id = $transferAplication->transfer_application_team_id;
+                $transfer->player->player_team_id = $transferApplication->transfer_application_team_id;
                 $transfer->player->save();
 
                 PhysicalChange::deleteAll([
@@ -197,11 +197,11 @@ class MakeTransfer
                 $transfer->transfer_age = $transfer->player->player_age;
                 $transfer->transfer_player_price = $transfer->player->player_price;
                 $transfer->transfer_power = $transfer->player->player_power_nominal;
-                $transfer->transfer_price_buyer = $transferAplication->transfer_application_price;
+                $transfer->transfer_price_buyer = $transferApplication->transfer_application_price;
                 $transfer->transfer_ready = time();
                 $transfer->transfer_season_id = $seasonId;
-                $transfer->transfer_team_buyer_id = $transferAplication->transfer_application_team_id;
-                $transfer->transfer_user_buyer_id = $transferAplication->transfer_application_user_id;
+                $transfer->transfer_team_buyer_id = $transferApplication->transfer_application_team_id;
+                $transfer->transfer_user_buyer_id = $transferApplication->transfer_application_user_id;
                 $transfer->save();
 
                 foreach ($transfer->player->playerPosition as $position) {
@@ -223,20 +223,20 @@ class MakeTransfer
                     'history_history_text_id' => HistoryText::PLAYER_TRANSFER,
                     'history_player_id' => $transfer->transfer_player_id,
                     'history_team_id' => $transfer->transfer_team_seller_id,
-                    'history_team_2_id' => $transferAplication->transfer_application_team_id,
-                    'history_value' => $transferAplication->transfer_application_price,
+                    'history_team_2_id' => $transferApplication->transfer_application_team_id,
+                    'history_value' => $transferApplication->transfer_application_price,
                 ]);
 
                 Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id]);
                 Loan::deleteAll(['loan_player_id' => $transfer->transfer_player_id]);
 
-                if ($transferAplication->transfer_application_only_one) {
+                if ($transferApplication->transfer_application_only_one) {
                     $subQuery = Transfer::find()
                         ->select(['transfer_id'])
                         ->where(['transfer_ready' => 0]);
 
                     TransferApplication::deleteAll([
-                        'transfer_application_team_id' => $transferAplication->transfer_application_team_id,
+                        'transfer_application_team_id' => $transferApplication->transfer_application_team_id,
                         'transfer_application_transfer_id' => $subQuery,
                     ]);
                 }
@@ -247,7 +247,7 @@ class MakeTransfer
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transfer->transfer_team_seller_id,
-                    'finance_value' => $transferAplication->transfer_application_price,
+                    'finance_value' => $transferApplication->transfer_application_price,
                     'finance_value_after' => $transfer->seller->team_finance + $price,
                     'finance_value_before' => $transfer->seller->team_finance,
                 ]);
@@ -303,8 +303,8 @@ class MakeTransfer
                     'history_history_text_id' => HistoryText::PLAYER_FREE,
                     'history_player_id' => $transfer->transfer_player_id,
                     'history_team_id' => $transfer->transfer_team_seller_id,
-                    'history_team_2_id' => $transferAplication->transfer_application_team_id,
-                    'history_value' => $transferAplication->transfer_application_price,
+                    'history_team_2_id' => $transferApplication->transfer_application_team_id,
+                    'history_value' => $transferApplication->transfer_application_price,
                 ]);
 
                 Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id]);

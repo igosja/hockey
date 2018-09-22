@@ -22,6 +22,7 @@ use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
 use console\models\generator\LineupToStatistic;
 use console\models\generator\LoanDecreaseAndReturn;
+use console\models\generator\MakeLoan;
 use console\models\generator\MakePlayed;
 use console\models\generator\MakeTransfer;
 use console\models\generator\NationalVs;
@@ -124,6 +125,7 @@ class GeneratorController extends BaseController
             (new LoanDecreaseAndReturn())->execute();
             (new MakeTransfer())->execute();
             (new TransferCheck())->execute();
+            (new MakeLoan())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

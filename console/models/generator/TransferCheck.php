@@ -23,7 +23,7 @@ class TransferCheck
         $transferArray = Transfer::find()
             ->where(['transfer_checked' => 0])
             ->andWhere(['!=', 'transfer_ready', 0])
-            ->andWhere('FROM_UNIXTIME(`transfer_date`+604800, "%Y-%m-%d")<=CURDATE()')
+            ->andWhere('FROM_UNIXTIME(`transfer_ready`+604800, "%Y-%m-%d")<=CURDATE()')
             ->orderBy(['transfer_id' => SORT_ASC])
             ->each();
         foreach ($transferArray as $transfer) {

@@ -29,7 +29,9 @@ use yii\db\ActiveRecord;
  * @property int $loan_user_buyer_id
  * @property int $loan_user_seller_id
  *
+ * @property Team $buyer
  * @property Player $player
+ * @property Team $seller
  */
 class Loan extends ActiveRecord
 {
@@ -83,8 +85,24 @@ class Loan extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getBuyer(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'loan_team_buyer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getPlayer(): ActiveQuery
     {
         return $this->hasOne(Player::class, ['player_id' => 'loan_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSeller(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'loan_team_seller_id']);
     }
 }
