@@ -55,6 +55,8 @@ use yii\web\IdentityInterface;
  * @property int $user_shop_special
  * @property string $user_surname
  * @property int $user_user_role_id
+ *
+ * @property
  */
 class User extends ActiveRecord implements IdentityInterface
 {
