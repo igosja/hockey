@@ -63,6 +63,7 @@ use console\models\generator\UpdateTeamStatistic;
 use console\models\generator\UpdateTeamVisitor;
 use console\models\generator\UpdateTraining;
 use console\models\generator\UpdateUserRating;
+use console\models\generator\UserDecrementAutoForVocation;
 use console\models\generator\UserToRating;
 use Exception;
 
@@ -138,6 +139,7 @@ class GeneratorController extends BaseController
             (new MoodReset())->execute();
             (new IncreaseNationalUserDay())->execute();
             (new IncreaseNationalPlayerDay())->execute();
+            (new UserDecrementAutoForVocation())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
