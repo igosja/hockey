@@ -16,6 +16,7 @@ use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\GameResult;
 use console\models\generator\GameRowReset;
+use console\models\generator\IncreaseNationalPlayerDay;
 use console\models\generator\IncreaseNationalUserDay;
 use console\models\generator\InsertAchievement;
 use console\models\generator\InsertParticipantChampionship;
@@ -136,6 +137,7 @@ class GeneratorController extends BaseController
             (new GameRowReset())->execute();
             (new MoodReset())->execute();
             (new IncreaseNationalUserDay())->execute();
+            (new IncreaseNationalPlayerDay())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

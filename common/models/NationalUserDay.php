@@ -34,7 +34,7 @@ class NationalUserDay extends ActiveRecord
                     'national_user_day_id',
                     'national_user_day_day',
                     'national_user_day_national_id',
-                    'national_user_day_user_id'
+                    'national_user_day_user_id',
                 ],
                 'integer'
             ],
