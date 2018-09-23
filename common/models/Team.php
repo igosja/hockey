@@ -66,6 +66,8 @@ use yii\helpers\Html;
  */
 class Team extends ActiveRecord
 {
+    const MAX_AUTO_GAMES = 5;
+
     /**
      * @return string
      */
@@ -377,8 +379,8 @@ class Team extends ActiveRecord
      */
     public function managerFire()
     {
-        $user_id = $this->team_user_id;
-        $vice_id = $this->team_vice_id;
+        $userId = $this->team_user_id;
+        $viceId = $this->team_vice_id;
 
         $this->team_auto = 0;
         $this->team_user_id = 0;
@@ -428,14 +430,14 @@ class Team extends ActiveRecord
         History::log([
             'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_OUT,
             'history_team_id' => $this->team_id,
-            'history_user_id' => $user_id,
+            'history_user_id' => $userId,
         ]);
 
-        if ($vice_id) {
+        if ($viceId) {
             History::log([
                 'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
                 'history_team_id' => $this->team_id,
-                'history_user_id' => $vice_id,
+                'history_user_id' => $viceId,
             ]);
         }
     }

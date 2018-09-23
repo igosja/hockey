@@ -21,7 +21,7 @@ class UserDecrementAutoForVocation
                 LEFT JOIN `user`
                 ON `team_user_id`=`user_id`
                 SET `team_auto`=4
-                WHERE `team_auto`>=5
+                WHERE `team_auto`>=" . Team::MAX_AUTO_GAMES . "
                 AND `user_id`!=0
                 AND `user_holiday`!=0";
         Yii::$app->db->createCommand($sql)->execute();
