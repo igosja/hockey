@@ -65,6 +65,7 @@ use console\models\generator\UpdateTraining;
 use console\models\generator\UpdateUserRating;
 use console\models\generator\UserDecrementAutoForVocation;
 use console\models\generator\UserFire;
+use console\models\generator\UserHolidayEnd;
 use console\models\generator\UserToRating;
 use Exception;
 
@@ -142,6 +143,7 @@ class GeneratorController extends BaseController
             (new IncreaseNationalPlayerDay())->execute();
             (new UserDecrementAutoForVocation())->execute();
             (new UserFire())->execute();
+            (new UserHolidayEnd())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

@@ -58,7 +58,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const PASSWORD_SALT = 'hockey';
+    const MAX_HOLIDAY = 30;
+    const MAX_VIP_HOLIDAY = 60;
 
     /**
      * @return string
