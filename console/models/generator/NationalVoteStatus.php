@@ -133,9 +133,9 @@ class NationalVoteStatus
                     $electionNationalPlayer->player->save();
                 }
             }
-
-            $electionNational->election_national_election_status_id = ElectionStatus::CLOSE;
-            $electionNational->save();
         }
+
+        $electionNational->election_national_election_status_id = ElectionStatus::CLOSE;
+        $electionNational->save();
     }
 }
