@@ -81,7 +81,6 @@ class NationalVoteStatus
                 },
                 'electionNationalVote' => function (ActiveQuery $query): ActiveQuery {
                     return $query
-                        ->joinWith(['player'])
                         ->select([
                             'election_national_vote_application_id',
                             'SUM(election_national_vote_vote) AS election_national_vote_vote',
@@ -103,8 +102,8 @@ class NationalVoteStatus
             ->orderBy([
                 'election_national_vote_vote' => SORT_DESC,
                 'election_national_application_power' => SORT_DESC,
-                'user.user_rating' => SORT_DESC,
-                'user.user_date_register' => SORT_ASC,
+                'user_rating' => SORT_DESC,
+                'user_date_register' => SORT_ASC,
                 'election_national_application_id' => SORT_ASC,
             ])
             ->limit(2)
