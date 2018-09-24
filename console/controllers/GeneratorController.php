@@ -30,6 +30,7 @@ use console\models\generator\MakeLoan;
 use console\models\generator\MakePlayed;
 use console\models\generator\MakeTransfer;
 use console\models\generator\MoodReset;
+use console\models\generator\NationalFire;
 use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
@@ -148,6 +149,7 @@ class GeneratorController extends BaseController
             (new UserHolidayEnd())->execute();
             (new NationalVoteStatus())->execute();
             (new NationalViceVoteStatus())->execute();
+            (new NationalFire())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
