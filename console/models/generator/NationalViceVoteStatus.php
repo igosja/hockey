@@ -107,6 +107,7 @@ class NationalViceVoteStatus
             ]);
 
             $electionNationalVice->national->national_vice_id = $electionNationalViceApplication->election_national_vice_application_user_id;
+            $electionNationalVice->national->save();
         }
 
         $electionNationalVice->election_national_vice_election_status_id = ElectionStatus::CLOSE;
