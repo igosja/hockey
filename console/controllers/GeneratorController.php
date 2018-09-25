@@ -43,6 +43,7 @@ use console\models\generator\PresidentViceFire;
 use console\models\generator\PresidentViceVoteStatus;
 use console\models\generator\PresidentVoteStatus;
 use console\models\generator\Prize;
+use console\models\generator\ReferrerBonus;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
 use console\models\generator\SetInjury;
@@ -158,6 +159,7 @@ class GeneratorController extends BaseController
             (new PresidentViceVoteStatus())->execute();
             (new PresidentFire())->execute();
             (new PresidentViceFire())->execute();
+            (new ReferrerBonus())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

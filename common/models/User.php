@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\base\NotSupportedException;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -56,7 +57,8 @@ use yii\web\IdentityInterface;
  * @property string $user_surname
  * @property int $user_user_role_id
  *
- * @property
+ * @property User $referrer
+ * @property Team[] $team
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -293,5 +295,21 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReferrer(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'user_referrer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasMany(Team::class, ['team_user_id' => 'user_id']);
     }
 }
