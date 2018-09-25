@@ -37,6 +37,7 @@ use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\PlayerPriceAndSalary;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
 use console\models\generator\PresidentFire;
@@ -163,6 +164,7 @@ class GeneratorController extends BaseController
             (new ReferrerBonus())->execute();
 //            (new NewSeason())->execute();
             (new PlayerLeaguePower())->execute();
+            (new PlayerPriceAndSalary())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
