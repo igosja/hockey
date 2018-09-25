@@ -38,6 +38,7 @@ use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
+use console\models\generator\PresidentViceVoteStatus;
 use console\models\generator\PresidentVoteStatus;
 use console\models\generator\Prize;
 use console\models\generator\SetAuto;
@@ -152,6 +153,7 @@ class GeneratorController extends BaseController
             (new NationalViceVoteStatus())->execute();
             (new NationalFire())->execute();
             (new PresidentVoteStatus())->execute();
+            (new PresidentViceVoteStatus())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);

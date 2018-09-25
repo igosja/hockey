@@ -108,8 +108,8 @@ class PresidentVoteStatus
 
                 if (isset($electionPresidentApplicationArray[1])) {
                     History::log([
-                        'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_IN,
                         'history_country_id' => $electionPresident->election_president_country_id,
+                        'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_IN,
                         'history_user_id' => $electionPresidentApplicationArray[1]->election_president_application_user_id,
                     ]);
                 }
