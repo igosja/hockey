@@ -45,7 +45,7 @@ class NationalFire
                 ->andWhere(['city_country_id' => $national->national_country_id])
                 ->count();
 
-            $percent = round(($negative ? $negative : 0) / ($total ? $total : 0) * 100);
+            $percent = round(($negative ? $negative : 0) / ($total ? $total : 1) * 100);
 
             if ($percent > 25) {
                 History::log([
