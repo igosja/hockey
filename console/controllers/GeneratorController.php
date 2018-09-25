@@ -35,6 +35,7 @@ use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
+use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
@@ -160,6 +161,8 @@ class GeneratorController extends BaseController
             (new PresidentFire())->execute();
             (new PresidentViceFire())->execute();
             (new ReferrerBonus())->execute();
+//            (new NewSeason())->execute();
+            (new PlayerLeaguePower())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
