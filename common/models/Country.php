@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property int $country_stadium_capacity
  *
  * @property City[] $city
+ * @property User $vice
  */
 class Country extends ActiveRecord
 {
@@ -61,5 +62,13 @@ class Country extends ActiveRecord
     public function getCity(): ActiveQuery
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVice(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'country_president_vice_id']);
     }
 }
