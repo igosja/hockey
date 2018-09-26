@@ -21,6 +21,9 @@ use yii\db\ActiveRecord;
  */
 class Stadium extends ActiveRecord
 {
+    const ONE_SIT_PRICE_BUY = 200;
+    const ONE_SIT_PRICE_SELL = 150;
+
     /**
      * @return string
      */
