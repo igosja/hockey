@@ -81,6 +81,7 @@ use console\models\generator\UpdateTeamStatistic;
 use console\models\generator\UpdateTeamVisitor;
 use console\models\generator\UpdateTraining;
 use console\models\generator\UpdateUserRating;
+use console\models\generator\UpdateUserTotalRating;
 use console\models\generator\UserDecrementAutoForVocation;
 use console\models\generator\UserFire;
 use console\models\generator\UserHolidayEnd;
@@ -181,6 +182,7 @@ class GeneratorController extends BaseController
             (new TeamAge())->execute();
             (new TeamPlayerCount())->execute();
             (new CountryStadiumCapacity())->execute();
+            (new UpdateUserTotalRating())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
