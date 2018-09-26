@@ -20,6 +20,7 @@ use console\models\generator\GameRowReset;
 use console\models\generator\IncreaseNationalPlayerDay;
 use console\models\generator\IncreaseNationalUserDay;
 use console\models\generator\InsertAchievement;
+use console\models\generator\InsertNews;
 use console\models\generator\InsertParticipantChampionship;
 use console\models\generator\InsertSwiss;
 use console\models\generator\LeagueLot;
@@ -185,6 +186,7 @@ class GeneratorController extends BaseController
             (new CountryStadiumCapacity())->execute();
             (new UpdateUserTotalRating())->execute();
             (new UpdateRating())->execute();
+            (new InsertNews())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
