@@ -37,6 +37,7 @@ use console\models\generator\NationalVs;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
+use console\models\generator\PlayerPowerS;
 use console\models\generator\PlayerPriceAndSalary;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
@@ -165,6 +166,7 @@ class GeneratorController extends BaseController
 //            (new NewSeason())->execute();
             (new PlayerLeaguePower())->execute();
             (new PlayerPriceAndSalary())->execute();
+            (new PlayerPowerS())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
