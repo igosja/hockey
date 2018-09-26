@@ -15,6 +15,7 @@ use console\models\generator\DecreaseInjury;
 use console\models\generator\DecreaseTeamwork;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
+use console\models\generator\FriendlyInviteDelete;
 use console\models\generator\GameResult;
 use console\models\generator\GameRowReset;
 use console\models\generator\IncreaseNationalPlayerDay;
@@ -189,6 +190,7 @@ class GeneratorController extends BaseController
             (new UpdateRating())->execute();
             (new InsertNews())->execute();
             (new PresidentVip())->execute();
+            (new FriendlyInviteDelete())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
