@@ -61,6 +61,7 @@ use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
 use console\models\generator\TakeSalary;
 use console\models\generator\TeamAge;
+use console\models\generator\TeamPlayerCount;
 use console\models\generator\TeamPowerVs;
 use console\models\generator\TeamPrice;
 use console\models\generator\TeamToStatistic;
@@ -177,6 +178,7 @@ class GeneratorController extends BaseController
             (new TeamPowerVs())->execute();
             (new TeamPrice())->execute();
             (new TeamAge())->execute();
+            (new TeamPlayerCount())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
