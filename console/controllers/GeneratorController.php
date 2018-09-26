@@ -47,6 +47,7 @@ use console\models\generator\PlusMinus;
 use console\models\generator\PresidentFire;
 use console\models\generator\PresidentViceFire;
 use console\models\generator\PresidentViceVoteStatus;
+use console\models\generator\PresidentVip;
 use console\models\generator\PresidentVoteStatus;
 use console\models\generator\Prize;
 use console\models\generator\ReferrerBonus;
@@ -187,6 +188,7 @@ class GeneratorController extends BaseController
             (new UpdateUserTotalRating())->execute();
             (new UpdateRating())->execute();
             (new InsertNews())->execute();
+            (new PresidentVip())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
