@@ -266,7 +266,10 @@ class Team extends ActiveRecord
         }
     }
 
-    private function updatePower()
+    /**
+     * @return void
+     */
+    public function updatePower(): void
     {
         $power = Player::find()
             ->where(['player_team_id' => $this->team_id])
