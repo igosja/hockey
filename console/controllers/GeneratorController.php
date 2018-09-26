@@ -9,6 +9,7 @@ use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountryAuto;
+use console\models\generator\CountryStadiumCapacity;
 use console\models\generator\CountVisitor;
 use console\models\generator\DecreaseInjury;
 use console\models\generator\DecreaseTeamwork;
@@ -179,6 +180,7 @@ class GeneratorController extends BaseController
             (new TeamPrice())->execute();
             (new TeamAge())->execute();
             (new TeamPlayerCount())->execute();
+            (new CountryStadiumCapacity())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
