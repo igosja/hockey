@@ -39,6 +39,7 @@ use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerPowerS;
 use console\models\generator\PlayerPriceAndSalary;
+use console\models\generator\PlayerRealPower;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
 use console\models\generator\PresidentFire;
@@ -167,6 +168,7 @@ class GeneratorController extends BaseController
             (new PlayerLeaguePower())->execute();
             (new PlayerPriceAndSalary())->execute();
             (new PlayerPowerS())->execute();
+            (new PlayerRealPower())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
