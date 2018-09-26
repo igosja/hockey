@@ -59,6 +59,7 @@ use console\models\generator\SiteOpen;
 use console\models\generator\StadiumMaintenance;
 use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
+use console\models\generator\TakeSalary;
 use console\models\generator\TeamToStatistic;
 use console\models\generator\TeamVisitorAfterGame;
 use console\models\generator\TireBaseLevel;
@@ -169,6 +170,7 @@ class GeneratorController extends BaseController
             (new PlayerPriceAndSalary())->execute();
             (new PlayerPowerS())->execute();
             (new PlayerRealPower())->execute();
+            (new TakeSalary())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
