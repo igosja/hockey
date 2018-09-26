@@ -75,7 +75,7 @@ class PresidentViceVoteStatus
                     return $query
                         ->select([
                             'election_president_vice_vote_application_id',
-                            'SUM(election_president_vice_vote_vote) AS election_president_vice_vote_vote',
+                            'COUNT(election_president_vice_vote_application_id) AS election_president_vice_vote_vote',
                         ])
                         ->groupBy(['election_president_vice_vote_application_id']);
                 },

@@ -83,7 +83,7 @@ class NationalVoteStatus
                     return $query
                         ->select([
                             'election_national_vote_application_id',
-                            'SUM(election_national_vote_vote) AS election_national_vote_vote',
+                            'COUNT(election_national_vote_application_id) AS election_national_vote_vote',
                         ])
                         ->groupBy(['election_national_vote_application_id']);
                 },

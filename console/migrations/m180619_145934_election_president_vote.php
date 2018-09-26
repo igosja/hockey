@@ -19,7 +19,6 @@ class m180619_145934_election_president_vote extends Migration
             'election_president_vote_application_id' => $this->integer(11)->defaultValue(0),
             'election_president_vote_date' => $this->integer(11)->defaultValue(0),
             'election_president_vote_user_id' => $this->integer(11)->defaultValue(0),
-            'election_president_vote_vote' => $this->integer(1)->defaultValue(0),
         ]);
     }
 

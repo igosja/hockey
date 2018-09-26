@@ -12,7 +12,6 @@ use yii\db\ActiveRecord;
  * @property int $election_president_vice_vote_application_id
  * @property int $election_president_vice_vote_date
  * @property int $election_president_vice_vote_user_id
- * @property int $election_president_vice_vote_vote
  */
 class ElectionPresidentViceVote extends ActiveRecord
 {
@@ -36,7 +35,6 @@ class ElectionPresidentViceVote extends ActiveRecord
                     'election_president_vice_vote_application_id',
                     'election_president_vice_vote_date',
                     'election_president_vice_vote_user_id',
-                    'election_president_vice_vote_vote',
                 ],
                 'integer'
             ],
