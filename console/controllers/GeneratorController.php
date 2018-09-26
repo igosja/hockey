@@ -75,6 +75,7 @@ use console\models\generator\UpdateCronDate;
 use console\models\generator\UpdateLeagueCoefficient;
 use console\models\generator\UpdatePhysical;
 use console\models\generator\UpdatePlayerStatistic;
+use console\models\generator\UpdateRating;
 use console\models\generator\UpdateSchool;
 use console\models\generator\UpdateScout;
 use console\models\generator\UpdateTeamStatistic;
@@ -183,6 +184,7 @@ class GeneratorController extends BaseController
             (new TeamPlayerCount())->execute();
             (new CountryStadiumCapacity())->execute();
             (new UpdateUserTotalRating())->execute();
+            (new UpdateRating())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
