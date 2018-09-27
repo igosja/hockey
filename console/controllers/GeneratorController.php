@@ -55,12 +55,14 @@ use console\models\generator\Prize;
 use console\models\generator\ReferrerBonus;
 use console\models\generator\SetAuto;
 use console\models\generator\SetDefaultStyle;
+use console\models\generator\SetFreePlayerOnTransfer;
 use console\models\generator\SetInjury;
 use console\models\generator\SetStadium;
 use console\models\generator\SetTicketPrice;
 use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
+use console\models\generator\Snapshot;
 use console\models\generator\StadiumMaintenance;
 use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
@@ -195,6 +197,8 @@ class GeneratorController extends BaseController
             (new FriendlyInviteDelete())->execute();
             (new UserFireExtraTeam())->execute();
             (new NationalStadium())->execute();
+            (new SetFreePlayerOnTransfer())->execute();
+            (new Snapshot())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
