@@ -34,6 +34,7 @@ use console\models\generator\MakePlayed;
 use console\models\generator\MakeTransfer;
 use console\models\generator\MoodReset;
 use console\models\generator\NationalFire;
+use console\models\generator\NationalStadium;
 use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
@@ -193,6 +194,7 @@ class GeneratorController extends BaseController
             (new PresidentVip())->execute();
             (new FriendlyInviteDelete())->execute();
             (new UserFireExtraTeam())->execute();
+            (new NationalStadium())->execute();
             (new SiteOpen())->execute();
         } catch (Exception $e) {
             ErrorHelper::log($e);
