@@ -2592,50 +2592,50 @@ class InsertSurname
         ];
 
         $surname_array = array(
-            array(
-                'country' => 'Canada',
-                'list' => $eng_surname,
-            ),
-            array(
-                'country' => 'Russia',
-                'list' => $rus_surname,
-            ),
-            array(
-                'country' => 'USA',
-                'list' => $eng_surname,
-            ),
-            array(
-                'country' => 'Finland',
-                'list' => $fin_surname,
-            ),
-            array(
-                'country' => 'Sweden',
-                'list' => $swe_surname,
-            ),
-            array(
-                'country' => 'Czech Republic',
-                'list' => $che_surname,
-            ),
-            array(
-                'country' => 'Switzerland',
-                'list' => $ger_surname,
-            ),
-            array(
-                'country' => 'Slovakia',
-                'list' => $che_surname,
-            ),
-            array(
-                'country' => 'Belarus',
-                'list' => $bel_surname,
-            ),
-            array(
-                'country' => 'Germany',
-                'list' => $ger_surname,
-            ),
-            array(
-                'country' => 'Norway',
-                'list' => $nor_surname,
-            ),
+//            array(
+//                'country' => 'Canada',
+//                'list' => $eng_surname,
+//            ),
+//            array(
+//                'country' => 'Russia',
+//                'list' => $rus_surname,
+//            ),
+//            array(
+//                'country' => 'USA',
+//                'list' => $eng_surname,
+//            ),
+//            array(
+//                'country' => 'Finland',
+//                'list' => $fin_surname,
+//            ),
+//            array(
+//                'country' => 'Sweden',
+//                'list' => $swe_surname,
+//            ),
+//            array(
+//                'country' => 'Czech Republic',
+//                'list' => $che_surname,
+//            ),
+//            array(
+//                'country' => 'Switzerland',
+//                'list' => $ger_surname,
+//            ),
+//            array(
+//                'country' => 'Slovakia',
+//                'list' => $che_surname,
+//            ),
+//            array(
+//                'country' => 'Belarus',
+//                'list' => $bel_surname,
+//            ),
+//            array(
+//                'country' => 'Germany',
+//                'list' => $ger_surname,
+//            ),
+//            array(
+//                'country' => 'Norway',
+//                'list' => $nor_surname,
+//            ),
             array(
                 'country' => 'Ukraine',
                 'list' => $ukr_surname,
