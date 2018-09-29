@@ -28,9 +28,7 @@ class SurnameCountry extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['surname_country_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['surname_country_surname_id'], 'in', 'range' => Surname::find()->select(['surname_id'])->column()],
-            [['surname_country_id'], 'integer'],
+            [['surname_country_id', 'surname_country_country_id', 'surname_country_surname_id'], 'integer'],
             [['surname_country_country_id', 'surname_country_surname_id'], 'required'],
         ];
     }

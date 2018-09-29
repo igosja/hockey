@@ -37,18 +37,14 @@ class ForumMessage extends ActiveRecord
     {
         return [
             [
-                ['forum_message_forum_theme_id'],
-                'in',
-                'range' => ForumTheme::find()->select(['forum_theme_id'])->column()
-            ],
-            [['forum_message_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [
                 [
                     'forum_message_id',
                     'forum_message_blocked',
                     'forum_message_check',
                     'forum_message_date',
-                    'forum_message_date_update'
+                    'forum_message_date_update',
+                    'forum_message_forum_theme_id',
+                    'forum_message_user_id',
                 ],
                 'integer'
             ],

@@ -31,10 +31,7 @@ class Vote extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['vote_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['vote_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['vote_vote_status_id'], 'in', 'range' => VoteStatus::find()->select(['vote_status_id'])->column()],
-            [['vote_id', 'vote_date'], 'integer'],
+            [['vote_id', 'vote_country_id', 'vote_date', 'vote_user_id', 'vote_vote_status_id'], 'integer'],
             [['vote_text'], 'required'],
             [['vote_text'], 'safe'],
             [['vote_text'], 'trim'],

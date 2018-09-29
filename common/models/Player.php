@@ -116,7 +116,7 @@ class Player extends ActiveRecord
                 ],
                 'integer'
             ],
-            [['player_country_id', 'player_team_id'], 'required'],
+            [['player_country_id'], 'required'],
         ];
     }
 

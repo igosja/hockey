@@ -32,9 +32,15 @@ class TransferSpecial extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_special_transfer_id'], 'in', 'range' => Player::find()->select(['transfer_id'])->column()],
-            [['transfer_special_special_id'], 'in', 'range' => Special::find()->select(['special_id'])->column()],
-            [['transfer_special_id', 'transfer_special_level'], 'integer'],
+            [
+                [
+                    'transfer_special_id',
+                    'transfer_special_level',
+                    'transfer_special_special_id',
+                    'transfer_special_transfer_id',
+                ],
+                'integer'
+            ],
             [['transfer_special_level', 'transfer_special_transfer_id', 'transfer_special_special_id'], 'required'],
         ];
     }

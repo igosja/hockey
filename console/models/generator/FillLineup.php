@@ -32,12 +32,12 @@ class FillLineup
                 if (0 == $i) {
                     $moodId = $game->game_guest_mood_id;
                     $nationalId = $game->game_guest_national_id;
-                    $countryId = $game->nationalGuest->national_country_id;
+                    $countryId = $game->nationalGuest->national_country_id ?? 0;
                     $teamId = $game->game_guest_team_id;
                 } else {
                     $moodId = $game->game_home_mood_id;
                     $nationalId = $game->game_home_national_id;
-                    $countryId = $game->nationalHome->national_country_id;
+                    $countryId = $game->nationalHome->national_country_id ?? 0;
                     $teamId = $game->game_home_team_id;
                 }
 

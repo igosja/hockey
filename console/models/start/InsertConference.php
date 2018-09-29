@@ -2,7 +2,6 @@
 
 namespace console\models\start;
 
-use common\components\ErrorHelper;
 use common\models\Championship;
 use common\models\Conference;
 use common\models\Game;
@@ -12,7 +11,6 @@ use common\models\Stage;
 use common\models\Team;
 use common\models\TournamentType;
 use Yii;
-use yii\db\Exception;
 
 /**
  * Class InsertConference
@@ -28,29 +26,29 @@ class InsertConference
     {
         $seasonId = Season::getCurrentSeason();
         $teamArray = Team::find()
-            ->select(['team_id'])
             ->where(['not in', 'team_id', Championship::find()->select(['championship_team_id'])])
             ->andWhere(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
-            ->all();
+            ->each();
+
+        $data = [];
         foreach ($teamArray as $team) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model = new Conference();
-                $model->conference_season_id = $seasonId;
-                $model->conference_team_id = $team->team_id;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
-            }
+            /**
+             * @var Team $team
+             */
+            $data[] = [$seasonId, $team->team_id];
         }
 
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Conference::tableName(),
+                ['conference_season_id', 'conference_team_id'],
+                $data
+            )
+            ->execute();
+
         $scheduleId = Schedule::find()
-            ->select(['schedule_id'])
             ->where([
                 'schedule_tournament_type_id' => TournamentType::CONFERENCE,
                 'schedule_stage_id' => Stage::TOUR_1,
@@ -61,11 +59,11 @@ class InsertConference
 
         /** @var Conference[] $conferenceArray */
         $conferenceArray = Conference::find()
-            ->select(['conference_team_id'])
+            ->with(['team'])
             ->orderBy(['conference_team_id' => SORT_ASC])
             ->all();
 
-        $key_array = [
+        $keyArray = [
             [0, 1],
             [22, 2],
             [21, 3],
@@ -80,22 +78,27 @@ class InsertConference
             [12, 23],
         ];
 
-        foreach ($key_array as $item) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model = new Game();
-                $model->game_guest_team_id = $conferenceArray[$item[1]]->conference_team_id;
-                $model->game_home_team_id = $conferenceArray[$item[0]]->conference_team_id;
-                $model->game_schedule_id = $scheduleId;
-                $model->game_stadium_id = $conferenceArray[$item[0]]->team->stadium->stadium_id;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
+        $data = [];
+        foreach ($keyArray as $item) {
+            if (!isset($conferenceArray[$item[0]]) || $conferenceArray[$item[1]]) {
+                continue;
             }
+
+            $data[] = [
+                $conferenceArray[$item[1]]->conference_team_id,
+                $conferenceArray[$item[0]]->conference_team_id,
+                $scheduleId,
+                $conferenceArray[$item[0]]->team->team_stadium_id,
+            ];
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Game::tableName(),
+                ['game_guest_team_id', 'game_home_team_id', 'game_schedule_id', 'game_stadium_id'],
+                $data
+            )
+            ->execute();
     }
 }

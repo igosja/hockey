@@ -45,8 +45,6 @@ class OffSeason extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['off_season_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['off_season_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [
                 [
                     'off_season_id',

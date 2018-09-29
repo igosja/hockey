@@ -52,18 +52,6 @@ class Transfer extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['transfer_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [
-                ['transfer_team_buyer_id', 'transfer_team_seller_id'],
-                'in',
-                'range' => Team::find()->select(['team_id'])->column()
-            ],
-            [
-                ['transfer_user_buyer_id', 'transfer_user_seller_id'],
-                'in',
-                'range' => User::find()->select(['user_id'])->column()
-            ],
             [
                 [
                     'transfer_id',
@@ -71,12 +59,18 @@ class Transfer extends ActiveRecord
                     'transfer_cancel',
                     'transfer_checked',
                     'transfer_date',
+                    'transfer_player_id',
                     'transfer_player_price',
                     'transfer_power',
                     'transfer_price_buyer',
                     'transfer_price_seller',
                     'transfer_ready',
+                    'transfer_season_id',
+                    'transfer_team_buyer_id',
+                    'transfer_team_seller_id',
                     'transfer_to_league',
+                    'transfer_user_buyer_id',
+                    'transfer_user_seller_id',
                 ],
                 'integer'
             ]

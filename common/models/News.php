@@ -40,8 +40,6 @@ class News extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['news_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['news_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [['news_id', 'news_check', 'news_country_id', 'news_date', 'news_user_id'], 'integer'],
             [['news_text', 'news_title'], 'required'],
             [['news_title'], 'string', 'max' => 255],

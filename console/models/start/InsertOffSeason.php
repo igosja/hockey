@@ -2,7 +2,6 @@
 
 namespace console\models\start;
 
-use common\components\ErrorHelper;
 use common\models\Game;
 use common\models\OffSeason;
 use common\models\Schedule;
@@ -31,23 +30,24 @@ class InsertOffSeason
             ->select(['team_id'])
             ->where(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
-            ->all();
+            ->each();
 
+        $data = [];
         foreach ($teamArray as $team) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model = new OffSeason();
-                $model->off_season_season_id = $seasonId;
-                $model->off_season_team_id = $team->team_id;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
-            }
+            /**
+             * @var Team $team
+             */
+            $data[] = [$seasonId, $team->team_id];
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                OffSeason::tableName(),
+                ['off_season_season_id', 'off_season_team_id'],
+                $data
+            )
+            ->execute();
 
         $scheduleId = Schedule::find()
             ->select(['schedule_id'])
@@ -60,25 +60,30 @@ class InsertOffSeason
             ->scalar();
 
         /** @var OffSeason[] $offSeasonArray */
-        $offSeasonArray = OffSeason::find()->select(['off_season_team_id'])->orderBy('RAND()')->all();
+        $offSeasonArray = OffSeason::find()
+            ->with(['team.stadium'])
+            ->where(['off_season_season_id' => $seasonId])
+            ->orderBy('RAND()')
+            ->all();
         $countOffSeason = count($offSeasonArray);
 
+        $data = [];
         for ($i = 0; $i < $countOffSeason; $i = $i + 2) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model = new Game();
-                $model->game_guest_team_id = $offSeasonArray[$i]->off_season_team_id;
-                $model->game_home_team_id = $offSeasonArray[$i + 1]->off_season_team_id;
-                $model->game_schedule_id = $scheduleId;
-                $model->game_stadium_id = $offSeasonArray[$i + 1]->team->stadium->stadium_id;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
-            }
+            $data[] = [
+                $offSeasonArray[$i]->off_season_team_id,
+                $offSeasonArray[$i + 1]->off_season_team_id,
+                $scheduleId,
+                $offSeasonArray[$i + 1]->team->team_stadium_id
+            ];
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Game::tableName(),
+                ['game_guest_team_id', 'game_home_team_id', 'game_schedule_id', 'game_stadium_id'],
+                $data
+            )
+            ->execute();
     }
 }

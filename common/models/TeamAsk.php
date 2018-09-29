@@ -35,9 +35,7 @@ class TeamAsk extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['team_ask_leave_id', 'team_ask_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [['team_ask_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['team_ask_id', 'team_ask_date'], 'integer'],
+            [['team_ask_id', 'team_ask_date', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'], 'integer'],
             [['team_ask_team_id'], 'required'],
         ];
     }

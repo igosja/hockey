@@ -82,7 +82,6 @@ class Team extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['team_stadium_id'], 'in', 'range' => Stadium::find()->select(['stadium_id'])->column()],
             [
                 [
                     'team_id',
@@ -116,6 +115,7 @@ class Team extends ActiveRecord
                     'team_price_stadium',
                     'team_price_total',
                     'team_salary',
+                    'team_stadium_id',
                     'team_user_id',
                     'team_vice_id',
                     'team_visitor',
@@ -188,6 +188,8 @@ class Team extends ActiveRecord
             Position::LD,
             Position::LD,
             Position::LD,
+            Position::LD,
+            Position::RD,
             Position::RD,
             Position::RD,
             Position::RD,
@@ -198,11 +200,14 @@ class Team extends ActiveRecord
             Position::LW,
             Position::LW,
             Position::LW,
+            Position::LW,
             Position::CF,
             Position::CF,
             Position::CF,
             Position::CF,
             Position::CF,
+            Position::CF,
+            Position::RW,
             Position::RW,
             Position::RW,
             Position::RW,

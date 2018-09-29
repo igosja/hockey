@@ -33,9 +33,10 @@ class PlayerSpecial extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['player_special_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['player_special_special_id'], 'in', 'range' => Special::find()->select(['special_id'])->column()],
-            [['player_special_id', 'player_special_level'], 'integer'],
+            [
+                ['player_special_id', 'player_special_level', 'player_special_player_id', 'player_special_special_id'],
+                'integer'
+            ],
             [['player_special_level', 'player_special_player_id', 'player_special_special_id'], 'required'],
         ];
     }

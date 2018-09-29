@@ -38,8 +38,7 @@ class Stadium extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['stadium_city_id'], 'in', 'range' => City::find()->select(['city_id'])->column()],
-            [['stadium_id', 'stadium_capacity', 'stadium_date', 'stadium_maintenance'], 'integer'],
+            [['stadium_id', 'stadium_capacity', 'stadium_city_id', 'stadium_date', 'stadium_maintenance'], 'integer'],
             [['stadium_city_id', 'stadium_name'], 'required'],
             [['stadium_name'], 'string', 'max' => 255],
             [['stadium_name'], 'trim'],

@@ -31,9 +31,10 @@ class ForumGroup extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['forum_group_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['forum_group_forum_chapter_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['forum_group_id', 'forum_group_order'], 'integer'],
+            [
+                ['forum_group_id', 'forum_group_country_id', 'forum_group_forum_chapter_id', 'forum_group_order'],
+                'integer'
+            ],
             [['forum_group_description', 'forum_group_name'], 'required'],
             [['forum_group_name'], 'string', 'max' => 255],
             [['forum_group_description', 'forum_group_name'], 'trim'],

@@ -39,8 +39,7 @@ class BaseController extends Controller
      */
     public function beforeAction($action): bool
     {
-        $season = Season::find()->select(['season_id'])->orderBy(['season_id' => SORT_DESC])->limit(1)->one();
-        $this->seasonId = $season->season_id;
+        $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
             $this->myTeamArray = Team::find()

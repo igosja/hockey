@@ -44,8 +44,6 @@ class League extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['league_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['league_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [
                 [
                     'league_id',

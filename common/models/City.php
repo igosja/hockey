@@ -32,8 +32,7 @@ class City extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['city_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['city_id'], 'integer'],
+            [['city_id', 'city_country_id'], 'integer'],
             [['city_country_id', 'city_name'], 'required'],
             [['city_name'], 'string', 'max' => 255],
             [['city_name'], 'trim'],

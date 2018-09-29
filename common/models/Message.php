@@ -33,11 +33,16 @@ class Message extends ActiveRecord
     {
         return [
             [
-                ['message_user_id_from', 'message_user_id_to'],
-                'in',
-                'range' => User::find()->select(['user_id'])->column()
+                [
+                    'message_id',
+                    'message_date',
+                    'message_read',
+                    'message_support',
+                    'message_user_id_from',
+                    'message_user_id_to',
+                ],
+                'integer'
             ],
-            [['message_id', 'message_date', 'message_read', 'message_support'], 'integer'],
             [['message_text', 'message_user_id_to'], 'required'],
             [['message_text'], 'safe'],
             [['message_text'], 'trim'],

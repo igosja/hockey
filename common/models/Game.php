@@ -153,9 +153,6 @@ class Game extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['game_schedule_id'], 'in', 'range' => Schedule::find()->select(['schedule_id'])->column()],
-            [['game_guest_team_id', 'game_home_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [['game_stadium_id'], 'in', 'range' => Stadium::find()->select(['stadium_id'])->column()],
             [
                 [
                     'game_id',
@@ -201,6 +198,7 @@ class Game extends ActiveRecord
                     'game_guest_tactic_id_2',
                     'game_guest_tactic_id_3',
                     'game_guest_tactic_id_4',
+                    'game_guest_team_id',
                     'game_home_auto',
                     'game_home_collision_1',
                     'game_home_collision_2',
@@ -242,9 +240,12 @@ class Game extends ActiveRecord
                     'game_home_tactic_id_2',
                     'game_home_tactic_id_3',
                     'game_home_tactic_id_4',
+                    'game_home_team_id',
                     'game_played',
                     'game_ticket',
+                    'game_schedule_id',
                     'game_stadium_capacity',
+                    'game_stadium_id',
                     'game_visitor',
                 ],
                 'integer'

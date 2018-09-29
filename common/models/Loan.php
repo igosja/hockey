@@ -49,18 +49,6 @@ class Loan extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['loan_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [
-                ['loan_team_buyer_id', 'loan_team_seller_id'],
-                'in',
-                'range' => Team::find()->select(['team_id'])->column()
-            ],
-            [
-                ['loan_user_buyer_id', 'loan_user_seller_id'],
-                'in',
-                'range' => User::find()->select(['user_id'])->column()
-            ],
             [
                 [
                     'loan_id',
@@ -71,11 +59,17 @@ class Loan extends ActiveRecord
                     'loan_day',
                     'loan_day_max',
                     'loan_day_min',
+                    'loan_player_id',
                     'loan_player_price',
                     'loan_power',
                     'loan_price_buyer',
                     'loan_price_seller',
                     'loan_ready',
+                    'loan_season_id',
+                    'loan_team_buyer_id',
+                    'loan_team_seller_id',
+                    'loan_user_buyer_id',
+                    'loan_user_seller_id',
                 ],
                 'integer'
             ]

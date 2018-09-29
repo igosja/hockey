@@ -36,20 +36,16 @@ class LoanApplication extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_application_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [
-                ['loan_application_loan_id'],
-                'in',
-                'range' => Loan::find()->select(['loan_id'])->column()
-            ],
-            [['loan_application_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [
                 [
                     'loan_application_id',
                     'loan_application_date',
                     'loan_application_day',
+                    'loan_application_loan_id',
                     'loan_application_only_one',
                     'loan_application_price',
+                    'loan_application_team_id',
+                    'loan_application_user_id',
                 ],
                 'integer'
             ]

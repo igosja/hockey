@@ -31,9 +31,7 @@ class PlayerPosition extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['player_position_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['player_position_position_id'], 'in', 'range' => Position::find()->select(['position_id'])->column()],
-            [['player_position_id'], 'integer'],
+            [['player_position_id', 'player_position_player_id', 'player_position_position_id'], 'integer'],
             [['player_position_player_id', 'player_position_position_id'], 'required'],
         ];
     }

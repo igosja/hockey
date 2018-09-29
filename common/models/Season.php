@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Throwable;
 use yii\db\ActiveRecord;
 
 /**
@@ -35,6 +37,14 @@ class Season extends ActiveRecord
      */
     public static function getCurrentSeason(): int
     {
-        return self::find()->max('season_id');
+        try {
+            $result = self::getDb()->cache(function () {
+                return self::find()->max('season_id');
+            });
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $result = self::find()->max('season_id');
+        }
+        return $result;
     }
 }

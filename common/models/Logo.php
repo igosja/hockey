@@ -30,9 +30,7 @@ class Logo extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['logo_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [['logo_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['logo_id', 'logo_date'], 'integer'],
+            [['logo_id', 'logo_date', 'logo_team_id', 'logo_user_id'], 'integer'],
             [['logo_text'], 'required'],
             [['logo_text'], 'string', 'max' => 255],
             [['logo_text'], 'trim'],

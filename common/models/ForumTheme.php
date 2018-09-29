@@ -35,9 +35,17 @@ class ForumTheme extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['forum_theme_forum_group_id'], 'in', 'range' => ForumGroup::find()->select(['forum_group_id'])->column()],
-            [['forum_theme_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['forum_theme_id', 'forum_theme_count_view', 'forum_theme_date', 'forum_theme_date_update'], 'integer'],
+            [
+                [
+                    'forum_theme_id',
+                    'forum_theme_count_view',
+                    'forum_theme_date',
+                    'forum_theme_forum_group_id',
+                    'forum_theme_date_update',
+                    'forum_theme_user_id',
+                ],
+                'integer'
+            ],
             [['forum_theme_name'], 'required'],
             [['forum_theme_name'], 'string', 'max' => 255],
             [['forum_theme_name'], 'trim'],

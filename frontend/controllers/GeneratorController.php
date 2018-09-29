@@ -1,6 +1,6 @@
 <?php
 
-namespace console\controllers;
+namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
@@ -98,14 +98,14 @@ use Exception;
 
 /**
  * Class GeneratorController
- * @package console\controllers
+ * @package frontend\controllers
  */
 class GeneratorController extends BaseController
 {
     /**
      * @return void
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         try {
             (new CheckCronDate())->execute();

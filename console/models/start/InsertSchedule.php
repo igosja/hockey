@@ -2,13 +2,11 @@
 
 namespace console\models\start;
 
-use common\components\ErrorHelper;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
 use Yii;
-use yii\db\Exception;
 
 /**
  * Class InsertSchedule
@@ -158,52 +156,34 @@ class InsertSchedule
 
         $startDate = strtotime('Mon') + 12 * 60 * 60;
 
+        $data = [];
+
         for ($i = 0; $i < 63; $i++) {
             $date = $startDate + $i * 24 * 60 * 60;
             $conference = 0;
 
             if (in_array($i, $scheduleFriendlyArray)) {
-                $tournament_type = TournamentType::FRIENDLY;
+                $tournamentType = TournamentType::FRIENDLY;
             } elseif (in_array($i, $scheduleOffSeasonArray)) {
-                $tournament_type = TournamentType::OFF_SEASON;
+                $tournamentType = TournamentType::OFF_SEASON;
             } else {
                 $conference = true;
-                $tournament_type = TournamentType::CHAMPIONSHIP;
+                $tournamentType = TournamentType::CHAMPIONSHIP;
             }
 
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model = new Schedule();
-                $model->schedule_date = $date;
-                $model->schedule_season_id = $seasonId;
-                $model->schedule_stage_id = $scheduleStageArray[$i];
-                $model->schedule_tournament_type_id = $tournament_type;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
-            }
-
+            $data[] = [$date, $seasonId, $scheduleStageArray[$i], $tournamentType];
             if ($conference) {
-                $transaction = Yii::$app->db->beginTransaction();
-                try {
-                    $model = new Schedule();
-                    $model->schedule_date = $date;
-                    $model->schedule_season_id = $seasonId;
-                    $model->schedule_stage_id = $scheduleConferenceStageArray[$i];
-                    $model->schedule_tournament_type_id = TournamentType::CONFERENCE;
-                    if (!$model->save()) {
-                        throw new Exception(ErrorHelper::modelErrorsToString($model));
-                    }
-                    $transaction->commit();
-                } catch (Exception $e) {
-                    $transaction->rollBack();
-                    ErrorHelper::log($e);
-                }
+                $data[] = [$date, $seasonId, $scheduleConferenceStageArray[$i], TournamentType::CONFERENCE];
             }
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Schedule::tableName(),
+                ['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'],
+                $data
+            )
+            ->execute();
     }
 }

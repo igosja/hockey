@@ -29,13 +29,7 @@ class Complaint extends ActiveRecord
     public function rules(): array
     {
         return [
-            [
-                ['complaint_forum_message_id'],
-                'in',
-                'range' => ForumMessage::find()->select(['forum_message_id'])->column()
-            ],
-            [['complaint_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['complaint_id', 'complaint_date'], 'integer'],
+            [['complaint_forum_message_id', 'complaint_id', 'complaint_date', 'complaint_user_id'], 'integer'],
             [['complaint_forum_message_id'], 'required'],
         ];
     }

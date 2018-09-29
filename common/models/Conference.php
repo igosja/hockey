@@ -45,8 +45,6 @@ class Conference extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['conference_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['conference_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [
                 [
                     'conference_id',

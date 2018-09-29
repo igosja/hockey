@@ -31,9 +31,7 @@ class TransferPosition extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_position_transfer_id'], 'in', 'range' => Player::find()->select(['transfer_id'])->column()],
-            [['transfer_position_position_id'], 'in', 'range' => Position::find()->select(['position_id'])->column()],
-            [['transfer_position_id'], 'integer'],
+            [['transfer_position_id', 'transfer_position_position_id', 'transfer_position_transfer_id'], 'integer'],
             [['transfer_position_transfer_id', 'transfer_position_position_id'], 'required'],
         ];
     }

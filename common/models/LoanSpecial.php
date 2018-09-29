@@ -32,9 +32,7 @@ class LoanSpecial extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_special_loan_id'], 'in', 'range' => Player::find()->select(['loan_id'])->column()],
-            [['loan_special_special_id'], 'in', 'range' => Special::find()->select(['special_id'])->column()],
-            [['loan_special_id', 'loan_special_level'], 'integer'],
+            [['loan_special_id', 'loan_special_level', 'loan_special_loan_id', 'loan_special_special_id'], 'integer'],
             [['loan_special_level', 'loan_special_loan_id', 'loan_special_special_id'], 'required'],
         ];
     }

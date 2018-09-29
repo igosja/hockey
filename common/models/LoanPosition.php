@@ -31,9 +31,7 @@ class LoanPosition extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_position_loan_id'], 'in', 'range' => Player::find()->select(['loan_id'])->column()],
-            [['loan_position_position_id'], 'in', 'range' => Position::find()->select(['position_id'])->column()],
-            [['loan_position_id'], 'integer'],
+            [['loan_position_id', 'loan_position_loan_id', 'loan_position_position_id'], 'integer'],
             [['loan_position_loan_id', 'loan_position_position_id'], 'required'],
         ];
     }

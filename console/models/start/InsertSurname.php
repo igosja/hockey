@@ -2591,7 +2591,7 @@ class InsertSurname
             'Ященко',
         ];
 
-        $surname_array = array(
+        $surnameArray = array(
 //            array(
 //                'country' => 'Canada',
 //                'list' => $eng_surname,
@@ -2642,38 +2642,47 @@ class InsertSurname
             ),
         );
 
-        foreach ($surname_array as $country) {
+        $data = [];
+        foreach ($surnameArray as $country) {
             $countryId = Country::find()
                 ->select(['country_id'])
                 ->where(['country_name' => $country['country']])
                 ->limit(1)
                 ->scalar();
 
+            $surnameCountryList = Surname::find()
+                ->where(['surname_name' => $country['list']])
+                ->indexBy(['surname_name'])
+                ->all();
             foreach ($country['list'] as $item) {
+                if (isset($surnameCountryList[$item])) {
+                    $data[] = [$countryId, $surnameCountryList[$item]->surname_id];
+                    continue;
+                }
+
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-                    $surname = Surname::findOne(['surname_name' => $item]);
-                    if (!$surname) {
                         $surname = new Surname();
                         $surname->surname_name = $item;
                         if (!$surname->save()) {
                             throw new Exception(ErrorHelper::modelErrorsToString($surname));
                         }
-                    }
-
-                    $nameCountry = new SurnameCountry();
-                    $nameCountry->surname_country_country_id = $countryId;
-                    $nameCountry->surname_country_surname_id = $surname->surname_id;
-                    if (!$nameCountry->save()) {
-                        throw new Exception(ErrorHelper::modelErrorsToString($nameCountry));
-                    }
-
                     $transaction->commit();
+                    $data[] = [$countryId, $surname->surname_id];
                 } catch (Exception $e) {
                     $transaction->rollBack();
                     ErrorHelper::log($e);
                 }
             }
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                SurnameCountry::tableName(),
+                ['surname_country_country_id', 'surname_country_surname_id'],
+                $data
+            )
+            ->execute();
     }
 }

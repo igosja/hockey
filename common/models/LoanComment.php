@@ -31,9 +31,16 @@ class LoanComment extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_comment_loan_id'], 'in', 'range' => Loan::find()->select(['loan_id'])->column()],
-            [['loan_comment_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['loan_comment_id', '$loan_comment_check', 'loan_comment_date'], 'integer'],
+            [
+                [
+                    'loan_comment_id',
+                    '$loan_comment_check',
+                    'loan_comment_date',
+                    'loan_comment_loan_id',
+                    'loan_comment_user_id',
+                ],
+                'integer'
+            ],
             [['loan_comment_loan_id', 'loan_comment_text'], 'required'],
             [['loan_comment_text'], 'safe'],
             [['loan_comment_text'], 'trim'],

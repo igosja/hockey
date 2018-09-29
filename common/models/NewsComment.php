@@ -31,9 +31,16 @@ class NewsComment extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['news_comment_news_id'], 'in', 'range' => News::find()->select(['news_id'])->column()],
-            [['news_comment_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['news_comment_id', '$news_comment_check', 'news_comment_date'], 'integer'],
+            [
+                [
+                    'news_comment_id',
+                    '$news_comment_check',
+                    'news_comment_date',
+                    'news_comment_news_id',
+                    'news_comment_user_id',
+                ],
+                'integer'
+            ],
             [['news_comment_news_id', 'news_comment_text'], 'required'],
             [['news_comment_text'], 'safe'],
             [['news_comment_text'], 'trim'],

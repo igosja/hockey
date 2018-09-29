@@ -22,7 +22,7 @@ class InsertTeam
      */
     public function execute(): void
     {
-        $team_array = [
+        $teamArray = [
 //            [
 //                'country' => 'Canada',
 //                'list' => [
@@ -497,7 +497,7 @@ class InsertTeam
             ],
         ];
 
-        foreach ($team_array as $country) {
+        foreach ($teamArray as $country) {
             $countryId = Country::find()
                 ->select(['country_id'])
                 ->where(['country_name' => $country['country']])
