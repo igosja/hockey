@@ -20,6 +20,7 @@ class SetTicketPrice
             ['game_ticket' => Game::TICKET_PRICE_DEFAULT],
             [
                 'game_played' => 0,
+                'game_ticket' => 0,
                 'game_schedule_id' => Schedule::find()
                     ->select(['schedule_id'])
                     ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')

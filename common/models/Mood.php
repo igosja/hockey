@@ -13,9 +13,9 @@ use yii\db\ActiveRecord;
  */
 class Mood extends ActiveRecord
 {
-    const NORMAL = 1;
-    const REST = 2;
-    const SUPER = 3;
+    const NORMAL = 2;
+    const REST = 3;
+    const SUPER = 1;
 
     /**
      * @return string

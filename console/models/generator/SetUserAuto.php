@@ -37,6 +37,7 @@ class SetUserAuto
                     ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ]
         );
+
         Team::updateAll(
             ['team_auto' => 0],
             [

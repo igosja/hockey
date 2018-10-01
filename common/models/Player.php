@@ -145,6 +145,9 @@ class Player extends ActiveRecord
                 if (!$this->player_tire) {
                     $this->player_tire = 50;
                 }
+                if ($this->player_team_id) {
+                    $this->player_school_id = $this->player_team_id;
+                }
 
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
@@ -153,7 +156,6 @@ class Player extends ActiveRecord
                 $this->player_physical_id = $physical->physical_id;
                 $this->player_power_nominal_s = $this->player_power_nominal;
                 $this->player_power_old = $this->player_power_nominal;
-                $this->player_school_id = $this->player_team_id;
                 $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
                 $this->player_training_ability = rand(1, 5);
                 $this->countRealPower($physical);

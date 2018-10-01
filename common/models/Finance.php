@@ -65,12 +65,9 @@ class Finance extends ActiveRecord
                     'finance_level',
                     'finance_national_id',
                     'finance_player_id',
-                    'finance_position_id',
                     'finance_season_id',
                     'finance_team_id',
-                    'finance_team_2_id',
                     'finance_user_id',
-                    'finance_user_2_id',
                     'finance_value',
                     'finance_value_after',
                     'finance_value_before'
@@ -78,7 +75,7 @@ class Finance extends ActiveRecord
                 'integer'
             ],
             [['finance_finance_text_id'], 'required'],
-            [['finance_comment'], 'safe'],
+            [['finance_comment'], 'string', 'max' => 255],
         ];
     }
 

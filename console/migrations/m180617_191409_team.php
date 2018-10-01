@@ -52,7 +52,7 @@ class m180617_191409_team extends Migration
             'team_stadium_id' => $this->integer(11)->defaultValue(0),
             'team_user_id' => $this->integer(11)->defaultValue(0),
             'team_vice_id' => $this->integer(11)->defaultValue(0),
-            'team_visitor' => $this->integer(3)->defaultValue(0),
+            'team_visitor' => $this->integer(3)->defaultValue(100),
         ]);
 
         $this->insert(self::TABLE, [

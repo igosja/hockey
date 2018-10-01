@@ -137,7 +137,7 @@ class GeneratorController extends BaseController
             (new PlusMinus())->execute();
             (new DecreaseTeamwork())->execute();
             (new Standing())->execute();
-            (new StandingPlace())->execute();
+            (new StandingPlace())->execute();//continue on this class
             (new PlayerGameRow())->execute();
             (new PlayerTire())->execute();
             (new UpdateTraining())->execute();

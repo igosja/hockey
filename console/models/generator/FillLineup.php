@@ -20,6 +20,7 @@ class FillLineup
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['nationalGuest', 'nationalHome'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -32,12 +33,12 @@ class FillLineup
                 if (0 == $i) {
                     $moodId = $game->game_guest_mood_id;
                     $nationalId = $game->game_guest_national_id;
-                    $countryId = $game->nationalGuest->national_country_id ?? 0;
+                    $countryId = $game->nationalGuest->national_country_id ?? null;
                     $teamId = $game->game_guest_team_id;
                 } else {
                     $moodId = $game->game_home_mood_id;
                     $nationalId = $game->game_home_national_id;
-                    $countryId = $game->nationalHome->national_country_id ?? 0;
+                    $countryId = $game->nationalHome->national_country_id ?? null;
                     $teamId = $game->game_home_team_id;
                 }
 
@@ -88,8 +89,9 @@ class FillLineup
                             ->where([
                                 'player_team_id' => 0,
                                 'player_loan_team_id' => 0,
+                                'player_school_id' => 0,
                                 'player_injury_day' => 0,
-                                'player_position_player_id' => $positionId,
+                                'player_position_position_id' => $positionId,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
@@ -97,13 +99,13 @@ class FillLineup
                             ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                             ->limit(1);
 
-                        if (0 == $moodId) {
-                            if (0 != $teamId) {
+                        if (!$moodId) {
+                            if ($teamId) {
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
                                     ->where([
                                         'player_injury_day' => 0,
-                                        'player_position_player_id' => $positionId,
+                                        'player_position_position_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
                                     ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])

@@ -60,6 +60,7 @@ class GameResult
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -377,12 +378,13 @@ class GameResult
             }
 
             $lineupArray = Lineup::find()
+                ->with(['player'])
                 ->where([
                     'lineup_game_id' => $this->result['game_info']['game_id'],
                     'lineup_national_id' => $this->result['game_info'][$team . '_national_id'],
                     'lineup_team_id' => $this->result['game_info'][$team . '_team_id'],
                 ])
-                ->orderBy(['lineup_line_id', 'lineup_position_id'])
+                ->orderBy(['lineup_line_id' => SORT_ASC, 'lineup_position_id' => SORT_ASC])
                 ->all();
 
             $this->result[$team]['player']['gk']['age'] = $lineupArray[0]->player->player_age;
@@ -461,7 +463,6 @@ class GameResult
      */
     private function countPlayerBonus(): void
     {
-
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
                 $team = 'home';
@@ -2148,7 +2149,7 @@ class GameResult
                 $loose = 'home';
             }
         } elseif ($this->result['home']['team']['score']['total'] > $this->result['guest']['team']['score']['total']) {
-            if (0 != $this->result['home']['team']['score']['over']) {
+            if (0 != $this->result['home']['team']['score']['overtime']) {
                 $this->result['home']['team']['win_overtime'] = 1;
                 $this->result['guest']['team']['loose_overtime'] = 1;
                 $this->result['home']['player']['field'][$this->result['home']['team']['score']['last']['score']]['score_win'] = 1;
@@ -2161,7 +2162,7 @@ class GameResult
             $win = 'home';
             $loose = 'guest';
         } else {
-            if (0 != $this->result['guest']['team']['score']['over']) {
+            if (0 != $this->result['guest']['team']['score']['overtime']) {
                 $this->result['guest']['team']['win_overtime'] = 1;
                 $this->result['home']['team']['loose_overtime'] = 1;
                 $this->result['guest']['player']['field'][$this->result['guest']['team']['score']['last']['score']]['score_win'] = 1;

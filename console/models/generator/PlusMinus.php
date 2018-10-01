@@ -31,6 +31,7 @@ class PlusMinus
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -98,11 +99,11 @@ class PlusMinus
 
         Game::updateAll(
             ['game_guest_plus_minus' => new Expression('FLOOR(`game_guest_plus_minus`)+ROUND(RAND())')],
-            ['CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`', 'game_schedule_id' => $subQuery]
+            ['and', 'CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`', ['game_schedule_id' => $subQuery]]
         );
         Game::updateAll(
             ['game_home_plus_minus' => new Expression('FLOOR(`game_home_plus_minus`)+ROUND(RAND())')],
-            ['CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`', 'game_schedule_id' => $subQuery]
+            ['and', 'CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`', ['game_schedule_id' => $subQuery]]
         );
 
         $gameArray = Game::find()
@@ -116,6 +117,7 @@ class PlusMinus
 
             if ($this->game->game_home_plus_minus < 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -139,6 +141,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_home_plus_minus > 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -164,6 +167,7 @@ class PlusMinus
 
             if ($this->game->game_guest_plus_minus < 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,
@@ -187,6 +191,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_guest_plus_minus > 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,

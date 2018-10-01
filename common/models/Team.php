@@ -125,7 +125,6 @@ class Team extends ActiveRecord
             [['team_age'], 'number'],
             [['team_name'], 'string', 'max' => 255],
             [['team_name'], 'trim'],
-            [['team_stadium_id'], 'unique'],
         ];
     }
 
@@ -240,15 +239,20 @@ class Team extends ActiveRecord
             Position::LD,
             Position::LD,
             Position::LD,
+            Position::LD,
+            Position::RD,
             Position::RD,
             Position::RD,
             Position::RD,
             Position::LW,
             Position::LW,
             Position::LW,
+            Position::LW,
             Position::CF,
             Position::CF,
             Position::CF,
+            Position::CF,
+            Position::RW,
             Position::RW,
             Position::RW,
             Position::RW,

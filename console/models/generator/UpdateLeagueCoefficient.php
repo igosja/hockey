@@ -11,7 +11,6 @@ use yii\db\Expression;
 /**
  * Class UpdateLeagueCoefficient
  * @package console\models\generator
- * TODO: refactor to DRY
  */
 class UpdateLeagueCoefficient
 {
@@ -22,6 +21,7 @@ class UpdateLeagueCoefficient
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule'])
             ->where(['game_played' => 0, 'schedule_tournament_type_id' => TournamentType::LEAGUE])
             ->andWhere('FROM_UNIXTIME(schedule_date, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
