@@ -154,7 +154,7 @@ class GeneratorController extends BaseController
             (new LeagueLot())->execute();
             (new InsertParticipantChampionship())->execute();
             (new ChampionshipAddGame())->execute();
-            (new ChampionshipLot())->execute();
+            (new ChampionshipLot())->execute();//continue here
             (new InsertAchievement())->execute();
             (new Prize())->execute();
             (new InsertSwiss())->execute();

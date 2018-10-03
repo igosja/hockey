@@ -113,7 +113,6 @@ class LeagueOut
                 ->where(['league_place' => [1, 2], 'league_season_id' => $seasonId])
                 ->orderBy(['league_id' => SORT_ASC])
                 ->all();
-
             foreach ($leagueArray as $league) {
                 $stage8 = 0;
                 $stage4 = 0;

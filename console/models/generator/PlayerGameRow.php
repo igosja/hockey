@@ -23,6 +23,7 @@ class PlayerGameRow
         $this->updatePlayer();
 
         $schedule = Schedule::find()
+            ->with(['tournamentType'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->limit(1)

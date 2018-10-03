@@ -4,7 +4,6 @@ namespace console\models\generator;
 
 use common\models\Scout;
 use Yii;
-use yii\db\Expression;
 
 /**
  * Class UpdateScout
@@ -28,7 +27,7 @@ class UpdateScout
         Yii::$app->db->createCommand($sql)->execute();
 
         Scout::updateAll(
-            ['scout_percent' => 100, 'scout_ready' => new Expression('UNIX_TIMESTAMP')],
+            ['scout_percent' => 100, 'scout_ready' => time()],
             ['and', ['scout_ready' => 0], ['>=', 'scout_percent', 100]]
         );
     }

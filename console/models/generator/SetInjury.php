@@ -36,10 +36,12 @@ class SetInjury
                 'game.schedule',
                 'player'
             ])
+            ->with(['player'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->andWhere(['player_injury_day' => 0])
             ->andWhere(['not', ['player_team_id' => $playerSubQuery]])
-            ->orderBy(['player.player_tire' => SORT_DESC, 'RAND()'])
+            ->orderBy(['player_tire' => SORT_DESC])
+            ->addOrderBy('RAND()')
             ->limit(1)
             ->one();
         if (!$lineup) {
