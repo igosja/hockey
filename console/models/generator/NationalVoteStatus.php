@@ -22,6 +22,7 @@ class NationalVoteStatus
     public function execute(): void
     {
         $electionNationalArray = ElectionNational::find()
+            ->with(['application'])
             ->where(['election_national_election_status_id' => ElectionStatus::CANDIDATES])
             ->andWhere(['<', 'election_national_date', time() - 172800])
             ->orderBy(['election_national_id' => SORT_ASC])
@@ -36,6 +37,7 @@ class NationalVoteStatus
         }
 
         $electionNationalArray = ElectionNational::find()
+            ->with(['application'])
             ->where(['election_national_election_status_id' => ElectionStatus::OPEN])
             ->andWhere(['<', 'election_national_date', time() - 432000])
             ->orderBy(['election_national_id' => SORT_ASC])

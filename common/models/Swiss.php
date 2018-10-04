@@ -16,6 +16,8 @@ use yii\db\ActiveRecord;
  */
 class Swiss extends ActiveRecord
 {
+    public $opponent;
+
     /**
      * @return string
      */

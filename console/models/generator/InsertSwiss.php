@@ -117,7 +117,7 @@ class InsertSwiss
             for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
                 $subQuery = Game::find()
                     ->select('IF(`game_home_team_id`=' . $teamArray[$i]->swiss_team_id . ', `game_guest_team_id`, `game_home_team_id`) AS `game_home_team_id`')
-                    ->with(['schedule'])
+                    ->joinWith(['schedule'])
                     ->where([
                         'or',
                         ['game_home_team_id' => $teamArray[$i]->swiss_team_id],
@@ -132,11 +132,11 @@ class InsertSwiss
                 $free = Swiss::find()
                     ->select(['swiss_team_id'])
                     ->where(['!=', 'swiss_team_id', $teamArray[$i]->swiss_team_id])
-                    ->andWhere(['not', ['swiss_team_id', $subQuery]])
+                    ->andWhere(['not', ['swiss_team_id' => $subQuery]])
                     ->orderBy(['swiss_id' => SORT_ASC])
                     ->column();
 
-                $teamArray[$i]['opponent'] = $free;
+                $teamArray[$i]->opponent = $free;
             }
         }
 

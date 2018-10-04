@@ -21,6 +21,7 @@ class TransferCheck
     public function execute(): void
     {
         $transferArray = Transfer::find()
+            ->with(['player.schoolTeam', 'seller', 'buyer'])
             ->where(['transfer_checked' => 0])
             ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere('FROM_UNIXTIME(`transfer_ready`+604800, "%Y-%m-%d")<=CURDATE()')

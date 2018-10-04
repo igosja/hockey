@@ -137,7 +137,7 @@ class GeneratorController extends BaseController
             (new PlusMinus())->execute();
             (new DecreaseTeamwork())->execute();
             (new Standing())->execute();
-            (new StandingPlace())->execute();//continue on this class
+            (new StandingPlace())->execute();
             (new PlayerGameRow())->execute();
             (new PlayerTire())->execute();
             (new UpdateTraining())->execute();
@@ -154,7 +154,7 @@ class GeneratorController extends BaseController
             (new LeagueLot())->execute();
             (new InsertParticipantChampionship())->execute();
             (new ChampionshipAddGame())->execute();
-            (new ChampionshipLot())->execute();//continue here
+            (new ChampionshipLot())->execute();
             (new InsertAchievement())->execute();
             (new Prize())->execute();
             (new InsertSwiss())->execute();
@@ -163,7 +163,7 @@ class GeneratorController extends BaseController
             (new TransferCheck())->execute();
             (new MakeLoan())->execute();
             (new LoanCheck())->execute();
-            (new TireBaseLevel())->execute();
+            (new TireBaseLevel())->execute();//continue here
             (new GameRowReset())->execute();
             (new MoodReset())->execute();
             (new IncreaseNationalUserDay())->execute();
@@ -190,7 +190,7 @@ class GeneratorController extends BaseController
             (new TeamAge())->execute();
             (new TeamPlayerCount())->execute();
             (new CountryStadiumCapacity())->execute();
-            (new UpdateUserTotalRating())->execute();
+            (new UpdateUserTotalRating())->execute();//continue here
             (new UpdateRating())->execute();
             (new InsertNews())->execute();
             (new PresidentVip())->execute();

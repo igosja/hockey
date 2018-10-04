@@ -35,6 +35,7 @@ class MakeLoan
 
         $loanArray = Loan::find()
             ->joinWith(['player'])
+            ->with(['seller', 'player'])
             ->where(['loan_ready' => 0])
             ->andWhere('`loan_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'loan_id' => SORT_ASC])
@@ -133,6 +134,7 @@ class MakeLoan
 
             $loanApplication = LoanApplication::find()
                 ->joinWith(['team'])
+                ->with(['team'])
                 ->where(['loan_application_loan_id' => $loan->loan_id])
                 ->andWhere(['not', ['loan_application_team_id' => $teamArray]])
                 ->andWhere(['not', ['loan_application_user_id' => $userArray]])
@@ -216,8 +218,8 @@ class MakeLoan
                     'history_value' => $price,
                 ]);
 
-                Transfer::deleteAll(['loan_player_id' => $loan->loan_player_id]);
-                Loan::deleteAll(['loan_player_id' => $loan->loan_player_id]);
+                Transfer::deleteAll(['loan_player_id' => $loan->loan_player_id, 'transfer_ready' => 0]);
+                Loan::deleteAll(['loan_player_id' => $loan->loan_player_id, 'loan_ready' => 0]);
 
                 if ($loanApplication->loan_application_only_one) {
                     $subQuery = Loan::find()

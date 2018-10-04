@@ -26,6 +26,6 @@ class UserDecrementAutoForVocation
                 AND `user_holiday`!=0";
         Yii::$app->db->createCommand($sql)->execute();
 
-        Team::updateAll(['team_auto' => 0], ['and', ['!=', 'team_auto', 0], ['!=', 'team_user_id', 0]]);
+        Team::updateAll(['team_auto' => 0], ['and', ['!=', 'team_auto', 0], ['=', 'team_user_id', 0]]);
     }
 }

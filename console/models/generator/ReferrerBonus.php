@@ -20,6 +20,7 @@ class ReferrerBonus
     {
         $userArray = User::find()
             ->joinWith(['team'])
+            ->with(['referrer'])
             ->where(['!=', 'user_referrer_id', 0])
             ->andWhere(['user_referrer_done' => 0])
             ->andWhere(['>', 'user_date_login', new Expression('user_date_register+2592000')])

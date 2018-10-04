@@ -35,6 +35,7 @@ class MakeTransfer
 
         $transferArray = Transfer::find()
             ->joinWith(['player'])
+            ->with(['seller', 'player.schoolTeam'])
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
@@ -133,6 +134,7 @@ class MakeTransfer
 
             $transferApplication = TransferApplication::find()
                 ->joinWith(['team'])
+                ->with(['team'])
                 ->where(['transfer_application_transfer_id' => $transfer->transfer_id])
                 ->andWhere(['not', ['transfer_application_team_id' => $teamArray]])
                 ->andWhere(['not', ['transfer_application_user_id' => $userArray]])
@@ -307,8 +309,8 @@ class MakeTransfer
                     'history_value' => $transferApplication->transfer_application_price,
                 ]);
 
-                Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id]);
-                Loan::deleteAll(['loan_player_id' => $transfer->transfer_player_id]);
+                Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id, 'transfer_ready' => 0]);
+                Loan::deleteAll(['loan_player_id' => $transfer->transfer_player_id, 'loan_ready' => 0]);
             }
         }
     }

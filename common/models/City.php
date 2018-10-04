@@ -52,6 +52,6 @@ class City extends ActiveRecord
      */
     public function getStadium(): ActiveQuery
     {
-        return $this->hasMany(Stadium::class, ['stadium_city_id' => 'stadium_id']);
+        return $this->hasMany(Stadium::class, ['stadium_city_id' => 'city_id']);
     }
 }

@@ -23,6 +23,7 @@ class PresidentViceVoteStatus
     public function execute(): void
     {
         $electionPresidentViceArray = ElectionPresidentVice::find()
+            ->with(['application'])
             ->where(['election_president_vice_election_status_id' => ElectionStatus::CANDIDATES])
             ->andWhere(['<', 'election_president_vice_date', time() - 172800])
             ->orderBy(['election_president_vice_id' => SORT_ASC])
@@ -37,6 +38,7 @@ class PresidentViceVoteStatus
         }
 
         $electionPresidentViceArray = ElectionPresidentVice::find()
+            ->with(['application'])
             ->where(['election_president_vice_election_status_id' => ElectionStatus::OPEN])
             ->andWhere(['<', 'election_president_vice_date', time() - 432000])
             ->orderBy(['election_president_vice_id' => SORT_ASC])

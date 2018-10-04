@@ -19,6 +19,7 @@ class LoanCheck
     public function execute(): void
     {
         $loanArray = Loan::find()
+            ->with(['seller', 'buyer'])
             ->where(['loan_checked' => 0])
             ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere('FROM_UNIXTIME(`loan_ready`+604800, "%Y-%m-%d")<=CURDATE()')

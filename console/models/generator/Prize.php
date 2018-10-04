@@ -35,6 +35,7 @@ class Prize
         foreach ($scheduleArray as $schedule) {
             if (TournamentType::OFF_SEASON == $schedule->schedule_tournament_type_id && Stage::TOUR_12 == $schedule->schedule_stage_id) {
                 $offSeasonArray = OffSeason::find()
+                    ->with(['team'])
                     ->where(['off_season_season_id' => $seasonId])
                     ->orderBy(['off_season_id' => SORT_ASC])
                     ->each();
@@ -57,6 +58,7 @@ class Prize
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id && Stage::TOUR_33 == $schedule->schedule_stage_id) {
                 $championshipArray = ParticipantChampionship::find()
+                    ->with(['team'])
                     ->where([
                         'participant_championship_season_id' => $seasonId,
                         'participant_championship_stage_id' => Stage::QUARTER
@@ -82,6 +84,7 @@ class Prize
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id && Stage::TOUR_36 == $schedule->schedule_stage_id) {
                 $championshipArray = ParticipantChampionship::find()
+                    ->with(['team'])
                     ->where([
                         'participant_championship_season_id' => $seasonId,
                         'participant_championship_stage_id' => Stage::SEMI
@@ -107,6 +110,7 @@ class Prize
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id && Stage::TOUR_41 == $schedule->schedule_stage_id) {
                 $championshipArray = ParticipantChampionship::find()
+                    ->with(['team'])
                     ->where([
                         'participant_championship_season_id' => $seasonId,
                         'participant_championship_stage_id' => [Stage::FINAL, 0]
@@ -138,6 +142,7 @@ class Prize
                 }
 
                 $conferenceArray = Conference::find()
+                    ->with(['team'])
                     ->where(['conference_season_id' => $seasonId])
                     ->orderBy(['conference_id' => SORT_ASC])
                     ->each();
@@ -160,6 +165,7 @@ class Prize
                 }
             } elseif (TournamentType::CHAMPIONSHIP == $schedule->schedule_tournament_type_id && Stage::TOUR_30 == $schedule->schedule_stage_id) {
                 $championshipArray = Championship::find()
+                    ->with(['team'])
                     ->where(['championship_season_id' => $seasonId])
                     ->orderBy(['championship_id' => SORT_ASC])
                     ->each();
@@ -167,8 +173,12 @@ class Prize
                     /**
                      * @var Championship $championship
                      */
-                    $prize = round(20000000 * pow(0.98,
-                            ($championship->championship_place - 1) + ($championship->championship_division_id - 1) * 16));
+                    $prize = round(
+                        20000000 * pow(
+                            0.98,
+                            ($championship->championship_place - 1) + ($championship->championship_division_id - 1) * 16
+                        )
+                    );
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_PRIZE_CHAMPIONSHIP,
@@ -182,26 +192,27 @@ class Prize
                     $championship->team->save();
                 }
             } elseif (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id && Stage::TOUR_11 == $schedule->schedule_stage_id) {
-                $worldcupArray = WorldCup::find()
+                $worldCupArray = WorldCup::find()
+                    ->with(['national'])
                     ->where(['world_cup_season_id' => $seasonId])
                     ->each();
-                foreach ($worldcupArray as $worldcup) {
+                foreach ($worldCupArray as $worldCup) {
                     /**
-                     * @var WorldCup $worldcup
+                     * @var WorldCup $worldCup
                      */
                     $prize = round(25000000 * pow(0.98,
-                            ($worldcup->world_cup_place - 1) + ($worldcup->world_cup_division_id - 1) * 12));
+                            ($worldCup->world_cup_place - 1) + ($worldCup->world_cup_division_id - 1) * 12));
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_PRIZE_WORLDCUP,
-                        'finance_national_id' => $worldcup->world_cup_national_id,
+                        'finance_national_id' => $worldCup->world_cup_national_id,
                         'finance_value' => $prize,
-                        'finance_value_after' => $worldcup->national->national_finance + $prize,
-                        'finance_value_before' => $worldcup->national->national_finance,
+                        'finance_value_after' => $worldCup->national->national_finance + $prize,
+                        'finance_value_before' => $worldCup->national->national_finance,
                     ]);
 
-                    $worldcup->national->national_finance = $worldcup->national->national_finance + $prize;
-                    $worldcup->national->save();
+                    $worldCup->national->national_finance = $worldCup->national->national_finance + $prize;
+                    $worldCup->national->save();
                 }
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && in_array($schedule->schedule_stage_id,
                     [
@@ -220,6 +231,7 @@ class Prize
                     ->one();
                 if ($nextStage->schedule_stage_id != $schedule->schedule_stage_id) {
                     $leagueArray = ParticipantLeague::find()
+                        ->with(['team'])
                         ->where([
                             'participant_league_season_id' => $seasonId,
                             'participant_league_stage_id' => $schedule->schedule_stage_id
@@ -254,6 +266,7 @@ class Prize
                 }
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && Stage::TOUR_LEAGUE_6 == $schedule->schedule_stage_id) {
                 $leagueArray = ParticipantLeague::find()
+                    ->with(['team'])
                     ->where(['participant_league_season_id' => $seasonId, 'participant_league_stage_id' => [3, 4]])
                     ->orderBy(['participant_league_id' => SORT_ASC])
                     ->all();
@@ -286,6 +299,7 @@ class Prize
                     continue;
                 }
                 $leagueArray = ParticipantLeague::find()
+                    ->with(['team'])
                     ->where([
                         'participant_league_season_id' => $seasonId,
                         'participant_league_stage_id' => [Stage::FINAL, 0]

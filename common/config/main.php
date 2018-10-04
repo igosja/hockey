@@ -5,8 +5,6 @@ return [
         '@npm' => '@vendor/npm-asset',
         '@runtime' => '@frontend/runtime',
     ],
-    'language' => 'en',
-    'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,4 +25,7 @@ return [
             ],
         ],
     ],
+    'language' => 'en',
+    'timeZone' => 'Europe/Kiev',
+    'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 ];
