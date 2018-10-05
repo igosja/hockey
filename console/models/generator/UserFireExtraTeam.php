@@ -20,7 +20,7 @@ class UserFireExtraTeam
     public function execute(): void
     {
         $userArray = Team::find()
-            ->joinWith(['user'])
+            ->joinWith(['manager'])
             ->where(['user_holiday' => 0])
             ->andWhere(['!=', 'team_user_id', 0])
             ->andWhere(['<', 'user_date_vip', time()])
@@ -54,7 +54,7 @@ class UserFireExtraTeam
         }
 
         $userArray = Team::find()
-            ->joinWith(['user'])
+            ->joinWith(['manager'])
             ->where(['user_holiday' => 0])
             ->andWhere(['!=', 'team_user_id', 0])
             ->andWhere(['>=', 'user_date_vip', time()])

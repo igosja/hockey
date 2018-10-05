@@ -83,7 +83,7 @@ class UpdateRating
                 $order = '`team_visitor` DESC';
                 $place = 'rating_team_visitor_place';
             } elseif (RatingType::TEAM_BASE == $ratingType->rating_type_id) {
-                $order = '`team_base_id`+`team_baseme_dical_id`+`team_base_physical_id`+`team_base_school_id`+`team_base_scout_id`+`team_base_training_id` DESC';
+                $order = '`team_base_id`+`team_base_medical_id`+`team_base_physical_id`+`team_base_school_id`+`team_base_scout_id`+`team_base_training_id` DESC';
                 $place = 'rating_team_base_place';
             } elseif (RatingType::TEAM_PRICE_BASE == $ratingType->rating_type_id) {
                 $order = '`team_price_base` DESC';
@@ -163,7 +163,7 @@ class UpdateRating
                 $position = 1;
                 $userArray = User::find()
                     ->joinWith(['team'])
-                    ->where(['not', ['team' => null]])
+                    ->where(['not', ['team_id' => null]])
                     ->andWhere(['!=', 'user_id', 0])
                     ->groupBy(['user_id'])
                     ->orderBy(new Expression($order . ', `user_id` ASC'))

@@ -190,7 +190,7 @@ class GeneratorController extends BaseController
             (new TeamAge())->execute();
             (new TeamPlayerCount())->execute();
             (new CountryStadiumCapacity())->execute();
-            (new UpdateUserTotalRating())->execute();//continue here
+            (new UpdateUserTotalRating())->execute();
             (new UpdateRating())->execute();
             (new InsertNews())->execute();
             (new PresidentVip())->execute();

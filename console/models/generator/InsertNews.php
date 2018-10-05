@@ -26,12 +26,14 @@ class InsertNews
     public function execute(): void
     {
         $todayArray = Schedule::find()
+            ->with(['stage'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
         $today = $this->text($todayArray);
 
         $tomorrowArray = Schedule::find()
+            ->with(['stage'])
             ->where('FROM_UNIXTIME(`schedule_date`-86400, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
@@ -196,37 +198,37 @@ class InsertNews
 
     /**
      * @param Schedule[] $scheduleArray
-     * @return array
+     * @return string
      */
-    private function text(array $scheduleArray): array
+    private function text(array $scheduleArray): string
     {
         $result = [];
 
         foreach ($scheduleArray as $schedule) {
             if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
-                $result[] = $schedule['stage_name'] . 'а Чемпионата мира среди сборных';
+                $result[] = $schedule->stage->stage_name . 'а Чемпионата мира среди сборных';
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1 && $schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_6) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . 'а Лиги чемпионов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::QUARTER) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . ' Лиги чемпионов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::FINAL) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . ' финала Лиги чемпионов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала Лиги чемпионов';
                 } elseif (Stage::FINAL == $schedule->schedule_stage_id) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . 'а Лиги чемпионов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
                 }
             } elseif (TournamentType::CHAMPIONSHIP == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . 'а национальных чемпионатов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
                 } elseif ($schedule->schedule_stage_id <= Stage::FINAL) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . ' финала национальных чемпионатов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала национальных чемпионатов';
                 } elseif (Stage::FINAL == $schedule->schedule_stage_id) {
-                    $result[] = 'матчи ' . $schedule['stage_name'] . 'а национальных чемпионатов';
+                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $schedule['stage_name'] . 'а конференции любительских клубов';
+                $result[] = 'матчи ' . $schedule->stage->stage_name . 'а конференции любительских клубов';
             } elseif (TournamentType::OFF_SEASON == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $schedule['stage_name'] . 'а кубка межсезонья';
+                $result[] = 'матчи ' . $schedule->stage->stage_name . 'а кубка межсезонья';
             } elseif (TournamentType::FRIENDLY == $schedule->schedule_tournament_type_id) {
                 $result[] = 'товарищеские матчи';
             }

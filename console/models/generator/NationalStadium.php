@@ -17,7 +17,7 @@ class NationalStadium
     public function execute(): void
     {
         $nationalArray = National::find()
-            ->orderBy(['national_id'])
+            ->orderBy(['national_id' => SORT_ASC])
             ->each();
         foreach ($nationalArray as $national) {
             /**
@@ -27,7 +27,8 @@ class NationalStadium
                 ->joinWith(['city'])
                 ->where(['city_country_id' => $national->national_country_id])
                 ->orderBy(['stadium_capacity' => SORT_DESC, 'stadium_id' => SORT_ASC])
-                ->limit($national->national_national_type_id)
+                ->offset($national->national_national_type_id - 1)
+                ->limit(1)
                 ->one();
             if (!$stadium) {
                 continue;
