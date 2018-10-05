@@ -560,50 +560,50 @@ class InsertName
         ];
 
         $nameArray = [
-//            [
-//                'country' => 'Canada',
-//                'list' => $engName,
-//            ],
-//            [
-//                'country' => 'Russia',
-//                'list' => $rusName,
-//            ],
-//            [
-//                'country' => 'USA',
-//                'list' => $engName,
-//            ],
-//            [
-//                'country' => 'Finland',
-//                'list' => $finName,
-//            ],
-//            [
-//                'country' => 'Sweden',
-//                'list' => $sweName,
-//            ],
-//            [
-//                'country' => 'Czech Republic',
-//                'list' => $cheName,
-//            ],
-//            [
-//                'country' => 'Switzerland',
-//                'list' => $gerName,
-//            ],
-//            [
-//                'country' => 'Slovakia',
-//                'list' => $cheName,
-//            ],
-//            [
-//                'country' => 'Belarus',
-//                'list' => $rusName,
-//            ],
-//            [
-//                'country' => 'Germany',
-//                'list' => $gerName,
-//            ],
-//            [
-//                'country' => 'Norway',
-//                'list' => $norName,
-//            ],
+            [
+                'country' => 'Canada',
+                'list' => $engName,
+            ],
+            [
+                'country' => 'Russia',
+                'list' => $rusName,
+            ],
+            [
+                'country' => 'USA',
+                'list' => $engName,
+            ],
+            [
+                'country' => 'Finland',
+                'list' => $finName,
+            ],
+            [
+                'country' => 'Sweden',
+                'list' => $sweName,
+            ],
+            [
+                'country' => 'Czech Republic',
+                'list' => $cheName,
+            ],
+            [
+                'country' => 'Switzerland',
+                'list' => $gerName,
+            ],
+            [
+                'country' => 'Slovakia',
+                'list' => $cheName,
+            ],
+            [
+                'country' => 'Belarus',
+                'list' => $rusName,
+            ],
+            [
+                'country' => 'Germany',
+                'list' => $gerName,
+            ],
+            [
+                'country' => 'Norway',
+                'list' => $norName,
+            ],
             [
                 'country' => 'Ukraine',
                 'list' => $rusName,
