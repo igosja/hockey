@@ -83,6 +83,7 @@ return [
             ],
             'rules' => [
                 '' => 'site/index',
+                'login' => 'site/login',
                 'news' => 'news/index',
                 'rules' => 'rule/index',
                 'rule/<id:\d+>' => 'rule/view',

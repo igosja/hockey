@@ -196,98 +196,98 @@ class Menu extends Widget
     {
         $this->menuItemList = [
             self::ITEM_CHANGE_TEAM => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-change-team'),
+                'label' => Yii::t('frontend-widgets-Menu', 'change-team'),
                 'url' => ['team/change'],
             ],
             self::ITEM_FEDERATION => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-federation'),
+                'label' => Yii::t('frontend-widgets-Menu', 'federation'),
                 'url' => ['country/news'],
             ],
             self::ITEM_FORUM => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-forum'),
+                'label' => Yii::t('frontend-widgets-Menu', 'forum'),
                 'target' => '_blank',
                 'url' => ['forum/index'],
             ],
             self::ITEM_HOME => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-home'),
+                'label' => Yii::t('frontend-widgets-Menu', 'home'),
                 'url' => ['site/index'],
             ],
             self::ITEM_LOAN => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-loan'),
+                'label' => Yii::t('frontend-widgets-Menu', 'loan'),
                 'url' => ['loan/index'],
             ],
             self::ITEM_MESSENGER => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-messenger'),
+                'label' => Yii::t('frontend-widgets-Menu', 'messenger'),
                 'url' => ['messenger/index'],
             ],
             self::ITEM_NATIONAL_TEAM => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-national-team'),
+                'label' => Yii::t('frontend-widgets-Menu', 'national-team'),
                 'url' => ['national/index'],
             ],
             self::ITEM_NEWS => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-news'),
+                'label' => Yii::t('frontend-widgets-Menu', 'news'),
                 'url' => ['news/index'],
             ],
             self::ITEM_PASSWORD => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-password'),
+                'label' => Yii::t('frontend-widgets-Menu', 'password'),
                 'url' => ['password/index'],
             ],
             self::ITEM_PLAYER => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-player'),
+                'label' => Yii::t('frontend-widgets-Menu', 'player'),
                 'url' => ['player/index'],
             ],
             self::ITEM_POLL => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-poll'),
+                'label' => Yii::t('frontend-widgets-Menu', 'poll'),
                 'url' => ['poll/index'],
             ],
             self::ITEM_PROFILE => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-profile'),
+                'label' => Yii::t('frontend-widgets-Menu', 'profile'),
                 'url' => ['user/view'],
             ],
             self::ITEM_RATING => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-rating'),
+                'label' => Yii::t('frontend-widgets-Menu', 'rating'),
                 'url' => ['rating/index'],
             ],
             self::ITEM_ROSTER => [
                 'css' => 'red',
-                'label' => Yii::t('app', 'frontend-widgets-menu-roster'),
+                'label' => Yii::t('frontend-widgets-Menu', 'roster'),
                 'url' => ['team/view'],
             ],
             self::ITEM_RULE => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-rule'),
+                'label' => Yii::t('frontend-widgets-Menu', 'rule'),
                 'url' => ['rule/index'],
             ],
             self::ITEM_SCHEDULE => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-schedule'),
+                'label' => Yii::t('frontend-widgets-Menu', 'schedule'),
                 'url' => ['schedule/index'],
             ],
             self::ITEM_SING_UP => [
                 'css' => 'red',
-                'label' => Yii::t('app', 'frontend-widgets-menu-sign-up'),
+                'label' => Yii::t('frontend-widgets-Menu', 'sign-up'),
                 'url' => ['site/sign-up'],
             ],
             self::ITEM_STORE => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-store'),
+                'label' => Yii::t('frontend-widgets-Menu', 'store'),
                 'url' => ['store/index'],
             ],
             self::ITEM_SUPPORT => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-support'),
+                'label' => Yii::t('frontend-widgets-Menu', 'support'),
                 'url' => ['support/index'],
             ],
             self::ITEM_TEAM => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-team'),
+                'label' => Yii::t('frontend-widgets-Menu', 'team'),
                 'url' => ['team/index'],
             ],
             self::ITEM_TOURNAMENT => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-tournament'),
+                'label' => Yii::t('frontend-widgets-Menu', 'tournament'),
                 'url' => ['tournament/index'],
             ],
             self::ITEM_TRANSFER => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-transfer'),
+                'label' => Yii::t('frontend-widgets-Menu', 'transfer'),
                 'url' => ['transfer/index'],
             ],
             self::ITEM_VIP => [
-                'label' => Yii::t('app', 'frontend-widgets-menu-vip'),
+                'label' => Yii::t('frontend-widgets-Menu', 'vip'),
                 'url' => ['vip/index'],
             ],
         ];

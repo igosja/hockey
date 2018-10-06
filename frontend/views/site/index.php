@@ -15,10 +15,10 @@ use yii\helpers\Html;
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1><?= Yii::t('app', 'frontend-views-site-index-h1'); ?></h1>
-                <?= Yii::t('app', 'frontend-views-site-index-text-seo', [
+                <h1><?= Yii::t('frontend-views-site-index', 'h1'); ?></h1>
+                <?= Yii::t('frontend-views-site-index', 'text-seo', [
                     'sign-up' => Yii::$app->user->isGuest ? '<p class="text-center">' . Html::a(
-                            Yii::t('app', 'frontend-views-site-index-link-sign-up'),
+                            Yii::t('frontend-views-site-index', 'link-sign-up'),
                             ['site/sign-up'],
                             ['class' => 'btn']
                         ) . '</p>' : '',
@@ -27,7 +27,7 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2><?= Yii::t('app', 'frontend-views-site-index-h4-news'); ?></h2>
+                <h2><?= Yii::t('frontend-views-site-index', 'h4-news'); ?></h2>
             </div>
         </div>
         <?php if ($news) : ?>
@@ -44,61 +44,61 @@ use yii\helpers\Html;
                         ['user/view', 'id' => $news->user->user_id]
                     ); ?>
                     <p class="text-justify text-size-3">
-                        [<?= Html::a(Yii::t('app', 'frontend-views-link-learn-more'), ['news/index']); ?>]
+                        [<?= Html::a(Yii::t('frontend-views-site-index', 'link-learn-more'), ['news/index']); ?>]
                     </p>
                 </div>
             </div>
         <?php endif; ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2><?= Yii::t('app', 'frontend-views-site-index-h2-how'); ?></h2>
+                <h2><?= Yii::t('frontend-views-site-index', 'h2-how'); ?></h2>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify"><?= Yii::t('app', 'frontend-views-site-index-text-how'); ?></p>
+                <p class="text-justify"><?= Yii::t('frontend-views-site-index', 'text-how'); ?></p>
                 <ul>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-1', [
+                        <?= Yii::t('frontend-views-site-index', 'how-li-1', [
                             'register' => Html::a(
-                                Yii::t('app', 'frontend-views-site-index-link-register'),
+                                Yii::t('frontend-views-site-index', 'link-register'),
                                 ['site/sign-up'],
                                 ['class' => 'strong']
                             ),
                         ]); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-2', [
+                        <?= Yii::t('frontend-views-site-index', 'how-li-2', [
                             'confirm' => Html::a(
-                                Yii::t('app', 'frontend-views-site-index-link-confirm-page'),
+                                Yii::t('frontend-views-site-index', 'link-confirm-page'),
                                 ['site/confirm']
                             ),
                         ]); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-3'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'how-li-3'); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-4'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'how-li-4'); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-5'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'how-li-5'); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-6'); ?>;
+                        <?= Yii::t('frontend-views-site-index', 'how-li-6'); ?>
                     </li>
                     <li>
-                        <?= Yii::t('app', 'frontend-views-site-index-how-li-7'); ?>;
+                        <?= Yii::t('frontend-views-site-index', 'how-li-7'); ?>
                     </li>
                 </ul>
                 <p class="text-justify">
-                    <?= Yii::t('app', 'frontend-views-site-index-how-ask', [
+                    <?= Yii::t('frontend-views-site-index', 'how-ask', [
                         'forum' => Html::a(
-                            Yii::t('app', 'frontend-views-site-index-link-forum'),
+                            Yii::t('frontend-views-site-index', 'link-forum'),
                             ['forum/index']
                         ),
                         'support' => Html::a(
-                            Yii::t('app', 'frontend-views-site-index-link-support'),
+                            Yii::t('frontend-views-site-index', 'link-support'),
                             ['support/index']
                         ),
                     ]); ?>
@@ -108,13 +108,13 @@ use yii\helpers\Html;
         <?php if ($reviews) : ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h2><?= Yii::t('app', 'frontend-views-site-index-h2-reviews'); ?></h2>
+                    <h2><?= Yii::t('frontend-views-site-index', 'h2-reviews'); ?></h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
-                        <?= Yii::t('app', 'frontend-views-site-index-text-reviews'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'text-reviews'); ?>
                     </p>
                     <ul>
                         <?php foreach ($reviews as $item): ?>
@@ -134,7 +134,7 @@ use yii\helpers\Html;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2>
-                        <?= Yii::t('app', 'frontend-views-site-index-h2-federation-news'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'h2-federation-news'); ?>
                     </h2>
                 </div>
             </div>
@@ -151,7 +151,7 @@ use yii\helpers\Html;
                     <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
                         [<?= Html::a(
-                            Yii::t('app', 'frontend-views-link-learn-more'),
+                            Yii::t('frontend-views-site-index', 'link-learn-more'),
                             ['country/news', 'id' => $countryNews->news_country_id]
                         ); ?>]
                     </p>
@@ -162,14 +162,14 @@ use yii\helpers\Html;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2>
-                        <?= Yii::t('app', 'frontend-views-site-index-h2-birthday'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'h2-birthday'); ?>
                     </h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
-                        <?= Yii::t('app', 'frontend-views-site-index-text-birthday'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'text-birthday'); ?>
                     </p>
                     <ul>
                         <?php foreach ($birthdays as $item) : ?>
@@ -178,7 +178,7 @@ use yii\helpers\Html;
                                 (<?= Html::a($item->user_login, ['user/view', 'id' => $item->user_id]); ?>)
                                 <?php if ($item->user_birth_year || true) : ?>
                                     -
-                                    <?= Yii::t('app', 'frontend-views-site-index-text-birthday-years-old', [
+                                    <?= Yii::t('frontend-views-site-index', 'text-birthday-years-old', [
                                         'years' => date('Y') - $item->user_birth_year,
                                     ]); ?>
                                 <?php endif; ?>
@@ -194,7 +194,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <fieldset class="text-size-3">
                     <legend class="text-center strong">
-                        <?= Yii::t('app', 'frontend-views-site-index-legend-forum'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'legend-forum'); ?>
                     </legend>
                     <?php foreach ($forumThemes as $item): ?>
                         <div class="row margin-top-small">
@@ -216,7 +216,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">
-                        <?= Yii::t('app', 'frontend-views-site-index-legend-counter'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'legend-counter'); ?>
                     </legend>
                     <img
                             alt="LiveInternet counter"
@@ -231,7 +231,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">
-                        <?= Yii::t('app', 'frontend-views-site-index-legend-payments'); ?>
+                        <?= Yii::t('frontend-views-site-index', 'legend-payments'); ?>
                     </legend>
                     <a href="//passport.webmoney.ru/asp/certview.asp?wmid=274662367507" rel="nofollow" target="_blank">
                         <img

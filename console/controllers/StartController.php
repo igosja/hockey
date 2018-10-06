@@ -25,16 +25,24 @@ class StartController extends BaseController
      */
     public function actionIndex(): void
     {
+        $modelArray = [
+            new InsertUser(),
+            new InsertName(),
+            new InsertSurname(),
+            new InsertTeam(),
+            new InsertNational(),
+            new InsertSchedule(),
+            new InsertOffSeason(),
+            new InsertChampionship(),
+            new InsertConference(),
+        ];
+
         try {
-            (new InsertUser())->execute();
-            (new InsertName())->execute();
-            (new InsertSurname())->execute();
-            (new InsertTeam())->execute();
-            (new InsertNational())->execute();
-            (new InsertSchedule())->execute();
-            (new InsertOffSeason())->execute();
-            (new InsertChampionship())->execute();
-            (new InsertConference())->execute();
+            for ($i = 0, $countModel = count($modelArray); $i < $countModel; $i++) {
+                $this->stdout('Starting ' . get_class($modelArray[$i]) . '...');
+                $modelArray[$i]->execute();
+                $this->stdout(' Done. ' . round(($i + 1) / $countModel * 100, 1) . '% processed' . PHP_EOL);
+            }
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
