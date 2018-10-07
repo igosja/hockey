@@ -3,6 +3,7 @@
 /**
  * @var ActiveForm $form
  * @var frontend\models\SignUp $model
+ * @var yii\web\View $this
  */
 
 use yii\helpers\Html;
@@ -16,7 +17,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            Ссылки
+            <?= $this->render('_signUpLinks'); ?>
         </div>
     </div>
 <?php $form = ActiveForm::begin([

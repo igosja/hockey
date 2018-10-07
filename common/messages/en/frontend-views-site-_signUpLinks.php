@@ -17,27 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'change-team' => 'Change team',
-    'federation' => 'Federation',
-    'forum' => 'Forum',
-    'home' => 'Home',
-    'loan' => 'Loan',
-    'messenger' => 'Messenger',
-    'national-team' => 'National team',
-    'news' => 'News',
+    'activation' => 'Activating account',
     'password' => 'Forgot password?',
-    'player' => 'Players',
-    'poll' => 'Polls',
-    'profile' => 'Profile',
-    'rating' => 'Ratings',
-    'roster' => 'Roster',
-    'rule' => 'Rules',
-    'schedule' => 'Schedule',
     'sign-up' => 'Sign up',
-    'store' => 'Store',
-    'support' => 'Support',
-    'team' => 'Teams',
-    'tournament' => 'Tournaments',
-    'transfer' => 'Transfer',
-    'vip' => 'VIP club',
 ];
