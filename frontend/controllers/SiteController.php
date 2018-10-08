@@ -74,10 +74,10 @@ class SiteController extends BaseController
         $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
-        $this->view->title = 'Virtual Hockey Online League';
+        $this->view->title = Yii::t('frontend-controllers-Site', 'index-seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Virtual Hockey Online League - the best free hockey online manager'
+            'content' => Yii::t('frontend-controllers-Site', 'index-seo-description')
         ]);
 
         return $this->render('index', [
@@ -111,10 +111,10 @@ class SiteController extends BaseController
             $model->password = '';
         }
 
-        $this->view->title = 'Login';
+        $this->view->title = Yii::t('frontend-controllers-Site', 'login-seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Login - Virtual Hockey Online League'
+            'content' => Yii::t('frontend-controllers-Site', 'login-seo-description')
         ]);
 
         return $this->render('login', [
