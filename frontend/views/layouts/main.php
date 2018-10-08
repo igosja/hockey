@@ -17,10 +17,6 @@ use yii\widgets\Pjax;
 
 AppAsset::register($this);
 
-print '<pre>';
-print_r($this->head());
-exit;
-
 ?>
 <?php $this->beginPage(); ?>
     <!DOCTYPE html>
