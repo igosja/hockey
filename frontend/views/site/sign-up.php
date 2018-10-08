@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1>Sign Up</h1>
+            <h1><?= Yii::t('frontend-views-site-sign-up', 'h1'); ?></h1>
         </div>
     </div>
     <div class="row">
@@ -34,12 +34,7 @@ use yii\widgets\ActiveForm;
 ]); ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <p>
-                Your <span class="strong">career as a coach-manager</span>
-                in the Virtual Hockey League begins right here and now.<br/>
-                In order for us to distinguish you from other players, come up with a
-                <span class="strong">username</span> and <span class="strong">password</span>:
-            </p>
+            <?= Yii::t('frontend-views-site-sign-up', 'text-1'); ?>
         </div>
     </div>
     <div class="row">
@@ -50,10 +45,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <p>
-                Your activation code will be sent to your <span class="strong">e-mail</span>.
-                Then you can request a password if you forget it:
-            </p>
+            <?= Yii::t('frontend-views-site-sign-up', 'text-2'); ?>
         </div>
     </div>
     <div class="row">
@@ -63,17 +55,12 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::submitButton('Start a career as a manager', ['class' => 'btn']); ?>
+            <?= Html::submitButton( Yii::t('frontend-views-site-sign-up', 'submit'), ['class' => 'btn']); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <p>
-                Starting a manager's career, you accept an agreement on using the site.
-            </p>
-            <p>
-                Please note, we are not allowed to play simultaneously with multiple nicknames.
-            </p>
+            <?= Yii::t('frontend-views-site-sign-up', 'text-3'); ?>
         </div>
     </div>
 <?php ActiveForm::end(); ?>

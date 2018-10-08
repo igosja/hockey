@@ -17,8 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'index-seo-description' => 'Лучший хоккейный онлайн менеджер',
-    'index-seo-title' => 'Виртуальная Хоккейная Лига',
-    'login-seo-description' => 'Вход',
-    'login-seo-title' => 'Вход',
+    'seo-description' => 'Sign up',
+    'seo-title' => 'Sign up',
 ];

@@ -27,10 +27,10 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'sign-up'],
+                'only' => ['logout', 'sign-up', 'login'],
                 'rules' => [
                     [
-                        'actions' => ['sign-up'],
+                        'actions' => ['sign-up', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -74,10 +74,10 @@ class SiteController extends BaseController
         $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
-        $this->view->title = Yii::t('frontend-controllers-Site', 'index-seo-title');
+        $this->view->title = Yii::t('frontend-controllers-site-index', 'seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => Yii::t('frontend-controllers-Site', 'index-seo-description')
+            'content' => Yii::t('frontend-controllers-site-index', 'seo-description')
         ]);
 
         return $this->render('index', [
@@ -111,10 +111,10 @@ class SiteController extends BaseController
             $model->password = '';
         }
 
-        $this->view->title = Yii::t('frontend-controllers-Site', 'login-seo-title');
+        $this->view->title = Yii::t('frontend-controllers-site-login', 'seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => Yii::t('frontend-controllers-Site', 'login-seo-description')
+            'content' => Yii::t('frontend-controllers-site-login', 'seo-description')
         ]);
 
         return $this->render('login', [
@@ -151,13 +151,13 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Sign up';
+        $this->view->title = Yii::t('frontend-controllers-site-sign-up', 'seo-title') . 'Sign up';
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Sign up - Virtual Hockey Online League'
+            'content' => Yii::t('frontend-controllers-site-sign-up', 'seo-description') . 'Sign up - Virtual Hockey Online League'
         ]);
 
-        return $this->render('signUp', [
+        return $this->render('sign-up', [
             'model' => $model,
         ]);
     }

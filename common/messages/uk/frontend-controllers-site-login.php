@@ -17,8 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'index-seo-description' => 'The best free hockey online manager',
-    'index-seo-title' => 'Virtual Hockey Online League',
-    'login-seo-description' => 'Login',
-    'login-seo-title' => 'Login',
+    'seo-description' => 'Вхід',
+    'seo-title' => 'Вхід',
 ];
