@@ -168,6 +168,7 @@ class SiteController extends BaseController
      */
     public function actionActivation()
     {
+        $model = new Activa
         return $this->render('activation', [
 
         ]);
