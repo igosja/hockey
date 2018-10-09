@@ -19,4 +19,5 @@
 return [
     'seo-description' => 'Sign up',
     'seo-title' => 'Sign up',
+    'success' => 'Registration completed successfully',
 ];

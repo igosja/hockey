@@ -147,18 +147,29 @@ class SiteController extends BaseController
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->signUp()) {
+                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
                 return $this->redirect(['activation']);
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-sign-up', 'seo-title') . 'Sign up';
+        $this->view->title = Yii::t('frontend-controllers-site-sign-up', 'seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-sign-up', 'seo-description') . 'Sign up - Virtual Hockey Online League'
+            'content' => Yii::t('frontend-controllers-site-sign-up', 'seo-description')
         ]);
 
         return $this->render('sign-up', [
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionActivation()
+    {
+        return $this->render('activation', [
+
         ]);
     }
 }

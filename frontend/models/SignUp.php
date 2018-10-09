@@ -69,7 +69,7 @@ class SignUp extends Model
                 )
                 ->setTo($this->email)
                 ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject('Registration on the Virtual Hockey League website')
+                ->setSubject(Yii::t('common-models-SignUp', 'mail-subject'))
                 ->send();
 
             $transaction->commit();
@@ -80,5 +80,14 @@ class SignUp extends Model
         }
 
         return true;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('common-models-SignUp', 'label-username'),
+            'password' => Yii::t('common-models-SignUp', 'label-password'),
+            'email' => Yii::t('common-models-SignUp', 'label-email'),
+        ];
     }
 }

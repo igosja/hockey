@@ -80,8 +80,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules(): array
     {
         return [
+            [['user_email'], 'email'],
             [
-                [['user_email'], 'email'],
                 [
                     'user_id',
                     'user_birth_day',
