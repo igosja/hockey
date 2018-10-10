@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'error' => 'Не вдалось провести реєстрацію',
     'seo-description' => 'Реєстрація',
     'seo-title' => 'Реєстрація',
     'success' => 'Реєстрація пройшла успішно',

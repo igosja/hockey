@@ -2,11 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\ForumTheme;
 use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
 use common\models\User;
+use Exception;
+use frontend\models\Activation;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -27,13 +30,8 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'sign-up', 'login'],
+                'only' => ['logout'],
                 'rules' => [
-                    [
-                        'actions' => ['sign-up', 'login'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -123,10 +121,14 @@ class SiteController extends BaseController
     }
 
     /**
-     * @return \yii\web\Response
+     * @return Response
      */
     public function actionLogout(): Response
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -134,10 +136,13 @@ class SiteController extends BaseController
 
     /**
      * @return array|string|Response
-     * @throws \yii\db\Exception
      */
     public function actionSignUp()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['team/view']);
+        }
+
         $model = new SignUp();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -146,9 +151,14 @@ class SiteController extends BaseController
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->signUp()) {
-                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
-                return $this->redirect(['activation']);
+            try {
+                if ($model->signUp()) {
+                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
+                    return $this->redirect(['site/activation']);
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'error'));
             }
         }
 
@@ -164,13 +174,37 @@ class SiteController extends BaseController
     }
 
     /**
-     * @return string
+     * @return array|string
      */
     public function actionActivation()
     {
-        $model = new Activa
-        return $this->render('activation', [
+        $model = new Activation();
 
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) {
+            try {
+                if ($model->activate()) {
+                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'success'));
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'error'));
+            }
+            return $this->redirect(['site/activation']);
+        }
+
+        $this->view->title = Yii::t('frontend-controllers-site-activation', 'seo-title');
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Yii::t('frontend-controllers-site-activation', 'seo-description')
+        ]);
+
+        return $this->render('activation', [
+            'model' => $model,
         ]);
     }
 }

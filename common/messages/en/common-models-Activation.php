@@ -17,8 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'error' => 'Не удалось провести регистрацию',
-    'seo-description' => 'Регистрация',
-    'seo-title' => 'Регистрация',
-    'success' => 'Регистрация прошла успешно',
+    'error-already-active' => 'Account already activated',
+    'error-no-user' => 'Invalid activation code',
+    'label-code' => 'Code',
 ];

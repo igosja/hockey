@@ -82,7 +82,10 @@ class SignUp extends Model
         return true;
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'username' => Yii::t('common-models-SignUp', 'label-username'),

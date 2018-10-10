@@ -17,8 +17,11 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'error' => 'Не удалось провести регистрацию',
-    'seo-description' => 'Регистрация',
-    'seo-title' => 'Регистрация',
-    'success' => 'Регистрация прошла успешно',
+    'signUp-html' => 'You are successfully registered on the Virtual Hockey League website
+        under the <strong>{login}</strong> login.
+        <br/>
+        To complete the registration, please confirm your email by clicking {link}
+        or enter the <strong>{code}</strong> on the page {page}',
+    'signUp-text' => 'You are successfully registered on the Virtual Hockey League website under the {login} login
+        To complete the registration, please confirm your email by clicking {link} or enter the {code} on the page {page}',
 ];

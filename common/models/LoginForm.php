@@ -68,7 +68,10 @@ class LoginForm extends Model
         return $this->_user;
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'username' => Yii::t('common-models-LoginForm', 'label-username'),
