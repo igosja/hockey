@@ -125,10 +125,6 @@ class SiteController extends BaseController
      */
     public function actionLogout(): Response
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['site/login']);
-        }
-
         Yii::$app->user->logout();
 
         return $this->goHome();

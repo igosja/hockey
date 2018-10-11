@@ -35,7 +35,7 @@ AppAsset::register($this);
     <?php
 
     NavBar::begin([
-        'brandLabel' => 'Admin',
+        'brandLabel' => Yii::t('backend-views-layouts-main', 'nav-admin'),
         'brandUrl' => Yii::$app->homeUrl,
         'innerContainerOptions' => ['class' => ''],
         'options' => [
@@ -50,27 +50,27 @@ AppAsset::register($this);
                 . '"></span>',
             'items' => [
                 [
-                    'label' => '<i class="fa fa-user fa-fw"></i> Team Requests
+                    'label' => '<i class="fa fa-user fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'bell-team-request') . '
                                 <span class="badge"></span>',
                     'url' => ['team-request/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-shield fa-fw"></i> Logos
+                    'label' => '<i class="fa fa-shield fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'bell-logos') . '
                                 <span class="badge admin-logo"></span>',
                     'url' => ['logo/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-comments fa-fw"></i> Support
+                    'label' => '<i class="fa fa-comments fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'bell-support') . '
                                 <span class="badge admin-support"></span>',
                     'url' => ['logo/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-exclamation-circle fa-fw"></i> Complaints
+                    'label' => '<i class="fa fa-exclamation-circle fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'bell-complaint') . '
                                 <span class="badge admin-complaint"></span>',
                     'url' => ['complaint/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-bar-chart fa-fw"></i> Polls
+                    'label' => '<i class="fa fa-bar-chart fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'bell-poll') . '
                                 <span class="badge admin-poll"></span>',
                     'url' => ['poll/index'],
                 ],
@@ -81,16 +81,16 @@ AppAsset::register($this);
             'label' => '<i class="fa fa-gear fa-fw"></i>',
             'items' => [
                 [
-                    'label' => '<i class="fa fa-power-off fa-fw"></i> Enable-disable site',
+                    'label' => '<i class="fa fa-power-off fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'gear-enable') . Yii::t('backend-views-layouts-main', 'gear-disable'),
                     'url' => ['site/switch'],
                 ],
                 [
-                    'label' => '<i class="fa fa-signal fa-fw"></i> Site version',
+                    'label' => '<i class="fa fa-signal fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'gear-version'),
                     'url' => ['site/version'],
                 ],
                 [
-                    'label' => '<i class="fa fa-file-text-o fa-fw"></i> Error log',
-                    'url' => ['error-log/index'],
+                    'label' => '<i class="fa fa-sign-out fa-fw"></i> ' . Yii::t('backend-views-layouts-main', 'gear-logout'),
+                    'url' => ['site/logout'],
                 ],
             ],
             'url' => 'javascript:',
@@ -115,107 +115,107 @@ AppAsset::register($this);
 
             $menuItems = [
                 [
-                    'label' => 'Users',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-user'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Users',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-user'),
                             'url' => ['user/index'],
                         ],
                         [
-                            'label' => 'Presidents',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-president'),
                             'url' => ['president/index'],
                         ],
                         [
-                            'label' => 'Coaches',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-coach'),
                             'url' => ['coach/index'],
                         ],
                         [
-                            'label' => 'Reasons for blocking',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-block-reason'),
                             'url' => ['block-reason/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Teams',
+                    'label' => 'Teams' . Yii::t('backend-views-layouts-main', 'link-team'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Teams',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-team'),
                             'url' => ['team/index'],
                         ],
                         [
-                            'label' => 'Stadiums',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-stadium'),
                             'url' => ['stadium/index'],
                         ],
                         [
-                            'label' => 'Cities',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-city'),
                             'url' => ['city/index'],
                         ],
                         [
-                            'label' => 'Countries',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-country'),
                             'url' => ['country/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'News',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-news'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'News',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-news'),
                             'url' => ['news/index'],
                         ],
                         [
-                            'label' => 'Preliminary news',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-pre-news'),
                             'url' => ['pre-news/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Rules',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-rules'),
                     'url' => ['rule/index'],
                 ],
                 [
-                    'label' => 'Tournament types',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-tournament-type'),
                     'url' => ['tournament-type/index'],
                 ],
                 [
-                    'label' => 'Polls',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-poll'),
                     'url' => ['poll/index'],
                 ],
                 [
-                    'label' => 'Schedule',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-schedule'),
                     'url' => ['schedule/index'],
                 ],
                 [
-                    'label' => 'Forum',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-forum'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Chapters',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-forum-chapter'),
                             'url' => ['forum-chapter/index'],
                         ],
                         [
-                            'label' => 'Groups',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-forum-group'),
                             'url' => ['forum-group/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Site indicators',
+                    'label' => Yii::t('backend-views-layouts-main', 'link-indicator'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Analytics',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-analytic'),
                             'url' => ['analytics/game-statistic'],
                         ],
                         [
-                            'label' => 'Snapshot',
+                            'label' => Yii::t('backend-views-layouts-main', 'link-snapshot'),
                             'url' => ['analytics/snapshot'],
                         ],
                     ],
