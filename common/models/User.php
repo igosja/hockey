@@ -209,17 +209,16 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return bool
+     * @return void
      */
-    public function generateUserCode(): bool
+    public function generateUserCode(): void
     {
         $code = md5(uniqid(rand(), 1));
         if (!self::find()->where(['user_code' => $code])->exists()) {
             $this->user_code = $code;
-            return true;
+        } else {
+            $this->generateUserCode();
         }
-        $this->generateUserCode();
-        return true;
     }
 
     /**
