@@ -38,14 +38,14 @@ class SiteController extends BaseController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['error'],
+                        'actions' => ['*'],
                         'allow' => true,
-                        'roles' => ['*'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
