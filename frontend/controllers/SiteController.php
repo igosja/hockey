@@ -146,19 +146,19 @@ class SiteController extends BaseController
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post())) {
-            try {
-                if ($model->signUp()) {
-                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
-                    return $this->redirect(['site/activation']);
-                } else {
-                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
-                }
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
-            }
-        }
+//        if ($model->load(Yii::$app->request->post())) {
+//            try {
+//                if ($model->signUp()) {
+//                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
+//                    return $this->redirect(['site/activation']);
+//                } else {
+//                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
+//                }
+//            } catch (Exception $e) {
+//                ErrorHelper::log($e);
+//                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
+//            }
+//        }
 
         $this->view->title = Yii::t('frontend-controllers-site-sign-up', 'seo-title');
         $this->view->registerMetaTag([
