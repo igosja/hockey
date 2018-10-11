@@ -62,17 +62,17 @@ class SignUp extends Model
             if (!$model->save()) {
                 throw new Exception(ErrorHelper::modelErrorsToString($model));
             }
-//
-//            Yii::$app
-//                ->mailer
-//                ->compose(
-//                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
-//                    ['model' => $model]
-//                )
-//                ->setTo($this->email)
-//                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-//                ->setSubject(Yii::t('common-models-SignUp', 'mail-subject'))
-//                ->send();
+
+            Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
+                    ['model' => $model]
+                )
+                ->setTo($this->email)
+                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+                ->setSubject(Yii::t('common-models-SignUp', 'mail-subject'))
+                ->send();
 
             $transaction->commit();
         } catch (Exception $e) {
