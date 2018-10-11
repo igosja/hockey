@@ -106,13 +106,10 @@ class User extends ActiveRecord implements IdentityInterface
                     'user_date_login',
                     'user_date_register',
                     'user_date_vip',
-                    'user_email',
                     'user_finance',
                     'user_holiday',
                     'user_holiday_day',
-                    'user_login',
                     'user_money',
-                    'user_name',
                     'user_news_id',
                     'user_referrer_done',
                     'user_referrer_id',
@@ -126,7 +123,11 @@ class User extends ActiveRecord implements IdentityInterface
             ],
             [['user_rating'], 'number'],
             [['user_email'], 'required'],
-            [['user_city', 'user_name', 'user_password', 'user_surname'], 'string', 'max' => 255],
+            [
+                ['user_city', 'user_email', 'user_login', 'user_name', 'user_password', 'user_surname'],
+                'string',
+                'max' => 255
+            ],
             [['user_code'], 'string', 'length' => 32],
             [['user_email'], 'unique'],
         ];
