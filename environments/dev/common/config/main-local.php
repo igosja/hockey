@@ -12,5 +12,10 @@ return [
             'schemaCacheDuration' => 86400,
             'username' => 'igosja_hockey',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'viewPath' => '@common/mail',
+        ],
     ],
 ];
