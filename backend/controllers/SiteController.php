@@ -42,6 +42,11 @@ class SiteController extends BaseController
                         'allow' => true,
                         'roles' => ['?'],
                     ],
+                    [
+                        'actions' => ['error'],
+                        'allow' => true,
+                        'roles' => ['*'],
+                    ],
                 ],
             ],
         ];
