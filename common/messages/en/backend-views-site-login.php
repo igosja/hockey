@@ -17,6 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'seo-description' => 'Log in',
-    'seo-title' => 'Log in',
+    'h3' => 'Log in',
+    'submit' => 'Log in',
 ];
