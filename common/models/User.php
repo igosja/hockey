@@ -132,6 +132,14 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'user_id' => Yii::t('common-models-user', 'label-user-id'),
+            'user_login' => Yii::t('common-models-user', 'label-user-login'),
+        ];
+    }
+
     /**
      * @param int|string $id
      * @return null|IdentityInterface|static

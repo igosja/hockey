@@ -37,7 +37,7 @@ class UserSearch extends User
      */
     public function search($params): ActiveDataProvider
     {
-        $query = User::find()->select(['user_id', 'user_login']);
+        $query = User::find()->select(['user_id', 'user_login'])->andWhere(['!=', 'user_id', 0]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -48,7 +48,6 @@ class UserSearch extends User
         }
 
         $query
-            ->andWhere(['!=', 'user_id', 0])
             ->andFilterWhere(['user_id' => $this->user_id])
             ->andFilterWhere(['like', 'user_login', $this->user_login]);
 
