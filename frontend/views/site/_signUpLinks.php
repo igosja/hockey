@@ -24,7 +24,7 @@ try {
             [
                 'alias' => [
                     ['site/activation'],
-                    ['site/repeat'],
+                    ['site/activation-repeat'],
                 ],
                 'text' => Yii::t('frontend-views-site-_signUpLinks', 'activation'),
                 'url' => ['site/activation'],

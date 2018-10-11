@@ -83,6 +83,8 @@ return [
             ],
             'rules' => [
                 '' => 'site/index',
+                'activation' => 'site/activation',
+                'activation-repeat' => 'site/activation-repeat',
                 'login' => 'site/login',
                 'news' => 'news/index',
                 'rules' => 'rule/index',

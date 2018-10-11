@@ -10,6 +10,7 @@ use common\models\Review;
 use common\models\User;
 use Exception;
 use frontend\models\Activation;
+use frontend\models\ActivationRepeat;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -183,14 +184,16 @@ class SiteController extends BaseController
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) {
+        if (($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) && $model->code) {
             try {
                 if ($model->activate()) {
                     Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'success'));
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
                 }
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'error'));
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
             }
             return $this->redirect(['site/activation']);
         }
@@ -202,6 +205,49 @@ class SiteController extends BaseController
         ]);
 
         return $this->render('activation', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string
+     */
+    public function actionActivationRepeat()
+    {
+        $model = new ActivationRepeat();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->send()) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        Yii::t('frontend-controllers-site-activation-repeat', 'success')
+                    );
+                } else {
+                    Yii::$app->session->setFlash(
+                        'error',
+                        Yii::t('frontend-controllers-site-activation-repeat', 'error')
+                    );
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation-repeat', 'error'));
+            }
+            return $this->redirect(['site/activation']);
+        }
+
+        $this->view->title = Yii::t('frontend-controllers-site-activation-repeat', 'seo-title');
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Yii::t('frontend-controllers-site-activation-repeat', 'seo-description')
+        ]);
+
+        return $this->render('activation-repeat', [
             'model' => $model,
         ]);
     }

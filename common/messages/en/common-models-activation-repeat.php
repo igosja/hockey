@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'activation' => 'Активація',
-    'password' => 'Забули пароль?',
-    'sign-up' => 'Реєстрація',
+    'error-already-active' => 'Account already activated',
+    'error-no-user' => 'This email was not found',
+    'label-email' => 'Email',
 ];

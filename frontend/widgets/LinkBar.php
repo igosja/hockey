@@ -94,25 +94,29 @@ class LinkBar extends Widget
      */
     private function isActive(): bool
     {
-        if (isset($this->item['url']) && is_array($this->item['url']) && isset($this->item['url'][0])) {
-            $route = $this->item['url'][0];
-            if ($route[0] !== '/' && Yii::$app->controller) {
-                $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
-            }
-            if (ltrim($route, '/') !== $this->route) {
-                return false;
-            }
-            unset($this->item['url']['#']);
-            if (count($this->item['url']) > 1) {
-                $params = $this->item['url'];
-                unset($params[0]);
-                foreach ($params as $name => $value) {
-                    if ($value !== null && (!isset($this->params[$name]) || $this->params[$name] != $value)) {
-                        return false;
+        if (isset($this->item['alias']) && is_array($this->item['alias'])) {
+            foreach ($this->item['alias'] as $alias) {
+                if (isset($alias) && is_array($alias) && isset($alias[0])) {
+                    $route = $alias[0];
+                    if ($route[0] !== '/' && Yii::$app->controller) {
+                        $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
                     }
+                    if (ltrim($route, '/') !== $this->route) {
+                        continue;
+                    }
+                    unset($alias['#']);
+                    if (count($alias) > 1) {
+                        $params = $alias;
+                        unset($params[0]);
+                        foreach ($params as $name => $value) {
+                            if ($value !== null && (!isset($this->params[$name]) || $this->params[$name] != $value)) {
+                                continue;
+                            }
+                        }
+                    }
+                    return true;
                 }
             }
-            return true;
         }
         return false;
     }

@@ -18,7 +18,7 @@
  */
 return [
     'error' => 'Failed to activate account',
-    'seo-description' => 'account activation',
-    'seo-title' => 'account activation',
+    'seo-description' => 'Account activation',
+    'seo-title' => 'Account activation',
     'success' => 'Activation completed successfully',
 ];

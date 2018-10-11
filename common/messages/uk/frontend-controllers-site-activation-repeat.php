@@ -17,7 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'activation' => 'Активація',
-    'password' => 'Забули пароль?',
-    'sign-up' => 'Реєстрація',
+    'error' => 'Не вдалось надіслати код активації',
+    'seo-description' => 'Активація облікового запису',
+    'seo-title' => 'Активація облікового запису',
+    'success' => 'Код активації успешно надіслано',
 ];

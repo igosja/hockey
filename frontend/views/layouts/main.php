@@ -13,7 +13,8 @@ use frontend\widgets\Alert;
 use frontend\widgets\Menu;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
+
+//use yii\widgets\Pjax;
 
 AppAsset::register($this);
 
@@ -57,7 +58,7 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody(); ?>
-    <?php Pjax::begin(); ?>
+    <?php //Pjax::begin(); ?>
     <div class="main">
         <div class="content">
             <div class="row">
@@ -154,7 +155,7 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-    <?php Pjax::end(); ?>
+    <?php //Pjax::end(); ?>
     <?php $this->endBody(); ?>
     </body>
     </html>
