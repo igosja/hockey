@@ -34,7 +34,17 @@ return [
             'name' => 'advanced-backend',
         ],
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+            'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
+            'languages' => [
+                'en',
+                'en-*' => 'en',
+                'ru',
+                'ru-*' => 'ru',
+                'uk',
+                'uk-*' => 'uk',
+            ],
             'rules' => [
                 '' => 'site/index',
                 'login' => 'site/login',
