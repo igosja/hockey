@@ -144,7 +144,7 @@ class SiteController extends BaseController
             $model->password = '';
 
             $this->layout = 'login';
-            $this->view->title = 'Login';
+            $this->view->title = Yii::t('backend-controllers-site-login', 'seo-title');
 
             return $this->render('login', [
                 'model' => $model,
