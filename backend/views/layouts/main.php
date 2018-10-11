@@ -138,7 +138,7 @@ AppAsset::register($this);
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Teams' . Yii::t('backend-views-layouts-main', 'link-team'),
+                    'label' => Yii::t('backend-views-layouts-main', 'link-team'),
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
