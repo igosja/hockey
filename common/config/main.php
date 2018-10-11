@@ -21,6 +21,9 @@ return [
                 ],
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
     ],
     'language' => 'en',
     'timeZone' => 'Europe/Kiev',
