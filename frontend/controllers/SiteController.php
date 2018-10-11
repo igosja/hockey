@@ -11,6 +11,7 @@ use common\models\User;
 use Exception;
 use frontend\models\Activation;
 use frontend\models\ActivationRepeat;
+use frontend\models\Password;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -152,9 +153,8 @@ class SiteController extends BaseController
                 if ($model->signUp()) {
                     Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
                     return $this->redirect(['site/activation']);
-                } else {
-                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
                 }
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
             } catch (Exception $e) {
                 ErrorHelper::log($e);
                 Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
@@ -188,14 +188,13 @@ class SiteController extends BaseController
             try {
                 if ($model->activate()) {
                     Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'success'));
-                } else {
-                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
+                    return $this->redirect(['site/activation']);
                 }
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
             } catch (Exception $e) {
                 ErrorHelper::log($e);
                 Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
             }
-            return $this->redirect(['site/activation']);
         }
 
         $this->view->title = Yii::t('frontend-controllers-site-activation', 'seo-title');
@@ -228,6 +227,7 @@ class SiteController extends BaseController
                         'success',
                         Yii::t('frontend-controllers-site-activation-repeat', 'success')
                     );
+                    return $this->redirect(['site/activation']);
                 } else {
                     Yii::$app->session->setFlash(
                         'error',
@@ -238,7 +238,6 @@ class SiteController extends BaseController
                 ErrorHelper::log($e);
                 Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation-repeat', 'error'));
             }
-            return $this->redirect(['site/activation']);
         }
 
         $this->view->title = Yii::t('frontend-controllers-site-activation-repeat', 'seo-title');
@@ -248,6 +247,40 @@ class SiteController extends BaseController
         ]);
 
         return $this->render('activation-repeat', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionPassword()
+    {
+        $model = new Password();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->send()) {
+                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-password', 'success'));
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password', 'error'));
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password', 'error'));
+            }
+        }
+
+        $this->view->title = Yii::t('frontend-controllers-site-password', 'seo-title');
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Yii::t('frontend-controllers-site-password', 'seo-description')
+        ]);
+
+        return $this->render('password', [
             'model' => $model,
         ]);
     }

@@ -9,14 +9,16 @@ use Yii;
 use yii\base\Model;
 
 /**
- * Class ActivationRepeat
+ * Class Password
  * @package frontend\models
  *
  * @property $email string
+ * @property $username string
  */
-class ActivationRepeat extends Model
+class Password extends Model
 {
     public $email;
+    public $username;
 
     /**
      * @return array
@@ -24,11 +26,11 @@ class ActivationRepeat extends Model
     public function rules(): array
     {
         return [
-            [['email'], 'trim'],
             [['email'], 'email'],
-            [['email'], 'required'],
+            [['username'], 'string', 'max' => 255],
+            [['email', 'username'], 'orRequired', 'skipOnEmpty' => false],
             [['email'], 'exist', 'targetClass' => User::class, 'targetAttribute' => ['email' => 'user_email']],
-            [['email'], 'checkEmail'],
+            [['username'], 'exist', 'targetClass' => User::class, 'targetAttribute' => ['username' => 'user_login']],
         ];
     }
 
@@ -43,24 +45,25 @@ class ActivationRepeat extends Model
 
         try {
             $model = User::find()
-                ->select(['user_code', 'user_login'])
-                ->where(['user_email' => $this->email])
+                ->select(['user_code', 'user_email'])
+                ->andFilterWhere(['user_email' => $this->email])
+                ->andFilterWhere(['user_login' => $this->username])
                 ->limit(1)
                 ->one();
 
             if (!$model) {
-                throw new Exception('No user with email ' . $this->email);
+                throw new Exception('No user with email ' . $this->email . ' and username ' . $this->username);
             }
 
             Yii::$app
                 ->mailer
                 ->compose(
-                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
+                    ['html' => 'password-html', 'text' => 'password-text'],
                     ['model' => $model]
                 )
-                ->setTo($this->email)
+                ->setTo($model->user_email)
                 ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject(Yii::t('common-models-activation-repeat', 'mail-subject'))
+                ->setSubject(Yii::t('common-models-password', 'mail-subject'))
                 ->send();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -74,20 +77,13 @@ class ActivationRepeat extends Model
      * @param $attribute
      * @return void
      */
-    public function checkEmail($attribute): void
+    public function orRequired($attribute): void
     {
-        $user = User::find()
-            ->select(['user_date_confirm'])
-            ->where(['user_email' => $this->$attribute])
-            ->limit(1)
-            ->one();
-
-        if (!$user) {
-            $this->addError($attribute, Yii::t('common-models-activation-repeat', 'error-no-user'));
-        }
-
-        if ($user->user_date_confirm) {
-            $this->addError($attribute, Yii::t('common-models-activation-repeat', 'error-already-active'));
+        if (!$this->email && !$this->username) {
+            $this->addError(
+                $attribute,
+                Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel($attribute)])
+            );
         }
     }
 
@@ -97,7 +93,8 @@ class ActivationRepeat extends Model
     public function attributeLabels(): array
     {
         return [
-            'email' => Yii::t('common-models-activation-repeat', 'label-email'),
+            'email' => Yii::t('common-models-activation-password', 'label-email'),
+            'username' => Yii::t('common-models-activation-password', 'label-username'),
         ];
     }
 }

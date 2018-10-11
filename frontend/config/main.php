@@ -87,6 +87,7 @@ return [
                 'activation-repeat' => 'site/activation-repeat',
                 'login' => 'site/login',
                 'news' => 'news/index',
+                'password' => 'site/password',
                 'rules' => 'rule/index',
                 'rule/<id:\d+>' => 'rule/view',
                 'schedule/<id:\d+>' => 'schedule/view',

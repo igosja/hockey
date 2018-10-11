@@ -17,8 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'error-already-active' => 'Профиль уже активирован',
-    'error-no-user' => 'Этот email не найден',
-    'label-email' => 'Email',
-    'mail-subject' => 'Регистрация на сайте Виртуальной Хоккейной Лиги',
+    'error' => 'Не удалось восстановить пароль',
+    'seo-description' => 'Восстановление пароля',
+    'seo-title' => 'Восстановление пароля',
+    'success' => 'Письмо с инструкциями по восстановлению пароля успешно отправлено на email',
 ];
