@@ -17,5 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'label-email' => 'Email',
+    'label-username' => 'Логін',
     'mail-subject' => 'Відновлення пароля на сайті Віртуальної Хокейної Ліги',
 ];

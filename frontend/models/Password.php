@@ -93,8 +93,8 @@ class Password extends Model
     public function attributeLabels(): array
     {
         return [
-            'email' => Yii::t('common-models-activation-password', 'label-email'),
-            'username' => Yii::t('common-models-activation-password', 'label-username'),
+            'email' => Yii::t('common-models-password', 'label-email'),
+            'username' => Yii::t('common-models-password', 'label-username'),
         ];
     }
 }

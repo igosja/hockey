@@ -17,6 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'label-email' => 'Email',
-    'label-username' => 'Login',
+    'error' => 'Failed to change password',
+    'seo-description' => 'Password recovery',
+    'seo-title' => 'Password recovery',
+    'success' => 'Password successfully changed',
 ];

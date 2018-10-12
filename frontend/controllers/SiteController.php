@@ -12,6 +12,7 @@ use Exception;
 use frontend\models\Activation;
 use frontend\models\ActivationRepeat;
 use frontend\models\Password;
+use frontend\models\PasswordRestore;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -251,6 +252,9 @@ class SiteController extends BaseController
         ]);
     }
 
+    /**
+     * @return array|string|Response
+     */
     public function actionPassword()
     {
         $model = new Password();
@@ -281,6 +285,50 @@ class SiteController extends BaseController
         ]);
 
         return $this->render('password', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string|Response
+     */
+    public function actionPasswordRestore()
+    {
+        $model = new PasswordRestore();
+        $model->load(Yii::$app->request->post(), 'get');
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->restore()) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        Yii::t('frontend-controllers-site-password-restore', 'success')
+                    );
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash(
+                        'error',
+                        Yii::t('frontend-controllers-site-password-restore', 'error')
+                    );
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password-restore', 'error'));
+            }
+        }
+
+        $this->view->title = Yii::t('frontend-controllers-site-password-restore', 'seo-title');
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => Yii::t('frontend-controllers-site-password-restore', 'seo-description')
+        ]);
+
+        return $this->render('password-restore', [
             'model' => $model,
         ]);
     }

@@ -17,6 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'label-email' => 'Email',
-    'label-username' => 'Логин',
+    'error' => 'Не вдалося змінити пароль',
+    'seo-description' => 'Відновлення пароля',
+    'seo-title' => 'Відновлення пароля',
+    'success' => 'Пароль успішно змінено',
 ];

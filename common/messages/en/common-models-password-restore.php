@@ -17,6 +17,5 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'label-email' => 'Email',
-    'label-username' => 'Логін',
+    'label-password' => 'Password',
 ];

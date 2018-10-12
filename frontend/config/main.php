@@ -88,6 +88,7 @@ return [
                 'login' => 'site/login',
                 'news' => 'news/index',
                 'password' => 'site/password',
+                'password-restore' => 'site/password-restore',
                 'rules' => 'rule/index',
                 'rule/<id:\d+>' => 'rule/view',
                 'schedule/<id:\d+>' => 'schedule/view',

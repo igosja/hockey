@@ -17,7 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'label-email' => 'Email',
-    'label-username' => 'Login',
-    'mail-subject' => 'Password Recovery on the Virtual Hockey League website',
+    'h1' => 'Forgot password?',
+    'submit' => 'Change password',
+    'text' => '<p>
+            Here you can enter a <strong>new password</strong> for your account.
+        </p>',
 ];
