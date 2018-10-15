@@ -129,6 +129,22 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'base' => Yii::t('common-models-team', 'label-base'),
+            'country' => Yii::t('common-models-team', 'label-country'),
+            'finance' => Yii::t('common-models-team', 'label-finance'),
+            'number_of_application' => Yii::t('common-models-team', 'label-number-of-application'),
+            'stadium' => Yii::t('common-models-team', 'label-stadium'),
+            'team' => Yii::t('common-models-team', 'label-team'),
+            'vs' => Yii::t('common-models-team', 'label-vs'),
+        ];
+    }
+
+    /**
      * @param bool $insert
      * @return bool
      */

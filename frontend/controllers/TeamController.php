@@ -248,7 +248,7 @@ class TeamController extends BaseController
                 'team_ask_team_id' => $id,
                 'team_ask_user_id' => Yii::$app->user->id
             ])->count()) {
-                Yii::$app->session->setFlash('error', 'You have already applied for this team.');
+                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-team-ask', 'error-already-apply'));
                 return $this->redirect(['ask']);
             }
 
@@ -260,21 +260,21 @@ class TeamController extends BaseController
                     throw new Exception(ErrorHelper::modelErrorsToString($model));
                 }
                 $transaction->commit();
-                Yii::$app->session->setFlash('success', 'Application successfully submitted.');
+                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-team-ask', 'success-apply'));
             } catch (Exception $e) {
                 $transaction->rollBack();
                 ErrorHelper::log($e);
             }
 
-            return $this->redirect(['ask']);
+            return $this->redirect(['team/ask']);
         }
 
         $delete = Yii::$app->request->get('delete');
         if ($delete) {
             TeamAsk::deleteAll(['team_ask_id' => $delete, 'team_ask_user_id' => Yii::$app->user->id]);
 
-            Yii::$app->session->setFlash('success', 'Application successfully deleted.');
-            return $this->redirect(['ask']);
+            Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-team-ask', 'success-delete'));
+            return $this->redirect(['team/ask']);
         }
 
         $teamAskArray = TeamAsk::find()
@@ -379,14 +379,15 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Getting the team';
+        $this->view->title = Yii::t('frontend-controllers-team-ask', 'seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Getting the team - Virtual Hockey Online League'
+            'content' => Yii::t('frontend-controllers-team-ask', 'seo-description')
         ]);
 
         return $this->render('ask', [
             'dataProvider' => $dataProvider,
+            'model' => new Team(),
             'teamAskArray' => $teamAskArray,
         ]);
     }

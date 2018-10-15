@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \common\models\Team $model
  * @var \common\models\TeamAsk[] $teamAskArray
  * @var \yii\web\View $this
  */
@@ -14,7 +15,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h1>Getting the team</h1>
+        <h1><?= Yii::t('frontend-views-team-ask', 'h1'); ?></h1>
     </div>
 </div>
 <?php if ($teamAskArray) : ?>
@@ -23,22 +24,22 @@ use yii\helpers\Html;
             <table class="table table-bordered table-hover">
                 <tr>
                     <th></th>
-                    <th>Your requests</th>
-                    <th>Vs</th>
+                    <th><?= Yii::t('frontend-views-team-ask', 'th-requests'); ?></th>
+                    <th><?= $model->getAttributeLabel('vs'); ?></th>
                 </tr>
                 <?php foreach ($teamAskArray as $item) : ?>
                     <tr>
                         <td class="text-center">
                             <?= Html::a(
                                 '<i class="fa fa-times-circle"></i>',
-                                ['ask', 'delete' => $item->team_ask_id],
-                                ['title' => 'Delete request']
+                                ['team/ask', 'delete' => $item->team_ask_id],
+                                ['title' => Yii::t('frontend-views-team-ask', 'link-delete-request') . 'Delete request']
                             ) ?>
                         </td>
                         <td>
                             <?= Html::a(
                                 $item->team->team_name . ' (' . $item->team->stadium->city->city_name . ', ' . $item->team->stadium->city->country->country_name . ')',
-                                ['view', $item->team->team_id]
+                                ['team/view', $item->team->team_id]
                             ) ?>
                         </td>
                         <td class="hidden-xs text-center">
@@ -48,8 +49,8 @@ use yii\helpers\Html;
                 <?php endforeach; ?>
                 <tr>
                     <th></th>
-                    <th>Team</th>
-                    <th>Vs</th>
+                    <th><?= $model->getAttributeLabel('team'); ?></th>
+                    <th><?= $model->getAttributeLabel('vs'); ?></th>
                 </tr>
             </table>
         </div>
@@ -66,27 +67,29 @@ use yii\helpers\Html;
                 'value' => function (Team $model) {
                     return Html::a(
                         '<i class="fa fa-check-circle"></i>',
-                        ['ask', 'id' => $model->team_id],
-                        ['title' => 'Choose']
+                        ['team/ask', 'id' => $model->team_id],
+                        ['title' => Yii::t('frontend-views-team-ask', 'link-choose')]
                     );
                 }
             ],
             [
                 'attribute' => 'team',
-                'footer' => 'Team',
+                'footer' => $model->getAttributeLabel('team'),
                 'format' => 'raw',
                 'value' => function (Team $model) {
                     return Html::a(
                         $model->team_name . ' (' . $model->stadium->city->city_name . ')',
-                        ['view', 'id' => $model->team_id]
+                        ['team/view', 'id' => $model->team_id]
                     );
                 }
             ],
             [
                 'attribute' => 'country',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Country',
+                'footer' => $model->getAttributeLabel('country'),
+                'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Team $model) {
                     return Html::a(
                         Html::img(
@@ -103,15 +106,22 @@ use yii\helpers\Html;
             [
                 'attribute' => 'base',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Base',
+                'footer' => $model->getAttributeLabel('base'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Team $model) {
-                    return $model->baseUsed() . ' of ' . $model->base->base_slot_max;
+                    return Yii::t('frontend-views-team', 'base-used', [
+                        'used' => $model->baseUsed(),
+                        'max' => $model->base->base_slot_max,
+                    ]);
                 }
             ],
             [
                 'attribute' => 'stadium',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Stadium',
+                'footer' => $model->getAttributeLabel('stadium'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Team $model) {
                     return $model->stadium->stadium_capacity;
                 }
@@ -119,7 +129,9 @@ use yii\helpers\Html;
             [
                 'attribute' => 'finance',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Finance',
+                'footer' => $model->getAttributeLabel('finance'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Team $model) {
                     return Yii::$app->formatter->asCurrency($model->team_finance, 'USD');
                 }
@@ -127,17 +139,25 @@ use yii\helpers\Html;
             [
                 'attribute' => 'vs',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Vs',
-                'headerOptions' => ['title' => 'Team power'],
+                'footer' => $model->getAttributeLabel('vs'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => [
+                    'class' => 'hidden-xs',
+                    'title' => Yii::t('frontend-views-team-ask', 'title-power')
+                ],
                 'value' => function (Team $model) {
                     return $model->team_power_vs;
                 }
             ],
             [
-                'label' => 'NoA',
+                'label' => $model->getAttributeLabel('number_of_application'),
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'NoA',
-                'headerOptions' => ['title' => 'Number of applications'],
+                'footer' => $model->getAttributeLabel('number_of_application'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => [
+                    'class' => 'hidden-xs',
+                    'title' => Yii::t('frontend-views-team-ask', 'title-number-of-application')
+                ],
                 'value' => function (Team $model) {
                     return count($model->teamAsk);
                 }
@@ -157,9 +177,9 @@ use yii\helpers\Html;
     ?>
 </div>
 <div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <a class="btn show-full-table" href="javascript:">
-            Show full table
+            <?= Yii::t('frontend-views', 'link-full-table'); ?>
         </a>
     </div>
 </div>
