@@ -100,14 +100,14 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                     <?php } ?>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= Yii::t('frontend-views-team-team-top', 'stadium'); ?>:
+                            <?= $team->getAttributeLabel('stadium'); ?>:
                             <?= $team->stadium->stadium_name; ?>,
                             <strong><?= Yii::$app->formatter->asInteger($team->stadium->stadium_capacity); ?></strong>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= Yii::t('frontend-views-team-team-top', 'base'); ?>:
+                            <?= $team->getAttributeLabel('base'); ?>:
                             <span class="strong"><?= $team->base->base_level; ?></span>
                             <?= Yii::t('frontend-views-team-team-top', 'level'); ?>
                             (<?= Yii::t('frontend-views-team', 'base-used', [

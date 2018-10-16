@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'base' => 'База',
+    'base' => '@@База@@',
     'division' => 'Дивизион',
     'finance' => 'Финансы',
     'letter-guest' => 'Г',
@@ -35,6 +35,6 @@ return [
     'link-training' => 'Тренировка хоккеистов',
     'manager' => 'Менеджер',
     'nickname' => 'Ник',
-    'stadium' => 'Стадион',
+    'stadium' => '@@Стадион@@',
     'vice' => 'Заместитель',
 ];

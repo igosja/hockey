@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var Player $model
  * @var \yii\web\View $this
  */
 
@@ -25,7 +26,7 @@ print $this->render('_team-top');
         $columns = [
             [
                 'attribute' => 'player',
-                'footer' => 'Player',
+                'footer' => $model->getAttributeLabel('player'),
                 'format' => 'raw',
                 'value' => function (Player $model) {
                     return Html::a(
@@ -42,8 +43,10 @@ print $this->render('_team-top');
             [
                 'attribute' => 'country',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Country',
+                'footer' => $model->getAttributeLabel('country'),
+                'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return Html::a(
                         Html::img(
@@ -60,7 +63,7 @@ print $this->render('_team-top');
             [
                 'attribute' => 'position',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Position',
+                'footer' => $model->getAttributeLabel('position'),
                 'value' => function (Player $model) {
                     return $model->position();
                 }
@@ -68,15 +71,15 @@ print $this->render('_team-top');
             [
                 'attribute' => 'age',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Age',
+                'footer' => $model->getAttributeLabel('age'),
                 'value' => function (Player $model) {
                     return $model->player_age;
                 }
             ],
             [
-                'attribute' => 'power',
+                'attribute' => 'power_nominal',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Power',
+                'footer' => $model->getAttributeLabel('power_nominal'),
                 'value' => function (Player $model) {
                     return $model->player_power_nominal;
                 }
@@ -84,7 +87,7 @@ print $this->render('_team-top');
             [
                 'attribute' => 'tire',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Tire',
+                'footer' => $model->getAttributeLabel('tire'),
                 'value' => function (Player $model) {
                     return $model->player_tire;
                 }
@@ -92,11 +95,11 @@ print $this->render('_team-top');
             [
                 'attribute' => 'physical',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Physical',
+                'footer' => $model->getAttributeLabel('physical'),
                 'format' => 'raw',
                 'value' => function (Player $model) {
                     return Html::img(
-                        '/img/physical/' . $model->physical->physical_id . '.png',
+                        '/img/physical/' . $model->player_physical_id . '.png',
                         [
                             'alt' => $model->physical->physical_name,
                             'title' => $model->physical->physical_name,
@@ -107,7 +110,7 @@ print $this->render('_team-top');
             [
                 'attribute' => 'power_real',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Power Real',
+                'footer' => $model->getAttributeLabel('power_real'),
                 'value' => function (Player $model) {
                     return $model->player_power_real;
                 }
@@ -115,7 +118,9 @@ print $this->render('_team-top');
             [
                 'attribute' => 'special',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Special',
+                'footer' => $model->getAttributeLabel('special'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->special();
                 }
@@ -123,7 +128,9 @@ print $this->render('_team-top');
             [
                 'attribute' => 'plus_minus',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Special',
+                'footer' => $model->getAttributeLabel('plus_minus'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->statisticPlayer->statistic_player_plus_minus ?? 0;
                 }
@@ -131,7 +138,9 @@ print $this->render('_team-top');
             [
                 'attribute' => 'game',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Special',
+                'footer' => $model->getAttributeLabel('game'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->statisticPlayer->statistic_player_game ?? 0;
                 }
@@ -139,7 +148,9 @@ print $this->render('_team-top');
             [
                 'attribute' => 'score',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Special',
+                'footer' => $model->getAttributeLabel('score'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->statisticPlayer->statistic_player_score ?? 0;
                 }
@@ -147,15 +158,19 @@ print $this->render('_team-top');
             [
                 'attribute' => 'assist',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Special',
+                'footer' => $model->getAttributeLabel('assist'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->statisticPlayer->statistic_player_assist ?? 0;
                 }
             ],
             [
-                'attribute' => 'price',
+                'attribute' => 'player_price',
                 'contentOptions' => ['class' => 'hidden-xs text-right'],
-                'footer' => 'Price',
+                'footer' => $model->getAttributeLabel('player_price'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return Yii::$app->formatter->asCurrency($model->player_price, 'USD');
                 }
@@ -163,8 +178,10 @@ print $this->render('_team-top');
             [
                 'attribute' => 'style',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Style',
+                'footer' => $model->getAttributeLabel('style'),
+                'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->iconStyle(true);
                 }
@@ -172,7 +189,9 @@ print $this->render('_team-top');
             [
                 'attribute' => 'game_row',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Game Row',
+                'footer' => $model->getAttributeLabel('game_row'),
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Player $model) {
                     return $model->player_game_row;
                 }

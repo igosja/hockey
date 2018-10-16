@@ -227,6 +227,7 @@ class TeamController extends BaseController
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+            'model' => new Player(),
         ]);
     }
 
