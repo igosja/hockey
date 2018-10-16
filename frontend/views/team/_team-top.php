@@ -236,7 +236,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         ); ?>
                     <?php endif; ?>
                 </div>
-                <?php foreach ($latest as $item) { ?>
+                <?php foreach ($latest as $item) : ?>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
                         <?php
 
@@ -250,24 +250,25 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         -
                         <?= $item->schedule->tournamentType->tournament_type_name; ?>
                         -
-                        <?= Yii::t('frontend-views-team-team-top', 'letter-home'); ?>
-                        <?= Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
+                        <?= $item->game_home_team_id == $teamId
+                            ? Yii::t('frontend-views-team-team-top', 'letter-home')
+                            : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
                         -
                         <?= Html::a(
-                            $item->teamHome->team_name,
-                            ['team/view', 'id' => $item->teamHome->team_id]
+                            $item->game_home_team_id == $teamId ? $item->teamHome->team_name : $item->teamGuest->team_name,
+                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_home_team_id : $item->game_guest_team_id]
                         ); ?>
                         -
                         <?= Html::a(
-                            $item->game_home_score . ':' . $item->game_guest_score,
+                            $item->game_home_team_id == $teamId ? $item->game_home_score . ':' . $item->game_guest_score : $item->game_guest_score . ':' . $item->game_home_score,
                             ['game/view', 'id' => $item->game_id]
                         ); ?>
                     </div>
-                <?php } ?>
+                <?php endforeach; ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row text-size-4">&nbsp;</div>
                 </div>
-                <?php foreach ($nearest as $item) { ?>
+                <?php foreach ($nearest as $item) : ?>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 italic">
                         <?php
 
@@ -281,34 +282,42 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         -
                         <?= $item->schedule->tournamentType->tournament_type_name; ?>
                         -
-                        H/G
+                        <?= $item->game_home_team_id == $teamId
+                            ? Yii::t('frontend-views-team-team-top', 'letter-home')
+                            : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
                         -
                         <?= Html::a(
-                            $item->teamHome->team_name,
-                            ['team/view', 'id' => $item->teamHome->team_id]
+                            $item->game_home_team_id == $teamId ? $item->teamHome->team_name : $item->teamGuest->team_name,
+                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_home_team_id : $item->game_guest_team_id]
                         ); ?>
                         -
-                        <?= Html::a(
-                            Yii::t('frontend-views-team-team-top', 'link-send') . Yii::t('frontend-views-team-team-top', 'link-edit'),
-                            ['lineup/index', 'id' => $item->game_id]
-                        ); ?>
-                        <?= Html::a(
-                            '?:?',
-                            ['game/preview', 'id' => $item->game_id]
-                        ); ?>
+                        <?php if ($controller->myTeam && $controller->myTeam->team_id == $teamId) : ?>
+                            <?= Html::a(
+                                (($item->game_home_team_id == $teamId && $item->game_home_tactic_id_1)
+                                    || ($item->game_guest_team_id == $teamId && $item->game_guest_tactic_id_1))
+                                    ? Yii::t('frontend-views-team-team-top', 'link-edit')
+                                    : Yii::t('frontend-views-team-team-top', 'link-send'),
+                                ['lineup/index', 'id' => $item->game_id]
+                            ); ?>
+                        <?php else: ?>
+                            <?= Html::a(
+                                '?:?',
+                                ['game/preview', 'id' => $item->game_id]
+                            ); ?>
+                        <?php endif; ?>
                     </div>
-                <?php } ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
-<?php if ($notification_array = []) { ?>
+<?php if ($notification_array = []) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <ul>
-                <?php foreach ($notification_array as $item) { ?>
+                <?php foreach ($notification_array as $item) : ?>
                     <li><?= $item; ?></li>
-                <?php } ?>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
-<?php } ?>
+<?php endif; ?>
