@@ -250,7 +250,8 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         -
                         <?= $item->schedule->tournamentType->tournament_type_name; ?>
                         -
-                        H/G
+                        <?= Yii::t('frontend-views-team-team-top', 'letter-home'); ?>
+                        <?= Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
                         -
                         <?= Html::a(
                             $item->teamHome->team_name,
@@ -288,7 +289,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         ); ?>
                         -
                         <?= Html::a(
-                            'Send',
+                            Yii::t('frontend-views-team-team-top', 'link-send') . Yii::t('frontend-views-team-team-top', 'link-edit'),
                             ['lineup/index', 'id' => $item->game_id]
                         ); ?>
                         <?= Html::a(

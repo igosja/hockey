@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'conference' => 'Conference',
     'label-base' => 'Base',
     'label-count-team' => 'Teams',
     'label-country' => 'Country',
@@ -25,4 +26,6 @@ return [
     'label-stadium' => 'Stadium',
     'label-team' => 'Team',
     'label-vs' => 'Vs',
+    'link-add-logo' => 'Add logo',
+    'place' => 'place',
 ];
