@@ -530,6 +530,37 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function getTopData():array
+    {
+        $teamId = Yii::$app->request->get('id', 1);
+
+        $team = Team::find()
+            ->where(['team_id' => $teamId])
+            ->limit(1)
+            ->one();
+
+        $latest = Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
+            ->andWhere(['game_played' => 1])
+            ->orderBy(['schedule_date' => SORT_DESC])
+            ->limit(3)
+            ->all();
+
+        $nearest = Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['schedule_date' => SORT_ASC])
+            ->limit(2)
+            ->all();
+
+        return [$teamId, $team, $latest, $nearest];
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBase(): ActiveQuery

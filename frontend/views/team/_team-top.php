@@ -1,33 +1,19 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\models\Game;
 use common\models\RosterPhrase;
 use common\models\Team;
 use yii\helpers\Html;
 
-$teamId = Yii::$app->request->get('id', 1);
-
-$team = Team::find()
-    ->where(['team_id' => $teamId])
-    ->limit(1)
-    ->one();
-
-$latest = Game::find()
-    ->joinWith(['schedule'])
-    ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
-    ->andWhere(['game_played' => 1])
-    ->orderBy(['schedule_date' => SORT_DESC])
-    ->limit(3)
-    ->all();
-
-$nearest = Game::find()
-    ->joinWith(['schedule'])
-    ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
-    ->andWhere(['game_played' => 0])
-    ->orderBy(['schedule_date' => SORT_ASC])
-    ->limit(2)
-    ->all();
+/**
+ * @var \frontend\controllers\BaseController $controller
+ * @var \common\models\Game[] $latest
+ * @var \common\models\Game[] $nearest
+ * @var int $teamId
+ * @var Team $team
+ */
+$controller = Yii::$app->controller;
+list($teamId, $team, $latest, $nearest) = Team::getTopData();
 
 ?>
     <div class="row margin-top">
@@ -53,12 +39,12 @@ $nearest = Game::find()
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                            Division: <?= $team->division(); ?>
+                            <?= Yii::t('frontend-views-team-team-top', 'division'); ?>: <?= $team->division(); ?>
                         </div>
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Manager:
+                            <?= Yii::t('frontend-views-team-team-top', 'manager'); ?>:
                             <?php if ($team->manager->canDialog()) : ?>
                                 <?= Html::a(
                                     '<i class="fa fa-envelope-o"></i>',
@@ -74,7 +60,7 @@ $nearest = Game::find()
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Nick:
+                            <?= Yii::t('frontend-views-team-team-top', 'nickname'); ?>:
                             <?= $team->manager->iconVip(); ?>
                             <?= Html::a(
                                 $team->manager->user_login,
@@ -86,7 +72,7 @@ $nearest = Game::find()
                     <?php if ($team->team_vice_id) { ?>
                         <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                Vice:
+                                <?= Yii::t('frontend-views-team-team-top', 'vice'); ?>:
                                 <?php if ($team->vice->canDialog()) : ?>
                                     <?= Html::a(
                                         '<i class="fa fa-envelope-o"></i>',
@@ -102,7 +88,7 @@ $nearest = Game::find()
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                Nick:
+                                <?= Yii::t('frontend-views-team-team-top', 'nickname'); ?>:
                                 <?= $team->manager->iconVip(); ?>
                                 <?= Html::a(
                                     $team->vice->user_login,
@@ -114,22 +100,25 @@ $nearest = Game::find()
                     <?php } ?>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Stadium:
+                            <?= Yii::t('frontend-views-team-team-top', 'stadium'); ?>:
                             <?= $team->stadium->stadium_name; ?>,
                             <strong><?= Yii::$app->formatter->asInteger($team->stadium->stadium_capacity); ?></strong>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Base: <span class="strong"><?= $team->base->base_level; ?></span> level
-                            (<span class="strong"><?= $team->baseUsed(); ?></span>
-                            of
-                            <span class="strong"><?= $team->base->base_slot_max; ?></span> slots)
+                            <?= Yii::t('frontend-views-team-team-top', 'base'); ?>:
+                            <span class="strong"><?= $team->base->base_level; ?></span>
+                            <?= Yii::t('frontend-views-team-team-top', 'level'); ?>
+                            (<?= Yii::t('frontend-views-team', 'base-used', [
+                                'used' => '<span class="strong">' . $team->baseUsed() . '</span>',
+                                'max' => '<span class="strong">' . $team->base->base_slot_max . '</span>'
+                            ]); ?>)
                         </div>
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Finances:
+                            <?= Yii::t('frontend-views-team-team-top', 'finance'); ?>:
                             <span class="strong">
                                 <?php
 
@@ -156,64 +145,91 @@ $nearest = Game::find()
                         <?= Html::a(
                             Html::img(
                                 '/img/roster/questionnaire.png',
-                                ['alt' => 'Sign Up', 'title' => 'Sign Up']
+                                [
+                                    'alt' => Yii::t('frontend-views-team-team-top', 'link-sign-up'),
+                                    'title' => Yii::t('frontend-views-team-team-top', 'link-sign-up'),
+                                ]
                             ),
                             ['site/sign-up'],
                             ['class' => 'no-underline']
                         ); ?>
-                    <?php else : ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/friendly.png',
-                                ['alt' => 'Организовать товарищеский матч', 'title' => 'Personal data']
-                            ),
-                            ['friendly/index'],
-                            ['class' => 'no-underline']
-                        ); ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/training.png',
-                                ['alt' => 'Тренировка хоккеистов', 'title' => 'Personal data']
-                            ),
-                            ['training/index'],
-                            ['class' => 'no-underline']
-                        ); ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/scout.png',
-                                ['alt' => 'Изучение хоккеистов', 'title' => 'Personal data']
-                            ),
-                            ['scout/index'],
-                            ['class' => 'no-underline']
-                        ); ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/physical.png',
-                                ['alt' => 'Изменение физической формы', 'title' => 'Personal data']
-                            ),
-                            ['physical/index'],
-                            ['class' => 'no-underline']
-                        ); ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/school.png',
-                                ['alt' => 'Подготовка молодёжи', 'title' => 'Personal data']
-                            ),
-                            ['school/index'],
-                            ['class' => 'no-underline']
-                        ); ?>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/roster/free-team.png',
-                                ['alt' => 'Подать заявку на получение команды', 'title' => 'Personal data']
-                            ),
-                            ['change'],
-                            ['class' => 'no-underline']
-                        ); ?>
+                    <?php else: ?>
+                        <?php if ($controller->myTeam && $controller->myTeam->team_id == $teamId) : ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/friendly.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-friendly'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-friendly'),
+                                    ]
+                                ),
+                                ['friendly/index'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/training.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-training'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-training'),
+                                    ]
+                                ),
+                                ['training/index'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/scout.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-scout'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-scout'),
+                                    ]
+                                ),
+                                ['scout/index'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/physical.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-physical'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-physical'),
+                                    ]
+                                ),
+                                ['physical/index'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/school.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-school'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-school'),
+                                    ]
+                                ),
+                                ['school/index'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                        <?php else: ?>
+                            <?= Html::a(
+                                Html::img(
+                                    '/img/roster/free-team.png',
+                                    [
+                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-change-team'),
+                                        'title' => Yii::t('frontend-views-team-team-top', 'link-change-team'),
+                                    ]
+                                ),
+                                ['team/change'],
+                                ['class' => 'no-underline']
+                            ); ?>
+                        <?php endif; ?>
                         <?= Html::a(
                             Html::img(
                                 '/img/roster/questionnaire.png',
-                                ['alt' => 'Personal data', 'title' => 'Personal data']
+                                [
+                                    'alt' => Yii::t('frontend-views-team-team-top', 'link-questionnaire'),
+                                    'title' => Yii::t('frontend-views-team-team-top', 'link-questionnaire'),
+                                ]
                             ),
                             ['user/questionnaire'],
                             ['class' => 'no-underline']
