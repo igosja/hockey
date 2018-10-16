@@ -18,6 +18,7 @@
  */
 return [
     'label-base' => 'Base',
+    'label-count-team' => 'Teams',
     'label-country' => 'Country',
     'label-finance' => 'Finances',
     'label-number-of-application' => 'NoA',
