@@ -255,8 +255,8 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                             : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
                         -
                         <?= Html::a(
-                            $item->game_home_team_id == $teamId ? $item->teamHome->team_name : $item->teamGuest->team_name,
-                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_home_team_id : $item->game_guest_team_id]
+                            $item->game_home_team_id == $teamId ? $item->teamGuest->team_name : $item->teamHome->team_name,
+                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_guest_team_id : $item->game_home_team_id]
                         ); ?>
                         -
                         <?= Html::a(
@@ -287,8 +287,8 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                             : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
                         -
                         <?= Html::a(
-                            $item->game_home_team_id == $teamId ? $item->teamHome->team_name : $item->teamGuest->team_name,
-                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_home_team_id : $item->game_guest_team_id]
+                            $item->game_home_team_id == $teamId ? $item->teamGuest->team_name : $item->teamHome->team_name,
+                            ['team/view', 'id' => $item->game_home_team_id == $teamId ? $item->game_guest_team_id : $item->game_home_team_id]
                         ); ?>
                         -
                         <?php if ($controller->myTeam && $controller->myTeam->team_id == $teamId) : ?>
