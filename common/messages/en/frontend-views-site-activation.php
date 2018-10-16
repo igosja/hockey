@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'h1' => 'account activation',
+    'h1' => 'Account activation',
     'link-repeat' => 'I have not received a letter',
     'submit' => 'Activate account',
     'text' => '<p>

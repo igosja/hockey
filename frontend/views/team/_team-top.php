@@ -1,7 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\models\RosterPhrase;
+use common\components\RosterPhrase;
 use common\models\Team;
 use yii\helpers\Html;
 
@@ -241,7 +241,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         <?php
 
                         try {
-                            print Yii::$app->formatter->asDatetime($item->schedule->schedule_date);
+                            print Yii::$app->formatter->asDatetime($item->schedule->schedule_date, 'short');
                         } catch (Exception $e) {
                             ErrorHelper::log($e);
                         }
@@ -273,7 +273,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                         <?php
 
                         try {
-                            print Yii::$app->formatter->asDatetime($item->schedule->schedule_date);
+                            print Yii::$app->formatter->asDatetime($item->schedule->schedule_date, 'short');
                         } catch (Exception $e) {
                             ErrorHelper::log($e);
                         }

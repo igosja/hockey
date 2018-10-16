@@ -230,7 +230,7 @@ class Menu extends Widget
             ],
             self::ITEM_PASSWORD => [
                 'label' => Yii::t('frontend-widgets-menu', 'password'),
-                'url' => ['password/index'],
+                'url' => ['site/password'],
             ],
             self::ITEM_PLAYER => [
                 'label' => Yii::t('frontend-widgets-menu', 'player'),
