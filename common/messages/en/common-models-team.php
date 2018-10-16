@@ -26,6 +26,6 @@ return [
     'label-stadium' => 'Stadium',
     'label-team' => 'Team',
     'label-vs' => 'Vs',
-    'link-add-logo' => 'Add logo',
+    'link-add-logo' => 'Add<br/>logo',
     'place' => 'place',
 ];

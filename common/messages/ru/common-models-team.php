@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'conference' => '',
+    'conference' => 'Конференция',
     'label-base' => 'База',
     'label-count-team' => 'Команды',
     'label-country' => 'Страна',
@@ -26,6 +26,6 @@ return [
     'label-stadium' => 'Стадион',
     'label-team' => 'Команда',
     'label-vs' => 'Vs',
-    'link-add-logo' => '',
-    'place' => '',
+    'link-add-logo' => 'Добавить<br/>эмблему',
+    'place' => 'место',
 ];
