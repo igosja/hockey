@@ -138,6 +138,7 @@ class Team extends ActiveRecord
         return [
             'base' => Yii::t('common-models-team', 'label-base'),
             'country' => Yii::t('common-models-team', 'label-country'),
+            'count_team' => Yii::t('common-models-team', 'label-count-team'),
             'finance' => Yii::t('common-models-team', 'label-finance'),
             'number_of_application' => Yii::t('common-models-team', 'label-number-of-application'),
             'stadium' => Yii::t('common-models-team', 'label-stadium'),
