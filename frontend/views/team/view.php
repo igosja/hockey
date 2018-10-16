@@ -10,7 +10,7 @@ use yii\helpers\Html;
  * @var \yii\web\View $this
  */
 
-print $this->render('_teamTop');
+print $this->render('_team-top');
 
 ?>
 <div class="row">

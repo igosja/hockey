@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= $this->render('_signUpLinks'); ?>
+            <?= $this->render('_sign-up-links'); ?>
         </div>
     </div>
 <?php $form = ActiveForm::begin([

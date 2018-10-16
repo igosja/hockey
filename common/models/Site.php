@@ -64,7 +64,7 @@ class Site extends ActiveRecord
             ErrorHelper::log($e);
         }
 
-        return Yii::t('common-models-Site', 'version', ['version' => $version, 'date' => $date]);
+        return Yii::t('common-models-site', 'version', ['version' => $version, 'date' => $date]);
     }
 
     /**

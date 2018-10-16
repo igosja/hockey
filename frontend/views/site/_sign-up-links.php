@@ -10,7 +10,7 @@ try {
                 'alias' => [
                     ['site/sign-up'],
                 ],
-                'text' => Yii::t('frontend-views-site-_signUpLinks', 'sign-up'),
+                'text' => Yii::t('frontend-views-site-sign-up-links', 'sign-up'),
                 'url' => ['site/sign-up'],
             ],
             [
@@ -18,7 +18,7 @@ try {
                     ['site/password'],
                     ['site/password-restore'],
                 ],
-                'text' => Yii::t('frontend-views-site-_signUpLinks', 'password'),
+                'text' => Yii::t('frontend-views-site-sign-up-links', 'password'),
                 'url' => ['site/password'],
             ],
             [
@@ -26,7 +26,7 @@ try {
                     ['site/activation'],
                     ['site/activation-repeat'],
                 ],
-                'text' => Yii::t('frontend-views-site-_signUpLinks', 'activation'),
+                'text' => Yii::t('frontend-views-site-sign-up-links', 'activation'),
                 'url' => ['site/activation'],
             ],
         ]

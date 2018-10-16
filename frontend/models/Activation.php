@@ -70,11 +70,11 @@ class Activation extends Model
             ->one();
 
         if (!$user) {
-            $this->addError($attribute, Yii::t('common-models-Activation', 'error-no-user'));
+            $this->addError($attribute, Yii::t('frontend-models-activation', 'error-no-user'));
         }
 
         if ($user->user_date_confirm) {
-            $this->addError($attribute, Yii::t('common-models-Activation', 'error-already-active'));
+            $this->addError($attribute, Yii::t('frontend-models-activation', 'error-already-active'));
         }
     }
 
@@ -84,7 +84,7 @@ class Activation extends Model
     public function attributeLabels(): array
     {
         return [
-            'code' => Yii::t('common-models-Activation', 'label-code'),
+            'code' => Yii::t('frontend-models-activation', 'label-code'),
         ];
     }
 }
