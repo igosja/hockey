@@ -478,7 +478,7 @@ class Team extends ActiveRecord
      */
     public function logo(): string
     {
-        $result = 'Add logo';
+        $result = Yii::t('common-models-team', 'link-add-logo');
         if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png')) {
             $result = Html::img(
                 '/img/team/125/' . $this->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png'),
@@ -501,7 +501,8 @@ class Team extends ActiveRecord
             $result = Html::a(
                 $this->championship->country->country_name . ', ' .
                 $this->championship->division->division_name . ', ' .
-                $this->championship->championship_place . ' place',
+                $this->championship->championship_place . ' ' .
+                Yii::t('common-models-team', 'place'),
                 [
                     'championship',
                     'country_id' => $this->championship->country->country_id,
@@ -510,7 +511,9 @@ class Team extends ActiveRecord
             );
         } else {
             $result = Html::a(
-                $result = 'Conference, ' . $this->conference->conference_place . ' place',
+                $result = Yii::t('common-models-team', 'conference') . ', ' .
+                    $this->conference->conference_place . ' ' .
+                    Yii::t('common-models-team', 'place'),
                 ['conference/table']
             );
         }
