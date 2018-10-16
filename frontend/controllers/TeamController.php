@@ -219,10 +219,10 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Team profile';
+        $this->view->title = Yii::t('frontend-controllers-team-view', 'seo-title');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Team profile - Virtual Hockey Online League'
+            'content' => Yii::t('frontend-controllers-team-view', 'seo-description')
         ]);
 
         return $this->render('view', [
