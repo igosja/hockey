@@ -66,6 +66,8 @@ use yii\helpers\Html;
  */
 class Team extends ActiveRecord
 {
+    public $count_team;
+
     const MAX_AUTO_GAMES = 5;
 
     /**
