@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\controllers\BaseController;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -288,20 +289,25 @@ class Player extends ActiveRecord
     public function iconStyle($showOnlyIfStudied = false): string
     {
         /**
-         * @var Team $myTeam
+         * @var BaseController $controller
          */
-        $myTeam = Yii::$app->controller->myTeam;
+        $controller = Yii::$app->controller;
+        $myTeam = $controller->myTeam;
 
         if (!$myTeam) {
-            $styleArray = Style::find()
-                ->select(['style_id', 'style_name'])
-                ->where(['!=', 'style_id', Style::NORMAL])
-                ->orderBy(['style_id' => SORT_ASC])
-                ->all();
+            if (!$showOnlyIfStudied) {
+                $styleArray = Style::find()
+                    ->select(['style_id', 'style_name'])
+                    ->where(['!=', 'style_id', Style::NORMAL])
+                    ->orderBy(['style_id' => SORT_ASC])
+                    ->all();
+            } else {
+                $styleArray = [];
+            }
         } else {
             $countScout = Scout::find()
                 ->where(['scout_player_id' => $this->player_id, 'scout_team_id' => $myTeam->team_id])
-                ->andWhere(['!=', 'scout_ready', 100])
+                ->andWhere(['!=', 'scout_ready', 0])
                 ->count();
 
             if (2 == $countScout || !$showOnlyIfStudied) {
