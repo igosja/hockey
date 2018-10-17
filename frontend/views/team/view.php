@@ -50,7 +50,7 @@ print $this->render('_team-top');
                 'footer' => $model->getAttributeLabel('country'),
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'hidden-xs'],
+                'headerOptions' => ['class' => 'hidden-xs col-1'],
                 'value' => function (Player $model): string {
                     return Html::a(
                         Html::img(
