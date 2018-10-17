@@ -121,6 +121,31 @@ class Player extends ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'player' => Yii::t('common-models-player', 'label-player'),
+            'country' => Yii::t('common-models-player', 'label-country'),
+            'position' => Yii::t('common-models-player', 'label-position'),
+            'age' => Yii::t('common-models-player', 'label-age'),
+            'power_nominal' => Yii::t('common-models-player', 'label-power-nominal'),
+            'tire' => Yii::t('common-models-player', 'label-tire'),
+            'physical' => Yii::t('common-models-player', 'label-physical'),
+            'power_real' => Yii::t('common-models-player', 'label-power-real'),
+            'special' => Yii::t('common-models-player', 'label-special'),
+            'plus_minus' => Yii::t('common-models-player', 'label-plus-minus'),
+            'game' => Yii::t('common-models-player', 'label-game'),
+            'score' => Yii::t('common-models-player', 'label-score'),
+            'assist' => Yii::t('common-models-player', 'label-assist'),
+            'player_price' => Yii::t('common-models-player', 'label-player-price'),
+            'style' => Yii::t('common-models-player', 'label-style'),
+            'game_row' => Yii::t('common-models-player', 'label-game-row'),
+        ];
+    }
+
+    /**
      * @param bool $insert
      * @return bool
      */

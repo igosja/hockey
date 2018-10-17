@@ -22,10 +22,12 @@ class LinkBar extends Widget
      * @var array $items
      */
     public $items;
+
     /**
      * @var string $bar
      */
     private $bar;
+
     /**
      * @var array $item
      */
@@ -72,6 +74,7 @@ class LinkBar extends Widget
         $result = [];
         foreach ($this->items as $item) {
             $this->item = $item;
+            $this->addUrlToAlias();
             $result[] = $this->renderItem();
         }
         $this->bar = implode(' | ', $result);
@@ -119,5 +122,14 @@ class LinkBar extends Widget
             }
         }
         return false;
+    }
+
+    private function addUrlToAlias()
+    {
+        if (!isset($this->item['alias'])) {
+            $this->item['alias'] = [$this->item['url']];
+        } else {
+            $this->item['alias'][] = $this->item['url'];
+        }
     }
 }
