@@ -308,11 +308,11 @@ class Team extends ActiveRecord
             ->where(['player_team_id' => $this->team_id])
             ->andWhere(['!=', 'player_position_id', Position::GK])
             ->orderBy(['player_power_nominal' => SORT_DESC]);
-        $player1 = (clone $playerGk)->limit(1);
-        $player2 = (clone $playerGk)->limit(2);
-        $player15 = (clone $playerField)->limit(15);
-        $player20 = (clone $playerField)->limit(20);
-        $player25 = (clone $playerField)->limit(25);
+        $player1 = (clone $playerGk)->limit(1)->column();
+        $player2 = (clone $playerGk)->limit(2)->column();
+        $player15 = (clone $playerField)->limit(15)->column();
+        $player20 = (clone $playerField)->limit(20)->column();
+        $player25 = (clone $playerField)->limit(25)->column();
         $power = Player::find()->where(['player_id' => $player15])->sum('player_power_nominal');
         $power_c_16 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
         $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal');
