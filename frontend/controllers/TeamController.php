@@ -94,6 +94,8 @@ class TeamController extends BaseController
             return $this->redirect(['ask']);
         }
 
+        $showHiddenParams = ($this->myTeam && $this->myTeam->team_id == $id);
+
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Player::find()
@@ -191,16 +193,16 @@ class TeamController extends BaseController
                         'desc' => ['player_position_id' => SORT_DESC],
                     ],
                     'physical' => [
-                        'asc' => ['player_physical_id' => SORT_ASC],
-                        'desc' => ['player_physical_id' => SORT_DESC],
+                        'asc' => [$showHiddenParams ? 'player_physical_id' : 'player_position_id' => SORT_ASC],
+                        'desc' => [$showHiddenParams ? 'player_physical_id' : 'player_position_id' => SORT_DESC],
                     ],
-                    'power' => [
+                    'power_nominal' => [
                         'asc' => ['player_power_nominal' => SORT_ASC],
                         'desc' => ['player_power_nominal' => SORT_DESC],
                     ],
                     'power_real' => [
-                        'asc' => ['player_power_real' => SORT_ASC],
-                        'desc' => ['player_power_real' => SORT_DESC],
+                        'asc' => [$showHiddenParams ? 'player_power_real' : 'player_power_nominal' => SORT_ASC],
+                        'desc' => [$showHiddenParams ? 'player_power_real' : 'player_power_nominal' => SORT_DESC],
                     ],
                     'price' => [
                         'asc' => ['player_price' => SORT_ASC],
@@ -211,8 +213,8 @@ class TeamController extends BaseController
                         'desc' => ['player_style_id' => SORT_DESC],
                     ],
                     'tire' => [
-                        'asc' => ['player_tire' => SORT_ASC],
-                        'desc' => ['player_tire' => SORT_DESC],
+                        'asc' => [$showHiddenParams ? 'player_tire' : 'player_position_id' => SORT_ASC],
+                        'desc' => [$showHiddenParams ? 'player_tire' : 'player_position_id' => SORT_DESC],
                     ],
                 ],
                 'defaultOrder' => ['position' => SORT_ASC],
@@ -228,6 +230,7 @@ class TeamController extends BaseController
         return $this->render('view', [
             'dataProvider' => $dataProvider,
             'model' => new Player(),
+            'showHiddenParams' => $showHiddenParams,
         ]);
     }
 

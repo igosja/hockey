@@ -176,10 +176,4 @@ use yii\helpers\Html;
 
     ?>
 </div>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <a class="btn show-full-table" href="javascript:">
-            <?= Yii::t('frontend-views', 'link-full-table'); ?>
-        </a>
-    </div>
-</div>
+<?= $this->render('/site/_show-full-table'); ?>
