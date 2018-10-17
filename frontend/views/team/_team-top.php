@@ -16,6 +16,11 @@ use yii\helpers\Html;
 $controller = Yii::$app->controller;
 list($teamId, $team, $latest, $nearest) = Team::getTopData();
 
+$myTeamIds = [];
+foreach ($controller->myTeamArray as $item) {
+    $myTeamIds[] = $item->team_id;
+}
+
 ?>
     <div class="row margin-top">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -211,7 +216,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                                 ['school/index'],
                                 ['class' => 'no-underline']
                             ); ?>
-                        <?php else: ?>
+                        <?php elseif (!in_array($teamId, $myTeamIds)): ?>
                             <?= Html::a(
                                 Html::img(
                                     '/img/roster/free-team.png',
