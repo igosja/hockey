@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\models\Player;
+use common\models\Team;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -11,6 +12,8 @@ use yii\helpers\Html;
  * @var bool $showHiddenParams
  * @var \yii\web\View $this
  */
+
+$team = Team::find()->where(['team_id' => Yii::$app->request->get('id', 1)])->one();
 
 print $this->render('_team-top');
 
@@ -219,53 +222,69 @@ print $this->render('_team-top');
 <?= $this->render('/site/_show-full-table'); ?>
 <div class="row margin-top">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-size-2">
-        <span class="italic">Показатели команды:</span>
+        <span class="italic"><?= Yii::t('frontend-views-team-view', 'indicator'); ?>:</span>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Рейтинг силы команды (Vs)
+                - <?= Yii::t('frontend-views-team-team-bottom', 'vs'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_power_vs'; ?>
+                <?= $team->team_power_vs; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Сила 16 лучших (s16)
+                - <?= Yii::t('frontend-views-team-team-bottom', 's16'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_power_s_16'; ?>
+                <?= $team->team_power_s_16; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Сила 21 лучшего (s21)
+                - <?= Yii::t('frontend-views-team-team-bottom', 's21'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_power_s_21'; ?>
+                <?= $team->team_power_s_21; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Сила 27 лучших (s27)
+                - <?= Yii::t('frontend-views-team-team-bottom', 's27'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_power_s_27'; ?>
+                <?= $team->team_power_s_27; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Стоимость строений
+                - <?= Yii::t('frontend-views-team-team-bottom', 'price-base'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_price_base'; ?>
+                <?php
+
+                try {
+                    print Yii::$app->formatter->asCurrency($team->team_price_base, 'USD');
+                } catch (Exception $e) {
+                    ErrorHelper::log($e);
+                }
+
+                ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                - Общая стоимость
+                - <?= Yii::t('frontend-views-team-team-bottom', 'price-total'); ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-                <?= 'team_price_total'; ?>
+                <?php
+
+                try {
+                    print Yii::$app->formatter->asCurrency($team->team_price_total, 'USD');
+                } catch (Exception $e) {
+                    ErrorHelper::log($e);
+                }
+
+                ?>
             </div>
         </div>
     </div>

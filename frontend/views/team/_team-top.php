@@ -12,6 +12,7 @@ use yii\helpers\Html;
  * @var int $teamId
  * @var Team $team
  */
+
 $controller = Yii::$app->controller;
 list($teamId, $team, $latest, $nearest) = Team::getTopData();
 
@@ -123,7 +124,7 @@ list($teamId, $team, $latest, $nearest) = Team::getTopData();
                                 <?php
 
                                 try {
-                                    print Yii::$app->formatter->asCurrency($team->team_finance);
+                                    print Yii::$app->formatter->asCurrency($team->team_finance, 'USD');
                                 } catch (Exception $e) {
                                     ErrorHelper::log($e);
                                 }
