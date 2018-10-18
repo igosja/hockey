@@ -2,53 +2,60 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
+use Yii;
 
 /**
  * Class Style
  * @package common\models
- *
- * @property int $style_id
- * @property string $style_name
  */
-class Style extends ActiveRecord
+class Style
 {
     const NORMAL = 1;
     const POWER = 2;
     const SPEED = 3;
     const TECHNIQUE = 4;
-
-    /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%style}}';
-    }
+    const ALL_STYLES = [
+        self::NORMAL,
+        self::POWER,
+        self::SPEED,
+        self::TECHNIQUE,
+    ];
+    const PLAYER_STYLES = [
+        self::POWER,
+        self::SPEED,
+        self::TECHNIQUE,
+    ];
 
     /**
      * @return array
      */
-    public function rules(): array
+    public static function getLabels(): array
     {
         return [
-            [['style_id'], 'integer'],
-            [['style_name'], 'required'],
-            [['style_name'], 'string', 'max' => 10],
-            [['style_name'], 'trim'],
+            self::NORMAL => Yii::t('common-models-style', 'label-normal'),
+            self::POWER => Yii::t('common-models-style', 'label-power'),
+            self::SPEED => Yii::t('common-models-style', 'label-speed'),
+            self::TECHNIQUE => Yii::t('common-models-style', 'label-technique'),
         ];
     }
 
     /**
-     * @return false|null|string
+     * @param $id
+     * @return string
      */
-    public static function getRandStyleId()
+    public static function getLabel($id): string
     {
-        return self::find()
-            ->select(['style_id'])
-            ->where(['!=', 'style_id', self::NORMAL])
-            ->orderBy('RAND()')
-            ->limit(1)
-            ->scalar();
+        if (!in_array($id, self::ALL_STYLES)) {
+            return self::getLabel(self::NORMAL);
+        }
+        return self::getLabels()[$id];
+    }
+
+    /**
+     * @return int
+     */
+    public static function getRandStyleId(): int
+    {
+        return self::PLAYER_STYLES[array_rand(self::PLAYER_STYLES)];
     }
 }
