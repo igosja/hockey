@@ -38,12 +38,8 @@ return [
             'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
             'languages' => [
-                'en',
-                'en-*' => 'en',
                 'ru',
                 'ru-*' => 'ru',
-                'uk',
-                'uk-*' => 'uk',
             ],
             'rules' => [
                 '' => 'site/index',

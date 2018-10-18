@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Throwable;
 use yii\db\ActiveRecord;
 
 /**
@@ -42,10 +44,18 @@ class Physical extends ActiveRecord
      */
     public static function getRandPhysical(): Physical
     {
-        return self::find()
-            ->select(['physical_id', 'physical_value'])
-            ->orderBy('RAND()')
-            ->limit(1)
-            ->one();
+        try {
+            $physicalArray = self::getDb()->cache(function (): array {
+                return self::find()
+                    ->select(['physical_id', 'physical_value'])
+                    ->all();
+            });
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $physicalArray = self::find()
+                ->select(['physical_id', 'physical_value'])
+                ->all();
+        }
+        return $physicalArray[array_rand($physicalArray)];
     }
 }

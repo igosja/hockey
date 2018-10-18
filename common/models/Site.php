@@ -39,7 +39,7 @@ class Site extends ActiveRecord
         $date = time();
 
         try {
-            $site = self::getDb()->cache(function () {
+            $site = self::getDb()->cache(function (): self {
                 return self::find()
                     ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
                     ->where(['site_id' => 1])
@@ -50,7 +50,7 @@ class Site extends ActiveRecord
             $site = self::find()
                 ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
                 ->where(['site_id' => 1])
-                ->one();;
+                ->one();
         }
 
         if ($site) {

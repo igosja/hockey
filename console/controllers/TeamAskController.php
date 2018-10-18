@@ -50,7 +50,11 @@ class TeamAskController extends BaseController
             return false;
         }
 
-        if (!Team::find()->where(['team_id' => $teamAsk['team_ask_team_id'], 'team_user_id' => 0])->count()) {
+        $teamToEmploy = Team::find()
+            ->where(['team_id' => $teamAsk['team_ask_team_id'], 'team_user_id' => 0])
+            ->limit(1)
+            ->one();
+        if (!$teamToEmploy) {
             TeamAsk::deleteAll(['team_ask_id' => $teamAsk['team_ask_id']]);
             return false;
         }
@@ -58,10 +62,16 @@ class TeamAskController extends BaseController
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($teamAsk['team_ask_leave_id']) {
-                Team::findOne($teamAsk['team_ask_leave_id'])->managerFire();
+                $teamToFire = Team::find()
+                    ->where(['team_id' => $teamAsk['team_ask_leave_id']])
+                    ->limit(1)
+                    ->one();
+                if ($teamToFire) {
+                    $teamToFire->managerFire();
+                }
             }
 
-            Team::findOne($teamAsk['team_ask_team_id'])->managerEmploy($teamAsk['team_ask_user_id']);
+            $teamToEmploy->managerEmploy($teamAsk['team_ask_user_id']);
 
             TeamAsk::deleteAll(['team_ask_team_id' => $teamAsk['team_ask_team_id']]);
             TeamAsk::deleteAll(['team_ask_user_id' => $teamAsk['team_ask_user_id']]);

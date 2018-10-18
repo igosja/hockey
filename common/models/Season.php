@@ -38,7 +38,7 @@ class Season extends ActiveRecord
     public static function getCurrentSeason(): int
     {
         try {
-            $result = self::getDb()->cache(function () {
+            $result = self::getDb()->cache(function (): int {
                 return self::find()->max('season_id');
             });
         } catch (Throwable $e) {
