@@ -45,12 +45,12 @@ foreach ($controller->myTeamArray as $item) {
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
-                            <?= Yii::t('frontend-views-team-team-top', 'division'); ?>: <?= $team->division(); ?>
+                            Дивизион: <?= $team->division(); ?>
                         </div>
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= Yii::t('frontend-views-team-team-top', 'manager'); ?>:
+                            Менеджер:
                             <?php if ($team->manager->canDialog()) : ?>
                                 <?= Html::a(
                                     '<i class="fa fa-envelope-o"></i>',
@@ -66,7 +66,7 @@ foreach ($controller->myTeamArray as $item) {
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= Yii::t('frontend-views-team-team-top', 'nickname'); ?>:
+                            Ник:
                             <?= $team->manager->iconVip(); ?>
                             <?= Html::a(
                                 $team->manager->user_login,
@@ -78,7 +78,7 @@ foreach ($controller->myTeamArray as $item) {
                     <?php if ($team->team_vice_id) { ?>
                         <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <?= Yii::t('frontend-views-team-team-top', 'vice'); ?>:
+                                Заместитель:
                                 <?php if ($team->vice->canDialog()) : ?>
                                     <?= Html::a(
                                         '<i class="fa fa-envelope-o"></i>',
@@ -94,7 +94,7 @@ foreach ($controller->myTeamArray as $item) {
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <?= Yii::t('frontend-views-team-team-top', 'nickname'); ?>:
+                                Ник:
                                 <?= $team->manager->iconVip(); ?>
                                 <?= Html::a(
                                     $team->vice->user_login,
@@ -114,17 +114,15 @@ foreach ($controller->myTeamArray as $item) {
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <?= $team->getAttributeLabel('base'); ?>:
-                            <span class="strong"><?= $team->base->base_level; ?></span>
-                            <?= Yii::t('frontend-views-team-team-top', 'level'); ?>
-                            (<?= Yii::t('frontend-views-team', 'base-used', [
-                                'used' => '<span class="strong">' . $team->baseUsed() . '</span>',
-                                'max' => '<span class="strong">' . $team->base->base_slot_max . '</span>'
-                            ]); ?>)
+                            <span class="strong"><?= $team->base->base_level; ?></span> уровень
+                            (<span class="strong"><?= $team->baseUsed(); ?></span>
+                            из
+                            <span class="strong"><?= $team->base->base_slot_max; ?></span>)
                         </div>
                     </div>
                     <div class="row margin-top-small">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?= Yii::t('frontend-views-team-team-top', 'finance'); ?>:
+                            Финансы:
                             <span class="strong">
                                 <?php
 
@@ -151,10 +149,7 @@ foreach ($controller->myTeamArray as $item) {
                         <?= Html::a(
                             Html::img(
                                 '/img/roster/questionnaire.png',
-                                [
-                                    'alt' => Yii::t('frontend-views-team-team-top', 'link-sign-up'),
-                                    'title' => Yii::t('frontend-views-team-team-top', 'link-sign-up'),
-                                ]
+                                ['alt' => 'Зарегистрироваться', 'title' => 'Зарегистрироваться']
                             ),
                             ['site/sign-up'],
                             ['class' => 'no-underline']
@@ -165,8 +160,8 @@ foreach ($controller->myTeamArray as $item) {
                                 Html::img(
                                     '/img/roster/friendly.png',
                                     [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-friendly'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-friendly'),
+                                        'alt' => 'Организовать товарищеский матч',
+                                        'title' => 'Организовать товарищеский матч',
                                     ]
                                 ),
                                 ['friendly/index'],
@@ -175,10 +170,7 @@ foreach ($controller->myTeamArray as $item) {
                             <?= Html::a(
                                 Html::img(
                                     '/img/roster/training.png',
-                                    [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-training'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-training'),
-                                    ]
+                                    ['alt' => 'Тренировка хоккеистов', 'title' => 'Тренировка хоккеистов']
                                 ),
                                 ['training/index'],
                                 ['class' => 'no-underline']
@@ -186,10 +178,7 @@ foreach ($controller->myTeamArray as $item) {
                             <?= Html::a(
                                 Html::img(
                                     '/img/roster/scout.png',
-                                    [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-scout'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-scout'),
-                                    ]
+                                    ['alt' => 'Изучение хоккеистов', 'title' => 'Изучение хоккеистов']
                                 ),
                                 ['scout/index'],
                                 ['class' => 'no-underline']
@@ -197,10 +186,7 @@ foreach ($controller->myTeamArray as $item) {
                             <?= Html::a(
                                 Html::img(
                                     '/img/roster/physical.png',
-                                    [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-physical'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-physical'),
-                                    ]
+                                    ['alt' => 'Изменение физической формы', 'title' => 'Изменение физической формы']
                                 ),
                                 ['physical/index'],
                                 ['class' => 'no-underline']
@@ -208,10 +194,7 @@ foreach ($controller->myTeamArray as $item) {
                             <?= Html::a(
                                 Html::img(
                                     '/img/roster/school.png',
-                                    [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-school'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-school'),
-                                    ]
+                                    ['alt' => 'Подготовка молодёжи', 'title' => 'Подготовка молодёжи']
                                 ),
                                 ['school/index'],
                                 ['class' => 'no-underline']
@@ -221,21 +204,18 @@ foreach ($controller->myTeamArray as $item) {
                                 Html::img(
                                     '/img/roster/free-team.png',
                                     [
-                                        'alt' => Yii::t('frontend-views-team-team-top', 'link-change-team'),
-                                        'title' => Yii::t('frontend-views-team-team-top', 'link-change-team'),
+                                        'alt' => 'Подать заявку на получение команды',
+                                        'title' => 'Подать заявку на получение команды',
                                     ]
                                 ),
-                                ['team/change'],
+                                ['team/change', 'id' => $teamId],
                                 ['class' => 'no-underline']
                             ); ?>
                         <?php endif; ?>
                         <?= Html::a(
                             Html::img(
                                 '/img/roster/questionnaire.png',
-                                [
-                                    'alt' => Yii::t('frontend-views-team-team-top', 'link-questionnaire'),
-                                    'title' => Yii::t('frontend-views-team-team-top', 'link-questionnaire'),
-                                ]
+                                ['alt' => 'Личные данные', 'title' => 'Личные данные']
                             ),
                             ['user/questionnaire'],
                             ['class' => 'no-underline']
@@ -256,9 +236,7 @@ foreach ($controller->myTeamArray as $item) {
                         -
                         <?= $item->schedule->tournamentType->tournament_type_name; ?>
                         -
-                        <?= $item->game_home_team_id == $teamId
-                            ? Yii::t('frontend-views-team-team-top', 'letter-home')
-                            : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
+                        <?= $item->game_home_team_id == $teamId ? 'Д' : 'Г'; ?>
                         -
                         <?= Html::a(
                             $item->game_home_team_id == $teamId ? $item->teamGuest->team_name : $item->teamHome->team_name,
@@ -288,9 +266,7 @@ foreach ($controller->myTeamArray as $item) {
                         -
                         <?= $item->schedule->tournamentType->tournament_type_name; ?>
                         -
-                        <?= $item->game_home_team_id == $teamId
-                            ? Yii::t('frontend-views-team-team-top', 'letter-home')
-                            : Yii::t('frontend-views-team-team-top', 'letter-guest'); ?>
+                        <?= $item->game_home_team_id == $teamId ? 'Д' : 'Г'; ?>
                         -
                         <?= Html::a(
                             $item->game_home_team_id == $teamId ? $item->teamGuest->team_name : $item->teamHome->team_name,
@@ -301,8 +277,8 @@ foreach ($controller->myTeamArray as $item) {
                             <?= Html::a(
                                 (($item->game_home_team_id == $teamId && $item->game_home_tactic_id_1)
                                     || ($item->game_guest_team_id == $teamId && $item->game_guest_tactic_id_1))
-                                    ? Yii::t('frontend-views-team-team-top', 'link-edit')
-                                    : Yii::t('frontend-views-team-team-top', 'link-send'),
+                                    ? 'Ред.'
+                                    : 'Отпр.',
                                 ['lineup/index', 'id' => $item->game_id]
                             ); ?>
                         <?php else: ?>

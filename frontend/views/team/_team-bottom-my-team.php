@@ -11,10 +11,10 @@ $model = $controller->myTeam;
 
 ?>
 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-size-2">
-    <span class="italic"><?= Yii::t('frontend-views-team-team-bottom', 'indicator'); ?>:</span>
+    <span class="italic">Показатели вашей команды:</span>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 'vs'); ?>
+            - Рейтинг силы команды (Vs)
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <?= $model->team_power_vs; ?>
@@ -22,15 +22,7 @@ $model = $controller->myTeam;
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 's16'); ?>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?= $model->team_power_s_16; ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 's21'); ?>
+            - Сила 21 лучшего (s21)
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <?= $model->team_power_s_21; ?>
@@ -38,15 +30,23 @@ $model = $controller->myTeam;
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 's27'); ?>
+            - Сила 26 лучших (s26)
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?= $model->team_power_s_27; ?>
+            <?= $model->team_power_s_26; ?>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 'price-base'); ?>
+            - Сила 32 лучших (s32)
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+            <?= $model->team_power_s_32; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            - Стоимость строений
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <?php
@@ -62,7 +62,7 @@ $model = $controller->myTeam;
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            - <?= Yii::t('frontend-views-team-team-bottom', 'price-total'); ?>
+            - Общая стоимость
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <?php

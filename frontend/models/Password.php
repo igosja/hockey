@@ -63,7 +63,7 @@ class Password extends Model
                 )
                 ->setTo($model->user_email)
                 ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject(Yii::t('common-models-password', 'mail-subject'))
+                ->setSubject('Восстановление пароля на сайте Виртуальной Хоккейной Лиги')
                 ->send();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -93,8 +93,8 @@ class Password extends Model
     public function attributeLabels(): array
     {
         return [
-            'email' => Yii::t('common-models-password', 'label-email'),
-            'username' => Yii::t('common-models-password', 'label-username'),
+            'email' => 'Email',
+            'username' => 'Логин',
         ];
     }
 }

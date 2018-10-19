@@ -55,11 +55,8 @@ class CountryController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Federation teams';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Federation teams - Virtual Hockey Online League'
-        ]);
+        $this->view->title = 'Команды фередации';
+        $this->setSeoDescription();
 
         return $this->render('team', [
             'dataProvider' => $dataProvider

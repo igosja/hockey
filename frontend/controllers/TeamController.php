@@ -68,11 +68,8 @@ class TeamController extends BaseController
                 ->groupBy(['country_id'])
         ]);
 
-        $this->view->title = Yii::t('frontend-controllers-team-index', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-team-index', 'seo-description')
-        ]);
+        $this->view->title = 'Команды';
+        $this->setSeoDescription();
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -221,11 +218,8 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = Yii::t('frontend-controllers-team-view', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-team-view', 'seo-description')
-        ]);
+        $this->view->title = 'Профиль команды';
+        $this->setSeoDescription();
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
@@ -255,8 +249,8 @@ class TeamController extends BaseController
                 'team_ask_team_id' => $id,
                 'team_ask_user_id' => Yii::$app->user->id
             ])->count()) {
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-team-ask', 'error-already-apply'));
-                return $this->redirect(['ask']);
+                Yii::$app->session->setFlash('error', 'Вы уже подали заявку на эту команду.');
+                return $this->redirect(['team/ask']);
             }
 
             $transaction = Yii::$app->db->beginTransaction();
@@ -267,7 +261,7 @@ class TeamController extends BaseController
                     throw new Exception(ErrorHelper::modelErrorsToString($model));
                 }
                 $transaction->commit();
-                Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-team-ask', 'success-apply'));
+                Yii::$app->session->setFlash('success', 'Заявка успешно подана.');
             } catch (Exception $e) {
                 $transaction->rollBack();
                 ErrorHelper::log($e);
@@ -280,7 +274,7 @@ class TeamController extends BaseController
         if ($delete) {
             TeamAsk::deleteAll(['team_ask_id' => $delete, 'team_ask_user_id' => Yii::$app->user->id]);
 
-            Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-team-ask', 'success-delete'));
+            Yii::$app->session->setFlash('success', 'Заявка успешно удалена.');
             return $this->redirect(['team/ask']);
         }
 
@@ -386,11 +380,8 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = Yii::t('frontend-controllers-team-ask', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-team-ask', 'seo-description')
-        ]);
+        $this->view->title = 'Получение команды';
+        $this->setSeoDescription();
 
         return $this->render('ask', [
             'dataProvider' => $dataProvider,

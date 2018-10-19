@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1><?= Yii::t('frontend-views-site-activation-repeat', 'h1'); ?></h1>
+            <h1>Активация аккаунта</h1>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,13 @@ use yii\widgets\ActiveForm;
 ]); ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Yii::t('frontend-views-site-activation-repeat', 'text'); ?>
+            <p>
+                Эта страничка предназначена для новых менеджеров,
+                которые <strong>не смогли получить письмо с кодом активации</strong>.
+            </p>
+            <p>
+                Для повторной отправки кода активации введите свой <strong>email</strong>:
+            </p>
         </div>
     </div>
     <div class="row">
@@ -44,14 +50,11 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
-            <?= Html::submitButton(
-                Yii::t('frontend-views-site-activation-repeat', 'submit'),
-                ['class' => 'btn margin']
-            ); ?>
+            <?= Html::submitButton('Получить код', ['class' => 'btn margin']); ?>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
             <?= Html::a(
-                Yii::t('frontend-views-site-activation-repeat', 'link-activation'),
+                'У меня уже есть код активации',
                 ['site/activation'],
                 ['class' => 'btn margin']
             ); ?>

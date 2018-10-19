@@ -7,21 +7,21 @@ try {
     print LinkBar::widget([
         'items' => [
             [
-                'text' => Yii::t('frontend-views-site-sign-up-links', 'sign-up'),
+                'text' => 'Регистрация',
                 'url' => ['site/sign-up'],
             ],
             [
                 'alias' => [
                     ['site/password-restore'],
                 ],
-                'text' => Yii::t('frontend-views-site-sign-up-links', 'password'),
+                'text' => 'Забыли пароль?',
                 'url' => ['site/password'],
             ],
             [
                 'alias' => [
                     ['site/activation-repeat'],
                 ],
-                'text' => Yii::t('frontend-views-site-sign-up-links', 'activation'),
+                'text' => 'Активация аккаунта',
                 'url' => ['site/activation'],
             ],
         ]

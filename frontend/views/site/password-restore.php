@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1><?= Yii::t('frontend-views-site-password-restore', 'h1'); ?></h1>
+            <h1>Забыли пароль?</h1>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,9 @@ use yii\widgets\ActiveForm;
 ]); ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Yii::t('frontend-views-site-password-restore', 'text'); ?>
+            <p>
+                Здесь вы можете ввести <strong>новый пароль</strong> для своего аккаунта.
+            </p>
         </div>
     </div>
     <div class="row">
@@ -44,10 +46,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::submitButton(
-                Yii::t('frontend-views-site-password-restore', 'submit'),
-                ['class' => 'btn margin']
-            ); ?>
+            <?= Html::submitButton('Сменить пароль', ['class' => 'btn margin']); ?>
         </div>
     </div>
 <?php ActiveForm::end(); ?>

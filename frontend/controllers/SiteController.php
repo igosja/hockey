@@ -75,10 +75,10 @@ class SiteController extends BaseController
         $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
-        $this->view->title = Yii::t('frontend-controllers-site-index', 'seo-title');
+        $this->view->title = 'Хоккейный онлайн-менеджер';
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-index', 'seo-description')
+            'content' => 'Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн-менеджер.',
         ]);
 
         return $this->render('index', [
@@ -112,11 +112,8 @@ class SiteController extends BaseController
             $model->password = '';
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-login', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-login', 'seo-description')
-        ]);
+        $this->view->title = 'Вход';
+        $this->setSeoDescription();
 
         return $this->render('login', [
             'model' => $model,
@@ -152,21 +149,21 @@ class SiteController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if ($model->signUp()) {
-                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-sign-up', 'success'));
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
+                    );
                     return $this->redirect(['site/activation']);
                 }
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-sign-up', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-sign-up', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-sign-up', 'seo-description')
-        ]);
+        $this->view->title = 'Регистрация';
+        $this->setSeoDescription();
 
         return $this->render('sign-up', [
             'model' => $model,
@@ -188,21 +185,18 @@ class SiteController extends BaseController
         if (($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) && $model->code) {
             try {
                 if ($model->activate()) {
-                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-activation', 'success'));
+                    Yii::$app->session->setFlash('success', 'Активация прошла успешно');
                     return $this->redirect(['site/activation']);
                 }
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-activation', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-activation', 'seo-description')
-        ]);
+        $this->view->title = 'Активация аккаунта';
+        $this->setSeoDescription();
 
         return $this->render('activation', [
             'model' => $model,
@@ -224,28 +218,19 @@ class SiteController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if ($model->send()) {
-                    Yii::$app->session->setFlash(
-                        'success',
-                        Yii::t('frontend-controllers-site-activation-repeat', 'success')
-                    );
+                    Yii::$app->session->setFlash('success', 'Код активации успешно отправлен');
                     return $this->redirect(['site/activation']);
                 } else {
-                    Yii::$app->session->setFlash(
-                        'error',
-                        Yii::t('frontend-controllers-site-activation-repeat', 'error')
-                    );
+                    Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
                 }
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-activation-repeat', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-activation-repeat', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-activation-repeat', 'seo-description')
-        ]);
+        $this->view->title = 'Активация аккаунта';
+        $this->setSeoDescription();
 
         return $this->render('activation-repeat', [
             'model' => $model,
@@ -267,22 +252,22 @@ class SiteController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if ($model->send()) {
-                    Yii::$app->session->setFlash('success', Yii::t('frontend-controllers-site-password', 'success'));
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Письмо с инструкциями по восстановлению пароля успешно отправлено на email'
+                    );
                     return $this->refresh();
                 } else {
-                    Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password', 'error'));
+                    Yii::$app->session->setFlash('error', 'Не удалось восстановить пароль');
                 }
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось восстановить пароль');
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-password', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-password', 'seo-description')
-        ]);
+        $this->view->title = 'Восстановление пароля';
+        $this->setSeoDescription();
 
         return $this->render('password', [
             'model' => $model,
@@ -295,7 +280,7 @@ class SiteController extends BaseController
     public function actionPasswordRestore()
     {
         $model = new PasswordRestore();
-        $model->load(Yii::$app->request->post(), 'get');
+        $model->setAttributes(Yii::$app->request->get());
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -305,28 +290,19 @@ class SiteController extends BaseController
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if ($model->restore()) {
-                    Yii::$app->session->setFlash(
-                        'success',
-                        Yii::t('frontend-controllers-site-password-restore', 'success')
-                    );
+                    Yii::$app->session->setFlash('success', 'Пароль успешно изменён');
                     return $this->refresh();
                 } else {
-                    Yii::$app->session->setFlash(
-                        'error',
-                        Yii::t('frontend-controllers-site-password-restore', 'error')
-                    );
+                    Yii::$app->session->setFlash('error', 'Не удалось изменить пароль');
                 }
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', Yii::t('frontend-controllers-site-password-restore', 'error'));
+                Yii::$app->session->setFlash('error', 'Не удалось изменить пароль');
             }
         }
 
-        $this->view->title = Yii::t('frontend-controllers-site-password-restore', 'seo-title');
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => Yii::t('frontend-controllers-site-password-restore', 'seo-description')
-        ]);
+        $this->view->title = 'Восстановление пароля';
+        $this->setSeoDescription();
 
         return $this->render('password-restore', [
             'model' => $model,

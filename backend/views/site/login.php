@@ -12,7 +12,7 @@ use yii\helpers\Html;
     <div class="col-lg-4 col-md-8 col-sm-10 col-xs-12 col-lg-offset-4 col-md-offset-2 col-sm-offset-1">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title text-center"><?= Yii::t('backend-views-site-login', 'h3'); ?></h3>
+                <h3 class="panel-title text-center">Вход</h3>
             </div>
             <div class="panel-body">
                 <?php $form = ActiveForm::begin([
@@ -29,7 +29,7 @@ use yii\helpers\Html;
                         'placeholder' => $model->getAttributeLabel('password')
                     ]) ?>
                     <?= Html::submitButton(
-                        Yii::t('backend-views-site-login', 'submit'),
+                        'Вход',
                         ['class' => 'btn btn-lg btn-primary btn-block']
                     ) ?>
                 </fieldset>

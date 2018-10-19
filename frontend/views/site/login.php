@@ -12,7 +12,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h1><?= Yii::t('frontend-views-site-login', 'h1'); ?></h1>
+        <h1>Вход</h1>
     </div>
 </div>
 <?php $form = ActiveForm::begin([
@@ -34,7 +34,7 @@ use yii\helpers\Html;
 </div>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= Html::submitButton(Yii::t('frontend-views-site-login', 'submit'), ['class' => 'btn']); ?>
+        <?= Html::submitButton('Вход', ['class' => 'btn']); ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

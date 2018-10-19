@@ -10,18 +10,6 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'i18n' => [
-            'translations' => [
-                '*' => [
-                    'basePath' => '@common/messages',
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'on missingTranslation' => [
-                        'common\components\TranslationEventHandler',
-                        'handleMissingTranslation'
-                    ],
-                ],
-            ],
-        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
         ],

@@ -11,9 +11,8 @@ $link = Url::toRoute(['/site/activation', 'code' => $model->user_code], true);
 $page = Url::toRoute(['/site/activation'], true);
 
 ?>
-<?= Yii::t('common-mail', 'signUp-html', [
-    'login' => $model->user_login,
-    'code' => $model->user_code,
-    'link' => Html::a($link, $link),
-    'page' => Html::a($page, $page),
-]); ?>
+    Вы успешно зарегистрированы на сайте Виртуальной Хоккейной Лиги под логином
+    <strong><?= $model->user_login; ?></strong>.
+    <br/>
+    Чтобы завершить регистрацию подтвердите свой email по ссылке <?= Html::a($link, $link); ?>
+    или введите код <strong><?= $model->user_code; ?></strong> на странице <?= Html::a($page, $page); ?>

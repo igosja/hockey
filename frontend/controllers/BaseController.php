@@ -65,12 +65,26 @@ class BaseController extends Controller
         return parent::beforeAction($action);
     }
 
-    private function checkSessionMyTeamId()
+    /**
+     * @return void
+     */
+    private function checkSessionMyTeamId(): void
     {
         if (Yii::$app->session->get('myTeamId')) {
             if (!in_array(Yii::$app->session->get('myTeamId'), array_keys($this->myTeamArray))) {
                 Yii::$app->session->remove('myTeamId');
             }
         }
+    }
+
+    /**
+     * @return void
+     */
+    protected function setSeoDescription(): void
+    {
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $this->view->title . ' на сайте Виртуальной Хоккейной Лиги'
+        ]);
     }
 }

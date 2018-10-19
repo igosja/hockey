@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1><?= Yii::t('frontend-views-site-password', 'h1'); ?></h1>
+            <h1>Забыли пароль?</h1>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,13 @@ use yii\widgets\ActiveForm;
 ]); ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Yii::t('frontend-views-site-password', 'text-1'); ?>
+            <p>
+                Здесь вы можете запросить отправку <strong>забытого пароля на свой почтовый ящик</strong>,
+                который был указан вами при регистрации.
+            </p>
+            <p>
+                Укажите ваш <strong>логин</strong> или <strong>email</strong>:
+            </p>
         </div>
     </div>
     <div class="row">
@@ -49,15 +55,18 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::submitButton(
-                Yii::t('frontend-views-site-password', 'submit'),
-                ['class' => 'btn margin']
-            ); ?>
+            <?= Html::submitButton('Восстановить пароль', ['class' => 'btn margin']); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Yii::t('frontend-views-site-password', 'text-2'); ?>
+            <p>
+                Если при регистрации вы ввели свой email неправильно или он уже не работает,
+                <br/>
+                то напишите нам письмо на <span class="strong">'<?= Yii::$app->params['infoEmail']; ?></span>
+                <br/>
+                и мы попробуем найти ваш аккаунт вручную.
+            </p>
         </div>
     </div>
 <?php ActiveForm::end(); ?>

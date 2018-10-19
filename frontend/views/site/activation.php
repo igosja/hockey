@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1><?= Yii::t('frontend-views-site-activation', 'h1'); ?></h1>
+            <h1>Активация аккаунта</h1>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,15 @@ use yii\widgets\ActiveForm;
 ]); ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Yii::t('frontend-views-site-activation', 'text'); ?>
+            <p>
+                <strong>Активировать свой аккаунт</strong> - это значит подтвердить,
+                что указанный при регистрации почтовый ящик принадлежит вам и работает.<br/>
+                Только после этого вы сможете полностью пользоваться функциями сайта.
+            </p>
+            <p>
+                Для активации своего аккаунта вам нужно ввести код активации,
+                который был отправлен вам по электронной почте.
+            </p>
         </div>
     </div>
     <div class="row">
@@ -44,14 +52,10 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
-            <?= Html::submitButton(Yii::t('frontend-views-site-activation', 'submit'), ['class' => 'btn margin']); ?>
+            <?= Html::submitButton('Активировать аккаунт', ['class' => 'btn margin']); ?>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
-            <?= Html::a(
-                Yii::t('frontend-views-site-activation', 'link-repeat'),
-                ['site/activation-repeat'],
-                ['class' => 'btn margin']
-            ); ?>
+            <?= Html::a('Мне не пришло письмо', ['site/activation-repeat'], ['class' => 'btn margin']); ?>
         </div>
     </div>
 <?php ActiveForm::end(); ?>

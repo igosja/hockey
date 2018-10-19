@@ -7,31 +7,31 @@ try {
     print LinkBar::widget([
         'items' => [
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'player'),
+                'text' => 'Игроки',
                 'url' => ['team/view', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'game'),
+                'text' => 'Матчи',
                 'url' => ['team/game', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'statistics'),
+                'text' => 'Статистика',
                 'url' => ['team/statistics', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'deal'),
+                'text' => 'Сделки',
                 'url' => ['team/deal', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'event'),
+                'text' => 'События',
                 'url' => ['team/event', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'finance'),
+                'text' => 'Финансы',
                 'url' => ['team/finance', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => Yii::t('frontend-views-team-team-links', 'achievement'),
+                'text' => 'Достижения',
                 'url' => ['team/achievement', 'id' => Yii::$app->request->get('id', 1)],
             ],
         ]

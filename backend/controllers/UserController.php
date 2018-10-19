@@ -19,7 +19,7 @@ class UserController extends BaseController
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
-        $this->view->title = Yii::t('backend-controllers-user-index', 'seo-title');
+        $this->view->title = 'Пользователи';
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('index', [

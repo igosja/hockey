@@ -66,7 +66,7 @@ AppAsset::register($this);
                     <?= Html::a(
                         Html::img(
                             '/img/logo.png',
-                            ['alt' => Yii::t('frontend-views-layouts-main', 'logo-alt'), 'class' => 'img-responsive']
+                            ['alt' => 'Виртуальная Хоккейная Лига', 'class' => 'img-responsive']
                         ),
                         ['site/index']
                     ); ?>
@@ -74,11 +74,7 @@ AppAsset::register($this);
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
                     <br/>
                     <?php if (Yii::$app->user->isGuest): ?>
-                        <?= Html::a(
-                            Yii::t('frontend-views-layouts-main', 'link-log-in'),
-                            ['site/login'],
-                            ['class' => 'btn']
-                        ); ?>
+                        <?= Html::a('Вход', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
                         <?= Html::beginForm(['team/change-my-team'], 'post', ['class' => 'form-inline']); ?>
                         <?= Html::dropDownList(
@@ -87,11 +83,7 @@ AppAsset::register($this);
                             ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
                             ['class' => 'form-control', 'onchange' => 'this.form.submit();']
                         ); ?>
-                        <?= Html::a(
-                            Yii::t('frontend-views-layouts-main', 'link-log-out'),
-                            ['site/logout'],
-                            ['class' => 'btn margin']
-                        ); ?>
+                        <?= Html::a('Выход', ['site/logout'], ['class' => 'btn margin']); ?>
                         <?= Html::endForm(); ?>
                     <?php endif; ?>
                 </div>
@@ -112,13 +104,14 @@ AppAsset::register($this);
             <noscript>
                 <div class="row margin-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
-                        <?= Yii::t('frontend-views-layouts-main', 'javascript-warning'); ?>
+                        В вашем браузере отключен JavaScript.
+                        Для корректной работы сайта рекомендуется включить JavaScript.
                     </div>
                 </div>
             </noscript>
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
-                    <?= Yii::t('frontend-views-layouts-main', 'development-mode'); ?>
+                    Сайт находится в режиме разработки.<br/>Некоторые функции сайта могут быть недоступны.
                 </div>
             </div>
             <?php
@@ -134,22 +127,10 @@ AppAsset::register($this);
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
-                <?= Yii::t(
-                    'frontend-views-layouts-main',
-                    'page-generated',
-                    ['time' => round(Yii::getLogger()->getElapsedTime(), 5)]
-                ); ?>,
-                <?= Yii::t(
-                    'frontend-views-layouts-main',
-                    'page-queries',
-                    ['count' => Yii::getLogger()->getDbProfiling()[0]]
-                ); ?>
+                Страница сгенерирована за <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> сек,
+                <?= Yii::getLogger()->getDbProfiling()[0]; ?> запр.
                 <br/>
-                <?= Yii::t(
-                    'frontend-views-layouts-main',
-                    'page-memory',
-                    ['memory' => Yii::$app->formatter->asInteger(memory_get_peak_usage())]
-                ); ?>
+                Потребление памяти - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?> Б
                 <br/>
                 <?= Site::version(); ?>
             </div>

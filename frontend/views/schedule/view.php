@@ -30,7 +30,7 @@ use yii\helpers\Html;
 
             ?>,
             <?= $schedule->stage->stage_name; ?>,
-            <?= Yii::t('app', '{n, ordinal} season', ['n' => $schedule->schedule_season_id]); ?>
+            <?= Yii::t('app', '{n, ordinal} сезон', ['n' => $schedule->schedule_season_id]); ?>
         </p>
     </div>
 </div>

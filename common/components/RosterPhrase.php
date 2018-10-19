@@ -2,7 +2,6 @@
 
 namespace common\components;
 
-use Yii;
 use yii\helpers\Html;
 
 /**
@@ -17,17 +16,12 @@ class RosterPhrase
     public static function rand(): string
     {
         $data = [
-            Yii::t('common-components-roster-phrase', 'text-1', [
-                'link' => Html::a(Yii::t('common-components-roster-phrase', 'link-1'), ['user/holiday'])
-            ]),
-            Yii::t('common-components-roster-phrase', 'text-2', [
-                'link' => Html::a(Yii::t('common-components-roster-phrase', 'link-2'), ['user/referral'])
-            ]),
-            Yii::t('common-components-roster-phrase', 'text-3', [
-                'link' => Html::a(Yii::t('common-components-roster-phrase', 'link-3'), ['support/index'])
-            ]),
-            Yii::t('common-components-roster-phrase', 'text-4'),
-            Yii::t('common-components-roster-phrase', 'text-5'),
+            'Уезжая надолго и без интернета - не забудьте поставить статус ' . Html::a('в отпуске', ['user/holiday']),
+            Html::a('Пригласите друзей', ['user/referral']) . 'в Лигу и получите вознаграждение',
+            'Если у вас есть вопросы - задайте их специалистам ' . Html::a('тех.поддержки',
+                ['support/index']) . ' Лиги',
+            'Можно достичь высоких результатов, не нарушая правил',
+            'Играйте честно - так интереснее выигрывать',
         ];
         return $data[array_rand($data)];
     }

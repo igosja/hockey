@@ -5,7 +5,6 @@ namespace frontend\models;
 use common\components\ErrorHelper;
 use common\models\User;
 use Exception;
-use Yii;
 use yii\base\Model;
 
 /**
@@ -76,7 +75,7 @@ class PasswordRestore extends Model
     public function attributeLabels(): array
     {
         return [
-            'password' => Yii::t('common-models-password-restore', 'label-password'),
+            'password' => 'Пароль',
         ];
     }
 }

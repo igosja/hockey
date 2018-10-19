@@ -15,7 +15,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h1><?= Yii::t('frontend-views-team-ask', 'h1'); ?></h1>
+        <h1>Получение команды</h1>
     </div>
 </div>
 <?php if ($teamAskArray) : ?>
@@ -24,7 +24,7 @@ use yii\helpers\Html;
             <table class="table table-bordered table-hover">
                 <tr>
                     <th></th>
-                    <th><?= Yii::t('frontend-views-team-ask', 'th-requests'); ?></th>
+                    <th>Ваши заявки</th>
                     <th><?= $model->getAttributeLabel('vs'); ?></th>
                 </tr>
                 <?php foreach ($teamAskArray as $item) : ?>
@@ -33,12 +33,17 @@ use yii\helpers\Html;
                             <?= Html::a(
                                 '<i class="fa fa-times-circle"></i>',
                                 ['team/ask', 'delete' => $item->team_ask_id],
-                                ['title' => Yii::t('frontend-views-team-ask', 'link-delete-request') . 'Delete request']
+                                ['title' => 'Удалить заявку']
                             ) ?>
                         </td>
                         <td>
                             <?= Html::a(
-                                $item->team->team_name . ' (' . $item->team->stadium->city->city_name . ', ' . $item->team->stadium->city->country->country_name . ')',
+                                $item->team->team_name
+                                . ' ('
+                                . $item->team->stadium->city->city_name
+                                . ', '
+                                . $item->team->stadium->city->country->country_name
+                                . ')',
                                 ['team/view', $item->team->team_id]
                             ) ?>
                         </td>
@@ -68,7 +73,7 @@ use yii\helpers\Html;
                     return Html::a(
                         '<i class="fa fa-check-circle"></i>',
                         ['team/ask', 'id' => $model->team_id],
-                        ['title' => Yii::t('frontend-views-team-ask', 'link-choose')]
+                        ['title' => 'Выбрать']
                     );
                 }
             ],
@@ -110,10 +115,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'hidden-xs'],
                 'value' => function (Team $model) {
-                    return Yii::t('frontend-views-team', 'base-used', [
-                        'used' => $model->baseUsed(),
-                        'max' => $model->base->base_slot_max,
-                    ]);
+                    return $model->baseUsed() . ' из ' . $model->base->base_slot_max;
                 }
             ],
             [
@@ -143,7 +145,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => [
                     'class' => 'hidden-xs',
-                    'title' => Yii::t('frontend-views-team-ask', 'title-power')
+                    'title' => 'Рейтинг силы команды в длительных соревнованиях'
                 ],
                 'value' => function (Team $model) {
                     return $model->team_power_vs;
@@ -156,7 +158,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => [
                     'class' => 'hidden-xs',
-                    'title' => Yii::t('frontend-views-team-ask', 'title-number-of-application')
+                    'title' => 'Число заявок'
                 ],
                 'value' => function (Team $model) {
                     return count($model->teamAsk);

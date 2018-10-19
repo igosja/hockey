@@ -15,19 +15,59 @@ use yii\helpers\Html;
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1><?= Yii::t('frontend-views-site-index', 'h1'); ?></h1>
-                <?= Yii::t('frontend-views-site-index', 'text-seo', [
-                    'sign-up' => Yii::$app->user->isGuest ? '<p class="text-center">' . Html::a(
-                            Yii::t('frontend-views-site-index', 'link-sign-up'),
+                <h1>Онлайн-менеджер для истинных любителей хоккея!</h1>
+                <p class="text-justify">
+                    Наверняка каждый из нас мечтал почувствовать себя тренером или менеджером настоящего хоккейного
+                    клуба.
+                    Увлекательный поиск талантливых игроков, постепенное развитие инфраструктуры,
+                    выбор подходящей тактики на игру, регулярные матчи и, конечно же, победы, титулы и новые достижения!
+                    Именно это ждёт Вас в нашем мире виртуального хоккея. Окунитесь в него и создайте клуб своей мечты!
+                </p>
+                <h4>Играть в наш хоккейный онлайн-менеджер может каждый!</h4>
+                <p class="text-justify">
+                    Наш проект открыт для всех!
+                    Чтобы начать играть, Вам достаточно просто пройти элементарную процедуру регистрации.
+                    <strong>"Виртуальная Хоккейная Лига"</strong> – это функциональный хоккейный онлайн-менеджер,
+                    в котором Вы получите возможность пройти увлекательный путь развития своей команды
+                    от низших дивизионов до побед в национальных чемпионатах и мировых кубках!
+                </p>
+                <?php if (Yii::$app->user->isGuest) : ?>
+                    <p class="text-center">
+                        <?= Html::a(
+                            'Зарегистрироваться',
                             ['site/sign-up'],
                             ['class' => 'btn']
-                        ) . '</p>' : '',
-                ]); ?>
+                        ); ?>
+                    </p>
+                <?php endif; ?>
+                <h4>Скачивать ничего не надо!</h4>
+                <p class="text-justify">
+                    Обращаем внимание, что наш хоккейный онлайн-менеджер является браузерной игрой.
+                    Поэтому Вам не надо будет скачивать какие-либо клиентские программы,
+                    тратить время на их утомительную установку и последующую настройку.
+                    Для игры Вам необходим только доступ к интернету и несколько минут свободного времени.
+                    При этом участие в турнирах является <strong>абсолютно бесплатным</strong>.
+                </p>
+                <h4 class="center header">Вы обязательно станете чемпионом!</h4>
+                <p class="text-justify">
+                    Хотим подчеркнуть, что для достижения успеха Вам не надо целыми сутками сидеть за компьютером.
+                    Чтобы постепенно развивать свой клуб, участвовать в трансферах и играть календарные матчи,
+                    Вам достаточно иметь возможность хотя бы несколько раз в неделю посещать наш сайт.
+                </p>
+                <h4 class="center header">Увлекательные хоккейные матчи и первые победы уже ждут Вас!</h4>
+                <p class="text-justify">
+                    Хоккейный онлайн-менеджер <strong>"Виртуальная Хоккейная Лига"</strong> – это больше, чем обычная
+                    игра.
+                    Это сообщество людей, которые объединены страстью и любовью к хоккею.
+                    Здесь Вы обязательно сможете найти интересных людей, заведете новые знакомства
+                    и просто отлично проведетё время в непринужденной и максимально комфортной атмосфере.
+                    Вперёд, пришло время занять тренерское кресло и кабинет менеджера!
+                </p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2><?= Yii::t('frontend-views-site-index', 'h4-news'); ?></h2>
+                <h2>Последние игровые новост</h2>
             </div>
         </div>
         <?php if ($news) : ?>
@@ -44,77 +84,67 @@ use yii\helpers\Html;
                         ['user/view', 'id' => $news->user->user_id]
                     ); ?>
                     <p class="text-justify text-size-3">
-                        [<?= Html::a(Yii::t('frontend-views-site-index', 'link-learn-more'), ['news/index']); ?>]
+                        [<?= Html::a('Подробнее', ['news/index']); ?>]
                     </p>
                 </div>
             </div>
         <?php endif; ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2><?= Yii::t('frontend-views-site-index', 'h2-how'); ?></h2>
+                <h2>Как стать менеджером хоккейной команды?</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify"><?= Yii::t('frontend-views-site-index', 'text-how'); ?></p>
+                <p class="text-justify">Для того, чтобы стать участником игры, вам нужно:</p>
                 <ul>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-1', [
-                            'register' => Html::a(
-                                Yii::t('frontend-views-site-index', 'link-register'),
-                                ['site/sign-up'],
-                                ['class' => 'strong']
-                            ),
-                        ]); ?>
+                        <?= Html::a(
+                            'зарегистрироваться в игре',
+                            ['site/sign-up'],
+                            ['class' => 'strong']
+                        ); ?>, получить письмо с кодом подтверждения регистрации;
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-2', [
-                            'confirm' => Html::a(
-                                Yii::t('frontend-views-site-index', 'link-confirm-page'),
-                                ['site/confirm']
-                            ),
-                        ]); ?>
+                        активировать свою регистрацию с помощью кода, полученного в письме, на
+                        <?= Html::a(
+                            'этой странице',
+                            ['site/activation']
+                        ); ?>;
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-3'); ?>
+                        зайти на сайт под своим логином и паролем;
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-4'); ?>
+                        подать заявку на новую или свободную команду;
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-5'); ?>
+                        дождаться, пока модератор рассмотрит вашу заявку и отдаст клуб в ваше распоряжение;
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-6'); ?>
+                        ознакомиться с самыми простыми разделами правил (по желанию);
                     </li>
                     <li>
-                        <?= Yii::t('frontend-views-site-index', 'how-li-7'); ?>
+                        и всё - приступить к игре! - постепенно вникая в тонкости и детали игрового процесса.
                     </li>
                 </ul>
                 <p class="text-justify">
-                    <?= Yii::t('frontend-views-site-index', 'how-ask', [
-                        'forum' => Html::a(
-                            Yii::t('frontend-views-site-index', 'link-forum'),
-                            ['forum/index']
-                        ),
-                        'support' => Html::a(
-                            Yii::t('frontend-views-site-index', 'link-support'),
-                            ['support/index']
-                        ),
-                    ]); ?>
+                    Свои вопросы вы можете задать опытным игрокам на <?= Html::a('форуме', ['forum/index']); ?>.
+                    Обо всех проблемах и вопросах вы можете написать в
+                    <?= Html::a('техподдержку сайта', ['support/index']); ?>.
                 </p>
             </div>
         </div>
         <?php if ($reviews) : ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h2><?= Yii::t('frontend-views-site-index', 'h2-reviews'); ?></h2>
+                    <h2>Хоккейная аналитика</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
-                        <?= Yii::t('frontend-views-site-index', 'text-reviews'); ?>
+                        Журналисты Виртуальной Хоккейной Лиги регулярно публикуют обзоры состоявшихся туров:
                     </p>
                     <ul>
                         <?php foreach ($reviews as $item): ?>
@@ -134,7 +164,7 @@ use yii\helpers\Html;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2>
-                        <?= Yii::t('frontend-views-site-index', 'h2-federation-news'); ?>
+                        Новости федераций
                     </h2>
                 </div>
             </div>
@@ -150,10 +180,7 @@ use yii\helpers\Html;
                     </p>
                     <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
-                        [<?= Html::a(
-                            Yii::t('frontend-views-site-index', 'link-learn-more'),
-                            ['country/news', 'id' => $countryNews->news_country_id]
-                        ); ?>]
+                        [<?= Html::a('Подробнее', ['country/news', 'id' => $countryNews->news_country_id]); ?>]
                     </p>
                 </div>
             </div>
@@ -162,25 +189,29 @@ use yii\helpers\Html;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2>
-                        <?= Yii::t('frontend-views-site-index', 'h2-birthday'); ?>
+                        Дни рождения
                     </h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <p class="text-justify">
-                        <?= Yii::t('frontend-views-site-index', 'text-birthday'); ?>
+                        <span class="strong">Сегодня день рождения</span> празднуют менеджеры:
                     </p>
                     <ul>
                         <?php foreach ($birthdays as $item) : ?>
                             <li>
                                 <?= $item->user_name; ?> <?= $item->user_surname; ?>
                                 (<?= Html::a($item->user_login, ['user/view', 'id' => $item->user_id]); ?>)
-                                <?php if ($item->user_birth_year || true) : ?>
+                                <?php if ($item->user_birth_year) : ?>
                                     -
-                                    <?= Yii::t('frontend-views-site-index', 'text-birthday-years-old', [
-                                        'years' => date('Y') - $item->user_birth_year,
-                                    ]); ?>
+                                    <?= Yii::t(
+                                        'app',
+                                        'исполняется {years, plural, one{# год} few{# года} many{# лет} other{# лет}}!',
+                                        [
+                                            'years' => date('Y') - $item->user_birth_year,
+                                        ]
+                                    ); ?>
                                 <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
@@ -194,7 +225,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <fieldset class="text-size-3">
                     <legend class="text-center strong">
-                        <?= Yii::t('frontend-views-site-index', 'legend-forum'); ?>
+                        Форум
                     </legend>
                     <?php foreach ($forumThemes as $item): ?>
                         <div class="row margin-top-small">
@@ -216,14 +247,16 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">
-                        <?= Yii::t('frontend-views-site-index', 'legend-counter'); ?>
+                        Счётчик
                     </legend>
-                    <img
-                            alt="LiveInternet counter"
-                            height="31"
-                            src="//counter.yadro.ru/logo?14.4"
-                            width="88"
-                    />
+                    <?= Html::img(
+                        '//counter.yadro.ru/logo?14.4',
+                        [
+                            'alt' => 'LiveInternet counter',
+                            'height' => 31,
+                            'width' => 8,
+                        ]
+                    ); ?>
                 </fieldset>
             </div>
         </div>
@@ -231,15 +264,17 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <fieldset>
                     <legend class="text-center strong">
-                        <?= Yii::t('frontend-views-site-index', 'legend-payments'); ?>
+                        Платежи
                     </legend>
                     <a href="//passport.webmoney.ru/asp/certview.asp?wmid=274662367507" rel="nofollow" target="_blank">
-                        <img
-                                alt="WebMoney"
-                                border="0"
-                                src="/img/webmoney.png"
-                                title="WebMoney ID 274662367507"
-                        />
+                        <?= Html::img(
+                            '/img/webmoney.png',
+                            [
+                                'alt' => 'WebMoney',
+                                'border' => 0,
+                                'title' => 'WebMoney ID 274662367507',
+                            ]
+                        ); ?>
                     </a>
                 </fieldset>
             </div>

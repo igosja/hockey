@@ -60,7 +60,7 @@ class ActivationRepeat extends Model
                 )
                 ->setTo($this->email)
                 ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject(Yii::t('common-models-activation-repeat', 'mail-subject'))
+                ->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги')
                 ->send();
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -83,11 +83,11 @@ class ActivationRepeat extends Model
             ->one();
 
         if (!$user) {
-            $this->addError($attribute, Yii::t('common-models-activation-repeat', 'error-no-user'));
+            $this->addError($attribute, 'Этот email не найден');
         }
 
         if ($user->user_date_confirm) {
-            $this->addError($attribute, Yii::t('common-models-activation-repeat', 'error-already-active'));
+            $this->addError($attribute, 'Профиль уже активирован');
         }
     }
 
@@ -97,7 +97,7 @@ class ActivationRepeat extends Model
     public function attributeLabels(): array
     {
         return [
-            'email' => Yii::t('common-models-activation-repeat', 'label-email'),
+            'email' => 'Email',
         ];
     }
 }

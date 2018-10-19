@@ -136,14 +136,14 @@ class Team extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'base' => Yii::t('common-models-team', 'label-base'),
-            'country' => Yii::t('common-models-team', 'label-country'),
-            'count_team' => Yii::t('common-models-team', 'label-count-team'),
-            'finance' => Yii::t('common-models-team', 'label-finance'),
-            'number_of_application' => Yii::t('common-models-team', 'label-number-of-application'),
-            'stadium' => Yii::t('common-models-team', 'label-stadium'),
-            'team' => Yii::t('common-models-team', 'label-team'),
-            'vs' => Yii::t('common-models-team', 'label-vs'),
+            'base' => 'База',
+            'country' => 'Страна',
+            'count_team' => 'Команды',
+            'finance' => 'Финансы',
+            'number_of_application' => 'ЧЗ',
+            'stadium' => 'Стадион',
+            'team' => 'Команда',
+            'vs' => 'Vs',
         ];
     }
 
@@ -439,7 +439,7 @@ class Team extends ActiveRecord
      */
     public function logo(): string
     {
-        $result = Yii::t('common-models-team', 'link-add-logo');
+        $result = 'Добавить<br/>эмблему';
         if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png')) {
             $result = Html::img(
                 '/img/team/125/' . $this->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png'),
@@ -463,7 +463,7 @@ class Team extends ActiveRecord
                 $this->championship->country->country_name . ', ' .
                 $this->championship->division->division_name . ', ' .
                 $this->championship->championship_place . ' ' .
-                Yii::t('common-models-team', 'place'),
+                'место',
                 [
                     'championship',
                     'country_id' => $this->championship->country->country_id,
@@ -472,9 +472,9 @@ class Team extends ActiveRecord
             );
         } else {
             $result = Html::a(
-                $result = Yii::t('common-models-team', 'conference') . ', ' .
+                $result = 'Конференция' . ', ' .
                     $this->conference->conference_place . ' ' .
-                    Yii::t('common-models-team', 'place'),
+                    'место',
                 ['conference/table']
             );
         }
