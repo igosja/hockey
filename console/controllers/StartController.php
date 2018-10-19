@@ -39,9 +39,9 @@ class StartController extends BaseController
 
         try {
             for ($i = 0, $countModel = count($modelArray); $i < $countModel; $i++) {
-                $this->stdout('Starting ' . get_class($modelArray[$i]) . '...');
+                $this->stdout('Начинаем ' . get_class($modelArray[$i]) . '...');
                 $modelArray[$i]->execute();
-                $this->stdout(' Done. ' . round(($i + 1) / $countModel * 100, 1) . '% processed' . PHP_EOL);
+                $this->stdout(' Готово. ' . round(($i + 1) / $countModel * 100, 1) . '% выполнено' . PHP_EOL);
             }
         } catch (Exception $e) {
             ErrorHelper::log($e);
