@@ -20,10 +20,10 @@ class m180619_170421_event_text_goal extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['event_text_goal_text'], [
-            ['Shovel shot'],
-            ['Wrist shot'],
-            ['Snap shot'],
-            ['Slap shot'],
+            ['Бросок подкидкой'],
+            ['Кистевой бросок'],
+            ['Короткий щелчок'],
+            ['Щелчок'],
         ]);
     }
 

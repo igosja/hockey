@@ -7,10 +7,10 @@ use yii\db\Migration;
  */
 class m180618_150022_base extends Migration
 {
-    const TABLE = 'base';
+    const TABLE = '{{%base}}';
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeUp()
     {

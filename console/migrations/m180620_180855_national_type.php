@@ -20,9 +20,9 @@ class m180620_180855_national_type extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['national_type_name'], [
-            ['National'],
-            ['Under-21'],
-            ['Under-19'],
+            ['Национальная'],
+            ['U-21'],
+            ['U-19'],
         ]);
     }
 

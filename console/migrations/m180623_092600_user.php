@@ -44,6 +44,7 @@ class m180623_092600_user extends Migration
             'user_finance' => $this->integer(11)->defaultValue(0),
             'user_holiday' => $this->integer(1)->defaultValue(0),
             'user_holiday_day' => $this->integer(2)->defaultValue(0),
+            'user_language_id' => $this->integer(3)->defaultValue(1),
             'user_login' => $this->string(255)->unique(),
             'user_money' => $this->decimal(11, 2)->defaultValue(0),
             'user_name' => $this->string(255),
@@ -64,11 +65,11 @@ class m180623_092600_user extends Migration
             'user_code' => '00000000000000000000000000000000',
             'user_date_confirm' => 0,
             'user_date_register' => 1473700000,
-            'user_email' => 'info@vhol.org',
-            'user_login' => 'Free team',
-            'user_name' => 'Free',
+            'user_email' => 'info@virtual-hockey.org',
+            'user_login' => 'Свободная команда',
+            'user_name' => 'Свободная',
             'user_password' => '0',
-            'user_surname' => 'team',
+            'user_surname' => 'команда',
             'user_user_role_id' => 1
         ]);
 
@@ -81,7 +82,7 @@ class m180623_092600_user extends Migration
             'user_date_confirm' => 1473706009,
             'user_date_register' => 1473705854,
             'user_email' => 'igosja@ukr.net',
-            'user_login' => 'igosja',
+            'user_login' => 'Игося',
             'user_password' => '$2y$13$1CsyXCBKZGqMFMJfriJoP.b6pfjIgwazxWtnGFiN2Cv3umwLJjSHm',
             'user_user_role_id' => 3,
         ]);

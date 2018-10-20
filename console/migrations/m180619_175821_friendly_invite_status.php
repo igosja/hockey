@@ -20,9 +20,9 @@ class m180619_175821_friendly_invite_status extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['friendly_invite_status_name'], [
-            ['New invitation'],
-            ['Invitation accepted'],
-            ['Invitation declined'],
+            ['Новое приглашение'],
+            ['Приглашение принято'],
+            ['Приглашение отклонено'],
         ]);
     }
 

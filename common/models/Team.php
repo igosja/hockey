@@ -33,12 +33,12 @@ use yii\helpers\Html;
  * @property int $team_mood_super
  * @property string $team_name
  * @property int $team_player
- * @property int $team_power_c_16
  * @property int $team_power_c_21
- * @property int $team_power_c_27
- * @property int $team_power_s_16
+ * @property int $team_power_c_26
+ * @property int $team_power_c_32
  * @property int $team_power_s_21
- * @property int $team_power_s_27
+ * @property int $team_power_s_26
+ * @property int $team_power_s_32
  * @property int $team_power_v
  * @property int $team_power_vs
  * @property int $team_price_base
@@ -104,12 +104,12 @@ class Team extends ActiveRecord
                     'team_mood_rest',
                     'team_mood_super',
                     'team_player',
-                    'team_power_c_16',
                     'team_power_c_21',
-                    'team_power_c_27',
-                    'team_power_s_16',
+                    'team_power_c_26',
+                    'team_power_c_32',
                     'team_power_s_21',
-                    'team_power_s_27',
+                    'team_power_s_26',
+                    'team_power_s_32',
                     'team_power_v',
                     'team_power_vs',
                     'team_price_base',
@@ -310,30 +310,30 @@ class Team extends ActiveRecord
             ->orderBy(['player_power_nominal' => SORT_DESC]);
         $player1 = (clone $playerGk)->limit(1)->column();
         $player2 = (clone $playerGk)->limit(2)->column();
-        $player15 = (clone $playerField)->limit(15)->column();
         $player20 = (clone $playerField)->limit(20)->column();
         $player25 = (clone $playerField)->limit(25)->column();
-        $power = Player::find()->where(['player_id' => $player15])->sum('player_power_nominal');
-        $power_c_16 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $player30 = (clone $playerField)->limit(30)->column();
         $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal');
         $power_c_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
         $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal');
-        $power_c_27 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal');
-        $power = Player::find()->where(['player_id' => $player15])->sum('player_power_nominal_s');
-        $power_s_16 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power_c_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal');
+        $power_c_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal');
         $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal_s');
         $power_s_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
         $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal_s');
-        $power_s_27 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal_s');
-        $power_v = round(($power_c_16 + $power_c_21 + $power_c_27) / 64 * 16);
-        $power_vs = round(($power_s_16 + $power_s_21 + $power_s_27) / 64 * 16);
+        $power_s_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal_s');
+        $power_s_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal_s');
+        $power_v = round(($power_c_21 + $power_c_26 + $power_c_21) / 79 * 21);
+        $power_vs = round(($power_s_21 + $power_s_26 + $power_s_32) / 79 * 21);
 
-        $this->team_power_c_16 = $power_c_16;
         $this->team_power_c_21 = $power_c_21;
-        $this->team_power_c_27 = $power_c_27;
-        $this->team_power_s_16 = $power_s_16;
+        $this->team_power_c_26 = $power_c_26;
+        $this->team_power_c_32 = $power_c_32;
         $this->team_power_s_21 = $power_s_21;
-        $this->team_power_s_27 = $power_s_27;
+        $this->team_power_s_26 = $power_s_26;
+        $this->team_power_s_32 = $power_s_32;
         $this->team_power_v = $power_v;
         $this->team_power_vs = $power_vs;
         $this->save();

@@ -20,8 +20,8 @@ class m180621_184416_rudeness extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['rudeness_name'], [
-            ['Normal'],
-            ['Rough'],
+            ['Нормальная'],
+            ['Грубая'],
         ]);
     }
 

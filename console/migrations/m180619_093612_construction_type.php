@@ -20,8 +20,8 @@ class m180619_093612_construction_type extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['construction_type_name'], [
-            ['construction'],
-            ['destruction'],
+            ['Строительство'],
+            ['Разрушение'],
         ]);
     }
 

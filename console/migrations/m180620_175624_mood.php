@@ -20,9 +20,9 @@ class m180620_175624_mood extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['mood_name'], [
-            ['super'],
-            ['normal'],
-            ['rest'],
+            ['супер'],
+            ['норма'],
+            ['отдых'],
         ]);
     }
 

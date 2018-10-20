@@ -20,11 +20,11 @@ class m180623_070222_tactic extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['tactic_name'], [
-            ['all in defense'],
-            ['defensive'],
-            ['normal'],
-            ['attacking'],
-            ['all in an attack'],
+            ['суперзащитная'],
+            ['защитная'],
+            ['номальная'],
+            ['атакующая'],
+            ['суператакующая'],
         ]);
     }
 

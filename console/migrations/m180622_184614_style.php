@@ -20,10 +20,10 @@ class m180622_184614_style extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['style_name'], [
-            ['normal'],
-            ['power'],
-            ['speed'],
-            ['technical'],
+            ['норма'],
+            ['сила'],
+            ['скорость'],
+            ['техника'],
         ]);
     }
 

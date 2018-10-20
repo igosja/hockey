@@ -20,9 +20,9 @@ class m180619_151150_election_status extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['election_status_name'], [
-            ['Acceptance of applications'],
-            ['Voting'],
-            ['Closed'],
+            ['Сбор кандидатур'],
+            ['Идет голосование'],
+            ['Закрыто'],
         ]);
     }
 

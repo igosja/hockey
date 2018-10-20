@@ -25,7 +25,7 @@ class m180622_142300_stadium extends Migration
         ]);
 
         $this->insert(self::TABLE, [
-            'stadium_name' => 'League'
+            'stadium_name' => 'Лига'
         ]);
 
         $this->update(self::TABLE, ['stadium_id' => 0], ['stadium_id' => 1]);

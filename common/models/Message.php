@@ -11,7 +11,6 @@ use yii\db\ActiveRecord;
  * @property int $message_id
  * @property int $message_date
  * @property int $message_read
- * @property int $message_support
  * @property string $message_text
  * @property int $message_user_id_from
  * @property int $message_user_id_to
@@ -37,7 +36,6 @@ class Message extends ActiveRecord
                     'message_id',
                     'message_date',
                     'message_read',
-                    'message_support',
                     'message_user_id_from',
                     'message_user_id_to',
                 ],

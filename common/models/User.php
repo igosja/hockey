@@ -43,6 +43,7 @@ use yii\web\IdentityInterface;
  * @property int $user_finance
  * @property int $user_holiday
  * @property int $user_holiday_day
+ * @property int $user_language_id
  * @property string $user_login
  * @property float $user_money
  * @property string $user_name
@@ -109,6 +110,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'user_finance',
                     'user_holiday',
                     'user_holiday_day',
+                    'user_language_id',
                     'user_money',
                     'user_news_id',
                     'user_referrer_done',

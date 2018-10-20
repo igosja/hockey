@@ -21,9 +21,9 @@ class m180618_144500_attitude extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['attitude_name', 'attitude_order'], [
-            ['Negative', 3],
-            ['Neutral', 2],
-            ['Positive', 1],
+            ['Отрицательное', 3],
+            ['Нейтральное', 2],
+            ['Положительное', 1],
         ]);
     }
 

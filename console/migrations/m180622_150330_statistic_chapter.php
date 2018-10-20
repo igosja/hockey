@@ -21,8 +21,8 @@ class m180622_150330_statistic_chapter extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['statistic_chapter_name', 'statistic_chapter_order'], [
-            ['Teams', 1],
-            ['Players', 2],
+            ['Команды', 1],
+            ['Игроки', 2],
         ]);
     }
 

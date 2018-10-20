@@ -22,11 +22,12 @@ class m180622_142270_squad extends Migration
 
         $this->batchInsert(self::TABLE, ['squad_color', 'squad_name'], [
             ['', '------'],
-            ['DFF2BF', '1 squad'],
-            ['C9FFCC', '2 squad'],
-            ['FEEFB3', '3 squad'],
-            ['FFBABA', '4 squad'],
-            ['E0E0E0', '5 squad'],
+            ['DFF2BF', '1 состав'],
+            ['C9FFCC', '2 состав'],
+            ['FEEFB3', '3 состав'],
+            ['FFBABA', '4 состав'],
+            ['E0E0E0', '5 состав'],
+            ['E0E0E0', '6 состав'],
         ]);
     }
 
