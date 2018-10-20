@@ -49,6 +49,7 @@ class InsertConference
             ->execute();
 
         $scheduleId = Schedule::find()
+            ->select(['schedule_id'])
             ->where([
                 'schedule_tournament_type_id' => TournamentType::CONFERENCE,
                 'schedule_stage_id' => Stage::TOUR_1,

@@ -3,7 +3,10 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Game;
+use common\models\History;
 use common\models\Player;
+use common\models\Season;
 use common\models\Team;
 use common\models\TeamAsk;
 use Exception;
@@ -225,6 +228,141 @@ class TeamController extends BaseController
             'dataProvider' => $dataProvider,
             'model' => new Player(),
             'showHiddenParams' => $showHiddenParams,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionGame($id): string
+    {
+        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Game::find()
+                ->joinWith(['schedule'])
+                ->with([
+                    'schedule' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select([
+                            'schedule_id',
+                            'schedule_date',
+                            'schedule_tournament_type_id',
+                            'schedule_stage_id'
+                        ]);
+                    },
+                    'schedule.stage' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['stage_id', 'stage_name']);
+                    },
+                    'schedule.tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['tournament_type_id', 'tournament_type_name']);
+                    },
+                    'teamGuest' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                    },
+                    'teamGuest.stadium' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['stadium_id', 'stadium_city_id']);
+                    },
+                    'teamGuest.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['city_id', 'city_country_id', 'city_name']);
+                    },
+                    'teamGuest.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                    'teamHome' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                    },
+                    'teamHome.stadium' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['stadium_id', 'stadium_city_id']);
+                    },
+                    'teamHome.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['city_id', 'city_country_id', 'city_name']);
+                    },
+                    'teamHome.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->select([
+                    'game_id',
+                    'game_guest_auto',
+                    'game_guest_plus_minus',
+                    'game_guest_power',
+                    'game_guest_score',
+                    'game_guest_team_id',
+                    'game_home_auto',
+                    'game_home_plus_minus',
+                    'game_home_power',
+                    'game_home_score',
+                    'game_home_team_id',
+                    'game_played',
+                    'game_schedule_id',
+                ])
+                ->where(['or', ['game_home_team_id' => $id], ['game_guest_team_id' => $id]])
+                ->andWhere(['schedule_season_id' => $seasonId])
+                ->orderBy(['schedule_date' => SORT_ASC]),
+        ]);
+
+        $this->view->title = 'Матчи команды';
+        $this->setSeoDescription();
+
+        return $this->render('game', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionEvent($id): string
+    {
+        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => History::find()
+                ->with([
+                    'historyText' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['history_text_id', 'history_text_text']);
+                    },
+                    'team' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['team_id', 'team_name']);
+                    },
+                    'player' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
+                    },
+                    'player.name' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['name_id', 'name_name']);
+                    },
+                    'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['surname_id', 'surname_name']);
+                    },
+                    'user' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['user_id', 'user_login']);
+                    },
+                ])
+                ->select([
+                    'history_date',
+                    'history_history_text_id',
+                    'history_team_id',
+                    'history_user_id',
+                    'history_player_id',
+                ])
+                ->where(['or', ['history_team_id' => $id], ['history_team_2_id' => $id]])
+                ->andWhere(['history_season_id' => $seasonId])
+                ->orderBy(['history_id' => SORT_DESC]),
+        ]);
+
+        $this->view->title = 'События команды';
+        $this->setSeoDescription();
+
+        return $this->render('event', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
         ]);
     }
 

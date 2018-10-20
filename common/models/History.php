@@ -30,6 +30,7 @@ use yii\helpers\Html;
  * @property HistoryText $historyText
  * @property Player $player
  * @property Team $team
+ * @property User $user
  */
 class History extends ActiveRecord
 {
@@ -104,19 +105,33 @@ class History extends ActiveRecord
     public function getText(): string
     {
         $text = $this->historyText->history_text_text;
-        $text = str_replace(
-            '{team}',
-            Html::a($this->team->team_name, ['team/view', 'id' => $this->history_team_id]),
-            $text
-        );
-        $text = str_replace(
-            '{player}',
-            Html::a(
-                $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
-                ['player/view', 'id' => $this->history_player_id]
-            ),
-            $text
-        );
+        if (false !== strpos($text, '{team}')) {
+            $text = str_replace(
+                '{team}',
+                Html::a($this->team->team_name, ['team/view', 'id' => $this->history_team_id]),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{player}')) {
+            $text = str_replace(
+                '{player}',
+                Html::a(
+                    $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
+                    ['player/view', 'id' => $this->history_player_id]
+                ),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{user}')) {
+            $text = str_replace(
+                '{user}',
+                Html::a(
+                    $this->user->user_login,
+                    ['user/view', 'id' => $this->history_user_id]
+                ),
+                $text
+            );
+        }
         return $text;
     }
 
@@ -142,5 +157,13 @@ class History extends ActiveRecord
     public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'history_user_id']);
     }
 }

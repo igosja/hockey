@@ -5,6 +5,7 @@ namespace common\models;
 use common\components\ErrorHelper;
 use Throwable;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class Season
@@ -46,5 +47,16 @@ class Season extends ActiveRecord
             $result = self::find()->max('season_id');
         }
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSeasonArray(): array
+    {
+        $result = self::find()
+            ->orderBy(['season_id' => SORT_DESC])
+            ->all();
+        return ArrayHelper::map($result, 'season_id', 'season_id');
     }
 }

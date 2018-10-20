@@ -18,7 +18,7 @@ $team = Team::find()->where(['team_id' => Yii::$app->request->get('id', 1)])->on
 print $this->render('_team-top');
 
 ?>
-<div class="row">
+<div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= $this->render('_team-links'); ?>
     </div>

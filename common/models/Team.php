@@ -186,13 +186,13 @@ class Team extends ActiveRecord
         parent::afterSave($insert, $changedAttributes);
 
         if ($insert) {
-            $this->createPlayers();
-            $this->createLeaguePlayers();
-            $this->updatePower();
             History::log([
                 'history_history_text_id' => HistoryText::TEAM_REGISTER,
                 'history_team_id' => $this->team_id
             ]);
+            $this->createPlayers();
+            $this->createLeaguePlayers();
+            $this->updatePower();
         }
     }
 

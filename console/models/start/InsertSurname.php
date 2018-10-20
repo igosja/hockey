@@ -2593,51 +2593,51 @@ class InsertSurname
 
         $surnameArray = [
             [
-                'country' => 'Canada',
+                'country' => 'Канада',
                 'list' => $eng_surname,
             ],
             [
-                'country' => 'Russia',
+                'country' => 'Россия',
                 'list' => $rus_surname,
             ],
             [
-                'country' => 'USA',
+                'country' => 'США',
                 'list' => $eng_surname,
             ],
             [
-                'country' => 'Finland',
+                'country' => 'Финляндия',
                 'list' => $fin_surname,
             ],
             [
-                'country' => 'Sweden',
+                'country' => 'Швеция',
                 'list' => $swe_surname,
             ],
             [
-                'country' => 'Czech Republic',
+                'country' => 'Чехия',
                 'list' => $che_surname,
             ],
             [
-                'country' => 'Switzerland',
+                'country' => 'Швейцария',
                 'list' => $ger_surname,
             ],
             [
-                'country' => 'Slovakia',
+                'country' => 'Словакия',
                 'list' => $che_surname,
             ],
             [
-                'country' => 'Belarus',
+                'country' => 'Беларусь',
                 'list' => $bel_surname,
             ],
             [
-                'country' => 'Germany',
+                'country' => 'Германия',
                 'list' => $ger_surname,
             ],
             [
-                'country' => 'Norway',
+                'country' => 'Норвегия',
                 'list' => $nor_surname,
             ],
             [
-                'country' => 'Ukraine',
+                'country' => 'Украина',
                 'list' => $ukr_surname,
             ],
         ];

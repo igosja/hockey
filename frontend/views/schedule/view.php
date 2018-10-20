@@ -51,10 +51,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'value' => function (Game $model) {
                     return Html::a(
-                        HockeyHelper::formatScore(
-                            $model->game_home_score,
-                            $model->game_guest_score,
-                            $model->game_played),
+                        HockeyHelper::formatScore($model),
                         ['game/view', 'id' => $model->game_id]
                     );
                 }

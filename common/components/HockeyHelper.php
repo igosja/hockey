@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use common\models\Game;
 use common\models\National;
 use common\models\Team;
 use yii\helpers\Html;
@@ -12,16 +13,148 @@ use yii\helpers\Html;
  */
 class HockeyHelper
 {
+    public static function gameHomeGuest(Game $game, int $teamId): string
+    {
+        if ($game->game_home_team_id == $teamId) {
+            $result = 'Д';
+        } else {
+            $result = 'Г';
+        }
+        return $result;
+    }
+
+    public static function gamePowerPercent(Game $game, int $teamId): string
+    {
+        if ($game->game_home_team_id == $teamId) {
+            if ($game->game_played) {
+                $result = self::powerPercent($game->game_guest_power / $game->game_home_power * 100);
+            } else {
+                $result = self::powerPercent($game->teamGuest->team_power_vs / $game->teamHome->team_power_vs * 100);
+            }
+        } else {
+            if ($game->game_played) {
+                $result = self::powerPercent($game->game_home_power / $game->game_guest_power * 100);
+            } else {
+                $result = self::powerPercent($game->teamHome->team_power_vs / $game->teamGuest->team_power_vs * 100);
+            }
+        }
+        return $result;
+    }
+
     /**
-     * @param int $scoreHome
-     * @param int $scoreGuest
-     * @param int $played
+     * @param int $percent
      * @return string
      */
-    public static function formatScore(int $scoreHome, int $scoreGuest, int $played): string
+    public static function powerPercent(int $percent)
     {
-        if ($played) {
-            return $scoreHome . ':' . $scoreGuest;
+        return ($percent ? round($percent) : 100) . '%';
+    }
+
+    /**
+     * @param Game $game
+     * @param int $teamId
+     * @return string
+     */
+    public static function gamePlusMinus(Game $game, int $teamId): string
+    {
+        if ($game->game_played) {
+            if ($game->game_home_team_id == $teamId) {
+                $result = self::plusNecessary($game->game_home_plus_minus);
+            } else {
+                $result = self::plusNecessary($game->game_guest_plus_minus);
+            }
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+
+    /**
+     * @param int $value
+     * @return string
+     */
+    public static function plusNecessary(int $value): string
+    {
+        if ($value > 0) {
+            $result = '+' . $value;
+        } else {
+            $result = $value;
+        }
+        return $result;
+    }
+
+    /**
+     * @param Game $game
+     * @param int $teamId
+     * @return string
+     */
+    public static function gameAuto(Game $game, int $teamId): string
+    {
+        if ($game->game_home_team_id == $teamId && $game->game_home_auto) {
+            return 'А';
+        } elseif ($game->game_guest_team_id == $teamId && $game->game_guest_auto) {
+            return 'А';
+        }
+        return '';
+    }
+
+    /**
+     * @param Game $game
+     * @param int $teamId
+     * @return string
+     */
+    public static function opponentLink(Game $game, int $teamId): string
+    {
+        if ($game->game_home_team_id == $teamId) {
+            return Html::a(
+                $game->teamGuest->team_name
+                . ' <span class="hidden-xs">('
+                . $game->teamGuest->stadium->city->city_name
+                . ', '
+                . $game->teamGuest->stadium->city->country->country_name
+                . ')</span>',
+                ['team/view', 'id' => $game->game_guest_team_id]
+            );
+        } else {
+            return Html::a(
+                $game->teamHome->team_name
+                . ' <span class="hidden-xs">('
+                . $game->teamHome->stadium->city->city_name
+                . ', '
+                . $game->teamHome->stadium->city->country->country_name
+                . ')</span>',
+                ['team/view', 'id' => $game->game_home_team_id]
+            );
+        }
+    }
+
+    /**
+     * @param Game $game
+     * @param int $teamId
+     * @return string
+     */
+    public static function formatTeamScore(Game $game, int $teamId): string
+    {
+        if ($game->game_home_team_id == $teamId) {
+            return self::formatScore($game, 'home');
+        } else {
+            return self::formatScore($game, 'guest');
+        }
+    }
+
+    /**
+     * @param Game $game
+     * @param string $first
+     * @return string
+     */
+    public static function formatScore(Game $game, $first = 'home'): string
+    {
+        if ($game->game_played) {
+            if ('home' == $first) {
+                return $game->game_home_score . ':' . $game->game_guest_score;
+            } else {
+                return $game->game_guest_score . ':' . $game->game_home_score;
+            }
         } else {
             return '?:?';
         }

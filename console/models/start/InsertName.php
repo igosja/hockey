@@ -336,7 +336,7 @@ class InsertName
                 'list' => $cheName,
             ],
             [
-                'country' => 'Белоруссия',
+                'country' => 'Беларусь',
                 'list' => $rusName,
             ],
             [
