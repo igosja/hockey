@@ -83,7 +83,7 @@ class m180623_092600_user extends Migration
             'user_date_register' => 1473705854,
             'user_email' => 'igosja@ukr.net',
             'user_login' => 'Игося',
-            'user_password' => '$2y$13$1CsyXCBKZGqMFMJfriJoP.b6pfjIgwazxWtnGFiN2Cv3umwLJjSHm',
+            'user_password' => '$2y$13$fAFDQp4vXQ5nDGsrHMeSMuyD68yB2gufdXNvMW1PTEwyvD91qNQzi',
             'user_user_role_id' => 3,
         ]);
     }
