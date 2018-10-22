@@ -114,6 +114,30 @@ class Transfer extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function position(): string
+    {
+        $result = [];
+        foreach ($this->playerPosition as $position) {
+            $result[] = $position->position->position_name;
+        }
+        return implode('/', $result);
+    }
+
+    /**
+     * @return string
+     */
+    public function special(): string
+    {
+        $result = [];
+        foreach ($this->playerSpecial as $special) {
+            $result[] = $special->special->special_name . $special->player_special_level;
+        }
+        return implode('', $result);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBuyer(): ActiveQuery

@@ -7,10 +7,12 @@ use common\models\Achievement;
 use common\models\Finance;
 use common\models\Game;
 use common\models\History;
+use common\models\Loan;
 use common\models\Player;
 use common\models\Season;
 use common\models\Team;
 use common\models\TeamAsk;
+use common\models\Transfer;
 use Exception;
 use frontend\models\ChangeMyTeam;
 use Yii;
@@ -415,6 +417,68 @@ class TeamController extends BaseController
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionDeal($id): string
+    {
+        $dataProviderTransferFrom = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['transfer_team_seller_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
+        $dataProviderTransferTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['transfer_team_buyer_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
+        $dataProviderLoanFrom = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['loan_team_seller_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+        $dataProviderLoanTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['loan_team_buyer_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+
+        $this->view->title = 'Сделки команды';
+        $this->setSeoDescription();
+
+        return $this->render('deal', [
+            'dataProviderTransferFrom' => $dataProviderTransferFrom,
+            'dataProviderTransferTo' => $dataProviderTransferTo,
+            'dataProviderLoanFrom' => $dataProviderLoanFrom,
+            'dataProviderLoanTo' => $dataProviderLoanTo,
         ]);
     }
 
