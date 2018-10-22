@@ -445,6 +445,24 @@ class TeamController extends BaseController
     }
 
     /**
+     * @param $id
+     * @return string
+     */
+    public function actionStatistics($id): string
+    {
+        $team = Team::find()
+            ->where(['team_id' => $id])
+            ->one();
+
+        $this->view->title = 'Статистика команды';
+        $this->setSeoDescription();
+
+        return $this->render('statistics', [
+            'team' => $team,
+        ]);
+    }
+
+    /**
      * @param null $id
      * @return string|Response
      * @throws \yii\db\Exception

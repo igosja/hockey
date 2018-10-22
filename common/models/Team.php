@@ -60,6 +60,7 @@ use yii\helpers\Html;
  * @property Championship $championship
  * @property Conference $conference
  * @property User $manager
+ * @property RatingTeam $ratingTeam
  * @property Stadium $stadium
  * @property TeamAsk[] $teamAsk
  * @property User $vice
@@ -604,6 +605,14 @@ class Team extends ActiveRecord
     public function getManager(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'team_user_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRatingTeam(): ActiveQuery
+    {
+        return $this->hasOne(RatingTeam::class, ['rating_team_team_id' => 'team_id']);
     }
 
     /**
