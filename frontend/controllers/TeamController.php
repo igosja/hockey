@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Achievement;
 use common\models\Finance;
 use common\models\Game;
 use common\models\History;
@@ -414,6 +415,32 @@ class TeamController extends BaseController
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionAchievement($id): string
+    {
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Achievement::find()
+                ->with([
+                ])
+                ->select([
+                    'achievement_season_id',
+                ])
+                ->where(['achievement_team_id' => $id])
+                ->orderBy(['achievement_id' => SORT_DESC]),
+        ]);
+
+        $this->view->title = 'Достижения команды';
+        $this->setSeoDescription();
+
+        return $this->render('achievement', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 
