@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Finance
@@ -27,6 +28,7 @@ use yii\db\ActiveRecord;
  * @property int $finance_value_before
  *
  * @property FinanceText $financeText
+ * @property Player $player
  */
 class Finance extends ActiveRecord
 {
@@ -96,10 +98,37 @@ class Finance extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getText(): string
+    {
+        $text = $this->financeText->finance_text_text;
+        if (false !== strpos($text, '{player}')) {
+            $text = str_replace(
+                '{player}',
+                Html::a(
+                    $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
+                    ['player/view', 'id' => $this->finance_player_id]
+                ),
+                $text
+            );
+        }
+        return $text;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getFinanceText(): ActiveQuery
     {
         return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'finance_player_id']);
     }
 }

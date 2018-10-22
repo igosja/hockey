@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Finance;
 use common\models\Game;
 use common\models\History;
 use common\models\Player;
@@ -360,6 +361,56 @@ class TeamController extends BaseController
         $this->setSeoDescription();
 
         return $this->render('event', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionFinance($id): string
+    {
+        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Finance::find()
+                ->with([
+                    'financeText' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['finance_text_id', 'finance_text_text']);
+                    },
+                    'player' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
+                    },
+                    'player.name' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['name_id', 'name_name']);
+                    },
+                    'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['surname_id', 'surname_name']);
+                    },
+                ])
+                ->select([
+                    'finance_building_id',
+                    'finance_capacity',
+                    'finance_date',
+                    'finance_level',
+                    'finance_finance_text_id',
+                    'finance_value',
+                    'finance_value_after',
+                    'finance_value_before',
+                ])
+                ->where(['finance_team_id' => $id])
+                ->andWhere(['finance_season_id' => $seasonId])
+                ->orderBy(['finance_id' => SORT_DESC]),
+        ]);
+
+        $this->view->title = 'Финансы команды';
+        $this->setSeoDescription();
+
+        return $this->render('finance', [
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),

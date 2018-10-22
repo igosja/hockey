@@ -69,6 +69,7 @@ class Team extends ActiveRecord
     public $count_team;
 
     const MAX_AUTO_GAMES = 5;
+    const START_MONEY = 10000000;
 
     /**
      * @return string
@@ -188,7 +189,14 @@ class Team extends ActiveRecord
         if ($insert) {
             History::log([
                 'history_history_text_id' => HistoryText::TEAM_REGISTER,
-                'history_team_id' => $this->team_id
+                'history_team_id' => $this->team_id,
+            ]);
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::TEAM_RE_REGISTER,
+                'finance_team_id' => $this->team_id,
+                'finance_value' => Team::START_MONEY,
+                'finance_value_after' => Team::START_MONEY,
+                'finance_value_before' => 0,
             ]);
             $this->createPlayers();
             $this->createLeaguePlayers();
