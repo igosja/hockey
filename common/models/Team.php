@@ -505,7 +505,7 @@ class Team extends ActiveRecord
     /**
      * @return array
      */
-    public static function getTopData():array
+    public static function getTopData(): array
     {
         $teamId = Yii::$app->request->get('id', 1);
 
@@ -531,6 +531,22 @@ class Team extends ActiveRecord
             ->all();
 
         return [$teamId, $team, $latest, $nearest];
+    }
+
+    /**
+     * @return string
+     */
+    public function teamLink(): string
+    {
+        return Html::a(
+            $this->team_name
+            . ' (<span class="hidden-xs">'
+            . $this->stadium->city->city_name
+            . ', '
+            . $this->stadium->city->country->country_name
+            . '</span>)',
+            ['team/view', 'id' => $this->team_id]
+        );
     }
 
     /**

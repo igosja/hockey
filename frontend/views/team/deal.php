@@ -24,7 +24,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p>Проданы на трансфере</p>
+        <p class="text-center">Проданы на трансфере:</p>
     </div>
 </div>
 <div class="row">
@@ -150,7 +150,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p>Куплены на трансфере</p>
+        <p class="text-center">Куплены на трансфере:</p>
     </div>
 </div>
 <div class="row">
@@ -276,7 +276,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p>Отданы в аренду</p>
+        <p class="text-center">Отданы в аренду:</p>
     </div>
 </div>
 <div class="row">
@@ -410,7 +410,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p>Отданы в аренду</p>
+        <p class="text-center">Взяты в аренду:</p>
     </div>
 </div>
 <div class="row">

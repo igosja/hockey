@@ -22,6 +22,7 @@ use frontend\models\TransferTo;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -93,35 +94,43 @@ class PlayerController extends BaseController
      */
     public function actionDeal(int $id): string
     {
-        $loanArray = Loan::find()
-            ->select([
-            ])
-            ->where(['loan_player_id' => $id])
-            ->andWhere(['!=', 'loan_ready', 0])
-            ->orderBy(['loan_ready' => SORT_DESC])
-            ->all();
-
-        $transferArray = Transfer::find()
-            ->select([
-            ])
-            ->where(['transfer_player_id' => $id])
-            ->andWhere(['!=', 'transfer_ready', 0])
-            ->orderBy(['transfer_ready' => SORT_DESC])
-            ->all();
+        $dataProviderLoan = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->select([
+                ])
+                ->where(['loan_player_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+        $dataProviderTransfer = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->select([
+                ])
+                ->where(['transfer_player_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
 
         return $this->render('deal', [
-            'loanArray' => $loanArray,
-            'transferArray' => $transferArray,
+            'dataProviderLoan' => $dataProviderLoan,
+            'dataProviderTransfer' => $dataProviderTransfer,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return array|string|Response
+     * @throws ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionTransfer(int $id)
     {
+        if (!$this->myTeam) {
+            throw new ForbiddenHttpException('Сначала нужно взять команду под управление');
+        }
+
         $player = Player::find()
             ->select([
                 'player_age',
@@ -221,12 +230,17 @@ class PlayerController extends BaseController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return array|string|Response
+     * @throws ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionLoan(int $id)
     {
+        if (!$this->myTeam) {
+            throw new ForbiddenHttpException('Сначала нужно взять команду под управление');
+        }
+
         $player = Player::find()
             ->select([
                 'player_age',
@@ -331,19 +345,21 @@ class PlayerController extends BaseController
      */
     public function actionAchievement(int $id): string
     {
-        $achievementArray = AchievementPlayer::find()
-            ->select([
-                'achievement_player_season_id',
-                'achievement_player_stage_id',
-                'achievement_player_team_id',
-                'achievement_player_tournament_type_id',
-            ])
-            ->where(['achievement_player_player_id' => $id])
-            ->orderBy(['achievement_player_id' => SORT_DESC])
-            ->all();
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => AchievementPlayer::find()
+                ->select([
+                    'achievement_player_season_id',
+                    'achievement_player_stage_id',
+                    'achievement_player_team_id',
+                    'achievement_player_tournament_type_id',
+                ])
+                ->where(['achievement_player_player_id' => $id])
+                ->orderBy(['achievement_player_id' => SORT_DESC]),
+        ]);
 
         return $this->render('achievement', [
-            'achievementArray' => $achievementArray,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
