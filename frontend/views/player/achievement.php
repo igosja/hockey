@@ -1,45 +1,78 @@
 <?php
 
+use common\components\ErrorHelper;
+use common\models\AchievementPlayer;
+use yii\grid\GridView;
+
 /**
- * @var \common\models\AchievementPlayer[] $achievementArray
+ * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \yii\web\View $this
  */
 
 print $this->render('_player');
-print $this->render('_links');
 
 ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th class="col-5" title="Season">S</th>
-                <th>Team</th>
-                <th>Tournament</th>
-                <th class="col-10">Position</th>
-            </tr>
-            <?php foreach ($achievementArray as $item) { ?>
-                <tr>
-                    <td class="text-center"><?= $item->achievement_player_season_id; ?></td>
-                    <td><?= $item->achievement_player_team_id; ?></td>
-                    <td><?= $item->achievement_player_tournament_type_id; ?></td>
-                    <td class="text-center"><?= $item->achievement_player_stage_id; ?></td>
-                </tr>
-            <?php } ?>
-            <tr>
-                <th title="Season">S</th>
-                <th>Team</th>
-                <th>Tournament</th>
-                <th class="col-10">Position</th>
-            </tr>
-        </table>
+    <div class="row margin-top-small">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
     </div>
-</div>
-<?= $this->render('_links'); ?>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn show-full-table" href="javascript:">
-            Show full table
-        </a>
+    <div class="row">
+        <?php
+
+        try {
+            $columns = [
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['title' => 'Сезон'],
+                    'header' => 'С',
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
+                    'value' => function (AchievementPlayer $model): string {
+                        return $model->achievement_player_season_id;
+                    }
+                ],
+                [
+                    'footer' => 'Команда',
+                    'format' => 'raw',
+                    'header' => 'Команда',
+                    'value' => function (AchievementPlayer $model): string {
+                        return $model->team->teamLink();
+                    }
+                ],
+                [
+                    'footer' => 'Турнир',
+                    'header' => 'Турнир',
+                    'value' => function (AchievementPlayer $model): string {
+                        return $model->tournamentType->tournament_type_name;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Позиция',
+                    'header' => 'Позиция',
+                    'headerOptions' => ['class' => 'col-10'],
+                    'value' => function (AchievementPlayer $model): string {
+                        return $model->getPosition();
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $dataProvider,
+                'showFooter' => true,
+                'showOnEmpty' => false,
+                'summary' => false,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        ?>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
+    </div>
+<?= $this->render('/site/_show-full-table'); ?>
