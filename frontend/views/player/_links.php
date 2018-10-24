@@ -1,29 +1,37 @@
 <?php
 
-use yii\helpers\Html;
+use common\components\ErrorHelper;
+use frontend\widgets\LinkBar;
 
-/**
- * @var \frontend\controllers\BaseController $context
- * @var \yii\web\View $this
- */
-
-$links = [
-    'Games' => 'view',
-    'Events' => 'event',
-    'Deals' => 'deal',
-    'Transfer' => 'transfer',
-    'Loan' => 'loan',
-    'Achievements' => 'achievement',
-];
-$playerId = Yii::$app->request->get('id');
-
-$result = [];
-foreach ($links as $label => $url) {
-    if (strpos(Yii::$app->controller->getRoute(), $url)) {
-        $result[] = Html::tag('span', $label, ['class' => 'strong']);
-    } else {
-        $result[] = Html::a($label, [$url, 'id' => $playerId]);
-    }
+try {
+    print LinkBar::widget([
+        'items' => [
+            [
+                'text' => 'Игры',
+                'url' => ['player/view', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+            [
+                'text' => 'События',
+                'url' => ['player/event', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+            [
+                'text' => 'Сделки',
+                'url' => ['player/deal', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+            [
+                'text' => 'Транфер',
+                'url' => ['player/transfer', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+            [
+                'text' => 'Аренда',
+                'url' => ['player/loan', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+            [
+                'text' => 'Достижения',
+                'url' => ['player/achievement', 'id' => Yii::$app->request->get('id', 1)],
+            ],
+        ]
+    ]);
+} catch (Exception $e) {
+    ErrorHelper::log($e);
 }
-
-print implode(' | ', $result);

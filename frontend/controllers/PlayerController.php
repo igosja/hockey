@@ -8,6 +8,7 @@ use common\models\History;
 use common\models\Lineup;
 use common\models\Loan;
 use common\models\Player;
+use common\models\Season;
 use common\models\Squad;
 use common\models\Transfer;
 use frontend\models\LoanApplicationFrom;
@@ -20,6 +21,7 @@ use frontend\models\TransferFrom;
 use frontend\models\TransferTo;
 use Throwable;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -35,20 +37,28 @@ class PlayerController extends BaseController
      */
     public function actionView(int $id): string
     {
-        $gameArray = Lineup::find()
-            ->joinWith(['game.schedule'])
-            ->where(['lineup_player_id' => $id])
-            ->orderBy(['schedule_date' => SORT_ASC])
-            ->all();
-
-        $this->view->title = 'Player profile';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Player profile - Virtual Hockey Online League'
+        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Lineup::find()
+                ->joinWith(['game.schedule'])
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['lineup_player_id' => $id])
+                ->andWhere(['schedule.schedule_season_id' => $seasonId])
+                ->andWhere(['!=', 'game.game_played', 0])
+                ->orderBy(['schedule_date' => SORT_ASC]),
         ]);
 
+        $this->view->title = 'Профиль игрока';
+        $this->setSeoDescription();
+
         return $this->render('view', [
-            'gameArray' => $gameArray,
+            'dataProvider' => $dataProvider,
+            'seasonArray' => Season::getSeasonArray(),
+            'seasonId' => $seasonId,
         ]);
     }
 

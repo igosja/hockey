@@ -3,112 +3,179 @@
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
 use common\models\Lineup;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var Lineup[] $gameArray
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $seasonArray
+ * @var int $seasonId
  * @var \yii\web\View $this
  */
 
 print $this->render('_player');
-print $this->render('_links');
 
 ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Date</th>
-                <th>Game</th>
-                <th>Score</th>
-                <th>Match type</th>
-                <th>Stage</th>
-                <th>Position</th>
-                <th>Power</th>
-                <th>Score</th>
-                <th>Assist</th>
-                <th>+/-</th>
-                <th>Power change</th>
-            </tr>
-            <?php foreach ($gameArray as $item) { ?>
-                <tr>
-                    <td class="text-center">
-                        <?php
+    <form method="GET">
+        <div class="row margin-top-small">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <?= $this->render('_links'); ?>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+                        <?= Html::label('Сезон', 'season_id') ?>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <?= Html::dropDownList(
+                            'season_id',
+                            $seasonId,
+                            $seasonArray,
+                            ['class' => 'form-control submit-on-change', 'id' => 'season_id']
+                        ); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <?php
 
-                        try {
-                            Yii::$app->formatter->asDate($item->game->schedule->schedule_date);
-                        } catch (Exception $e) {
-                            ErrorHelper::log($e);
-                        }
+        try {
+            $columns = [
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Дата',
+                    'header' => 'Дата',
+                    'value' => function (Lineup $model): string {
+                        return Yii::$app->formatter->asDate($model->game->schedule->schedule_date, 'short');
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Матч',
+                    'format' => 'raw',
+                    'header' => 'Матч',
+                    'value' => function (Lineup $model): string {
+                        return HockeyHelper::teamOrNationalLink(
+                                $model->game->teamHome,
+                                $model->game->nationalHome,
+                                false
+                            )
+                            . '-'
+                            . HockeyHelper::teamOrNationalLink(
+                                $model->game->teamGuest,
+                                $model->game->nationalGuest,
+                                false
+                            );
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Сч',
+                    'footerOptions' => ['title' => 'Счёт'],
+                    'format' => 'raw',
+                    'header' => 'Сч',
+                    'headerOptions' => ['title' => 'Счёт'],
+                    'value' => function (Lineup $model): string {
+                        return Html::a(
+                            $model->game->game_home_score . ':' . $model->game->game_guest_score,
+                            ['game/view', 'id' => $model->game->game_id]
+                        );
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Тип матча',
+                    'header' => 'Тип матча',
+                    'value' => function (Lineup $model): string {
+                        return $model->game->schedule->tournamentType->tournament_type_name;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Стадия',
+                    'header' => 'Стадия',
+                    'value' => function (Lineup $model): string {
+                        return $model->game->schedule->stage->stage_name;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Поз',
+                    'footerOptions' => ['title' => 'Позиция'],
+                    'header' => 'Поз',
+                    'headerOptions' => ['title' => 'Позиция'],
+                    'value' => function (Lineup $model): string {
+                        return $model->position->position_name;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['title' => 'Сила'],
+                    'header' => 'С',
+                    'headerOptions' => ['title' => 'Сила'],
+                    'value' => function (Lineup $model): string {
+                        return $model->lineup_power_real;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Ш',
+                    'footerOptions' => ['title' => 'Шайбы'],
+                    'header' => 'Ш',
+                    'headerOptions' => ['title' => 'Шайбы'],
+                    'value' => function (Lineup $model): string {
+                        return $model->lineup_score;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'П',
+                    'footerOptions' => ['title' => 'Голевые передачи'],
+                    'header' => 'П',
+                    'headerOptions' => ['title' => 'Голевые передачи'],
+                    'value' => function (Lineup $model): string {
+                        return $model->lineup_score;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => '+/-',
+                    'footerOptions' => ['title' => 'Плюс/минус'],
+                    'header' => '+/-',
+                    'headerOptions' => ['title' => 'Плюс/минус'],
+                    'value' => function (Lineup $model): string {
+                        return HockeyHelper::plusNecessary($model->lineup_plus_minus);
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footerOptions' => ['title' => 'Изменение силы'],
+                    'format' => 'raw',
+                    'headerOptions' => ['title' => 'Изменение силы'],
+                    'value' => function (Lineup $model): string {
+                        return $model->iconPowerChange();
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $dataProvider,
+                'showFooter' => true,
+                'showOnEmpty' => false,
+                'summary' => false,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-                        ?>
-                    </td>
-                    <td class="text-center">
-                        <?= HockeyHelper::teamOrNationalLink(
-                            $item->game->teamHome,
-                            $item->game->nationalHome,
-                            false
-                        ); ?>
-                        -
-                        <?= HockeyHelper::teamOrNationalLink(
-                            $item->game->teamGuest,
-                            $item->game->nationalGuest,
-                            false
-                        ); ?>
-                    </td>
-                    <td class="text-center">
-                        <?= Html::a(
-                            $item->game->game_home_score . ':' . $item->game->game_guest_score,
-                            ['game/view', 'id' => $item->game->game_id]
-                        ); ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->game->schedule->tournamentType->tournament_type_name; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->game->schedule->stage->stage_name; ?>
-                        </td>
-                    <td class="text-center">
-                        <?= $item->position->position_name; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->lineup_power_real; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->lineup_score; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->lineup_assist; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->lineup_plus_minus; ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->iconPowerChange(); ?>
-                    </td>
-                </tr>
-            <?php } ?>
-            <tr>
-                <th>Date</th>
-                <th>Game</th>
-                <th>Score</th>
-                <th>Match type</th>
-                <th>Stage</th>
-                <th>Position</th>
-                <th>Power</th>
-                <th>Score</th>
-                <th>Assist</th>
-                <th>+/-</th>
-                <th>Power change</th>
-            </tr>
-        </table>
+        ?>
     </div>
-</div>
-<?= $this->render('_links'); ?>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn show-full-table" href="javascript:">
-            Show full table
-        </a>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
     </div>
-</div>
+<?= $this->render('/site/_show-full-table'); ?>
