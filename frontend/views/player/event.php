@@ -1,54 +1,71 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\models\History;
+use yii\grid\GridView;
 
 /**
- * @var \common\models\History[] $eventArray
+ * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \yii\web\View $this
  */
 
 print $this->render('_player');
-print $this->render('_links');
 
 ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th class="col-5" title="Season">S</th>
-                <th class="col-15">Date</th>
-                <th>Event</th>
-            </tr>
-            <?php foreach ($eventArray as $item) { ?>
-                <tr>
-                    <td class="text-center"><?= $item->history_season_id; ?></td>
-                    <td class="text-center">
-                        <?php
-
-                        try {
-                            print Yii::$app->formatter->asDate($item->history_date);
-                        } catch (Exception $e) {
-                            ErrorHelper::log($e);
-                        }
-
-                        ?>
-                    </td>
-                    <td><?= $item->getText(); ?></td>
-                </tr>
-            <?php } ?>
-            <tr>
-                <th title="Season">S</th>
-                <th>Date</th>
-                <th>Event</th>
-            </tr>
-        </table>
+    <div class="row margin-top-small">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
     </div>
-</div>
-<?= $this->render('_links'); ?>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn show-full-table" href="javascript:">
-            Show full table
-        </a>
+    <div class="row">
+        <?php
+
+        try {
+            $columns = [
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['title' => 'Сезон'],
+                    'header' => 'С',
+                    'headerOptions' => ['class' => 'col-1', 'title' => 'Сезон'],
+                    'value' => function (History $model): string {
+                        return $model->history_season_id;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Дата',
+                    'header' => 'Дата',
+                    'headerOptions' => ['class' => 'col-15'],
+                    'value' => function (History $model): string {
+                        return Yii::$app->formatter->asDate($model->history_date, 'short');
+                    }
+                ],
+                [
+                    'footer' => 'Событие',
+                    'format' => 'raw',
+                    'header' => 'Событие',
+                    'value' => function (History $model): string {
+                        return $model->getText();
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $dataProvider,
+                'showFooter' => true,
+                'showOnEmpty' => false,
+                'summary' => false,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        ?>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
+    </div>
+<?= $this->render('/site/_show-full-table'); ?>

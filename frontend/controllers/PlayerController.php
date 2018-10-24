@@ -68,20 +68,22 @@ class PlayerController extends BaseController
      */
     public function actionEvent(int $id): string
     {
-        $eventArray = History::find()
-            ->select([
-                'history_date',
-                'history_history_text_id',
-                'history_player_id',
-                'history_season_id',
-                'history_team_id',
-            ])
-            ->where(['history_player_id' => $id])
-            ->orderBy(['history_id' => SORT_DESC])
-            ->all();
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => History::find()
+                ->select([
+                    'history_date',
+                    'history_history_text_id',
+                    'history_player_id',
+                    'history_season_id',
+                    'history_team_id',
+                ])
+                ->where(['history_player_id' => $id])
+                ->orderBy(['history_id' => SORT_DESC]),
+        ]);
 
         return $this->render('event', [
-            'eventArray' => $eventArray,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
