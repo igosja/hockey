@@ -22,7 +22,6 @@ use frontend\models\TransferTo;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -83,6 +82,9 @@ class PlayerController extends BaseController
                 ->orderBy(['history_id' => SORT_DESC]),
         ]);
 
+        $this->view->title = 'События игрока';
+        $this->setSeoDescription();
+
         return $this->render('event', [
             'dataProvider' => $dataProvider,
         ]);
@@ -113,6 +115,9 @@ class PlayerController extends BaseController
                 ->orderBy(['transfer_ready' => SORT_DESC]),
         ]);
 
+        $this->view->title = 'Сделки игрока';
+        $this->setSeoDescription();
+
         return $this->render('deal', [
             'dataProviderLoan' => $dataProviderLoan,
             'dataProviderTransfer' => $dataProviderTransfer,
@@ -122,15 +127,10 @@ class PlayerController extends BaseController
     /**
      * @param int $id
      * @return array|string|Response
-     * @throws ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionTransfer(int $id)
     {
-        if (!$this->myTeam) {
-            throw new ForbiddenHttpException('Сначала нужно взять команду под управление');
-        }
-
         $player = Player::find()
             ->select([
                 'player_age',
@@ -219,6 +219,9 @@ class PlayerController extends BaseController
             }
         }
 
+        $this->view->title = 'Трансфер игрока';
+        $this->setSeoDescription();
+
         return $this->render('transfer', [
             'modelTransferApplicationFrom' => $modelTransferApplicationFrom,
             'modelTransferApplicationTo' => $modelTransferApplicationTo,
@@ -232,15 +235,10 @@ class PlayerController extends BaseController
     /**
      * @param int $id
      * @return array|string|Response
-     * @throws ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionLoan(int $id)
     {
-        if (!$this->myTeam) {
-            throw new ForbiddenHttpException('Сначала нужно взять команду под управление');
-        }
-
         $player = Player::find()
             ->select([
                 'player_age',
@@ -329,6 +327,9 @@ class PlayerController extends BaseController
             }
         }
 
+        $this->view->title = 'Аренда игрока';
+        $this->setSeoDescription();
+
         return $this->render('loan', [
             'modelLoanApplicationFrom' => $modelLoanApplicationFrom,
             'modelLoanApplicationTo' => $modelLoanApplicationTo,
@@ -357,6 +358,9 @@ class PlayerController extends BaseController
                 ->where(['achievement_player_player_id' => $id])
                 ->orderBy(['achievement_player_id' => SORT_DESC]),
         ]);
+
+        $this->view->title = 'Достижения игрока';
+        $this->setSeoDescription();
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,

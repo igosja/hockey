@@ -21,20 +21,17 @@ try {
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Your team:
+                Ваша команда:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?= Html::a(
-                        $model->team->team_name . ' <span class="hidden-xs">(' . $model->team->stadium->city->city_name . ')</span>',
-                        ['team/view', 'id' => $model->team->team_id]
-                    ); ?>
+                    <?= $model->team->teamLink(); ?>
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Team finances:
+                Финансы команды:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
@@ -52,7 +49,7 @@ try {
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Starting price for 1 loan day:
+                Начальная цена за 1 день аренды:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
@@ -70,7 +67,7 @@ try {
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Term of loan:
+                Срок аренды:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong"><?= $model->minDay; ?>-<?= $model->maxDay; ?></span> дней
@@ -112,14 +109,14 @@ try {
         </div>
         <p class="text-center">
             <?php if ($model->loanApplication) : ?>
-                <?= Html::submitButton('Edit application', ['class' => 'btn']); ?>
+                <?= Html::submitButton('Редактировать заявку', ['class' => 'btn']); ?>
                 <?= Html::a(
-                    'Remove application',
+                    'Удалить заявку',
                     'javascript:',
                     ['class' => 'btn', 'id' => 'btn' . $modelFromClassName]
                 ); ?>
             <?php else: ?>
-                <?= Html::submitButton('Apply', ['class' => 'btn']); ?>
+                <?= Html::submitButton('Подать заявку', ['class' => 'btn']); ?>
             <?php endif; ?>
         </p>
         <?php $form->end(); ?>

@@ -92,9 +92,9 @@ class LoanApplicationTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'day' => 'Loan days',
-            'onlyOne' => 'In case of victory, delete all my other applications',
-            'price' => 'Your price',
+            'day' => 'Дней аренды',
+            'onlyOne' => 'В случае победы удалить все остальные мои заявки',
+            'price' => 'Ваше предложение',
         ];
     }
 

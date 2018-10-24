@@ -66,9 +66,9 @@ class LoanTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'maxDay' => 'Max loan days',
-            'minDay' => 'Min loan days',
-            'price' => 'Starting price',
+            'maxDay' => 'Дней аренды (max)',
+            'minDay' => 'Дней аренды (min)',
+            'price' => 'Начальная цена',
         ];
     }
 

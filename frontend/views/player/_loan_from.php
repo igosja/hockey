@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <p class="text-center">
-            The player is on loan.
+            Игрок находится на рынке аренды.
             <br/>
-            The initial cost for 1 loan day is
+            Начальная стоимоcть игрока составляет
             <span class="strong"><?php
 
                 try {
@@ -25,26 +25,26 @@ use yii\widgets\ActiveForm;
 
                 ?></span>.
             <br/>
-            The term of loan is
+            Срок аренды составляет
             <span class="strong">
                 <?= $model->player->loan->loan_day_min; ?>-<?= $model->player->loan->loan_day_max; ?>
             </span>
-            days.
+            дней.
         </p>
         <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'off')->hiddenInput(['value' => true])->label(false); ?>
         <p class="text-center">
-            <?= Html::submitButton('Remove from the loan', ['class' => 'btn']); ?>
+            <?= Html::submitButton('Снять с рынка аренды', ['class' => 'btn']); ?>
         </p>
         <?php $form->end(); ?>
         <?php if ($model->loanApplicationArray) : ?>
-            <p class="text-center">Requests for your player:</p>
+            <p class="text-center">Заявки на вашего игрока:</p>
             <table class="table table-bordered table-hover">
                 <tr>
-                    <th>Team of the potential buyer</th>
-                    <th class="col-20">Application time</th>
-                    <th class="col-15">Term of loan</th>
-                    <th class="col-15">Price</th>
+                    <th>Команда потенциального арендатора</th>
+                    <th class="col-20">Время заявки</th>
+                    <th class="col-15">Срок аренды</th>
+                    <th class="col-15">Сумма</th>
                 </tr>
                 <?php foreach ($model->loanApplicationArray as $item): ?>
                     <tr>
