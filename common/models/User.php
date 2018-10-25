@@ -59,6 +59,11 @@ use yii\web\IdentityInterface;
  * @property string $user_surname
  * @property int $user_user_role_id
  *
+ * @property BlockReason $reasonBlockComment
+ * @property BlockReason $reasonBlockCommentDeal
+ * @property BlockReason $reasonBlockCommentGame
+ * @property BlockReason $reasonBlockCommentNews
+ * @property BlockReason $reasonBlockForum
  * @property User $referrer
  * @property Team[] $team
  */
@@ -309,6 +314,46 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockComment(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentDeal(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_deal_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentGame(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_game_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentNews(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_news_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockForum(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_forum_block_reason_id']);
     }
 
     /**

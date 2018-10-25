@@ -9,7 +9,10 @@ use yii\widgets\ListView;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \common\models\NewsComment $model
  * @var \common\models\News $news
+ * @var \common\models\User $user
  */
+
+$user = Yii::$app->user->identity;
 
 ?>
 <div class="row">
@@ -58,28 +61,64 @@ use yii\widgets\ListView;
     ?>
 </div>
 <?php if (!Yii::$app->user->isGuest) : ?>
-    <?php $form = ActiveForm::begin([
-        'fieldConfig' => [
-            'errorOptions' => [
-                'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
-                'tag' => 'div'
-            ],
-            'options' => ['class' => 'row'],
-            'template' =>
-                '<div class="row">
+    <?php if ($user->user_date_block_comment_news >= time()) : ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию новостей до
+                <?php
+
+                try {
+                    Yii::$app->formatter->asDatetime($user->user_date_block_comment_news, 'short');
+                } catch (Exception $e) {
+                    ErrorHelper::log($e);
+                }
+
+                ?>
+                <br/>
+                Причина - <?= $user->reasonBlockCommentNews->block_reason_text; ?>
+            </div>
+        </div>
+    <?php elseif ($user->user_date_block_comment >= time()) : ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию новостей до
+                <?php
+
+                try {
+                    Yii::$app->formatter->asDatetime($user->user_date_block_comment, 'short');
+                } catch (Exception $e) {
+                    ErrorHelper::log($e);
+                }
+
+                ?>
+                <br/>
+                Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <?php $form = ActiveForm::begin([
+            'fieldConfig' => [
+                'errorOptions' => [
+                    'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
+                    'tag' => 'div'
+                ],
+                'options' => ['class' => 'row'],
+                'template' =>
+                    '<div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
                 </div>
                 <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
                 </div>
                 <div class="row">{error}</div>',
-        ],
-    ]); ?>
-    <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
-    <div class="row margin-top-small">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>
+            ],
+        ]); ?>
+        <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
+        <div class="row margin-top-small">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>
+            </div>
         </div>
-    </div>
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
+    <?php endif; ?>
 <?php endif; ?>
