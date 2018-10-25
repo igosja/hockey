@@ -3,7 +3,6 @@
 namespace backend\controllers;
 
 use common\components\Controller;
-use Yii;
 use yii\filters\AccessControl;
 
 /**
@@ -30,13 +29,5 @@ class BaseController extends Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * @return void
-     */
-    protected function setSuccessFlash(): void
-    {
-        Yii::$app->session->setFlash('success', 'Изменения успешно сохранены');
     }
 }

@@ -27,7 +27,7 @@ use yii\helpers\Html;
         -
         <?= Html::a(
             'Комментарии: ' . count($model->newsComment),
-            ['news/comment', 'id' => $model->news_id],
+            ['news/view', 'id' => $model->news_id],
             ['class' => 'strong text-size-3']
         ); ?>
     </div>

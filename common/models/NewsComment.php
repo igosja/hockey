@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * Class NewsComment
@@ -14,9 +17,13 @@ use yii\db\ActiveRecord;
  * @property int $news_comment_news_id
  * @property string $news_comment_text
  * @property int $news_comment_user_id
+ *
+ * @property User $user
  */
 class NewsComment extends ActiveRecord
 {
+    const PAGE_LIMIT = 20;
+
     /**
      * @return string
      */
@@ -34,7 +41,7 @@ class NewsComment extends ActiveRecord
             [
                 [
                     'news_comment_id',
-                    '$news_comment_check',
+                    'news_comment_check',
                     'news_comment_date',
                     'news_comment_news_id',
                     'news_comment_user_id',
@@ -45,5 +52,39 @@ class NewsComment extends ActiveRecord
             [['news_comment_text'], 'safe'],
             [['news_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'news_comment_text' => 'Комментарий',
+        ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->news_comment_date = new Expression('UNIX_TIMESTAMP()');
+            $this->news_comment_user_id = Yii::$app->user->id;
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id']);
     }
 }

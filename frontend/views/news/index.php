@@ -19,7 +19,7 @@ use yii\widgets\ListView;
     try {
         print ListView::widget([
             'dataProvider' => $dataProvider,
-            'itemView' => '_item',
+            'itemView' => '_news',
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);

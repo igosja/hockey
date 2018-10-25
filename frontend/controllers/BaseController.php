@@ -6,6 +6,7 @@ use common\components\Controller;
 use common\models\Season;
 use common\models\Team;
 use Yii;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Class BaseController
@@ -86,5 +87,13 @@ class BaseController extends Controller
             'name' => 'description',
             'content' => $this->view->title . ' на сайте Виртуальной Хоккейной Лиги'
         ]);
+    }
+
+    /**
+     * @throws ForbiddenHttpException
+     */
+    protected function forbiddenRole(): void
+    {
+        throw new ForbiddenHttpException('Не хватает прав для выполнения этой операции');
     }
 }

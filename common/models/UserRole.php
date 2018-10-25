@@ -13,7 +13,10 @@ use yii\db\ActiveRecord;
  */
 class UserRole extends ActiveRecord
 {
-    const ADMIN = 3;
+    const ADMIN = 5;
+    const EDITOR = 3;
+    const MODERATOR = 4;
+    const SUPPORT = 2;
     const USER = 1;
 
     /**
