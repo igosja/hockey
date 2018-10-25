@@ -53,10 +53,10 @@ class News extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'news_id' => 'ID',
-            'news_date' => 'Date',
-            'news_title' => 'Title',
-            'news_text' => 'Text',
+            'news_id' => 'Id',
+            'news_date' => 'Дата',
+            'news_title' => 'Заголовок',
+            'news_text' => 'Текст',
         ];
     }
 

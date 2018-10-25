@@ -18,7 +18,7 @@ use yii\helpers\Html;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Create', ['create'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Создать', ['news/create'], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -27,7 +27,7 @@ use yii\helpers\Html;
     try {
         $columns = [
             'news_id',
-            'news_date:date',
+            'news_date:datetime',
             'news_title',
             [
                 'class' => 'yii\grid\ActionColumn',

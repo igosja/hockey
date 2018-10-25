@@ -16,7 +16,7 @@ use yii\helpers\Html;
         <?php
 
         try {
-            print Yii::$app->formatter->asDatetime($model->news_date);
+            print Yii::$app->formatter->asDatetime($model->news_date, 'short');
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
@@ -26,7 +26,7 @@ use yii\helpers\Html;
         <?= Html::a($model->user->user_login, ['user/view', 'id' => $model->user->user_id], ['class' => 'strong']); ?>
         -
         <?= Html::a(
-            'Comments: ' . count($model->newsComment),
+            'Комментарии: ' . count($model->newsComment),
             ['news/comment', 'id' => $model->news_id],
             ['class' => 'strong text-size-3']
         ); ?>

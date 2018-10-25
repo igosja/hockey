@@ -8,11 +8,11 @@ use common\models\GameComment;
 use common\models\LoanComment;
 use common\models\LoginForm;
 use common\models\Logo;
-use common\models\Message;
 use common\models\News;
 use common\models\NewsComment;
 use common\models\Payment;
 use common\models\Review;
+use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
 use common\models\Vote;
@@ -78,7 +78,7 @@ class SiteController extends BaseController
         $news = News::find()->where(['news_check' => 0])->count();
         $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
         $review = Review::find()->where(['review_check' => 0])->count();
-        $support = Message::find()->where(['message_support' => 1, 'message_read' => 0])->count();
+        $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
         $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
 

@@ -37,11 +37,8 @@ class NewsController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'News';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'News - Virtual Hockey Online League'
-        ]);
+        $this->view->title = 'Новости';
+        $this->setSeoDescription();
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,

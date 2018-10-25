@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use common\models\Complaint;
 use common\models\Logo;
-use common\models\Message;
+use common\models\Support;
 use common\models\Team;
 use common\models\Vote;
 use common\models\VoteStatus;
@@ -27,7 +27,7 @@ class BellController extends BaseController
         $complaint = Complaint::find()->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $logo = Logo::find()->count();
-        $support = Message::find()->where(['message_support' => 1, 'message_read' => 0])->count();
+        $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
         $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
 
         $bell = $support + $vote + $logo + $complaint;

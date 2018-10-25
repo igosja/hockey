@@ -12,11 +12,13 @@ function admin_bell() {
     $.ajax({
         dataType: 'json',
         success: function (data) {
+            let seoTitle = $('title');
+            let titleText = seoTitle.text().split(')');
             $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
-                $('title').text('(' + data.bell + ') Admin');
+                seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length]);
             } else {
-                $('title').text('Admin');
+                seoTitle.text(titleText[titleText.length]);
             }
 
             $('.admin-support').html(data.support);

@@ -19,7 +19,7 @@ class NewsSearch extends News
     {
         return [
             [['news_id'], 'integer'],
-            [['news_date', 'news_title'], 'safe'],
+            [['news_title'], 'safe'],
         ];
     }
 

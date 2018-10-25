@@ -1,8 +1,8 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\widgets\DetailView;
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /**
  * @var \common\models\News $model
@@ -17,13 +17,13 @@ use yii\helpers\Html;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('List', ['index'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Список', ['news/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Update', ['update', 'id' => $model->news_id], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Изменить', ['news/update', 'id' => $model->news_id], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Delete', ['delete', 'id' => $model->news_id], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Удалить', ['news/delete', 'id' => $model->news_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -32,7 +32,7 @@ use yii\helpers\Html;
     try {
         $attributes = [
             'news_id',
-            'news_date:date',
+            'news_date:datetime',
             'news_title',
             'news_text',
         ];

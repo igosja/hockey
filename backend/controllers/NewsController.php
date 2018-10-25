@@ -5,7 +5,6 @@ namespace backend\controllers;
 use backend\models\NewsSearch;
 use common\components\ErrorHelper;
 use common\models\News;
-use Exception;
 use Throwable;
 use Yii;
 
@@ -23,7 +22,7 @@ class NewsController extends BaseController
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
-        $this->view->title = 'News';
+        $this->view->title = 'Новости';
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('index', [
@@ -32,18 +31,20 @@ class NewsController extends BaseController
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new News();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Record saved');
-
+            $this->setSuccessFlash();
             return $this->redirect(['view', 'id' => $model->news_id]);
         }
 
-        $this->view->title = 'Create news';
-        $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+        $this->view->title = 'Создание новости';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['news/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('create', [
@@ -51,21 +52,24 @@ class NewsController extends BaseController
         ]);
     }
 
-    public function actionUpdate($id)
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     */
+    public function actionUpdate(int $id)
     {
-        $model = News::findOne($id);
+        $model = News::find()->where(['news_id' => $id])->limit(1)->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Record saved');
-
+            $this->setSuccessFlash();
             return $this->redirect(['view', 'id' => $model->news_id]);
         }
 
-        $this->view->title = 'Update news';
-        $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+        $this->view->title = 'Редактирование новости';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['news/index']];
         $this->view->params['breadcrumbs'][] = [
             'label' => $model->news_title,
-            'url' => ['view', 'id' => $model->news_id]
+            'url' => ['news/view', 'id' => $model->news_id]
         ];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -81,11 +85,11 @@ class NewsController extends BaseController
      */
     public function actionView(int $id): string
     {
-        $model = News::find()->where(['news_id' => $id])->one();
+        $model = News::find()->where(['news_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
         $this->view->title = $model->news_title;
-        $this->view->params['breadcrumbs'][] = ['label' => 'News', 'url' => ['index']];
+        $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['news/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('view', [
@@ -93,21 +97,24 @@ class NewsController extends BaseController
         ]);
     }
 
-    public function actionDelete($id)
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionDelete(int $id)
     {
-        $model = News::find()->where(['news_id' => $id])->one();
+        $model = News::find()->where(['news_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
         try {
             if ($model->delete()) {
-                Yii::$app->session->setFlash('success', 'Record saved');
+                $this->setSuccessFlash();
             }
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
         } catch (Throwable $e) {
             ErrorHelper::log($e);
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['news/index']);
     }
 }
