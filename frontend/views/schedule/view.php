@@ -23,14 +23,14 @@ use yii\helpers\Html;
             <?php
 
             try {
-                print Yii::$app->formatter->asDatetime($schedule->schedule_date);
+                print Yii::$app->formatter->asDatetime($schedule->schedule_date, 'short');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
             }
 
             ?>,
             <?= $schedule->stage->stage_name; ?>,
-            <?= Yii::t('app', '{n, ordinal} сезон', ['n' => $schedule->schedule_season_id]); ?>
+            <?= $schedule->schedule_season_id; ?>й сезон
         </p>
     </div>
 </div>

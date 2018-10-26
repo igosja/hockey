@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use common\models\Game;
 use common\models\Schedule;
 use common\models\Season;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -22,8 +23,9 @@ class ScheduleController extends BaseController
     public function actionIndex(): string
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
-        $season = Season::find()->select(['season_id'])->orderBy(['season_id' => SORT_DESC])->all();
-        $scheduleArray = Schedule::find()
+        $seasonArray = Season::getSeasonArray();
+
+        $query = Schedule::find()
             ->with([
                 'tournamentType' => function (ActiveQuery $query): ActiveQuery {
                     return $query->select(['tournament_type_id', 'tournament_type_name']);
@@ -39,18 +41,19 @@ class ScheduleController extends BaseController
                 'schedule_tournament_type_id',
             ])
             ->where(['schedule_season_id' => $seasonId])
-            ->orderBy(['schedule_id' => SORT_ASC])
-            ->all();
+            ->orderBy(['schedule_id' => SORT_ASC]);
 
-        $this->view->title = 'Schedule';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Schedule - Virtual Hockey Online League'
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+            'sort' => false,
         ]);
 
+        $this->setSeoTitle('Рассписание');
+
         return $this->render('index', [
-            'scheduleArray' => $scheduleArray,
-            'season' => $season,
+            'dataProvider' => $dataProvider,
+            'seasonArray' => $seasonArray,
             'seasonId' => $seasonId,
         ]);
     }
@@ -144,11 +147,14 @@ class ScheduleController extends BaseController
                 ->orderBy(['game_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Game list';//'Список матчей игрового дня. ' . f_igosja_ufu_date($schedule_array[0]['schedule_date']);
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'News - Virtual Hockey Online League'
-        ]);
+        $date = '';
+        try {
+            $date = Yii::$app->formatter->asDate($schedule->schedule_date, 'short');
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        $this->setSeoTitle('Список матчей игрового дня ' . $date);
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,

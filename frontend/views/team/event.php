@@ -15,7 +15,7 @@ use yii\helpers\Html;
 print $this->render('_team-top');
 
 ?>
-<form method="GET">
+<?= Html::beginForm('', 'get'); ?>
     <div class="row margin-top-small">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <?= $this->render('_team-links'); ?>
@@ -36,7 +36,7 @@ print $this->render('_team-top');
             </div>
         </div>
     </div>
-</form>
+<?= Html::endForm(); ?>
 <div class="row">
     <?php
 

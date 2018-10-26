@@ -17,8 +17,7 @@ class RuleController extends BaseController
     {
         $rules = Rule::find()->orderBy(['rule_order' => SORT_ASC])->all();
 
-        $this->view->title = 'Правила';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Правила');
 
         return $this->render('index', [
             'rules' => $rules,
@@ -35,8 +34,7 @@ class RuleController extends BaseController
         $rule = Rule::findOne($id);
         $this->notFound($rule);
 
-        $this->view->title = $rule->rule_title . ' - Правила';
-        $this->setSeoDescription();
+        $this->setSeoTitle($rule->rule_title . ' - Правила');
 
         return $this->render('view', [
             'rule' => $rule,

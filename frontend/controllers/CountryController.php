@@ -55,8 +55,7 @@ class CountryController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Команды фередации';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Команды фередации');
 
         return $this->render('team', [
             'dataProvider' => $dataProvider

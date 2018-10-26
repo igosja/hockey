@@ -24,8 +24,7 @@ class VipController extends BaseController
 
         $count = User::find()->where(['>', 'user_date_vip', new Expression('UNIX_TIMESTAMP()')])->count();
 
-        $this->view->title = 'VIP клуб';
-        $this->setSeoDescription();
+        $this->setSeoTitle('VIP клуб');
 
         return $this->render('index', [
             'count' => $count

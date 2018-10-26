@@ -16,7 +16,7 @@ use yii\helpers\Html;
 print $this->render('_team-top');
 
 ?>
-<form method="GET">
+<?= Html::beginForm('', 'get'); ?>
     <div class="row margin-top-small">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <?= $this->render('_team-links'); ?>
@@ -24,20 +24,20 @@ print $this->render('_team-top');
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-                    <?= Html::label('Сезон', 'season_id') ?>
+                    <?= Html::label('Сезон', 'seasonId') ?>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <?= Html::dropDownList(
                         'season_id',
                         $seasonId,
                         $seasonArray,
-                        ['class' => 'form-control submit-on-change', 'id' => 'season_id']
+                        ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
                     ); ?>
                 </div>
             </div>
         </div>
     </div>
-</form>
+<?= Html::endForm(); ?>
 <div class="row">
     <?php
 

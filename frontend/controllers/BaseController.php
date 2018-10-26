@@ -79,9 +79,19 @@ class BaseController extends Controller
     }
 
     /**
+     * @param $text
      * @return void
      */
-    protected function setSeoDescription(): void
+    public function setSeoTitle($text): void
+    {
+        $this->view->title = $text;
+        $this->setSeoDescription();
+    }
+
+    /**
+     * @return void
+     */
+    private function setSeoDescription(): void
     {
         $this->view->registerMetaTag([
             'name' => 'description',

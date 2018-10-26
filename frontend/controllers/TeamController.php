@@ -75,8 +75,7 @@ class TeamController extends BaseController
                 ->groupBy(['country_id'])
         ]);
 
-        $this->view->title = 'Команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Команды');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -225,8 +224,7 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Профиль команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Профиль команды');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
@@ -307,8 +305,7 @@ class TeamController extends BaseController
                 ->orderBy(['schedule_date' => SORT_ASC]),
         ]);
 
-        $this->view->title = 'Матчи команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Матчи команды');
 
         return $this->render('game', [
             'dataProvider' => $dataProvider,
@@ -360,8 +357,7 @@ class TeamController extends BaseController
                 ->orderBy(['history_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'События команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('События команды');
 
         return $this->render('event', [
             'dataProvider' => $dataProvider,
@@ -410,8 +406,7 @@ class TeamController extends BaseController
                 ->orderBy(['finance_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Финансы команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Финансы команды');
 
         return $this->render('finance', [
             'dataProvider' => $dataProvider,
@@ -471,8 +466,7 @@ class TeamController extends BaseController
                 ->orderBy(['loan_ready' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Сделки команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Сделки команды');
 
         return $this->render('deal', [
             'dataProviderTransferFrom' => $dataProviderTransferFrom,
@@ -500,8 +494,7 @@ class TeamController extends BaseController
                 ->orderBy(['achievement_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Достижения команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Достижения команды');
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,
@@ -518,8 +511,7 @@ class TeamController extends BaseController
             ->where(['team_id' => $id])
             ->one();
 
-        $this->view->title = 'Статистика команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Статистика команды');
 
         return $this->render('statistics', [
             'team' => $team,
@@ -678,8 +670,7 @@ class TeamController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Получение команды';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Получение команды');
 
         return $this->render('ask', [
             'dataProvider' => $dataProvider,

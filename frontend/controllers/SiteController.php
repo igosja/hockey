@@ -112,8 +112,7 @@ class SiteController extends BaseController
             $model->password = '';
         }
 
-        $this->view->title = 'Вход';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Вход');
 
         return $this->render('login', [
             'model' => $model,
@@ -162,8 +161,7 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Регистрация';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Регистрация');
 
         return $this->render('sign-up', [
             'model' => $model,
@@ -195,8 +193,7 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Активация аккаунта';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Активация аккаунта');
 
         return $this->render('activation', [
             'model' => $model,
@@ -229,8 +226,7 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Активация аккаунта';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Активация аккаунта');
 
         return $this->render('activation-repeat', [
             'model' => $model,
@@ -266,8 +262,7 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Восстановление пароля';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Восстановление пароля');
 
         return $this->render('password', [
             'model' => $model,
@@ -301,8 +296,7 @@ class SiteController extends BaseController
             }
         }
 
-        $this->view->title = 'Восстановление пароля';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Восстановление пароля');
 
         return $this->render('password-restore', [
             'model' => $model,

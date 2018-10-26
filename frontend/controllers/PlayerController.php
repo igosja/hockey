@@ -52,8 +52,7 @@ class PlayerController extends BaseController
                 ->orderBy(['schedule_date' => SORT_ASC]),
         ]);
 
-        $this->view->title = 'Профиль игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Профиль игрока');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
@@ -82,8 +81,7 @@ class PlayerController extends BaseController
                 ->orderBy(['history_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'События игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('События игрока');
 
         return $this->render('event', [
             'dataProvider' => $dataProvider,
@@ -115,8 +113,7 @@ class PlayerController extends BaseController
                 ->orderBy(['transfer_ready' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Сделки игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Сделки игрока');
 
         return $this->render('deal', [
             'dataProviderLoan' => $dataProviderLoan,
@@ -219,8 +216,7 @@ class PlayerController extends BaseController
             }
         }
 
-        $this->view->title = 'Трансфер игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Трансфер игрока');
 
         return $this->render('transfer', [
             'modelTransferApplicationFrom' => $modelTransferApplicationFrom,
@@ -327,8 +323,7 @@ class PlayerController extends BaseController
             }
         }
 
-        $this->view->title = 'Аренда игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Аренда игрока');
 
         return $this->render('loan', [
             'modelLoanApplicationFrom' => $modelLoanApplicationFrom,
@@ -359,8 +354,7 @@ class PlayerController extends BaseController
                 ->orderBy(['achievement_player_id' => SORT_DESC]),
         ]);
 
-        $this->view->title = 'Достижения игрока';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Достижения игрока');
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,

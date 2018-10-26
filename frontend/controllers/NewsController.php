@@ -44,8 +44,7 @@ class NewsController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Новости';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Новости');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -93,8 +92,7 @@ class NewsController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Комментарии к новости';
-        $this->setSeoDescription();
+        $this->setSeoTitle('Комментарии к новости');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
