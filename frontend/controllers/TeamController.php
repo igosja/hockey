@@ -239,7 +239,7 @@ class TeamController extends BaseController
      */
     public function actionGame($id): string
     {
-        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -320,7 +320,7 @@ class TeamController extends BaseController
      */
     public function actionEvent($id): string
     {
-        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -372,7 +372,7 @@ class TeamController extends BaseController
      */
     public function actionFinance($id): string
     {
-        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,

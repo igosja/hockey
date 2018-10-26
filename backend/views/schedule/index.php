@@ -18,7 +18,7 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            Today:
+            Сегодня:
             <?= $schedule->tournamentType->tournament_type_name ?? ''; ?>,
             <?= $schedule->stage->stage_name ?? ''; ?>
         </p>
@@ -27,14 +27,14 @@ use yii\helpers\Html;
 <ul class="list-inline preview-links text-center">
     <li>
         <?= Html::a(
-            'Back to the past',
+            'Назад в прошлое',
             ['schedule/index', 'id' => 1],
             ['class' => 'btn btn-default']
         ); ?>
     </li>
     <li>
         <?= Html::a(
-            'Forward to the future',
+            'Вперед в будущее',
             ['schedule/index', 'id' => -1],
             ['class' => 'btn btn-default']
         ); ?>

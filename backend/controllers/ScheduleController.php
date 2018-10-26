@@ -26,7 +26,7 @@ class ScheduleController extends BaseController
             ->limit(1)
             ->one();
 
-        $this->view->title = 'Changing the schedule';
+        $this->view->title = 'Перевести время';
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('index', [

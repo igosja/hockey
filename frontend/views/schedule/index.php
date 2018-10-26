@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\Season[] $seasonArray
+ * @var array $seasonArray
  * @var int $seasonId
  */
 

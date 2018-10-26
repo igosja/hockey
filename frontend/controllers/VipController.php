@@ -7,7 +7,7 @@ use Yii;
 use yii\db\Expression;
 
 /**
- * Class CountryController
+ * Class VipController
  * @package frontend\controllers
  */
 class VipController extends BaseController
