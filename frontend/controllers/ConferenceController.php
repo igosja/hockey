@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Conference;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -20,13 +21,37 @@ class ConferenceController extends BaseController
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
         $count = Conference::find()->where(['conference_season_id' => $seasonId])->count();
 
-        $seasonArray = $this->getSeasonArray();
-
         $this->setSeoTitle('Конференция любительских клубов');
 
         return $this->render('index', [
             'count' => $count,
-            'seasonArray' => $seasonArray,
+            'seasonArray' => $this->getSeasonArray(),
+            'seasonId' => $seasonId,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionTable(): string
+    {
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $query = Conference::find()
+            ->where(['conference_season_id' => $seasonId])
+            ->orderBy(['conference_place' => SORT_ASC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+            'sort' => false,
+        ]);
+
+        $this->setSeoTitle('Конференция любительских клубов');
+
+        return $this->render('table', [
+            'dataProvider' => $dataProvider,
+            'seasonArray' => $this->getSeasonArray(),
             'seasonId' => $seasonId,
         ]);
     }

@@ -250,10 +250,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function iconVip(): string
     {
         $result = '';
-        if ($this->user_date_vip > time()) {
+        if ($this->isVip()) {
             $result = ' <i aria-hidden="true" class="fa fa-star" title="VIP"></i>';
         }
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVip(): bool
+    {
+        return $this->user_date_vip > time();
     }
 
     /**

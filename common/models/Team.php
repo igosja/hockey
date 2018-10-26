@@ -534,10 +534,22 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @param string $type
      * @return string
      */
-    public function teamLink(): string
+    public function teamLink(string $type = 'string'): string
     {
+        if ('img' == $type) {
+            return Html::img('/img/country/12/' . $this->stadium->city->city_country_id . '.png')
+                . ' '
+                . Html::a(
+                    $this->team_name
+                    . ' (<span class="hidden-xs">'
+                    . $this->stadium->city->city_name
+                    . '</span>)',
+                    ['team/view', 'id' => $this->team_id]
+                );
+        }
         return Html::a(
             $this->team_name
             . ' (<span class="hidden-xs">'
