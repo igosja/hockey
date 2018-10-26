@@ -17,11 +17,8 @@ class RuleController extends BaseController
     {
         $rules = Rule::find()->orderBy(['rule_order' => SORT_ASC])->all();
 
-        $this->view->title = 'Rules';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Rules - Virtual Hockey Online League'
-        ]);
+        $this->view->title = 'Правила';
+        $this->setSeoDescription();
 
         return $this->render('index', [
             'rules' => $rules,
@@ -38,11 +35,8 @@ class RuleController extends BaseController
         $rule = Rule::findOne($id);
         $this->notFound($rule);
 
-        $this->view->title = $rule->rule_title . ' - Rules';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => $rule->rule_title . ' - Rules - Virtual Hockey Online League'
-        ]);
+        $this->view->title = $rule->rule_title . ' - Правила';
+        $this->setSeoDescription();
 
         return $this->render('view', [
             'rule' => $rule,

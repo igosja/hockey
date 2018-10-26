@@ -38,7 +38,7 @@ $user = Yii::$app->user->identity;
         <?= Html::a($news->user->user_login, ['user/view', 'id' => $news->user->user_id], ['class' => 'strong']); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $news->news_text; ?>
+        <?= $news->text(); ?>
     </div>
 </div>
 <div class="row margin-top">

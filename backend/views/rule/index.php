@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \backend\models\NewsSearch $searchModel
+ * @var \backend\models\RuleSearch $searchModel
  * @var \yii\web\View $this
  */
 
@@ -18,7 +18,7 @@ use yii\helpers\Html;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Создать', ['news/create'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Создать', ['rule/create'], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -27,15 +27,14 @@ use yii\helpers\Html;
     try {
         $columns = [
             [
-                'attribute' => 'news_id',
+                'attribute' => 'rule_id',
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
+            'rule_title',
             [
-                'attribute' => 'news_date',
-                'format' => 'datetime',
-                'headerOptions' => ['class' => 'col-lg-3'],
+                'attribute' => 'rule_order',
+                'headerOptions' => ['class' => 'col-lg-1'],
             ],
-            'news_title',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],

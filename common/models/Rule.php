@@ -31,9 +31,9 @@ class Rule extends ActiveRecord
     {
         return [
             [['rule_id', 'rule_date', 'rule_order'], 'integer'],
-            [['rule_title', 'rule_title'], 'required'],
+            [['rule_title', 'rule_text'], 'required'],
             [['rule_title'], 'string', 'max' => 255],
-            [['rule_title', 'rule_title'], 'trim'],
+            [['rule_title', 'rule_text'], 'trim'],
         ];
     }
 
@@ -47,7 +47,7 @@ class Rule extends ActiveRecord
             if ($this->isNewRecord) {
                 $order = self::find()->max('rule_order');
                 if (!$order) {
-                    $order = 0;
+                    $order = 1;
                 }
                 $order++;
                 $this->rule_order = $order;
@@ -56,5 +56,15 @@ class Rule extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'rule_id' => 'Id',
+            'rule_order' => 'Порядок',
+            'rule_text' => 'Текст',
+            'rule_title' => 'Заголовок',
+        ];
     }
 }

@@ -23,7 +23,11 @@ use yii\helpers\Html;
 
         ?>
         -
-        <?= Html::a($model->user->user_login, ['user/view', 'id' => $model->user->user_id], ['class' => 'strong']); ?>
+        <?= Html::a(
+            $model->user->user_login,
+            ['user/view', 'id' => $model->user->user_id],
+            ['class' => 'strong']
+        ); ?>
         -
         <?= Html::a(
             'Комментарии: ' . count($model->newsComment),
@@ -32,6 +36,6 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $model->news_text; ?>
+        <?= $model->text(); ?>
     </div>
 </div>

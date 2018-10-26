@@ -77,6 +77,14 @@ class News extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function text(): string
+    {
+        return nl2br($this->news_text);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCountry(): ActiveQuery

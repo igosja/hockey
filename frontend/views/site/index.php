@@ -67,7 +67,7 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2>Последние игровые новост</h2>
+                <h2>Последние игровые новости</h2>
             </div>
         </div>
         <?php if ($news) : ?>
@@ -77,7 +77,7 @@ use yii\helpers\Html;
                         <span class="strong"><?= $news->news_title; ?></span>
                     </p>
                     <p class="text-justify">
-                        <?= $news->news_text; ?>
+                        <?= $news->text(); ?>
                     </p>
                     <?= Html::a(
                         $news->user->user_login,
@@ -176,7 +176,7 @@ use yii\helpers\Html;
                         </span>
                     </p>
                     <p class="text-justify">
-                        <?= $countryNews->news_text; ?>
+                        <?= $countryNews->text(); ?>
                     </p>
                     <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
@@ -252,9 +252,9 @@ use yii\helpers\Html;
                     <?= Html::img(
                         '//counter.yadro.ru/logo?14.4',
                         [
-                            'alt' => 'LiveInternet counter',
+                            'alt' => 'LiveInternet',
                             'height' => 31,
-                            'width' => 8,
+                            'width' => 88,
                         ]
                     ); ?>
                 </fieldset>
