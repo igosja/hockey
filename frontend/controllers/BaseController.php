@@ -92,6 +92,14 @@ class BaseController extends Controller
     /**
      * @throws ForbiddenHttpException
      */
+    protected function forbiddenAuth(): void
+    {
+        throw new ForbiddenHttpException('Эта страница доступна только авторизированных мользователям');
+    }
+
+    /**
+     * @throws ForbiddenHttpException
+     */
     protected function forbiddenRole(): void
     {
         throw new ForbiddenHttpException('Не хватает прав для выполнения этой операции');
