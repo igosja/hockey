@@ -47,7 +47,7 @@ use yii\helpers\Html;
         <p class="text-center">
             <?= Html::a('Турнирная таблица', ['conference/table', 'seasonId' => $seasonId]); ?>
             |
-            <?= Html::a('Статистика', ['conference/statistic', 'seasonId' => $seasonId]); ?>
+            <?= Html::a('Статистика', ['conference/statistics', 'seasonId' => $seasonId]); ?>
         </p>
         <p class="text-justify">
             Турнир играется по швейцарской системе, когда для каждого тура сводятся в пары команды одного ранга

@@ -57,6 +57,16 @@ class ConferenceController extends BaseController
     }
 
     /**
+     * @return string
+     */
+    public function actionStatistics():string
+    {
+        return $this->render('statistics', [
+
+        ]);
+    }
+
+    /**
      * @return array
      */
     private function getSeasonArray(): array
