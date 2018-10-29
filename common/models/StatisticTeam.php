@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -30,6 +31,8 @@ use yii\db\ActiveRecord;
  * @property int $statistic_team_win_over
  * @property float $statistic_team_win_percent
  * @property int $statistic_team_win_shootout
+ *
+ * @property Team $team
  */
 class StatisticTeam extends ActiveRecord
 {
@@ -92,5 +95,13 @@ class StatisticTeam extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'statistic_team_team_id']);
     }
 }

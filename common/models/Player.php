@@ -390,6 +390,17 @@ class Player extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function playerLink(): string
+    {
+        return Html::a(
+            $this->name->name_name . ' ' . $this->surname->surname_name,
+            ['player/view', 'id' => $this->player_id]
+        );
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery

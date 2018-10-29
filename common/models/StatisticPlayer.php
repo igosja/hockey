@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -46,6 +47,9 @@ use yii\db\ActiveRecord;
  * @property int $statistic_player_team_id
  * @property int $statistic_player_tournament_type_id
  * @property int $statistic_player_win
+ *
+ * @property Player $player
+ * @property Team $team
  */
 class StatisticPlayer extends ActiveRecord
 {
@@ -123,5 +127,21 @@ class StatisticPlayer extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'statistic_player_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'statistic_player_team_id']);
     }
 }
