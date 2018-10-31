@@ -2461,7 +2461,7 @@ class GameResult
                     $model->statistic_player_assist_power = $model->statistic_player_assist_power + $this->result[$team]['player']['gk']['assist_power'];
                     $model->statistic_player_assist_short = $model->statistic_player_assist_short + $this->result[$team]['player']['gk']['assist_short'];
                     $model->statistic_player_game = $model->statistic_player_game + $this->result[$team]['player']['gk']['game'];
-                    $model->statistic_player_game_with_bullet = $model->statistic_player_game_with_bullet + $this->result[$team]['player']['gk']['game_with_shootout'];
+                    $model->statistic_player_game_with_shootout = $model->statistic_player_game_with_shootout + $this->result[$team]['player']['gk']['game_with_shootout'];
                     $model->statistic_player_loose = $model->statistic_player_loose + $this->result[$team]['player']['gk']['loose'];
                     $model->statistic_player_pass = $model->statistic_player_pass + $this->result[$team]['player']['gk']['pass'];
                     $model->statistic_player_point = $model->statistic_player_point + $this->result[$team]['player']['gk']['point'];
@@ -2490,7 +2490,7 @@ class GameResult
                         $model->statistic_player_assist = $model->statistic_player_assist + $player['assist'];
                         $model->statistic_player_assist_power = $model->statistic_player_assist_power + $player['assist_power'];
                         $model->statistic_player_assist_short = $model->statistic_player_assist_short + $player['assist_short'];
-                        $model->statistic_player_bullet_win = $model->statistic_player_bullet_win + $player['bullet_win'];
+                        $model->statistic_player_shootout_win = $model->statistic_player_shootout_win + $player['bullet_win'];
                         $model->statistic_player_face_off = $model->statistic_player_face_off + $player['face_off'];
                         $model->statistic_player_face_off_win = $model->statistic_player_face_off_win + $player['face_off_win'];
                         $model->statistic_player_game = $model->statistic_player_game + $player['game'];

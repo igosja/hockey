@@ -3,7 +3,6 @@
 use common\components\ErrorHelper;
 use common\models\StatisticPlayer;
 use common\models\StatisticTeam;
-use common\models\StatisticType;
 use yii\grid\GridView;
 use yii\grid\SerialColumn;
 use yii\helpers\Html;
@@ -12,7 +11,7 @@ use yii\helpers\Html;
  * @var int $count
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var int $seasonId
- * @var string $select
+ * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
  */
 
@@ -42,21 +41,7 @@ use yii\helpers\Html;
 </div>
 <?php
 
-if (in_array(Yii::$app->request->get('id'), [
-    StatisticType::TEAM_NO_PASS,
-    StatisticType::TEAM_NO_SCORE,
-    StatisticType::TEAM_LOOSE,
-    StatisticType::TEAM_LOOSE_BULLET,
-    StatisticType::TEAM_LOOSE_OVER,
-    StatisticType::TEAM_PASS,
-    StatisticType::TEAM_SCORE,
-    StatisticType::TEAM_PENALTY,
-    StatisticType::TEAM_PENALTY_OPPONENT,
-    StatisticType::TEAM_WIN,
-    StatisticType::TEAM_WIN_BULLET,
-    StatisticType::TEAM_WIN_OVER,
-    StatisticType::TEAM_WIN_PERCENT,
-])) {
+if ($statisticType->isTeamChapter()) {
     $columns = [
         [
             'class' => SerialColumn::class,
@@ -76,7 +61,8 @@ if (in_array(Yii::$app->request->get('id'), [
         [
             'contentOptions' => ['class' => 'text-center'],
             'headerOptions' => ['class' => 'col-10'],
-            'value' => function (StatisticTeam $model) use ($select) {
+            'value' => function (StatisticTeam $model) use ($statisticType) {
+                $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }
         ],
@@ -108,7 +94,8 @@ if (in_array(Yii::$app->request->get('id'), [
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
-            'value' => function (StatisticTeam $model) use ($select) {
+            'value' => function (StatisticTeam $model) use ($statisticType) {
+                $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }
         ],
