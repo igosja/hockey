@@ -24,6 +24,11 @@ use yii\db\ActiveRecord;
 class Country extends ActiveRecord
 {
     /**
+     * USA 157
+     */
+    const DEFAULT_ID = 157;
+
+    /**
      * @return string
      */
     public static function tableName(): string

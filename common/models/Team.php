@@ -535,9 +535,10 @@ class Team extends ActiveRecord
 
     /**
      * @param string $type
+     * @param bool $short
      * @return string
      */
-    public function teamLink(string $type = 'string'): string
+    public function teamLink(string $type = 'string', bool $short = false): string
     {
         if ('img' == $type) {
             return Html::img('/img/country/12/' . $this->stadium->city->city_country_id . '.png')
@@ -549,16 +550,27 @@ class Team extends ActiveRecord
                     . '</span>)',
                     ['team/view', 'id' => $this->team_id]
                 );
+        } else {
+            if ($short) {
+                return Html::a(
+                    $this->team_name
+                    . ' (<span class="hidden-xs">'
+                    . $this->stadium->city->city_name
+                    . '</span>)',
+                    ['team/view', 'id' => $this->team_id]
+                );
+            } else {
+                return Html::a(
+                    $this->team_name
+                    . ' (<span class="hidden-xs">'
+                    . $this->stadium->city->city_name
+                    . ', '
+                    . $this->stadium->city->country->country_name
+                    . '</span>)',
+                    ['team/view', 'id' => $this->team_id]
+                );
+            }
         }
-        return Html::a(
-            $this->team_name
-            . ' (<span class="hidden-xs">'
-            . $this->stadium->city->city_name
-            . ', '
-            . $this->stadium->city->country->country_name
-            . '</span>)',
-            ['team/view', 'id' => $this->team_id]
-        );
     }
 
     /**

@@ -5,6 +5,7 @@ namespace common\components;
 use common\models\Game;
 use common\models\National;
 use common\models\Team;
+use yii\db\Exception;
 use yii\helpers\Html;
 
 /**
@@ -208,5 +209,10 @@ class HockeyHelper
         }
 
         return '';
+    }
+
+    public static function unixTimeStamp()
+    {
+        return new Exception('UNIX_TIMESTAMP()');
     }
 }
