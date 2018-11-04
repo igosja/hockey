@@ -24,15 +24,15 @@
             center: myLatlng
         };
         let map = new google.maps.Map(document.getElementById('map'), mapOptions);
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(51.404742, 30.055595), //Припять
-//        map: map
-//    });
-//    marker = new google.maps.Marker({
-//        position: new google.maps.LatLng(51.273951, 30.226863), //Чорнобиль
-//        map: map
-//    });
         let marker = [
+            new google.maps.Marker({
+                position: new google.maps.LatLng(51.404742, 30.055595), //Припять
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(51.273951, 30.226863), //Чорнобиль
+                map: map
+            }),
             new google.maps.Marker({
                 position: new google.maps.LatLng(48.669171, 33.117331), //Олександрія
                 map: map
