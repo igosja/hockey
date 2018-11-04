@@ -60,7 +60,7 @@ use yii\helpers\Html;
                                 <?= Html::a(
                                     $value,
                                     [
-                                        'championship/view',
+                                        'championship/index',
                                         'countryId' => $item['countryId'],
                                         'divisionId' => $key,
                                         'seasonId' => $seasonId

@@ -100,6 +100,18 @@ class HockeyHelper
     }
 
     /**
+     * @param int $auto
+     * @return string
+     */
+    public static function formatAuto(int $auto): string
+    {
+        if ($auto) {
+            return '*';
+        }
+        return '';
+    }
+
+    /**
      * @param Game $game
      * @param int $teamId
      * @return string

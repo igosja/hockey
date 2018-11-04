@@ -1,12 +1,22 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use common\models\Championship;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
+ * @var \common\models\Country $country
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\User $user ;
+ * @var array $divisionArray
+ * @var int $divisionId
+ * @var \common\models\Game[] $gameArray
+ * @var array $seasonArray
+ * @var int $seasonId
+ * @var array $stageArray
+ * @var int $stageId
+ * @var \common\models\User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -14,9 +24,32 @@ $user = Yii::$app->user->identity;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>Национальный чемпионат</h1>
+        <h1>
+            <?= Html::a(
+                $country->country_name,
+                ['country/news', $country->country_id],
+                ['class' => 'country-header-link']
+            ); ?>
+        </h1>
     </div>
 </div>
+<?= Html::beginForm(['championship/table'], 'get'); ?>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+        <?= Html::label('Сезон', 'seasonId'); ?>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        <?= Html::dropDownList(
+            'seasonId',
+            $seasonId,
+            $seasonArray,
+            ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+        ); ?>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+</div>
+<?= Html::endForm(); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-justify">
@@ -30,6 +63,47 @@ $user = Yii::$app->user->identity;
             Победители низших дивизионов получают право в следующем сезоне играть в более высоком дивизионе.
             Проигравшие вылетают в более низкий дивизион.
         </p>
+    </div>
+</div>
+<?= Html::beginForm(
+    ['championship/table', 'countryId' => $country->country_id, 'seasonId' => $seasonId, 'divisionId' => $divisionId],
+    'get'
+); ?>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+        <?= Html::label('Тур', 'stageId'); ?>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        <?= Html::dropDownList(
+            'stageId',
+            $stageId,
+            $stageArray,
+            ['class' => 'form-control submit-on-change', 'id' => 'stageId']
+        ); ?>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+</div>
+<?= Html::endForm(); ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table">
+            <?php foreach ($gameArray as $item) { ?>
+                <tr>
+                    <td class="text-right col-45">
+                        <?= $item->teamHome->teamLink('string', true); ?>
+                        <?= HockeyHelper::formatAuto($item->game_home_auto); ?>
+                    </td>
+                    <td class="text-center col-10">
+                        <?= HockeyHelper::formatScore($item); ?>
+                    </td>
+                    <td>
+                        <?= $item->teamGuest->teamLink('string', true); ?>
+                        <?= HockeyHelper::formatAuto($item->game_guest_auto); ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
     </div>
 </div>
 <div class="row">
