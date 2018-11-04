@@ -11,7 +11,7 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
- * @var \common\models\User $user ;
+ * @var \common\models\User $user
  */
 
 $user = Yii::$app->user->identity;

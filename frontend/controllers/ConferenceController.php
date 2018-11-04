@@ -50,7 +50,6 @@ class ConferenceController extends BaseController
             ->orderBy(['conference_place' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
             'query' => $query,
             'sort' => false,
         ]);
@@ -118,7 +117,6 @@ class ConferenceController extends BaseController
         }
 
         $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
             'query' => $query,
             'sort' => false,
         ]);

@@ -41,20 +41,36 @@ class OffSeasonController extends BaseController
     public function actionTable(): string
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $countryId = Yii::$app->request->get('countryId');
 
         $query = OffSeason::find()
+            ->joinWith(['team.stadium.city'])
             ->where(['off_season_season_id' => $seasonId])
+            ->andFilterWhere(['city_country_id' => $countryId])
             ->orderBy(['off_season_place' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
             'query' => $query,
             'sort' => false,
         ]);
 
+        $countryArray = OffSeason::find()
+            ->joinWith(['team.stadium.city.country'])
+            ->where(['off_season_season_id' => $seasonId])
+            ->groupBy(['country_id'])
+            ->orderBy(['country_id' => SORT_ASC])
+            ->all();
+        $countryArray = ArrayHelper::map(
+            $countryArray,
+            'team.stadium.city.country.country_id',
+            'team.stadium.city.country.country_name'
+        );
+
         $this->setSeoTitle('Кубок межсезонья');
 
         return $this->render('table', [
+            'countryArray' => $countryArray,
+            'countryId' => $countryId,
             'dataProvider' => $dataProvider,
             'seasonArray' => $this->getSeasonArray(),
             'seasonId' => $seasonId,
@@ -101,7 +117,6 @@ class OffSeasonController extends BaseController
         }
 
         $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
             'query' => $query,
             'sort' => false,
         ]);

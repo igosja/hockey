@@ -6,10 +6,12 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
+ * @var array $countryArray
+ * @var int $countryId
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
- * @var \common\models\User $user ;
+ * @var \common\models\User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -20,7 +22,7 @@ $user = Yii::$app->user->identity;
         <h1>Кубок межсезонья</h1>
     </div>
 </div>
-<?= Html::beginForm('', 'get'); ?>
+<?= Html::beginForm(['off-season/table'], 'get'); ?>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
@@ -32,6 +34,21 @@ $user = Yii::$app->user->identity;
             $seasonId,
             $seasonArray,
             ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+        ); ?>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+        <?= Html::label('Страна', 'countryId'); ?>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        <?= Html::dropDownList(
+            'countryId',
+            $countryId,
+            $countryArray,
+            ['class' => 'form-control submit-on-change', 'id' => 'countryId', 'prompt' => 'Все']
         ); ?>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
