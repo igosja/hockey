@@ -40,10 +40,13 @@ class ConferenceController extends BaseController
      */
     public function actionTable(): string
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
+        $countryId = Yii::$app->request->get('countryId');
 
         $query = Conference::find()
+            ->joinWith(['team.stadium.city'])
             ->where(['conference_season_id' => $seasonId])
+            ->andFilterWhere(['city_country_id' => $countryId])
             ->orderBy(['conference_place' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -52,9 +55,23 @@ class ConferenceController extends BaseController
             'sort' => false,
         ]);
 
+        $countryArray = Conference::find()
+            ->joinWith(['team.stadium.city.country'])
+            ->where(['conference_season_id' => $seasonId])
+            ->groupBy(['country_id'])
+            ->orderBy(['country_id' => SORT_ASC])
+            ->all();
+        $countryArray = ArrayHelper::map(
+            $countryArray,
+            'team.stadium.city.country.country_id',
+            'team.stadium.city.country.country_name'
+        );
+
         $this->setSeoTitle('Конференция любительских клубов');
 
         return $this->render('table', [
+            'countryArray' => $countryArray,
+            'countryId' => $countryId,
             'dataProvider' => $dataProvider,
             'seasonArray' => $this->getSeasonArray(),
             'seasonId' => $seasonId,
