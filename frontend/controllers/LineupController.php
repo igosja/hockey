@@ -116,6 +116,11 @@ class LineupController extends BaseController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array|string|Response
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionTactic($id)
     {
         $game = Game::find()
@@ -146,6 +151,11 @@ class LineupController extends BaseController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionSubstitution($id)
     {
         $game = Game::find()
@@ -195,6 +205,12 @@ class LineupController extends BaseController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return Response
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionChange($id)
     {
         $game = Game::find()
