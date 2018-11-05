@@ -55,10 +55,10 @@ class GameController extends BaseController
 
     /**
      * @param int $id
-     * @return string
+     * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView(int $id)
     {
         $game = Game::find()
             ->where(['game_id' => $id])
