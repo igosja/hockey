@@ -5,7 +5,6 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
-use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountryAuto;
@@ -108,7 +107,7 @@ class GeneratorController extends BaseController
     public function actionIndex()
     {
         try {
-            (new CheckCronDate())->execute();
+//            (new CheckCronDate())->execute();
             (new UpdateCronDate())->execute();
             (new SiteClose())->execute();
             (new PlayerPowerNewToOld())->execute();

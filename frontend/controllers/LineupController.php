@@ -7,6 +7,7 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -134,6 +135,12 @@ class LineupController extends BaseController
             ->one();
         $this->notFound($game);
 
+        if ($this->myTeam->team_id == $game->game_home_team_id) {
+            $team = 'home';
+        } else {
+            $team = 'guest';
+        }
+
         if (Yii::$app->request->isAjax && $game->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($game);
@@ -148,6 +155,7 @@ class LineupController extends BaseController
 
         return $this->render('tactic', [
             'game' => $game,
+            'team' => $team,
         ]);
     }
 
@@ -182,7 +190,7 @@ class LineupController extends BaseController
             ->one();
 
         if (Position::GK != $positionId) {
-            $positionWhere = ['!=', 'player_position_id', $positionId];
+            $positionWhere = [];
         } else {
             $positionWhere = ['player_position_id' => $positionId];
         }
@@ -196,7 +204,8 @@ class LineupController extends BaseController
                 ->andWhere([
                     'not',
                     ['player_id' => Lineup::find()->select(['lineup_player_id'])->where(['lineup_game_id' => $id])]
-                ]),
+                ])
+                ->orderBy(['player_power_real' => SORT_DESC]),
         ]);
 
         return $this->render('substitution', [
@@ -227,7 +236,7 @@ class LineupController extends BaseController
         $positionId = (int)Yii::$app->request->get('position_id');
 
         if (Position::GK != $positionId) {
-            $positionWhere = ['!=', 'player_position_id', $positionId];
+            $positionWhere = [];
         } else {
             $positionWhere = ['player_position_id' => $positionId];
         }
@@ -268,7 +277,7 @@ class LineupController extends BaseController
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Игрок успешно добавлен в состав.');
-        } catch (\Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
         }

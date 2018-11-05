@@ -9,51 +9,58 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
  * @var Game $game
- * @var \common\models\Lineup[] $lineupArray
- * @var array $substitutionArray
- * @var \yii\web\View $this
+ * @var string $team
  */
 
 ?>
-<?= Html::a('main', ['lineup/index', 'id' => $game->game_id]); ?>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
+        <?= Html::a('Основные линии', ['lineup/index', 'id' => $game->game_id]); ?>
+        |
+        <?= Html::a('Спецбригады', ['lineup/special', 'id' => $game->game_id]); ?>
+        |
+        <?= Html::a('Буллиты', ['lineup/shootout', 'id' => $game->game_id]); ?>
+        |
+        <span class="strong">Тактика</span>
+        |
+        <?= Html::a('Сохранения', ['lineup/saves', 'id' => $game->game_id]); ?>
+    </div>
 <?php $form = ActiveForm::begin(); ?>
 <?= $form
-    ->field($game, 'game_guest_rude_1_id')
+    ->field($game, 'game_' . $team . '_rudeness_id_1')
     ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_rude_2_id')
+    ->field($game, 'game_' . $team . '_rudeness_id_2')
     ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_rude_3_id')
+    ->field($game, 'game_' . $team . '_rudeness_id_3')
     ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_rude_4_id')
+    ->field($game, 'game_' . $team . '_rudeness_id_4')
     ->dropDownList(ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_id_1')
+    ->field($game, 'game_' . $team . '_style_id_1')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_id_2')
+    ->field($game, 'game_' . $team . '_style_id_2')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_id_3')
+    ->field($game, 'game_' . $team . '_style_id_3')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_style_id_4')
+    ->field($game, 'game_' . $team . '_style_id_4')
     ->dropDownList(ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_id_1')
+    ->field($game, 'game_' . $team . '_tactic_id_1')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_id_2')
+    ->field($game, 'game_' . $team . '_tactic_id_2')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_id_3')
+    ->field($game, 'game_' . $team . '_tactic_id_3')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= $form
-    ->field($game, 'game_guest_tactic_id_4')
+    ->field($game, 'game_' . $team . '_tactic_id_4')
     ->dropDownList(ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name')); ?>
 <?= Html::submitButton('Submit') ?>
 <?php ActiveForm::end(); ?>

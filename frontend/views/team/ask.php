@@ -23,7 +23,7 @@ use yii\helpers\Html;
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <table class="table table-bordered table-hover">
                 <tr>
-                    <th></th>
+                    <th class="col-1"></th>
                     <th>Ваши заявки</th>
                     <th><?= $model->getAttributeLabel('vs'); ?></th>
                 </tr>
@@ -69,6 +69,7 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
+                'headerOptions' => ['class' => 'col-1'],
                 'value' => function (Team $model) {
                     return Html::a(
                         '<i class="fa fa-check-circle"></i>',
