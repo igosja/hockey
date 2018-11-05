@@ -157,6 +157,7 @@ use yii\helpers\Html;
                 ],
                 [
                     'footer' => 'Игра',
+                    'format' => 'raw',
                     'header' => 'Игра',
                     'value' => function (Game $model): string {
                         return HockeyHelper::teamOrNationalLink($model->teamHome, $model->nationalHome, false)
@@ -167,10 +168,14 @@ use yii\helpers\Html;
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Результат',
+                    'format' => 'raw',
                     'header' => 'Результат',
                     'headerOptions' => ['class' => 'col-10'],
                     'value' => function (Game $model): string {
-                        return HockeyHelper::formatScore($model, 'home');
+                        return Html::a(
+                            HockeyHelper::formatScore($model, 'home'),
+                            ['game/view', 'id' => $model->game_id]
+                        );
                     }
                 ],
             ];
