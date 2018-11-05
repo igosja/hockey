@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Game
@@ -277,6 +278,69 @@ class Game extends ActiveRecord
             ],
             [['game_schedule_id'], 'required'],
         ];
+    }
+
+    public function tournamentLink(): string
+    {
+        if (TournamentType::NATIONAL == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                [
+                    'world-cup/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::LEAGUE == $this->schedule->schedule_tournament_type_id) {
+            if ($this->schedule->schedule_stage_id <= Stage::QUALIFY_3) {
+                $roundId = 0;
+            } elseif ($this->schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1) {
+                $roundId = 1;
+            } else {
+                $roundId = 2;
+            }
+
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                [
+                    'league/index',
+                    'roundId' => $roundId,
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::CHAMPIONSHIP == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                [
+                    'championship/index',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'divisionId' => $this->teamHome->championship->championship_division_id,
+                    'countryId' => $this->teamHome->championship->championship_country_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::CONFERENCE == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                [
+                    'conference/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                ]
+            );
+        } elseif (TournamentType::OFF_SEASON == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                [
+                    'off-season/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                ]
+            );
+        } else {
+            $result = $this->schedule->tournamentType->tournament_type_name;
+        }
+
+        return $result;
     }
 
     /**
