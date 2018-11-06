@@ -63,6 +63,7 @@ class GameResult
             ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['game_id' => 102])
             ->orderBy(['game_id' => SORT_ASC])
             ->each();
         foreach ($gameArray as $game) {
@@ -81,6 +82,10 @@ class GameResult
             $this->teamPowerForecast();
             $this->optimality();
             $this->shouldWin();
+
+            print '<pre>';
+            print_r($this->result);
+            exit;
 
             for ($this->result['minute'] = 0; $this->result['minute'] < 60; $this->result['minute']++) {
                 $this->generateMinute();
@@ -2090,8 +2095,6 @@ class GameResult
             if ($this->result['home']['team']['score']['shootout'] != $this->result['guest']['team']['score']['shootout']) {
                 $continue = false;
             }
-
-            \Yii::$app->controller->stdout($this->result['minute'] . PHP_EOL);
         }
     }
 
