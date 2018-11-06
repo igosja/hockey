@@ -15,7 +15,7 @@ use yii\db\ActiveQuery;
  * Class ScheduleController
  * @package frontend\controllers
  */
-class ScheduleController extends BaseController
+class ScheduleController extends AbstractController
 {
     /**
      * @return string

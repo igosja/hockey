@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \frontend\models\LoanApplicationFrom $modelLoanApplicationFrom
  * @var \frontend\models\LoanApplicationTo $modelLoanApplicationTo
  * @var \frontend\models\LoanFrom $modelLoanFrom

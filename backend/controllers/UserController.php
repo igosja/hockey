@@ -9,7 +9,7 @@ use Yii;
  * Class UserController
  * @package backend\controllers
  */
-class UserController extends BaseController
+class UserController extends AbstractController
 {
     /**
      * @return string

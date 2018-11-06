@@ -18,7 +18,7 @@ use Exception;
  * Class StartController
  * @package console\controllers
  */
-class StartController extends BaseController
+class StartController extends AbstractController
 {
     /**
      * @return void

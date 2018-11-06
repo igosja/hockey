@@ -8,7 +8,7 @@ use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
-use frontend\controllers\BaseController;
+use frontend\controllers\AbstractController;
 use Throwable;
 use Yii;
 use yii\base\Model;
@@ -126,7 +126,7 @@ class LoanApplicationTo extends Model
             return false;
         }
 
-        /** @var BaseController $controller */
+        /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
 
         $teamArray = [0];

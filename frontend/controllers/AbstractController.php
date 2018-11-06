@@ -9,14 +9,14 @@ use Yii;
 use yii\web\ForbiddenHttpException;
 
 /**
- * Class BaseController
+ * Class AbstractController
  * @package frontend\controllers
  *
  * @property Team $myTeam
  * @property Team[] $myTeamArray
  * @property int $seasonId
  */
-class BaseController extends Controller
+abstract class AbstractController extends Controller
 {
     /**
      * @var Team $myTeam

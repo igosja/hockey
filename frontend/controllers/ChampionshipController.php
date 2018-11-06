@@ -19,7 +19,7 @@ use yii\web\Response;
  * Class ChampionshipController
  * @package frontend\controllers
  */
-class ChampionshipController extends BaseController
+class ChampionshipController extends AbstractController
 {
     /**
      * @return Response

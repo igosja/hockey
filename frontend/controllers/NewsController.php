@@ -17,7 +17,7 @@ use yii\web\Response;
  * Class NewsController
  * @package frontend\controllers
  */
-class NewsController extends BaseController
+class NewsController extends AbstractController
 {
     /**
      * @return string

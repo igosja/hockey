@@ -12,7 +12,7 @@ use Yii;
  * Class RuleController
  * @package backend\controllers
  */
-class RuleController extends BaseController
+class RuleController extends AbstractController
 {
     /**
      * @return string

@@ -10,7 +10,7 @@ use yii\db\ActiveQuery;
  * Class CountryController
  * @package frontend\controllers
  */
-class CountryController extends BaseController
+class CountryController extends AbstractController
 {
     /**
      * @param integer $id

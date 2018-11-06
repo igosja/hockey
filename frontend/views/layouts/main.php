@@ -3,7 +3,7 @@
 /**
  * @var string $content
  * @var \yii\web\View $this
- * @var \frontend\controllers\BaseController $this ->context
+ * @var \frontend\controllers\AbstractController $this ->context
  */
 
 use common\components\ErrorHelper;

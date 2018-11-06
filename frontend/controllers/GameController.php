@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
  * Class GameController
  * @package frontend\controllers
  */
-class GameController extends BaseController
+class GameController extends AbstractController
 {
     /**
      * @param int $id

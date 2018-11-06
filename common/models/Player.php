@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use frontend\controllers\BaseController;
+use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -289,7 +289,7 @@ class Player extends ActiveRecord
     public function iconStyle($showOnlyIfStudied = false): string
     {
         /**
-         * @var BaseController $controller
+         * @var AbstractController $controller
          */
         $controller = Yii::$app->controller;
         $myTeam = $controller->myTeam;

@@ -101,7 +101,7 @@ use Exception;
  * Class GeneratorController
  * @package console\controllers
  */
-class GeneratorController extends BaseController
+class GeneratorController extends AbstractController
 {
     /**
      * @return void

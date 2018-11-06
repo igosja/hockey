@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
  * Class LineupController
  * @package frontend\controllers
  */
-class LineupController extends BaseController
+class LineupController extends AbstractController
 {
     /**
      * @return array

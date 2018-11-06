@@ -15,7 +15,7 @@ use yii\helpers\Html;
  * Class TournamentController
  * @package frontend\controllers
  */
-class TournamentController extends BaseController
+class TournamentController extends AbstractController
 {
     /**
      * @return string

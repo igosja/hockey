@@ -8,7 +8,7 @@ use common\models\Schedule;
  * Class ScheduleController
  * @package backend\controllers
  */
-class ScheduleController extends BaseController
+class ScheduleController extends AbstractController
 {
     /**
      * @param int|null $id

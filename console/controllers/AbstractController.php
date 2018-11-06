@@ -5,10 +5,10 @@ namespace console\controllers;
 use yii\console\Controller;
 
 /**
- * Class BaseController
+ * Class AbstractController
  * @package console\controllers
  */
-class BaseController extends Controller
+abstract class AbstractController extends Controller
 {
     /**
      * @param array $modelArray

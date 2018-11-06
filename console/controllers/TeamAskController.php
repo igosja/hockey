@@ -16,7 +16,7 @@ use yii\db\Query;
  * Class BaseController
  * @package console\controllers
  */
-class TeamAskController extends BaseController
+class TeamAskController extends AbstractController
 {
     /**
      * @return bool

@@ -6,7 +6,7 @@ use common\models\Team;
 use yii\helpers\Html;
 
 /**
- * @var \frontend\controllers\BaseController $controller
+ * @var \frontend\controllers\AbstractController $controller
  * @var \common\models\Game[] $latest
  * @var \common\models\Game[] $nearest
  * @var int $teamId

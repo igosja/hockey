@@ -10,7 +10,7 @@ use yii\db\Expression;
  * Class VipController
  * @package frontend\controllers
  */
-class VipController extends BaseController
+class VipController extends AbstractController
 {
     /**
      * @return string

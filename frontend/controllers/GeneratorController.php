@@ -100,7 +100,7 @@ use Exception;
  * Class GeneratorController
  * @package frontend\controllers
  */
-class GeneratorController extends BaseController
+class GeneratorController extends AbstractController
 {
     /**
      * @return void

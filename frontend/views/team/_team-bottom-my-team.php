@@ -3,7 +3,7 @@
 use common\components\ErrorHelper;
 
 /**
- * @var \frontend\controllers\BaseController $controller
+ * @var \frontend\controllers\AbstractController $controller
  */
 
 $controller = Yii::$app->controller;

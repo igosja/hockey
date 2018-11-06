@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
  * Class SiteController
  * @package frontend\controllers
  */
-class SiteController extends BaseController
+class SiteController extends AbstractController
 {
     /**
      * @return array

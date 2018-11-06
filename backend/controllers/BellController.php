@@ -15,7 +15,7 @@ use yii\web\Response;
  * Class BellController
  * @package backend\controllers
  */
-class BellController extends BaseController
+class BellController extends AbstractController
 {
     /**
      * @return array

@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  * Class OffSeasonController
  * @package frontend\controllers
  */
-class OffSeasonController extends BaseController
+class OffSeasonController extends AbstractController
 {
     /**
      * @return string

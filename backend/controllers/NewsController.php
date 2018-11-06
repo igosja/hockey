@@ -12,7 +12,7 @@ use Yii;
  * Class NewsController
  * @package backend\controllers
  */
-class NewsController extends BaseController
+class NewsController extends AbstractController
 {
     /**
      * @return string

@@ -6,12 +6,12 @@ use common\components\Controller;
 use yii\filters\AccessControl;
 
 /**
- * Class BaseController
+ * Class AbstractController
  * @package backend\controllers
  *
  * @property string $layout
  */
-class BaseController extends Controller
+abstract class AbstractController extends Controller
 {
     /**
      * @return array

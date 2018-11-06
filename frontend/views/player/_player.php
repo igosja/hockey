@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \yii\web\View $this
  */
 

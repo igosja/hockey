@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
  * Class PlayerController
  * @package frontend\controllers
  */
-class PlayerController extends BaseController
+class PlayerController extends AbstractController
 {
     /**
      * @param integer $id

@@ -25,7 +25,7 @@ use yii\web\Response;
  * Class TeamController
  * @package frontend\controllers
  */
-class TeamController extends BaseController
+class TeamController extends AbstractController
 {
     /**
      * @return array

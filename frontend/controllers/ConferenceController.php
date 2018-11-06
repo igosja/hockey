@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  * Class ConferenceController
  * @package frontend\controllers
  */
-class ConferenceController extends BaseController
+class ConferenceController extends AbstractController
 {
     /**
      * @return string

@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
  * Class TransferController
  * @package frontend\controllers
  */
-class TransferController extends BaseController
+class TransferController extends AbstractController
 {
     /**
      * @return string

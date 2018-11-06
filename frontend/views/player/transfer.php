@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \frontend\models\TransferApplicationFrom $modelTransferApplicationFrom
  * @var \frontend\models\TransferApplicationTo $modelTransferApplicationTo
  * @var \frontend\models\TransferFrom $modelTransferFrom

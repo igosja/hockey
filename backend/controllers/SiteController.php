@@ -26,7 +26,7 @@ use yii\web\Response;
  * Class SiteController
  * @package backend\controllers
  */
-class SiteController extends BaseController
+class SiteController extends AbstractController
 {
     /**
      * @return array

@@ -8,7 +8,7 @@ use common\models\Rule;
  * Class RuleController
  * @package frontend\controllers
  */
-class RuleController extends BaseController
+class RuleController extends AbstractController
 {
     /**
      * @return string
