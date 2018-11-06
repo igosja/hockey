@@ -5,6 +5,7 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
+use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountryAuto;
@@ -95,8 +96,6 @@ use console\models\generator\UserHolidayEnd;
 use console\models\generator\UserToRating;
 use Exception;
 
-//use console\models\generator\CheckCronDate;
-
 /**
  * Class GeneratorController
  * @package console\controllers
@@ -109,7 +108,7 @@ class GeneratorController extends AbstractController
     public function actionIndex()
     {
         $modelArray = [
-//            new CheckCronDate(),
+            new CheckCronDate(),
             new UpdateCronDate(),
             new SiteClose(),
             new PlayerPowerNewToOld(),
@@ -127,6 +126,11 @@ class GeneratorController extends AbstractController
             new UserToRating(),
             new LineupToStatistic(),
             new NationalVs(),
+        ];
+        if ($modelArray) {
+            sleep(1);
+        }
+        $modelArray = [
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
