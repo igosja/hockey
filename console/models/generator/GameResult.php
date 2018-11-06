@@ -104,7 +104,7 @@ class GameResult
             $this->calculateStatistic();
             $this->toDataBase();
 
-            \Yii::$app->controller->stdout($this->game->game_id);
+            \Yii::$app->controller->stdout($this->game->game_id . PHP_EOL);
         }
     }
 
