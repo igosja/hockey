@@ -103,8 +103,6 @@ class GameResult
 
             $this->calculateStatistic();
             $this->toDataBase();
-
-            \Yii::$app->controller->stdout($this->game->game_id . PHP_EOL);
         }
     }
 
@@ -2092,6 +2090,8 @@ class GameResult
             if ($this->result['home']['team']['score']['shootout'] != $this->result['guest']['team']['score']['shootout']) {
                 $continue = false;
             }
+
+            \Yii::$app->controller->stdout($this->result['minute'] . PHP_EOL);
         }
     }
 
