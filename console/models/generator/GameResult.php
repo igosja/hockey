@@ -83,10 +83,6 @@ class GameResult
             $this->optimality();
             $this->shouldWin();
 
-            print '<pre>';
-            print_r($this->result);
-            exit;
-
             for ($this->result['minute'] = 0; $this->result['minute'] < 60; $this->result['minute']++) {
                 $this->generateMinute();
             }
