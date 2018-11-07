@@ -78,10 +78,6 @@ class FillLineup
                         ->limit(1)
                         ->one();
 
-                    print '<pre>';
-                    print_r($lineup);
-                    exit;
-
                     if (!$lineup) {
                         $subQuery = Lineup::find()
                             ->joinWith(['game.schedule'])
@@ -102,6 +98,12 @@ class FillLineup
                             ->andFilterWhere(['player_country_id' => $countryId])
                             ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                             ->limit(1);
+
+                        print '<pre>';
+                        print_r($moodId);
+                        print '<pre>';
+                        print_r($teamId);
+                        exit;
 
                         if (!$moodId) {
                             if ($teamId) {
