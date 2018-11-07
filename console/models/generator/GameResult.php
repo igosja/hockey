@@ -63,7 +63,6 @@ class GameResult
             ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->andWhere(['game_id' => 102])
             ->orderBy(['game_id' => SORT_ASC])
             ->each();
         foreach ($gameArray as $game) {
