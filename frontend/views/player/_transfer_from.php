@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
                 try {
                     print Yii::$app->formatter->asCurrency($model->player->transfer->transfer_price_seller);
-                } catch (Throwable $e) {
+                } catch (Exception $e) {
                     ErrorHelper::log($e);
                 }
 
@@ -57,7 +57,7 @@ use yii\widgets\ActiveForm;
 
                             try {
                                 print Yii::$app->formatter->asDatetime($item->transfer_application_date);
-                            } catch (Throwable $e) {
+                            } catch (Exception $e) {
                                 ErrorHelper::log($e);
                             }
 
@@ -68,7 +68,7 @@ use yii\widgets\ActiveForm;
 
                             try {
                                 print Yii::$app->formatter->asCurrency($item->transfer_application_price);
-                            } catch (Throwable $e) {
+                            } catch (Exception $e) {
                                 ErrorHelper::log($e);
                             }
 

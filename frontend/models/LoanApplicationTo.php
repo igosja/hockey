@@ -8,8 +8,8 @@ use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
+use Exception;
 use frontend\controllers\AbstractController;
-use Throwable;
 use Yii;
 use yii\base\Model;
 
@@ -252,7 +252,7 @@ class LoanApplicationTo extends Model
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Order successfully saved.');
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

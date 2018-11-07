@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
                 try {
                     print Yii::$app->formatter->asCurrency($model->player->loan->loan_price_seller);
-                } catch (Throwable $e) {
+                } catch (Exception $e) {
                     ErrorHelper::log($e);
                 }
 
@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 
                             try {
                                 print Yii::$app->formatter->asDatetime($item->loan_application_date);
-                            } catch (Throwable $e) {
+                            } catch (Exception $e) {
                                 ErrorHelper::log($e);
                             }
 
@@ -71,7 +71,7 @@ use yii\widgets\ActiveForm;
 
                             try {
                                 print Yii::$app->formatter->asCurrency($item->loan_application_price);
-                            } catch (Throwable $e) {
+                            } catch (Exception $e) {
                                 ErrorHelper::log($e);
                             }
 

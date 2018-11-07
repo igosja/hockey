@@ -9,7 +9,7 @@ use common\models\Position;
 use common\models\Team;
 use common\models\Training;
 use common\models\Transfer;
-use Throwable;
+use Exception;
 use Yii;
 use yii\base\Model;
 
@@ -215,7 +215,7 @@ class LoanTo extends Model
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'The player has successfully put on the loan.');
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

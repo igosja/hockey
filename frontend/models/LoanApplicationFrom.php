@@ -6,7 +6,7 @@ use common\components\ErrorHelper;
 use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
-use Throwable;
+use Exception;
 use Yii;
 use yii\base\Model;
 
@@ -59,7 +59,7 @@ class LoanApplicationFrom extends Model
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Order successfully successfully removed.');
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

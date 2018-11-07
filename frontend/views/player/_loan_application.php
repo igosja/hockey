@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 try {
     $modelFromClassName = $modelFrom->formName();
-} catch (Throwable $e) {
+} catch (Exception $e) {
     ErrorHelper::log($e);
     $modelFromClassName = 'LoanApplicationFrom';
 }
@@ -39,7 +39,7 @@ try {
 
                     try {
                         print Yii::$app->formatter->asCurrency($model->team->team_finance);
-                    } catch (Throwable $e) {
+                    } catch (Exception $e) {
                         ErrorHelper::log($e);
                     }
 
@@ -57,7 +57,7 @@ try {
 
                     try {
                         print Yii::$app->formatter->asCurrency($model->minPrice);
-                    } catch (Throwable $e) {
+                    } catch (Exception $e) {
                         ErrorHelper::log($e);
                     }
 
