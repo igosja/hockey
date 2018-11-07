@@ -60,6 +60,7 @@ $player = Player::find()
         'player_age',
         'player_country_id',
         'player_id',
+        'player_injury',
         'player_injury_day',
         'player_loan_day',
         'player_loan_team_id',

@@ -19,6 +19,7 @@ use yii\helpers\Html;
  * @property int $player_date_rookie
  * @property int $player_game_row
  * @property int $player_game_row_old
+ * @property int $player_injury
  * @property int $player_injury_day
  * @property int $player_squad_id
  * @property int $player_loan_day
@@ -89,6 +90,7 @@ class Player extends ActiveRecord
                     'player_date_rookie',
                     'player_game_row',
                     'player_game_row_old',
+                    'player_injury',
                     'player_injury_day',
                     'player_loan_day',
                     'player_loan_team_id',
@@ -240,7 +242,7 @@ class Player extends ActiveRecord
     public function iconInjury(): string
     {
         $result = '';
-        if ($this->player_injury_day) {
+        if ($this->player_injury) {
             $result = ' <i class="fa fa-ambulance" title="Injured for ' . $this->player_injury_day . ' days"></i>';
         }
         return $result;

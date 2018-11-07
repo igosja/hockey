@@ -30,7 +30,7 @@ class SetInjury
             return;
         }
 
-        $playerSubQuery = Player::find()->select(['player_team_id'])->where(['>', 'player_injury_day', 0]);
+        $playerSubQuery = Player::find()->select(['player_team_id'])->where(['>', 'player_injury', 0]);
         $lineup = Lineup::find()
             ->joinWith([
                 'game.schedule',
@@ -38,7 +38,7 @@ class SetInjury
             ])
             ->with(['player'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->andWhere(['player_injury_day' => 0])
+            ->andWhere(['player_injury' => 0])
             ->andWhere(['not', ['player_team_id' => $playerSubQuery]])
             ->orderBy(['player_tire' => SORT_DESC])
             ->addOrderBy('RAND()')
@@ -48,6 +48,7 @@ class SetInjury
             return;
         }
 
+        $lineup->player->player_injury = 1;
         $lineup->player->player_injury_day = rand(1, 9);
         $lineup->player->save();
 

@@ -22,6 +22,7 @@ class m180621_174100_player extends Migration
             'player_date_rookie' => $this->integer(11)->defaultValue(0),
             'player_game_row' => $this->integer(2)->defaultValue(0),
             'player_game_row_old' => $this->integer(2)->defaultValue(0),
+            'player_injury' => $this->integer(1)->defaultValue(0),
             'player_injury_day' => $this->integer(1)->defaultValue(0),
             'player_loan_day' => $this->integer(3)->defaultValue(0),
             'player_loan_team_id' => $this->integer(11)->defaultValue(0),

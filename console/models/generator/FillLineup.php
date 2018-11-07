@@ -90,7 +90,7 @@ class FillLineup
                                 'player_team_id' => 0,
                                 'player_loan_team_id' => 0,
                                 'player_school_id' => 0,
-                                'player_injury_day' => 0,
+                                'player_injury' => 0,
                                 'player_position_position_id' => $positionId,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
@@ -104,7 +104,7 @@ class FillLineup
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
                                     ->where([
-                                        'player_injury_day' => 0,
+                                        'player_injury' => 0,
                                         'player_position_position_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
@@ -120,7 +120,7 @@ class FillLineup
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
                                     ->where([
-                                        'player_injury_day' => 0,
+                                        'player_injury' => 0,
                                         'player_position_player_id' => $positionId,
                                         'player_national_id' => $nationalId,
                                     ])
