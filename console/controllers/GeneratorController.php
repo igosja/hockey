@@ -109,19 +109,19 @@ class GeneratorController extends AbstractController
     {
         $modelArray = [
             new CheckCronDate(),
-        ];
-        if ($modelArray) {
-            usleep(1);
-        }
-        $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),
         ];
-        $modelArray1 = [
+        if ($modelArray) {
+            usleep(1);
+        }
+        $modelArray = [
             new FillLineup(),
+        ];
+        $modelArray1 = [
             new SetAuto(),
             new SetDefaultStyle(),
             new SetUserAuto(),
