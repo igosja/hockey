@@ -41,9 +41,6 @@ class FillLineup
                     $countryId = $game->nationalHome->national_country_id ?? null;
                     $teamId = $game->game_home_team_id;
                 }
-                print '<pre>';
-                print_r($moodId);
-                exit;
 
                 for ($j = 0; $j < Lineup::GAME_QUANTITY; $j++) {
                     if (in_array($j, [0, 2, 3, 4, 5, 6])) {
@@ -80,6 +77,10 @@ class FillLineup
                         ])
                         ->limit(1)
                         ->one();
+
+                    print '<pre>';
+                    print_r($lineup);
+                    exit;
 
                     if (!$lineup) {
                         $subQuery = Lineup::find()
