@@ -126,14 +126,12 @@ class GeneratorController extends AbstractController
             new UserToRating(),
             new LineupToStatistic(),
             new NationalVs(),
+            new GameResult(),
         ];
         if ($modelArray) {
             usleep(1);
         }
         $modelArray = [
-            new GameResult(),
-        ];
-        $modelArray1 = [
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
             new UpdatePlayerStatistic(),
@@ -208,9 +206,6 @@ class GeneratorController extends AbstractController
             new Snapshot(),
             new SiteOpen(),
         ];
-        if ($modelArray1) {
-            usleep(1);
-        }
 
         try {
             $this->progress($modelArray);
