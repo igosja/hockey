@@ -127,11 +127,6 @@ class GeneratorController extends AbstractController
             new LineupToStatistic(),
             new NationalVs(),
             new GameResult(),
-        ];
-        if ($modelArray) {
-            usleep(1);
-        }
-        $modelArray = [
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
             new UpdatePlayerStatistic(),
