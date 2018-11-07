@@ -109,11 +109,18 @@ class GeneratorController extends AbstractController
     {
         $modelArray = [
             new CheckCronDate(),
+        ];
+        if ($modelArray) {
+            usleep(1);
+        }
+        $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),
+        ];
+        $modelArray1 = [
             new FillLineup(),
             new SetAuto(),
             new SetDefaultStyle(),
@@ -126,11 +133,6 @@ class GeneratorController extends AbstractController
             new UserToRating(),
             new LineupToStatistic(),
             new NationalVs(),
-        ];
-        if ($modelArray) {
-            sleep(1);
-        }
-        $modelArray = [
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
@@ -206,6 +208,9 @@ class GeneratorController extends AbstractController
             new Snapshot(),
             new SiteOpen(),
         ];
+        if ($modelArray1) {
+            usleep(1);
+        }
 
         try {
             $this->progress($modelArray);
