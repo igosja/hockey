@@ -114,14 +114,12 @@ class GeneratorController extends AbstractController
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),
+            new FillLineup(),
         ];
         if ($modelArray) {
             usleep(1);
         }
         $modelArray = [
-            new FillLineup(),
-        ];
-        $modelArray1 = [
             new SetAuto(),
             new SetDefaultStyle(),
             new SetUserAuto(),
@@ -133,6 +131,8 @@ class GeneratorController extends AbstractController
             new UserToRating(),
             new LineupToStatistic(),
             new NationalVs(),
+        ];
+        $modelArray1 = [
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
