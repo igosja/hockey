@@ -12,6 +12,7 @@ use common\models\Team;
 use common\models\TournamentType;
 use common\models\User;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * Class InsertNews
@@ -76,32 +77,32 @@ class InsertNews
                            `home_national`.`national_id` AS `home_national_id`,
                            `home_team`.`team_id` AS `home_team_id`,
                            `home_team`.`team_name` AS `home_team_name`
-                FROM `game`
-                LEFT JOIN `schedule`
-                ON `game_schedule_id`=`schedule_id`
-                LEFT JOIN `team` AS `home_team`
-                ON `game_home_team_id`=`home_team`.`team_id`
-                LEFT JOIN `stadium` AS `home_stadium`
-                ON `home_team`.`team_stadium_id`=`home_stadium`.`stadium_id`
-                LEFT JOIN `city` AS `home_city`
-                ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
-                LEFT JOIN `team` AS `guest_team`
-                ON `game_guest_team_id`=`guest_team`.`team_id`
-                LEFT JOIN `stadium` AS `guest_stadium`
-                ON `guest_team`.`team_stadium_id`=`guest_stadium`.`stadium_id`
-                LEFT JOIN `city` AS `guest_city`
-                ON `guest_stadium`.`stadium_city_id`=`guest_city`.`city_id`
-                LEFT JOIN `national` AS `home_national`
-                ON `game_home_national_id`=`home_national`.`national_id`
-                LEFT JOIN `country` AS `home_country`
-                ON `home_national`.`national_country_id`=`home_country`.`country_id`
-                LEFT JOIN `national` AS `guest_national`
-                ON `game_guest_national_id`=`guest_national`.`national_id`
-                LEFT JOIN `country` AS `guest_country`
-                ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
-                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
-                ORDER BY `game_guest_score`+`game_home_score` DESC
-                LIMIT 1";
+                    FROM `game`
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    LEFT JOIN `team` AS `home_team`
+                    ON `game_home_team_id`=`home_team`.`team_id`
+                    LEFT JOIN `stadium` AS `home_stadium`
+                    ON `home_team`.`team_stadium_id`=`home_stadium`.`stadium_id`
+                    LEFT JOIN `city` AS `home_city`
+                    ON `home_stadium`.`stadium_city_id`=`home_city`.`city_id`
+                    LEFT JOIN `team` AS `guest_team`
+                    ON `game_guest_team_id`=`guest_team`.`team_id`
+                    LEFT JOIN `stadium` AS `guest_stadium`
+                    ON `guest_team`.`team_stadium_id`=`guest_stadium`.`stadium_id`
+                    LEFT JOIN `city` AS `guest_city`
+                    ON `guest_stadium`.`stadium_city_id`=`guest_city`.`city_id`
+                    LEFT JOIN `national` AS `home_national`
+                    ON `game_home_national_id`=`home_national`.`national_id`
+                    LEFT JOIN `country` AS `home_country`
+                    ON `home_national`.`national_country_id`=`home_country`.`country_id`
+                    LEFT JOIN `national` AS `guest_national`
+                    ON `game_guest_national_id`=`guest_national`.`national_id`
+                    LEFT JOIN `country` AS `guest_country`
+                    ON `guest_national`.`national_country_id`=`guest_country`.`country_id`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    ORDER BY `game_guest_score`+`game_home_score` DESC
+                    LIMIT 1";
             $result = Yii::$app->db->createCommand($sql)->queryOne();
 
             if ($result) {
@@ -113,7 +114,10 @@ class InsertNews
                         Team::findOne($result['guest_team_id']),
                         National::findOne($result['guest_national_id']),
                         false
-                    ) . ' - <a href="/game_view.php?num=' . $result['game_id'] . '">' . $result['game_home_score'] . ':' . $result['game_guest_score'] . '</a>.</p>' . "\r\n";
+                    ) . ' - ' . Html::a(
+                        $result['game_home_score'] . ':' . $result['game_guest_score'],
+                        ['game/view', 'id' => $result['game_id']]
+                    ) . '</p>' . "\r\n";
             }
 
             $sql = "SELECT `game_id`,
@@ -166,7 +170,10 @@ class InsertNews
                         Team::findOne($result['guest_team_id']),
                         National::findOne($result['guest_national_id']),
                         false
-                    ) . ' - <a href="/game_view.php?num=' . $result['game_id'] . '">' . $result['game_home_score'] . ':' . $result['game_guest_score'] . '</a>.</p>' . "\r\n";
+                    ) . ' - ' . Html::a(
+                        $result['game_home_score'] . ':' . $result['game_guest_score'],
+                        ['game/view', 'id' => $result['game_id']]
+                    ) . '</p>' . "\r\n";
             }
         }
 
