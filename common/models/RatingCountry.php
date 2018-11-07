@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class RatingCountry
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $rating_country_league_place
  * @property int $rating_country_stadium_place
  */
-class RatingCountry extends ActiveRecord
+class RatingCountry extends AbstractActiveRecord
 {
     /**
      * @return string

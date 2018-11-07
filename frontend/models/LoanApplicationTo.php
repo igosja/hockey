@@ -247,9 +247,7 @@ class LoanApplicationTo extends Model
             $model->loan_application_day = $this->day;
             $model->loan_application_only_one = $this->onlyOne;
             $model->loan_application_price = $this->price;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

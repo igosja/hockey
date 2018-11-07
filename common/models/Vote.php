@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Vote
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $vote_user_id
  * @property int $vote_vote_status_id
  */
-class Vote extends ActiveRecord
+class Vote extends AbstractActiveRecord
 {
     /**
      * @return string

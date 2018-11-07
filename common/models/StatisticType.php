@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class StatisticType
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $statistic_type_sort
  * @property int $statistic_type_statistic_chapter_id
  */
-class StatisticType extends ActiveRecord
+class StatisticType extends AbstractActiveRecord
 {
     const PLAYER_ASSIST = 14;
     const PLAYER_ASSIST_POWER = 15;

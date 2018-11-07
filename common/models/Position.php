@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Position
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $position_name
  * @property string $position_text
  */
-class Position extends ActiveRecord
+class Position extends AbstractActiveRecord
 {
     const GK = 1;
     const LD = 2;

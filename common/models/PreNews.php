@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class PreNews
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $pre_news_new
  * @property string $pre_news_error
  */
-class PreNews extends ActiveRecord
+class PreNews extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 10;
 

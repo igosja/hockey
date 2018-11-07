@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TransferApplicationTo
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property Team $team
  */
-class TransferApplication extends ActiveRecord
+class TransferApplication extends AbstractActiveRecord
 {
     /**
      * @return string

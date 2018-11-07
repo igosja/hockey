@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TransferPosition
@@ -15,7 +14,7 @@ use yii\db\ActiveRecord;
  *
  * @property Position $position
  */
-class TransferPosition extends ActiveRecord
+class TransferPosition extends AbstractActiveRecord
 {
     /**
      * @return string

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class PhysicalChange
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $physical_change_schedule_id
  * @property int $physical_change_team_id
  */
-class PhysicalChange extends ActiveRecord
+class PhysicalChange extends AbstractActiveRecord
 {
     /**
      * @return string

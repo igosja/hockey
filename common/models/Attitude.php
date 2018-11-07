@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Attitude
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $attitude_name
  * @property int $attitude_order
  */
-class Attitude extends ActiveRecord
+class Attitude extends AbstractActiveRecord
 {
     const NEGATIVE = 1;
     const NEUTRAL = 2;

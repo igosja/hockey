@@ -59,9 +59,7 @@ class SignUp extends Model
             $model->user_login = $this->username;
             $model->user_referrer_id = $referrer_id;
             $model->setPassword($this->password);
-            if (!$model->save()) {
-                throw new Exception(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             Yii::$app
                 ->mailer

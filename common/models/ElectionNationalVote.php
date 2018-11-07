@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class ElectionNationalVote
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $election_national_vote_date
  * @property int $election_national_vote_user_id
  */
-class ElectionNationalVote extends ActiveRecord
+class ElectionNationalVote extends AbstractActiveRecord
 {
     /**
      * @return string

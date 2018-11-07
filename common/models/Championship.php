@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Championship
@@ -31,7 +30,7 @@ use yii\db\ActiveRecord;
  * @property Division $division
  * @property Team $team
  */
-class Championship extends ActiveRecord
+class Championship extends AbstractActiveRecord
 {
     /**
      * @return string

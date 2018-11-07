@@ -210,9 +210,7 @@ class LoanTo extends Model
             $model->loan_price_seller = $this->price;
             $model->loan_team_seller_id = $this->team->team_id;
             $model->loan_user_seller_id = Yii::$app->user->id;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

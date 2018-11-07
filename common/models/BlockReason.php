@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BlockReason
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $block_reason_id
  * @property string $block_reason_text
  */
-class BlockReason extends ActiveRecord
+class BlockReason extends AbstractActiveRecord
 {
     /**
      * @return string

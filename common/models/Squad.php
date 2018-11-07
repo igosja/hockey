@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Squad
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $squad_color
  * @property string $squad_name
  */
-class Squad extends ActiveRecord
+class Squad extends AbstractActiveRecord
 {
     const SQUAD_DEFAULT = 1;
 

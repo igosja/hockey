@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Rule
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property string $rule_text
  * @property string $rule_title
  */
-class Rule extends ActiveRecord
+class Rule extends AbstractActiveRecord
 {
     /**
      * @return string

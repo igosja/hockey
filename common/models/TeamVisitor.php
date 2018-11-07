@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class TeamVisitor
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property int $team_visitor_team_id
  * @property float $team_visitor_visitor
  */
-class TeamVisitor extends ActiveRecord
+class TeamVisitor extends AbstractActiveRecord
 {
     /**
      * @return string

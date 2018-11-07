@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class National
@@ -32,7 +31,7 @@ use yii\db\ActiveRecord;
  * @property NationalType $nationalType
  * @property WorldCup $worldCup
  */
-class National extends ActiveRecord
+class National extends AbstractActiveRecord
 {
     /**
      * @return string

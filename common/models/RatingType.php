@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class RatingType
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $rating_type_name
  * @property int $rating_type_rating_chapter_id
  */
-class RatingType extends ActiveRecord
+class RatingType extends AbstractActiveRecord
 {
     const COUNTRY_AUTO = 12;
     const COUNTRY_LEAGUE = 13;

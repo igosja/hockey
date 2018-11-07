@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Event
  * @package common\models
@@ -25,7 +23,7 @@ use yii\db\ActiveRecord;
  * @property int $event_second
  * @property int $event_team_id
  */
-class Event extends ActiveRecord
+class Event extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -67,6 +65,7 @@ class Event extends ActiveRecord
 
     /**
      * @param array $data
+     * @throws \Exception
      */
     public static function log(array $data)
     {

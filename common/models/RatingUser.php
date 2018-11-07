@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class RatingUser
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property int $rating_user_rating_place
  * @property int $rating_user_user_id
  */
-class RatingUser extends ActiveRecord
+class RatingUser extends AbstractActiveRecord
 {
     /**
      * @return string

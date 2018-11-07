@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Style
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $style_id
  * @property string $style_name
  */
-class Style extends ActiveRecord
+class Style extends AbstractActiveRecord
 {
     const NORMAL = 1;
     const POWER = 2;

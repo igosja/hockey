@@ -6,8 +6,8 @@ use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\Name;
 use common\models\NameCountry;
+use Exception;
 use Yii;
-use yii\db\Exception;
 
 /**
  * Class InsertName
@@ -375,9 +375,7 @@ class InsertName
                 try {
                     $name = new Name();
                     $name->name_name = $item;
-                    if (!$name->save()) {
-                        throw new Exception(ErrorHelper::modelErrorsToString($name));
-                    }
+                    $name->save();
                     $transaction->commit();
                     $data[] = [$countryId, $name->name_id];
                 } catch (Exception $e) {

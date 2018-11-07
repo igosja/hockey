@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BaseScout
  * @package common\models
@@ -26,7 +24,7 @@ use yii\db\ActiveRecord;
  * @property int $base_scout_scout_speed_max
  * @property int $base_scout_scout_speed_min
  */
-class BaseScout extends ActiveRecord
+class BaseScout extends AbstractActiveRecord
 {
     /**
      * @return string

@@ -7,7 +7,6 @@ use Exception;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\web\IdentityInterface;
 
@@ -67,7 +66,7 @@ use yii\web\IdentityInterface;
  * @property User $referrer
  * @property Team[] $team
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends AbstractActiveRecord implements IdentityInterface
 {
     const ADMIN_USER_ID = 1;
     const MAX_HOLIDAY = 30;

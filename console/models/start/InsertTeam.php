@@ -7,8 +7,8 @@ use common\models\City;
 use common\models\Country;
 use common\models\Stadium;
 use common\models\Team;
+use Exception;
 use Yii;
-use yii\db\Exception;
 
 /**
  * Class InsertTeam
@@ -514,24 +514,18 @@ class InsertTeam
                         $city = new City();
                         $city->city_country_id = $countryId;
                         $city->city_name = $item['city'];
-                        if (!$city->save()) {
-                            throw new Exception(ErrorHelper::modelErrorsToString($city));
-                        }
+                        $city->save();
                     }
 
                     $stadium = new Stadium();
                     $stadium->stadium_city_id = $city->city_id;
                     $stadium->stadium_name = $item['stadium'];
-                    if (!$stadium->save()) {
-                        throw new Exception(ErrorHelper::modelErrorsToString($stadium));
-                    }
+                    $stadium->save();
 
                     $team = new Team();
                     $team->team_stadium_id = $stadium->stadium_id;
                     $team->team_name = $item['team'];
-                    if (!$team->save()) {
-                        throw new Exception(ErrorHelper::modelErrorsToString($team));
-                    }
+                    $team->save();
 
                     $transaction->commit();
                 } catch (Exception $e) {

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class ForumChapter
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $forum_chapter_name
  * @property int $forum_chapter_order
  */
-class ForumChapter extends ActiveRecord
+class ForumChapter extends AbstractActiveRecord
 {
     /**
      * @return string

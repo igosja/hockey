@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class GameComment
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $game_comment_text
  * @property int $game_comment_user_id
  */
-class GameComment extends ActiveRecord
+class GameComment extends AbstractActiveRecord
 {
     /**
      * @return string

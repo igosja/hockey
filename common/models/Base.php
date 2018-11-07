@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Base
  * @package common\models
@@ -18,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property int $base_slot_max
  * @property int $base_slot_min
  */
-class Base extends ActiveRecord
+class Base extends AbstractActiveRecord
 {
     /**
      * @return string

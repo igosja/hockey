@@ -58,9 +58,7 @@ class PasswordRestore extends Model
 
             $model->setPassword($this->password);
 
-            if (!$model->save()) {
-                throw new Exception(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
         } catch (Exception $e) {
             ErrorHelper::log($e);
             return false;

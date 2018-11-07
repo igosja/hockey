@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -20,7 +19,7 @@ use yii\db\Expression;
  *
  * @property User $user
  */
-class NewsComment extends ActiveRecord
+class NewsComment extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 20;
 

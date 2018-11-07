@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TransferSpecial
@@ -16,7 +15,7 @@ use yii\db\ActiveRecord;
  *
  * @property Special $special
  */
-class TransferSpecial extends ActiveRecord
+class TransferSpecial extends AbstractActiveRecord
 {
     /**
      * @return string

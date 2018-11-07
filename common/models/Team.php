@@ -2,11 +2,9 @@
 
 namespace common\models;
 
-use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -65,7 +63,7 @@ use yii\helpers\Html;
  * @property TeamAsk[] $teamAsk
  * @property User $vice
  */
-class Team extends ActiveRecord
+class Team extends AbstractActiveRecord
 {
     public $count_team;
 
@@ -182,6 +180,7 @@ class Team extends ActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @throws Exception
      */
     public function afterSave($insert, $changedAttributes)
     {
@@ -205,7 +204,11 @@ class Team extends ActiveRecord
         }
     }
 
-    private function createPlayers()
+    /**
+     * @throws Exception
+     * @return void
+     */
+    private function createPlayers(): void
     {
         $position = [
             Position::GK,
@@ -260,6 +263,10 @@ class Team extends ActiveRecord
         }
     }
 
+    /**
+     * @throws Exception
+     * @return void
+     */
     private function createLeaguePlayers()
     {
         $position = [
@@ -304,6 +311,7 @@ class Team extends ActiveRecord
     }
 
     /**
+     * @throws Exception
      * @return void
      */
     public function updatePower(): void
@@ -351,13 +359,12 @@ class Team extends ActiveRecord
     /**
      * @param $user_id
      * @throws Exception
+     * @return void
      */
-    public function managerEmploy($user_id)
+    public function managerEmploy($user_id): void
     {
         $this->team_user_id = $user_id;
-        if (!$this->save()) {
-            throw new Exception(ErrorHelper::modelErrorsToString($this));
-        }
+        $this->save();
 
         History::log([
             'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_IN,
@@ -390,9 +397,7 @@ class Team extends ActiveRecord
         $this->team_attitude_president = 2;
         $this->team_attitude_u19 = 2;
         $this->team_attitude_u21 = 2;
-        if (!$this->save()) {
-            throw new Exception(ErrorHelper::modelErrorsToString($this));
-        }
+        $this->save();
 
         TransferApplication::deleteAll([
             'transfer_application_team_id' => $this->team_id,

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Support
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $support_user_id_from
  * @property int $support_user_id_to
  */
-class Support extends ActiveRecord
+class Support extends AbstractActiveRecord
 {
     /**
      * @return string

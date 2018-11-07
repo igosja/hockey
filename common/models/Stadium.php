@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Stadium
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property City $city
  * @property Team $team
  */
-class Stadium extends ActiveRecord
+class Stadium extends AbstractActiveRecord
 {
     const ONE_SIT_PRICE_BUY = 200;
     const ONE_SIT_PRICE_SELL = 150;

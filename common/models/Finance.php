@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -30,7 +29,7 @@ use yii\helpers\Html;
  * @property FinanceText $financeText
  * @property Player $player
  */
-class Finance extends ActiveRecord
+class Finance extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -42,6 +41,7 @@ class Finance extends ActiveRecord
 
     /**
      * @param array $data
+     * @throws \Exception
      */
     public static function log(array $data)
     {

@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class ElectionNationalVice
@@ -18,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property ElectionNationalViceApplication[] $application
  * @property National $national
  */
-class ElectionNationalVice extends ActiveRecord
+class ElectionNationalVice extends AbstractActiveRecord
 {
     /**
      * @return string

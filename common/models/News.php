@@ -5,7 +5,6 @@ namespace common\models;
 use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class News
@@ -23,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property NewsComment $newsComment
  * @property User $user
  */
-class News extends ActiveRecord
+class News extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 10;
 

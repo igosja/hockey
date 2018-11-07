@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BaseTraining
  * @package common\models
@@ -23,7 +21,7 @@ use yii\db\ActiveRecord;
  * @property int $base_training_training_speed_max
  * @property int $base_training_training_speed_min
  */
-class BaseTraining extends ActiveRecord
+class BaseTraining extends AbstractActiveRecord
 {
     /**
      * @return string

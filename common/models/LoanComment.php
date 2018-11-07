@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class LoanComment
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $loan_comment_text
  * @property int $loan_comment_user_id
  */
-class LoanComment extends ActiveRecord
+class LoanComment extends AbstractActiveRecord
 {
     /**
      * @return string

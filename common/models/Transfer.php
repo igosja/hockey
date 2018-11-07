@@ -6,7 +6,6 @@ use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Transfer
@@ -34,7 +33,7 @@ use yii\db\ActiveRecord;
  * @property Player $player
  * @property Team $seller
  */
-class Transfer extends ActiveRecord
+class Transfer extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 50;
 

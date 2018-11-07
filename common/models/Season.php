@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use Throwable;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -13,7 +12,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $season_id
  */
-class Season extends ActiveRecord
+class Season extends AbstractActiveRecord
 {
     /**
      * @return string

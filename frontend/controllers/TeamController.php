@@ -547,9 +547,7 @@ class TeamController extends AbstractController
             try {
                 $model = new TeamAsk();
                 $model->team_ask_team_id = $id;
-                if (!$model->save()) {
-                    throw new Exception(ErrorHelper::modelErrorsToString($model));
-                }
+                $model->save();
                 $transaction->commit();
                 Yii::$app->session->setFlash('success', 'Заявка успешно подана.');
             } catch (Exception $e) {

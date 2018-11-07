@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class HistoryText
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $history_text_id
  * @property string $history_text_text
  */
-class HistoryText extends ActiveRecord
+class HistoryText extends AbstractActiveRecord
 {
     const BUILDING_DOWN = 16;
     const BUILDING_UP = 15;

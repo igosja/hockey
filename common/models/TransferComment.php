@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class TransferComment
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $transfer_comment_text
  * @property int $transfer_comment_user_id
  */
-class TransferComment extends ActiveRecord
+class TransferComment extends AbstractActiveRecord
 {
     /**
      * @return string

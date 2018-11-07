@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class FinanceText
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $finance_text_id
  * @property string $finance_text_text
  */
-class FinanceText extends ActiveRecord
+class FinanceText extends AbstractActiveRecord
 {
     const COUNTRY_TRANSFER = 29;
     const INCOME_BUILDING_BASE = 17;

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class VoteStatus
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $vote_status_id
  * @property int $vote_status_name
  */
-class VoteStatus extends ActiveRecord
+class VoteStatus extends AbstractActiveRecord
 {
     const CLOSE = 3;
     const NEW = 1;

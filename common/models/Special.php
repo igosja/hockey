@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Special
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property string $special_name
  * @property string $special_text
  */
-class Special extends ActiveRecord
+class Special extends AbstractActiveRecord
 {
     const ATHLETIC = 5;
     const COMBINE = 3;

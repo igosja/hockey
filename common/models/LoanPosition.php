@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class LoanPosition
@@ -15,7 +14,7 @@ use yii\db\ActiveRecord;
  *
  * @property Position $position
  */
-class LoanPosition extends ActiveRecord
+class LoanPosition extends AbstractActiveRecord
 {
     /**
      * @return string

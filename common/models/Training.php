@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Training
  * @package common\models
@@ -18,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property int $training_special_id
  * @property int $training_team_id
  */
-class Training extends ActiveRecord
+class Training extends AbstractActiveRecord
 {
     /**
      * @return string

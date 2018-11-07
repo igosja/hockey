@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class OffSeason
@@ -29,7 +28,7 @@ use yii\db\ActiveRecord;
  *
  * @property Team $team
  */
-class OffSeason extends ActiveRecord
+class OffSeason extends AbstractActiveRecord
 {
     /**
      * @return string

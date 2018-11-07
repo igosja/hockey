@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TeamAsk
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property Team $team
  * @property User $user
  */
-class TeamAsk extends ActiveRecord
+class TeamAsk extends AbstractActiveRecord
 {
     /**
      * @return string

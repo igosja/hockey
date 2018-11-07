@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Rudeness
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $rudeness_id
  * @property string $rudeness_name
  */
-class Rudeness extends ActiveRecord
+class Rudeness extends AbstractActiveRecord
 {
     const NORMAL = 1;
     const ROUGH = 2;

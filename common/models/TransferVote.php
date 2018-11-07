@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class TransferVote
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $transfer_vote_rating
  * @property int $transfer_vote_user_id
  */
-class TransferVote extends ActiveRecord
+class TransferVote extends AbstractActiveRecord
 {
     /**
      * @return string

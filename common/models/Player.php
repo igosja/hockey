@@ -5,7 +5,6 @@ namespace common\models;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -60,7 +59,7 @@ use yii\helpers\Html;
  * @property Team $team
  * @property Transfer $transfer
  */
-class Player extends ActiveRecord
+class Player extends AbstractActiveRecord
 {
     const AGE_READY_FOR_PENSION = 39;
     const TIRE_DEFAULT = 50;
@@ -197,6 +196,7 @@ class Player extends ActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @throws \Exception
      */
     public function afterSave($insert, $changedAttributes)
     {

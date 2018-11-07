@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class TournamentType
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property string $tournament_type_name
  * @property int $tournament_type_visitor
  */
-class TournamentType extends ActiveRecord
+class TournamentType extends AbstractActiveRecord
 {
     const NATIONAL = 1;
     const LEAGUE = 2;

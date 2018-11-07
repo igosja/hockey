@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class ElectionNational
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $election_status_id
  * @property string $election_status_name
  */
-class ElectionStatus extends ActiveRecord
+class ElectionStatus extends AbstractActiveRecord
 {
     const CANDIDATES = 1;
     const CLOSE = 3;

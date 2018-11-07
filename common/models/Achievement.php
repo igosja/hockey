@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Achievement
@@ -26,7 +25,7 @@ use yii\db\ActiveRecord;
  * @property Stage $stage
  * @property TournamentType $tournamentType
  */
-class Achievement extends ActiveRecord
+class Achievement extends AbstractActiveRecord
 {
     /**
      * @return string

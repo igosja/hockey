@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -131,7 +130,7 @@ use yii\helpers\Html;
  * @property Team $teamGuest
  * @property Team $teamHome
  */
-class Game extends ActiveRecord
+class Game extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 50;
 
@@ -284,7 +283,7 @@ class Game extends ActiveRecord
     {
         if (TournamentType::NATIONAL == $this->schedule->schedule_tournament_type_id) {
             $result = Html::a(
-                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
                     'world-cup/table',
                     'seasonId' => $this->schedule->schedule_season_id,
@@ -301,7 +300,7 @@ class Game extends ActiveRecord
             }
 
             $result = Html::a(
-                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
                     'league/index',
                     'roundId' => $roundId,
@@ -311,7 +310,7 @@ class Game extends ActiveRecord
             );
         } elseif (TournamentType::CHAMPIONSHIP == $this->schedule->schedule_tournament_type_id) {
             $result = Html::a(
-                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
                     'championship/index',
                     'seasonId' => $this->schedule->schedule_season_id,
@@ -322,7 +321,7 @@ class Game extends ActiveRecord
             );
         } elseif (TournamentType::CONFERENCE == $this->schedule->schedule_tournament_type_id) {
             $result = Html::a(
-                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
                     'conference/table',
                     'seasonId' => $this->schedule->schedule_season_id,
@@ -330,7 +329,7 @@ class Game extends ActiveRecord
             );
         } elseif (TournamentType::OFF_SEASON == $this->schedule->schedule_tournament_type_id) {
             $result = Html::a(
-                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name .
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
                     'off-season/table',
                     'seasonId' => $this->schedule->schedule_season_id,

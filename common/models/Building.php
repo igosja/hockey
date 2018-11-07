@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Building
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $building_id
  * @property string $building_name
  */
-class Building extends ActiveRecord
+class Building extends AbstractActiveRecord
 {
     const BASE = 1;
     const MEDICAL = 2;

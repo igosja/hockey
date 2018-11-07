@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class StatisticPlayer
@@ -51,7 +50,7 @@ use yii\db\ActiveRecord;
  * @property Player $player
  * @property Team $team
  */
-class StatisticPlayer extends ActiveRecord
+class StatisticPlayer extends AbstractActiveRecord
 {
     /**
      * @return string

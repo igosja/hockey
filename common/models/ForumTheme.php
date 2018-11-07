@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class ForumTheme
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property ForumGroup $forumGroup
  */
-class ForumTheme extends ActiveRecord
+class ForumTheme extends AbstractActiveRecord
 {
     /**
      * @return string

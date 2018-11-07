@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Message
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $message_user_id_from
  * @property int $message_user_id_to
  */
-class Message extends ActiveRecord
+class Message extends AbstractActiveRecord
 {
     /**
      * @return string

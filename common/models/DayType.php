@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class DayType
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $day_type_name
  * @property string $day_type_text
  */
-class DayType extends ActiveRecord
+class DayType extends AbstractActiveRecord
 {
     const A = 1;
     const B = 2;

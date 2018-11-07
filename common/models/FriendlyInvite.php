@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class FriendlyInvite
  * @package common\models
@@ -17,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property int $friendly_invite_home_user_id
  * @property int $friendly_invite_schedule_id
  */
-class FriendlyInvite extends ActiveRecord
+class FriendlyInvite extends AbstractActiveRecord
 {
     /**
      * @return string

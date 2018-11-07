@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Loan
@@ -33,7 +32,7 @@ use yii\db\ActiveRecord;
  * @property Player $player
  * @property Team $seller
  */
-class Loan extends ActiveRecord
+class Loan extends AbstractActiveRecord
 {
     /**
      * @return string

@@ -6,7 +6,6 @@ use common\components\ErrorHelper;
 use Exception;
 use Throwable;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * Class Site
@@ -20,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property int $site_version_3
  * @property int $site_version_date
  */
-class Site extends ActiveRecord
+class Site extends AbstractActiveRecord
 {
     /**
      * @return string

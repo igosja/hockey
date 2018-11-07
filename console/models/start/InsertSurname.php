@@ -6,8 +6,8 @@ use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\Surname;
 use common\models\SurnameCountry;
+use Exception;
 use Yii;
-use yii\db\Exception;
 
 /**
  * Class InsertSurname
@@ -2662,11 +2662,9 @@ class InsertSurname
 
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-                        $surname = new Surname();
-                        $surname->surname_name = $item;
-                        if (!$surname->save()) {
-                            throw new Exception(ErrorHelper::modelErrorsToString($surname));
-                        }
+                    $surname = new Surname();
+                    $surname->surname_name = $item;
+                    $surname->save();
                     $transaction->commit();
                     $data[] = [$countryId, $surname->surname_id];
                 } catch (Exception $e) {

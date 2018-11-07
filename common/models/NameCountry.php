@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class NameCountry
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property int $name_country_country_id
  * @property int $name_country_name_id
  */
-class NameCountry extends ActiveRecord
+class NameCountry extends AbstractActiveRecord
 {
     /**
      * @return string

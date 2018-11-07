@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -16,7 +15,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property StatisticType[] $statisticType
  */
-class StatisticChapter extends ActiveRecord
+class StatisticChapter extends AbstractActiveRecord
 {
     /**
      * @return string

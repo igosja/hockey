@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Country
@@ -21,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property City[] $city
  * @property User $vice
  */
-class Country extends ActiveRecord
+class Country extends AbstractActiveRecord
 {
     /**
      * USA 157

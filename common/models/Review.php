@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Review
@@ -26,7 +25,7 @@ use yii\db\ActiveRecord;
  * @property Stage $stage
  * @property User $user
  */
-class Review extends ActiveRecord
+class Review extends AbstractActiveRecord
 {
     /**
      * @return string

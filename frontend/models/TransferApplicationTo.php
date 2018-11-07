@@ -230,9 +230,7 @@ class TransferApplicationTo extends Model
             }
             $model->transfer_application_only_one = $this->onlyOne;
             $model->transfer_application_price = $this->price;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

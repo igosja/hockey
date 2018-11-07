@@ -210,9 +210,7 @@ class TransferTo extends Model
             $model->transfer_team_seller_id = $this->team->team_id;
             $model->transfer_to_league = $this->toLeague;
             $model->transfer_user_seller_id = Yii::$app->user->id;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

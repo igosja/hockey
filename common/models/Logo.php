@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Logo
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $logo_text
  * @property int $logo_user_id
  */
-class Logo extends ActiveRecord
+class Logo extends AbstractActiveRecord
 {
     /**
      * @return string

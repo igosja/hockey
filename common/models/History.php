@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -32,7 +31,7 @@ use yii\helpers\Html;
  * @property Team $team
  * @property User $user
  */
-class History extends ActiveRecord
+class History extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -91,6 +90,7 @@ class History extends ActiveRecord
 
     /**
      * @param array $data
+     * @throws \Exception
      */
     public static function log(array $data)
     {

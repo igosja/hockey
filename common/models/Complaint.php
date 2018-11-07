@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Complaint
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $complaint_forum_message_id
  * @property int $complaint_user_id
  */
-class Complaint extends ActiveRecord
+class Complaint extends AbstractActiveRecord
 {
     /**
      * @return string

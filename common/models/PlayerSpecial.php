@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class PlayerSpecial
@@ -17,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property Lineup[] $lineup
  * @property Special $special
  */
-class PlayerSpecial extends ActiveRecord
+class PlayerSpecial extends AbstractActiveRecord
 {
     /**
      * @return string

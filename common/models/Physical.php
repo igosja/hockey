@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use Throwable;
-use yii\db\ActiveRecord;
 
 /**
  * Class Physical
@@ -15,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property int $physical_opposite
  * @property int $physical_value
  */
-class Physical extends ActiveRecord
+class Physical extends AbstractActiveRecord
 {
     /**
      * @return string

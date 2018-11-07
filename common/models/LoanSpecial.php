@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class LoanSpecial
@@ -16,7 +15,7 @@ use yii\db\ActiveRecord;
  *
  * @property Special $special
  */
-class LoanSpecial extends ActiveRecord
+class LoanSpecial extends AbstractActiveRecord
 {
     /**
      * @return string

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class NationalPlayerDay
  * @package common\models
@@ -14,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property int $national_player_day_player_id
  * @property int $national_player_day_team_id
  */
-class NationalPlayerDay extends ActiveRecord
+class NationalPlayerDay extends AbstractActiveRecord
 {
     /**
      * @return string

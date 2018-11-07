@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class ForumGroup
  * @package common\models
@@ -15,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $forum_group_name
  * @property int $forum_group_order
  */
-class ForumGroup extends ActiveRecord
+class ForumGroup extends AbstractActiveRecord
 {
     /**
      * @return string
