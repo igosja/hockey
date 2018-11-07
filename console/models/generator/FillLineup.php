@@ -99,12 +99,6 @@ class FillLineup
                             ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                             ->limit(1);
 
-                        print '<pre>';
-                        print_r($moodId);
-                        print '<pre>';
-                        print_r($teamId);
-                        exit;
-
                         if (!$moodId) {
                             if ($teamId) {
                                 $query = Player::find()
