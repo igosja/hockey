@@ -25,6 +25,7 @@ class PlusMinus
     private $game;
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -52,6 +53,10 @@ class PlusMinus
 
             $guestTotal = $guestCompetition + $guestMood + $guestOptimality1 + $guestOptimality2 + $guestPower + $guestScore;
 
+            if (substr($guestTotal * 10, -1)) {
+                $guestTotal = $guestTotal + rand(0, 1) - 0.5;
+            }
+
             if ($guestTotal > 5) {
                 $guestTotal = 5;
             } elseif ($guestTotal < -5) {
@@ -59,6 +64,10 @@ class PlusMinus
             }
 
             $homeTotal = $homeCompetition + $homeMood + $homeOptimality1 + $homeOptimality2 + $homePower + $homeScore;
+
+            if (substr($homeTotal * 10, -1)) {
+                $homeTotal = $homeTotal + rand(0, 1) - 0.5;
+            }
 
             if ($homeTotal > 5) {
                 $homeTotal = 5;

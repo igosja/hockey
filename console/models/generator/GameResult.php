@@ -54,6 +54,7 @@ class GameResult
     private $result;
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -685,6 +686,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function setTeamwork(): void
@@ -2276,6 +2278,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function toDataBase(): void
@@ -2287,6 +2290,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function gameToDataBase(): void
@@ -2353,6 +2357,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function eventToDataBase(): void
@@ -2363,6 +2368,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function lineupToDataBase(): void
@@ -2410,6 +2416,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function statisticToDataBase(): void
