@@ -343,6 +343,69 @@ class Game extends AbstractActiveRecord
     }
 
     /**
+     * @param $team
+     * @return string
+     */
+    public function cssMood($team): string
+    {
+        $classLoose = 'font-red';
+        $classWin = 'font-green';
+
+        $mood = 'game_' . $team . '_mood_id';
+        $mood = $this->$mood;
+
+        if (Mood::SUPER == $mood) {
+            return $classWin;
+        }
+        if (Mood::REST == $mood) {
+            return $classLoose;
+        }
+        return '';
+    }
+
+    /**
+     * @param string $team
+     * @param int $id
+     * @return string
+     */
+    public function cssStyle(string $team, int $id): string
+    {
+        $classLoose = 'font-red';
+        $classWin = 'font-green';
+
+        if ('home' == $team) {
+            $opponent = 'guest';
+        } else {
+            $opponent = 'home';
+        }
+
+        $style1 = 'game_' . $team . '_style_id_' . $id;
+        $style1 = $this->$style1;
+        $style2 = 'game_' . $opponent . '_style_id_' . $id;
+        $style2 = $this->$style2;
+
+        if (Style::POWER == $style1 && Style::SPEED == $style2) {
+            return $classWin;
+        }
+        if (Style::SPEED == $style1 && Style::TECHNIQUE == $style2) {
+            return $classWin;
+        }
+        if (Style::TECHNIQUE == $style1 && Style::POWER == $style2) {
+            return $classWin;
+        }
+        if (Style::SPEED == $style1 && Style::POWER == $style2) {
+            return $classLoose;
+        }
+        if (Style::TECHNIQUE == $style1 && Style::SPEED == $style2) {
+            return $classLoose;
+        }
+        if (Style::POWER == $style1 && Style::TECHNIQUE == $style2) {
+            return $classLoose;
+        }
+        return '';
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getLineup(): ActiveQuery
