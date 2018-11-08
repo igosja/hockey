@@ -344,7 +344,7 @@ use yii\helpers\Html;
                         <?php endif; ?>
                         <?php $power = $power + $game->$lineupArray[$j]->lineup_power_real; ?>
                         <tr>
-                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->position->position_name; ?>
                             </td>
                             <td <?php if (0 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
