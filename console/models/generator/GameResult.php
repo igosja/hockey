@@ -1219,7 +1219,7 @@ class GameResult
         $ifRudenessGuest = self::LIMIT_RUDENESS - $rudenessGuest * self::COEFFICIENT_RUDENESS;
         if ($ifRudenessRand >= $ifRudenessGuest && 1 == rand(0, 1)) {
             $this->result['player'] = rand(Position::LD, Position::RW);
-            $this->processPenalty('home');
+            $this->processPenalty('guest');
         }
 
     }

@@ -293,16 +293,17 @@ use yii\helpers\Html;
         </table>
     </div>
 </div>
-<?php if (false): ?>
     <div class="row margin-top">
-        <?php for ($i = 0; $i < 2; $i++) { ?>
+        <?php for ($i = 0; $i < 2; $i++) : ?>
             <?php
             if (0 == $i) {
-                $team = 'home';
-                $team_array = $home_array;
+                $team = 'teamHome';
+                $national = 'nationalHome';
+                $lineupArray = 'lineupHome';
             } else {
-                $team = 'guest';
-                $team_array = $guest_array;
+                $team = 'teamGuest';
+                $national = 'nationalGuest';
+                $lineupArray = 'lineupGuest';
             }
             ?>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
@@ -310,17 +311,7 @@ use yii\helpers\Html;
                     <tr>
                         <th title="Позиция">П</th>
                         <th>
-                            <?= f_igosja_team_or_national_link(
-                                array(
-                                    'team_id' => $game_array[0][$team . '_team_id'],
-                                    'team_name' => $game_array[0][$team . '_team_name'],
-                                ),
-                                array(
-                                    'country_name' => $game_array[0][$team . '_national_name'],
-                                    'national_id' => $game_array[0][$team . '_national_id'],
-                                ),
-                                false
-                            ); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->$team, $game->$national, false); ?>
                         </th>
                         <th class="hidden-xs" title="Возраст">В</th>
                         <th class="hidden-xs" title="Номинальная сила">НС</th>
@@ -332,80 +323,76 @@ use yii\helpers\Html;
                         <th title="Плюс/минус">+/-</th>
                     </tr>
                     <?php $power = 0; ?>
-                    <?php for ($j = 0, $count_team = count($team_array); $j < $count_team; $j++) { ?>
-                        <?php if (in_array($j, array(1, 6, 11))) { ?>
+                    <?php for ($j = 0, $countLineup = count($game->$lineupArray); $j < $countLineup; $j++) : ?>
+                        <?php if (in_array($j, [2, 7, 12, 17])) : ?>
                             <tr>
                                 <td class="text-center text-size-2" colspan="10">
-                                    <?php if (1 == $j) { ?>
+                                    <?php if (2 == $j) : ?>
                                         Первое
-                                    <?php } elseif (6 == $j) { ?>
+                                    <?php elseif (7 == $j) : ?>
                                         Второе
-                                    <?php } else { ?>
+                                    <?php elseif (12 == $j) : ?>
                                         Третье
-                                    <?php } ?>
+                                    <?php else : ?>
+                                        Четвертое
+                                    <?php endif; ?>
                                     звено
                                 </td>
                             </tr>
                             <?php $power = 0; ?>
-                        <?php } ?>
-                        <?php $power = $power + $team_array[$j]['lineup_power_real']; ?>
+                        <?php endif; ?>
+                        <?php $power = $power + $game->$lineupArray[$j]->lineup_power_real; ?>
                         <tr>
-                            <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['position_short']; ?>
+                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->position_short; ?>
                             </td>
-                            <td <?php if (0 == $j) { ?>class="border-bottom-blue"<?php } ?>>
-                                <a href="/player_view.php?num=<?= $team_array[$j]['player_id']; ?>">
-                                    <?= $team_array[$j]['name_name']; ?> <?= $team_array[$j]['surname_name']; ?>
-                                </a>
-                                <?= f_igosja_player_power_change($team_array[$j]['lineup_power_change']); ?>
+                            <td <?php if (0 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
+                                <?= $game->$lineupArray[$j]->player->playerLink(); ?>
+                                <?= $game->$lineupArray[$j]->iconPowerChange(); ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_age']; ?>
+                            <td class="hidden-xs text-center <?php if (0 == $j): ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_age; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_power_nominal']; ?>
+                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_power_nominal; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_power_real']; ?>
+                            <td class="text-center <?php if (0 == $j): ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_power_real; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_penalty']; ?>
+                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_penalty; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_shot']; ?>
+                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_shot; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?php if (1 == $team_array[$j]['position_id']) { ?>
-                                    <?= $team_array[$j]['lineup_pass']; ?>
-                                <?php } else { ?>
-                                    <?= $team_array[$j]['lineup_score']; ?>
-                                <?php } ?>
+                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?php if (1 == $game->$lineupArray[$j]->position_id) : ?>
+                                    <?= $game->$lineupArray[$j]->lineup_pass; ?>
+                                <?php else : ?>
+                                    <?= $game->$lineupArray[$j]->lineup_score; ?>
+                                <?php endif; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_assist']; ?>
+                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_assist; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) { ?>border-bottom-blue<?php } ?>">
-                                <?= $team_array[$j]['lineup_plus_minus']; ?>
+                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                                <?= $game->$lineupArray[$j]->lineup_plus_minus; ?>
                             </td>
                         </tr>
-                        <?php if (in_array($j, array(5, 10, 15))) { ?>
+                        <?php if (in_array($j, [6, 11, 16, 21])) : ?>
                             <tr>
-                                <td class="text-center border-bottom-blue" colspan="10"><span class="text-size-2">Общая сила звена -</span> <?= $power; ?>
+                                <td class="text-center border-bottom-blue" colspan="10">
+                                    <span class="text-size-2">Общая сила звена -</span> <?= $power; ?>
                                 </td>
                             </tr>
-                        <?php } ?>
-                    <?php } ?>
+                        <?php endif; ?>
+                    <?php endfor; ?>
                 </table>
             </div>
-        <?php } ?>
+        <?php endfor; ?>
     </div>
-    <div class="row hidden-lg hidden-md hidden-sm">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a class="btn show-full-table" href="javascript:">
-                Показать полную таблицу
-            </a>
-        </div>
-    </div>
+<?= $this->render('/site/_show-full-table'); ?>
+<?php if (false) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
             <table class="table table-bordered">
@@ -478,13 +465,7 @@ use yii\helpers\Html;
             </table>
         </div>
     </div>
-    <div class="row hidden-lg hidden-md hidden-sm">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a class="btn show-full-table" href="javascript:">
-                Показать полную таблицу
-            </a>
-        </div>
-    </div>
+    <?= $this->render('/site/_show-full-table'); ?>
     <?php if ($gamecomment_array) { ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

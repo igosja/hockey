@@ -123,6 +123,8 @@ use yii\helpers\Html;
  * @property int $game_visitor
  *
  * @property Lineup[] $lineup
+ * @property Lineup[] $lineupGuest
+ * @property Lineup[] $lineupHome
  * @property National $nationalGuest
  * @property National $nationalHome
  * @property Schedule $schedule
@@ -411,6 +413,30 @@ class Game extends AbstractActiveRecord
     public function getLineup(): ActiveQuery
     {
         return $this->hasMany(Lineup::class, ['lineup_game_id' => 'game_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLineupHome(): ActiveQuery
+    {
+        return $this->hasMany(Lineup::class, [
+            'lineup_game_id' => 'game_id',
+            'lineup_national_id' => 'game_home_national_id',
+            'lineup_team_id' => 'game_home_team_id',
+        ]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLineupGuest(): ActiveQuery
+    {
+        return $this->hasMany(Lineup::class, [
+            'lineup_game_id' => 'game_id',
+            'lineup_national_id' => 'game_guest_national_id',
+            'lineup_team_id' => 'game_guest_team_id',
+        ]);
     }
 
     /**
