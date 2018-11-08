@@ -397,7 +397,7 @@ use yii\helpers\Html;
         <?php endfor; ?>
     </div>
 <?= $this->render('/site/_show-full-table'); ?>
-    <div class="row">
+    <div class="row margin-top">
         <?php
 
         try {
