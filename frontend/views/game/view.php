@@ -2,11 +2,15 @@
 
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use common\models\Event;
+use common\models\EventType;
 use common\models\Position;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
  * @var \common\models\Game $game
+ * @var \yii\data\ActiveDataProvider $eventDataProvider
  */
 
 ?>
@@ -347,17 +351,17 @@ use yii\helpers\Html;
                             <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->position->position_name; ?>
                             </td>
-                            <td <?php if (0 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
+                            <td <?php if (1 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
                                 <?= $game->$lineupArray[$j]->player->playerLink(); ?>
                                 <?= $game->$lineupArray[$j]->iconPowerChange(); ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j): ?>border-bottom-blue<?php endif; ?>">
+                            <td class="hidden-xs text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_age; ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_power_nominal; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j): ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_power_real; ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
@@ -393,80 +397,91 @@ use yii\helpers\Html;
         <?php endfor; ?>
     </div>
 <?= $this->render('/site/_show-full-table'); ?>
-<?php if (false) : ?>
-    <div class="row margin-top">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-            <table class="table table-bordered">
-                <tr>
-                    <th>Время</th>
-                    <th>Команда</th>
-                    <th class="hidden-xs">Тип</th>
-                    <th>Событие</th>
-                    <th>Счет</th>
-                </tr>
-                <?php foreach ($event_array as $item) { ?>
-                    <tr>
-                        <td class="text-center">
-                            <?= sprintf("%02d", $item['event_minute']); ?>:<?= sprintf("%02d",
-                                $item['event_second']); ?>
-                        </td>
-                        <td class="text-center">
-                            <?= f_igosja_team_or_national_link(
-                                array(
-                                    'team_id' => $item['team_id'],
-                                    'team_name' => $item['team_name'],
-                                ),
-                                array(
-                                    'country_name' => $item['country_name'],
-                                    'national_id' => $item['national_id'],
-                                ),
-                                false
-                            ); ?>
-                        </td>
-                        <td class="hidden-xs text-center"><?= $item['eventtype_text']; ?></td>
-                        <td>
-                        <span class="hidden-xs">
-                            <?= $item['eventtextbullet_text']; ?>
-                            <?= $item['eventtextgoal_text']; ?>
-                            <?= $item['eventtextpenalty_text']; ?>
-                        </span>
-                            <?php if ($item['event_player_penalty_id']) { ?>
-                                Удаление -
-                                <a href="/player_view.php?num=<?= $item['event_player_penalty_id']; ?>">
-                                    <?= $item['name_penalty_name']; ?>
-                                    <?= $item['surname_penalty_name']; ?>
-                                </a>
-                            <?php } ?>
-                            <?php if ($item['event_player_score_id']) { ?>
-                                <?php if ($item['eventtextgoal_text']) { ?>
-                                    Шайба -
-                                <?php } ?>
-                                <a href="/player_view.php?num=<?= $item['event_player_score_id']; ?>">
-                                    <?= $item['name_score_name']; ?>
-                                    <?= $item['surname_score_name']; ?>
-                                </a>
-                            <?php } ?>
-                            <?php if ($item['event_player_assist_1_id']) { ?>
-                                (<a href="/player_view.php?num=<?= $item['event_player_assist_1_id']; ?>"><?=
-                                $item['name_assist_1_name']; ?>
-                                <?= $item['surname_assist_1_name'];
-                                ?></a><?php if ($item['event_player_assist_2_id']) { ?>,
-                                <a href="/player_view.php?num=<?= $item['event_player_assist_2_id']; ?>">
-                                    <?= $item['name_assist_2_name']; ?>
-                                    <?= $item['surname_assist_2_name']; ?></a><?php } ?>)
-                            <?php } ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if (in_array($item['eventtype_id'], array(EVENTTYPE_GOAL, EVENTTYPE_BULLET))) { ?>
-                                <?= $item['event_home_score']; ?>:<?= $item['event_guest_score']; ?>
-                            <?php } ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </table>
-        </div>
+    <div class="row">
+        <?php
+
+        try {
+            $columns = [
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'header' => 'Время',
+                    'value' => function (Event $model): string {
+                        return sprintf("%02d", $model->event_minute) . ':' . sprintf("%02d", $model->event_second);
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'format' => 'raw',
+                    'header' => 'Команда',
+                    'value' => function (Event $model): string {
+                        return HockeyHelper::teamOrNationalLink($model->team, $model->national, false);
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center hidden-xs'],
+                    'header' => 'Тип',
+                    'headerOptions' => ['class' => 'text-center hidden-xs'],
+                    'value' => function (Event $model): string {
+                        return $model->eventType->event_type_text;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center hidden-xs'],
+                    'format' => 'raw',
+                    'header' => 'Событие',
+                    'headerOptions' => ['class' => 'hidden-xs'],
+                    'value' => function (Event $model): string {
+                        $result = '';
+                        if ($model->eventTextGoal) {
+                            $result = $result . $model->eventTextGoal->event_text_goal_text;
+                        }
+                        if ($model->eventTextPenalty) {
+                            $result = $result . $model->eventTextPenalty->event_text_penalty_text;
+                        }
+                        if ($model->eventTextShootout) {
+                            $result = $result . $model->eventTextShootout->event_text_shootout_text;
+                        }
+                        if ($model->event_player_penalty_id) {
+                            $result = $result . ' Удаление - ' . $model->playerPenalty->playerLink();
+                        }
+                        if ($model->playerScore) {
+                            $result = $result . ' Шайба - ' . $model->playerScore->playerLink();
+                        }
+                        if ($model->playerAssist1) {
+                            $result = $result . ' (' . $model->playerAssist1->playerLink();
+                            if ($model->playerAssist2) {
+                                $result = $result . ', ' . $model->playerAssist2->playerLink();
+                            }
+                            $result = $result . ')';
+                        }
+                        return $result;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'header' => 'Счёт',
+                    'value' => function (Event $model): string {
+                        if (in_array($model->event_event_type_id, [EventType::GOAL, EventType::SHOOTOUT])) {
+                            return $model->event_home_score . ':' . $model->event_guest_score;
+                        }
+                        return '';
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $eventDataProvider,
+                'showOnEmpty' => false,
+                'summary' => false,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        ?>
     </div>
-    <?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('/site/_show-full-table'); ?>
+<?php if (false) : ?>
     <?php if ($gamecomment_array) { ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

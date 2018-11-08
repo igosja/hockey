@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Event;
 use common\models\Game;
 use yii\data\ActiveDataProvider;
 
@@ -70,10 +71,21 @@ class GameController extends AbstractController
             return $this->redirect(['game/preview', 'id' => $id]);
         }
 
+        $query = Event::find()
+            ->where(['event_game_id' => $id])
+            ->orderBy(['event_id' => SORT_ASC]);
+
+        $eventDataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+            'sort' => false,
+        ]);
+
         $this->setSeoTitle('Матч');
 
         return $this->render('view', [
-            'game' => $game
+            'eventDataProvider' => $eventDataProvider,
+            'game' => $game,
         ]);
     }
 }
