@@ -14,52 +14,52 @@ use yii\helpers\Html;
  */
 
 ?>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
-        <span class="strong">Результат</span>
-        |
-        <?= Html::a(
-            'Перед матчем',
-            ['game/preview', 'id' => Yii::$app->request->get('id')]
-        ); ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+            <span class="strong">Результат</span>
+            |
+            <?= Html::a(
+                'Перед матчем',
+                ['game/preview', 'id' => Yii::$app->request->get('id')]
+            ); ?>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false); ?>
-                        <?= HockeyHelper::formatAuto($game->game_home_auto); ?>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <?= $game->game_home_score; ?>:<?= $game->game_guest_score; ?>
-                        (<?= $game->game_home_score_1; ?>:<?= $game->game_guest_score_1; ?>
-                        |
-                        <?= $game->game_home_score_2; ?>:<?= $game->game_guest_score_2; ?>
-                        |
-                        <?= $game->game_home_score_3; ?>:<?= $game->game_guest_score_3; ?><?php
-                        if ($game->game_home_score_overtime || $game->game_guest_score_overtime) {
-                            print ' | ' . $game->game_home_score_overtime . ':' . $game->game_guest_score_overtime . ' ОТ';
-                        }
-                        ?><?php
-                        if ($game->game_home_score_shootout || $game->game_guest_score_shootout) {
-                            print ' | ' . $game->game_home_score_shootout . ':' . $game->game_guest_score_shootout . ' Б';
-                        }
-                        ?>)
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false); ?>
-                        <?= HockeyHelper::formatAuto($game->game_guest_auto); ?>
-                    </div>
-                </th>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false); ?>
+                            <?= HockeyHelper::formatAuto($game->game_home_auto); ?>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                            <?= $game->game_home_score; ?>:<?= $game->game_guest_score; ?>
+                            (<?= $game->game_home_score_1; ?>:<?= $game->game_guest_score_1; ?>
+                            |
+                            <?= $game->game_home_score_2; ?>:<?= $game->game_guest_score_2; ?>
+                            |
+                            <?= $game->game_home_score_3; ?>:<?= $game->game_guest_score_3; ?><?php
+                            if ($game->game_home_score_overtime || $game->game_guest_score_overtime) {
+                                print ' | ' . $game->game_home_score_overtime . ':' . $game->game_guest_score_overtime . ' ОТ';
+                            }
+                            ?><?php
+                            if ($game->game_home_score_shootout || $game->game_guest_score_shootout) {
+                                print ' | ' . $game->game_home_score_shootout . ':' . $game->game_guest_score_shootout . ' Б';
+                            }
+                            ?>)
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false); ?>
+                            <?= HockeyHelper::formatAuto($game->game_guest_auto); ?>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <?php
 
             try {
@@ -70,234 +70,234 @@ use yii\helpers\Html;
 
             ?>,
             <?= $game->tournamentLink(); ?>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= Html::a($game->stadium->stadium_name, ['team/view', $game->stadium->team->team_id]); ?>
-        (<?= $game->stadium->stadium_capacity; ?>),
-        Зрителей: <?= $game->game_visitor; ?>.
-        Билет: <?php
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <?= Html::a($game->stadium->stadium_name, ['team/view', $game->stadium->team->team_id]); ?>
+            (<?= $game->stadium->stadium_capacity; ?>),
+            Зрителей: <?= $game->game_visitor; ?>.
+            Билет: <?php
 
-        try {
-            print Yii::$app->formatter->asCurrency($game->game_ticket, 'USD');
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
+            try {
+                print Yii::$app->formatter->asCurrency($game->game_ticket, 'USD');
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+            }
 
-        ?>
+            ?>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <td class="col-35 text-center">
-                    <span title="Первое звено"><?= $game->game_home_tactic_id_1; ?></span>
-                    |
-                    <span title="Второе звено"><?= $game->game_home_tactic_id_2; ?></span>
-                    |
-                    <span title="Третье звено"><?= $game->game_home_tactic_id_3; ?></span>
-                    |
-                    <span title="Четвёртое звено"><?= $game->game_home_tactic_id_4; ?></span>
-                </td>
-                <td class="text-center">Тактика</td>
-                <td class="col-35 text-center">
-                    <span title="Первое звено"><?= $game->game_guest_tactic_id_1; ?></span>
-                    |
-                    <span title="Второе звено"><?= $game->game_guest_tactic_id_2; ?></span>
-                    |
-                    <span title="Третье звено"><?= $game->game_guest_tactic_id_3; ?></span>
-                    |
-                    <span title="Четвёртое звено"><?= $game->game_guest_tactic_id_4; ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="col-35 text-center">
+                        <span title="Первое звено"><?= $game->game_home_tactic_id_1; ?></span>
+                        |
+                        <span title="Второе звено"><?= $game->game_home_tactic_id_2; ?></span>
+                        |
+                        <span title="Третье звено"><?= $game->game_home_tactic_id_3; ?></span>
+                        |
+                        <span title="Четвёртое звено"><?= $game->game_home_tactic_id_4; ?></span>
+                    </td>
+                    <td class="text-center">Тактика</td>
+                    <td class="col-35 text-center">
+                        <span title="Первое звено"><?= $game->game_guest_tactic_id_1; ?></span>
+                        |
+                        <span title="Второе звено"><?= $game->game_guest_tactic_id_2; ?></span>
+                        |
+                        <span title="Третье звено"><?= $game->game_guest_tactic_id_3; ?></span>
+                        |
+                        <span title="Четвёртое звено"><?= $game->game_guest_tactic_id_4; ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
                     <span class="<?= $game->cssStyle('home', 1); ?>" title="Первое звено">
                         <?= $game->game_home_style_id_1; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('home', 2); ?>" title="Второе звено">
+                        |
+                        <span class="<?= $game->cssStyle('home', 2); ?>" title="Второе звено">
                         <?= $game->game_home_style_id_2; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('home', 3); ?>" title="Третье звено">
+                        |
+                        <span class="<?= $game->cssStyle('home', 3); ?>" title="Третье звено">
                         <?= $game->game_home_style_id_3; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('home', 4); ?>" title="Четвёртое звено">
+                        |
+                        <span class="<?= $game->cssStyle('home', 4); ?>" title="Четвёртое звено">
                         <?= $game->game_home_style_id_4; ?>
                     </span>
-                </td>
-                <td class="text-center">Стиль</td>
-                <td class="text-center">
+                    </td>
+                    <td class="text-center">Стиль</td>
+                    <td class="text-center">
                     <span class="<?= $game->cssStyle('guest', 1); ?>" title="Первое звено">
                         <?= $game->game_guest_style_id_1; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('guest', 2); ?>" title="Второе звено">
+                        |
+                        <span class="<?= $game->cssStyle('guest', 2); ?>" title="Второе звено">
                         <?= $game->game_guest_style_id_2; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('guest', 3); ?>" title="Третье звено">
+                        |
+                        <span class="<?= $game->cssStyle('guest', 3); ?>" title="Третье звено">
                         <?= $game->game_guest_style_id_3; ?>
                     </span>
-                    |
-                    <span class="<?= $game->cssStyle('guest', 4); ?>" title="Четвёртое звено">
+                        |
+                        <span class="<?= $game->cssStyle('guest', 4); ?>" title="Четвёртое звено">
                         <?= $game->game_guest_style_id_4; ?>
                     </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span title="Первое звено"><?= $game->game_home_rudeness_id_1; ?></span> |
-                    <span title="Второе звено"><?= $game->game_home_rudeness_id_2; ?></span> |
-                    <span title="Третье звено"><?= $game->game_home_rudeness_id_3; ?></span> |
-                    <span title="Четвёртое звено"><?= $game->game_home_rudeness_id_4; ?></span>
-                </td>
-                <td class="text-center">Грубость</td>
-                <td class="text-center">
-                    <span title="Первое звено"><?= $game->game_guest_rudeness_id_1; ?></span> |
-                    <span title="Второе звено"><?= $game->game_guest_rudeness_id_2; ?></span> |
-                    <span title="Третье звено"><?= $game->game_guest_rudeness_id_3; ?></span> |
-                    <span title="Четвёртое звено"><?= $game->game_guest_rudeness_id_4; ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <span title="Первое звено"><?= $game->game_home_rudeness_id_1; ?></span> |
+                        <span title="Второе звено"><?= $game->game_home_rudeness_id_2; ?></span> |
+                        <span title="Третье звено"><?= $game->game_home_rudeness_id_3; ?></span> |
+                        <span title="Четвёртое звено"><?= $game->game_home_rudeness_id_4; ?></span>
+                    </td>
+                    <td class="text-center">Грубость</td>
+                    <td class="text-center">
+                        <span title="Первое звено"><?= $game->game_guest_rudeness_id_1; ?></span> |
+                        <span title="Второе звено"><?= $game->game_guest_rudeness_id_2; ?></span> |
+                        <span title="Третье звено"><?= $game->game_guest_rudeness_id_3; ?></span> |
+                        <span title="Четвёртое звено"><?= $game->game_guest_rudeness_id_4; ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
                     <span class="<?= $game->cssMood('home'); ?>">
                         <?= $game->game_home_mood_id; ?>
                     </span>
-                </td>
-                <td class="text-center">Настрой</td>
-                <td class="text-center">
+                    </td>
+                    <td class="text-center">Настрой</td>
+                    <td class="text-center">
                     <span class="<?= $game->cssMood('guest'); ?>">
                         <?= $game->game_guest_mood_id; ?>
                     </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <?= $game->game_home_power_percent; ?>%
-                </td>
-                <td class="text-center">Соотношение сил</td>
-                <td class="text-center">
-                    <?= $game->game_guest_power_percent; ?>%
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span title="Расстановка сил по позициям"><?= $game->game_home_optimality_1; ?>%</span> |
-                    <span title="Соотношение силы состава к ретингу команды"><?= $game->game_home_optimality_2; ?>
-                        %</span>
-                </td>
-                <td class="text-center">Оптимальность</td>
-                <td class="text-center">
-                    <span title="Расстановка сил по позициям"><?= $game->game_guest_optimality_1; ?>%</span> |
-                    <span title="Соотношение силы состава к ретингу команды"><?= $game->game_guest_optimality_2; ?>
-                        %</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <span title="Первое звено"><?= $game->game_home_teamwork_1; ?>%</span> |
-                    <span title="Второе звено"><?= $game->game_home_teamwork_2; ?>%</span> |
-                    <span title="Третье звено"><?= $game->game_home_teamwork_3; ?>%</span> |
-                    <span title="Четвёртое звено"><?= $game->game_home_teamwork_4; ?>%</span>
-                </td>
-                <td class="text-center">Сыгранность</td>
-                <td class="text-center">
-                    <span title="Первое звено"><?= $game->game_guest_teamwork_1; ?>%</span> |
-                    <span title="Второе звено"><?= $game->game_guest_teamwork_2; ?>%</span> |
-                    <span title="Третье звено"><?= $game->game_guest_teamwork_3; ?>%</span> |
-                    <span title="Четвёртое звено"><?= $game->game_guest_teamwork_4; ?>%</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <?= $game->game_home_shot; ?>
-                    (<?= $game->game_home_shot_1; ?> | <?= $game->game_home_shot_2; ?>
-                    | <?= $game->game_home_shot_3; ?><?php if ($game->game_home_shot_overtime) : ?> | <?= $game->game_home_shot_overtime; ?><?php endif; ?>
-                    )
-                </td>
-                <td class="text-center">Броски</td>
-                <td class="text-center">
-                    <?= $game->game_guest_shot; ?>
-                    (<?= $game->game_guest_shot_1; ?> | <?= $game->game_guest_shot_2; ?>
-                    | <?= $game->game_guest_shot_3; ?><?php if ($game->game_guest_shot_overtime) : ?> | <?= $game->game_guest_shot_overtime; ?><?php endif; ?>
-                    )
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">
-                    <?= $game->game_home_penalty; ?>
-                    (<?= $game->game_home_penalty_1; ?> | <?= $game->game_home_penalty_2; ?>
-                    | <?= $game->game_home_penalty_3; ?><?php if ($game->game_home_penalty_overtime) : ?> | <?= $game->game_home_penalty_overtime; ?><?php endif; ?>
-                    )
-                </td>
-                <td class="text-center">Штрафные минуты</td>
-                <td class="text-center">
-                    <?= $game->game_guest_penalty; ?>
-                    (<?= $game->game_guest_penalty_1; ?> | <?= $game->game_guest_penalty_2; ?>
-                    | <?= $game->game_guest_penalty_3; ?><?php if ($game->game_guest_penalty_overtime) : ?> | <?= $game->game_guest_penalty_overtime; ?><?php endif; ?>
-                    )
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <?= $game->game_home_power_percent; ?>%
+                    </td>
+                    <td class="text-center">Соотношение сил</td>
+                    <td class="text-center">
+                        <?= $game->game_guest_power_percent; ?>%
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <span title="Расстановка сил по позициям"><?= $game->game_home_optimality_1; ?>%</span> |
+                        <span title="Соотношение силы состава к ретингу команды"><?= $game->game_home_optimality_2; ?>
+                            %</span>
+                    </td>
+                    <td class="text-center">Оптимальность</td>
+                    <td class="text-center">
+                        <span title="Расстановка сил по позициям"><?= $game->game_guest_optimality_1; ?>%</span> |
+                        <span title="Соотношение силы состава к ретингу команды"><?= $game->game_guest_optimality_2; ?>
+                            %</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <span title="Первое звено"><?= $game->game_home_teamwork_1; ?>%</span> |
+                        <span title="Второе звено"><?= $game->game_home_teamwork_2; ?>%</span> |
+                        <span title="Третье звено"><?= $game->game_home_teamwork_3; ?>%</span> |
+                        <span title="Четвёртое звено"><?= $game->game_home_teamwork_4; ?>%</span>
+                    </td>
+                    <td class="text-center">Сыгранность</td>
+                    <td class="text-center">
+                        <span title="Первое звено"><?= $game->game_guest_teamwork_1; ?>%</span> |
+                        <span title="Второе звено"><?= $game->game_guest_teamwork_2; ?>%</span> |
+                        <span title="Третье звено"><?= $game->game_guest_teamwork_3; ?>%</span> |
+                        <span title="Четвёртое звено"><?= $game->game_guest_teamwork_4; ?>%</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <?= $game->game_home_shot; ?>
+                        (<?= $game->game_home_shot_1; ?> | <?= $game->game_home_shot_2; ?>
+                        | <?= $game->game_home_shot_3; ?><?php if ($game->game_home_shot_overtime) : ?> | <?= $game->game_home_shot_overtime; ?><?php endif; ?>
+                        )
+                    </td>
+                    <td class="text-center">Броски</td>
+                    <td class="text-center">
+                        <?= $game->game_guest_shot; ?>
+                        (<?= $game->game_guest_shot_1; ?> | <?= $game->game_guest_shot_2; ?>
+                        | <?= $game->game_guest_shot_3; ?><?php if ($game->game_guest_shot_overtime) : ?> | <?= $game->game_guest_shot_overtime; ?><?php endif; ?>
+                        )
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <?= $game->game_home_penalty; ?>
+                        (<?= $game->game_home_penalty_1; ?> | <?= $game->game_home_penalty_2; ?>
+                        | <?= $game->game_home_penalty_3; ?><?php if ($game->game_home_penalty_overtime) : ?> | <?= $game->game_home_penalty_overtime; ?><?php endif; ?>
+                        )
+                    </td>
+                    <td class="text-center">Штрафные минуты</td>
+                    <td class="text-center">
+                        <?= $game->game_guest_penalty; ?>
+                        (<?= $game->game_guest_penalty_1; ?> | <?= $game->game_guest_penalty_2; ?>
+                        | <?= $game->game_guest_penalty_3; ?><?php if ($game->game_guest_penalty_overtime) : ?> | <?= $game->game_guest_penalty_overtime; ?><?php endif; ?>
+                        )
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-        <table class="table table-bordered">
-            <tr>
-                <td class="text-center">Прогноз на матч</td>
-                <td
-                        class="col-35 text-center
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="text-center">Прогноз на матч</td>
+                    <td
+                            class="col-35 text-center
                     <?php if ($game->game_home_forecast > $game->game_guest_forecast) : ?>
                         font-green
                     <?php elseif ($game->game_home_forecast < $game->game_guest_forecast) : ?>
                         font-red
                     <?php endif; ?>"
-                >
-                    <?= $game->game_home_forecast; ?>
-                </td>
-                <td
-                        class="col-35 text-center
+                    >
+                        <?= $game->game_home_forecast; ?>
+                    </td>
+                    <td
+                            class="col-35 text-center
                     <?php if ($game->game_home_forecast < $game->game_guest_forecast) : ?>
                         font-green
                     <?php elseif ($game->game_home_forecast > $game->game_guest_forecast): ?>
                         font-red
                     <?php endif; ?>"
-                >
-                    <?= $game->game_guest_forecast; ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">Сила состава</td>
-                <td class="text-center
+                    >
+                        <?= $game->game_guest_forecast; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">Сила состава</td>
+                    <td class="text-center
                     <?php if ($game->game_home_power > $game->game_guest_power) : ?>
                         font-green
                     <?php elseif ($game->game_home_power < $game->game_guest_power) : ?>
                         font-red
                     <?php endif; ?>"
-                >
-                    <?= $game->game_home_power; ?>
-                </td>
-                <td
-                        class="text-center
+                    >
+                        <?= $game->game_home_power; ?>
+                    </td>
+                    <td
+                            class="text-center
                     <?php if ($game->game_home_power < $game->game_guest_power) : ?>
                         font-green
                     <?php elseif ($game->game_home_power > $game->game_guest_power) : ?>
                         font-red
                     <?php endif; ?>"
-                >
-                    <?= $game->game_guest_power; ?>
-                </td>
-            </tr>
-        </table>
+                    >
+                        <?= $game->game_guest_power; ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
     <div class="row margin-top">
         <?php for ($i = 0; $i < 2; $i++) : ?>
             <?php
@@ -358,29 +358,29 @@ use yii\helpers\Html;
                             <td class="hidden-xs text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_age; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_power_nominal; ?>
                             </td>
                             <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_power_real; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_penalty; ?>
                             </td>
-                            <td class="hidden-xs text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_shot; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?php if (Position::GK == $game->$lineupArray[$j]->lineup_position_id) : ?>
                                     <?= $game->$lineupArray[$j]->lineup_pass; ?>
                                 <?php else : ?>
                                     <?= $game->$lineupArray[$j]->lineup_score; ?>
                                 <?php endif; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_assist; ?>
                             </td>
-                            <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $game->$lineupArray[$j]->lineup_plus_minus; ?>
                             </td>
                         </tr>
@@ -486,13 +486,13 @@ use yii\helpers\Html;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <span class="strong">Последние комментарии:</span>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            Всего комментариев: <?= $total; ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                Всего комментариев: <?= $total; ?>
+            </div>
         </div>
-    </div>
         <?php foreach ($gamecomment_array as $item) { ?>
             <div class="row border-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
