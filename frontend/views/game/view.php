@@ -367,7 +367,7 @@ use yii\helpers\Html;
                                 <?= $game->$lineupArray[$j]->lineup_shot; ?>
                             </td>
                             <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?php if (Position::GK == $game->$lineupArray[$j]->position_id) : ?>
+                                <?php if (Position::GK == $game->$lineupArray[$j]->lineup_position_id) : ?>
                                     <?= $game->$lineupArray[$j]->lineup_pass; ?>
                                 <?php else : ?>
                                     <?= $game->$lineupArray[$j]->lineup_score; ?>
