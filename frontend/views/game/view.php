@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use common\models\Position;
 use yii\helpers\Html;
 
 /**
@@ -344,7 +345,7 @@ use yii\helpers\Html;
                         <?php $power = $power + $game->$lineupArray[$j]->lineup_power_real; ?>
                         <tr>
                             <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->position_short; ?>
+                                <?= $game->$lineupArray[$j]->position->position_name; ?>
                             </td>
                             <td <?php if (0 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
                                 <?= $game->$lineupArray[$j]->player->playerLink(); ?>
@@ -366,7 +367,7 @@ use yii\helpers\Html;
                                 <?= $game->$lineupArray[$j]->lineup_shot; ?>
                             </td>
                             <td class="text-center <?php if (0 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?php if (1 == $game->$lineupArray[$j]->position_id) : ?>
+                                <?php if (Position::GK == $game->$lineupArray[$j]->position_id) : ?>
                                     <?= $game->$lineupArray[$j]->lineup_pass; ?>
                                 <?php else : ?>
                                     <?= $game->$lineupArray[$j]->lineup_score; ?>
