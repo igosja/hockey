@@ -2,9 +2,16 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\Event;
 use common\models\Game;
+use common\models\GameComment;
+use common\models\User;
+use common\models\UserRole;
+use Throwable;
+use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\Response;
 
 /**
  * Class GameController
@@ -57,6 +64,7 @@ class GameController extends AbstractController
     /**
      * @param int $id
      * @return string|\yii\web\Response
+     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id)
@@ -71,6 +79,15 @@ class GameController extends AbstractController
             return $this->redirect(['game/preview', 'id' => $id]);
         }
 
+        $model = new GameComment();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->game_comment_game_id = $id;
+            if ($model->save()) {
+                $this->setSuccessFlash('Комментарий успешно сохранён');
+                return $this->refresh();
+            }
+        }
+
         $query = Event::find()
             ->where(['event_game_id' => $id])
             ->orderBy(['event_id' => SORT_ASC]);
@@ -81,11 +98,60 @@ class GameController extends AbstractController
             'sort' => false,
         ]);
 
+        $query = GameComment::find()
+            ->where(['game_comment_game_id' => $id])
+            ->orderBy(['game_comment_id' => SORT_ASC]);
+
+        $commentDataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => false,
+        ]);
+
         $this->setSeoTitle('Матч');
 
         return $this->render('view', [
+            'commentDataProvider' => $commentDataProvider,
             'eventDataProvider' => $eventDataProvider,
             'game' => $game,
+            'model' => $model,
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @param int $gameId
+     * @return Response
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionDeleteComment(int $id, int $gameId): Response
+    {
+        if (Yii::$app->user->isGuest) {
+            $this->forbiddenRole();
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+        if (UserRole::ADMIN != $user->user_user_role_id) {
+            $this->forbiddenRole();
+        }
+
+        $model = GameComment::find()
+            ->where(['game_comment_id' => $id, 'game_comment_game_id' => $gameId])
+            ->limit(1)
+            ->one();
+
+        $this->notFound($model);
+
+        try {
+            $model->delete();
+            $this->setSuccessFlash('Комментарий успешно удалён.');
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $this->redirect(['game/view', 'id' => $gameId]);
     }
 }

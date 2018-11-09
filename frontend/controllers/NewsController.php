@@ -53,7 +53,8 @@ class NewsController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string|Response
+     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id)

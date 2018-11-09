@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class GameComment
  * @package common\models
@@ -12,6 +14,8 @@ namespace common\models;
  * @property int $game_comment_game_id
  * @property string $game_comment_text
  * @property int $game_comment_user_id
+ *
+ * @property User $user
  */
 class GameComment extends AbstractActiveRecord
 {
@@ -43,5 +47,13 @@ class GameComment extends AbstractActiveRecord
             [['game_comment_text'], 'safe'],
             [['game_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id']);
     }
 }
