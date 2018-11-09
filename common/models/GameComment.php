@@ -36,7 +36,7 @@ class GameComment extends AbstractActiveRecord
             [
                 [
                     'game_comment_id',
-                    '$game_comment_check',
+                    'game_comment_check',
                     'game_comment_date',
                     'game_comment_game_id',
                     'game_comment_user_id',
