@@ -124,7 +124,7 @@ class GameResult
                 'guest_team_id' => $this->game->game_guest_team_id,
                 'home_bonus' => 1,
                 'home_national_id' => $this->game->game_home_national_id,
-                'home_team_id' => $this->game->game_guest_team_id,
+                'home_team_id' => $this->game->game_home_team_id,
                 'tournament_type_id' => $this->game->schedule->schedule_tournament_type_id,
             ],
             'guest' => $teamArray,
@@ -1728,7 +1728,6 @@ class GameResult
      */
     private function eventScore($team): void
     {
-
         if ('home' == $team) {
             $second = rand(30, 44);
         } else {
