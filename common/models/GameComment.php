@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -47,6 +49,22 @@ class GameComment extends AbstractActiveRecord
             [['game_comment_text'], 'safe'],
             [['game_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->game_comment_date = HockeyHelper::unixTimeStamp();
+            $this->game_comment_user_id = Yii::$app->user->id;
+        }
+        return true;
     }
 
     /**
