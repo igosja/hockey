@@ -14,6 +14,7 @@ use common\models\Position;
 class FillLineup
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -43,9 +44,11 @@ class FillLineup
                 }
 
                 for ($j = 0; $j < Lineup::GAME_QUANTITY; $j++) {
-                    if (in_array($j, [0, 2, 3, 4, 5, 6])) {
+                    if (in_array($j, [0])) {
+                        $lineId = 0;
+                    } elseif (in_array($j, [1, 2, 3, 4, 5, 6])) {
                         $lineId = 1;
-                    } elseif (in_array($j, [1, 7, 8, 9, 10, 11])) {
+                    } elseif (in_array($j, [7, 8, 9, 10, 11])) {
                         $lineId = 2;
                     } elseif (in_array($j, [12, 13, 14, 15, 16])) {
                         $lineId = 3;

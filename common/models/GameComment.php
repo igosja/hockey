@@ -72,6 +72,6 @@ class GameComment extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id'])->cache();
     }
 }

@@ -72,8 +72,8 @@ class LineupController extends AbstractController
 
         $substitutionArray = [
             [
+                ['line_id' => 0, 'position_id' => Position::GK],
                 ['line_id' => 1, 'position_id' => Position::GK],
-                ['line_id' => 2, 'position_id' => Position::GK],
             ],
             [
                 ['line_id' => 1, 'position_id' => Position::LD],
@@ -120,6 +120,7 @@ class LineupController extends AbstractController
     /**
      * @param $id
      * @return array|string|Response
+     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionTactic($id)

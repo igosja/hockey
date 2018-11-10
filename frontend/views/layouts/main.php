@@ -128,7 +128,6 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
                 Страница сгенерирована за <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> сек,
-                <?= Yii::getLogger()->getDbProfiling()[0]; ?> запр.
                 <br/>
                 Потребление памяти - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?> Б
                 <br/>

@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use common\models\Event;
 use common\models\Game;
 use common\models\GameComment;
+use common\models\Lineup;
 use common\models\User;
 use common\models\UserRole;
 use Throwable;
@@ -88,7 +89,57 @@ class GameController extends AbstractController
             }
         }
 
+        $lineupGuest = Lineup::find()
+            ->with([
+                'player',
+                'player.name',
+                'player.surname',
+                'position',
+            ])
+            ->where([
+                'lineup_game_id' => $id,
+                'lineup_national_id' => $game->game_guest_national_id,
+                'lineup_team_id' => $game->game_guest_team_id,
+            ])
+            ->orderBy(['lineup_line_id' => SORT_ASC, 'lineup_position_id' => SORT_ASC])
+            ->all();
+
+        $lineupHome = Lineup::find()
+            ->with([
+                'player',
+                'player.name',
+                'player.surname',
+                'position',
+            ])
+            ->where([
+                'lineup_game_id' => $id,
+                'lineup_national_id' => $game->game_home_national_id,
+                'lineup_team_id' => $game->game_home_team_id,
+            ])
+            ->orderBy(['lineup_line_id' => SORT_ASC, 'lineup_position_id' => SORT_ASC])
+            ->all();
+
         $query = Event::find()
+            ->with([
+                'eventTextGoal',
+                'eventTextPenalty',
+                'eventTextShootout',
+                'eventType',
+                'national',
+                'playerAssist1',
+                'playerAssist1.name',
+                'playerAssist1.surname',
+                'playerAssist2',
+                'playerAssist2.name',
+                'playerAssist2.surname',
+                'playerPenalty',
+                'playerPenalty.name',
+                'playerPenalty.surname',
+                'playerScore',
+                'playerScore.name',
+                'playerScore.surname',
+                'team',
+            ])
             ->where(['event_game_id' => $id])
             ->orderBy(['event_id' => SORT_ASC]);
 
@@ -99,6 +150,7 @@ class GameController extends AbstractController
         ]);
 
         $query = GameComment::find()
+            ->with(['user'])
             ->where(['game_comment_game_id' => $id])
             ->orderBy(['game_comment_id' => SORT_ASC]);
 
@@ -113,6 +165,8 @@ class GameController extends AbstractController
             'commentDataProvider' => $commentDataProvider,
             'eventDataProvider' => $eventDataProvider,
             'game' => $game,
+            'lineupGuest' => $lineupGuest,
+            'lineupHome' => $lineupHome,
             'model' => $model,
         ]);
     }

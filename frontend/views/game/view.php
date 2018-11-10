@@ -15,6 +15,8 @@ use yii\widgets\ListView;
  * @var \yii\data\ActiveDataProvider $eventDataProvider
  * @var \common\models\Game $game
  * @var \common\models\GameComment $model
+ * @var \common\models\Lineup[] $lineupGuest
+ * @var \common\models\Lineup[] $lineupHome
  * @var \common\models\User $user
  */
 
@@ -100,87 +102,87 @@ $user = Yii::$app->user->identity;
             <table class="table table-bordered">
                 <tr>
                     <td class="col-35 text-center">
-                        <span title="Первое звено"><?= $game->game_home_tactic_id_1; ?></span>
+                        <span title="Первое звено"><?= $game->tacticHome1->tactic_name; ?></span>
                         |
-                        <span title="Второе звено"><?= $game->game_home_tactic_id_2; ?></span>
+                        <span title="Второе звено"><?= $game->tacticHome2->tactic_name; ?></span>
                         |
-                        <span title="Третье звено"><?= $game->game_home_tactic_id_3; ?></span>
+                        <span title="Третье звено"><?= $game->tacticHome3->tactic_name; ?></span>
                         |
-                        <span title="Четвёртое звено"><?= $game->game_home_tactic_id_4; ?></span>
+                        <span title="Четвёртое звено"><?= $game->tacticHome4->tactic_name; ?></span>
                     </td>
                     <td class="text-center">Тактика</td>
                     <td class="col-35 text-center">
-                        <span title="Первое звено"><?= $game->game_guest_tactic_id_1; ?></span>
+                        <span title="Первое звено"><?= $game->tacticGuest1->tactic_name; ?></span>
                         |
-                        <span title="Второе звено"><?= $game->game_guest_tactic_id_2; ?></span>
+                        <span title="Второе звено"><?= $game->tacticGuest2->tactic_name; ?></span>
                         |
-                        <span title="Третье звено"><?= $game->game_guest_tactic_id_3; ?></span>
+                        <span title="Третье звено"><?= $game->tacticGuest3->tactic_name; ?></span>
                         |
-                        <span title="Четвёртое звено"><?= $game->game_guest_tactic_id_4; ?></span>
+                        <span title="Четвёртое звено"><?= $game->tacticGuest4->tactic_name; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">
                     <span class="<?= $game->cssStyle('home', 1); ?>" title="Первое звено">
-                        <?= $game->game_home_style_id_1; ?>
+                        <?= $game->styleHome1->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('home', 2); ?>" title="Второе звено">
-                        <?= $game->game_home_style_id_2; ?>
+                        <?= $game->styleHome2->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('home', 3); ?>" title="Третье звено">
-                        <?= $game->game_home_style_id_3; ?>
+                        <?= $game->styleHome3->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('home', 4); ?>" title="Четвёртое звено">
-                        <?= $game->game_home_style_id_4; ?>
+                        <?= $game->styleHome4->style_name; ?>
                     </span>
                     </td>
                     <td class="text-center">Стиль</td>
                     <td class="text-center">
                     <span class="<?= $game->cssStyle('guest', 1); ?>" title="Первое звено">
-                        <?= $game->game_guest_style_id_1; ?>
+                        <?= $game->styleGuest1->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('guest', 2); ?>" title="Второе звено">
-                        <?= $game->game_guest_style_id_2; ?>
+                        <?= $game->styleGuest2->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('guest', 3); ?>" title="Третье звено">
-                        <?= $game->game_guest_style_id_3; ?>
+                        <?= $game->styleGuest3->style_name; ?>
                     </span>
                         |
                         <span class="<?= $game->cssStyle('guest', 4); ?>" title="Четвёртое звено">
-                        <?= $game->game_guest_style_id_4; ?>
+                        <?= $game->styleGuest4->style_name; ?>
                     </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">
-                        <span title="Первое звено"><?= $game->game_home_rudeness_id_1; ?></span> |
-                        <span title="Второе звено"><?= $game->game_home_rudeness_id_2; ?></span> |
-                        <span title="Третье звено"><?= $game->game_home_rudeness_id_3; ?></span> |
-                        <span title="Четвёртое звено"><?= $game->game_home_rudeness_id_4; ?></span>
+                        <span title="Первое звено"><?= $game->rudenessHome1->rudeness_name; ?></span> |
+                        <span title="Второе звено"><?= $game->rudenessHome2->rudeness_name; ?></span> |
+                        <span title="Третье звено"><?= $game->rudenessHome3->rudeness_name; ?></span> |
+                        <span title="Четвёртое звено"><?= $game->rudenessHome4->rudeness_name; ?></span>
                     </td>
                     <td class="text-center">Грубость</td>
                     <td class="text-center">
-                        <span title="Первое звено"><?= $game->game_guest_rudeness_id_1; ?></span> |
-                        <span title="Второе звено"><?= $game->game_guest_rudeness_id_2; ?></span> |
-                        <span title="Третье звено"><?= $game->game_guest_rudeness_id_3; ?></span> |
-                        <span title="Четвёртое звено"><?= $game->game_guest_rudeness_id_4; ?></span>
+                        <span title="Первое звено"><?= $game->rudenessGuest1->rudeness_name; ?></span> |
+                        <span title="Второе звено"><?= $game->rudenessGuest2->rudeness_name; ?></span> |
+                        <span title="Третье звено"><?= $game->rudenessGuest3->rudeness_name; ?></span> |
+                        <span title="Четвёртое звено"><?= $game->rudenessGuest4->rudeness_name; ?></span>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">
                     <span class="<?= $game->cssMood('home'); ?>">
-                        <?= $game->game_home_mood_id; ?>
+                        <?= $game->moodHome->mood_name; ?>
                     </span>
                     </td>
                     <td class="text-center">Настрой</td>
                     <td class="text-center">
                     <span class="<?= $game->cssMood('guest'); ?>">
-                        <?= $game->game_guest_mood_id; ?>
+                        <?= $game->moodGuest->mood_name; ?>
                     </span>
                     </td>
                 </tr>
@@ -309,13 +311,13 @@ $user = Yii::$app->user->identity;
         <?php for ($i = 0; $i < 2; $i++) : ?>
             <?php
             if (0 == $i) {
-                $team = 'teamHome';
-                $national = 'nationalHome';
-                $lineupArray = 'lineupHome';
+                $team = $game->teamHome;
+                $national = $game->nationalHome;
+                $lineupArray = $lineupHome;
             } else {
-                $team = 'teamGuest';
-                $national = 'nationalGuest';
-                $lineupArray = 'lineupGuest';
+                $team = $game->teamGuest;
+                $national = $game->nationalGuest;
+                $lineupArray = $lineupGuest;
             }
             ?>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
@@ -323,7 +325,7 @@ $user = Yii::$app->user->identity;
                     <tr>
                         <th title="Позиция">П</th>
                         <th>
-                            <?= HockeyHelper::teamOrNationalLink($game->$team, $game->$national, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($team, $national, false); ?>
                         </th>
                         <th class="hidden-xs" title="Возраст">В</th>
                         <th class="hidden-xs" title="Номинальная сила">НС</th>
@@ -335,7 +337,7 @@ $user = Yii::$app->user->identity;
                         <th title="Плюс/минус">+/-</th>
                     </tr>
                     <?php $power = 0; ?>
-                    <?php for ($j = 0, $countLineup = count($game->$lineupArray); $j < $countLineup; $j++) : ?>
+                    <?php for ($j = 0, $countLineup = count($lineupArray); $j < $countLineup; $j++) : ?>
                         <?php if (in_array($j, [2, 7, 12, 17])) : ?>
                             <tr>
                                 <td class="text-center text-size-2" colspan="10">
@@ -353,42 +355,42 @@ $user = Yii::$app->user->identity;
                             </tr>
                             <?php $power = 0; ?>
                         <?php endif; ?>
-                        <?php $power = $power + $game->$lineupArray[$j]->lineup_power_real; ?>
+                        <?php $power = $power + $lineupArray[$j]->lineup_power_real; ?>
                         <tr>
                             <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->position->position_name; ?>
+                                <?= $lineupArray[$j]->position->position_name; ?>
                             </td>
                             <td <?php if (1 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
-                                <?= $game->$lineupArray[$j]->player->playerLink(); ?>
-                                <?= $game->$lineupArray[$j]->iconPowerChange(); ?>
+                                <?= $lineupArray[$j]->player->playerLink(); ?>
+                                <?= $lineupArray[$j]->iconPowerChange(); ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_age; ?>
+                                <?= $lineupArray[$j]->lineup_age; ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_power_nominal; ?>
+                                <?= $lineupArray[$j]->lineup_power_nominal; ?>
                             </td>
                             <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_power_real; ?>
+                                <?= $lineupArray[$j]->lineup_power_real; ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_penalty; ?>
+                                <?= $lineupArray[$j]->lineup_penalty; ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_shot; ?>
+                                <?= $lineupArray[$j]->lineup_shot; ?>
                             </td>
                             <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?php if (Position::GK == $game->$lineupArray[$j]->lineup_position_id) : ?>
-                                    <?= $game->$lineupArray[$j]->lineup_pass; ?>
+                                <?php if (Position::GK == $lineupArray[$j]->lineup_position_id) : ?>
+                                    <?= $lineupArray[$j]->lineup_pass; ?>
                                 <?php else : ?>
-                                    <?= $game->$lineupArray[$j]->lineup_score; ?>
+                                    <?= $lineupArray[$j]->lineup_score; ?>
                                 <?php endif; ?>
                             </td>
                             <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_assist; ?>
+                                <?= $lineupArray[$j]->lineup_assist; ?>
                             </td>
                             <td class="text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
-                                <?= $game->$lineupArray[$j]->lineup_plus_minus; ?>
+                                <?= $lineupArray[$j]->lineup_plus_minus; ?>
                             </td>
                         </tr>
                         <?php if (in_array($j, [6, 11, 16, 21])) : ?>
@@ -448,7 +450,7 @@ $user = Yii::$app->user->identity;
                         if ($model->eventTextShootout) {
                             $result = $result . $model->eventTextShootout->event_text_shootout_text;
                         }
-                        if ($model->event_player_penalty_id) {
+                        if ($model->playerPenalty) {
                             $result = $result . ' Удаление - ' . $model->playerPenalty->playerLink();
                         }
                         if ($model->playerScore) {
