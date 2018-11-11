@@ -11,12 +11,12 @@ use common\models\Logo;
 use common\models\News;
 use common\models\NewsComment;
 use common\models\Payment;
+use common\models\Poll;
+use common\models\PollStatus;
 use common\models\Review;
 use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
-use common\models\Vote;
-use common\models\VoteStatus;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
@@ -80,7 +80,7 @@ class SiteController extends AbstractController
         $review = Review::find()->where(['review_check' => 0])->count();
         $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
-        $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
+        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
 
         $countModeration = 0;
         $countModeration = $countModeration + $forumMessage;
@@ -105,7 +105,7 @@ class SiteController extends AbstractController
             ->orderBy(['payment_id' => SORT_DESC])
             ->all();
 
-        $this->view->title = 'Admin';
+        $this->view->title = 'Административный раздел';
 
         return $this->render('index', [
             'complaint' => $complaint,
@@ -120,10 +120,10 @@ class SiteController extends AbstractController
             'paymentArray' => $paymentArray,
             'paymentCategories' => $paymentCategories,
             'paymentData' => $paymentData,
+            'poll' => $poll,
             'review' => $review,
             'support' => $support,
             'transferComment' => $transferComment,
-            'vote' => $vote,
         ]);
     }
 

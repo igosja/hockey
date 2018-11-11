@@ -80,10 +80,42 @@ class NewsComment extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function addComment(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+        if ($user->user_date_block_comment_news >= time()) {
+            return false;
+        }
+        if ($user->user_date_block_comment >= time()) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->news_comment_news_id = Yii::$app->request->get('id');
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id'])->cache(0);
     }
 }

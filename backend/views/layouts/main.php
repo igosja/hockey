@@ -122,7 +122,7 @@ AppAsset::register($this);
                             'url' => ['president/index'],
                         ],
                         [
-                            'label' => 'Теренеры сборных',
+                            'label' => 'Тренеры сборных',
                             'url' => ['coach/index'],
                         ],
                         [
@@ -173,10 +173,6 @@ AppAsset::register($this);
                 [
                     'label' => 'Правила',
                     'url' => ['rule/index'],
-                ],
-                [
-                    'label' => 'Типы турниров',
-                    'url' => ['tournament-type/index'],
                 ],
                 [
                     'label' => 'Опросы',

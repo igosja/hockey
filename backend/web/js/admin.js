@@ -16,7 +16,7 @@ function admin_bell() {
             let titleText = seoTitle.text().split(')');
             $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
-                seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length]);
+                seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length - 1]);
             } else {
                 seoTitle.text(titleText[titleText.length]);
             }
@@ -28,11 +28,11 @@ function admin_bell() {
                 $('.panel-support').hide();
             }
 
-            $('.admin-vote').html(data.vote);
-            if (data.vote > 0) {
-                $('.panel-vote').show();
+            $('.admin-poll').html(data.poll);
+            if (data.poll > 0) {
+                $('.panel-poll').show();
             } else {
-                $('.panel-vote').hide();
+                $('.panel-poll').hide();
             }
 
             $('.admin-logo').html(data.logo);

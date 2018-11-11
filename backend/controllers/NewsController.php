@@ -33,6 +33,7 @@ class NewsController extends AbstractController
 
     /**
      * @return string|\yii\web\Response
+     * @throws \Exception
      */
     public function actionCreate()
     {
@@ -40,7 +41,7 @@ class NewsController extends AbstractController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash();
-            return $this->redirect(['view', 'id' => $model->news_id]);
+            return $this->redirect(['news/view', 'id' => $model->news_id]);
         }
 
         $this->view->title = 'Создание новости';
@@ -55,6 +56,7 @@ class NewsController extends AbstractController
     /**
      * @param int $id
      * @return string|\yii\web\Response
+     * @throws \Exception
      */
     public function actionUpdate(int $id)
     {
@@ -62,7 +64,7 @@ class NewsController extends AbstractController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash();
-            return $this->redirect(['view', 'id' => $model->news_id]);
+            return $this->redirect(['news/view', 'id' => $model->news_id]);
         }
 
         $this->view->title = 'Редактирование новости';

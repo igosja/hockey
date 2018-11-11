@@ -35,10 +35,10 @@ $user = Yii::$app->user->identity;
 
         ?>
         -
-        <?= Html::a($news->user->user_login, ['user/view', 'id' => $news->user->user_id], ['class' => 'strong']); ?>
+        <?= Html::a($news->user->user_login, ['user/view', 'id' => $news->news_user_id], ['class' => 'strong']); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $news->text(); ?>
+        <?= $news->news_text; ?>
     </div>
 </div>
 <div class="row margin-top">
@@ -114,7 +114,7 @@ $user = Yii::$app->user->identity;
             ],
         ]); ?>
         <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
-        <div class="row margin-top-small">
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>
             </div>

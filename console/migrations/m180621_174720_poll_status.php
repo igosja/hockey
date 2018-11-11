@@ -3,11 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Class m180623_094455_vote_status
+ * Class m180621_174720_poll_status
  */
-class m180623_094455_vote_status extends Migration
+class m180621_174720_poll_status extends Migration
 {
-    const TABLE = '{{%vote_status}}';
+    const TABLE = '{{%poll_status}}';
 
     /**
      * @return bool|void
@@ -15,11 +15,11 @@ class m180623_094455_vote_status extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'vote_status_id' => $this->primaryKey(1),
-            'vote_status_name' => $this->string(25),
+            'poll_status_id' => $this->primaryKey(1),
+            'poll_status_name' => $this->string(25),
         ]);
 
-        $this->batchInsert(self::TABLE, ['vote_status_name'], [
+        $this->batchInsert(self::TABLE, ['poll_status_name'], [
             ['Ожидает проверки'],
             ['Открыто'],
             ['Закрыто'],

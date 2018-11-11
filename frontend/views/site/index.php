@@ -77,11 +77,11 @@ use yii\helpers\Html;
                         <span class="strong"><?= $news->news_title; ?></span>
                     </p>
                     <p class="text-justify">
-                        <?= $news->text(); ?>
+                        <?= $news->news_text; ?>
                     </p>
                     <?= Html::a(
                         $news->user->user_login,
-                        ['user/view', 'id' => $news->user->user_id]
+                        ['user/view', 'id' => $news->news_user_id]
                     ); ?>
                     <p class="text-justify text-size-3">
                         [<?= Html::a('Подробнее', ['news/index']); ?>]

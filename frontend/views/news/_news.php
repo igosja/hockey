@@ -25,7 +25,7 @@ use yii\helpers\Html;
         -
         <?= Html::a(
             $model->user->user_login,
-            ['user/view', 'id' => $model->user->user_id],
+            ['user/view', 'id' => $model->news_user_id],
             ['class' => 'strong']
         ); ?>
         -
@@ -36,6 +36,6 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $model->text(); ?>
+        <?= $model->news_text; ?>
     </div>
 </div>

@@ -3,11 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Class m180623_094306_vote_answer
+ * Class m180621_174710_poll_answer
  */
-class m180623_094306_vote_answer extends Migration
+class m180621_174710_poll_answer extends Migration
 {
-    const TABLE = '{{%vote_answer}}';
+    const TABLE = '{{%poll_answer}}';
 
     /**
      * @return bool|void
@@ -15,9 +15,9 @@ class m180623_094306_vote_answer extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'vote_answer_id' => $this->primaryKey(11),
-            'vote_answer_text' => $this->text(),
-            'vote_answer_vote_id' => $this->integer(11)->defaultValue(0),
+            'poll_answer_id' => $this->primaryKey(11),
+            'poll_answer_text' => $this->text(),
+            'poll_answer_poll_id' => $this->integer(11)->defaultValue(0),
         ]);
     }
 

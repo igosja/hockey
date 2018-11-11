@@ -2,15 +2,15 @@
 
 namespace backend\models;
 
-use common\models\News;
+use common\models\Poll;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class NewsSearch
+ * Class PollSearch
  * @package backend\models
  */
-class NewsSearch extends News
+class PollSearch extends Poll
 {
     /**
      * @return array
@@ -18,8 +18,8 @@ class NewsSearch extends News
     public function rules(): array
     {
         return [
-            [['news_id'], 'integer'],
-            [['news_title'], 'safe'],
+            [['poll_id'], 'integer'],
+            [['poll_text'], 'safe'],
         ];
     }
 
@@ -37,7 +37,7 @@ class NewsSearch extends News
      */
     public function search($params): ActiveDataProvider
     {
-        $query = News::find()->select(['news_id', 'news_date', 'news_title']);
+        $query = Poll::find()->select(['poll_id', 'poll_date', 'poll_text']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -48,8 +48,8 @@ class NewsSearch extends News
         }
 
         $query
-            ->andFilterWhere(['news_id' => $this->news_id])
-            ->andFilterWhere(['like', 'news_title', $this->news_title]);
+            ->andFilterWhere(['poll_id' => $this->poll_id])
+            ->andFilterWhere(['like', 'poll_text', $this->poll_text]);
 
         return $dataProvider;
     }

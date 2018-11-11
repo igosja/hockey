@@ -87,7 +87,7 @@ class News extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery
     {
@@ -95,7 +95,7 @@ class News extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getNewsComment(): ActiveQuery
     {
@@ -103,10 +103,10 @@ class News extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'news_user_id'])->cache(0);
     }
 }

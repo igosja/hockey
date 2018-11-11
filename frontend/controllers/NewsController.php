@@ -63,12 +63,9 @@ class NewsController extends AbstractController
         $this->notFound($news);
 
         $model = new NewsComment();
-        if ($model->load(Yii::$app->request->post())) {
-            $model->news_comment_news_id = $id;
-            if ($model->save()) {
-                $this->setSuccessFlash('Комментарий успешно сохранён');
-                return $this->refresh();
-            }
+        if ($model->addComment()) {
+            $this->setSuccessFlash('Комментарий успешно сохранён');
+            return $this->refresh();
         }
 
         $query = NewsComment::find()
