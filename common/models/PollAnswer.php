@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class PollAnswer
  * @package common\models
@@ -9,6 +11,8 @@ namespace common\models;
  * @property int $poll_answer_id
  * @property string $poll_answer_text
  * @property int $poll_answer_poll_id
+ *
+ * @property PollUser[] $pollUser
  */
 class PollAnswer extends AbstractActiveRecord
 {
@@ -43,5 +47,13 @@ class PollAnswer extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPollUser(): ActiveQuery
+    {
+        return $this->hasMany(PollUser::class, ['poll_user_poll_answer_id' => 'poll_answer_id']);
     }
 }

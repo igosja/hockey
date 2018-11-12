@@ -20,9 +20,13 @@ use yii\db\ActiveQuery;
  * @property int $poll_poll_status_id
  *
  * @property PollAnswer[] $pollAnswer
+ * @property PollStatus $pollStatus
+ * @property User $user
  */
 class Poll extends AbstractActiveRecord
 {
+    const PAGE_LIMIT = 10;
+
     /**
      * @var array $answer
      */
@@ -148,5 +152,21 @@ class Poll extends AbstractActiveRecord
     public function getPollAnswer(): ActiveQuery
     {
         return $this->hasMany(PollAnswer::class, ['poll_answer_poll_id' => 'poll_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPollStatus(): ActiveQuery
+    {
+        return $this->hasOne(PollStatus::class, ['poll_status_id' => 'poll_poll_status_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'poll_user_id']);
     }
 }
