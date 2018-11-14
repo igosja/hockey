@@ -8,6 +8,7 @@ use common\models\History;
 use common\models\Lineup;
 use common\models\Loan;
 use common\models\Player;
+use common\models\Position;
 use common\models\Season;
 use common\models\Squad;
 use common\models\Transfer;
@@ -15,6 +16,7 @@ use frontend\models\LoanApplicationFrom;
 use frontend\models\LoanApplicationTo;
 use frontend\models\LoanFrom;
 use frontend\models\LoanTo;
+use frontend\models\PlayerSearch;
 use frontend\models\TransferApplicationFrom;
 use frontend\models\TransferApplicationTo;
 use frontend\models\TransferFrom;
@@ -22,6 +24,8 @@ use frontend\models\TransferTo;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -31,6 +35,48 @@ use yii\widgets\ActiveForm;
  */
 class PlayerController extends AbstractController
 {
+    /**
+     * @return string
+     */
+    public function actionIndex(): string
+    {
+        $searchModel = new PlayerSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        $countryArray = ArrayHelper::map(
+            Player::find()
+                ->with([
+                    'country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->select(['player_country_id'])
+                ->groupBy(['player_country_id'])
+                ->orderBy(['player_country_id' => SORT_ASC])
+                ->all(),
+            'country.country_id',
+            'country.country_name'
+        );
+
+        $positionArray = ArrayHelper::map(
+            Position::find()
+                ->select(['position_id', 'position_name'])
+                ->orderBy(['position_id' => SORT_ASC])
+                ->all(),
+            'position_id',
+            'position_name'
+        );
+
+        $this->setSeoTitle('Список хоккеистов');
+
+        return $this->render('index', [
+            'countryArray' => $countryArray,
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+            'positionArray' => $positionArray,
+        ]);
+    }
+
     /**
      * @param integer $id
      * @return string
@@ -362,8 +408,9 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return bool
+     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionSquad(int $id): bool

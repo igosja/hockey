@@ -17,7 +17,6 @@ use yii\db\ActiveQuery;
  * @property int $country_president_vice_id
  * @property int $country_stadium_capacity
  *
- * @property City[] $city
  * @property User $vice
  */
 class Country extends AbstractActiveRecord
@@ -58,14 +57,6 @@ class Country extends AbstractActiveRecord
             [['country_name'], 'trim'],
             [['country_name'], 'unique'],
         ];
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getCity(): ActiveQuery
-    {
-        return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
     }
 
     /**

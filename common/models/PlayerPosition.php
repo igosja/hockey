@@ -8,7 +8,6 @@ use yii\db\ActiveQuery;
  * Class PlayerPosition
  * @package common\models
  *
- * @property int $player_position_id
  * @property int $player_position_player_id
  * @property int $player_position_position_id
  *
@@ -30,7 +29,7 @@ class PlayerPosition extends AbstractActiveRecord
     public function rules(): array
     {
         return [
-            [['player_position_id', 'player_position_player_id', 'player_position_position_id'], 'integer'],
+            [['player_position_player_id', 'player_position_position_id'], 'integer'],
             [['player_position_player_id', 'player_position_position_id'], 'required'],
         ];
     }

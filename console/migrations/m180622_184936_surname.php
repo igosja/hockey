@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m180622_183936_surname
  */
-class m180622_183936_surname extends Migration
+class m180622_184936_surname extends Migration
 {
     const TABLE = '{{%surname}}';
 

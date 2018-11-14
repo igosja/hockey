@@ -6,7 +6,6 @@ namespace common\models;
  * Class NameCountry
  * @package common\models
  *
- * @property int $name_country_id
  * @property int $name_country_country_id
  * @property int $name_country_name_id
  */
@@ -26,7 +25,7 @@ class NameCountry extends AbstractActiveRecord
     public function rules(): array
     {
         return [
-            [['name_country_id', 'name_country_country_id', 'name_country_name_id'], 'integer'],
+            [['name_country_country_id', 'name_country_name_id'], 'integer'],
             [['name_country_country_id', 'name_country_name_id'], 'required'],
         ];
     }

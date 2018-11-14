@@ -71,7 +71,7 @@ class Stadium extends AbstractActiveRecord
      */
     public function getCity(): ActiveQuery
     {
-        return $this->hasOne(City::class, ['city_id' => 'stadium_city_id']);
+        return $this->hasOne(City::class, ['city_id' => 'stadium_city_id'])->cache();
     }
 
     /**
@@ -79,6 +79,6 @@ class Stadium extends AbstractActiveRecord
      */
     public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id']);
+        return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id'])->cache();
     }
 }
