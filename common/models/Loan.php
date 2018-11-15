@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -73,6 +76,27 @@ class Loan extends AbstractActiveRecord
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function dealDate(): string
+    {
+        $today = strtotime(date('Y-m-d 12:00:00'));
+
+        if ($today < $this->loan_date + 86400 || $today < time()) {
+            $today = $today + 86400;
+        }
+
+        $result = '';
+        try {
+            $result = Yii::$app->formatter->asDate($today);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $result;
     }
 
     /**

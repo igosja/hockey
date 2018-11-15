@@ -35,8 +35,6 @@ use yii\db\ActiveQuery;
  */
 class Transfer extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 50;
-
     /**
      * @return string
      */

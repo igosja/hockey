@@ -2,23 +2,23 @@
 
 namespace frontend\controllers;
 
-use common\models\Transfer;
+use common\models\Loan;
 use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class TransferController
+ * Class LoanController
  * @package frontend\controllers
  */
-class TransferController extends AbstractController
+class LoanController extends AbstractController
 {
     /**
      * @return string
      */
     public function actionIndex(): string
     {
-        $query = Transfer::find()
-            ->where(['transfer_ready' => 0]);
+        $query = Loan::find()
+            ->where(['loan_ready' => 0]);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => [
@@ -27,7 +27,7 @@ class TransferController extends AbstractController
             'query' => $query,
         ]);
 
-        $this->setSeoTitle('Трансфер хоккеистов');
+        $this->setSeoTitle('Аренда хоккеистов');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider

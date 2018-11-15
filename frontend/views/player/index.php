@@ -94,6 +94,8 @@ use yii\widgets\ActiveForm;
                 'class' => 'form-control',
                 'placeholder' => 'Цена, до',
                 'type' => 'number',
+
+
             ]); ?>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
