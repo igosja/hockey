@@ -13,7 +13,7 @@ use yii\db\ActiveQuery;
  * @property string $city_name
  *
  * @property Country $country
- * @property Stadium $stadium
+ * @property Stadium[] $stadium
  */
 class City extends AbstractActiveRecord
 {
