@@ -84,7 +84,6 @@ return [
                 'login' => 'site/login',
                 'password' => 'site/password',
                 'password-restore' => 'site/password-restore',
-                'rating/<id:\d+>' => 'rating/index',
                 'sign-up' => 'site/sign-up',
                 '<controller:\w+>/p/<page:\d+>/pp/<per-page:\d+>' => '<controller>/index',
                 '<controller:\w+>/p/<page:\d+>' => '<controller>/index',
