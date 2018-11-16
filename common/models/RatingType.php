@@ -8,6 +8,7 @@ namespace common\models;
  *
  * @property int $rating_type_id
  * @property string $rating_type_name
+ * @property string $rating_type_order
  * @property int $rating_type_rating_chapter_id
  */
 class RatingType extends AbstractActiveRecord

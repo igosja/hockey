@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class RatingTeam
  * @package common\models
@@ -26,6 +28,8 @@ namespace common\models;
  * @property int $rating_team_team_id
  * @property int $rating_team_visitor_place
  * @property int $rating_team_visitor_place_country
+ *
+ * @property Team $team
  */
 class RatingTeam extends AbstractActiveRecord
 {
@@ -69,5 +73,13 @@ class RatingTeam extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'rating_team_team_id']);
     }
 }
