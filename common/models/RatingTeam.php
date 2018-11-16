@@ -80,6 +80,6 @@ class RatingTeam extends AbstractActiveRecord
      */
     public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'rating_team_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'rating_team_team_id'])->cache();
     }
 }

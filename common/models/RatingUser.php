@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class RatingUser
  * @package common\models
@@ -9,6 +11,8 @@ namespace common\models;
  * @property int $rating_user_id
  * @property int $rating_user_rating_place
  * @property int $rating_user_user_id
+ *
+ * @property User $user
  */
 class RatingUser extends AbstractActiveRecord
 {
@@ -35,5 +39,13 @@ class RatingUser extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'rating_user_user_id'])->cache();
     }
 }

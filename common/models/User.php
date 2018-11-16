@@ -8,6 +8,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\helpers\Html;
 use yii\web\IdentityInterface;
 
 /**
@@ -58,6 +59,7 @@ use yii\web\IdentityInterface;
  * @property string $user_surname
  * @property int $user_user_role_id
  *
+ * @property Country $country
  * @property BlockReason $reasonBlockComment
  * @property BlockReason $reasonBlockCommentDeal
  * @property BlockReason $reasonBlockCommentGame
@@ -321,6 +323,22 @@ class User extends AbstractActiveRecord implements IdentityInterface
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function userLink(): string
+    {
+        return Html::a($this->user_login, ['user/view', 'id' => $this->user_id]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'user_country_id']);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
+use yii\helpers\Html;
 
 /**
  * Class Country
@@ -17,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property int $country_president_vice_id
  * @property int $country_stadium_capacity
  *
+ * @property City[] $city
  * @property User $vice
  */
 class Country extends AbstractActiveRecord
@@ -57,6 +59,36 @@ class Country extends AbstractActiveRecord
             [['country_name'], 'trim'],
             [['country_name'], 'unique'],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function countryImage(): string
+    {
+        return Html::img(
+            '/img/country/12/' . $this->country_id . '.png',
+            [
+                'alt' => $this->country_name,
+                'title' => $this->country_name,
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function countryLink(): string
+    {
+        return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCity(): ActiveQuery
+    {
+        return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
     }
 
     /**

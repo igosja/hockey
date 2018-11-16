@@ -88,6 +88,4 @@ class StatisticChapter extends AbstractActiveRecord
     {
         return $this->hasMany(StatisticType::class, ['statistic_type_statistic_chapter_id' => 'statistic_chapter_id']);
     }
-
-
 }
