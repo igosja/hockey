@@ -27,7 +27,7 @@ class RatingController extends AbstractController
             ->all();
 
         $ratingType = RatingType::find()
-            ->where(['id' => $id])
+            ->where(['rating_type_id' => $id])
             ->one();
         $this->notFound($ratingType);
 
