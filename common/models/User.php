@@ -66,6 +66,7 @@ use yii\web\IdentityInterface;
  * @property BlockReason $reasonBlockCommentNews
  * @property BlockReason $reasonBlockForum
  * @property User $referrer
+ * @property Sex $sex
  * @property Team[] $team
  */
 class User extends AbstractActiveRecord implements IdentityInterface
@@ -270,7 +271,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      */
     public function fullName(): string
     {
-        $result = 'New Manager';
+        $result = 'Новый менеджер';
         if ($this->user_name || $this->user_surname) {
             $result = $this->user_name . ' ' . $this->user_surname;
         }
@@ -293,7 +294,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             $difference = $now - $date;
             $difference = $difference / 60;
             $difference = round($difference, 0);
-            $date = $difference . ' min ago';
+            $date = $difference . ' минут назад';
         } elseif (0 == $date) {
             $date = '-';
         } else {
@@ -306,6 +307,20 @@ class User extends AbstractActiveRecord implements IdentityInterface
         }
 
         return $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function birthDay(): string
+    {
+        if ($this->user_birth_day && $this->user_birth_day && $this->user_birth_year) {
+            $result = $this->user_birth_day . '.' . $this->user_birth_month . '.' . $this->user_birth_year;
+        } else {
+            $result = 'Не указан';
+        }
+
+        return $result;
     }
 
     /**
@@ -331,6 +346,27 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function userLink(): string
     {
         return Html::a($this->user_login, ['user/view', 'id' => $this->user_id]);
+    }
+
+    public function userFrom(): string
+    {
+        $countryName = $this->country->country_name;
+
+        if ($this->country) {
+            $countryName = '';
+        }
+
+        if ($this->user_city && $countryName) {
+            $result = $this->user_city . ', ' . $countryName;
+        } elseif ($this->user_city) {
+            $result = $this->user_city;
+        } elseif ($countryName) {
+            $result = $countryName;
+        } else {
+            $result = 'Не указано';
+        }
+
+        return $result;
     }
 
     /**
@@ -387,6 +423,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function getReferrer(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'user_referrer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSex(): ActiveQuery
+    {
+        return $this->hasOne(Sex::class, ['sex_id' => 'user_sex_id']);
     }
 
     /**

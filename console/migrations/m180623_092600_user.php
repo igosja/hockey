@@ -53,7 +53,7 @@ class m180623_092600_user extends Migration
             'user_rating' => $this->decimal(6, 2)->defaultValue(500),
             'user_referrer_done' => $this->integer(1)->defaultValue(0),
             'user_referrer_id' => $this->integer(11)->defaultValue(0),
-            'user_sex_id' => $this->integer(1)->defaultValue(0),
+            'user_sex_id' => $this->integer(1)->defaultValue(1),
             'user_shop_point' => $this->integer(5)->defaultValue(0),
             'user_shop_position' => $this->integer(5)->defaultValue(0),
             'user_shop_special' => $this->integer(5)->defaultValue(0),
