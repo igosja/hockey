@@ -19,6 +19,7 @@ use yii\helpers\Html;
  * @property int $country_stadium_capacity
  *
  * @property City[] $city
+ * @property User $president
  * @property User $vice
  */
 class Country extends AbstractActiveRecord
@@ -89,6 +90,14 @@ class Country extends AbstractActiveRecord
     public function getCity(): ActiveQuery
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPresident(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'country_president_id']);
     }
 
     /**

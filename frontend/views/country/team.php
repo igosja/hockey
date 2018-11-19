@@ -10,7 +10,7 @@ use yii\helpers\Html;
  * @var \yii\web\View $this
  */
 
-//$this->render('_country');
+$this->render('_country');
 
 ?>
 <div class="row margin-top">

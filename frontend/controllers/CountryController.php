@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\City;
 use common\models\Country;
 use common\models\Team;
 use Yii;
@@ -74,22 +73,12 @@ class CountryController extends AbstractController
     {
         if (!$id) {
             if (Yii::$app->user->isGuest) {
-                $city = City::find()
-                    ->where(['!=', 'city_country_id', 0])
-                    ->orderBy(['city_country_id' => SORT_ASC])
-                    ->limit(1)
-                    ->one();
-                $id = $city->city_country_id;
+                $id = Country::DEFAULT_ID;
             } else {
                 if ($this->myTeam) {
                     $id = $this->myTeam->stadium->city->city_country_id;
                 } else {
-                    $city = City::find()
-                        ->where(['!=', 'city_country_id', 0])
-                        ->orderBy(['city_country_id' => SORT_ASC])
-                        ->limit(1)
-                        ->one();
-                    $id = $city->city_country_id;
+                    $id = Country::DEFAULT_ID;
                 }
             }
             return $this->redirect(['country/news', 'id' => $id]);
