@@ -90,6 +90,8 @@ class CountryController extends AbstractController
             ->one();
         $this->notFound($country);
 
+        $this->setSeoTitle('Новости фередации');
+
         return $this->render('news');
     }
 }
