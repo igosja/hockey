@@ -5,4 +5,4 @@
  * @var \yii\web\View $this
  */
 
-$this->render('_country');
+print $this->render('_country');
