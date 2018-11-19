@@ -2,7 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\models\City;
+use common\models\Country;
 use common\models\Team;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 
@@ -60,5 +63,44 @@ class CountryController extends AbstractController
         return $this->render('team', [
             'dataProvider' => $dataProvider
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionNews(int $id = 0)
+    {
+        if (!$id) {
+            if (Yii::$app->user->isGuest) {
+                $city = City::find()
+                    ->where(['!=', 'city_country_id', 0])
+                    ->orderBy(['city_country_id' => SORT_ASC])
+                    ->limit(1)
+                    ->one();
+                $id = $city->city_country_id;
+            } else {
+                if ($this->myTeam) {
+                    $id = $this->myTeam->stadium->city->city_country_id;
+                } else {
+                    $city = City::find()
+                        ->where(['!=', 'city_country_id', 0])
+                        ->orderBy(['city_country_id' => SORT_ASC])
+                        ->limit(1)
+                        ->one();
+                    $id = $city->city_country_id;
+                }
+            }
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($country);
+
+        return $this->render('news');
     }
 }
