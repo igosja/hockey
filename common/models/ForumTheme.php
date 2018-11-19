@@ -17,6 +17,8 @@ use yii\db\ActiveQuery;
  * @property int $forum_theme_user_id
  *
  * @property ForumGroup $forumGroup
+ * @property ForumMessage[] $forumMessage
+ * @property User $user
  */
 class ForumTheme extends AbstractActiveRecord
 {
@@ -67,7 +69,7 @@ class ForumTheme extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getForumGroup(): ActiveQuery
     {
@@ -75,7 +77,15 @@ class ForumTheme extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
+     */
+    public function getForumMessage(): ActiveQuery
+    {
+        return $this->hasMany(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id']);
+    }
+
+    /**
+     * @return ActiveQuery
      */
     public function getUser(): ActiveQuery
     {

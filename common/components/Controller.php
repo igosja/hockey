@@ -20,7 +20,7 @@ class Controller extends BaseController
     protected function notFound(ActiveRecord $model = null)
     {
         if (!$model) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Страница не найдена');
         }
     }
 

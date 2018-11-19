@@ -80,10 +80,11 @@ return [
             'rules' => [
                 '' => 'site/index',
                 'activation' => 'site/activation',
-                'activation-repeat' => 'site/activation-repeat',
+                'activation/repeat' => 'site/activation-repeat',
+                'forum/theme/create' => 'forum/theme-create',
                 'login' => 'site/login',
                 'password' => 'site/password',
-                'password-restore' => 'site/password-restore',
+                'password/restore' => 'site/password-restore',
                 'sign-up' => 'site/sign-up',
                 '<controller:\w+>/p/<page:\d+>/pp/<per-page:\d+>' => '<controller>/index',
                 '<controller:\w+>/p/<page:\d+>' => '<controller>/index',

@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property int $forum_message_user_id
  *
  * @property ForumTheme $forumTheme
+ * @property User $user
  */
 class ForumMessage extends AbstractActiveRecord
 {

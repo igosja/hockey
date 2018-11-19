@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class ForumChapter
  * @package common\models
@@ -9,9 +11,13 @@ namespace common\models;
  * @property int $forum_chapter_id
  * @property string $forum_chapter_name
  * @property int $forum_chapter_order
+ *
+ * @property ForumGroup[] $forumGroup
  */
 class ForumChapter extends AbstractActiveRecord
 {
+    const NATIONAL = 4;
+
     /**
      * @return string
      */
@@ -51,5 +57,13 @@ class ForumChapter extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getForumGroup(): ActiveQuery
+    {
+        return $this->hasMany(ForumGroup::class, ['forum_group_forum_chapter_id' => 'forum_chapter_id']);
     }
 }
