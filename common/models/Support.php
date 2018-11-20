@@ -45,7 +45,7 @@ class Support extends AbstractActiveRecord
                 ],
                 'integer'
             ],
-            [['support_text', 'support_user_id_to'], 'required'],
+            [['support_text'], 'required'],
             [['support_text'], 'safe'],
             [['support_text'], 'trim'],
         ];
