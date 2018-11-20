@@ -4,7 +4,7 @@ use common\components\ErrorHelper;
 use common\models\User;
 use yii\helpers\Html;
 
-$user = User::find()->where(['user_id' => Yii::$app->request->get('id')])->one();
+$user = User::find()->where(['user_id' => Yii::$app->request->get('id', Yii::$app->user->id)])->one();
 
 ?>
 <div class="row margin-top">
