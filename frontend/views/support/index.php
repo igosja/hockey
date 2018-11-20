@@ -29,7 +29,7 @@ print $this->render('//user/_top');
                         <?php
 
                         try {
-                            Yii::$app->formatter->asDatetime($support, 'short');
+                            print Yii::$app->formatter->asDatetime($support->support_date, 'short');
                         } catch (Exception $e) {
                             ErrorHelper::log($e);
                         }
