@@ -10,6 +10,5 @@ $link = Url::toRoute(['/site/activation', 'code' => $model->user_code], true);
 $page = Url::toRoute(['/site/activation'], true);
 
 ?>
-    You are successfully registered on the Virtual Hockey League website under the <?= $model->user_login; ?> login
-    To complete the registration, please confirm your email by clicking <?= $link; ?>
-    or enter the <?= $model->user_code; ?> on the page <?= $page; ?>
+    Вы успешно зарегистрированы на сайте Виртуальной Хоккейной Лиги под логином <?= $model->user_login; ?>.
+    Чтобы завершить регистрацию подтвердите свой email по ссылке <?= $link; ?> или введите код <?= $model->user_code; ?> на странице <?= $page; ?>

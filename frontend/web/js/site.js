@@ -18,5 +18,8 @@ jQuery(document).ready(function () {
         })
         .on('click', '#btnLoanApplicationFrom', function () {
             $('#formLoanApplicationFrom').submit();
+        })
+        .on('change', '.submit-on-change', function () {
+            $(this).closest('form').submit();
         });
 });

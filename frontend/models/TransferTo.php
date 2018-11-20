@@ -84,11 +84,11 @@ class TransferTo extends Model
             return false;
         }
 
-        if ($this->player->player_no_action > time()) {
+        if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
                 'With the player you can not take any action until '
-                . Yii::$app->formatter->asDate($this->player->player_no_action)
+                . Yii::$app->formatter->asDate($this->player->player_date_no_action)
                 . '.'
             );
             return false;
@@ -210,9 +210,7 @@ class TransferTo extends Model
             $model->transfer_team_seller_id = $this->team->team_id;
             $model->transfer_to_league = $this->toLeague;
             $model->transfer_user_seller_id = Yii::$app->user->id;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

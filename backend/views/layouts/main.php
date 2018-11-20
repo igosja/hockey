@@ -35,7 +35,7 @@ AppAsset::register($this);
     <?php
 
     NavBar::begin([
-        'brandLabel' => 'Admin',
+        'brandLabel' => 'Админ',
         'brandUrl' => Yii::$app->homeUrl,
         'innerContainerOptions' => ['class' => ''],
         'options' => [
@@ -50,28 +50,23 @@ AppAsset::register($this);
                 . '"></span>',
             'items' => [
                 [
-                    'label' => '<i class="fa fa-user fa-fw"></i> Team Requests
-                                <span class="badge"></span>',
+                    'label' => '<i class="fa fa-user fa-fw"></i> Заявки на команды <span class="badge"></span>',
                     'url' => ['team-request/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-shield fa-fw"></i> Logos
-                                <span class="badge admin-logo"></span>',
+                    'label' => '<i class="fa fa-shield fa-fw"></i> Логотипы <span class="badge admin-logo"></span>',
                     'url' => ['logo/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-comments fa-fw"></i> Support
-                                <span class="badge admin-support"></span>',
+                    'label' => '<i class="fa fa-comments fa-fw"></i> Тех. поддержка <span class="badge admin-support"></span>',
                     'url' => ['logo/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-exclamation-circle fa-fw"></i> Complaints
-                                <span class="badge admin-complaint"></span>',
+                    'label' => '<i class="fa fa-exclamation-circle fa-fw"></i> Жалобы <span class="badge admin-complaint"></span>',
                     'url' => ['complaint/index'],
                 ],
                 [
-                    'label' => '<i class="fa fa-bar-chart fa-fw"></i> Polls
-                                <span class="badge admin-poll"></span>',
+                    'label' => '<i class="fa fa-bar-chart fa-fw"></i> Опросы <span class="badge admin-poll"></span>',
                     'url' => ['poll/index'],
                 ],
             ],
@@ -81,16 +76,16 @@ AppAsset::register($this);
             'label' => '<i class="fa fa-gear fa-fw"></i>',
             'items' => [
                 [
-                    'label' => '<i class="fa fa-power-off fa-fw"></i> Enable-disable site',
+                    'label' => '<i class="fa fa-power-off fa-fw"></i> Включить Выключить',
                     'url' => ['site/switch'],
                 ],
                 [
-                    'label' => '<i class="fa fa-signal fa-fw"></i> Site version',
+                    'label' => '<i class="fa fa-signal fa-fw"></i> Версия сайта',
                     'url' => ['site/version'],
                 ],
                 [
-                    'label' => '<i class="fa fa-file-text-o fa-fw"></i> Error log',
-                    'url' => ['error-log/index'],
+                    'label' => '<i class="fa fa-sign-out fa-fw"></i> Выход',
+                    'url' => ['site/logout'],
                 ],
             ],
             'url' => 'javascript:',
@@ -115,107 +110,103 @@ AppAsset::register($this);
 
             $menuItems = [
                 [
-                    'label' => 'Users',
+                    'label' => 'Пользователи',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Users',
+                            'label' => 'Пользователи',
                             'url' => ['user/index'],
                         ],
                         [
-                            'label' => 'Presidents',
+                            'label' => 'Президенты федераций',
                             'url' => ['president/index'],
                         ],
                         [
-                            'label' => 'Coaches',
+                            'label' => 'Тренеры сборных',
                             'url' => ['coach/index'],
                         ],
                         [
-                            'label' => 'Reasons for blocking',
+                            'label' => 'Причины блокировки',
                             'url' => ['block-reason/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Teams',
+                    'label' => 'Команды',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Teams',
+                            'label' => 'Команды',
                             'url' => ['team/index'],
                         ],
                         [
-                            'label' => 'Stadiums',
+                            'label' => 'Стадионы',
                             'url' => ['stadium/index'],
                         ],
                         [
-                            'label' => 'Cities',
+                            'label' => 'Города',
                             'url' => ['city/index'],
                         ],
                         [
-                            'label' => 'Countries',
+                            'label' => 'Страны',
                             'url' => ['country/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'News',
+                    'label' => 'Новости',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'News',
+                            'label' => 'Новости',
                             'url' => ['news/index'],
                         ],
                         [
-                            'label' => 'Preliminary news',
+                            'label' => 'Предварительные новости',
                             'url' => ['pre-news/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Rules',
+                    'label' => 'Правила',
                     'url' => ['rule/index'],
                 ],
                 [
-                    'label' => 'Tournament types',
-                    'url' => ['tournament-type/index'],
-                ],
-                [
-                    'label' => 'Polls',
+                    'label' => 'Опросы',
                     'url' => ['poll/index'],
                 ],
                 [
-                    'label' => 'Schedule',
+                    'label' => 'Расписание',
                     'url' => ['schedule/index'],
                 ],
                 [
-                    'label' => 'Forum',
+                    'label' => 'Форум',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Chapters',
+                            'label' => 'Разделы',
                             'url' => ['forum-chapter/index'],
                         ],
                         [
-                            'label' => 'Groups',
+                            'label' => 'Группы',
                             'url' => ['forum-group/index'],
                         ],
                     ],
                     'url' => 'javascript:',
                 ],
                 [
-                    'label' => 'Site indicators',
+                    'label' => 'Показатели сайта',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Analytics',
+                            'label' => 'Игровая статистика',
                             'url' => ['analytics/game-statistic'],
                         ],
                         [
-                            'label' => 'Snapshot',
+                            'label' => 'Статистические данные',
                             'url' => ['analytics/snapshot'],
                         ],
                     ],

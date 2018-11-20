@@ -8,7 +8,7 @@ use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
 use common\models\TransferApplication;
-use frontend\controllers\BaseController;
+use frontend\controllers\AbstractController;
 use Throwable;
 use Yii;
 use yii\base\Model;
@@ -110,7 +110,7 @@ class TransferApplicationTo extends Model
             return false;
         }
 
-        /** @var BaseController $controller */
+        /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
 
         $teamArray = [0];
@@ -230,9 +230,7 @@ class TransferApplicationTo extends Model
             }
             $model->transfer_application_only_one = $this->onlyOne;
             $model->transfer_application_price = $this->price;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 

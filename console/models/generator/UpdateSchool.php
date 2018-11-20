@@ -31,6 +31,7 @@ class UpdateSchool
         $seasonId = Season::getCurrentSeason();
 
         $schoolArray = School::find()
+            ->with(['team', 'team.baseSchool', 'team.baseScout', 'team.baseMedical', 'team.stadium.city'])
             ->where(['<=', 'school_day', 0])
             ->andWhere(['school_ready' => 0])
             ->orderBy(['school_id' => SORT_ASC])

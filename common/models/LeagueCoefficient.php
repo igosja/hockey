@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class UpdateLeagueCoefficient
  * @package common\models
@@ -20,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property int $league_coefficient_win_overtime
  * @property int $league_coefficient_win_shootout
  */
-class LeagueCoefficient extends ActiveRecord
+class LeagueCoefficient extends AbstractActiveRecord
 {
     /**
      * @return string

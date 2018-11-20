@@ -3,21 +3,18 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class PlayerSpecial
  * @package common\models
  *
- * @property int $player_special_id
  * @property int $player_special_level
  * @property int $player_special_player_id
  * @property int $player_special_special_id
  *
- * @property Lineup[] $lineup
  * @property Special $special
  */
-class PlayerSpecial extends ActiveRecord
+class PlayerSpecial extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -33,9 +30,10 @@ class PlayerSpecial extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['player_special_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['player_special_special_id'], 'in', 'range' => Special::find()->select(['special_id'])->column()],
-            [['player_special_id', 'player_special_level'], 'integer'],
+            [
+                ['player_special_level', 'player_special_player_id', 'player_special_special_id'],
+                'integer'
+            ],
             [['player_special_level', 'player_special_player_id', 'player_special_special_id'], 'required'],
         ];
     }

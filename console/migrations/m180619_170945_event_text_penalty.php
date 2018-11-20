@@ -20,16 +20,16 @@ class m180619_170945_event_text_penalty extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['event_text_penalty_text'], [
-            ['Charging'],
-            ['Cross-checking'],
-            ['Elbowing'],
-            ['High-sticking'],
-            ['Hooking'],
-            ['Interference'],
-            ['Kneeing'],
-            ['Roughing'],
-            ['Slashing'],
-            ['Tripping'],
+            ['Неправильная атака'],
+            ['Толчок клюшкой'],
+            ['Удар локтем'],
+            ['Игра высоко поднятой клюшкой'],
+            ['Задержка клюшкой'],
+            ['Блокировка'],
+            ['Удар коленом'],
+            ['Грубая игра'],
+            ['Угроза нанести удар клюшкой'],
+            ['Подножка'],
         ]);
     }
 

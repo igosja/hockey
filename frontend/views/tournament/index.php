@@ -1,11 +1,10 @@
 <?php
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
  * @var array $countryArray
- * @var \common\models\Season[] $season
+ * @var array $seasonArray
  * @var int $seasonId
  * @var string $tournaments
  */
@@ -13,20 +12,20 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>Tournaments</h1>
+        <h1>Турниры</h1>
     </div>
 </div>
 <?= Html::beginForm('', 'get'); ?>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-        <?= Html::label('Season:', 'seasonId'); ?>
+        <?= Html::label('Сезон', 'seasonId'); ?>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
         <?= Html::dropDownList(
             'seasonId',
             $seasonId,
-            ArrayHelper::map($season, 'season_id', 'season_id'),
+            $seasonArray,
             ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
         ); ?>
     </div>
@@ -42,7 +41,7 @@ use yii\helpers\Html;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <table class="table table-bordered table-hover">
             <tr>
-                <th colspan="5">National championships</th>
+                <th colspan="5">Национальные чемпионаты</th>
             </tr>
             <?php foreach ($countryArray as $item): ?>
                 <tr>
@@ -61,7 +60,7 @@ use yii\helpers\Html;
                                 <?= Html::a(
                                     $value,
                                     [
-                                        'championship/view',
+                                        'championship/index',
                                         'countryId' => $item['countryId'],
                                         'divisionId' => $key,
                                         'seasonId' => $seasonId
@@ -73,7 +72,7 @@ use yii\helpers\Html;
                 </tr>
             <?php endforeach; ?>
             <tr>
-                <th colspan="5">National championships</th>
+                <th colspan="5">Национальные чемпионаты</th>
             </tr>
         </table>
     </div>

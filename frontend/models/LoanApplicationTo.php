@@ -8,8 +8,8 @@ use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
-use frontend\controllers\BaseController;
-use Throwable;
+use Exception;
+use frontend\controllers\AbstractController;
 use Yii;
 use yii\base\Model;
 
@@ -92,9 +92,9 @@ class LoanApplicationTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'day' => 'Loan days',
-            'onlyOne' => 'In case of victory, delete all my other applications',
-            'price' => 'Your price',
+            'day' => 'Дней аренды',
+            'onlyOne' => 'В случае победы удалить все остальные мои заявки',
+            'price' => 'Ваше предложение',
         ];
     }
 
@@ -126,7 +126,7 @@ class LoanApplicationTo extends Model
             return false;
         }
 
-        /** @var BaseController $controller */
+        /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
 
         $teamArray = [0];
@@ -247,14 +247,12 @@ class LoanApplicationTo extends Model
             $model->loan_application_day = $this->day;
             $model->loan_application_only_one = $this->onlyOne;
             $model->loan_application_price = $this->price;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Order successfully saved.');
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

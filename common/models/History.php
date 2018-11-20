@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -30,8 +29,9 @@ use yii\helpers\Html;
  * @property HistoryText $historyText
  * @property Player $player
  * @property Team $team
+ * @property User $user
  */
-class History extends ActiveRecord
+class History extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -47,18 +47,27 @@ class History extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['history_building_id'], 'in', 'range' => Building::find()->select('building_id')->column()],
-            [['history_country_id'], 'in', 'range' => Country::find()->select('country_id')->column()],
-            [['history_game_id'], 'in', 'range' => Game::find()->select('game_id')->column()],
-            [['history_history_text_id'], 'in', 'range' => HistoryText::find()->select('history_text_id')->column()],
-            [['history_national_id'], 'in', 'range' => National::find()->select('national_id')->column()],
-            [['history_player_id'], 'in', 'range' => Player::find()->select('player_id')->column()],
-            [['history_position_id'], 'in', 'range' => Position::find()->select('position_id')->column()],
-            [['history_season_id'], 'in', 'range' => Season::find()->select('season_id')->column()],
-            [['history_special_id'], 'in', 'range' => Special::find()->select('special_id')->column()],
-            [['history_team_id', 'history_team_2_id'], 'in', 'range' => Team::find()->select('team_id')->column()],
-            [['history_user_id', 'history_user_2_id'], 'in', 'range' => User::find()->select('user_id')->column()],
-            [['history_id', 'history_date', 'history_value'], 'integer'],
+            [
+                [
+                    'history_id',
+                    'history_building_id',
+                    'history_country_id',
+                    'history_date',
+                    'history_game_id',
+                    'history_history_text_id',
+                    'history_national_id',
+                    'history_player_id',
+                    'history_position_id',
+                    'history_season_id',
+                    'history_special_id',
+                    'history_team_id',
+                    'history_team_2_id',
+                    'history_user_id',
+                    'history_user_2_id',
+                    'history_value',
+                ],
+                'integer'
+            ],
             [['history_history_text_id'], 'required']
         ];
     }
@@ -81,6 +90,7 @@ class History extends ActiveRecord
 
     /**
      * @param array $data
+     * @throws \Exception
      */
     public static function log(array $data)
     {
@@ -95,19 +105,33 @@ class History extends ActiveRecord
     public function getText(): string
     {
         $text = $this->historyText->history_text_text;
-        $text = str_replace(
-            '{team}',
-            Html::a($this->team->team_name, ['team/view', 'id' => $this->history_team_id]),
-            $text
-        );
-        $text = str_replace(
-            '{player}',
-            Html::a(
-                $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
-                ['player/view', 'id' => $this->history_player_id]
-            ),
-            $text
-        );
+        if (false !== strpos($text, '{team}')) {
+            $text = str_replace(
+                '{team}',
+                Html::a($this->team->team_name, ['team/view', 'id' => $this->history_team_id]),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{player}')) {
+            $text = str_replace(
+                '{player}',
+                Html::a(
+                    $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
+                    ['player/view', 'id' => $this->history_player_id]
+                ),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{user}')) {
+            $text = str_replace(
+                '{user}',
+                Html::a(
+                    $this->user->user_login,
+                    ['user/view', 'id' => $this->history_user_id]
+                ),
+                $text
+            );
+        }
         return $text;
     }
 
@@ -133,5 +157,13 @@ class History extends ActiveRecord
     public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'history_user_id']);
     }
 }

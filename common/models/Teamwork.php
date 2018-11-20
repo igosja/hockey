@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Teamwork
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $teamwork_player_id_2
  * @property int $teamwork_value
  */
-class Teamwork extends ActiveRecord
+class Teamwork extends AbstractActiveRecord
 {
     /**
      * @return string

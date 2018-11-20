@@ -21,9 +21,9 @@ class m180621_175804_rating_chapter extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['rating_chapter_name', 'rating_chapter_order'], [
-            ['Clubs', 1],
-            ['Managers', 2],
-            ['Countries', 3],
+            ['Команды', 1],
+            ['Менеджеры', 2],
+            ['Страны', 3],
         ]);
     }
 

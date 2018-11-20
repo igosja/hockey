@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Surname
@@ -14,7 +13,7 @@ use yii\db\ActiveRecord;
  *
  * @property Player[] $player
  */
-class Surname extends ActiveRecord
+class Surname extends AbstractActiveRecord
 {
     /**
      * @return string

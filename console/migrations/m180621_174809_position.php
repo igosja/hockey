@@ -21,12 +21,12 @@ class m180621_174809_position extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['position_name', 'position_text'], [
-            ['GK', 'Goalkeeper'],
-            ['LD', 'Left defender'],
-            ['RD', 'Right defender'],
-            ['LW', 'Left winger'],
-            ['CF', 'Center forward'],
-            ['RW', 'Right winger'],
+            ['GK', 'Вратарь'],
+            ['LD', 'Левый защитник'],
+            ['RD', 'Правый защитник'],
+            ['LW', 'Левый нападающий'],
+            ['CF', 'Центральный нападающий'],
+            ['RW', 'Правый нападающий'],
         ]);
     }
 

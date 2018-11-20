@@ -2,9 +2,9 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class News
@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property NewsComment $newsComment
  * @property User $user
  */
-class News extends ActiveRecord
+class News extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 10;
 
@@ -40,8 +40,6 @@ class News extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['news_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['news_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [['news_id', 'news_check', 'news_country_id', 'news_date', 'news_user_id'], 'integer'],
             [['news_text', 'news_title'], 'required'],
             [['news_title'], 'string', 'max' => 255],
@@ -55,10 +53,10 @@ class News extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'news_id' => 'ID',
-            'news_date' => 'Date',
-            'news_title' => 'Title',
-            'news_text' => 'Text',
+            'news_id' => 'Id',
+            'news_date' => 'Дата',
+            'news_title' => 'Заголовок',
+            'news_text' => 'Текст',
         ];
     }
 
@@ -70,8 +68,10 @@ class News extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->news_date = time();
-                $this->news_user_id = Yii::$app->user->id;
+                $this->news_date = HockeyHelper::unixTimeStamp();
+                if (!$this->news_user_id) {
+                    $this->news_user_id = Yii::$app->user->id;
+                }
             }
             return true;
         }
@@ -79,7 +79,15 @@ class News extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return string
+     */
+    public function text(): string
+    {
+        return nl2br($this->news_text);
+    }
+
+    /**
+     * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery
     {
@@ -87,7 +95,7 @@ class News extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getNewsComment(): ActiveQuery
     {
@@ -95,10 +103,10 @@ class News extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'news_user_id'])->cache();
     }
 }

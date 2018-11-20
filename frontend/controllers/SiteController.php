@@ -2,11 +2,17 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\ForumTheme;
 use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
 use common\models\User;
+use Exception;
+use frontend\models\Activation;
+use frontend\models\ActivationRepeat;
+use frontend\models\Password;
+use frontend\models\PasswordRestore;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
@@ -17,7 +23,7 @@ use yii\widgets\ActiveForm;
  * Class SiteController
  * @package frontend\controllers
  */
-class SiteController extends BaseController
+class SiteController extends AbstractController
 {
     /**
      * @return array
@@ -27,13 +33,8 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'sign-up'],
+                'only' => ['logout'],
                 'rules' => [
-                    [
-                        'actions' => ['sign-up'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -74,10 +75,10 @@ class SiteController extends BaseController
         $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
-        $this->view->title = 'Virtual Hockey Online League';
+        $this->view->title = 'Хоккейный онлайн-менеджер';
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => 'Virtual Hockey Online League - the best free hockey online manager'
+            'content' => 'Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн-менеджер.',
         ]);
 
         return $this->render('index', [
@@ -111,11 +112,7 @@ class SiteController extends BaseController
             $model->password = '';
         }
 
-        $this->view->title = 'Login';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Login - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Вход');
 
         return $this->render('login', [
             'model' => $model,
@@ -123,7 +120,7 @@ class SiteController extends BaseController
     }
 
     /**
-     * @return \yii\web\Response
+     * @return Response
      */
     public function actionLogout(): Response
     {
@@ -134,10 +131,13 @@ class SiteController extends BaseController
 
     /**
      * @return array|string|Response
-     * @throws \yii\db\Exception
      */
     public function actionSignUp()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['team/view']);
+        }
+
         $model = new SignUp();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -146,18 +146,159 @@ class SiteController extends BaseController
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->signUp()) {
-                return $this->redirect(['activation']);
+            try {
+                if ($model->signUp()) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
+                    );
+                    return $this->redirect(['site/activation']);
+                }
+                Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
             }
         }
 
-        $this->view->title = 'Sign up';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Sign up - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Регистрация');
 
-        return $this->render('signUp', [
+        return $this->render('sign-up', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string
+     */
+    public function actionActivation()
+    {
+        $model = new Activation();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if (($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) && $model->code) {
+            try {
+                if ($model->activate()) {
+                    Yii::$app->session->setFlash('success', 'Активация прошла успешно');
+                    return $this->redirect(['site/activation']);
+                }
+                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
+            }
+        }
+
+        $this->setSeoTitle('Активация аккаунта');
+
+        return $this->render('activation', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string
+     */
+    public function actionActivationRepeat()
+    {
+        $model = new ActivationRepeat();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->send()) {
+                    Yii::$app->session->setFlash('success', 'Код активации успешно отправлен');
+                    return $this->redirect(['site/activation']);
+                } else {
+                    Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
+            }
+        }
+
+        $this->setSeoTitle('Активация аккаунта');
+
+        return $this->render('activation-repeat', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string|Response
+     */
+    public function actionPassword()
+    {
+        $model = new Password();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->send()) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Письмо с инструкциями по восстановлению пароля успешно отправлено на email'
+                    );
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Не удалось восстановить пароль');
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', 'Не удалось восстановить пароль');
+            }
+        }
+
+        $this->setSeoTitle('Восстановление пароля');
+
+        return $this->render('password', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string|Response
+     */
+    public function actionPasswordRestore()
+    {
+        $model = new PasswordRestore();
+        $model->setAttributes(Yii::$app->request->get());
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                if ($model->restore()) {
+                    Yii::$app->session->setFlash('success', 'Пароль успешно изменён');
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Не удалось изменить пароль');
+                }
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                Yii::$app->session->setFlash('error', 'Не удалось изменить пароль');
+            }
+        }
+
+        $this->setSeoTitle('Восстановление пароля');
+
+        return $this->render('password-restore', [
             'model' => $model,
         ]);
     }

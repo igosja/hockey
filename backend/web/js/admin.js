@@ -12,11 +12,13 @@ function admin_bell() {
     $.ajax({
         dataType: 'json',
         success: function (data) {
+            let seoTitle = $('title');
+            let titleText = seoTitle.text().split(')');
             $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
-                $('title').text('(' + data.bell + ') Admin');
+                seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length - 1]);
             } else {
-                $('title').text('Admin');
+                seoTitle.text(titleText[titleText.length]);
             }
 
             $('.admin-support').html(data.support);
@@ -26,11 +28,11 @@ function admin_bell() {
                 $('.panel-support').hide();
             }
 
-            $('.admin-vote').html(data.vote);
-            if (data.vote > 0) {
-                $('.panel-vote').show();
+            $('.admin-poll').html(data.poll);
+            if (data.poll > 0) {
+                $('.panel-poll').show();
             } else {
-                $('.panel-vote').hide();
+                $('.panel-poll').hide();
             }
 
             $('.admin-logo').html(data.logo);

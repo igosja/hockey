@@ -8,15 +8,15 @@ use common\models\GameComment;
 use common\models\LoanComment;
 use common\models\LoginForm;
 use common\models\Logo;
-use common\models\Message;
 use common\models\News;
 use common\models\NewsComment;
 use common\models\Payment;
+use common\models\Poll;
+use common\models\PollStatus;
 use common\models\Review;
+use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
-use common\models\Vote;
-use common\models\VoteStatus;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
@@ -26,7 +26,7 @@ use yii\web\Response;
  * Class SiteController
  * @package backend\controllers
  */
-class SiteController extends BaseController
+class SiteController extends AbstractController
 {
     /**
      * @return array
@@ -36,11 +36,16 @@ class SiteController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['login', 'error'],
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index', 'error', 'logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -73,9 +78,9 @@ class SiteController extends BaseController
         $news = News::find()->where(['news_check' => 0])->count();
         $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
         $review = Review::find()->where(['review_check' => 0])->count();
-        $support = Message::find()->where(['message_support' => 1, 'message_read' => 0])->count();
+        $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
-        $vote = Vote::find()->where(['vote_vote_status_id' => VoteStatus::NEW])->count();
+        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
 
         $countModeration = 0;
         $countModeration = $countModeration + $forumMessage;
@@ -100,7 +105,7 @@ class SiteController extends BaseController
             ->orderBy(['payment_id' => SORT_DESC])
             ->all();
 
-        $this->view->title = 'Admin';
+        $this->view->title = 'Административный раздел';
 
         return $this->render('index', [
             'complaint' => $complaint,
@@ -115,10 +120,10 @@ class SiteController extends BaseController
             'paymentArray' => $paymentArray,
             'paymentCategories' => $paymentCategories,
             'paymentData' => $paymentData,
+            'poll' => $poll,
             'review' => $review,
             'support' => $support,
             'transferComment' => $transferComment,
-            'vote' => $vote,
         ]);
     }
 
@@ -139,7 +144,7 @@ class SiteController extends BaseController
             $model->password = '';
 
             $this->layout = 'login';
-            $this->view->title = 'Login';
+            $this->view->title = 'Вход';
 
             return $this->render('login', [
                 'model' => $model,

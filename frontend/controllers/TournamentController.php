@@ -15,7 +15,7 @@ use yii\helpers\Html;
  * Class TournamentController
  * @package frontend\controllers
  */
-class TournamentController extends BaseController
+class TournamentController extends AbstractController
 {
     /**
      * @return string
@@ -23,7 +23,7 @@ class TournamentController extends BaseController
     public function actionIndex(): string
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
-        $season = Season::find()->select(['season_id'])->orderBy(['season_id' => SORT_DESC])->all();
+        $seasonArray = Season::getSeasonArray();
 
         $countryId = 0;
         $countryName = '';
@@ -122,15 +122,11 @@ class TournamentController extends BaseController
 
         $tournaments = implode(' | ', $tournamentArray);
 
-        $this->view->title = 'Tournaments';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Tournaments - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Турниры');
 
         return $this->render('index', [
             'countryArray' => $countryArray,
-            'season' => $season,
+            'seasonArray' => $seasonArray,
             'seasonId' => $seasonId,
             'tournaments' => $tournaments,
         ]);

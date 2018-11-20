@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \yii\web\View $this
  */
 
@@ -60,6 +60,7 @@ $player = Player::find()
         'player_age',
         'player_country_id',
         'player_id',
+        'player_injury',
         'player_injury_day',
         'player_loan_day',
         'player_loan_team_id',
@@ -107,7 +108,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                                <label for="select-line">Squad:</label>
+                                <label for="select-line">Состав:</label>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <?= Html::dropDownList(
@@ -133,7 +134,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Nationality:
+                        Национальность:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= Html::a(
@@ -155,7 +156,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Age:
+                        Возраст:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->player_age; ?>
@@ -164,7 +165,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Power:
+                        Сила:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->player_power_nominal; ?>
@@ -174,7 +175,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Tiredness:
+                        Усталость:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if ($myPlayer) : ?>
@@ -187,7 +188,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Physical form:
+                        Форма:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if ($myPlayer) : ?>
@@ -205,7 +206,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Real power:
+                        Реальная сила:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php if ($myPlayer) : ?>
@@ -217,7 +218,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Style:
+                        Стиль:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->iconStyle(); ?>
@@ -227,7 +228,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Team:
+                        Команда:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= Html::a(
@@ -239,7 +240,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 <?php if ($player->loanTeam->team_id) { ?>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            On loan:
+                            В аренде:
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <?= Html::a(
@@ -252,7 +253,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 <?php } ?>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Position:
+                        Позиция:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->position(); ?>
@@ -260,7 +261,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Special abilities:
+                        Спецвозможности:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->special(); ?>
@@ -268,7 +269,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Salary per day:
+                        Зарплата в день:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php
@@ -284,7 +285,7 @@ $this->title = $player->name->name_name . ' ' . $player->surname->surname_name .
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        Price:
+                        Стоимтость:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?php

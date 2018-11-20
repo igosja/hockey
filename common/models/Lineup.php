@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Lineup
@@ -31,7 +30,7 @@ use yii\db\ActiveRecord;
  * @property Player $player
  * @property Position $position
  */
-class Lineup extends ActiveRecord
+class Lineup extends AbstractActiveRecord
 {
     const GAME_QUANTITY = 22;
 

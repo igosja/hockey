@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Conference
@@ -29,7 +28,7 @@ use yii\db\ActiveRecord;
  *
  * @property Team $team
  */
-class Conference extends ActiveRecord
+class Conference extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -45,8 +44,6 @@ class Conference extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['conference_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['conference_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [
                 [
                     'conference_id',

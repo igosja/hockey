@@ -25,12 +25,14 @@ class PlusMinus
     private $game;
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -51,6 +53,10 @@ class PlusMinus
 
             $guestTotal = $guestCompetition + $guestMood + $guestOptimality1 + $guestOptimality2 + $guestPower + $guestScore;
 
+            if (substr($guestTotal * 10, -1)) {
+                $guestTotal = $guestTotal + rand(0, 1) - 0.5;
+            }
+
             if ($guestTotal > 5) {
                 $guestTotal = 5;
             } elseif ($guestTotal < -5) {
@@ -58,6 +64,10 @@ class PlusMinus
             }
 
             $homeTotal = $homeCompetition + $homeMood + $homeOptimality1 + $homeOptimality2 + $homePower + $homeScore;
+
+            if (substr($homeTotal * 10, -1)) {
+                $homeTotal = $homeTotal + rand(0, 1) - 0.5;
+            }
 
             if ($homeTotal > 5) {
                 $homeTotal = 5;
@@ -98,11 +108,11 @@ class PlusMinus
 
         Game::updateAll(
             ['game_guest_plus_minus' => new Expression('FLOOR(`game_guest_plus_minus`)+ROUND(RAND())')],
-            ['CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`', 'game_schedule_id' => $subQuery]
+            ['and', 'CEIL(`game_guest_plus_minus`)!=`game_guest_plus_minus`', ['game_schedule_id' => $subQuery]]
         );
         Game::updateAll(
             ['game_home_plus_minus' => new Expression('FLOOR(`game_home_plus_minus`)+ROUND(RAND())')],
-            ['CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`', 'game_schedule_id' => $subQuery]
+            ['and', 'CEIL(`game_home_plus_minus`)!=`game_home_plus_minus`', ['game_schedule_id' => $subQuery]]
         );
 
         $gameArray = Game::find()
@@ -116,6 +126,7 @@ class PlusMinus
 
             if ($this->game->game_home_plus_minus < 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -139,6 +150,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_home_plus_minus > 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -164,6 +176,7 @@ class PlusMinus
 
             if ($this->game->game_guest_plus_minus < 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,
@@ -187,6 +200,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_guest_plus_minus > 0) {
                 $lineupArray = Lineup::find()
+                    ->with(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,

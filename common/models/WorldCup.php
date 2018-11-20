@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class WorldCup
@@ -30,7 +29,7 @@ use yii\db\ActiveRecord;
  * @property Division $division
  * @property National $national
  */
-class WorldCup extends ActiveRecord
+class WorldCup extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -46,27 +45,22 @@ class WorldCup extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['world_cup_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['world_cup_division_id'], 'in', 'range' => Division::find()->select(['division_id'])->column()],
-            [['world_cup_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['world_cup_national_id'], 'in', 'range' => National::find()->select(['national_id'])->column()],
-            [
-                ['world_cup_national_type_id'],
-                'in',
-                'range' => NationalType::find()->select(['national_type_id'])->column()
-            ],
             [
                 [
                     'world_cup_id',
                     'world_cup_difference',
+                    'world_cup_division_id',
                     'world_cup_game',
                     'world_cup_loose',
                     'world_cup_loose_overtime',
                     'world_cup_loose_shootout',
+                    'world_cup_national_id',
+                    'world_cup_national_type_id',
                     'world_cup_pass',
                     'world_cup_place',
                     'world_cup_point',
                     'world_cup_score',
+                    'world_cup_season_id',
                     'world_cup_win',
                     'world_cup_win_overtime',
                     'world_cup_win_shootout',

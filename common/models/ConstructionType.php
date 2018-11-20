@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class ConstructionType
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $construction_type_id
  * @property string $construction_type_name
  */
-class ConstructionType extends ActiveRecord
+class ConstructionType extends AbstractActiveRecord
 {
     const BUILD = 1;
     const DESTROY = 2;

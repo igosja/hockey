@@ -8,7 +8,7 @@ use common\models\Rule;
  * Class RuleController
  * @package frontend\controllers
  */
-class RuleController extends BaseController
+class RuleController extends AbstractController
 {
     /**
      * @return string
@@ -17,11 +17,7 @@ class RuleController extends BaseController
     {
         $rules = Rule::find()->orderBy(['rule_order' => SORT_ASC])->all();
 
-        $this->view->title = 'Rules';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Rules - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Правила');
 
         return $this->render('index', [
             'rules' => $rules,
@@ -38,11 +34,7 @@ class RuleController extends BaseController
         $rule = Rule::findOne($id);
         $this->notFound($rule);
 
-        $this->view->title = $rule->rule_title . ' - Rules';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => $rule->rule_title . ' - Rules - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle($rule->rule_title . ' - Правила');
 
         return $this->render('view', [
             'rule' => $rule,

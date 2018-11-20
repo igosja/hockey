@@ -3,7 +3,7 @@
 /**
  * @var string $content
  * @var \yii\web\View $this
- * @var \frontend\controllers\BaseController $this ->context
+ * @var \frontend\controllers\AbstractController $this ->context
  */
 
 use common\components\ErrorHelper;
@@ -13,7 +13,8 @@ use frontend\widgets\Alert;
 use frontend\widgets\Menu;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
+
+//use yii\widgets\Pjax;
 
 AppAsset::register($this);
 
@@ -53,25 +54,27 @@ AppAsset::register($this);
                     ";" + Math.random();
             </script>
             <!--/LiveInternet-->
-
         <?php endif; ?>
     </head>
     <body>
     <?php $this->beginBody(); ?>
-    <?php Pjax::begin(); ?>
+    <?php //Pjax::begin(); ?>
     <div class="main">
         <div class="content">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
                     <?= Html::a(
-                        Html::img('/img/logo.png', ['alt' => 'Virtual hockey league', 'class' => 'img-responsive']),
+                        Html::img(
+                            '/img/logo.png',
+                            ['alt' => 'Виртуальная Хоккейная Лига', 'class' => 'img-responsive']
+                        ),
                         ['site/index']
                     ); ?>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
                     <br/>
                     <?php if (Yii::$app->user->isGuest): ?>
-                        <?= Html::a('Log in', ['site/login'], ['class' => 'btn']); ?>
+                        <?= Html::a('Вход', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
                         <?= Html::beginForm(['team/change-my-team'], 'post', ['class' => 'form-inline']); ?>
                         <?= Html::dropDownList(
@@ -80,7 +83,7 @@ AppAsset::register($this);
                             ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
                             ['class' => 'form-control', 'onchange' => 'this.form.submit();']
                         ); ?>
-                        <?= Html::a('Log out', ['site/logout'], ['class' => 'btn margin']); ?>
+                        <?= Html::a('Выход', ['site/logout'], ['class' => 'btn margin']); ?>
                         <?= Html::endForm(); ?>
                     <?php endif; ?>
                 </div>
@@ -101,14 +104,14 @@ AppAsset::register($this);
             <noscript>
                 <div class="row margin-top">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
-                        In your browser, javascript is disabled.
-                        For proper operation of the site is recommended to enable javascript.
+                        В вашем браузере отключен JavaScript.
+                        Для корректной работы сайта рекомендуется включить JavaScript.
                     </div>
                 </div>
             </noscript>
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
-                    <?= Yii::t('app', 'frontend-views-layout-main-development-mode'); ?>
+                    Сайт находится в режиме разработки.<br/>Некоторые функции сайта могут быть недоступны.
                 </div>
             </div>
             <?php
@@ -124,14 +127,15 @@ AppAsset::register($this);
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
-                Page is generated in <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> sec.,
-                <?= Yii::getLogger()->getDbProfiling()[0]; ?> queries.<br/>
-                Memory consumption - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?>b<br/>
+                Страница сгенерирована за <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> сек,
+                <br/>
+                Потребление памяти - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?> Б
+                <br/>
                 <?= Site::version(); ?>
             </div>
         </div>
     </div>
-    <?php Pjax::end(); ?>
+    <?php //Pjax::end(); ?>
     <?php $this->endBody(); ?>
     </body>
     </html>

@@ -22,7 +22,10 @@ class ChampionshipLot
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->andWhere(['schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP])
+            ->andWhere([
+                'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                'schedule_stage_id' => [Stage::TOUR_30, Stage::QUARTER, Stage::SEMI],
+            ])
             ->limit(1)
             ->one();
         if (!$schedule) {
@@ -60,6 +63,7 @@ class ChampionshipLot
                     for ($i = 1; $i <= 4; $i++) {
                         $teamArray = ParticipantChampionship::find()
                             ->joinWith(['championship'])
+                            ->with(['championship.team'])
                             ->where([
                                 'participant_championship_season_id' => $seasonId,
                                 'participant_championship_country_id' => $country->participant_championship_country_id,
@@ -123,6 +127,7 @@ class ChampionshipLot
                         for ($i = 1; $i <= 2; $i++) {
                             $teamArray = ParticipantChampionship::find()
                                 ->joinWith(['championship'])
+                                ->with(['championship.team'])
                                 ->where([
                                     'participant_championship_season_id' => $seasonId,
                                     'participant_championship_country_id' => $country->participant_championship_country_id,
@@ -185,6 +190,7 @@ class ChampionshipLot
                         foreach ($divisionArray as $division) {
                             $teamArray = ParticipantChampionship::find()
                                 ->joinWith(['championship'])
+                                ->with(['championship.team'])
                                 ->where([
                                     'participant_championship_season_id' => $seasonId,
                                     'participant_championship_country_id' => $country->participant_championship_country_id,

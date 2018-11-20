@@ -3,45 +3,31 @@
 namespace frontend\controllers;
 
 use common\models\Transfer;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
  * Class TransferController
  * @package frontend\controllers
  */
-class TransferController extends BaseController
+class TransferController extends AbstractController
 {
     /**
      * @return string
      */
     public function actionIndex(): string
     {
+        $query = Transfer::find()
+            ->where(['transfer_ready' => 0]);
+
         $dataProvider = new ActiveDataProvider([
             'pagination' => [
-                'pageSize' => Transfer::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeTable'],
             ],
-            'query' => Transfer::find()
-                ->where(['transfer_ready' => 0]),
-            'sort' => [
-                'attributes' => [
-                    'price' => [
-                        'asc' => ['transfer_price_seller' => SORT_ASC],
-                        'desc' => ['transfer_price_seller' => SORT_DESC],
-                    ],
-                    'transfer_id' => [
-                        'asc' => ['transfer_id' => SORT_ASC],
-                        'desc' => ['transfer_id' => SORT_DESC],
-                    ],
-                ],
-                'defaultOrder' => ['transfer_id' => SORT_ASC],
-            ],
+            'query' => $query,
         ]);
 
-        $this->view->title = 'Federation teams';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Federation teams - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Трансфер хоккеистов');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider

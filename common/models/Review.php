@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Review
@@ -26,7 +25,7 @@ use yii\db\ActiveRecord;
  * @property Stage $stage
  * @property User $user
  */
-class Review extends ActiveRecord
+class Review extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -42,11 +41,6 @@ class Review extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['review_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['review_division_id'], 'in', 'range' => Division::find()->select(['division_id'])->column()],
-            [['review_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['review_stage_id'], 'in', 'range' => Stage::find()->select(['stage_id'])->column()],
-            [['review_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [
                 [
                     'review_id',
@@ -59,7 +53,7 @@ class Review extends ActiveRecord
                     'review_stage_id',
                     'review_text',
                     'review_title',
-                    'review_user_id'
+                    'review_user_id',
                 ],
                 'integer'
             ],

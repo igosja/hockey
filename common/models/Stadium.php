@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Stadium
@@ -19,8 +18,11 @@ use yii\db\ActiveRecord;
  * @property City $city
  * @property Team $team
  */
-class Stadium extends ActiveRecord
+class Stadium extends AbstractActiveRecord
 {
+    const ONE_SIT_PRICE_BUY = 200;
+    const ONE_SIT_PRICE_SELL = 150;
+
     /**
      * @return string
      */
@@ -35,8 +37,7 @@ class Stadium extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['stadium_city_id'], 'in', 'range' => City::find()->select(['city_id'])->column()],
-            [['stadium_id', 'stadium_capacity', 'stadium_date', 'stadium_maintenance'], 'integer'],
+            [['stadium_id', 'stadium_capacity', 'stadium_city_id', 'stadium_date', 'stadium_maintenance'], 'integer'],
             [['stadium_city_id', 'stadium_name'], 'required'],
             [['stadium_name'], 'string', 'max' => 255],
             [['stadium_name'], 'trim'],
@@ -70,7 +71,7 @@ class Stadium extends ActiveRecord
      */
     public function getCity(): ActiveQuery
     {
-        return $this->hasOne(City::class, ['city_id' => 'stadium_city_id']);
+        return $this->hasOne(City::class, ['city_id' => 'stadium_city_id'])->cache();
     }
 
     /**
@@ -78,6 +79,6 @@ class Stadium extends ActiveRecord
      */
     public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id']);
+        return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id'])->cache();
     }
 }

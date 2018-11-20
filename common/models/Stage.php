@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Stage
  * @package common\models
@@ -12,7 +10,7 @@ use yii\db\ActiveRecord;
  * @property string $stage_name
  * @property int $stage_visitor
  */
-class Stage extends ActiveRecord
+class Stage extends AbstractActiveRecord
 {
     const FRIENDLY = 1;
     const TOUR_1 = 2;

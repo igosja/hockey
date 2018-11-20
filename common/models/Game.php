@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Game
@@ -123,14 +123,40 @@ use yii\db\ActiveRecord;
  * @property int $game_visitor
  *
  * @property Lineup[] $lineup
+ * @property Mood $moodGuest
+ * @property Mood $moodHome
  * @property National $nationalGuest
  * @property National $nationalHome
+ * @property Rudeness $rudenessGuest1
+ * @property Rudeness $rudenessGuest2
+ * @property Rudeness $rudenessGuest3
+ * @property Rudeness $rudenessGuest4
+ * @property Rudeness $rudenessHome1
+ * @property Rudeness $rudenessHome2
+ * @property Rudeness $rudenessHome3
+ * @property Rudeness $rudenessHome4
  * @property Schedule $schedule
  * @property Stadium $stadium
+ * @property Style $styleGuest1
+ * @property Style $styleGuest2
+ * @property Style $styleGuest3
+ * @property Style $styleGuest4
+ * @property Style $styleHome1
+ * @property Style $styleHome2
+ * @property Style $styleHome3
+ * @property Style $styleHome4
+ * @property Tactic $tacticGuest1
+ * @property Tactic $tacticGuest2
+ * @property Tactic $tacticGuest3
+ * @property Tactic $tacticGuest4
+ * @property Tactic $tacticHome1
+ * @property Tactic $tacticHome2
+ * @property Tactic $tacticHome3
+ * @property Tactic $tacticHome4
  * @property Team $teamGuest
  * @property Team $teamHome
  */
-class Game extends ActiveRecord
+class Game extends AbstractActiveRecord
 {
     const PAGE_LIMIT = 50;
 
@@ -153,9 +179,6 @@ class Game extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['game_schedule_id'], 'in', 'range' => Schedule::find()->select(['schedule_id'])->column()],
-            [['game_guest_team_id', 'game_home_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [['game_stadium_id'], 'in', 'range' => Stadium::find()->select(['stadium_id'])->column()],
             [
                 [
                     'game_id',
@@ -201,6 +224,7 @@ class Game extends ActiveRecord
                     'game_guest_tactic_id_2',
                     'game_guest_tactic_id_3',
                     'game_guest_tactic_id_4',
+                    'game_guest_team_id',
                     'game_home_auto',
                     'game_home_collision_1',
                     'game_home_collision_2',
@@ -242,9 +266,12 @@ class Game extends ActiveRecord
                     'game_home_tactic_id_2',
                     'game_home_tactic_id_3',
                     'game_home_tactic_id_4',
+                    'game_home_team_id',
                     'game_played',
                     'game_ticket',
+                    'game_schedule_id',
                     'game_stadium_capacity',
+                    'game_stadium_id',
                     'game_visitor',
                 ],
                 'integer'
@@ -278,12 +305,154 @@ class Game extends ActiveRecord
         ];
     }
 
+    public function tournamentLink(): string
+    {
+        if (TournamentType::NATIONAL == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
+                [
+                    'world-cup/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::LEAGUE == $this->schedule->schedule_tournament_type_id) {
+            if ($this->schedule->schedule_stage_id <= Stage::QUALIFY_3) {
+                $roundId = 0;
+            } elseif ($this->schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1) {
+                $roundId = 1;
+            } else {
+                $roundId = 2;
+            }
+
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
+                [
+                    'league/index',
+                    'roundId' => $roundId,
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::CHAMPIONSHIP == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
+                [
+                    'championship/index',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                    'divisionId' => $this->teamHome->championship->championship_division_id,
+                    'countryId' => $this->teamHome->championship->championship_country_id,
+                    'stageId' => $this->schedule->schedule_stage_id,
+                ]
+            );
+        } elseif (TournamentType::CONFERENCE == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
+                [
+                    'conference/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                ]
+            );
+        } elseif (TournamentType::OFF_SEASON == $this->schedule->schedule_tournament_type_id) {
+            $result = Html::a(
+                $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
+                [
+                    'off-season/table',
+                    'seasonId' => $this->schedule->schedule_season_id,
+                ]
+            );
+        } else {
+            $result = $this->schedule->tournamentType->tournament_type_name;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $team
+     * @return string
+     */
+    public function cssMood($team): string
+    {
+        $classLoose = 'font-red';
+        $classWin = 'font-green';
+
+        $mood = 'game_' . $team . '_mood_id';
+        $mood = $this->$mood;
+
+        if (Mood::SUPER == $mood) {
+            return $classWin;
+        }
+        if (Mood::REST == $mood) {
+            return $classLoose;
+        }
+        return '';
+    }
+
+    /**
+     * @param string $team
+     * @param int $id
+     * @return string
+     */
+    public function cssStyle(string $team, int $id): string
+    {
+        $classLoose = 'font-red';
+        $classWin = 'font-green';
+
+        if ('home' == $team) {
+            $opponent = 'guest';
+        } else {
+            $opponent = 'home';
+        }
+
+        $style1 = 'game_' . $team . '_style_id_' . $id;
+        $style1 = $this->$style1;
+        $style2 = 'game_' . $opponent . '_style_id_' . $id;
+        $style2 = $this->$style2;
+
+        if (Style::POWER == $style1 && Style::SPEED == $style2) {
+            return $classWin;
+        }
+        if (Style::SPEED == $style1 && Style::TECHNIQUE == $style2) {
+            return $classWin;
+        }
+        if (Style::TECHNIQUE == $style1 && Style::POWER == $style2) {
+            return $classWin;
+        }
+        if (Style::SPEED == $style1 && Style::POWER == $style2) {
+            return $classLoose;
+        }
+        if (Style::TECHNIQUE == $style1 && Style::SPEED == $style2) {
+            return $classLoose;
+        }
+        if (Style::POWER == $style1 && Style::TECHNIQUE == $style2) {
+            return $classLoose;
+        }
+        return '';
+    }
+
     /**
      * @return ActiveQuery
      */
     public function getLineup(): ActiveQuery
     {
         return $this->hasMany(Lineup::class, ['lineup_game_id' => 'game_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getMoodGuest(): ActiveQuery
+    {
+        return $this->hasOne(Mood::class, ['mood_id' => 'game_guest_mood_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getMoodHome(): ActiveQuery
+    {
+        return $this->hasOne(Mood::class, ['mood_id' => 'game_home_mood_id']);
     }
 
     /**
@@ -305,6 +474,70 @@ class Game extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getRudenessGuest1(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessGuest2(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessGuest3(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessGuest4(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_4']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessHome1(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessHome2(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessHome3(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRudenessHome4(): ActiveQuery
+    {
+        return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_4']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getSchedule(): ActiveQuery
     {
         return $this->hasOne(Schedule::class, ['schedule_id' => 'game_schedule_id']);
@@ -316,6 +549,134 @@ class Game extends ActiveRecord
     public function getStadium(): ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'game_stadium_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleGuest1(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleGuest2(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleGuest3(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleGuest4(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_4']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleHome1(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleHome2(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleHome3(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyleHome4(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_4']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticGuest1(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticGuest2(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticGuest3(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticGuest4(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_4']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticHome1(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_1']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticHome2(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_2']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticHome3(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_3']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTacticHome4(): ActiveQuery
+    {
+        return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_4']);
     }
 
     /**

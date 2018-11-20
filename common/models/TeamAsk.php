@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TeamAsk
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property Team $team
  * @property User $user
  */
-class TeamAsk extends ActiveRecord
+class TeamAsk extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -35,9 +34,7 @@ class TeamAsk extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['team_ask_leave_id', 'team_ask_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [['team_ask_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['team_ask_id', 'team_ask_date'], 'integer'],
+            [['team_ask_id', 'team_ask_date', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'], 'integer'],
             [['team_ask_team_id'], 'required'],
         ];
     }

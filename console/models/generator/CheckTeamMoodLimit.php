@@ -26,6 +26,7 @@ class CheckTeamMoodLimit
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule', 'teamHome', 'teamGuest', 'nationalHome', 'nationalGuest'])
             ->where(['game_played' => 0])
             ->andWhere(['or', ['!=', 'game_home_mood_id', Mood::NORMAL], ['!=', 'game_guest_mood_id', Mood::NORMAL]])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -52,7 +53,7 @@ class CheckTeamMoodLimit
      */
     private function isFriendly(): bool
     {
-        if (TournamentType::FRIENDLY == $this->game->schedule->tournamentType->tournament_type_id) {
+        if (TournamentType::FRIENDLY == $this->game->schedule->schedule_tournament_type_id) {
             return true;
         }
         return false;
@@ -71,7 +72,7 @@ class CheckTeamMoodLimit
     /**
      * @return void
      */
-    private function checkTeam()
+    private function checkTeam(): void
     {
         if (Mood::SUPER == $this->game->game_home_mood_id) {
             if ($this->game->teamHome->team_mood_super <= 0) {
@@ -97,7 +98,7 @@ class CheckTeamMoodLimit
                 $this->game->save();
             } else {
                 $this->game->teamGuest->team_mood_super = $this->game->teamGuest->team_mood_super - 1;
-                $this->game->teamHome->save();
+                $this->game->teamGuest->save();
             }
         } elseif (Mood::REST == $this->game->game_guest_mood_id) {
             if ($this->game->teamGuest->team_mood_rest <= 0) {
@@ -105,7 +106,7 @@ class CheckTeamMoodLimit
                 $this->game->save();
             } else {
                 $this->game->teamGuest->team_mood_rest = $this->game->teamGuest->team_mood_rest - 1;
-                $this->game->teamHome->save();
+                $this->game->teamGuest->save();
             }
         }
     }
@@ -113,7 +114,7 @@ class CheckTeamMoodLimit
     /**
      * @return void
      */
-    private function checkNational()
+    private function checkNational(): void
     {
         if (Mood::SUPER == $this->game->game_home_mood_id) {
             if ($this->game->nationalHome->national_mood_super <= 0) {

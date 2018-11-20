@@ -1,58 +1,72 @@
 <?php
 
-use yii\helpers\ArrayHelper;
+use common\components\ErrorHelper;
+use common\models\Team;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Team[] $countryArray
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var Team $model
  */
 
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            Teams
+            Команды
         </h1>
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th class="col-1"></th>
-                <th>Country</th>
-                <th class="col-25">Teams</th>
-            </tr>
-            <?php foreach ($countryArray as $item): ?>
-                <tr>
-                    <td>
-                        <?= Html::a(
-                            Html::img(
-                                '/img/country/12/' . $item->stadium->city->country->country_id . '.png',
-                                [
-                                    'alt' => $item->stadium->city->country->country_name,
-                                    'title' => $item->stadium->city->country->country_name,
-                                ]
-                            ),
-                            ['country/team', 'id' => $item->stadium->city->country->country_id]
-                        ); ?>
-                    </td>
-                    <td>
-                        <?= Html::a(
-                            $item->stadium->city->country->country_name,
-                            ['country/team', 'id' => $item->stadium->city->country->country_id]
-                        ); ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $item->team_player; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            <tr>
-                <th></th>
-                <th>Country</th>
-                <th>Teams</th>
-            </tr>
-        </table>
-    </div>
+    <?php
+
+    try {
+        $columns = [
+            [
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-1'],
+                'value' => function (Team $model) {
+                    return Html::a(
+                        Html::img(
+                            '/img/country/12/' . $model->stadium->city->city_country_id . '.png',
+                            [
+                                'alt' => $model->stadium->city->country->country_name,
+                                'title' => $model->stadium->city->country->country_name,
+                            ]
+                        ),
+                        ['country/team', 'id' => $model->stadium->city->city_country_id]
+                    );
+                }
+            ],
+            [
+                'attribute' => 'country',
+                'footer' => $model->getAttributeLabel('country'),
+                'format' => 'raw',
+                'value' => function (Team $model) {
+                    return Html::a(
+                        $model->stadium->city->country->country_name,
+                        ['country/team', 'id' => $model->stadium->city->city_country_id]
+                    );
+                }
+            ],
+            [
+                'attribute' => 'count_team',
+                'contentOptions' => ['class' => 'text-center'],
+                'headerOptions' => ['class' => 'col-25'],
+                'footer' => $model->getAttributeLabel('count_team'),
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $dataProvider,
+            'showFooter' => true,
+            'showOnEmpty' => false,
+            'summary' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
 </div>

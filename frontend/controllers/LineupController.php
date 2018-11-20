@@ -7,6 +7,7 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -17,7 +18,7 @@ use yii\widgets\ActiveForm;
  * Class LineupController
  * @package frontend\controllers
  */
-class LineupController extends BaseController
+class LineupController extends AbstractController
 {
     /**
      * @return array
@@ -71,8 +72,8 @@ class LineupController extends BaseController
 
         $substitutionArray = [
             [
+                ['line_id' => 0, 'position_id' => Position::GK],
                 ['line_id' => 1, 'position_id' => Position::GK],
-                ['line_id' => 2, 'position_id' => Position::GK],
             ],
             [
                 ['line_id' => 1, 'position_id' => Position::LD],
@@ -116,6 +117,12 @@ class LineupController extends BaseController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array|string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionTactic($id)
     {
         $game = Game::find()
@@ -128,6 +135,12 @@ class LineupController extends BaseController
             ->limit(1)
             ->one();
         $this->notFound($game);
+
+        if ($this->myTeam->team_id == $game->game_home_team_id) {
+            $team = 'home';
+        } else {
+            $team = 'guest';
+        }
 
         if (Yii::$app->request->isAjax && $game->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -143,9 +156,15 @@ class LineupController extends BaseController
 
         return $this->render('tactic', [
             'game' => $game,
+            'team' => $team,
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionSubstitution($id)
     {
         $game = Game::find()
@@ -172,7 +191,7 @@ class LineupController extends BaseController
             ->one();
 
         if (Position::GK != $positionId) {
-            $positionWhere = ['!=', 'player_position_id', $positionId];
+            $positionWhere = [];
         } else {
             $positionWhere = ['player_position_id' => $positionId];
         }
@@ -186,7 +205,8 @@ class LineupController extends BaseController
                 ->andWhere([
                     'not',
                     ['player_id' => Lineup::find()->select(['lineup_player_id'])->where(['lineup_game_id' => $id])]
-                ]),
+                ])
+                ->orderBy(['player_power_real' => SORT_DESC]),
         ]);
 
         return $this->render('substitution', [
@@ -195,6 +215,12 @@ class LineupController extends BaseController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return Response
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionChange($id)
     {
         $game = Game::find()
@@ -211,7 +237,7 @@ class LineupController extends BaseController
         $positionId = (int)Yii::$app->request->get('position_id');
 
         if (Position::GK != $positionId) {
-            $positionWhere = ['!=', 'player_position_id', $positionId];
+            $positionWhere = [];
         } else {
             $positionWhere = ['player_position_id' => $positionId];
         }
@@ -252,7 +278,7 @@ class LineupController extends BaseController
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Игрок успешно добавлен в состав.');
-        } catch (\Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
         }

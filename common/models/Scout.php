@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Scout
  * @package common\models
@@ -16,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property int $scout_style
  * @property int $scout_team_id
  */
-class Scout extends ActiveRecord
+class Scout extends AbstractActiveRecord
 {
     /**
      * @return string

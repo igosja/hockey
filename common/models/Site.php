@@ -4,8 +4,8 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use Exception;
+use Throwable;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * Class Site
@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property int $site_version_3
  * @property int $site_version_date
  */
-class Site extends ActiveRecord
+class Site extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -37,24 +37,33 @@ class Site extends ActiveRecord
         $version = '0.0.0';
         $date = time();
 
-        $site = self::find()
-            ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
-            ->where(['site_id' => 1])
-            ->one();
+        try {
+            $site = self::getDb()->cache(function (): self {
+                return self::find()
+                    ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
+                    ->where(['site_id' => 1])
+                    ->one();
+            });
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $site = self::find()
+                ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
+                ->where(['site_id' => 1])
+                ->one();
+        }
+
         if ($site) {
             $version = $site->site_version_1 . '.' . $site->site_version_2 . '.' . $site->site_version_3;
             $date = $site->site_version_date;
         }
 
-        $result = 'Version ' . $version . ' dated ';
-
         try {
-            $result = $result . Yii::$app->formatter->asDate($date);
+            $date = Yii::$app->formatter->asDate($date);
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
 
-        return $result;
+        return 'Версия ' . $version . ' от ' . $date;
     }
 
     /**

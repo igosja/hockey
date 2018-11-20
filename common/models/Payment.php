@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\db\Query;
 
@@ -19,7 +18,7 @@ use yii\db\Query;
  *
  * @property User $user
  */
-class Payment extends ActiveRecord
+class Payment extends AbstractActiveRecord
 {
     const NOT_PAID = 0;
     const PAID = 1;

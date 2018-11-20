@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Division
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $division_id
  * @property string $division_name
  */
-class Division extends ActiveRecord
+class Division extends AbstractActiveRecord
 {
     const D1 = 1;
     const D2 = 2;

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class EventTextGoal
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $event_text_goal_id
  * @property string $event_text_goal_text
  */
-class EventTextGoal extends ActiveRecord
+class EventTextGoal extends AbstractActiveRecord
 {
     /**
      * @return string

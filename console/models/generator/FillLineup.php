@@ -14,12 +14,14 @@ use common\models\Position;
 class FillLineup
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['nationalGuest', 'nationalHome'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -32,19 +34,21 @@ class FillLineup
                 if (0 == $i) {
                     $moodId = $game->game_guest_mood_id;
                     $nationalId = $game->game_guest_national_id;
-                    $countryId = $game->nationalGuest->national_country_id;
+                    $countryId = $game->nationalGuest->national_country_id ?? null;
                     $teamId = $game->game_guest_team_id;
                 } else {
                     $moodId = $game->game_home_mood_id;
                     $nationalId = $game->game_home_national_id;
-                    $countryId = $game->nationalHome->national_country_id;
+                    $countryId = $game->nationalHome->national_country_id ?? null;
                     $teamId = $game->game_home_team_id;
                 }
 
                 for ($j = 0; $j < Lineup::GAME_QUANTITY; $j++) {
-                    if (in_array($j, [0, 2, 3, 4, 5, 6])) {
+                    if (in_array($j, [0])) {
+                        $lineId = 0;
+                    } elseif (in_array($j, [1, 2, 3, 4, 5, 6])) {
                         $lineId = 1;
-                    } elseif (in_array($j, [1, 7, 8, 9, 10, 11])) {
+                    } elseif (in_array($j, [7, 8, 9, 10, 11])) {
                         $lineId = 2;
                     } elseif (in_array($j, [12, 13, 14, 15, 16])) {
                         $lineId = 3;
@@ -88,8 +92,9 @@ class FillLineup
                             ->where([
                                 'player_team_id' => 0,
                                 'player_loan_team_id' => 0,
-                                'player_injury_day' => 0,
-                                'player_position_player_id' => $positionId,
+                                'player_school_id' => 0,
+                                'player_injury' => 0,
+                                'player_position_position_id' => $positionId,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
@@ -97,13 +102,13 @@ class FillLineup
                             ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                             ->limit(1);
 
-                        if (0 == $moodId) {
-                            if (0 != $teamId) {
+                        if (!$moodId) {
+                            if ($teamId) {
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
                                     ->where([
-                                        'player_injury_day' => 0,
-                                        'player_position_player_id' => $positionId,
+                                        'player_injury' => 0,
+                                        'player_position_position_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
                                     ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])
@@ -118,7 +123,7 @@ class FillLineup
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
                                     ->where([
-                                        'player_injury_day' => 0,
+                                        'player_injury' => 0,
                                         'player_position_player_id' => $positionId,
                                         'player_national_id' => $nationalId,
                                     ])

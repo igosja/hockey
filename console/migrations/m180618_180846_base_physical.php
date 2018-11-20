@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180618_180846_base_physical extends Migration
 {
-    const TABLE = 'base_physical';
+    const TABLE = '{{%base_physical}}';
 
     /**
      * @return bool|void

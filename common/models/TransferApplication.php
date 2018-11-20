@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class TransferApplicationTo
@@ -19,7 +18,7 @@ use yii\db\ActiveRecord;
  *
  * @property Team $team
  */
-class TransferApplication extends ActiveRecord
+class TransferApplication extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -35,19 +34,15 @@ class TransferApplication extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_application_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
-            [
-                ['transfer_application_transfer_id'],
-                'in',
-                'range' => Transfer::find()->select(['transfer_id'])->column()
-            ],
-            [['transfer_application_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
             [
                 [
                     'transfer_application_id',
                     'transfer_application_date',
                     'transfer_application_only_one',
                     'transfer_application_price',
+                    'transfer_application_team_id',
+                    'transfer_application_transfer_id',
+                    'transfer_application_user_id',
                 ],
                 'integer'
             ]

@@ -33,6 +33,7 @@ class FinanceStadium
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule', 'stadium', 'teamHome', 'teamGuest', 'nationalHome', 'nationalGuest'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -41,9 +42,9 @@ class FinanceStadium
             $this->game = $game;
             $this->income = $this->game->game_visitor * $this->game->game_ticket;
 
-            if (TournamentType::FRIENDLY == $this->game->schedule->tournamentType->tournament_type_id) {
+            if (TournamentType::FRIENDLY == $this->game->schedule->schedule_tournament_type_id) {
                 $this->friendly();
-            } elseif (TournamentType::NATIONAL == $this->game->schedule->tournamentType->tournament_type_id) {
+            } elseif (TournamentType::NATIONAL == $this->game->schedule->schedule_tournament_type_id) {
                 $this->national();
             } else {
                 $this->default();
@@ -148,7 +149,7 @@ class FinanceStadium
         $outcome = $this->game->stadium->stadium_maintenance;
 
         Finance::log([
-            'finance_financetext_id' => FinanceText::INCOME_TICKET,
+            'finance_finance_text_id' => FinanceText::INCOME_TICKET,
             'finance_team_id' => $this->game->teamHome->team_id,
             'finance_value' => $income,
             'finance_value_after' => $this->game->teamHome->team_finance + $income,
@@ -156,7 +157,7 @@ class FinanceStadium
         ]);
 
         Finance::log([
-            'finance_financetext_id' => FinanceText::OUTCOME_GAME,
+            'finance_finance_text_id' => FinanceText::OUTCOME_GAME,
             'finance_team_id' => $this->game->teamHome->team_id,
             'finance_value' => -$this->game->stadium->stadium_maintenance,
             'finance_value_after' => $this->game->teamHome->team_finance + $income - $outcome,

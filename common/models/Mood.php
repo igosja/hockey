@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Mood
  * @package common\models
@@ -11,11 +9,11 @@ use yii\db\ActiveRecord;
  * @property int $mood_id
  * @property string $mood_name
  */
-class Mood extends ActiveRecord
+class Mood extends AbstractActiveRecord
 {
-    const NORMAL = 1;
-    const REST = 2;
-    const SUPER = 3;
+    const NORMAL = 2;
+    const REST = 3;
+    const SUPER = 1;
 
     /**
      * @return string

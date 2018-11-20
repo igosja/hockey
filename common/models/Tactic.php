@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Tactic
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $tactic_id
  * @property string $tactic_name
  */
-class Tactic extends ActiveRecord
+class Tactic extends AbstractActiveRecord
 {
     const ALL_DEFENCE = 1;
     const DEFENCE = 2;

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BaseMedical
  * @package common\models
@@ -16,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property int $base_medical_price_sell
  * @property int $base_medical_tire
  */
-class BaseMedical extends ActiveRecord
+class BaseMedical extends AbstractActiveRecord
 {
     /**
      * @return string

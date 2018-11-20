@@ -20,8 +20,8 @@ class m180619_164525_event_text_shootout extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['event_text_shootout_text'], [
-            ['Shootout (goal)'],
-            ['Shootout (no goal)'],
+            ['Реализованный буллит'],
+            ['Нереализованный буллит'],
         ]);
     }
 

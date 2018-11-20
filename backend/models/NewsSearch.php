@@ -19,7 +19,7 @@ class NewsSearch extends News
     {
         return [
             [['news_id'], 'integer'],
-            [['news_date', 'news_title'], 'safe'],
+            [['news_title'], 'safe'],
         ];
     }
 
@@ -49,7 +49,6 @@ class NewsSearch extends News
 
         $query
             ->andFilterWhere(['news_id' => $this->news_id])
-            ->andFilterWhere(['news_date' => $this->news_date])
             ->andFilterWhere(['like', 'news_title', $this->news_title]);
 
         return $dataProvider;

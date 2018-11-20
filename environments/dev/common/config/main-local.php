@@ -14,7 +14,7 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'viewPath' => '@common/mail',
         ],
     ],

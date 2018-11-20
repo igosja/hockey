@@ -6,7 +6,6 @@ use common\models\BuildingStadium;
 use common\models\ConstructionType;
 use common\models\History;
 use common\models\HistoryText;
-use yii\db\Expression;
 
 /**
  * Class UpdateBuildingStadium
@@ -19,9 +18,10 @@ class UpdateBuildingStadium
      */
     public function execute(): void
     {
-        BuildingStadium::updateAllCounters(['building_stadium_day' => -1], ['<', 'building_base_ready', 0]);
+        BuildingStadium::updateAllCounters(['building_stadium_day' => -1], ['<', 'building_stadium_ready', 0]);
 
         $buildingStadiumArray = BuildingStadium::find()
+            ->with(['team.stadium'])
             ->where(['building_stadium_ready' => 0])
             ->andWhere(['<=', 'building_stadium_day', 0])
             ->orderBy(['building_stadium_id' => SORT_ASC])
@@ -47,7 +47,7 @@ class UpdateBuildingStadium
         }
 
         BuildingStadium::updateAll(
-            ['building_stadium_ready' => new Expression('UNIX_TIMESTAMP()')],
+            ['building_stadium_ready' => time()],
             ['and', ['building_stadium_ready' => 0], ['<=', 'building_stadium_day', 0]]
         );
     }

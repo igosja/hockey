@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class UpdateUserRating
  * @package common\models
@@ -37,7 +35,7 @@ use yii\db\ActiveRecord;
  * @property int $user_rating_win_super
  * @property int $user_rating_win_weak
  */
-class UserRating extends ActiveRecord
+class UserRating extends AbstractActiveRecord
 {
     /**
      * @return string

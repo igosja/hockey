@@ -19,24 +19,33 @@ class SetUserAuto
         Team::updateAllCounters(
             ['team_auto' => 1],
             [
-                'team_id' => Game::find()
-                    ->select(['game_home_team_id'])
-                    ->joinWith(['schedule'])
-                    ->where(['game_played' => 0, 'game_home_auto' => 1])
-                    ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+                'and',
+                [
+                    'team_id' => Game::find()
+                        ->select(['game_home_team_id'])
+                        ->joinWith(['schedule'])
+                        ->where(['game_played' => 0, 'game_home_auto' => 1])
+                        ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()'),
+                ],
+                ['!=', 'team_user_id', 0]
             ]
         );
 
         Team::updateAllCounters(
             ['team_auto' => 1],
             [
-                'team_id' => Game::find()
-                    ->select(['game_guest_team_id'])
-                    ->joinWith(['schedule'])
-                    ->where(['game_played' => 0, 'game_guest_auto' => 1])
-                    ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+                'and',
+                [
+                    'team_id' => Game::find()
+                        ->select(['game_guest_team_id'])
+                        ->joinWith(['schedule'])
+                        ->where(['game_played' => 0, 'game_guest_auto' => 1])
+                        ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+                ],
+                ['!=', 'team_user_id', 0]
             ]
         );
+
         Team::updateAll(
             ['team_auto' => 0],
             [
@@ -60,5 +69,6 @@ class SetUserAuto
         );
 
         Team::updateAll(['team_auto' => 5], ['>', 'team_auto', 5]);
+        Team::updateAll(['team_auto' => 0], ['team_user_id' => 0]);
     }
 }

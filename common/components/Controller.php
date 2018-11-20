@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\Controller as BaseController;
 use yii\web\NotFoundHttpException;
@@ -19,7 +20,16 @@ class Controller extends BaseController
     protected function notFound(ActiveRecord $model = null)
     {
         if (!$model) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Страница не найдена');
         }
+    }
+
+    /**
+     * @param string $text
+     * @return void
+     */
+    protected function setSuccessFlash($text = 'Изменения успешно сохранены'): void
+    {
+        Yii::$app->session->setFlash('success', $text);
     }
 }

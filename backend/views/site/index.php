@@ -21,7 +21,7 @@ use yii\helpers\Html;
  * @var int $support
  * @var \yii\web\View $this
  * @var int $transferComment
- * @var int $vote
+ * @var int $poll
  */
 
 ?>
@@ -40,13 +40,13 @@ use yii\helpers\Html;
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge admin-freeTeam"><?= $freeTeam; ?></div>
-                        <div>Free teams</div>
+                        <div>Свободные команды</div>
                     </div>
                 </div>
             </div>
             <?= Html::a(
                 '<div class="panel-footer">
-                    <span class="pull-left">Details</span>
+                    <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>',
@@ -54,8 +54,10 @@ use yii\helpers\Html;
             ); ?>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-logo"
-         <?php if (0 == $logo) : ?>style="display:none;"<?php endif; ?>>
+    <div
+            class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-logo"
+            <?php if (0 == $logo) : ?>style="display:none;"<?php endif; ?>
+    >
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -64,13 +66,13 @@ use yii\helpers\Html;
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge admin-logo"><?= $logo; ?></div>
-                        <div>Logos</div>
+                        <div>Логотипы</div>
                     </div>
                 </div>
             </div>
             <?= Html::a(
                 '<div class="panel-footer">
-                    <span class="pull-left">Details</span>
+                    <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>',
@@ -78,8 +80,10 @@ use yii\helpers\Html;
             ); ?>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-support"
-         <?php if (0 == $support) : ?>style="display:none;"<?php endif; ?>>
+    <div
+            class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-support"
+            <?php if (0 == $support) : ?>style="display:none;"<?php endif; ?>
+    >
         <div class="panel panel-red panel-support">
             <div class="panel-heading">
                 <div class="row">
@@ -88,13 +92,13 @@ use yii\helpers\Html;
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge admin-support"><?= $support; ?></div>
-                        <div>Support</div>
+                        <div>Тех.поддежка</div>
                     </div>
                 </div>
             </div>
             <?= Html::a(
                 '<div class="panel-footer">
-                    <span class="pull-left">Details</span>
+                    <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>',
@@ -112,13 +116,13 @@ use yii\helpers\Html;
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge admin-complain"><?= $complaint; ?></div>
-                        <div>Complaints</div>
+                        <div>Жалобы</div>
                     </div>
                 </div>
             </div>
             <?= Html::a(
                 '<div class="panel-footer">
-                    <span class="pull-left">Details</span>
+                    <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>',
@@ -126,8 +130,8 @@ use yii\helpers\Html;
             ); ?>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-vote"
-         <?php if (0 == $vote) : ?>style="display:none;"<?php endif; ?>>
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-poll"
+         <?php if (0 == $poll) : ?>style="display:none;"<?php endif; ?>>
         <div class="panel panel-yellow">
             <div class="panel-heading">
                 <div class="row">
@@ -135,18 +139,18 @@ use yii\helpers\Html;
                         <i class="fa fa-bar-chart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge admin-vote"><?= $vote; ?></div>
-                        <div>Polls</div>
+                        <div class="huge admin-poll"><?= $poll; ?></div>
+                        <div>Опросы</div>
                     </div>
                 </div>
             </div>
             <?= Html::a(
                 '<div class="panel-footer">
-                    <span class="pull-left">Details</span>
+                    <span class="pull-left">Подробнее</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>',
-                ['vote/index']
+                ['poll/index']
             ); ?>
         </div>
     </div>
@@ -155,7 +159,7 @@ use yii\helpers\Html;
     <div class="col-lg-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Payments
+                <i class="fa fa-bar-chart-o fa-fw"></i> Платежи
             </div>
             <div class="panel-body">
                 <?php
@@ -166,15 +170,15 @@ use yii\helpers\Html;
                             'credits' => ['enabled' => false],
                             'legend' => ['enabled' => false],
                             'series' => [
-                                ['name' => 'Payments', 'data' => $paymentData],
+                                ['name' => 'Платежи', 'data' => $paymentData],
                             ],
-                            'title' => ['text' => 'Payments'],
+                            'title' => ['text' => 'Платежи'],
                             'xAxis' => [
                                 'categories' => $paymentCategories,
-                                'title' => ['text' => 'Month'],
+                                'title' => ['text' => 'Месяц'],
                             ],
                             'yAxis' => [
-                                'title' => ['text' => 'Amount'],
+                                'title' => ['text' => 'Сумма'],
                             ],
                         ]
                     ]);
@@ -187,9 +191,9 @@ use yii\helpers\Html;
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped table-condensed">
                         <tr>
-                            <th>Time</th>
-                            <th>Amount</th>
-                            <th>User</th>
+                            <th>Время</th>
+                            <th>Сумма</th>
+                            <th>Пользователь</th>
                         </tr>
                         <?php foreach ($paymentArray as $item) : ?>
                             <tr>
@@ -235,54 +239,54 @@ use yii\helpers\Html;
     <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> To moderation (<?= $countModeration; ?>)
+                <i class="fa fa-bar-chart-o fa-fw"></i> На проверку (<?= $countModeration; ?>)
             </div>
             <div class="panel-body">
                 <div class="list-group">
                     <?= Html::a(
-                        'Forum messages <span class="pull-right text-muted small"><em>'
+                        'Форум <span class="pull-right text-muted small"><em>'
                         . $forumMessage
                         . '</em></span>',
                         ['moderation/forum-message'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'Game comments <span class="pull-right text-muted small"><em>'
+                        'Комментарии к матчам <span class="pull-right text-muted small"><em>'
                         . $gameComment
                         . '</em></span>',
                         ['moderation/game-comment'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'News <span class="pull-right text-muted small"><em>'
+                        'Новости <span class="pull-right text-muted small"><em>'
                         . $news
                         . '</em></span>',
                         ['moderation/news'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'News comments <span class="pull-right text-muted small"><em>'
+                        'Комментарии к новостям <span class="pull-right text-muted small"><em>'
                         . $newsComment
                         . '</em></span>',
                         ['moderation/news-comment'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'Loans comments <span class="pull-right text-muted small"><em>'
+                        'Комментарии к аренде <span class="pull-right text-muted small"><em>'
                         . $loanComment
                         . '</em></span>',
                         ['moderation/loan-comment'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'Transfers comments <span class="pull-right text-muted small"><em>'
+                        'Комментарии к трансферам <span class="pull-right text-muted small"><em>'
                         . $transferComment
                         . '</em></span>',
                         ['moderation/transfer-comment'],
                         ['class' => 'list-group-item']
                     ); ?>
                     <?= Html::a(
-                        'Reviews <span class="pull-right text-muted small"><em>'
+                        'Обзоры <span class="pull-right text-muted small"><em>'
                         . $review
                         . '</em></span>',
                         ['moderation/review'],

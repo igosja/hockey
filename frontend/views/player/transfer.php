@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \frontend\models\TransferApplicationFrom $modelTransferApplicationFrom
  * @var \frontend\models\TransferApplicationTo $modelTransferApplicationTo
  * @var \frontend\models\TransferFrom $modelTransferFrom
@@ -15,18 +15,22 @@
 $context = $this->context;
 
 print $this->render('_player');
-print $this->render('_links');
 
 ?>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>Player transfer</th>
-                </tr>
-            </table>
-        </div>
+<div class="row margin-top-small">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?= $this->render('_links'); ?>
     </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Трансфер игрока</th>
+            </tr>
+        </table>
+    </div>
+</div>
 <?php if (!$context->myTeam) : ?>
     <?= $this->render('_transfer_no_team'); ?>
 <?php elseif ($myPlayer) : ?>
@@ -49,13 +53,17 @@ print $this->render('_links');
         <?= $this->render('_transfer_no'); ?>
     <?php endif; ?>
 <?php endif; ?>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>Player transfer</th>
-                </tr>
-            </table>
-        </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Трансфер игрока</th>
+            </tr>
+        </table>
     </div>
-<?= $this->render('_links'); ?>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?= $this->render('_links'); ?>
+    </div>
+</div>

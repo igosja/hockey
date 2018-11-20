@@ -6,7 +6,9 @@ use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\base\NotSupportedException;
-use yii\db\ActiveRecord;
+use yii\db\ActiveQuery;
+use yii\db\Expression;
+use yii\helpers\Html;
 use yii\web\IdentityInterface;
 
 /**
@@ -41,6 +43,7 @@ use yii\web\IdentityInterface;
  * @property int $user_finance
  * @property int $user_holiday
  * @property int $user_holiday_day
+ * @property int $user_language_id
  * @property string $user_login
  * @property float $user_money
  * @property string $user_name
@@ -55,10 +58,22 @@ use yii\web\IdentityInterface;
  * @property int $user_shop_special
  * @property string $user_surname
  * @property int $user_user_role_id
+ *
+ * @property Country $country
+ * @property BlockReason $reasonBlockComment
+ * @property BlockReason $reasonBlockCommentDeal
+ * @property BlockReason $reasonBlockCommentGame
+ * @property BlockReason $reasonBlockCommentNews
+ * @property BlockReason $reasonBlockForum
+ * @property User $referrer
+ * @property Sex $sex
+ * @property Team[] $team
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends AbstractActiveRecord implements IdentityInterface
 {
-    const PASSWORD_SALT = 'hockey';
+    const ADMIN_USER_ID = 1;
+    const MAX_HOLIDAY = 30;
+    const MAX_VIP_HOLIDAY = 60;
 
     /**
      * @return string
@@ -74,8 +89,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules(): array
     {
         return [
+            [['user_email'], 'email'],
             [
-                [['user_email'], 'email'],
                 [
                     'user_id',
                     'user_birth_day',
@@ -99,13 +114,11 @@ class User extends ActiveRecord implements IdentityInterface
                     'user_date_login',
                     'user_date_register',
                     'user_date_vip',
-                    'user_email',
                     'user_finance',
                     'user_holiday',
                     'user_holiday_day',
-                    'user_login',
+                    'user_language_id',
                     'user_money',
-                    'user_name',
                     'user_news_id',
                     'user_referrer_done',
                     'user_referrer_id',
@@ -119,9 +132,21 @@ class User extends ActiveRecord implements IdentityInterface
             ],
             [['user_rating'], 'number'],
             [['user_email'], 'required'],
-            [['user_city', 'user_name', 'user_password', 'user_surname'], 'string', 'max' => 255],
+            [
+                ['user_city', 'user_email', 'user_login', 'user_name', 'user_password', 'user_surname'],
+                'string',
+                'max' => 255
+            ],
             [['user_code'], 'string', 'length' => 32],
             [['user_email'], 'unique'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'user_id' => 'Id',
+            'user_login' => 'Логин',
         ];
     }
 
@@ -176,7 +201,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword(string $password): bool
     {
-        return Yii::$app->getSecurity()->validatePassword($this->user_password, $password);
+        return Yii::$app->getSecurity()->validatePassword($password, $this->user_password);
     }
 
     /**
@@ -200,8 +225,9 @@ class User extends ActiveRecord implements IdentityInterface
         $code = md5(uniqid(rand(), 1));
         if (!self::find()->where(['user_code' => $code])->exists()) {
             $this->user_code = $code;
+        } else {
+            $this->generateUserCode();
         }
-        $this->generateUserCode();
     }
 
     /**
@@ -213,7 +239,7 @@ class User extends ActiveRecord implements IdentityInterface
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->generateUserCode();
-                $this->user_date_register = time();
+                $this->user_date_register = new Expression('UNIX_TIMESTAMP()');
             }
             return true;
         }
@@ -226,10 +252,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function iconVip(): string
     {
         $result = '';
-        if ($this->user_date_vip > time()) {
+        if ($this->isVip()) {
             $result = ' <i aria-hidden="true" class="fa fa-star" title="VIP"></i>';
         }
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVip(): bool
+    {
+        return $this->user_date_vip > time();
     }
 
     /**
@@ -237,7 +271,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function fullName(): string
     {
-        $result = 'New Manager';
+        $result = 'Новый менеджер';
         if ($this->user_name || $this->user_surname) {
             $result = $this->user_name . ' ' . $this->user_surname;
         }
@@ -260,7 +294,7 @@ class User extends ActiveRecord implements IdentityInterface
             $difference = $now - $date;
             $difference = $difference / 60;
             $difference = round($difference, 0);
-            $date = $difference . ' min ago';
+            $date = $difference . ' минут назад';
         } elseif (0 == $date) {
             $date = '-';
         } else {
@@ -273,6 +307,20 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function birthDay(): string
+    {
+        if ($this->user_birth_day && $this->user_birth_day && $this->user_birth_year) {
+            $result = $this->user_birth_day . '.' . $this->user_birth_month . '.' . $this->user_birth_year;
+        } else {
+            $result = 'Не указан';
+        }
+
+        return $result;
     }
 
     /**
@@ -290,5 +338,106 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function userLink(): string
+    {
+        return Html::a($this->user_login, ['user/view', 'id' => $this->user_id]);
+    }
+
+    public function userFrom(): string
+    {
+        $countryName = $this->country->country_name;
+
+        if ($this->country) {
+            $countryName = '';
+        }
+
+        if ($this->user_city && $countryName) {
+            $result = $this->user_city . ', ' . $countryName;
+        } elseif ($this->user_city) {
+            $result = $this->user_city;
+        } elseif ($countryName) {
+            $result = $countryName;
+        } else {
+            $result = 'Не указано';
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'user_country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockComment(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentDeal(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_deal_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentGame(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_game_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockCommentNews(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_news_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockForum(): ActiveQuery
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_forum_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReferrer(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'user_referrer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSex(): ActiveQuery
+    {
+        return $this->hasOne(Sex::class, ['sex_id' => 'user_sex_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasMany(Team::class, ['team_user_id' => 'user_id']);
     }
 }

@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BaseSchool
  * @package common\models
@@ -20,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property int $base_school_with_special
  * @property int $base_school_with_style
  */
-class BaseSchool extends ActiveRecord
+class BaseSchool extends AbstractActiveRecord
 {
     /**
      * @return string

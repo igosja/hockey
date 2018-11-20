@@ -26,6 +26,7 @@ class Standing
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])

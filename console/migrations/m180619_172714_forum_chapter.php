@@ -21,10 +21,10 @@ class m180619_172714_forum_chapter extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['forum_chapter_name', 'forum_chapter_order'], [
-            ['General', 1],
-            ['Deals and contracts', 2],
-            ['Outside the League', 3],
-            ['National forums', 4],
+            ['Общие', 1],
+            ['Сделки и договоры', 2],
+            ['За пределами Лиги', 3],
+            ['Национальные форумы', 4],
         ]);
     }
 

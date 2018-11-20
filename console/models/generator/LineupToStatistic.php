@@ -21,6 +21,7 @@ class LineupToStatistic
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup', 'lineup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -29,14 +30,14 @@ class LineupToStatistic
             /**
              * @var Game $game
              */
-            $countryId = $game->teamHome->championship->country->country_id ?? 0;
-            $divisionId = $game->teamHome->championship->division->division_id ?? 0;
+            $countryId = $game->teamHome->championship->championship_country_id ?? 0;
+            $divisionId = $game->teamHome->championship->championship_division_id ?? 0;
 
-            if (TournamentType::NATIONAL == $game->schedule->tournamentType->tournament_type_id) {
-                $divisionId = $game->nationalHome->worldCup->division->division_id ?? 0;
+            if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
+                $divisionId = $game->nationalHome->worldCup->world_cup_division_id ?? 0;
             }
 
-            if (in_array($game->schedule->tournamentType->tournament_type_id, [
+            if (in_array($game->schedule->schedule_tournament_type_id, [
                 TournamentType::FRIENDLY,
                 TournamentType::CONFERENCE,
                 TournamentType::LEAGUE,
@@ -46,7 +47,7 @@ class LineupToStatistic
                 $divisionId = 0;
             }
 
-            if (TournamentType::CHAMPIONSHIP == $game->schedule->tournamentType->tournament_type_id && $game->schedule->stage->stage_id >= Stage::QUARTER) {
+            if (TournamentType::CHAMPIONSHIP == $game->schedule->schedule_tournament_type_id && $game->schedule->schedule_stage_id >= Stage::QUARTER) {
                 $isPlayoff = 1;
             } else {
                 $isPlayoff = 0;
@@ -66,9 +67,9 @@ class LineupToStatistic
                     'statistic_player_is_gk' => $isGk,
                     'statistic_player_national_id' => $lineup->lineup_national_id,
                     'statistic_player_player_id' => $lineup->lineup_player_id,
-                    'statistic_player_season_id' => $game->schedule->season->season_id,
+                    'statistic_player_season_id' => $game->schedule->schedule_season_id,
                     'statistic_player_team_id' => $lineup->lineup_team_id,
-                    'statistic_player_tournament_type_id' => $game->schedule->tournamentType->tournament_type_id,
+                    'statistic_player_tournament_type_id' => $game->schedule->schedule_tournament_type_id,
                 ])->count();
 
                 if (!$check) {
@@ -79,9 +80,9 @@ class LineupToStatistic
                     $model->statistic_player_is_gk = $divisionId;
                     $model->statistic_player_national_id = $lineup->lineup_national_id;
                     $model->statistic_player_player_id = $lineup->lineup_player_id;
-                    $model->statistic_player_season_id = $game->schedule->season->season_id;
+                    $model->statistic_player_season_id = $game->schedule->schedule_season_id;
                     $model->statistic_player_team_id = $lineup->lineup_team_id;
-                    $model->statistic_player_tournament_type_id = $game->schedule->tournamentType->tournament_type_id;
+                    $model->statistic_player_tournament_type_id = $game->schedule->schedule_tournament_type_id;
                     $model->save();
                 }
             }

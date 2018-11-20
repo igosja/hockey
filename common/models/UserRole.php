@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class UserRole
  * @package common\models
@@ -11,9 +9,12 @@ use yii\db\ActiveRecord;
  * @property int $user_role_id
  * @property string $user_role_name
  */
-class UserRole extends ActiveRecord
+class UserRole extends AbstractActiveRecord
 {
-    const ADMIN = 3;
+    const ADMIN = 5;
+    const EDITOR = 3;
+    const MODERATOR = 4;
+    const SUPPORT = 2;
     const USER = 1;
 
     /**

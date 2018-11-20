@@ -54,12 +54,14 @@ class GameResult
     private $result;
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -122,7 +124,7 @@ class GameResult
                 'guest_team_id' => $this->game->game_guest_team_id,
                 'home_bonus' => 1,
                 'home_national_id' => $this->game->game_home_national_id,
-                'home_team_id' => $this->game->game_guest_team_id,
+                'home_team_id' => $this->game->game_home_team_id,
                 'tournament_type_id' => $this->game->schedule->schedule_tournament_type_id,
             ],
             'guest' => $teamArray,
@@ -171,27 +173,8 @@ class GameResult
     {
         $result = [
             'player' => [
-                'gk' => [
-                    'age' => 0,
-                    'assist' => 0,
-                    'assist_power' => 0,
-                    'assist_short' => 0,
-                    'bonus' => 0,
-                    'game' => 1,
-                    'game_with_shootout' => 0,
-                    'lineup_id' => 0,
-                    'loose' => 0,
-                    'pass' => 0,
-                    'player_id' => 0,
-                    'point' => 0,
-                    'power_nominal' => 0,
-                    'power_optimal' => 0,
-                    'power_real' => 0,
-                    'save' => 0,
-                    'shot' => 0,
-                    'shootout' => 0,
-                    'win' => 0,
-                ],
+                'gk' => $this->prepareGkArray(),
+                'gk2' => $this->prepareGkArray(),
                 'field' => $this->prepareFieldPlayerArray(),
             ],
             'team' => [
@@ -300,6 +283,36 @@ class GameResult
     /**
      * @return array
      */
+    private function prepareGkArray(): array
+    {
+        $result = [
+            'age' => 0,
+            'assist' => 0,
+            'assist_power' => 0,
+            'assist_short' => 0,
+            'bonus' => 0,
+            'game' => 1,
+            'game_with_shootout' => 0,
+            'lineup_id' => 0,
+            'loose' => 0,
+            'pass' => 0,
+            'player_id' => 0,
+            'point' => 0,
+            'power_nominal' => 0,
+            'power_optimal' => 0,
+            'power_real' => 0,
+            'save' => 0,
+            'shot' => 0,
+            'shootout' => 0,
+            'win' => 0,
+        ];
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
     private function prepareFieldPlayerArray(): array
     {
         $result = [];
@@ -377,12 +390,13 @@ class GameResult
             }
 
             $lineupArray = Lineup::find()
+                ->with(['player'])
                 ->where([
                     'lineup_game_id' => $this->result['game_info']['game_id'],
                     'lineup_national_id' => $this->result['game_info'][$team . '_national_id'],
                     'lineup_team_id' => $this->result['game_info'][$team . '_team_id'],
                 ])
-                ->orderBy(['lineup_line_id', 'lineup_position_id'])
+                ->orderBy(['lineup_line_id' => SORT_ASC, 'lineup_position_id' => SORT_ASC])
                 ->all();
 
             $this->result[$team]['player']['gk']['age'] = $lineupArray[0]->player->player_age;
@@ -396,19 +410,28 @@ class GameResult
                 $this->result[$team]['player']['gk']['power_optimal'] = $lineupArray[0]->player->player_power_real;
             }
 
-            for ($j = 1; $j <= 21; $j++) {
-                if (1 == $j) {
+            $this->result[$team]['player']['gk2']['age'] = $lineupArray[1]->player->player_age;
+            $this->result[$team]['player']['gk2']['lineup_id'] = $lineupArray[1]->lineup_id;
+            $this->result[$team]['player']['gk2']['player_id'] = $lineupArray[1]->lineup_player_id;
+            $this->result[$team]['player']['gk2']['power_nominal'] = $lineupArray[1]->player->player_power_nominal;
+
+            if (TournamentType::FRIENDLY == $this->result['game_info']['tournament_type_id']) {
+                $this->result[$team]['player']['gk2']['power_optimal'] = round($lineupArray[1]->player->player_power_nominal * 0.75);
+            } else {
+                $this->result[$team]['player']['gk2']['power_optimal'] = $lineupArray[1]->player->player_power_real;
+            }
+
+            for ($j = 2; $j <= 21; $j++) {
+                if (2 == $j) {
                     $key = 'ld_1';
-                } elseif (2 == $j) {
-                    $key = 'rd_1';
                 } elseif (3 == $j) {
-                    $key = 'lw_1';
+                    $key = 'rd_1';
                 } elseif (4 == $j) {
-                    $key = 'cf_1';
+                    $key = 'lw_1';
                 } elseif (5 == $j) {
-                    $key = 'rw_1';
+                    $key = 'cf_1';
                 } elseif (6 == $j) {
-                    continue;
+                    $key = 'rw_1';
                 } elseif (7 == $j) {
                     $key = 'ld_2';
                 } elseif (8 == $j) {
@@ -461,7 +484,6 @@ class GameResult
      */
     private function countPlayerBonus(): void
     {
-
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
                 $team = 'home';
@@ -540,6 +562,82 @@ class GameResult
                     $this->result[$team]['player']['gk']['bonus'] = $this->result[$team]['player']['gk']['bonus'] + 4 * $special->player_special_level;
                 } elseif (Special::POSITION == $special->player_special_special_id) {
                     $this->result[$team]['player']['gk']['bonus'] = $this->result[$team]['player']['gk']['bonus'] + 5 * $special->player_special_level;
+                } elseif (Special::LEADER == $special->player_special_special_id) {
+                    $this->result[$team]['team']['leader'] = $this->result[$team]['team']['leader'] + $special->player_special_level;
+                }
+            }
+
+            $playerId = $this->result[$team]['player']['gk2']['player_id'];
+
+            $specialArray = PlayerSpecial::find()
+                ->where(['player_special_player_id' => $playerId])
+                ->all();
+
+            foreach ($specialArray as $special) {
+                if (Special::SPEED == $special->player_special_special_id) {
+                    if (in_array(Style::SPEED, [
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ])) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 10 * $special->player_special_level;
+                    } elseif (in_array(Style::TECHNIQUE, array(
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ))) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 4 * $special->player_special_level;
+                    } else {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                    }
+                } elseif (Special::POWER == $special->player_special_special_id) {
+                    if (in_array(Style::POWER, array(
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ))) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 10 * $special->player_special_level;
+                    } elseif (in_array(Style::SPEED, array(
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ))) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 4 * $special->player_special_level;
+                    } else {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                    }
+                } elseif (Special::COMBINE == $special->player_special_special_id) {
+                    if (in_array(Style::TECHNIQUE, array(
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ))) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 10 * $special->player_special_level;
+                    } elseif (in_array(Style::POWER, array(
+                        $this->result[$team]['team']['style'][1],
+                        $this->result[$team]['team']['style'][2],
+                        $this->result[$team]['team']['style'][3],
+                        $this->result[$team]['team']['style'][4],
+                    ))) {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 4 * $special->player_special_level;
+                    } else {
+                        $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                    }
+                } elseif (Special::TACKLE == $special->player_special_special_id) {
+                    $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                } elseif (Special::REACTION == $special->player_special_special_id) {
+                    $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                } elseif (Special::SHOT == $special->player_special_special_id) {
+                    $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
+                } elseif (Special::STICK == $special->player_special_special_id) {
+                    $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 4 * $special->player_special_level;
+                } elseif (Special::POSITION == $special->player_special_special_id) {
+                    $this->result[$team]['player']['gk2']['bonus'] = $this->result[$team]['player']['gk2']['bonus'] + 5 * $special->player_special_level;
                 } elseif (Special::LEADER == $special->player_special_special_id) {
                     $this->result[$team]['team']['leader'] = $this->result[$team]['team']['leader'] + $special->player_special_level;
                 }
@@ -684,6 +782,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function setTeamwork(): void
@@ -775,9 +874,20 @@ class GameResult
                 * (100 - self::AUTO_PENALTY * $this->result[$team]['team']['auto']) / 100
             );
 
+            $this->result[$team]['player']['gk2']['power_optimal'] = round(
+                $this->result[$team]['player']['gk2']['power_optimal']
+                * (100 + $this->result[$team]['player']['gk2']['bonus'] + $this->result[$team]['team']['leader']) / 100
+                * (100 + ($this->result[$team]['team']['teamwork'][1] + $this->result[$team]['team']['teamwork'][2] + $this->result[$team]['team']['teamwork'][3]) / 3) / 100
+                * (10 - $this->result[$team]['team']['mood'] + 2) / 10
+                * (100 - self::AUTO_PENALTY * $this->result[$team]['team']['auto']) / 100
+            );
+
             if ('home' == $team) {
                 $this->result[$team]['player']['gk']['power_optimal'] = round(
                     $this->result[$team]['player']['gk']['power_optimal'] * $this->result['game_info']['home_bonus']
+                );
+                $this->result[$team]['player']['gk2']['power_optimal'] = round(
+                    $this->result[$team]['player']['gk2']['power_optimal'] * $this->result['game_info']['home_bonus']
                 );
             }
 
@@ -863,6 +973,7 @@ class GameResult
             }
 
             $this->result[$team]['player']['gk']['power_real'] = $this->result[$team]['player']['gk']['power_optimal'];
+            $this->result[$team]['player']['gk2']['power_real'] = $this->result[$team]['player']['gk2']['power_optimal'];
 
             for ($line = 1; $line <= 4; $line++) {
                 for ($k = Position::LD; $k <= Position::RW; $k++) {
@@ -1216,7 +1327,7 @@ class GameResult
         $ifRudenessGuest = self::LIMIT_RUDENESS - $rudenessGuest * self::COEFFICIENT_RUDENESS;
         if ($ifRudenessRand >= $ifRudenessGuest && 1 == rand(0, 1)) {
             $this->result['player'] = rand(Position::LD, Position::RW);
-            $this->processPenalty('home');
+            $this->processPenalty('guest');
         }
 
     }
@@ -1725,7 +1836,6 @@ class GameResult
      */
     private function eventScore($team): void
     {
-
         if ('home' == $team) {
             $second = rand(30, 44);
         } else {
@@ -2148,7 +2258,7 @@ class GameResult
                 $loose = 'home';
             }
         } elseif ($this->result['home']['team']['score']['total'] > $this->result['guest']['team']['score']['total']) {
-            if (0 != $this->result['home']['team']['score']['over']) {
+            if (0 != $this->result['home']['team']['score']['overtime']) {
                 $this->result['home']['team']['win_overtime'] = 1;
                 $this->result['guest']['team']['loose_overtime'] = 1;
                 $this->result['home']['player']['field'][$this->result['home']['team']['score']['last']['score']]['score_win'] = 1;
@@ -2161,7 +2271,7 @@ class GameResult
             $win = 'home';
             $loose = 'guest';
         } else {
-            if (0 != $this->result['guest']['team']['score']['over']) {
+            if (0 != $this->result['guest']['team']['score']['overtime']) {
                 $this->result['guest']['team']['win_overtime'] = 1;
                 $this->result['home']['team']['loose_overtime'] = 1;
                 $this->result['guest']['player']['field'][$this->result['guest']['team']['score']['last']['score']]['score_win'] = 1;
@@ -2275,6 +2385,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function toDataBase(): void
@@ -2286,6 +2397,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function gameToDataBase(): void
@@ -2352,6 +2464,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function eventToDataBase(): void
@@ -2362,6 +2475,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function lineupToDataBase(): void
@@ -2389,6 +2503,22 @@ class GameResult
                 }
             }
 
+            if ($this->result[$team]['player']['gk2']['lineup_id']) {
+                $model = Lineup::find()
+                    ->where(['lineup_id' => $this->result[$team]['player']['gk2']['lineup_id']])
+                    ->limit(1)
+                    ->one();
+                if ($model) {
+                    $model->lineup_age = $this->result[$team]['player']['gk2']['age'];
+                    $model->lineup_assist = $this->result[$team]['player']['gk2']['assist'];
+                    $model->lineup_pass = $this->result[$team]['player']['gk2']['pass'];
+                    $model->lineup_power_nominal = $this->result[$team]['player']['gk2']['power_nominal'];
+                    $model->lineup_power_real = $this->result[$team]['player']['gk2']['power_real'];
+                    $model->lineup_shot = $this->result[$team]['player']['gk2']['shot'];
+                    $model->save();
+                }
+            }
+
             foreach ($this->result[$team]['player']['field'] as $player) {
                 if ($player['lineup_id']) {
                     $model = Lineup::find()->where(['lineup_id' => $player['lineup_id']])->limit(1)->one();
@@ -2409,6 +2539,7 @@ class GameResult
     }
 
     /**
+     * @throws \Exception
      * @return void
      */
     private function statisticToDataBase(): void
@@ -2460,7 +2591,7 @@ class GameResult
                     $model->statistic_player_assist_power = $model->statistic_player_assist_power + $this->result[$team]['player']['gk']['assist_power'];
                     $model->statistic_player_assist_short = $model->statistic_player_assist_short + $this->result[$team]['player']['gk']['assist_short'];
                     $model->statistic_player_game = $model->statistic_player_game + $this->result[$team]['player']['gk']['game'];
-                    $model->statistic_player_game_with_bullet = $model->statistic_player_game_with_bullet + $this->result[$team]['player']['gk']['game_with_shootout'];
+                    $model->statistic_player_game_with_shootout = $model->statistic_player_game_with_shootout + $this->result[$team]['player']['gk']['game_with_shootout'];
                     $model->statistic_player_loose = $model->statistic_player_loose + $this->result[$team]['player']['gk']['loose'];
                     $model->statistic_player_pass = $model->statistic_player_pass + $this->result[$team]['player']['gk']['pass'];
                     $model->statistic_player_point = $model->statistic_player_point + $this->result[$team]['player']['gk']['point'];
@@ -2489,7 +2620,7 @@ class GameResult
                         $model->statistic_player_assist = $model->statistic_player_assist + $player['assist'];
                         $model->statistic_player_assist_power = $model->statistic_player_assist_power + $player['assist_power'];
                         $model->statistic_player_assist_short = $model->statistic_player_assist_short + $player['assist_short'];
-                        $model->statistic_player_bullet_win = $model->statistic_player_bullet_win + $player['bullet_win'];
+                        $model->statistic_player_shootout_win = $model->statistic_player_shootout_win + $player['bullet_win'];
                         $model->statistic_player_face_off = $model->statistic_player_face_off + $player['face_off'];
                         $model->statistic_player_face_off_win = $model->statistic_player_face_off_win + $player['face_off_win'];
                         $model->statistic_player_game = $model->statistic_player_game + $player['game'];

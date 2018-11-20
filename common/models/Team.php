@@ -2,11 +2,9 @@
 
 namespace common\models;
 
-use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -33,12 +31,12 @@ use yii\helpers\Html;
  * @property int $team_mood_super
  * @property string $team_name
  * @property int $team_player
- * @property int $team_power_c_16
  * @property int $team_power_c_21
- * @property int $team_power_c_27
- * @property int $team_power_s_16
+ * @property int $team_power_c_26
+ * @property int $team_power_c_32
  * @property int $team_power_s_21
- * @property int $team_power_s_27
+ * @property int $team_power_s_26
+ * @property int $team_power_s_32
  * @property int $team_power_v
  * @property int $team_power_vs
  * @property int $team_price_base
@@ -60,12 +58,18 @@ use yii\helpers\Html;
  * @property Championship $championship
  * @property Conference $conference
  * @property User $manager
+ * @property RatingTeam $ratingTeam
  * @property Stadium $stadium
  * @property TeamAsk[] $teamAsk
  * @property User $vice
  */
-class Team extends ActiveRecord
+class Team extends AbstractActiveRecord
 {
+    public $count_team;
+
+    const MAX_AUTO_GAMES = 5;
+    const START_MONEY = 10000000;
+
     /**
      * @return string
      */
@@ -80,7 +84,6 @@ class Team extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['team_stadium_id'], 'in', 'range' => Stadium::find()->select(['stadium_id'])->column()],
             [
                 [
                     'team_id',
@@ -101,12 +104,12 @@ class Team extends ActiveRecord
                     'team_mood_rest',
                     'team_mood_super',
                     'team_player',
-                    'team_power_c_16',
                     'team_power_c_21',
-                    'team_power_c_27',
-                    'team_power_s_16',
+                    'team_power_c_26',
+                    'team_power_c_32',
                     'team_power_s_21',
-                    'team_power_s_27',
+                    'team_power_s_26',
+                    'team_power_s_32',
                     'team_power_v',
                     'team_power_vs',
                     'team_price_base',
@@ -114,6 +117,7 @@ class Team extends ActiveRecord
                     'team_price_stadium',
                     'team_price_total',
                     'team_salary',
+                    'team_stadium_id',
                     'team_user_id',
                     'team_vice_id',
                     'team_visitor',
@@ -123,7 +127,23 @@ class Team extends ActiveRecord
             [['team_age'], 'number'],
             [['team_name'], 'string', 'max' => 255],
             [['team_name'], 'trim'],
-            [['team_stadium_id'], 'unique'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'base' => 'База',
+            'country' => 'Страна',
+            'count_team' => 'Команды',
+            'finance' => 'Финансы',
+            'number_of_application' => 'ЧЗ',
+            'stadium' => 'Стадион',
+            'team' => 'Команда',
+            'vs' => 'Vs',
         ];
     }
 
@@ -160,23 +180,35 @@ class Team extends ActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @throws Exception
      */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
 
         if ($insert) {
+            History::log([
+                'history_history_text_id' => HistoryText::TEAM_REGISTER,
+                'history_team_id' => $this->team_id,
+            ]);
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::TEAM_RE_REGISTER,
+                'finance_team_id' => $this->team_id,
+                'finance_value' => Team::START_MONEY,
+                'finance_value_after' => Team::START_MONEY,
+                'finance_value_before' => 0,
+            ]);
             $this->createPlayers();
             $this->createLeaguePlayers();
             $this->updatePower();
-            History::log([
-                'history_history_text_id' => HistoryText::TEAM_REGISTER,
-                'history_team_id' => $this->team_id
-            ]);
         }
     }
 
-    private function createPlayers()
+    /**
+     * @throws Exception
+     * @return void
+     */
+    private function createPlayers(): void
     {
         $position = [
             Position::GK,
@@ -186,6 +218,8 @@ class Team extends ActiveRecord
             Position::LD,
             Position::LD,
             Position::LD,
+            Position::LD,
+            Position::RD,
             Position::RD,
             Position::RD,
             Position::RD,
@@ -196,11 +230,14 @@ class Team extends ActiveRecord
             Position::LW,
             Position::LW,
             Position::LW,
+            Position::LW,
             Position::CF,
             Position::CF,
             Position::CF,
             Position::CF,
             Position::CF,
+            Position::CF,
+            Position::RW,
             Position::RW,
             Position::RW,
             Position::RW,
@@ -226,6 +263,10 @@ class Team extends ActiveRecord
         }
     }
 
+    /**
+     * @throws Exception
+     * @return void
+     */
     private function createLeaguePlayers()
     {
         $position = [
@@ -233,15 +274,20 @@ class Team extends ActiveRecord
             Position::LD,
             Position::LD,
             Position::LD,
+            Position::LD,
+            Position::RD,
             Position::RD,
             Position::RD,
             Position::RD,
             Position::LW,
             Position::LW,
             Position::LW,
+            Position::LW,
             Position::CF,
             Position::CF,
             Position::CF,
+            Position::CF,
+            Position::RW,
             Position::RW,
             Position::RW,
             Position::RW,
@@ -264,82 +310,47 @@ class Team extends ActiveRecord
         }
     }
 
-    private function updatePower()
+    /**
+     * @throws Exception
+     * @return void
+     */
+    public function updatePower(): void
     {
-        $power = Player::find()
+        $playerGk = Player::find()
+            ->select(['player_id'])
+            ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC]);
+        $playerField = Player::find()
+            ->select(['player_id'])
             ->where(['player_team_id' => $this->team_id])
             ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal' => SORT_DESC])
-            ->limit(15)
-            ->sum('player_power_nominal');
-        $power_c_16 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal' => SORT_DESC])
-                ->limit(1)
-                ->sum('player_power_nominal');
-        $power = Player::find()
-            ->where(['player_team_id' => $this->team_id])
-            ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal' => SORT_DESC])
-            ->limit(20)
-            ->sum('player_power_nominal');
-        $power_c_21 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal' => SORT_DESC])
-                ->limit(1)
-                ->sum('player_power_nominal');
-        $power = Player::find()
-            ->where(['player_team_id' => $this->team_id])
-            ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal' => SORT_DESC])
-            ->limit(25)
-            ->sum('player_power_nominal');
-        $power_c_27 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal' => SORT_DESC])
-                ->limit(2)
-                ->sum('player_power_nominal');
-        $power = Player::find()
-            ->where(['player_team_id' => $this->team_id])
-            ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal_s' => SORT_DESC])
-            ->limit(15)
-            ->sum('player_power_nominal_s');
-        $power_s_16 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal_s' => SORT_DESC])
-                ->limit(1)
-                ->sum('player_power_nominal_s');
-        $power = Player::find()
-            ->where(['player_team_id' => $this->team_id])
-            ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal_s' => SORT_DESC])
-            ->limit(20)
-            ->sum('player_power_nominal_s');
-        $power_s_21 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal_s' => SORT_DESC])
-                ->limit(1)
-                ->sum('player_power_nominal_s');
-        $power = Player::find()->where(['player_team_id' => $this->team_id])
-            ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal_s' => SORT_DESC])
-            ->limit(25)
-            ->sum('player_power_nominal_s');
-        $power_s_27 = $power + Player::find()
-                ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-                ->orderBy(['player_power_nominal_s' => SORT_DESC])
-                ->limit(2)
-                ->sum('player_power_nominal_s');
-        $power_v = round(($power_c_16 + $power_c_21 + $power_c_27) / 64 * 16);
-        $power_vs = round(($power_s_16 + $power_s_21 + $power_s_27) / 64 * 16);
+            ->orderBy(['player_power_nominal' => SORT_DESC]);
+        $player1 = (clone $playerGk)->limit(1)->column();
+        $player2 = (clone $playerGk)->limit(2)->column();
+        $player20 = (clone $playerField)->limit(20)->column();
+        $player25 = (clone $playerField)->limit(25)->column();
+        $player30 = (clone $playerField)->limit(30)->column();
+        $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal');
+        $power_c_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal');
+        $power_c_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal');
+        $power_c_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal_s');
+        $power_s_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal_s');
+        $power_s_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal_s');
+        $power_s_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal_s');
+        $power_v = round(($power_c_21 + $power_c_26 + $power_c_21) / 79 * 21);
+        $power_vs = round(($power_s_21 + $power_s_26 + $power_s_32) / 79 * 21);
 
-        $this->team_power_c_16 = $power_c_16;
         $this->team_power_c_21 = $power_c_21;
-        $this->team_power_c_27 = $power_c_27;
-        $this->team_power_s_16 = $power_s_16;
+        $this->team_power_c_26 = $power_c_26;
+        $this->team_power_c_32 = $power_c_32;
         $this->team_power_s_21 = $power_s_21;
-        $this->team_power_s_27 = $power_s_27;
+        $this->team_power_s_26 = $power_s_26;
+        $this->team_power_s_32 = $power_s_32;
         $this->team_power_v = $power_v;
         $this->team_power_vs = $power_vs;
         $this->save();
@@ -348,13 +359,12 @@ class Team extends ActiveRecord
     /**
      * @param $user_id
      * @throws Exception
+     * @return void
      */
-    public function managerEmploy($user_id)
+    public function managerEmploy($user_id): void
     {
         $this->team_user_id = $user_id;
-        if (!$this->save()) {
-            throw new Exception(ErrorHelper::modelErrorsToString($this));
-        }
+        $this->save();
 
         History::log([
             'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_IN,
@@ -377,8 +387,8 @@ class Team extends ActiveRecord
      */
     public function managerFire()
     {
-        $user_id = $this->team_user_id;
-        $vice_id = $this->team_vice_id;
+        $userId = $this->team_user_id;
+        $viceId = $this->team_vice_id;
 
         $this->team_auto = 0;
         $this->team_user_id = 0;
@@ -387,9 +397,7 @@ class Team extends ActiveRecord
         $this->team_attitude_president = 2;
         $this->team_attitude_u19 = 2;
         $this->team_attitude_u21 = 2;
-        if (!$this->save()) {
-            throw new Exception(ErrorHelper::modelErrorsToString($this));
-        }
+        $this->save();
 
         TransferApplication::deleteAll([
             'transfer_application_team_id' => $this->team_id,
@@ -428,14 +436,14 @@ class Team extends ActiveRecord
         History::log([
             'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_OUT,
             'history_team_id' => $this->team_id,
-            'history_user_id' => $user_id,
+            'history_user_id' => $userId,
         ]);
 
-        if ($vice_id) {
+        if ($viceId) {
             History::log([
                 'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
                 'history_team_id' => $this->team_id,
-                'history_user_id' => $vice_id,
+                'history_user_id' => $viceId,
             ]);
         }
     }
@@ -445,7 +453,7 @@ class Team extends ActiveRecord
      */
     public function logo(): string
     {
-        $result = 'Add logo';
+        $result = 'Добавить<br/>эмблему';
         if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png')) {
             $result = Html::img(
                 '/img/team/125/' . $this->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png'),
@@ -468,7 +476,8 @@ class Team extends ActiveRecord
             $result = Html::a(
                 $this->championship->country->country_name . ', ' .
                 $this->championship->division->division_name . ', ' .
-                $this->championship->championship_place . ' place',
+                $this->championship->championship_place . ' ' .
+                'место',
                 [
                     'championship',
                     'country_id' => $this->championship->country->country_id,
@@ -477,7 +486,9 @@ class Team extends ActiveRecord
             );
         } else {
             $result = Html::a(
-                $result = 'Conference, ' . $this->conference->conference_place . ' place',
+                $result = 'Конференция' . ', ' .
+                    $this->conference->conference_place . ' ' .
+                    'место',
                 ['conference/table']
             );
         }
@@ -494,6 +505,77 @@ class Team extends ActiveRecord
             + $this->baseSchool->base_school_level
             + $this->baseScout->base_scout_level
             + $this->baseTraining->base_training_level;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTopData(): array
+    {
+        $teamId = Yii::$app->request->get('id', 1);
+
+        $team = Team::find()
+            ->where(['team_id' => $teamId])
+            ->limit(1)
+            ->one();
+
+        $latest = Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
+            ->andWhere(['game_played' => 1])
+            ->orderBy(['schedule_date' => SORT_DESC])
+            ->limit(3)
+            ->all();
+
+        $nearest = Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['schedule_date' => SORT_ASC])
+            ->limit(2)
+            ->all();
+
+        return [$teamId, $team, $latest, $nearest];
+    }
+
+    /**
+     * @param string $type
+     * @param bool $short
+     * @return string
+     */
+    public function teamLink(string $type = 'string', bool $short = false): string
+    {
+        if ('img' == $type) {
+            return Html::img('/img/country/12/' . $this->stadium->city->city_country_id . '.png')
+                . ' '
+                . Html::a(
+                    $this->team_name
+                    . ' <span class="hidden-xs">('
+                    . $this->stadium->city->city_name
+                    . ')</span>',
+                    ['team/view', 'id' => $this->team_id]
+                );
+        } else {
+            if ($short) {
+                return Html::a(
+                    $this->team_name
+                    . ' <span class="hidden-xs">('
+                    . $this->stadium->city->city_name
+                    . ')</span>',
+                    ['team/view', 'id' => $this->team_id]
+                );
+            } else {
+                return Html::a(
+                    $this->team_name
+                    . ' <span class="hidden-xs">('
+                    . $this->stadium->city->city_name
+                    . ', '
+                    . $this->stadium->city->country->country_name
+                    . ')</span>',
+                    ['team/view', 'id' => $this->team_id]
+                );
+            }
+        }
     }
 
     /**
@@ -573,9 +655,17 @@ class Team extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getRatingTeam(): ActiveQuery
+    {
+        return $this->hasOne(RatingTeam::class, ['rating_team_team_id' => 'team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getStadium(): ActiveQuery
     {
-        return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
+        return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id'])->cache();
     }
 
     /**

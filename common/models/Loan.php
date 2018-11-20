@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
+use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Loan
@@ -29,9 +31,11 @@ use yii\db\ActiveRecord;
  * @property int $loan_user_buyer_id
  * @property int $loan_user_seller_id
  *
+ * @property Team $buyer
  * @property Player $player
+ * @property Team $seller
  */
-class Loan extends ActiveRecord
+class Loan extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -47,18 +51,6 @@ class Loan extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['loan_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['loan_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [
-                ['loan_team_buyer_id', 'loan_team_seller_id'],
-                'in',
-                'range' => Team::find()->select(['team_id'])->column()
-            ],
-            [
-                ['loan_user_buyer_id', 'loan_user_seller_id'],
-                'in',
-                'range' => User::find()->select(['user_id'])->column()
-            ],
             [
                 [
                     'loan_id',
@@ -69,15 +61,74 @@ class Loan extends ActiveRecord
                     'loan_day',
                     'loan_day_max',
                     'loan_day_min',
+                    'loan_player_id',
                     'loan_player_price',
                     'loan_power',
                     'loan_price_buyer',
                     'loan_price_seller',
                     'loan_ready',
+                    'loan_season_id',
+                    'loan_team_buyer_id',
+                    'loan_team_seller_id',
+                    'loan_user_buyer_id',
+                    'loan_user_seller_id',
                 ],
                 'integer'
             ]
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function dealDate(): string
+    {
+        $today = strtotime(date('Y-m-d 12:00:00'));
+
+        if ($today < $this->loan_date + 86400 || $today < time()) {
+            $today = $today + 86400;
+        }
+
+        $result = '';
+        try {
+            $result = Yii::$app->formatter->asDate($today);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function position(): string
+    {
+        $result = [];
+        foreach ($this->playerPosition as $position) {
+            $result[] = $position->position->position_name;
+        }
+        return implode('/', $result);
+    }
+
+    /**
+     * @return string
+     */
+    public function special(): string
+    {
+        $result = [];
+        foreach ($this->playerSpecial as $special) {
+            $result[] = $special->special->special_name . $special->player_special_level;
+        }
+        return implode('', $result);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuyer(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'loan_team_buyer_id']);
     }
 
     /**
@@ -86,5 +137,13 @@ class Loan extends ActiveRecord
     public function getPlayer(): ActiveQuery
     {
         return $this->hasOne(Player::class, ['player_id' => 'loan_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSeller(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'loan_team_seller_id']);
     }
 }

@@ -6,7 +6,7 @@ namespace frontend\controllers;
  * Class MapController
  * @package frontend\controllers
  */
-class MapController extends BaseController
+class MapController extends AbstractController
 {
     /**
      * @return string

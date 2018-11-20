@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class TournamentType
  * @package common\models
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property string $tournament_type_name
  * @property int $tournament_type_visitor
  */
-class TournamentType extends ActiveRecord
+class TournamentType extends AbstractActiveRecord
 {
     const NATIONAL = 1;
     const LEAGUE = 2;
@@ -36,7 +34,6 @@ class TournamentType extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['tournament_type_day_type_id'], 'in', 'range' => DayType::find()->select(['day_type_id'])->column()],
             [['tournament_type_id', 'tournament_type_day_type_id'], 'integer'],
             [['tournament_type_visitor'], 'integer', 'min' => 0, 'max' => 200],
             [['tournament_type_day_type_id', 'tournament_type_name', 'tournament_type_visitor'], 'required'],

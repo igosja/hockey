@@ -25,12 +25,12 @@ class m180623_071658_tournament_type extends Migration
             self::TABLE,
             ['tournament_type_day_type_id', 'tournament_type_name', 'tournament_type_visitor'],
             [
-                [3, 'World Championship', 200],
-                [3, 'Champions League', 150],
-                [2, 'Championship', 100],
-                [2, 'Conference', 90],
-                [2, 'Off-season Cup', 90],
-                [1, 'Friendly match', 80],
+                [3, 'Чемпинат мира', 200],
+                [3, 'Лига Чемпионов', 150],
+                [2, 'Чемпионат', 100],
+                [2, 'Конференция', 90],
+                [2, 'Кубок межсезонья', 90],
+                [1, 'Товарищеский матч', 80],
             ]
         );
     }

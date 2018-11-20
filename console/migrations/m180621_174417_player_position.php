@@ -15,7 +15,6 @@ class m180621_174417_player_position extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'player_position_id' => $this->primaryKey(11),
             'player_position_player_id' => $this->integer(11)->defaultValue(0),
             'player_position_position_id' => $this->integer(1)->defaultValue(0),
         ]);

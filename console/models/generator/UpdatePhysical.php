@@ -29,6 +29,6 @@ class UpdatePhysical
         Yii::$app->db->createCommand($sql)->execute();
 
         Player::updateAllCounters(['player_physical_id' => 1], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
-        Player::updateAll(['player_physical_id' => 1], ['>', 'player_physical_id', 1]);
+        Player::updateAll(['player_physical_id' => 1], ['>', 'player_physical_id', 20]);
     }
 }

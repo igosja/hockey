@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \frontend\controllers\BaseController $context
+ * @var \frontend\controllers\AbstractController $context
  * @var \frontend\models\LoanApplicationFrom $modelLoanApplicationFrom
  * @var \frontend\models\LoanApplicationTo $modelLoanApplicationTo
  * @var \frontend\models\LoanFrom $modelLoanFrom
@@ -15,14 +15,18 @@
 $context = $this->context;
 
 print $this->render('_player');
-print $this->render('_links');
 
 ?>
+<div class="row margin-top-small">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?= $this->render('_links'); ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>Player loan</th>
+                <th>Аренда игрока</th>
             </tr>
         </table>
     </div>
@@ -53,9 +57,13 @@ print $this->render('_links');
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>Player loan</th>
+                <th>Аренда игрока</th>
             </tr>
         </table>
     </div>
 </div>
-<?= $this->render('_links'); ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?= $this->render('_links'); ?>
+    </div>
+</div>

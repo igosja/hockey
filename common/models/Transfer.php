@@ -6,7 +6,6 @@ use common\components\ErrorHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Transfer
@@ -30,13 +29,12 @@ use yii\db\ActiveRecord;
  * @property int $transfer_user_buyer_id
  * @property int $transfer_user_seller_id
  *
+ * @property Team $buyer
  * @property Player $player
  * @property Team $seller
  */
-class Transfer extends ActiveRecord
+class Transfer extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 50;
-
     /**
      * @return string
      */
@@ -51,18 +49,6 @@ class Transfer extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_player_id'], 'in', 'range' => Player::find()->select(['player_id'])->column()],
-            [['transfer_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [
-                ['transfer_team_buyer_id', 'transfer_team_seller_id'],
-                'in',
-                'range' => Team::find()->select(['team_id'])->column()
-            ],
-            [
-                ['transfer_user_buyer_id', 'transfer_user_seller_id'],
-                'in',
-                'range' => User::find()->select(['user_id'])->column()
-            ],
             [
                 [
                     'transfer_id',
@@ -70,12 +56,18 @@ class Transfer extends ActiveRecord
                     'transfer_cancel',
                     'transfer_checked',
                     'transfer_date',
+                    'transfer_player_id',
                     'transfer_player_price',
                     'transfer_power',
                     'transfer_price_buyer',
                     'transfer_price_seller',
                     'transfer_ready',
+                    'transfer_season_id',
+                    'transfer_team_buyer_id',
+                    'transfer_team_seller_id',
                     'transfer_to_league',
+                    'transfer_user_buyer_id',
+                    'transfer_user_seller_id',
                 ],
                 'integer'
             ]
@@ -116,6 +108,38 @@ class Transfer extends ActiveRecord
         }
 
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function position(): string
+    {
+        $result = [];
+        foreach ($this->playerPosition as $position) {
+            $result[] = $position->position->position_name;
+        }
+        return implode('/', $result);
+    }
+
+    /**
+     * @return string
+     */
+    public function special(): string
+    {
+        $result = [];
+        foreach ($this->playerSpecial as $special) {
+            $result[] = $special->special->special_name . $special->player_special_level;
+        }
+        return implode('', $result);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuyer(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'transfer_team_buyer_id']);
     }
 
     /**

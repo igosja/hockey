@@ -594,7 +594,7 @@ h6 {
     font-style: italic;
 }
 
-.has-error {
+.has-error .form-control, .has-error {
     border-color: #a94442;
 }
 
@@ -900,7 +900,7 @@ fieldset legend {
 blockquote {
     margin: 5px;
     padding: 5px;
-    quotes: "\201C""\201D""\2018""\2019";
+    quotes: "\201C" "\201D" "\2018" "\2019";
 }
 
 blockquote:before {

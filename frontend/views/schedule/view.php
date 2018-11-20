@@ -23,14 +23,14 @@ use yii\helpers\Html;
             <?php
 
             try {
-                print Yii::$app->formatter->asDatetime($schedule->schedule_date);
+                print Yii::$app->formatter->asDatetime($schedule->schedule_date, 'short');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
             }
 
             ?>,
             <?= $schedule->stage->stage_name; ?>,
-            <?= Yii::t('app', '{n, ordinal} season', ['n' => $schedule->schedule_season_id]); ?>
+            <?= $schedule->schedule_season_id; ?>й сезон
         </p>
     </div>
 </div>
@@ -51,10 +51,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'value' => function (Game $model) {
                     return Html::a(
-                        HockeyHelper::formatScore(
-                            $model->game_home_score,
-                            $model->game_guest_score,
-                            $model->game_played),
+                        HockeyHelper::formatScore($model),
                         ['game/view', 'id' => $model->game_id]
                     );
                 }

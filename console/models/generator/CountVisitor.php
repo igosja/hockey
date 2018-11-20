@@ -34,6 +34,16 @@ class CountVisitor
 
         $gameArray = Game::find()
             ->joinWith(['schedule'])
+            ->with([
+                'schedule',
+                'nationalGuest',
+                'nationalHome',
+                'teamGuest',
+                'teamHome',
+                'stadium',
+                'schedule.tournamentType',
+                'schedule.stage',
+            ])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
@@ -46,7 +56,7 @@ class CountVisitor
             if (isset($specialArray[$game->game_id])) {
                 $special = $specialArray[$game->game_id]->playerspecial_level;
             }
-            if (TournamentType::NATIONAL == $game->schedule->tournamentType->tournament_type_id) {
+            if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
                 $guestVisitor = $game->nationalGuest->national_visitor;
                 $homeVisitor = $game->nationalHome->national_visitor;
             } else {
@@ -68,7 +78,7 @@ class CountVisitor
 
             $visitor = $visitor / pow(($ticket - Game::TICKET_PRICE_BASE) / 10, 1.1);
 
-            if (in_array($game->schedule->tournamentType->tournament_type_id,
+            if (in_array($game->schedule->schedule_tournament_type_id,
                 [TournamentType::FRIENDLY, TournamentType::NATIONAL])) {
                 $visitor = $visitor * ($homeVisitor + $guestVisitor) / 2;
             } else {

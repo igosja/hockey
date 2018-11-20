@@ -23,6 +23,7 @@ class PlayerGameRow
         $this->updatePlayer();
 
         $schedule = Schedule::find()
+            ->with(['tournamentType'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->limit(1)
@@ -80,12 +81,10 @@ class PlayerGameRow
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
      */
     private function updatePlayer(): void
     {
-
         Player::updateAll(
             ['player_game_row_old' => new Expression('player_game_row')],
             ['and', 'player_game_row_old!=player_game_row', ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]]

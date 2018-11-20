@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class BasePhysical
  * @package common\models
@@ -17,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property int $base_physical_price_sell
  * @property int $base_physical_tire_bonus
  */
-class BasePhysical extends ActiveRecord
+class BasePhysical extends AbstractActiveRecord
 {
     /**
      * @return string

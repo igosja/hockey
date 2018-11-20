@@ -2,9 +2,9 @@
 
 namespace common\models;
 
+use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -18,6 +18,7 @@ use yii\helpers\Html;
  * @property int $player_date_rookie
  * @property int $player_game_row
  * @property int $player_game_row_old
+ * @property int $player_injury
  * @property int $player_injury_day
  * @property int $player_squad_id
  * @property int $player_loan_day
@@ -26,7 +27,6 @@ use yii\helpers\Html;
  * @property int $player_name_id
  * @property int $player_national_id
  * @property int $player_national_line_id
- * @property int $player_no_action
  * @property int $player_no_deal
  * @property int $player_order
  * @property int $player_physical_id
@@ -52,13 +52,14 @@ use yii\helpers\Html;
  * @property Physical $physical
  * @property PlayerPosition[] $playerPosition
  * @property PlayerSpecial[] $playerSpecial
+ * @property Team $schoolTeam
  * @property StatisticPlayer $statisticPlayer
  * @property Style $style
  * @property Surname $surname
  * @property Team $team
  * @property Transfer $transfer
  */
-class Player extends ActiveRecord
+class Player extends AbstractActiveRecord
 {
     const AGE_READY_FOR_PENSION = 39;
     const TIRE_DEFAULT = 50;
@@ -88,6 +89,7 @@ class Player extends ActiveRecord
                     'player_date_rookie',
                     'player_game_row',
                     'player_game_row_old',
+                    'player_injury',
                     'player_injury_day',
                     'player_loan_day',
                     'player_loan_team_id',
@@ -95,7 +97,6 @@ class Player extends ActiveRecord
                     'player_name_id',
                     'player_national_id',
                     'player_national_line_id',
-                    'player_no_action',
                     'player_no_deal',
                     'player_order',
                     'player_physical_id',
@@ -117,7 +118,32 @@ class Player extends ActiveRecord
                 ],
                 'integer'
             ],
-            [['player_country_id', 'player_team_id'], 'required'],
+            [['player_country_id'], 'required'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'age' => 'В',
+            'assist' => 'П',
+            'country' => 'Нац',
+            'game' => 'И',
+            'game_row' => 'И/О',
+            'physical' => 'Ф',
+            'player' => 'Игрок',
+            'player_price' => 'Цена',
+            'plus_minus' => '+/-',
+            'position' => 'Поз',
+            'power_nominal' => 'С',
+            'power_real' => 'РС',
+            'score' => 'Г',
+            'special' => 'Спец',
+            'style' => 'Ст',
+            'tire' => 'У',
         ];
     }
 
@@ -146,6 +172,9 @@ class Player extends ActiveRecord
                 if (!$this->player_tire) {
                     $this->player_tire = 50;
                 }
+                if ($this->player_team_id) {
+                    $this->player_school_id = $this->player_team_id;
+                }
 
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
@@ -154,7 +183,6 @@ class Player extends ActiveRecord
                 $this->player_physical_id = $physical->physical_id;
                 $this->player_power_nominal_s = $this->player_power_nominal;
                 $this->player_power_old = $this->player_power_nominal;
-                $this->player_school_id = $this->player_team_id;
                 $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
                 $this->player_training_ability = rand(1, 5);
                 $this->countRealPower($physical);
@@ -168,6 +196,7 @@ class Player extends ActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @throws \Exception
      */
     public function afterSave($insert, $changedAttributes)
     {
@@ -213,7 +242,7 @@ class Player extends ActiveRecord
     public function iconInjury(): string
     {
         $result = '';
-        if ($this->player_injury_day) {
+        if ($this->player_injury) {
             $result = ' <i class="fa fa-ambulance" title="Injured for ' . $this->player_injury_day . ' days"></i>';
         }
         return $result;
@@ -262,20 +291,25 @@ class Player extends ActiveRecord
     public function iconStyle($showOnlyIfStudied = false): string
     {
         /**
-         * @var Team $myTeam
+         * @var AbstractController $controller
          */
-        $myTeam = Yii::$app->controller->myTeam;
+        $controller = Yii::$app->controller;
+        $myTeam = $controller->myTeam;
 
         if (!$myTeam) {
-            $styleArray = Style::find()
-                ->select(['style_id', 'style_name'])
-                ->where(['!=', 'style_id', Style::NORMAL])
-                ->orderBy(['style_id' => SORT_ASC])
-                ->all();
+            if (!$showOnlyIfStudied) {
+                $styleArray = Style::find()
+                    ->select(['style_id', 'style_name'])
+                    ->where(['!=', 'style_id', Style::NORMAL])
+                    ->orderBy(['style_id' => SORT_ASC])
+                    ->all();
+            } else {
+                $styleArray = [];
+            }
         } else {
             $countScout = Scout::find()
                 ->where(['scout_player_id' => $this->player_id, 'scout_team_id' => $myTeam->team_id])
-                ->andWhere(['!=', 'scout_ready', 100])
+                ->andWhere(['!=', 'scout_ready', 0])
                 ->count();
 
             if (2 == $countScout || !$showOnlyIfStudied) {
@@ -358,11 +392,22 @@ class Player extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function playerLink(): string
+    {
+        return Html::a(
+            $this->name->name_name . ' ' . $this->surname->surname_name,
+            ['player/view', 'id' => $this->player_id]
+        );
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'player_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'player_country_id'])->cache();
     }
 
     /**
@@ -386,7 +431,7 @@ class Player extends ActiveRecord
      */
     public function getName(): ActiveQuery
     {
-        return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
+        return $this->hasOne(Name::class, ['name_id' => 'player_name_id'])->cache();
     }
 
     /**
@@ -416,6 +461,14 @@ class Player extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getSchoolTeam(): ActiveQuery
+    {
+        return $this->hasOne(School::class, ['team_id' => 'player_school_id'])->cache();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getStatisticPlayer(): ActiveQuery
     {
         return $this->hasOne(StatisticPlayer::class, ['statistic_player_player_id' => 'player_id']);
@@ -426,7 +479,7 @@ class Player extends ActiveRecord
      */
     public function getStyle(): ActiveQuery
     {
-        return $this->hasOne(Style::class, ['style_id' => 'player_style_id']);
+        return $this->hasOne(Style::class, ['style_id' => 'player_style_id'])->cache();
     }
 
     /**
@@ -434,7 +487,7 @@ class Player extends ActiveRecord
      */
     public function getSurname(): ActiveQuery
     {
-        return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id']);
+        return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id'])->cache();
     }
 
     /**

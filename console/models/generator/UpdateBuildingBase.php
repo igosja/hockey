@@ -6,7 +6,6 @@ use common\models\BuildingBase;
 use common\models\ConstructionType;
 use common\models\History;
 use common\models\HistoryText;
-use yii\db\Expression;
 
 /**
  * Class UpdateBuildingBase
@@ -22,6 +21,7 @@ class UpdateBuildingBase
         BuildingBase::updateAllCounters(['building_base_day' => -1], ['<', 'building_base_ready', 0]);
 
         $buildingBaseArray = BuildingBase::find()
+            ->with(['building', 'team'])
             ->where(['building_base_ready' => 0])
             ->andWhere(['<=', 'building_base_day', 0])
             ->orderBy(['building_base_id' => SORT_ASC])
@@ -55,7 +55,7 @@ class UpdateBuildingBase
         }
 
         BuildingBase::updateAll(
-            ['building_base_ready' => new Expression('UNIX_TIMESTAMP()')],
+            ['building_base_ready' => time()],
             ['and', ['building_base_ready' => 0], ['<=', 'building_base_day', 0]]
         );
     }

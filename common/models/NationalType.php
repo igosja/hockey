@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class NationalType
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $national_type_id
  * @property string $national_type_name
  */
-class NationalType extends ActiveRecord
+class NationalType extends AbstractActiveRecord
 {
     const U19 = 3;
     const U21 = 2;

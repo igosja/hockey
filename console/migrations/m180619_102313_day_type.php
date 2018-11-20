@@ -21,9 +21,9 @@ class m180619_102313_day_type extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['day_type_name', 'day_type_text'], [
-            ['A', 'Training matches'],
-            ['B', 'Required matches'],
-            ['C', 'Additional matches'],
+            ['A', 'Тренировочные матчи'],
+            ['B', 'Обязательные матчи'],
+            ['C', 'Дополнительные матчи'],
         ]);
     }
 

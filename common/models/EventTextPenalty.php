@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class EventTextPenalty
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $event_text_penalty_id
  * @property string $event_text_penalty_text
  */
-class EventTextPenalty extends ActiveRecord
+class EventTextPenalty extends AbstractActiveRecord
 {
     /**
      * @return string

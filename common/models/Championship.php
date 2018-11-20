@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * Class Championship
@@ -31,7 +30,7 @@ use yii\db\ActiveRecord;
  * @property Division $division
  * @property Team $team
  */
-class Championship extends ActiveRecord
+class Championship extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -47,14 +46,12 @@ class Championship extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['championship_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['championship_division_id'], 'in', 'range' => Division::find()->select(['division_id'])->column()],
-            [['championship_season_id'], 'in', 'range' => Season::find()->select(['season_id'])->column()],
-            [['championship_team_id'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [
                 [
                     'championship_id',
+                    'championship_country_id',
                     'championship_difference',
+                    'championship_division_id',
                     'championship_game',
                     'championship_loose',
                     'championship_loose_overtime',

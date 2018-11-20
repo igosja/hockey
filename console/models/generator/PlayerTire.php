@@ -24,6 +24,7 @@ class PlayerTire
         $this->updateMood();
 
         $schedule = Schedule::find()
+            ->with(['tournamentType'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->limit(1)
@@ -158,7 +159,7 @@ class PlayerTire
             [
                 'and',
                 ['!=', 'player_team_id', 0],
-                ['!=', 'player_injury_day', 0],
+                ['!=', 'player_injury', 0],
                 ['<', 'player_tire', Player::TIRE_DEFAULT]
             ]
         );

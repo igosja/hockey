@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class Swiss
  * @package common\models
@@ -14,8 +12,10 @@ use yii\db\ActiveRecord;
  * @property int $swiss_place
  * @property int $swiss_team_id
  */
-class Swiss extends ActiveRecord
+class Swiss extends AbstractActiveRecord
 {
+    public $opponent;
+
     /**
      * @return string
      */

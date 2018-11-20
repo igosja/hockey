@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Finance
@@ -27,8 +27,9 @@ use yii\db\ActiveRecord;
  * @property int $finance_value_before
  *
  * @property FinanceText $financeText
+ * @property Player $player
  */
-class Finance extends ActiveRecord
+class Finance extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -40,6 +41,7 @@ class Finance extends ActiveRecord
 
     /**
      * @param array $data
+     * @throws \Exception
      */
     public static function log(array $data)
     {
@@ -54,21 +56,20 @@ class Finance extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['finance_building_id'], 'in', 'range' => Building::find()->select('building_id')->column()],
-            [['finance_country_id'], 'in', 'range' => Country::find()->select('country_id')->column()],
-            [['finance_finance_text_id'], 'in', 'range' => HistoryText::find()->select('finance_text_id')->column()],
-            [['finance_national_id'], 'in', 'range' => National::find()->select('national_id')->column()],
-            [['finance_player_id'], 'in', 'range' => Player::find()->select('player_id')->column()],
-            [['finance_position_id'], 'in', 'range' => Position::find()->select('position_id')->column()],
-            [['finance_season_id'], 'in', 'range' => Season::find()->select('season_id')->column()],
-            [['finance_team_id', 'finance_team_2_id'], 'in', 'range' => Team::find()->select('team_id')->column()],
-            [['finance_user_id', 'finance_user_2_id'], 'in', 'range' => User::find()->select('user_id')->column()],
             [
                 [
                     'finance_id',
+                    'finance_building_id',
                     'finance_capacity',
+                    'finance_country_id',
+                    'finance_finance_text_id',
                     'finance_date',
                     'finance_level',
+                    'finance_national_id',
+                    'finance_player_id',
+                    'finance_season_id',
+                    'finance_team_id',
+                    'finance_user_id',
                     'finance_value',
                     'finance_value_after',
                     'finance_value_before'
@@ -76,7 +77,7 @@ class Finance extends ActiveRecord
                 'integer'
             ],
             [['finance_finance_text_id'], 'required'],
-            [['finance_comment'], 'safe'],
+            [['finance_comment'], 'string', 'max' => 255],
         ];
     }
 
@@ -97,10 +98,37 @@ class Finance extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getText(): string
+    {
+        $text = $this->financeText->finance_text_text;
+        if (false !== strpos($text, '{player}')) {
+            $text = str_replace(
+                '{player}',
+                Html::a(
+                    $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
+                    ['player/view', 'id' => $this->finance_player_id]
+                ),
+                $text
+            );
+        }
+        return $text;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getFinanceText(): ActiveQuery
     {
         return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'finance_player_id']);
     }
 }

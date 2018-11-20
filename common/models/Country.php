@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * Class Country
@@ -19,9 +19,16 @@ use yii\db\ActiveRecord;
  * @property int $country_stadium_capacity
  *
  * @property City[] $city
+ * @property User $president
+ * @property User $vice
  */
-class Country extends ActiveRecord
+class Country extends AbstractActiveRecord
 {
+    /**
+     * USA 157
+     */
+    const DEFAULT_ID = 157;
+
     /**
      * @return string
      */
@@ -56,10 +63,48 @@ class Country extends ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function countryImage(): string
+    {
+        return Html::img(
+            '/img/country/12/' . $this->country_id . '.png',
+            [
+                'alt' => $this->country_name,
+                'title' => $this->country_name,
+            ]
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function countryLink(): string
+    {
+        return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCity(): ActiveQuery
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPresident(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'country_president_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVice(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'country_president_vice_id']);
     }
 }

@@ -12,15 +12,15 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            Here you can <span class="strong">put your player on the rental market</span>.
+            Здесь вы можете <span class="strong">поставить своего игрока на арендный рынок</span>.
         </p>
         <p>
-            The initial loan price of the player must be at least
+            Начальная цена аренды игрока должна быть не меньше
             <span class="strong"><?php
 
                 try {
                     print Yii::$app->formatter->asCurrency($model->minPrice);
-                } catch (Throwable $e) {
+                } catch (Exception $e) {
                     ErrorHelper::log($e);
                 }
 
@@ -60,7 +60,7 @@ use yii\widgets\ActiveForm;
                 <div class="row">{error}</div>'
         ])->textInput(); ?>
         <p class="text-center">
-            <?= Html::submitButton('Put on the rental market', ['class' => 'btn']); ?>
+            <?= Html::submitButton('Выставить на рынок аренды', ['class' => 'btn']); ?>
         </p>
         <?php $form->end(); ?>
     </div>

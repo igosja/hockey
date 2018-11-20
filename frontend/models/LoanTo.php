@@ -9,7 +9,7 @@ use common\models\Position;
 use common\models\Team;
 use common\models\Training;
 use common\models\Transfer;
-use Throwable;
+use Exception;
 use Yii;
 use yii\base\Model;
 
@@ -66,9 +66,9 @@ class LoanTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'maxDay' => 'Max loan days',
-            'minDay' => 'Min loan days',
-            'price' => 'Starting price',
+            'maxDay' => 'Дней аренды (max)',
+            'minDay' => 'Дней аренды (min)',
+            'price' => 'Начальная цена',
         ];
     }
 
@@ -83,11 +83,11 @@ class LoanTo extends Model
             return false;
         }
 
-        if ($this->player->player_no_action > time()) {
+        if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
                 'With the player you can not take any action until '
-                . Yii::$app->formatter->asDate($this->player->player_no_action)
+                . Yii::$app->formatter->asDate($this->player->player_date_no_action)
                 . '.'
             );
             return false;
@@ -210,14 +210,12 @@ class LoanTo extends Model
             $model->loan_price_seller = $this->price;
             $model->loan_team_seller_id = $this->team->team_id;
             $model->loan_user_seller_id = Yii::$app->user->id;
-            if (!$model->save()) {
-                throw new Throwable(ErrorHelper::modelErrorsToString($model));
-            }
+            $model->save();
 
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'The player has successfully put on the loan.');
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

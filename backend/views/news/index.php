@@ -18,7 +18,7 @@ use yii\helpers\Html;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Create', ['create'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Создать', ['news/create'], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -26,11 +26,20 @@ use yii\helpers\Html;
 
     try {
         $columns = [
-            'news_id',
-            'news_date:date',
+            [
+                'attribute' => 'news_id',
+                'headerOptions' => ['class' => 'col-lg-1'],
+            ],
+            [
+                'attribute' => 'news_date',
+                'format' => 'datetime',
+                'headerOptions' => ['class' => 'col-lg-3'],
+            ],
             'news_title',
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'text-center'],
+                'headerOptions' => ['class' => 'col-lg-1'],
             ],
         ];
         print GridView::widget([

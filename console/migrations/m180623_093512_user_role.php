@@ -20,9 +20,11 @@ class m180623_093512_user_role extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['user_role_name'], [
-            ['User'],
-            ['Moderator'],
-            ['Administrator'],
+            ['Пользователь'],
+            ['Поддержка'],
+            ['Редактор'],
+            ['Модератор'],
+            ['Администратор'],
         ]);
     }
 

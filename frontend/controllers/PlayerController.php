@@ -8,18 +8,24 @@ use common\models\History;
 use common\models\Lineup;
 use common\models\Loan;
 use common\models\Player;
+use common\models\Position;
+use common\models\Season;
 use common\models\Squad;
 use common\models\Transfer;
 use frontend\models\LoanApplicationFrom;
 use frontend\models\LoanApplicationTo;
 use frontend\models\LoanFrom;
 use frontend\models\LoanTo;
+use frontend\models\PlayerSearch;
 use frontend\models\TransferApplicationFrom;
 use frontend\models\TransferApplicationTo;
 use frontend\models\TransferFrom;
 use frontend\models\TransferTo;
 use Throwable;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -27,28 +33,77 @@ use yii\widgets\ActiveForm;
  * Class PlayerController
  * @package frontend\controllers
  */
-class PlayerController extends BaseController
+class PlayerController extends AbstractController
 {
+    /**
+     * @return string
+     */
+    public function actionIndex(): string
+    {
+        $searchModel = new PlayerSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        $countryArray = ArrayHelper::map(
+            Player::find()
+                ->with([
+                    'country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->select(['player_country_id'])
+                ->groupBy(['player_country_id'])
+                ->orderBy(['player_country_id' => SORT_ASC])
+                ->all(),
+            'country.country_id',
+            'country.country_name'
+        );
+
+        $positionArray = ArrayHelper::map(
+            Position::find()
+                ->select(['position_id', 'position_name'])
+                ->orderBy(['position_id' => SORT_ASC])
+                ->all(),
+            'position_id',
+            'position_name'
+        );
+
+        $this->setSeoTitle('Список хоккеистов');
+
+        return $this->render('index', [
+            'countryArray' => $countryArray,
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+            'positionArray' => $positionArray,
+        ]);
+    }
+
     /**
      * @param integer $id
      * @return string
      */
     public function actionView(int $id): string
     {
-        $gameArray = Lineup::find()
-            ->joinWith(['game.schedule'])
-            ->where(['lineup_player_id' => $id])
-            ->orderBy(['schedule_date' => SORT_ASC])
-            ->all();
-
-        $this->view->title = 'Player profile';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Player profile - Virtual Hockey Online League'
+        $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Lineup::find()
+                ->joinWith(['game.schedule'])
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['lineup_player_id' => $id])
+                ->andWhere(['schedule.schedule_season_id' => $seasonId])
+                ->andWhere(['!=', 'game.game_played', 0])
+                ->orderBy(['schedule_date' => SORT_ASC]),
         ]);
 
+        $this->setSeoTitle('Профиль игрока');
+
         return $this->render('view', [
-            'gameArray' => $gameArray,
+            'dataProvider' => $dataProvider,
+            'seasonArray' => Season::getSeasonArray(),
+            'seasonId' => $seasonId,
         ]);
     }
 
@@ -58,20 +113,24 @@ class PlayerController extends BaseController
      */
     public function actionEvent(int $id): string
     {
-        $eventArray = History::find()
-            ->select([
-                'history_date',
-                'history_history_text_id',
-                'history_player_id',
-                'history_season_id',
-                'history_team_id',
-            ])
-            ->where(['history_player_id' => $id])
-            ->orderBy(['history_id' => SORT_DESC])
-            ->all();
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => History::find()
+                ->select([
+                    'history_date',
+                    'history_history_text_id',
+                    'history_player_id',
+                    'history_season_id',
+                    'history_team_id',
+                ])
+                ->where(['history_player_id' => $id])
+                ->orderBy(['history_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('События игрока');
 
         return $this->render('event', [
-            'eventArray' => $eventArray,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -81,30 +140,35 @@ class PlayerController extends BaseController
      */
     public function actionDeal(int $id): string
     {
-        $loanArray = Loan::find()
-            ->select([
-            ])
-            ->where(['loan_player_id' => $id])
-            ->andWhere(['!=', 'loan_ready', 0])
-            ->orderBy(['loan_ready' => SORT_DESC])
-            ->all();
+        $dataProviderLoan = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->select([
+                ])
+                ->where(['loan_player_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+        $dataProviderTransfer = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->select([
+                ])
+                ->where(['transfer_player_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
 
-        $transferArray = Transfer::find()
-            ->select([
-            ])
-            ->where(['transfer_player_id' => $id])
-            ->andWhere(['!=', 'transfer_ready', 0])
-            ->orderBy(['transfer_ready' => SORT_DESC])
-            ->all();
+        $this->setSeoTitle('Сделки игрока');
 
         return $this->render('deal', [
-            'loanArray' => $loanArray,
-            'transferArray' => $transferArray,
+            'dataProviderLoan' => $dataProviderLoan,
+            'dataProviderTransfer' => $dataProviderTransfer,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return array|string|Response
      * @throws \yii\web\NotFoundHttpException
      */
@@ -114,10 +178,10 @@ class PlayerController extends BaseController
             ->select([
                 'player_age',
                 'player_country_id',
+                'player_date_no_action',
                 'player_id',
                 'player_loan_team_id',
                 'player_national_id',
-                'player_no_action',
                 'player_no_deal',
                 'player_position_id',
                 'player_price',
@@ -198,6 +262,8 @@ class PlayerController extends BaseController
             }
         }
 
+        $this->setSeoTitle('Трансфер игрока');
+
         return $this->render('transfer', [
             'modelTransferApplicationFrom' => $modelTransferApplicationFrom,
             'modelTransferApplicationTo' => $modelTransferApplicationTo,
@@ -209,7 +275,7 @@ class PlayerController extends BaseController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return array|string|Response
      * @throws \yii\web\NotFoundHttpException
      */
@@ -219,10 +285,10 @@ class PlayerController extends BaseController
             ->select([
                 'player_age',
                 'player_country_id',
+                'player_date_no_action',
                 'player_id',
                 'player_loan_team_id',
                 'player_national_id',
-                'player_no_action',
                 'player_no_deal',
                 'player_position_id',
                 'player_price',
@@ -303,6 +369,8 @@ class PlayerController extends BaseController
             }
         }
 
+        $this->setSeoTitle('Аренда игрока');
+
         return $this->render('loan', [
             'modelLoanApplicationFrom' => $modelLoanApplicationFrom,
             'modelLoanApplicationTo' => $modelLoanApplicationTo,
@@ -319,25 +387,30 @@ class PlayerController extends BaseController
      */
     public function actionAchievement(int $id): string
     {
-        $achievementArray = AchievementPlayer::find()
-            ->select([
-                'achievement_player_season_id',
-                'achievement_player_stage_id',
-                'achievement_player_team_id',
-                'achievement_player_tournament_type_id',
-            ])
-            ->where(['achievement_player_player_id' => $id])
-            ->orderBy(['achievement_player_id' => SORT_DESC])
-            ->all();
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => AchievementPlayer::find()
+                ->select([
+                    'achievement_player_season_id',
+                    'achievement_player_stage_id',
+                    'achievement_player_team_id',
+                    'achievement_player_tournament_type_id',
+                ])
+                ->where(['achievement_player_player_id' => $id])
+                ->orderBy(['achievement_player_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Достижения игрока');
 
         return $this->render('achievement', [
-            'achievementArray' => $achievementArray,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return bool
+     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionSquad(int $id): bool

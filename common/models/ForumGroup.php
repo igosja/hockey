@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
+use yii\db\ActiveQuery;
 
 /**
  * Class ForumGroup
@@ -14,8 +14,12 @@ use yii\db\ActiveRecord;
  * @property int $forum_group_forum_chapter_id
  * @property int $forum_group_name
  * @property int $forum_group_order
+ *
+ * @property ForumChapter $forumChapter
+ * @property ForumMessage $forumMessage
+ * @property ForumTheme[] $forumTheme
  */
-class ForumGroup extends ActiveRecord
+class ForumGroup extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -31,9 +35,10 @@ class ForumGroup extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['forum_group_country_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['forum_group_forum_chapter_id'], 'in', 'range' => Country::find()->select(['country_id'])->column()],
-            [['forum_group_id', 'forum_group_order'], 'integer'],
+            [
+                ['forum_group_id', 'forum_group_country_id', 'forum_group_forum_chapter_id', 'forum_group_order'],
+                'integer'
+            ],
             [['forum_group_description', 'forum_group_name'], 'required'],
             [['forum_group_name'], 'string', 'max' => 255],
             [['forum_group_description', 'forum_group_name'], 'trim'],
@@ -60,5 +65,52 @@ class ForumGroup extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return int
+     */
+    public function countMessage(): int
+    {
+        $result = 0;
+        foreach ($this->forumTheme as $forumTheme) {
+            $result = $result + count($forumTheme->forumMessage);
+        }
+        return $result;
+    }
+
+    /**
+     * @return int
+     */
+    public function countTheme(): int
+    {
+        return count($this->forumTheme);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getForumChapter(): ActiveQuery
+    {
+        return $this->hasOne(ForumChapter::class, ['forum_chapter_id' => 'forum_group_forum_chapter_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getForumMessage(): ActiveQuery
+    {
+        return $this
+            ->hasOne(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_group_id'])
+            ->via('forumTheme')
+            ->orderBy(['forum_message_date' => SORT_ASC]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getForumTheme(): ActiveQuery
+    {
+        return $this->hasMany(ForumTheme::class, ['forum_theme_forum_group_id' => 'forum_group_id']);
     }
 }

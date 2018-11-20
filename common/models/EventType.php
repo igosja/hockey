@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * Class EventType
  * @package common\models
@@ -11,7 +9,7 @@ use yii\db\ActiveRecord;
  * @property int $event_type_id
  * @property string $event_type_text
  */
-class EventType extends ActiveRecord
+class EventType extends AbstractActiveRecord
 {
     const GOAL = 1;
     const PENALTY = 2;

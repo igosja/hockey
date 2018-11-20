@@ -20,8 +20,8 @@ class m180622_130603_sex extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['sex_name'], [
-            ['male'],
-            ['female'],
+            ['мужской'],
+            ['женский'],
         ]);
     }
 

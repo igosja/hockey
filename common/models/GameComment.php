@@ -2,7 +2,9 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
+use common\components\HockeyHelper;
+use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * Class GameComment
@@ -14,8 +16,10 @@ use yii\db\ActiveRecord;
  * @property int $game_comment_game_id
  * @property string $game_comment_text
  * @property int $game_comment_user_id
+ *
+ * @property User $user
  */
-class GameComment extends ActiveRecord
+class GameComment extends AbstractActiveRecord
 {
     /**
      * @return string
@@ -31,12 +35,43 @@ class GameComment extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['game_comment_game_id'], 'in', 'range' => Game::find()->select(['game_id'])->column()],
-            [['game_comment_user_id'], 'in', 'range' => User::find()->select(['user_id'])->column()],
-            [['game_comment_id', '$game_comment_check', 'game_comment_date'], 'integer'],
+            [
+                [
+                    'game_comment_id',
+                    'game_comment_check',
+                    'game_comment_date',
+                    'game_comment_game_id',
+                    'game_comment_user_id',
+                ],
+                'integer'
+            ],
             [['game_comment_game_id', 'game_comment_text'], 'required'],
             [['game_comment_text'], 'safe'],
             [['game_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->game_comment_date = HockeyHelper::unixTimeStamp();
+            $this->game_comment_user_id = Yii::$app->user->id;
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id'])->cache();
     }
 }

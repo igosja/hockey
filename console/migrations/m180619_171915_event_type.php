@@ -20,9 +20,9 @@ class m180619_171915_event_type extends Migration
         ]);
 
         $this->batchInsert(self::TABLE, ['event_type_text'], [
-            ['Goal'],
-            ['Minor penalty'],
-            ['Shootout'],
+            ['Гол'],
+            ['Малый штраф'],
+            ['Буллит'],
         ]);
     }
 

@@ -11,6 +11,10 @@ use yii\base\Model;
 /**
  * Class SignUp
  * @package frontend\models
+ *
+ * @property $username string
+ * @property $email string
+ * @property $password string
  */
 class SignUp extends Model
 {
@@ -57,13 +61,15 @@ class SignUp extends Model
             $model->setPassword($this->password);
             $model->save();
 
-            Yii::$app->mailer->compose(
-                ['html' => 'signUp-html', 'text' => 'signUp-text'],
-                ['model' => $model]
-            )
+            Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
+                    ['model' => $model]
+                )
                 ->setTo($this->email)
                 ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject('Registration on the Virtual Hockey League website')
+                ->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги')
                 ->send();
 
             $transaction->commit();
@@ -74,5 +80,17 @@ class SignUp extends Model
         }
 
         return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Пароль',
+            'username' => 'Логин',
+        ];
     }
 }

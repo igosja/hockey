@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Country;
 use common\models\Team;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 
@@ -10,7 +12,7 @@ use yii\db\ActiveQuery;
  * Class CountryController
  * @package frontend\controllers
  */
-class CountryController extends BaseController
+class CountryController extends AbstractController
 {
     /**
      * @param integer $id
@@ -55,14 +57,41 @@ class CountryController extends BaseController
             ],
         ]);
 
-        $this->view->title = 'Federation teams';
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => 'Federation teams - Virtual Hockey Online League'
-        ]);
+        $this->setSeoTitle('Команды фередации');
 
         return $this->render('team', [
             'dataProvider' => $dataProvider
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionNews(int $id = 0)
+    {
+        if (!$id) {
+            if (Yii::$app->user->isGuest) {
+                $id = Country::DEFAULT_ID;
+            } else {
+                if ($this->myTeam) {
+                    $id = $this->myTeam->stadium->city->city_country_id;
+                } else {
+                    $id = Country::DEFAULT_ID;
+                }
+            }
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($country);
+
+        $this->setSeoTitle('Новости фередации');
+
+        return $this->render('news');
     }
 }
