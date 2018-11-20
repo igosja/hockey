@@ -2,9 +2,9 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\Expression;
 
 /**
  * Class NewsComment
@@ -73,7 +73,7 @@ class NewsComment extends AbstractActiveRecord
             return false;
         }
         if ($this->isNewRecord) {
-            $this->news_comment_date = new Expression('UNIX_TIMESTAMP()');
+            $this->news_comment_date = HockeyHelper::unixTimeStamp();
             $this->news_comment_user_id = Yii::$app->user->id;
         }
         return true;

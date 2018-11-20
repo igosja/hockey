@@ -2,6 +2,10 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
+use Yii;
+use yii\db\ActiveQuery;
+
 /**
  * Class Support
  * @package common\models
@@ -12,6 +16,8 @@ namespace common\models;
  * @property string $support_text
  * @property int $support_user_id_from
  * @property int $support_user_id_to
+ *
+ * @property User $userFrom
  */
 class Support extends AbstractActiveRecord
 {
@@ -43,5 +49,50 @@ class Support extends AbstractActiveRecord
             [['support_text'], 'safe'],
             [['support_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function addQuestion()
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->support_date = HockeyHelper::unixTimeStamp();
+            $this->support_user_id_from = Yii::$app->user->id;
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUserFrom(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'support_user_id_from']);
     }
 }
