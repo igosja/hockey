@@ -3,7 +3,6 @@
 use common\components\ErrorHelper;
 use common\models\Team;
 use yii\grid\GridView;
-use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -20,25 +19,20 @@ print $this->render('_country');
         $columns = [
             [
                 'attribute' => 'team',
-                'footer' => 'Team',
+                'footer' => 'Команда',
                 'format' => 'raw',
+                'label' => 'Команда',
                 'value' => function (Team $model) {
-                    return Html::a(
-                        $model->team_name . ' ' . Html::tag(
-                            'span',
-                            '(' . $model->stadium->city->city_name . ')',
-                            ['class' => 'hidden-xs']
-                        ),
-                        ['team/view', 'id' => $model->team_id]
-                    );
+                    return $model->teamLink('string', true);
                 }
             ],
             [
                 'attribute' => 'manager',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Manager',
+                'footer' => 'Менеджер',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-40'],
+                'label' => 'Менеджер',
                 'value' => function (Team $model) {
                     return $model->manager->iconVip() . $model->manager->userLink();
                 }
@@ -46,8 +40,9 @@ print $this->render('_country');
             [
                 'attribute' => 'last_visit',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Last Visit',
+                'footer' => 'Последний визит',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
+                'label' => 'Последний визит',
                 'value' => function (Team $model) {
                     return $model->manager->lastVisit();
                 }
