@@ -498,6 +498,14 @@ class Team extends AbstractActiveRecord
     /**
      * @return integer
      */
+    public function baseMaintenance(): int
+    {
+        return $this->base->base_maintenance_base + $this->base->base_maintenance_slot * $this->baseUsed();
+    }
+
+    /**
+     * @return integer
+     */
     public function baseUsed(): int
     {
         return $this->baseMedical->base_medical_level
