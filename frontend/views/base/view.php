@@ -272,7 +272,7 @@ print $this->render('//team/_team-top');
                     <div class="row margin-top">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             Осталось изучений стилей:
-                            <span class="strong"><?= 0; ?>></span>
+                            <span class="strong"><?= 0; ?></span>
                         </div>
                     </div>
                 </div>
