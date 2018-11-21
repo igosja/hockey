@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var \common\models\Team $team
  */
 
-print $this->render('_team-top');
+print $this->render('//team/_team-top');
 
 ?>
 <div class="row margin-top">
