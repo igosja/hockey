@@ -37,15 +37,7 @@ use yii\helpers\Html;
                             ) ?>
                         </td>
                         <td>
-                            <?= Html::a(
-                                $item->team->team_name
-                                . ' ('
-                                . $item->team->stadium->city->city_name
-                                . ', '
-                                . $item->team->stadium->city->country->country_name
-                                . ')',
-                                ['team/view', $item->team->team_id]
-                            ) ?>
+                            <?= $item->team->teamLink('img') ?>
                         </td>
                         <td class="hidden-xs text-center">
                             <?= $item->team->team_power_vs; ?>
