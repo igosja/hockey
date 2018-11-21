@@ -20,24 +20,25 @@ class CountryController extends AbstractController
      */
     public function actionTeam(int $id): string
     {
+        $query = Team::find()
+            ->joinWith([
+                'manager' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_date_login', 'user_date_vip', 'user_id', 'user_login']);
+                },
+                'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_country_id', 'city_id', 'city_name']);
+                }
+            ])
+            ->with([
+                'stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_city_id', 'stadium_id']);
+                },
+            ])
+            ->select(['team_id', 'team_name', 'team_stadium_id', 'team_user_id'])
+            ->where(['city_country_id' => $id]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Team::find()
-                ->joinWith([
-                    'manager' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['user_date_login', 'user_date_vip', 'user_id', 'user_login']);
-                    },
-                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['city_country_id', 'city_id', 'city_name']);
-                    }
-                ])
-                ->with([
-                    'stadium' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stadium_city_id', 'stadium_id']);
-                    },
-                ])
-                ->select(['team_id', 'team_name', 'team_stadium_id', 'team_user_id'])
-                ->where(['city_country_id' => $id]),
+            'query' => $query,
             'sort' => [
                 'attributes' => [
                     'last_visit' => [
@@ -54,7 +55,7 @@ class CountryController extends AbstractController
                     ],
                 ],
                 'defaultOrder' => ['team' => SORT_ASC],
-            ],
+            ]
         ]);
 
         $this->setSeoTitle('Команды фередации');

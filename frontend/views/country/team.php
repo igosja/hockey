@@ -10,7 +10,7 @@ use yii\helpers\Html;
  * @var \yii\web\View $this
  */
 
-return $this->render('_country');
+print $this->render('_country');
 
 ?>
 <div class="row margin-top">
@@ -40,10 +40,7 @@ return $this->render('_country');
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-40'],
                 'value' => function (Team $model) {
-                    return $model->manager->iconVip() . Html::a(
-                            $model->manager->user_login,
-                            ['user/view', 'id' => $model->manager->user_id]
-                        );
+                    return $model->manager->iconVip() . $model->manager->userLink();
                 }
             ],
             [
@@ -68,10 +65,4 @@ return $this->render('_country');
 
     ?>
 </div>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn show-full-table" href="javascript:">
-            Show full table
-        </a>
-    </div>
-</div>
+<?= $this->render('/site/_show-full-table'); ?>
