@@ -118,6 +118,10 @@ foreach ($controller->myTeamArray as $item) {
                             (<span class="strong"><?= $team->baseUsed(); ?></span>
                             из
                             <span class="strong"><?= $team->base->base_slot_max; ?></span>)
+                            <?= Html::a(
+                                '<i class="fa fa-search" aria-hidden="true"></i>',
+                                ['base/view', 'id' => $team->team_id]
+                            ); ?>
                         </div>
                     </div>
                     <div class="row margin-top-small">
