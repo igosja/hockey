@@ -653,9 +653,12 @@ class Team extends AbstractActiveRecord
         return $this->hasOne(Conference::class, ['conference_team_id' => 'team_id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
     public function getFriendlyStatus(): ActiveQuery
     {
-        return $this->hasOne(FriendlyStatus::class, ['friendly_invite_status_id' => 'team_friendly_status_id']);
+        return $this->hasOne(FriendlyStatus::class, ['friendly_status_id' => 'team_friendly_status_id']);
     }
 
     /**
