@@ -16,7 +16,7 @@ use yii\helpers\Html;
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <?= Html::a(
-                    $team->friendlyInviteStatus->friendly_invite_status_name,
+                    $team->friendlyStatus->friendly_status_name,
                     ['friendly/status']
                 ); ?>
             </div>

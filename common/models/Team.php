@@ -57,7 +57,7 @@ use yii\helpers\Html;
  * @property BaseTraining $baseTraining
  * @property Championship $championship
  * @property Conference $conference
- * @property FriendlyInviteStatus $friendlyInviteStatus
+ * @property FriendlyStatus $friendlyStatus
  * @property User $manager
  * @property RatingTeam $ratingTeam
  * @property Stadium $stadium
@@ -653,9 +653,9 @@ class Team extends AbstractActiveRecord
         return $this->hasOne(Conference::class, ['conference_team_id' => 'team_id']);
     }
 
-    public function getFriendlyInviteStatus(): ActiveQuery
+    public function getFriendlyStatus(): ActiveQuery
     {
-        return $this->hasOne(FriendlyInviteStatus::class, ['friendly_invite_status_id' => 'team_friendly_status_id']);
+        return $this->hasOne(FriendlyStatus::class, ['friendly_invite_status_id' => 'team_friendly_status_id']);
     }
 
     /**
