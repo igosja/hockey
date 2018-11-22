@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+
 /**
  * @var \common\models\Team $team
  */
@@ -13,9 +15,10 @@
                 (<?= $team->stadium->city->city_name; ?>, <?= $team->stadium->city->country->country_name; ?>)
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="/friendlystatus.php">
-                    <?= $team->friendlyInviteStatus->friendly_invite_status_name; ?>
-                </a>
+                <?= Html::a(
+                    $team->friendlyInviteStatus->friendly_invite_status_name,
+                    ['friendly/status']
+                ); ?>
             </div>
         </div>
     </div>
