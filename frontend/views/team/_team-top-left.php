@@ -8,7 +8,7 @@ use yii\helpers\Html;
     <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center team-logo-div">
         <?= Html::a(
             $team->logo(),
-            ['logo', 'id' => $teamId],
+            ['team/logo', 'id' => $teamId],
             ['class' => 'team-logo-link']
         ); ?>
     </div>
