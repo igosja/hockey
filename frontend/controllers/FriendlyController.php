@@ -18,7 +18,7 @@ class FriendlyController extends AbstractController
      */
     public function actionIndex()
     {
-        Team::updateAll(['friendlyInviteStatus' => 2]);
+        Team::updateAll(['team_friendly_status_id' => 2]);
         if (Yii::$app->user->isGuest) {
             $this->forbiddenAuth();
         }
