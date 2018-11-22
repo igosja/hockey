@@ -19,55 +19,35 @@ use yii\grid\GridView;
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
-                Скаут центр
+                Центр физподготовки
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Уровень:
-                <span class="strong"><?= $team->baseScout->base_scout_level; ?></span>
+                <span class="strong"><?= $team->basePhysical->base_physical_level; ?></span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Скорость изучения:
-                <span class="strong"><?= $team->baseScout->base_scout_scout_speed_min; ?>%</span>
-                -
-                <span class="strong"><?= $team->baseScout->base_scout_scout_speed_max; ?>%</span>
-                за тур
+                Бонус к изменению усталости:
+                <span class="strong"><?= $team->basePhysical->base_physical_tire_bonus; ?>%</span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                Осталось изучений стилей:
+                Осталось изменений формы:
                 <span class="strong"><?= 0; ?></span>
                 из
-                <span class="strong"><?= $team->baseScout->base_scout_my_style_count; ?></span>
+                <span class="strong"><?= $team->basePhysical->base_physical_change_count; ?></span>
             </div>
         </div>
     </div>
 </div>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <span class="strong">Стоимость изучения:</span>
-        Стиля
-        <span class="strong">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($team->baseScout->base_scout_my_style_count, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
-        </span>
-    </div>
-</div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        Здесь - <span class="strong">в скаут центре</span> -
-        вы можете изучить любимые стили игроков:
+        Здесь - <span class="strong">в физцентре</span> -
+        вы можете поменять физическую форму для игроков своей команды:
     </div>
 </div>
 <div class="row">
@@ -84,21 +64,10 @@ use yii\grid\GridView;
                 }
             ],
             [
-                'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Нац',
-                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Национальность'],
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Национальность'],
-                'label' => 'Нац',
-                'value' => function (Player $model): string {
-                    return $model->country->countryImage();
-                }
-            ],
-            [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Поз',
                 'footerOptions' => ['title' => 'Позиция'],
-                'headerOptions' => ['class' => 'col-10', 'title' => 'Позиция'],
+                'headerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
                 'value' => function (Player $model): string {
                     return $model->position();
@@ -108,7 +77,7 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'В',
                 'footerOptions' => ['title' => 'Возраст'],
-                'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
+                'headerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
                 'value' => function (Player $model): string {
                     return $model->player_age;
@@ -118,30 +87,10 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
-                'headerOptions' => ['class' => 'col-10', 'title' => 'Номинальная сила'],
+                'headerOptions' => ['title' => 'Номинальная сила'],
                 'label' => 'С',
                 'value' => function (Player $model): string {
                     return $model->player_power_nominal;
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Спец',
-                'footerOptions' => ['title' => 'Спецвозможности'],
-                'headerOptions' => ['class' => 'col-15', 'title' => 'Спецвозможности'],
-                'label' => 'Спец',
-                'value' => function (Player $model): string {
-                    return $model->special();
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Стиль',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-15'],
-                'label' => 'Стиль',
-                'value' => function (Player $model): string {
-                    return $model->iconStyle();
                 }
             ],
         ];

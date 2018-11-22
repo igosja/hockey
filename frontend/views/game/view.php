@@ -480,7 +480,6 @@ $user = Yii::$app->user->identity;
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $eventDataProvider,
-                'showOnEmpty' => false,
                 'summary' => false,
             ]);
         } catch (Exception $e) {

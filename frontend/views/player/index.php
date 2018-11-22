@@ -212,7 +212,6 @@ use yii\widgets\ActiveForm;
                     'columns' => $columns,
                     'dataProvider' => $dataProvider,
                     'showFooter' => true,
-                    'showOnEmpty' => false,
                 ]);
             } catch (Exception $e) {
                 ErrorHelper::log($e);

@@ -110,7 +110,6 @@ use yii\helpers\Html;
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProvider,
-                'showOnEmpty' => false,
                 'summary' => false,
             ]);
         } catch (Exception $e) {

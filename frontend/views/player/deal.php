@@ -107,7 +107,6 @@ print $this->render('_player');
             'columns' => $columns,
             'dataProvider' => $dataProviderTransfer,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {
@@ -213,7 +212,6 @@ print $this->render('_player');
                 'columns' => $columns,
                 'dataProvider' => $dataProviderLoan,
                 'showFooter' => true,
-                'showOnEmpty' => false,
                 'summary' => false,
             ]);
         } catch (Exception $e) {
