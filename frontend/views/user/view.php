@@ -21,7 +21,7 @@ use yii\helpers\Html;
 print $this->render('_top');
 
 ?>
-<div class="row">
+<div class="row margin-top">
     <?php
 
     try {
