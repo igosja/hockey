@@ -27,6 +27,7 @@ print $this->render('_top');
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $countryDataProvider,
+                'emptyText' => false,
                 'showFooter' => true,
                 'showOnEmpty' => false,
             ]);
