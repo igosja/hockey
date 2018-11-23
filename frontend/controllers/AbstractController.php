@@ -38,6 +38,7 @@ abstract class AbstractController extends Controller
     /**
      * @param $action
      * @return bool
+     * @throws ForbiddenHttpException
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
@@ -47,7 +48,7 @@ abstract class AbstractController extends Controller
         }
 
         if (!Site::status() && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException('asdf');
+            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
         }
 
         $this->seasonId = Season::getCurrentSeason();
