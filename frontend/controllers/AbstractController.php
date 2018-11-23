@@ -7,6 +7,7 @@ use common\models\Season;
 use common\models\Site;
 use common\models\Team;
 use Yii;
+use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
 
 /**
@@ -44,12 +45,9 @@ abstract class AbstractController extends Controller
         if (!parent::beforeAction($action)) {
             return false;
         }
-        print '<pre>';
-        print_r($action);
-        exit;
 
-        if (!Site::status() && 'closed' != $action->id) {
-            $this->redirect(['site/closed']);
+        if (!Site::status() && !($action instanceof ErrorAction)) {
+            throw new ForbiddenHttpException('asdf');
         }
 
         $this->seasonId = Season::getCurrentSeason();
