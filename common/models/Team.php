@@ -555,7 +555,7 @@ class Team extends AbstractActiveRecord
     public function teamLink(string $type = 'string', bool $short = false): string
     {
         if ('img' == $type) {
-            return Html::img('/img/country/12/' . $this->stadium->city->city_country_id . '.png')
+            return $this->stadium->city->country->countryImage()
                 . ' '
                 . Html::a(
                     $this->team_name

@@ -52,6 +52,7 @@ print $this->render('_top');
         $columns = [
             [
                 'footer' => 'Команда',
+                'format' => 'raw',
                 'label' => 'Команда',
                 'value' => function (Team $model): string {
                     return $model->teamLink('img');
@@ -61,6 +62,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Дивизион',
                 'footerOptions' => ['class' => 'hidden-xs'],
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Дивизион',
                 'value' => function (Team $model): string {
