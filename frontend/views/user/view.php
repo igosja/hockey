@@ -4,12 +4,14 @@ use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\National;
 use common\models\Team;
+use common\models\UserRating;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $countryDataProvider
  * @var \yii\data\ActiveDataProvider $nationalDataProvider
+ * @var \yii\data\ActiveDataProvider $ratingDataProvider
  * @var \yii\data\ActiveDataProvider $teamDataProvider
  */
 
@@ -153,6 +155,323 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $teamDataProvider,
+            'emptyText' => false,
+            'showFooter' => true,
+            'showOnEmpty' => false,
+            'summary' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
+</div>
+<div class="row margin-top">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'C',
+                'footerOptions' => ['title' => 'Сезон'],
+                'headerOptions' => ['class' => 'col-3', 'title' => 'Сезон'],
+                'label' => 'C',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_season_id;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'Рейтинг',
+                'label' => 'Рейтинг',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_rating;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'И',
+                'footerOptions' => ['title' => 'Игры'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Игры'],
+                'label' => 'И',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_game;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'B',
+                'footerOptions' => ['title' => 'Победы'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы'],
+                'label' => 'B',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'BО',
+                'footerOptions' => ['title' => 'Победы в овертайме/по буллитам'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы в овертайме/по буллитам'],
+                'label' => 'BО',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_overtime;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'ПО',
+                'footerOptions' => ['title' => 'Поражения в овертайме/по буллитам/ничьи'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения в овертайме/по буллитам/ничьи'],
+                'label' => 'ПО',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_overtime;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'П',
+                'footerOptions' => ['title' => 'Поражения'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения'],
+                'label' => 'П',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'К+',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Выигранные коллизии'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Выигранные коллизии'],
+                'label' => 'К+',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_collision_win;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'К-',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Проигранные коллизии'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Проигранные коллизии'],
+                'label' => 'К-',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_collision_loose;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'ВС',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Победы у команд с супернастроем'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Победы у команд с супернастроем'],
+                'label' => 'ВС',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_super;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'В+',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
+                'label' => 'В+',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_strong;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'В=',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
+                'label' => 'В=',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_equal;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'В-',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
+                'label' => 'В-',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_weak;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ВО+',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у сильных соперников',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у сильных соперников',
+                ],
+                'label' => 'ВО+',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_overtime_strong;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ВО=',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у равных соперников',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у равных соперников',
+                ],
+                'label' => 'ВО=',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_overtime_equal;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ВО-',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у слабых соперников',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Победы в овертайме/по буллитам у слабых соперников',
+                ],
+                'label' => 'ВО-',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_win_overtime_weak;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ПО+',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи сильным соперникам',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи сильным соперникам',
+                ],
+                'label' => 'ПО+',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_overtime_strong;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ПО=',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи равным соперникам',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи равным соперникам',
+                ],
+                'label' => 'ПО=',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_overtime_equal;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'ПО-',
+                'footerOptions' => [
+                    'class' => 'hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи слабым соперникам',
+                ],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Поражения в овертайме/по буллитам/ничьи слабым соперникам',
+                ],
+                'label' => 'ПО-',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_overtime_weak;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'П+',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения сильным соперникам'],
+                'headerOptions' => [
+                    'class' => 'col-3-5 hidden-sm hidden-xs',
+                    'title' => 'Поражения сильным соперникам'
+                ],
+                'label' => 'П+',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_strong;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'П=',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
+                'label' => 'П=',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_equal;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
+                'footer' => 'П-',
+                'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
+                'label' => 'П-',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_weak;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'ПС',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Поражения супернастроем'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Поражения супернастроем'],
+                'label' => 'ПС',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_loose_super;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'А',
+                'footerOptions' => ['title' => 'Автосоставы'],
+                'headerOptions' => ['class' => 'col-3-5', 'title' => 'Автосоставы'],
+                'label' => 'А',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_auto;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'VС',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против супернастроя'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против супернастроя'],
+                'label' => 'VС',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_vs_super;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'VО',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против отдыха'],
+                'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против отдыха'],
+                'label' => 'VО',
+                'value' => function (UserRating $model): string {
+                    return $model->user_rating_vs_rest;
+                }
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $ratingDataProvider,
             'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
