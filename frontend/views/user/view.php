@@ -169,7 +169,7 @@ print $this->render('_top');
 
     ?>
 </div>
-<div class="row margin-top">
+<div class="row margin-top-small">
     <?php
 
     try {
@@ -485,7 +485,7 @@ print $this->render('_top');
 
     ?>
 </div>
-<div class="row">
+<div class="row margin-top-small">
     <?php
 
     try {
@@ -511,6 +511,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Событие',
+                'format' => 'raw',
                 'label' => 'Событие',
                 'value' => function (History $model): string {
                     return $model->text();
