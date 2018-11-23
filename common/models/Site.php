@@ -67,6 +67,34 @@ class Site extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public static function status(): int
+    {
+        try {
+            $site = self::getDb()->cache(function (): self {
+                return self::find()
+                    ->select(['site_status'])
+                    ->where(['site_id' => 1])
+                    ->one();
+            });
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $site = self::find()
+                ->select(['site_status'])
+                ->where(['site_id' => 1])
+                ->one();
+        }
+
+        $result = 1;
+        if ($site) {
+            $result = $site->site_status;
+        }
+
+        return $result;
+    }
+
+    /**
      * @return array
      */
     public function rules(): array

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\Controller;
 use common\models\Season;
+use common\models\Site;
 use common\models\Team;
 use Yii;
 use yii\web\ForbiddenHttpException;
@@ -36,10 +37,15 @@ abstract class AbstractController extends Controller
     /**
      * @param $action
      * @return bool
+     * @throws ForbiddenHttpException
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action): bool
     {
+        if (!Site::status()) {
+            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
+        }
+
         $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
