@@ -2,8 +2,10 @@
 
 use common\components\ErrorHelper;
 use common\models\Country;
+use common\models\National;
 use common\models\Team;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $countryDataProvider
@@ -38,6 +40,63 @@ print $this->render('_top');
             'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
+            'summary' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
+</div>
+<div class="row">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'footer' => 'Команда',
+                'format' => 'raw',
+                'label' => 'Команда',
+                'value' => function (National $model): string {
+                    $name = $model->country->country_name . ', ' . $model->nationalType->national_type_name;
+                    if (Yii::$app->user->id == $model->national_vice_id) {
+                        $name = $name . ' (заместитель)';
+                    }
+                    return Html::a(
+                        $name,
+                        ['national/view', 'id' => $model->national_id]
+                    );
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Дивизион',
+                'footerOptions' => ['class' => 'hidden-xs'],
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-20 hidden-xs'],
+                'label' => 'Дивизион',
+                'value' => function (National $model): string {
+                    return $model->worldCup->division->division_name;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'Vs',
+                'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                'label' => 'Vs',
+                'value' => function (National $model): string {
+                    return $model->national_power_vs;
+                }
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $teamDataProvider,
+            'emptyText' => false,
+            'showFooter' => true,
+            'showOnEmpty' => false,
+            'summary' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);
@@ -96,6 +155,7 @@ print $this->render('_top');
             'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
+            'summary' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);
