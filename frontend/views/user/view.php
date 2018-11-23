@@ -22,6 +22,11 @@ print $this->render('_top');
 
 ?>
 <div class="row margin-top">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        Ссылки
+    </div>
+</div>
+<div class="row">
     <?php
 
     try {
@@ -168,6 +173,13 @@ print $this->render('_top');
     }
 
     ?>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <a href="javascript:">Перерегистрировать команду</a>
+        |
+        <a href="javascript:">Отказаться от команды</a>
+    </div>
 </div>
 <div class="row margin-top-small">
     <?php
