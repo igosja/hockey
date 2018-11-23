@@ -46,7 +46,7 @@ print $this->render('_player');
                     'format' => 'raw',
                     'header' => 'Событие',
                     'value' => function (History $model): string {
-                        return $model->getText();
+                        return $model->text();
                     }
                 ],
             ];

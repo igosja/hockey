@@ -102,7 +102,7 @@ class History extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getText(): string
+    public function text(): string
     {
         $text = $this->historyText->history_text_text;
         if (false !== strpos($text, '{team}')) {

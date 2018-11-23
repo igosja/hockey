@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\models\Country;
+use common\models\History;
 use common\models\National;
 use common\models\Team;
 use common\models\UserRating;
@@ -10,6 +11,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $countryDataProvider
+ * @var \yii\data\ActiveDataProvider $historyDataProvider
  * @var \yii\data\ActiveDataProvider $nationalDataProvider
  * @var \yii\data\ActiveDataProvider $ratingDataProvider
  * @var \yii\data\ActiveDataProvider $teamDataProvider
@@ -475,6 +477,52 @@ print $this->render('_top');
             'dataProvider' => $ratingDataProvider,
             'emptyText' => false,
             'showFooter' => true,
+            'summary' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
+</div>
+<div class="row">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'С',
+                'footerOptions' => ['title' => 'Сезон'],
+                'headerOptions' => ['class' => 'col-1', 'title' => 'Сезон'],
+                'label' => 'С',
+                'value' => function (History $model): string {
+                    return $model->history_season_id;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'Дата',
+                'headerOptions' => ['class' => 'col-15'],
+                'label' => 'Дата',
+                'value' => function (History $model): string {
+                    return Yii::$app->formatter->asDate($model->history_date, 'short');
+                }
+            ],
+            [
+                'footer' => 'Событие',
+                'label' => 'Событие',
+                'value' => function (History $model): string {
+                    return $model->text();
+                }
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $historyDataProvider,
+            'emptyText' => false,
+            'showFooter' => true,
+            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {

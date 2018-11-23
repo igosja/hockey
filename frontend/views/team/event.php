@@ -56,7 +56,7 @@ print $this->render('_team-top');
                 'format' => 'raw',
                 'header' => 'Событие',
                 'value' => function (History $model): string {
-                    return $model->getText();
+                    return $model->text();
                 }
             ],
         ];
