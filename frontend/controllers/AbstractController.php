@@ -46,12 +46,8 @@ abstract class AbstractController extends Controller
             return false;
         }
 
-        print '<pre>';
-        print_r($action);
-        exit;
-
         if (!Site::status()) {
-            throw new ForbiddenHttpException('asdf');
+//            throw new ForbiddenHttpException('asdf');
         }
 
         $this->seasonId = Season::getCurrentSeason();
