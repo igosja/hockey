@@ -37,6 +37,7 @@ abstract class AbstractController extends Controller
     /**
      * @param $action
      * @return bool
+     * @throws ForbiddenHttpException
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action): bool
@@ -44,6 +45,10 @@ abstract class AbstractController extends Controller
         if (!parent::beforeAction($action)) {
             return false;
         }
+
+        print '<pre>';
+        print_r($action);
+        exit;
 
         if (!Site::status()) {
             throw new ForbiddenHttpException('asdf');
