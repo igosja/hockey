@@ -44,7 +44,7 @@ class SiteController extends AbstractController
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'error', 'logout'],
+                        'actions' => ['index', 'error', 'logout', 'status'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
