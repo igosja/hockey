@@ -9,6 +9,7 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $countryDataProvider
+ * @var \yii\data\ActiveDataProvider $nationalDataProvider
  * @var \yii\data\ActiveDataProvider $teamDataProvider
  */
 
@@ -92,7 +93,7 @@ print $this->render('_top');
         ];
         print GridView::widget([
             'columns' => $columns,
-            'dataProvider' => $teamDataProvider,
+            'dataProvider' => $nationalDataProvider,
             'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
