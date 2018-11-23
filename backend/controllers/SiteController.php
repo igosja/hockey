@@ -169,6 +169,6 @@ class SiteController extends AbstractController
     public function actionStatus(): Response
     {
         Site::switchStatus();
-        return $this->redirect(Yii::$app->request->referrer);
+        return $this->redirect(Yii::$app->request->referrer ?: ['site/index']);
     }
 }
