@@ -37,17 +37,19 @@ abstract class AbstractController extends Controller
     /**
      * @param $action
      * @return bool
-     * @throws ForbiddenHttpException
      * @throws \yii\web\BadRequestHttpException
      */
-    public function beforeAction($action): bool
+    public function beforeAction($action)
     {
         if (!parent::beforeAction($action)) {
             return false;
         }
+        print '<pre>';
+        print_r($action);
+        exit;
 
-        if (!Site::status()) {
-//            throw new ForbiddenHttpException('asdf');
+        if (!Site::status() && 'closed' != $action->id) {
+            $this->redirect(['site/closed']);
         }
 
         $this->seasonId = Season::getCurrentSeason();
