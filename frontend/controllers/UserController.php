@@ -86,6 +86,7 @@ class UserController extends AbstractController
             'nationalDataProvider' => $nationalDataProvider,
             'ratingDataProvider' => $ratingDataProvider,
             'teamDataProvider' => $teamDataProvider,
+            'userRating' => $userRating,
         ]);
     }
 }

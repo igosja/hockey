@@ -13,6 +13,7 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $nationalDataProvider
  * @var \yii\data\ActiveDataProvider $ratingDataProvider
  * @var \yii\data\ActiveDataProvider $teamDataProvider
+ * @var UserRating $userRating
  */
 
 print $this->render('_top');
@@ -183,7 +184,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Рейтинг',
+                'footer' => $userRating->user_rating_rating,
                 'label' => 'Рейтинг',
                 'value' => function (UserRating $model): string {
                     return $model->user_rating_rating;
@@ -191,7 +192,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'И',
+                'footer' => $userRating->user_rating_game,
                 'footerOptions' => ['title' => 'Игры'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Игры'],
                 'label' => 'И',
@@ -201,7 +202,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'B',
+                'footer' => $userRating->user_rating_win,
                 'footerOptions' => ['title' => 'Победы'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы'],
                 'label' => 'B',
@@ -211,7 +212,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'BО',
+                'footer' => $userRating->user_rating_win_overtime,
                 'footerOptions' => ['title' => 'Победы в овертайме/по буллитам'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы в овертайме/по буллитам'],
                 'label' => 'BО',
@@ -221,7 +222,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'ПО',
+                'footer' => $userRating->user_rating_loose_overtime,
                 'footerOptions' => ['title' => 'Поражения в овертайме/по буллитам/ничьи'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения в овертайме/по буллитам/ничьи'],
                 'label' => 'ПО',
@@ -231,7 +232,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'П',
+                'footer' => $userRating->user_rating_loose,
                 'footerOptions' => ['title' => 'Поражения'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения'],
                 'label' => 'П',
@@ -241,7 +242,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'К+',
+                'footer' => $userRating->user_rating_collision_win,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Выигранные коллизии'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Выигранные коллизии'],
                 'label' => 'К+',
@@ -251,7 +252,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'К-',
+                'footer' => $userRating->user_rating_collision_loose,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Проигранные коллизии'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Проигранные коллизии'],
                 'label' => 'К-',
@@ -261,7 +262,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'ВС',
+                'footer' => $userRating->user_rating_win_super,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Победы у команд с супернастроем'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Победы у команд с супернастроем'],
                 'label' => 'ВС',
@@ -271,7 +272,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'В+',
+                'footer' => $userRating->user_rating_win_strong,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
                 'label' => 'В+',
@@ -281,7 +282,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'В=',
+                'footer' => $userRating->user_rating_win_equal,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
                 'label' => 'В=',
@@ -291,7 +292,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'В-',
+                'footer' => $userRating->user_rating_win_weak,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
                 'label' => 'В-',
@@ -301,7 +302,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ВО+',
+                'footer' => $userRating->user_rating_win_overtime_strong,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Победы в овертайме/по буллитам у сильных соперников',
@@ -317,7 +318,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ВО=',
+                'footer' => $userRating->user_rating_win_overtime_equal,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Победы в овертайме/по буллитам у равных соперников',
@@ -333,7 +334,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ВО-',
+                'footer' => $userRating->user_rating_win_overtime_weak,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Победы в овертайме/по буллитам у слабых соперников',
@@ -349,7 +350,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ПО+',
+                'footer' => $userRating->user_rating_loose_overtime_strong,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Поражения в овертайме/по буллитам/ничьи сильным соперникам',
@@ -365,7 +366,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ПО=',
+                'footer' => $userRating->user_rating_loose_overtime_equal,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Поражения в овертайме/по буллитам/ничьи равным соперникам',
@@ -381,7 +382,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'ПО-',
+                'footer' => $userRating->user_rating_loose_overtime_weak,
                 'footerOptions' => [
                     'class' => 'hidden-sm hidden-xs',
                     'title' => 'Поражения в овертайме/по буллитам/ничьи слабым соперникам',
@@ -397,7 +398,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'П+',
+                'footer' => $userRating->user_rating_loose_strong,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения сильным соперникам'],
                 'headerOptions' => [
                     'class' => 'col-3-5 hidden-sm hidden-xs',
@@ -410,7 +411,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'П=',
+                'footer' => $userRating->user_rating_loose_equal,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
                 'label' => 'П=',
@@ -420,7 +421,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-sm hidden-xs text-center'],
-                'footer' => 'П-',
+                'footer' => $userRating->user_rating_loose_weak,
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
                 'label' => 'П-',
@@ -430,7 +431,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'ПС',
+                'footer' => $userRating->user_rating_loose_super,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Поражения супернастроем'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Поражения супернастроем'],
                 'label' => 'ПС',
@@ -440,7 +441,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'А',
+                'footer' => $userRating->user_rating_auto,
                 'footerOptions' => ['title' => 'Автосоставы'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Автосоставы'],
                 'label' => 'А',
@@ -450,7 +451,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'VС',
+                'footer' => $userRating->user_rating_vs_super,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против супернастроя'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против супернастроя'],
                 'label' => 'VС',
@@ -460,7 +461,7 @@ print $this->render('_top');
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'VО',
+                'footer' => $userRating->user_rating_vs_rest,
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против отдыха'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против отдыха'],
                 'label' => 'VО',
@@ -474,7 +475,6 @@ print $this->render('_top');
             'dataProvider' => $ratingDataProvider,
             'emptyText' => false,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {
