@@ -28,6 +28,7 @@ print $this->render('_top');
                 'columns' => $columns,
                 'dataProvider' => $countryDataProvider,
                 'showFooter' => true,
+                'showOnEmpty' => false,
             ]);
         } catch (Exception $e) {
             ErrorHelper::log($e);
