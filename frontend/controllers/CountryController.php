@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\models\Country;
+use common\models\Finance;
+use common\models\Season;
 use common\models\Team;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -61,7 +63,7 @@ class CountryController extends AbstractController
         $this->setSeoTitle('Команды фередации');
 
         return $this->render('team', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -94,5 +96,30 @@ class CountryController extends AbstractController
         $this->setSeoTitle('Новости фередации');
 
         return $this->render('news');
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionFinance(int $id)
+    {
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Finance::find()
+                ->where(['finance_country_id' => $id])
+                ->andWhere(['finance_season_id' => $seasonId])
+                ->orderBy(['finance_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Фонд фередации');
+
+        return $this->render('finance', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+        ]);
     }
 }

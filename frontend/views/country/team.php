@@ -41,6 +41,7 @@ print $this->render('_country');
                 'attribute' => 'last_visit',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Последний визит',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Последний визит',
                 'value' => function (Team $model) {
