@@ -33,7 +33,6 @@ print $this->render('_country');
             </div>
         </div>
     </div>
-    </div>
 </div>
 <?= Html::endForm(); ?>
 <div class="row">
