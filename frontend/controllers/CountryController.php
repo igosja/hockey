@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Country;
 use common\models\Finance;
+use common\models\News;
 use common\models\Season;
 use common\models\Team;
 use Yii;
@@ -87,15 +88,31 @@ class CountryController extends AbstractController
             return $this->redirect(['country/news', 'id' => $id]);
         }
 
-        $country = Country::find()
-            ->where(['country_id' => $id])
-            ->limit(1)
-            ->one();
-        $this->notFound($country);
+        $query = News::find()
+            ->with([
+                'newsComment' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['news_comment_news_id']);
+                },
+                'user' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_id', 'user_login']);
+                },
+            ])
+            ->select(['news_id', 'news_date', 'news_text', 'news_title', 'news_user_id'])
+            ->where(['news_country_id' => $id])
+            ->orderBy(['news_id' => SORT_DESC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => News::PAGE_LIMIT,
+            ],
+        ]);
 
         $this->setSeoTitle('Новости фередации');
 
-        return $this->render('news');
+        return $this->render('news', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
