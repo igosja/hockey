@@ -57,6 +57,7 @@ use yii\web\IdentityInterface;
  * @property int $user_shop_position
  * @property int $user_shop_special
  * @property string $user_surname
+ * @property string $user_timezone
  * @property int $user_user_role_id
  *
  * @property Country $country
@@ -133,7 +134,15 @@ class User extends AbstractActiveRecord implements IdentityInterface
             [['user_rating'], 'number'],
             [['user_email'], 'required'],
             [
-                ['user_city', 'user_email', 'user_login', 'user_name', 'user_password', 'user_surname'],
+                [
+                    'user_city',
+                    'user_email',
+                    'user_login',
+                    'user_name',
+                    'user_password',
+                    'user_surname',
+                    'user_timezone',
+                ],
                 'string',
                 'max' => 255
             ],
