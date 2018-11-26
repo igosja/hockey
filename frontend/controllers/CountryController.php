@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use common\models\Country;
 use common\models\Finance;
 use common\models\News;
+use common\models\Poll;
+use common\models\PollStatus;
 use common\models\Season;
 use common\models\Team;
 use Yii;
@@ -71,7 +73,6 @@ class CountryController extends AbstractController
     /**
      * @param int $id
      * @return string|\yii\web\Response
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionNews(int $id = 0)
     {
@@ -111,6 +112,30 @@ class CountryController extends AbstractController
         $this->setSeoTitle('Новости фередации');
 
         return $this->render('news', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     */
+    public function actionPoll(int $id)
+    {
+        $query = Poll::find()
+            ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE], 'poll_country_id' => $id])
+            ->orderBy(['poll_id' => SORT_DESC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Poll::PAGE_LIMIT,
+            ],
+        ]);
+
+        $this->setSeoTitle('Опросы фередации');
+
+        return $this->render('poll', [
             'dataProvider' => $dataProvider,
         ]);
     }
