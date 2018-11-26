@@ -4,9 +4,13 @@ namespace frontend\controllers;
 
 use common\models\Achievement;
 use common\models\Country;
+use common\models\Finance;
 use common\models\History;
+use common\models\Loan;
 use common\models\National;
+use common\models\Season;
 use common\models\Team;
+use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
 use Yii;
@@ -113,6 +117,92 @@ class UserController extends AbstractController
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionFinance($id): string
+    {
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Finance::find()
+                ->where(['finance_user_id' => $id])
+                ->andWhere(['finance_season_id' => $seasonId])
+                ->orderBy(['finance_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Финансы менеджера');
+
+        return $this->render('finance', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionDeal($id): string
+    {
+        $dataProviderTransferFrom = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['transfer_user_seller_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
+        $dataProviderTransferTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Transfer::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['transfer_user_buyer_id' => $id])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->orderBy(['transfer_ready' => SORT_DESC]),
+        ]);
+        $dataProviderLoanFrom = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['loan_user_seller_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+        $dataProviderLoanTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Loan::find()
+                ->with([
+                ])
+                ->select([
+                ])
+                ->where(['loan_user_buyer_id' => $id])
+                ->andWhere(['!=', 'loan_ready', 0])
+                ->orderBy(['loan_ready' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Сделки команды');
+
+        return $this->render('deal', [
+            'dataProviderTransferFrom' => $dataProviderTransferFrom,
+            'dataProviderTransferTo' => $dataProviderTransferTo,
+            'dataProviderLoanFrom' => $dataProviderLoanFrom,
+            'dataProviderLoanTo' => $dataProviderLoanTo,
         ]);
     }
 }
