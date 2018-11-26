@@ -3,9 +3,11 @@
 namespace frontend\controllers;
 
 use common\components\Controller;
+use common\components\HockeyHelper;
 use common\models\Season;
 use common\models\Site;
 use common\models\Team;
+use common\models\User;
 use Yii;
 use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
@@ -72,6 +74,8 @@ abstract class AbstractController extends Controller
                 ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])
                 ->limit(1)
                 ->one();
+
+            User::updateAll(['user_date_login' => HockeyHelper::unixTimeStamp()], ['user_id' => Yii::$app->user->id]);
         }
 
         return true;
