@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Achievement;
 use common\models\Country;
 use common\models\History;
 use common\models\National;
@@ -87,6 +88,31 @@ class UserController extends AbstractController
             'ratingDataProvider' => $ratingDataProvider,
             'teamDataProvider' => $teamDataProvider,
             'userRating' => $userRating,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionAchievement($id): string
+    {
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Achievement::find()
+                ->with([
+                ])
+                ->select([
+                    'achievement_season_id',
+                ])
+                ->where(['achievement_user_id' => $id])
+                ->orderBy(['achievement_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Достижения менеджер');
+
+        return $this->render('achievement', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

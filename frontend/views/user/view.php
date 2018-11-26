@@ -23,7 +23,7 @@ print $this->render('_top');
 ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Ссылки
+        <?= $this->render('_user-links'); ?>
     </div>
 </div>
 <div class="row">
@@ -174,6 +174,7 @@ print $this->render('_top');
 
     ?>
 </div>
+<?php if (Yii::$app->user->id == Yii::$app->request->get('id')) : ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a href="javascript:">Перерегистрировать команду</a>
@@ -181,6 +182,7 @@ print $this->render('_top');
         <a href="javascript:">Отказаться от команды</a>
     </div>
 </div>
+<?php endif; ?>
 <div class="row margin-top-small">
     <?php
 
