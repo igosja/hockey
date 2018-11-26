@@ -6,8 +6,6 @@ use yii\helpers\Html;
  * @var \common\models\Poll $model
  */
 
-print $this->render('_country');
-
 ?>
 <div class="row border-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
