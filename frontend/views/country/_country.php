@@ -20,13 +20,13 @@ $file_name = 'file_name';
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?php $this->render('_country-links'); ?>
+            <?= $this->render('_country-links'); ?>
         </div>
     </div>
 <?php if ('country_national' == $file_name) : ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?php $this->render('_country-national-links'); ?>
+            <?= $this->render('_country-national-links'); ?>
         </div>
     </div>
 <?php endif; ?>
