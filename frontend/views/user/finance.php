@@ -36,7 +36,6 @@ print $this->render('_top');
     </div>
 </div>
 <?= Html::endForm(); ?>
-
 <div class="row">
     <?php
 

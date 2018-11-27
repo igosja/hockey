@@ -196,13 +196,28 @@ class UserController extends AbstractController
                 ->orderBy(['loan_ready' => SORT_DESC]),
         ]);
 
-        $this->setSeoTitle('Сделки команды');
+        $this->setSeoTitle('Сделки менеджера');
 
         return $this->render('deal', [
             'dataProviderTransferFrom' => $dataProviderTransferFrom,
             'dataProviderTransferTo' => $dataProviderTransferTo,
             'dataProviderLoanFrom' => $dataProviderLoanFrom,
             'dataProviderLoanTo' => $dataProviderLoanTo,
+        ]);
+    }
+
+    public function actionQuestionnaire()
+    {
+        /**
+         * @var User $model
+         */
+        $model = Yii::$app->user->identity;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        $this->setSeoTitle('Сделки команды');
+
+        return $this->render('questionnaire', [
+            'model' => $model,
         ]);
     }
 }
