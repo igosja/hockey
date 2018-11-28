@@ -157,6 +157,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_id' => 'Id',
             'user_login' => 'Логин',
             'user_name' => 'Имя',
+            'user_surname' => 'Фамилия',
             'user_email' => 'Email',
             'user_city' => 'Город',
             'user_country_id' => 'Страна',

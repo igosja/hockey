@@ -60,18 +60,34 @@ print $this->render('_top');
     $sexArray,
     ['class' => 'form-control form-small', 'prompt' => 'Не указано']
 ); ?>
-<?= $form->field($model, 'user_birth_day')->dropDownList(
-    $dayArray,
-    ['class' => 'form-control form-small', 'prompt' => '-']
-); ?>
-<?= $form->field($model, 'user_birth_month')->dropDownList(
-    $monthArray,
-    ['class' => 'form-control form-small', 'prompt' => '-']
-); ?>
-<?= $form->field($model, 'user_birth_year')->dropDownList(
-    $yearArray,
-    ['class' => 'form-control form-small', 'prompt' => '-']
-); ?>
+<div class="row">
+    <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
+        <?= Html::label('Дата рождения'); ?>
+    </div>
+    <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
+        <?= $form->field($model, 'user_birth_day', [
+            'options' => ['class' => 'row'],
+            'template' => '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">{input}</div>',
+        ])->dropDownList(
+            $dayArray,
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        ); ?>
+        <?= $form->field($model, 'user_birth_month', [
+            'options' => ['class' => 'row'],
+            'template' => '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">{input}</div>',
+        ])->dropDownList(
+            $monthArray,
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        ); ?>
+        <?= $form->field($model, 'user_birth_year', [
+            'options' => ['class' => 'row'],
+            'template' => '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">{input}</div>',
+        ])->dropDownList(
+            $yearArray,
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        ); ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
         Если вы поменяете свой e-mail, система автоматически отправит письмо на новый адрес с указанием,
