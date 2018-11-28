@@ -141,7 +141,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_name',
                     'user_password',
                     'user_surname',
-                    'user_timezone',
+//                    'user_timezone',
                 ],
                 'string',
                 'max' => 255
