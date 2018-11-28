@@ -379,6 +379,21 @@ class User extends AbstractActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return bool
+     * @throws Exception
+     */
+    public function updateHoliday(): bool
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->save(true, ['user_holiday'])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function userLink(): string

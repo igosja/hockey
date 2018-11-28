@@ -14,8 +14,11 @@ use common\models\Team;
 use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
+use frontend\models\ChangePassword;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class UserController
@@ -220,7 +223,7 @@ class UserController extends AbstractController
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
 
         if ($model->updateQuestionnaire()) {
-            $this->setSuccessFlash('Анкета успешно сохранена.');
+            $this->setSuccessFlash('Данные успешно сохранены.');
             return $this->refresh();
         }
 
@@ -250,6 +253,56 @@ class UserController extends AbstractController
             'monthArray' => $monthArray,
             'sexArray' => Sex::selectOptions(),
             'yearArray' => $yearArray,
+        ]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionHoliday()
+    {
+        /**
+         * @var User $model
+         */
+        $model = Yii::$app->user->identity;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        if ($model->updateHoliday()) {
+            $this->setSuccessFlash('Данные успешно сохранены.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Отпуск менеджера');
+
+        return $this->render('holiday', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return array|string|Response
+     * @throws \Exception
+     */
+    public function actionPassword()
+    {
+        $model = new ChangePassword();
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->change()) {
+            $this->setSuccessFlash('Пароль успешно изменён.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Смена пароля');
+
+        return $this->render('password', [
+            'model' => $model,
         ]);
     }
 
