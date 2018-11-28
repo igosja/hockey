@@ -119,7 +119,6 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_holiday',
                     'user_holiday_day',
                     'user_language_id',
-                    'user_money',
                     'user_news_id',
                     'user_referrer_done',
                     'user_referrer_id',
@@ -131,7 +130,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                 ],
                 'integer'
             ],
-            [['user_rating'], 'number'],
+            [['user_money', 'user_rating'], 'number'],
             [['user_email'], 'required'],
             [
                 [
