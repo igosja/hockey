@@ -57,6 +57,7 @@ use yii\helpers\Html;
  * @property BaseTraining $baseTraining
  * @property Championship $championship
  * @property Conference $conference
+ * @property FriendlyStatus $friendlyStatus
  * @property User $manager
  * @property RatingTeam $ratingTeam
  * @property Stadium $stadium
@@ -498,6 +499,14 @@ class Team extends AbstractActiveRecord
     /**
      * @return integer
      */
+    public function baseMaintenance(): int
+    {
+        return $this->base->base_maintenance_base + $this->base->base_maintenance_slot * $this->baseUsed();
+    }
+
+    /**
+     * @return integer
+     */
     public function baseUsed(): int
     {
         return $this->baseMedical->base_medical_level
@@ -546,7 +555,7 @@ class Team extends AbstractActiveRecord
     public function teamLink(string $type = 'string', bool $short = false): string
     {
         if ('img' == $type) {
-            return Html::img('/img/country/12/' . $this->stadium->city->city_country_id . '.png')
+            return $this->stadium->city->country->countryImage()
                 . ' '
                 . Html::a(
                     $this->team_name
@@ -642,6 +651,14 @@ class Team extends AbstractActiveRecord
     public function getConference(): ActiveQuery
     {
         return $this->hasOne(Conference::class, ['conference_team_id' => 'team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getFriendlyStatus(): ActiveQuery
+    {
+        return $this->hasOne(FriendlyStatus::class, ['friendly_status_id' => 'team_friendly_status_id']);
     }
 
     /**

@@ -30,6 +30,27 @@ class Site extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [
+                [
+                    'site_id',
+                    'site_date_cron',
+                    'site_status',
+                    'site_version_1',
+                    'site_version_2',
+                    'site_version_3',
+                    'site_version_date',
+                ],
+                'integer'
+            ],
+        ];
+    }
+
+    /**
      * @return string
      */
     public static function version(): string
@@ -67,23 +88,32 @@ class Site extends AbstractActiveRecord
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function rules(): array
+    public static function status(): int
     {
-        return [
-            [
-                [
-                    'site_id',
-                    'site_date_cron',
-                    'site_status',
-                    'site_version_1',
-                    'site_version_2',
-                    'site_version_3',
-                    'site_version_date',
-                ],
-                'integer'
-            ],
-        ];
+        $site = self::find()
+            ->select(['site_status'])
+            ->where(['site_id' => 1])
+            ->one();
+
+        $result = 1;
+        if ($site) {
+            $result = $site->site_status;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return void
+     */
+    public static function switchStatus(): void
+    {
+        $model = Site::find()
+            ->where(['site_id' => 1])
+            ->one();
+        $model->site_status = 1 - $model->site_status;
+        $model->save();
     }
 }

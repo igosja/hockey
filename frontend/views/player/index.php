@@ -104,121 +104,117 @@ use yii\widgets\ActiveForm;
     </div>
 <?php ActiveForm::end(); ?>
     <div class="row">
+        <?php
 
-        <div class="row">
-            <?php
+        try {
+            $columns = [
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => '№',
+                    'header' => '№',
+                ],
+                [
+                    'attribute' => 'surname',
+                    'footer' => 'Игрок',
+                    'format' => 'raw',
+                    'label' => 'Игрок',
+                    'value' => function (Player $model): string {
+                        return $model->playerLink();
+                    }
+                ],
+                [
+                    'attribute' => 'country',
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'Нац',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Национальность'],
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'hidden-xs col-1', 'title' => 'Национальность'],
+                    'label' => 'Нац',
+                    'value' => function (Player $model): string {
+                        return Html::a(
+                            Html::img(
+                                '/img/country/12/' . $model->player_country_id . '.png',
+                                [
+                                    'alt' => $model->country->country_name,
+                                    'title' => $model->country->country_name,
+                                ]
+                            ),
+                            ['country/news', 'id' => $model->player_country_id]
+                        );
+                    }
+                ],
+                [
+                    'attribute' => 'position',
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Поз',
+                    'footerOptions' => ['title' => 'Позиция'],
+                    'headerOptions' => ['title' => 'Позиция'],
+                    'label' => 'Поз',
+                    'value' => function (Player $model): string {
+                        return $model->position();
+                    }
+                ],
+                [
+                    'attribute' => 'age',
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'В',
+                    'footerOptions' => ['title' => 'Возраст'],
+                    'headerOptions' => ['title' => 'Возраст'],
+                    'label' => 'В',
+                    'value' => function (Player $model): string {
+                        return $model->player_age;
+                    }
+                ],
+                [
+                    'attribute' => 'power',
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['title' => 'Сила'],
+                    'headerOptions' => ['title' => 'Сила'],
+                    'label' => 'С',
+                    'value' => function (Player $model): string {
+                        return $model->player_power_nominal;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'Спец',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
+                    'header' => 'Спец',
+                    'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
+                    'value' => function (Player $model): string {
+                        return $model->special();
+                    }
+                ],
+                [
+                    'attribute' => 'team',
+                    'footer' => 'Команда',
+                    'format' => 'raw',
+                    'label' => 'Команда',
+                    'value' => function (Player $model): string {
+                        return $model->team->teamLink('img');
+                    }
+                ],
+                [
+                    'attribute' => 'price',
+                    'contentOptions' => ['class' => 'hidden-xs text-right'],
+                    'footer' => 'Цена',
+                    'label' => 'Цена',
+                    'value' => function (Player $model): string {
+                        return Yii::$app->formatter->asCurrency($model->player_price, 'USD');
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $dataProvider,
+                'showFooter' => true,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-            try {
-                $columns = [
-                    [
-                        'class' => 'yii\grid\SerialColumn',
-                        'contentOptions' => ['class' => 'text-center'],
-                        'footer' => '№',
-                        'header' => '№',
-                    ],
-                    [
-                        'attribute' => 'surname',
-                        'footer' => 'Игрок',
-                        'format' => 'raw',
-                        'label' => 'Игрок',
-                        'value' => function (Player $model): string {
-                            return $model->playerLink();
-                        }
-                    ],
-                    [
-                        'attribute' => 'country',
-                        'contentOptions' => ['class' => 'hidden-xs text-center'],
-                        'footer' => 'Нац',
-                        'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Национальность'],
-                        'format' => 'raw',
-                        'headerOptions' => ['class' => 'hidden-xs col-1', 'title' => 'Национальность'],
-                        'label' => 'Нац',
-                        'value' => function (Player $model): string {
-                            return Html::a(
-                                Html::img(
-                                    '/img/country/12/' . $model->player_country_id . '.png',
-                                    [
-                                        'alt' => $model->country->country_name,
-                                        'title' => $model->country->country_name,
-                                    ]
-                                ),
-                                ['country/news', 'id' => $model->player_country_id]
-                            );
-                        }
-                    ],
-                    [
-                        'attribute' => 'position',
-                        'contentOptions' => ['class' => 'text-center'],
-                        'footer' => 'Поз',
-                        'footerOptions' => ['title' => 'Позиция'],
-                        'headerOptions' => ['title' => 'Позиция'],
-                        'label' => 'Поз',
-                        'value' => function (Player $model): string {
-                            return $model->position();
-                        }
-                    ],
-                    [
-                        'attribute' => 'age',
-                        'contentOptions' => ['class' => 'text-center'],
-                        'footer' => 'В',
-                        'footerOptions' => ['title' => 'Возраст'],
-                        'headerOptions' => ['title' => 'Возраст'],
-                        'label' => 'В',
-                        'value' => function (Player $model): string {
-                            return $model->player_age;
-                        }
-                    ],
-                    [
-                        'attribute' => 'power',
-                        'contentOptions' => ['class' => 'text-center'],
-                        'footer' => 'С',
-                        'footerOptions' => ['title' => 'Сила'],
-                        'headerOptions' => ['title' => 'Сила'],
-                        'label' => 'С',
-                        'value' => function (Player $model): string {
-                            return $model->player_power_nominal;
-                        }
-                    ],
-                    [
-                        'contentOptions' => ['class' => 'hidden-xs text-center'],
-                        'footer' => 'Спец',
-                        'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
-                        'header' => 'Спец',
-                        'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
-                        'value' => function (Player $model): string {
-                            return $model->special();
-                        }
-                    ],
-                    [
-                        'attribute' => 'team',
-                        'footer' => 'Команда',
-                        'format' => 'raw',
-                        'label' => 'Команда',
-                        'value' => function (Player $model): string {
-                            return $model->team->teamLink('img');
-                        }
-                    ],
-                    [
-                        'attribute' => 'price',
-                        'contentOptions' => ['class' => 'hidden-xs text-right'],
-                        'footer' => 'Цена',
-                        'label' => 'Цена',
-                        'value' => function (Player $model): string {
-                            return Yii::$app->formatter->asCurrency($model->player_price, 'USD');
-                        }
-                    ],
-                ];
-                print GridView::widget([
-                    'columns' => $columns,
-                    'dataProvider' => $dataProvider,
-                    'showFooter' => true,
-                    'showOnEmpty' => false,
-                ]);
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
-        </div>
+        ?>
     </div>
 <?= $this->render('/site/_show-full-table'); ?>

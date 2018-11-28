@@ -2,6 +2,7 @@
 
 use backend\assets\AppAsset;
 use common\components\ErrorHelper;
+use common\models\Site;
 use common\widgets\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -76,8 +77,8 @@ AppAsset::register($this);
             'label' => '<i class="fa fa-gear fa-fw"></i>',
             'items' => [
                 [
-                    'label' => '<i class="fa fa-power-off fa-fw"></i> Включить Выключить',
-                    'url' => ['site/switch'],
+                    'label' => '<i class="fa fa-power-off fa-fw"></i> ' . (Site::status() ? 'Выключить' : 'Включить'),
+                    'url' => ['site/status'],
                 ],
                 [
                     'label' => '<i class="fa fa-signal fa-fw"></i> Версия сайта',

@@ -56,7 +56,7 @@ print $this->render('_team-top');
                 'format' => 'raw',
                 'header' => 'Событие',
                 'value' => function (History $model): string {
-                    return $model->getText();
+                    return $model->text();
                 }
             ],
         ];
@@ -64,7 +64,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {

@@ -164,7 +164,6 @@ print $this->render('_player');
                 'columns' => $columns,
                 'dataProvider' => $dataProvider,
                 'showFooter' => true,
-                'showOnEmpty' => false,
                 'summary' => false,
             ]);
         } catch (Exception $e) {

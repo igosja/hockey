@@ -3,14 +3,13 @@
 use common\components\ErrorHelper;
 use common\models\Team;
 use yii\grid\GridView;
-use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \yii\web\View $this
  */
 
-return $this->render('_country');
+print $this->render('_country');
 
 ?>
 <div class="row margin-top">
@@ -20,37 +19,31 @@ return $this->render('_country');
         $columns = [
             [
                 'attribute' => 'team',
-                'footer' => 'Team',
+                'footer' => 'Команда',
                 'format' => 'raw',
+                'label' => 'Команда',
                 'value' => function (Team $model) {
-                    return Html::a(
-                        $model->team_name . ' ' . Html::tag(
-                            'span',
-                            '(' . $model->stadium->city->city_name . ')',
-                            ['class' => 'hidden-xs']
-                        ),
-                        ['team/view', 'id' => $model->team_id]
-                    );
+                    return $model->teamLink('string', true);
                 }
             ],
             [
                 'attribute' => 'manager',
                 'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Manager',
+                'footer' => 'Менеджер',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-40'],
+                'label' => 'Менеджер',
                 'value' => function (Team $model) {
-                    return $model->manager->iconVip() . Html::a(
-                            $model->manager->user_login,
-                            ['user/view', 'id' => $model->manager->user_id]
-                        );
+                    return $model->manager->iconVip() . $model->manager->userLink();
                 }
             ],
             [
                 'attribute' => 'last_visit',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Last Visit',
+                'footer' => 'Последний визит',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
+                'label' => 'Последний визит',
                 'value' => function (Team $model) {
                     return $model->manager->lastVisit();
                 }
@@ -60,7 +53,6 @@ return $this->render('_country');
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showFooter' => true,
-            'showOnEmpty' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);
@@ -68,10 +60,4 @@ return $this->render('_country');
 
     ?>
 </div>
-<div class="row hidden-lg hidden-md hidden-sm">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a class="btn show-full-table" href="javascript:">
-            Show full table
-        </a>
-    </div>
-</div>
+<?= $this->render('/site/_show-full-table'); ?>

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -82,6 +83,14 @@ class Country extends AbstractActiveRecord
     public function countryLink(): string
     {
         return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
+    }
+
+    /**
+     * @return array
+     */
+    public static function selectOptions(): array
+    {
+        return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
     }
 
     /**

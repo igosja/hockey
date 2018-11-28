@@ -139,7 +139,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProviderTransferFrom,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {
@@ -265,7 +264,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProviderTransferTo,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {
@@ -399,7 +397,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProviderLoanFrom,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {
@@ -533,7 +530,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProviderLoanTo,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {

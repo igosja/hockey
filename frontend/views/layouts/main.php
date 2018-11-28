@@ -111,7 +111,11 @@ AppAsset::register($this);
             </noscript>
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
-                    Сайт находится в режиме разработки.<br/>Некоторые функции сайта могут быть недоступны.
+                    Сайт находится в режиме разработки.
+                    <br/>
+                    Некоторые функции сайта могут быть недоступны.
+                    <br/>
+                    Регистрация на сайте закрыта.
                 </div>
             </div>
             <?php
@@ -128,8 +132,6 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
                 Страница сгенерирована за <?= round(Yii::getLogger()->getElapsedTime(), 5); ?> сек,
-                <br/>
-                Потребление памяти - <?= Yii::$app->formatter->asInteger(memory_get_peak_usage()); ?> Б
                 <br/>
                 <?= Site::version(); ?>
             </div>

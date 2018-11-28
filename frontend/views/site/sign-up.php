@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1>'Регистрация в игре'</h1>
+            <h1>Регистрация в игре</h1>
         </div>
     </div>
     <div class="row">

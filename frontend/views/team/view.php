@@ -205,7 +205,6 @@ print $this->render('_team-top');
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {

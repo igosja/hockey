@@ -193,7 +193,6 @@ $user = Yii::$app->user->identity;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showFooter' => true,
-            'showOnEmpty' => false,
             'summary' => false,
         ]);
     } catch (Exception $e) {

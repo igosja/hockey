@@ -3,6 +3,11 @@
 namespace frontend\controllers;
 
 use common\models\Country;
+use common\models\Finance;
+use common\models\News;
+use common\models\Poll;
+use common\models\PollStatus;
+use common\models\Season;
 use common\models\Team;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -20,24 +25,25 @@ class CountryController extends AbstractController
      */
     public function actionTeam(int $id): string
     {
+        $query = Team::find()
+            ->joinWith([
+                'manager' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_date_login', 'user_date_vip', 'user_id', 'user_login']);
+                },
+                'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_country_id', 'city_id', 'city_name']);
+                }
+            ])
+            ->with([
+                'stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_city_id', 'stadium_id']);
+                },
+            ])
+            ->select(['team_id', 'team_name', 'team_stadium_id', 'team_user_id'])
+            ->where(['city_country_id' => $id]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Team::find()
-                ->joinWith([
-                    'manager' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['user_date_login', 'user_date_vip', 'user_id', 'user_login']);
-                    },
-                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['city_country_id', 'city_id', 'city_name']);
-                    }
-                ])
-                ->with([
-                    'stadium' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stadium_city_id', 'stadium_id']);
-                    },
-                ])
-                ->select(['team_id', 'team_name', 'team_stadium_id', 'team_user_id'])
-                ->where(['city_country_id' => $id]),
+            'query' => $query,
             'sort' => [
                 'attributes' => [
                     'last_visit' => [
@@ -54,20 +60,19 @@ class CountryController extends AbstractController
                     ],
                 ],
                 'defaultOrder' => ['team' => SORT_ASC],
-            ],
+            ]
         ]);
 
         $this->setSeoTitle('Команды фередации');
 
         return $this->render('team', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * @param int $id
      * @return string|\yii\web\Response
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionNews(int $id = 0)
     {
@@ -84,14 +89,79 @@ class CountryController extends AbstractController
             return $this->redirect(['country/news', 'id' => $id]);
         }
 
-        $country = Country::find()
-            ->where(['country_id' => $id])
-            ->limit(1)
-            ->one();
-        $this->notFound($country);
+        $query = News::find()
+            ->with([
+                'newsComment' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['news_comment_news_id']);
+                },
+                'user' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_id', 'user_login']);
+                },
+            ])
+            ->select(['news_id', 'news_date', 'news_text', 'news_title', 'news_user_id'])
+            ->where(['news_country_id' => $id])
+            ->orderBy(['news_id' => SORT_DESC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => News::PAGE_LIMIT,
+            ],
+        ]);
 
         $this->setSeoTitle('Новости фередации');
 
-        return $this->render('news');
+        return $this->render('news', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     */
+    public function actionPoll(int $id)
+    {
+        $query = Poll::find()
+            ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE], 'poll_country_id' => $id])
+            ->orderBy(['poll_id' => SORT_DESC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Poll::PAGE_LIMIT,
+            ],
+        ]);
+
+        $this->setSeoTitle('Опросы фередации');
+
+        return $this->render('poll', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionFinance(int $id)
+    {
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Finance::find()
+                ->where(['finance_country_id' => $id])
+                ->andWhere(['finance_season_id' => $seasonId])
+                ->orderBy(['finance_id' => SORT_DESC]),
+        ]);
+
+        $this->setSeoTitle('Фонд фередации');
+
+        return $this->render('finance', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+        ]);
     }
 }

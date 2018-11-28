@@ -23,6 +23,7 @@ use yii\db\ActiveQuery;
  * @property Country $country
  * @property Division $division
  * @property Stage $stage
+ * @property Team $team
  * @property TournamentType $tournamentType
  */
 class Achievement extends AbstractActiveRecord
@@ -130,6 +131,14 @@ class Achievement extends AbstractActiveRecord
     public function getStage(): ActiveQuery
     {
         return $this->hasOne(Stage::class, ['stage_id' => 'achievement_stage_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'achievement_team_id']);
     }
 
     /**

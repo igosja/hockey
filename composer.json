@@ -18,6 +18,7 @@
   "require": {
     "codemix/yii2-localeurls": "*",
     "ext-intl": "*",
+    "jessedp/php-timezones": "0.1",
     "miloschuman/yii2-highcharts-widget": "*",
     "php": ">=5.6.0",
     "phpnt/yii2-metismenu": "*",

@@ -14,6 +14,7 @@ use common\models\Payment;
 use common\models\Poll;
 use common\models\PollStatus;
 use common\models\Review;
+use common\models\Site;
 use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
@@ -43,7 +44,7 @@ class SiteController extends AbstractController
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'error', 'logout'],
+                        'actions' => ['index', 'error', 'logout', 'status'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -160,5 +161,14 @@ class SiteController extends AbstractController
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionStatus(): Response
+    {
+        Site::switchStatus();
+        return $this->redirect(Yii::$app->request->referrer ?: ['site/index']);
     }
 }

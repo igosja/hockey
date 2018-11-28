@@ -3,9 +3,13 @@
 namespace frontend\controllers;
 
 use common\components\Controller;
+use common\components\HockeyHelper;
 use common\models\Season;
+use common\models\Site;
 use common\models\Team;
+use common\models\User;
 use Yii;
+use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
 
 /**
@@ -36,10 +40,19 @@ abstract class AbstractController extends Controller
     /**
      * @param $action
      * @return bool
+     * @throws ForbiddenHttpException
      * @throws \yii\web\BadRequestHttpException
      */
-    public function beforeAction($action): bool
+    public function beforeAction($action)
     {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        if (!Site::status() && !($action instanceof ErrorAction)) {
+            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
+        }
+
         $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
@@ -61,9 +74,11 @@ abstract class AbstractController extends Controller
                 ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])
                 ->limit(1)
                 ->one();
+
+            User::updateAll(['user_date_login' => HockeyHelper::unixTimeStamp()], ['user_id' => Yii::$app->user->id]);
         }
 
-        return parent::beforeAction($action);
+        return true;
     }
 
     /**
