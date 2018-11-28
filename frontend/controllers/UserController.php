@@ -219,7 +219,7 @@ class UserController extends AbstractController
         $model = Yii::$app->user->identity;
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->updateQuestionnaire()) {
             $this->setSuccessFlash('Анкета успешно сохранена.');
             return $this->refresh();
         }

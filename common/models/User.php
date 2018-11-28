@@ -140,7 +140,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_name',
                     'user_password',
                     'user_surname',
-//                    'user_timezone',
+                    'user_timezone',
                 ],
                 'string',
                 'max' => 255
@@ -349,6 +349,30 @@ class User extends AbstractActiveRecord implements IdentityInterface
             return false;
         }
         if ($this->user_id == Yii::$app->user->id) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function updateQuestionnaire(): bool
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->save(true, [
+            'user_birth_day',
+            'user_birth_month',
+            'user_birth_year',
+            'user_city',
+            'user_country_id',
+            'user_name',
+            'user_sex_id',
+            'user_surname',
+        ])) {
             return false;
         }
         return true;
