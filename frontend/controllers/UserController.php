@@ -9,6 +9,7 @@ use common\models\History;
 use common\models\Loan;
 use common\models\National;
 use common\models\Season;
+use common\models\Sex;
 use common\models\Team;
 use common\models\Transfer;
 use common\models\User;
@@ -214,10 +215,32 @@ class UserController extends AbstractController
         $model = Yii::$app->user->identity;
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
 
-        $this->setSeoTitle('Сделки команды');
+        $dayArray = [];
+        for ($i = 1; $i <= 31; $i++) {
+            $dayArray[$i] = $i;
+        }
+
+        $monthArray = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthArray[$i] = $i;
+        }
+
+        $currentYear = date('Y');
+        $firstYear = $currentYear - 100;
+        $yearArray = [];
+        for ($i = $currentYear; $i >= $firstYear; $i--) {
+            $yearArray[$i] = $i;
+        }
+
+        $this->setSeoTitle('Анкета менеджера');
 
         return $this->render('questionnaire', [
+            'countryArray' => Country::selectOptions(),
+            'dayArray' => $dayArray,
             'model' => $model,
+            'monthArray' => $monthArray,
+            'sexArray' => Sex::selectOptions(),
+            'yearArray' => $yearArray,
         ]);
     }
 }

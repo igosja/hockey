@@ -4,7 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
+ * @var array $countryArray
+ * @var array $dayArray
  * @var \common\models\User $model
+ * @var array $monthArray
+ * @var array $sexArray
+ * @var array $yearArray
  */
 
 print $this->render('_top');
@@ -47,11 +52,26 @@ print $this->render('_top');
 <?= $form->field($model, 'user_surname')->textInput(['class' => 'form-control form-small']); ?>
 <?= $form->field($model, 'user_email')->textInput(['class' => 'form-control form-small']); ?>
 <?= $form->field($model, 'user_city')->textInput(['class' => 'form-control form-small']); ?>
-<?= $form->field($model, 'user_country_id')->textInput(['class' => 'form-control form-small']); ?>
-<?= $form->field($model, 'user_sex_id')->textInput(['class' => 'form-control form-small']); ?>
-<?= $form->field($model, 'user_birth_day')->textInput(['class' => 'form-control form-small']); ?>
-<?= $form->field($model, 'user_birth_month')->textInput(['class' => 'form-control form-small']); ?>
-<?= $form->field($model, 'user_birth_year')->textInput(['class' => 'form-control form-small']); ?>
+<?= $form->field($model, 'user_country_id')->dropDownList(
+    $countryArray,
+    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
+); ?>
+<?= $form->field($model, 'user_sex_id')->dropDownList(
+    $sexArray,
+    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
+); ?>
+<?= $form->field($model, 'user_birth_day')->dropDownList(
+    $dayArray,
+    ['class' => 'form-control form-small', 'prompt' => '-']
+); ?>
+<?= $form->field($model, 'user_birth_month')->dropDownList(
+    $monthArray,
+    ['class' => 'form-control form-small', 'prompt' => '-']
+); ?>
+<?= $form->field($model, 'user_birth_year')->dropDownList(
+    $yearArray,
+    ['class' => 'form-control form-small', 'prompt' => '-']
+); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
         Если вы поменяете свой e-mail, система автоматически отправит письмо на новый адрес с указанием,
