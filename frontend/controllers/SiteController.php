@@ -147,13 +147,13 @@ class SiteController extends AbstractController
 
         if ($model->load(Yii::$app->request->post())) {
             try {
-                if ($model->signUp()) {
-                    Yii::$app->session->setFlash(
-                        'success',
-                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
-                    );
-                    return $this->redirect(['site/activation']);
-                }
+//                if ($model->signUp()) {
+//                    Yii::$app->session->setFlash(
+//                        'success',
+//                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
+//                    );
+//                    return $this->redirect(['site/activation']);
+//                }
                 Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);

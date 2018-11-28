@@ -90,7 +90,7 @@ class Country extends AbstractActiveRecord
      */
     public static function selectOptions(): array
     {
-        return ArrayHelper::map(self::find()->all(), 'country_id', 'country_name');
+        return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
     }
 
     /**

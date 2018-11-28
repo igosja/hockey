@@ -252,4 +252,21 @@ class UserController extends AbstractController
             'yearArray' => $yearArray,
         ]);
     }
+
+    public function actionReferral()
+    {
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+        $query = User::find()
+            ->where(['user_referrer_id' => Yii::$app->user->id]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle('Партнёрская программа');
+
+        return $this->render('referral', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }
