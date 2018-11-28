@@ -207,6 +207,10 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
     public function actionQuestionnaire()
     {
         /**
@@ -214,6 +218,11 @@ class UserController extends AbstractController
          */
         $model = Yii::$app->user->identity;
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Анкета успешно сохранена.');
+            return $this->refresh();
+        }
 
         $dayArray = [];
         for ($i = 1; $i <= 31; $i++) {
