@@ -9,6 +9,7 @@ use common\models\Site;
 use common\models\Team;
 use common\models\User;
 use Yii;
+use yii\helpers\Html;
 use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
 
@@ -49,11 +50,14 @@ abstract class AbstractController extends Controller
             return false;
         }
 
-        print '<pre>';
-        print_r(Yii::$app->request->userIP);
-        exit;
-        if (!Site::status() && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
+        $allowedIp = [
+            '185.38.209.242',
+            '127.0.0.1',
+        ];
+
+        if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
+            throw new ForbiddenHttpException('Этот сайт находиться в режиме разработки. Пользовательский сайт находиться ' . Html::a('здесь',
+                    'https://virtual-hockey.org'));
         }
 
         if (!Site::status() && !($action instanceof ErrorAction)) {
