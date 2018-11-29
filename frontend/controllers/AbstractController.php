@@ -51,13 +51,9 @@ abstract class AbstractController extends Controller
         }
 
         $allowedIp = [
-            '185.38.209.242',
+//            '185.38.209.242',
             '127.0.0.1',
         ];
-
-        print '<pre>';
-        print_r(YII_DEBUG);
-        exit;
 
         if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
             throw new ForbiddenHttpException(
