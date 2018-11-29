@@ -18,6 +18,6 @@ class TimeZoneHelper extends Timezones
      */
     public function create($name, $selected = 'UTC', $opts = []): string
     {
-        return parent::create($name, $selected, $opts);
+        return parent::create('timezone', $selected, $opts);
     }
 }

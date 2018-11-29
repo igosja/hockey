@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\TimeZoneHelper;
 use common\models\Achievement;
 use common\models\Country;
 use common\models\Finance;
@@ -218,7 +217,7 @@ class UserController extends AbstractController
     public function actionQuestionnaire()
     {
         print '<pre>';
-        print_r((new TimeZoneHelper())->create('timezone'));
+        print_r(\DateTimeZone::listIdentifiers());
         exit;
         /**
          * @var User $model
