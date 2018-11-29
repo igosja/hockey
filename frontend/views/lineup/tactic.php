@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
 ?>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
-        <?= Html::a('Основные линии', ['lineup/index', 'id' => $game->game_id]); ?>
+        <?= Html::a('Основные линии', ['lineup/view', 'id' => $game->game_id]); ?>
         |
         <?= Html::a('Спецбригады', ['lineup/special', 'id' => $game->game_id]); ?>
         |

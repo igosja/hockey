@@ -166,7 +166,7 @@ foreach ($controller->myTeamArray as $item) {
                                     || ($item->game_guest_team_id == $teamId && $item->game_guest_tactic_id_1))
                                     ? 'Ред.'
                                     : 'Отпр.',
-                                ['lineup/index', 'id' => $item->game_id]
+                                ['lineup/view', 'id' => $item->game_id]
                             ); ?>
                         <?php else: ?>
                             <?= Html::a(

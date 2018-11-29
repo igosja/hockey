@@ -40,4 +40,16 @@ class Position extends AbstractActiveRecord
             [['position_name', 'position_text'], 'trim'],
         ];
     }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public static function nameById(int $id): string
+    {
+        return self::find()
+            ->select(['position_name'])
+            ->where(['position_id' => $id])
+            ->scalar();
+    }
 }

@@ -72,36 +72,36 @@ class LineupController extends AbstractController
 
         $substitutionArray = [
             [
-                ['line_id' => 0, 'position_id' => Position::GK],
-                ['line_id' => 1, 'position_id' => Position::GK],
+                ['line_id' => 0, 'position_id' => Position::GK, 'position_name' => Position::nameById(Position::GK)],
+                ['line_id' => 1, 'position_id' => Position::GK, 'position_name' => Position::nameById(Position::GK)],
             ],
             [
-                ['line_id' => 1, 'position_id' => Position::LD],
-                ['line_id' => 1, 'position_id' => Position::RD],
-                ['line_id' => 1, 'position_id' => Position::LW],
-                ['line_id' => 1, 'position_id' => Position::CF],
-                ['line_id' => 1, 'position_id' => Position::RW],
+                ['line_id' => 1, 'position_id' => Position::LD, 'position_name' => Position::nameById(Position::LD)],
+                ['line_id' => 1, 'position_id' => Position::RD, 'position_name' => Position::nameById(Position::RD)],
+                ['line_id' => 1, 'position_id' => Position::LW, 'position_name' => Position::nameById(Position::LW)],
+                ['line_id' => 1, 'position_id' => Position::CF, 'position_name' => Position::nameById(Position::CF)],
+                ['line_id' => 1, 'position_id' => Position::RW, 'position_name' => Position::nameById(Position::RW)],
             ],
             [
-                ['line_id' => 2, 'position_id' => Position::LD],
-                ['line_id' => 2, 'position_id' => Position::RD],
-                ['line_id' => 2, 'position_id' => Position::LW],
-                ['line_id' => 2, 'position_id' => Position::CF],
-                ['line_id' => 2, 'position_id' => Position::RW],
+                ['line_id' => 2, 'position_id' => Position::LD, 'position_name' => Position::nameById(Position::LD)],
+                ['line_id' => 2, 'position_id' => Position::RD, 'position_name' => Position::nameById(Position::RD)],
+                ['line_id' => 2, 'position_id' => Position::LW, 'position_name' => Position::nameById(Position::LW)],
+                ['line_id' => 2, 'position_id' => Position::CF, 'position_name' => Position::nameById(Position::CF)],
+                ['line_id' => 2, 'position_id' => Position::RW, 'position_name' => Position::nameById(Position::RW)],
             ],
             [
-                ['line_id' => 3, 'position_id' => Position::LD],
-                ['line_id' => 3, 'position_id' => Position::RD],
-                ['line_id' => 3, 'position_id' => Position::LW],
-                ['line_id' => 3, 'position_id' => Position::CF],
-                ['line_id' => 3, 'position_id' => Position::RW],
+                ['line_id' => 3, 'position_id' => Position::LD, 'position_name' => Position::nameById(Position::LD)],
+                ['line_id' => 3, 'position_id' => Position::RD, 'position_name' => Position::nameById(Position::RD)],
+                ['line_id' => 3, 'position_id' => Position::LW, 'position_name' => Position::nameById(Position::LW)],
+                ['line_id' => 3, 'position_id' => Position::CF, 'position_name' => Position::nameById(Position::CF)],
+                ['line_id' => 3, 'position_id' => Position::RW, 'position_name' => Position::nameById(Position::RW)],
             ],
             [
-                ['line_id' => 4, 'position_id' => Position::LD],
-                ['line_id' => 4, 'position_id' => Position::RD],
-                ['line_id' => 4, 'position_id' => Position::LW],
-                ['line_id' => 4, 'position_id' => Position::CF],
-                ['line_id' => 4, 'position_id' => Position::RW],
+                ['line_id' => 4, 'position_id' => Position::LD, 'position_name' => Position::nameById(Position::LD)],
+                ['line_id' => 4, 'position_id' => Position::RD, 'position_name' => Position::nameById(Position::RD)],
+                ['line_id' => 4, 'position_id' => Position::LW, 'position_name' => Position::nameById(Position::LW)],
+                ['line_id' => 4, 'position_id' => Position::CF, 'position_name' => Position::nameById(Position::CF)],
+                ['line_id' => 4, 'position_id' => Position::RW, 'position_name' => Position::nameById(Position::RW)],
             ],
         ];
 
@@ -283,6 +283,6 @@ class LineupController extends AbstractController
             $transaction->rollBack();
         }
 
-        return $this->redirect(['lineup/index', 'id' => $id]);
+        return $this->redirect(['lineup/view', 'id' => $id]);
     }
 }
