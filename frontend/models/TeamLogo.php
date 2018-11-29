@@ -76,8 +76,14 @@ class TeamLogo extends Model
             return false;
         }
 
-        $model = new Logo();
-        $model->logo_team_id = $this->teamId;
+        $model = Logo::find()
+            ->where(['logo_team_id' => $this->teamId])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            $model = new Logo();
+            $model->logo_team_id = $this->teamId;
+        }
         $model->logo_text = $this->text;
         $model->save();
 
