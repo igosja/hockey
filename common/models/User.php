@@ -153,14 +153,15 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'user_city' => 'Город',
+            'user_country_id' => 'Страна',
+            'user_email' => 'Email',
             'user_id' => 'Id',
             'user_login' => 'Логин',
             'user_name' => 'Имя',
             'user_surname' => 'Фамилия',
-            'user_email' => 'Email',
-            'user_city' => 'Город',
-            'user_country_id' => 'Страна',
             'user_sex_id' => 'Пол',
+            'user_timezone' => 'Часовой пояс',
         ];
     }
 

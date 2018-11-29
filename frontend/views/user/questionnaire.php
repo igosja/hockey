@@ -93,7 +93,7 @@ print $this->render('_top');
 </div>
 <?= $form->field($model, 'user_timezone')->dropDownList(
     $timeZoneArray,
-    ['class' => 'form-control form-small', 'prompt' => 'UCT']
+    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
 ); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
