@@ -14,9 +14,11 @@ use common\models\Team;
 use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
+use DateTimeZone;
 use frontend\models\ChangePassword;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -216,9 +218,6 @@ class UserController extends AbstractController
      */
     public function actionQuestionnaire()
     {
-        print '<pre>';
-        print_r(\DateTimeZone::listIdentifiers());
-        exit;
         /**
          * @var User $model
          */
@@ -255,6 +254,7 @@ class UserController extends AbstractController
             'model' => $model,
             'monthArray' => $monthArray,
             'sexArray' => Sex::selectOptions(),
+            'timeZoneArray' => ArrayHelper::map(DateTimeZone::listIdentifiers(), 0, 0),
             'yearArray' => $yearArray,
         ]);
     }
