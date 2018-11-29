@@ -56,7 +56,7 @@ abstract class AbstractController extends Controller
 
         if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
             throw new ForbiddenHttpException(
-                'Этот сайт находиться в режиме разработки. Пользовательский сайт находиться по адресу https://virtual-hockey.org'
+                'Этот сайт предназначен для разработки. Пользовательский сайт находиться по адресу https://virtual-hockey.org'
             );
         }
 
