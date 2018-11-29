@@ -15,6 +15,7 @@ use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
 use frontend\models\ChangePassword;
+use jessedp\Timezones\Timezones;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Response;
@@ -216,6 +217,9 @@ class UserController extends AbstractController
      */
     public function actionQuestionnaire()
     {
+        print '<pre>';
+        print_r((new Timezones)->toArray());
+        exit;
         /**
          * @var User $model
          */

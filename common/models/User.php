@@ -372,6 +372,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_name',
             'user_sex_id',
             'user_surname',
+            'user_timezone',
         ])) {
             return false;
         }

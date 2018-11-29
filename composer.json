@@ -18,14 +18,14 @@
   "require": {
     "codemix/yii2-localeurls": "*",
     "ext-intl": "*",
-    "jessedp/php-timezones": "0.1",
     "miloschuman/yii2-highcharts-widget": "*",
     "php": ">=5.6.0",
     "phpnt/yii2-metismenu": "*",
     "rmrevin/yii2-fontawesome": "~2.17",
     "yiisoft/yii2": "~2.0.6",
     "yiisoft/yii2-bootstrap": "~2.0.0",
-    "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+    "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+    "jessedp/php-timezones": "^0.1.1"
   },
   "require-dev": {
     "codeception/base": "^2.2.3",
