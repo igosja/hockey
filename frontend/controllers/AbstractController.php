@@ -9,7 +9,6 @@ use common\models\Site;
 use common\models\Team;
 use common\models\User;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
 
@@ -38,24 +37,6 @@ abstract class AbstractController extends Controller
      */
     public $seasonId;
 
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-
-        $behaviors['access'] = [
-            'class' => AccessControl::class,
-            'rules' => [
-                [
-                    'allow' => true,
-                    'ips' => [
-                        '127.0.0.1',
-                    ],
-                ],
-            ],
-        ];
-        return $behaviors;
-    }
-
     /**
      * @param $action
      * @return bool
@@ -66,6 +47,13 @@ abstract class AbstractController extends Controller
     {
         if (!parent::beforeAction($action)) {
             return false;
+        }
+
+        print '<pre>';
+        print_r(Yii::$app->request->userIP);
+        exit;
+        if (!Site::status() && !($action instanceof ErrorAction)) {
+            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
         }
 
         if (!Site::status() && !($action instanceof ErrorAction)) {
