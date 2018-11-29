@@ -38,7 +38,7 @@ class TeamLogo extends Model
     public function rules(): array
     {
         return [
-            [['file'], 'extensions' => 'png'],
+            [['file'], 'file', 'extensions' => 'png', 'maxSize' => 100 * 125, 'minSize' => 100 * 125],
             [['text', 'file'], 'required'],
         ];
     }
