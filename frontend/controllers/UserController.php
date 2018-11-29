@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\TimeZoneHelper;
 use common\models\Achievement;
 use common\models\Country;
 use common\models\Finance;
@@ -15,7 +16,6 @@ use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
 use frontend\models\ChangePassword;
-use jessedp\Timezones\Timezones;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Response;
@@ -218,7 +218,7 @@ class UserController extends AbstractController
     public function actionQuestionnaire()
     {
         print '<pre>';
-        print_r((new Timezones)->toArray());
+        print_r((new TimeZoneHelper())->create('timezone'));
         exit;
         /**
          * @var User $model
