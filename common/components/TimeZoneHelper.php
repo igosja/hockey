@@ -2,22 +2,24 @@
 
 namespace common\components;
 
-use jessedp\Timezones\Timezones;
+use DateTimeZone;
 
 /**
  * Class TimeZoneHelper
  * @package common\components
  */
-class TimeZoneHelper extends Timezones
+class TimeZoneHelper
 {
     /**
-     * @param string $name
-     * @param string $selected
-     * @param array $opts
-     * @return string
+     * @return array
      */
-    public function create($name, $selected = 'UTC', $opts = []): string
+    public static function list(): array
     {
-        return parent::create('timezone', $selected, $opts);
+        $result = [];
+        $list = DateTimeZone::listIdentifiers();
+        foreach ($list as $item) {
+            $result[$item] = $item;
+        }
+        return $result;
     }
 }
