@@ -87,7 +87,7 @@ use yii\widgets\ActiveForm;
 ]); ?>
 <div class="row margin-top">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right strong">
-        Команда:
+        Команда
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <?= $team->team_name; ?>
