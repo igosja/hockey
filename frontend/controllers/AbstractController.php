@@ -55,9 +55,15 @@ abstract class AbstractController extends Controller
             '127.0.0.1',
         ];
 
+        print '<pre>';
+        print_r(YII_DEBUG);
+        exit;
+
         if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException('Этот сайт находиться в режиме разработки. Пользовательский сайт находиться ' . Html::a('здесь',
-                    'https://virtual-hockey.org'));
+            throw new ForbiddenHttpException(
+                'Этот сайт находиться в режиме разработки. Пользовательский сайт находиться '
+                . Html::a('здесь', 'https://virtual-hockey.org')
+            );
         }
 
         if (!Site::status() && !($action instanceof ErrorAction)) {
