@@ -37,6 +37,7 @@ class SiteController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['index', 'logout', 'status'],
                 'rules' => [
                     [
                         'actions' => ['index', 'logout', 'status'],
