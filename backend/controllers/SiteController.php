@@ -39,12 +39,7 @@ class SiteController extends AbstractController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['index', 'error', 'logout', 'status'],
+                        'actions' => ['index', 'logout', 'status'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
