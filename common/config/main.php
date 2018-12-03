@@ -13,6 +13,9 @@ return [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
+            'transport' => [
+                'class' => 'Swift_SendmailTransport',
+            ],
         ],
     ],
     'language' => 'en',
