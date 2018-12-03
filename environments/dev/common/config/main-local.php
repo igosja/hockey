@@ -15,9 +15,9 @@ return [
         'mailer' => [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com',
-                'username' => 'igosja87@gmail.com',
-                'password' => 'ch6oJKxmCX',
+                'host' => 'smtp.beget.com',
+                'username' => 'vhol@moviten.com.ua',
+                'password' => 'pH%5EQl6',
                 'port' => 465,
                 'encryption' => 'ssl',
             ],
