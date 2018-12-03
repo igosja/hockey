@@ -16,14 +16,6 @@ return [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => false,
             'viewPath' => '@common/mail',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.virtual-hockey.org',
-                'username' => 'info@virtual-hockey.org',
-                'password' => 'rxttgRhOKztb1UI',
-                'port' => '465',
-                'encryption' => 'ssl',
-            ],
         ],
     ],
 ];
