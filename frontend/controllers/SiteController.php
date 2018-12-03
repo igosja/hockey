@@ -183,14 +183,13 @@ class SiteController extends AbstractController
         if (($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) && $model->code) {
             try {
                 if ($model->activate()) {
-                    Yii::$app->session->setFlash('success', 'Активация прошла успешно');
+                    $this->setSuccessFlash('Активация прошла успешно');
                     return $this->redirect(['site/activation']);
                 }
-                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             }
+            $this->setErrorFlash('Не удалось провести активацию');
         }
 
         $this->setSeoTitle('Активация аккаунта');

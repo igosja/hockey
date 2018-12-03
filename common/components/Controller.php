@@ -32,4 +32,13 @@ class Controller extends BaseController
     {
         Yii::$app->session->setFlash('success', $text);
     }
+
+    /**
+     * @param string $text
+     * @return void
+     */
+    protected function setErrorFlash($text = 'Не удалось сохранить данные'): void
+    {
+        Yii::$app->session->setFlash('error', $text);
+    }
 }
