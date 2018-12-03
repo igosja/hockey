@@ -12,5 +12,15 @@ return [
             'schemaCacheDuration' => 86400,
             'username' => 'igosja_hockey',
         ],
+        'mailer' => [
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'igosja87@gmail.com',
+                'password' => 'ch6oJKxmCX',
+                'port' => 465,
+                'encryption' => 'ssl',
+            ],
+        ],
     ],
 ];
