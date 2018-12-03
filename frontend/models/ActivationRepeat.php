@@ -49,7 +49,7 @@ class ActivationRepeat extends Model
                 ->one();
 
             if (!$model) {
-                throw new Exception('No user with email ' . $this->email);
+                throw new Exception('Пользователть с таким email не найден - ' . $this->email);
             }
 
             Yii::$app
