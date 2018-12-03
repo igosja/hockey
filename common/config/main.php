@@ -12,9 +12,10 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
         ],
     ],
     'language' => 'en',
-    'timeZone' => 'Europe/Kiev',
+    'timeZone' => 'UTC',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 ];
