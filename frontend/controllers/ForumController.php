@@ -123,7 +123,7 @@ class ForumController extends AbstractController
     public function actionThemeCreate($id)
     {
         $forumGroup = ForumGroup::find()
-            ->where(['forum_theme_id' => $id])
+            ->where(['forum_group_id' => $id])
             ->one();
         $this->notFound($forumGroup);
 
