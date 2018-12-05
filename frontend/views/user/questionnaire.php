@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
  * @var \common\models\User $model
  * @var array $monthArray
  * @var array $sexArray
+ * @var array $timeZoneArray
  * @var array $yearArray
  */
 
@@ -90,6 +91,10 @@ print $this->render('_top');
         </div>
     </div>
 </div>
+<?= $form->field($model, 'user_timezone')->dropDownList(
+    $timeZoneArray,
+    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
+); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
         Если вы поменяете свой e-mail, система автоматически отправит письмо на новый адрес с указанием,

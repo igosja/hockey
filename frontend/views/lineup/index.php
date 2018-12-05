@@ -102,7 +102,7 @@ use yii\helpers\Html;
                     'value' => function (Game $model) {
                         return Html::a(
                             $model->game_home_tactic_id_1 ? '+' : '-',
-                            ['lineup/index', 'id' => $model->game_id]
+                            ['lineup/view', 'id' => $model->game_id]
                         );
                     }
                 ],
@@ -119,16 +119,10 @@ use yii\helpers\Html;
         ?>
     </div>
 <?= $this->render('/site/_show-full-table'); ?>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top">
-        <span class="strong">Основные линии</span>
-        |
-        <?= Html::a('Спецбригады', ['lineup/special', 'id' => $game->game_id]); ?>
-        |
-        <?= Html::a('Буллиты', ['lineup/shootout', 'id' => $game->game_id]); ?>
-        |
-        <?= Html::a('Тактика', ['lineup/tactic', 'id' => $game->game_id]); ?>
-        |
-        <?= Html::a('Сохранения', ['lineup/saves', 'id' => $game->game_id]); ?>
+    <div class="row margin-top-small">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $this->render('_links'); ?>
+        </div>
     </div>
 <?php foreach ($substitutionArray as $line) : ?>
     <div class="row">
@@ -136,7 +130,14 @@ use yii\helpers\Html;
             <table class="table table-bordered table-hover">
                 <tr>
                     <th class="col-5"></th>
+                    <th title="Позиция в матче">Поз</th>
                     <th>Игрок</th>
+                    <th title="Позиция">Поз</th>
+                    <th title="Возраст">В</th>
+                    <th title="Номинальная сила">С</th>
+                    <th title="Усталость">У</th>
+                    <th title="Физическая форма">Ф</th>
+                    <th title="Спецвозможности">Спец</th>
                 </tr>
                 <?php foreach ($line as $position) : ?>
                     <tr>
@@ -151,6 +152,9 @@ use yii\helpers\Html;
                                 ],
                                 ['title' => 'Заменить']
                             ); ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $position['position_name']; ?>
                         </td>
                         <td>
                             <?php foreach ($lineupArray as $lineup) : ?>

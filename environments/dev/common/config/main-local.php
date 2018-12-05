@@ -13,9 +13,14 @@ return [
             'username' => 'igosja_hockey',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => false,
-            'viewPath' => '@common/mail',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.beget.com',
+                'username' => 'vhol@moviten.com.ua',
+                'password' => 'pH%5EQl6',
+                'port' => 465,
+                'encryption' => 'ssl',
+            ],
         ],
     ],
 ];

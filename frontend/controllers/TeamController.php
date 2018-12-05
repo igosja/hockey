@@ -8,6 +8,7 @@ use common\models\Finance;
 use common\models\Game;
 use common\models\History;
 use common\models\Loan;
+use common\models\Logo;
 use common\models\Player;
 use common\models\Season;
 use common\models\Team;
@@ -15,6 +16,7 @@ use common\models\TeamAsk;
 use common\models\Transfer;
 use Exception;
 use frontend\models\ChangeMyTeam;
+use frontend\models\TeamLogo;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -674,6 +676,36 @@ class TeamController extends AbstractController
             'dataProvider' => $dataProvider,
             'model' => new Team(),
             'teamAskArray' => $teamAskArray,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|Response
+     * @throws Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionLogo(int $id)
+    {
+        $team = Team::find()
+            ->where(['team_id' => $id])
+            ->one();
+        $this->notFound($team);
+
+        $model = new TeamLogo($team->team_id);
+        if ($model->upload()) {
+            $this->setSuccessFlash('Данные успешно сохранены.');
+            return $this->refresh();
+        }
+
+        $logoArray = Logo::find()->all();
+
+        $this->setSeoTitle('Загрузить эмблему');
+
+        return $this->render('logo', [
+            'logoArray' => $logoArray,
+            'model' => $model,
+            'team' => $team,
         ]);
     }
 

@@ -153,14 +153,15 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
+            'user_city' => 'Город',
+            'user_country_id' => 'Страна',
+            'user_email' => 'Email',
             'user_id' => 'Id',
             'user_login' => 'Логин',
             'user_name' => 'Имя',
             'user_surname' => 'Фамилия',
-            'user_email' => 'Email',
-            'user_city' => 'Город',
-            'user_country_id' => 'Страна',
             'user_sex_id' => 'Пол',
+            'user_timezone' => 'Часовой пояс',
         ];
     }
 
@@ -372,7 +373,23 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_name',
             'user_sex_id',
             'user_surname',
+            'user_timezone',
         ])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function updateHoliday(): bool
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->save(true, ['user_holiday'])) {
             return false;
         }
         return true;

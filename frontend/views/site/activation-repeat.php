@@ -53,11 +53,7 @@ use yii\widgets\ActiveForm;
             <?= Html::submitButton('Получить код', ['class' => 'btn margin']); ?>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left xs-text-center">
-            <?= Html::a(
-                'У меня уже есть код активации',
-                ['site/activation'],
-                ['class' => 'btn margin']
-            ); ?>
+            <?= Html::a('У меня уже есть код активации', ['site/activation'], ['class' => 'btn margin']); ?>
         </div>
     </div>
 <?php ActiveForm::end(); ?>

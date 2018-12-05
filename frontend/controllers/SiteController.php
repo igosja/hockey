@@ -147,13 +147,13 @@ class SiteController extends AbstractController
 
         if ($model->load(Yii::$app->request->post())) {
             try {
-//                if ($model->signUp()) {
-//                    Yii::$app->session->setFlash(
-//                        'success',
-//                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
-//                    );
-//                    return $this->redirect(['site/activation']);
-//                }
+                if ($model->signUp()) {
+                    Yii::$app->session->setFlash(
+                        'success',
+                        'Регистрация прошла успешно. Осталось подтвердить ваш email.'
+                    );
+                    return $this->redirect(['site/activation']);
+                }
                 Yii::$app->session->setFlash('error', 'Не удалось провести регистрацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
@@ -183,14 +183,13 @@ class SiteController extends AbstractController
         if (($model->load(Yii::$app->request->post()) || $model->load(Yii::$app->request->get(), '')) && $model->code) {
             try {
                 if ($model->activate()) {
-                    Yii::$app->session->setFlash('success', 'Активация прошла успешно');
+                    $this->setSuccessFlash('Активация прошла успешно');
                     return $this->redirect(['site/activation']);
                 }
-                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', 'Не удалось провести активацию');
             }
+            $this->setErrorFlash('Не удалось провести активацию');
         }
 
         $this->setSeoTitle('Активация аккаунта');
@@ -215,15 +214,13 @@ class SiteController extends AbstractController
         if ($model->load(Yii::$app->request->post())) {
             try {
                 if ($model->send()) {
-                    Yii::$app->session->setFlash('success', 'Код активации успешно отправлен');
+                    $this->setSuccessFlash('Код активации успешно отправлен');
                     return $this->redirect(['site/activation']);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
                 }
             } catch (Exception $e) {
                 ErrorHelper::log($e);
-                Yii::$app->session->setFlash('error', 'Не удалось отправить код активации');
             }
+            $this->setErrorFlash('Не удалось отправить код активации');
         }
 
         $this->setSeoTitle('Активация аккаунта');
