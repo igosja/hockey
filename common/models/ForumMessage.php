@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -62,7 +64,8 @@ class ForumMessage extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->forum_message_date = time();
+                $this->forum_message_date = HockeyHelper::unixTimeStamp();
+                $this->forum_message_user_id = Yii::$app->user->id;
             }
             return true;
         }
