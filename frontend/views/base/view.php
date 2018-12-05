@@ -4,6 +4,18 @@ use common\components\ErrorHelper;
 use yii\helpers\Html;
 
 /**
+ * @var bool $delBase
+ * @var bool $delMedical
+ * @var bool $delPhysical
+ * @var bool $delSchool
+ * @var bool $delScout
+ * @var bool $delTraining
+ * @var string $linkBaseArray
+ * @var string $linkMedicalArray
+ * @var string $linkPhysicalArray
+ * @var string $linkSchoolArray
+ * @var string $linkScoutArray
+ * @var string $linkTrainingArray
  * @var \common\models\Team $team
  */
 
@@ -14,6 +26,14 @@ use yii\helpers\Html;
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
 </div>
+<?php if ($team->buildingBase) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+            На базе сейчас идет строительство.
+            Дата окончания строительства - <?= $team->buildingBase->endDate(); ?>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <fieldset>
@@ -30,13 +50,13 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Уровень:
                             <span class="strong"><?= $team->base->base_level; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Стоимость:
                             <span class="strong">
                                 <?php
@@ -52,7 +72,7 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Слотов:
                             <span class="strong">
                                 <?= $team->base->base_slot_min; ?>-<?= $team->base->base_slot_max; ?>
@@ -60,13 +80,13 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="row margin-top">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Занято слотов:
                             <span class="strong"><?= $team->baseUsed(); ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Содержание:
                             <span class="strong">
                                 <?php
@@ -83,6 +103,13 @@ use yii\helpers\Html;
                     </div>
                 </div>
             </div>
+            <?php if ($linkBaseArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkBaseArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -100,13 +127,13 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delTraining) : ?> del<?php endif; ?>">
                             Уровень:
                             <span class="strong"><?= $team->baseTraining->base_training_level; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delTraining) : ?> del<?php endif; ?>">
                             Доступно:
                             <span class="strong"><?= $team->baseTraining->base_training_power_count; ?></span> бал.
                             |
@@ -116,26 +143,39 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delTraining) : ?> del<?php endif; ?>">
                             Скорость:
                             <span class="strong">
-                                <?= $team->baseTraining->base_training_training_speed_min; ?>
-                                -<?= $team->baseTraining->base_training_training_speed_max; ?>%
+                                <?=
+                                $team->baseTraining->base_training_training_speed_min;
+                                ?>-<?=
+                                $team->baseTraining->base_training_training_speed_max;
+                                ?>%
                             </span>
                         </div>
                     </div>
                     <div class="row margin-top">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             Осталось:
-                            <span class="strong"><?= 0; ?></span> бал.
+                            <span class="strong"><?= $team->baseTraining->base_training_power_count - $team->usedTrainingPower(); ?></span>
+                            бал.
                             |
-                            <span class="strong"><?= 0; ?></span> спец.
+                            <span class="strong"><?= $team->baseTraining->base_training_special_count - $team->usedTrainingSpecial(); ?></span>
+                            спец.
                             |
-                            <span class="strong"><?= 0; ?></span> поз.
+                            <span class="strong"><?= $team->baseTraining->base_training_position_count - $team->usedTrainingPosition(); ?></span>
+                            поз.
                         </div>
                     </div>
                 </div>
             </div>
+            <?php if ($linkTrainingArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkTrainingArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -153,19 +193,26 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delMedical) : ?> del<?php endif; ?>">
                             Уровень:
                             <span class="strong"><?= $team->baseMedical->base_medical_level; ?></span>
                         </div>
                     </div>
                     <div class="row margin-top">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delMedical) : ?> del<?php endif; ?>">
                             Базовая усталость:
                             <span class="strong"><?= $team->baseMedical->base_medical_tire; ?>%</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php if ($linkMedicalArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkMedicalArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -183,35 +230,45 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
                             Уровень:
                             <span class="strong"><?= $team->basePhysical->base_physical_level; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
                             Изменений формы:
                             <span class="strong"><?= $team->basePhysical->base_physical_change_count; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
                             Увеличение усталости:
                             <span class="strong"><?= $team->basePhysical->base_physical_tire_bonus; ?>%</span>
                         </div>
                     </div>
-                    <div class="row margin-top">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Осталось изменений: <span class="strong"><?= 0; ?></span>
+                    <?php if (Yii::$app->controller->myTeam && Yii::$app->controller->myTeam->team_id == $team->team_id) : ?>
+                        <div class="row margin-top">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
+                                Осталось изменений: <span
+                                        class="strong"><?= $team->basePhysical->base_physical_change_count - $team->usedPhysical(); ?></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            Запланировано: <span class="strong"><?= 0; ?></span>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
+                                Запланировано: <span class="strong"><?= $team->planPhysical(); ?></span>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
+            <?php if ($linkPhysicalArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkPhysicalArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -229,23 +286,30 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delSchool) : ?> del<?php endif; ?>">
                             Уровень:
                             <span class="strong"><?= $team->baseSchool->base_school_level; ?></span>
                         </div>
                     </div>
                     <div class="row margin-top">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delSchool) : ?> del<?php endif; ?>">
                             Молодежь: <span class="strong"><?= $team->baseSchool->base_school_player_count; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delSchool) : ?> del<?php endif; ?>">
                             Осталось игроков: <span class="strong"><?= 0; ?></span>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php if ($linkSchoolArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkSchoolArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -263,24 +327,31 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
                             Уровень: <span class="strong"><?= $team->baseScout->base_scout_base_level; ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
                             Доступно изучений стилей:
                             <span class="strong"><?= $team->baseScout->base_scout_my_style_count; ?></span>
                         </div>
                     </div>
                     <div class="row margin-top">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
                             Осталось изучений стилей:
                             <span class="strong"><?= 0; ?></span>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php if ($linkScoutArray) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <?= $linkScoutArray; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </fieldset>
     </div>
 </div>

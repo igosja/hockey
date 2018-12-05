@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
@@ -55,6 +56,7 @@ use yii\helpers\Html;
  * @property BaseSchool $baseSchool
  * @property BaseScout $baseScout
  * @property BaseTraining $baseTraining
+ * @property BuildingBase $buildingBase
  * @property Championship $championship
  * @property Conference $conference
  * @property FriendlyStatus $friendlyStatus
@@ -480,9 +482,9 @@ class Team extends AbstractActiveRecord
                 $this->championship->championship_place . ' ' .
                 'место',
                 [
-                    'championship',
-                    'country_id' => $this->championship->country->country_id,
-                    'division_id' => $this->championship->division->division_id,
+                    'championship/index',
+                    'countryId' => $this->championship->country->country_id,
+                    'divisionId' => $this->championship->division->division_id,
                 ]
             );
         } else {
@@ -588,6 +590,99 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function usedTrainingPower(): int
+    {
+        return Training::find()
+            ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
+            ->andWhere(['!=', 'training_power', 0])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedTrainingSpecial(): int
+    {
+        return Training::find()
+            ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
+            ->andWhere(['!=', 'training_special_id', 0])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedTrainingPosition(): int
+    {
+        return Training::find()
+            ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
+            ->andWhere(['!=', 'training_position_id', 0])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedSchool(): int
+    {
+        return School::find()
+            ->where(['school_team_id' => $this->team_id, 'school_season_id' => Season::getCurrentSeason()])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedScout(): int
+    {
+        return Scout::find()
+            ->where(['scout_team_id' => $this->team_id, 'scout_season_id' => Season::getCurrentSeason()])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedPhysical(): int
+    {
+        return PhysicalChange::find()
+            ->where(['physical_change_team_id' => $this->team_id, 'physical_change_season_id' => Season::getCurrentSeason()])
+            ->andWhere([
+                '<',
+                'physical_change_schedule_id',
+                Schedule::find()
+                    ->select(['schedule_id'])
+                    ->where(['schedule_season_id' => Season::getCurrentSeason()])
+                    ->andWhere(['<', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                    ->orderBy(['schedule_date' => SORT_DESC])
+                    ->limit(1)
+            ])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function planPhysical(): int
+    {
+        return PhysicalChange::find()
+            ->where(['physical_change_team_id' => $this->team_id, 'physical_change_season_id' => Season::getCurrentSeason()])
+            ->andWhere([
+                '>',
+                'physical_change_schedule_id',
+                Schedule::find()
+                    ->select(['schedule_id'])
+                    ->where(['schedule_season_id' => Season::getCurrentSeason()])
+                    ->andWhere(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                    ->orderBy(['schedule_date' => SORT_DESC])
+                    ->limit(1)
+            ])
+            ->count();
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBase(): ActiveQuery
@@ -633,6 +728,16 @@ class Team extends AbstractActiveRecord
     public function getBaseTraining(): ActiveQuery
     {
         return $this->hasOne(BaseTraining::class, ['base_training_id' => 'team_base_training_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuildingBase(): ActiveQuery
+    {
+        return $this
+            ->hasOne(BuildingBase::class, ['building_base_team_id' => 'team_id'])
+            ->andWhere(['building_base_ready' => 0]);
     }
 
     /**
