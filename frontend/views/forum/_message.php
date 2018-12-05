@@ -53,7 +53,7 @@ $user = Yii::$app->user->identity;
             <?php
 
             try {
-                print Yii::$app->formatter->asDate($model->forum_message_date, 'short');
+                print Yii::$app->formatter->asDatetime($model->forum_message_date, 'short');
             } catch (Exception $e) {
                 ErrorHelper::log($e);
             }
@@ -76,7 +76,7 @@ $user = Yii::$app->user->identity;
                 <?php
 
                 try {
-                    print Yii::$app->formatter->asDate($model->forum_message_date_update, 'short');
+                    print Yii::$app->formatter->asDatetime($model->forum_message_date_update, 'short');
                 } catch (Exception $e) {
                     ErrorHelper::log($e);
                 }
