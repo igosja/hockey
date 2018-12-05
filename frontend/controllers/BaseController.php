@@ -22,6 +22,8 @@ class BaseController extends AbstractController
             ->one();
         $this->notFound($team);
 
+        $this->setSeoTitle('База команды');
+
         return $this->render('view', [
             'team' => $team,
         ]);

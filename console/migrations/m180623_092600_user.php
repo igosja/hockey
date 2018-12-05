@@ -58,7 +58,7 @@ class m180623_092600_user extends Migration
             'user_shop_position' => $this->integer(5)->defaultValue(0),
             'user_shop_special' => $this->integer(5)->defaultValue(0),
             'user_surname' => $this->string(255),
-            'user_timezone' => $this->string(255),
+            'user_timezone' => $this->string(255)->defaultValue('UTC'),
             'user_user_role_id' => $this->integer(5)->defaultValue(1),
         ]);
 
