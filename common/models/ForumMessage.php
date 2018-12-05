@@ -167,6 +167,6 @@ class ForumMessage extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'forum_theme_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id']);
     }
 }
