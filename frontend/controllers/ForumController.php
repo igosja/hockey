@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\ForumChapter;
 use common\models\ForumGroup;
+use common\models\ForumMessage;
 use common\models\ForumTheme;
 use frontend\models\ForumThemeForm;
 use Yii;
@@ -115,6 +116,44 @@ class ForumController extends AbstractController
     }
 
     /**
+     * @param int $id
+     * @return string
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionTheme(int $id): string
+    {
+        $forumTheme = ForumTheme::find()
+            ->where(['forum_theme_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($forumTheme);
+
+        $model = new ForumMessage();
+        if ($model->addMessage()) {
+            $this->setSuccessFlash('Сообщение успешно сохранёно');
+            return $this->refresh();
+        }
+
+        $query = ForumMessage::find()
+            ->where(['forum_message_forum_theme_id' => $id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeForum']
+            ]
+        ]);
+
+        $this->setSeoTitle('Форум');
+
+        return $this->render('theme', [
+            'dataProvider' => $dataProvider,
+            'forumTheme' => $forumTheme,
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * @param $id
      * @return string|\yii\web\Response
      * @throws \yii\db\Exception
@@ -124,6 +163,7 @@ class ForumController extends AbstractController
     {
         $forumGroup = ForumGroup::find()
             ->where(['forum_group_id' => $id])
+            ->limit(1)
             ->one();
         $this->notFound($forumGroup);
 
