@@ -55,7 +55,7 @@ $user = Yii::$app->user->identity;
         try {
             print ListView::widget([
                 'dataProvider' => $dataProvider,
-                'itemView' => '_messsage',
+                'itemView' => '_message',
             ]);
         } catch (Exception $e) {
             ErrorHelper::log($e);
