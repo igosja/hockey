@@ -117,11 +117,11 @@ class ForumController extends AbstractController
 
     /**
      * @param int $id
-     * @return string
+     * @return string|\yii\web\Response
      * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionTheme(int $id): string
+    public function actionTheme(int $id)
     {
         $forumTheme = ForumTheme::find()
             ->where(['forum_theme_id' => $id])
