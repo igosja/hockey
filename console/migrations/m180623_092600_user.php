@@ -58,7 +58,7 @@ class m180623_092600_user extends Migration
             'user_shop_position' => $this->integer(5)->defaultValue(0),
             'user_shop_special' => $this->integer(5)->defaultValue(0),
             'user_surname' => $this->string(255),
-            'user_timezone' => $this->string(255),
+            'user_timezone' => $this->string(255)->defaultValue('UTC'),
             'user_user_role_id' => $this->integer(5)->defaultValue(1),
         ]);
 
@@ -80,7 +80,7 @@ class m180623_092600_user extends Migration
 
         $this->insert(self::TABLE, [
             'user_code' => '13373e3c14aa77368437c7c972601d70',
-            'user_date_confirm' => 1473706009,
+            'user_date_confirm' => 0,
             'user_date_register' => 1473705854,
             'user_email' => 'igosja@ukr.net',
             'user_login' => 'Игося',

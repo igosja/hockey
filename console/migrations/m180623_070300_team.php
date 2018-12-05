@@ -31,7 +31,7 @@ class m180623_070300_team extends Migration
             'team_base_training_id' => $this->integer(2)->defaultValue(0),
             'team_finance' => $this->integer(2)->defaultValue(0),
             'team_friendly_status_id' => $this->integer(1)->defaultValue(2),
-            'team_free_base' => $this->integer(1)->defaultValue(0),
+            'team_free_base' => $this->integer(1)->defaultValue(5),
             'team_mood_rest' => $this->integer(1)->defaultValue(0),
             'team_mood_super' => $this->integer(1)->defaultValue(0),
             'team_name' => $this->string(255),

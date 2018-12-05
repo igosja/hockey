@@ -299,4 +299,24 @@ class SiteController extends AbstractController
             'model' => $model,
         ]);
     }
+
+    /**
+     * @return Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionAuthByKey(): Response
+    {
+        /**
+         * @var User $user
+         */
+        $user = User::find()
+            ->where(['user_code' => Yii::$app->request->get('code')])
+            ->limit(1)
+            ->one();
+        $this->notFound($user);
+
+        Yii::$app->user->login($user);
+
+        return $this->redirect(['site/index']);
+    }
 }

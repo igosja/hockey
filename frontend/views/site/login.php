@@ -32,9 +32,9 @@ use yii\helpers\Html;
         <?= $form->field($model, 'password')->passwordInput(); ?>
     </div>
 </div>
-<div class="row margin-top-small">
+<div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= Html::submitButton('Вход', ['class' => 'btn']); ?>
+        <?= Html::submitButton('Вход', ['class' => 'btn margin']); ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>
