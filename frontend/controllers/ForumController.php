@@ -5,8 +5,10 @@ namespace frontend\controllers;
 use common\models\ForumChapter;
 use common\models\ForumGroup;
 use common\models\ForumTheme;
+use frontend\models\ForumThemeForm;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 
 /**
  * Class ForumController
@@ -14,6 +16,26 @@ use yii\data\ActiveDataProvider;
  */
 class ForumController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['theme-create'],
+                'rules' => [
+                    [
+                        'actions' => ['theme-create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @return string
      */
@@ -89,6 +111,33 @@ class ForumController extends AbstractController
         return $this->render('group', [
             'dataProvider' => $dataProvider,
             'forumGroup' => $forumGroup,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionThemeCreate($id)
+    {
+        $forumGroup = ForumGroup::find()
+            ->where(['forum_theme_id' => $id])
+            ->one();
+        $this->notFound($forumGroup);
+
+        $model = new ForumThemeForm();
+        if ($model->create($id)) {
+            $this->setSuccessFlash('Тема успешно создана');
+            return $this->redirect(['forum/theme', 'id' => $model->getThemeId()]);
+        }
+
+        $this->setSeoTitle('Создание темы');
+
+        return $this->render('theme-create', [
+            'forumGroup' => $forumGroup,
+            'model' => $model,
         ]);
     }
 }
