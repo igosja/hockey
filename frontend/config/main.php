@@ -81,7 +81,7 @@ return [
                 '' => 'site/index',
                 'activation' => 'site/activation',
                 'activation/repeat' => 'site/activation-repeat',
-                'forum/theme/create' => 'forum/theme-create',
+                'forum/theme/create/<id:\d+>' => 'forum/theme-create',
                 'login' => 'site/login',
                 'password' => 'site/password',
                 'password/restore' => 'site/password-restore',

@@ -396,11 +396,16 @@ class User extends AbstractActiveRecord implements IdentityInterface
     }
 
     /**
+     * @param bool $color
      * @return string
      */
-    public function userLink(): string
+    public function userLink(bool $color = false): string
     {
-        return Html::a($this->user_login, ['user/view', 'id' => $this->user_id]);
+        return Html::a(
+            $this->user_login,
+            ['user/view', 'id' => $this->user_id],
+            ['class' => UserRole::ADMIN == $this->user_user_role_id && $color ? 'red' : '']
+        );
     }
 
     public function userFrom(): string

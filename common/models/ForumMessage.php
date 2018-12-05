@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
+use Yii;
 use yii\db\ActiveQuery;
+use yii\helpers\Html;
 
 /**
  * Class ForumTheme
@@ -62,11 +65,93 @@ class ForumMessage extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->forum_message_date = time();
+                $this->forum_message_date = HockeyHelper::unixTimeStamp();
+                $this->forum_message_user_id = Yii::$app->user->id;
             }
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function addMessage(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+        if ($user->user_date_block_forum >= time()) {
+            return false;
+        }
+        if ($user->user_date_block_comment >= time()) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->forum_message_forum_theme_id = Yii::$app->request->get('id');
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function links(): string
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+        $isUser = (UserRole::USER == $user->user_user_role_id);
+        $linkArray = [];
+
+        if (isset($auth_user_id)) {
+            if (($auth_user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
+                $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
+            }
+
+            if ($auth_user_id == $this->forum_message_user_id || !$isUser) {
+                $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
+            }
+
+            if ($auth_user_id == $this->forum_message_user_id && $isUser) {
+                $linkArray[] = Html::a(
+                    'Пожаловаться',
+                    'javascript:',
+                    [
+                        'class' => 'forum-complain',
+                        'data-message' => $this->forum_message_id,
+                    ]
+                );
+            }
+
+            if (!$isUser) {
+                $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
+
+                if (!$this->forum_message_blocked) {
+                    $text = 'Блокировать';
+                } else {
+                    $text = 'Разблокировать';
+                }
+                $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
+            }
+        }
+
+        $result = implode(' | ', $linkArray);
+
+        return $result;
     }
 
     /**
@@ -82,6 +167,6 @@ class ForumMessage extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'forum_theme_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id']);
     }
 }
