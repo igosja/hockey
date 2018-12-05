@@ -55,6 +55,7 @@ $user = Yii::$app->user->identity;
         try {
             print ListView::widget([
                 'dataProvider' => $dataProvider,
+                'itemOptions' => ['class' => 'row forum-row forum-striped'],
                 'itemView' => '_message',
             ]);
         } catch (Exception $e) {
