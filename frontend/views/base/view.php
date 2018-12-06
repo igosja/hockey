@@ -283,7 +283,7 @@ use yii\helpers\Html;
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delSchool) : ?> del<?php endif; ?>">
-                            Осталось игроков: <span class="strong"><?= $this->availableSchool(); ?></span>
+                            Осталось игроков: <span class="strong"><?= $team->availableSchool(); ?></span>
                         </div>
                     </div>
                 </div>
