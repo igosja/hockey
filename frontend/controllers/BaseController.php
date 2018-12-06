@@ -395,7 +395,7 @@ class BaseController extends AbstractController
             if (!$base) {
                 $this->setErrorFlash('Вы имеете здание максимального уровня.');
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
-            } elseif ($base->$baseLevel > $team->team_base_id) {
+            } elseif ($base->$baseLevel > $team->base->base_level) {
                 $this->setErrorFlash('Минимальный уровень базы должен быть не меньше <span class="strong">' . $base->$baseLevel . '</span>.');
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             } elseif ($team->base->base_slot_max <= $team->baseUsed()) {
