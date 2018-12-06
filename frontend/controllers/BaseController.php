@@ -421,7 +421,7 @@ class BaseController extends AbstractController
                     Finance::log([
                         'finance_building_id' => $building,
                         'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
-                        'finance_level' => $baseLevel,
+                        'finance_level' => $base->$baseLevel,
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$base->$basePrice,
                         'finance_value_after' => $team->team_finance - $base->$basePrice,
