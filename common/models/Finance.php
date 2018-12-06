@@ -47,6 +47,9 @@ class Finance extends AbstractActiveRecord
     {
         $finance = new self();
         $finance->setAttributes($data);
+        print '<pre>';
+        print_r($finance);
+        exit;
         $finance->save();
     }
 

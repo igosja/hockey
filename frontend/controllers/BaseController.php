@@ -432,10 +432,11 @@ class BaseController extends AbstractController
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
 
-                    $this->setSuccessFlash('Строительство успешно началось');
+                    $this->setSuccessFlash('Строительство успешно началось.');
                 } catch (Exception $e) {
                     $transaction->rollBack();
                     ErrorHelper::log($e);
+                    $this->setErrorFlash();
                 }
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             }
