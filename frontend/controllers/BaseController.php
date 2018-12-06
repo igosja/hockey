@@ -340,6 +340,8 @@ class BaseController extends AbstractController
                     $team->team_finance = $team->team_finance - $base->base_price_buy;
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
+
+                    $this->setSuccessFlash('Строительство успешно началось');
                 } catch (Exception $e) {
                     $transaction->rollBack();
                     ErrorHelper::log($e);
@@ -429,6 +431,8 @@ class BaseController extends AbstractController
                     $team->team_finance = $team->team_finance - $base->$basePrice;
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
+
+                    $this->setSuccessFlash('Строительство успешно началось');
                 } catch (Exception $e) {
                     $transaction->rollBack();
                     ErrorHelper::log($e);
