@@ -18,6 +18,9 @@ class Building extends AbstractActiveRecord
     const SCOUT = 5;
     const TRAINING = 6;
 
+    const MAX_LEVEL = 10;
+    const MIN_LEVEL = 0;
+
     /**
      * @return string
      */
