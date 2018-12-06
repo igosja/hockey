@@ -2,8 +2,23 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
+use common\components\FormatHelper;
+use common\models\Base;
+use common\models\BaseMedical;
+use common\models\BasePhysical;
+use common\models\BaseSchool;
+use common\models\BaseScout;
+use common\models\BaseTraining;
 use common\models\Building;
+use common\models\BuildingBase;
+use common\models\ConstructionType;
+use common\models\Finance;
+use common\models\FinanceText;
 use common\models\Team;
+use Exception;
+use Yii;
+use yii\filters\AccessControl;
 use yii\helpers\Html;
 
 /**
@@ -12,6 +27,26 @@ use yii\helpers\Html;
  */
 class BaseController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['build'],
+                'rules' => [
+                    [
+                        'actions' => ['build'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @param int $id
      * @return string
@@ -229,12 +264,187 @@ class BaseController extends AbstractController
             'delSchool' => $delSchool,
             'delScout' => $delScout,
             'delTraining' => $delTraining,
-            'linkBaseArray' => implode(' ', $linkBaseArray),
-            'linkMedicalArray' => implode(' ', $linkMedicalArray),
-            'linkPhysicalArray' => implode(' ', $linkPhysicalArray),
-            'linkSchoolArray' => implode(' ', $linkSchoolArray),
-            'linkScoutArray' => implode(' ', $linkScoutArray),
-            'linkTrainingArray' => implode(' ', $linkTrainingArray),
+            'linkBaseArray' => $linkBaseArray,
+            'linkMedicalArray' => $linkMedicalArray,
+            'linkPhysicalArray' => $linkPhysicalArray,
+            'linkSchoolArray' => $linkSchoolArray,
+            'linkScoutArray' => $linkScoutArray,
+            'linkTrainingArray' => $linkTrainingArray,
+            'myTeam' => $this->myTeam,
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param int $building
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     * @return string|\yii\web\Response
+     */
+    public function actionBuild(int $building)
+    {
+        $team = $this->myTeam;
+        $this->notFound($team);
+
+        if ($team->buildingBase) {
+            $this->setErrorFlash('На базе уже идет строительство.');
+            return $this->redirect(['base/view', 'id' => $team->team_id]);
+        }
+
+        if (Building::BASE == $building) {
+            $level = $team->base->base_level + 1;
+            $base = Base::find()
+                ->where(['base_level' => $level])
+                ->limit(1)
+                ->one();
+            if (!$base) {
+                $this->setErrorFlash('Вы имеете здание максимального уровня.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isTraining()) {
+                $this->setErrorFlash('В тренировочном центре тренируются игроки.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isSchool()) {
+                $this->setErrorFlash('В спортшколе идет подготовка игрока.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isScout()) {
+                $this->setErrorFlash('В скаутцентре идет изучение игроков.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($base->base_slot_min > $team->baseUsed()) {
+                $this->setErrorFlash('Минимальное количество занятых слотов должно быть не меньше <span class="strong">' . $base->base_slot_min . '</span>.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($base->base_price_buy > $team->team_finance) {
+                $this->setErrorFlash('Для строительства нужно <span class="strong">' . FormatHelper::asCurrency($base->base_price_buy) . '</span>.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            if (Yii::$app->request->get('ok')) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new BuildingBase();
+                    $model->building_base_building_id = $building;
+                    $model->building_base_construction_type_id = ConstructionType::BUILD;
+                    $model->building_base_day = $base->base_build_speed;
+                    $model->building_base_team_id = $team->team_id;
+                    $model->save();
+
+                    Finance::log([
+                        'finance_building_id' => $building,
+                        'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
+                        'finance_level' => $base->base_level,
+                        'finance_team_id' => $team->team_id,
+                        'finance_value' => -$base->base_price_buy,
+                        'finance_value_after' => $team->team_finance - $base->base_price_buy,
+                        'finance_value_before' => $team->team_finance,
+                    ]);
+
+                    $team->team_finance = $team->team_finance - $base->base_price_buy;
+                    $team->save(true, ['team_finance']);
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $message = 'Строительство базы <span class="strong">' . $base->base_level
+                . '</span> уровня будет стоить <span class="strong">' . FormatHelper::asCurrency($base->base_price_buy)
+                . '</span> и займет <span class="strong">' . $base->base_build_speed
+                . '</span> дн.';
+        } else {
+            $base = Building::find()
+                ->where(['building_id' => $building])
+                ->one();
+
+            if (!$base) {
+                $this->setErrorFlash('Тип строения выбран неправильно.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::TRAINING == $building && $team->isTraining()) {
+                $this->setErrorFlash('В тренировочном центре тренируются игроки.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::SCHOOL == $building && $team->isSchool()) {
+                $this->setErrorFlash('В спортшколе идет подготовка игрока.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::SCOUT == $building && $team->isScout()) {
+                $this->setErrorFlash('В скаутцентре идет изучение игроков.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $baseLevel = $base->building_name . '_base_level';
+            $basePrice = $base->building_name . '_price_buy';
+            $baseSpeed = $base->building_name . '_build_speed';
+
+            if (Building::MEDICAL == $building) {
+                $level = $team->baseMedical->base_medical_level + 1;
+                $base = BaseMedical::find()->where(['base_medical_level' => $level]);
+            } elseif (Building::PHYSICAL == $building) {
+                $level = $team->basePhysical->base_physical_level + 1;
+                $base = BasePhysical::find()->where(['base_physical_level' => $level]);
+            } elseif (Building::SCHOOL == $building) {
+                $level = $team->baseSchool->base_school_level + 1;
+                $base = BaseSchool::find()->where(['base_school_level' => $level]);
+            } elseif (Building::SCOUT == $building) {
+                $level = $team->baseScout->base_scout_level + 1;
+                $base = BaseScout::find()->where(['base_scout_level' => $level]);
+            } elseif (Building::TRAINING == $building) {
+                $level = $team->baseTraining->base_training_level + 1;
+                $base = BaseTraining::find()->where(['base_training_level' => $level]);
+            }
+            $base = $base->limit(1)->one();
+
+            if (!$base) {
+                $this->setErrorFlash('Вы имеете здание максимального уровня.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($base->$baseLevel > $team->team_base_id) {
+                $this->setErrorFlash('Минимальный уровень базы должен быть не меньше <span class="strong">' . $base->$baseLevel . '</span>.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->base->base_slot_max <= $team->baseUsed()) {
+                $this->setErrorFlash('На базе нет свободных слотов для строительства.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($base->$basePrice > $team->team_finance) {
+                $this->setErrorFlash('Для строительства нужно <span class="strong">' . FormatHelper::asCurrency($base->$basePrice) . '</span>.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            if (Yii::$app->request->get('ok')) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new BuildingBase();
+                    $model->building_base_building_id = $building;
+                    $model->building_base_construction_type_id = ConstructionType::BUILD;
+                    $model->building_base_day = $base->$baseSpeed;
+                    $model->building_base_team_id = $team->team_id;
+                    $model->save();
+
+                    Finance::log([
+                        'finance_building_id' => $building,
+                        'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
+                        'finance_level' => $baseLevel,
+                        'finance_team_id' => $team->team_id,
+                        'finance_value' => -$base->$basePrice,
+                        'finance_value_after' => $team->team_finance - $base->$basePrice,
+                        'finance_value_before' => $team->team_finance,
+                    ]);
+
+                    $team->team_finance = $team->team_finance - $base->$basePrice;
+                    $team->save(true, ['team_finance']);
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $message = 'Строительство здания <span class="strong">' . $base->$baseLevel
+                . '</span> уровня будет стоить <span class="strong">' . FormatHelper::asCurrency($base->$basePrice)
+                . '</span> и займет <span class="strong">' . $base->$baseSpeed
+                . '</span> дн.';
+        }
+
+        return $this->render('build', [
+            'building' => $building,
+            'message' => $message,
             'team' => $team,
         ]);
     }

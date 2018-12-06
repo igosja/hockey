@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
@@ -10,12 +10,13 @@ use yii\helpers\Html;
  * @var bool $delSchool
  * @var bool $delScout
  * @var bool $delTraining
- * @var string $linkBaseArray
- * @var string $linkMedicalArray
- * @var string $linkPhysicalArray
- * @var string $linkSchoolArray
- * @var string $linkScoutArray
- * @var string $linkTrainingArray
+ * @var array $linkBaseArray
+ * @var array $linkMedicalArray
+ * @var array $linkPhysicalArray
+ * @var array $linkSchoolArray
+ * @var array $linkScoutArray
+ * @var array $linkTrainingArray
+ * @var \common\models\Team $myTeam
  * @var \common\models\Team $team
  */
 
@@ -59,15 +60,7 @@ use yii\helpers\Html;
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Стоимость:
                             <span class="strong">
-                                <?php
-
-                                try {
-                                    print Yii::$app->formatter->asCurrency($team->base->base_price_buy, 'USD');
-                                } catch (Exception $e) {
-                                    ErrorHelper::log($e);
-                                }
-
-                                ?>
+                                <?= FormatHelper::asCurrency($team->base->base_price_buy); ?>
                             </span>
                         </div>
                     </div>
@@ -89,15 +82,7 @@ use yii\helpers\Html;
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delBase) : ?> del<?php endif; ?>">
                             Содержание:
                             <span class="strong">
-                                <?php
-
-                                try {
-                                    print Yii::$app->formatter->asCurrency($team->baseMaintenance(), 'USD');
-                                } catch (Exception $e) {
-                                    ErrorHelper::log($e);
-                                }
-
-                                ?>
+                                <?= FormatHelper::asCurrency($team->baseMaintenance()); ?>
                             </span>
                         </div>
                     </div>
@@ -106,7 +91,7 @@ use yii\helpers\Html;
             <?php if ($linkBaseArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkBaseArray; ?>
+                        <?= implode(' ', $linkBaseArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -157,13 +142,13 @@ use yii\helpers\Html;
                     <div class="row margin-top">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             Осталось:
-                            <span class="strong"><?= $team->baseTraining->base_training_power_count - $team->usedTrainingPower(); ?></span>
+                            <span class="strong"><?= $team->availableTrainingPower(); ?></span>
                             бал.
                             |
-                            <span class="strong"><?= $team->baseTraining->base_training_special_count - $team->usedTrainingSpecial(); ?></span>
+                            <span class="strong"><?= $team->availableTrainingSpecial(); ?></span>
                             спец.
                             |
-                            <span class="strong"><?= $team->baseTraining->base_training_position_count - $team->usedTrainingPosition(); ?></span>
+                            <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
                             поз.
                         </div>
                     </div>
@@ -172,7 +157,7 @@ use yii\helpers\Html;
             <?php if ($linkTrainingArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkTrainingArray; ?>
+                        <?= implode(' ', $linkTrainingArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -209,7 +194,7 @@ use yii\helpers\Html;
             <?php if ($linkMedicalArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkMedicalArray; ?>
+                        <?= implode(' ', $linkMedicalArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -247,11 +232,11 @@ use yii\helpers\Html;
                             <span class="strong"><?= $team->basePhysical->base_physical_tire_bonus; ?>%</span>
                         </div>
                     </div>
-                    <?php if (Yii::$app->controller->myTeam && Yii::$app->controller->myTeam->team_id == $team->team_id) : ?>
+                    <?php if ($myTeam && $myTeam->team_id == $team->team_id) : ?>
                         <div class="row margin-top">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delPhysical) : ?> del<?php endif; ?>">
-                                Осталось изменений: <span
-                                        class="strong"><?= $team->basePhysical->base_physical_change_count - $team->usedPhysical(); ?></span>
+                                Осталось изменений:
+                                <span class="strong"><?= $team->availablePhysical(); ?></span>
                             </div>
                         </div>
                         <div class="row">
@@ -265,7 +250,7 @@ use yii\helpers\Html;
             <?php if ($linkPhysicalArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkPhysicalArray; ?>
+                        <?= implode(' ', $linkPhysicalArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -298,7 +283,7 @@ use yii\helpers\Html;
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delSchool) : ?> del<?php endif; ?>">
-                            Осталось игроков: <span class="strong"><?= 0; ?></span>
+                            Осталось игроков: <span class="strong"><?= $this->availableSchool(); ?></span>
                         </div>
                     </div>
                 </div>
@@ -306,7 +291,7 @@ use yii\helpers\Html;
             <?php if ($linkSchoolArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkSchoolArray; ?>
+                        <?= implode(' ', $linkSchoolArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -333,14 +318,14 @@ use yii\helpers\Html;
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
-                            Доступно изучений стилей:
+                            Изучений стилей:
                             <span class="strong"><?= $team->baseScout->base_scout_my_style_count; ?></span>
                         </div>
                     </div>
                     <div class="row margin-top">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
                             Осталось изучений стилей:
-                            <span class="strong"><?= 0; ?></span>
+                            <span class="strong"><?= $team->availableScout(); ?></span>
                         </div>
                     </div>
                 </div>
@@ -348,7 +333,7 @@ use yii\helpers\Html;
             <?php if ($linkScoutArray) : ?>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        <?= $linkScoutArray; ?>
+                        <?= implode(' ', $linkScoutArray); ?>
                     </div>
                 </div>
             <?php endif; ?>
