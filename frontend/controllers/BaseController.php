@@ -509,12 +509,12 @@ class BaseController extends AbstractController
                         'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
                         'finance_level' => $base->base_level,
                         'finance_team_id' => $team->team_id,
-                        'finance_value' => $base->base_price_sell,
-                        'finance_value_after' => $team->team_finance + $base->base_price_sell,
+                        'finance_value' => $team->base->base_price_sell,
+                        'finance_value_after' => $team->team_finance + $team->base->base_price_sell,
                         'finance_value_before' => $team->team_finance,
                     ]);
 
-                    $team->team_finance = $team->team_finance + $base->base_price_buy;
+                    $team->team_finance = $team->team_finance + $team->base->base_price_sell;
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
 
@@ -527,7 +527,7 @@ class BaseController extends AbstractController
             }
 
             $message = 'При строительстве базы <span class="strong">' . $base->base_level
-                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($base->base_price_sell)
+                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($team->base->base_price_sell)
                 . '</span>. Это займет <span class="strong">1</span> день.';
         } else {
             $base = Building::find()
@@ -549,22 +549,26 @@ class BaseController extends AbstractController
             }
 
             $baseLevel = $base->building_name . '_base_level';
-            $basePrice = $base->building_name . '_price_sell';
 
             if (Building::MEDICAL == $building) {
                 $level = $team->baseMedical->base_medical_level - 1;
+                $price = $team->baseMedical->base_medical_price_sell;
                 $base = BaseMedical::find()->where(['base_medical_level' => $level]);
             } elseif (Building::PHYSICAL == $building) {
                 $level = $team->basePhysical->base_physical_level - 1;
+                $price = $team->basePhysical->base_physical_price_sell;
                 $base = BasePhysical::find()->where(['base_physical_level' => $level]);
             } elseif (Building::SCHOOL == $building) {
                 $level = $team->baseSchool->base_school_level - 1;
+                $price = $team->baseSchool->base_school_price_sell;
                 $base = BaseSchool::find()->where(['base_school_level' => $level]);
             } elseif (Building::SCOUT == $building) {
                 $level = $team->baseScout->base_scout_level - 1;
+                $price = $team->baseScout->base_scout_price_sell;
                 $base = BaseScout::find()->where(['base_scout_level' => $level]);
-            } elseif (Building::TRAINING == $building) {
+            } else {
                 $level = $team->baseTraining->base_training_level - 1;
+                $price = $team->baseTraining->base_training_price_sell;
                 $base = BaseTraining::find()->where(['base_training_level' => $level]);
             }
             $base = $base->limit(1)->one();
@@ -589,12 +593,12 @@ class BaseController extends AbstractController
                         'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
                         'finance_level' => $base->$baseLevel,
                         'finance_team_id' => $team->team_id,
-                        'finance_value' => $base->$basePrice,
-                        'finance_value_after' => $team->team_finance + $base->$basePrice,
+                        'finance_value' => $price,
+                        'finance_value_after' => $team->team_finance + $price,
                         'finance_value_before' => $team->team_finance,
                     ]);
 
-                    $team->team_finance = $team->team_finance + $base->$basePrice;
+                    $team->team_finance = $team->team_finance + $price;
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
 
@@ -608,7 +612,7 @@ class BaseController extends AbstractController
             }
 
             $message = 'При строительстве здания <span class="strong">' . $base->$baseLevel
-                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($base->$basePrice)
+                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($price)
                 . '</span>. Это займет <span class="strong">1</span> день.';
         }
 
@@ -690,7 +694,7 @@ class BaseController extends AbstractController
 
         return $this->render('cancel', [
             'id' => $id,
-            'price' => -$finance->finance_value,
+            'price' => FormatHelper::asCurrency(-$finance->finance_value),
             'team' => $team,
         ]);
     }
