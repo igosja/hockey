@@ -17,6 +17,7 @@ use common\models\Finance;
 use common\models\FinanceText;
 use common\models\Team;
 use Exception;
+use Throwable;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
@@ -341,7 +342,7 @@ class BaseController extends AbstractController
                     $team->save(true, ['team_finance']);
                     $transaction->commit();
 
-                    $this->setSuccessFlash('Строительство успешно началось');
+                    $this->setSuccessFlash('Строительство успешно началось.');
                 } catch (Exception $e) {
                     $transaction->rollBack();
                     ErrorHelper::log($e);
@@ -450,6 +451,246 @@ class BaseController extends AbstractController
         return $this->render('build', [
             'building' => $building,
             'message' => $message,
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param int $building
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     * @return string|\yii\web\Response
+     */
+    public function actionDestroy(int $building)
+    {
+        $team = $this->myTeam;
+        $this->notFound($team);
+
+        if ($team->buildingBase) {
+            $this->setErrorFlash('На базе уже идет строительство.');
+            return $this->redirect(['base/view', 'id' => $team->team_id]);
+        }
+
+        if (Building::BASE == $building) {
+            $level = $team->base->base_level - 1;
+            $base = Base::find()
+                ->where(['base_level' => $level])
+                ->limit(1)
+                ->one();
+            if (!$base) {
+                $this->setErrorFlash('Вы имеете здание минимального уровня.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isTraining()) {
+                $this->setErrorFlash('В тренировочном центре тренируются игроки.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isSchool()) {
+                $this->setErrorFlash('В спортшколе идет подготовка игрока.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->isScout()) {
+                $this->setErrorFlash('В скаутцентре идет изучение игроков.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($base->base_slot_max < $team->baseUsed()) {
+                $this->setErrorFlash('Максимальное количество занятых слотов должно быть не больше <span class="strong">' . $base->base_slot_max . '</span>.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            if (Yii::$app->request->get('ok')) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new BuildingBase();
+                    $model->building_base_building_id = $building;
+                    $model->building_base_construction_type_id = ConstructionType::DESTROY;
+                    $model->building_base_day = 1;
+                    $model->building_base_team_id = $team->team_id;
+                    $model->save();
+
+                    Finance::log([
+                        'finance_building_id' => $building,
+                        'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
+                        'finance_level' => $base->base_level,
+                        'finance_team_id' => $team->team_id,
+                        'finance_value' => $base->base_price_sell,
+                        'finance_value_after' => $team->team_finance + $base->base_price_sell,
+                        'finance_value_before' => $team->team_finance,
+                    ]);
+
+                    $team->team_finance = $team->team_finance + $base->base_price_buy;
+                    $team->save(true, ['team_finance']);
+                    $transaction->commit();
+
+                    $this->setSuccessFlash('Строительство успешно началось.');
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $message = 'При строительстве базы <span class="strong">' . $base->base_level
+                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($base->base_price_sell)
+                . '</span>. Это займет <span class="strong">1</span> день.';
+        } else {
+            $base = Building::find()
+                ->where(['building_id' => $building])
+                ->one();
+
+            if (!$base) {
+                $this->setErrorFlash('Тип строения выбран неправильно.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::TRAINING == $building && $team->isTraining()) {
+                $this->setErrorFlash('В тренировочном центре тренируются игроки.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::SCHOOL == $building && $team->isSchool()) {
+                $this->setErrorFlash('В спортшколе идет подготовка игрока.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif (Building::SCOUT == $building && $team->isScout()) {
+                $this->setErrorFlash('В скаутцентре идет изучение игроков.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $baseLevel = $base->building_name . '_base_level';
+            $basePrice = $base->building_name . '_price_sell';
+
+            if (Building::MEDICAL == $building) {
+                $level = $team->baseMedical->base_medical_level - 1;
+                $base = BaseMedical::find()->where(['base_medical_level' => $level]);
+            } elseif (Building::PHYSICAL == $building) {
+                $level = $team->basePhysical->base_physical_level - 1;
+                $base = BasePhysical::find()->where(['base_physical_level' => $level]);
+            } elseif (Building::SCHOOL == $building) {
+                $level = $team->baseSchool->base_school_level - 1;
+                $base = BaseSchool::find()->where(['base_school_level' => $level]);
+            } elseif (Building::SCOUT == $building) {
+                $level = $team->baseScout->base_scout_level - 1;
+                $base = BaseScout::find()->where(['base_scout_level' => $level]);
+            } elseif (Building::TRAINING == $building) {
+                $level = $team->baseTraining->base_training_level - 1;
+                $base = BaseTraining::find()->where(['base_training_level' => $level]);
+            }
+            $base = $base->limit(1)->one();
+
+            if (!$base) {
+                $this->setErrorFlash('Вы имеете здание минимального уровня.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            if (Yii::$app->request->get('ok')) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $model = new BuildingBase();
+                    $model->building_base_building_id = $building;
+                    $model->building_base_construction_type_id = ConstructionType::DESTROY;
+                    $model->building_base_day = 1;
+                    $model->building_base_team_id = $team->team_id;
+                    $model->save();
+
+                    Finance::log([
+                        'finance_building_id' => $building,
+                        'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
+                        'finance_level' => $base->$baseLevel,
+                        'finance_team_id' => $team->team_id,
+                        'finance_value' => $base->$basePrice,
+                        'finance_value_after' => $team->team_finance + $base->$basePrice,
+                        'finance_value_before' => $team->team_finance,
+                    ]);
+
+                    $team->team_finance = $team->team_finance + $base->$basePrice;
+                    $team->save(true, ['team_finance']);
+                    $transaction->commit();
+
+                    $this->setSuccessFlash('Строительство успешно началось.');
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                    $this->setErrorFlash();
+                }
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            }
+
+            $message = 'При строительстве здания <span class="strong">' . $base->$baseLevel
+                . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($base->$basePrice)
+                . '</span>. Это займет <span class="strong">1</span> день.';
+        }
+
+        return $this->render('destroy', [
+            'building' => $building,
+            'message' => $message,
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionCancel($id)
+    {
+        $team = $this->myTeam;
+        $this->notFound($team);
+
+        $buildingBase = BuildingBase::find()
+            ->where(['building_base_id' => $id, 'building_base_ready' => 0, 'building_base_team_id' => $team->team_id])
+            ->limit(1)
+            ->one();
+        if (!$buildingBase) {
+            $this->setErrorFlash('Строительство выбрано неправильно.');
+            return $this->redirect(['base/view', 'id' => $team->team_id]);
+        }
+
+        $finance = Finance::find()
+            ->where([
+                'finance_finance_text_id' => [FinanceText::INCOME_BUILDING_BASE, FinanceText::OUTCOME_BUILDING_BASE],
+                'finance_team_id' => $team->team_id,
+            ])
+            ->orderBy(['finance_id' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$finance) {
+            $this->setErrorFlash('Строительство выбрано неправильно.');
+            return $this->redirect(['base/view', 'id' => $team->team_id]);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($finance->finance_value < 0) {
+                    $buildingId = FinanceText::INCOME_BUILDING_BASE;
+                    $level = $finance->finance_level + 1;
+                } else {
+                    $buildingId = FinanceText::OUTCOME_BUILDING_BASE;
+                    $level = $finance->finance_level - 1;
+                }
+
+                $buildingBase->delete();
+
+                Finance::log([
+                    'finance_building_id' => $buildingId,
+                    'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
+                    'finance_level' => $level,
+                    'finance_team_id' => $team->team_id,
+                    'finance_value' => $finance->finance_value,
+                    'finance_value_after' => $team->team_finance - $finance->finance_value,
+                    'finance_value_before' => $team->team_finance,
+                ]);
+
+                $team->team_finance = $team->team_finance - $finance->finance_value;
+                $team->save(true, ['team_finance']);
+                $transaction->commit();
+
+                $this->setSuccessFlash('Строительство успешно отменено.');
+            } catch (Throwable $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+            return $this->redirect(['base/view', 'id' => $team->team_id]);
+        }
+
+        return $this->render('cancel', [
+            'id' => $id,
+            'price' => -$finance->finance_value,
             'team' => $team,
         ]);
     }
