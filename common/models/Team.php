@@ -549,6 +549,12 @@ class Team extends AbstractActiveRecord
         return [$teamId, $team, $latest, $nearest];
     }
 
+    public function fullName(): string
+    {
+        return $this->team_name
+            . ' (' . $this->stadium->city->city_name . ', ' . $this->stadium->city->country->country_name . ')';
+    }
+
     /**
      * @param string $type
      * @param bool $short

@@ -82,6 +82,8 @@ return [
                 'activation' => 'site/activation',
                 'activation/repeat' => 'site/activation-repeat',
                 'base/build/<building:\d+>' => 'base/build',
+                'base/free' => 'base-free/view',
+                'base/free/build/<building:\d+>' => 'base-free/build',
                 'base/destroy/<building:\d+>' => 'base/destroy',
                 'forum/theme/create/<id:\d+>' => 'forum/theme-create',
                 'login' => 'site/login',

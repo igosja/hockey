@@ -1,5 +1,6 @@
 <?php
 
+use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
@@ -18,9 +19,11 @@ use yii\helpers\Html;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         Вы собираетесь отменить строительство здания.
         <?php if ($price > 0) : ?>
-            Компенсансация за отмену строительства составит <span class="strong"><?= $price; ?></span>.
+            Компенсансация за отмену строительства составит <span
+                    class="strong"><?= FormatHelper::asCurrency($price); ?></span>.
         <?php else : ?>
-            Оплата за отмену строительства составит <span class="strong"><?= $price; ?></span>.
+            Оплата за отмену строительства составит <span
+                    class="strong"><?= FormatHelper::asCurrency(-$price); ?></span>.
         <?php endif; ?>
     </div>
 </div>

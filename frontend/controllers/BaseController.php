@@ -36,10 +36,10 @@ class BaseController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['build'],
+                'only' => ['build', 'destroy', 'cancel'],
                 'rules' => [
                     [
-                        'actions' => ['build'],
+                        'actions' => ['build', 'destroy', 'cancel'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -59,7 +59,6 @@ class BaseController extends AbstractController
             ->where(['team_id' => $id])
             ->one();
         $this->notFound($team);
-
 
         $linkBaseArray = [];
         $linkTrainingArray = [];
@@ -256,7 +255,7 @@ class BaseController extends AbstractController
             }
         }
 
-        $this->setSeoTitle('База команды');
+        $this->setSeoTitle('База команды ' . $team->fullName());
 
         return $this->render('view', [
             'delBase' => $delBase,
@@ -448,6 +447,8 @@ class BaseController extends AbstractController
                 . '</span> дн.';
         }
 
+        $this->setSeoTitle('Строительство базы команды ' . $team->fullName());
+
         return $this->render('build', [
             'building' => $building,
             'message' => $message,
@@ -616,6 +617,8 @@ class BaseController extends AbstractController
                 . '</span>. Это займет <span class="strong">1</span> день.';
         }
 
+        $this->setSeoTitle('Разрушение базы команды ' . $team->fullName());
+
         return $this->render('destroy', [
             'building' => $building,
             'message' => $message,
@@ -692,9 +695,11 @@ class BaseController extends AbstractController
             return $this->redirect(['base/view', 'id' => $team->team_id]);
         }
 
+        $this->setSeoTitle('Отмена строительства базы команды ' . $team->fullName());
+
         return $this->render('cancel', [
             'id' => $id,
-            'price' => FormatHelper::asCurrency(-$finance->finance_value),
+            'price' => -$finance->finance_value,
             'team' => $team,
         ]);
     }
