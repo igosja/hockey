@@ -15,12 +15,14 @@ class RuleController extends AbstractController
      */
     public function actionIndex(): string
     {
-        $rules = Rule::find()->orderBy(['rule_order' => SORT_ASC])->all();
+        $rule = Rule::find()
+            ->orderBy(['rule_order' => SORT_ASC])
+            ->all();
 
         $this->setSeoTitle('Правила');
 
         return $this->render('index', [
-            'rules' => $rules,
+            'rule' => $rule,
         ]);
     }
 
@@ -31,7 +33,10 @@ class RuleController extends AbstractController
      */
     public function actionView($id): string
     {
-        $rule = Rule::findOne($id);
+        $rule = Rule::find()
+            ->where(['rule_id' => $id])
+            ->limit(1)
+            ->one();
         $this->notFound($rule);
 
         $this->setSeoTitle($rule->rule_title . ' - Правила');

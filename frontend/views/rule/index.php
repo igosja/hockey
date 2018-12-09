@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Rule[] $rules
+ * @var \common\models\Rule[] $rule
  */
 
 ?>
@@ -15,9 +15,9 @@ use yii\helpers\Html;
             </div>
         </div>
         <ul>
-            <?php foreach ($rules as $item) { ?>
+            <?php foreach ($rule as $item) : ?>
                 <li><?= Html::a($item->rule_title, ['rule/view', 'id' => $item->rule_id]); ?></li>
-            <?php } ?>
+            <?php endforeach; ?>
         </ul>
     </div>
 </div>
