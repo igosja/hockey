@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -21,8 +23,6 @@ use yii\db\ActiveQuery;
  */
 class NewsComment extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 20;
-
     /**
      * @return string
      */
@@ -81,7 +81,6 @@ class NewsComment extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
      */
     public function addComment(): bool
     {
@@ -98,13 +97,17 @@ class NewsComment extends AbstractActiveRecord
         if ($user->user_date_block_comment >= time()) {
             return false;
         }
-
         if (!$this->load(Yii::$app->request->post())) {
             return false;
         }
 
         $this->news_comment_news_id = Yii::$app->request->get('id');
-        if (!$this->save()) {
+        try {
+            if (!$this->save()) {
+                return false;
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
             return false;
         }
 

@@ -26,7 +26,7 @@ $user = Yii::$app->user->identity;
         <?= $news->news_title; ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
-        <?= \common\components\FormatHelper::asDateTime($news->news_date); ?>
+        <?= FormatHelper::asDateTime($news->news_date); ?>
         -
         <?= $news->user->userLink(['class' => 'strong']); ?>
     </div>
@@ -34,26 +34,29 @@ $user = Yii::$app->user->identity;
         <?= $news->news_text; ?>
     </div>
 </div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <span class="strong">Последние комментарии:</span>
+<?php if ($dataProvider->models) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="strong">Последние комментарии:</span>
+        </div>
     </div>
-</div>
-<div class="row">
-    <?php
+    <div class="row">
+        <?php
 
-    try {
-        print ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemOptions' => ['class' => 'row border-top'],
-            'itemView' => '_comment',
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
+        try {
+            print ListView::widget([
+                'dataProvider' => $dataProvider,
+                'emptyText' => false,
+                'itemOptions' => ['class' => 'row border-top'],
+                'itemView' => '_comment',
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-    ?>
-</div>
+        ?>
+    </div>
+<?php endif; ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
     <?php if ($user->user_date_block_comment_news >= time()) : ?>
         <div class="row margin-top">
@@ -73,7 +76,7 @@ $user = Yii::$app->user->identity;
                 Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
             </div>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <?php $form = ActiveForm::begin([
             'fieldConfig' => [
                 'errorOptions' => [

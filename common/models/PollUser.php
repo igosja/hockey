@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use Exception;
 use Yii;
 
 /**
@@ -48,5 +50,27 @@ class PollUser extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function addAnswer(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        try {
+            if (!$this->save()) {
+                return false;
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            return false;
+        }
+        return true;
     }
 }

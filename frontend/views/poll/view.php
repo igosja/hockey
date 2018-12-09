@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-
 /**
  * @var \common\models\Poll $poll
  */
@@ -25,20 +23,17 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Автор:
-                <?= Html::a(
-                    $poll->user->user_login,
-                    ['user/view', 'id' => $poll->poll_user_id]
-                ); ?>
+                <?= $poll->user->userLink(); ?>
             </div>
         </div>
-        <?php foreach ($poll->pollAnswer as $answer) : ?>
+        <?php foreach ($poll->answers() as $answer) : ?>
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <?= $answer->poll_answer_text; ?>
+                    <?= $answer['answer']; ?>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                    <?= count($answer->pollUser); ?>
-                    (%)
+                    <?= $answer['count']; ?>
+                    (<?= $answer['percent']; ?>%)
                 </div>
             </div>
         <?php endforeach; ?>

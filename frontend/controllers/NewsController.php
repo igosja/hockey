@@ -61,7 +61,7 @@ class NewsController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => News::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeNews'],
             ],
         ]);
 
@@ -75,7 +75,6 @@ class NewsController extends AbstractController
     /**
      * @param int $id
      * @return string|Response
-     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id)
@@ -107,7 +106,7 @@ class NewsController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => NewsComment::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeNewsComment'],
             ],
         ]);
 
