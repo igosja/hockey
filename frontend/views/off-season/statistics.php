@@ -8,7 +8,6 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
- * @var int $count
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
@@ -46,12 +45,12 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
-            'header' => 'Команда',
+            'label' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
             'value' => function (StatisticTeam $model) {
@@ -72,22 +71,22 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
-            'header' => 'Игрок',
             'footer' => 'Игрок',
             'format' => 'raw',
+            'label' => 'Игрок',
             'value' => function (StatisticPlayer $model) {
                 return $model->player->playerLink();
             }
         ],
         [
-            'header' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
+            'label' => 'Команда',
             'value' => function (StatisticPlayer $model) {
                 return $model->team->teamLink('img');
             }
@@ -110,6 +109,7 @@ if ($statisticType->isTeamChapter()) {
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'emptyText' => false,
             'showFooter' => true,
         ]);
     } catch (Exception $e) {

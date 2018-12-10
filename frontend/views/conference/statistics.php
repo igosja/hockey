@@ -45,9 +45,9 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
             'footer' => 'Команда',
@@ -71,9 +71,9 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
             'footer' => 'Игрок',
@@ -109,6 +109,7 @@ if ($statisticType->isTeamChapter()) {
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'emptyText' => false,
             'showFooter' => true,
         ]);
     } catch (Exception $e) {

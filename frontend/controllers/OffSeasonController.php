@@ -50,6 +50,9 @@ class OffSeasonController extends AbstractController
             ->orderBy(['off_season_place' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'query' => $query,
             'sort' => false,
         ]);
@@ -66,7 +69,7 @@ class OffSeasonController extends AbstractController
             'team.stadium.city.country.country_name'
         );
 
-        $this->setSeoTitle('Кубок межсезонья');
+        $this->setSeoTitle('Турнирная таблица кубка межсезонья');
 
         return $this->render('table', [
             'countryArray' => $countryArray,
@@ -87,10 +90,12 @@ class OffSeasonController extends AbstractController
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])
+            ->limit(1)
             ->one();
         if (!$statisticType) {
             $statisticType = StatisticType::find()
                 ->where(['statistic_type_id' => StatisticType::TEAM_NO_PASS])
+                ->limit(1)
                 ->one();
         }
 
@@ -117,11 +122,14 @@ class OffSeasonController extends AbstractController
         }
 
         $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'query' => $query,
             'sort' => false,
         ]);
 
-        $this->setSeoTitle('Кубок межсезонья');
+        $this->setSeoTitle('Статистика кубка межсезонья');
 
         return $this->render('statistics', [
             'dataProvider' => $dataProvider,
