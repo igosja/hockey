@@ -18,9 +18,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>
-            Рейтинги
-        </h1>
+        <h1>Рейтинги</h1>
     </div>
 </div>
 <?= Html::beginForm(['rating/index'], 'get'); ?>
@@ -62,9 +60,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 's21',
-                    'label' => 's21',
-                    'headerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
                     'footerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
+                    'headerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
+                    'label' => 's21',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->team_power_s_21;
                     }
@@ -82,9 +80,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 's32',
-                    'label' => 's32',
-                    'headerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
                     'footerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
+                    'headerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
+                    'label' => 's32',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->team_power_s_32;
                     }
@@ -92,9 +90,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Vs',
-                    'label' => 'Vs',
-                    'headerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                     'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                    'headerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                    'label' => 'Vs',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->team_power_vs;
                     }
@@ -103,9 +101,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В',
-                    'label' => 'В',
-                    'headerOptions' => ['title' => 'Средний возраст'],
                     'footerOptions' => ['title' => 'Средний возраст'],
+                    'headerOptions' => ['title' => 'Средний возраст'],
+                    'label' => 'В',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->team_age;
                     }
@@ -132,9 +130,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Б',
-                    'label' => 'Б',
-                    'headerOptions' => ['title' => 'База'],
                     'footerOptions' => ['title' => 'База'],
+                    'headerOptions' => ['title' => 'База'],
+                    'label' => 'Б',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->base->base_level;
                     }
@@ -142,9 +140,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'П',
-                    'label' => 'П',
-                    'headerOptions' => ['title' => 'Количество построек'],
                     'footerOptions' => ['title' => 'Количество построек'],
+                    'headerOptions' => ['title' => 'Количество построек'],
+                    'label' => 'П',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->baseUsed();
                     }
@@ -152,9 +150,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Т',
-                    'label' => 'Т',
-                    'headerOptions' => ['title' => 'Тренировочная база'],
                     'footerOptions' => ['title' => 'Тренировочная база'],
+                    'headerOptions' => ['title' => 'Тренировочная база'],
+                    'label' => 'Т',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->baseTraining->base_training_level;
                     }
@@ -162,9 +160,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'М',
-                    'label' => 'М',
-                    'headerOptions' => ['title' => 'Медицинский центр'],
                     'footerOptions' => ['title' => 'Медицинский центр'],
+                    'headerOptions' => ['title' => 'Медицинский центр'],
+                    'label' => 'М',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->baseMedical->base_medical_level;
                     }
@@ -172,9 +170,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Ф',
-                    'label' => 'Ф',
-                    'headerOptions' => ['title' => 'Физцентр'],
                     'footerOptions' => ['title' => 'Физцентр'],
+                    'headerOptions' => ['title' => 'Физцентр'],
+                    'label' => 'Ф',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->basePhysical->base_physical_level;
                     }
@@ -182,9 +180,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Сп',
-                    'label' => 'Сп',
-                    'headerOptions' => ['title' => 'Спротшкола'],
                     'footerOptions' => ['title' => 'Спротшкола'],
+                    'headerOptions' => ['title' => 'Спротшкола'],
+                    'label' => 'Сп',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->baseSchool->base_school_level;
                     }
@@ -192,9 +190,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Ск',
-                    'label' => 'Ск',
-                    'headerOptions' => ['title' => 'Скаутцентр'],
                     'footerOptions' => ['title' => 'Скаутцентр'],
+                    'headerOptions' => ['title' => 'Скаутцентр'],
+                    'label' => 'Ск',
                     'value' => function (RatingTeam $model): string {
                         return $model->team->baseScout->base_scout_level;
                     }
@@ -304,9 +302,9 @@ use yii\helpers\Html;
             $columns[] = [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
-                'label' => 'С',
-                'headerOptions' => ['title' => 'Страна'],
                 'footerOptions' => ['title' => 'Страна'],
+                'headerOptions' => ['title' => 'Страна'],
+                'label' => 'С',
                 'value' => function (RatingUser $model): string {
                     return $model->user->country->countryImage();
                 }
@@ -334,9 +332,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'И',
-                    'label' => 'И',
-                    'headerOptions' => ['title' => 'Игры'],
                     'footerOptions' => ['title' => 'Игры'],
+                    'headerOptions' => ['title' => 'Игры'],
+                    'label' => 'И',
                     'value' => function (RatingCountry $model): string {
                         return $model->country->country_game;
                     }
@@ -344,9 +342,9 @@ use yii\helpers\Html;
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'А',
-                    'label' => 'А',
-                    'headerOptions' => ['title' => 'Автосоставы'],
                     'footerOptions' => ['title' => 'Автосоставы'],
+                    'headerOptions' => ['title' => 'Автосоставы'],
+                    'label' => 'А',
                     'value' => function (RatingCountry $model): string {
                         return $model->country->country_auto;
                     }
@@ -366,6 +364,7 @@ use yii\helpers\Html;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'emptyText' => false,
             'showFooter' => true,
             'summary' => false,
         ]);

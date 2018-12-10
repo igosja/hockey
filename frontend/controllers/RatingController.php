@@ -19,14 +19,19 @@ class RatingController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionIndex($id = RatingType::TEAM_POWER): string
     {
         $ratingType = RatingType::find()
             ->where(['rating_type_id' => $id])
+            ->limit(1)
             ->one();
-        $this->notFound($ratingType);
+        if (!$ratingType) {
+            $ratingType = RatingType::find()
+                ->where(['rating_type_id' => RatingType::TEAM_POWER])
+                ->limit(1)
+                ->one();
+        }
 
         if (RatingChapter::TEAM == $ratingType->rating_type_rating_chapter_id) {
             $query = RatingTeam::find()
