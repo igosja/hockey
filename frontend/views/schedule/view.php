@@ -34,14 +34,14 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'col-47 text-right'],
                 'format' => 'raw',
-                'value' => function (Game $model) {
+                'value' => function (Game $model): string {
                     return $model->teamOrNationalLink();
                 }
             ],
             [
                 'contentOptions' => ['class' => 'col-6 text-center'],
                 'format' => 'raw',
-                'value' => function (Game $model) {
+                'value' => function (Game $model): string {
                     return Html::a(
                         $model->formatScore(),
                         ['game/view', 'id' => $model->game_id]
@@ -51,7 +51,7 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'col-47'],
                 'format' => 'raw',
-                'value' => function (Game $model) {
+                'value' => function (Game $model): string {
                     return $model->teamOrNationalLink('guest');
                 }
             ],

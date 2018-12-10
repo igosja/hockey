@@ -93,8 +93,8 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Vs',
                     'label' => 'Vs',
-                    'headerOptions' => ['title' => 'Сила команды в длительных соревнованиях'],
-                    'footerOptions' => ['title' => 'Сила команды в длительных соревнованиях'],
+                    'headerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                    'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                     'value' => function (RatingTeam $model): string {
                         return $model->team->team_power_vs;
                     }
