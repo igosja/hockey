@@ -53,6 +53,9 @@ class ConferenceController extends AbstractController
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'sort' => false,
         ]);
 
