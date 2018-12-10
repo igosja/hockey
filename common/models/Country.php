@@ -80,6 +80,14 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
+    public function countryImageLink(): string
+    {
+        return Html::a($this->countryImage(), ['country/news', 'id' => $this->country_id]);
+    }
+
+    /**
+     * @return string
+     */
     public function countryLink(): string
     {
         return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
