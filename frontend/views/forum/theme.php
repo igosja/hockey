@@ -110,12 +110,12 @@ $user = Yii::$app->user->identity;
                 'options' => ['class' => 'row'],
                 'template' =>
                     '<div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
-                </div>
-                <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
-                </div>
-                <div class="row">{error}</div>',
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
+                    </div>
+                    <div class="row">{error}</div>',
             ],
         ]); ?>
         <?= $form->field($model, 'forum_message_text')->textarea(['rows' => 5])->label('Ваш ответ:'); ?>

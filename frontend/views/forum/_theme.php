@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\UserRole;
 use yii\helpers\Html;
 
@@ -38,15 +38,7 @@ $user = Yii::$app->user->identity;
         </div>
         <div class="row text-size-2">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php
-
-                try {
-                    print Yii::$app->formatter->asDatetime($model->forum_theme_date, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($model->forum_theme_date); ?>
             </div>
         </div>
     </div>
@@ -59,20 +51,12 @@ $user = Yii::$app->user->identity;
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-size-2">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?= $model->forumMessage[0]->user->userLink(); ?>
+                <?= $model->forumMessage[0]->user->userLink(['color' => true]); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?php
-
-                try {
-                    print Yii::$app->formatter->asDatetime($model->forumMessage[0]->forum_message_date, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($model->forumMessage[0]->forum_message_date); ?>
             </div>
         </div>
     </div>
