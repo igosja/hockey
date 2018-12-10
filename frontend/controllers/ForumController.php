@@ -157,6 +157,27 @@ class ForumController extends AbstractController
     }
 
     /**
+     * @return string
+     */
+    public function actionSearch(): string
+    {
+        $query = ForumMessage::find()
+            ->filterWhere(['like', 'forum_message_text', Yii::$app->request->get('q')]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeForum']
+            ]
+        ]);
+
+        $this->setSeoTitle('Результаты поиска');
+
+        return $this->render('search', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * @param $id
      * @return string|\yii\web\Response
      * @throws \yii\db\Exception

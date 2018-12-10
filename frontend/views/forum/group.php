@@ -8,6 +8,7 @@ use yii\widgets\ListView;
  * @var \common\models\ForumGroup $forumGroup
  * @var \common\models\User $user
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \yii\web\View $this
  */
 
 $user = Yii::$app->user->identity;
@@ -46,11 +47,7 @@ $user = Yii::$app->user->identity;
                 <?php endif; ?>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-                <form action="/forum_search.php" class="form-inline" method="GET">
-                    <label class="hidden" for="forum-search"></label>
-                    <input class="form-control form-small" id="forum-search" name="q"/>
-                    <button class="btn">Поиск</button>
-                </form>
+                <?= $this->render('/forum/_searchForm'); ?>
             </div>
         </div>
         <div class="row forum-row-head">
