@@ -75,6 +75,7 @@ $user = Yii::$app->user->identity;
             print ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_theme',
+                'summary' => false,
             ]);
         } catch (Exception $e) {
             ErrorHelper::log($e);

@@ -144,6 +144,9 @@ class ForumController extends AbstractController
             ]
         ]);
 
+        $forumTheme->forum_theme_count_view++;
+        $forumTheme->save();
+
         $this->setSeoTitle('Форум');
 
         return $this->render('theme', [
