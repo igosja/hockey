@@ -24,7 +24,9 @@ class ConferenceController extends AbstractController
     public function actionIndex(): string
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
-        $count = Conference::find()->where(['conference_season_id' => $seasonId])->count();
+        $count = Conference::find()
+            ->where(['conference_season_id' => $seasonId])
+            ->count();
 
         $this->setSeoTitle('Конференция любительских клубов');
 
