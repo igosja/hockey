@@ -78,7 +78,7 @@ class ForumController extends AbstractController
             ->one();
         $this->notFound($forumChapter);
 
-        $this->setSeoTitle('Форум');
+        $this->setSeoTitle($forumChapter->forum_chapter_name . ' - Форум');
 
         return $this->render('chapter', [
             'forumChapter' => $forumChapter,
@@ -107,7 +107,7 @@ class ForumController extends AbstractController
             ]
         ]);
 
-        $this->setSeoTitle('Форум');
+        $this->setSeoTitle($forumGroup->forum_group_name . ' - Форум');
 
         return $this->render('group', [
             'dataProvider' => $dataProvider,
@@ -147,7 +147,7 @@ class ForumController extends AbstractController
         $forumTheme->forum_theme_count_view++;
         $forumTheme->save();
 
-        $this->setSeoTitle('Форум');
+        $this->setSeoTitle($forumTheme->forum_theme_name . ' - Форум');
 
         return $this->render('theme', [
             'dataProvider' => $dataProvider,
@@ -170,7 +170,7 @@ class ForumController extends AbstractController
             ]
         ]);
 
-        $this->setSeoTitle('Результаты поиска');
+        $this->setSeoTitle('Результаты поиска - Форум');
 
         return $this->render('search', [
             'dataProvider' => $dataProvider,
@@ -197,7 +197,7 @@ class ForumController extends AbstractController
             return $this->redirect(['forum/theme', 'id' => $model->getThemeId()]);
         }
 
-        $this->setSeoTitle('Создание темы');
+        $this->setSeoTitle('Создание темы - ' . $forumGroup->forum_group_name . ' - Форум');
 
         return $this->render('theme-create', [
             'forumGroup' => $forumGroup,
