@@ -8,7 +8,6 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
- * @var int $count
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
@@ -51,9 +50,9 @@ if ($statisticType->isTeamChapter()) {
             'footer' => '№',
         ],
         [
-            'header' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
+            'label' => 'Команда',
             'value' => function (StatisticTeam $model) {
                 return $model->team->teamLink('img');
             }
@@ -77,17 +76,17 @@ if ($statisticType->isTeamChapter()) {
             'footer' => '№',
         ],
         [
-            'header' => 'Игрок',
             'footer' => 'Игрок',
             'format' => 'raw',
+            'label' => 'Игрок',
             'value' => function (StatisticPlayer $model) {
                 return $model->player->playerLink();
             }
         ],
         [
-            'header' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
+            'label' => 'Команда',
             'value' => function (StatisticPlayer $model) {
                 return $model->team->teamLink('img');
             }
