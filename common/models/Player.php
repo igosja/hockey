@@ -403,6 +403,24 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public function myPlayer(): bool
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        if (!$controller->myTeam) {
+            return false;
+        }
+        if ($controller->myTeam->team_id != $this->player_team_id) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery

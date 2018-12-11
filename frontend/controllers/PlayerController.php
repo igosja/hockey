@@ -78,11 +78,14 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id): string
     {
+        $player = $this->getPlayer($id);
+
         $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -98,10 +101,11 @@ class PlayerController extends AbstractController
                 ->orderBy(['schedule_date' => SORT_ASC]),
         ]);
 
-        $this->setSeoTitle('Профиль игрока');
+        $this->setSeoTitle($player->playerName() . '. Профиль игрока');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
             'seasonArray' => Season::getSeasonArray(),
             'seasonId' => $seasonId,
         ]);
@@ -428,5 +432,99 @@ class PlayerController extends AbstractController
         }
 
         return true;
+    }
+
+    /**
+     * @param int $id
+     * @return Player
+     * @throws \yii\web\NotFoundHttpException
+     */
+    private function getPlayer(int $id): Player
+    {
+        $player = Player::find()
+            ->with([
+                'country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'loanTeam' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
+                },
+                'loanTeam.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
+                },
+                'loanTeam.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'loanTeam.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'name' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['name_id', 'name_name']);
+                },
+                'physical' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['physical_id', 'physical_name']);
+                },
+                'playerPosition' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['player_position_player_id', 'player_position_position_id']);
+                },
+                'playerPosition.position' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['position_id', 'position_name']);
+                },
+                'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select([
+                        'player_special_level',
+                        'player_special_player_id',
+                        'player_special_special_id',
+                    ]);
+                },
+                'playerSpecial.special' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['special_id', 'special_name']);
+                },
+                'style' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['style_id', 'style_name']);
+                },
+                'surname' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['surname_id', 'surname_name']);
+                },
+                'team' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
+                },
+                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
+                },
+                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->select([
+                'player_age',
+                'player_country_id',
+                'player_id',
+                'player_injury',
+                'player_injury_day',
+                'player_loan_day',
+                'player_loan_team_id',
+                'player_name_id',
+                'player_national_id',
+                'player_physical_id',
+                'player_power_nominal',
+                'player_power_real',
+                'player_price',
+                'player_salary',
+                'player_squad_id',
+                'player_style_id',
+                'player_surname_id',
+                'player_team_id',
+                'player_tire',
+            ])
+            ->where(['player_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($player);
+
+        return $player;
     }
 }

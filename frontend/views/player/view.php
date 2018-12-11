@@ -8,35 +8,36 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \common\models\Player $player
  * @var array $seasonArray
  * @var int $seasonId
  * @var \yii\web\View $this
  */
 
-print $this->render('_player');
+print $this->render('_player', ['player' => $player]);
 
 ?>
 <?= Html::beginForm('', 'get'); ?>
-        <div class="row margin-top-small">
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                <?= $this->render('_links'); ?>
+<div class="row margin-top-small">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+        <?= $this->render('//player/_links'); ?>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+                <?= Html::label('Сезон', 'seasonId') ?>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-                        <?= Html::label('Сезон', 'seasonId') ?>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <?= Html::dropDownList(
-                            'season_id',
-                            $seasonId,
-                            $seasonArray,
-                            ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
-                        ); ?>
-                    </div>
-                </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <?= Html::dropDownList(
+                    'season_id',
+                    $seasonId,
+                    $seasonArray,
+                    ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+                ); ?>
             </div>
         </div>
+    </div>
+</div>
 <?= Html::endForm(); ?>
     <div class="row">
         <?php
@@ -46,7 +47,7 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Дата',
-                    'header' => 'Дата',
+                    'label' => 'Дата',
                     'value' => function (Lineup $model): string {
                         return Yii::$app->formatter->asDate($model->game->schedule->schedule_date, 'short');
                     }
@@ -55,19 +56,11 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Матч',
                     'format' => 'raw',
-                    'header' => 'Матч',
+                    'label' => 'Матч',
                     'value' => function (Lineup $model): string {
-                        return HockeyHelper::teamOrNationalLink(
-                                $model->game->teamHome,
-                                $model->game->nationalHome,
-                                false
-                            )
+                        return $model->game->teamOrNationalLink('home', false)
                             . '-'
-                            . HockeyHelper::teamOrNationalLink(
-                                $model->game->teamGuest,
-                                $model->game->nationalGuest,
-                                false
-                            );
+                            . $model->game->teamOrNationalLink('guest', false);
                     }
                 ],
                 [
@@ -75,11 +68,11 @@ print $this->render('_player');
                     'footer' => 'Сч',
                     'footerOptions' => ['title' => 'Счёт'],
                     'format' => 'raw',
-                    'header' => 'Сч',
                     'headerOptions' => ['title' => 'Счёт'],
+                    'label' => 'Сч',
                     'value' => function (Lineup $model): string {
                         return Html::a(
-                            $model->game->game_home_score . ':' . $model->game->game_guest_score,
+                            $model->game->formatScore(),
                             ['game/view', 'id' => $model->game->game_id]
                         );
                     }
@@ -87,7 +80,7 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Тип матча',
-                    'header' => 'Тип матча',
+                    'label' => 'Тип матча',
                     'value' => function (Lineup $model): string {
                         return $model->game->schedule->tournamentType->tournament_type_name;
                     }
@@ -95,7 +88,7 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стадия',
-                    'header' => 'Стадия',
+                    'label' => 'Стадия',
                     'value' => function (Lineup $model): string {
                         return $model->game->schedule->stage->stage_name;
                     }
@@ -104,8 +97,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Поз',
                     'footerOptions' => ['title' => 'Позиция'],
-                    'header' => 'Поз',
                     'headerOptions' => ['title' => 'Позиция'],
+                    'label' => 'Поз',
                     'value' => function (Lineup $model): string {
                         return $model->position->position_name;
                     }
@@ -114,8 +107,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['title' => 'Сила'],
-                    'header' => 'С',
                     'headerOptions' => ['title' => 'Сила'],
+                    'label' => 'С',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_power_real;
                     }
@@ -124,8 +117,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Ш',
                     'footerOptions' => ['title' => 'Шайбы'],
-                    'header' => 'Ш',
                     'headerOptions' => ['title' => 'Шайбы'],
+                    'label' => 'Ш',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_score;
                     }
@@ -134,8 +127,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'П',
                     'footerOptions' => ['title' => 'Голевые передачи'],
-                    'header' => 'П',
                     'headerOptions' => ['title' => 'Голевые передачи'],
+                    'label' => 'П',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_score;
                     }
@@ -144,8 +137,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '+/-',
                     'footerOptions' => ['title' => 'Плюс/минус'],
-                    'header' => '+/-',
                     'headerOptions' => ['title' => 'Плюс/минус'],
+                    'label' => '+/-',
                     'value' => function (Lineup $model): string {
                         return HockeyHelper::plusNecessary($model->lineup_plus_minus);
                     }
@@ -163,6 +156,7 @@ print $this->render('_player');
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProvider,
+                'emptyText' => false,
                 'showFooter' => true,
                 'summary' => false,
             ]);
@@ -178,3 +172,4 @@ print $this->render('_player');
         </div>
     </div>
 <?= $this->render('/site/_show-full-table'); ?>
+
