@@ -114,6 +114,10 @@ class ForumMessage extends AbstractActiveRecord
          * @var User $user
          */
         $user = Yii::$app->user->identity;
+        if (!$user) {
+            return '';
+        }
+
         $isUser = (UserRole::USER == $user->user_user_role_id);
         $linkArray = [];
 
