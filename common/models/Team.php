@@ -549,6 +549,12 @@ class Team extends AbstractActiveRecord
         return [$teamId, $team, $latest, $nearest];
     }
 
+    public function fullName(): string
+    {
+        return $this->team_name
+            . ' (' . $this->stadium->city->city_name . ', ' . $this->stadium->city->country->country_name . ')';
+    }
+
     /**
      * @param string $type
      * @param bool $short
@@ -587,6 +593,87 @@ class Team extends AbstractActiveRecord
                 );
             }
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function availablePhysical(): int
+    {
+        return $this->basePhysical->base_physical_change_count - $this->usedPhysical();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableSchool(): int
+    {
+        return $this->baseSchool->base_school_player_count - $this->usedSchool();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableScout(): int
+    {
+        return $this->baseScout->base_scout_my_style_count - $this->usedScout();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableTrainingPower(): int
+    {
+        return $this->baseTraining->base_training_power_count - $this->usedTrainingPower();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableTrainingSpecial(): int
+    {
+        return $this->baseTraining->base_training_special_count - $this->usedTrainingSpecial();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableTrainingPosition(): int
+    {
+        return $this->baseTraining->base_training_position_count - $this->usedTrainingPosition();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSchool(): bool
+    {
+        $onSchool = School::find()
+            ->where(['school_team_id' => $this->team_id, 'school_ready' => 0])
+            ->count();
+        return $onSchool ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isScout(): bool
+    {
+        $onScout = Scout::find()
+            ->where(['scout_team_id' => $this->team_id, 'scout_ready' => 0])
+            ->count();
+        return $onScout ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTraining(): bool
+    {
+        $onScout = Training::find()
+            ->where(['training_team_id' => $this->team_id, 'training_ready' => 0])
+            ->count();
+        return $onScout ? true : false;
     }
 
     /**
@@ -648,7 +735,10 @@ class Team extends AbstractActiveRecord
     public function usedPhysical(): int
     {
         return PhysicalChange::find()
-            ->where(['physical_change_team_id' => $this->team_id, 'physical_change_season_id' => Season::getCurrentSeason()])
+            ->where([
+                'physical_change_team_id' => $this->team_id,
+                'physical_change_season_id' => Season::getCurrentSeason()
+            ])
             ->andWhere([
                 '<',
                 'physical_change_schedule_id',
@@ -668,7 +758,10 @@ class Team extends AbstractActiveRecord
     public function planPhysical(): int
     {
         return PhysicalChange::find()
-            ->where(['physical_change_team_id' => $this->team_id, 'physical_change_season_id' => Season::getCurrentSeason()])
+            ->where([
+                'physical_change_team_id' => $this->team_id,
+                'physical_change_season_id' => Season::getCurrentSeason()
+            ])
             ->andWhere([
                 '>',
                 'physical_change_schedule_id',

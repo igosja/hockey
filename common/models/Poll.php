@@ -4,7 +4,7 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
-use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -25,8 +25,6 @@ use yii\db\ActiveQuery;
  */
 class Poll extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 10;
-
     /**
      * @var array $answer
      */
@@ -99,7 +97,6 @@ class Poll extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
      * @throws \yii\db\Exception
      */
     public function savePoll()
@@ -120,6 +117,10 @@ class Poll extends AbstractActiveRecord
             }
 
             foreach ($this->answer as $answer) {
+                if (!$answer) {
+                    continue;
+                }
+
                 $model = new PollAnswer();
                 $model->poll_answer_text = $answer;
                 $model->poll_answer_poll_id = $this->poll_id;
@@ -127,7 +128,7 @@ class Poll extends AbstractActiveRecord
             }
 
             $transaction->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $transaction->rollBack();
             ErrorHelper::log($e);
             return false;
@@ -144,6 +145,27 @@ class Poll extends AbstractActiveRecord
         for ($i = 0, $countAnswer = count($this->pollAnswer); $i < $countAnswer; $i++) {
             $this->answer[$i] = $this->pollAnswer[$i]->poll_answer_text;
         }
+    }
+
+    public function answers()
+    {
+        $result = [];
+        $total = 0;
+        foreach ($this->pollAnswer as $answer) {
+            $count = count($answer->pollUser);
+            $result[] = [
+                'answer' => $answer->poll_answer_text,
+                'count' => $count,
+            ];
+            $total = $total + $count;
+        }
+        foreach ($result as $key => $value) {
+            $result[$key]['percent'] = $total ? round($result[$key]['count'] / $total * 100) : 0;
+        }
+        usort($result, function ($a, $b) {
+            return $b['count'] > $a['count'] ? 1 : 0;
+        });
+        return $result;
     }
 
     /**

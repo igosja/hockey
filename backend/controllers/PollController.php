@@ -38,16 +38,18 @@ class PollController extends AbstractController
 
     /**
      * @return string|Response
-     * @throws Throwable
-     * @throws \yii\db\Exception
      */
     public function actionCreate()
     {
         $model = new Poll();
 
-        if ($model->savePoll()) {
-            $this->setSuccessFlash();
-            return $this->redirect(['poll/view', 'id' => $model->poll_id]);
+        try {
+            if ($model->savePoll()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['poll/view', 'id' => $model->poll_id]);
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
         }
 
         $this->view->title = 'Создание опроса';

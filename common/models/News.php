@@ -24,8 +24,6 @@ use yii\db\ActiveQuery;
  */
 class News extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 10;
-
     /**
      * @return string
      */

@@ -33,8 +33,10 @@ use yii\widgets\ActiveForm;
             Условия поиска:
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-            <?= $form->field($model, 'country')->dropDownList($countryArray,
-                ['class' => 'form-control', 'prompt' => 'Национальность']); ?>
+            <?= $form->field($model, 'country')->dropDownList(
+                $countryArray,
+                ['class' => 'form-control', 'prompt' => 'Национальность']
+            ); ?>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
             <?= $form->field($model, 'name')->textInput([
@@ -94,8 +96,6 @@ use yii\widgets\ActiveForm;
                 'class' => 'form-control',
                 'placeholder' => 'Цена, до',
                 'type' => 'number',
-
-
             ]); ?>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
@@ -132,16 +132,7 @@ use yii\widgets\ActiveForm;
                     'headerOptions' => ['class' => 'hidden-xs col-1', 'title' => 'Национальность'],
                     'label' => 'Нац',
                     'value' => function (Player $model): string {
-                        return Html::a(
-                            Html::img(
-                                '/img/country/12/' . $model->player_country_id . '.png',
-                                [
-                                    'alt' => $model->country->country_name,
-                                    'title' => $model->country->country_name,
-                                ]
-                            ),
-                            ['country/news', 'id' => $model->player_country_id]
-                        );
+                        return $model->country->countryImageLink();
                     }
                 ],
                 [

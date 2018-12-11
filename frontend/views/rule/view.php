@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
@@ -17,15 +17,7 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
-                <?php
-
-                try {
-                    print Yii::$app->formatter->asDatetime($rule->rule_date, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($rule->rule_date); ?>
             </div>
         </div>
         <div class="row">

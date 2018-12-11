@@ -78,7 +78,7 @@ class ForumController extends AbstractController
             ->one();
         $this->notFound($forumChapter);
 
-        $this->setSeoTitle('Форум');
+        $this->setSeoTitle($forumChapter->forum_chapter_name . ' - Форум');
 
         return $this->render('chapter', [
             'forumChapter' => $forumChapter,
@@ -107,7 +107,7 @@ class ForumController extends AbstractController
             ]
         ]);
 
-        $this->setSeoTitle('Форум');
+        $this->setSeoTitle($forumGroup->forum_group_name . ' - Форум');
 
         return $this->render('group', [
             'dataProvider' => $dataProvider,
@@ -144,12 +144,36 @@ class ForumController extends AbstractController
             ]
         ]);
 
-        $this->setSeoTitle('Форум');
+        $forumTheme->forum_theme_count_view++;
+        $forumTheme->save();
+
+        $this->setSeoTitle($forumTheme->forum_theme_name . ' - Форум');
 
         return $this->render('theme', [
             'dataProvider' => $dataProvider,
             'forumTheme' => $forumTheme,
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionSearch(): string
+    {
+        $query = ForumMessage::find()
+            ->filterWhere(['like', 'forum_message_text', Yii::$app->request->get('q')]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeForum']
+            ]
+        ]);
+
+        $this->setSeoTitle('Результаты поиска - Форум');
+
+        return $this->render('search', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -173,7 +197,7 @@ class ForumController extends AbstractController
             return $this->redirect(['forum/theme', 'id' => $model->getThemeId()]);
         }
 
-        $this->setSeoTitle('Создание темы');
+        $this->setSeoTitle('Создание темы - ' . $forumGroup->forum_group_name . ' - Форум');
 
         return $this->render('theme-create', [
             'forumGroup' => $forumGroup,

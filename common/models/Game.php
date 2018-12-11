@@ -158,8 +158,6 @@ use yii\helpers\Html;
  */
 class Game extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 50;
-
     const TICKET_PRICE_BASE = 9;
     const TICKET_PRICE_DEFAULT = 20;
     const TICKET_PRICE_MAX = 50;
@@ -428,6 +426,75 @@ class Game extends AbstractActiveRecord
         if (Style::POWER == $style1 && Style::TECHNIQUE == $style2) {
             return $classLoose;
         }
+        return '';
+    }
+
+    /**
+     * @param string $first
+     * @return string
+     */
+    public function formatScore($first = 'home'): string
+    {
+        if ($this->game_played) {
+            if ('home' == $first) {
+                return $this->game_home_score . ':' . $this->game_guest_score;
+            } else {
+                return $this->game_guest_score . ':' . $this->game_home_score;
+            }
+        } else {
+            return '?:?';
+        }
+    }
+
+    /**
+     * @param string $side
+     * @param bool $full
+     * @param bool $link
+     * @return string
+     */
+    public function teamOrNationalLink(string $side = 'home', bool $full = true, bool $link = true): string
+    {
+        if ('home' == $side) {
+            $team = $this->teamHome;
+            $national = $this->nationalHome;
+        } else {
+            $team = $this->teamGuest;
+            $national = $this->nationalGuest;
+        }
+        if ($team) {
+            $name = $team->team_name;
+
+            if (true == $full) {
+                $name = $name . ' ' . Html::tag(
+                        'span',
+                        '(' . $team->stadium->city->city_name . ', ' . $team->stadium->city->country->country_name . ')',
+                        ['class' => 'hidden-xs']
+                    );
+            }
+
+            if (true == $link) {
+                return Html::a($name, ['team/view', 'id' => $team->team_id]);
+            } else {
+                return $name;
+            }
+        } elseif ($national) {
+            $name = $national->country->country_name;
+
+            if ($full) {
+                $name = $name . ' ' . Html::tag(
+                        'span',
+                        '(' . $national->nationalType->national_type_name . ')',
+                        ['class' => 'hidden-xs']
+                    );
+            }
+
+            if (true == $link) {
+                return Html::a($name, ['national/view', 'id' => $national->national_id]);
+            } else {
+                return $name;
+            }
+        }
+
         return '';
     }
 

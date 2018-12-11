@@ -3,6 +3,7 @@
 namespace common\components;
 
 use Exception;
+use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,10 +17,12 @@ class ErrorHelper
      */
     public static function log(Exception $e)
     {
-        print '<pre>';
-        print_r($e->__toString());
-        exit;
-//        Yii::error($e->__toString());
+        if (1 == Yii::$app->user->id) {
+            print '<pre>';
+            print_r($e->__toString());
+            exit;
+        }
+        Yii::error($e->__toString());
     }
 
     /**

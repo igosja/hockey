@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
@@ -25,55 +26,43 @@ $user = Yii::$app->user->identity;
         <?= $news->news_title; ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
-        <?php
-
-        try {
-            print Yii::$app->formatter->asDatetime($news->news_date, 'short');
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
-
-        ?>
+        <?= FormatHelper::asDateTime($news->news_date); ?>
         -
-        <?= Html::a($news->user->user_login, ['user/view', 'id' => $news->news_user_id], ['class' => 'strong']); ?>
+        <?= $news->user->userLink(['class' => 'strong']); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= $news->news_text; ?>
     </div>
 </div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <span class="strong">Последние комментарии:</span>
+<?php if ($dataProvider->models) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <span class="strong">Последние комментарии:</span>
+        </div>
     </div>
-</div>
-<div class="row">
-    <?php
+    <div class="row">
+        <?php
 
-    try {
-        print ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemView' => '_comment',
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
+        try {
+            print ListView::widget([
+                'dataProvider' => $dataProvider,
+                'emptyText' => false,
+                'itemOptions' => ['class' => 'row border-top'],
+                'itemView' => '_comment',
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-    ?>
-</div>
+        ?>
+    </div>
+<?php endif; ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
     <?php if ($user->user_date_block_comment_news >= time()) : ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию новостей до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_comment_news, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($user->user_date_block_comment_news); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockCommentNews->block_reason_text; ?>
             </div>
@@ -82,20 +71,12 @@ $user = Yii::$app->user->identity;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию новостей до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_comment, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($user->user_date_block_comment); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
             </div>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <?php $form = ActiveForm::begin([
             'fieldConfig' => [
                 'errorOptions' => [
@@ -105,12 +86,12 @@ $user = Yii::$app->user->identity;
                 'options' => ['class' => 'row'],
                 'template' =>
                     '<div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
-                </div>
-                <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
-                </div>
-                <div class="row">{error}</div>',
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
+                    </div>
+                    <div class="row">{error}</div>',
             ],
         ]); ?>
         <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>

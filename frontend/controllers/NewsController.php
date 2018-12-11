@@ -11,6 +11,7 @@ use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\filters\AccessControl;
 use yii\web\Response;
 
 /**
@@ -19,6 +20,26 @@ use yii\web\Response;
  */
 class NewsController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['delete-comment'],
+                'rules' => [
+                    [
+                        'actions' => ['delete-comment'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @return string
      */
@@ -40,7 +61,7 @@ class NewsController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => News::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeNews'],
             ],
         ]);
 
@@ -54,7 +75,6 @@ class NewsController extends AbstractController
     /**
      * @param int $id
      * @return string|Response
-     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id)
@@ -86,7 +106,7 @@ class NewsController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => NewsComment::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeNewsComment'],
             ],
         ]);
 
@@ -108,10 +128,6 @@ class NewsController extends AbstractController
      */
     public function actionDeleteComment(int $id, int $newsId): Response
     {
-        if (Yii::$app->user->isGuest) {
-            $this->forbiddenRole();
-        }
-
         /**
          * @var User $user
          */

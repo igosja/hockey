@@ -24,7 +24,9 @@ class ConferenceController extends AbstractController
     public function actionIndex(): string
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
-        $count = Conference::find()->where(['conference_season_id' => $seasonId])->count();
+        $count = Conference::find()
+            ->where(['conference_season_id' => $seasonId])
+            ->count();
 
         $this->setSeoTitle('Конференция любительских клубов');
 
@@ -50,6 +52,9 @@ class ConferenceController extends AbstractController
             ->orderBy(['conference_place' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'query' => $query,
             'sort' => false,
         ]);
@@ -66,7 +71,7 @@ class ConferenceController extends AbstractController
             'team.stadium.city.country.country_name'
         );
 
-        $this->setSeoTitle('Конференция любительских клубов');
+        $this->setSeoTitle('Турнирная таблица конференции любительских клубов');
 
         return $this->render('table', [
             'countryArray' => $countryArray,
@@ -87,10 +92,12 @@ class ConferenceController extends AbstractController
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])
+            ->limit(1)
             ->one();
         if (!$statisticType) {
             $statisticType = StatisticType::find()
                 ->where(['statistic_type_id' => StatisticType::TEAM_NO_PASS])
+                ->limit(1)
                 ->one();
         }
 
@@ -117,11 +124,14 @@ class ConferenceController extends AbstractController
         }
 
         $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'query' => $query,
             'sort' => false,
         ]);
 
-        $this->setSeoTitle('Конференция любительских клубов');
+        $this->setSeoTitle('Статистика конференции любительских клубов');
 
         return $this->render('statistics', [
             'dataProvider' => $dataProvider,

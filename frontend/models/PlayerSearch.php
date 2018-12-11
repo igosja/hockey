@@ -117,7 +117,7 @@ class PlayerSearch extends Player
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => Yii::$app->params['pageSizePlayer'],
+                'pageSize' => Yii::$app->params['pageSizeTable'],
             ],
             'sort' => [
                 'attributes' => [

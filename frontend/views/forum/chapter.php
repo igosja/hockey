@@ -1,10 +1,11 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
  * @var \common\models\ForumChapter $forumChapter
+ * @var \yii\web\View $this
  */
 
 ?>
@@ -27,11 +28,7 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
-                <form action="/forum_search.php" class="form-inline" method="GET">
-                    <label class="hidden" for="forum-search"></label>
-                    <input class="form-control form-small" id="forum-search" name="q"/>
-                    <button class="btn">Поиск</button>
-                </form>
+                <?= $this->render('/forum/_searchForm'); ?>
             </div>
         </div>
         <div class="row forum-row-head">
@@ -88,23 +85,12 @@ use yii\helpers\Html;
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <?php
-
-                                try {
-                                    print Yii::$app->formatter->asDatetime(
-                                        $forumGroup->forumMessage->forum_message_date,
-                                        'short'
-                                    );
-                                } catch (Exception $e) {
-                                    ErrorHelper::log($e);
-                                }
-
-                                ?>
+                                <?= FormatHelper::asDatetime($forumGroup->forumMessage->forum_message_date); ?>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <?= $forumGroup->forumMessage->user->userLink(); ?>
+                                <?= $forumGroup->forumMessage->user->userLink(['color' => true]); ?>
                             </div>
                         </div>
                     <?php endif; ?>

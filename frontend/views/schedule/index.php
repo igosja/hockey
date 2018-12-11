@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Schedule;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -42,17 +43,17 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
-                'header' => 'Дата',
                 'headerOptions' => ['class' => 'col-20'],
+                'label' => 'Дата',
                 'value' => function (Schedule $model): string {
-                    return Yii::$app->formatter->asDate($model->schedule_date, 'short');
+                    return FormatHelper::asDate($model->schedule_date);
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Турнир',
                 'format' => 'raw',
-                'header' => 'Турнир',
+                'label' => 'Турнир',
                 'value' => function (Schedule $model): string {
                     return Html::a(
                         $model->tournamentType->tournament_type_name,
@@ -64,8 +65,8 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Стадия',
                 'footerOptions' => ['class' => 'hidden-xs'],
-                'header' => 'Стадия',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
+                'label' => 'Стадия',
                 'value' => function (Schedule $model): string {
                     return $model->stage->stage_name;
                 }

@@ -8,7 +8,6 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
- * @var int $count
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
@@ -46,22 +45,22 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
-            'header' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
-            'value' => function (StatisticTeam $model) {
+            'label' => 'Команда',
+            'value' => function (StatisticTeam $model): string {
                 return $model->team->teamLink('img');
             }
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
             'headerOptions' => ['class' => 'col-10'],
-            'value' => function (StatisticTeam $model) use ($statisticType) {
+            'value' => function (StatisticTeam $model) use ($statisticType): string {
                 $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }
@@ -72,29 +71,29 @@ if ($statisticType->isTeamChapter()) {
         [
             'class' => SerialColumn::class,
             'contentOptions' => ['class' => 'text-center'],
+            'footer' => '№',
             'header' => '№',
             'headerOptions' => ['class' => 'col-10'],
-            'footer' => '№',
         ],
         [
-            'header' => 'Игрок',
             'footer' => 'Игрок',
             'format' => 'raw',
-            'value' => function (StatisticPlayer $model) {
+            'label' => 'Игрок',
+            'value' => function (StatisticPlayer $model): string {
                 return $model->player->playerLink();
             }
         ],
         [
-            'header' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
-            'value' => function (StatisticPlayer $model) {
+            'label' => 'Команда',
+            'value' => function (StatisticPlayer $model): string {
                 return $model->team->teamLink('img');
             }
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
-            'value' => function (StatisticTeam $model) use ($statisticType) {
+            'value' => function (StatisticTeam $model) use ($statisticType): string {
                 $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }
@@ -110,6 +109,7 @@ if ($statisticType->isTeamChapter()) {
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'emptyText' => false,
             'showFooter' => true,
         ]);
     } catch (Exception $e) {

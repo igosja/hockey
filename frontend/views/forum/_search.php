@@ -1,6 +1,7 @@
 <?php
 
 use common\components\FormatHelper;
+use yii\helpers\Html;
 
 /**
  * @var \common\models\ForumMessage $model
@@ -38,24 +39,21 @@ use common\components\FormatHelper;
 </div>
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
     <div class="row text-size-2 font-grey">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?= FormatHelper::asDatetime($model->forum_message_date); ?>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-            <?= $model->links(); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <?= $model->forum_message_text; ?>
+            <?= str_ireplace(
+                Yii::$app->request->get('q'),
+                '<span class="info">' . Yii::$app->request->get('q') . '</span>', $model->forum_message_text
+            ); ?>
         </div>
     </div>
-    <?php if ($model->forum_message_date_update) : ?>
-        <div class="row text-size-2 font-grey">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                Отредактировано в
-                <?= FormatHelper::asDatetime($model->forum_message_date_update); ?>
-            </div>
+    <div class="row text-size-2 font-grey">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <?= Html::a('Перейти в тему', ['forum/theme', 'id' => $model->forum_message_forum_theme_id]); ?>
         </div>
-    <?php endif; ?>
+    </div>
 </div>

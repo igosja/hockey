@@ -8,6 +8,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;
 
@@ -396,15 +397,20 @@ class User extends AbstractActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param bool $color
+     * @param array $options
      * @return string
      */
-    public function userLink(bool $color = false): string
+    public function userLink(array $options = []): string
     {
+        if (isset($options['color']) && UserRole::ADMIN == $this->user_user_role_id && $options['color']) {
+            unset($options['color']);
+            $options = ArrayHelper::merge($options, ['class' => 'red']);
+        }
+
         return Html::a(
             $this->user_login,
             ['user/view', 'id' => $this->user_id],
-            ['class' => UserRole::ADMIN == $this->user_user_role_id && $color ? 'red' : '']
+            $options
         );
     }
 

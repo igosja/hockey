@@ -6,9 +6,10 @@ use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
 
 /**
+ * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \common\models\ForumTheme $forumTheme
  * @var \common\models\User $user
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \yii\web\View $this
  */
 
 $user = Yii::$app->user->identity;
@@ -43,11 +44,7 @@ $user = Yii::$app->user->identity;
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
-                <form action="/forum_search.php" class="form-inline" method="GET">
-                    <label class="hidden" for="forum-search"></label>
-                    <input class="form-control form-small" id="forum-search" name="q"/>
-                    <button class="btn">Поиск</button>
-                </form>
+                <?= $this->render('/forum/_searchForm'); ?>
             </div>
         </div>
         <?php
@@ -57,6 +54,7 @@ $user = Yii::$app->user->identity;
                 'dataProvider' => $dataProvider,
                 'itemOptions' => ['class' => 'row forum-row forum-striped'],
                 'itemView' => '_message',
+                'summary' => false,
             ]);
         } catch (Exception $e) {
             ErrorHelper::log($e);
@@ -110,12 +108,12 @@ $user = Yii::$app->user->identity;
                 'options' => ['class' => 'row'],
                 'template' =>
                     '<div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
-                </div>
-                <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
-                </div>
-                <div class="row">{error}</div>',
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">{label}</div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
+                    </div>
+                    <div class="row">{error}</div>',
             ],
         ]); ?>
         <?= $form->field($model, 'forum_message_text')->textarea(['rows' => 5])->label('Ваш ответ:'); ?>
