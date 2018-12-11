@@ -146,35 +146,42 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionDeal(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = Loan::find()
+            ->select([
+            ])
+            ->where(['loan_player_id' => $id])
+            ->andWhere(['!=', 'loan_ready', 0])
+            ->orderBy(['loan_ready' => SORT_DESC]);
         $dataProviderLoan = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Loan::find()
-                ->select([
-                ])
-                ->where(['loan_player_id' => $id])
-                ->andWhere(['!=', 'loan_ready', 0])
-                ->orderBy(['loan_ready' => SORT_DESC]),
-        ]);
-        $dataProviderTransfer = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => Transfer::find()
-                ->select([
-                ])
-                ->where(['transfer_player_id' => $id])
-                ->andWhere(['!=', 'transfer_ready', 0])
-                ->orderBy(['transfer_ready' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Сделки игрока');
+        $query = Transfer::find()
+            ->select([
+            ])
+            ->where(['transfer_player_id' => $id])
+            ->andWhere(['!=', 'transfer_ready', 0])
+            ->orderBy(['transfer_ready' => SORT_DESC]);
+        $dataProviderTransfer = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($player->playerName() . ' .Сделки игрока');
 
         return $this->render('deal', [
             'dataProviderLoan' => $dataProviderLoan,
             'dataProviderTransfer' => $dataProviderTransfer,
+            'player' => $player,
         ]);
     }
 
