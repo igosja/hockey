@@ -14,7 +14,7 @@ use yii\helpers\Html;
  * @var \yii\web\View $this
  */
 
-print $this->render('_player', ['player' => $player]);
+print $this->render('//player/_player', ['player' => $player]);
 
 ?>
 <?= Html::beginForm('', 'get'); ?>

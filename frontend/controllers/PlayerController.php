@@ -87,18 +87,20 @@ class PlayerController extends AbstractController
         $player = $this->getPlayer($id);
 
         $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+
+        $query = Lineup::find()
+            ->joinWith(['game.schedule'])
+            ->with([
+            ])
+            ->select([
+            ])
+            ->where(['lineup_player_id' => $id])
+            ->andWhere(['schedule.schedule_season_id' => $seasonId])
+            ->andWhere(['!=', 'game.game_played', 0])
+            ->orderBy(['schedule_date' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Lineup::find()
-                ->joinWith(['game.schedule'])
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['lineup_player_id' => $id])
-                ->andWhere(['schedule.schedule_season_id' => $seasonId])
-                ->andWhere(['!=', 'game.game_played', 0])
-                ->orderBy(['schedule_date' => SORT_ASC]),
+            'query' => $query,
         ]);
 
         $this->setSeoTitle($player->playerName() . '. Профиль игрока');
@@ -112,29 +114,34 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionEvent(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = History::find()
+            ->select([
+                'history_date',
+                'history_history_text_id',
+                'history_player_id',
+                'history_season_id',
+                'history_team_id',
+            ])
+            ->where(['history_player_id' => $id])
+            ->orderBy(['history_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => History::find()
-                ->select([
-                    'history_date',
-                    'history_history_text_id',
-                    'history_player_id',
-                    'history_season_id',
-                    'history_team_id',
-                ])
-                ->where(['history_player_id' => $id])
-                ->orderBy(['history_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('События игрока');
+        $this->setSeoTitle($player->playerName() . '. События игрока');
 
         return $this->render('event', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
         ]);
     }
 

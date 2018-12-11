@@ -1,15 +1,17 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\History;
 use yii\grid\GridView;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \common\models\Player $player
  * @var \yii\web\View $this
  */
 
-print $this->render('_player');
+print $this->render('//player/_player', ['player' => $player]);
 
 ?>
     <div class="row margin-top-small">
@@ -26,8 +28,8 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['title' => 'Сезон'],
-                    'header' => 'С',
                     'headerOptions' => ['class' => 'col-1', 'title' => 'Сезон'],
+                    'label' => 'С',
                     'value' => function (History $model): string {
                         return $model->history_season_id;
                     }
@@ -35,16 +37,16 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Дата',
-                    'header' => 'Дата',
                     'headerOptions' => ['class' => 'col-15'],
+                    'label' => 'Дата',
                     'value' => function (History $model): string {
-                        return Yii::$app->formatter->asDate($model->history_date, 'short');
+                        return FormatHelper::asDate($model->history_date);
                     }
                 ],
                 [
                     'footer' => 'Событие',
                     'format' => 'raw',
-                    'header' => 'Событие',
+                    'label' => 'Событие',
                     'value' => function (History $model): string {
                         return $model->text();
                     }
@@ -53,6 +55,7 @@ print $this->render('_player');
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProvider,
+                'emptyText' => false,
                 'showFooter' => true,
                 'summary' => false,
             ]);
