@@ -50,8 +50,8 @@ class LoanApplicationTo extends Model
 
         $this->minPrice = ceil($this->player->player_price / 1000);
         $this->maxPrice = $this->team->team_finance;
-        $this->minDay = $this->player->loan->loan_day_min;
-        $this->maxDay = $this->player->loan->loan_day_max;
+        $this->minDay = $this->player->loan->loan_day_min ?? 1;
+        $this->maxDay = $this->player->loan->loan_day_max ?? 7;
         $this->loanApplication = LoanApplication::find()
             ->select([
                 'loan_application_id',
