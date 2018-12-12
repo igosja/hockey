@@ -19,7 +19,6 @@ use yii\widgets\ListView;
     try {
         print ListView::widget([
             'dataProvider' => $dataProvider,
-            'emptyText' => false,
             'itemOptions' => ['class' => 'row border-top'],
             'itemView' => '_poll',
         ]);

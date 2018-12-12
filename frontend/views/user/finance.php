@@ -91,7 +91,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'summary' => false,
         ]);

@@ -55,7 +55,6 @@ print $this->render('//player/_player', ['player' => $player]);
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProvider,
-                'emptyText' => false,
                 'showFooter' => true,
                 'summary' => false,
             ]);

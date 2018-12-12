@@ -46,7 +46,6 @@ $user = Yii::$app->user->identity;
         try {
             print ListView::widget([
                 'dataProvider' => $dataProvider,
-                'emptyText' => false,
                 'itemOptions' => ['class' => 'row border-top'],
                 'itemView' => '_comment',
             ]);

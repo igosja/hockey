@@ -114,7 +114,6 @@ print $this->render('//player/_player', ['player' => $player]);
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProviderTransfer,
-                'emptyText' => false,
                 'showFooter' => true,
                 'summary' => false,
             ]);
@@ -216,14 +215,16 @@ print $this->render('//player/_player', ['player' => $player]);
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
                     'value' => function (Loan $model): string {
-                        return FormatHelper::asCurrency($model->loan_price_buyer);
+                        return Html::a(
+                            FormatHelper::asCurrency($model->loan_price_buyer),
+                            ['loan/view', 'id' => $model->loan_id]
+                        );
                     }
                 ],
             ];
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $dataProviderLoan,
-                'emptyText' => false,
                 'showFooter' => true,
                 'summary' => false,
             ]);

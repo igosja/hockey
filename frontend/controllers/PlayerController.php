@@ -396,35 +396,39 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionAchievement(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = AchievementPlayer::find()
+            ->select([
+                'achievement_player_season_id',
+                'achievement_player_stage_id',
+                'achievement_player_team_id',
+                'achievement_player_tournament_type_id',
+            ])
+            ->where(['achievement_player_player_id' => $id])
+            ->orderBy(['achievement_player_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => AchievementPlayer::find()
-                ->select([
-                    'achievement_player_season_id',
-                    'achievement_player_stage_id',
-                    'achievement_player_team_id',
-                    'achievement_player_tournament_type_id',
-                ])
-                ->where(['achievement_player_player_id' => $id])
-                ->orderBy(['achievement_player_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Достижения игрока');
+        $this->setSeoTitle($player->playerName() . '. Достижения игрока');
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
         ]);
     }
 
     /**
      * @param int $id
      * @return bool
-     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionSquad(int $id): bool
@@ -433,7 +437,10 @@ class PlayerController extends AbstractController
             return false;
         }
 
-        $player = Player::find()->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])->one();
+        $player = Player::find()
+            ->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
         $this->notFound($player);
 
         $player->player_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
