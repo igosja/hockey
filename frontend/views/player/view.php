@@ -107,50 +107,50 @@ print $this->render('//player/_player', ['player' => $player]);
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'С',
-                    'footerOptions' => ['title' => 'Сила'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_power_real;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Ш',
-                    'footerOptions' => ['title' => 'Шайбы'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Шайбы'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Шайбы'],
                     'label' => 'Ш',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_score;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'П',
-                    'footerOptions' => ['title' => 'Голевые передачи'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Голевые передачи'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Голевые передачи'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Голевые передачи'],
                     'label' => 'П',
                     'value' => function (Lineup $model): string {
                         return $model->lineup_score;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => '+/-',
-                    'footerOptions' => ['title' => 'Плюс/минус'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Плюс/минус'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Плюс/минус'],
                     'label' => '+/-',
                     'value' => function (Lineup $model): string {
                         return HockeyHelper::plusNecessary($model->lineup_plus_minus);
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footerOptions' => ['title' => 'Изменение силы'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Изменение силы'],
                     'format' => 'raw',
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Изменение силы'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Изменение силы'],
                     'value' => function (Lineup $model): string {
                         return $model->iconPowerChange();
                     }
