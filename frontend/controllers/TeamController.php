@@ -86,8 +86,9 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int|null $id
      * @return string|Response
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id = null)
     {
@@ -99,70 +100,71 @@ class TeamController extends AbstractController
             return $this->redirect(['ask']);
         }
 
-        $showHiddenParams = ($this->myTeam && $this->myTeam->team_id == $id);
+        $team = $this->getTeam($id);
 
+        $query = Player::find()
+            ->joinWith([
+                'statisticPlayer' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select([
+                        'statistic_player_assist',
+                        'statistic_player_game',
+                        'statistic_player_plus_minus',
+                        'statistic_player_score',
+                    ]);
+                },
+            ])
+            ->with([
+                'country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'name' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['name_id', 'name_name']);
+                },
+                'physical' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['physical_id', 'physical_name']);
+                },
+                'playerPosition' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['player_position_player_id', 'player_position_position_id']);
+                },
+                'playerPosition.position' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['position_id', 'position_name']);
+                },
+                'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select([
+                        'player_special_level',
+                        'player_special_player_id',
+                        'player_special_special_id',
+                    ]);
+                },
+                'playerSpecial.special' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['special_id', 'special_name']);
+                },
+                'style' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['style_id', 'style_name']);
+                },
+                'surname' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['surname_id', 'surname_name']);
+                },
+            ])
+            ->select([
+                'player_age',
+                'player_country_id',
+                'player_game_row',
+                'player_name_id',
+                'player_id',
+                'player_physical_id',
+                'player_power_nominal',
+                'player_power_real',
+                'player_price',
+                'player_style_id',
+                'player_surname_id',
+                'player_tire',
+            ])
+            ->where(['player_team_id' => $id])
+            ->orWhere(['player_loan_team_id' => $id]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Player::find()
-                ->joinWith([
-                    'statisticPlayer' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select([
-                            'statistic_player_assist',
-                            'statistic_player_game',
-                            'statistic_player_plus_minus',
-                            'statistic_player_score',
-                        ]);
-                    },
-                ])
-                ->with([
-                    'country' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['country_id', 'country_name']);
-                    },
-                    'name' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['name_id', 'name_name']);
-                    },
-                    'physical' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['physical_id', 'physical_name']);
-                    },
-                    'playerPosition' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['player_position_player_id', 'player_position_position_id']);
-                    },
-                    'playerPosition.position' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['position_id', 'position_name']);
-                    },
-                    'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select([
-                            'player_special_level',
-                            'player_special_player_id',
-                            'player_special_special_id',
-                        ]);
-                    },
-                    'playerSpecial.special' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['special_id', 'special_name']);
-                    },
-                    'style' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['style_id', 'style_name']);
-                    },
-                    'surname' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['surname_id', 'surname_name']);
-                    },
-                ])
-                ->select([
-                    'player_age',
-                    'player_country_id',
-                    'player_game_row',
-                    'player_name_id',
-                    'player_id',
-                    'player_physical_id',
-                    'player_power_nominal',
-                    'player_power_real',
-                    'player_price',
-                    'player_style_id',
-                    'player_surname_id',
-                    'player_tire',
-                ])
-                ->where(['player_team_id' => $id])
-                ->orWhere(['player_loan_team_id' => $id]),
+            'query' => $query,
             'sort' => [
                 'attributes' => [
                     'age' => [
@@ -198,16 +200,16 @@ class TeamController extends AbstractController
                         'desc' => ['player_position_id' => SORT_DESC],
                     ],
                     'physical' => [
-                        'asc' => [$showHiddenParams ? 'player_physical_id' : 'player_position_id' => SORT_ASC],
-                        'desc' => [$showHiddenParams ? 'player_physical_id' : 'player_position_id' => SORT_DESC],
+                        'asc' => [$team->myTeam() ? 'player_physical_id' : 'player_position_id' => SORT_ASC],
+                        'desc' => [$team->myTeam() ? 'player_physical_id' : 'player_position_id' => SORT_DESC],
                     ],
                     'power_nominal' => [
                         'asc' => ['player_power_nominal' => SORT_ASC],
                         'desc' => ['player_power_nominal' => SORT_DESC],
                     ],
                     'power_real' => [
-                        'asc' => [$showHiddenParams ? 'player_power_real' : 'player_power_nominal' => SORT_ASC],
-                        'desc' => [$showHiddenParams ? 'player_power_real' : 'player_power_nominal' => SORT_DESC],
+                        'asc' => [$team->myTeam() ? 'player_power_real' : 'player_power_nominal' => SORT_ASC],
+                        'desc' => [$team->myTeam() ? 'player_power_real' : 'player_power_nominal' => SORT_DESC],
                     ],
                     'price' => [
                         'asc' => ['player_price' => SORT_ASC],
@@ -218,20 +220,19 @@ class TeamController extends AbstractController
                         'desc' => ['player_style_id' => SORT_DESC],
                     ],
                     'tire' => [
-                        'asc' => [$showHiddenParams ? 'player_tire' : 'player_position_id' => SORT_ASC],
-                        'desc' => [$showHiddenParams ? 'player_tire' : 'player_position_id' => SORT_DESC],
+                        'asc' => [$team->myTeam() ? 'player_tire' : 'player_position_id' => SORT_ASC],
+                        'desc' => [$team->myTeam() ? 'player_tire' : 'player_position_id' => SORT_DESC],
                     ],
                 ],
                 'defaultOrder' => ['position' => SORT_ASC],
             ],
         ]);
 
-        $this->setSeoTitle('Профиль команды');
+        $this->setSeoTitle($team->fullName() . '. Профиль команды');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
-            'model' => new Player(),
-            'showHiddenParams' => $showHiddenParams,
+            'team' => $team,
         ]);
     }
 
@@ -720,5 +721,21 @@ class TeamController extends AbstractController
         }
 
         return $this->redirect(['view']);
+    }
+
+    /**
+     * @param int $id
+     * @return Team
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function getTeam(int $id): Team
+    {
+        $team = Team::find()
+            ->where(['team_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($team);
+
+        return $team;
     }
 }

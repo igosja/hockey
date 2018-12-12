@@ -123,31 +123,6 @@ class Player extends AbstractActiveRecord
     }
 
     /**
-     * @return array
-     */
-    public function attributeLabels(): array
-    {
-        return [
-            'age' => 'В',
-            'assist' => 'П',
-            'country' => 'Нац',
-            'game' => 'И',
-            'game_row' => 'И/О',
-            'physical' => 'Ф',
-            'player' => 'Игрок',
-            'player_price' => 'Цена',
-            'plus_minus' => '+/-',
-            'position' => 'Поз',
-            'power_nominal' => 'С',
-            'power_real' => 'РС',
-            'score' => 'Г',
-            'special' => 'Спец',
-            'style' => 'Ст',
-            'tire' => 'У',
-        ];
-    }
-
-    /**
      * @param bool $insert
      * @return bool
      */

@@ -3,7 +3,9 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use common\components\RosterPhrase;
 use Exception;
+use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\Html;
@@ -130,23 +132,6 @@ class Team extends AbstractActiveRecord
             [['team_age'], 'number'],
             [['team_name'], 'string', 'max' => 255],
             [['team_name'], 'trim'],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function attributeLabels(): array
-    {
-        return [
-            'base' => 'База',
-            'country' => 'Страна',
-            'count_team' => 'Команды',
-            'finance' => 'Финансы',
-            'number_of_application' => 'ЧЗ',
-            'stadium' => 'Стадион',
-            'team' => 'Команда',
-            'vs' => 'Vs',
         ];
     }
 
@@ -518,41 +503,12 @@ class Team extends AbstractActiveRecord
             + $this->baseTraining->base_training_level;
     }
 
-    /**
-     * @return array
-     */
-    public static function getTopData(): array
-    {
-        $teamId = Yii::$app->request->get('id', 1);
-
-        $team = Team::find()
-            ->where(['team_id' => $teamId])
-            ->limit(1)
-            ->one();
-
-        $latest = Game::find()
-            ->joinWith(['schedule'])
-            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
-            ->andWhere(['game_played' => 1])
-            ->orderBy(['schedule_date' => SORT_DESC])
-            ->limit(3)
-            ->all();
-
-        $nearest = Game::find()
-            ->joinWith(['schedule'])
-            ->where(['or', ['game_home_team_id' => $teamId], ['game_guest_team_id' => $teamId]])
-            ->andWhere(['game_played' => 0])
-            ->orderBy(['schedule_date' => SORT_ASC])
-            ->limit(2)
-            ->all();
-
-        return [$teamId, $team, $latest, $nearest];
-    }
-
     public function fullName(): string
     {
         return $this->team_name
-            . ' (' . $this->stadium->city->city_name . ', ' . $this->stadium->city->country->country_name . ')';
+            . ' (' . $this->stadium->city->city_name
+            . ', ' . $this->stadium->city->country->country_name
+            . ')';
     }
 
     /**
@@ -773,6 +729,63 @@ class Team extends AbstractActiveRecord
                     ->limit(1)
             ])
             ->count();
+    }
+
+    /**
+     * @return bool
+     */
+    public function myTeam(): bool
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+
+        if (!$controller->myTeam) {
+            return false;
+        }
+
+        if ($controller->myTeam->team_id != $this->team_id) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function latestGame(): array
+    {
+        return Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $this->team_id], ['game_guest_team_id' => $this->team_id]])
+            ->andWhere(['!=', 'game_played', 0])
+            ->orderBy(['schedule_date' => SORT_DESC])
+            ->limit(3)
+            ->all();
+    }
+
+    /**
+     * @return array
+     */
+    public function nearestGame(): array
+    {
+        return Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_team_id' => $this->team_id], ['game_guest_team_id' => $this->team_id]])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['schedule_date' => SORT_ASC])
+            ->limit(2)
+            ->all();
+    }
+
+    /**
+     * @return string
+     */
+    public function rosterPhrase(): string
+    {
+        return RosterPhrase::rand();
     }
 
     /**
