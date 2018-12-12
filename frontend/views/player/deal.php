@@ -5,6 +5,7 @@ use common\components\FormatHelper;
 use common\models\Loan;
 use common\models\Transfer;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProviderLoan
@@ -42,40 +43,40 @@ print $this->render('//player/_player', ['player' => $player]);
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Поз',
-                    'footerOptions' => ['title' => 'Позиция'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
                     'label' => 'Поз',
                     'value' => function (Transfer $model): string {
                         return $model->position();
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'В',
-                    'footerOptions' => ['title' => 'Возраст'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
                     'label' => 'В',
                     'value' => function (Transfer $model): string {
                         return $model->transfer_age;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'С',
-                    'footerOptions' => ['title' => 'Сила'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
                     'value' => function (Transfer $model): string {
                         return $model->transfer_power;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Спец',
-                    'footerOptions' => ['title' => 'Спецвозможности'],
-                    'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                    'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
                     'value' => function (Transfer $model): string {
                         return $model->special();
@@ -103,7 +104,10 @@ print $this->render('//player/_player', ['player' => $player]);
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
                     'value' => function (Transfer $model): string {
-                        return FormatHelper::asCurrency($model->transfer_price_buyer);
+                        return Html::a(
+                            FormatHelper::asCurrency($model->transfer_price_buyer),
+                            ['transfer/view', 'id' => $model->transfer_id]
+                        );
                     }
                 ],
             ];
@@ -141,40 +145,40 @@ print $this->render('//player/_player', ['player' => $player]);
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Поз',
-                    'footerOptions' => ['title' => 'Позиция'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
                     'label' => 'Поз',
                     'value' => function (Loan $model): string {
                         return $model->position();
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'В',
-                    'footerOptions' => ['title' => 'Возраст'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
                     'label' => 'В',
                     'value' => function (Loan $model): string {
                         return $model->loan_age;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'С',
-                    'footerOptions' => ['title' => 'Сила'],
-                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
                     'value' => function (Loan $model): string {
                         return $model->loan_power;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Спец',
-                    'footerOptions' => ['title' => 'Спецвозможности'],
-                    'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                    'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
                     'value' => function (Loan $model): string {
                         return $model->special();

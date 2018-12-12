@@ -155,8 +155,6 @@ class PlayerController extends AbstractController
         $player = $this->getPlayer($id);
 
         $query = Loan::find()
-            ->select([
-            ])
             ->where(['loan_player_id' => $id])
             ->andWhere(['!=', 'loan_ready', 0])
             ->orderBy(['loan_ready' => SORT_DESC]);
@@ -166,8 +164,6 @@ class PlayerController extends AbstractController
         ]);
 
         $query = Transfer::find()
-            ->select([
-            ])
             ->where(['transfer_player_id' => $id])
             ->andWhere(['!=', 'transfer_ready', 0])
             ->orderBy(['transfer_ready' => SORT_DESC]);
@@ -176,7 +172,7 @@ class PlayerController extends AbstractController
             'query' => $query,
         ]);
 
-        $this->setSeoTitle($player->playerName() . ' .Сделки игрока');
+        $this->setSeoTitle($player->playerName() . '. Сделки игрока');
 
         return $this->render('deal', [
             'dataProviderLoan' => $dataProviderLoan,
