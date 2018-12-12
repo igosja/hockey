@@ -54,34 +54,34 @@ class TeamController extends AbstractController
      */
     public function actionIndex(): string
     {
+        $query = Team::find()
+            ->select(['count_team' => 'COUNT(team_id)', 'team_stadium_id'])
+            ->with([
+                'stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_city_id', 'stadium_id']);
+                },
+                'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_country_id', 'city_id']);
+                },
+                'stadium.city.country'
+            ])
+            ->joinWith([
+                'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->where(['!=', 'team_id', 0])
+            ->orderBy(['country_id' => SORT_ASC])
+            ->groupBy(['country_id']);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Team::find()
-                ->select(['count_team' => 'COUNT(team_id)', 'team_stadium_id'])
-                ->with([
-                    'stadium' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stadium_city_id', 'stadium_id']);
-                    },
-                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['city_country_id', 'city_id']);
-                    },
-                    'stadium.city.country'
-                ])
-                ->joinWith([
-                    'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['country_id', 'country_name']);
-                    },
-                ])
-                ->where(['!=', 'team_id', 0])
-                ->orderBy(['country_id' => SORT_ASC])
-                ->groupBy(['country_id'])
+            'query' => $query,
         ]);
 
         $this->setSeoTitle('Команды');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'model' => new Team(),
         ]);
     }
 
