@@ -218,7 +218,7 @@ print $this->render('_team-top');
         <?= $this->render('_team-links'); ?>
     </div>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
 <div class="row margin-top">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-size-2">
         <span class="italic">Показатели команды:</span>

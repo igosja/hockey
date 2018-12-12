@@ -6,7 +6,6 @@
  * @var \frontend\models\TransferApplicationTo $modelTransferApplicationTo
  * @var \frontend\models\TransferFrom $modelTransferFrom
  * @var \frontend\models\TransferTo $modelTransferTo
- * @var bool $myPlayer
  * @var int $onTransfer
  * @var \common\models\Player $player
  * @var \yii\web\View $this
@@ -14,12 +13,12 @@
 
 $context = $this->context;
 
-print $this->render('_player');
+print $this->render('//player/_player', ['player' => $player]);
 
 ?>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_links'); ?>
+        <?= $this->render('//player/_links'); ?>
     </div>
 </div>
 <div class="row">
@@ -32,25 +31,25 @@ print $this->render('_player');
     </div>
 </div>
 <?php if (!$context->myTeam) : ?>
-    <?= $this->render('_transfer_no_team'); ?>
-<?php elseif ($myPlayer) : ?>
+    <?= $this->render('//player/_transfer_no_team'); ?>
+<?php elseif ($player->myPlayer()) : ?>
     <?php if ($onTransfer) : ?>
-        <?= $this->render('_transfer_from', [
+        <?= $this->render('//player/_transfer_from', [
             'model' => $modelTransferFrom,
         ]); ?>
     <?php else: ?>
-        <?= $this->render('_transfer_to', [
+        <?= $this->render('//player/_transfer_to', [
             'model' => $modelTransferTo,
         ]); ?>
     <?php endif; ?>
 <?php else: ?>
     <?php if ($onTransfer) : ?>
-        <?= $this->render('_transfer_application', [
+        <?= $this->render('//player/_transfer_application', [
             'model' => $modelTransferApplicationTo,
             'modelFrom' => $modelTransferApplicationFrom,
         ]); ?>
     <?php else: ?>
-        <?= $this->render('_transfer_no'); ?>
+        <?= $this->render('//player/_transfer_no'); ?>
     <?php endif; ?>
 <?php endif; ?>
 <div class="row">
@@ -64,6 +63,6 @@ print $this->render('_player');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_links'); ?>
+        <?= $this->render('//player/_links'); ?>
     </div>
 </div>

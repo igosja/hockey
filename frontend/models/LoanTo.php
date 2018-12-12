@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Loan;
 use common\models\Player;
 use common\models\Position;
@@ -74,7 +75,6 @@ class LoanTo extends Model
 
     /**
      * @return bool
-     * @throws \yii\base\InvalidConfigException
      * @throws \yii\db\Exception
      */
     public function execute(): bool
@@ -86,8 +86,8 @@ class LoanTo extends Model
         if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
-                'With the player you can not take any action until '
-                . Yii::$app->formatter->asDate($this->player->player_date_no_action)
+                'С игроком нельзя совершать никаких действий до '
+                . FormatHelper::asDate($this->player->player_date_no_action)
                 . '.'
             );
             return false;
@@ -96,13 +96,13 @@ class LoanTo extends Model
         if ($this->player->player_no_deal) {
             Yii::$app->session->setFlash(
                 'error',
-                'The player can not be put on the loan until the end of the season.'
+                'Игрока нельзя отдать в аренду до конца сезона.'
             );
             return false;
         }
 
         if ($this->player->player_loan_team_id) {
-            Yii::$app->session->setFlash('error', 'You can not put on the loan players currently rented.');
+            Yii::$app->session->setFlash('error', 'Нельзя отдавать в аренду игроков, которые уже находятся в аренде.');
             return false;
         }
 
@@ -113,7 +113,7 @@ class LoanTo extends Model
         if ($count > 5) {
             Yii::$app->session->setFlash(
                 'error',
-                'You can not simultaneously put on the rental market more than five players.'
+                'Нельзя отдавать в аренду более пяти игроков из одной команды одновременно.'
             );
             return false;
         }
@@ -148,7 +148,7 @@ class LoanTo extends Model
             if ($count < 3) {
                 Yii::$app->session->setFlash(
                     'error',
-                    'You can not rent the goalkeeper if you have less than three goalkeepers in the team.'
+                    'Нельзя отдать в аренду вратаря, если у вас в команде останется менее двух вратарей.'
                 );
                 return false;
             }
@@ -175,19 +175,19 @@ class LoanTo extends Model
             if ($count < 20) {
                 Yii::$app->session->setFlash(
                     'error',
-                    'You can not rent a fielder if you have less than twenty field players left in the team.'
+                    'Нельзя отдать в аренду полевого игрока, если у вас в команде останется менее двадцати полевых игроков.'
                 );
                 return false;
             }
         }
 
         if ($this->player->player_age < 19) {
-            Yii::$app->session->setFlash('error', 'You can not rent players under 19 years old.');
+            Yii::$app->session->setFlash('error', 'Нельзя отдать в аренду игроков младше 19 лет.');
             return false;
         }
 
         if ($this->player->player_age > 38) {
-            Yii::$app->session->setFlash('error', 'You can not rent players over 38 years old.');
+            Yii::$app->session->setFlash('error', 'Нельзя отдать в аренду игроков старше 38 лет.');
             return false;
         }
 
@@ -196,7 +196,7 @@ class LoanTo extends Model
             ->count();
 
         if ($count) {
-            Yii::$app->session->setFlash('error', 'You can not rent a player who is in training.');
+            Yii::$app->session->setFlash('error', 'Нельзя отдать в аренду игрока, который находится на тренировке.');
             return false;
         }
 
@@ -214,7 +214,7 @@ class LoanTo extends Model
 
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'The player has successfully put on the loan.');
+            Yii::$app->session->setFlash('success', 'Игрок успешно выставлен на арендный рынок.');
         } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();

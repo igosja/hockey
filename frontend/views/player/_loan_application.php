@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -25,7 +26,7 @@ try {
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?= $model->team->teamLink(); ?>
+                    <?= $model->team->teamLink('img'); ?>
                 </span>
             </div>
         </div>
@@ -35,15 +36,7 @@ try {
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($model->team->team_finance);
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($model->team->team_finance); ?>
                 </span>
             </div>
         </div>
@@ -53,15 +46,7 @@ try {
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($model->minPrice);
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($model->minPrice); ?>
                 </span>
             </div>
         </div>

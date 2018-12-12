@@ -19,7 +19,7 @@ print $this->render('//player/_player', ['player' => $player]);
 ?>
     <div class="row margin-top-small">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $this->render('_links'); ?>
+            <?= $this->render('//player/_links'); ?>
         </div>
     </div>
     <div class="row">
@@ -236,7 +236,7 @@ print $this->render('//player/_player', ['player' => $player]);
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $this->render('_links'); ?>
+            <?= $this->render('//player/_links'); ?>
         </div>
     </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

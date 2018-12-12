@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,19 +12,11 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
-            Here you can <span class="strong">put your player on the transfer market</span>.
+            Здесь вы можете <span class="strong">поставить своего игрока на трансферный рынок</span>.
         </p>
         <p>
-            The initial transfer price of the player must be at least
-            <span class="strong"><?php
-
-                try {
-                    print Yii::$app->formatter->asCurrency($model->minPrice);
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?></span>.
+            Начальная трансферная цена игрока должна быть не меньше
+            <span class="strong"><?= FormatHelper::asCurrency($model->minPrice); ?></span>.
         </p>
         <?php $form = ActiveForm::begin([
             'enableAjaxValidation' => true,
@@ -53,7 +45,7 @@ use yii\widgets\ActiveForm;
             ])->checkbox(); ?>
         </div>
         <p class="text-center">
-            <?= Html::submitButton('Put on a transfer', ['class' => 'btn']); ?>
+            <?= Html::submitButton('Выставить на трансфер', ['class' => 'btn']); ?>
         </p>
         <?php $form->end(); ?>
     </div>

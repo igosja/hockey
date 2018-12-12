@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,15 +16,7 @@ use yii\widgets\ActiveForm;
         </p>
         <p>
             Начальная цена аренды игрока должна быть не меньше
-            <span class="strong"><?php
-
-                try {
-                    print Yii::$app->formatter->asCurrency($model->minPrice);
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?></span>.
+            <span class="strong"><?= FormatHelper::asCurrency($model->minPrice); ?></span>.
         </p>
         <?php $form = ActiveForm::begin([
             'enableAjaxValidation' => true,

@@ -2,9 +2,8 @@
 
 namespace common\models;
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use Exception;
-use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -31,6 +30,7 @@ use yii\db\ActiveQuery;
  * @property int $loan_user_buyer_id
  * @property int $loan_user_seller_id
  *
+ * @property LoanApplication[] $loanApplication
  * @property Team $buyer
  * @property Player $player
  * @property Team $seller
@@ -89,13 +89,7 @@ class Loan extends AbstractActiveRecord
             $today = $today + 86400;
         }
 
-        $result = '';
-        try {
-            $result = Yii::$app->formatter->asDate($today);
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
-
+        $result = FormatHelper::asDate($today);
         return $result;
     }
 
@@ -124,11 +118,33 @@ class Loan extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->loanApplication as $item) {
+            $item->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBuyer(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'loan_team_buyer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLoanApplication(): ActiveQuery
+    {
+        return $this->hasMany(LoanApplication::class, ['loan_application_loan_id' => 'loan_id']);
     }
 
     /**

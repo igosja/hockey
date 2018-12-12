@@ -118,7 +118,7 @@ use yii\helpers\Html;
 
         ?>
     </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
     <div class="row margin-top-small">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?= $this->render('_links'); ?>

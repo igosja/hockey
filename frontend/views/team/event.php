@@ -77,4 +77,4 @@ print $this->render('_team-top');
         <?= $this->render('_team-links'); ?>
     </div>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

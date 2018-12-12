@@ -188,28 +188,7 @@ class PlayerController extends AbstractController
      */
     public function actionTransfer(int $id)
     {
-        $player = Player::find()
-            ->select([
-                'player_age',
-                'player_country_id',
-                'player_date_no_action',
-                'player_id',
-                'player_loan_team_id',
-                'player_national_id',
-                'player_no_deal',
-                'player_position_id',
-                'player_price',
-                'player_team_id',
-            ])
-            ->where(['player_id' => $id])
-            ->one();
-        $this->notFound($player);
-        $myPlayer = true;
-        if (!$this->myTeam) {
-            $myPlayer = false;
-        } elseif ($this->myTeam->team_id != $player->player_team_id) {
-            $myPlayer = false;
-        }
+        $player = $this->getPlayer($id);
         $onTransfer = $player->transfer ? true : false;
 
         $formConfig = ['player' => $player, 'team' => $this->myTeam];
@@ -218,7 +197,7 @@ class PlayerController extends AbstractController
         $modelTransferFrom = new TransferFrom($formConfig);
         $modelTransferApplicationTo = new TransferApplicationTo($formConfig);
         $modelTransferApplicationFrom = new TransferApplicationFrom($formConfig);
-        if ($myPlayer) {
+        if ($player->myPlayer()) {
             if ($modelTransferTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -283,8 +262,8 @@ class PlayerController extends AbstractController
             'modelTransferApplicationTo' => $modelTransferApplicationTo,
             'modelTransferFrom' => $modelTransferFrom,
             'modelTransferTo' => $modelTransferTo,
-            'myPlayer' => $myPlayer,
             'onTransfer' => $onTransfer,
+            'player' => $player,
         ]);
     }
 
@@ -295,28 +274,7 @@ class PlayerController extends AbstractController
      */
     public function actionLoan(int $id)
     {
-        $player = Player::find()
-            ->select([
-                'player_age',
-                'player_country_id',
-                'player_date_no_action',
-                'player_id',
-                'player_loan_team_id',
-                'player_national_id',
-                'player_no_deal',
-                'player_position_id',
-                'player_price',
-                'player_team_id',
-            ])
-            ->where(['player_id' => $id])
-            ->one();
-        $this->notFound($player);
-        $myPlayer = true;
-        if (!$this->myTeam) {
-            $myPlayer = false;
-        } elseif ($this->myTeam->team_id != $player->player_team_id) {
-            $myPlayer = false;
-        }
+        $player = $this->getPlayer($id);
         $onLoan = $player->loan ? true : false;
 
         $formConfig = ['player' => $player, 'team' => $this->myTeam];
@@ -325,7 +283,7 @@ class PlayerController extends AbstractController
         $modelLoanFrom = new LoanFrom($formConfig);
         $modelLoanApplicationTo = new LoanApplicationTo($formConfig);
         $modelLoanApplicationFrom = new LoanApplicationFrom($formConfig);
-        if ($myPlayer) {
+        if ($player->myPlayer()) {
             if ($modelLoanTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -390,8 +348,8 @@ class PlayerController extends AbstractController
             'modelLoanApplicationTo' => $modelLoanApplicationTo,
             'modelLoanFrom' => $modelLoanFrom,
             'modelLoanTo' => $modelLoanTo,
-            'myPlayer' => $myPlayer,
             'onLoan' => $onLoan,
+            'player' => $player,
         ]);
     }
 

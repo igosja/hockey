@@ -140,4 +140,4 @@ print $this->render('_top');
 
     ?>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
