@@ -7,7 +7,6 @@ use common\components\FormatHelper;
  * @var \yii\web\View $this
  */
 
-
 ?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

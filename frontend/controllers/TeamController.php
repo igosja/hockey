@@ -426,61 +426,60 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionDeal($id): string
     {
+        $team = $this->getTeam($id);
+
+        $query = Transfer::find()
+            ->where(['transfer_team_seller_id' => $id])
+            ->andWhere(['!=', 'transfer_ready', 0])
+            ->orderBy(['transfer_ready' => SORT_DESC]);
         $dataProviderTransferFrom = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Transfer::find()
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['transfer_team_seller_id' => $id])
-                ->andWhere(['!=', 'transfer_ready', 0])
-                ->orderBy(['transfer_ready' => SORT_DESC]),
-        ]);
-        $dataProviderTransferTo = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => Transfer::find()
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['transfer_team_buyer_id' => $id])
-                ->andWhere(['!=', 'transfer_ready', 0])
-                ->orderBy(['transfer_ready' => SORT_DESC]),
-        ]);
-        $dataProviderLoanFrom = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => Loan::find()
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['loan_team_seller_id' => $id])
-                ->andWhere(['!=', 'loan_ready', 0])
-                ->orderBy(['loan_ready' => SORT_DESC]),
-        ]);
-        $dataProviderLoanTo = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => Loan::find()
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['loan_team_buyer_id' => $id])
-                ->andWhere(['!=', 'loan_ready', 0])
-                ->orderBy(['loan_ready' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Сделки команды');
+        $query = Transfer::find()
+            ->where(['transfer_team_buyer_id' => $id])
+            ->andWhere(['!=', 'transfer_ready', 0])
+            ->orderBy(['transfer_ready' => SORT_DESC]);
+        $dataProviderTransferTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $query = Loan::find()
+            ->where(['loan_team_seller_id' => $id])
+            ->andWhere(['!=', 'loan_ready', 0])
+            ->orderBy(['loan_ready' => SORT_DESC]);
+        $dataProviderLoanFrom = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $query = Loan::find()
+            ->with([
+            ])
+            ->select([
+            ])
+            ->where(['loan_team_buyer_id' => $id])
+            ->andWhere(['!=', 'loan_ready', 0])
+            ->orderBy(['loan_ready' => SORT_DESC]);
+        $dataProviderLoanTo = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($team->fullName() . '. Сделки команды');
 
         return $this->render('deal', [
             'dataProviderTransferFrom' => $dataProviderTransferFrom,
             'dataProviderTransferTo' => $dataProviderTransferTo,
             'dataProviderLoanFrom' => $dataProviderLoanFrom,
             'dataProviderLoanTo' => $dataProviderLoanTo,
+            'team' => $team,
         ]);
     }
 
