@@ -369,7 +369,7 @@ class TeamController extends AbstractController
             'query' => $query,
         ]);
 
-        $this->setSeoTitle('События команды');
+        $this->setSeoTitle($team->fullName() . '. События команды');
 
         return $this->render('event', [
             'dataProvider' => $dataProvider,
@@ -382,49 +382,54 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionFinance($id): string
     {
+        $team = $this->getTeam($id);
+
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
+        $query = Finance::find()
+            ->with([
+                'financeText' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['finance_text_id', 'finance_text_text']);
+                },
+                'player' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
+                },
+                'player.name' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['name_id', 'name_name']);
+                },
+                'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['surname_id', 'surname_name']);
+                },
+            ])
+            ->select([
+                'finance_building_id',
+                'finance_capacity',
+                'finance_date',
+                'finance_level',
+                'finance_finance_text_id',
+                'finance_value',
+                'finance_value_after',
+                'finance_value_before',
+            ])
+            ->where(['finance_team_id' => $id])
+            ->andWhere(['finance_season_id' => $seasonId])
+            ->orderBy(['finance_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Finance::find()
-                ->with([
-                    'financeText' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['finance_text_id', 'finance_text_text']);
-                    },
-                    'player' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
-                    },
-                    'player.name' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['name_id', 'name_name']);
-                    },
-                    'player.surname' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['surname_id', 'surname_name']);
-                    },
-                ])
-                ->select([
-                    'finance_building_id',
-                    'finance_capacity',
-                    'finance_date',
-                    'finance_level',
-                    'finance_finance_text_id',
-                    'finance_value',
-                    'finance_value_after',
-                    'finance_value_before',
-                ])
-                ->where(['finance_team_id' => $id])
-                ->andWhere(['finance_season_id' => $seasonId])
-                ->orderBy(['finance_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Финансы команды');
+        $this->setSeoTitle($team->fullName() . '. Финансы команды');
 
         return $this->render('finance', [
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+            'team' => $team,
         ]);
     }
 

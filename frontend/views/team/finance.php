@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Finance;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -9,16 +10,23 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
+ * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
 
-print $this->render('_team-top');
-
 ?>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
+    </div>
+</div>
 <?= Html::beginForm('', 'get'); ?>
     <div class="row margin-top-small">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-            <?= $this->render('_team-links'); ?>
+            <?= $this->render('//team/_team-links'); ?>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <div class="row">
@@ -45,45 +53,45 @@ print $this->render('_team-top');
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
-                'header' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
+                'label' => 'Дата',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asDate($model->finance_date, 'short');
+                    return FormatHelper::asDate($model->finance_date);
                 }
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-right'],
                 'footer' => 'Было',
                 'footerOptions' => ['class' => 'hidden-xs'],
-                'header' => 'Было',
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
+                'label' => 'Было',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value_before, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value_before);
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-right'],
                 'footer' => '+/-',
-                'header' => '+/-',
                 'headerOptions' => ['class' => 'col-10'],
+                'label' => '+/-',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value);
                 }
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-right'],
                 'footer' => 'Стало',
                 'footerOptions' => ['class' => 'hidden-xs'],
-                'header' => 'Стало',
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
+                'label' => 'Стало',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value_after, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value_after);
                 }
             ],
             [
                 'footer' => 'Комментарий',
                 'format' => 'raw',
-                'header' => 'Комментарий',
+                'label' => 'Комментарий',
                 'value' => function (Finance $model): string {
                     return $model->getText();
                 }
@@ -103,7 +111,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_team-links'); ?>
+        <?= $this->render('//team/_team-links'); ?>
     </div>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
