@@ -325,44 +325,48 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionEvent($id): string
     {
+        $team = $this->getTeam($id);
+
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
+        $query = History::find()
+            ->with([
+                'historyText' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['history_text_id', 'history_text_text']);
+                },
+                'team' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name']);
+                },
+                'player' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
+                },
+                'player.name' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['name_id', 'name_name']);
+                },
+                'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['surname_id', 'surname_name']);
+                },
+                'user' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['user_id', 'user_login']);
+                },
+            ])
+            ->select([
+                'history_date',
+                'history_history_text_id',
+                'history_team_id',
+                'history_user_id',
+                'history_player_id',
+            ])
+            ->where(['or', ['history_team_id' => $id], ['history_team_2_id' => $id]])
+            ->andWhere(['history_season_id' => $seasonId])
+            ->orderBy(['history_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => History::find()
-                ->with([
-                    'historyText' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['history_text_id', 'history_text_text']);
-                    },
-                    'team' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['team_id', 'team_name']);
-                    },
-                    'player' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
-                    },
-                    'player.name' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['name_id', 'name_name']);
-                    },
-                    'player.surname' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['surname_id', 'surname_name']);
-                    },
-                    'user' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['user_id', 'user_login']);
-                    },
-                ])
-                ->select([
-                    'history_date',
-                    'history_history_text_id',
-                    'history_team_id',
-                    'history_user_id',
-                    'history_player_id',
-                ])
-                ->where(['or', ['history_team_id' => $id], ['history_team_2_id' => $id]])
-                ->andWhere(['history_season_id' => $seasonId])
-                ->orderBy(['history_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
         $this->setSeoTitle('События команды');
@@ -371,6 +375,7 @@ class TeamController extends AbstractController
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+            'team' => $team,
         ]);
     }
 
