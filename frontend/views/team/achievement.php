@@ -6,15 +6,22 @@ use yii\grid\GridView;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
 
-print $this->render('_team-top');
-
 ?>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
+    </div>
+</div>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_team-links'); ?>
+        <?= $this->render('//team/_team-links'); ?>
     </div>
 </div>
 <div class="row">
@@ -26,7 +33,7 @@ print $this->render('_team-top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Сезон'],
-                'header' => 'С',
+                'label' => 'С',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
                 'value' => function (Achievement $model): string {
                     return $model->achievement_season_id;
@@ -34,7 +41,7 @@ print $this->render('_team-top');
             ],
             [
                 'footer' => 'Турнир',
-                'header' => 'Турнир',
+                'label' => 'Турнир',
                 'value' => function (Achievement $model): string {
                     return $model->getTournament();
                 }
@@ -42,7 +49,7 @@ print $this->render('_team-top');
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Позиция',
-                'header' => 'Позиция',
+                'label' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
                 'value' => function (Achievement $model): string {
                     return $model->getPosition();
@@ -63,7 +70,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_team-links'); ?>
+        <?= $this->render('//team/_team-links'); ?>
     </div>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>

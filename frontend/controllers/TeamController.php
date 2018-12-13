@@ -470,10 +470,6 @@ class TeamController extends AbstractController
         ]);
 
         $query = Loan::find()
-            ->with([
-            ])
-            ->select([
-            ])
             ->where(['loan_team_buyer_id' => $id])
             ->andWhere(['!=', 'loan_ready', 0])
             ->orderBy(['loan_ready' => SORT_DESC]);
@@ -496,25 +492,25 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionAchievement($id): string
     {
+        $team = $this->getTeam($id);
+
+        $query = Achievement::find()
+            ->where(['achievement_team_id' => $id])
+            ->orderBy(['achievement_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Achievement::find()
-                ->with([
-                ])
-                ->select([
-                    'achievement_season_id',
-                ])
-                ->where(['achievement_team_id' => $id])
-                ->orderBy(['achievement_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Достижения команды');
+        $this->setSeoTitle($team->fullName() . '. Достижения команды');
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,
+            'team' => $team,
         ]);
     }
 
