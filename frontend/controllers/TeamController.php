@@ -512,14 +512,13 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionStatistics($id): string
     {
-        $team = Team::find()
-            ->where(['team_id' => $id])
-            ->one();
+        $team = $this->getTeam($id);
 
-        $this->setSeoTitle('Статистика команды');
+        $this->setSeoTitle($team->fullName() . '. Статистика команды');
 
         return $this->render('statistics', [
             'team' => $team,
