@@ -17,9 +17,7 @@ use yii\grid\GridView;
         <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <?= $this->render('//team/_team-top-right', [
-            'team' => $team,
-        ]); ?>
+        <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
     </div>
 </div>
 <?php if ($notification_array = []) : ?>

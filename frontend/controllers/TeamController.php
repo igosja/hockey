@@ -239,81 +239,86 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionGame($id): string
     {
+        $team = $this->getTeam($id);
+
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
+        $query = Game::find()
+            ->joinWith(['schedule'])
+            ->with([
+                'schedule' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select([
+                        'schedule_id',
+                        'schedule_date',
+                        'schedule_tournament_type_id',
+                        'schedule_stage_id'
+                    ]);
+                },
+                'schedule.stage' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stage_id', 'stage_name']);
+                },
+                'schedule.tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['tournament_type_id', 'tournament_type_name']);
+                },
+                'teamGuest' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                },
+                'teamGuest.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id']);
+                },
+                'teamGuest.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'teamGuest.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'teamHome' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                },
+                'teamHome.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id']);
+                },
+                'teamHome.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'teamHome.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->select([
+                'game_id',
+                'game_guest_auto',
+                'game_guest_plus_minus',
+                'game_guest_power',
+                'game_guest_score',
+                'game_guest_team_id',
+                'game_home_auto',
+                'game_home_plus_minus',
+                'game_home_power',
+                'game_home_score',
+                'game_home_team_id',
+                'game_played',
+                'game_schedule_id',
+            ])
+            ->where(['or', ['game_home_team_id' => $id], ['game_guest_team_id' => $id]])
+            ->andWhere(['schedule_season_id' => $seasonId])
+            ->orderBy(['schedule_date' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Game::find()
-                ->joinWith(['schedule'])
-                ->with([
-                    'schedule' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select([
-                            'schedule_id',
-                            'schedule_date',
-                            'schedule_tournament_type_id',
-                            'schedule_stage_id'
-                        ]);
-                    },
-                    'schedule.stage' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stage_id', 'stage_name']);
-                    },
-                    'schedule.tournamentType' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['tournament_type_id', 'tournament_type_name']);
-                    },
-                    'teamGuest' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
-                    },
-                    'teamGuest.stadium' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stadium_id', 'stadium_city_id']);
-                    },
-                    'teamGuest.stadium.city' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['city_id', 'city_country_id', 'city_name']);
-                    },
-                    'teamGuest.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['country_id', 'country_name']);
-                    },
-                    'teamHome' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
-                    },
-                    'teamHome.stadium' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['stadium_id', 'stadium_city_id']);
-                    },
-                    'teamHome.stadium.city' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['city_id', 'city_country_id', 'city_name']);
-                    },
-                    'teamHome.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
-                        return $query->select(['country_id', 'country_name']);
-                    },
-                ])
-                ->select([
-                    'game_id',
-                    'game_guest_auto',
-                    'game_guest_plus_minus',
-                    'game_guest_power',
-                    'game_guest_score',
-                    'game_guest_team_id',
-                    'game_home_auto',
-                    'game_home_plus_minus',
-                    'game_home_power',
-                    'game_home_score',
-                    'game_home_team_id',
-                    'game_played',
-                    'game_schedule_id',
-                ])
-                ->where(['or', ['game_home_team_id' => $id], ['game_guest_team_id' => $id]])
-                ->andWhere(['schedule_season_id' => $seasonId])
-                ->orderBy(['schedule_date' => SORT_ASC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Матчи команды');
+        $this->setSeoTitle($team->fullName() . '. Матчи команды');
 
         return $this->render('game', [
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+            'team' => $team,
         ]);
     }
 
