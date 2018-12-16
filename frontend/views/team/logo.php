@@ -90,7 +90,7 @@ use yii\widgets\ActiveForm;
         Команда
     </div>
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <?= $team->team_name; ?>
+        <?= $team->teamLink('img'); ?>
     </div>
 </div>
 <?= $form->field($model, 'file')->fileInput(); ?>

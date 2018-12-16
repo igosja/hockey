@@ -37,11 +37,11 @@ class TeamController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['ask', 'change-my-team'],
+                'only' => ['ask', 'change-my-team', 'logo'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['ask', 'change-my-team'],
+                        'actions' => ['ask', 'change-my-team', 'logo'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -697,20 +697,17 @@ class TeamController extends AbstractController
      */
     public function actionLogo(int $id)
     {
-        $team = Team::find()
-            ->where(['team_id' => $id])
-            ->one();
-        $this->notFound($team);
+        $team = $this->getTeam($id);
 
         $model = new TeamLogo($team->team_id);
         if ($model->upload()) {
-            $this->setSuccessFlash('Данные успешно сохранены.');
+            $this->setSuccessFlash();
             return $this->refresh();
         }
 
         $logoArray = Logo::find()->all();
 
-        $this->setSeoTitle('Загрузить эмблему');
+        $this->setSeoTitle($team->fullName() . '. Загрузка эмблемы');
 
         return $this->render('logo', [
             'logoArray' => $logoArray,

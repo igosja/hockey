@@ -5,6 +5,7 @@ namespace common\models;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -393,6 +394,84 @@ class Player extends AbstractActiveRecord
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function trainingPositionDropDownList(): string
+    {
+        if (2 == count($this->playerPosition)) {
+            return '';
+        }
+
+        if (Position::GK == $this->playerPosition[0]->player_position_position_id) {
+            return '';
+        }
+
+        $positionArray = Position::find()
+            ->where(['!=', 'position_id', Position::GK])
+            ->andWhere([
+                'not',
+                [
+                    'position_id' => PlayerPosition::find()
+                        ->select(['player_position_position_id'])
+                        ->where(['player_position_player_id' => $this->player_id])
+                ]
+            ])
+            ->orderBy(['position_id' => SORT_ASC])
+            ->all();
+
+        return Html::dropDownList(
+            'position[' . $this->player_id . ']',
+            null,
+            ArrayHelper::map($positionArray, 'position_id', 'position_name'),
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function trainingSpecialDropDownList(): string
+    {
+        $playerSpecial = PlayerSpecial::find()
+            ->where(['player_special_level' => Special::MAX_LEVEL, 'player_special_player_id' => $this->player_id])
+            ->count();
+        if (Special::MAX_SPECIALS == $playerSpecial) {
+            return '';
+        }
+
+        if (Position::GK == $this->player_position_id) {
+            $gk = 1;
+            $field = null;
+        } else {
+            $gk = null;
+            $field = 1;
+        }
+
+        $specialArray = Special::find()
+            ->filterWhere(['special_gk' => $gk, 'special_field' => $field])
+            ->andWhere([
+                'not',
+                [
+                    'special_id' => PlayerSpecial::find()
+                        ->select(['player_special_special_id'])
+                        ->where([
+                            'player_special_level' => Special::MAX_LEVEL,
+                            'player_special_player_id' => $this->player_id,
+                        ])
+                ]
+            ])
+            ->orderBy(['special_id' => SORT_ASC])
+            ->all();
+
+        return Html::dropDownList(
+            'special[' . $this->player_id . ']',
+            null,
+            ArrayHelper::map($specialArray, 'special_id', 'special_name'),
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        );
     }
 
     /**

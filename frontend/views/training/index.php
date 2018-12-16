@@ -1,12 +1,15 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Player;
 use common\models\Team;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var bool $onBuilding
  * @var Team $team
  * @var \yii\web\View $this
  */
@@ -14,7 +17,7 @@ use yii\grid\GridView;
 ?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= $this->render('//team/_team-top-left', ['team' => $team, 'teamId' => $team->team_id]); ?>
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
@@ -23,13 +26,13 @@ use yii\grid\GridView;
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Уровень:
                 <span class="strong"><?= $team->baseTraining->base_training_level; ?></span>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Скорость тренировки:
                 <span class="strong"><?= $team->baseTraining->base_training_training_speed_min; ?>%</span>
                 -
@@ -38,7 +41,7 @@ use yii\grid\GridView;
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось тренировок силы:
                 <span class="strong"><?= 0; ?></span>
                 из
@@ -46,7 +49,7 @@ use yii\grid\GridView;
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось спецвозможностей:
                 <span class="strong"><?= 0; ?></span>
                 из
@@ -54,7 +57,7 @@ use yii\grid\GridView;
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось совмещений:
                 <span class="strong"><?= 0; ?></span>
                 из
@@ -64,43 +67,19 @@ use yii\grid\GridView;
     </div>
 </div>
 <div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center <?php if ($onBuilding) : ?>del<?php endif; ?>">
         <span class="strong">Стоимость тренировок:</span>
         Балл силы
         <span class="strong">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($team->baseTraining->base_training_power_price, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($team->baseTraining->base_training_power_price); ?>
         </span>
         Спецвозможность
         <span class="strong">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($team->baseTraining->base_training_special_price, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($team->baseTraining->base_training_special_price); ?>
         </span>
         Совмещение
         <span class="strong">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($team->baseTraining->base_training_position_price, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($team->baseTraining->base_training_position_price); ?>
         </span>
     </div>
 </div>
@@ -110,6 +89,7 @@ use yii\grid\GridView;
         вы можете назначить тренировки силы, спецвозможностей или совмещений своим игрокам:
     </div>
 </div>
+<?= Html::beginForm(['training/index']); ?>
 <div class="row">
     <?php
 
@@ -148,30 +128,53 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Номинальная сила'],
                 'label' => 'С',
                 'value' => function (Player $model): string {
-                    return $model->player_power_nominal;
+                    $result = $model->player_power_nominal;
+                    if ($model->player_date_no_action < time()) {
+                        $result = $result
+                            . ' '
+                            . Html::checkbox('power[' . $model->player_id . ']');
+                    }
+                    return $result;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Поз',
                 'footerOptions' => ['title' => 'Позиция'],
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-15', 'title' => 'Позиция'],
                 'label' => 'Поз',
                 'value' => function (Player $model): string {
-                    return $model->position();
+                    $result = '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+                        . $model->position()
+                        . '</div><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">';
+                    if ($model->player_date_no_action < time()) {
+                        $result = $result . ' ' . $model->trainingPositionDropDownList();
+                    }
+                    $result = $result . '</div></div>';
+                    return $result;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Спец',
                 'footerOptions' => ['title' => 'Спецвозможности'],
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-15', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'value' => function (Player $model): string {
-                    return $model->special();
+                    $result = '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
+                        . $model->special()
+                        . '</div><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">';
+                    if ($model->player_date_no_action < time()) {
+                        $result = $result . ' ' . $model->trainingSpecialDropDownList();
+                    }
+                    $result = $result . '</div></div>';
+                    return $result;
                 }
             ],
         ];
@@ -187,4 +190,10 @@ use yii\grid\GridView;
 
     ?>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= Html::submitButton('Продолжить', ['class' => 'btn margin']); ?>
+    </div>
+</div>
+<?= Html::endForm(); ?>
 <?= $this->render('//site/_show-full-table'); ?>
