@@ -397,6 +397,11 @@ class TrainingController extends AbstractController
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     */
     public function actionCancel(int $id)
     {
         if (!$this->myTeam) {
@@ -445,6 +450,8 @@ class TrainingController extends AbstractController
 
                 $team->team_finance = $team->team_finance + $price;
                 $team->save(true, ['team_finance']);
+
+                $transaction->commit();
 
                 $this->setSuccessFlash('Тренировка успешно отменена.');
             } catch (Throwable $e) {
