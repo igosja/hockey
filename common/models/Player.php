@@ -219,7 +219,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->player_injury) {
-            $result = ' <i class="fa fa-ambulance" title="Injured for ' . $this->player_injury_day . ' days"></i>';
+            $result = ' <i class="fa fa-ambulance" title="Травмирован на ' . $this->player_injury_day . ' дн."></i>';
         }
         return $result;
     }
@@ -231,7 +231,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->loan || $this->transfer) {
-            $result = ' <i class="fa fa-usd" title="For sale/loan"></i>';
+            $result = ' <i class="fa fa-usd" title="Выставлен на трансфер/аренду"></i>';
         }
         return $result;
     }
@@ -243,7 +243,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->player_national_id) {
-            $result = ' <i class="fa fa-flag" title="National team player"></i>';
+            $result = ' <i class="fa fa-flag" title="Игрок национальной сборной"></i>';
         }
         return $result;
     }
@@ -255,7 +255,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if (self::AGE_READY_FOR_PENSION == $this->player_age) {
-            $result = ' <i class="fa fa-bed" title="Completes his career at the end of the season"></i>';
+            $result = ' <i class="fa fa-bed" title="Заканчивает карьеру в конце текущего сезона"></i>';
         }
         return $result;
     }
@@ -330,7 +330,7 @@ class Player extends AbstractActiveRecord
 
         $result = '';
         if ($countTraining) {
-            $result = ' <i class="fa fa-caret-square-o-up " title="On training"></i>';
+            $result = ' <i class="fa fa-caret-square-o-up " title="На тренировке"></i>';
         }
         return $result;
     }

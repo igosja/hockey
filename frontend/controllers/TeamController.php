@@ -150,7 +150,9 @@ class TeamController extends AbstractController
                 'player_age',
                 'player_country_id',
                 'player_game_row',
+                'player_loan_team_id',
                 'player_name_id',
+                'player_national_id',
                 'player_id',
                 'player_physical_id',
                 'player_power_nominal',
@@ -158,6 +160,7 @@ class TeamController extends AbstractController
                 'player_price',
                 'player_style_id',
                 'player_surname_id',
+                'player_team_id',
                 'player_tire',
             ])
             ->where(['player_team_id' => $id])
