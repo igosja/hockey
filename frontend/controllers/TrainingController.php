@@ -15,6 +15,7 @@ use common\models\Special;
 use common\models\Training;
 use common\models\Transfer;
 use Exception;
+use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -317,9 +318,9 @@ class TrainingController extends AbstractController
         if (Yii::$app->request->get('ok')) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
-                foreach ($confirmData['power'] as $playerId => $power) {
+                foreach ($confirmData['power'] as $power) {
                     $model = new Training();
-                    $model->training_player_id = $playerId;
+                    $model->training_player_id = $power['id'];
                     $model->training_power = 1;
                     $model->training_season_id = $this->seasonId;
                     $model->training_team_id = $team->team_id;
@@ -339,8 +340,8 @@ class TrainingController extends AbstractController
 
                 foreach ($confirmData['position'] as $playerId => $position) {
                     $model = new Training();
-                    $model->training_player_id = $playerId;
-                    $model->training_position_id = $position['id'];
+                    $model->training_player_id = $position['id'];
+                    $model->training_position_id = $position['position']['id'];
                     $model->training_season_id = $this->seasonId;
                     $model->training_team_id = $team->team_id;
                     $model->save();
@@ -359,9 +360,9 @@ class TrainingController extends AbstractController
 
                 foreach ($confirmData['special'] as $playerId => $special) {
                     $model = new Training();
-                    $model->training_player_id = $playerId;
+                    $model->training_player_id = $special['id'];
                     $model->training_season_id = $this->seasonId;
-                    $model->training_special_id = $special['id'];
+                    $model->training_special_id = $special['special']['id'];
                     $model->training_team_id = $team->team_id;
                     $model->save();
 
@@ -393,6 +394,74 @@ class TrainingController extends AbstractController
         return $this->render('train', [
             'confirmData' => $confirmData,
             'team' => $team,
+        ]);
+    }
+
+    public function actionCancel(int $id)
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        $team = $this->myTeam;
+
+        $training = Training::find()
+            ->where(['training_id' => $id, 'training_ready' => 0, 'training_team_id' => $team->team_id])
+            ->limit(1)
+            ->one();
+        if (!$training) {
+            $this->setErrorFlash('Тренировка выбрана неправильно.');
+            return $this->redirect(['training/index']);
+        }
+
+        if ($training->training_power) {
+            $price = $team->baseTraining->base_training_power_price;
+        } elseif ($training->training_special_id) {
+            $price = $team->baseTraining->base_training_special_price;
+        } else {
+            $price = $team->baseTraining->base_training_position_price;
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($training->training_power) {
+                    $text = FinanceText::INCOME_TRAINING_POWER;
+                } elseif ($training->training_special_id) {
+                    $text = FinanceText::INCOME_TRAINING_SPECIAL;
+                } else {
+                    $text = FinanceText::INCOME_TRAINING_POSITION;
+                }
+
+                $training->delete();
+
+                Finance::log([
+                    'finance_finance_text_id' => $text,
+                    'finance_team_id' => $team->team_id,
+                    'finance_value' => $price,
+                    'finance_value_after' => $team->team_finance + $price,
+                    'finance_value_before' => $team->team_finance,
+                ]);
+
+                $team->team_finance = $team->team_finance + $price;
+                $team->save(true, ['team_finance']);
+
+                $this->setSuccessFlash('Тренировка успешно отменена.');
+            } catch (Throwable $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+            return $this->redirect(['training/index']);
+        }
+
+        $this->setSeoTitle('Отмена тренировки. ' . $team->fullName());
+
+        return $this->render('cancel', [
+            'id' => $id,
+            'price' => $price,
+            'team' => $team,
+            'training' => $training,
         ]);
     }
 
