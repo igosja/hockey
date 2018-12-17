@@ -90,7 +90,7 @@ class TrainingController extends AbstractController
 
         if ($team->buildingBase) {
             $this->setErrorFlash('На базе сейчас идет строительство.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         }
 
         $data = Yii::$app->request->get();
@@ -112,7 +112,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -120,7 +120,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $loan = Loan::find()
@@ -128,7 +128,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $training = Training::find()
@@ -136,7 +136,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $confirmData['power'][] = [
@@ -158,7 +158,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -166,7 +166,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $loan = Loan::find()
@@ -174,7 +174,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $training = Training::find()
@@ -182,7 +182,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $special = Position::find()
@@ -199,7 +199,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if ($special) {
                     $this->setErrorFlash('Совмещение выбрано не правильно.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $confirmData['power'][] = [
@@ -225,7 +225,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -233,7 +233,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $loan = Loan::find()
@@ -241,7 +241,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if (!$loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $training = Training::find()
@@ -249,7 +249,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $isGk = Position::GK == $player->player_position_id ? 1 : null;
@@ -273,7 +273,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if ($special) {
                     $this->setErrorFlash('Спецвозможность выбрано не правильно.');
-                    return $this->redirect(['transfer/index']);
+                    return $this->redirect(['training/index']);
                 }
 
                 $confirmData['power'][] = [
@@ -293,19 +293,19 @@ class TrainingController extends AbstractController
 
         if (count($confirmData['power']) > $team->availableTrainingPower()) {
             $this->setErrorFlash('У вас недостаточно баллов для тренировки.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         } elseif (count($confirmData['position']) > $team->availableTrainingPosition()) {
             $this->setErrorFlash('У вас недостаточно совмещений для тренировки.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         } elseif (count($confirmData['special']) > $team->availableTrainingSpecial()) {
             $this->setErrorFlash('У вас недостаточно спецвозможностей для тренировки.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         } elseif (count($playerIdArray) != count(array_unique($playerIdArray))) {
             $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         } elseif ($confirmData['price'] > $team->team_finance) {
             $this->setErrorFlash('У вас недостаточно денег для тренировки.');
-            return $this->redirect(['transfer/index']);
+            return $this->redirect(['training/index']);
         }
 
         if (Yii::$app->request->get('ok')) {
