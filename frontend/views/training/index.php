@@ -12,6 +12,7 @@ use yii\helpers\Html;
  * @var bool $onBuilding
  * @var Team $team
  * @var \yii\web\View $this
+ * @var \common\models\Training[] $trainingArray
  */
 
 ?>
@@ -89,6 +90,78 @@ use yii\helpers\Html;
         вы можете назначить тренировки силы, спецвозможностей или совмещений своим игрокам:
     </div>
 </div>
+<?php if ($trainingArray) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            Игроки вашей команды, находящиеся на тренировке:
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Игрок</th>
+                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
+                    <th class="col-5" title="Возраст">В</th>
+                    <th class="col-10" title="Номинальная сила">С</th>
+                    <th class="col-10" title="Позиция">Поз</th>
+                    <th class="col-10" title="Спецвозможности">Спец</th>
+                    <th class="col-10" title="Прогресс тренировки">%</th>
+                    <th class="col-1"></th>
+                </tr>
+                <?php foreach ($trainingArray as $item) : ?>
+                    <tr>
+                        <td>
+                            <?= $item->player->playerLink(); ?>
+                        </td>
+                        <td class="hidden-xs text-center">
+                            <?= $item->player->country->countryImageLink(); ?>
+                        </td>
+                        <td class="text-center"><?= $item->player->player_age; ?></td>
+                        <td class="text-center">
+                            <?= $item->player->player_power_nominal; ?>
+                            <?php if ($item->training_power) : ?>
+                                + 1
+                            <?php endif; ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $item->player->position(); ?>
+                            <?php if ($item->training_position_id) : ?>
+                                + <?= $item->position->position_name; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $item->player->special(); ?>
+                            <?php if ($item->training_special_id) : ?>
+                                + <?= $item->special->special_name; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="text-center">
+                            <?= $item->training_percent; ?>%
+                        </td>
+                        <td class="text-center">
+                            <?= Html::a(
+                                '<i class="fa fa-times-circle"></i>',
+                                ['training/cancel', 'id' => $item->training_id],
+                                ['title' => 'Отменить тренировку']
+                            ); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <th>Игрок</th>
+                    <th class="hidden-xs" title="Национальность">Нац</th>
+                    <th title="Возраст">В</th>
+                    <th title="Позиция">Поз</th>
+                    <th title="Номинальная сила">С</th>
+                    <th title="Спецвозможности">Спец</th>
+                    <th title="Прогресс тренировки">%</th>
+                    <th></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
 <?= Html::beginForm(['training/index']); ?>
 <div class="row">
     <?php

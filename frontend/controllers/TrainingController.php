@@ -59,6 +59,11 @@ class TrainingController extends AbstractController
 
         $team = $this->myTeam;
 
+        $trainingArray = Training::find()
+            ->where(['training_team_id' => $team->team_id, 'training_ready' => 0])
+            ->orderBy(['training_id' => SORT_ASC])
+            ->all();
+
         $query = Player::find()
             ->where(['player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
             ->orderBy(['player_position_id' => SORT_ASC]);
@@ -73,6 +78,7 @@ class TrainingController extends AbstractController
             'dataProvider' => $dataProvider,
             'onBuilding' => $this->isOnBuilding(),
             'team' => $team,
+            'trainingArray' => $trainingArray,
         ]);
     }
 
@@ -88,7 +94,7 @@ class TrainingController extends AbstractController
 
         $team = $this->myTeam;
 
-        if ($team->buildingBase) {
+        if ($this->isOnBuilding()) {
             $this->setErrorFlash('На базе сейчас идет строительство.');
             return $this->redirect(['training/index']);
         }
