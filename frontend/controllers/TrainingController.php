@@ -3,8 +3,10 @@
 namespace frontend\controllers;
 
 use common\models\Building;
+use common\models\Loan;
 use common\models\Player;
-use frontend\models\Training;
+use common\models\Training;
+use common\models\Transfer;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -42,7 +44,7 @@ class TrainingController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
-        $model = new Training();
+        $model = new \frontend\models\Training();
         if ($model->load(Yii::$app->request->post(), '')) {
             return $this->redirect($model->redirectUrl());
         }
@@ -75,17 +77,66 @@ class TrainingController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
-        print '<pre>';
-        print_r(Yii::$app->request->get());
-        exit;
-
         $team = $this->myTeam;
+
+        $data = Yii::$app->request->get();
+
+        $confirmData = [
+            'position' => [],
+            'power' => [],
+            'special' => [],
+            'price' => 0,
+        ];
+
+        $playerIdArray = [];
+
+        if (isset($data['power'])) {
+            foreach ($data['power'] as $playerId => $power) {
+                $player = Player::find()
+                    ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
+                    ->limit(1)
+                    ->one();
+                if (!$player) {
+                    $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
+                    return $this->redirect(['transfer/index']);
+                }
+
+                $transfer = Transfer::find()
+                    ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
+                    ->count();
+                if (!$transfer) {
+                    $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
+                    return $this->redirect(['transfer/index']);
+                }
+
+                $loan = Loan::find()
+                    ->where(['loan_player_id' => $playerId, 'loan_ready' => 0])
+                    ->count();
+                if (!$loan) {
+                    $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
+                    return $this->redirect(['transfer/index']);
+                }
+
+                $training = Training::find()
+                    ->where(['training_player_id' => $playerId, 'training_ready' => 0])
+                    ->count();
+                if ($training) {
+                    $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
+                    return $this->redirect(['transfer/index']);
+                }
+
+                $confirmData['power'][] = [
+                    'id' => $playerId,
+                    'name' => $player->playerName(),
+                ];
+
+                $confirmData['price'] = $confirmData['price'] + $team->baseTraining->base_training_power_price;
+            }
+        }
 
         $this->setSeoTitle($team->fullName() . '. Тренировка хоккеистов');
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'onBuilding' => $this->isOnBuilding(),
+        return $this->render('train', [
             'team' => $team,
         ]);
     }
