@@ -202,7 +202,7 @@ class TrainingController extends AbstractController
                     return $this->redirect(['training/index']);
                 }
 
-                $confirmData['power'][] = [
+                $confirmData['position'][] = [
                     'id' => $playerId,
                     'name' => $player->playerName(),
                     'position' => [
@@ -276,7 +276,7 @@ class TrainingController extends AbstractController
                     return $this->redirect(['training/index']);
                 }
 
-                $confirmData['power'][] = [
+                $confirmData['special'][] = [
                     'id' => $playerId,
                     'name' => $player->playerName(),
                     'special' => [
