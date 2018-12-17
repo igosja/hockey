@@ -118,7 +118,7 @@ class TrainingController extends AbstractController
                 $transfer = Transfer::find()
                     ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
                     ->count();
-                if (!$transfer) {
+                if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
                     return $this->redirect(['training/index']);
                 }
@@ -126,7 +126,7 @@ class TrainingController extends AbstractController
                 $loan = Loan::find()
                     ->where(['loan_player_id' => $playerId, 'loan_ready' => 0])
                     ->count();
-                if (!$loan) {
+                if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
                     return $this->redirect(['training/index']);
                 }
@@ -164,7 +164,7 @@ class TrainingController extends AbstractController
                 $transfer = Transfer::find()
                     ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
                     ->count();
-                if (!$transfer) {
+                if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
                     return $this->redirect(['training/index']);
                 }
@@ -172,7 +172,7 @@ class TrainingController extends AbstractController
                 $loan = Loan::find()
                     ->where(['loan_player_id' => $playerId, 'loan_ready' => 0])
                     ->count();
-                if (!$loan) {
+                if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
                     return $this->redirect(['training/index']);
                 }
@@ -231,7 +231,7 @@ class TrainingController extends AbstractController
                 $transfer = Transfer::find()
                     ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
                     ->count();
-                if (!$transfer) {
+                if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
                     return $this->redirect(['training/index']);
                 }
@@ -239,7 +239,7 @@ class TrainingController extends AbstractController
                 $loan = Loan::find()
                     ->where(['loan_player_id' => $playerId, 'loan_ready' => 0])
                     ->count();
-                if (!$loan) {
+                if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
                     return $this->redirect(['training/index']);
                 }
