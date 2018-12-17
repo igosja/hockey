@@ -151,7 +151,7 @@ class TrainingController extends AbstractController
         }
 
         if (isset($data['position'])) {
-            foreach ($data['position'] as $playerId => $special) {
+            foreach ($data['position'] as $playerId => $position) {
                 $player = Player::find()
                     ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
                     ->limit(1)
@@ -185,8 +185,8 @@ class TrainingController extends AbstractController
                     return $this->redirect(['training/index']);
                 }
 
-                $special = Position::find()
-                    ->where(['position_id' => $special])
+                $position = Position::find()
+                    ->where(['position_id' => $position])
                     ->andWhere([
                         'not',
                         [
@@ -197,7 +197,7 @@ class TrainingController extends AbstractController
                     ])
                     ->limit(1)
                     ->one();
-                if ($special) {
+                if (!$position) {
                     $this->setErrorFlash('Совмещение выбрано не правильно.');
                     return $this->redirect(['training/index']);
                 }
@@ -206,8 +206,8 @@ class TrainingController extends AbstractController
                     'id' => $playerId,
                     'name' => $player->playerName(),
                     'position' => [
-                        'id' => $special->position_id,
-                        'name' => $special->position_name,
+                        'id' => $position->position_id,
+                        'name' => $position->position_name,
                     ],
                 ];
 
@@ -271,7 +271,7 @@ class TrainingController extends AbstractController
                     ])
                     ->limit(1)
                     ->one();
-                if ($special) {
+                if (!$special) {
                     $this->setErrorFlash('Спецвозможность выбрано не правильно.');
                     return $this->redirect(['training/index']);
                 }
