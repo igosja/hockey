@@ -118,7 +118,7 @@ class TrainingController extends AbstractController
                     ->limit(1)
                     ->one();
                 if (!$player) {
-                    $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
+                    $this->setErrorFlash('Игрок выбран неправильно.');
                     return $this->redirect(['training/index']);
                 }
 
@@ -164,7 +164,7 @@ class TrainingController extends AbstractController
                     ->limit(1)
                     ->one();
                 if (!$player) {
-                    $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
+                    $this->setErrorFlash('Игрок выбран неправильно.');
                     return $this->redirect(['training/index']);
                 }
 
@@ -231,7 +231,7 @@ class TrainingController extends AbstractController
                     ->limit(1)
                     ->one();
                 if (!$player) {
-                    $this->setErrorFlash('Нельзя тренировать игрока, который находиться в аренде.');
+                    $this->setErrorFlash('Игрок выбран неправильно.');
                     return $this->redirect(['training/index']);
                 }
 

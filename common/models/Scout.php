@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class Scout
  * @package common\models
@@ -13,6 +15,8 @@ namespace common\models;
  * @property int $scout_season_id
  * @property int $scout_style
  * @property int $scout_team_id
+ *
+ * @property Player $player
  */
 class Scout extends AbstractActiveRecord
 {
@@ -44,5 +48,13 @@ class Scout extends AbstractActiveRecord
             ],
             [['scout_player_id', 'scout_team_id'], 'required'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayer(): ActiveQuery
+    {
+        return $this->hasOne(Player::class, ['player_id' => 'scout_player_id']);
     }
 }

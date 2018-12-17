@@ -316,6 +316,27 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function countScout(): int
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        $myTeam = $controller->myTeam;
+
+        if ($myTeam) {
+            return Scout::find()
+                ->where(['scout_player_id' => $this->player_id, 'scout_team_id' => $myTeam->team_id])
+                ->andWhere(['!=', 'scout_ready', 0])
+                ->count();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * @return string
      */
     public function iconTraining(): string
