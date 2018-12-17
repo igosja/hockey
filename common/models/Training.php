@@ -77,6 +77,6 @@ class Training extends AbstractActiveRecord
      */
     public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'training_position_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'training_special_id']);
     }
 }
