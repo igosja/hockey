@@ -103,7 +103,7 @@ use yii\helpers\Html;
                             <?= Html::a(
                                 '<i class="fa fa-times-circle"></i>',
                                 ['scout/cancel', 'id' => $item->scout_id],
-                                ['title' => 'Отменить тренировку']
+                                ['title' => 'Отменить изучение']
                             ); ?>
                         </td>
                     </tr>

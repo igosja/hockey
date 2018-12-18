@@ -2,8 +2,13 @@
 
 namespace frontend\controllers;
 
-use common\models\Team;
-use Yii;
+use common\models\Building;
+use common\models\Position;
+use common\models\School;
+use common\models\Special;
+use common\models\Style;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class SchoolController
@@ -12,30 +17,63 @@ use Yii;
 class SchoolController extends AbstractController
 {
     /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @return string|\yii\web\Response
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            $this->forbiddenAuth();
-        }
-
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
         }
 
-        $team = Team::find()
-            ->where(['team_id' => $this->myTeam->team_id])
-            ->limit(1)
-            ->one();
-        $this->notFound($team);
+        $team = $this->myTeam;
 
-        $this->setSeoTitle('Спортивная школа');
+        $schoolArray = School::find()
+            ->where(['school_ready' => 0, 'school_team_id' => $team->team_id])
+            ->all();
+
+        $this->setSeoTitle($team->fullName() . '. Спортивная школа');
 
         return $this->render('index', [
+            'onBuilding' => $this->isOnBuilding(),
+            'positionArray' => ArrayHelper::map(Position::find()->all(), 'position_id', 'position_name'),
+            'schoolArray' => $schoolArray,
+            'specialArray' => ArrayHelper::map(Special::find()->all(), 'special_id', 'special_text'),
+            'styleArray' => ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name'),
             'team' => $team,
         ]);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isOnBuilding(): bool
+    {
+        if (!$this->myTeam->buildingBase) {
+            return false;
+        }
+
+        if (!in_array($this->myTeam->buildingBase->building_base_building_id, [Building::BASE, Building::SCHOOL])) {
+            return false;
+        }
+
+        return true;
     }
 }

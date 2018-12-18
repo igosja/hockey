@@ -570,6 +570,22 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
+    public function availableSchoolWithSpecial(): int
+    {
+        return $this->baseSchool->base_school_with_special - $this->usedSchoolWithSpecial();
+    }
+
+    /**
+     * @return int
+     */
+    public function availableSchoolWithStyle(): int
+    {
+        return $this->baseSchool->base_school_with_style - $this->usedSchoolWithStyle();
+    }
+
+    /**
+     * @return int
+     */
     public function availableScout(): int
     {
         return $this->baseScout->base_scout_my_style_count - $this->usedScout();
@@ -672,6 +688,34 @@ class Team extends AbstractActiveRecord
     {
         return School::find()
             ->where(['school_team_id' => $this->team_id, 'school_season_id' => Season::getCurrentSeason()])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedSchoolWithSpecial(): int
+    {
+        return School::find()
+            ->where([
+                'school_team_id' => $this->team_id,
+                'school_season_id' => Season::getCurrentSeason(),
+                'school_with_special' => 1,
+            ])
+            ->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function usedSchoolWithStyle(): int
+    {
+        return School::find()
+            ->where([
+                'school_team_id' => $this->team_id,
+                'school_season_id' => Season::getCurrentSeason(),
+                'school_with_style' => 1,
+            ])
             ->count();
     }
 
