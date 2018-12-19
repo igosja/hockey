@@ -153,11 +153,11 @@ class SchoolController extends AbstractController
             return $this->redirect(['school/index']);
         }
 
-        $confirm_data['special'] = array(
+        $confirmData['special'] = [
             'id' => $special->special_id,
             'name' => $special->special_name,
             'with' => $specialId,
-        );
+        ];
 
         if ($data['style_id'] && $team->availableSchoolWithStyle()) {
             $styleId = $data['style_id'];
@@ -175,21 +175,21 @@ class SchoolController extends AbstractController
             return $this->redirect(['school/index']);
         }
 
-        $confirm_data['style'] = array(
+        $confirmData['style'] = [
             'id' => $style->style_id,
             'name' => $style->style_name,
             'with' => $styleId,
-        );
+        ];
 
         if (Yii::$app->request->get('ok')) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $model = new School();
                 $model->school_day = $team->baseSchool->base_school_school_speed;
-                $model->school_position_id = $confirmData['position']['id'];
+                $model->school_position_id = $position->position_id;
                 $model->school_season_id = Season::getCurrentSeason();
-                $model->school_special_id = $confirmData['special']['id'];
-                $model->school_style_id = $confirmData['style']['id'];
+                $model->school_special_id = $special->special_id;
+                $model->school_style_id = $style->style_id;
                 $model->school_team_id = $team->team_id;
                 $model->school_with_special = $specialId ? 1 : 0;
                 $model->school_with_special_request = $data['special_id'] ? 1 : 0;
