@@ -188,7 +188,7 @@ class SchoolController extends AbstractController
                 $model->school_day = $team->baseSchool->base_school_school_speed;
                 $model->school_position_id = $position->position_id;
                 $model->school_season_id = Season::getCurrentSeason();
-                $model->school_special_id = $special->special_id;
+                $model->school_special_id = $specialId;
                 $model->school_style_id = $style->style_id;
                 $model->school_team_id = $team->team_id;
                 $model->school_with_special = $specialId ? 1 : 0;

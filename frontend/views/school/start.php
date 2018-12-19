@@ -71,7 +71,7 @@ use yii\helpers\Html;
             <li>позиция - <?= $confirmData['position']['name']; ?></li>
             <li>
                 спецвозможность -
-                <?= $confirmData['special']['with'] ? $confirmData['special']['name'] : 'неизвестно'; ?>
+                <?= $confirmData['special']['with'] ? $confirmData['special']['name'] : 'нет'; ?>
             </li>
             <li>стиль - <?= $confirmData['style']['with'] ? $confirmData['style']['name'] : 'неизвестно'; ?></li>
         </ul>
