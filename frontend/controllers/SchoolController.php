@@ -118,7 +118,7 @@ class SchoolController extends AbstractController
             ->where(['position_id' => $data['position_id']])
             ->limit(1)
             ->one();
-        if ($position) {
+        if (!$position) {
             $this->setErrorFlash('Позиция игрока выбрана неправильно.');
             return $this->redirect(['school/index']);
         }
@@ -148,7 +148,7 @@ class SchoolController extends AbstractController
             ->orderBy('RAND()')
             ->limit(1)
             ->one();
-        if ($special) {
+        if (!$special) {
             $this->setErrorFlash('Спецвозможность игрока выбрана неправильно.');
             return $this->redirect(['school/index']);
         }
@@ -170,7 +170,7 @@ class SchoolController extends AbstractController
             ->orderBy('RAND()')
             ->limit(1)
             ->one();
-        if ($style) {
+        if (!$style) {
             $this->setErrorFlash('Стиль игрока выбран неправильно.');
             return $this->redirect(['school/index']);
         }

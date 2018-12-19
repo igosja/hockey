@@ -128,7 +128,8 @@ class BaseController extends AbstractController
                     if ($team->baseTraining->base_training_level > Building::MIN_LEVEL) {
                         $linkTrainingArray[] = Html::a(
                             'Разрушить',
-                            ['base/destroy', 'building' => Building::TRAINING]
+                            ['base/destroy', 'building' => Building::TRAINING],
+                            ['class' => 'btn margin']
                         );
                         $linkTrainingArray[] = Html::a(
                             'Тренировка',
