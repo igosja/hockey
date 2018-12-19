@@ -96,7 +96,9 @@ use yii\helpers\Html;
                         </td>
                         <td class="text-center"><?= $item->position->position_name; ?></td>
                         <td class="text-center"><?= School::AGE; ?></td>
-                        <td class="text-center"><?= $item->special->special_name; ?></td>
+                        <td class="text-center">
+                            <?= $item->school_with_special ? $item->special->special_name : '?'; ?>
+                        </td>
                         <td class="text-center"><?= $item->school_with_style ? $item->style->style_name : '?'; ?></td>
                         <td class="text-center"><?= $item->school_day; ?></td>
                         <td class="text-center">
