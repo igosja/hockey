@@ -122,7 +122,7 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php else : ?>
-    <?= Html::beginForm(['school/index'], 'get'); ?>
+    <?= Html::beginForm(['school/index']); ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
             <table class="table table-bordered table-hover">
@@ -144,7 +144,7 @@ use yii\helpers\Html;
                     <td class="text-center"><?= School::AGE; ?></td>
                     <td class="text-center">
                         <?= Html::dropDownList(
-                            'School[position_id]',
+                            'position_id',
                             null,
                             $positionArray,
                             ['class' => 'form-control']
@@ -152,7 +152,7 @@ use yii\helpers\Html;
                     </td>
                     <td class="text-center">
                         <?= Html::dropDownList(
-                            'School[special_id]',
+                            'special_id',
                             null,
                             $specialArray,
                             ['class' => 'form-control', 'prompt' => '-']
@@ -160,7 +160,7 @@ use yii\helpers\Html;
                     </td>
                     <td class="text-center">
                         <?= Html::dropDownList(
-                            'School[style_id]',
+                            'style_id',
                             null,
                             $styleArray,
                             ['class' => 'form-control', 'prompt' => '-']
