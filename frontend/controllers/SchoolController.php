@@ -10,6 +10,7 @@ use common\models\Season;
 use common\models\Special;
 use common\models\Style;
 use Exception;
+use Throwable;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
@@ -211,6 +212,53 @@ class SchoolController extends AbstractController
         return $this->render('start', [
             'confirmData' => $confirmData,
             'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     */
+    public function actionCancel(int $id)
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        $team = $this->myTeam;
+
+        $school = School::find()
+            ->where(['school_id' => $id, 'school_ready' => 0, 'school_team_id' => $team->team_id])
+            ->limit(1)
+            ->one();
+        if (!$school) {
+            $this->setErrorFlash('Игрок выбран неправильно.');
+            return $this->redirect(['school/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $school->delete();
+
+                $transaction->commit();
+
+                $this->setSuccessFlash('Подготовка юниора успешно отменена.');
+            } catch (Throwable $e) {
+                $transaction->rollBack();
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+            return $this->redirect(['school/index']);
+        }
+
+        $this->setSeoTitle('Отмена поготовки юниора. ' . $team->fullName());
+
+        return $this->render('cancel', [
+            'id' => $id,
+            'team' => $team,
+            'school' => $school,
         ]);
     }
 
