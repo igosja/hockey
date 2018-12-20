@@ -103,12 +103,11 @@ use yii\helpers\Html;
                 'footer' => Html::img(
                     [
                         'physical/image',
-                        'stage' => $item->stage->stage_name,
-                        'tournament' => $item->tournamentType->tournament_type_name,
+                        'team' => $team->team_name,
                     ],
                     [
-                        'alt' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
-                        'title' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                        'alt' => $team->team_name,
+                        'title' => $team->team_name,
                     ]
                 ),
                 'format' => 'raw',

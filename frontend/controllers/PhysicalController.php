@@ -4,12 +4,15 @@ namespace frontend\controllers;
 
 use common\components\HockeyHelper;
 use common\models\Building;
+use common\models\Physical;
+use common\models\PhysicalChange;
 use common\models\Player;
 use common\models\Schedule;
 use common\models\TournamentType;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class PhysicalController
@@ -46,12 +49,28 @@ class PhysicalController extends AbstractController
 
         $team = $this->myTeam;
 
+        $physicalArray = ArrayHelper::map(Physical::find()->all(), 'physical_id', 'physical_name');
+
         $scheduleArray = Schedule::find()
             ->with(['stage', 'tournamentType'])
             ->where(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
             ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
+        $countSchedule = count($scheduleArray);
+
+        $scheduleId = 0;
+        if ($countSchedule) {
+            $scheduleId = $scheduleArray[0]->schedule_id;
+        }
+
+        $changeArray = [];
+        $physicalChangeArray = PhysicalChange::find()
+            ->where(['physical_change_team_id' => $team->team_id])
+            ->all();
+        foreach ($physicalChangeArray as $item) {
+            $changeArray[$item->physical_change_player_id][$item->physical_change_schedule_id] = 1;
+        }
 
         $query = Player::find()
             ->with(['playerPosition.position'])
@@ -60,6 +79,60 @@ class PhysicalController extends AbstractController
             'pagination' => false,
             'query' => $query,
         ]);
+
+        $playerArray = $query->all();
+
+        $physicalId = 0;
+        $playerArr = [];
+
+        for ($i = 0; $i < $query->count(); $i++) {
+            $class = '';
+            $playerPhysicalArray = [];
+
+            for ($j = 0; $j < $countSchedule; $j++) {
+                if (0 == $j) {
+                    $physicalId = $playerArray[$i]->player_physical_id;
+                } else {
+                    $physicalId++;
+                }
+
+                if (20 < $physicalId) {
+                    $physicalId = $physicalId - 20;
+                }
+
+                if (isset($changeArray[$playerArray[$i]->player_id][$scheduleArray[$j]->schedule_id])) {
+                    $class = 'physical-change-cell physical-bordered';
+
+                    $opposite = Physical::find()
+                        ->where(['physical_id' => $physicalId])
+                        ->limit(1)
+                        ->one();
+                    $physicalId = $opposite->physical_opposite;
+                } elseif (in_array($class, array('physical-change-cell physical-bordered', 'physical-change-cell physical-yellow', 'physical-bordered'))) {
+                    $class = ($this->isOnBuilding() ? '' : 'physical-change-cell') . ' physical-yellow';
+                } else {
+                    $class = ($this->isOnBuilding() ? '' : 'physical-change-cell');
+                }
+
+                $playerPhysicalArray[] = array(
+                    'class' => $class,
+                    'id' => $playerArray[$i]->player_id . '-' . $scheduleArray[$j]->schedule_id,
+                    'physical_id' => $physicalId,
+                    'physical_name' => $physicalArray[$physicalId],
+                    'player_id' => $playerArray[$i]->player_id,
+                    'schedule_id' => $scheduleArray[$j]->schedule_id,
+                );
+            }
+
+            $playerArr[$i]['physical_array'] = $playerPhysicalArray;
+        }
+
+        $playerId = [];
+
+        foreach ($playerArray as $item) {
+            $playerId[] = $item['player_id'];
+        }
+
 
         $this->setSeoTitle($team->fullName() . '. Центр физической подготовки');
 
