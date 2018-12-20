@@ -2,19 +2,21 @@
 
 use common\components\ErrorHelper;
 use common\models\Player;
-use common\models\Team;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var Team $team
+ * @var bool $onBuilding
+ * @var \common\models\Schedule[] $scheduleArray
+ * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
 
 ?>
 <div class="row margin-top">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <?= $this->render('//team/_team-top-left', ['team' => $team, 'teamId' => $team->team_id]); ?>
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
@@ -23,19 +25,19 @@ use yii\grid\GridView;
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Уровень:
                 <span class="strong"><?= $team->basePhysical->base_physical_level; ?></span>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Бонус к изменению усталости:
                 <span class="strong"><?= $team->basePhysical->base_physical_tire_bonus; ?>%</span>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось изменений формы:
                 <span class="strong"><?= 0; ?></span>
                 из
@@ -94,6 +96,38 @@ use yii\grid\GridView;
                 }
             ],
         ];
+
+        foreach ($scheduleArray as $item) {
+            $columns[] = [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => Html::img(
+                    [
+                        'physical/image',
+                        'stage' => $item->stage->stage_name,
+                        'tournament' => $item->tournamentType->tournament_type_name,
+                    ],
+                    [
+                        'alt' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                        'title' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                    ]
+                ),
+                'format' => 'raw',
+                'header' => Html::img(
+                    [
+                        'physical/image',
+                        'stage' => $item->stage->stage_name,
+                        'tournament' => $item->tournamentType->tournament_type_name,
+                    ],
+                    [
+                        'alt' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                        'title' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                    ]
+                ),
+                'value' => function (Player $model): string {
+                    return '?';
+                }
+            ];
+        }
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
