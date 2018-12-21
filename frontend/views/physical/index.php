@@ -6,8 +6,10 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
+ * @var int $countSchedule
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var bool $onBuilding
+ * @var array $playerPhysicalArray
  * @var \common\models\Schedule[] $scheduleArray
  * @var \common\models\Team $team
  * @var \yii\web\View $this
@@ -39,7 +41,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось изменений формы:
-                <span class="strong"><?= 0; ?></span>
+                <span class="strong" id="physical-available"><?= $team->availablePhysical(); ?></span>
                 из
                 <span class="strong"><?= $team->basePhysical->base_physical_change_count; ?></span>
             </div>
@@ -97,9 +99,19 @@ use yii\helpers\Html;
             ],
         ];
 
-        foreach ($scheduleArray as $item) {
+        for ($i = 0; $i < $countSchedule; $i++) {
             $columns[] = [
-                'contentOptions' => ['class' => 'text-center'],
+                'contentOptions' => function (Player $model) use ($i, $playerPhysicalArray): array {
+                    return [
+                        'class' => 'text-center ' . $playerPhysicalArray[$model->player_id][$i]['class'],
+                        'data' => [
+                            'physical' => $playerPhysicalArray[$model->player_id][$i]['physical_id'],
+                            'player' => $playerPhysicalArray[$model->player_id][$i]['player_id'],
+                            'schedule' => $playerPhysicalArray[$model->player_id][$i]['schedule_id'],
+                        ],
+                        'id' => $playerPhysicalArray[$model->player_id][$i]['id'],
+                    ];
+                },
                 'footer' => Html::img(
                     [
                         'physical/image',
@@ -114,16 +126,22 @@ use yii\helpers\Html;
                 'header' => Html::img(
                     [
                         'physical/image',
-                        'stage' => $item->stage->stage_name,
-                        'tournament' => $item->tournamentType->tournament_type_name,
+                        'stage' => $scheduleArray[$i]->stage->stage_name,
+                        'tournament' => $scheduleArray[$i]->tournamentType->tournament_type_name,
                     ],
                     [
-                        'alt' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
-                        'title' => $item->tournamentType->tournament_type_name . ' ' . $item->stage->stage_name,
+                        'alt' => $scheduleArray[$i]->tournamentType->tournament_type_name . ' ' . $scheduleArray[$i]->stage->stage_name,
+                        'title' => $scheduleArray[$i]->tournamentType->tournament_type_name . ' ' . $scheduleArray[$i]->stage->stage_name,
                     ]
                 ),
-                'value' => function (Player $model): string {
-                    return '?';
+                'value' => function (Player $model) use ($playerPhysicalArray, $i): string {
+                    return Html::img(
+                        '/img/physical/' . $playerPhysicalArray[$model->player_id][$i]['physical_id'] . '.png',
+                        [
+                            'alt' => $playerPhysicalArray[$model->player_id][$i]['physical_name'],
+                            'title' => $playerPhysicalArray[$model->player_id][$i]['physical_name'],
+                        ]
+                    );
                 }
             ];
         }

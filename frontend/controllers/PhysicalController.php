@@ -59,11 +59,6 @@ class PhysicalController extends AbstractController
             ->all();
         $countSchedule = count($scheduleArray);
 
-        $scheduleId = 0;
-        if ($countSchedule) {
-            $scheduleId = $scheduleArray[0]->schedule_id;
-        }
-
         $changeArray = [];
         $physicalChangeArray = PhysicalChange::find()
             ->where(['physical_change_team_id' => $team->team_id])
@@ -83,11 +78,11 @@ class PhysicalController extends AbstractController
         $playerArray = $query->all();
 
         $physicalId = 0;
-        $playerArr = [];
+        $playerPhysicalArray = [];
 
         for ($i = 0; $i < $query->count(); $i++) {
             $class = '';
-            $playerPhysicalArray = [];
+            $currentPlayerPhysicalArray = [];
 
             for ($j = 0; $j < $countSchedule; $j++) {
                 if (0 == $j) {
@@ -114,17 +109,17 @@ class PhysicalController extends AbstractController
                     $class = ($this->isOnBuilding() ? '' : 'physical-change-cell');
                 }
 
-                $playerPhysicalArray[] = array(
+                $currentPlayerPhysicalArray[] = [
                     'class' => $class,
                     'id' => $playerArray[$i]->player_id . '-' . $scheduleArray[$j]->schedule_id,
                     'physical_id' => $physicalId,
                     'physical_name' => $physicalArray[$physicalId],
                     'player_id' => $playerArray[$i]->player_id,
                     'schedule_id' => $scheduleArray[$j]->schedule_id,
-                );
+                ];
             }
 
-            $playerArr[$i]['physical_array'] = $playerPhysicalArray;
+            $playerPhysicalArray[$playerArray[$i]->player_id] = $currentPlayerPhysicalArray;
         }
 
         $playerId = [];
@@ -133,12 +128,13 @@ class PhysicalController extends AbstractController
             $playerId[] = $item['player_id'];
         }
 
-
         $this->setSeoTitle($team->fullName() . '. Центр физической подготовки');
 
         return $this->render('index', [
+            'countSchedule' => $countSchedule,
             'dataProvider' => $dataProvider,
             'onBuilding' => $this->isOnBuilding(),
+            'playerPhysicalArray' => $playerPhysicalArray,
             'scheduleArray' => $scheduleArray,
             'team' => $team,
         ]);
@@ -162,7 +158,7 @@ class PhysicalController extends AbstractController
         header("Content-type: image/png");
 
         $image = imagecreate(20, 200);
-        $back_color = imagecolorallocate($image, 40, 96, 144);
+//        $back_color = imagecolorallocate($image, 40, 96, 144);
         $text_color = imagecolorallocate($image, 255, 255, 255);
 
         //imagestringup($image, 3, 3, 81, iso2uni(convert_cyr_string($text ,"w","i")), $text_color);
