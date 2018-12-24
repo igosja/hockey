@@ -739,16 +739,6 @@ class Team extends AbstractActiveRecord
                 'physical_change_team_id' => $this->team_id,
                 'physical_change_season_id' => Season::getCurrentSeason()
             ])
-            ->andWhere([
-                '<',
-                'physical_change_schedule_id',
-                Schedule::find()
-                    ->select(['schedule_id'])
-                    ->where(['schedule_season_id' => Season::getCurrentSeason()])
-                    ->andWhere(['<', 'schedule_date', HockeyHelper::unixTimeStamp()])
-                    ->orderBy(['schedule_date' => SORT_DESC])
-                    ->limit(1)
-            ])
             ->count();
     }
 

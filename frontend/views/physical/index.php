@@ -4,6 +4,7 @@ use common\components\ErrorHelper;
 use common\models\Player;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var int $countSchedule
@@ -41,7 +42,9 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось изменений формы:
-                <span class="strong" id="physical-available"><?= $team->availablePhysical(); ?></span>
+                <span class="strong" id="physical-available" data-url="<?= Url::to(['physical/change']); ?>">
+                    <?= $team->availablePhysical(); ?>
+                </span>
                 из
                 <span class="strong"><?= $team->basePhysical->base_physical_change_count; ?></span>
             </div>

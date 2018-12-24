@@ -389,13 +389,15 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @param array $options
      * @return string
      */
-    public function playerLink(): string
+    public function playerLink(array $options = []): string
     {
         return Html::a(
             $this->name->name_name . ' ' . $this->surname->surname_name,
-            ['player/view', 'id' => $this->player_id]
+            ['player/view', 'id' => $this->player_id],
+            $options
         );
     }
 

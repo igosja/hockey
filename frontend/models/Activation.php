@@ -17,6 +17,9 @@ use yii\db\Expression;
  */
 class Activation extends Model
 {
+    /**
+     * @var $code string
+     */
     public $code;
 
     /**
