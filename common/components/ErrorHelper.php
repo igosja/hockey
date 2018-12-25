@@ -19,7 +19,7 @@ class ErrorHelper
      */
     public static function log(Exception $e)
     {
-        if (User::ADMIN_USER_ID == Yii::$app->user->id || Yii::$app->controller instanceof AbstractController) {
+        if (Yii::$app->controller instanceof AbstractController || User::ADMIN_USER_ID == Yii::$app->user->id) {
             print '<pre>';
             print_r($e->__toString());
             exit;
