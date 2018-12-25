@@ -23,6 +23,10 @@ class m180622_124605_scout extends Migration
             'scout_style' => $this->integer(1)->defaultValue(0),
             'scout_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('scout_ready', self::TABLE, 'scout_ready');
+        $this->createIndex('scout_season_id', self::TABLE, 'scout_season_id');
+        $this->createIndex('scout_team_id', self::TABLE, 'scout_team_id');
     }
 
     /**

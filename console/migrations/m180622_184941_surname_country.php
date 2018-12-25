@@ -18,6 +18,9 @@ class m180622_184941_surname_country extends Migration
             'surname_country_country_id' => $this->integer(3)->defaultValue(0),
             'surname_country_surname_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('surname_country_country_id', self::TABLE, 'surname_country_country_id');
+        $this->createIndex('surname_country_surname_id', self::TABLE, 'surname_country_surname_id');
     }
 
     /**

@@ -19,6 +19,8 @@ class m180623_092234_transfer_position extends Migration
             'transfer_position_position_id' => $this->integer(1)->defaultValue(0),
             'transfer_position_transfer_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('transfer_position_transfer_id', self::TABLE, 'transfer_position_transfer_id');
     }
 
     /**

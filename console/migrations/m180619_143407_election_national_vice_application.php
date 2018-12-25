@@ -21,6 +21,8 @@ class m180619_143407_election_national_vice_application extends Migration
             'election_national_vice_application_text' => $this->text(),
             'election_national_vice_application_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_national_vice_application_election_id', self::TABLE, 'election_national_vice_application_election_id');
     }
 
     /**

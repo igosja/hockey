@@ -20,6 +20,9 @@ class m180619_144356_election_president extends Migration
             'election_president_date' => $this->integer(11)->defaultValue(0),
             'election_president_election_status_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_president_country_id', self::TABLE, 'election_president_country_id');
+        $this->createIndex('election_president_election_status_id', self::TABLE, 'election_president_election_status_id');
     }
 
     /**

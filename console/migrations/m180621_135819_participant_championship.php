@@ -25,6 +25,10 @@ class m180621_135819_participant_championship extends Migration
             'participant_championship_stage_id' => $this->integer(2)->defaultValue(0),
             'participant_championship_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('participant_championship_country_id', self::TABLE, 'participant_championship_country_id');
+        $this->createIndex('participant_championship_division_id', self::TABLE, 'participant_championship_division_id');
+        $this->createIndex('participant_championship_season_id', self::TABLE, 'participant_championship_season_id');
     }
 
     /**

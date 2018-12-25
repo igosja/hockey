@@ -23,6 +23,8 @@ class m180620_174716_money extends Migration
             'money_value_after' => $this->decimal(11, 2)->defaultValue(0),
             'money_value_before' => $this->decimal(11, 2)->defaultValue(0),
         ]);
+
+        $this->createIndex('money_user_id', self::TABLE, 'money_user_id');
     }
 
     /**

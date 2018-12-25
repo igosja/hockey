@@ -23,6 +23,8 @@ class m180623_091617_transfer_application extends Migration
             'transfer_application_transfer_id' => $this->integer(11)->defaultValue(0),
             'transfer_application_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('transfer_application_transfer_id', self::TABLE, 'transfer_application_transfer_id');
     }
 
     /**

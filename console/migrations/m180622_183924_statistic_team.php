@@ -38,6 +38,13 @@ class m180622_183924_statistic_team extends Migration
             'statistic_team_win_percent' => $this->decimal(5, 2)->defaultValue(0),
             'statistic_team_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('statistic_team_country_id', self::TABLE, 'statistic_team_country_id');
+        $this->createIndex('statistic_team_division_id', self::TABLE, 'statistic_team_division_id');
+        $this->createIndex('statistic_team_national_id', self::TABLE, 'statistic_team_national_id');
+        $this->createIndex('statistic_team_season_id', self::TABLE, 'statistic_team_season_id');
+        $this->createIndex('statistic_team_team_id', self::TABLE, 'statistic_team_team_id');
+        $this->createIndex('statistic_team_tournament_type_id', self::TABLE, 'statistic_team_tournament_type_id');
     }
 
     /**

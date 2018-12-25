@@ -25,6 +25,9 @@ class m180620_133735_league_distribution extends Migration
             'league_distribution_season_id' => $this->integer(3)->defaultValue(0),
         ]);
 
+        $this->createIndex('league_distribution_country_id', self::TABLE, 'league_distribution_country_id');
+        $this->createIndex('league_distribution_season_id', self::TABLE, 'league_distribution_season_id');
+
         $this->batchInsert(self::TABLE, [
             'league_distribution_country_id',
             'league_distribution_group',

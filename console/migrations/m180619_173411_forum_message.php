@@ -24,6 +24,9 @@ class m180619_173411_forum_message extends Migration
             'forum_message_text' => $this->text(),
             'forum_message_user_id' => $this->string(255),
         ]);
+
+        $this->createIndex('forum_message_check', self::TABLE, 'forum_message_check');
+        $this->createIndex('forum_message_forum_theme_id', self::TABLE, 'forum_message_forum_theme_id');
     }
 
     /**

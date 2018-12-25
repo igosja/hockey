@@ -25,6 +25,10 @@ class m180623_090947_training extends Migration
             'training_special_id' => $this->integer(2)->defaultValue(0),
             'training_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('training_ready', self::TABLE, 'training_ready');
+        $this->createIndex('training_season_id', self::TABLE, 'training_season_id');
+        $this->createIndex('training_team_id', self::TABLE, 'training_team_id');
     }
 
     /**

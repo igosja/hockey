@@ -33,6 +33,13 @@ class m180623_091306_transfer extends Migration
             'transfer_user_buyer_id' => $this->integer(11)->defaultValue(0),
             'transfer_user_seller_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('transfer_player_id', self::TABLE, 'transfer_player_id');
+        $this->createIndex('transfer_ready', self::TABLE, 'transfer_ready');
+        $this->createIndex('transfer_team_buyer_id', self::TABLE, 'transfer_team_buyer_id');
+        $this->createIndex('transfer_team_seller_id', self::TABLE, 'transfer_team_seller_id');
+        $this->createIndex('transfer_user_buyer_id', self::TABLE, 'transfer_user_buyer_id');
+        $this->createIndex('transfer_user_seller_id', self::TABLE, 'transfer_user_seller_id');
     }
 
     /**

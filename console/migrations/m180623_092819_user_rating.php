@@ -44,6 +44,9 @@ class m180623_092819_user_rating extends Migration
             'user_rating_win_super' => $this->integer(11)->defaultValue(0),
             'user_rating_win_weak' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('user_rating_season_id', self::TABLE, 'user_rating_season_id');
+        $this->createIndex('user_rating_user_id', self::TABLE, 'user_rating_user_id');
     }
 
     /**

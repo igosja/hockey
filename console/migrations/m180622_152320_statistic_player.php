@@ -54,6 +54,14 @@ class m180622_152320_statistic_player extends Migration
             'statistic_player_tournament_type_id' => $this->integer(1)->defaultValue(0),
             'statistic_player_win' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('statistic_player_country_id', self::TABLE, 'statistic_player_country_id');
+        $this->createIndex('statistic_player_division_id', self::TABLE, 'statistic_player_division_id');
+        $this->createIndex('statistic_player_national_id', self::TABLE, 'statistic_player_national_id');
+        $this->createIndex('statistic_player_player_id', self::TABLE, 'statistic_player_player_id');
+        $this->createIndex('statistic_player_season_id', self::TABLE, 'statistic_player_season_id');
+        $this->createIndex('statistic_player_team_id', self::TABLE, 'statistic_player_team_id');
+        $this->createIndex('statistic_player_tournament_type_id', self::TABLE, 'statistic_player_tournament_type_id');
     }
 
     /**

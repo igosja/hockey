@@ -121,13 +121,19 @@ class m180620_100555_game extends Migration
             'game_home_teamwork_2' => $this->decimal(3, 1)->defaultValue(0),
             'game_home_teamwork_3' => $this->decimal(3, 1)->defaultValue(0),
             'game_home_teamwork_4' => $this->decimal(3, 1)->defaultValue(0),
-            'game_played' => $this->integer(1)->defaultValue(0),
+            'game_played' => $this->integer(11)->defaultValue(0),
             'game_ticket' => $this->integer(2)->defaultValue(0),
             'game_schedule_id' => $this->integer(11)->defaultValue(0),
             'game_stadium_capacity' => $this->integer(5)->defaultValue(0),
             'game_stadium_id' => $this->integer(5)->defaultValue(0),
             'game_visitor' => $this->integer(5)->defaultValue(0),
         ]);
+
+        $this->createIndex('game_guest_national_id', self::TABLE, 'game_guest_national_id');
+        $this->createIndex('game_guest_team_id', self::TABLE, 'game_guest_team_id');
+        $this->createIndex('game_home_national_id', self::TABLE, 'game_home_national_id');
+        $this->createIndex('game_home_team_id', self::TABLE, 'game_home_team_id');
+        $this->createIndex('game_schedule_id', self::TABLE, 'game_schedule_id');
     }
 
     /**

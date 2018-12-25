@@ -28,6 +28,10 @@ class m180622_123915_school extends Migration
             'school_with_style' => $this->integer(1)->defaultValue(0),
             'school_with_style_request' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('school_ready', self::TABLE, 'school_ready');
+        $this->createIndex('school_season_id', self::TABLE, 'school_season_id');
+        $this->createIndex('school_team_id', self::TABLE, 'school_team_id');
     }
 
     /**

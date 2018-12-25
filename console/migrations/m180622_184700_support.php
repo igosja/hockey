@@ -22,6 +22,10 @@ class m180622_184700_support extends Migration
             'support_user_id_from' => $this->integer(11)->defaultValue(0),
             'support_user_id_to' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('support_read', self::TABLE, 'support_read');
+        $this->createIndex('support_user_id_from', self::TABLE, 'support_user_id_from');
+        $this->createIndex('support_user_id_to', self::TABLE, 'support_user_id_to');
     }
 
     /**

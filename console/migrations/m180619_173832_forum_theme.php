@@ -23,6 +23,8 @@ class m180619_173832_forum_theme extends Migration
             'forum_theme_name' => $this->string(255),
             'forum_theme_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('forum_theme_forum_group_id', self::TABLE, 'forum_theme_forum_group_id');
     }
 
     /**

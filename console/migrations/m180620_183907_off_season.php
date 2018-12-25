@@ -33,6 +33,9 @@ class m180620_183907_off_season extends Migration
             'off_season_win_overtime' => $this->integer(2)->defaultValue(0),
             'off_season_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('off_season_season_id', self::TABLE, 'off_season_season_id');
+        $this->createIndex('off_season_team_id', self::TABLE, 'off_season_team_id');
     }
 
     /**

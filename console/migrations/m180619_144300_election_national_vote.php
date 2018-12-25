@@ -20,6 +20,8 @@ class m180619_144300_election_national_vote extends Migration
             'election_national_vote_date' => $this->integer(11)->defaultValue(0),
             'election_national_vote_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_national_vote_application_id', self::TABLE, 'election_national_vote_application_id');
     }
 
     /**

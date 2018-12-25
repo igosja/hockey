@@ -19,6 +19,8 @@ class m180623_071245_team_visitor extends Migration
             'team_visitor_team_id' => $this->integer(11)->defaultValue(0),
             'team_visitor_visitor' => $this->decimal(3, 2)->defaultValue(0),
         ]);
+
+        $this->createIndex('team_visitor_team_id', self::TABLE, 'team_visitor_team_id');
     }
 
     /**

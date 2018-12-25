@@ -33,6 +33,11 @@ class m180619_084338_championship extends Migration
             'championship_win_overtime' => $this->integer(2)->defaultValue(0),
             'championship_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('championship_country_id', self::TABLE, 'championship_country_id');
+        $this->createIndex('championship_division_id', self::TABLE, 'championship_division_id');
+        $this->createIndex('championship_season_id', self::TABLE, 'championship_season_id');
+        $this->createIndex('championship_team_id', self::TABLE, 'championship_team_id');
     }
 
     /**

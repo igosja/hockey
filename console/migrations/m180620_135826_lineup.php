@@ -33,6 +33,11 @@ class m180620_135826_lineup extends Migration
             'lineup_shot' => $this->integer(3)->defaultValue(0),
             'lineup_team_id' => $this->integer(5)->defaultValue(0),
         ]);
+
+        $this->createIndex('lineup_game_id', self::TABLE, 'lineup_game_id');
+        $this->createIndex('lineup_national_id', self::TABLE, 'lineup_national_id');
+        $this->createIndex('lineup_player_id', self::TABLE, 'lineup_player_id');
+        $this->createIndex('lineup_team_id', self::TABLE, 'lineup_team_id');
     }
 
     /**

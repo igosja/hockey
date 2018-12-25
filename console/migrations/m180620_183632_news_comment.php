@@ -22,6 +22,9 @@ class m180620_183632_news_comment extends Migration
             'news_comment_text' => $this->text(),
             'news_comment_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('news_comment_check', self::TABLE, 'news_comment_check');
+        $this->createIndex('news_comment_news_id', self::TABLE, 'news_comment_news_id');
     }
 
     /**

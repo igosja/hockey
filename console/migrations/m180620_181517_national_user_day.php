@@ -20,6 +20,9 @@ class m180620_181517_national_user_day extends Migration
             'national_user_day_national_id' => $this->integer(3)->defaultValue(0),
             'national_user_day_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('national_user_day_national_id', self::TABLE, 'national_user_day_national_id');
+        $this->createIndex('national_user_day_user_id', self::TABLE, 'national_user_day_user_id');
     }
 
     /**

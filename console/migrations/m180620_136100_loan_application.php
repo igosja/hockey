@@ -24,6 +24,8 @@ class m180620_136100_loan_application extends Migration
             'loan_application_team_id' => $this->integer(11)->defaultValue(0),
             'loan_application_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('loan_application_loan_id', self::TABLE, 'loan_application_loan_id');
     }
 
     /**

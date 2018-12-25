@@ -20,6 +20,8 @@ class m180620_136500_loan_vote extends Migration
             'loan_vote_rating' => $this->integer(2)->defaultValue(0),
             'loan_vote_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('loan_vote_loan_id', self::TABLE, 'loan_vote_loan_id');
     }
 
     /**

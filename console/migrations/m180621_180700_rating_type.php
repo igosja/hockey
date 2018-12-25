@@ -21,6 +21,8 @@ class m180621_180700_rating_type extends Migration
             'rating_type_rating_chapter_id' => $this->integer(1)->defaultValue(0),
         ]);
 
+        $this->createIndex('rating_type_rating_chapter_id', self::TABLE, 'rating_type_rating_chapter_id');
+
         $this->batchInsert(self::TABLE, ['rating_type_name', 'rating_type_order', 'rating_type_rating_chapter_id'], [
             ['Сила состава', 'rating_team_power_vs_place', 1],
             ['Средний возраст', 'rating_team_age_place', 1],

@@ -27,6 +27,10 @@ class m180618_143345_achievement extends Migration
             'achievement_tournament_type_id' => $this->integer(1)->defaultValue(0),
             'achievement_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('achievement_national_id', self::TABLE, 'achievement_national_id');
+        $this->createIndex('achievement_team_id', self::TABLE, 'achievement_team_id');
+        $this->createIndex('achievement_user_id', self::TABLE, 'achievement_user_id');
     }
 
     /**

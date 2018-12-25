@@ -32,6 +32,9 @@ class m180620_131803_league extends Migration
             'league_win_overtime' => $this->integer(1)->defaultValue(0),
             'league_win_shootout' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('league_season_id', self::TABLE, 'league_season_id');
+        $this->createIndex('league_team_id', self::TABLE, 'league_team_id');
     }
 
     /**

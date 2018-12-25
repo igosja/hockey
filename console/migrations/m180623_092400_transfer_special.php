@@ -20,6 +20,8 @@ class m180623_092400_transfer_special extends Migration
             'transfer_special_transfer_id' => $this->integer(11)->defaultValue(0),
             'transfer_special_special_id' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('transfer_special_transfer_id', self::TABLE, 'transfer_special_transfer_id');
     }
 
     /**

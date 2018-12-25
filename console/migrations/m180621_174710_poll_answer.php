@@ -19,6 +19,8 @@ class m180621_174710_poll_answer extends Migration
             'poll_answer_text' => $this->text(),
             'poll_answer_poll_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('poll_answer_poll_id', self::TABLE, 'poll_answer_poll_id');
     }
 
     /**

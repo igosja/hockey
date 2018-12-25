@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
@@ -14,6 +15,7 @@ use yii\db\ActiveQuery;
  * @property int $building_base_id
  * @property int $building_base_building_id
  * @property int $building_base_construction_type_id
+ * @property int $building_base_date
  * @property int $building_base_day
  * @property int $building_base_ready
  * @property int $building_base_team_id
@@ -42,6 +44,7 @@ class BuildingBase extends AbstractActiveRecord
                     'building_base_id',
                     'building_base_building_id',
                     'building_base_construction_type_id',
+                    'building_base_date',
                     'building_base_day',
                     'building_base_ready',
                     'building_base_team_id',
@@ -49,6 +52,21 @@ class BuildingBase extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->building_base_date = HockeyHelper::unixTimeStamp();
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
