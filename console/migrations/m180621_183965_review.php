@@ -28,11 +28,11 @@ class m180621_183965_review extends Migration
             'review_user_id' => $this->integer(11)->defaultValue(0),
         ]);
 
+        $this->createIndex('review_check', self::TABLE, 'review_check');
         $this->createIndex('review_country_id', self::TABLE, 'review_country_id');
         $this->createIndex('review_division_id', self::TABLE, 'review_division_id');
         $this->createIndex('review_season_id', self::TABLE, 'review_season_id');
         $this->createIndex('review_schedule_id', self::TABLE, 'review_schedule_id');
-        $this->createIndex('review_stage_id', self::TABLE, 'review_stage_id');
         $this->createIndex('review_stage_id', self::TABLE, 'review_stage_id');
     }
 
