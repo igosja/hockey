@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Game;
 use yii\grid\GridView;
@@ -10,16 +11,23 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
+ * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
 
-print $this->render('_team-top');
-
 ?>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
+    </div>
+</div>
 <?= Html::beginForm('', 'get'); ?>
     <div class="row margin-top-small">
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-            <?= $this->render('_team-links'); ?>
+            <?= $this->render('//team/_team-links'); ?>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <div class="row">
@@ -46,18 +54,18 @@ print $this->render('_team-top');
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
-                'header' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
+                'label' => 'Дата',
                 'value' => function (Game $model): string {
-                    return Yii::$app->formatter->asDate($model->schedule->schedule_date, 'short');
+                    return FormatHelper::asDate($model->schedule->schedule_date);
                 }
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Турнир',
                 'footerOptions' => ['class' => 'hidden-xs'],
-                'header' => 'Турнир',
                 'headerOptions' => ['class' => 'col-30 hidden-xs'],
+                'label' => 'Турнир',
                 'value' => function (Game $model): string {
                     return $model->schedule->tournamentType->tournament_type_name;
                 }
@@ -66,8 +74,8 @@ print $this->render('_team-top');
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Стадия',
                 'footerOptions' => ['class' => 'hidden-xs'],
-                'header' => 'Стадия',
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
+                'label' => 'Стадия',
                 'value' => function (Game $model): string {
                     return $model->schedule->stage->stage_name;
                 }
@@ -87,11 +95,11 @@ print $this->render('_team-top');
                     'class' => 'hidden-xs',
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее соперник)'
                 ],
-                'header' => 'С/С',
                 'headerOptions' => [
                     'class' => 'col-5 hidden-xs',
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее соперник)'
                 ],
+                'label' => 'С/С',
                 'value' => function (Game $model): string {
                     return HockeyHelper::gamePowerPercent($model, Yii::$app->request->get('id'));
                 }
@@ -99,7 +107,7 @@ print $this->render('_team-top');
             [
                 'footer' => 'Соперник',
                 'format' => 'raw',
-                'header' => 'Соперник',
+                'label' => 'Соперник',
                 'value' => function (Game $model): string {
                     return HockeyHelper::opponentLink($model, Yii::$app->request->get('id'));
                 }
@@ -108,8 +116,8 @@ print $this->render('_team-top');
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'А',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Автосостав'],
-                'header' => 'А',
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Автосостав'],
+                'label' => 'А',
                 'value' => function (Game $model): string {
                     return HockeyHelper::gameAuto($model, Yii::$app->request->get('id'));
                 }
@@ -118,7 +126,7 @@ print $this->render('_team-top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Счёт',
                 'format' => 'raw',
-                'header' => 'Счёт',
+                'label' => 'Счёт',
                 'value' => function (Game $model): string {
                     return Html::a(
                         HockeyHelper::formatTeamScore($model, Yii::$app->request->get('id')),
@@ -149,7 +157,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_team-links'); ?>
+        <?= $this->render('//team/_team-links'); ?>
     </div>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

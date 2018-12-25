@@ -18,6 +18,7 @@ return [
                 ],
             ],
             \yii\grid\GridView::class => [
+                'emptyText' => false,
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
                 'pager' => [
                     'activePageCssClass' => 'btn',
@@ -30,6 +31,7 @@ return [
                 'tableOptions' => ['class' => 'table table-bordered table-hover'],
             ],
             \yii\widgets\ListView::class => [
+                'emptyText' => false,
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12'],
                 'pager' => [
                     'activePageCssClass' => 'btn',

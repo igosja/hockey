@@ -5,6 +5,7 @@ namespace common\models;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -123,31 +124,6 @@ class Player extends AbstractActiveRecord
     }
 
     /**
-     * @return array
-     */
-    public function attributeLabels(): array
-    {
-        return [
-            'age' => 'В',
-            'assist' => 'П',
-            'country' => 'Нац',
-            'game' => 'И',
-            'game_row' => 'И/О',
-            'physical' => 'Ф',
-            'player' => 'Игрок',
-            'player_price' => 'Цена',
-            'plus_minus' => '+/-',
-            'position' => 'Поз',
-            'power_nominal' => 'С',
-            'power_real' => 'РС',
-            'score' => 'Г',
-            'special' => 'Спец',
-            'style' => 'Ст',
-            'tire' => 'У',
-        ];
-    }
-
-    /**
      * @param bool $insert
      * @return bool
      */
@@ -243,7 +219,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->player_injury) {
-            $result = ' <i class="fa fa-ambulance" title="Injured for ' . $this->player_injury_day . ' days"></i>';
+            $result = ' <i class="fa fa-ambulance" title="Травмирован на ' . $this->player_injury_day . ' дн."></i>';
         }
         return $result;
     }
@@ -255,7 +231,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->loan || $this->transfer) {
-            $result = ' <i class="fa fa-usd" title="For sale/loan"></i>';
+            $result = ' <i class="fa fa-usd" title="Выставлен на трансфер/аренду"></i>';
         }
         return $result;
     }
@@ -267,7 +243,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->player_national_id) {
-            $result = ' <i class="fa fa-flag" title="National team player"></i>';
+            $result = ' <i class="fa fa-flag" title="Игрок национальной сборной"></i>';
         }
         return $result;
     }
@@ -279,7 +255,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if (self::AGE_READY_FOR_PENSION == $this->player_age) {
-            $result = ' <i class="fa fa-bed" title="Completes his career at the end of the season"></i>';
+            $result = ' <i class="fa fa-bed" title="Заканчивает карьеру в конце текущего сезона"></i>';
         }
         return $result;
     }
@@ -340,6 +316,27 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function countScout(): int
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        $myTeam = $controller->myTeam;
+
+        if ($myTeam) {
+            return Scout::find()
+                ->where(['scout_player_id' => $this->player_id, 'scout_team_id' => $myTeam->team_id])
+                ->andWhere(['!=', 'scout_ready', 0])
+                ->count();
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * @return string
      */
     public function iconTraining(): string
@@ -354,7 +351,7 @@ class Player extends AbstractActiveRecord
 
         $result = '';
         if ($countTraining) {
-            $result = ' <i class="fa fa-caret-square-o-up " title="On training"></i>';
+            $result = ' <i class="fa fa-caret-square-o-up " title="На тренировке"></i>';
         }
         return $result;
     }
@@ -392,13 +389,111 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @param array $options
      * @return string
      */
-    public function playerLink(): string
+    public function playerLink(array $options = []): string
     {
         return Html::a(
             $this->name->name_name . ' ' . $this->surname->surname_name,
-            ['player/view', 'id' => $this->player_id]
+            ['player/view', 'id' => $this->player_id],
+            $options
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function myPlayer(): bool
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        if (!$controller->myTeam) {
+            return false;
+        }
+        if ($controller->myTeam->team_id != $this->player_team_id) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function trainingPositionDropDownList(): string
+    {
+        if (2 == count($this->playerPosition)) {
+            return '';
+        }
+
+        if (Position::GK == $this->playerPosition[0]->player_position_position_id) {
+            return '';
+        }
+
+        $positionArray = Position::find()
+            ->where(['!=', 'position_id', Position::GK])
+            ->andWhere([
+                'not',
+                [
+                    'position_id' => PlayerPosition::find()
+                        ->select(['player_position_position_id'])
+                        ->where(['player_position_player_id' => $this->player_id])
+                ]
+            ])
+            ->orderBy(['position_id' => SORT_ASC])
+            ->all();
+
+        return Html::dropDownList(
+            'position[' . $this->player_id . ']',
+            null,
+            ArrayHelper::map($positionArray, 'position_id', 'position_name'),
+            ['class' => 'form-control form-small', 'prompt' => '-']
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function trainingSpecialDropDownList(): string
+    {
+        $playerSpecial = PlayerSpecial::find()
+            ->where(['player_special_level' => Special::MAX_LEVEL, 'player_special_player_id' => $this->player_id])
+            ->count();
+        if (Special::MAX_SPECIALS == $playerSpecial) {
+            return '';
+        }
+
+        if (Position::GK == $this->player_position_id) {
+            $gk = 1;
+            $field = null;
+        } else {
+            $gk = null;
+            $field = 1;
+        }
+
+        $specialArray = Special::find()
+            ->filterWhere(['special_gk' => $gk, 'special_field' => $field])
+            ->andWhere([
+                'not',
+                [
+                    'special_id' => PlayerSpecial::find()
+                        ->select(['player_special_special_id'])
+                        ->where([
+                            'player_special_level' => Special::MAX_LEVEL,
+                            'player_special_player_id' => $this->player_id,
+                        ])
+                ]
+            ])
+            ->orderBy(['special_id' => SORT_ASC])
+            ->all();
+
+        return Html::dropDownList(
+            'special[' . $this->player_id . ']',
+            null,
+            ArrayHelper::map($specialArray, 'special_id', 'special_name'),
+            ['class' => 'form-control form-small', 'prompt' => '-']
         );
     }
 

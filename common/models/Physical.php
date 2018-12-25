@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use Throwable;
+use yii\helpers\Html;
 
 /**
  * Class Physical
@@ -16,6 +17,8 @@ use Throwable;
  */
 class Physical extends AbstractActiveRecord
 {
+    const DEFAULT_ID = 16;
+
     /**
      * @return string
      */
@@ -56,5 +59,19 @@ class Physical extends AbstractActiveRecord
                 ->all();
         }
         return $physicalArray[array_rand($physicalArray)];
+    }
+
+    /**
+     * @return string
+     */
+    public function image(): string
+    {
+        return Html::img(
+            '/img/physical/' . $this->physical_id . '.png',
+            [
+                'alt' => $this->physical_name,
+                'title' => $this->physical_name,
+            ]
+        );
     }
 }

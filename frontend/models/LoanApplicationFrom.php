@@ -6,7 +6,7 @@ use common\components\ErrorHelper;
 use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
-use Exception;
+use Throwable;
 use Yii;
 use yii\base\Model;
 
@@ -49,17 +49,25 @@ class LoanApplicationFrom extends Model
             return false;
         }
 
+        $loanApplication = LoanApplication::find()
+            ->where([
+                'loan_application_loan_id' => $this->player->loan->loan_id,
+                'loan_application_team_id' => $this->team->team_id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$loanApplication) {
+            Yii::$app->session->setFlash('error', 'Заявка выбрана неправильно.');
+            return false;
+        }
+
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            LoanApplication::deleteAll([
-                'loan_application_loan_id' => $this->player->loan->loan_id,
-                'loan_application_team_id' => $this->team->team_id,
-            ]);
+            $loanApplication->delete();
+            Yii::$app->session->setFlash('success', 'Заявка успешно удалена.');
             $transaction->commit();
-
-            Yii::$app->session->setFlash('success', 'Order successfully successfully removed.');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

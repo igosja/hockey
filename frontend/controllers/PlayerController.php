@@ -78,92 +78,106 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionView(int $id): string
     {
+        $player = $this->getPlayer($id);
+
         $seasonId = Yii::$app->request->get('season_id', Season::getCurrentSeason());
+
+        $query = Lineup::find()
+            ->joinWith(['game.schedule'])
+            ->with([
+            ])
+            ->select([
+            ])
+            ->where(['lineup_player_id' => $id])
+            ->andWhere(['schedule.schedule_season_id' => $seasonId])
+            ->andWhere(['!=', 'game.game_played', 0])
+            ->orderBy(['schedule_date' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Lineup::find()
-                ->joinWith(['game.schedule'])
-                ->with([
-                ])
-                ->select([
-                ])
-                ->where(['lineup_player_id' => $id])
-                ->andWhere(['schedule.schedule_season_id' => $seasonId])
-                ->andWhere(['!=', 'game.game_played', 0])
-                ->orderBy(['schedule_date' => SORT_ASC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Профиль игрока');
+        $this->setSeoTitle($player->playerName() . '. Профиль игрока');
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
             'seasonArray' => Season::getSeasonArray(),
             'seasonId' => $seasonId,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionEvent(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = History::find()
+            ->select([
+                'history_date',
+                'history_history_text_id',
+                'history_player_id',
+                'history_season_id',
+                'history_team_id',
+            ])
+            ->where(['history_player_id' => $id])
+            ->orderBy(['history_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => History::find()
-                ->select([
-                    'history_date',
-                    'history_history_text_id',
-                    'history_player_id',
-                    'history_season_id',
-                    'history_team_id',
-                ])
-                ->where(['history_player_id' => $id])
-                ->orderBy(['history_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('События игрока');
+        $this->setSeoTitle($player->playerName() . '. События игрока');
 
         return $this->render('event', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionDeal(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = Loan::find()
+            ->where(['loan_player_id' => $id])
+            ->andWhere(['!=', 'loan_ready', 0])
+            ->orderBy(['loan_ready' => SORT_DESC]);
         $dataProviderLoan = new ActiveDataProvider([
             'pagination' => false,
-            'query' => Loan::find()
-                ->select([
-                ])
-                ->where(['loan_player_id' => $id])
-                ->andWhere(['!=', 'loan_ready', 0])
-                ->orderBy(['loan_ready' => SORT_DESC]),
-        ]);
-        $dataProviderTransfer = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => Transfer::find()
-                ->select([
-                ])
-                ->where(['transfer_player_id' => $id])
-                ->andWhere(['!=', 'transfer_ready', 0])
-                ->orderBy(['transfer_ready' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Сделки игрока');
+        $query = Transfer::find()
+            ->where(['transfer_player_id' => $id])
+            ->andWhere(['!=', 'transfer_ready', 0])
+            ->orderBy(['transfer_ready' => SORT_DESC]);
+        $dataProviderTransfer = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($player->playerName() . '. Сделки игрока');
 
         return $this->render('deal', [
             'dataProviderLoan' => $dataProviderLoan,
             'dataProviderTransfer' => $dataProviderTransfer,
+            'player' => $player,
         ]);
     }
 
@@ -174,28 +188,7 @@ class PlayerController extends AbstractController
      */
     public function actionTransfer(int $id)
     {
-        $player = Player::find()
-            ->select([
-                'player_age',
-                'player_country_id',
-                'player_date_no_action',
-                'player_id',
-                'player_loan_team_id',
-                'player_national_id',
-                'player_no_deal',
-                'player_position_id',
-                'player_price',
-                'player_team_id',
-            ])
-            ->where(['player_id' => $id])
-            ->one();
-        $this->notFound($player);
-        $myPlayer = true;
-        if (!$this->myTeam) {
-            $myPlayer = false;
-        } elseif ($this->myTeam->team_id != $player->player_team_id) {
-            $myPlayer = false;
-        }
+        $player = $this->getPlayer($id);
         $onTransfer = $player->transfer ? true : false;
 
         $formConfig = ['player' => $player, 'team' => $this->myTeam];
@@ -204,7 +197,7 @@ class PlayerController extends AbstractController
         $modelTransferFrom = new TransferFrom($formConfig);
         $modelTransferApplicationTo = new TransferApplicationTo($formConfig);
         $modelTransferApplicationFrom = new TransferApplicationFrom($formConfig);
-        if ($myPlayer) {
+        if ($player->myPlayer()) {
             if ($modelTransferTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -269,8 +262,8 @@ class PlayerController extends AbstractController
             'modelTransferApplicationTo' => $modelTransferApplicationTo,
             'modelTransferFrom' => $modelTransferFrom,
             'modelTransferTo' => $modelTransferTo,
-            'myPlayer' => $myPlayer,
             'onTransfer' => $onTransfer,
+            'player' => $player,
         ]);
     }
 
@@ -281,28 +274,7 @@ class PlayerController extends AbstractController
      */
     public function actionLoan(int $id)
     {
-        $player = Player::find()
-            ->select([
-                'player_age',
-                'player_country_id',
-                'player_date_no_action',
-                'player_id',
-                'player_loan_team_id',
-                'player_national_id',
-                'player_no_deal',
-                'player_position_id',
-                'player_price',
-                'player_team_id',
-            ])
-            ->where(['player_id' => $id])
-            ->one();
-        $this->notFound($player);
-        $myPlayer = true;
-        if (!$this->myTeam) {
-            $myPlayer = false;
-        } elseif ($this->myTeam->team_id != $player->player_team_id) {
-            $myPlayer = false;
-        }
+        $player = $this->getPlayer($id);
         $onLoan = $player->loan ? true : false;
 
         $formConfig = ['player' => $player, 'team' => $this->myTeam];
@@ -311,7 +283,7 @@ class PlayerController extends AbstractController
         $modelLoanFrom = new LoanFrom($formConfig);
         $modelLoanApplicationTo = new LoanApplicationTo($formConfig);
         $modelLoanApplicationFrom = new LoanApplicationFrom($formConfig);
-        if ($myPlayer) {
+        if ($player->myPlayer()) {
             if ($modelLoanTo->load(Yii::$app->request->post())) {
                 if (Yii::$app->request->isAjax) {
                     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -376,41 +348,45 @@ class PlayerController extends AbstractController
             'modelLoanApplicationTo' => $modelLoanApplicationTo,
             'modelLoanFrom' => $modelLoanFrom,
             'modelLoanTo' => $modelLoanTo,
-            'myPlayer' => $myPlayer,
             'onLoan' => $onLoan,
+            'player' => $player,
         ]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionAchievement(int $id): string
     {
+        $player = $this->getPlayer($id);
+
+        $query = AchievementPlayer::find()
+            ->select([
+                'achievement_player_season_id',
+                'achievement_player_stage_id',
+                'achievement_player_team_id',
+                'achievement_player_tournament_type_id',
+            ])
+            ->where(['achievement_player_player_id' => $id])
+            ->orderBy(['achievement_player_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
-            'query' => AchievementPlayer::find()
-                ->select([
-                    'achievement_player_season_id',
-                    'achievement_player_stage_id',
-                    'achievement_player_team_id',
-                    'achievement_player_tournament_type_id',
-                ])
-                ->where(['achievement_player_player_id' => $id])
-                ->orderBy(['achievement_player_id' => SORT_DESC]),
+            'query' => $query,
         ]);
 
-        $this->setSeoTitle('Достижения игрока');
+        $this->setSeoTitle($player->playerName() . '. Достижения игрока');
 
         return $this->render('achievement', [
             'dataProvider' => $dataProvider,
+            'player' => $player,
         ]);
     }
 
     /**
      * @param int $id
      * @return bool
-     * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionSquad(int $id): bool
@@ -419,7 +395,10 @@ class PlayerController extends AbstractController
             return false;
         }
 
-        $player = Player::find()->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])->one();
+        $player = Player::find()
+            ->where(['player_id' => $id, 'player_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
         $this->notFound($player);
 
         $player->player_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
@@ -428,5 +407,99 @@ class PlayerController extends AbstractController
         }
 
         return true;
+    }
+
+    /**
+     * @param int $id
+     * @return Player
+     * @throws \yii\web\NotFoundHttpException
+     */
+    private function getPlayer(int $id): Player
+    {
+        $player = Player::find()
+            ->with([
+                'country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'loanTeam' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
+                },
+                'loanTeam.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
+                },
+                'loanTeam.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'loanTeam.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+                'name' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['name_id', 'name_name']);
+                },
+                'physical' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['physical_id', 'physical_name']);
+                },
+                'playerPosition' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['player_position_player_id', 'player_position_position_id']);
+                },
+                'playerPosition.position' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['position_id', 'position_name']);
+                },
+                'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select([
+                        'player_special_level',
+                        'player_special_player_id',
+                        'player_special_special_id',
+                    ]);
+                },
+                'playerSpecial.special' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['special_id', 'special_name']);
+                },
+                'style' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['style_id', 'style_name']);
+                },
+                'surname' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['surname_id', 'surname_name']);
+                },
+                'team' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
+                },
+                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
+                },
+                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_id', 'city_country_id', 'city_name']);
+                },
+                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->select([
+                'player_age',
+                'player_country_id',
+                'player_id',
+                'player_injury',
+                'player_injury_day',
+                'player_loan_day',
+                'player_loan_team_id',
+                'player_name_id',
+                'player_national_id',
+                'player_physical_id',
+                'player_power_nominal',
+                'player_power_real',
+                'player_price',
+                'player_salary',
+                'player_squad_id',
+                'player_style_id',
+                'player_surname_id',
+                'player_team_id',
+                'player_tire',
+            ])
+            ->where(['player_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($player);
+
+        return $player;
     }
 }

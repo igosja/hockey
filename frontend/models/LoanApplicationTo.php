@@ -50,8 +50,8 @@ class LoanApplicationTo extends Model
 
         $this->minPrice = ceil($this->player->player_price / 1000);
         $this->maxPrice = $this->team->team_finance;
-        $this->minDay = $this->player->loan->loan_day_min;
-        $this->maxDay = $this->player->loan->loan_day_max;
+        $this->minDay = $this->player->loan->loan_day_min ?? 1;
+        $this->maxDay = $this->player->loan->loan_day_max ?? 7;
         $this->loanApplication = LoanApplication::find()
             ->select([
                 'loan_application_id',
@@ -117,12 +117,12 @@ class LoanApplicationTo extends Model
         }
 
         if ($loan->loan_team_seller_id == $this->team->team_id) {
-            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+            Yii::$app->session->setFlash('error', 'Нельзя брать в аренду игрока у своей команды.');
             return false;
         }
 
         if ($loan->loan_user_seller_id == Yii::$app->user->id) {
-            Yii::$app->session->setFlash('error', 'You can not loan a player from your team.');
+            Yii::$app->session->setFlash('error', 'Нельзя брать в аренду игрока у своей команды.');
             return false;
         }
 
@@ -133,7 +133,8 @@ class LoanApplicationTo extends Model
 
         $transferArray = Transfer::find()
             ->select(['transfer_team_buyer_id', 'transfer_team_seller_id'])
-            ->where(['transfer_ready' => 1, 'transfer_season_id' => $controller->seasonId])
+            ->where(['transfer_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere(['!=', 'transfer_team_buyer_id', 0])
             ->andWhere(['!=', 'transfer_team_seller_id', 0])
             ->andWhere([
@@ -155,7 +156,8 @@ class LoanApplicationTo extends Model
 
         $loanArray = Loan::find()
             ->select(['loan_team_buyer_id', 'loan_team_seller_id'])
-            ->where(['loan_ready' => 1, 'loan_season_id' => $controller->seasonId])
+            ->where(['loan_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere(['!=', 'loan_team_buyer_id', 0])
             ->andWhere(['!=', 'loan_team_seller_id', 0])
             ->andWhere([
@@ -176,7 +178,7 @@ class LoanApplicationTo extends Model
         }
 
         if (in_array($this->team->team_id, $teamArray)) {
-            Yii::$app->session->setFlash('error', 'Your teams have already made a deal this season.');
+            Yii::$app->session->setFlash('error', 'Ваши команды уже заключали сделку в текущем сезоне.');
             return false;
         }
 
@@ -184,7 +186,8 @@ class LoanApplicationTo extends Model
 
         $transferArray = Transfer::find()
             ->select(['transfer_user_buyer_id', 'transfer_user_seller_id'])
-            ->where(['transfer_ready' => 1, 'transfer_season_id' => $controller->seasonId])
+            ->where(['transfer_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere(['!=', 'transfer_user_buyer_id', 0])
             ->andWhere(['!=', 'transfer_user_seller_id', 0])
             ->andWhere([
@@ -206,7 +209,8 @@ class LoanApplicationTo extends Model
 
         $loanArray = Loan::find()
             ->select(['loan_user_buyer_id', 'loan_user_seller_id'])
-            ->where(['loan_ready' => 1, 'loan_season_id' => $controller->seasonId])
+            ->where(['loan_season_id' => $controller->seasonId])
+            ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere(['!=', 'loan_user_buyer_id', 0])
             ->andWhere(['!=', 'loan_user_seller_id', 0])
             ->andWhere([
@@ -229,7 +233,7 @@ class LoanApplicationTo extends Model
         if (in_array(Yii::$app->user->id, $userArray)) {
             Yii::$app->session->setFlash(
                 'error',
-                'You have already made a deal with this manager in the current season.'
+                'Вы уже заключали сделку с этим менеджером в текущем сезоне.'
             );
             return false;
         }
@@ -251,7 +255,7 @@ class LoanApplicationTo extends Model
 
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Order successfully saved.');
+            Yii::$app->session->setFlash('success', 'Заявка успешно сохранена.');
         } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();

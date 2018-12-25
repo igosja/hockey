@@ -75,22 +75,13 @@ class LoanFrom extends Model
             return false;
         }
 
-        if ($this->team->team_finance < 0) {
-            Yii::$app->session->setFlash(
-                'error',
-                'You can not remove players from the loan market, if the team has a negative balance.'
-            );
-            return false;
-        }
-
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            LoanApplication::deleteAll(['loan_application_loan_id' => $loan->loan_id]);
             $loan->delete();
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Player successfully removed from the loan.');
+            Yii::$app->session->setFlash('success', 'Игрок успешно снят с арендного рынка.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();

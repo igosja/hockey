@@ -2,9 +2,8 @@
 
 namespace common\models;
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use Exception;
-use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -32,6 +31,7 @@ use yii\db\ActiveQuery;
  * @property Team $buyer
  * @property Player $player
  * @property Team $seller
+ * @property TransferApplication[] $transferApplication
  */
 class Transfer extends AbstractActiveRecord
 {
@@ -100,13 +100,7 @@ class Transfer extends AbstractActiveRecord
             $today = $today + 86400;
         }
 
-        $result = '';
-        try {
-            $result = Yii::$app->formatter->asDate($today);
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-        }
-
+        $result = FormatHelper::asDate($today);
         return $result;
     }
 
@@ -135,6 +129,20 @@ class Transfer extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->transferApplication as $item) {
+            $item->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getBuyer(): ActiveQuery
@@ -156,5 +164,13 @@ class Transfer extends AbstractActiveRecord
     public function getSeller(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'transfer_team_seller_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTransferApplication(): ActiveQuery
+    {
+        return $this->hasMany(TransferApplication::class, ['transfer_application_transfer_id' => 'transfer_id']);
     }
 }

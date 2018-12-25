@@ -60,4 +60,4 @@ print $this->render('_country');
 
     ?>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

@@ -73,7 +73,7 @@ class TransferFrom extends Model
         if ($this->team->team_finance < 0) {
             Yii::$app->session->setFlash(
                 'error',
-                'You can not remove players from the transfer market, if the team has a negative balance.'
+                'Нельзя снимать игроков с трансферного рынка, если в команде отрицательный баланс.'
             );
             return false;
         }
@@ -81,11 +81,10 @@ class TransferFrom extends Model
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            TransferApplication::deleteAll(['transfer_application_transfer_id' => $transfer->transfer_id]);
             $transfer->delete();
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Player successfully removed from the transfer.');
+            Yii::$app->session->setFlash('success', 'Игрок успешно снят с трансфера.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();

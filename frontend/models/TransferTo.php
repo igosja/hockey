@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Loan;
 use common\models\Player;
 use common\models\Position;
@@ -63,14 +64,13 @@ class TransferTo extends Model
     public function attributeLabels(): array
     {
         return [
-            'price' => 'Starting price',
-            'toLeague' => 'Sell the league',
+            'price' => 'Начальная цена',
+            'toLeague' => 'Продать Лиге',
         ];
     }
 
     /**
      * @return bool
-     * @throws \yii\base\InvalidConfigException
      * @throws \yii\db\Exception
      */
     public function execute(): bool
@@ -80,15 +80,15 @@ class TransferTo extends Model
         }
 
         if ($this->player->player_national_id) {
-            Yii::$app->session->setFlash('error', 'You can not sell the player to the national team.');
+            Yii::$app->session->setFlash('error', 'Нельзя продать игрока сборной.');
             return false;
         }
 
         if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
-                'With the player you can not take any action until '
-                . Yii::$app->formatter->asDate($this->player->player_date_no_action)
+                'С игроком нельзя совершать никаких действий до '
+                . FormatHelper::asDate($this->player->player_date_no_action)
                 . '.'
             );
             return false;
@@ -97,13 +97,14 @@ class TransferTo extends Model
         if ($this->player->player_no_deal) {
             Yii::$app->session->setFlash(
                 'error',
-                'The player can not be put on the transfer until the end of the season.'
+                'Игрока нельзя выставить на трансфер до конца сезона.'
             );
             return false;
         }
 
         if ($this->player->player_loan_team_id) {
-            Yii::$app->session->setFlash('error', 'You can not put on the transfer players currently rented.');
+            Yii::$app->session->setFlash('error',
+                'Нельзя выставить на трансфер игроков, отданных в данный момент в аренду.');
             return false;
         }
 
@@ -114,7 +115,7 @@ class TransferTo extends Model
         if ($count > 5) {
             Yii::$app->session->setFlash(
                 'error',
-                'You can not simultaneously put on the transfer market more than five players.'
+                'Нельзя одновременно выставлять на трансферный рынок более пяти игроков.'
             );
             return false;
         }
@@ -149,7 +150,7 @@ class TransferTo extends Model
             if ($count < 3) {
                 Yii::$app->session->setFlash(
                     'error',
-                    'You can not sell the goalkeeper if you have less than three goalkeepers in the team.'
+                    'Нельзя продать вратаря, если у вас в команде останется менее двух вратарей.'
                 );
                 return false;
             }
@@ -176,19 +177,19 @@ class TransferTo extends Model
             if ($count < 20) {
                 Yii::$app->session->setFlash(
                     'error',
-                    'You can not sell a fielder if you have less than twenty field players left in the team.'
+                    'Нельзя продать полевого игрока, если у вас в команде останется менее двадцати полевых игроков.'
                 );
                 return false;
             }
         }
 
         if ($this->player->player_age < 19) {
-            Yii::$app->session->setFlash('error', 'You can not sell players under 19 years old.');
+            Yii::$app->session->setFlash('error', 'Нельзя продавать игроков младше 19 лет.');
             return false;
         }
 
         if ($this->player->player_age > 38) {
-            Yii::$app->session->setFlash('error', 'You can not sell players over 38 years old.');
+            Yii::$app->session->setFlash('error', 'Нельзя продавать игроков старше 38 лет.');
             return false;
         }
 
@@ -214,7 +215,7 @@ class TransferTo extends Model
 
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'The player has successfully put on the transfer.');
+            Yii::$app->session->setFlash('success', 'Нельзя продать игрока, который находится на тренировке.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();

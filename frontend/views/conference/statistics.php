@@ -109,7 +109,6 @@ if ($statisticType->isTeamChapter()) {
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
-            'emptyText' => false,
             'showFooter' => true,
         ]);
     } catch (Exception $e) {
@@ -118,4 +117,4 @@ if ($statisticType->isTeamChapter()) {
 
     ?>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

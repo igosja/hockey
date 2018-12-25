@@ -21,10 +21,15 @@ use yii\db\ActiveQuery;
  * @property int $school_with_style
  * @property int $school_with_style_request
  *
+ * @property Position $position
+ * @property Special $special
+ * @property Style $style
  * @property Team $team
  */
 class School extends AbstractActiveRecord
 {
+    const AGE = 17;
+
     /**
      * @return string
      */
@@ -57,6 +62,30 @@ class School extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPosition(): ActiveQuery
+    {
+        return $this->hasOne(Position::class, ['position_id' => 'school_position_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSpecial(): ActiveQuery
+    {
+        return $this->hasOne(Special::class, ['special_id' => 'school_special_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStyle(): ActiveQuery
+    {
+        return $this->hasOne(Style::class, ['style_id' => 'school_style_id']);
     }
 
     /**

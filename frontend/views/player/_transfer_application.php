@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -21,50 +22,31 @@ try {
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Your team:
+                Ваша команда:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?= Html::a(
-                        $model->team->team_name . ' <span class="hidden-xs">(' . $model->team->stadium->city->city_name . ')</span>',
-                        ['team/view', 'id' => $model->team->team_id]
-                    ); ?>
+                    <?= $model->team->teamLink(); ?>
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Team finances:
+                Финансы команды:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($model->team->team_finance);
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($model->team->team_finance); ?>
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                Starting price:
+                Начальная цена:
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <span class="strong">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($model->minPrice);
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($model->minPrice); ?>
                 </span>
             </div>
         </div>
@@ -96,14 +78,14 @@ try {
         </div>
         <p class="text-center">
             <?php if ($model->transferApplication) : ?>
-                <?= Html::submitButton('Edit application', ['class' => 'btn']); ?>
+                <?= Html::submitButton('Редактировать заявку', ['class' => 'btn']); ?>
                 <?= Html::a(
-                    'Remove application',
+                    'Удалить заявку',
                     'javascript:',
                     ['class' => 'btn', 'id' => 'btn' . $modelFromClassName]
                 ); ?>
             <?php else: ?>
-                <?= Html::submitButton('Apply', ['class' => 'btn']); ?>
+                <?= Html::submitButton('Подать заявку', ['class' => 'btn']); ?>
             <?php endif; ?>
         </p>
         <?php $form->end(); ?>

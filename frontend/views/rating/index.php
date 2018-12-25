@@ -364,7 +364,6 @@ use yii\helpers\Html;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'summary' => false,
         ]);

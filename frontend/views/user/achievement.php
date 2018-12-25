@@ -58,7 +58,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'summary' => false,
         ]);
@@ -73,4 +72,4 @@ print $this->render('_top');
         <?= $this->render('_user-links'); ?>
     </div>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

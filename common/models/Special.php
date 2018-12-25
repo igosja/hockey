@@ -26,6 +26,9 @@ class Special extends AbstractActiveRecord
     const STICK = 10;
     const TACKLE = 6;
 
+    const MAX_LEVEL = 4;
+    const MAX_SPECIALS = 4;
+
     /**
      * @return string
      */

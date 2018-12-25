@@ -1,120 +1,128 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Loan;
 use common\models\Transfer;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProviderLoan
  * @var \yii\data\ActiveDataProvider $dataProviderTransfer
+ * @var \common\models\Player $player
  * @var \yii\web\View $this
  */
 
-print $this->render('_player');
+print $this->render('//player/_player', ['player' => $player]);
 
 ?>
     <div class="row margin-top-small">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $this->render('_links'); ?>
+            <?= $this->render('//player/_links'); ?>
         </div>
     </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p class="text-center">Трансферы:</p>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p class="text-center">Трансферы:</p>
+        </div>
     </div>
-</div>
-<div class="row">
-    <?php
+    <div class="row">
+        <?php
 
-    try {
-        $columns = [
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'С',
-                'footerOptions' => ['title' => 'Сезон'],
-                'header' => 'С',
-                'headerOptions' => ['title' => 'Сезон'],
-                'value' => function (Transfer $model): string {
-                    return $model->transfer_season_id;
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Поз',
-                'footerOptions' => ['title' => 'Позиция'],
-                'header' => 'Поз',
-                'headerOptions' => ['title' => 'Позиция'],
-                'value' => function (Transfer $model): string {
-                    return $model->position();
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'В',
-                'footerOptions' => ['title' => 'Возраст'],
-                'header' => 'В',
-                'headerOptions' => ['title' => 'Возраст'],
-                'value' => function (Transfer $model): string {
-                    return $model->transfer_age;
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'С',
-                'footerOptions' => ['title' => 'Сила'],
-                'header' => 'С',
-                'headerOptions' => ['title' => 'Сила'],
-                'value' => function (Transfer $model): string {
-                    return $model->transfer_power;
-                }
-            ],
-            [
-                'contentOptions' => ['class' => 'text-center'],
-                'footer' => 'Спец',
-                'footerOptions' => ['title' => 'Спецвозможности'],
-                'header' => 'Спец',
-                'headerOptions' => ['title' => 'Спецвозможности'],
-                'value' => function (Transfer $model): string {
-                    return $model->special();
-                }
-            ],
-            [
-                'footer' => 'Продавец',
-                'format' => 'raw',
-                'header' => 'Продавец',
-                'value' => function (Transfer $model): string {
-                    return $model->seller->teamLink();
-                }
-            ],
-            [
-                'footer' => 'Покупатель',
-                'format' => 'raw',
-                'header' => 'Покупатель',
-                'value' => function (Transfer $model): string {
-                    return $model->buyer->teamLink();
-                }
-            ],
-            [
-                'footer' => 'Цена',
-                'header' => 'Цена',
-                'value' => function (Transfer $model): string {
-                    return Yii::$app->formatter->asCurrency($model->transfer_price_buyer, 'USD');
-                }
-            ],
-        ];
-        print GridView::widget([
-            'columns' => $columns,
-            'dataProvider' => $dataProviderTransfer,
-            'showFooter' => true,
-            'summary' => false,
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
+        try {
+            $columns = [
+                [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['title' => 'Сезон'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
+                    'label' => 'С',
+                    'value' => function (Transfer $model): string {
+                        return $model->transfer_season_id;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'Поз',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
+                    'label' => 'Поз',
+                    'value' => function (Transfer $model): string {
+                        return $model->position();
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'В',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
+                    'label' => 'В',
+                    'value' => function (Transfer $model): string {
+                        return $model->transfer_age;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'С',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
+                    'label' => 'С',
+                    'value' => function (Transfer $model): string {
+                        return $model->transfer_power;
+                    }
+                ],
+                [
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'Спец',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                    'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
+                    'label' => 'Спец',
+                    'value' => function (Transfer $model): string {
+                        return $model->special();
+                    }
+                ],
+                [
+                    'footer' => 'Продавец',
+                    'format' => 'raw',
+                    'label' => 'Продавец',
+                    'value' => function (Transfer $model): string {
+                        return $model->seller->teamLink();
+                    }
+                ],
+                [
+                    'footer' => 'Покупатель',
+                    'format' => 'raw',
+                    'label' => 'Покупатель',
+                    'headerOptions' => ['class' => 'col-25'],
+                    'value' => function (Transfer $model): string {
+                        return $model->buyer->teamLink();
+                    }
+                ],
+                [
+                    'footer' => 'Цена',
+                    'headerOptions' => ['class' => 'col-15'],
+                    'label' => 'Цена',
+                    'value' => function (Transfer $model): string {
+                        return Html::a(
+                            FormatHelper::asCurrency($model->transfer_price_buyer),
+                            ['transfer/view', 'id' => $model->transfer_id]
+                        );
+                    }
+                ],
+            ];
+            print GridView::widget([
+                'columns' => $columns,
+                'dataProvider' => $dataProviderTransfer,
+                'showFooter' => true,
+                'summary' => false,
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-    ?>
-</div>
+        ?>
+    </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="text-center">Аренды:</p>
@@ -129,48 +137,48 @@ print $this->render('_player');
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['title' => 'Сезон'],
-                    'header' => 'С',
-                    'headerOptions' => ['title' => 'Сезон'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
+                    'label' => 'С',
                     'value' => function (Loan $model): string {
                         return $model->loan_season_id;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Поз',
-                    'footerOptions' => ['title' => 'Позиция'],
-                    'header' => 'Поз',
-                    'headerOptions' => ['title' => 'Позиция'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
+                    'label' => 'Поз',
                     'value' => function (Loan $model): string {
                         return $model->position();
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'В',
-                    'footerOptions' => ['title' => 'Возраст'],
-                    'header' => 'В',
-                    'headerOptions' => ['title' => 'Возраст'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
+                    'label' => 'В',
                     'value' => function (Loan $model): string {
                         return $model->loan_age;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'С',
-                    'footerOptions' => ['title' => 'Сила'],
-                    'header' => 'С',
-                    'headerOptions' => ['title' => 'Сила'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
+                    'label' => 'С',
                     'value' => function (Loan $model): string {
                         return $model->loan_power;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Спец',
-                    'footerOptions' => ['title' => 'Спецвозможности'],
-                    'header' => 'Спец',
-                    'headerOptions' => ['title' => 'Спецвозможности'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                    'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
+                    'label' => 'Спец',
                     'value' => function (Loan $model): string {
                         return $model->special();
                     }
@@ -178,7 +186,7 @@ print $this->render('_player');
                 [
                     'footer' => 'Владелец',
                     'format' => 'raw',
-                    'header' => 'Владелец',
+                    'label' => 'Владелец',
                     'value' => function (Loan $model): string {
                         return $model->seller->teamLink();
                     }
@@ -186,7 +194,8 @@ print $this->render('_player');
                 [
                     'footer' => 'Арендатор',
                     'format' => 'raw',
-                    'header' => 'Арендатор',
+                    'headerOptions' => ['class' => 'col-25'],
+                    'label' => 'Арендатор',
                     'value' => function (Loan $model): string {
                         return $model->buyer->teamLink();
                     }
@@ -194,7 +203,8 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Срок',
-                    'header' => 'Срок',
+                    'headerOptions' => ['class' => 'col-5'],
+                    'label' => 'Срок',
                     'value' => function (Loan $model): string {
                         return $model->loan_day;
                     }
@@ -202,9 +212,13 @@ print $this->render('_player');
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
-                    'header' => 'Цена',
+                    'headerOptions' => ['class' => 'col-15'],
+                    'label' => 'Цена',
                     'value' => function (Loan $model): string {
-                        return Yii::$app->formatter->asCurrency($model->loan_price_buyer, 'USD');
+                        return Html::a(
+                            FormatHelper::asCurrency($model->loan_price_buyer),
+                            ['loan/view', 'id' => $model->loan_id]
+                        );
                     }
                 ],
             ];
@@ -222,7 +236,7 @@ print $this->render('_player');
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $this->render('_links'); ?>
+            <?= $this->render('//player/_links'); ?>
         </div>
     </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

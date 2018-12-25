@@ -48,7 +48,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $countryDataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
             'summary' => false,
@@ -104,7 +103,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $nationalDataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
             'summary' => false,
@@ -163,7 +161,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $teamDataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
             'summary' => false,
@@ -489,7 +486,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $ratingDataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'summary' => false,
         ]);
@@ -535,7 +531,6 @@ print $this->render('_top');
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $historyDataProvider,
-            'emptyText' => false,
             'showFooter' => true,
             'showOnEmpty' => false,
             'summary' => false,

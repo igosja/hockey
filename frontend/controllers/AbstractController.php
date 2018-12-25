@@ -50,7 +50,8 @@ abstract class AbstractController extends Controller
         }
 
         $allowedIp = [
-            '185.38.209.242',
+            '62.205.148.101',//Peremohy-60
+            '185.38.209.242',//Zhabaeva-7
             '127.0.0.1',
         ];
 

@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,16 +14,8 @@ use yii\widgets\ActiveForm;
         <p class="text-center">
             Игрок находится на рынке аренды.
             <br/>
-            Начальная стоимоcть игрока составляет
-            <span class="strong"><?php
-
-                try {
-                    print Yii::$app->formatter->asCurrency($model->player->loan->loan_price_seller);
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?></span>.
+            Начальная стоимость игрока составляет
+            <span class="strong"><?= FormatHelper::asCurrency($model->player->loan->loan_price_seller); ?></span>.
             <br/>
             Срок аренды составляет
             <span class="strong">
@@ -48,35 +40,10 @@ use yii\widgets\ActiveForm;
                 </tr>
                 <?php foreach ($model->loanApplicationArray as $item): ?>
                     <tr>
-                        <td>
-                            <?= Html::a(
-                                $item->team->team_name . '(' . $item->team->stadium->city->city_name . ')',
-                                ['team/view', 'id' => $item->loan_application_team_id]
-                            ); ?>
-                        </td>
-                        <td class="text-center">
-                            <?php
-
-                            try {
-                                print Yii::$app->formatter->asDatetime($item->loan_application_date);
-                            } catch (Exception $e) {
-                                ErrorHelper::log($e);
-                            }
-
-                            ?>
-                        </td>
+                        <td><?= $item->team->teamLink('img'); ?></td>
+                        <td class="text-center"><?= FormatHelper::asDatetime($item->loan_application_date); ?></td>
                         <td class="text-center"><?= $item->loan_application_day; ?></td>
-                        <td class="text-right">
-                            <?php
-
-                            try {
-                                print Yii::$app->formatter->asCurrency($item->loan_application_price);
-                            } catch (Exception $e) {
-                                ErrorHelper::log($e);
-                            }
-
-                            ?>
-                        </td>
+                        <td class="text-right"><?= FormatHelper::asCurrency($item->loan_application_price); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

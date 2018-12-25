@@ -803,11 +803,11 @@ tr.success {
     padding: 0;
 }
 
-td.phisical-yellow {
+td.physical-yellow {
     background-color: #FEEFB3;
 }
 
-td.phisical-bordered {
+td.physical-bordered {
     background-color: #FEEFB3;
     border: 2px solid #0f103d;
 }

@@ -6,7 +6,7 @@ use common\components\ErrorHelper;
 use common\models\Player;
 use common\models\Team;
 use common\models\TransferApplication;
-use Exception;
+use Throwable;
 use Yii;
 use yii\base\Model;
 
@@ -49,17 +49,26 @@ class TransferApplicationFrom extends Model
             return false;
         }
 
+        $transferApplication = TransferApplication::find()
+            ->where([
+                'transfer_application_transfer_id' => $this->player->transfer->transfer_id,
+                'transfer_application_team_id' => $this->team->team_id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$transferApplication) {
+            Yii::$app->session->setFlash('error', 'Заявка выбрана неправильно.');
+            return false;
+        }
+
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            TransferApplication::deleteAll([
-                'transfer_application_transfer_id' => $this->player->transfer->transfer_id,
-                'transfer_application_team_id' => $this->team->team_id,
-            ]);
+            $transferApplication->delete();
             $transaction->commit();
 
             Yii::$app->session->setFlash('success', 'Order successfully successfully removed.');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;

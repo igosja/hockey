@@ -1,15 +1,21 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 
 /**
  * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
 
-print $this->render('_team-top');
-
 ?>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $this->render('//team/_team-top-left', ['team' => $team]); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
+    </div>
+</div>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= $this->render('_team-links'); ?>
@@ -100,15 +106,7 @@ print $this->render('_team-top');
             <tr>
                 <td>Стоимость базы:</td>
                 <td class="text-center">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($team->team_price_base, 'USD');
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($team->team_price_base); ?>
                 </td>
                 <td class="hidden-xs text-center">
                     <?= $team->ratingTeam->rating_team_price_base_place ?? 0; ?>
@@ -120,15 +118,7 @@ print $this->render('_team-top');
             <tr>
                 <td>Стоимость стадиона:</td>
                 <td class="text-center">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($team->team_price_stadium, 'USD');
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($team->team_price_stadium); ?>
                 </td>
                 <td class="hidden-xs text-center">
                     <?= $team->ratingTeam->rating_team_price_stadium_place ?? 0; ?>
@@ -140,15 +130,7 @@ print $this->render('_team-top');
             <tr>
                 <td>Общая стоимость команды:</td>
                 <td class="text-center">
-                    <?php
-
-                    try {
-                        print Yii::$app->formatter->asCurrency($team->team_price_total, 'USD');
-                    } catch (Exception $e) {
-                        ErrorHelper::log($e);
-                    }
-
-                    ?>
+                    <?= FormatHelper::asCurrency($team->team_price_total); ?>
                 </td>
                 <td class="hidden-xs text-center">
                     <?= $team->ratingTeam->rating_team_price_total_place ?? 0; ?>
@@ -162,7 +144,7 @@ print $this->render('_team-top');
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= $this->render('_team-links'); ?>
+        <?= $this->render('//team/_team-links'); ?>
     </div>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>

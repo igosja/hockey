@@ -405,7 +405,7 @@ $user = Yii::$app->user->identity;
             </div>
         <?php endfor; ?>
     </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
     <div class="row margin-top">
         <?php
 
@@ -488,7 +488,7 @@ $user = Yii::$app->user->identity;
 
         ?>
     </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <span class="strong">Последние комментарии:</span>

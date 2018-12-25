@@ -34,7 +34,7 @@ use yii\helpers\Html;
                                 '<i class="fa fa-times-circle"></i>',
                                 ['team/ask', 'delete' => $item->team_ask_id],
                                 ['title' => 'Удалить заявку']
-                            ) ?>
+                            ); ?>
                         </td>
                         <td>
                             <?= $item->team->teamLink('img') ?>
@@ -170,4 +170,4 @@ use yii\helpers\Html;
 
     ?>
 </div>
-<?= $this->render('/site/_show-full-table'); ?>
+<?= $this->render('//site/_show-full-table'); ?>
