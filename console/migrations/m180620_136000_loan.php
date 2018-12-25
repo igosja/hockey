@@ -35,6 +35,13 @@ class m180620_136000_loan extends Migration
             'loan_user_buyer_id' => $this->integer(11)->defaultValue(0),
             'loan_user_seller_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('loan_player_id', self::TABLE, 'loan_player_id');
+        $this->createIndex('loan_ready', self::TABLE, 'loan_ready');
+        $this->createIndex('loan_team_buyer_id', self::TABLE, 'loan_team_buyer_id');
+        $this->createIndex('loan_team_seller_id', self::TABLE, 'loan_team_seller_id');
+        $this->createIndex('loan_user_buyer_id', self::TABLE, 'loan_user_buyer_id');
+        $this->createIndex('loan_user_seller_id', self::TABLE, 'loan_user_seller_id');
     }
 
     /**

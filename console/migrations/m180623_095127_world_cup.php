@@ -33,6 +33,11 @@ class m180623_095127_world_cup extends Migration
             'world_cup_win_overtime' => $this->integer(2)->defaultValue(0),
             'world_cup_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('world_cup_division_id', self::TABLE, 'world_cup_division_id');
+        $this->createIndex('world_cup_national_id', self::TABLE, 'world_cup_national_id');
+        $this->createIndex('world_cup_national_type_id', self::TABLE, 'world_cup_national_type_id');
+        $this->createIndex('world_cup_season_id', self::TABLE, 'world_cup_season_id');
     }
 
     /**

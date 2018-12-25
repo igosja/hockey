@@ -22,6 +22,9 @@ class m180620_136200_loan_comment extends Migration
             'loan_comment_text' => $this->text(),
             'loan_comment_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('loan_comment_check', self::TABLE, 'loan_comment_check');
+        $this->createIndex('loan_comment_loan_id', self::TABLE, 'loan_comment_loan_id');
     }
 
     /**

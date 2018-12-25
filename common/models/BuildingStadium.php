@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
 /**
@@ -11,6 +12,7 @@ use yii\db\ActiveQuery;
  * @property int $building_stadium_id
  * @property int $building_stadium_capacity
  * @property int $building_stadium_construction_type_id
+ * @property int $building_stadium_date
  * @property int $building_stadium_day
  * @property int $building_stadium_ready
  * @property int $building_stadium_team_id
@@ -38,6 +40,7 @@ class BuildingStadium extends AbstractActiveRecord
                     'building_stadium_id',
                     'building_stadium_capacity',
                     'building_stadium_construction_type_id',
+                    'building_stadium_date',
                     'building_stadium_day',
                     'building_stadium_ready',
                     'building_stadium_team_id',
@@ -45,6 +48,21 @@ class BuildingStadium extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->building_stadium_date = HockeyHelper::unixTimeStamp();
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

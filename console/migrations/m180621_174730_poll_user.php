@@ -19,6 +19,9 @@ class m180621_174730_poll_user extends Migration
             'poll_user_poll_answer_id' => $this->integer(11)->defaultValue(0),
             'poll_user_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('poll_user_poll_answer_id', self::TABLE, 'poll_user_poll_answer_id');
+        $this->createIndex('poll_user_user_id', self::TABLE, 'poll_user_user_id');
     }
 
     /**

@@ -25,6 +25,8 @@ class m180621_141420_participant_league extends Migration
             'participant_league_stage_in' => $this->integer(2)->defaultValue(0),
             'participant_league_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('participant_league_season_id', self::TABLE, 'participant_league_season_id');
     }
 
     /**

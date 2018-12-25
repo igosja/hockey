@@ -27,6 +27,9 @@ class m180620_132725_league_coefficient extends Migration
             'league_coefficient_win_overtime' => $this->integer(2)->defaultValue(0),
             'league_coefficient_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('league_coefficient_country_id', self::TABLE, 'league_coefficient_country_id');
+        $this->createIndex('league_coefficient_season_id', self::TABLE, 'league_coefficient_season_id');
     }
 
     /**

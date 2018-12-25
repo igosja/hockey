@@ -32,6 +32,11 @@ class m180619_172257_finance extends Migration
             'finance_value_after' => $this->integer(11)->defaultValue(0),
             'finance_value_before' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('finance_country_id', self::TABLE, 'finance_country_id');
+        $this->createIndex('finance_national_id', self::TABLE, 'finance_national_id');
+        $this->createIndex('finance_team_id', self::TABLE, 'finance_team_id');
+        $this->createIndex('finance_user_id', self::TABLE, 'finance_user_id');
     }
 
     /**

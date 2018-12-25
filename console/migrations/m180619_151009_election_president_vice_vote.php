@@ -20,6 +20,8 @@ class m180619_151009_election_president_vice_vote extends Migration
             'election_president_vice_vote_date' => $this->integer(11)->defaultValue(0),
             'election_president_vice_vote_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_president_vice_vote_application_id', self::TABLE, 'election_president_vice_vote_application_id');
     }
 
     /**

@@ -24,8 +24,10 @@ class m180622_142300_stadium extends Migration
             'stadium_name' => $this->string(255),
         ]);
 
+        $this->createIndex('stadium_city_id', self::TABLE, 'stadium_city_id');
+
         $this->insert(self::TABLE, [
-            'stadium_name' => 'Лига'
+            'stadium_name' => 'League'
         ]);
 
         $this->update(self::TABLE, ['stadium_id' => 0], ['stadium_id' => 1]);

@@ -32,6 +32,13 @@ class m180620_122319_history extends Migration
             'history_user_2_id' => $this->integer(11)->defaultValue(0),
             'history_value' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('history_national_id', self::TABLE, 'history_national_id');
+        $this->createIndex('history_player_id', self::TABLE, 'history_player_id');
+        $this->createIndex('history_team_id', self::TABLE, 'history_team_id');
+        $this->createIndex('history_team_2_id', self::TABLE, 'history_team_2_id');
+        $this->createIndex('history_user_id', self::TABLE, 'history_user_id');
+        $this->createIndex('history_user_2_id', self::TABLE, 'history_user_2_id');
     }
 
     /**

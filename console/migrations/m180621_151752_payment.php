@@ -21,6 +21,8 @@ class m180621_151752_payment extends Migration
             'payment_sum' => $this->decimal(11, 2)->defaultValue(0),
             'payment_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('payment_user_id', self::TABLE, 'payment_user_id');
     }
 
     /**

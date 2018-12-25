@@ -32,6 +32,8 @@ class m180619_151552_event extends Migration
             'event_second' => $this->integer(2)->defaultValue(0),
             'event_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('event_game_id', self::TABLE, 'event_game_id');
     }
 
     /**

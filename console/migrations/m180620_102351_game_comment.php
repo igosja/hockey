@@ -22,6 +22,9 @@ class m180620_102351_game_comment extends Migration
             'game_comment_text' => $this->text(),
             'game_comment_user_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('game_comment_check', self::TABLE, 'game_comment_check');
+        $this->createIndex('game_comment_game_id', self::TABLE, 'game_comment_game_id');
     }
 
     /**

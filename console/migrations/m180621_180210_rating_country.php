@@ -21,6 +21,8 @@ class m180621_180210_rating_country extends Migration
             'rating_country_league_place' => $this->integer(3)->defaultValue(0),
             'rating_country_stadium_place' => $this->integer(3)->defaultValue(0),
         ]);
+
+        $this->createIndex('rating_country_country_id', self::TABLE, 'rating_country_country_id');
     }
 
     /**

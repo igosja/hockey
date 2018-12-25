@@ -55,6 +55,11 @@ class m180623_070300_team extends Migration
             'team_visitor' => $this->integer(3)->defaultValue(100),
         ]);
 
+        $this->createIndex('team_friendly_status_id', self::TABLE, 'team_friendly_status_id');
+        $this->createIndex('team_stadium_id', self::TABLE, 'team_stadium_id');
+        $this->createIndex('team_user_id', self::TABLE, 'team_user_id');
+        $this->createIndex('team_vice_id', self::TABLE, 'team_vice_id');
+
         $this->insert(self::TABLE, [
             'team_name' => 'Free team',
         ]);

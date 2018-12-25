@@ -21,6 +21,9 @@ class m180619_133544_election_national extends Migration
             'election_national_election_status_id' => $this->integer(1)->defaultValue(0),
             'election_national_national_type_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_national_country_id', self::TABLE, 'election_national_country_id');
+        $this->createIndex('election_national_election_status_id', self::TABLE, 'election_national_election_status_id');
     }
 
     /**

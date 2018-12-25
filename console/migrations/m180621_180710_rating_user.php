@@ -19,6 +19,8 @@ class m180621_180710_rating_user extends Migration
             'rating_user_rating_place' => $this->integer(11)->defaultValue(0),
             'rating_user_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('rating_user_user_id', self::TABLE, 'rating_user_user_id');
     }
 
     /**

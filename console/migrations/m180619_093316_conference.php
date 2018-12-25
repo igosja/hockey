@@ -33,6 +33,9 @@ class m180619_093316_conference extends Migration
             'conference_win_overtime' => $this->integer(2)->defaultValue(0),
             'conference_win_shootout' => $this->integer(2)->defaultValue(0),
         ]);
+
+        $this->createIndex('conference_season_id', self::TABLE, 'conference_season_id');
+        $this->createIndex('conference_team_id', self::TABLE, 'conference_team_id');
     }
 
     /**

@@ -36,6 +36,8 @@ class m180621_180434_rating_team extends Migration
             'rating_team_visitor_place' => $this->integer(11)->defaultValue(0),
             'rating_team_visitor_place_country' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('rating_team_team_id', self::TABLE, 'rating_team_team_id');
     }
 
     /**

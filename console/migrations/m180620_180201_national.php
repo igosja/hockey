@@ -34,6 +34,9 @@ class m180620_180201_national extends Migration
             'national_vice_id' => $this->integer(11)->defaultValue(0),
             'national_visitor' => $this->integer(3)->defaultValue(0),
         ]);
+
+        $this->createIndex('national_country_id', self::TABLE, 'national_country_id');
+        $this->createIndex('national_national_type_id', self::TABLE, 'national_national_type_id');
     }
 
     /**

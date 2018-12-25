@@ -22,6 +22,10 @@ class m180620_174328_message extends Migration
             'message_user_id_from' => $this->integer(11)->defaultValue(0),
             'message_user_id_to' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('message_read', self::TABLE, 'message_read');
+        $this->createIndex('message_user_id_from', self::TABLE, 'message_user_id_from');
+        $this->createIndex('message_user_id_to', self::TABLE, 'message_user_id_to');
     }
 
     /**

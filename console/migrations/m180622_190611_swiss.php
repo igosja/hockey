@@ -21,6 +21,8 @@ class m180622_190611_swiss extends Migration
             'swiss_place' => $this->integer(11)->defaultValue(0),
             'swiss_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('swiss_team_id', self::TABLE, 'swiss_team_id');
     }
 
     /**

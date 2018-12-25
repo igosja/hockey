@@ -27,6 +27,8 @@ class m180618_144423_achievement_player extends Migration
             'achievement_player_team_id' => $this->integer(5)->defaultValue(0),
             'achievement_player_tournament_type_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('achievement_player_player_id', self::TABLE, 'achievement_player_player_id');
     }
 
     /**

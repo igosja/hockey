@@ -21,6 +21,10 @@ class m180620_180536_national_player_day extends Migration
             'national_player_day_player_id' => $this->integer(11)->defaultValue(0),
             'national_player_day_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('national_player_day_national_id', self::TABLE, 'national_player_day_national_id');
+        $this->createIndex('national_player_day_player_id', self::TABLE, 'national_player_day_player_id');
+        $this->createIndex('national_player_day_team_id', self::TABLE, 'national_player_day_team_id');
     }
 
     /**

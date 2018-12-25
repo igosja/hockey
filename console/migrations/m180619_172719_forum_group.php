@@ -23,6 +23,9 @@ class m180619_172719_forum_group extends Migration
             'forum_group_order' => $this->integer(3)->defaultValue(0),
         ]);
 
+        $this->createIndex('forum_group_country_id', self::TABLE, 'forum_group_country_id');
+        $this->createIndex('forum_group_forum_chapter_id', self::TABLE, 'forum_group_forum_chapter_id');
+
         $this->batchInsert(
             self::TABLE,
             [

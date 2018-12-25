@@ -49,6 +49,11 @@ class m180621_174100_player extends Migration
             'player_tire' => $this->integer(3)->defaultValue(0),
             'player_training_ability' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('player_loan_team_id', self::TABLE, 'player_loan_team_id');
+        $this->createIndex('player_national_id', self::TABLE, 'player_national_id');
+        $this->createIndex('player_school_id', self::TABLE, 'player_school_id');
+        $this->createIndex('player_team_id', self::TABLE, 'player_team_id');
     }
 
     /**

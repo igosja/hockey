@@ -23,6 +23,8 @@ class m180620_181700_news extends Migration
             'news_title' => $this->string(255),
             'news_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('news_country_id', self::TABLE, 'news_country_id');
     }
 
     /**

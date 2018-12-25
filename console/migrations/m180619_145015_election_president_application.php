@@ -21,6 +21,8 @@ class m180619_145015_election_president_application extends Migration
             'election_president_application_text' => $this->text(),
             'election_president_application_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_president_application_election_id', self::TABLE, 'election_president_application_election_id');
     }
 
     /**

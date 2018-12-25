@@ -22,6 +22,8 @@ class m180622_183930_statistic_type extends Migration
             'statistic_type_statistic_chapter_id' => $this->integer(1)->defaultValue(0),
         ]);
 
+        $this->createIndex('statistic_type_statistic_chapter_id', self::TABLE, 'statistic_type_statistic_chapter_id');
+
         $this->batchInsert(
             self::TABLE,
             [

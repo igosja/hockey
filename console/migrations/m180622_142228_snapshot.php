@@ -61,6 +61,8 @@ class m180622_142228_snapshot extends Migration
             'snapshot_team_to_manager' => $this->decimal(3, 2)->defaultValue(0),
             'snapshot_stadium' => $this->integer(5)->defaultValue(0),
         ]);
+
+        $this->createIndex('snapshot_date', self::TABLE, 'snapshot_date');
     }
 
     /**

@@ -19,6 +19,8 @@ class m180620_136300_loan_position extends Migration
             'loan_position_loan_id' => $this->integer(11)->defaultValue(0),
             'loan_position_position_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('loan_position_loan_id', self::TABLE, 'loan_position_loan_id');
     }
 
     /**

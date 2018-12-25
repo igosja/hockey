@@ -21,6 +21,10 @@ class m180621_174044_physical_change extends Migration
             'physical_change_schedule_id' => $this->integer(11)->defaultValue(0),
             'physical_change_team_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('physical_change_player_id', self::TABLE, 'physical_change_player_id');
+        $this->createIndex('physical_change_schedule_id', self::TABLE, 'physical_change_schedule_id');
+        $this->createIndex('physical_change_team_id', self::TABLE, 'physical_change_team_id');
     }
 
     /**

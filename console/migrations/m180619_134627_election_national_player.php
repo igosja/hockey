@@ -19,6 +19,8 @@ class m180619_134627_election_national_player extends Migration
             'election_national_player_application_id' => $this->integer(11)->defaultValue(0),
             'election_national_player_player_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('election_national_player_application_id', self::TABLE, 'election_national_player_application_id');
     }
 
     /**

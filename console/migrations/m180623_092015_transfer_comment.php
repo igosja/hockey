@@ -22,6 +22,9 @@ class m180623_092015_transfer_comment extends Migration
             'transfer_comment_text' => $this->text(),
             'transfer_comment_user_id' => $this->integer(11)->defaultValue(0),
         ]);
+
+        $this->createIndex('transfer_comment_check', self::TABLE, 'transfer_comment_check');
+        $this->createIndex('transfer_comment_transfer_id', self::TABLE, 'transfer_comment_transfer_id');
     }
 
     /**

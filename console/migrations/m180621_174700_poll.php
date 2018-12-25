@@ -22,6 +22,9 @@ class m180621_174700_poll extends Migration
             'poll_user_id' => $this->integer(11)->defaultValue(0),
             'poll_poll_status_id' => $this->integer(1)->defaultValue(0),
         ]);
+
+        $this->createIndex('poll_country_id', self::TABLE, 'poll_country_id');
+        $this->createIndex('poll_poll_status_id', self::TABLE, 'poll_poll_status_id');
     }
 
     /**
