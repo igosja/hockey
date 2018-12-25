@@ -17,7 +17,7 @@ class m180622_130827_site extends Migration
         $this->createTable(self::TABLE, [
             'site_id' => $this->primaryKey(1),
             'site_date_cron' => $this->integer(11)->defaultValue(0),
-            'site_status' => $this->integer(1)->defaultValue(0),
+            'site_status' => $this->integer(1)->defaultValue(1),
             'site_version_1' => $this->integer(3)->defaultValue(0),
             'site_version_2' => $this->integer(3)->defaultValue(0),
             'site_version_3' => $this->integer(3)->defaultValue(0),
