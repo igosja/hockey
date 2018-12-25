@@ -2,6 +2,8 @@
 
 namespace common\components;
 
+use common\models\User;
+use console\controllers\AbstractController;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
@@ -17,7 +19,7 @@ class ErrorHelper
      */
     public static function log(Exception $e)
     {
-        if (1 == Yii::$app->user->id) {
+        if (User::ADMIN_USER_ID == Yii::$app->user->id || Yii::$app->controller instanceof AbstractController) {
             print '<pre>';
             print_r($e->__toString());
             exit;
