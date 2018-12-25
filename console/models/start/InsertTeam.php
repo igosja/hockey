@@ -509,7 +509,10 @@ class InsertTeam
             foreach ($country['list'] as $item) {
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
-                    $city = City::findOne(['city_name' => $item['city']]);
+                    $city = City::find()
+                        ->where(['city_name' => $item['city']])
+                        ->limit(1)
+                        ->one();
                     if (!$city) {
                         $city = new City();
                         $city->city_country_id = $countryId;
