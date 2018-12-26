@@ -24,6 +24,7 @@ class NewsController extends AbstractController
                 ->mailer
                 ->compose()
                 ->setTo('igosja@ukr.net')
+                ->setFrom('info@virtual-hockey.org')
                 ->setSubject('Тема сообщения')
                 ->setTextBody('Текст сообщения')
                 ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
