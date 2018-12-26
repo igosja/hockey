@@ -14,8 +14,19 @@ use yii\base\Model;
  */
 class Training extends Model
 {
+    /**
+     * @var array $position
+     */
     public $position;
+
+    /**
+     * @var array $power
+     */
     public $power;
+
+    /**
+     * @var array $special
+     */
     public $special;
 
     /**
@@ -29,7 +40,10 @@ class Training extends Model
         ];
     }
 
-    public function redirectUrl()
+    /**
+     * @return array
+     */
+    public function redirectUrl(): array
     {
         $positionArray = [];
         foreach ($this->position as $player => $position) {

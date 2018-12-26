@@ -6,7 +6,7 @@ use common\models\User;
 use console\controllers\AbstractController;
 use Exception;
 use Yii;
-use yii\db\ActiveRecord;
+use yii\base\Model;
 
 /**
  * Class ErrorHelper
@@ -28,7 +28,7 @@ class ErrorHelper
     }
 
     /**
-     * @param $model ActiveRecord
+     * @param Model $model
      * @return string
      */
     public static function modelErrorsToString($model): string

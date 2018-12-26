@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use Exception;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -63,6 +66,27 @@ class BuildingStadium extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function endDate(): string
+    {
+        $day = $this->building_base_day;
+
+        if (strtotime(date('Y-m-d 12:00:00')) > time()) {
+            $day--;
+        }
+
+        try {
+            $result = Yii::$app->formatter->asDate(strtotime('+' . $day . 'days'), 'short');
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $result = '';
+        }
+
+        return $result;
     }
 
     /**

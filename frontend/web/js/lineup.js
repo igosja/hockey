@@ -1,26 +1,26 @@
 jQuery(document).ready(function () {
-    let position_array = '';
-    let current_1;
-    let current_2;
-    let current_3;
-    let current_4;
-    let other_1;
-    let other_2;
-    let other_3;
-    let other_4;
-    let prompt;
+    var position_array = '';
+    var current_1;
+    var current_2;
+    var current_3;
+    var current_4;
+    var other_1;
+    var other_2;
+    var other_3;
+    var other_4;
+    var prompt;
 
-    let current_gk_1 = gk_1_id;
-    let other_gk_1 = [gk_2_id];
-    let current_gk_2 = gk_2_id;
-    let other_gk_2 = [gk_1_id];
-    let position_gk_array = gk_array;
-    let prompt_gk = 'GK -';
+    var current_gk_1 = gk_1_id;
+    var other_gk_1 = [gk_2_id];
+    var current_gk_2 = gk_2_id;
+    var other_gk_2 = [gk_1_id];
+    var position_gk_array = gk_array;
+    var prompt_gk = 'GK -';
 
-    let select_gk_html_1 = '<option value="0">' + prompt_gk + '</option>';
-    let select_gk_html_2 = '<option value="0">' + prompt_gk + '</option>';
+    var select_gk_html_1 = '<option value="0">' + prompt_gk + '</option>';
+    var select_gk_html_2 = '<option value="0">' + prompt_gk + '</option>';
 
-    for (let j = 0; j < position_gk_array.length; j++) {
+    for (var j = 0; j < position_gk_array.length; j++) {
         if (position_gk_array[j][0] === current_gk_1) {
             select_gk_html_1 = select_gk_html_1 + '<option value="' + position_gk_array[j][0] + '" selected>' + position_gk_array[j][1] + '</option>';
         } else if (-1 === $.inArray(position_gk_array[j][0], other_gk_1)) {
@@ -37,7 +37,7 @@ jQuery(document).ready(function () {
     $('#line-0-0').html(select_gk_html_1);
     $('#line-1-0').html(select_gk_html_2);
 
-    for (let i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 5; i++) {
         if (1 === i) {
             current_1 = ld_1_id;
             other_1 = [ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
@@ -95,12 +95,12 @@ jQuery(document).ready(function () {
             prompt = 'RW -';
         }
 
-        let select_html_1 = '<option value="0">' + prompt + '</option>';
-        let select_html_2 = '<option value="0">' + prompt + '</option>';
-        let select_html_3 = '<option value="0">' + prompt + '</option>';
-        let select_html_4 = '<option value="0">' + prompt + '</option>';
+        var select_html_1 = '<option value="0">' + prompt + '</option>';
+        var select_html_2 = '<option value="0">' + prompt + '</option>';
+        var select_html_3 = '<option value="0">' + prompt + '</option>';
+        var select_html_4 = '<option value="0">' + prompt + '</option>';
 
-        for (let j = 0; j < position_array.length; j++) {
+        for (var j = 0; j < position_array.length; j++) {
             if (position_array[j][0] === current_1) {
                 select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
             } else if (-1 === $.inArray(position_array[j][0], other_1)) {
@@ -135,11 +135,11 @@ jQuery(document).ready(function () {
     player_change();
 
     $('.lineup-change').on('change', function () {
-        let position = parseInt($(this).data('position'));
-        let line = parseInt($(this).data('line'));
-        let player_id = parseInt($(this).val());
+        var position = parseInt($(this).data('position'));
+        var line = parseInt($(this).data('line'));
+        var player_id = parseInt($(this).val());
 
-        let player_id_array =
+        var player_id_array =
             [
                 parseInt($('#line-0-0').val()),
                 parseInt($('#line-1-0').val()),
@@ -179,17 +179,17 @@ jQuery(document).ready(function () {
             position_array = rw_array;
         }
 
-        for (let i = 0; i <= 1; i++) {
+        for (var i = 0; i <= 1; i++) {
             position_array = gk_array;
             prompt = 'GK -';
 
-            let line_player = $('#line-' + i + '-0');
+            var line_player = $('#line-' + i + '-0');
 
-            let line_player_id = parseInt(line_player.val());
+            var line_player_id = parseInt(line_player.val());
 
-            let select_html = '<option value="0">' + prompt + '</option>';
+            var select_html = '<option value="0">' + prompt + '</option>';
 
-            for (let j = 0; j < position_array.length; j++) {
+            for (var j = 0; j < position_array.length; j++) {
                 if (position_array[j][0] === player_id) {
                     if (i === line && 0 === position) {
                         select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
@@ -212,8 +212,8 @@ jQuery(document).ready(function () {
             line_player.html(select_html);
         }
 
-        for (let i = 1; i <= 4; i++) {
-            for (let k = 1; k <= 5; k++) {
+        for (var i = 1; i <= 4; i++) {
+            for (var k = 1; k <= 5; k++) {
                 if (1 === k) {
                     position_array = ld_array;
                     prompt = 'LD -';
@@ -231,13 +231,13 @@ jQuery(document).ready(function () {
                     prompt = 'RW -';
                 }
 
-                let line_player = $('#line-' + i + '-' + k);
+                var line_player = $('#line-' + i + '-' + k);
 
-                let line_player_id = parseInt(line_player.val());
+                var line_player_id = parseInt(line_player.val());
 
-                let select_html = '<option value="0">' + prompt + '</option>';
+                var select_html = '<option value="0">' + prompt + '</option>';
 
-                for (let j = 0; j < position_array.length; j++) {
+                for (var j = 0; j < position_array.length; j++) {
                     if (position_array[j][0] === player_id) {
                         if (i === line && k === position) {
                             select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
@@ -270,9 +270,9 @@ jQuery(document).ready(function () {
 function player_change() {
     $('.tr-player').removeClass('info');
 
-    let player_change = $('.player-change');
+    var player_change = $('.player-change');
 
-    for (let i = 0; i < player_change.length; i++) {
+    for (var i = 0; i < player_change.length; i++) {
         $('#tr-' + $(player_change[i]).val()).addClass('info');
     }
 
@@ -280,8 +280,8 @@ function player_change() {
 }
 
 function send_ajax() {
-    let form_data = $('.game-form').serialize();
-    let url = $('.game-form').data('url');
+    var form_data = $('.game-form').serialize();
+    var url = $('.game-form').data('url');
 
     $.ajax({
         data: form_data,

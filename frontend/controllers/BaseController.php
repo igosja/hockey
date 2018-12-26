@@ -279,13 +279,15 @@ class BaseController extends AbstractController
     /**
      * @param int $building
      * @throws \yii\db\Exception
-     * @throws \yii\web\NotFoundHttpException
      * @return string|\yii\web\Response
      */
     public function actionBuild(int $building)
     {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
         $team = $this->myTeam;
-        $this->notFound($team);
 
         if ($team->buildingBase) {
             $this->setErrorFlash('На базе уже идет строительство.');
