@@ -19,6 +19,15 @@ class NewsController extends AbstractController
      */
     public function actionIndex(): string
     {
+        Yii::$app
+            ->mailer
+            ->compose()
+            ->setTo('igosja@ukr.net')
+            ->setSubject('Тема сообщения')
+            ->setTextBody('Текст сообщения')
+            ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
+            ->send();
+
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
