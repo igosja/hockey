@@ -633,12 +633,14 @@ class BaseController extends AbstractController
      * @param $id
      * @return string|\yii\web\Response
      * @throws \yii\db\Exception
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionCancel($id)
     {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
         $team = $this->myTeam;
-        $this->notFound($team);
 
         $buildingBase = BuildingBase::find()
             ->where(['building_base_id' => $id, 'building_base_ready' => 0, 'building_base_team_id' => $team->team_id])
@@ -665,11 +667,13 @@ class BaseController extends AbstractController
         if (Yii::$app->request->get('ok')) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
+                $buildingId = $buildingBase->building_base_building_id;
+
                 if ($finance->finance_value < 0) {
-                    $buildingId = FinanceText::INCOME_BUILDING_BASE;
+                    $textId = FinanceText::INCOME_BUILDING_BASE;
                     $level = $finance->finance_level + 1;
                 } else {
-                    $buildingId = FinanceText::OUTCOME_BUILDING_BASE;
+                    $textId = FinanceText::OUTCOME_BUILDING_BASE;
                     $level = $finance->finance_level - 1;
                 }
 
@@ -677,7 +681,7 @@ class BaseController extends AbstractController
 
                 Finance::log([
                     'finance_building_id' => $buildingId,
-                    'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
+                    'finance_finance_text_id' => $textId,
                     'finance_level' => $level,
                     'finance_team_id' => $team->team_id,
                     'finance_value' => $finance->finance_value,

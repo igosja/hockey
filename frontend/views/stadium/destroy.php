@@ -32,12 +32,12 @@ use yii\widgets\ActiveForm;
         <?= $message; ?>
     </div>
 </div>
-<?php $form = ActiveForm::begin(['action' => ['stadium/build', 'ok' => 1], 'method' => 'get']); ?>
+<?php $form = ActiveForm::begin(['action' => ['stadium/destroy', 'ok' => 1], 'method' => 'get']); ?>
 <?= $form->field($model, 'capacity')->hiddenInput()->label(false); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?= Html::submitButton('Строить', ['class' => 'btn margin']); ?>
-        <?= Html::a('Отказаться', ['stadium/increase'], ['class' => 'btn margin']); ?>
+        <?= Html::a('Отказаться', ['stadium/decrease'], ['class' => 'btn margin']); ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

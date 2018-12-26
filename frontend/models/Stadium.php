@@ -52,4 +52,14 @@ class Stadium extends Model
             [['capacity'], 'required'],
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'capacity' => 'Вместимость',
+        ];
+    }
 }

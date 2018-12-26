@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <?php $form = ActiveForm::begin([
-    'action' => ['stadium/build'],
+    'action' => ['stadium/destroy'],
     'fieldConfig' => [
         'errorOptions' => [
             'class' => 'col-lg-4 col-md-4 col-sm-3 col-xs-12 xs-text-center notification-error',
@@ -71,10 +71,10 @@ use yii\widgets\ActiveForm;
         'class' => 'form-control',
         'data' => [
             'current' => $team->stadium->stadium_capacity,
-            'sit_price' => Stadium::ONE_SIT_PRICE_BUY,
+            'sit_price' => Stadium::ONE_SIT_PRICE_SELL,
             'url' => Url::to(['format/currency']),
         ],
-        'id' => 'stadium-increase-input',
+        'id' => 'stadium-decrease-input',
         'type' => 'integer',
     ])
     ->label('Новая вместимость'); ?>
@@ -88,15 +88,15 @@ use yii\widgets\ActiveForm;
 </div>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-        Стоимость строительства
+        Компенсация
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 strong">
-        <span id="stadium-increase-price"><?= FormatHelper::asCurrency(0); ?></span>
+        <span id="stadium-decrease-price"><?= FormatHelper::asCurrency(0); ?></span>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= Html::submitButton('Начать строительтво', ['class' => 'btn margin']); ?>
+        <?= Html::submitButton('Уменьшить стадион', ['class' => 'btn margin']); ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

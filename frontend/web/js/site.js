@@ -58,16 +58,7 @@ jQuery(document).ready(function () {
             var stadiumIncreaseSitPrice = stadiumIncreaseInput.data('sit_price');
             var url = stadiumIncreaseInput.data('url');
 
-            if (isNaN(capacityNew)) {
-                capacityNew = 0;
-            }
-
             var stadiumIncreaseCurrent = stadiumIncreaseInput.data('current');
-            if (capacityNew < stadiumIncreaseCurrent) {
-                capacityNew = stadiumIncreaseCurrent;
-            } else if (25000 < capacityNew) {
-                capacityNew = 25000;
-            }
 
             var price = getIncreasePrice(capacityNew, stadiumIncreaseCurrent, stadiumIncreaseSitPrice);
 
@@ -78,11 +69,31 @@ jQuery(document).ready(function () {
                     $('#stadium-increase-price').html(data.value);
                 }
             });
+        })
+        .on('change', '#stadium-decrease-input', function () {
+            var stadiumDecreaseInput = $(this);
+            var capacityNew = parseInt(stadiumDecreaseInput.val());
+            var stadiumIncreaseSitPrice = stadiumDecreaseInput.data('sit_price');
+            var url = stadiumDecreaseInput.data('url');
 
-            $(this).val(capacityNew);
+            var stadiumIncreaseCurrent = stadiumDecreaseInput.data('current');
+
+            var price = getDecreasePrice(capacityNew, stadiumIncreaseCurrent, stadiumIncreaseSitPrice);
+
+            $.ajax({
+                url: url + '?value=' + price,
+                dataType: 'json',
+                success: function (data) {
+                    $('#stadium-decrease-price').html(data.value);
+                }
+            });
         });
 });
 
 function getIncreasePrice(capacityNew, capacityCurrent, oneSitPrice) {
     return parseInt((Math.pow(capacityNew, 1.1) - Math.pow(capacityCurrent, 1.1)) * oneSitPrice);
+}
+
+function getDecreasePrice(capacityNew, capacityCurrent, oneSitPrice) {
+    return parseInt((Math.pow(capacityCurrent, 1.1) - Math.pow(capacityNew, 1.1)) * oneSitPrice);
 }
