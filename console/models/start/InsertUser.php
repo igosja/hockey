@@ -23,8 +23,6 @@ class InsertUser
             ['07ecc566a474b50b26839a7b9a1ff3b3', HockeyHelper::unixTimeStamp(), 'nurbergenov78@mail.ru', 'Abeke15', '$2y$13$PwdU2XDY1oQftR6q..7MD.l/iLy99UQrMfk7Eqdp7mng7K7nPDv5y'],
             ['83bab2474d6fdd1adc094eba21fd4ee2', HockeyHelper::unixTimeStamp(), 'snurbergenova@mail.ru', 'Superkelin', '$2y$13$1A/xtxVyEYJa.D/iDt.DR.oG3Qvta/SP8.tazNeTluKSaSOh64r9i'],
             ['0a2ec92681321273888eb69d8d064fd4', HockeyHelper::unixTimeStamp(), 'alessandrochesscoach@gmail.com', 'SASHO5', '$2y$13$BluGqyIZJLOeATKmyLyj7O5.1uqdEfagqWoBydVN674dFYENBdkqW'],
-            ['77e84682f7e6ca5fda1139216da7ef9c', HockeyHelper::unixTimeStamp(), 'igosja87@gmail.com', 'igosja87', '$2y$13$meEaz8/pEJXWQiePOkXVbeOX/qonPwzlK8BepoekX6bL8gshBPlTG'],
-            ['77bb087fbe6a1d54cdbaa86664912dfa', HockeyHelper::unixTimeStamp(), 'igosja877@gmail.com', 'igosja877', '$2y$13$5323gb0gCPegXYoGIIw7f.2GkJXA/pmBQ71Q7oSaYdfQHm3NVV4S2'],
             ['68cf45ac9c35f48305fcbe3f0d8c8b24', HockeyHelper::unixTimeStamp(), 'kidofreason@gmail.com', 'Teemu Selanne', '$2y$13$eiNFENFMnjTp5nSss2pf/.ROdycHTy//jJ/3neCUV.KGSsCiuBfXa'],
             ['b653680fc93f4d02a145c6d643f4c870', HockeyHelper::unixTimeStamp(), 'ole8kristall@mail.ru', 'oleg8natali', '$2y$13$rpW8ADOlEugA2sE6cE8DiuMsklQU/K5Np7vvU2OI95mjL7u1jjV0.'],
             ['83246ab2ae8b049ef0bdf4cb5d1f7cf2', HockeyHelper::unixTimeStamp(), 'bubnoff.serg@yandex.ru', 'Gordik', '$2y$13$1z9g6d6l4oGUgAmYqsvB3ehgohK0AGu7WhUx7F7Qst7n8xbIvqLry'],
