@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Team;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -25,7 +26,7 @@ use yii\helpers\Html;
                 <tr>
                     <th class="col-1"></th>
                     <th>Ваши заявки</th>
-                    <th><?= $model->getAttributeLabel('vs'); ?></th>
+                    <th>Vs</th>
                 </tr>
                 <?php foreach ($teamAskArray as $item) : ?>
                     <tr>
@@ -46,8 +47,8 @@ use yii\helpers\Html;
                 <?php endforeach; ?>
                 <tr>
                     <th></th>
-                    <th><?= $model->getAttributeLabel('team'); ?></th>
-                    <th><?= $model->getAttributeLabel('vs'); ?></th>
+                    <th>Ваши заявки</th>
+                    <th>Vs</th>
                 </tr>
             </table>
         </div>
@@ -72,41 +73,32 @@ use yii\helpers\Html;
             ],
             [
                 'attribute' => 'team',
-                'footer' => $model->getAttributeLabel('team'),
+                'footer' => 'Команда',
                 'format' => 'raw',
+                'label' => 'Команда',
                 'value' => function (Team $model) {
-                    return Html::a(
-                        $model->team_name . ' (' . $model->stadium->city->city_name . ')',
-                        ['team/view', 'id' => $model->team_id]
-                    );
+                    return $model->teamLink('string', true);
                 }
             ],
             [
                 'attribute' => 'country',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('country'),
+                'footer' => 'Страна',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'hidden-xs'],
+                'label' => 'Страна',
                 'value' => function (Team $model) {
-                    return Html::a(
-                        Html::img(
-                            '/img/country/12/' . $model->stadium->city->country->country_id . '.png',
-                            [
-                                'alt' => $model->stadium->city->country->country_name,
-                                'title' => $model->stadium->city->country->country_name,
-                            ]
-                        ) . ' <span class="hidden-xs">' . $model->stadium->city->country->country_name . '</span>',
-                        ['country/team', 'id' => $model->stadium->city->country->country_id]
-                    );
+                    return $model->stadium->city->country->countryImageLink();
                 }
             ],
             [
                 'attribute' => 'base',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('base'),
+                'footer' => 'База',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'hidden-xs'],
+                'label' => 'База',
                 'value' => function (Team $model) {
                     return $model->baseUsed() . ' из ' . $model->base->base_slot_max;
                 }
@@ -114,45 +106,48 @@ use yii\helpers\Html;
             [
                 'attribute' => 'stadium',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('stadium'),
+                'footer' => 'Стадион',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'hidden-xs'],
+                'label' => 'Стадион',
                 'value' => function (Team $model) {
-                    return $model->stadium->stadium_capacity;
+                    return Yii::$app->formatter->asInteger($model->stadium->stadium_capacity);
                 }
             ],
             [
                 'attribute' => 'finance',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('finance'),
+                'footer' => 'Финансы',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'hidden-xs'],
+                'label' => 'Финансы',
                 'value' => function (Team $model) {
-                    return Yii::$app->formatter->asCurrency($model->team_finance, 'USD');
+                    return FormatHelper::asCurrency($model->team_finance);
                 }
             ],
             [
                 'attribute' => 'vs',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('vs'),
+                'footer' => 'Vs',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => [
                     'class' => 'hidden-xs',
                     'title' => 'Рейтинг силы команды в длительных соревнованиях'
                 ],
+                'label' => 'Vs',
                 'value' => function (Team $model) {
                     return $model->team_power_vs;
                 }
             ],
             [
-                'label' => $model->getAttributeLabel('number_of_application'),
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => $model->getAttributeLabel('number_of_application'),
+                'footer' => 'ЧЗ',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => [
                     'class' => 'hidden-xs',
                     'title' => 'Число заявок'
                 ],
+                'label' => 'ЧЗ',
                 'value' => function (Team $model) {
                     return count($model->teamAsk);
                 }

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
@@ -63,6 +64,20 @@ class BuildingStadium extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function endDate(): string
+    {
+        $day = $this->building_stadium_day;
+
+        if (strtotime(date('Y-m-d 12:00:00')) > time()) {
+            $day--;
+        }
+
+        return FormatHelper::asDate(strtotime('+' . $day . 'days'));
     }
 
     /**

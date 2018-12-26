@@ -2,13 +2,13 @@ jQuery(document).ready(function () {
     $(document)
         .on('click', '.show-full-table', function () {
             $('.show-full-table').hide();
-            let table_list = $('table');
+            var table_list = $('table');
             table_list.find('th').removeClass('hidden-xs');
             table_list.find('td').removeClass('hidden-xs');
         })
         .on('change', '#select-squad', function () {
-            let line_id = $(this).val();
-            let url = $(this).data('url');
+            var line_id = $(this).val();
+            var url = $(this).data('url');
             $.ajax({
                 url: url + '?squad=' + line_id
             });
@@ -23,17 +23,17 @@ jQuery(document).ready(function () {
             $(this).closest('form').submit();
         })
         .on('click', '.physical-change-cell', function () {
-            let physical_id = $(this).data('physical');
-            let player_id = $(this).data('player');
-            let schedule_id = $(this).data('schedule');
-            let url = $('#physical-available').data('url');
+            var physical_id = $(this).data('physical');
+            var player_id = $(this).data('player');
+            var schedule_id = $(this).data('schedule');
+            var url = $('#physical-available').data('url');
 
             $.ajax({
                 url: url + '?physicalId=' + physical_id + '&playerId=' + player_id + '&scheduleId=' + schedule_id,
                 dataType: 'json',
                 success: function (data) {
-                    for (let i = 0; i < data['list'].length; i++) {
-                        let list_id = $('#' + data['list'][i].id);
+                    for (var i = 0; i < data['list'].length; i++) {
+                        var list_id = $('#' + data['list'][i].id);
                         list_id.removeClass(data['list'][i].remove_class_1);
                         list_id.removeClass(data['list'][i].remove_class_2);
                         list_id.addClass(data['list'][i].class);
@@ -51,5 +51,49 @@ jQuery(document).ready(function () {
                     $('#physical-available').html(data['available']);
                 }
             });
+        })
+        .on('change', '#stadium-increase-input', function () {
+            var stadiumIncreaseInput = $(this);
+            var capacityNew = parseInt(stadiumIncreaseInput.val());
+            var stadiumIncreaseSitPrice = stadiumIncreaseInput.data('sit_price');
+            var url = stadiumIncreaseInput.data('url');
+
+            var stadiumIncreaseCurrent = stadiumIncreaseInput.data('current');
+
+            var price = getIncreasePrice(capacityNew, stadiumIncreaseCurrent, stadiumIncreaseSitPrice);
+
+            $.ajax({
+                url: url + '?value=' + price,
+                dataType: 'json',
+                success: function (data) {
+                    $('#stadium-increase-price').html(data.value);
+                }
+            });
+        })
+        .on('change', '#stadium-decrease-input', function () {
+            var stadiumDecreaseInput = $(this);
+            var capacityNew = parseInt(stadiumDecreaseInput.val());
+            var stadiumIncreaseSitPrice = stadiumDecreaseInput.data('sit_price');
+            var url = stadiumDecreaseInput.data('url');
+
+            var stadiumIncreaseCurrent = stadiumDecreaseInput.data('current');
+
+            var price = getDecreasePrice(capacityNew, stadiumIncreaseCurrent, stadiumIncreaseSitPrice);
+
+            $.ajax({
+                url: url + '?value=' + price,
+                dataType: 'json',
+                success: function (data) {
+                    $('#stadium-decrease-price').html(data.value);
+                }
+            });
         });
 });
+
+function getIncreasePrice(capacityNew, capacityCurrent, oneSitPrice) {
+    return parseInt((Math.pow(capacityNew, 1.1) - Math.pow(capacityCurrent, 1.1)) * oneSitPrice);
+}
+
+function getDecreasePrice(capacityNew, capacityCurrent, oneSitPrice) {
+    return parseInt((Math.pow(capacityCurrent, 1.1) - Math.pow(capacityNew, 1.1)) * oneSitPrice);
+}

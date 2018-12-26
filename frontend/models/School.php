@@ -14,8 +14,19 @@ use yii\base\Model;
  */
 class School extends Model
 {
+    /**
+     * @var array $position_id
+     */
     public $position_id;
+
+    /**
+     * @var array $special_id
+     */
     public $special_id;
+
+    /**
+     * @var array $style_id
+     */
     public $style_id;
 
     /**
@@ -28,7 +39,10 @@ class School extends Model
         ];
     }
 
-    public function redirectUrl()
+    /**
+     * @return array
+     */
+    public function redirectUrl(): array
     {
         return [
             'school/start',

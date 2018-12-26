@@ -12,6 +12,9 @@ use yii\base\Model;
  */
 class Scout extends Model
 {
+    /**
+     * @var array $style
+     */
     public $style;
 
     /**
@@ -25,7 +28,10 @@ class Scout extends Model
         ];
     }
 
-    public function redirectUrl()
+    /**
+     * @return array
+     */
+    public function redirectUrl(): array
     {
         return ['scout/study', 'style' => $this->style];
     }

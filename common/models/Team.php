@@ -59,6 +59,7 @@ use yii\helpers\Html;
  * @property BaseScout $baseScout
  * @property BaseTraining $baseTraining
  * @property BuildingBase $buildingBase
+ * @property BuildingStadium $buildingStadium
  * @property Championship $championship
  * @property Conference $conference
  * @property FriendlyStatus $friendlyStatus
@@ -878,6 +879,16 @@ class Team extends AbstractActiveRecord
         return $this
             ->hasOne(BuildingBase::class, ['building_base_team_id' => 'team_id'])
             ->andWhere(['building_base_ready' => 0]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuildingStadium(): ActiveQuery
+    {
+        return $this
+            ->hasOne(BuildingStadium::class, ['building_stadium_team_id' => 'team_id'])
+            ->andWhere(['building_stadium_ready' => 0]);
     }
 
     /**
