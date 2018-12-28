@@ -3,6 +3,8 @@
 namespace console\models\generator;
 
 use common\models\Site;
+use DateTime;
+use DateTimeZone;
 use Yii;
 
 /**
@@ -12,7 +14,7 @@ use Yii;
 class CheckCronDate
 {
     /**
-     * @throws \yii\base\ExitException
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -27,17 +29,8 @@ class CheckCronDate
             Yii::$app->end();
         }
 
-        if (!in_array(date('H:i'), [
-            '11:56',
-            '11:57',
-            '11:58',
-            '11:59',
-            '12:00',
-            '12:01',
-            '12:02',
-            '12:03',
-            '12:04',
-        ])) {
+        $formattedTime = (new DateTime('now', new DateTimeZone('UTC')))->format('H:i');
+        if (!in_array($formattedTime, ['08:57', '08:58', '08:59', '09:00', '09:01', '09:02', '09:03'])) {
             Yii::$app->end();
         }
     }

@@ -109,11 +109,6 @@ class GeneratorController extends AbstractController
     {
         $modelArray = [
             new CheckCronDate(),
-        ];
-        if ($modelArray) {
-            usleep(1);
-        }
-        $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
             new PlayerPowerNewToOld(),
