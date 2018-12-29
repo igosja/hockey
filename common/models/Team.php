@@ -363,11 +363,11 @@ class Team extends AbstractActiveRecord
 
         Yii::$app->mailer->compose(
             ['html' => 'default-html', 'text' => 'default-text'],
-            ['text' => 'Your application for team management is approved.']
+            ['text' => 'Ваша заявка на получение команды одобрена.']
         )
             ->setTo($this->manager->user_email)
             ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-            ->setSubject('Getting the team on the Virtual Hockey League website')
+            ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
             ->send();
     }
 
