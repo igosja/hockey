@@ -302,4 +302,8 @@ use yii\grid\GridView;
         </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs"></div>
-    <?= $team->myTeam() ? $this->render('_team-bottom-forum') : $this->render('_team-bottom-my-team'); ?>
+    <?php if ($team->myTeam()) : ?>
+        <?= $this->render('_team-bottom-forum'); ?>
+    <?php elseif (Yii::$app->controller->myTeam): ?>
+        <?= $this->render('_team-bottom-my-team'); ?>
+    <?php endif; ?>
