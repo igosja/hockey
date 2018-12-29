@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -12,12 +11,14 @@ use yii\db\ActiveQuery;
  *
  * @property int $support_id
  * @property int $support_date
+ * @property int $support_question
  * @property int $support_read
  * @property string $support_text
- * @property int $support_user_id_from
- * @property int $support_user_id_to
+ * @property int $support_user_id
+ * @property int $support_admin_id
  *
- * @property User $userFrom
+ * @property User $admin
+ * @property User $user
  */
 class Support extends AbstractActiveRecord
 {
@@ -38,10 +39,11 @@ class Support extends AbstractActiveRecord
             [
                 [
                     'support_id',
+                    'support_admin_id',
                     'support_date',
+                    'support_question',
                     'support_read',
-                    'support_user_id_from',
-                    'support_user_id_to',
+                    'support_user_id',
                 ],
                 'integer'
             ],
@@ -52,10 +54,11 @@ class Support extends AbstractActiveRecord
     }
 
     /**
+     * @param int $userId
      * @return bool
      * @throws \Exception
      */
-    public function addQuestion()
+    public function addAnswer(int $userId): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -64,6 +67,33 @@ class Support extends AbstractActiveRecord
         if (!$this->load(Yii::$app->request->post())) {
             return false;
         }
+
+        $this->support_admin_id = Yii::$app->user->id;
+        $this->support_question = 0;
+        $this->support_user_id = $userId;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function addQuestion(): bool
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->support_user_id = Yii::$app->user->id;
 
         if (!$this->save()) {
             return false;
@@ -82,8 +112,7 @@ class Support extends AbstractActiveRecord
             return false;
         }
         if ($this->isNewRecord) {
-            $this->support_date = HockeyHelper::unixTimeStamp();
-            $this->support_user_id_from = Yii::$app->user->id;
+            $this->support_date = time();
         }
         return true;
     }
@@ -91,8 +120,16 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUserFrom(): ActiveQuery
+    public function getAdmin(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'support_user_id_from']);
+        return $this->hasOne(User::class, ['user_id' => 'support_admin_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'support_user_id']);
     }
 }
