@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
                     } else {
                         $result = $result . ' ' . $model->admin->userLink();
                     }
-                    $result = $result . '<br/>' . $model->support_text;
+                    $result = $result . '<br/>' . nl2br($model->support_text);
                     return $result;
                 }
             ],

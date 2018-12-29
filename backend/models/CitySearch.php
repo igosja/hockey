@@ -2,16 +2,27 @@
 
 namespace backend\models;
 
-use common\models\Support;
+use common\models\City;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class SupportUserSearch
+ * Class CitySearch
  * @package backend\models
  */
-class SupportUserSearch extends Support
+class CitySearch extends City
 {
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [['city_id'], 'integer'],
+            [['city_name'], 'safe'],
+        ];
+    }
+
     /**
      * @return array
      */
@@ -26,16 +37,8 @@ class SupportUserSearch extends Support
      */
     public function search($params): ActiveDataProvider
     {
-        $query = Support::find()
-            ->select([
-                'support_id' => 'MAX(support_id)',
-                'support_date' => 'MAX(support_date)',
-                'support_read' => 'MIN(support_read)',
-                'support_user_id',
-            ])
-            ->where(['support_question' => 1])
-            ->groupBy(['support_user_id'])
-            ->orderBy(['support_read' => SORT_ASC, 'support_date' => SORT_DESC]);
+        $query = City::find()
+            ->where(['!=', 'city_id', 0]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -44,6 +47,10 @@ class SupportUserSearch extends Support
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+        $query
+            ->andFilterWhere(['city_id' => $this->city_id])
+            ->andFilterWhere(['like', 'city_name', $this->city_name]);
 
         return $dataProvider;
     }

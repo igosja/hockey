@@ -32,7 +32,7 @@ print $this->render('//user/_top');
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if ($support->support_question) : ?>message-from-me<?php else : ?>message-to-me<?php endif; ?>">
-                        <?= $support->support_text; ?>
+                        <?= nl2br(Html::encode($support->support_text)); ?>
                     </div>
                 </div>
             <?php endforeach; ?>

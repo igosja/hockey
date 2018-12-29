@@ -2,16 +2,27 @@
 
 namespace backend\models;
 
-use common\models\Support;
+use common\models\Team;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class SupportUserSearch
+ * Class TeamSearch
  * @package backend\models
  */
-class SupportUserSearch extends Support
+class TeamSearch extends Team
 {
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [['team_id'], 'integer'],
+            [['team_name'], 'safe'],
+        ];
+    }
+
     /**
      * @return array
      */
@@ -26,16 +37,8 @@ class SupportUserSearch extends Support
      */
     public function search($params): ActiveDataProvider
     {
-        $query = Support::find()
-            ->select([
-                'support_id' => 'MAX(support_id)',
-                'support_date' => 'MAX(support_date)',
-                'support_read' => 'MIN(support_read)',
-                'support_user_id',
-            ])
-            ->where(['support_question' => 1])
-            ->groupBy(['support_user_id'])
-            ->orderBy(['support_read' => SORT_ASC, 'support_date' => SORT_DESC]);
+        $query = Team::find()
+            ->where(['!=', 'team_id', 0]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -44,6 +47,10 @@ class SupportUserSearch extends Support
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+        $query
+            ->andFilterWhere(['team_id' => $this->team_id])
+            ->andFilterWhere(['like', 'team_name', $this->team_name]);
 
         return $dataProvider;
     }
