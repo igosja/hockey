@@ -5,15 +5,19 @@ namespace frontend\controllers;
 use common\components\ErrorHelper;
 use common\models\Achievement;
 use common\models\Finance;
+use common\models\FriendlyInvite;
+use common\models\FriendlyInviteStatus;
 use common\models\Game;
 use common\models\History;
 use common\models\Loan;
 use common\models\Logo;
+use common\models\Mood;
 use common\models\Player;
 use common\models\Season;
 use common\models\Team;
 use common\models\TeamAsk;
 use common\models\Transfer;
+use common\models\User;
 use Exception;
 use frontend\models\ChangeMyTeam;
 use frontend\models\TeamLogo;
@@ -21,6 +25,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
+use yii\helpers\Html;
 use yii\web\Response;
 
 /**
@@ -101,6 +106,11 @@ class TeamController extends AbstractController
         }
 
         $team = $this->getTeam($id);
+
+        $notificationArray = [];
+        if ($this->myTeam && $id == $this->myTeam->team_id) {
+            $notificationArray = $this->getNotificationArray();
+        }
 
         $query = Player::find()
             ->joinWith([
@@ -235,6 +245,7 @@ class TeamController extends AbstractController
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+            'notificationArray' => $notificationArray,
             'team' => $team,
         ]);
     }
@@ -687,7 +698,6 @@ class TeamController extends AbstractController
 
         return $this->render('ask', [
             'dataProvider' => $dataProvider,
-            'model' => new Team(),
             'teamAskArray' => $teamAskArray,
         ]);
     }
@@ -746,5 +756,92 @@ class TeamController extends AbstractController
         $this->notFound($team);
 
         return $team;
+    }
+
+    public function getNotificationArray(): array
+    {
+        if (!$this->myTeam) {
+            return [];
+        }
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $result = [];
+
+        $closestGame = Game::find()
+            ->where([
+                'or',
+                ['game_home_team_id' => $this->myTeam->team_id],
+                ['game_guest_team_id' => $this->myTeam->team_id],
+            ])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['game_schedule_id' => SORT_ASC])
+            ->limit(1)
+            ->one();
+        if ($closestGame) {
+            if (($closestGame->game_home_team_id == $this->myTeam->team_id && !$closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_team_id == $this->myTeam->team_id && !$closestGame->game_guest_mood_id)) {
+                $result[] = 'Вы не отправили состав на ближайший матч своей команды. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+
+            if (($closestGame->game_home_team_id == $this->myTeam->team_id && Mood::SUPER == $closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_team_id == $this->myTeam->team_id && Mood::SUPER == $closestGame->game_guest_mood_id)) {
+                $result[] = 'В ближайшем матче ваша команда будет использовать супер. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+
+            if (($closestGame->game_home_team_id == $this->myTeam->team_id && Mood::REST == $closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_team_id == $this->myTeam->team_id && Mood::REST == $closestGame->game_guest_mood_id)) {
+                $result[] = 'В ближайшем матче ваша команда будет использовать отдых. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+        }
+
+        if ($user->isVip() && $user->user_date_vip < time() + 604800) {
+            $result[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить.' . Html::a(
+                    '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                    ['store/index']
+                );
+        }
+
+        if ($user->user_shop_point || $user->user_shop_position || $user->user_shop_special) {
+            $result[] = 'У вас есть бонусные тренировки для хоккеистов.' . Html::a(
+                    '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                    ['training/index']
+                );
+        }
+
+        if ($this->myTeam->team_free_base) {
+            $result[] = 'У вас есть бесплатные улучшения базы.' . Html::a(
+                    '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                    ['base-free/view']
+                );
+        }
+
+        $friendlyInvite = FriendlyInvite::find()
+            ->where([
+                'friendly_invite_guest_team_id' => $this->myTeam->team_id,
+                'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW,
+            ])
+            ->orderBy(['friendly_invite_schedule_id' => SORT_ASC])
+            ->limit(1)
+            ->one();
+        if ($friendlyInvite) {
+            $result[] = 'У вас есть новые приглашения сыграть товарищеский матч' . Html::a(
+                    '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                    ['friendly/view', 'id' => $friendlyInvite->friendly_invite_schedule_id]
+                );
+        }
+
+        return $result;
     }
 }

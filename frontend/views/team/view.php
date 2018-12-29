@@ -7,6 +7,7 @@ use yii\grid\GridView;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $notificationArray
  * @var \common\models\Team $team
  * @var \yii\web\View $this
  */
@@ -20,11 +21,11 @@ use yii\grid\GridView;
         <?= $this->render('//team/_team-top-right', ['team' => $team]); ?>
     </div>
 </div>
-<?php if ($notification_array = []) : ?>
+<?php if ($notificationArray) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <ul>
-                <?php foreach ($notification_array as $item) : ?>
+                <?php foreach ($notificationArray as $item) : ?>
                     <li><?= $item; ?></li>
                 <?php endforeach; ?>
             </ul>

@@ -11,6 +11,10 @@ namespace common\models;
  */
 class FriendlyInviteStatus extends AbstractActiveRecord
 {
+    const ACCEPTED = 2;
+    const DECLINED = 3;
+    const NEW = 1;
+
     /**
      * @return string
      */
