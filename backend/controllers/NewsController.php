@@ -5,7 +5,6 @@ namespace backend\controllers;
 use backend\models\NewsSearch;
 use common\components\ErrorHelper;
 use common\models\News;
-use common\models\User;
 use Throwable;
 use Yii;
 
@@ -20,25 +19,6 @@ class NewsController extends AbstractController
      */
     public function actionIndex(): string
     {
-        try {
-            $model = User::find()
-                ->where(['user_id' => User::ADMIN_USER_ID])
-                ->limit(1)
-                ->one();
-            Yii::$app
-                ->mailer
-                ->compose(
-                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
-                    ['model' => $model]
-                )
-                ->setTo($model->user_email)
-                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги')
-                ->send();
-        } catch (\Exception $e) {
-            ErrorHelper::log($e);
-        }
-
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
