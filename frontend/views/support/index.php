@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -26,20 +26,12 @@ print $this->render('//user/_top');
             <?php foreach ($supportArray as $support) : ?>
                 <div class="row margin-top">
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
-                        <?php
-
-                        try {
-                            print Yii::$app->formatter->asDatetime($support->support_date, 'short');
-                        } catch (Exception $e) {
-                            ErrorHelper::log($e);
-                        }
-
-                        ?>,
-                        <?= $support->userFrom->userLink(); ?>
+                        <?= FormatHelper::asDateTime($support->support_date); ?>,
+                        <?= $support->support_question ? $support->user->userLink() : $support->admin->userLink(); ?>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if (Yii::$app->user->id == $support->support_user_id_from) : ?>message-from-me<?php else : ?>message-to-me<?php endif; ?>">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if ($support->support_question) : ?>message-from-me<?php else : ?>message-to-me<?php endif; ?>">
                         <?= $support->support_text; ?>
                     </div>
                 </div>

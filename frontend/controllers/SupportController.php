@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\HockeyHelper;
 use common\models\Support;
 use Yii;
 
@@ -25,26 +24,18 @@ class SupportController extends AbstractController
 
         $model = new Support();
         if ($model->addQuestion()) {
-            $this->setSuccessFlash('Сообщение успешно сохранёнo');
+            $this->setSuccessFlash('Сообщение успешно сохраненo');
             return $this->refresh();
         }
 
         $supportArray = Support::find()
-            ->where([
-                'or',
-                ['support_user_id_from' => Yii::$app->user->id],
-                ['support_user_id_to' => Yii::$app->user->id],
-            ])
+            ->where(['support_user_id' => Yii::$app->user->id])
             ->limit(Yii::$app->params['pageSizeMessage'])
             ->orderBy(['support_id' => SORT_DESC])
             ->all();
 
         $countSupport = Support::find()
-            ->where([
-                'or',
-                ['support_user_id_from' => Yii::$app->user->id],
-                ['support_user_id_to' => Yii::$app->user->id],
-            ])
+            ->where(['support_user_id' => Yii::$app->user->id])
             ->count();
 
         $lazy = 0;
@@ -52,10 +43,9 @@ class SupportController extends AbstractController
             $lazy = 1;
         }
 
-        Support::updateAll([
-            'support_read' => HockeyHelper::unixTimeStamp()
-        ],
-            ['and', ['support_read' => 0], ['support_user_id_to' => Yii::$app->user->id]]
+        Support::updateAll(
+            ['support_read' => time()],
+            ['support_read' => 0, 'support_user_id' => Yii::$app->user->id, 'support_question' => 0]
         );
 
         $this->setSeoTitle('Техническая поддержка');

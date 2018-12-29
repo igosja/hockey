@@ -68,6 +68,9 @@ class ForumMessage extends AbstractActiveRecord
                 $this->forum_message_date = HockeyHelper::unixTimeStamp();
                 $this->forum_message_user_id = Yii::$app->user->id;
             }
+            if ($this->isAttributeChanged('forum_message_text')) {
+                $this->forum_message_check = 0;
+            }
             return true;
         }
         return false;

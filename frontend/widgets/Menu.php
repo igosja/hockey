@@ -2,6 +2,7 @@
 
 namespace frontend\widgets;
 
+use common\models\Support;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -192,8 +193,18 @@ class Menu extends Widget
         $this->menuItems = $rows;
     }
 
-    private function setMenuItemList()
+    /**
+     * @return void
+     */
+    private function setMenuItemList(): void
     {
+        $support = 0;
+        if (!Yii::$app->user->isGuest) {
+            $support = Support::find()
+                ->where(['support_user_id' => Yii::$app->user->id, 'support_question' => 0, 'support_read' => 0])
+                ->count();
+        }
+
         $this->menuItemList = [
             self::ITEM_CHANGE_TEAM => [
                 'label' => 'Сменить клуб',
@@ -271,6 +282,7 @@ class Menu extends Widget
                 'url' => ['store/index'],
             ],
             self::ITEM_SUPPORT => [
+                'css' => $support ? 'red' : '',
                 'label' => 'Техподдержка',
                 'url' => ['support/index'],
             ],
