@@ -17,7 +17,7 @@ class StartController extends AbstractController
     public function actionIndex()
     {
         $userArray = User::find()
-            ->where(['user_id' => User::ADMIN_USER_ID])
+            ->where(['!=', 'user_id', 0])
             ->all();
         foreach ($userArray as $user) {
             Yii::$app
