@@ -1,14 +1,12 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\components\FormatHelper;
-use common\models\Support;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \backend\models\UserSearch $searchModel
+ * @var \backend\models\TeamSearch $searchModel
  * @var \yii\web\View $this
  */
 
@@ -24,26 +22,18 @@ use yii\helpers\Html;
     try {
         $columns = [
             [
-                'format' => 'raw',
-                'label' => 'Время сообщения',
-                'value' => function (Support $model) {
-                    $result = FormatHelper::asDateTime($model->support_date);
-                    if (!$model->support_read) {
-                        $result = $result . ' <i class="fa fa-clock-o fa-fw"></i>';
-                    }
-                    return $result;
-                }
+                'attribute' => 'team_id',
+                'headerOptions' => ['class' => 'col-lg-1'],
+                'label' => 'ID',
             ],
             [
-                'format' => 'raw',
-                'label' => 'Пользователь',
-                'value' => function (Support $model) {
-                    return $model->user->userLink();
-                }
+                'attribute' => 'team_name',
+                'label' => 'Название',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],
+                'headerOptions' => ['class' => 'col-lg-1'],
                 'template' => '{view}',
             ],
         ];

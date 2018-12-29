@@ -28,10 +28,9 @@ class BellController extends AbstractController
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $logo = Logo::find()->count();
         $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
-        $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
+        $support = Support::find()->where(['support_question' => 1, 'support_read' => 0])->count();
 
         $bell = $support + $poll + $logo + $complaint;
-
 
         if (0 == $bell) {
             $bell = '';

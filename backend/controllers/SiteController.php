@@ -75,7 +75,7 @@ class SiteController extends AbstractController
         $news = News::find()->where(['news_check' => 0])->count();
         $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
         $review = Review::find()->where(['review_check' => 0])->count();
-        $support = Support::find()->where(['support_user_id_to' => 0, 'support_read' => 0])->count();
+        $support = Support::find()->where(['support_question' => 1, 'support_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
         $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
 

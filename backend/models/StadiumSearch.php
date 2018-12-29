@@ -2,16 +2,27 @@
 
 namespace backend\models;
 
-use common\models\Support;
+use common\models\Stadium;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class SupportUserSearch
+ * Class StadiumSearch
  * @package backend\models
  */
-class SupportUserSearch extends Support
+class StadiumSearch extends Stadium
 {
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [['stadium_id', 'stadium_city_id'], 'integer'],
+            [['stadium_name'], 'safe'],
+        ];
+    }
+
     /**
      * @return array
      */
@@ -26,16 +37,8 @@ class SupportUserSearch extends Support
      */
     public function search($params): ActiveDataProvider
     {
-        $query = Support::find()
-            ->select([
-                'support_id' => 'MAX(support_id)',
-                'support_date' => 'MAX(support_date)',
-                'support_read' => 'MIN(support_read)',
-                'support_user_id',
-            ])
-            ->where(['support_question' => 1])
-            ->groupBy(['support_user_id'])
-            ->orderBy(['support_read' => SORT_ASC, 'support_date' => SORT_DESC]);
+        $query = Stadium::find()
+            ->where(['!=', 'stadium_id', 0]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -44,6 +47,10 @@ class SupportUserSearch extends Support
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+        $query
+            ->andFilterWhere(['stadium_id' => $this->stadium_id, 'stadium_city_id' => $this->stadium_city_id])
+            ->andFilterWhere(['like', 'stadium_name', $this->stadium_name]);
 
         return $dataProvider;
     }
