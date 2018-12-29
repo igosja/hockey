@@ -60,7 +60,7 @@ AppAsset::register($this);
                 ],
                 [
                     'label' => '<i class="fa fa-comments fa-fw"></i> Тех. поддержка <span class="badge admin-support"></span>',
-                    'url' => ['logo/index'],
+                    'url' => ['support/index'],
                 ],
                 [
                     'label' => '<i class="fa fa-exclamation-circle fa-fw"></i> Жалобы <span class="badge admin-complaint"></span>',
