@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
 /**
@@ -26,6 +25,7 @@ use yii\db\ActiveQuery;
  * @property int $finance_value_after
  * @property int $finance_value_before
  *
+ * @property Building $building
  * @property FinanceText $financeText
  * @property Player $player
  */
@@ -90,7 +90,7 @@ class Finance extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->finance_season_id = Season::getCurrentSeason();
-                $this->finance_date = HockeyHelper::unixTimeStamp();
+                $this->finance_date = time();
             }
             return true;
         }
@@ -110,6 +110,37 @@ class Finance extends AbstractActiveRecord
                 $text
             );
         }
+        if (false !== strpos($text, '{building}')) {
+            $building = '';
+            if (Building::BASE == $this->finance_building_id) {
+                $building = 'база';
+            } elseif (Building::MEDICAL == $this->finance_building_id) {
+                $building = 'медцентр';
+            } elseif (Building::PHYSICAL == $this->finance_building_id) {
+                $building = 'центр физподготовки';
+            } elseif (Building::SCHOOL == $this->finance_building_id) {
+                $building = 'спортшкола';
+            } elseif (Building::SCOUT == $this->finance_building_id) {
+                $building = 'скаут-центр';
+            } elseif (Building::TRAINING == $this->finance_building_id) {
+                $building = 'тренировочный центр';
+            }
+            $text = str_replace(
+                '{building}',
+                $building,
+                $text
+            );
+        }
+        $text = str_replace(
+            '{capacity}',
+            $this->finance_capacity,
+            $text
+        );
+        $text = str_replace(
+            '{level}',
+            $this->finance_level,
+            $text
+        );
         return $text;
     }
 
@@ -119,6 +150,14 @@ class Finance extends AbstractActiveRecord
     public function getFinanceText(): ActiveQuery
     {
         return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBuilding(): ActiveQuery
+    {
+        return $this->hasOne(Building::class, ['building_id' => 'finance_building_id']);
     }
 
     /**

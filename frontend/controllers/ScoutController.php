@@ -155,6 +155,7 @@ class ScoutController extends AbstractController
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_SCOUT_STYLE,
+                        'finance_player_id' => $style['id'],
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$team->baseScout->base_scout_my_style_price,
                         'finance_value_after' => $team->team_finance - $team->baseScout->base_scout_my_style_price,
@@ -213,6 +214,7 @@ class ScoutController extends AbstractController
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_SCOUT_STYLE,
+                    'finance_player_id' => $scout->scout_player_id,
                     'finance_team_id' => $team->team_id,
                     'finance_value' => $team->baseScout->base_scout_my_style_price,
                     'finance_value_after' => $team->team_finance + $team->baseScout->base_scout_my_style_price,
