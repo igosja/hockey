@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
-use yii\helpers\Html;
 
 /**
  * Class Finance
@@ -107,10 +106,7 @@ class Finance extends AbstractActiveRecord
         if (false !== strpos($text, '{player}')) {
             $text = str_replace(
                 '{player}',
-                Html::a(
-                    $this->player->name->name_name . ' ' . $this->player->surname->surname_name,
-                    ['player/view', 'id' => $this->finance_player_id]
-                ),
+                $this->player->playerLink(),
                 $text
             );
         }
