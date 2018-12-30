@@ -11,6 +11,9 @@ namespace common\models;
  */
 class FriendlyStatus extends AbstractActiveRecord
 {
+    const ALL = 1;
+    const NONE = 3;
+
     /**
      * @return string
      */

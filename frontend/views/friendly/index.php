@@ -1,8 +1,14 @@
 <?php
 
+use common\components\ErrorHelper;
+use common\components\FormatHelper;
+use common\models\Schedule;
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $scheduleStatusArray
  * @var \common\models\Team $team
  */
 
@@ -29,4 +35,46 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
+</div>
+<div class="row margin-top">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong">
+        Ближайшие дни товарищеских матчей:
+    </div>
+</div>
+<div class="row">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'contentOptions' => ['class' => 'text-center'],
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-25'],
+                'label' => 'День',
+                'value' => function (Schedule $model): string {
+                    return Html::a(
+                        FormatHelper::asDate($model->schedule_date),
+                        ['friendly/view', 'id' => $model->schedule_id]
+                    );
+                }
+            ],
+            [
+                'format' => 'raw',
+                'label' => 'Статус',
+                'value' => function (Schedule $model) use ($scheduleStatusArray): string {
+                    return $scheduleStatusArray[$model->schedule_id];
+                }
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $dataProvider,
+            'emptyText' => 'В ближаещие дни не запланировано товарищеских матчей.',
+            'summary' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
 </div>

@@ -155,11 +155,10 @@ class Team extends AbstractActiveRecord
                 $this->team_base_scout_id = 1;
                 $this->team_base_training_id = 1;
                 $this->team_finance = 10000000;
-                $this->team_friendly_status_id = 5;
                 $this->team_free_base = 5;
                 $this->team_mood_rest = 3;
                 $this->team_mood_super = 3;
-                $this->team_player = 27;
+                $this->team_player = 32;
             }
             return true;
         }

@@ -760,6 +760,9 @@ class TeamController extends AbstractController
         return $team;
     }
 
+    /**
+     * @return array
+     */
     public function getNotificationArray(): array
     {
         if (!$this->myTeam) {
@@ -809,21 +812,21 @@ class TeamController extends AbstractController
         }
 
         if ($user->isVip() && $user->user_date_vip < time() + 604800) {
-            $result[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить.' . Html::a(
+            $result[] = 'Ваш VIP-клуб заканчивается менее, чем через неделю - не забудьте продлить. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                     ['store/index']
                 );
         }
 
         if ($user->user_shop_point || $user->user_shop_position || $user->user_shop_special) {
-            $result[] = 'У вас есть бонусные тренировки для хоккеистов.' . Html::a(
+            $result[] = 'У вас есть бонусные тренировки для хоккеистов. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                     ['training/index']
                 );
         }
 
         if ($this->myTeam->team_free_base) {
-            $result[] = 'У вас есть бесплатные улучшения базы.' . Html::a(
+            $result[] = 'У вас есть бесплатные улучшения базы. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                     ['base-free/view']
                 );
@@ -838,7 +841,7 @@ class TeamController extends AbstractController
             ->limit(1)
             ->one();
         if ($friendlyInvite) {
-            $result[] = 'У вас есть новые приглашения сыграть товарищеский матч' . Html::a(
+            $result[] = 'У вас есть новые приглашения сыграть товарищеский матч. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                     ['friendly/view', 'id' => $friendlyInvite->friendly_invite_schedule_id]
                 );
