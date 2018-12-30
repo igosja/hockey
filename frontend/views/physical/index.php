@@ -63,6 +63,9 @@ use yii\helpers\Url;
     try {
         $columns = [
             [
+                'contentOptions' => function (Player $model) {
+                    return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                },
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',

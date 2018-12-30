@@ -145,8 +145,8 @@ use yii\grid\GridView;
                 'attribute' => 'special',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Спец',
-                'footerOptions' => ['title' => 'Спецвозможности'],
-                'headerOptions' => ['title' => 'Спецвозможности'],
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'value' => function (Player $model): string {
                     return $model->special();
@@ -156,8 +156,8 @@ use yii\grid\GridView;
                 'attribute' => 'plus_minus',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => '+/-',
-                'footerOptions' => ['title' => 'Плюс/минус'],
-                'headerOptions' => ['title' => 'Плюс/минус'],
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                 'label' => '+/-',
                 'value' => function (Player $model): string {
                     return $model->statisticPlayer->statistic_player_plus_minus ?? 0;
@@ -234,6 +234,13 @@ use yii\grid\GridView;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function (Player $model) use ($team) {
+                $result = [];
+                if ($team->myTeam()) {
+                    $result['style'] = ['background-color' => '#' . $model->squad->squad_color];
+                }
+                return $result;
+            },
             'showFooter' => true,
             'summary' => false,
         ]);

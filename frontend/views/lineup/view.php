@@ -472,7 +472,11 @@ LineupAsset::register($this);
                 'columns' => $columns,
                 'dataProvider' => $playerDataProvider,
                 'rowOptions' => function (Player $model) {
-                    return ['class' => 'tr-player', 'id' => 'tr-' . $model->player_id];
+                    return [
+                        'class' => 'tr-player',
+                        'id' => 'tr-' . $model->player_id,
+                        'style' => ['background-color' => '#' . $model->squad->squad_color]
+                    ];
                 },
                 'summary' => false,
             ]);
