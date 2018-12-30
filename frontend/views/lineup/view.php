@@ -511,7 +511,7 @@ LineupAsset::register($this);
         $fArray = $rwArray;
     }
     ?>
-    let <?= $array; ?> = [
+    var <?= $array; ?> = [
         <?php foreach ($fArray as $item) { ?>
         [
             <?= $item['player_id']; ?>,
@@ -524,26 +524,26 @@ LineupAsset::register($this);
         <?php } ?>
     ];
     <?php } ?>
-    let gk_1_id = <?= $gk_1_id; ?>;
-    let gk_2_id = <?= $gk_2_id; ?>;
-    let ld_1_id = <?= $ld_1_id; ?>;
-    let rd_1_id = <?= $rd_1_id; ?>;
-    let lw_1_id = <?= $lw_1_id; ?>;
-    let cf_1_id = <?= $cf_1_id; ?>;
-    let rw_1_id = <?= $rw_1_id; ?>;
-    let ld_2_id = <?= $ld_2_id; ?>;
-    let rd_2_id = <?= $rd_2_id; ?>;
-    let lw_2_id = <?= $lw_2_id; ?>;
-    let cf_2_id = <?= $cf_2_id; ?>;
-    let rw_2_id = <?= $rw_2_id; ?>;
-    let ld_3_id = <?= $ld_3_id; ?>;
-    let rd_3_id = <?= $rd_3_id; ?>;
-    let lw_3_id = <?= $lw_3_id; ?>;
-    let cf_3_id = <?= $cf_3_id; ?>;
-    let rw_3_id = <?= $rw_3_id; ?>;
-    let ld_4_id = <?= $ld_4_id; ?>;
-    let rd_4_id = <?= $rd_4_id; ?>;
-    let lw_4_id = <?= $lw_4_id; ?>;
-    let cf_4_id = <?= $cf_4_id; ?>;
-    let rw_4_id = <?= $rw_4_id; ?>;
+    var gk_1_id = <?= $gk_1_id; ?>;
+    var gk_2_id = <?= $gk_2_id; ?>;
+    var ld_1_id = <?= $ld_1_id; ?>;
+    var rd_1_id = <?= $rd_1_id; ?>;
+    var lw_1_id = <?= $lw_1_id; ?>;
+    var cf_1_id = <?= $cf_1_id; ?>;
+    var rw_1_id = <?= $rw_1_id; ?>;
+    var ld_2_id = <?= $ld_2_id; ?>;
+    var rd_2_id = <?= $rd_2_id; ?>;
+    var lw_2_id = <?= $lw_2_id; ?>;
+    var cf_2_id = <?= $cf_2_id; ?>;
+    var rw_2_id = <?= $rw_2_id; ?>;
+    var ld_3_id = <?= $ld_3_id; ?>;
+    var rd_3_id = <?= $rd_3_id; ?>;
+    var lw_3_id = <?= $lw_3_id; ?>;
+    var cf_3_id = <?= $cf_3_id; ?>;
+    var rw_3_id = <?= $rw_3_id; ?>;
+    var ld_4_id = <?= $ld_4_id; ?>;
+    var rd_4_id = <?= $rd_4_id; ?>;
+    var lw_4_id = <?= $lw_4_id; ?>;
+    var cf_4_id = <?= $cf_4_id; ?>;
+    var rw_4_id = <?= $rw_4_id; ?>;
 </script>
