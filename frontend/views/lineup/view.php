@@ -511,8 +511,7 @@ LineupAsset::register($this);
         $fArray = $rwArray;
     }
     ?>
-    let <?= $array; ?> =;
-    [
+    let <?= $array; ?> = [
         <?php foreach ($fArray as $item) { ?>
         [
             <?= $item['player_id']; ?>,
