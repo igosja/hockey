@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
 /**
@@ -91,7 +90,7 @@ class Finance extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->finance_season_id = Season::getCurrentSeason();
-                $this->finance_date = HockeyHelper::unixTimeStamp();
+                $this->finance_date = time();
             }
             return true;
         }
