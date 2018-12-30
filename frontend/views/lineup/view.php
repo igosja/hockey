@@ -12,44 +12,44 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /**
- * @var int $gk_1_id
- * @var int $gk_2_id
- * @var int $ld_1_id
- * @var int $rd_1_id
- * @var int $lw_1_id
- * @var int $cf_1_id
- * @var int $rw_1_id
- * @var int $ld_2_id
- * @var int $rd_2_id
- * @var int $lw_2_id
- * @var int $cf_2_id
- * @var int $rw_2_id
- * @var int $ld_3_id
- * @var int $rd_3_id
- * @var int $lw_3_id
- * @var int $cf_3_id
- * @var int $rw_3_id
- * @var int $ld_4_id
- * @var int $rd_4_id
- * @var int $lw_4_id
- * @var int $cf_4_id
- * @var int $rw_4_id
- * @var array $cfArray
- * @var \yii\data\ActiveDataProvider $gameDataProvider
- * @var Game $game
- * @var Player[] $gkArray
- * @var Player[] $ldArray
- * @var Player[] $lwArray
- * @var \frontend\models\GameSend $model
- * @var array $moodArray
- * @var \yii\data\ActiveDataProvider $playerDataProvider
- * @var Player[] $rdArray
- * @var array $rudenessArray
- * @var Player[] $rwArray
- * @var array $styleArray
- * @var array $tacticArray
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @let int $gk_1_id
+ * @let int $gk_2_id
+ * @let int $ld_1_id
+ * @let int $rd_1_id
+ * @let int $lw_1_id
+ * @let int $cf_1_id
+ * @let int $rw_1_id
+ * @let int $ld_2_id
+ * @let int $rd_2_id
+ * @let int $lw_2_id
+ * @let int $cf_2_id
+ * @let int $rw_2_id
+ * @let int $ld_3_id
+ * @let int $rd_3_id
+ * @let int $lw_3_id
+ * @let int $cf_3_id
+ * @let int $rw_3_id
+ * @let int $ld_4_id
+ * @let int $rd_4_id
+ * @let int $lw_4_id
+ * @let int $cf_4_id
+ * @let int $rw_4_id
+ * @let array $cfArray
+ * @let \yii\data\ActiveDataProvider $gameDataProvider
+ * @let Game $game
+ * @let Player[] $gkArray
+ * @let Player[] $ldArray
+ * @let Player[] $lwArray
+ * @let \frontend\models\GameSend $model
+ * @let array $moodArray
+ * @let \yii\data\ActiveDataProvider $playerDataProvider
+ * @let Player[] $rdArray
+ * @let array $rudenessArray
+ * @let Player[] $rwArray
+ * @let array $styleArray
+ * @let array $tacticArray
+ * @let \common\models\Team $team
+ * @let \yii\web\View $this
  */
 
 LineupAsset::register($this);
@@ -525,26 +525,26 @@ LineupAsset::register($this);
         <?php } ?>
     ];
     <?php } ?>
-    var gk_1_id = <?= $gk_1_id; ?>;
-    var gk_2_id = <?= $gk_2_id; ?>;
-    var ld_1_id = <?= $ld_1_id; ?>;
-    var rd_1_id = <?= $rd_1_id; ?>;
-    var lw_1_id = <?= $lw_1_id; ?>;
-    var cf_1_id = <?= $cf_1_id; ?>;
-    var rw_1_id = <?= $rw_1_id; ?>;
-    var ld_2_id = <?= $ld_2_id; ?>;
-    var rd_2_id = <?= $rd_2_id; ?>;
-    var lw_2_id = <?= $lw_2_id; ?>;
-    var cf_2_id = <?= $cf_2_id; ?>;
-    var rw_2_id = <?= $rw_2_id; ?>;
-    var ld_3_id = <?= $ld_3_id; ?>;
-    var rd_3_id = <?= $rd_3_id; ?>;
-    var lw_3_id = <?= $lw_3_id; ?>;
-    var cf_3_id = <?= $cf_3_id; ?>;
-    var rw_3_id = <?= $rw_3_id; ?>;
-    var ld_4_id = <?= $ld_4_id; ?>;
-    var rd_4_id = <?= $rd_4_id; ?>;
-    var lw_4_id = <?= $lw_4_id; ?>;
-    var cf_4_id = <?= $cf_4_id; ?>;
-    var rw_4_id = <?= $rw_4_id; ?>;
+    let gk_1_id = <?= $gk_1_id; ?>;
+    let gk_2_id = <?= $gk_2_id; ?>;
+    let ld_1_id = <?= $ld_1_id; ?>;
+    let rd_1_id = <?= $rd_1_id; ?>;
+    let lw_1_id = <?= $lw_1_id; ?>;
+    let cf_1_id = <?= $cf_1_id; ?>;
+    let rw_1_id = <?= $rw_1_id; ?>;
+    let ld_2_id = <?= $ld_2_id; ?>;
+    let rd_2_id = <?= $rd_2_id; ?>;
+    let lw_2_id = <?= $lw_2_id; ?>;
+    let cf_2_id = <?= $cf_2_id; ?>;
+    let rw_2_id = <?= $rw_2_id; ?>;
+    let ld_3_id = <?= $ld_3_id; ?>;
+    let rd_3_id = <?= $rd_3_id; ?>;
+    let lw_3_id = <?= $lw_3_id; ?>;
+    let cf_3_id = <?= $cf_3_id; ?>;
+    let rw_3_id = <?= $rw_3_id; ?>;
+    let ld_4_id = <?= $ld_4_id; ?>;
+    let rd_4_id = <?= $rd_4_id; ?>;
+    let lw_4_id = <?= $lw_4_id; ?>;
+    let cf_4_id = <?= $cf_4_id; ?>;
+    let rw_4_id = <?= $rw_4_id; ?>;
 </script>
