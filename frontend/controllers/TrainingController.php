@@ -328,6 +328,7 @@ class TrainingController extends AbstractController
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_POWER,
+                        'finance_player_id' => $power['id'],
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$team->baseTraining->base_training_power_price,
                         'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_power_price,
@@ -348,6 +349,7 @@ class TrainingController extends AbstractController
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_POSITION,
+                        'finance_player_id' => $position['id'],
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$team->baseTraining->base_training_position_price,
                         'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_position_price,
@@ -368,6 +370,7 @@ class TrainingController extends AbstractController
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_SPECIAL,
+                        'finance_player_id' => $special['id'],
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$team->baseTraining->base_training_special_price,
                         'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_special_price,
@@ -442,6 +445,7 @@ class TrainingController extends AbstractController
 
                 Finance::log([
                     'finance_finance_text_id' => $text,
+                    'finance_player_id' => $training->training_player_id,
                     'finance_team_id' => $team->team_id,
                     'finance_value' => $price,
                     'finance_value_after' => $team->team_finance + $price,
