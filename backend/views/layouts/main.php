@@ -157,6 +157,17 @@ AppAsset::register($this);
                     'url' => 'javascript:',
                 ],
                 [
+                    'label' => 'Хоккеисты',
+                    'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
+                    'items' => [
+                        [
+                            'label' => 'Составы',
+                            'url' => ['squad/index'],
+                        ],
+                    ],
+                    'url' => 'javascript:',
+                ],
+                [
                     'label' => 'Новости',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [

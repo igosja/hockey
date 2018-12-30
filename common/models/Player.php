@@ -54,6 +54,7 @@ use yii\helpers\Html;
  * @property PlayerPosition[] $playerPosition
  * @property PlayerSpecial[] $playerSpecial
  * @property Team $schoolTeam
+ * @property Squad $squad
  * @property StatisticPlayer $statisticPlayer
  * @property Style $style
  * @property Surname $surname
@@ -559,6 +560,14 @@ class Player extends AbstractActiveRecord
     public function getSchoolTeam(): ActiveQuery
     {
         return $this->hasOne(School::class, ['team_id' => 'player_school_id'])->cache();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSquad(): ActiveQuery
+    {
+        return $this->hasOne(Squad::class, ['squad_id' => 'player_squad_id']);
     }
 
     /**

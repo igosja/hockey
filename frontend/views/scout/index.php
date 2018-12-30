@@ -208,6 +208,9 @@ use yii\helpers\Html;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function (Player $model) {
+                return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+            },
             'showFooter' => true,
             'summary' => false,
         ]);
