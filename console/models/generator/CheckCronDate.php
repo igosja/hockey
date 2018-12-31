@@ -19,6 +19,10 @@ class CheckCronDate
      */
     public function execute(): void
     {
+        $formattedTime = (new DateTime('now', new DateTimeZone('UTC')))->format('H:i');
+        print '<pre>';
+        print_r($formattedTime);
+        exit;
         $dateCron = Site::find()->select(['site_date_cron'])->where(['site_id' => 1])->limit(1)->scalar();
 
         if (!$dateCron) {
