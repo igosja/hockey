@@ -276,6 +276,16 @@ use yii\helpers\Html;
                             ]
                         ); ?>
                     </a>
+                    <br/>
+                    <a href="//www.free-kassa.ru/" rel="nofollow" target="_blank"><?= Html::img(
+                            '//www.free-kassa.ru/img/fk_btn/13.png',
+                            [
+                                'alt' => 'Free Kassa',
+                                'border' => 0,
+                                'title' => 'Free Kassa',
+                            ]
+                        ); ?>
+                    </a>
                 </fieldset>
             </div>
         </div>

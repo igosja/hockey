@@ -17,6 +17,11 @@ use yii\helpers\Html;
         <p class="text-center">Ваш счёт - <?= $user->user_money; ?></p>
     </div>
 </div>
+<div class="row margin-top-small text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?= $this->render('//store/_links'); ?>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p>
