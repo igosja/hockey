@@ -64,7 +64,7 @@ class PlayerGameRow
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )
                 )";
         Yii::$app->db->createCommand($sql)->execute();
@@ -90,7 +90,7 @@ class PlayerGameRow
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                     AND `lineup_line_id`=1
-                    AND lineup_position_id=1
+                    AND `lineup_position_id`=1
                 )";
         Yii::$app->db->createCommand($sql)->execute();
     }
@@ -122,7 +122,7 @@ class PlayerGameRow
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                     AND `lineup_line_id`=1
-                    AND lineup_position_id=1
+                    AND `lineup_position_id`=1
                 )";
         Yii::$app->db->createCommand($sql)->execute();
     }

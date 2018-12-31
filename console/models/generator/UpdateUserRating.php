@@ -217,7 +217,7 @@ class UpdateUserRating
 
             if ($game->teamGuest->team_user_id) {
                 $model = UserRating::find()->where([
-                    'userrating_user_id' => $game->teamGuest->team_user_id,
+                    'user_rating_user_id' => $game->teamGuest->team_user_id,
                     'user_rating_season_id' => $game->schedule->schedule_season_id,
                 ])->limit(1)->one();
 
