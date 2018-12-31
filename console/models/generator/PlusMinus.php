@@ -132,7 +132,7 @@ class PlusMinus
                         'lineup_national_id' => $this->game->game_home_national_id,
                         'lineup_game_id' => $this->game->game_id,
                     ])
-                    ->andWhere('`lineup_id` NOT IN ((
+                    ->andWhere('`lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
@@ -141,7 +141,7 @@ class PlusMinus
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, \'%Y-%m-%d\')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )')
                     ->orderBy('RAND()')
                     ->limit(-$this->game->game_home_plus_minus)
@@ -167,7 +167,7 @@ class PlusMinus
                         'lineup_national_id' => $this->game->game_home_national_id,
                         'lineup_game_id' => $this->game->game_id,
                     ])
-                    ->andWhere('`lineup_id` NOT IN ((
+                    ->andWhere('`lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
@@ -176,7 +176,7 @@ class PlusMinus
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, \'%Y-%m-%d\')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )')
                     ->orderBy('RAND()')
                     ->limit($this->game->game_home_plus_minus)
@@ -204,7 +204,7 @@ class PlusMinus
                         'lineup_national_id' => $this->game->game_guest_national_id,
                         'lineup_game_id' => $this->game->game_id,
                     ])
-                    ->andWhere('`lineup_id` NOT IN ((
+                    ->andWhere('`lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
@@ -213,7 +213,7 @@ class PlusMinus
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, \'%Y-%m-%d\')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )')
                     ->orderBy('RAND()')
                     ->limit(-$this->game->game_guest_plus_minus)
@@ -239,7 +239,7 @@ class PlusMinus
                         'lineup_national_id' => $this->game->game_guest_national_id,
                         'lineup_game_id' => $this->game->game_id,
                     ])
-                    ->andWhere('`lineup_id` NOT IN ((
+                    ->andWhere('`lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
@@ -248,7 +248,7 @@ class PlusMinus
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, \'%Y-%m-%d\')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )')
                     ->orderBy('RAND()')
                     ->limit($this->game->game_guest_plus_minus)

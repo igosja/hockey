@@ -92,7 +92,7 @@ class PlayerTire
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                     AND `lineup_line_id`=1
-                    AND lineup_position_id=1
+                    AND `lineup_position_id`=1
                 )";
         Yii::$app->db->createCommand($sql)->execute();
 
@@ -122,7 +122,7 @@ class PlayerTire
                         ON `game_schedule_id`=`schedule_id`
                         WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                         AND `lineup_line_id`=1
-                        AND lineup_position_id=1
+                        AND `lineup_position_id`=1
                     )
                 )
                 AND `player_age`<=" . Player::AGE_READY_FOR_PENSION . "
@@ -166,7 +166,7 @@ class PlayerTire
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                     AND `lineup_line_id`=1
-                    AND lineup_position_id=1
+                    AND `lineup_position_id`=1
                 )";
         Yii::$app->db->createCommand($sql)->execute();
     }
