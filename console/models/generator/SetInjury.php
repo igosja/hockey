@@ -7,6 +7,7 @@ use common\models\History;
 use common\models\HistoryText;
 use common\models\Lineup;
 use common\models\Player;
+use common\models\Position;
 
 /**
  * Class SetInjury
@@ -17,6 +18,7 @@ class SetInjury
     const MIN_GAMES_FOR_INJURY = 100;
 
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -45,6 +47,10 @@ class SetInjury
             ->limit(1)
             ->one();
         if (!$lineup) {
+            return;
+        }
+
+        if (Position::GK == $lineup->lineup_position_id && 1 == $lineup->lineup_line_id) {
             return;
         }
 

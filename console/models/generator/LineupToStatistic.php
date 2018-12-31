@@ -15,6 +15,7 @@ use common\models\TournamentType;
 class LineupToStatistic
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -54,6 +55,10 @@ class LineupToStatistic
             }
 
             foreach ($game->lineup as $lineup) {
+                if (Position::GK == $lineup->lineup_position_id && 1 == $lineup->lineup_line_id) {
+                    continue;
+                }
+
                 if (Position::GK == $lineup->lineup_position_id) {
                     $isGk = 1;
                 } else {

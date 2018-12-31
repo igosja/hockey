@@ -190,7 +190,7 @@ class FriendlyController extends AbstractController
         ]);
 
         $query = Team::find()
-//            ->where(['!=', 'team_user_id', 0])
+            ->where(['!=', 'team_user_id', 0])
             ->andWhere(['!=', 'team_id', $team->team_id])
             ->andWhere(['!=', 'team_user_id', Yii::$app->user->id])
             ->andWhere(['!=', 'team_friendly_status_id', FriendlyStatus::NONE])
@@ -248,7 +248,7 @@ class FriendlyController extends AbstractController
 
         $team = Team::find()
             ->where(['team_id' => $teamId])
-//            ->andWhere(['!=', 'team_user_id', 0])
+            ->andWhere(['!=', 'team_user_id', 0])
             ->andWhere(['!=', 'team_user_id', Yii::$app->user->id])
             ->andWhere(['!=', 'team_id', $this->myTeam->team_id])
             ->andWhere(['!=', 'team_friendly_status_id', FriendlyStatus::NONE])
