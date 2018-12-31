@@ -82,7 +82,18 @@ class PlayerTire
                 AND `player_game_row`>0
                 AND `player_age`<=" . Player::AGE_READY_FOR_PENSION . "
                 AND `player_mood_id`>0
-                AND `player_team_id`!=0";
+                AND `player_team_id`!=0
+                AND `lineup_id` NOT IN (
+                    SELECT `lineup_id`
+                    FROM `lineup`
+                    LEFT JOIN `game`
+                    ON `lineup_game_id`=`game_id`
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `lineup_line_id`=1
+                    AND lineup_position_id=1
+                )";
         Yii::$app->db->createCommand($sql)->execute();
 
         $sql = "UPDATE `player`
@@ -102,6 +113,17 @@ class PlayerTire
                     LEFT JOIN `schedule`
                     ON `game_schedule_id`=`schedule_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `lineup_id` NOT IN (
+                        SELECT `lineup_id`
+                        FROM `lineup`
+                        LEFT JOIN `game`
+                        ON `lineup_game_id`=`game_id`
+                        LEFT JOIN `schedule`
+                        ON `game_schedule_id`=`schedule_id`
+                        WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                        AND `lineup_line_id`=1
+                        AND lineup_position_id=1
+                    )
                 )
                 AND `player_age`<=" . Player::AGE_READY_FOR_PENSION . "
                 AND `player_team_id`!=0";
@@ -134,12 +156,22 @@ class PlayerTire
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0
-                AND `player_team_id`!=0";
+                AND `player_team_id`!=0
+                AND `lineup_id` NOT IN (
+                    SELECT `lineup_id`
+                    FROM `lineup`
+                    LEFT JOIN `game`
+                    ON `lineup_game_id`=`game_id`
+                    LEFT JOIN `schedule`
+                    ON `game_schedule_id`=`schedule_id`
+                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `lineup_line_id`=1
+                    AND lineup_position_id=1
+                )";
         Yii::$app->db->createCommand($sql)->execute();
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
      */
     private function updatePlayer(): void

@@ -300,7 +300,7 @@ class GameSend extends Model
                 $positionId = 5;
                 $playerId = $cf_3_id;
             } elseif (16 == $i) {
-                $lineId = 4;
+                $lineId = 3;
                 $positionId = 6;
                 $playerId = $rw_3_id;
             } elseif (17 == $i) {
