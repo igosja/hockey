@@ -56,7 +56,7 @@ jQuery(document).ready(function () {
             other_2 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             current_3 = rd_3_id;
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
-            current_4 = rd_3_id;
+            current_4 = rd_4_id;
             other_4 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             position_array = rd_array;
             prompt = 'RD -';
@@ -67,7 +67,7 @@ jQuery(document).ready(function () {
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             current_3 = lw_3_id;
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
-            current_4 = lw_3_id;
+            current_4 = lw_4_id;
             other_4 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             position_array = lw_array;
             prompt = 'LW -';
@@ -78,7 +78,7 @@ jQuery(document).ready(function () {
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             current_3 = cf_3_id;
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
-            current_4 = cf_3_id;
+            current_4 = cf_4_id;
             other_4 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
             position_array = cf_array;
             prompt = 'CF -';
@@ -89,7 +89,7 @@ jQuery(document).ready(function () {
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, rw_1_id, rw_3_id, rw_4_id];
             current_3 = rw_3_id;
             other_3 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, rw_1_id, rw_2_id, rw_4_id];
-            current_4 = rw_3_id;
+            current_4 = rw_4_id;
             other_4 = [ld_1_id, ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, rw_1_id, rw_2_id, rw_4_id];
             position_array = rw_array;
             prompt = 'RW -';
@@ -273,6 +273,7 @@ function player_change() {
     var player_change = $('.player-change');
 
     for (var i = 0; i < player_change.length; i++) {
+        console.log($(player_change[i]).val());
         $('#tr-' + $(player_change[i]).val()).addClass('info');
     }
 
