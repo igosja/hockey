@@ -106,7 +106,7 @@ class UpdateRating
             } elseif (RatingType::COUNTRY_AUTO == $ratingType->rating_type_id) {
                 $order = '`country_auto`/`country_game`';
                 $place = 'rating_country_auto_place';
-            } elseif (RatingType::COUNTRY_LEAGUE == $ratingType->rating_type_id) {
+            } else {
                 $place = 'rating_country_league_place';
             }
 
@@ -174,35 +174,6 @@ class UpdateRating
                      */
                     RatingUser::updateAll([$place => $position], ['rating_user_user_id' => $user->user_id]);
                     $position++;
-                }
-
-                $place = $place . '_country';
-                $countryArray = Country::find()
-                    ->joinWith(['city.stadium.team'])
-                    ->where(['!=', 'team_id', 0])
-                    ->andWhere(['!=', 'team_user_id', 0])
-                    ->groupBy(['country_id'])
-                    ->orderBy(['country_id' => SORT_ASC])
-                    ->each();
-                foreach ($countryArray as $country) {
-                    /**
-                     * @var Country $country
-                     */
-                    $position = 1;
-                    $userArray = User::find()
-                        ->joinWith(['team.stadium.city'])
-                        ->where(['!=', 'user_id', 0])
-                        ->andWhere(['city_country_id' => $country->country_id])
-                        ->groupBy(['user_id'])
-                        ->orderBy(new Expression($order . ', `user_id` ASC'))
-                        ->each();
-                    foreach ($userArray as $user) {
-                        /**
-                         * @var User $user
-                         */
-                        RatingUser::updateAll([$place => $position], ['rating_user_user_id' => $user->user_id]);
-                        $position++;
-                    }
                 }
             } elseif (in_array($ratingType->rating_type_id, [RatingType::COUNTRY_AUTO, RatingType::COUNTRY_STADIUM])) {
                 $position = 1;
