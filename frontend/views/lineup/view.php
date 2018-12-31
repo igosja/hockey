@@ -187,9 +187,9 @@ LineupAsset::register($this);
         <table class="table">
             <tr>
                 <td></td>
-                <td class="text-center strong">Тактика</td>
-                <td class="text-center strong">Грубость</td>
-                <td class="text-center strong">Стиль</td>
+                <td class="col-30 text-center strong">Тактика</td>
+                <td class="col-30 text-center strong">Грубость</td>
+                <td class="col-30 text-center strong">Стиль</td>
             </tr>
             <tr>
                 <td class="text-right strong">1 звено:</td>
