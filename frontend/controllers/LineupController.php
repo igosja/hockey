@@ -45,7 +45,7 @@ class LineupController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws \Exception
      */
     public function actionView(int $id)
     {

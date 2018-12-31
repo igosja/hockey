@@ -368,6 +368,9 @@ LineupAsset::register($this);
         try {
             $columns = [
                 [
+                    'contentOptions' => function (Player $model) {
+                        return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                    },
                     'footer' => 'Игрок',
                     'format' => 'raw',
                     'label' => 'Игрок',
@@ -475,7 +478,6 @@ LineupAsset::register($this);
                     return [
                         'class' => 'tr-player',
                         'id' => 'tr-' . $model->player_id,
-                        'style' => ['background-color' => '#' . $model->squad->squad_color]
                     ];
                 },
                 'summary' => false,
@@ -515,7 +517,8 @@ LineupAsset::register($this);
         $fArray = $rwArray;
     }
     ?>
-    var <?= $array; ?> = [
+    var <?= $array; ?> =
+    [
         <?php foreach ($fArray as $item) { ?>
         [
             <?= $item['player_id']; ?>,
