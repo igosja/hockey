@@ -14,6 +14,7 @@ use common\models\PhysicalChange;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\Transfer;
+use yii\db\Expression;
 
 /**
  * Class MakeLoan
@@ -139,10 +140,7 @@ class MakeLoan
                 ->andWhere(['not', ['loan_application_team_id' => $teamArray]])
                 ->andWhere(['not', ['loan_application_user_id' => $userArray]])
                 ->andWhere('loan_application_price*loan_application_day<=team_finance')
-                ->orderBy([
-                    'loan_application_price*loan_application_day' => SORT_DESC,
-                    'loan_application_date' => SORT_ASC
-                ])
+                ->orderBy(new Expression('loan_application_price*loan_application_day DESC, loan_application_date ASC'))
                 ->limit(1)
                 ->one();
             if ($loanApplication) {
