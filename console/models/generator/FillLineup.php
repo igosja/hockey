@@ -81,7 +81,7 @@ class FillLineup
                         ->limit(1)
                         ->one();
 
-                    if (!$lineup) {
+                    if (!$lineup || !$lineup->lineup_player_id) {
                         $subQuery = Lineup::find()
                             ->joinWith(['game.schedule'])
                             ->select(['lineup_player_id'])
