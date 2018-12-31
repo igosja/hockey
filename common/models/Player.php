@@ -559,7 +559,7 @@ class Player extends AbstractActiveRecord
      */
     public function getSchoolTeam(): ActiveQuery
     {
-        return $this->hasOne(School::class, ['team_id' => 'player_school_id'])->cache();
+        return $this->hasOne(Team::class, ['team_id' => 'player_school_id'])->cache();
     }
 
     /**
