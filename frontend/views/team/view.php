@@ -101,10 +101,11 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
+                'format' => 'raw',
                 'headerOptions' => ['title' => 'Номинальная сила'],
                 'label' => 'С',
                 'value' => function (Player $model): string {
-                    return $model->player_power_nominal;
+                    return $model->powerNominal();
                 }
             ],
             [
@@ -236,7 +237,7 @@ use yii\grid\GridView;
             'dataProvider' => $dataProvider,
             'rowOptions' => function (Player $model) use ($team) {
                 $result = [];
-                if ($team->myTeam()) {
+                if ($team->myTeam() && $model->squad) {
                     $result['style'] = ['background-color' => '#' . $model->squad->squad_color];
                 }
                 return $result;

@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Event;
 use common\models\EventType;
@@ -69,32 +70,16 @@ $user = Yii::$app->user->identity;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asDatetime($game->schedule->schedule_date, 'short');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>,
+            <?= FormatHelper::asDatetime($game->schedule->schedule_date); ?>,
             <?= $game->tournamentLink(); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::a($game->stadium->stadium_name, ['team/view', $game->stadium->team->team_id]); ?>
+            <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
             (<?= $game->stadium->stadium_capacity; ?>),
             Зрителей: <?= $game->game_visitor; ?>.
-            Билет: <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($game->game_ticket, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            Билет: <?= FormatHelper::asCurrency($game->game_ticket); ?>
         </div>
     </div>
     <div class="row">
@@ -489,6 +474,7 @@ $user = Yii::$app->user->identity;
         ?>
     </div>
 <?= $this->render('//site/_show-full-table'); ?>
+<?php if ($commentDataProvider->models) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <span class="strong">Последние комментарии:</span>
@@ -508,20 +494,13 @@ $user = Yii::$app->user->identity;
 
         ?>
     </div>
+<?php endif; ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
     <?php if ($user->user_date_block_comment_game >= time()) : ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию матчей до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_comment_news, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDatetime($user->user_date_block_comment_news); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockCommentGame->block_reason_text; ?>
             </div>
@@ -530,15 +509,7 @@ $user = Yii::$app->user->identity;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию матчей до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_comment, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDatetime($user->user_date_block_comment); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
             </div>

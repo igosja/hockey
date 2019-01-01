@@ -360,6 +360,20 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
+    public function powerNominal(): string
+    {
+        $class = '';
+        if ($this->player_power_nominal > $this->player_power_old) {
+            $class = 'font-green';
+        } elseif ($this->player_power_nominal < $this->player_power_old) {
+            $class = 'font-red';
+        }
+        return '<span class="' . $class . '">' . $this->player_power_nominal . '</span>';
+    }
+
+    /**
+     * @return string
+     */
     public function playerName(): string
     {
         return $this->name->name_name . ' ' . $this->surname->surname_name;

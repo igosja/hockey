@@ -132,9 +132,11 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function (Game $model) {
+                'value' => function (Game $model) use ($team) {
                     return Html::a(
-                        $model->game_home_tactic_id_1 ? '+' : '-',
+                        $model->game_home_team_id == $team->team_id
+                            ? ($model->game_home_tactic_id_1 ? '+' : '-')
+                            : ($model->game_guest_tactic_id_1 ? '+' : '-'),
                         ['lineup/view', 'id' => $model->game_id]
                     );
                 }
@@ -143,6 +145,12 @@ LineupAsset::register($this);
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $gameDataProvider,
+            'rowOptions' => function (Game $model): array {
+                if ($model->game_id == Yii::$app->request->get('id')) {
+                    return ['class' => 'info'];
+                }
+                return [];
+            },
             'summary' => false,
         ]);
     } catch (Exception $e) {
@@ -369,7 +377,10 @@ LineupAsset::register($this);
             $columns = [
                 [
                     'contentOptions' => function (Player $model) {
-                        return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                        if ($model->squad) {
+                            return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                        }
+                        return [];
                     },
                     'footer' => 'Игрок',
                     'format' => 'raw',
@@ -480,6 +491,7 @@ LineupAsset::register($this);
                         'id' => 'tr-' . $model->player_id,
                     ];
                 },
+                'showFooter' => true,
                 'summary' => false,
             ]);
         } catch (Exception $e) {

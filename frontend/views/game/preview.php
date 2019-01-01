@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Game;
 use yii\grid\GridView;
@@ -39,22 +40,14 @@ use yii\helpers\Html;
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asDatetime($game->schedule->schedule_date, 'short');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>,
+            <?= FormatHelper::asDatetime($game->schedule->schedule_date); ?>,
             <?= $game->tournamentLink(); ?>
         </div>
     </div>
 <?php if ($game->stadium) : ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::a($game->stadium->stadium_name, ['team/view', $game->stadium->team->team_id]); ?>
+            <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
             (<?= $game->stadium->stadium_capacity; ?>)
         </div>
     </div>
@@ -132,7 +125,7 @@ use yii\helpers\Html;
                     'header' => 'Дата',
                     'headerOptions' => ['class' => 'col-15'],
                     'value' => function (Game $model): string {
-                        return Yii::$app->formatter->asDate($model->schedule->schedule_date, 'short');
+                        return FormatHelper::asDate($model->schedule->schedule_date);
                     }
                 ],
                 [
@@ -156,6 +149,7 @@ use yii\helpers\Html;
                     }
                 ],
                 [
+                    'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Игра',
                     'format' => 'raw',
                     'header' => 'Игра',

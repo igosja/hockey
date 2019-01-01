@@ -161,43 +161,4 @@ class TransferController extends AbstractController
 
         return $this->redirect(['transfer/view', 'id' => $transferId]);
     }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    public function actionFix()
-    {
-        Yii::$app->db
-            ->createCommand()
-            ->batchInsert(
-                Transfer::tableName(),
-                [
-                    'transfer_id',
-                    'transfer_age',
-                    'transfer_cancel',
-                    'transfer_checked',
-                    'transfer_date',
-                    'transfer_player_id',
-                    'transfer_player_price',
-                    'transfer_power',
-                    'transfer_price_buyer',
-                    'transfer_price_seller',
-                    'transfer_ready',
-                    'transfer_season_id',
-                    'transfer_team_buyer_id',
-                    'transfer_team_seller_id',
-                    'transfer_to_league',
-                    'transfer_user_buyer_id',
-                    'transfer_user_seller_id'
-                ],
-                [
-                    [1, 24, 0, 0, 1546121233, 2022, 1023168, 48, 925000, 923000, 1546862927, 1, 17, 39, 0, 35, 14],
-                    [2, 24, 0, 0, 1546121233, 2781, 1023168, 48, 900001, 900000, 1546862927, 1, 26, 53, 0, 3, 14],
-                    [3, 19, 0, 0, 1546121233, 3713, 755478, 38, 760000, 760000, 1546862927, 1, 146, 71, 0, 27, 14],
-                    [4, 20, 0, 0, 1546160151, 3715, 858858, 42, 530001, 530000, 1546938395, 1, 39, 71, 0, 14, 29],
-                    [5, 21, 0, 0, 1546165081, 3714, 806560, 40, 1000001, 810000, 1546938395, 1, 39, 71, 0, 14, 29]
-                ]
-            )
-            ->execute();
-    }
 }

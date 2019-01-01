@@ -16,6 +16,7 @@ use common\models\TransferVote;
 class TransferCheck
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
