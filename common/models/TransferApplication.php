@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
  * @property int $transfer_application_user_id
  *
  * @property Team $team
+ * @property User $user
  */
 class TransferApplication extends AbstractActiveRecord
 {
@@ -70,5 +71,13 @@ class TransferApplication extends AbstractActiveRecord
     public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'transfer_application_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'transfer_application_user_id']);
     }
 }

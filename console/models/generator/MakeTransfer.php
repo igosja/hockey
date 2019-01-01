@@ -22,6 +22,8 @@ use common\models\TransferSpecial;
 class MakeTransfer
 {
     /**
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      * @return void
      */
     public function execute(): void
@@ -229,8 +231,19 @@ class MakeTransfer
                     'history_value' => $transferApplication->transfer_application_price,
                 ]);
 
-                Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id]);
-                Loan::deleteAll(['loan_player_id' => $transfer->transfer_player_id]);
+                $transferDeleteArray = Transfer::find()
+                    ->where(['transfer_player_id' => $transfer->transfer_player_id, 'transfer_ready' => 0])
+                    ->all();
+                foreach ($transferDeleteArray as $transferDelete) {
+                    $transferDelete->delete();
+                }
+
+                $loanDeleteArray = Transfer::find()
+                    ->where(['loan_player_id' => $transfer->transfer_player_id, 'loan_ready' => 0])
+                    ->all();
+                foreach ($loanDeleteArray as $loadDelete) {
+                    $loadDelete->delete();
+                }
 
                 if ($transferApplication->transfer_application_only_one) {
                     $subQuery = Transfer::find()
@@ -309,8 +322,19 @@ class MakeTransfer
                     'history_value' => $transferApplication->transfer_application_price,
                 ]);
 
-                Transfer::deleteAll(['transfer_player_id' => $transfer->transfer_player_id, 'transfer_ready' => 0]);
-                Loan::deleteAll(['loan_player_id' => $transfer->transfer_player_id, 'loan_ready' => 0]);
+                $transferDeleteArray = Transfer::find()
+                    ->where(['transfer_player_id' => $transfer->transfer_player_id, 'transfer_ready' => 0])
+                    ->all();
+                foreach ($transferDeleteArray as $transferDelete) {
+                    $transferDelete->delete();
+                }
+
+                $loanDeleteArray = Transfer::find()
+                    ->where(['loan_player_id' => $transfer->transfer_player_id, 'loan_ready' => 0])
+                    ->all();
+                foreach ($loanDeleteArray as $loadDelete) {
+                    $loadDelete->delete();
+                }
             }
         }
     }
