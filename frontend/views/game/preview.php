@@ -156,6 +156,7 @@ use yii\helpers\Html;
                     }
                 ],
                 [
+                    'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Игра',
                     'format' => 'raw',
                     'header' => 'Игра',

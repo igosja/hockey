@@ -46,7 +46,7 @@ class Prize
                     $prize = round(2000000 * pow(0.98, $offSeason->off_season_place - 1));
 
                     Finance::log([
-                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_OFFSEASON,
+                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_OFF_SEASON,
                         'finance_team_id' => $offSeason->off_season_team_id,
                         'finance_value' => $prize,
                         'finance_value_after' => $offSeason->team->team_finance + $prize,
@@ -204,7 +204,7 @@ class Prize
                             ($worldCup->world_cup_place - 1) + ($worldCup->world_cup_division_id - 1) * 12));
 
                     Finance::log([
-                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_WORLDCUP,
+                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_WORLD_CUP,
                         'finance_national_id' => $worldCup->world_cup_national_id,
                         'finance_value' => $prize,
                         'finance_value_after' => $worldCup->national->national_finance + $prize,

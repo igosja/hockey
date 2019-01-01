@@ -159,7 +159,7 @@ class FinanceStadium
         Finance::log([
             'finance_finance_text_id' => FinanceText::OUTCOME_GAME,
             'finance_team_id' => $this->game->teamHome->team_id,
-            'finance_value' => -$this->game->stadium->stadium_maintenance,
+            'finance_value' => -$outcome,
             'finance_value_after' => $this->game->teamHome->team_finance + $income - $outcome,
             'finance_value_before' => $this->game->teamHome->team_finance + $income,
         ]);

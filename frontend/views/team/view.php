@@ -101,10 +101,11 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
+                'format' => 'raw',
                 'headerOptions' => ['title' => 'Номинальная сила'],
                 'label' => 'С',
                 'value' => function (Player $model): string {
-                    return $model->player_power_nominal;
+                    return $model->powerNominal();
                 }
             ],
             [
