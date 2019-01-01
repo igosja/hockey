@@ -84,7 +84,9 @@ class ForumTheme extends AbstractActiveRecord
      */
     public function getForumMessage(): ActiveQuery
     {
-        return $this->hasMany(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id']);
+        return $this
+            ->hasMany(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id'])
+            ->orderBy(['forum_message_date' => SORT_DESC]);
     }
 
     /**

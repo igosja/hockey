@@ -101,9 +101,9 @@ class ForumGroup extends AbstractActiveRecord
     public function getForumMessage(): ActiveQuery
     {
         return $this
-            ->hasOne(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_forum_group_id'])
+            ->hasOne(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id'])
             ->via('forumTheme')
-            ->orderBy(['forum_message_date' => SORT_ASC]);
+            ->orderBy(['forum_message_date' => SORT_DESC]);
     }
 
     /**
