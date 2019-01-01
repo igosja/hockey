@@ -45,18 +45,8 @@ class Money extends AbstractActiveRecord
     public function rules(): array
     {
         return [
-            [
-                [
-                    'money_id',
-                    'money_money_text_id',
-                    'money_date',
-                    'money_user_id',
-                    'money_value',
-                    'money_value_after',
-                    'money_value_before'
-                ],
-                'integer'
-            ],
+            [['money_id', 'money_money_text_id', 'money_date', 'money_user_id'], 'integer'],
+            [['money_value', 'money_value_after', 'money_value_before'], 'number'],
             [['money_money_text_id'], 'required'],
         ];
     }
