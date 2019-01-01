@@ -237,7 +237,7 @@ use yii\grid\GridView;
             'dataProvider' => $dataProvider,
             'rowOptions' => function (Player $model) use ($team) {
                 $result = [];
-                if ($team->myTeam()) {
+                if ($team->myTeam() && $model->squad) {
                     $result['style'] = ['background-color' => '#' . $model->squad->squad_color];
                 }
                 return $result;

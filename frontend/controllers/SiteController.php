@@ -91,6 +91,27 @@ class SiteController extends AbstractController
     }
 
     /**
+     * @param string $code
+     * @return Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionAuth(string $code)
+    {
+        if (!Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+        }
+
+        $user = User::find()
+            ->where(['user_code' => $code])
+            ->limit(1)
+            ->one();
+        $this->notFound($user);
+
+        Yii::$app->user->login($user, 2592000);
+        return $this->redirect(['team/view']);
+    }
+
+    /**
      * @return array|string|Response
      */
     public function actionLogin()

@@ -377,7 +377,10 @@ LineupAsset::register($this);
             $columns = [
                 [
                     'contentOptions' => function (Player $model) {
-                        return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                        if ($model->squad) {
+                            return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                        }
+                        return [];
                     },
                     'footer' => 'Игрок',
                     'format' => 'raw',

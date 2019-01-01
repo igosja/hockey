@@ -119,25 +119,9 @@ class HockeyHelper
     public static function opponentLink(Game $game, int $teamId): string
     {
         if ($game->game_home_team_id == $teamId) {
-            return Html::a(
-                $game->teamGuest->team_name
-                . ' <span class="hidden-xs">('
-                . $game->teamGuest->stadium->city->city_name
-                . ', '
-                . $game->teamGuest->stadium->city->country->country_name
-                . ')</span>',
-                ['team/view', 'id' => $game->game_guest_team_id]
-            );
+            return $game->teamGuest->teamLink('img');
         } else {
-            return Html::a(
-                $game->teamHome->team_name
-                . ' <span class="hidden-xs">('
-                . $game->teamHome->stadium->city->city_name
-                . ', '
-                . $game->teamHome->stadium->city->country->country_name
-                . ')</span>',
-                ['team/view', 'id' => $game->game_home_team_id]
-            );
+            return $game->teamHome->teamLink('img');
         }
     }
 

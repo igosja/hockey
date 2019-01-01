@@ -50,6 +50,7 @@ use yii\grid\GridView;
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
                 'value' => function (Transfer $model): string {
@@ -158,6 +159,7 @@ use yii\grid\GridView;
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
                 'value' => function (Transfer $model): string {
@@ -266,6 +268,7 @@ use yii\grid\GridView;
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
                 'value' => function (Loan $model): string {
@@ -383,6 +386,7 @@ use yii\grid\GridView;
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
                 'value' => function (Loan $model): string {
