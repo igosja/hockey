@@ -44,7 +44,7 @@ class Payment extends AbstractActiveRecord
         return [
             [['payment_status'], 'in', 'range' => [self::NOT_PAID, self::PAID]],
             [['payment_id', 'payment_date'], 'integer'],
-            [['payment_sum'], 'integer', 'min' => 1],
+            [['payment_sum'], 'number', 'min' => 1],
             [['payment_sum'], 'required'],
         ];
     }
