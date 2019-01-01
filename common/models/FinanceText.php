@@ -22,9 +22,9 @@ class FinanceText extends AbstractActiveRecord
     const INCOME_PRIZE_CHAMPIONSHIP = 4;
     const INCOME_PRIZE_CONFERENCE = 5;
     const INCOME_PRIZE_LEAGUE = 3;
-    const INCOME_PRIZE_OFFSEASON = 6;
+    const INCOME_PRIZE_OFF_SEASON = 6;
     const INCOME_PRIZE_VIP = 1;
-    const INCOME_PRIZE_WORLDCUP = 2;
+    const INCOME_PRIZE_WORLD_CUP = 2;
     const INCOME_REFERRAL = 28;
     const INCOME_REVIEW = 34;
     const INCOME_SCOUT_STYLE = 33;

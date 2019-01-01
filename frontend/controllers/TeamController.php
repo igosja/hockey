@@ -166,6 +166,7 @@ class TeamController extends AbstractController
                 'player_id',
                 'player_physical_id',
                 'player_power_nominal',
+                'player_power_old',
                 'player_power_real',
                 'player_price',
                 'player_squad_id',

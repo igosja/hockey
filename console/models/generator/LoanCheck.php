@@ -14,6 +14,7 @@ use common\models\LoanVote;
 class LoanCheck
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
