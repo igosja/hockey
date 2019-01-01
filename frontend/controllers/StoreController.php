@@ -28,8 +28,10 @@ class StoreController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['index', 'payment', 'history', 'power', 'position', 'special', 'finance'],
                 'rules' => [
                     [
+                        'actions' => ['index', 'payment', 'history', 'power', 'position', 'special', 'finance'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
