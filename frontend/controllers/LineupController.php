@@ -1293,7 +1293,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1305,7 +1305,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1317,7 +1317,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1329,7 +1329,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1341,7 +1341,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1353,7 +1353,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1365,7 +1365,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1377,7 +1377,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1389,7 +1389,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1401,7 +1401,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_2 + $teamwork->teamwork_value;
+                $teamwork_2 = $teamwork_2 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1413,7 +1413,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1425,7 +1425,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1437,7 +1437,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1449,7 +1449,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1461,7 +1461,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1473,7 +1473,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1485,7 +1485,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1497,7 +1497,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1509,7 +1509,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1521,7 +1521,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_3 + $teamwork->teamwork_value;
+                $teamwork_3 = $teamwork_3 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1533,7 +1533,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1545,7 +1545,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1557,7 +1557,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1569,7 +1569,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1581,7 +1581,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1593,7 +1593,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1605,7 +1605,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1617,7 +1617,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1629,7 +1629,7 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             $teamwork = Teamwork::find()
@@ -1641,12 +1641,14 @@ class LineupController extends AbstractController
                 ->limit(1)
                 ->one();
             if ($teamwork) {
-                $teamwork_1 = $teamwork_4 + $teamwork->teamwork_value;
+                $teamwork_4 = $teamwork_4 + $teamwork->teamwork_value;
             }
 
             if (0 == $power) {
                 $power = 1;
             }
+
+            $position = $position ?: 1;
 
             $position = round($power / $position * 100);
 
