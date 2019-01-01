@@ -41,6 +41,21 @@ class StoreController extends AbstractController
     }
 
     /**
+     * @param $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\web\ForbiddenHttpException
+     */
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['success', 'error', 'result'])) {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    /**
      * @return string
      */
     public function actionIndex(): string
