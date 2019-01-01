@@ -4,6 +4,7 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Loan;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -12,7 +13,7 @@ use yii\grid\GridView;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1>Список хоккеистов, выставленных на аренду</h1>
+            <h1>Список хоккеистов, проданных на трансфере</h1>
         </div>
     </div>
     <div class="row margin-top-small text-center">
@@ -36,7 +37,10 @@ use yii\grid\GridView;
                     'format' => 'raw',
                     'label' => 'Игрок',
                     'value' => function (Loan $model) {
-                        return $model->player->playerLink();
+                        return Html::a(
+                            $model->player->playerName(),
+                            ['loan/view', 'id' => $model->loan_id]
+                        );
                     }
                 ],
                 [
@@ -58,7 +62,7 @@ use yii\grid\GridView;
                     'headerOptions' => ['title' => 'Позиция'],
                     'label' => 'Поз',
                     'value' => function (Loan $model) {
-                        return $model->player->position();
+                        return $model->position();
                     }
                 ],
                 [
@@ -68,7 +72,7 @@ use yii\grid\GridView;
                     'headerOptions' => ['title' => 'Возраст'],
                     'label' => 'В',
                     'value' => function (Loan $model) {
-                        return $model->player->player_age;
+                        return $model->loan_age;
                     }
                 ],
                 [
@@ -78,7 +82,7 @@ use yii\grid\GridView;
                     'headerOptions' => ['title' => 'Сила'],
                     'label' => 'С',
                     'value' => function (Loan $model) {
-                        return $model->player->player_power_nominal;
+                        return $model->loan_power;
                     }
                 ],
                 [
@@ -88,48 +92,50 @@ use yii\grid\GridView;
                     'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
                     'value' => function (Loan $model) {
-                        return $model->player->special();
+                        return $model->special();
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs'],
-                    'footer' => 'Команда',
+                    'footer' => 'Продавец',
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'label' => 'Команда',
+                    'label' => 'Продавец',
                     'value' => function (Loan $model) {
                         return $model->seller->teamLink('img');
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Дней',
-                    'footerOptions' => ['title' => 'Срок аренды (календарных дней)'],
-                    'headerOptions' => ['title' => 'Срок аренды (календарных дней)'],
-                    'label' => 'Дней',
+                    'contentOptions' => ['class' => 'hidden-xs'],
+                    'footer' => 'Покупатель',
+                    'footerOptions' => ['class' => 'hidden-xs'],
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'hidden-xs'],
+                    'label' => 'Покупатель',
                     'value' => function (Loan $model) {
-                        return $model->loan_day_min . '-' . $model->loan_day_max;
+                        return $model->buyer->teamLink('img');
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
-                    'footerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
-                    'headerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
+                    'footerOptions' => ['title' => 'Общая стоимость аренды'],
+                    'headerOptions' => ['title' => 'Общая стоимость аренды'],
                     'label' => 'Цена',
                     'value' => function (Loan $model) {
-                        return FormatHelper::asCurrency($model->loan_price_seller);
+                        return FormatHelper::asCurrency($model->loan_price_buyer);
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Торги',
-                    'footerOptions' => ['title' => 'Дата проведения торгов'],
-                    'headerOptions' => ['title' => 'Дата проведения торгов'],
-                    'label' => 'Торги',
+                    'footer' => '+/-',
+                    'footerOptions' => ['title' => 'Оценка сделки менеджерами'],
+                    'format' => 'raw',
+                    'headerOptions' => ['title' => 'Оценка сделки менеджерами'],
+                    'label' => '+/-',
                     'value' => function (Loan $model) {
-                        return $model->dealDate();
+                        return $model->rating();
                     }
                 ],
             ];

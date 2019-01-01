@@ -791,13 +791,13 @@ class Team extends AbstractActiveRecord
      */
     public function latestGame(): array
     {
-        return Game::find()
+        return array_reverse(Game::find()
             ->joinWith(['schedule'])
             ->where(['or', ['game_home_team_id' => $this->team_id], ['game_guest_team_id' => $this->team_id]])
             ->andWhere(['!=', 'game_played', 0])
             ->orderBy(['schedule_date' => SORT_DESC])
             ->limit(3)
-            ->all();
+            ->all());
     }
 
     /**

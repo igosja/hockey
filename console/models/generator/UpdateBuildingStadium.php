@@ -14,11 +14,12 @@ use common\models\HistoryText;
 class UpdateBuildingStadium
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
     {
-        BuildingStadium::updateAllCounters(['building_stadium_day' => -1], ['<', 'building_stadium_ready', 0]);
+        BuildingStadium::updateAllCounters(['building_stadium_day' => -1], ['building_stadium_ready' => 0]);
 
         $buildingStadiumArray = BuildingStadium::find()
             ->with(['team.stadium'])
