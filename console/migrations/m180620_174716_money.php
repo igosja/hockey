@@ -19,7 +19,7 @@ class m180620_174716_money extends Migration
             'money_date' => $this->integer(11)->defaultValue(0),
             'money_money_text_id' => $this->integer(2)->defaultValue(0),
             'money_user_id' => $this->integer(1)->defaultValue(0),
-            'money_value' => $this->text(),
+            'money_value' => $this->decimal(11, 2)->defaultValue(0),
             'money_value_after' => $this->decimal(11, 2)->defaultValue(0),
             'money_value_before' => $this->decimal(11, 2)->defaultValue(0),
         ]);
