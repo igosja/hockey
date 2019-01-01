@@ -255,7 +255,10 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'rowOptions' => function (Player $model) {
-                return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                if ($model->squad) {
+                    return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
+                }
+                return [];
             },
             'showFooter' => true,
             'summary' => false,

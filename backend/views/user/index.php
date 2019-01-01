@@ -25,6 +25,7 @@ use yii\helpers\Html;
             'user_login',
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'text-center'],
                 'template' => '{view} {update}',
             ],
         ];
