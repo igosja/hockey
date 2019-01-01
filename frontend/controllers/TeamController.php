@@ -821,7 +821,7 @@ class TeamController extends AbstractController
         if ($user->user_shop_point || $user->user_shop_position || $user->user_shop_special) {
             $result[] = 'У вас есть бонусные тренировки для хоккеистов. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                    ['training/index']
+                    ['training-bonus/index']
                 );
         }
 

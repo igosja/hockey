@@ -108,7 +108,6 @@ class GeneratorController extends AbstractController
     public function actionIndex()
     {
         $modelArray = [
-            new CheckCronDate(),
             new UpdateCronDate(),
             new SiteClose(),
             new PlayerPowerNewToOld(),
@@ -203,6 +202,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
+            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
