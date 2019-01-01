@@ -2,8 +2,9 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
-use common\models\Loan;
+use common\models\Transfer;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -12,12 +13,12 @@ use yii\grid\GridView;
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1>Список хоккеистов, выставленных на аренду</h1>
+            <h1>Список хоккеистов, проданных на трансфере</h1>
         </div>
     </div>
     <div class="row margin-top-small text-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $this->render('//loan/_links'); ?>
+            <?= $this->render('//transfer/_links'); ?>
         </div>
     </div>
     <div class="row">
@@ -35,8 +36,11 @@ use yii\grid\GridView;
                     'footer' => 'Игрок',
                     'format' => 'raw',
                     'label' => 'Игрок',
-                    'value' => function (Loan $model) {
-                        return $model->player->playerLink();
+                    'value' => function (Transfer $model) {
+                        return Html::a(
+                            $model->player->playerName(),
+                            ['transfer/view', 'id' => $model->transfer_id]
+                        );
                     }
                 ],
                 [
@@ -46,7 +50,7 @@ use yii\grid\GridView;
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Национальность'],
                     'label' => 'Нац',
-                    'value' => function (Loan $model) {
+                    'value' => function (Transfer $model) {
                         return $model->player->country->countryImageLink();
                     }
                 ],
@@ -57,8 +61,8 @@ use yii\grid\GridView;
                     'format' => 'raw',
                     'headerOptions' => ['title' => 'Позиция'],
                     'label' => 'Поз',
-                    'value' => function (Loan $model) {
-                        return $model->player->position();
+                    'value' => function (Transfer $model) {
+                        return $model->position();
                     }
                 ],
                 [
@@ -67,8 +71,8 @@ use yii\grid\GridView;
                     'footerOptions' => ['title' => 'Возраст'],
                     'headerOptions' => ['title' => 'Возраст'],
                     'label' => 'В',
-                    'value' => function (Loan $model) {
-                        return $model->player->player_age;
+                    'value' => function (Transfer $model) {
+                        return $model->transfer_age;
                     }
                 ],
                 [
@@ -77,8 +81,8 @@ use yii\grid\GridView;
                     'footerOptions' => ['title' => 'Сила'],
                     'headerOptions' => ['title' => 'Сила'],
                     'label' => 'С',
-                    'value' => function (Loan $model) {
-                        return $model->player->player_power_nominal;
+                    'value' => function (Transfer $model) {
+                        return $model->transfer_power;
                     }
                 ],
                 [
@@ -87,49 +91,49 @@ use yii\grid\GridView;
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                     'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
-                    'value' => function (Loan $model) {
-                        return $model->player->special();
+                    'value' => function (Transfer $model) {
+                        return $model->special();
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs'],
-                    'footer' => 'Команда',
+                    'footer' => 'Продавец',
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'label' => 'Команда',
-                    'value' => function (Loan $model) {
+                    'label' => 'Продавец',
+                    'value' => function (Transfer $model) {
                         return $model->seller->teamLink('img');
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Дней',
-                    'footerOptions' => ['title' => 'Срок аренды (календарных дней)'],
-                    'headerOptions' => ['title' => 'Срок аренды (календарных дней)'],
-                    'label' => 'Дней',
-                    'value' => function (Loan $model) {
-                        return $model->loan_day_min . '-' . $model->loan_day_max;
+                    'contentOptions' => ['class' => 'hidden-xs'],
+                    'footer' => 'Покупатель',
+                    'footerOptions' => ['class' => 'hidden-xs'],
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'hidden-xs'],
+                    'label' => 'Покупатель',
+                    'value' => function (Transfer $model) {
+                        return $model->buyer->teamLink('img');
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
-                    'footerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
-                    'headerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
                     'label' => 'Цена',
-                    'value' => function (Loan $model) {
-                        return FormatHelper::asCurrency($model->loan_price_seller);
+                    'value' => function (Transfer $model) {
+                        return FormatHelper::asCurrency($model->transfer_price_buyer);
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Торги',
-                    'footerOptions' => ['title' => 'Дата проведения торгов'],
-                    'headerOptions' => ['title' => 'Дата проведения торгов'],
-                    'label' => 'Торги',
-                    'value' => function (Loan $model) {
-                        return $model->dealDate();
+                    'footer' => '+/-',
+                    'footerOptions' => ['title' => 'Оценка сделки менеджерами'],
+                    'format' => 'raw',
+                    'headerOptions' => ['title' => 'Оценка сделки менеджерами'],
+                    'label' => '+/-',
+                    'value' => function (Transfer $model) {
+                        return $model->rating();
                     }
                 ],
             ];

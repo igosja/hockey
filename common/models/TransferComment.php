@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use Yii;
+use yii\db\ActiveQuery;
+
 /**
  * Class TransferComment
  * @package common\models
@@ -12,6 +15,8 @@ namespace common\models;
  * @property int $transfer_comment_transfer_id
  * @property string $transfer_comment_text
  * @property int $transfer_comment_user_id
+ *
+ * @property User $user
  */
 class TransferComment extends AbstractActiveRecord
 {
@@ -43,5 +48,29 @@ class TransferComment extends AbstractActiveRecord
             [['transfer_comment_text'], 'safe'],
             [['transfer_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->transfer_comment_date = time();
+            $this->transfer_comment_user_id = Yii::$app->user->id;
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'transfer_comment_user_id']);
     }
 }

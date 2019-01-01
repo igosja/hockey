@@ -23,6 +23,8 @@ use yii\db\Expression;
 class MakeLoan
 {
     /**
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      * @return void
      */
     public function execute(): void
@@ -216,8 +218,19 @@ class MakeLoan
                     'history_value' => $price,
                 ]);
 
-                Transfer::deleteAll(['loan_player_id' => $loan->loan_player_id, 'transfer_ready' => 0]);
-                Loan::deleteAll(['loan_player_id' => $loan->loan_player_id, 'loan_ready' => 0]);
+                $transferDeleteArray = Transfer::find()
+                    ->where(['transfer_player_id' => $loan->loan_player_id, 'transfer_ready' => 0])
+                    ->all();
+                foreach ($transferDeleteArray as $transferDelete) {
+                    $transferDelete->delete();
+                }
+
+                $loanDeleteArray = Transfer::find()
+                    ->where(['loan_player_id' => $loan->loan_player_id, 'loan_ready' => 0])
+                    ->all();
+                foreach ($loanDeleteArray as $loadDelete) {
+                    $loadDelete->delete();
+                }
 
                 if ($loanApplication->loan_application_only_one) {
                     $subQuery = Loan::find()
