@@ -179,6 +179,8 @@ class StoreController extends AbstractController
 
         $message = 'Вы собираетесь продлить свой VIP на ' . $day . ' дн. за ' . $price . ' ед.';
 
+        $this->setSeoTitle('Виртуальный магазин');
+
         return $this->render('vip', [
             'day' => $day,
             'message' => $message,
@@ -234,6 +236,8 @@ class StoreController extends AbstractController
 
         $message = 'Вы собираетесь приобрести балл силы для тренировки игрока команды за ' . $price . ' ед.';
 
+        $this->setSeoTitle('Виртуальный магазин');
+
         return $this->render('power', [
             'message' => $message,
             'user' => $user,
@@ -288,6 +292,8 @@ class StoreController extends AbstractController
 
         $message = 'Вы собираетесь приобрести совмещение для игрока команды за ' . $price . ' ед.';
 
+        $this->setSeoTitle('Виртуальный магазин');
+
         return $this->render('position', [
             'message' => $message,
             'user' => $user,
@@ -341,6 +347,8 @@ class StoreController extends AbstractController
         }
 
         $message = 'Вы собираетесь приобрести спецвозможность для игрока команды за ' . $price . ' ед.';
+
+        $this->setSeoTitle('Виртуальный магазин');
 
         return $this->render('special', [
             'message' => $message,
@@ -401,6 +409,8 @@ class StoreController extends AbstractController
         }
 
         $message = 'Вы собираетесь приобрести ' . FormatHelper::asCurrency(1000000) . ' на счёт своей команды за ' . $price . ' ед.';
+
+        $this->setSeoTitle('Виртуальный магазин');
 
         return $this->render('finance', [
             'message' => $message,
