@@ -47,7 +47,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Было',
                 'value' => function (Money $model): string {
-                    return Yii::$app->formatter->asInteger($model->money_value_before);
+                    return $model->money_value_before;
                 }
             ],
             [
@@ -56,7 +56,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => '+/-',
                 'value' => function (Money $model): string {
-                    return Yii::$app->formatter->asInteger($model->money_value);
+                    return $model->money_value;
                 }
             ],
             [
@@ -66,7 +66,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стало',
                 'value' => function (Money $model): string {
-                    return Yii::$app->formatter->asInteger($model->money_value_after);
+                    return $model->money_value_after;
                 }
             ],
             [
