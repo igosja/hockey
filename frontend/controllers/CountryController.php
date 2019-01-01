@@ -105,7 +105,7 @@ class CountryController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => News::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizeNews'],
             ],
         ]);
 
@@ -129,7 +129,7 @@ class CountryController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => Poll::PAGE_LIMIT,
+                'pageSize' => Yii::$app->params['pageSizePoll'],
             ],
         ]);
 

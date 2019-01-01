@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use miloschuman\highcharts\Highcharts;
 use yii\helpers\Html;
 
@@ -198,29 +199,10 @@ use yii\helpers\Html;
                         <?php foreach ($paymentArray as $item) : ?>
                             <tr>
                                 <td>
-                                    <?php
-
-                                    try {
-                                        Yii::$app->formatter->asDatetime($item->payment_date);
-                                    } catch (Exception $e) {
-                                        ErrorHelper::log($e);
-                                    }
-
-                                    ?>
+                                    <?= FormatHelper::asDateTime($item->payment_date); ?>
                                 </td>
                                 <td>
-                                    <?php
-
-                                    try {
-                                        Yii::$app->formatter->asCurrency(
-                                            $item->payment_sum,
-                                            Yii::$app->params['currency']
-                                        );
-                                    } catch (Exception $e) {
-                                        ErrorHelper::log($e);
-                                    }
-
-                                    ?>
+                                    <?= FormatHelper::asCurrency($item->payment_sum); ?>
                                 </td>
                                 <td>
                                     <?= Html::a(

@@ -414,12 +414,15 @@ class User extends AbstractActiveRecord implements IdentityInterface
         );
     }
 
+    /**
+     * @return string
+     */
     public function userFrom(): string
     {
-        $countryName = $this->country->country_name;
-
-        if ($this->country) {
+        if (!$this->country) {
             $countryName = '';
+        } else {
+            $countryName = $this->country->country_name;
         }
 
         if ($this->user_city && $countryName) {

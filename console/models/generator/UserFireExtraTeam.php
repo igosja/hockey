@@ -38,7 +38,7 @@ class UserFireExtraTeam
                 ->join(
                     'LEFT JOIN',
                     History::tableName(),
-                    ['history_team_id' => 'team_id', 'history_user_id' => 'team_user_id']
+                    '`history_team_id`=`team_id` AND `history_user_id`=`team_user_id`'
                 )
                 ->where([
                     'team_user_id' => $user->team_user_id,
@@ -72,7 +72,7 @@ class UserFireExtraTeam
                 ->join(
                     'LEFT JOIN',
                     History::tableName(),
-                    ['history_team_id' => 'team_id', 'history_user_id' => 'team_user_id']
+                    '`history_team_id`=`team_id` AND `history_user_id`=`team_user_id`'
                 )
                 ->where([
                     'team_user_id' => $user->team_user_id,
