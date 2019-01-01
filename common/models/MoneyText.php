@@ -17,6 +17,7 @@ class MoneyText extends AbstractActiveRecord
     const OUTCOME_POSITION = 5;
     const OUTCOME_SPECIAL = 6;
     const OUTCOME_TEAM_FINANCE = 4;
+    const OUTCOME_VIP = 7;
 
     /**
      * @return string

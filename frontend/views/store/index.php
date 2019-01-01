@@ -1,5 +1,6 @@
 <?php
 
+use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
@@ -120,17 +121,6 @@ use yii\helpers\Html;
             </tr>
             <tr>
                 <td>
-                    1 млн. $ на счёт команды
-                </td>
-                <td class="text-right">
-                    <?= Html::a(
-                        'Купить за 5 ед.',
-                        ['store/money']
-                    ); ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     Совмещение для игрока команды
                 </td>
                 <td class="text-right">
@@ -148,6 +138,17 @@ use yii\helpers\Html;
                     <?= Html::a(
                         'Купить за 3 ед.',
                         ['store/special']
+                    ); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?= FormatHelper::asCurrency(1000000); ?> на счёт команды
+                </td>
+                <td class="text-right">
+                    <?= Html::a(
+                        'Купить за 5 ед.',
+                        ['store/finance']
                     ); ?>
                 </td>
             </tr>

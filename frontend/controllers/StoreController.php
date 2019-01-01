@@ -2,10 +2,13 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Money;
 use common\models\MoneyText;
 use common\models\Payment;
 use common\models\User;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -112,6 +115,300 @@ class StoreController extends AbstractController
     }
 
     /**
+     * @param int $day
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionVip(int $day)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        if (!in_array($day, [15, 30, 60, 180, 365])) {
+            $day = 15;
+        }
+        $priceArray = [
+            15 => 2,
+            30 => 3,
+            60 => 5,
+            180 => 10,
+            365 => 15,
+        ];
+        $price = $priceArray[$day];
+
+        if ($user->user_money < $price) {
+            $this->setErrorFlash('Недостаточно средств на счету.');
+            return $this->redirect(['store/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            if ($user->user_date_vip < time()) {
+                $dateVip = time() + $day * 60 * 60 * 24;
+            } else {
+                $dateVip = $user->user_date_vip + $day * 60 * 60 * 24;
+            }
+
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                Money::log([
+                    'money_money_text_id' => MoneyText::OUTCOME_VIP,
+                    'money_user_id' => $user->user_id,
+                    'money_value' => -$price,
+                    'money_value_after' => $user->user_money - $price,
+                    'money_value_before' => $user->user_money,
+                ]);
+
+                $user->user_date_vip = $dateVip;
+                $user->user_money = $user->user_money - $price;
+                $user->save(true, ['user_date_vip', 'user_money']);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $transaction->rollBack();
+
+                $this->setSuccessFlash('Не удалось продлить VIP.');
+                return $this->redirect(['store/index']);
+            }
+
+            $transaction->commit();
+            $this->setSuccessFlash('Ваш VIP успешно продлён.');
+            return $this->redirect(['store/index']);
+        }
+
+        $message = 'Вы собираетесь продлить свой VIP на ' . $day . ' дн. за ' . $price . ' ед.';
+
+        return $this->render('vip', [
+            'day' => $day,
+            'message' => $message,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionPower()
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $price = 1;
+
+        if ($user->user_money < $price) {
+            $this->setErrorFlash('Недостаточно средств на счету.');
+            return $this->redirect(['store/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                Money::log([
+                    'money_money_text_id' => MoneyText::OUTCOME_POINT,
+                    'money_user_id' => $user->user_id,
+                    'money_value' => -$price,
+                    'money_value_after' => $user->user_money - $price,
+                    'money_value_before' => $user->user_money,
+                ]);
+
+                $user->user_shop_point = $user->user_shop_point + 1;
+                $user->user_money = $user->user_money - $price;
+                $user->save(true, ['user_shop_point', 'user_money']);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $transaction->rollBack();
+
+                $this->setSuccessFlash('Не удалось совершить покупку.');
+                return $this->redirect(['store/index']);
+            }
+
+            $transaction->commit();
+            $this->setSuccessFlash('Покупка совершена успешно.');
+            return $this->redirect(['store/index']);
+        }
+
+        $message = 'Вы собираетесь приобрести балл силы для тренировки игрока команды за ' . $price . ' ед.';
+
+        return $this->render('power', [
+            'message' => $message,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionPosition()
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $price = 3;
+
+        if ($user->user_money < $price) {
+            $this->setErrorFlash('Недостаточно средств на счету.');
+            return $this->redirect(['store/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                Money::log([
+                    'money_money_text_id' => MoneyText::OUTCOME_POSITION,
+                    'money_user_id' => $user->user_id,
+                    'money_value' => -$price,
+                    'money_value_after' => $user->user_money - $price,
+                    'money_value_before' => $user->user_money,
+                ]);
+
+                $user->user_shop_position = $user->user_shop_position + 1;
+                $user->user_money = $user->user_money - $price;
+                $user->save(true, ['user_shop_position', 'user_money']);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $transaction->rollBack();
+
+                $this->setSuccessFlash('Не удалось совершить покупку.');
+                return $this->redirect(['store/index']);
+            }
+
+            $transaction->commit();
+            $this->setSuccessFlash('Покупка совершена успешно.');
+            return $this->redirect(['store/index']);
+        }
+
+        $message = 'Вы собираетесь приобрести совмещение для игрока команды за ' . $price . ' ед.';
+
+        return $this->render('position', [
+            'message' => $message,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionSpecial()
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $price = 3;
+
+        if ($user->user_money < $price) {
+            $this->setErrorFlash('Недостаточно средств на счету.');
+            return $this->redirect(['store/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                Money::log([
+                    'money_money_text_id' => MoneyText::OUTCOME_SPECIAL,
+                    'money_user_id' => $user->user_id,
+                    'money_value' => -$price,
+                    'money_value_after' => $user->user_money - $price,
+                    'money_value_before' => $user->user_money,
+                ]);
+
+                $user->user_shop_special = $user->user_shop_special + 1;
+                $user->user_money = $user->user_money - $price;
+                $user->save(true, ['user_shop_special', 'user_money']);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $transaction->rollBack();
+
+                $this->setSuccessFlash('Не удалось совершить покупку.');
+                return $this->redirect(['store/index']);
+            }
+
+            $transaction->commit();
+            $this->setSuccessFlash('Покупка совершена успешно.');
+            return $this->redirect(['store/index']);
+        }
+
+        $message = 'Вы собираетесь приобрести спецвозможность для игрока команды за ' . $price . ' ед.';
+
+        return $this->render('special', [
+            'message' => $message,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionFinance()
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $price = 5;
+
+        if ($user->user_money < $price) {
+            $this->setErrorFlash('Недостаточно средств на счету.');
+            return $this->redirect(['store/index']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                Money::log([
+                    'money_money_text_id' => MoneyText::OUTCOME_TEAM_FINANCE,
+                    'money_user_id' => $user->user_id,
+                    'money_value' => -$price,
+                    'money_value_after' => $user->user_money - $price,
+                    'money_value_before' => $user->user_money,
+                ]);
+
+                $user->user_money = $user->user_money - $price;
+                $user->save(true, ['user_money']);
+
+                $this->myTeam->team_finance = $this->myTeam->team_finance + 1000000;
+                $this->myTeam->save(true, ['team_finance']);
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $transaction->rollBack();
+
+                $this->setSuccessFlash('Не удалось совершить покупку.');
+                return $this->redirect(['store/index']);
+            }
+
+            $transaction->commit();
+            $this->setSuccessFlash('Покупка совершена успешно.');
+            return $this->redirect(['store/index']);
+        }
+
+        $message = 'Вы собираетесь приобрести ' . FormatHelper::asCurrency(1000000) . ' на счёт своей команды за ' . $price . ' ед.';
+
+        return $this->render('finance', [
+            'message' => $message,
+            'user' => $user,
+        ]);
+    }
+
+    /**
      * @return Response
      */
     public function actionSuccess(): Response
@@ -189,34 +486,43 @@ class StoreController extends AbstractController
 
         $sum = round($payment->payment_sum * (100 + $bonus) / 100, 2);
 
-        $payment->payment_status = Payment::PAID;
-        $payment->save();
+        $transaction = Yii::$app->db->beginTransaction();
 
-        Money::log([
-            'money_money_text_id' => MoneyText::INCOME_ADD_FUNDS,
-            'money_user_id' => $payment->payment_user_id,
-            'money_value' => $sum,
-            'money_value_after' => $payment->user->user_money + $sum,
-            'money_value_before' => $payment->user->user_money,
-        ]);
-
-        $payment->user->user_money = $payment->user->user_money + $sum;
-        $payment->user->save();
-
-        if ($payment->user->referrer) {
-            $sum = round($sum / 10, 2);
+        try {
+            $payment->payment_status = Payment::PAID;
+            $payment->save();
 
             Money::log([
-                'money_money_text_id' => MoneyText::INCOME_REFERRAL,
-                'money_user_id' => $payment->user->user_referrer_id,
+                'money_money_text_id' => MoneyText::INCOME_ADD_FUNDS,
+                'money_user_id' => $payment->payment_user_id,
                 'money_value' => $sum,
-                'money_value_after' => $payment->user->referrer->user_money + $sum,
-                'money_value_before' => $payment->user->referrer->user_money,
+                'money_value_after' => $payment->user->user_money + $sum,
+                'money_value_before' => $payment->user->user_money,
             ]);
 
-            $payment->user->referrer->user_money = $payment->user->referrer->user_money + $sum;
+            $payment->user->user_money = $payment->user->user_money + $sum;
             $payment->user->save();
+
+            if ($payment->user->referrer) {
+                $sum = round($sum / 10, 2);
+
+                Money::log([
+                    'money_money_text_id' => MoneyText::INCOME_REFERRAL,
+                    'money_user_id' => $payment->user->user_referrer_id,
+                    'money_value' => $sum,
+                    'money_value_after' => $payment->user->referrer->user_money + $sum,
+                    'money_value_before' => $payment->user->referrer->user_money,
+                ]);
+
+                $payment->user->referrer->user_money = $payment->user->referrer->user_money + $sum;
+                $payment->user->save();
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+            die('NO');
         }
+        $transaction->commit();
 
         die('YES');
     }
