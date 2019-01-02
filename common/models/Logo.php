@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
  * @property int $logo_user_id
  *
  * @property Team $team
+ * @property User $user
  */
 class Logo extends AbstractActiveRecord
 {
@@ -58,10 +59,31 @@ class Logo extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public function beforeDelete(): bool
+    {
+        $file = Yii::getAlias('@webroot') . '/upload/img/team/125/' . $this->team->team_id . '.png';
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'logo_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'logo_user_id']);
     }
 }
