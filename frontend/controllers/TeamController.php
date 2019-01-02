@@ -371,11 +371,13 @@ class TeamController extends AbstractController
                 },
             ])
             ->select([
+                'history_building_id',
                 'history_date',
                 'history_history_text_id',
+                'history_player_id',
                 'history_team_id',
                 'history_user_id',
-                'history_player_id',
+                'history_value',
             ])
             ->where(['or', ['history_team_id' => $id], ['history_team_2_id' => $id]])
             ->andWhere(['history_season_id' => $seasonId])
