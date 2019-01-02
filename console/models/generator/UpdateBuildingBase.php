@@ -33,7 +33,7 @@ class UpdateBuildingBase
              */
             $buildingName = $buildingBase->building->building_name;
             $buildingLevel = $buildingName . '_level';
-            $buildingId = $buildingName . '_id';
+            $buildingId = 'team_' . $buildingName . '_id';
 
             if (ConstructionType::BUILD == $buildingBase->building_base_construction_type_id) {
                 $buildingBase->team->$buildingId = $buildingBase->team->$buildingId + 1;

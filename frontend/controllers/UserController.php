@@ -377,4 +377,36 @@ class UserController extends AbstractController
 
         return $this->render('drop-team');
     }
+
+    /**
+     * @return string
+     */
+    public function actionReRegister()
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            try {
+                $result = $this->myTeam->reRegister();
+                if ($result['status']) {
+                    $this->setSuccessFlash($result['message']);
+                } else {
+                    $this->setErrorFlash($result['message']);
+                }
+            } catch (\Exception $e) {
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+
+            return $this->refresh();
+        }
+
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+
+        $this->setSeoTitle('Преререгистрация команды');
+
+        return $this->render('re-register');
+    }
 }

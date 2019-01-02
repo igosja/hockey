@@ -513,6 +513,33 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @throws \Exception
+     */
+    public function makeFree()
+    {
+        History::log([
+            'history_history_text_id' => HistoryText::PLAYER_FREE,
+            'history_player_id' => $this->player_id,
+            'history_team_id' => $this->player_team_id,
+        ]);
+
+        $this->player_loan_day = 0;
+        $this->player_loan_team_id = 0;
+        $this->player_national_line_id = Squad::SQUAD_DEFAULT;
+        $this->player_order = 0;
+        $this->player_squad_id = Squad::SQUAD_DEFAULT;
+        $this->player_team_id = 0;
+        $this->save(true, [
+            'player_loan_day',
+            'player_loan_team_id',
+            'player_national_line_id',
+            'player_order',
+            'player_squad_id',
+            'player_team_id',
+        ]);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry(): ActiveQuery

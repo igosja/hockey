@@ -684,7 +684,7 @@ class BaseController extends AbstractController
                     'finance_finance_text_id' => $textId,
                     'finance_level' => $level,
                     'finance_team_id' => $team->team_id,
-                    'finance_value' => $finance->finance_value,
+                    'finance_value' => -$finance->finance_value,
                     'finance_value_after' => $team->team_finance - $finance->finance_value,
                     'finance_value_before' => $team->team_finance,
                 ]);

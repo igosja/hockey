@@ -96,7 +96,7 @@ class Payment extends AbstractActiveRecord
 
             foreach ($payment as $item) {
                 if ($item['date'] == $date) {
-                    $valueArray[] = $item['total'];
+                    $valueArray[] = (int)$item['total'];
                     $inArray = true;
                 }
             }
