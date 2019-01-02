@@ -368,7 +368,7 @@ class UserController extends AbstractController
                 $this->setErrorFlash();
             }
 
-            return $this->refresh();
+            return $this->redirect(['user/drop-team']);
         }
 
         Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
@@ -400,7 +400,7 @@ class UserController extends AbstractController
                 $this->setErrorFlash();
             }
 
-            return $this->refresh();
+            return $this->redirect(['user/re-register']);
         }
 
         Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
