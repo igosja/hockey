@@ -6,17 +6,9 @@ use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
 use console\models\generator\CheckCronDate;
-use console\models\generator\CheckLineup;
-use console\models\generator\CheckTeamMoodLimit;
-use console\models\generator\CountryAuto;
 use console\models\generator\CountryStadiumCapacity;
-use console\models\generator\CountVisitor;
 use console\models\generator\DecreaseInjury;
-use console\models\generator\DecreaseTeamwork;
-use console\models\generator\FillLineup;
-use console\models\generator\FinanceStadium;
 use console\models\generator\FriendlyInviteDelete;
-use console\models\generator\GameResult;
 use console\models\generator\GameRowReset;
 use console\models\generator\IncreaseNationalPlayerDay;
 use console\models\generator\IncreaseNationalUserDay;
@@ -26,7 +18,6 @@ use console\models\generator\InsertParticipantChampionship;
 use console\models\generator\InsertSwiss;
 use console\models\generator\LeagueLot;
 use console\models\generator\LeagueOut;
-use console\models\generator\LineupToStatistic;
 use console\models\generator\LoanCheck;
 use console\models\generator\LoanDecreaseAndReturn;
 use console\models\generator\MakeLoan;
@@ -37,15 +28,10 @@ use console\models\generator\NationalFire;
 use console\models\generator\NationalStadium;
 use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
-use console\models\generator\NationalVs;
-use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerLeaguePower;
-use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerPowerS;
 use console\models\generator\PlayerPriceAndSalary;
 use console\models\generator\PlayerRealPower;
-use console\models\generator\PlayerTire;
-use console\models\generator\PlusMinus;
 use console\models\generator\PresidentFire;
 use console\models\generator\PresidentViceFire;
 use console\models\generator\PresidentViceVoteStatus;
@@ -53,47 +39,26 @@ use console\models\generator\PresidentVip;
 use console\models\generator\PresidentVoteStatus;
 use console\models\generator\Prize;
 use console\models\generator\ReferrerBonus;
-use console\models\generator\SetAuto;
-use console\models\generator\SetDefaultStyle;
 use console\models\generator\SetFreePlayerOnTransfer;
 use console\models\generator\SetInjury;
-use console\models\generator\SetStadium;
-use console\models\generator\SetTicketPrice;
-use console\models\generator\SetUserAuto;
-use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\Snapshot;
 use console\models\generator\StadiumMaintenance;
-use console\models\generator\Standing;
-use console\models\generator\StandingPlace;
 use console\models\generator\TakeSalary;
 use console\models\generator\TeamAge;
 use console\models\generator\TeamPlayerCount;
 use console\models\generator\TeamPowerVs;
 use console\models\generator\TeamPrice;
-use console\models\generator\TeamToStatistic;
-use console\models\generator\TeamVisitorAfterGame;
 use console\models\generator\TireBaseLevel;
 use console\models\generator\TransferCheck;
 use console\models\generator\UpdateBuildingBase;
 use console\models\generator\UpdateBuildingStadium;
-use console\models\generator\UpdateCronDate;
-use console\models\generator\UpdateLeagueCoefficient;
-use console\models\generator\UpdatePhysical;
-use console\models\generator\UpdatePlayerStatistic;
 use console\models\generator\UpdateRating;
-use console\models\generator\UpdateSchool;
-use console\models\generator\UpdateScout;
-use console\models\generator\UpdateTeamStatistic;
-use console\models\generator\UpdateTeamVisitor;
-use console\models\generator\UpdateTraining;
-use console\models\generator\UpdateUserRating;
 use console\models\generator\UpdateUserTotalRating;
 use console\models\generator\UserDecrementAutoForVocation;
 use console\models\generator\UserFire;
 use console\models\generator\UserFireExtraTeam;
 use console\models\generator\UserHolidayEnd;
-use console\models\generator\UserToRating;
 use Exception;
 
 /**
@@ -108,41 +73,41 @@ class GeneratorController extends AbstractController
     public function actionIndex()
     {
         $modelArray = [
-            new UpdateCronDate(),
-            new SiteClose(),
-            new PlayerPowerNewToOld(),
-            new CheckTeamMoodLimit(),
-            new CheckLineup(),
-            new FillLineup(),
-            new SetAuto(),
-            new SetDefaultStyle(),
-            new SetUserAuto(),
-            new SetTicketPrice(),
-            new CountVisitor(),
-            new SetStadium(),
-            new FinanceStadium(),
-            new TeamToStatistic(),
-            new UserToRating(),
-            new LineupToStatistic(),
-            new NationalVs(),
-            new GameResult(),
-            new UpdateLeagueCoefficient(),
-            new UpdateTeamStatistic(),
-            new UpdatePlayerStatistic(),
-            new UpdateUserRating(),
-            new CountryAuto(),
-            new TeamVisitorAfterGame(),
-            new UpdateTeamVisitor(),
-            new PlusMinus(),
-            new DecreaseTeamwork(),
-            new Standing(),
-            new StandingPlace(),
-            new PlayerGameRow(),
-            new PlayerTire(),
-            new UpdateTraining(),
-            new UpdatePhysical(),
-            new UpdateSchool(),
-            new UpdateScout(),
+//            new UpdateCronDate(),
+//            new SiteClose(),
+//            new PlayerPowerNewToOld(),
+//            new CheckTeamMoodLimit(),
+//            new CheckLineup(),
+//            new FillLineup(),
+//            new SetAuto(),
+//            new SetDefaultStyle(),
+//            new SetUserAuto(),
+//            new SetTicketPrice(),
+//            new CountVisitor(),
+//            new SetStadium(),
+//            new FinanceStadium(),
+//            new TeamToStatistic(),
+//            new UserToRating(),
+//            new LineupToStatistic(),
+//            new NationalVs(),
+//            new GameResult(),
+//            new UpdateLeagueCoefficient(),
+//            new UpdateTeamStatistic(),
+//            new UpdatePlayerStatistic(),
+//            new UpdateUserRating(),
+//            new CountryAuto(),
+//            new TeamVisitorAfterGame(),
+//            new UpdateTeamVisitor(),
+//            new PlusMinus(),
+//            new DecreaseTeamwork(),
+//            new Standing(),
+//            new StandingPlace(),
+//            new PlayerGameRow(),
+//            new PlayerTire(),
+//            new UpdateTraining(),
+//            new UpdatePhysical(),
+//            new UpdateSchool(),
+//            new UpdateScout(),
             new UpdateBuildingBase(),
             new UpdateBuildingStadium(),
             new StadiumMaintenance(),
