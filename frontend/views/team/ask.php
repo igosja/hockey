@@ -82,14 +82,14 @@ use yii\helpers\Html;
             ],
             [
                 'attribute' => 'country',
-                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'contentOptions' => ['class' => 'hidden-xs'],
                 'footer' => 'Страна',
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Страна',
                 'value' => function (Team $model) {
-                    return $model->stadium->city->country->countryImageLink();
+                    return $model->stadium->city->country->countryLink();
                 }
             ],
             [

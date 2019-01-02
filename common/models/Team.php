@@ -2,10 +2,12 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
 use common\components\HockeyHelper;
 use common\components\RosterPhrase;
 use Exception;
 use frontend\controllers\AbstractController;
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\Html;
@@ -371,69 +373,96 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @throws Exception
+     * @throws \yii\db\Exception
+     * @retur void
      */
-    public function managerFire()
+    public function managerFire(): void
     {
-        $userId = $this->team_user_id;
-        $viceId = $this->team_vice_id;
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $userId = $this->team_user_id;
+            $viceId = $this->team_vice_id;
 
-        $this->team_auto = 0;
-        $this->team_user_id = 0;
-        $this->team_vice_id = 0;
-        $this->team_attitude_national = 2;
-        $this->team_attitude_president = 2;
-        $this->team_attitude_u19 = 2;
-        $this->team_attitude_u21 = 2;
-        $this->save();
-
-        TransferApplication::deleteAll([
-            'transfer_application_team_id' => $this->team_id,
-            'transfer_application_transfer_id' => Transfer::find()
-                ->select(['transfer_id'])
-                ->where(['transfer_ready' => 0])
-                ->column()
-        ]);
-
-        TransferApplication::deleteAll([
-            'transfer_application_transfer_id' => Transfer::find()
-                ->select(['transfer_id'])
-                ->where(['transfer_ready' => 0, 'transfer_team_seller' => $this->team_id])
-                ->column()
-        ]);
-
-        Transfer::deleteAll(['transfer_team_seller' => $this->team_id]);
-
-        LoanApplication::deleteAll([
-            'loan_application_team_id' => $this->team_id,
-            'loan_application_loan_id' => Loan::find()
-                ->select(['loan_id'])
-                ->where(['loan_ready' => 0])
-                ->column()
-        ]);
-
-        LoanApplication::deleteAll([
-            'loan_application_loan_id' => Loan::find()
-                ->select(['loan_id'])
-                ->where(['loan_ready' => 0, 'loan_team_seller' => $this->team_id])
-                ->column()
-        ]);
-
-        Loan::deleteAll(['loan_team_seller' => $this->team_id]);
-
-        History::log([
-            'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_OUT,
-            'history_team_id' => $this->team_id,
-            'history_user_id' => $userId,
-        ]);
-
-        if ($viceId) {
-            History::log([
-                'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
-                'history_team_id' => $this->team_id,
-                'history_user_id' => $viceId,
+            $this->team_auto = 0;
+            $this->team_attitude_national = Attitude::NEUTRAL;
+            $this->team_attitude_president = Attitude::NEUTRAL;
+            $this->team_attitude_u19 = Attitude::NEUTRAL;
+            $this->team_attitude_u21 = Attitude::NEUTRAL;
+            $this->team_user_id = 0;
+            $this->team_vice_id = 0;
+            $this->save(true, [
+                'team_auto',
+                'team_attitude_national',
+                'team_attitude_president',
+                'team_attitude_u19',
+                'team_attitude_u21',
+                'team_user_id',
+                'team_vice_id',
             ]);
+
+            TransferApplication::deleteAll([
+                'transfer_application_team_id' => $this->team_id,
+                'transfer_application_transfer_id' => Transfer::find()
+                    ->select(['transfer_id'])
+                    ->where(['transfer_ready' => 0])
+                    ->column()
+            ]);
+
+            TransferApplication::deleteAll([
+                'transfer_application_transfer_id' => Transfer::find()
+                    ->select(['transfer_id'])
+                    ->where(['transfer_ready' => 0, 'transfer_team_seller_id' => $this->team_id])
+                    ->column()
+            ]);
+
+            $transferDeleteArray = Transfer::find()
+                ->where(['transfer_team_seller_id' => $this->team_id, 'transfer_ready' => 0])
+                ->all();
+            foreach ($transferDeleteArray as $transferDelete) {
+                $transferDelete->delete();
+            }
+
+            LoanApplication::deleteAll([
+                'loan_application_team_id' => $this->team_id,
+                'loan_application_loan_id' => Loan::find()
+                    ->select(['loan_id'])
+                    ->where(['loan_ready' => 0])
+                    ->column()
+            ]);
+
+            LoanApplication::deleteAll([
+                'loan_application_loan_id' => Loan::find()
+                    ->select(['loan_id'])
+                    ->where(['loan_ready' => 0, 'loan_team_seller_id' => $this->team_id])
+                    ->column()
+            ]);
+
+            $loanDeleteArray = Loan::find()
+                ->where(['loan_team_seller_id' => $this->team_id, 'loan_ready' => 0])
+                ->all();
+            foreach ($loanDeleteArray as $loanDelete) {
+                $loanDelete->delete();
+            }
+
+            History::log([
+                'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_OUT,
+                'history_team_id' => $this->team_id,
+                'history_user_id' => $userId,
+            ]);
+
+            if ($viceId) {
+                History::log([
+                    'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
+                    'history_team_id' => $this->team_id,
+                    'history_user_id' => $viceId,
+                ]);
+            }
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
         }
+
+        $transaction->commit();
     }
 
     /**
