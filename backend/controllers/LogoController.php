@@ -62,9 +62,9 @@ class LogoController extends AbstractController
         $model = Logo::find()->where(['logo_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
-        $file = Yii::getAlias('@webroot') . '/upload/img/team/125/' . $model->team->team_id . '.png';
+        $file = Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png';
         if (file_exists($file)) {
-            rename($file, Yii::getAlias('@webroot') . '/img/team/125/' . $model->team->team_id . '.png');
+            rename($file, Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png');
         }
 
         $model->delete();
