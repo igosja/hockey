@@ -164,7 +164,7 @@ class MakeLoan
                     'finance_finance_text_id' => FinanceText::OUTCOME_LOAN,
                     'finance_player_id' => $loan->loan_player_id,
                     'finance_team_id' => $loanApplication->loan_application_team_id,
-                    'finance_value' => $price,
+                    'finance_value' => -$price,
                     'finance_value_after' => $loanApplication->team->team_finance - $price,
                     'finance_value_before' => $loanApplication->team->team_finance,
                 ]);

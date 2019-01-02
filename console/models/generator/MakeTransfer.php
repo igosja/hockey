@@ -177,7 +177,7 @@ class MakeTransfer
                     'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transferApplication->transfer_application_team_id,
-                    'finance_value' => $transferApplication->transfer_application_price,
+                    'finance_value' => -$transferApplication->transfer_application_price,
                     'finance_value_after' => $transferApplication->team->team_finance - $transferApplication->transfer_application_price,
                     'finance_value_before' => $transferApplication->team->team_finance,
                 ]);
