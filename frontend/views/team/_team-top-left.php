@@ -86,6 +86,9 @@ use yii\helpers\Html;
                         ['stadium/increase']
                     ); ?>
                 <?php endif; ?>
+                <?php if ($team->buildingStadium) : ?>
+                    <i class="fa fa-cog" aria-hidden="true" title="На стадионе идет строительство"></i>
+                <?php endif; ?>
             </div>
         </div>
         <div class="row">
@@ -99,6 +102,9 @@ use yii\helpers\Html;
                     '<i class="fa fa-search" aria-hidden="true"></i>',
                     ['base/view', 'id' => $team->team_id]
                 ); ?>
+                <?php if ($team->buildingBase) : ?>
+                    <i class="fa fa-cog" aria-hidden="true" title="На базе идет строительство"></i>
+                <?php endif; ?>
             </div>
         </div>
         <div class="row margin-top-small">
