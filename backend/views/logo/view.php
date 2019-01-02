@@ -63,9 +63,9 @@ use yii\widgets\DetailView;
                 'format' => 'raw',
                 'label' => 'Старый логотип',
                 'value' => function (Logo $model): string {
-                    if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $model->team->team_id . '.png')) {
+                    if (file_exists(Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png')) {
                         return Html::img(
-                            '/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $model->team->team_id . '.png'),
+                            '/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png'),
                             [
                                 'alt' => $model->team->team_name,
                                 'title' => $model->team->team_name,
@@ -79,9 +79,9 @@ use yii\widgets\DetailView;
                 'format' => 'raw',
                 'label' => 'Новый логотип',
                 'value' => function (Logo $model): string {
-                    if (file_exists(Yii::getAlias('@webroot') . '/upload/img/team/125/' . $model->team->team_id . '.png')) {
+                    if (file_exists(Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png')) {
                         return Html::img(
-                            '/upload/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/upload/img/team/125/' . $model->team->team_id . '.png'),
+                            '/upload/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png'),
                             [
                                 'alt' => $model->team->team_name,
                                 'title' => $model->team->team_name,
