@@ -63,7 +63,7 @@ class Logo extends AbstractActiveRecord
      */
     public function beforeDelete(): bool
     {
-        $file = Yii::getAlias('@webroot') . '/upload/img/team/125/' . $this->team->team_id . '.png';
+        $file = Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $this->team->team_id . '.png';
         if (file_exists($file)) {
             unlink($file);
         }
