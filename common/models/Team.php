@@ -573,7 +573,7 @@ class Team extends AbstractActiveRecord
                 'finance_value_before' => $this->team_finance,
             ]);
 
-            $this->team_base_id = 1;
+            $this->team_base_id = 2;
             $this->team_base_medical_id = 1;
             $this->team_base_physical_id = 1;
             $this->team_base_school_id = 1;
