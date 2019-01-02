@@ -466,6 +466,168 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public function reRegister(): array
+    {
+        if ($this->base->base_level >= 5) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: база команды достигла 5-го уровня.'
+            ];
+        }
+
+        if ($this->buildingBase) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: на базе идет строительство.'
+            ];
+        }
+
+        if ($this->buildingStadium) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: на стадионе идет строительство.'
+            ];
+        }
+
+        $player = Player::find()
+            ->where(['player_loan_team_id' => $this->team_id])
+            ->count();
+        if ($player) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: в команде находятся арендованные игроки.'
+            ];
+        }
+
+        $player = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_loan_team_id', 0])
+            ->count();
+        if ($player) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: игроки команды находятся в аренде.'
+            ];
+        }
+
+        $player = Player::find()
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_national_id', 0])
+            ->count();
+        if ($player) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: в команде есть игроки сборной.'
+            ];
+        }
+
+        $transfer = Transfer::find()
+            ->where(['transfer_team_seller_id' => $this->team_id, 'transfer_ready' => 0])
+            ->count();
+        if ($transfer) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: игроки команды выставлены на продажу.'
+            ];
+        }
+
+        $loan = Loan::find()
+            ->where(['loan_team_seller_id' => $this->team_id, 'loan_ready' => 0])
+            ->count();
+        if ($loan) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: игроки команды выставлены на аренду.'
+            ];
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $playerArray = Player::find()
+                ->where(['player_team_id' => $this->team_id])
+                ->all();
+            foreach ($playerArray as $player) {
+                $player->makeFree();
+            }
+
+            Training::deleteAll([
+                'training_team_id' => $this->team_id,
+                'training_season_id' => Season::getCurrentSeason()
+            ]);
+            Scout::deleteAll(['scout_team_id' => $this->team_id, 'scout_season_id' => Season::getCurrentSeason()]);
+            School::deleteAll(['school_team_id' => $this->team_id, 'school_season_id' => Season::getCurrentSeason()]);
+            PhysicalChange::deleteAll([
+                'physical_change_team_id' => $this->team_id,
+                'physical_change_season_id' => Season::getCurrentSeason()
+            ]);
+
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::TEAM_RE_REGISTER,
+                'finance_team_id' => $this->team_id,
+                'finance_value' => Team::START_MONEY - $this->team_finance,
+                'finance_value_after' => Team::START_MONEY,
+                'finance_value_before' => $this->team_finance,
+            ]);
+
+            $this->team_base_id = 1;
+            $this->team_base_medical_id = 1;
+            $this->team_base_physical_id = 1;
+            $this->team_base_school_id = 1;
+            $this->team_base_scout_id = 1;
+            $this->team_base_training_id = 1;
+            $this->team_finance = Team::START_MONEY;
+            $this->team_free_base = 5;
+            $this->team_mood_rest = 3;
+            $this->team_mood_super = 3;
+            $this->team_visitor = 100;
+            $this->save(true, [
+                'team_base_id',
+                'team_base_medical_id',
+                'team_base_physical_id',
+                'team_base_school_id',
+                'team_base_scout_id',
+                'team_base_training_id',
+                'team_finance',
+                'team_free_base',
+                'team_mood_rest',
+                'team_mood_super',
+                'team_visitor',
+            ]);
+
+            $this->stadium->stadium_capacity = 100;
+            $this->stadium->countMaintenance();
+            $this->stadium->save(true, [
+                'stadium_capacity',
+                'stadium_maintenance',
+            ]);
+
+            History::log([
+                'history_history_text_id' => HistoryText::TEAM_RE_REGISTER,
+                'history_team_id' => $this->team_id,
+            ]);
+
+            $this->createPlayers();
+            $this->updatePower();
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+            return [
+                'status' => false,
+                'message' => 'Не удалось провести перерегистрацию команды',
+            ];
+        }
+        $transaction->commit();
+        return [
+            'status' => true,
+            'message' => 'Команда успешно перерегистрирована.',
+        ];
+    }
+
+    /**
      * @return string
      */
     public function logo(): string
