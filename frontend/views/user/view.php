@@ -174,7 +174,10 @@ print $this->render('_top');
 <?php if (Yii::$app->user->id == Yii::$app->request->get('id')) : ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a href="javascript:">Перерегистрировать команду</a>
+        <?= Html::a(
+            'Перерегистрировать команду',
+            ['user/re-register']
+        ); ?>
         |
         <?= Html::a(
             'Отказаться от команды',
