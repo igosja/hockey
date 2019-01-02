@@ -1128,7 +1128,7 @@ class Team extends AbstractActiveRecord
      */
     public function getStadium(): ActiveQuery
     {
-        return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id'])->cache();
+        return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
     }
 
     /**
