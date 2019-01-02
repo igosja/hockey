@@ -87,7 +87,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'label' => 'Продавец',
                     'value' => function (Transfer $model): string {
-                        return $model->seller->teamLink();
+                        return $model->seller->teamLink('img');
                     }
                 ],
                 [
@@ -96,11 +96,13 @@ print $this->render('//player/_player', ['player' => $player]);
                     'label' => 'Покупатель',
                     'headerOptions' => ['class' => 'col-25'],
                     'value' => function (Transfer $model): string {
-                        return $model->buyer->teamLink();
+                        return $model->buyer->teamLink('img');
                     }
                 ],
                 [
+                    'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
+                    'format' => 'raw',
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
                     'value' => function (Transfer $model): string {
@@ -188,7 +190,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'label' => 'Владелец',
                     'value' => function (Loan $model): string {
-                        return $model->seller->teamLink();
+                        return $model->seller->teamLink('img');
                     }
                 ],
                 [
@@ -197,7 +199,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'headerOptions' => ['class' => 'col-25'],
                     'label' => 'Арендатор',
                     'value' => function (Loan $model): string {
-                        return $model->buyer->teamLink();
+                        return $model->buyer->teamLink('img');
                     }
                 ],
                 [
@@ -212,6 +214,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
+                    'format' => 'raw',
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
                     'value' => function (Loan $model): string {
