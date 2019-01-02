@@ -63,6 +63,11 @@ class LogoController extends AbstractController
         $this->notFound($model);
 
         $file = Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png';
+        print '<pre>';
+        print_r($file);
+        print '<pre>';
+        print_r(file_exists($file));
+        exit;
         if (file_exists($file)) {
             rename($file, Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png');
         }
