@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\components\TimeZoneHelper;
 use common\models\Achievement;
 use common\models\Country;
@@ -18,6 +19,7 @@ use common\models\UserRating;
 use frontend\models\ChangePassword;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -27,6 +29,26 @@ use yii\widgets\ActiveForm;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['drop-team', 'transfer-money', 'questionnaire', 'holiday', 'password', 'referral'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['drop-team', 'transfer-money', 'questionnaire', 'holiday', 'password', 'referral'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @param int $id
      * @return string|\yii\web\Response
@@ -308,7 +330,10 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function actionReferral()
+    /**
+     * @return string
+     */
+    public function actionReferral(): string
     {
         Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
         $query = User::find()
@@ -323,5 +348,33 @@ class UserController extends AbstractController
         return $this->render('referral', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionDropTeam()
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            try {
+                $this->myTeam->managerFire();
+                $this->setSuccessFlash();
+            } catch (\Exception $e) {
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+
+            return $this->refresh();
+        }
+
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+
+        $this->setSeoTitle('Отказ от команды');
+
+        return $this->render('drop-team');
     }
 }

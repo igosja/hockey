@@ -132,6 +132,37 @@ class History extends AbstractActiveRecord
                 $text
             );
         }
+        if (false !== strpos($text, '{building}')) {
+            $building = '';
+            if (Building::BASE == $this->history_building_id) {
+                $building = 'база';
+            } elseif (Building::MEDICAL == $this->history_building_id) {
+                $building = 'медцентр';
+            } elseif (Building::PHYSICAL == $this->history_building_id) {
+                $building = 'центр физподготовки';
+            } elseif (Building::SCHOOL == $this->history_building_id) {
+                $building = 'спортшкола';
+            } elseif (Building::SCOUT == $this->history_building_id) {
+                $building = 'скаут-центр';
+            } elseif (Building::TRAINING == $this->history_building_id) {
+                $building = 'тренировочный центр';
+            }
+            $text = str_replace(
+                '{building}',
+                $building,
+                $text
+            );
+        }
+        $text = str_replace(
+            '{capacity}',
+            $this->history_value,
+            $text
+        );
+        $text = str_replace(
+            '{level}',
+            $this->history_value,
+            $text
+        );
         return $text;
     }
 

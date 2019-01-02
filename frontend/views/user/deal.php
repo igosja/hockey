@@ -42,6 +42,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'label' => 'Игрок',
                 'value' => function (Transfer $model): string {
                     return Html::a(
@@ -167,6 +168,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'label' => 'Игрок',
                 'value' => function (Transfer $model): string {
                     return Html::a(
@@ -292,6 +294,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'label' => 'Игрок',
                 'value' => function (Loan $model): string {
                     return Html::a(
@@ -425,6 +428,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Игрок',
+                'format' => 'raw',
                 'label' => 'Игрок',
                 'value' => function (Loan $model): string {
                     return Html::a(

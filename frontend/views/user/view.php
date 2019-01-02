@@ -176,7 +176,10 @@ print $this->render('_top');
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a href="javascript:">Перерегистрировать команду</a>
         |
-        <a href="javascript:">Отказаться от команды</a>
+        <?= Html::a(
+            'Отказаться от команды',
+            ['user/drop-team']
+        ); ?>
     </div>
 </div>
 <?php endif; ?>

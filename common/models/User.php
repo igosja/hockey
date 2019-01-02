@@ -148,6 +148,22 @@ class User extends AbstractActiveRecord implements IdentityInterface
             ],
             [['user_code'], 'string', 'length' => 32],
             [['user_email'], 'unique'],
+            [
+                [
+                    'user_birth_day',
+                    'user_birth_month',
+                    'user_birth_year',
+                    'user_country_id',
+                    'user_sex_id',
+                ],
+                'filter',
+                'filter' => function ($value) {
+                    if (!$value) {
+                        $value = 0;
+                    }
+                    return $value;
+                }
+            ]
         ];
     }
 
