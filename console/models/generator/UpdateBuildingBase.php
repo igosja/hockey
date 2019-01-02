@@ -19,7 +19,7 @@ class UpdateBuildingBase
      */
     public function execute(): void
     {
-        BuildingBase::updateAllCounters(['building_base_day' => -1], ['building_base_ready' => 0]);
+//        BuildingBase::updateAllCounters(['building_base_day' => -1], ['building_base_ready' => 0]);
 
         $buildingBaseArray = BuildingBase::find()
             ->with(['building', 'team'])
