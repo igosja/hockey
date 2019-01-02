@@ -30,7 +30,6 @@ use yii\helpers\Html;
                 },
             ],
             [
-                'headerOptions' => ['class' => 'col-lg-1'],
                 'label' => 'Время заявки',
                 'value' => function (Logo $model) {
                     return FormatHelper::asDateTime($model->logo_date);
@@ -38,14 +37,12 @@ use yii\helpers\Html;
             ],
             [
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-lg-1'],
                 'label' => 'Пользователь',
                 'value' => function (Logo $model) {
                     return $model->user->userLink();
                 },
             ],
             [
-                'headerOptions' => ['class' => 'col-lg-1'],
                 'label' => 'Команда',
                 'value' => function (Logo $model) {
                     return $model->team->team_name;
