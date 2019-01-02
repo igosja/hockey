@@ -59,7 +59,7 @@ print $this->render('_top');
 ); ?>
 <?= $form->field($model, 'user_sex_id')->dropDownList(
     $sexArray,
-    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
+    ['class' => 'form-control form-small']
 ); ?>
 <div class="row">
     <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">
@@ -93,7 +93,7 @@ print $this->render('_top');
 </div>
 <?= $form->field($model, 'user_timezone')->dropDownList(
     $timeZoneArray,
-    ['class' => 'form-control form-small', 'prompt' => 'Не указано']
+    ['class' => 'form-control form-small']
 ); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
