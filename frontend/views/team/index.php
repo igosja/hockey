@@ -3,6 +3,7 @@
 use common\components\ErrorHelper;
 use common\models\Team;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
@@ -24,7 +25,11 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'label' => 'Страна',
                 'value' => function (Team $model): string {
-                    return $model->stadium->city->country->countryLink();
+                    return $model->stadium->city->country->countryImage()
+                        . ' ' . Html::a(
+                            $model->stadium->city->country->country_name,
+                            ['country/team', 'id' => $model->stadium->city->country->country_id]
+                        );
                 }
             ],
             [
