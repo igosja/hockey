@@ -5,7 +5,6 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
-use console\models\generator\CheckCronDate;
 use console\models\generator\CountryStadiumCapacity;
 use console\models\generator\DecreaseInjury;
 use console\models\generator\FriendlyInviteDelete;
@@ -167,7 +166,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+//            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
