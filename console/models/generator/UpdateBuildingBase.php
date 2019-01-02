@@ -32,6 +32,8 @@ class UpdateBuildingBase
              * @var BuildingBase $buildingBase
              */
             $buildingName = $buildingBase->building->building_name;
+            $relationName = str_replace('_', '', $buildingName);
+            $relationName{4} = strtoupper($relationName{4});
             $buildingLevel = $buildingName . '_level';
             $buildingId = 'team_' . $buildingName . '_id';
 
@@ -51,7 +53,7 @@ class UpdateBuildingBase
                 'history_building_id' => $buildingBase->building_base_building_id,
                 'history_history_text_id' => $historyTextId,
                 'history_team_id' => $buildingBase->building_base_team_id,
-                'history_value' => $buildingBase->team->$buildingName->$buildingLevel,
+                'history_value' => $buildingBase->team->$relationName->$buildingLevel,
             ]);
         }
 
