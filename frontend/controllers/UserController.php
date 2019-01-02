@@ -17,9 +17,11 @@ use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
 use frontend\models\ChangePassword;
+use frontend\models\UserTransferMoney;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -37,11 +39,27 @@ class UserController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['drop-team', 'transfer-money', 'questionnaire', 'holiday', 'password', 'referral'],
+                'only' => [
+                    'drop-team',
+                    'transfer-money',
+                    'questionnaire',
+                    'holiday',
+                    'password',
+                    'money-transfer',
+                    'referral',
+                ],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['drop-team', 'transfer-money', 'questionnaire', 'holiday', 'password', 'referral'],
+                        'actions' => [
+                            'drop-team',
+                            'transfer-money',
+                            'questionnaire',
+                            'holiday',
+                            'password',
+                            'money-transfer',
+                            'referral',
+                        ],
                         'roles' => ['@'],
                     ],
                 ],
@@ -327,6 +345,34 @@ class UserController extends AbstractController
 
         return $this->render('password', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionMoneyTransfer()
+    {
+        $model = new UserTransferMoney(['user' => Yii::$app->user->identity]);
+
+        $countryArray = Country::find()
+            ->where(['!=', 'country_id', 0])
+            ->orderBy(['country_name' => SORT_ASC])
+            ->all();
+
+        $teamArray = Team::find()
+            ->where(['!=', 'team_id', 0])
+            ->orderBy(['team_name' => SORT_ASC])
+            ->all();
+        $teamItems = [];
+
+        foreach ($teamArray as $team) {
+            $teamItems[$team->team_id] = $team->fullName();
+        }
+
+        $this->setSeoTitle('Перевод денег с личного счета');
+
+        return $this->render('transfer-money', [
+            'countryArray' => ArrayHelper::map($countryArray, 'country_id', 'country_name'),
+            'model' => $model,
+            'teamArray' => $teamItems,
         ]);
     }
 
