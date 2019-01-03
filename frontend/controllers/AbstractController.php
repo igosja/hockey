@@ -49,6 +49,10 @@ abstract class AbstractController extends Controller
             return false;
         }
 
+        if ('ru' != Yii::$app->language) {
+            Yii::$app->language = 'ru';
+        }
+
         $allowedIp = [
             '62.205.148.101',//Peremohy-60
             '185.38.209.242',//Zhabaeva-7
