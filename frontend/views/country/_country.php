@@ -1,6 +1,6 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Country;
 use yii\helpers\Html;
 
@@ -87,15 +87,7 @@ $file_name = 'file_name';
             Фонд федерации:
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($country->country_finance, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($country->country_finance); ?>
         </div>
     </div>
 <?php if (in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) : ?>
@@ -117,13 +109,13 @@ $file_name = 'file_name';
                     ['country/money-transfer', 'id' => Yii::$app->request->get('id')]
                 ); ?>
             <?php endif; ?>
-            <?php if ((Yii::$app->user->id == $country->country_president_id && $country->country_president_vice_id) || Yii::$app->user->id == $country->country_president_vice_id) { ?>
+            <?php if ((Yii::$app->user->id == $country->country_president_id && $country->country_president_vice_id) || Yii::$app->user->id == $country->country_president_vice_id) : ?>
                 |
                 <?= Html::a(
                     'Отказаться от должности',
                     ['country/fire', 'id' => Yii::$app->request->get('id')]
                 ); ?>
-            <?php } ?>
+            <?php endif; ?>
         </div>
     </div>
 <?php endif; ?>
