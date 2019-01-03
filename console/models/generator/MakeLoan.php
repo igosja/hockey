@@ -158,7 +158,7 @@ class MakeLoan
                 ]);
 
                 $loan->seller->team_finance = $loan->seller->team_finance + $price;
-                $loan->seller->save();
+                $loan->seller->save(true, ['team_finance']);
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::OUTCOME_LOAN,
@@ -170,7 +170,7 @@ class MakeLoan
                 ]);
 
                 $loanApplication->team->team_finance = $loanApplication->team->team_finance - $price;
-                $loanApplication->team->save();
+                $loanApplication->team->save(true, ['team_finance']);
 
                 $loan->player->player_squad_id = 0;
                 $loan->player->player_loan_day = $loanApplication->loan_application_day;
