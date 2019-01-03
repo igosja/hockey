@@ -142,6 +142,17 @@ class CountryController extends AbstractController
 
     /**
      * @param int $id
+     * @return string|\yii\web\Response
+     */
+    public function actionNational(int $id)
+    {
+        $this->setSeoTitle('Сборные');
+
+        return $this->render('national');
+    }
+
+    /**
+     * @param int $id
      * @return string
      */
     public function actionFinance(int $id)
