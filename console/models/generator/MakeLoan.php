@@ -225,7 +225,7 @@ class MakeLoan
                     $transferDelete->delete();
                 }
 
-                $loanDeleteArray = Transfer::find()
+                $loanDeleteArray = Loan::find()
                     ->where(['loan_player_id' => $loan->loan_player_id, 'loan_ready' => 0])
                     ->all();
                 foreach ($loanDeleteArray as $loadDelete) {
