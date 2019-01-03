@@ -164,7 +164,7 @@ $user = Yii::$app->user->identity;
                 'value' => function (Championship $model): string {
                     return $model->team->team_power_vs;
                 },
-                'visible' => $user->isVip(),
+                'visible' => $user && $user->isVip(),
             ],
         ];
         print GridView::widget([
