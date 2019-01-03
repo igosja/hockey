@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\Finance;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -46,7 +47,7 @@ print $this->render('_country');
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asDate($model->finance_date, 'short');
+                    return FormatHelper::asDate($model->finance_date);
                 }
             ],
             [
@@ -56,7 +57,7 @@ print $this->render('_country');
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Было',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value_before, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value_before);
                 }
             ],
             [
@@ -65,7 +66,7 @@ print $this->render('_country');
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => '+/-',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value);
                 }
             ],
             [
@@ -75,7 +76,7 @@ print $this->render('_country');
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стало',
                 'value' => function (Finance $model): string {
-                    return Yii::$app->formatter->asCurrency($model->finance_value_after, 'USD');
+                    return FormatHelper::asCurrency($model->finance_value_after);
                 }
             ],
             [
