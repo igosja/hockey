@@ -16,6 +16,11 @@ use yii\helpers\Html;
         <h3 class="page-header"><?= Html::encode($this->title); ?></h3>
     </div>
 </div>
+<ul class="list-inline preview-links text-center">
+    <li>
+        <?= Html::a('Создать', ['city/create'], ['class' => 'btn btn-default']); ?>
+    </li>
+</ul>
 <div class="row">
     <?php
 

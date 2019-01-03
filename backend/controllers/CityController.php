@@ -32,6 +32,38 @@ class CityController extends AbstractController
     }
 
     /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionCreate()
+    {
+        $model = new City();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash();
+            return $this->redirect(['city/view', 'id' => $model->city_id]);
+        }
+
+        $countryArray = ArrayHelper::map(
+            Country::find()
+                ->where(['!=', 'country_id', 0])
+                ->orderBy(['country_name' => SORT_ASC])
+                ->all(),
+            'country_id',
+            'country_name'
+        );
+
+        $this->view->title = 'Создание города';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Города', 'url' => ['city/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('create', [
+            'model' => $model,
+            'countryArray' => $countryArray,
+        ]);
+    }
+
+    /**
      * @param int $id
      * @return string|\yii\web\Response
      * @throws \Exception
