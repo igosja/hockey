@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Country;
 use common\models\Finance;
+use common\models\LeagueDistribution;
 use common\models\News;
 use common\models\Poll;
 use common\models\PollStatus;
@@ -149,6 +150,28 @@ class CountryController extends AbstractController
         $this->setSeoTitle('Сборные');
 
         return $this->render('national');
+    }
+
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     */
+    public function actionLeague(int $id)
+    {
+        $query = LeagueDistribution::find()
+            ->where(['league_distribution_country_id' => $id])
+            ->orderBy(['league_distribution_season_id' => SORT_DESC])
+            ->limit(1);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle('Лига чемпионов');
+
+        return $this->render('league', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

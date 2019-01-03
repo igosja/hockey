@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use Exception;
 use Yii;
 use yii\base\NotSupportedException;
@@ -330,12 +331,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
         } elseif (0 == $date) {
             $date = '-';
         } else {
-            try {
-                $date = Yii::$app->formatter->asDatetime($date);
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-                $date = '-';
-            }
+            $date = FormatHelper::asDateTime($date);
         }
 
         return $date;
