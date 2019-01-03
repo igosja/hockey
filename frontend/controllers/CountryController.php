@@ -143,9 +143,9 @@ class CountryController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string
      */
-    public function actionNational(int $id)
+    public function actionNational(int $id): string
     {
         $this->setSeoTitle('Сборные');
 
@@ -154,9 +154,9 @@ class CountryController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string
      */
-    public function actionLeague(int $id)
+    public function actionLeague(int $id): string
     {
         $query = LeagueDistribution::find()
             ->where(['league_distribution_country_id' => $id])
@@ -178,7 +178,7 @@ class CountryController extends AbstractController
      * @param int $id
      * @return string
      */
-    public function actionFinance(int $id)
+    public function actionFinance(int $id): string
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
