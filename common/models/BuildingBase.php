@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use Exception;
 use Yii;
@@ -74,20 +75,26 @@ class BuildingBase extends AbstractActiveRecord
      */
     public function endDate(): string
     {
+        if (753 == Yii::$app->request->get('buildate')) {
+            $dateTime = new \DateTime();
+            $dateTimeUtc = new \DateTime('now', new \DateTimeZone('UTC'));
+            print '<pre>';
+            print_r($dateTime->getTimestamp());
+            print '<pre>';
+            print_r($dateTimeUtc->getTimestamp());
+            print '<pre>';
+            print_r(strtotime(date('Y-m-d H:i:s')));
+            print '<pre>';
+            print_r(time());
+            exit;
+        }
         $day = $this->building_base_day;
 
         if (strtotime(date('Y-m-d 12:00:00')) > time()) {
             $day--;
         }
 
-        try {
-            $result = Yii::$app->formatter->asDate(strtotime('+' . $day . 'days'), 'short');
-        } catch (Exception $e) {
-            ErrorHelper::log($e);
-            $result = '';
-        }
-
-        return $result;
+        return FormatHelper::asDate(strtotime('+' . $day . 'days'));
     }
 
     /**
