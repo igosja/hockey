@@ -73,7 +73,7 @@ class BuildingStadium extends AbstractActiveRecord
     {
         $day = $this->building_stadium_day;
 
-        if (strtotime(date('Y-m-d 12:00:00')) > time()) {
+        if (strtotime(date('Y-m-d 09:00:00')) > time()) {
             $day--;
         }
 
