@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Support;
 use Yii;
+use yii\filters\AccessControl;
 
 /**
  * Class SupportController
@@ -12,16 +13,29 @@ use Yii;
 class SupportController extends AbstractController
 {
     /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @return string|\yii\web\Response
      * @throws \Exception
-     * @throws \yii\web\ForbiddenHttpException
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            $this->forbiddenAuth();
-        }
-
         $model = new Support();
         if ($model->addQuestion()) {
             $this->setSuccessFlash('Сообщение успешно сохраненo');

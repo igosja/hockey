@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
  * @property int $message_user_id_to
  *
  * @property User $userFrom
+ * @property User $userTo
  */
 class Message extends AbstractActiveRecord
 {
@@ -96,5 +97,13 @@ class Message extends AbstractActiveRecord
     public function getUserFrom(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'message_user_id_from']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUserTo(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['user_id' => 'message_user_id_to']);
     }
 }
