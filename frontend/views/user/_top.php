@@ -27,7 +27,7 @@ $user = User::find()->where(['user_id' => Yii::$app->request->get('id', Yii::$ap
                 <?php if ($user->canDialog()) : ?>
                     <?= Html::a(
                         '<i class="fa fa-envelope-o"></i>',
-                        ['dialog/view', 'id' => $user->user_id]
+                        ['messenger/view', 'id' => $user->user_id]
                     ); ?>
                 <?php endif; ?>
                 <?php if ($user->user_holiday) : ?>
