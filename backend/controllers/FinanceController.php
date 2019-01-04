@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Finance;
+use common\models\FinanceText;
 use common\models\Team;
 
 /**
@@ -33,7 +34,13 @@ class FinanceController extends AbstractController
             foreach ($financeArray as $finance) {
                 $finance->finance_value_before = $value;
                 $finance->finance_value_after = $value + $finance->finance_value;
-                $finance->save(true, ['finance_value_before', 'finance_value_after']);
+
+                if (FinanceText::TEAM_RE_REGISTER == $finance->finance_finance_text_id) {
+                    $finance->finance_value = Team::START_MONEY - $value;
+                    $finance->finance_value_after = Team::START_MONEY;
+                }
+
+                $finance->save(true, ['finance_value_before', 'finance_value_after', 'finance_value']);
                 $value = $finance->finance_value_after;
             }
             $team->team_finance = $value;

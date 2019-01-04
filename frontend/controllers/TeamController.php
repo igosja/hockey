@@ -20,6 +20,7 @@ use common\models\Transfer;
 use common\models\User;
 use Exception;
 use frontend\models\ChangeMyTeam;
+use frontend\models\TeamChange;
 use frontend\models\TeamLogo;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -42,11 +43,11 @@ class TeamController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['ask', 'change-my-team', 'logo'],
+                'only' => ['ask', 'change-my-team', 'logo', 'change'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['ask', 'change-my-team', 'logo'],
+                        'actions' => ['ask', 'change-my-team', 'logo', 'change'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -562,8 +563,8 @@ class TeamController extends AbstractController
 
         if ($id) {
             if (!Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->count()) {
-                Yii::$app->session->setFlash('error', 'The team was chosen incorrectly.');
-                return $this->redirect(['ask']);
+                Yii::$app->session->setFlash('error', 'Команда выбрана неправильно.');
+                return $this->redirect(['team/ask']);
             }
 
             if (TeamAsk::find()->where([
@@ -702,6 +703,228 @@ class TeamController extends AbstractController
         $this->setSeoTitle('Получение команды');
 
         return $this->render('ask', [
+            'dataProvider' => $dataProvider,
+            'teamAskArray' => $teamAskArray,
+        ]);
+    }
+
+    /**
+     * @param null $id
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionChange($id = null)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        $this->setSeoTitle('Смена команды');
+
+        if ($id) {
+            $team = Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->limit(1)->one();
+            if (!$team) {
+                Yii::$app->session->setFlash('error', 'Команда выбрана неправильно.');
+                return $this->redirect(['team/change']);
+            }
+
+            if (TeamAsk::find()->where([
+                'team_ask_team_id' => $id,
+                'team_ask_user_id' => Yii::$app->user->id
+            ])->count()) {
+                Yii::$app->session->setFlash('error', 'Вы уже подали заявку на эту команду.');
+                return $this->redirect(['team/change']);
+            }
+
+            $model = new TeamChange();
+
+            $leaveArray = [];
+            if (!$user->isVip()) {
+                if (1 == count($this->myTeamArray)) {
+                    $leaveArray[$this->myTeam->team_id] = $this->myTeam->fullName();
+                } else {
+                    $teamCountryArray = Team::find()
+                        ->joinWith(['stadium.city.country'])
+                        ->where([
+                            'country_id'=> $team->stadium->city->country->country_id,
+                            'team_user_id' => $user->user_id,
+                        ])
+                        ->all();
+                    if ($teamCountryArray) {
+                        foreach ($teamCountryArray as $item) {
+                            /**
+                             * @var Team $item
+                             */
+                            $leaveArray[$item->team_id] = $item->fullName();
+                        }
+                    } else {
+                        foreach ($this->myTeamArray as $item) {
+                            $leaveArray[$item->team_id] = $item->fullName();
+                        }
+                    }
+                }
+            } else {
+                if (1 == count($this->myTeamArray)) {
+                    $leaveArray[0] = 'Беру дополнительную команду';
+                    $leaveArray[$this->myTeam->team_id] = $this->myTeam->fullName();
+                } else {
+                    $teamCountryArray = Team::find()
+                        ->joinWith(['stadium.city.country'])
+                        ->where([
+                            'country_id'=> $team->stadium->city->country->country_id,
+                            'team_user_id' => $user->user_id,
+                        ])
+                        ->all();
+                    if ($teamCountryArray) {
+                        foreach ($teamCountryArray as $item) {
+                            $leaveArray[$item->team_id] = $item->fullName();
+                        }
+                    } else {
+                        foreach ($this->myTeamArray as $item) {
+                            $leaveArray[$item->team_id] = $item->fullName();
+                        }
+                    }
+                }
+            }
+
+            if (Yii::$app->request->get('ok') && $model->load(Yii::$app->request->post()) && in_array($model->leaveId, array_keys($leaveArray))) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $teamAsk = new TeamAsk();
+                    $teamAsk->team_ask_team_id = $id;
+                    $teamAsk->team_ask_leave_id = $model->leaveId;
+                    $teamAsk->save();
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success', 'Заявка успешно подана.');
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+
+                return $this->redirect(['team/change']);
+            }
+
+            return $this->render('change-confirm', [
+                'model' => $model,
+                'leaveArray' => $leaveArray,
+                'team' => $team,
+            ]);
+        }
+
+        $delete = Yii::$app->request->get('delete');
+        if ($delete) {
+            TeamAsk::deleteAll(['team_ask_id' => $delete, 'team_ask_user_id' => Yii::$app->user->id]);
+
+            Yii::$app->session->setFlash('success', 'Заявка успешно удалена.');
+            return $this->redirect(['team/change']);
+        }
+
+        $teamAskArray = TeamAsk::find()
+            ->with([
+                'team' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
+                },
+                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
+                },
+                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['city_country_id', 'city_id', 'city_name']);
+                },
+                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    return $query->select(['country_id', 'country_name']);
+                },
+            ])
+            ->select(['team_ask_id', 'team_ask_team_id'])
+            ->where(['team_ask_user_id' => Yii::$app->user->id])
+            ->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => Team::find()
+                ->joinWith([
+                    'stadium' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
+                    },
+                    'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->with([
+                    'base' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_id', 'base_level', 'base_slot_max']);
+                    },
+                    'baseMedical' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_medical_id', 'base_medical_level']);
+                    },
+                    'basePhysical' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_physical_id', 'base_physical_level']);
+                    },
+                    'baseSchool' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_school_id', 'base_school_level']);
+                    },
+                    'baseScout' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_scout_id', 'base_scout_level']);
+                    },
+                    'baseTraining' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['base_training_id', 'base_training_level']);
+                    },
+                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['city_country_id', 'city_id', 'city_name']);
+                    },
+                    'teamAsk' => function (ActiveQuery $query): ActiveQuery {
+                        return $query->select(['team_ask_team_id']);
+                    }
+                ])
+                ->select([
+                    'team_id',
+                    'team_name',
+                    'team_power_vs',
+                    'team_base_id',
+                    'team_base_training_id',
+                    'team_base_scout_id',
+                    'team_base_school_id',
+                    'team_base_medical_id',
+                    'team_base_physical_id',
+                    'team_finance',
+                    'team_stadium_id',
+                ])
+                ->where(['!=', 'team_id', 0])
+                ->andWhere(['team_user_id' => 0]),
+            'sort' => [
+                'attributes' => [
+                    'base' => [
+                        'asc' => ['team_base_id' => SORT_ASC],
+                        'desc' => ['team_base_id' => SORT_DESC],
+                    ],
+                    'country' => [
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
+                    ],
+                    'finance' => [
+                        'asc' => ['team_finance' => SORT_ASC],
+                        'desc' => ['team_finance' => SORT_DESC],
+                    ],
+                    'stadium' => [
+                        'asc' => ['stadium_capacity' => SORT_ASC],
+                        'desc' => ['stadium_capacity' => SORT_DESC],
+                    ],
+                    'team' => [
+                        'asc' => ['team_name' => SORT_ASC],
+                        'desc' => ['team_name' => SORT_DESC],
+                    ],
+                    'vs' => [
+                        'asc' => ['team_power_vs' => SORT_ASC],
+                        'desc' => ['team_power_vs' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => ['vs' => SORT_DESC],
+            ],
+        ]);
+
+        $this->setSeoTitle('Смена команды');
+
+        return $this->render('change', [
             'dataProvider' => $dataProvider,
             'teamAskArray' => $teamAskArray,
         ]);
