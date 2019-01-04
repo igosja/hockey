@@ -156,7 +156,7 @@ class MakeTransfer
                     ]);
 
                     $transfer->seller->team_finance = $transfer->seller->team_finance + $transferApplication->transfer_application_price;
-                    $transfer->seller->save();
+                    $transfer->seller->save(true, ['team_finance']);
                 }
 
                 $schoolPrice = round($transferApplication->transfer_application_price / 100);
@@ -171,7 +171,7 @@ class MakeTransfer
                 ]);
 
                 $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance + $schoolPrice;
-                $transfer->player->schoolTeam->save();
+                $transfer->player->schoolTeam->save(true, ['team_finance']);
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
@@ -268,7 +268,7 @@ class MakeTransfer
                 ]);
 
                 $transfer->seller->team_finance = $transfer->seller->team_finance + $price;
-                $transfer->seller->save();
+                $transfer->seller->save(true, ['team_finance']);
 
                 $schoolPrice = round($price / 100);
 
@@ -282,7 +282,7 @@ class MakeTransfer
                 ]);
 
                 $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance + $schoolPrice;
-                $transfer->player->schoolTeam->save();
+                $transfer->player->schoolTeam->save(true, ['team_finance']);
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
