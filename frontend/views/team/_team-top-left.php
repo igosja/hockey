@@ -33,7 +33,7 @@ use yii\helpers\Html;
                 <?php if ($team->manager->canDialog()) : ?>
                     <?= Html::a(
                         '<i class="fa fa-envelope-o"></i>',
-                        ['dialog/view', 'id' => $team->manager->user_id]
+                        ['messenger/view', 'id' => $team->manager->user_id]
                     ); ?>
                 <?php endif; ?>
                 <?= Html::a(
@@ -57,7 +57,7 @@ use yii\helpers\Html;
                     <?php if ($team->vice->canDialog()) : ?>
                         <?= Html::a(
                             '<i class="fa fa-envelope-o"></i>',
-                            ['dialog/view', 'id' => $team->vice->user_id]
+                            ['messenger/view', 'id' => $team->vice->user_id]
                         ); ?>
                     <?php endif; ?>
                     <?= Html::a(
