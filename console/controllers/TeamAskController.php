@@ -75,13 +75,14 @@ class TeamAskController extends AbstractController
 
             TeamAsk::deleteAll(['team_ask_team_id' => $teamAsk['team_ask_team_id']]);
             TeamAsk::deleteAll(['team_ask_user_id' => $teamAsk['team_ask_user_id']]);
-            $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollBack();
             ErrorHelper::log($e);
 
             return false;
         }
+
+        $transaction->commit();
 
         return true;
     }

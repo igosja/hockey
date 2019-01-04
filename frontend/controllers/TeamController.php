@@ -720,6 +720,8 @@ class TeamController extends AbstractController
          */
         $user = Yii::$app->user->identity;
 
+        $this->setSeoTitle('Смена команды');
+
         if ($id) {
             $team = Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->limit(1)->one();
             if (!$team) {
@@ -751,6 +753,9 @@ class TeamController extends AbstractController
                         ->all();
                     if ($teamCountryArray) {
                         foreach ($teamCountryArray as $item) {
+                            /**
+                             * @var Team $item
+                             */
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     } else {

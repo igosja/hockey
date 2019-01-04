@@ -38,7 +38,7 @@ use yii\helpers\Html;
                         <td class="text-center">
                             <?= Html::a(
                                 '<i class="fa fa-times-circle"></i>',
-                                ['team/ask', 'delete' => $item->team_ask_id],
+                                ['team/change', 'delete' => $item->team_ask_id],
                                 ['title' => 'Удалить заявку']
                             ); ?>
                         </td>

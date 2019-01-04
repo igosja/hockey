@@ -31,18 +31,18 @@ use yii\widgets\ActiveForm;
 <?php $form = ActiveForm::begin([
     'action' => ['team/change', 'id' => $team->team_id, 'ok' => 1],
     'fieldConfig' => [
-        'errorOptions' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center'],
+        'errorOptions' => [
+            'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center team-logo-file-error notification-error',
+            'tag' => 'div'
+        ],
         'options' => ['class' => 'row'],
-        'template' =>
-            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{label}</div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{input}</div>
-            {error}',
+        'template' => '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{label} {input} {error}</div>',
     ],
     'options' => ['class' => 'form-inline'],
 ]); ?>
 <?= $form
     ->field($model, 'leaveId')
-    ->dropDownList($leaveArray, ['class' => 'form-control form-small'])
+    ->dropDownList($leaveArray, ['class' => 'form-control'])
     ->label('Какую команду вы отдаете взамен'); ?>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right xs-text-center">
