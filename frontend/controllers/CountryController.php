@@ -110,7 +110,7 @@ class CountryController extends AbstractController
             ],
         ]);
 
-        $this->setSeoTitle('Новости фередации');
+        $this->setSeoTitle('Новости федерации');
 
         return $this->render('news', [
             'dataProvider' => $dataProvider,
