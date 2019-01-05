@@ -2,7 +2,10 @@
 
 namespace frontend\widgets;
 
+use common\models\Message;
+use common\models\News;
 use common\models\Support;
+use common\models\User;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -198,11 +201,31 @@ class Menu extends Widget
      */
     private function setMenuItemList(): void
     {
+        $messenger = 0;
+        $news = 0;
         $support = 0;
         if (!Yii::$app->user->isGuest) {
             $support = Support::find()
                 ->where(['support_user_id' => Yii::$app->user->id, 'support_question' => 0, 'support_read' => 0])
                 ->count();
+
+            $messenger = Message::find()
+                ->where(['message_user_id_to' => Yii::$app->user->id, 'message_read' => 0])
+                ->count();
+
+            $lastUserNews = User::find()
+                ->select(['user_news_id'])
+                ->where(['user_id' => Yii::$app->user->id])
+                ->scalar();
+
+            $lastNews = News::find()
+                ->select(['news_id'])
+                ->orderBy(['news_id' => SORT_DESC])
+                ->scalar();
+
+            if ($lastNews > $lastUserNews) {
+                $news = 1;
+            }
         }
 
         $this->menuItemList = [
@@ -228,6 +251,7 @@ class Menu extends Widget
                 'url' => ['loan/index'],
             ],
             self::ITEM_MESSENGER => [
+                'css' => $messenger ? 'red' : '',
                 'label' => 'Общение',
                 'url' => ['messenger/index'],
             ],
@@ -236,6 +260,7 @@ class Menu extends Widget
                 'url' => ['national/index'],
             ],
             self::ITEM_NEWS => [
+                'css' => $news ? 'red' : '',
                 'label' => 'Новости',
                 'url' => ['news/index'],
             ],

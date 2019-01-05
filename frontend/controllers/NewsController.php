@@ -65,6 +65,13 @@ class NewsController extends AbstractController
             ],
         ]);
 
+        if (!Yii::$app->user->isGuest) {
+            User::updateAll(
+                ['user_news_id' => News::find()->select(['news_id'])->orderBy(['news_id' => SORT_DESC])->scalar()],
+                ['user_id' => Yii::$app->user->id]
+            );
+        }
+
         $this->setSeoTitle('Новости');
 
         return $this->render('index', [
