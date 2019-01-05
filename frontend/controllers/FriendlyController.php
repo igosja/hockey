@@ -194,6 +194,24 @@ class FriendlyController extends AbstractController
             ->andWhere(['!=', 'team_id', $team->team_id])
             ->andWhere(['!=', 'team_user_id', Yii::$app->user->id])
             ->andWhere(['!=', 'team_friendly_status_id', FriendlyStatus::NONE])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Game::find()
+                        ->select(['game_home_team_id'])
+                        ->where(['game_schedule_id' => $id])
+                        ->column()
+                ]
+            ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Game::find()
+                        ->select(['game_guest_team_id'])
+                        ->where(['game_schedule_id' => $id])
+                        ->column()
+                ]
+            ])
             ->orderBy(['team_power_vs' => SORT_DESC]);
         $teamDataProvider = new ActiveDataProvider([
             'query' => $query,

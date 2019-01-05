@@ -183,7 +183,7 @@ class MakeTransfer
                 ]);
 
                 $transferApplication->team->team_finance = $transferApplication->team->team_finance - $transferApplication->transfer_application_price;
-                $transferApplication->team->save();
+                $transferApplication->team->save(true, ['team_finance']);
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
