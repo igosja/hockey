@@ -43,17 +43,18 @@ class MessengerController extends AbstractController
         $query = Message::find()
             ->select([
                 'message_id' => 'MAX(`message_id`)',
-                'message_user_id' => 'IF(message_user_id_from=' . Yii::$app->user->id . ', `message_user_id_from`, `message_user_id_to`)',
+                'message_user_id' => 'IF(`message_user_id_to`=' . Yii::$app->user->id . ', `message_user_id_from`, `message_user_id_to`)',
                 'message_user_id_from',
                 'message_user_id_to',
-                'message_read' => 'MIN(IF(`message_user_id_to`=' . Yii::$app->user->id . ', `message_read`, UNIX_TIMESTAMP()))',
+                'message_read' => 'MIN(IF(`message_user_id_to`=' . Yii::$app->user->id . ', IF(`message_read`=0, `message_read`, 1), 1))',
             ])
             ->where([
                 'or',
                 ['message_user_id_from' => Yii::$app->user->id],
                 ['message_user_id_to' => Yii::$app->user->id]
             ])
-            ->groupBy('message_user_id');
+            ->groupBy('message_user_id')
+            ->orderBy(['message_read' => SORT_ASC, 'message_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
