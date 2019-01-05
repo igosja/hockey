@@ -21,11 +21,15 @@ use yii\helpers\Html;
 
     try {
         $columns = [
-            'user_id',
+            [
+                'attribute' => 'user_id',
+                'headerOptions' => ['class' => 'col-lg-1'],
+            ],
             'user_login',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],
+                'headerOptions' => ['class' => 'col-lg-1'],
                 'template' => '{view} {update}',
             ],
         ];
