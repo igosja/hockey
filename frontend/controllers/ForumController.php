@@ -10,6 +10,7 @@ use frontend\models\ForumThemeForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class ForumController
@@ -143,6 +144,13 @@ class ForumController extends AbstractController
                 'pageSize' => Yii::$app->params['pageSizeForum']
             ]
         ]);
+
+        if (!Yii::$app->request->get('page')) {
+            $lastPage = ceil($query->count() / Yii::$app->params['pageSizeForum']);
+            Yii::$app->request->setQueryParams(
+                ArrayHelper::merge(Yii::$app->request->queryParams, ['page' => $lastPage])
+            );
+        }
 
         $forumTheme->forum_theme_count_view++;
         $forumTheme->save();
