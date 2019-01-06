@@ -83,7 +83,7 @@ class Loan extends AbstractActiveRecord
      */
     public function dealDate(): string
     {
-        $today = strtotime(date('Y-m-d 12:00:00'));
+        $today = strtotime(date('Y-m-d 09:00:00'));
 
         if ($today < $this->loan_date + 86400 || $today < time()) {
             $today = $today + 86400;
