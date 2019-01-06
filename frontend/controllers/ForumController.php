@@ -53,10 +53,16 @@ class ForumController extends AbstractController
             ->orderBy(['forum_chapter_order' => SORT_ASC])
             ->all();
 
+        $myCountyArray = [];
+        foreach ($this->myTeamArray as $team) {
+            $myCountyArray[] = $team->stadium->city->country->country_id;
+        }
+
         $this->setSeoTitle('Форум');
 
         return $this->render('index', [
             'forumChapterArray' => $forumChapterArray,
+            'myCountyArray' => $myCountyArray,
         ]);
     }
 
@@ -100,7 +106,11 @@ class ForumController extends AbstractController
         $this->notFound($forumGroup);
 
         $query = ForumTheme::find()
-            ->where(['forum_theme_forum_group_id' => $id]);
+            ->select(['forum_theme.*', 'forum_message_date' => 'MAX(`forum_message_date`)'])
+            ->joinWith(['forumMessage'])
+            ->where(['forum_theme_forum_group_id' => $id])
+            ->groupBy(['forum_theme_id'])
+            ->orderBy(['forum_message_date' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
