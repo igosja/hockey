@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\HockeyHelper;
 use common\models\Championship;
 use common\models\Country;
 use common\models\Division;
@@ -33,7 +32,7 @@ class ChampionshipController extends AbstractController
                 'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                 'schedule_season_id' => $seasonId,
             ])
-            ->andWhere(['<=', 'schedule_date', HockeyHelper::unixTimeStamp()])
+            ->andWhere(['<=', 'schedule_date', time()])
             ->orderBy(['schedule_date' => SORT_DESC])
             ->limit(1)
             ->one();
@@ -43,7 +42,7 @@ class ChampionshipController extends AbstractController
                     'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                     'schedule_season_id' => $seasonId,
                 ])
-                ->andWhere(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                ->andWhere(['>', 'schedule_date', time()])
                 ->orderBy(['schedule_date' => SORT_ASC])
                 ->limit(1)
                 ->one();
@@ -89,7 +88,7 @@ class ChampionshipController extends AbstractController
                     'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                     'schedule_season_id' => $seasonId,
                 ])
-                ->andWhere(['<=', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                ->andWhere(['<=', 'schedule_date', time()])
                 ->orderBy(['schedule_date' => SORT_DESC])
                 ->limit(1)
                 ->one();
@@ -99,7 +98,7 @@ class ChampionshipController extends AbstractController
                         'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                         'schedule_season_id' => $seasonId,
                     ])
-                    ->andWhere(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                    ->andWhere(['>', 'schedule_date', time()])
                     ->orderBy(['schedule_date' => SORT_ASC])
                     ->limit(1)
                     ->one();

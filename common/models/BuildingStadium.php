@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\components\FormatHelper;
-use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
 /**
@@ -59,7 +58,7 @@ class BuildingStadium extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->building_stadium_date = HockeyHelper::unixTimeStamp();
+                $this->building_stadium_date = time();
             }
             return true;
         }

@@ -5,7 +5,6 @@ namespace common\components;
 use common\models\Game;
 use common\models\National;
 use common\models\Team;
-use yii\db\Expression;
 use yii\helpers\Html;
 
 /**
@@ -205,13 +204,5 @@ class HockeyHelper
         }
 
         return '';
-    }
-
-    /**
-     * @return Expression
-     */
-    public static function unixTimeStamp(): Expression
-    {
-        return new Expression('UNIX_TIMESTAMP()');
     }
 }

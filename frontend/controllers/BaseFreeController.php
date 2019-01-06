@@ -42,9 +42,9 @@ class BaseFreeController extends AbstractController
     }
 
     /**
-     * @return string
+     * @return string|\yii\web\Response
      */
-    public function actionView(): string
+    public function actionView()
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
