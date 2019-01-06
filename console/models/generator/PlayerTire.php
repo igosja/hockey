@@ -185,7 +185,7 @@ class PlayerTire
             ['player_tire' => 0],
             ['and', ['<=', 'player_age', Player::AGE_READY_FOR_PENSION], ['<', 'player_tire', 0]]
         );
-        Player::updateAll(['player_tire' => Player::TIRE_DEFAULT], ['player_team_id' => 0]);
+        Player::updateAll(['player_tire' => 0], ['player_team_id' => 0]);
         Player::updateAll(
             ['player_tire' => Player::TIRE_DEFAULT],
             [
