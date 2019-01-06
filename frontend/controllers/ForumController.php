@@ -53,10 +53,16 @@ class ForumController extends AbstractController
             ->orderBy(['forum_chapter_order' => SORT_ASC])
             ->all();
 
+        $myCountyArray = [];
+        foreach ($this->myTeamArray as $team) {
+            $myCountyArray[] = $team->stadium->city->country->country_id;
+        }
+
         $this->setSeoTitle('Форум');
 
         return $this->render('index', [
             'forumChapterArray' => $forumChapterArray,
+            'myCountyArray' => $myCountyArray,
         ]);
     }
 
