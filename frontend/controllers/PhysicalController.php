@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\HockeyHelper;
 use common\models\Building;
 use common\models\Physical;
 use common\models\PhysicalChange;
@@ -55,7 +54,7 @@ class PhysicalController extends AbstractController
 
         $scheduleArray = Schedule::find()
             ->with(['stage', 'tournamentType'])
-            ->where(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+            ->where(['>', 'schedule_date', time()])
             ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
@@ -231,7 +230,7 @@ class PhysicalController extends AbstractController
                     ->andWhere(['>', 'physical_change_schedule_id', Schedule::find()
                         ->select(['schedule_id'])
                         ->where(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
-                        ->andWhere(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                        ->andWhere(['>', 'schedule_date', time()])
                         ->orderBy(['schedule_id' => SORT_ASC])
                         ->limit(1)
                     ])

@@ -4,6 +4,10 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\models\Achievement;
+use common\models\ElectionPresident;
+use common\models\ElectionPresidentApplication;
+use common\models\ElectionPresidentVote;
+use common\models\ElectionStatus;
 use common\models\Finance;
 use common\models\FriendlyInvite;
 use common\models\FriendlyInviteStatus;
@@ -94,7 +98,7 @@ class TeamController extends AbstractController
     /**
      * @param int|null $id
      * @return string|Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws \Exception
      */
     public function actionView(int $id = null)
     {
@@ -747,7 +751,7 @@ class TeamController extends AbstractController
                     $teamCountryArray = Team::find()
                         ->joinWith(['stadium.city.country'])
                         ->where([
-                            'country_id'=> $team->stadium->city->country->country_id,
+                            'country_id' => $team->stadium->city->country->country_id,
                             'team_user_id' => $user->user_id,
                         ])
                         ->all();
@@ -772,7 +776,7 @@ class TeamController extends AbstractController
                     $teamCountryArray = Team::find()
                         ->joinWith(['stadium.city.country'])
                         ->where([
-                            'country_id'=> $team->stadium->city->country->country_id,
+                            'country_id' => $team->stadium->city->country->country_id,
                             'team_user_id' => $user->user_id,
                         ])
                         ->all();
@@ -987,9 +991,10 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @return array
+     * @return array|Response
+     * @throws Exception
      */
-    public function getNotificationArray(): array
+    public function getNotificationArray()
     {
         if (!$this->myTeam) {
             return [];
@@ -1071,6 +1076,52 @@ class TeamController extends AbstractController
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                     ['friendly/view', 'id' => $friendlyInvite->friendly_invite_schedule_id]
                 );
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+
+        if (!$country->country_president_id && !$country->country_president_vice_id) {
+            $electionPresident = ElectionPresident::find()
+                ->where([
+                    'election_president_country_id' => $country->country_id,
+                    'election_president_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionPresident) {
+                $electionPresident = new ElectionPresident();
+                $electionPresident->election_president_country_id = $country->country_id;
+                $electionPresident->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionPresident->election_president_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов президентов федерации. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['president/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionPresident->election_president_election_status_id) {
+                $electionPresidentVote = ElectionPresidentVote::find()
+                    ->where([
+                        'election_president_vote_application_id' => ElectionPresidentApplication::find()
+                            ->select(['election_president_application_id'])
+                            ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
+                        'election_president_vote_user_id' => $electionPresident->election_president_id,
+                    ])
+                    ->count();
+
+                if (!$electionPresidentVote) {
+                    return $this->redirect(['president/vote']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы презитента федерации. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['president/vote']
+                    );
+            }
         }
 
         return $result;

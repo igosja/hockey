@@ -3,7 +3,6 @@
 namespace frontend\controllers;
 
 use common\components\Controller;
-use common\components\HockeyHelper;
 use common\models\Season;
 use common\models\Site;
 use common\models\Team;
@@ -86,7 +85,7 @@ abstract class AbstractController extends Controller
                 ->limit(1)
                 ->one();
 
-            User::updateAll(['user_date_login' => HockeyHelper::unixTimeStamp()], ['user_id' => Yii::$app->user->id]);
+            User::updateAll(['user_date_login' => time()], ['user_id' => Yii::$app->user->id]);
         }
 
         return true;

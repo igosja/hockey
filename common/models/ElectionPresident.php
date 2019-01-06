@@ -45,6 +45,22 @@ class ElectionPresident extends AbstractActiveRecord
     }
 
     /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert): bool
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->election_president_election_status_id = ElectionStatus::CANDIDATES;
+                $this->election_president_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getApplication(): ActiveQuery

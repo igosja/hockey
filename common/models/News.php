@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -66,7 +65,7 @@ class News extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->news_date = HockeyHelper::unixTimeStamp();
+                $this->news_date = time();
                 if (!$this->news_user_id) {
                     $this->news_user_id = Yii::$app->user->id;
                 }
