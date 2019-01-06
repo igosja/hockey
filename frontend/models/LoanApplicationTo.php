@@ -67,7 +67,6 @@ class LoanApplicationTo extends Model
             ->one();
         if ($this->loanApplication) {
             $this->day = $this->loanApplication->loan_application_day;
-            $this->minPrice = $this->loanApplication->loan_application_price;
             $this->onlyOne = $this->loanApplication->loan_application_only_one;
             $this->price = $this->loanApplication->loan_application_price;
         }
@@ -139,8 +138,8 @@ class LoanApplicationTo extends Model
             ->andWhere(['!=', 'transfer_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['transfer_team_buyer_id' => $this->team->team_id],
-                ['transfer_team_seller_id' => $this->team->team_id]
+                ['transfer_team_buyer_id' => $loan->loan_team_seller_id],
+                ['transfer_team_seller_id' => $loan->loan_team_seller_id]
             ])
             ->all();
 
@@ -162,8 +161,8 @@ class LoanApplicationTo extends Model
             ->andWhere(['!=', 'loan_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_team_buyer_id' => $this->team->team_id],
-                ['loan_team_seller_id' => $this->team->team_id]
+                ['loan_team_buyer_id' => $loan->loan_team_seller_id],
+                ['loan_team_seller_id' => $loan->loan_team_seller_id]
             ])
             ->all();
 
@@ -192,8 +191,8 @@ class LoanApplicationTo extends Model
             ->andWhere(['!=', 'transfer_user_seller_id', 0])
             ->andWhere([
                 'or',
-                ['transfer_user_buyer_id' => Yii::$app->user->id],
-                ['transfer_user_seller_id' => Yii::$app->user->id]
+                ['transfer_user_buyer_id' => $loan->loan_user_seller_id],
+                ['transfer_user_seller_id' => $loan->loan_user_seller_id]
             ])
             ->all();
 
@@ -215,8 +214,8 @@ class LoanApplicationTo extends Model
             ->andWhere(['!=', 'loan_user_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_user_buyer_id' => Yii::$app->user->id],
-                ['loan_user_seller_id' => Yii::$app->user->id]
+                ['loan_user_buyer_id' => $loan->loan_user_seller_id],
+                ['loan_user_seller_id' => $loan->loan_user_seller_id]
             ])
             ->all();
 
