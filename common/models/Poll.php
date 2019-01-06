@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
-use common\components\HockeyHelper;
 use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
@@ -70,7 +69,7 @@ class Poll extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->poll_date = HockeyHelper::unixTimeStamp();
+                $this->poll_date = time();
                 $this->poll_poll_status_id = PollStatus::NEW;
                 $this->poll_user_id = Yii::$app->user->id;
             }

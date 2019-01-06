@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -63,7 +62,7 @@ class ForumTheme extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->forum_theme_date = HockeyHelper::unixTimeStamp();
+                $this->forum_theme_date = time();
                 $this->forum_theme_user_id = Yii::$app->user->id;
             }
             return true;

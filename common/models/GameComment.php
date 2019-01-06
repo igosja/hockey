@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -61,7 +60,7 @@ class GameComment extends AbstractActiveRecord
             return false;
         }
         if ($this->isNewRecord) {
-            $this->game_comment_date = HockeyHelper::unixTimeStamp();
+            $this->game_comment_date = time();
             $this->game_comment_user_id = Yii::$app->user->id;
         }
         return true;

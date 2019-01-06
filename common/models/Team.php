@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
-use common\components\HockeyHelper;
 use common\components\RosterPhrase;
 use Exception;
 use frontend\controllers\AbstractController;
@@ -949,7 +948,7 @@ class Team extends AbstractActiveRecord
                 Schedule::find()
                     ->select(['schedule_id'])
                     ->where(['schedule_season_id' => Season::getCurrentSeason()])
-                    ->andWhere(['>', 'schedule_date', HockeyHelper::unixTimeStamp()])
+                    ->andWhere(['>', 'schedule_date', time()])
                     ->orderBy(['schedule_date' => SORT_DESC])
                     ->limit(1)
             ])

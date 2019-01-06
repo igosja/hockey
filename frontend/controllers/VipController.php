@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\components\HockeyHelper;
 use common\models\User;
 use yii\filters\AccessControl;
 
@@ -38,7 +37,7 @@ class VipController extends AbstractController
     public function actionIndex(): string
     {
         $count = User::find()
-            ->where(['>', 'user_date_vip', HockeyHelper::unixTimeStamp()])
+            ->where(['>', 'user_date_vip', time()])
             ->count();
 
         $this->setSeoTitle('VIP клуб');
