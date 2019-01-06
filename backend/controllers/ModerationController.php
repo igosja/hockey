@@ -183,7 +183,7 @@ class ModerationController extends AbstractController
             ->one();
 
         if (!$model) {
-            return $this->redirect(['moderation/news']);
+            return $this->redirect(['moderation/loan-comment']);
         }
 
         $this->view->title = 'Комментарии к новостям';
@@ -255,7 +255,7 @@ class ModerationController extends AbstractController
             ->one();
 
         if (!$model) {
-            return $this->redirect(['moderation/loan-comment']);
+            return $this->redirect(['moderation/news']);
         }
 
         $this->view->title = 'Новости';

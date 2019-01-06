@@ -3,7 +3,6 @@
 namespace console\models\generator;
 
 use common\models\Player;
-use yii\db\Expression;
 
 /**
  * Class PlayerLeaguePower
@@ -17,8 +16,8 @@ class PlayerLeaguePower
     public function execute(): void
     {
         Player::updateAll(
-            ['player_power_nominal' => new Expression('player_age*2')],
-            ['player_age' => 18, 'player_team_id' => 0]
+            ['player_power_nominal' => 15],
+            ['player_team_id' => 0]
         );
     }
 }

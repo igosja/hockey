@@ -2,6 +2,7 @@
 
 namespace console\models\generator;
 
+use common\models\Physical;
 use common\models\Player;
 use Yii;
 
@@ -30,5 +31,6 @@ class UpdatePhysical
 
         Player::updateAllCounters(['player_physical_id' => 1], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
         Player::updateAll(['player_physical_id' => 1], ['>', 'player_physical_id', 20]);
+        Player::updateAll(['player_physical_id' => Physical::DEFAULT_ID], ['player_team_id' => 0]);
     }
 }
