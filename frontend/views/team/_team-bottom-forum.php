@@ -1,23 +1,25 @@
 <?php
 
-/**
- * @var $forum_array array
- */
+use common\components\FormatHelper;
+use yii\helpers\Html;
 
-$forum_array = [];
+/**
+ * @var \common\models\Team $team
+ */
 
 ?>
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-size-2">
     <span class="italic">Последние темы на форуме федерации</span>
-    <?php foreach ($forum_array as $item) : ?>
+    <?php foreach ($team->forumLastArray() as $item) : ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="/forum_theme.php?num=<?= $item['forumtheme_id']; ?>&page=<?= $item['last_page']; ?>">
-                    <?= $item['forumtheme_name']; ?>
-                </a>
+                <?= Html::a(
+                    $item->forumTheme->forum_theme_name,
+                    ['forum/theme', 'id' => $item->forumTheme->forum_theme_id]
+                ) ?>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <?= $item['forumtheme_last_date']; ?>
+                <?= FormatHelper::asDateTime($item->forum_message_date); ?>
             </div>
         </div>
     <?php endforeach; ?>

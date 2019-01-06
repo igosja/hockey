@@ -1005,6 +1005,27 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function forumLastArray(): array
+    {
+        return ForumMessage::find()
+            ->select([
+                '*',
+                'forum_message_id' => 'MAX(forum_message_id)',
+                'forum_message_date' => 'MAX(forum_message_date)',
+            ])
+            ->joinWith(['forumTheme.forumGroup'])
+            ->where([
+                'forum_group.forum_group_country_id' => $this->stadium->city->country->country_id
+            ])
+            ->groupBy(['forum_message_forum_theme_id'])
+            ->orderBy(['forum_message_id' => SORT_DESC])
+            ->limit(5)
+            ->all();
+    }
+
+    /**
      * @return string
      */
     public function rosterPhrase(): string
