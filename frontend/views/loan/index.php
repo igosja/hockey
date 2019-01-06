@@ -36,7 +36,10 @@ use yii\grid\GridView;
                     'format' => 'raw',
                     'label' => 'Игрок',
                     'value' => function (Loan $model) {
-                        return $model->player->playerLink();
+                        return Html::a(
+                            $model->player->playerName(),
+                            ['player/loan', 'id' => $model->player->player_id]
+                        );
                     }
                 ],
                 [

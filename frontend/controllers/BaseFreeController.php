@@ -269,7 +269,7 @@ class BaseFreeController extends AbstractController
             } elseif (Building::SCOUT == $building) {
                 $level = $team->baseScout->base_scout_level + 1;
                 $base = BaseScout::find()->where(['base_scout_level' => $level]);
-            } elseif (Building::TRAINING == $building) {
+            } else {
                 $level = $team->baseTraining->base_training_level + 1;
                 $base = BaseTraining::find()->where(['base_training_level' => $level]);
             }
@@ -296,7 +296,7 @@ class BaseFreeController extends AbstractController
                         'history_building_id' => $building,
                         'history_history_text_id' => HistoryText::BUILDING_UP,
                         'history_team_id' => $team->team_id,
-                        'history_value' => $base->$baseLevel,
+                        'history_value' => $level,
                     ]);
 
                     $team->$baseTeam++;
@@ -314,7 +314,7 @@ class BaseFreeController extends AbstractController
             }
 
             $message = 'Строительство здания <span class="strong">'
-                . $base->$baseLevel
+                . $level
                 . '</span> уровня произойдет мгновенно.';
         }
 

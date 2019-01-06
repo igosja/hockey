@@ -53,7 +53,6 @@ class TransferApplicationTo extends Model
             ->limit(1)
             ->one();
         if ($this->transferApplication) {
-            $this->minPrice = $this->transferApplication->transfer_application_price;
             $this->onlyOne = $this->transferApplication->transfer_application_only_one;
             $this->price = $this->transferApplication->transfer_application_price;
         }
@@ -123,17 +122,17 @@ class TransferApplicationTo extends Model
             ->andWhere(['!=', 'transfer_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['transfer_team_buyer_id' => $this->team->team_id],
-                ['transfer_team_seller_id' => $this->team->team_id]
+                ['transfer_team_buyer_id' => $transfer->transfer_team_seller_id],
+                ['transfer_team_seller_id' => $transfer->transfer_team_seller_id]
             ])
             ->all();
 
         foreach ($transferArray as $item) {
-            if (!in_array($item->transfer_team_buyer_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->transfer_team_buyer_id, [0, $transfer->transfer_team_seller_id])) {
                 $teamArray[] = $item->transfer_team_buyer_id;
             }
 
-            if (!in_array($item->transfer_team_seller_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->transfer_team_seller_id, [0, $transfer->transfer_team_seller_id])) {
                 $teamArray[] = $item->transfer_team_seller_id;
             }
         }
@@ -146,17 +145,17 @@ class TransferApplicationTo extends Model
             ->andWhere(['!=', 'loan_team_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_team_buyer_id' => $this->team->team_id],
-                ['loan_team_seller_id' => $this->team->team_id]
+                ['loan_team_buyer_id' => $transfer->transfer_team_seller_id],
+                ['loan_team_seller_id' => $transfer->transfer_team_seller_id]
             ])
             ->all();
 
         foreach ($loanArray as $item) {
-            if (!in_array($item->loan_team_buyer_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->loan_team_buyer_id, [0, $transfer->transfer_team_seller_id])) {
                 $teamArray[] = $item->loan_team_buyer_id;
             }
 
-            if (!in_array($item->loan_team_seller_id, array(0, $transfer->transfer_team_seller_id))) {
+            if (!in_array($item->loan_team_seller_id, [0, $transfer->transfer_team_seller_id])) {
                 $teamArray[] = $item->loan_team_seller_id;
             }
         }
@@ -176,8 +175,8 @@ class TransferApplicationTo extends Model
             ->andWhere(['!=', 'transfer_user_seller_id', 0])
             ->andWhere([
                 'or',
-                ['transfer_user_buyer_id' => Yii::$app->user->id],
-                ['transfer_user_seller_id' => Yii::$app->user->id]
+                ['transfer_user_buyer_id' => $transfer->transfer_user_seller_id],
+                ['transfer_user_seller_id' => $transfer->transfer_user_seller_id]
             ])
             ->all();
 
@@ -199,8 +198,8 @@ class TransferApplicationTo extends Model
             ->andWhere(['!=', 'loan_user_seller_id', 0])
             ->andWhere([
                 'or',
-                ['loan_user_buyer_id' => Yii::$app->user->id],
-                ['loan_user_seller_id' => Yii::$app->user->id]
+                ['loan_user_buyer_id' => $transfer->transfer_user_seller_id],
+                ['loan_user_seller_id' => $transfer->transfer_user_seller_id]
             ])
             ->all();
 

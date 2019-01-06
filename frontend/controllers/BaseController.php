@@ -424,7 +424,7 @@ class BaseController extends AbstractController
                     Finance::log([
                         'finance_building_id' => $building,
                         'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
-                        'finance_level' => $base->$baseLevel,
+                        'finance_level' => $level,
                         'finance_team_id' => $team->team_id,
                         'finance_value' => -$base->$basePrice,
                         'finance_value_after' => $team->team_finance - $base->$basePrice,
@@ -444,7 +444,7 @@ class BaseController extends AbstractController
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             }
 
-            $message = 'Строительство здания <span class="strong">' . $base->$baseLevel
+            $message = 'Строительство здания <span class="strong">' . $level
                 . '</span> уровня будет стоить <span class="strong">' . FormatHelper::asCurrency($base->$basePrice)
                 . '</span> и займет <span class="strong">' . $base->$baseSpeed
                 . '</span> дн.';
@@ -595,7 +595,7 @@ class BaseController extends AbstractController
                     Finance::log([
                         'finance_building_id' => $building,
                         'finance_finance_text_id' => FinanceText::INCOME_BUILDING_BASE,
-                        'finance_level' => $base->$baseLevel,
+                        'finance_level' => $level,
                         'finance_team_id' => $team->team_id,
                         'finance_value' => $price,
                         'finance_value_after' => $team->team_finance + $price,
@@ -615,7 +615,7 @@ class BaseController extends AbstractController
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             }
 
-            $message = 'При строительстве здания <span class="strong">' . $base->$baseLevel
+            $message = 'При строительстве здания <span class="strong">' . $level
                 . '</span> уровня вы получите компенсацию <span class="strong">' . FormatHelper::asCurrency($price)
                 . '</span>. Это займет <span class="strong">1</span> день.';
         }
