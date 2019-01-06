@@ -106,7 +106,11 @@ class ForumController extends AbstractController
         $this->notFound($forumGroup);
 
         $query = ForumTheme::find()
-            ->where(['forum_theme_forum_group_id' => $id]);
+            ->select(['forum_theme.*', 'forum_message_date' => 'MAX(`forum_message_date`)'])
+            ->joinWith(['forumMessage'])
+            ->where(['forum_theme_forum_group_id' => $id])
+            ->groupBy(['forum_theme_id'])
+            ->orderBy(['forum_message_date' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
