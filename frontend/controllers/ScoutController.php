@@ -120,7 +120,7 @@ class ScoutController extends AbstractController
                     return $this->redirect(['scout/index']);
                 }
 
-                if ($player->countScout()) {
+                if (2 == $player->countScout()) {
                     $this->setErrorFlash('Игрок уже полностью изучен.');
                     return $this->redirect(['scout/index']);
                 }

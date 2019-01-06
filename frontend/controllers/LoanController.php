@@ -36,7 +36,7 @@ class LoanController extends AbstractController
             'query' => $query,
         ]);
 
-        $this->setSeoTitle('Трансфер хоккеистов');
+        $this->setSeoTitle('Аренда хоккеистов');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider
