@@ -40,7 +40,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось тренировок силы:
-                <span class="strong"><?= 0; ?></span>
+                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_power_count; ?></span>
             </div>
@@ -48,7 +48,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось спецвозможностей:
-                <span class="strong"><?= 0; ?></span>
+                <span class="strong"><?= $team->availableTrainingSpecial(); ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_special_count; ?></span>
             </div>
@@ -56,7 +56,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось совмещений:
-                <span class="strong"><?= 0; ?></span>
+                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_position_count; ?></span>
             </div>

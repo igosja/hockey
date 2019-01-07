@@ -4,8 +4,10 @@ use common\components\FormatHelper;
 use yii\helpers\Html;
 
 /**
- * @var array $confirmData
+ * @var int $id
+ * @var int $price
  * @var \common\models\Team $team
+ * @var \common\models\Training $training
  * @var \yii\web\View $this
  */
 
@@ -38,7 +40,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось тренировок силы:
-                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
+                <span class="strong"><?= 0; ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_power_count; ?></span>
             </div>
@@ -46,7 +48,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось спецвозможностей:
-                <span class="strong"><?= $team->availableTrainingSpecial(); ?></span>
+                <span class="strong"><?= 0; ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_special_count; ?></span>
             </div>
@@ -54,7 +56,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось совмещений:
-                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
+                <span class="strong"><?= 0; ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_position_count; ?></span>
             </div>
@@ -84,31 +86,27 @@ use yii\helpers\Html;
         вы можете назначить тренировки силы, спецвозможностей или совмещений своим игрокам:
     </div>
 </div>
-<?= Html::beginForm(['training/train', 'ok' => 1], 'get'); ?>
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Будут проведены следующие тренировки:
+        Будут отменены следующие тренировки:
         <ul>
-            <?php foreach ($confirmData['power'] as $item) : ?>
-                <li><?= $item['name']; ?> +1 балл силы</li>
-                <?= Html::hiddenInput('power[' . $item['id'] . ']', 1); ?>
-            <?php endforeach; ?>
-            <?php foreach ($confirmData['position'] as $item) : ?>
-                <li><?= $item['name']; ?> позиция <?= $item['position']['name']; ?></li>
-                <?= Html::hiddenInput('position[' . $item['id'] . ']', $item['position']['id']); ?>
-            <?php endforeach; ?>
-            <?php foreach ($confirmData['special'] as $item) : ?>
-                <li><?= $item['name']; ?> спецвозможность <?= $item['special']['name']; ?></li>
-                <?= Html::hiddenInput('special[' . $item['id'] . ']', $item['special']['id']); ?>
-            <?php endforeach; ?>
+            <li>
+                <?= $training->player->playerName(); ?>
+                <?php if ($training->training_position_id) : ?>
+                    позиция <?= $training->position->position_name; ?>
+                <?php elseif ($training->training_special_id) : ?>
+                    спецвозможность <?= $training->special->special_name; ?>
+                <?php else : ?>
+                    +1 балл силы
+                <?php endif; ?>
+            </li>
         </ul>
-        Общая стоимость тренировок <span class="strong"><?= FormatHelper::asCurrency($confirmData['price']); ?></span>
+        Общая компенсация за отмену тренировок <span class="strong"><?= FormatHelper::asCurrency($price); ?></span>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= Html::submitButton('Начать тренировку', ['class' => 'btn margin']); ?>
+        <?= Html::a('Отменить тренировку', ['training/cancel', 'id' => $id, 'ok' => 1], ['class' => 'btn margin']); ?>
         <?= Html::a('Отказаться', ['training/index'], ['class' => 'btn margin']); ?>
     </div>
 </div>
-<?= Html::endForm(); ?>
