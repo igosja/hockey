@@ -4,8 +4,8 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\models\Building;
-use common\models\Finance;
-use common\models\FinanceText;
+use common\models\History;
+use common\models\HistoryText;
 use common\models\Loan;
 use common\models\Player;
 use common\models\PlayerPosition;
@@ -14,17 +14,17 @@ use common\models\Position;
 use common\models\Special;
 use common\models\Training;
 use common\models\Transfer;
+use common\models\User;
 use Exception;
-use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 
 /**
- * Class TrainingController
+ * Class TrainingFreeController
  * @package frontend\controllers
  */
-class TrainingController extends AbstractController
+class TrainingFreeController extends AbstractController
 {
     /**
      * @return array
@@ -53,7 +53,7 @@ class TrainingController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
-        $model = new \frontend\models\Training();
+        $model = new \frontend\models\TrainingFree();
         if ($model->load(Yii::$app->request->post(), '')) {
             return $this->redirect($model->redirectUrl());
         }
@@ -80,7 +80,24 @@ class TrainingController extends AbstractController
             'onBuilding' => $this->isOnBuilding(),
             'team' => $team,
             'trainingArray' => $trainingArray,
+            'user' => Yii::$app->user->identity,
         ]);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isOnBuilding(): bool
+    {
+        if (!$this->myTeam->buildingBase) {
+            return false;
+        }
+
+        if (!in_array($this->myTeam->buildingBase->building_base_building_id, [Building::BASE, Building::TRAINING])) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -93,11 +110,15 @@ class TrainingController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
         $team = $this->myTeam;
 
         if ($this->isOnBuilding()) {
             $this->setErrorFlash('На базе сейчас идет строительство.');
-            return $this->redirect(['training/index']);
+            return $this->redirect(['training-free/index']);
         }
 
         $data = Yii::$app->request->get();
@@ -106,7 +127,6 @@ class TrainingController extends AbstractController
             'position' => [],
             'power' => [],
             'special' => [],
-            'price' => 0,
         ];
 
         $playerIdArray = [];
@@ -119,7 +139,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Игрок выбран неправильно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -127,7 +147,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $loan = Loan::find()
@@ -135,7 +155,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $training = Training::find()
@@ -143,15 +163,13 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $confirmData['power'][] = [
                     'id' => $playerId,
                     'name' => $player->playerName(),
                 ];
-
-                $confirmData['price'] = $confirmData['price'] + $team->baseTraining->base_training_power_price;
 
                 $playerIdArray[] = $playerId;
             }
@@ -165,7 +183,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Игрок выбран неправильно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -173,7 +191,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $loan = Loan::find()
@@ -181,7 +199,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $training = Training::find()
@@ -189,7 +207,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $position = Position::find()
@@ -206,7 +224,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$position) {
                     $this->setErrorFlash('Совмещение выбрано не правильно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $confirmData['position'][] = [
@@ -217,8 +235,6 @@ class TrainingController extends AbstractController
                         'name' => $position->position_text,
                     ],
                 ];
-
-                $confirmData['price'] = $confirmData['price'] + $team->baseTraining->base_training_position_price;
 
                 $playerIdArray[] = $playerId;
             }
@@ -232,7 +248,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$player) {
                     $this->setErrorFlash('Игрок выбран неправильно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $transfer = Transfer::find()
@@ -240,7 +256,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($transfer) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на трансфер.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $loan = Loan::find()
@@ -248,7 +264,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($loan) {
                     $this->setErrorFlash('Нельзя тренировать игрока, который выставлен на арендный рынок.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $training = Training::find()
@@ -256,7 +272,7 @@ class TrainingController extends AbstractController
                     ->count();
                 if ($training) {
                     $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $isGk = Position::GK == $player->player_position_id ? 1 : null;
@@ -280,7 +296,7 @@ class TrainingController extends AbstractController
                     ->one();
                 if (!$special) {
                     $this->setErrorFlash('Спецвозможность выбрано не правильно.');
-                    return $this->redirect(['training/index']);
+                    return $this->redirect(['training-free/index']);
                 }
 
                 $confirmData['special'][] = [
@@ -292,104 +308,105 @@ class TrainingController extends AbstractController
                     ],
                 ];
 
-                $confirmData['price'] = $confirmData['price'] + $team->baseTraining->base_training_special_price;
-
                 $playerIdArray[] = $playerId;
             }
         }
 
-        if (count($confirmData['power']) > $team->availableTrainingPower()) {
+        if (count($confirmData['power']) > $user->user_shop_point) {
             $this->setErrorFlash('У вас недостаточно баллов для тренировки.');
-            return $this->redirect(['training/index']);
-        } elseif (count($confirmData['position']) > $team->availableTrainingPosition()) {
+            return $this->redirect(['training-free/index']);
+        } elseif (count($confirmData['position']) > $user->user_shop_position) {
             $this->setErrorFlash('У вас недостаточно совмещений для тренировки.');
-            return $this->redirect(['training/index']);
-        } elseif (count($confirmData['special']) > $team->availableTrainingSpecial()) {
+            return $this->redirect(['training-free/index']);
+        } elseif (count($confirmData['special']) > $user->user_shop_special) {
             $this->setErrorFlash('У вас недостаточно спецвозможностей для тренировки.');
-            return $this->redirect(['training/index']);
+            return $this->redirect(['training-free/index']);
         } elseif (count($playerIdArray) != count(array_unique($playerIdArray))) {
             $this->setErrorFlash('Одному игроку нельзя назначить несколько тренировок одновременно.');
-            return $this->redirect(['training/index']);
-        } elseif ($confirmData['price'] > $team->team_finance) {
-            $this->setErrorFlash('У вас недостаточно денег для тренировки.');
-            return $this->redirect(['training/index']);
+            return $this->redirect(['training-free/index']);
         }
 
         if (Yii::$app->request->get('ok')) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 foreach ($confirmData['power'] as $power) {
-                    $model = new Training();
-                    $model->training_player_id = $power['id'];
-                    $model->training_power = 1;
-                    $model->training_season_id = $this->seasonId;
-                    $model->training_team_id = $team->team_id;
-                    $model->save();
+                    $player = Player::find()
+                        ->where(['player_id' => $power['id']])
+                        ->limit(1)
+                        ->one();
 
-                    Finance::log([
-                        'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_POWER,
-                        'finance_player_id' => $power['id'],
-                        'finance_team_id' => $team->team_id,
-                        'finance_value' => -$team->baseTraining->base_training_power_price,
-                        'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_power_price,
-                        'finance_value_before' => $team->team_finance,
+                    $player->player_power_nominal = $player->player_power_nominal + 1;
+                    $player->save(true, ['player_power_nominal']);
+
+                    $user->user_shop_point = $user->user_shop_point - 1;
+                    $user->save(true, ['user_shop_point']);
+
+                    History::log([
+                        'history_history_text_id' => HistoryText::PLAYER_BONUS_POINT,
+                        'history_player_id' => $power['id'],
                     ]);
 
-                    $team->team_finance = $team->team_finance - $team->baseTraining->base_training_power_price;
-                    $team->save(true, ['team_finance']);
+                    $sql = "UPDATE `player`
+                            LEFT JOIN `physical`
+                            ON `player_physical_id`=`physical_id`
+                            SET `player_power_real`=`player_power_nominal`*(100-`player_tire`)/100*`physical_value`/100
+                            WHERE `player_id`=" . $power['id'] . "
+                            LIMIT 1";
+                    Yii::$app->db->createCommand($sql)->execute();
                 }
 
                 foreach ($confirmData['position'] as $playerId => $position) {
-                    $model = new Training();
-                    $model->training_player_id = $position['id'];
-                    $model->training_position_id = $position['position']['id'];
-                    $model->training_season_id = $this->seasonId;
-                    $model->training_team_id = $team->team_id;
-                    $model->save();
+                    $playerPosition = new PlayerPosition();
+                    $playerPosition->player_position_player_id = $position['id'];
+                    $playerPosition->player_position_position_id = $position['position']['id'];
+                    $playerPosition->save();
 
-                    Finance::log([
-                        'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_POSITION,
-                        'finance_player_id' => $position['id'],
-                        'finance_team_id' => $team->team_id,
-                        'finance_value' => -$team->baseTraining->base_training_position_price,
-                        'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_position_price,
-                        'finance_value_before' => $team->team_finance,
+                    $user->user_shop_position = $user->user_shop_position - 1;
+                    $user->save(true, ['user_shop_position']);
+
+                    History::log([
+                        'history_history_text_id' => HistoryText::PLAYER_BONUS_POSITION,
+                        'history_player_id' => $position['id'],
+                        'history_position_id' => $position['position']['id'],
                     ]);
-
-                    $team->team_finance = $team->team_finance - $team->baseTraining->base_training_position_price;
-                    $team->save(true, ['team_finance']);
                 }
 
                 foreach ($confirmData['special'] as $playerId => $special) {
-                    $model = new Training();
-                    $model->training_player_id = $special['id'];
-                    $model->training_season_id = $this->seasonId;
-                    $model->training_special_id = $special['special']['id'];
-                    $model->training_team_id = $team->team_id;
-                    $model->save();
+                    $playerSpecial = PlayerSpecial::find()
+                        ->where([
+                            'player_special_player_id' => $special['id'],
+                            'player_special_special_id' => $special['special']['id'],
+                        ])
+                        ->limit(1)
+                        ->one();
+                    if (!$playerSpecial) {
+                        $playerSpecial = new PlayerSpecial();
+                        $playerSpecial->player_special_player_id = $special['id'];
+                        $playerSpecial->player_special_special_id = $special['special']['id'];
+                        $playerSpecial->player_special_level = 0;
+                    }
+                    $playerSpecial->player_special_level = $playerSpecial->player_special_level + 1;
+                    $playerSpecial->save();
 
-                    Finance::log([
-                        'finance_finance_text_id' => FinanceText::OUTCOME_TRAINING_SPECIAL,
-                        'finance_player_id' => $special['id'],
-                        'finance_team_id' => $team->team_id,
-                        'finance_value' => -$team->baseTraining->base_training_special_price,
-                        'finance_value_after' => $team->team_finance - $team->baseTraining->base_training_special_price,
-                        'finance_value_before' => $team->team_finance,
+                    $user->user_shop_special = $user->user_shop_special - 1;
+                    $user->save(true, ['user_shop_special']);
+
+                    History::log([
+                        'history_history_text_id' => HistoryText::PLAYER_BONUS_SPECIAL,
+                        'history_player_id' => $special['id'],
+                        'history_special_id' => $special['special']['id'],
                     ]);
-
-                    $team->team_finance = $team->team_finance - $team->baseTraining->base_training_special_price;
-                    $team->save(true, ['team_finance']);
                 }
 
                 $transaction->commit();
 
-                $this->setSuccessFlash('Тренировка успешно началась.');
+                $this->setSuccessFlash('Тренировка прошла успешно.');
             } catch (Exception $e) {
                 $transaction->rollBack();
                 ErrorHelper::log($e);
                 $this->setErrorFlash();
             }
-            return $this->redirect(['training/index']);
+            return $this->redirect(['training-free/index']);
         }
 
         $this->setSeoTitle($team->fullName() . '. Тренировка хоккеистов');
@@ -397,98 +414,7 @@ class TrainingController extends AbstractController
         return $this->render('train', [
             'confirmData' => $confirmData,
             'team' => $team,
+            'user' => $user,
         ]);
-    }
-
-    /**
-     * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \yii\db\Exception
-     */
-    public function actionCancel(int $id)
-    {
-        if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
-        }
-
-        $team = $this->myTeam;
-
-        $training = Training::find()
-            ->where(['training_id' => $id, 'training_ready' => 0, 'training_team_id' => $team->team_id])
-            ->limit(1)
-            ->one();
-        if (!$training) {
-            $this->setErrorFlash('Тренировка выбрана неправильно.');
-            return $this->redirect(['training/index']);
-        }
-
-        if ($training->training_power) {
-            $price = $team->baseTraining->base_training_power_price;
-        } elseif ($training->training_special_id) {
-            $price = $team->baseTraining->base_training_special_price;
-        } else {
-            $price = $team->baseTraining->base_training_position_price;
-        }
-
-        if (Yii::$app->request->get('ok')) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                if ($training->training_power) {
-                    $text = FinanceText::INCOME_TRAINING_POWER;
-                } elseif ($training->training_special_id) {
-                    $text = FinanceText::INCOME_TRAINING_SPECIAL;
-                } else {
-                    $text = FinanceText::INCOME_TRAINING_POSITION;
-                }
-
-                $training->delete();
-
-                Finance::log([
-                    'finance_finance_text_id' => $text,
-                    'finance_player_id' => $training->training_player_id,
-                    'finance_team_id' => $team->team_id,
-                    'finance_value' => $price,
-                    'finance_value_after' => $team->team_finance + $price,
-                    'finance_value_before' => $team->team_finance,
-                ]);
-
-                $team->team_finance = $team->team_finance + $price;
-                $team->save(true, ['team_finance']);
-
-                $transaction->commit();
-
-                $this->setSuccessFlash('Тренировка успешно отменена.');
-            } catch (Throwable $e) {
-                $transaction->rollBack();
-                ErrorHelper::log($e);
-                $this->setErrorFlash();
-            }
-            return $this->redirect(['training/index']);
-        }
-
-        $this->setSeoTitle('Отмена тренировки. ' . $team->fullName());
-
-        return $this->render('cancel', [
-            'id' => $id,
-            'price' => $price,
-            'team' => $team,
-            'training' => $training,
-        ]);
-    }
-
-    /**
-     * @return bool
-     */
-    private function isOnBuilding(): bool
-    {
-        if (!$this->myTeam->buildingBase) {
-            return false;
-        }
-
-        if (!in_array($this->myTeam->buildingBase->building_base_building_id, [Building::BASE, Building::TRAINING])) {
-            return false;
-        }
-
-        return true;
     }
 }

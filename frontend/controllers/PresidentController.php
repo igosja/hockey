@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Country;
 use common\models\ElectionPresident;
 use common\models\ElectionPresidentApplication;
+use common\models\ElectionPresidentVote;
 use common\models\ElectionStatus;
 use Exception;
 use Yii;
@@ -59,7 +60,7 @@ class PresidentController extends AbstractController
             ->count();
 
         if ($electionPresident) {
-            return $this->redirect(['president/vote']);
+            return $this->redirect(['president/view']);
         }
 
         $position = Country::find()
@@ -108,6 +109,131 @@ class PresidentController extends AbstractController
 
         $this->setSeoTitle('Подача заявки на президента федерации');
         return $this->render('application', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionView()
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        if ($country->country_president_id) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::CANDIDATES
+            ])
+            ->count();
+
+        if ($electionPresident) {
+            return $this->redirect(['president/application']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::OPEN,
+            ])
+            ->limit(1)
+            ->one();
+
+        if (!$electionPresident) {
+            return $this->redirect(['team/view']);
+        }
+
+        $voteUser = ElectionPresidentVote::find()
+            ->where([
+                'election_president_vote_application_id' => ElectionPresidentApplication::find()
+                    ->select(['election_president_application_id'])
+                    ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
+                'election_president_vote_user_id' => Yii::$app->user->id,
+            ])
+            ->count();
+        if (!$voteUser) {
+            return $this->redirect(['president/poll']);
+        }
+
+        $this->setSeoTitle('Голосование за президента федерации');
+
+        return $this->render('view', [
+            'electionPresident' => $electionPresident,
+        ]);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws Exception
+     */
+    public function actionPoll()
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/ask']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        if ($country->country_president_id) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::CANDIDATES
+            ])
+            ->count();
+
+        if ($electionPresident) {
+            return $this->redirect(['president/application']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::OPEN,
+            ])
+            ->limit(1)
+            ->one();
+
+        if (!$electionPresident) {
+            return $this->redirect(['team/view']);
+        }
+
+        $voteUser = ElectionPresidentVote::find()
+            ->where([
+                'election_president_vote_application_id' => ElectionPresidentApplication::find()
+                    ->select(['election_president_application_id'])
+                    ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
+                'election_president_vote_user_id' => Yii::$app->user->id,
+            ])
+            ->count();
+        if ($voteUser) {
+            return $this->redirect(['president/view']);
+        }
+
+        $model = new ElectionPresidentVote();
+        $model->election_president_vote_user_id = Yii::$app->user->id;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Ваш голос успешно сохранён.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Голосование за президента федерации');
+
+        return $this->render('poll', [
+            'electionPresident' => $electionPresident,
             'model' => $model,
         ]);
     }

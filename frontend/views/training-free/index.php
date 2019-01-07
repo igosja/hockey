@@ -1,7 +1,6 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\components\FormatHelper;
 use common\models\Player;
 use common\models\Team;
 use yii\grid\GridView;
@@ -13,6 +12,7 @@ use yii\helpers\Html;
  * @var Team $team
  * @var \yii\web\View $this
  * @var \common\models\Training[] $trainingArray
+ * @var \common\models\User $user
  */
 
 ?>
@@ -23,65 +23,27 @@ use yii\helpers\Html;
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong text-size-1">
-                Тренировочный центр
+                Бонусные тренировки
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
-                Уровень:
-                <span class="strong"><?= $team->baseTraining->base_training_level; ?></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
-                Скорость тренировки:
-                <span class="strong"><?= $team->baseTraining->base_training_training_speed_min; ?>%</span>
-                -
-                <span class="strong"><?= $team->baseTraining->base_training_training_speed_max; ?>%</span>
-                за тур
-            </div>
-        </div>
-        <div class="row">
+        <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось тренировок силы:
-                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
-                из
-                <span class="strong"><?= $team->baseTraining->base_training_power_count; ?></span>
+                <span class="strong"><?= $user->user_shop_point; ?></span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось спецвозможностей:
-                <span class="strong"><?= $team->availableTrainingSpecial(); ?></span>
-                из
-                <span class="strong"><?= $team->baseTraining->base_training_special_count; ?></span>
+                <span class="strong"><?= $user->user_shop_position; ?></span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось совмещений:
-                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
-                из
-                <span class="strong"><?= $team->baseTraining->base_training_position_count; ?></span>
+                <span class="strong"><?= $user->user_shop_special; ?></span>
             </div>
         </div>
-    </div>
-</div>
-<div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center <?php if ($onBuilding) : ?>del<?php endif; ?>">
-        <span class="strong">Стоимость тренировок:</span>
-        Балл силы
-        <span class="strong">
-            <?= FormatHelper::asCurrency($team->baseTraining->base_training_power_price); ?>
-        </span>
-        Спецвозможность
-        <span class="strong">
-            <?= FormatHelper::asCurrency($team->baseTraining->base_training_special_price); ?>
-        </span>
-        Совмещение
-        <span class="strong">
-            <?= FormatHelper::asCurrency($team->baseTraining->base_training_position_price); ?>
-        </span>
     </div>
 </div>
 <div class="row margin-top">
@@ -162,7 +124,7 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php endif; ?>
-<?= Html::beginForm(['training/index']); ?>
+<?= Html::beginForm(['training-free/index']); ?>
 <div class="row">
     <?php
 

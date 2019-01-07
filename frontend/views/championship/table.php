@@ -27,7 +27,7 @@ $user = Yii::$app->user->identity;
         <h1>
             <?= Html::a(
                 $country->country_name,
-                ['country/news', $country->country_id],
+                ['country/news', 'id' => $country->country_id],
                 ['class' => 'country-header-link']
             ); ?>
         </h1>

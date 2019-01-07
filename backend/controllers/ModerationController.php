@@ -255,7 +255,7 @@ class ModerationController extends AbstractController
             ->one();
 
         if (!$model) {
-            return $this->redirect(['moderation/news']);
+            return $this->redirect(['moderation/news-comment']);
         }
 
         $this->view->title = 'Новости';

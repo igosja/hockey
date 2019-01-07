@@ -1052,7 +1052,7 @@ class TeamController extends AbstractController
         if ($user->user_shop_point || $user->user_shop_position || $user->user_shop_special) {
             $result[] = 'У вас есть бонусные тренировки для хоккеистов. ' . Html::a(
                     '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                    ['training-bonus/index']
+                    ['training-free/index']
                 );
         }
 
@@ -1109,17 +1109,17 @@ class TeamController extends AbstractController
                         'election_president_vote_application_id' => ElectionPresidentApplication::find()
                             ->select(['election_president_application_id'])
                             ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
-                        'election_president_vote_user_id' => $electionPresident->election_president_id,
+                        'election_president_vote_user_id' => Yii::$app->user->id,
                     ])
                     ->count();
 
                 if (!$electionPresidentVote) {
-                    return $this->redirect(['president/vote']);
+                    Yii::$app->controller->redirect(['president/poll']);
                 }
 
                 $result[] = 'В вашей стране проходят выборы презитента федерации. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['president/vote']
+                        ['president/view']
                     );
             }
         }

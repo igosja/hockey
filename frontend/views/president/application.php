@@ -12,7 +12,7 @@ print $this->render('//country/_country');
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h1>Подача заявки на пост президента федерации</h1>
+        <h4>Подача заявки на пост президента федерации</h4>
     </div>
 </div>
 <?php $form = ActiveForm::begin([
