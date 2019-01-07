@@ -93,6 +93,8 @@ return [
                 'password/restore' => 'site/password-restore',
                 'rating/<page:\d+>' => 'rating/index',
                 'sign-up' => 'site/sign-up',
+                'training/free' => 'training-free/index',
+                'training/free/train' => 'training-free/train',
                 'user/money-transfer/<id:\d+>' => 'user/money-transfer',
                 '<controller:\w+>/p/<page:\d+>/pp/<per-page:\d+>' => '<controller>/index',
                 '<controller:\w+>/p/<page:\d+>' => '<controller>/index',
