@@ -146,7 +146,10 @@ class Poll extends AbstractActiveRecord
         }
     }
 
-    public function answers()
+    /**
+     * @return array
+     */
+    public function answers(): array
     {
         $result = [];
         $total = 0;

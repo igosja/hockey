@@ -14,6 +14,7 @@ use yii\db\ActiveQuery;
  * @property int $election_president_election_status_id
  *
  * @property ElectionPresidentApplication[] $application
+ * @property ElectionStatus $electionStatus
  * @property Country $country
  */
 class ElectionPresident extends AbstractActiveRecord
@@ -61,6 +62,30 @@ class ElectionPresident extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function applications(): array
+    {
+        $result = [];
+        $total = 0;
+        foreach ($this->application as $application) {
+            $count = count($application->electionPresidentVote);
+            $result[] = [
+                'count' => $count,
+                'user' => $application->user->userLink(),
+            ];
+            $total = $total + $count;
+        }
+        foreach ($result as $key => $value) {
+            $result[$key]['percent'] = $total ? round($result[$key]['count'] / $total * 100) : 0;
+        }
+        usort($result, function ($a, $b) {
+            return $b['count'] > $a['count'] ? 1 : 0;
+        });
+        return $result;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getApplication(): ActiveQuery
@@ -69,6 +94,14 @@ class ElectionPresident extends AbstractActiveRecord
             ElectionPresidentApplication::class,
             ['election_president_application_election_id' => 'election_president_id']
         );
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getElectionStatus(): ActiveQuery
+    {
+        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_president_election_status_id']);
     }
 
     /**
