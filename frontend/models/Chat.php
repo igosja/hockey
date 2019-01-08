@@ -63,7 +63,12 @@ class Chat extends Model
         $user = Yii::$app->user->identity;
 
         $file = Yii::getAlias('@webroot') . '/chat.txt';
-        $content = file_get_contents($file);
+
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
 
         if ($content) {
             $content = Json::decode($content);
