@@ -97,6 +97,9 @@ class Chat extends Model
     {
         $file = Yii::getAlias('@webroot') . '/chat.txt';
         $content = file_get_contents($file);
+        if (!$content) {
+            return false;
+        }
         $content = Json::decode($content);
         return $content;
     }
