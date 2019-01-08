@@ -13,12 +13,12 @@ use yii\db\Expression;
  * Class Activation
  * @package frontend\models
  *
- * @property $code string
+ * @property string $code
  */
 class Activation extends Model
 {
     /**
-     * @var $code string
+     * @var string $code
      */
     public $code;
 

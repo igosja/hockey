@@ -21,6 +21,7 @@ use yii\helpers\Html;
 class Menu extends Widget
 {
     const ITEM_CHANGE_TEAM = 'changeTeam';
+    const ITEM_CHAT = 'chat';
     const ITEM_FEDERATION = 'federation';
     const ITEM_FORUM = 'forum';
     const ITEM_HOME = 'home';
@@ -147,6 +148,7 @@ class Menu extends Widget
                 ],
                 [
                     self::ITEM_FORUM,
+                    self::ITEM_CHAT,
                     self::ITEM_SUPPORT,
                     self::ITEM_RATING,
                 ],
@@ -232,6 +234,11 @@ class Menu extends Widget
             self::ITEM_CHANGE_TEAM => [
                 'label' => 'Сменить клуб',
                 'url' => ['team/change'],
+            ],
+            self::ITEM_CHAT => [
+                'label' => 'Чат',
+                'target' => '_blank',
+                'url' => ['chat/index'],
             ],
             self::ITEM_FEDERATION => [
                 'label' => 'Федерация',
