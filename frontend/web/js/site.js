@@ -87,6 +87,24 @@ jQuery(document).ready(function () {
                     $('#stadium-decrease-price').html(data.value);
                 }
             });
+        })
+        .on('keydown', '#chat-text', function (e) {
+            if (e.ctrlKey && e.keyCode === 13) {
+                $(this).closest('form').submit();
+            }
+        })
+        .on('beforeSubmit', '#chat-form', function () {
+            var chatForm = $(this);
+            $.ajax({
+                data: chatForm.serialize(),
+                type: 'post',
+                url: chatForm.attr('action'),
+                success: function () {
+                    chatForm.find('textarea').val('');
+                    $('#chat-reload').click();
+                }
+            });
+            return false;
         });
 });
 

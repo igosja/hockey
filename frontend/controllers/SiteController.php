@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
-use common\models\ForumTheme;
+use common\models\ForumMessage;
 use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
@@ -71,7 +71,20 @@ class SiteController extends AbstractController
             ->orderBy(['news_id' => SORT_DESC])
             ->limit(10)
             ->one();
-        $forumThemes = ForumTheme::find()->orderBy(['forum_theme_date_update' => SORT_DESC])->limit(10)->all();
+        $forumMessage = ForumMessage::find()
+            ->select([
+                '*',
+                'forum_message_id' => 'MAX(forum_message_id)',
+                'forum_message_date' => 'MAX(forum_message_date)',
+            ])
+            ->joinWith(['forumTheme.forumGroup'])
+            ->where([
+                'forum_group.forum_group_country_id' => 0
+            ])
+            ->groupBy(['forum_message_forum_theme_id'])
+            ->orderBy(['forum_message_id' => SORT_DESC])
+            ->limit(10)
+            ->all();
         $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
@@ -84,7 +97,7 @@ class SiteController extends AbstractController
         return $this->render('index', [
             'birthdays' => $birthdays,
             'countryNews' => $countryNews,
-            'forumThemes' => $forumThemes,
+            'forumMessage' => $forumMessage,
             'news' => $news,
             'reviews' => $reviews,
         ]);

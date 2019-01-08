@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /**
  * @var \common\models\User[] $birthdays
  * @var \common\models\News $countryNews
- * @var \common\models\ForumTheme[] $forumThemes
+ * @var \common\models\ForumMessage[] $forumMessage
  * @var \common\models\News $news
  * @var \common\models\Review[] $reviews
  */
@@ -227,16 +227,16 @@ use yii\helpers\Html;
                     <legend class="text-center strong">
                         Форум
                     </legend>
-                    <?php foreach ($forumThemes as $item): ?>
+                    <?php foreach ($forumMessage as $item): ?>
                         <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <?= Html::a(
-                                    $item->forum_theme_name,
-                                    ['forum/theme', 'id' => $item->forum_theme_id]
+                                    $item->forumTheme->forum_theme_name,
+                                    ['forum/theme', 'id' => $item->forumTheme->forum_theme_id]
                                 ); ?>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <?= $item->forumGroup->forum_group_name; ?>
+                                <?= $item->forumTheme->forumGroup->forum_group_name; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
