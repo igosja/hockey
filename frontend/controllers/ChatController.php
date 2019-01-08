@@ -32,14 +32,18 @@ class ChatController extends AbstractController
     }
 
     /**
-     * @return string
+     * @return array|string|Response
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $model = new Chat();
         if ($model->save()) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return 'ok';
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ['success' => true];
+            } else {
+                return $this->refresh();
+            }
         }
 
         $chatArray = $model->chatArray();
