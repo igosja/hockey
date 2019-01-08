@@ -17,7 +17,7 @@ class PlayerPowerNewToOld
     public function execute(): void
     {
         Player::updateAll(
-            ['player_power_nominal' => new Expression('`player_power_old`')],
+            ['player_power_old' => new Expression('`player_power_nominal`')],
             [
                 'and',
                 ['!=', 'player_power_old', new Expression('`player_power_nominal`')],
