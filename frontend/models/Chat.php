@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\models\User;
+use Exception;
 use Yii;
 use yii\base\Model;
 use yii\helpers\Json;
@@ -96,7 +97,11 @@ class Chat extends Model
     public function chatArray()
     {
         $file = Yii::getAlias('@webroot') . '/chat.txt';
-        $content = file_get_contents($file);
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
         if (!$content) {
             return false;
         }
