@@ -14,14 +14,19 @@ use Yii;
 class PowerController extends AbstractController
 {
     /**
-     * @throws \Exception
-     * @return void
+     * @param int $offset
+     * @return \yii\web\Response
+     * @throws \yii\db\Exception
      */
-    public function actionIndex(): void
+    public function actionIndex($offset = 0)
     {
+        $limit = 100;
+        $player = null;
         $playerArray = Player::find()
             ->select(['player_id', 'player_age', 'player_power_nominal'])
             ->where(['!=', 'player_team_id', 0])
+            ->offset($offset)
+            ->limit($limit)
             ->each();
         foreach ($playerArray as $player) {
             /**
@@ -48,6 +53,10 @@ class PowerController extends AbstractController
                 ->count();
             $player->player_power_nominal = $power + $plus - $minus;
             $player->save(true, ['player_power_nominal']);
+        }
+
+        if ($player) {
+            return $this->redirect(['power/index', 'offset' => $offset + $limit]);
         }
 
         $sql = "UPDATE `player`
