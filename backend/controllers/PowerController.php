@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\Player;
+use Yii;
 
 /**
  * Class PowerController
@@ -48,5 +49,12 @@ class PowerController extends AbstractController
             $player->player_power_nominal = $power + $plus - $minus;
             $player->save(true, ['player_power_nominal']);
         }
+
+        $sql = "UPDATE `player`
+                LEFT JOIN `physical`
+                ON `player_physical_id`=`physical_id`
+                SET `player_power_real`=`player_power_nominal`*(100-`player_tire`)/100*`physical_value`/100
+                WHERE `player_age`<40";
+        Yii::$app->db->createCommand($sql)->execute();
     }
 }
