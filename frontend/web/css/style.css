@@ -952,7 +952,7 @@ blockquote:before {
     margin-right: 20px;
 }
 
-.message-scroll {
+.chat-scroll, .message-scroll {
     max-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
