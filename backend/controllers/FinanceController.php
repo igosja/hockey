@@ -7,7 +7,7 @@ use common\models\FinanceText;
 use common\models\Team;
 
 /**
- * Class CityController
+ * Class FinanceController
  * @package backend\controllers
  */
 class FinanceController extends AbstractController
