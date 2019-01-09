@@ -62,6 +62,14 @@ class SiteController extends AbstractController
      */
     public function actionIndex(): string
     {
+        if (Yii::$app->request->get('ref')) {
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'user_referrer_id',
+                'value' => Yii::$app->request->get('ref'),
+            ]));
+        }
+
         $birthdays = User::find()
             ->where(['user_birth_day' => date('d'), 'user_birth_month' => date('Y')])
             ->orderBy(['user_id' => SORT_ASC])
