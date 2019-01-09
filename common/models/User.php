@@ -286,7 +286,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     {
         $result = '';
         if ($this->isVip()) {
-            $result = ' <i aria-hidden="true" class="fa fa-star" title="VIP"></i>';
+            $result = ' <i aria-hidden="true" class="fa fa-star font-yellow" title="VIP"></i>';
         }
         return $result;
     }

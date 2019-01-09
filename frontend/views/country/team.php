@@ -34,7 +34,7 @@ print $this->render('_country');
                 'headerOptions' => ['class' => 'col-40'],
                 'label' => 'Менеджер',
                 'value' => function (Team $model) {
-                    return $model->manager->iconVip() . $model->manager->userLink();
+                    return $model->manager->iconVip() . ' ' . $model->manager->userLink();
                 }
             ],
             [
