@@ -75,7 +75,7 @@ foreach ($controller->myTeamArray as $item) {
                     ['school/index'],
                     ['class' => 'no-underline']
                 ); ?>
-            <?php elseif (!in_array($team->team_id, $myTeamIds)): ?>
+            <?php elseif (!in_array($team->team_id, $myTeamIds) && !$team->team_user_id): ?>
                 <?= Html::a(
                     Html::img(
                         '/img/roster/free-team.png',
@@ -84,7 +84,7 @@ foreach ($controller->myTeamArray as $item) {
                             'title' => 'Подать заявку на получение команды',
                         ]
                     ),
-                    ['team/change', 'id' => $team->team_id],
+                    [($controller->myTeam ? 'team/ask' : 'team/change'), 'id' => $team->team_id],
                     ['class' => 'no-underline']
                 ); ?>
             <?php endif; ?>
