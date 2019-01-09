@@ -65,6 +65,7 @@ use yii\helpers\Html;
  * @property Conference $conference
  * @property FriendlyStatus $friendlyStatus
  * @property User $manager
+ * @property OffSeason $offSeason
  * @property RatingTeam $ratingTeam
  * @property Stadium $stadium
  * @property TeamAsk[] $teamAsk
@@ -648,6 +649,18 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
+    public function offSeason(): string
+    {
+        $result = Html::a(
+            $this->offSeason->off_season_place . ' место',
+            ['off-season/table']
+        );
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
     public function division(): string
     {
         if ($this->championship) {
@@ -664,9 +677,7 @@ class Team extends AbstractActiveRecord
             );
         } else {
             $result = Html::a(
-                $result = 'Конференция' . ', ' .
-                    $this->conference->conference_place . ' ' .
-                    'место',
+                'Конференция' . ', ' . $this->conference->conference_place . ' место',
                 ['conference/table']
             );
         }
@@ -1133,6 +1144,14 @@ class Team extends AbstractActiveRecord
     public function getManager(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'team_user_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getOffSeason(): ActiveQuery
+    {
+        return $this->hasOne(OffSeason::class, ['off_season_team_id' => 'team_id']);
     }
 
     /**
