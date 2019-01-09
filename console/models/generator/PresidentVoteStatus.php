@@ -17,6 +17,7 @@ use yii\db\ActiveQuery;
 class PresidentVoteStatus
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -52,20 +53,23 @@ class PresidentVoteStatus
 
     /**
      * @param ElectionPresident $electionPresident
+     * @throws \Exception
      * @return void
      */
     private function toOpen(ElectionPresident $electionPresident): void
     {
         $model = new ElectionPresidentApplication();
         $model->election_president_application_election_id = $electionPresident->election_president_id;
+        $model->election_president_application_text = '-';
         $model->save();
 
         $electionPresident->election_president_election_status_id = ElectionStatus::OPEN;
-        $electionPresident->save();
+        $electionPresident->save(true, ['election_president_election_status_id']);
     }
 
     /**
      * @param ElectionPresident $electionPresident
+     * @throws \Exception
      * @return void
      */
     private function toClose(ElectionPresident $electionPresident): void
@@ -123,6 +127,6 @@ class PresidentVoteStatus
         }
 
         $electionPresident->election_president_election_status_id = ElectionStatus::CLOSE;
-        $electionPresident->save();
+        $electionPresident->save(true, ['election_president_election_status_id']);
     }
 }
