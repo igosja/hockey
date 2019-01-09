@@ -72,7 +72,7 @@ class ElectionPresident extends AbstractActiveRecord
             $count = count($application->electionPresidentVote);
             $result[] = [
                 'count' => $count,
-                'user' => $application->user->userLink(),
+                'user' => $application->election_president_application_user_id ? $application->user->userLink() : 'Потив всех',
             ];
             $total = $total + $count;
         }
