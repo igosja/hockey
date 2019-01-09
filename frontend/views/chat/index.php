@@ -11,11 +11,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
-/**
- * @var \common\models\User $user
- */
-$user = Yii::$app->user->identity;
-
 ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -29,9 +24,7 @@ $user = Yii::$app->user->identity;
                 <?php foreach ($chatArray as $chat) : ?>
                     <div class="row margin-top">
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
-                            <?= FormatHelper::asDateTime(
-                                new DateTime($chat['date'], new DateTimeZone($user->user_timezone ?: 'UTC'))
-                            ); ?>,
+                            <?= FormatHelper::asDateTime($chat['date']); ?>,
                             <?= $chat['userLink']; ?>
                         </div>
                     </div>
