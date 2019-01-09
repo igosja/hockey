@@ -42,10 +42,10 @@ class FormatHelper
     }
 
     /**
-     * @param int $time
+     * @param int|\DateTime $time
      * @return string
      */
-    public static function asDateTime(int $time): string
+    public static function asDateTime($time): string
     {
         $result = '';
         try {
