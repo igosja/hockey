@@ -42,25 +42,25 @@ print $this->render('//country/_country');
             ->field($model, 'election_president_vote_application_id')
             ->radioList($electionPresident->application, [
                 'item' => function ($index, ElectionPresidentApplication $model, $name, $checked) {
-                    return '<div class="row border-top"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
+                    $result = '<div class="row border-top"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
                         . Html::radio($name, $checked, [
                             'index' => $index,
-                            'label' => $model->user->userLink(),
+                            'label' => $model->election_president_application_user_id ? $model->user->userLink() : 'Потив всех',
                             'value' => $model->election_president_application_id,
                         ])
-                        . '</div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        Дата регистрации:
-                        ' . FormatHelper::asDate($model->user->user_date_register)
-                        . '</div>
-                </div>
-                <div class="row margin-top-small">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        ' . nl2br($model->election_president_application_text)
-                        . '</div>
-                </div>';
+                        . '</div></div>';
+                    if ($model->election_president_application_user_id) {
+                        $result = $result . '<div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Дата регистрации: '
+                            . FormatHelper::asDate($model->user->user_date_register)
+                            . '</div></div>
+                            <div class="row margin-top-small">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
+                            . nl2br($model->election_president_application_text)
+                            . '</div></div>';
+                    }
+                    return $result;
                 }
             ])
             ->label(false); ?>
