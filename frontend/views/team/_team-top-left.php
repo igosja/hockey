@@ -24,6 +24,9 @@ use yii\helpers\Html;
         </div>
         <div class="row margin-top-small">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
+                Кубок межсезонья: <?= $team->offSeason(); ?>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Дивизион: <?= $team->division(); ?>
             </div>
         </div>
