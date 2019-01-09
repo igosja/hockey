@@ -64,7 +64,7 @@ class CountryController extends AbstractController
             ]
         ]);
 
-        $this->setSeoTitle('Команды фередации');
+        $this->setSeoTitle('Команды федерации');
 
         return $this->render('team', [
             'dataProvider' => $dataProvider,
@@ -134,7 +134,7 @@ class CountryController extends AbstractController
             ],
         ]);
 
-        $this->setSeoTitle('Опросы фередации');
+        $this->setSeoTitle('Опросы федерации');
 
         return $this->render('poll', [
             'dataProvider' => $dataProvider,
@@ -190,7 +190,7 @@ class CountryController extends AbstractController
                 ->orderBy(['finance_id' => SORT_DESC]),
         ]);
 
-        $this->setSeoTitle('Фонд фередации');
+        $this->setSeoTitle('Фонд федерации');
 
         return $this->render('finance', [
             'dataProvider' => $dataProvider,
