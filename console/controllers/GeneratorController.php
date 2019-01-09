@@ -13,6 +13,7 @@ use console\models\generator\CountryStadiumCapacity;
 use console\models\generator\CountVisitor;
 use console\models\generator\DecreaseInjury;
 use console\models\generator\DecreaseTeamwork;
+use console\models\generator\DumpDatabase;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\FriendlyInviteDelete;
@@ -110,6 +111,7 @@ class GeneratorController extends AbstractController
         $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
+            new DumpDatabase(),
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),

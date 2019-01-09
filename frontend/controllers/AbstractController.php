@@ -18,6 +18,7 @@ use yii\web\ForbiddenHttpException;
  * @property Team $myTeam
  * @property Team[] $myTeamArray
  * @property int $seasonId
+ * @property User $user
  */
 abstract class AbstractController extends Controller
 {
@@ -37,10 +38,14 @@ abstract class AbstractController extends Controller
     public $seasonId;
 
     /**
+     * @var User $user
+     */
+    public $user = null;
+
+    /**
      * @param $action
      * @return bool
-     * @throws ForbiddenHttpException
-     * @throws \yii\web\BadRequestHttpException
+     * @throws \Exception
      */
     public function beforeAction($action)
     {
@@ -85,7 +90,9 @@ abstract class AbstractController extends Controller
                 ->limit(1)
                 ->one();
 
-            User::updateAll(['user_date_login' => time()], ['user_id' => Yii::$app->user->id]);
+            $this->user = Yii::$app->user->identity;
+            $this->user->user_date_login = time();
+            $this->user->save(true, ['user_date_login']);
         }
 
         return true;

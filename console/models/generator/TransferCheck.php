@@ -48,34 +48,44 @@ class TransferCheck
                 ]);
 
                 $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance - $schoolPrice;
-                $transfer->player->schoolTeam->save();
+                $transfer->player->schoolTeam->save(true, ['team_finance']);
 
                 if ($transfer->transfer_team_seller_id) {
+                    $sellerTeam = $transfer->seller;
+                    if ($transfer->player->player_school_id == $transfer->transfer_team_seller_id) {
+                        $sellerTeam = $transfer->player->schoolTeam;
+                    }
+
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                         'finance_player_id' => $transfer->transfer_player_id,
                         'finance_team_id' => $transfer->transfer_team_seller_id,
                         'finance_value' => -$transfer->transfer_price_buyer,
-                        'finance_value_after' => $transfer->seller->team_finance - $transfer->transfer_price_buyer,
-                        'finance_value_before' => $transfer->seller->team_finance,
+                        'finance_value_after' => $sellerTeam->team_finance - $transfer->transfer_price_buyer,
+                        'finance_value_before' => $sellerTeam->team_finance,
                     ]);
 
-                    $transfer->seller->team_finance = $transfer->seller->team_finance - $transfer->transfer_price_buyer;
-                    $transfer->seller->save();
+                    $sellerTeam->team_finance = $sellerTeam->team_finance - $transfer->transfer_price_buyer;
+                    $sellerTeam->save(true, ['team_finance']);
                 }
 
                 if ($transfer->transfer_team_buyer_id) {
+                    $buyerTeam = $transfer->buyer;
+                    if ($transfer->player->player_school_id == $transfer->transfer_team_buyer_id) {
+                        $buyerTeam = $transfer->player->schoolTeam;
+                    }
+
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
                         'finance_player_id' => $transfer->transfer_player_id,
                         'finance_team_id' => $transfer->transfer_team_buyer_id,
                         'finance_value' => $transfer->transfer_price_buyer,
-                        'finance_value_after' => $transfer->buyer->team_finance + $transfer->transfer_price_buyer,
-                        'finance_value_before' => $transfer->buyer->team_finance,
+                        'finance_value_after' => $buyerTeam->team_finance + $transfer->transfer_price_buyer,
+                        'finance_value_before' => $buyerTeam->team_finance,
                     ]);
 
-                    $transfer->buyer->team_finance = $transfer->buyer->team_finance - $transfer->transfer_price_buyer;
-                    $transfer->buyer->save();
+                    $buyerTeam->team_finance = $buyerTeam->team_finance - $transfer->transfer_price_buyer;
+                    $buyerTeam->save(true, ['team_finance']);
                 }
 
                 $transfer->player->player_squad_id = 0;
