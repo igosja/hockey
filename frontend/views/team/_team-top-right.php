@@ -84,7 +84,7 @@ foreach ($controller->myTeamArray as $item) {
                             'title' => 'Подать заявку на получение команды',
                         ]
                     ),
-                    [($controller->myTeam ? 'team/ask' : 'team/change'), 'id' => $team->team_id],
+                    [($controller->myTeam ? 'team/change' : 'team/ask'), 'id' => $team->team_id],
                     ['class' => 'no-underline']
                 ); ?>
             <?php endif; ?>
