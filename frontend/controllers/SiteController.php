@@ -8,7 +8,6 @@ use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
 use common\models\User;
-use console\models\generator\DumpDatabase;
 use Exception;
 use frontend\models\Activation;
 use frontend\models\ActivationRepeat;
@@ -63,8 +62,6 @@ class SiteController extends AbstractController
      */
     public function actionIndex(): string
     {
-        (new DumpDatabase())->execute();
-
         if (Yii::$app->request->get('ref')) {
             $cookies = Yii::$app->response->cookies;
             $cookies->add(new \yii\web\Cookie([
