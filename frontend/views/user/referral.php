@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\User;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -35,8 +36,8 @@ print $this->render('_top');
             как можно большему числу любителей хоккея о нашей игре - это долго, дорого и не всегда эффективно.
         </p>
         <p class="text-justify">
-            Поэтому мы предлагам вам - нашим менеджерам: <span
-                    class="strong">приглашайте в игру новых участников.</span>
+            Поэтому мы предлагам вам - нашим менеджерам:
+            <span class="strong">приглашайте в игру новых участников.</span>
             Мы лучше выплатим вознаграждение вам, чем кому-то другому.
             Вы можете рассказать о нашей игре своим друзьям, знакомым, сотрудникам, одноклассникам и одногруппникам,
             посетителям вашего блога или сайта, на своем любимом форуме или чате, в социальной сети.
@@ -62,17 +63,7 @@ print $this->render('_top');
         <p class="text-justify">
             А в случае, если ваш подопечный сможет разобраться в игре и стать настоящим менеджером
             Виртуальной Хоккейной Лиги - вас ждет <span class="strong">дополнительное вознаграждение</span> в виде
-            <span class="strong">
-                <?php
-
-                try {
-                    print Yii::$app->formatter->asCurrency(1000000, 'USD');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
-            </span> на личный счет менеджера.
+            <span class="strong"><?= FormatHelper::asCurrency(1000000); ?></span> на личный счет менеджера.
         </p>
         <p class="text-justify">
             Условия получения <span class="strong">дополнительного вознаграждения</span>:
@@ -102,6 +93,7 @@ print $this->render('_top');
         $columns = [
             [
                 'footer' => 'Менеджер',
+                'format' => 'raw',
                 'label' => 'Менеджер',
                 'value' => function (User $model): string {
                     return $model->userLink();
@@ -111,6 +103,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center hidden-xs'],
                 'footer' => 'Последний визит',
                 'footerOptions' => ['class' => 'hidden-xs'],
+                'format' => 'raw',
                 'label' => 'Последний визит',
                 'headerOptions' => ['class' => 'col-25 hidden-xs'],
                 'value' => function (User $model): string {
@@ -124,7 +117,7 @@ print $this->render('_top');
                 'label' => 'Дата регистрации',
                 'headerOptions' => ['class' => 'col-25 hidden-xs'],
                 'value' => function (User $model): string {
-                    return Yii::$app->formatter->asDate($model->user_date_register, 'short');
+                    return FormatHelper::asDateTime($model->user_date_register);
                 }
             ],
         ];
