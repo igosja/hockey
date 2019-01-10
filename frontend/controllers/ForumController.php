@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Complaint;
 use common\models\ForumChapter;
 use common\models\ForumGroup;
 use common\models\ForumMessage;
@@ -28,11 +29,19 @@ class ForumController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['message-block', 'message-delete', 'message-move', 'message-update', 'theme-create'],
+                'only' => [
+                    'message-block',
+                    'message-complaint',
+                    'message-delete',
+                    'message-move',
+                    'message-update',
+                    'theme-create',
+                ],
                 'rules' => [
                     [
                         'actions' => [
                             'message-block',
+                            'message-complaint',
                             'message-delete',
                             'message-move',
                             'message-update',
@@ -286,6 +295,30 @@ class ForumController extends AbstractController
 
         $this->setSuccessFlash('Сообшение успешно удалено');
         return $this->redirect(Yii::$app->request->referrer ?: ['forum/theme', 'id' => $themeId]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMessageComplaint($id): Response
+    {
+        $forumMessage = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($forumMessage);
+
+        $model = new Complaint();
+        $model->complaint_forum_message_id = $id;
+        $model->save();
+
+        $this->setSuccessFlash('Жалоба успешно сохранена');
+        return $this->redirect(
+            Yii::$app->request->referrer ?: ['forum/theme', 'id' => $forumMessage->forum_message_forum_theme_id]
+        );
     }
 
     /**
