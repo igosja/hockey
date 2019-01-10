@@ -19,6 +19,7 @@ use yii\helpers\Html;
  * @property string $forum_message_text
  * @property int $forum_message_user_id
  *
+ * @property Complaint[] $complaint
  * @property ForumTheme $forumTheme
  * @property User $user
  */
@@ -73,6 +74,19 @@ class ForumMessage extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete(): bool
+    {
+        foreach ($this->complaint as $complaint) {
+            $complaint->delete();
+        }
+        return parent::beforeDelete();
     }
 
     /**
@@ -156,6 +170,14 @@ class ForumMessage extends AbstractActiveRecord
         $result = implode(' | ', $linkArray);
 
         return $result;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getComplaint(): ActiveQuery
+    {
+        return $this->hasMany(Complaint::class, ['complaint_forum_message_id' => 'forum_message_id']);
     }
 
     /**
