@@ -308,7 +308,7 @@ class ForumController extends AbstractController
             ->one();
         $this->notFound($model);
 
-        if ($model->forum_message_blocked) {
+        if ($model->forum_message_blocked && UserRole::USER == $this->user->user_user_role_id) {
             $this->setErrorFlash('Сообщение заблокировано и не может быть отредактировано');
             return $this->redirect(
                 Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
