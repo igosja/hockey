@@ -13,6 +13,7 @@ use common\models\UserRating;
 class UpdateUserRating
 {
     /**
+     * @throws \Exception
      * @return void
      */
     public function execute(): void
@@ -203,15 +204,15 @@ class UpdateUserRating
                 }
             }
 
-            if (Mood::REST == $game->game_guest_mood_id && Mood::REST == $game->game_home_mood_id) {
+            if (Mood::REST == $game->game_guest_mood_id && Mood::REST != $game->game_home_mood_id) {
                 $homeVsRest++;
-            } elseif (Mood::REST == $game->game_home_mood_id && Mood::REST == $game->game_guest_mood_id) {
+            } elseif (Mood::REST == $game->game_home_mood_id && Mood::REST != $game->game_guest_mood_id) {
                 $guestVsRest++;
             }
 
-            if (Mood::SUPER == $game->game_guest_mood_id && Mood::SUPER == $game->game_home_mood_id) {
+            if (Mood::SUPER == $game->game_guest_mood_id && Mood::SUPER != $game->game_home_mood_id) {
                 $homeVsSuper++;
-            } elseif (Mood::SUPER == $game->game_home_mood_id && Mood::SUPER == $game->game_guest_mood_id) {
+            } elseif (Mood::SUPER == $game->game_home_mood_id && Mood::SUPER != $game->game_guest_mood_id) {
                 $guestVsSuper++;
             }
 
