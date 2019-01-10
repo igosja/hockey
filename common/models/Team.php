@@ -306,20 +306,39 @@ class Team extends AbstractActiveRecord
      */
     public function updatePower()
     {
-        $playerGk = Player::find()
+        $player1 = Player::find()
             ->select(['player_id'])
             ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
-            ->orderBy(['player_power_nominal' => SORT_DESC]);
-        $playerField = Player::find()
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(1)
+            ->column();
+        $player2 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_team_id' => $this->team_id, 'player_position_id' => Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(2)
+            ->column();
+        $player20 = Player::find()
             ->select(['player_id'])
             ->where(['player_team_id' => $this->team_id])
             ->andWhere(['!=', 'player_position_id', Position::GK])
-            ->orderBy(['player_power_nominal' => SORT_DESC]);
-        $player1 = (clone $playerGk)->limit(1)->column();
-        $player2 = (clone $playerGk)->limit(2)->column();
-        $player20 = (clone $playerField)->limit(20)->column();
-        $player25 = (clone $playerField)->limit(25)->column();
-        $player30 = (clone $playerField)->limit(30)->column();
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(20)
+            ->column();
+        $player25 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(25)
+            ->column();
+        $player30 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_team_id' => $this->team_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(30)
+            ->column();
         $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal');
         $power_c_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
         $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal');
