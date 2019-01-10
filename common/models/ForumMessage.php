@@ -123,36 +123,34 @@ class ForumMessage extends AbstractActiveRecord
         $isUser = (UserRole::USER == $user->user_user_role_id);
         $linkArray = [];
 
-        if (isset($auth_user_id)) {
-            if (($auth_user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
-                $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
-            }
+        if (($user->user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
+            $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
+        }
 
-            if ($auth_user_id == $this->forum_message_user_id || !$isUser) {
-                $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
-            }
+        if ($user->user_id == $this->forum_message_user_id || !$isUser) {
+            $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
+        }
 
-            if ($auth_user_id == $this->forum_message_user_id && $isUser) {
-                $linkArray[] = Html::a(
-                    'Пожаловаться',
-                    'javascript:',
-                    [
-                        'class' => 'forum-complain',
-                        'data-message' => $this->forum_message_id,
-                    ]
-                );
-            }
+        if ($user->user_id == $this->forum_message_user_id && $isUser) {
+            $linkArray[] = Html::a(
+                'Пожаловаться',
+                'javascript:',
+                [
+                    'class' => 'forum-complain',
+                    'data-message' => $this->forum_message_id,
+                ]
+            );
+        }
 
-            if (!$isUser) {
-                $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
+        if (!$isUser) {
+            $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
 
-                if (!$this->forum_message_blocked) {
-                    $text = 'Блокировать';
-                } else {
-                    $text = 'Разблокировать';
-                }
-                $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
+            if (!$this->forum_message_blocked) {
+                $text = 'Блокировать';
+            } else {
+                $text = 'Разблокировать';
             }
+            $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
         }
 
         $result = implode(' | ', $linkArray);
