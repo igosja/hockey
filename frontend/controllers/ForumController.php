@@ -6,11 +6,13 @@ use common\models\ForumChapter;
 use common\models\ForumGroup;
 use common\models\ForumMessage;
 use common\models\ForumTheme;
+use common\models\UserRole;
 use frontend\models\ForumThemeForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\web\Response;
 
 /**
  * Class ForumController
@@ -26,10 +28,16 @@ class ForumController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['theme-create'],
+                'only' => ['message-block', 'message-delete', 'message-move', 'message-update', 'theme-create'],
                 'rules' => [
                     [
-                        'actions' => ['theme-create'],
+                        'actions' => [
+                            'message-block',
+                            'message-delete',
+                            'message-move',
+                            'message-update',
+                            'theme-create',
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -219,6 +227,154 @@ class ForumController extends AbstractController
 
         return $this->render('theme-create', [
             'forumGroup' => $forumGroup,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMessageBlock($id): Response
+    {
+        if (UserRole::USER == $this->user->user_user_role_id) {
+            $this->forbiddenRole();
+        }
+
+        $model = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $model->forum_message_blocked = 1 - $model->forum_message_blocked;
+        $model->save(true, ['forum_message_blocked']);
+
+        $this->setSuccessFlash();
+        return $this->redirect(
+            Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+        );
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMessageDelete($id): Response
+    {
+        $userId = null;
+        if (UserRole::USER == $this->user->user_user_role_id) {
+            $userId = $this->user->user_id;
+        }
+
+        $model = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->andFilterWhere(['forum_message_user_id' => $userId])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $themeId = $model->forum_message_forum_theme_id;
+
+        $model->delete();
+
+        $this->setSuccessFlash('Сообшение успешно удалено');
+        return $this->redirect(Yii::$app->request->referrer ?: ['forum/theme', 'id' => $themeId]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMessageUpdate($id)
+    {
+        $userId = null;
+        if (UserRole::USER == $this->user->user_user_role_id) {
+            $userId = $this->user->user_id;
+        }
+
+        $model = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->andFilterWhere(['forum_message_user_id' => $userId])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        if ($model->forum_message_blocked) {
+            $this->setErrorFlash('Сообщение заблокировано и не может быть отредактировано');
+            return $this->redirect(
+                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+            );
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Сообщение успешно отредактировано');
+            return $this->redirect(
+                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+            );
+        }
+
+        $this->setSeoTitle('Редактирование сообщения');
+
+        return $this->render('message-update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionMessageMove($id)
+    {
+        if (UserRole::USER == $this->user->user_user_role_id) {
+            $this->forbiddenRole();
+        }
+
+        $model = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Сообщение успешно отредактировано');
+            return $this->redirect(
+                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+            );
+        }
+
+        $forumThemeOptions = [];
+        $forumThemeArray = ForumTheme::find()
+            ->joinWith(['forumGroup.forumChapter'])
+            ->orderBy(['forum_chapter_name' => SORT_ASC, 'forum_group_name' => SORT_ASC])
+            ->all();
+        foreach ($forumThemeArray as $forumTheme) {
+            /**
+             * @var ForumTheme $forumTheme
+             */
+            $forumThemeOptions[$forumTheme->forum_theme_id] = $forumTheme->forumGroup->forumChapter->forum_chapter_name
+                . ' --- '
+                . $forumTheme->forumGroup->forum_group_name
+                . ' --- '
+                . $forumTheme->forum_theme_name;
+        }
+
+        $this->setSeoTitle('Перемещение сообщения');
+
+        return $this->render('message-move', [
+            'forumThemeArray' => $forumThemeOptions,
             'model' => $model,
         ]);
     }
