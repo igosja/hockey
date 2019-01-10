@@ -24,7 +24,7 @@ class PhysicalController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -147,7 +147,7 @@ class PhysicalController extends AbstractController
      * @param string $stage
      * @param string $team
      */
-    public function actionImage(string $tournament = null, string $stage = null, string $team = null)
+    public function actionImage($tournament = null, $stage = null, $team = null)
     {
         if ($tournament && $stage) {
             $text = $tournament . ', ' . $stage;
@@ -175,7 +175,7 @@ class PhysicalController extends AbstractController
      * @return array|Response
      * @throws \Exception
      */
-    public function actionChange(int $physicalId, int $playerId, int $scheduleId)
+    public function actionChange($physicalId, $playerId, $scheduleId)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -301,7 +301,7 @@ class PhysicalController extends AbstractController
     /**
      * @return bool
      */
-    private function isOnBuilding(): bool
+    private function isOnBuilding()
     {
         if (!$this->myTeam->buildingBase) {
             return false;

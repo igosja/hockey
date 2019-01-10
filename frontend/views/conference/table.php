@@ -65,7 +65,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Место'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Место'],
                 'label' => 'М',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_place;
                 }
             ],
@@ -73,7 +73,7 @@ $user = Yii::$app->user->identity;
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (Conference $model): string {
+                'value' => function (Conference $model) {
                     return $model->team->teamLink('img');
                 }
             ],
@@ -83,7 +83,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры'],
                 'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Игры'],
                 'label' => 'И',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_game;
                 }
             ],
@@ -93,7 +93,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы'],
                 'label' => 'B',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_win;
                 }
             ],
@@ -103,7 +103,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы в овертайте'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы в овертайте'],
                 'label' => 'ВО',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_win_overtime;
                 }
             ],
@@ -113,7 +113,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы по буллитам'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы по буллитам'],
                 'label' => 'ВБ',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_win_shootout;
                 }
             ],
@@ -123,7 +123,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения по буллитам'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения по буллитам'],
                 'label' => 'ПБ',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_loose_shootout;
                 }
             ],
@@ -133,7 +133,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения в овертайте'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения в овертайте'],
                 'label' => 'ПО',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_loose_overtime;
                 }
             ],
@@ -143,7 +143,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения'],
                 'label' => 'П',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_loose;
                 }
             ],
@@ -153,7 +153,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
                 'headerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
                 'label' => 'Ш',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_score;
                 }
             ],
@@ -163,7 +163,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['style' => ['display' => 'none']],
                 'headerOptions' => ['style' => ['display' => 'none']],
                 'label' => 'Ш',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_pass;
                 }
             ],
@@ -173,7 +173,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Очки'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Очки'],
                 'label' => 'О',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->conference_point;
                 }
             ],
@@ -183,7 +183,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'label' => 'Vs',
-                'value' => function (Conference $model): int {
+                'value' => function (Conference $model) {
                     return $model->team->team_power_vs;
                 },
                 'visible' => $user && $user->isVip(),

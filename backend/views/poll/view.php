@@ -19,7 +19,7 @@ use yii\widgets\DetailView;
     </div>
 </div>
 <ul class="list-inline preview-links text-center">
-    <?php if (PollStatus::NEW == $model->poll_poll_status_id) : ?>
+    <?php if (PollStatus::NEW_ONE == $model->poll_poll_status_id) : ?>
         <li>
             <?= Html::a('Одобрить', ['poll/approve', 'id' => $model->poll_id], ['class' => 'btn btn-default']); ?>
         </li>

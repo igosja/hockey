@@ -55,7 +55,7 @@ class StatisticPlayer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%statistic_player}}';
     }
@@ -63,7 +63,7 @@ class StatisticPlayer extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -122,7 +122,7 @@ class StatisticPlayer extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -136,7 +136,7 @@ class StatisticPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'statistic_player_player_id']);
     }
@@ -144,7 +144,7 @@ class StatisticPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'statistic_player_team_id']);
     }

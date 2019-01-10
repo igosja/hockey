@@ -45,7 +45,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%transfer}}';
     }
@@ -53,7 +53,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -85,7 +85,7 @@ class Transfer extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -251,7 +251,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function dealDate(): string
+    public function dealDate()
     {
         $today = strtotime(date('Y-m-d 09:00:00'));
 
@@ -266,7 +266,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function position(): string
+    public function position()
     {
         $result = [];
         foreach ($this->playerPosition as $position) {
@@ -278,7 +278,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function special(): string
+    public function special()
     {
         $result = [];
         foreach ($this->playerSpecial as $special) {
@@ -290,7 +290,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function rating(): string
+    public function rating()
     {
         $returnArray = [
             '<span class="font-green">' . count($this->transferVotePlus) . '</span>',
@@ -319,7 +319,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuyer(): ActiveQuery
+    public function getBuyer()
     {
         return $this->hasOne(Team::class, ['team_id' => 'transfer_team_buyer_id']);
     }
@@ -327,7 +327,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getManagerBuyer(): ActiveQuery
+    public function getManagerBuyer()
     {
         return $this->hasOne(User::class, ['user_id' => 'transfer_user_buyer_id']);
     }
@@ -335,7 +335,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getManagerSeller(): ActiveQuery
+    public function getManagerSeller()
     {
         return $this->hasOne(User::class, ['user_id' => 'transfer_user_seller_id']);
     }
@@ -343,7 +343,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'transfer_player_id']);
     }
@@ -351,7 +351,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayerPosition(): ActiveQuery
+    public function getPlayerPosition()
     {
         return $this->hasMany(TransferPosition::class, ['transfer_position_transfer_id' => 'transfer_id']);
     }
@@ -359,7 +359,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayerSpecial(): ActiveQuery
+    public function getPlayerSpecial()
     {
         return $this->hasMany(TransferSpecial::class, ['transfer_special_transfer_id' => 'transfer_id']);
     }
@@ -367,7 +367,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSeller(): ActiveQuery
+    public function getSeller()
     {
         return $this->hasOne(Team::class, ['team_id' => 'transfer_team_seller_id']);
     }
@@ -375,7 +375,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTransferApplication(): ActiveQuery
+    public function getTransferApplication()
     {
         return $this->hasMany(TransferApplication::class, ['transfer_application_transfer_id' => 'transfer_id']);
     }
@@ -383,7 +383,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTransferVote(): ActiveQuery
+    public function getTransferVote()
     {
         return $this->hasMany(TransferVote::class, ['transfer_vote_transfer_id' => 'transfer_id']);
     }
@@ -391,7 +391,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTransferVoteMinus(): ActiveQuery
+    public function getTransferVoteMinus()
     {
         return $this->getTransferVote()->andWhere(['<', 'transfer_vote_rating', 0]);
     }
@@ -399,7 +399,7 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTransferVotePlus(): ActiveQuery
+    public function getTransferVotePlus()
     {
         return $this->getTransferVote()->andWhere(['>', 'transfer_vote_rating', 0]);
     }

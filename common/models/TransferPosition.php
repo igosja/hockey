@@ -19,7 +19,7 @@ class TransferPosition extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%transfer_position}}';
     }
@@ -27,7 +27,7 @@ class TransferPosition extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['transfer_position_id', 'transfer_position_position_id', 'transfer_position_transfer_id'], 'integer'],
@@ -38,7 +38,7 @@ class TransferPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition(): ActiveQuery
+    public function getPosition()
     {
         return $this->hasOne(Position::class, ['position_id' => 'transfer_position_position_id']);
     }

@@ -36,7 +36,7 @@ use yii\grid\GridView;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (Money $model): string {
+                'value' => function (Money $model) {
                     return FormatHelper::asDateTime($model->money_date);
                 }
             ],
@@ -46,7 +46,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Было',
-                'value' => function (Money $model): string {
+                'value' => function (Money $model) {
                     return $model->money_value_before;
                 }
             ],
@@ -55,7 +55,7 @@ use yii\grid\GridView;
                 'footer' => '+/-',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => '+/-',
-                'value' => function (Money $model): string {
+                'value' => function (Money $model) {
                     return $model->money_value;
                 }
             ],
@@ -65,14 +65,14 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стало',
-                'value' => function (Money $model): string {
+                'value' => function (Money $model) {
                     return $model->money_value_after;
                 }
             ],
             [
                 'footer' => 'Комментарий',
                 'label' => 'Комментарий',
-                'value' => function (Money $model): string {
+                'value' => function (Money $model) {
                     return $model->moneyText->money_text_text;
                 }
             ],

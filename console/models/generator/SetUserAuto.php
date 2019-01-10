@@ -14,7 +14,7 @@ class SetUserAuto
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Team::updateAllCounters(
             ['team_auto' => 1],

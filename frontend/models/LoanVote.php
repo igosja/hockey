@@ -43,7 +43,7 @@ class LoanVote extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['vote'], 'in', 'range' => [-1, 1]],
@@ -55,7 +55,7 @@ class LoanVote extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'vote' => 'Оценка',

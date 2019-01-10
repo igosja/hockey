@@ -13,9 +13,9 @@ use common\models\Position;
 class NationalVs
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $nationalArray = National::find()
             ->where(['!=', 'national_id', 0])

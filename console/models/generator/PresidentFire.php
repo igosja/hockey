@@ -16,10 +16,10 @@ use Yii;
 class PresidentFire
 {
     /**
+     * @throws \Exception
      * @throws \yii\db\Exception
-     * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $countryArray = Country::find()
             ->where(['!=', 'country_president_id', 0])

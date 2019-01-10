@@ -51,7 +51,7 @@ use yii\helpers\Html;
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (RatingTeam $model): string {
+                'value' => function (RatingTeam $model) {
                     return $model->team->teamLink('img');
                 }
             ];
@@ -63,7 +63,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
                     'headerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
                     'label' => 's21',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_21;
                     }
                 ];
@@ -73,7 +73,7 @@ use yii\helpers\Html;
                     'label' => 's26',
                     'headerOptions' => ['title' => 'Сумма сил 26 лучших игроков'],
                     'footerOptions' => ['title' => 'Сумма сил 26 лучших игроков'],
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_26;
                     }
                 ];
@@ -83,7 +83,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
                     'headerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
                     'label' => 's32',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_32;
                     }
                 ];
@@ -93,7 +93,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                     'headerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                     'label' => 'Vs',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_power_vs;
                     }
                 ];
@@ -104,7 +104,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Средний возраст'],
                     'headerOptions' => ['title' => 'Средний возраст'],
                     'label' => 'В',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_age;
                     }
                 ];
@@ -113,7 +113,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Вместимость',
                     'label' => 'Вместимость',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->stadium->stadium_capacity;
                     }
                 ];
@@ -122,7 +122,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Помещаемость',
                     'label' => 'Помещаемость',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_visitor;
                     }
                 ];
@@ -133,7 +133,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'База'],
                     'headerOptions' => ['title' => 'База'],
                     'label' => 'Б',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->base->base_level;
                     }
                 ];
@@ -143,7 +143,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Количество построек'],
                     'headerOptions' => ['title' => 'Количество построек'],
                     'label' => 'П',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->baseUsed();
                     }
                 ];
@@ -153,7 +153,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Тренировочная база'],
                     'headerOptions' => ['title' => 'Тренировочная база'],
                     'label' => 'Т',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->baseTraining->base_training_level;
                     }
                 ];
@@ -163,7 +163,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Медицинский центр'],
                     'headerOptions' => ['title' => 'Медицинский центр'],
                     'label' => 'М',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->baseMedical->base_medical_level;
                     }
                 ];
@@ -173,7 +173,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Физцентр'],
                     'headerOptions' => ['title' => 'Физцентр'],
                     'label' => 'Ф',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->basePhysical->base_physical_level;
                     }
                 ];
@@ -183,7 +183,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Спротшкола'],
                     'headerOptions' => ['title' => 'Спротшкола'],
                     'label' => 'Сп',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->baseSchool->base_school_level;
                     }
                 ];
@@ -193,7 +193,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Скаутцентр'],
                     'headerOptions' => ['title' => 'Скаутцентр'],
                     'label' => 'Ск',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->baseScout->base_scout_level;
                     }
                 ];
@@ -202,7 +202,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'База',
                     'label' => 'База',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_base, 'USD');
                     }
                 ];
@@ -211,7 +211,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стадион',
                     'label' => 'Стадион',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_stadium, 'USD');
                     }
                 ];
@@ -220,7 +220,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Количество',
                     'label' => 'Количество',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return $model->team->team_player;
                     }
                 ];
@@ -228,7 +228,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стоимость',
                     'label' => 'Стоимость',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_player, 'USD');
                     }
                 ];
@@ -236,7 +236,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Зарплата',
                     'label' => 'Зарплата',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_salary, 'USD');
                     }
                 ];
@@ -245,7 +245,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'База',
                     'label' => 'База',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_base, 'USD');
                     }
                 ];
@@ -253,7 +253,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стадион',
                     'label' => 'Стадион',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_stadium, 'USD');
                     }
                 ];
@@ -261,7 +261,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Игроки',
                     'label' => 'Игроки',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_player, 'USD');
                     }
                 ];
@@ -269,7 +269,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В кассе',
                     'label' => 'В кассе',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_finance, 'USD');
                     }
                 ];
@@ -277,7 +277,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В кассе',
                     'label' => 'В кассе',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_finance, 'USD');
                     }
                 ];
@@ -285,7 +285,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стоимость',
                     'label' => 'Стоимость',
-                    'value' => function (RatingTeam $model): string {
+                    'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asCurrency($model->team->team_price_total, 'USD');
                     }
                 ];
@@ -295,7 +295,7 @@ use yii\helpers\Html;
                 'footer' => 'Менеджер',
                 'format' => 'raw',
                 'label' => 'Менеджер',
-                'value' => function (RatingUser $model): string {
+                'value' => function (RatingUser $model) {
                     return $model->user->userLink();
                 }
             ];
@@ -305,7 +305,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Страна'],
                 'headerOptions' => ['title' => 'Страна'],
                 'label' => 'С',
-                'value' => function (RatingUser $model): string {
+                'value' => function (RatingUser $model) {
                     return $model->user->country->countryImage();
                 }
             ];
@@ -314,7 +314,7 @@ use yii\helpers\Html;
                 'footer' => 'Страна',
                 'format' => 'raw',
                 'label' => 'Страна',
-                'value' => function (RatingCountry $model): string {
+                'value' => function (RatingCountry $model) {
                     return $model->country->countryLink();
                 }
             ];
@@ -324,7 +324,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '10 лучших',
                     'label' => '10 лучших',
-                    'value' => function (RatingCountry $model): string {
+                    'value' => function (RatingCountry $model) {
                         return $model->country->country_stadium_capacity;
                     }
                 ];
@@ -335,7 +335,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Игры'],
                     'headerOptions' => ['title' => 'Игры'],
                     'label' => 'И',
-                    'value' => function (RatingCountry $model): string {
+                    'value' => function (RatingCountry $model) {
                         return $model->country->country_game;
                     }
                 ];
@@ -345,7 +345,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['title' => 'Автосоставы'],
                     'headerOptions' => ['title' => 'Автосоставы'],
                     'label' => 'А',
-                    'value' => function (RatingCountry $model): string {
+                    'value' => function (RatingCountry $model) {
                         return $model->country->country_auto;
                     }
                 ];
@@ -353,7 +353,7 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '%',
                     'label' => '%',
-                    'value' => function (RatingCountry $model): string {
+                    'value' => function (RatingCountry $model) {
                         return Yii::$app->formatter->asDecimal(
                             $model->country->country_auto / ($model->country->country_game ? $model->country->country_game : 1) * 100
                         );

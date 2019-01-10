@@ -36,7 +36,7 @@ class History extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%history}}';
     }
@@ -44,7 +44,7 @@ class History extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -76,7 +76,7 @@ class History extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -102,7 +102,7 @@ class History extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function text(): string
+    public function text()
     {
         $text = $this->historyText->history_text_text;
         if (false !== strpos($text, '{team}')) {
@@ -169,7 +169,7 @@ class History extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getHistoryText(): ActiveQuery
+    public function getHistoryText()
     {
         return $this->hasOne(HistoryText::class, ['history_text_id' => 'history_history_text_id']);
     }
@@ -177,7 +177,7 @@ class History extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'history_player_id']);
     }
@@ -185,7 +185,7 @@ class History extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
     }
@@ -193,7 +193,7 @@ class History extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'history_user_id']);
     }

@@ -36,7 +36,7 @@ class TransferFrom extends Model
 
         $this->transferApplicationArray = TransferApplication::find()
             ->select(['transfer_application_date', 'transfer_application_price', 'transfer_application_team_id'])
-            ->where(['transfer_application_transfer_id' => $this->player->transfer->transfer_id ?? 0])
+            ->where(['transfer_application_transfer_id' => (isset($this->player->transfer->transfer_id) ? $this->player->transfer->transfer_id : 0)])
             ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
             ->all();
     }
@@ -44,7 +44,7 @@ class TransferFrom extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['off'], 'boolean'],
@@ -56,7 +56,7 @@ class TransferFrom extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

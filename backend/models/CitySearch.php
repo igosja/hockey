@@ -15,7 +15,7 @@ class CitySearch extends City
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['city_id'], 'integer'],
@@ -26,7 +26,7 @@ class CitySearch extends City
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class CitySearch extends City
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = City::find()
             ->where(['!=', 'city_id', 0]);

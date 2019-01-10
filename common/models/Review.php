@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use yii\db\ActiveQuery;
-
 /**
  * Class Review
  * @package common\models
@@ -30,7 +28,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%review}}';
     }
@@ -38,7 +36,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -67,7 +65,7 @@ class Review extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -81,7 +79,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'review_country_id']);
     }
@@ -89,7 +87,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDivision(): ActiveQuery
+    public function getDivision()
     {
         return $this->hasOne(Division::class, ['division_id' => 'review_division_id']);
     }
@@ -97,7 +95,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStage(): ActiveQuery
+    public function getStage()
     {
         return $this->hasOne(Stage::class, ['division_id' => 'review_division_id']);
     }
@@ -105,7 +103,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'review_user_id']);
     }

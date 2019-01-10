@@ -15,7 +15,7 @@ class SetStadium
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $sql = "UPDATE `game`
                 LEFT JOIN `schedule`

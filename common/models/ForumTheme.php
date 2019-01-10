@@ -26,7 +26,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%forum_theme}}';
     }
@@ -34,7 +34,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -58,7 +58,7 @@ class ForumTheme extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -73,7 +73,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumGroup(): ActiveQuery
+    public function getForumGroup()
     {
         return $this->hasOne(ForumGroup::class, ['forum_group_id' => 'forum_theme_forum_group_id']);
     }
@@ -81,7 +81,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumMessage(): ActiveQuery
+    public function getForumMessage()
     {
         return $this
             ->hasMany(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id'])
@@ -91,7 +91,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'forum_theme_user_id']);
     }

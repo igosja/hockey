@@ -37,7 +37,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%lineup}}';
     }
@@ -45,7 +45,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -76,7 +76,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconPowerChange(): string
+    public function iconPowerChange()
     {
         $result = '';
         if ($this->lineup_power_change > 0) {
@@ -90,7 +90,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGame(): ActiveQuery
+    public function getGame()
     {
         return $this->hasOne(Game::class, ['game_id' => 'lineup_game_id']);
     }
@@ -98,7 +98,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'lineup_player_id']);
     }
@@ -106,7 +106,7 @@ class Lineup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition(): ActiveQuery
+    public function getPosition()
     {
         return $this->hasOne(Position::class, ['position_id' => 'lineup_position_id']);
     }

@@ -72,7 +72,7 @@ use yii\helpers\Url;
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->playerLink();
                 }
             ],
@@ -82,7 +82,7 @@ use yii\helpers\Url;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->position();
                 }
             ],
@@ -92,7 +92,7 @@ use yii\helpers\Url;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_age;
                 }
             ],
@@ -102,7 +102,7 @@ use yii\helpers\Url;
                 'footerOptions' => ['title' => 'Номинальная сила'],
                 'headerOptions' => ['title' => 'Номинальная сила'],
                 'label' => 'С',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_power_nominal;
                 }
             ],
@@ -110,7 +110,7 @@ use yii\helpers\Url;
 
         for ($i = 0; $i < $countSchedule; $i++) {
             $columns[] = [
-                'contentOptions' => function (Player $model) use ($i, $playerPhysicalArray): array {
+                'contentOptions' => function (Player $model) use ($i, $playerPhysicalArray) {
                     return [
                         'class' => 'text-center ' . $playerPhysicalArray[$model->player_id][$i]['class'],
                         'data' => [
@@ -143,7 +143,7 @@ use yii\helpers\Url;
                         'title' => $scheduleArray[$i]->tournamentType->tournament_type_name . ' ' . $scheduleArray[$i]->stage->stage_name,
                     ]
                 ),
-                'value' => function (Player $model) use ($playerPhysicalArray, $i): string {
+                'value' => function (Player $model) use ($playerPhysicalArray, $i) {
                     return Html::img(
                         '/img/physical/' . $playerPhysicalArray[$model->player_id][$i]['physical_id'] . '.png',
                         [

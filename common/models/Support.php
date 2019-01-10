@@ -25,7 +25,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%support}}';
     }
@@ -33,7 +33,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -58,7 +58,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws \Exception
      */
-    public function addAnswer(int $userId): bool
+    public function addAnswer($userId)
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -83,7 +83,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws \Exception
      */
-    public function addQuestion(): bool
+    public function addQuestion()
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -106,7 +106,7 @@ class Support extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -120,7 +120,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAdmin(): ActiveQuery
+    public function getAdmin()
     {
         return $this->hasOne(User::class, ['user_id' => 'support_admin_id']);
     }
@@ -128,7 +128,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'support_user_id']);
     }

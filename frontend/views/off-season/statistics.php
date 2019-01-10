@@ -53,14 +53,14 @@ if ($statisticType->isTeamChapter()) {
             'label' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
-            'value' => function (StatisticTeam $model): string {
+            'value' => function (StatisticTeam $model) {
                 return $model->team->teamLink('img');
             }
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
             'headerOptions' => ['class' => 'col-10'],
-            'value' => function (StatisticTeam $model) use ($statisticType): string {
+            'value' => function (StatisticTeam $model) use ($statisticType) {
                 $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }
@@ -79,7 +79,7 @@ if ($statisticType->isTeamChapter()) {
             'footer' => 'Игрок',
             'format' => 'raw',
             'label' => 'Игрок',
-            'value' => function (StatisticPlayer $model): string {
+            'value' => function (StatisticPlayer $model) {
                 return $model->player->playerLink();
             }
         ],
@@ -87,13 +87,13 @@ if ($statisticType->isTeamChapter()) {
             'footer' => 'Команда',
             'format' => 'raw',
             'label' => 'Команда',
-            'value' => function (StatisticPlayer $model): string {
+            'value' => function (StatisticPlayer $model) {
                 return $model->team->teamLink('img');
             }
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
-            'value' => function (StatisticTeam $model) use ($statisticType): string {
+            'value' => function (StatisticTeam $model) use ($statisticType) {
                 $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }

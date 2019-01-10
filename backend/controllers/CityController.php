@@ -17,7 +17,7 @@ class CityController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new CitySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -68,7 +68,7 @@ class CityController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = City::find()->where(['city_id' => $id])->limit(1)->one();
 
@@ -105,7 +105,7 @@ class CityController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = City::find()->where(['city_id' => $id])->limit(1)->one();
         $this->notFound($model);

@@ -23,7 +23,7 @@ class LeagueCoefficient extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%league_coefficient}}';
     }
@@ -31,7 +31,7 @@ class LeagueCoefficient extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [

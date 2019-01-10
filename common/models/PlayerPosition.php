@@ -18,7 +18,7 @@ class PlayerPosition extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%player_position}}';
     }
@@ -26,7 +26,7 @@ class PlayerPosition extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['player_position_player_id', 'player_position_position_id'], 'integer'],
@@ -37,7 +37,7 @@ class PlayerPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition(): ActiveQuery
+    public function getPosition()
     {
         return $this->hasOne(Position::class, ['position_id' => 'player_position_position_id']);
     }

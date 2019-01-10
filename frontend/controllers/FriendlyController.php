@@ -27,7 +27,7 @@ class FriendlyController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -87,7 +87,7 @@ class FriendlyController extends AbstractController
                 ->where([
                     'friendly_invite_schedule_id' => $schedule->schedule_id,
                     'friendly_invite_guest_team_id' => $this->myTeam->team_id,
-                    'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW,
+                    'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW_ONE,
                 ])
                 ->count();
             if ($invite) {
@@ -112,7 +112,7 @@ class FriendlyController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -162,7 +162,7 @@ class FriendlyController extends AbstractController
                 ->where([
                     'friendly_invite_schedule_id' => $schedule->schedule_id,
                     'friendly_invite_guest_team_id' => $this->myTeam->team_id,
-                    'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW,
+                    'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW_ONE,
                 ])
                 ->count();
             if ($invite) {
@@ -235,7 +235,7 @@ class FriendlyController extends AbstractController
      * @return Response
      * @throws \yii\db\Exception
      */
-    public function actionSend(int $id, int $teamId): Response
+    public function actionSend($id, $teamId)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -381,7 +381,7 @@ class FriendlyController extends AbstractController
             ->where([
                 'friendly_invite_home_team_id' => $this->myTeam->team_id,
                 'friendly_invite_schedule_id' => $id,
-                'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW,
+                'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW_ONE,
             ])
             ->count();
         if ($invite >= 5) {
@@ -393,7 +393,7 @@ class FriendlyController extends AbstractController
 
         try {
             $model = new FriendlyInvite();
-            $model->friendly_invite_friendly_invite_status_id = FriendlyInviteStatus::NEW;
+            $model->friendly_invite_friendly_invite_status_id = FriendlyInviteStatus::NEW_ONE;
             $model->friendly_invite_guest_team_id = $teamId;
             $model->friendly_invite_guest_user_id = $team->team_user_id;
             $model->friendly_invite_home_team_id = $this->myTeam->team_id;
@@ -419,7 +419,7 @@ class FriendlyController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function actionAccept(int $id): Response
+    public function actionAccept($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -533,7 +533,7 @@ class FriendlyController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function actionCancel(int $id): Response
+    public function actionCancel($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);

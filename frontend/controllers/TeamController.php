@@ -42,7 +42,7 @@ class TeamController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -62,21 +62,21 @@ class TeamController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = Team::find()
             ->select(['count_team' => 'COUNT(team_id)', 'team_stadium_id'])
             ->with([
-                'stadium' => function (ActiveQuery $query): ActiveQuery {
+                'stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_city_id', 'stadium_id']);
                 },
-                'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_country_id', 'city_id']);
                 },
                 'stadium.city.country'
             ])
             ->joinWith([
-                'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
             ])
@@ -100,7 +100,7 @@ class TeamController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionView(int $id = null)
+    public function actionView($id = null)
     {
         if (!$id && $this->myTeam) {
             return $this->redirect(['view', 'id' => $this->myTeam->team_id]);
@@ -119,7 +119,7 @@ class TeamController extends AbstractController
 
         $query = Player::find()
             ->joinWith([
-                'statisticPlayer' => function (ActiveQuery $query): ActiveQuery {
+                'statisticPlayer' => function (ActiveQuery $query) {
                     return $query->select([
                         'statistic_player_assist',
                         'statistic_player_game',
@@ -129,35 +129,35 @@ class TeamController extends AbstractController
                 },
             ])
             ->with([
-                'country' => function (ActiveQuery $query): ActiveQuery {
+                'country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'name' => function (ActiveQuery $query): ActiveQuery {
+                'name' => function (ActiveQuery $query) {
                     return $query->select(['name_id', 'name_name']);
                 },
-                'physical' => function (ActiveQuery $query): ActiveQuery {
+                'physical' => function (ActiveQuery $query) {
                     return $query->select(['physical_id', 'physical_name']);
                 },
-                'playerPosition' => function (ActiveQuery $query): ActiveQuery {
+                'playerPosition' => function (ActiveQuery $query) {
                     return $query->select(['player_position_player_id', 'player_position_position_id']);
                 },
-                'playerPosition.position' => function (ActiveQuery $query): ActiveQuery {
+                'playerPosition.position' => function (ActiveQuery $query) {
                     return $query->select(['position_id', 'position_name']);
                 },
-                'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
+                'playerSpecial' => function (ActiveQuery $query) {
                     return $query->select([
                         'player_special_level',
                         'player_special_player_id',
                         'player_special_special_id',
                     ]);
                 },
-                'playerSpecial.special' => function (ActiveQuery $query): ActiveQuery {
+                'playerSpecial.special' => function (ActiveQuery $query) {
                     return $query->select(['special_id', 'special_name']);
                 },
-                'style' => function (ActiveQuery $query): ActiveQuery {
+                'style' => function (ActiveQuery $query) {
                     return $query->select(['style_id', 'style_name']);
                 },
-                'surname' => function (ActiveQuery $query): ActiveQuery {
+                'surname' => function (ActiveQuery $query) {
                     return $query->select(['surname_id', 'surname_name']);
                 },
             ])
@@ -262,7 +262,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionGame($id): string
+    public function actionGame($id)
     {
         $team = $this->getTeam($id);
 
@@ -271,7 +271,7 @@ class TeamController extends AbstractController
         $query = Game::find()
             ->joinWith(['schedule'])
             ->with([
-                'schedule' => function (ActiveQuery $query): ActiveQuery {
+                'schedule' => function (ActiveQuery $query) {
                     return $query->select([
                         'schedule_id',
                         'schedule_date',
@@ -279,34 +279,34 @@ class TeamController extends AbstractController
                         'schedule_stage_id'
                     ]);
                 },
-                'schedule.stage' => function (ActiveQuery $query): ActiveQuery {
+                'schedule.stage' => function (ActiveQuery $query) {
                     return $query->select(['stage_id', 'stage_name']);
                 },
-                'schedule.tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                'schedule.tournamentType' => function (ActiveQuery $query) {
                     return $query->select(['tournament_type_id', 'tournament_type_name']);
                 },
-                'teamGuest' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
                 },
-                'teamGuest.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_id', 'stadium_city_id']);
                 },
-                'teamGuest.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_id', 'city_country_id', 'city_name']);
                 },
-                'teamGuest.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'teamHome' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
                 },
-                'teamHome.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_id', 'stadium_city_id']);
                 },
-                'teamHome.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_id', 'city_country_id', 'city_name']);
                 },
-                'teamHome.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
             ])
@@ -348,7 +348,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionEvent($id): string
+    public function actionEvent($id)
     {
         $team = $this->getTeam($id);
 
@@ -356,22 +356,22 @@ class TeamController extends AbstractController
 
         $query = History::find()
             ->with([
-                'historyText' => function (ActiveQuery $query): ActiveQuery {
+                'historyText' => function (ActiveQuery $query) {
                     return $query->select(['history_text_id', 'history_text_text']);
                 },
-                'team' => function (ActiveQuery $query): ActiveQuery {
+                'team' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name']);
                 },
-                'player' => function (ActiveQuery $query): ActiveQuery {
+                'player' => function (ActiveQuery $query) {
                     return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
                 },
-                'player.name' => function (ActiveQuery $query): ActiveQuery {
+                'player.name' => function (ActiveQuery $query) {
                     return $query->select(['name_id', 'name_name']);
                 },
-                'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                'player.surname' => function (ActiveQuery $query) {
                     return $query->select(['surname_id', 'surname_name']);
                 },
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 },
             ])
@@ -407,7 +407,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionFinance($id): string
+    public function actionFinance($id)
     {
         $team = $this->getTeam($id);
 
@@ -415,16 +415,16 @@ class TeamController extends AbstractController
 
         $query = Finance::find()
             ->with([
-                'financeText' => function (ActiveQuery $query): ActiveQuery {
+                'financeText' => function (ActiveQuery $query) {
                     return $query->select(['finance_text_id', 'finance_text_text']);
                 },
-                'player' => function (ActiveQuery $query): ActiveQuery {
+                'player' => function (ActiveQuery $query) {
                     return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
                 },
-                'player.name' => function (ActiveQuery $query): ActiveQuery {
+                'player.name' => function (ActiveQuery $query) {
                     return $query->select(['name_id', 'name_name']);
                 },
-                'player.surname' => function (ActiveQuery $query): ActiveQuery {
+                'player.surname' => function (ActiveQuery $query) {
                     return $query->select(['surname_id', 'surname_name']);
                 },
             ])
@@ -462,7 +462,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeal($id): string
+    public function actionDeal($id)
     {
         $team = $this->getTeam($id);
 
@@ -518,7 +518,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionAchievement($id): string
+    public function actionAchievement($id)
     {
         $team = $this->getTeam($id);
 
@@ -543,7 +543,7 @@ class TeamController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionStatistics($id): string
+    public function actionStatistics($id)
     {
         $team = $this->getTeam($id);
 
@@ -604,16 +604,16 @@ class TeamController extends AbstractController
 
         $teamAskArray = TeamAsk::find()
             ->with([
-                'team' => function (ActiveQuery $query): ActiveQuery {
+                'team' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
                 },
-                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
                 },
-                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_country_id', 'city_id', 'city_name']);
                 },
-                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
             ])
@@ -625,36 +625,36 @@ class TeamController extends AbstractController
             'pagination' => false,
             'query' => Team::find()
                 ->joinWith([
-                    'stadium' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium' => function (ActiveQuery $query) {
                         return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
                     },
-                    'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium.city.country' => function (ActiveQuery $query) {
                         return $query->select(['country_id', 'country_name']);
                     },
                 ])
                 ->with([
-                    'base' => function (ActiveQuery $query): ActiveQuery {
+                    'base' => function (ActiveQuery $query) {
                         return $query->select(['base_id', 'base_level', 'base_slot_max']);
                     },
-                    'baseMedical' => function (ActiveQuery $query): ActiveQuery {
+                    'baseMedical' => function (ActiveQuery $query) {
                         return $query->select(['base_medical_id', 'base_medical_level']);
                     },
-                    'basePhysical' => function (ActiveQuery $query): ActiveQuery {
+                    'basePhysical' => function (ActiveQuery $query) {
                         return $query->select(['base_physical_id', 'base_physical_level']);
                     },
-                    'baseSchool' => function (ActiveQuery $query): ActiveQuery {
+                    'baseSchool' => function (ActiveQuery $query) {
                         return $query->select(['base_school_id', 'base_school_level']);
                     },
-                    'baseScout' => function (ActiveQuery $query): ActiveQuery {
+                    'baseScout' => function (ActiveQuery $query) {
                         return $query->select(['base_scout_id', 'base_scout_level']);
                     },
-                    'baseTraining' => function (ActiveQuery $query): ActiveQuery {
+                    'baseTraining' => function (ActiveQuery $query) {
                         return $query->select(['base_training_id', 'base_training_level']);
                     },
-                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium.city' => function (ActiveQuery $query) {
                         return $query->select(['city_country_id', 'city_id', 'city_name']);
                     },
-                    'teamAsk' => function (ActiveQuery $query): ActiveQuery {
+                    'teamAsk' => function (ActiveQuery $query) {
                         return $query->select(['team_ask_team_id']);
                     }
                 ])
@@ -826,16 +826,16 @@ class TeamController extends AbstractController
 
         $teamAskArray = TeamAsk::find()
             ->with([
-                'team' => function (ActiveQuery $query): ActiveQuery {
+                'team' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
                 },
-                'team.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
                 },
-                'team.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_country_id', 'city_id', 'city_name']);
                 },
-                'team.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'team.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
             ])
@@ -847,36 +847,36 @@ class TeamController extends AbstractController
             'pagination' => false,
             'query' => Team::find()
                 ->joinWith([
-                    'stadium' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium' => function (ActiveQuery $query) {
                         return $query->select(['stadium_capacity', 'stadium_city_id', 'stadium_id']);
                     },
-                    'stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium.city.country' => function (ActiveQuery $query) {
                         return $query->select(['country_id', 'country_name']);
                     },
                 ])
                 ->with([
-                    'base' => function (ActiveQuery $query): ActiveQuery {
+                    'base' => function (ActiveQuery $query) {
                         return $query->select(['base_id', 'base_level', 'base_slot_max']);
                     },
-                    'baseMedical' => function (ActiveQuery $query): ActiveQuery {
+                    'baseMedical' => function (ActiveQuery $query) {
                         return $query->select(['base_medical_id', 'base_medical_level']);
                     },
-                    'basePhysical' => function (ActiveQuery $query): ActiveQuery {
+                    'basePhysical' => function (ActiveQuery $query) {
                         return $query->select(['base_physical_id', 'base_physical_level']);
                     },
-                    'baseSchool' => function (ActiveQuery $query): ActiveQuery {
+                    'baseSchool' => function (ActiveQuery $query) {
                         return $query->select(['base_school_id', 'base_school_level']);
                     },
-                    'baseScout' => function (ActiveQuery $query): ActiveQuery {
+                    'baseScout' => function (ActiveQuery $query) {
                         return $query->select(['base_scout_id', 'base_scout_level']);
                     },
-                    'baseTraining' => function (ActiveQuery $query): ActiveQuery {
+                    'baseTraining' => function (ActiveQuery $query) {
                         return $query->select(['base_training_id', 'base_training_level']);
                     },
-                    'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                    'stadium.city' => function (ActiveQuery $query) {
                         return $query->select(['city_country_id', 'city_id', 'city_name']);
                     },
-                    'teamAsk' => function (ActiveQuery $query): ActiveQuery {
+                    'teamAsk' => function (ActiveQuery $query) {
                         return $query->select(['team_ask_team_id']);
                     }
                 ])
@@ -940,7 +940,7 @@ class TeamController extends AbstractController
      * @throws Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionLogo(int $id)
+    public function actionLogo($id)
     {
         $team = $this->getTeam($id);
 
@@ -964,7 +964,7 @@ class TeamController extends AbstractController
     /**
      * @return Response
      */
-    public function actionChangeMyTeam(): Response
+    public function actionChangeMyTeam()
     {
         $model = new ChangeMyTeam();
         if ($model->load(Yii::$app->request->post(), '')) {
@@ -979,7 +979,7 @@ class TeamController extends AbstractController
      * @return Team
      * @throws \yii\web\NotFoundHttpException
      */
-    public function getTeam(int $id): Team
+    public function getTeam($id)
     {
         $team = Team::find()
             ->where(['team_id' => $id])
@@ -1066,7 +1066,7 @@ class TeamController extends AbstractController
         $friendlyInvite = FriendlyInvite::find()
             ->where([
                 'friendly_invite_guest_team_id' => $this->myTeam->team_id,
-                'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW,
+                'friendly_invite_friendly_invite_status_id' => FriendlyInviteStatus::NEW_ONE,
             ])
             ->orderBy(['friendly_invite_schedule_id' => SORT_ASC])
             ->limit(1)

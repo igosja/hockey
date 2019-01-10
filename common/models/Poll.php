@@ -32,7 +32,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%poll}}';
     }
@@ -40,7 +40,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['poll_id', 'poll_country_id', 'poll_date', 'poll_user_id', 'poll_poll_status_id'], 'integer'],
@@ -65,12 +65,12 @@ class Poll extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->poll_date = time();
-                $this->poll_poll_status_id = PollStatus::NEW;
+                $this->poll_poll_status_id = PollStatus::NEW_ONE;
                 $this->poll_user_id = Yii::$app->user->id;
             }
             return true;
@@ -83,7 +83,7 @@ class Poll extends AbstractActiveRecord
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function beforeDelete(): bool
+    public function beforeDelete()
     {
         if (parent::beforeDelete()) {
             foreach ($this->pollAnswer as $item) {
@@ -139,7 +139,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return void
      */
-    public function prepareForm(): void
+    public function prepareForm()
     {
         for ($i = 0, $countAnswer = count($this->pollAnswer); $i < $countAnswer; $i++) {
             $this->answer[$i] = $this->pollAnswer[$i]->poll_answer_text;
@@ -149,7 +149,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function answers(): array
+    public function answers()
     {
         $result = [];
         $total = 0;
@@ -173,7 +173,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollAnswer(): ActiveQuery
+    public function getPollAnswer()
     {
         return $this->hasMany(PollAnswer::class, ['poll_answer_poll_id' => 'poll_id']);
     }
@@ -181,7 +181,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollStatus(): ActiveQuery
+    public function getPollStatus()
     {
         return $this->hasOne(PollStatus::class, ['poll_status_id' => 'poll_poll_status_id']);
     }
@@ -189,7 +189,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'poll_user_id']);
     }

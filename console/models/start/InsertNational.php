@@ -18,7 +18,7 @@ class InsertNational
      * @throws Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $nationalTypeArray = NationalType::find()
             ->select(['national_type_id'])

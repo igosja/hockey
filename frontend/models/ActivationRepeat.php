@@ -21,7 +21,7 @@ class ActivationRepeat extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['email'], 'trim'],
@@ -35,7 +35,7 @@ class ActivationRepeat extends Model
     /**
      * @return bool
      */
-    public function send(): bool
+    public function send()
     {
         if (!$this->validate()) {
             return false;
@@ -74,7 +74,7 @@ class ActivationRepeat extends Model
      * @param $attribute
      * @return void
      */
-    public function checkEmail($attribute): void
+    public function checkEmail($attribute)
     {
         $user = User::find()
             ->select(['user_date_confirm'])
@@ -94,7 +94,7 @@ class ActivationRepeat extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'email' => 'Email',

@@ -32,20 +32,20 @@ use yii\widgets\DetailView;
             [
                 'captionOptions' => ['class' => 'col-lg-6'],
                 'label' => 'ID',
-                'value' => function (City $model) {
+                'value' => function ($model) {
                     return $model->city_id;
                 },
             ],
             [
                 'label' => 'Название',
-                'value' => function (City $model) {
+                'value' => function ($model) {
                     return $model->city_name;
                 },
             ],
             [
                 'format' => 'raw',
                 'label' => 'Количество стадионов',
-                'value' => function (City $model) {
+                'value' => function ($model) {
                     return Html::a(
                         count($model->stadium),
                         ['stadium/index', 'StadiumSearch' => ['stadium_city_id' => $model->city_id]]
@@ -55,7 +55,7 @@ use yii\widgets\DetailView;
             [
                 'format' => 'raw',
                 'label' => 'Страна',
-                'value' => function (City $model) {
+                'value' => function ($model) {
                     return Html::a(
                         $model->country->country_name,
                         ['country/view', 'id' => $model->country->country_id]

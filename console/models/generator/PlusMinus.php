@@ -28,7 +28,7 @@ class PlusMinus
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -273,7 +273,7 @@ class PlusMinus
     /**
      * @return float
      */
-    protected function competition(): float
+    protected function competition()
     {
         if (TournamentType::NATIONAL == $this->game->schedule->schedule_tournament_type_id) {
             $result = 2.5;
@@ -291,7 +291,7 @@ class PlusMinus
      * @param string $opponent
      * @return float
      */
-    protected function mood(string $team, string $opponent): float
+    protected function mood($team, $opponent)
     {
         $teamMood = 'game_' . $team . '_mood_id';
         $opponentMood = 'game_' . $opponent . '_mood_id';
@@ -317,7 +317,7 @@ class PlusMinus
      * @param string $team
      * @return float
      */
-    protected function optimality1(string $team): float
+    protected function optimality1($team)
     {
         $optimality = 'game_' . $team . '_optimality_1';
 
@@ -352,7 +352,7 @@ class PlusMinus
      * @param string $team
      * @return float
      */
-    protected function optimality2(string $team): float
+    protected function optimality2($team)
     {
         $optimality = 'game_' . $team . '_optimality_2';
 
@@ -398,7 +398,7 @@ class PlusMinus
      * @param string $opponent
      * @return float
      */
-    private function power(string $team, string $opponent): float
+    private function power($team, $opponent)
     {
         $percent = 'game_' . $team . '_power_percent';
         $teamScore = 'game_' . $team . '_score';
@@ -580,7 +580,7 @@ class PlusMinus
     /**
      * @return array
      */
-    protected function score(): array
+    protected function score()
     {
         $guestScore = 0;
         $homeScore = 0;

@@ -15,7 +15,7 @@ class RuleSearch extends Rule
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['rule_id', 'rule_order'], 'integer'],
@@ -26,7 +26,7 @@ class RuleSearch extends Rule
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class RuleSearch extends Rule
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Rule::find()->select(['rule_id', 'rule_title', 'rule_order']);
 

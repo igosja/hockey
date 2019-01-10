@@ -67,7 +67,7 @@ class PlayerSearch extends Player
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -87,7 +87,7 @@ class PlayerSearch extends Player
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -96,7 +96,7 @@ class PlayerSearch extends Player
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Player::find()
             ->joinWith(['name', 'surname', 'team'])

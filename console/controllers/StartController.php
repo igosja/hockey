@@ -23,7 +23,7 @@ class StartController extends AbstractController
     /**
      * @return void
      */
-    public function actionIndex(): void
+    public function actionIndex()
     {
         $modelArray = [
             new InsertUser(),

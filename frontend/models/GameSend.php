@@ -114,7 +114,7 @@ class GameSend extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['line'], 'safe'],
@@ -144,7 +144,7 @@ class GameSend extends Model
      * @return bool
      * @throws \Exception
      */
-    public function saveLineup(): bool
+    public function saveLineup()
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;

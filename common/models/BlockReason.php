@@ -14,7 +14,7 @@ class BlockReason extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%block_reason}}';
     }
@@ -22,7 +22,7 @@ class BlockReason extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['block_reason_id'], 'integer'],

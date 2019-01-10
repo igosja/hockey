@@ -15,7 +15,7 @@ class SquadController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new SquadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -34,7 +34,7 @@ class SquadController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = Squad::find()->where(['squad_id' => $id])->limit(1)->one();
 
@@ -61,7 +61,7 @@ class SquadController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = Squad::find()->where(['squad_id' => $id])->limit(1)->one();
         $this->notFound($model);

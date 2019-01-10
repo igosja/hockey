@@ -19,7 +19,7 @@ class PollController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -39,7 +39,7 @@ class PollController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = Poll::find()
             ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE]])
@@ -64,7 +64,7 @@ class PollController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $poll = Poll::find()
             ->where(['poll_id' => $id])
@@ -100,7 +100,7 @@ class PollController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionPoll(int $id)
+    public function actionPoll($id)
     {
         $poll = Poll::find()->where(['poll_id' => $id])->one();
         $this->notFound($poll);

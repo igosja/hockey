@@ -23,7 +23,7 @@ class StoreController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -43,8 +43,7 @@ class StoreController extends AbstractController
     /**
      * @param $action
      * @return bool
-     * @throws \yii\web\BadRequestHttpException
-     * @throws \yii\web\ForbiddenHttpException
+     * @throws Exception
      */
     public function beforeAction($action)
     {
@@ -58,7 +57,7 @@ class StoreController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $this->setSeoTitle('Виртуальный магазин');
 
@@ -110,7 +109,7 @@ class StoreController extends AbstractController
     /**
      * @return string
      */
-    public function actionHistory(): string
+    public function actionHistory()
     {
         /**
          * @var User $user
@@ -136,7 +135,7 @@ class StoreController extends AbstractController
      * @return string|Response
      * @throws \yii\db\Exception
      */
-    public function actionVip(int $day)
+    public function actionVip($day)
     {
         /**
          * @var User $user
@@ -438,7 +437,7 @@ class StoreController extends AbstractController
     /**
      * @return Response
      */
-    public function actionSuccess(): Response
+    public function actionSuccess()
     {
         $this->setSuccessFlash('Счёт успешно пополнен.');
         return $this->redirect(['store/index']);
@@ -447,7 +446,7 @@ class StoreController extends AbstractController
     /**
      * @return Response
      */
-    public function actionError(): Response
+    public function actionError()
     {
         $this->setSuccessFlash('Счёт пополнить не удалось.');
         return $this->redirect(['store/index']);
@@ -457,7 +456,7 @@ class StoreController extends AbstractController
      * @throws \Exception
      * @return void
      */
-    public function actionResult(): void
+    public function actionResult()
     {
         if (isset($_SERVER['HTTP_X_REAL_IP'])) {
             $ip = $_SERVER['HTTP_X_REAL_IP'];
@@ -558,7 +557,7 @@ class StoreController extends AbstractController
      * @param int $userId
      * @return int
      */
-    private function paymentBonus(int $userId): int
+    private function paymentBonus($userId)
     {
         $paymentSum = Payment::find()
             ->where(['payment_user_id' => $userId, 'payment_status' => Payment::PAID])
@@ -577,7 +576,7 @@ class StoreController extends AbstractController
     /**
      * @return array
      */
-    private function getBonusArray(): array
+    private function getBonusArray()
     {
         return [0 => 0, 10 => 2, 25 => 4, 50 => 6, 75 => 8, 100 => 10, 200 => 15, 300 => 20, 500 => 25];
     }

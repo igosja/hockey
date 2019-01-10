@@ -48,7 +48,7 @@ class TransferApplicationTo extends Model
             ->select(['transfer_application_id', 'transfer_application_price', 'transfer_application_only_one'])
             ->where([
                 'transfer_application_team_id' => $this->team->team_id,
-                'transfer_application_transfer_id' => $this->player->transfer->transfer_id ?? 0,
+                'transfer_application_transfer_id' => (isset($this->player->transfer->transfer_id) ? $this->player->transfer->transfer_id : 0),
             ])
             ->limit(1)
             ->one();
@@ -61,7 +61,7 @@ class TransferApplicationTo extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['onlyOne'], 'boolean'],
@@ -73,7 +73,7 @@ class TransferApplicationTo extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'price' => 'Ваше предложение',
@@ -85,7 +85,7 @@ class TransferApplicationTo extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

@@ -27,9 +27,9 @@ class FinanceStadium
     private $income;
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -47,13 +47,13 @@ class FinanceStadium
             } elseif (TournamentType::NATIONAL == $this->game->schedule->schedule_tournament_type_id) {
                 $this->national();
             } else {
-                $this->default();
+                $this->defaultGame();
             }
         }
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
     private function friendly()
     {
@@ -100,7 +100,7 @@ class FinanceStadium
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
     private function national()
     {
@@ -141,9 +141,9 @@ class FinanceStadium
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function default()
+    private function defaultGame()
     {
         $income = $this->income;
         $outcome = $this->game->stadium->stadium_maintenance;

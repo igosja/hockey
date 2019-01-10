@@ -15,9 +15,9 @@ use common\models\Tactic;
 class SetAuto
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])

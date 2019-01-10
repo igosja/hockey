@@ -12,9 +12,9 @@ use common\models\TeamVisitor;
 class UpdateTeamVisitor
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $teamArray = Team::find()
             ->where(['!=', 'team_id', 0])

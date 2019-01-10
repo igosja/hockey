@@ -17,7 +17,7 @@ class CheckCronDate
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $dateCron = Site::find()->select(['site_date_cron'])->where(['site_id' => 1])->limit(1)->scalar();
 

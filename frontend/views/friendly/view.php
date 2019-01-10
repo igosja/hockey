@@ -58,7 +58,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-25'],
                 'label' => 'День',
-                'value' => function (Schedule $model): string {
+                'value' => function (Schedule $model) {
                     return Html::a(
                         FormatHelper::asDate($model->schedule_date),
                         ['friendly/view', 'id' => $model->schedule_id]
@@ -68,7 +68,7 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Статус',
-                'value' => function (Schedule $model) use ($scheduleStatusArray): string {
+                'value' => function (Schedule $model) use ($scheduleStatusArray) {
                     return $scheduleStatusArray[$model->schedule_id];
                 }
             ],
@@ -106,8 +106,8 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-5'],
-                'value' => function (FriendlyInvite $model): string {
-                    if (FriendlyInviteStatus::NEW == $model->friendly_invite_friendly_invite_status_id) {
+                'value' => function (FriendlyInvite $model) {
+                    if (FriendlyInviteStatus::NEW_ONE == $model->friendly_invite_friendly_invite_status_id) {
                         return Html::a(
                                 '<i class="fa fa-check-circle"></i>',
                                 ['friendly/accept', 'id' => $model->friendly_invite_id],
@@ -124,7 +124,7 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return $model->homeTeam->teamLink('img');
                 }
             ],
@@ -132,7 +132,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'label' => 'Vs',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return $model->homeTeam->team_power_vs;
                 }
             ],
@@ -143,7 +143,7 @@ use yii\helpers\Html;
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее соперник)',
                 ],
                 'label' => 'С/С',
-                'value' => function (FriendlyInvite $model) use ($team): string {
+                'value' => function (FriendlyInvite $model) use ($team) {
                     return round(
                             $model->homeTeam->team_power_vs / $team->team_power_vs * 100
                         ) . '%';
@@ -153,7 +153,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Стадион',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return Yii::$app->formatter->asInteger($model->homeTeam->stadium->stadium_capacity);
                 }
             ],
@@ -161,7 +161,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг посещаемости'],
                 'label' => 'РП',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return $model->homeTeam->team_visitor / 100;
                 }
             ],
@@ -191,8 +191,8 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-5'],
-                'value' => function (FriendlyInvite $model): string {
-                    if (FriendlyInviteStatus::NEW == $model->friendly_invite_friendly_invite_status_id) {
+                'value' => function (FriendlyInvite $model) {
+                    if (FriendlyInviteStatus::NEW_ONE == $model->friendly_invite_friendly_invite_status_id) {
                         return Html::a(
                             '<i class="fa fa-times-circle"></i>',
                             ['friendly/cancel', 'id' => $model->friendly_invite_id],
@@ -205,14 +205,14 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return $model->guestTeam->teamLink('img');
                 }
             ],
             [
                 'headerOptions' => ['class' => 'col-40'],
                 'label' => 'Статус',
-                'value' => function (FriendlyInvite $model): string {
+                'value' => function (FriendlyInvite $model) {
                     return $model->friendlyInviteStatus->friendly_invite_status_name;
                 }
             ],
@@ -242,7 +242,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-5'],
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return Html::a(
                         '<i class="fa fa-check-circle"></i>',
                         ['friendly/send', 'id' => Yii::$app->request->get('id'), 'teamId' => $model->team_id],
@@ -253,7 +253,7 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->teamLink('img');
                 }
             ],
@@ -261,7 +261,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'label' => 'Vs',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->team_power_vs;
                 }
             ],
@@ -272,7 +272,7 @@ use yii\helpers\Html;
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее соперник)',
                 ],
                 'label' => 'С/С',
-                'value' => function (Team $model) use ($team): string {
+                'value' => function (Team $model) use ($team) {
                     return round($model->team_power_vs / $team->team_power_vs * 100) . '%';
                 }
             ],
@@ -280,7 +280,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг посещаемости'],
                 'label' => 'РП',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return Yii::$app->formatter->asDecimal($model->team_visitor / 100);
                 }
             ],

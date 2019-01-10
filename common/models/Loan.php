@@ -40,7 +40,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%loan}}';
     }
@@ -48,7 +48,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -81,7 +81,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function dealDate(): string
+    public function dealDate()
     {
         $today = strtotime(date('Y-m-d 09:00:00'));
 
@@ -96,7 +96,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function position(): string
+    public function position()
     {
         $result = [];
         foreach ($this->playerPosition as $position) {
@@ -108,7 +108,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function special(): string
+    public function special()
     {
         $result = [];
         foreach ($this->playerSpecial as $special) {
@@ -134,7 +134,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuyer(): ActiveQuery
+    public function getBuyer()
     {
         return $this->hasOne(Team::class, ['team_id' => 'loan_team_buyer_id']);
     }
@@ -142,7 +142,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanApplication(): ActiveQuery
+    public function getLoanApplication()
     {
         return $this->hasMany(LoanApplication::class, ['loan_application_loan_id' => 'loan_id']);
     }
@@ -150,7 +150,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'loan_player_id']);
     }
@@ -158,7 +158,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSeller(): ActiveQuery
+    public function getSeller()
     {
         return $this->hasOne(Team::class, ['team_id' => 'loan_team_seller_id']);
     }

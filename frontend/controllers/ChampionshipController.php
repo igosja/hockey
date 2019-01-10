@@ -23,7 +23,7 @@ class ChampionshipController extends AbstractController
     /**
      * @return Response
      */
-    public function actionIndex(): Response
+    public function actionIndex()
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
@@ -69,7 +69,7 @@ class ChampionshipController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionTable(): string
+    public function actionTable()
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
         $countryId = Yii::$app->request->get('countryId', Country::DEFAULT_ID);
@@ -175,7 +175,7 @@ class ChampionshipController extends AbstractController
     /**
      * @return string
      */
-    public function actionPlayoff(): string
+    public function actionPlayoff()
     {
         $this->setSeoTitle('Национальный чемпионат');
 
@@ -189,7 +189,7 @@ class ChampionshipController extends AbstractController
      * @param int $divisionId
      * @return array
      */
-    private function getSeasonArray(int $countryId, int $divisionId): array
+    private function getSeasonArray($countryId, $divisionId)
     {
         $season = Championship::find()
             ->select(['championship_season_id'])

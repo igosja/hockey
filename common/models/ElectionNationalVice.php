@@ -22,7 +22,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_national_vice}}';
     }
@@ -30,7 +30,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -49,7 +49,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication(): ActiveQuery
+    public function getApplication()
     {
         return $this->hasMany(
             ElectionNationalViceApplication::class,
@@ -60,7 +60,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational(): ActiveQuery
+    public function getNational()
     {
         return $this->hasOne(National::class, ['national_id' => 'election_national_vice_national_id']);
     }

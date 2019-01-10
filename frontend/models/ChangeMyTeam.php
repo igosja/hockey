@@ -17,7 +17,7 @@ class ChangeMyTeam extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['teamId'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
@@ -29,7 +29,7 @@ class ChangeMyTeam extends Model
     /**
      * @return bool
      */
-    public function changeMyTeam(): bool
+    public function changeMyTeam()
     {
         if (!$this->validate()) {
             return false;

@@ -13,7 +13,7 @@ class RosterPhrase
     /**
      * @return string
      */
-    public static function rand(): string
+    public static function rand()
     {
         $data = [
             'Уезжая надолго и без интернета - не забудьте поставить статус ' . Html::a('в отпуске', ['user/holiday']),

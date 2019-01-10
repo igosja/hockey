@@ -16,7 +16,7 @@ class FinanceController extends AbstractController
      * @throws \Exception
      * @return void
      */
-    public function actionIndex(): void
+    public function actionIndex()
     {
         $teamArray = Team::find()
             ->select(['team_id', 'team_finance'])

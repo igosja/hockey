@@ -15,7 +15,7 @@ class SupportSearch extends Support
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['support_user_id'], 'integer'],
@@ -25,7 +25,7 @@ class SupportSearch extends Support
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -34,7 +34,7 @@ class SupportSearch extends Support
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Support::find()
             ->orderBy(['support_date' => SORT_DESC]);

@@ -12,13 +12,13 @@ namespace common\models;
 class PollStatus extends AbstractActiveRecord
 {
     const CLOSE = 3;
-    const NEW = 1;
+    const NEW_ONE = 1;
     const OPEN = 2;
 
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%poll_status}}';
     }
@@ -26,7 +26,7 @@ class PollStatus extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['poll_status_id'], 'integer'],

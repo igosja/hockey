@@ -124,7 +124,7 @@ use yii\helpers\Html;
                     'footer' => 'Дата',
                     'header' => 'Дата',
                     'headerOptions' => ['class' => 'col-15'],
-                    'value' => function (Game $model): string {
+                    'value' => function ($model) {
                         return FormatHelper::asDate($model->schedule->schedule_date);
                     }
                 ],
@@ -134,7 +134,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'header' => 'Турнир',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'value' => function (Game $model): string {
+                    'value' => function ($model) {
                         return $model->schedule->tournamentType->tournament_type_name;
                     }
                 ],
@@ -144,7 +144,7 @@ use yii\helpers\Html;
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'header' => 'Стадия',
                     'headerOptions' => ['class' => 'col-15 hidden-xs'],
-                    'value' => function (Game $model): string {
+                    'value' => function ($model) {
                         return $model->schedule->stage->stage_name;
                     }
                 ],
@@ -153,7 +153,7 @@ use yii\helpers\Html;
                     'footer' => 'Игра',
                     'format' => 'raw',
                     'header' => 'Игра',
-                    'value' => function (Game $model): string {
+                    'value' => function ($model) {
                         return HockeyHelper::teamOrNationalLink($model->teamHome, $model->nationalHome, false)
                             . ' - '
                             . HockeyHelper::teamOrNationalLink($model->teamGuest, $model->nationalGuest, false);
@@ -165,7 +165,7 @@ use yii\helpers\Html;
                     'format' => 'raw',
                     'header' => 'Результат',
                     'headerOptions' => ['class' => 'col-10'],
-                    'value' => function (Game $model): string {
+                    'value' => function ($model) {
                         return Html::a(
                             HockeyHelper::formatScore($model, 'home'),
                             ['game/view', 'id' => $model->game_id]

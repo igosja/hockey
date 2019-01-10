@@ -19,7 +19,7 @@ class InsertName
      * @throws Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $cheName = [
             'Адам',

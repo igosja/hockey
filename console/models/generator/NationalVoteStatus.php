@@ -17,9 +17,9 @@ use yii\db\ActiveQuery;
 class NationalVoteStatus
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $electionNationalArray = ElectionNational::find()
             ->with(['application'])
@@ -52,9 +52,9 @@ class NationalVoteStatus
 
     /**
      * @param ElectionNational $electionNational
-     * @return void
+     * @throws \Exception
      */
-    private function toOpen(ElectionNational $electionNational): void
+    private function toOpen(ElectionNational $electionNational)
     {
         $model = new ElectionNationalApplication();
         $model->election_national_application_election_id = $electionNational->election_national_id;
@@ -66,13 +66,13 @@ class NationalVoteStatus
 
     /**
      * @param ElectionNational $electionNational
-     * @return void
+     * @throws \Exception
      */
-    private function toClose(ElectionNational $electionNational): void
+    private function toClose(ElectionNational $electionNational)
     {
         $electionNationalApplicationArray = ElectionNationalApplication::find()
             ->joinWith([
-                'electionNationalPlayer' => function (ActiveQuery $query): ActiveQuery {
+                'electionNationalPlayer' => function (ActiveQuery $query) {
                     return $query
                         ->joinWith(['player'])
                         ->select([
@@ -81,7 +81,7 @@ class NationalVoteStatus
                         ])
                         ->groupBy(['election_national_player_application_id']);
                 },
-                'electionNationalVote' => function (ActiveQuery $query): ActiveQuery {
+                'electionNationalVote' => function (ActiveQuery $query) {
                     return $query
                         ->select([
                             'election_national_vote_application_id',
@@ -127,7 +127,7 @@ class NationalVoteStatus
                 }
 
                 $electionNational->national->national_user_id = $electionNationalApplicationArray[0]->election_national_application_user_id;
-                $electionNational->national->national_vice_id = $electionNationalApplicationArray[1]->election_national_application_user_id ?? 0;
+                $electionNational->national->national_vice_id = isset($electionNationalApplicationArray[1]->election_national_application_user_id) ? $electionNationalApplicationArray[1]->election_national_application_user_id : 0;
                 $electionNational->national->save();
 
                 foreach ($electionNationalApplicationArray[0]->electionNationalPlayer as $electionNationalPlayer) {

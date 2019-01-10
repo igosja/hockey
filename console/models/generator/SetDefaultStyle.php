@@ -14,9 +14,9 @@ use common\models\Tactic;
 class SetDefaultStyle
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])

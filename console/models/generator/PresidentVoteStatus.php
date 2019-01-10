@@ -20,7 +20,7 @@ class PresidentVoteStatus
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $electionPresidentArray = ElectionPresident::find()
             ->with(['application'])
@@ -56,7 +56,7 @@ class PresidentVoteStatus
      * @throws \Exception
      * @return void
      */
-    private function toOpen(ElectionPresident $electionPresident): void
+    private function toOpen(ElectionPresident $electionPresident)
     {
         $model = new ElectionPresidentApplication();
         $model->election_president_application_election_id = $electionPresident->election_president_id;
@@ -72,11 +72,11 @@ class PresidentVoteStatus
      * @throws \Exception
      * @return void
      */
-    private function toClose(ElectionPresident $electionPresident): void
+    private function toClose(ElectionPresident $electionPresident)
     {
         $electionPresidentApplicationArray = ElectionPresidentApplication::find()
             ->joinWith([
-                'electionPresidentVote' => function (ActiveQuery $query): ActiveQuery {
+                'electionPresidentVote' => function (ActiveQuery $query) {
                     return $query
                         ->select([
                             'election_president_vote_application_id',
@@ -121,7 +121,7 @@ class PresidentVoteStatus
                 }
 
                 $electionPresident->country->country_president_id = $electionPresidentApplicationArray[0]->election_president_application_user_id;
-                $electionPresident->country->country_president_vice_id = $electionPresidentApplicationArray[1]->election_president_application_user_id ?? 0;
+                $electionPresident->country->country_president_vice_id = isset($electionPresidentApplicationArray[1]->election_president_application_user_id) ? $electionPresidentApplicationArray[1]->election_president_application_user_id : 0;
                 $electionPresident->country->save();
             }
         }

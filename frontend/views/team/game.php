@@ -3,7 +3,6 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
-use common\models\Game;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -56,7 +55,7 @@ use yii\helpers\Html;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return FormatHelper::asDate($model->schedule->schedule_date);
                 }
             ],
@@ -66,7 +65,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-30 hidden-xs'],
                 'label' => 'Турнир',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return $model->schedule->tournamentType->tournament_type_name;
                 }
             ],
@@ -76,7 +75,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стадия',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return $model->schedule->stage->stage_name;
                 }
             ],
@@ -84,7 +83,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Дома/В гостях'],
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Дома/В гостях'],
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return HockeyHelper::gameHomeGuest($model, Yii::$app->request->get('id'));
                 }
             ],
@@ -100,7 +99,7 @@ use yii\helpers\Html;
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее соперник)'
                 ],
                 'label' => 'С/С',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return HockeyHelper::gamePowerPercent($model, Yii::$app->request->get('id'));
                 }
             ],
@@ -108,7 +107,7 @@ use yii\helpers\Html;
                 'footer' => 'Соперник',
                 'format' => 'raw',
                 'label' => 'Соперник',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return HockeyHelper::opponentLink($model, Yii::$app->request->get('id'));
                 }
             ],
@@ -118,7 +117,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Автосостав'],
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Автосостав'],
                 'label' => 'А',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return HockeyHelper::gameAuto($model, Yii::$app->request->get('id'));
                 }
             ],
@@ -127,7 +126,7 @@ use yii\helpers\Html;
                 'footer' => 'Счёт',
                 'format' => 'raw',
                 'label' => 'Счёт',
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return Html::a(
                         HockeyHelper::formatTeamScore($model, Yii::$app->request->get('id')),
                         ['game/view', 'id' => $model->game_id]
@@ -138,7 +137,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Количество набранных/потерянных баллов'],
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Количество набранных/потерянных баллов'],
-                'value' => function (Game $model): string {
+                'value' => function ($model) {
                     return HockeyHelper::gamePlusMinus($model, Yii::$app->request->get('id'));
                 }
             ],

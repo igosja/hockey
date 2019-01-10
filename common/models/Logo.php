@@ -23,7 +23,7 @@ class Logo extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%logo}}';
     }
@@ -31,7 +31,7 @@ class Logo extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['logo_id', 'logo_date', 'logo_team_id', 'logo_user_id'], 'integer'],
@@ -45,7 +45,7 @@ class Logo extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -60,7 +60,7 @@ class Logo extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function beforeDelete(): bool
+    public function beforeDelete()
     {
         $file = Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $this->team->team_id . '.png';
         if (file_exists($file)) {
@@ -73,7 +73,7 @@ class Logo extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'logo_team_id']);
     }
@@ -81,7 +81,7 @@ class Logo extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'logo_user_id']);
     }

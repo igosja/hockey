@@ -36,7 +36,7 @@ class National extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%national}}';
     }
@@ -44,7 +44,7 @@ class National extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -76,7 +76,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'national_country_id']);
     }
@@ -84,7 +84,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNationalType(): ActiveQuery
+    public function getNationalType()
     {
         return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id']);
     }
@@ -92,7 +92,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getWorldCup(): ActiveQuery
+    public function getWorldCup()
     {
         return $this
             ->hasOne(WorldCup::class, ['world_cup_national_id' => 'national_id'])

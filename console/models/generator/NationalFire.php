@@ -16,10 +16,11 @@ use Yii;
 class NationalFire
 {
     /**
+     * @throws \Exception
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $nationalArray = National::find()
             ->where(['!=', 'national_user_id', 0])

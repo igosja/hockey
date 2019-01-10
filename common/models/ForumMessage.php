@@ -28,7 +28,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%forum_message}}';
     }
@@ -36,7 +36,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -61,7 +61,7 @@ class ForumMessage extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -81,7 +81,7 @@ class ForumMessage extends AbstractActiveRecord
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function beforeDelete(): bool
+    public function beforeDelete()
     {
         foreach ($this->complaint as $complaint) {
             $complaint->delete();
@@ -93,7 +93,7 @@ class ForumMessage extends AbstractActiveRecord
      * @return bool
      * @throws \Exception
      */
-    public function addMessage(): bool
+    public function addMessage()
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -124,7 +124,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function links(): string
+    public function links()
     {
         /**
          * @var User $user
@@ -168,7 +168,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getComplaint(): ActiveQuery
+    public function getComplaint()
     {
         return $this->hasMany(Complaint::class, ['complaint_forum_message_id' => 'forum_message_id']);
     }
@@ -176,7 +176,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getForumTheme(): ActiveQuery
+    public function getForumTheme()
     {
         return $this->hasOne(ForumTheme::class, ['forum_theme_id' => 'forum_message_forum_theme_id']);
     }
@@ -184,7 +184,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id']);
     }

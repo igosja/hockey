@@ -24,7 +24,7 @@ class Building extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%building}}';
     }
@@ -32,7 +32,7 @@ class Building extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['building_id'], 'integer'],

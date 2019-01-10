@@ -23,7 +23,7 @@ class Money extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%money}}';
     }
@@ -42,7 +42,7 @@ class Money extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['money_id', 'money_money_text_id', 'money_date', 'money_user_id'], 'integer'],
@@ -55,7 +55,7 @@ class Money extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -69,7 +69,7 @@ class Money extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getMoneyText(): ActiveQuery
+    public function getMoneyText()
     {
         return $this->hasOne(MoneyText::class, ['money_text_id' => 'money_money_text_id']);
     }

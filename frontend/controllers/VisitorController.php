@@ -16,7 +16,7 @@ class VisitorController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -36,7 +36,7 @@ class VisitorController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -106,7 +106,7 @@ class VisitorController extends AbstractController
      * @return Game
      * @throws \yii\web\NotFoundHttpException
      */
-    public function getGame(int $id): Game
+    public function getGame($id)
     {
         $game = Game::find()
             ->where(['game_id' => $id, 'game_played' => 0])

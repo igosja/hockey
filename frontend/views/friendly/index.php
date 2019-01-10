@@ -51,7 +51,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-25'],
                 'label' => 'День',
-                'value' => function (Schedule $model): string {
+                'value' => function (Schedule $model) {
                     return Html::a(
                         FormatHelper::asDate($model->schedule_date),
                         ['friendly/view', 'id' => $model->schedule_id]
@@ -61,7 +61,7 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Статус',
-                'value' => function (Schedule $model) use ($scheduleStatusArray): string {
+                'value' => function (Schedule $model) use ($scheduleStatusArray) {
                     return $scheduleStatusArray[$model->schedule_id];
                 }
             ],

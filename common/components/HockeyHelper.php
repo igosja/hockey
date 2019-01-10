@@ -13,7 +13,7 @@ use yii\helpers\Html;
  */
 class HockeyHelper
 {
-    public static function gameHomeGuest(Game $game, int $teamId): string
+    public static function gameHomeGuest($game, $teamId)
     {
         if ($game->game_home_team_id == $teamId) {
             $result = 'Д';
@@ -23,7 +23,7 @@ class HockeyHelper
         return $result;
     }
 
-    public static function gamePowerPercent(Game $game, int $teamId): string
+    public static function gamePowerPercent($game, $teamId)
     {
         if ($game->game_home_team_id == $teamId) {
             if ($game->game_played) {
@@ -45,7 +45,7 @@ class HockeyHelper
      * @param int $percent
      * @return string
      */
-    public static function powerPercent(int $percent)
+    public static function powerPercent($percent)
     {
         return ($percent ? round($percent) : 100) . '%';
     }
@@ -55,7 +55,7 @@ class HockeyHelper
      * @param int $teamId
      * @return string
      */
-    public static function gamePlusMinus(Game $game, int $teamId): string
+    public static function gamePlusMinus($game, $teamId)
     {
         if ($game->game_played) {
             if ($game->game_home_team_id == $teamId) {
@@ -73,7 +73,7 @@ class HockeyHelper
      * @param int $value
      * @return string
      */
-    public static function plusNecessary(int $value): string
+    public static function plusNecessary($value)
     {
         if ($value > 0) {
             $result = '+' . $value;
@@ -88,7 +88,7 @@ class HockeyHelper
      * @param int $teamId
      * @return string
      */
-    public static function gameAuto(Game $game, int $teamId): string
+    public static function gameAuto($game, $teamId)
     {
         if ($game->game_home_team_id == $teamId && $game->game_home_auto) {
             return 'А';
@@ -102,7 +102,7 @@ class HockeyHelper
      * @param int $auto
      * @return string
      */
-    public static function formatAuto(int $auto): string
+    public static function formatAuto($auto)
     {
         if ($auto) {
             return '*';
@@ -115,7 +115,7 @@ class HockeyHelper
      * @param int $teamId
      * @return string
      */
-    public static function opponentLink(Game $game, int $teamId): string
+    public static function opponentLink($game, $teamId)
     {
         if ($game->game_home_team_id == $teamId) {
             return $game->teamGuest->teamLink('img');
@@ -129,7 +129,7 @@ class HockeyHelper
      * @param int $teamId
      * @return string
      */
-    public static function formatTeamScore(Game $game, int $teamId): string
+    public static function formatTeamScore($game, $teamId)
     {
         if ($game->game_home_team_id == $teamId) {
             return self::formatScore($game, 'home');
@@ -143,7 +143,7 @@ class HockeyHelper
      * @param string $first
      * @return string
      */
-    public static function formatScore(Game $game, $first = 'home'): string
+    public static function formatScore($game, $first = 'home')
     {
         if ($game->game_played) {
             if ('home' == $first) {
@@ -168,7 +168,8 @@ class HockeyHelper
         National $national = null,
         $full = true,
         $link = true
-    ): string {
+    )
+    {
         if ($team) {
             $name = $team->team_name;
 

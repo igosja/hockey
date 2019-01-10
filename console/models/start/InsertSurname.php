@@ -19,7 +19,7 @@ class InsertSurname
      * @throws Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $bel_surname = [
             'Абдулин',

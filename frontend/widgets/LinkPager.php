@@ -10,7 +10,7 @@ class LinkPager extends \yii\widgets\LinkPager
     /**
      * @return string
      */
-    protected function renderPageButtons(): string
+    protected function renderPageButtons()
     {
         $pageCount = $this->pagination->getPageCount();
         if ($pageCount < 2 && $this->hideOnSinglePage) {
@@ -86,7 +86,7 @@ class LinkPager extends \yii\widgets\LinkPager
      * @param boolean $active
      * @return string
      */
-    protected function renderPageButton($label, $page, $class, $disabled, $active): string
+    protected function renderPageButton($label, $page, $class, $disabled, $active)
     {
         $options = $this->linkContainerOptions;
         Html::addCssClass($options, empty($class) ? $this->pageCssClass : $class);

@@ -13,9 +13,10 @@ use common\models\Player;
 class LoanDecreaseAndReturn
 {
     /**
+     * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Player::updateAllCounters(['player_loan_day' => -1], ['!=', 'player_loan_team_id', 0]);
 

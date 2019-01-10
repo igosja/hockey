@@ -399,7 +399,7 @@ $user = Yii::$app->user->identity;
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'header' => 'Время',
-                    'value' => function (Event $model): string {
+                    'value' => function (Event $model) {
                         return sprintf("%02d", $model->event_minute) . ':' . sprintf("%02d", $model->event_second);
                     }
                 ],
@@ -407,7 +407,7 @@ $user = Yii::$app->user->identity;
                     'contentOptions' => ['class' => 'text-center'],
                     'format' => 'raw',
                     'header' => 'Команда',
-                    'value' => function (Event $model): string {
+                    'value' => function (Event $model) {
                         return HockeyHelper::teamOrNationalLink($model->team, $model->national, false);
                     }
                 ],
@@ -415,7 +415,7 @@ $user = Yii::$app->user->identity;
                     'contentOptions' => ['class' => 'text-center hidden-xs'],
                     'header' => 'Тип',
                     'headerOptions' => ['class' => 'text-center hidden-xs'],
-                    'value' => function (Event $model): string {
+                    'value' => function (Event $model) {
                         return $model->eventType->event_type_text;
                     }
                 ],
@@ -424,7 +424,7 @@ $user = Yii::$app->user->identity;
                     'format' => 'raw',
                     'header' => 'Событие',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'value' => function (Event $model): string {
+                    'value' => function (Event $model) {
                         $result = '';
                         if ($model->eventTextGoal) {
                             $result = $result . $model->eventTextGoal->event_text_goal_text;
@@ -454,7 +454,7 @@ $user = Yii::$app->user->identity;
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'header' => 'Счёт',
-                    'value' => function (Event $model): string {
+                    'value' => function (Event $model) {
                         if (in_array($model->event_event_type_id, [EventType::GOAL, EventType::SHOOTOUT])) {
                             return $model->event_home_score . ':' . $model->event_guest_score;
                         }

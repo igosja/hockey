@@ -12,9 +12,10 @@ use common\models\Stadium;
 class CountryStadiumCapacity
 {
     /**
+     * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $countryArray = Country::find()
             ->joinWith(['city.stadium.team'])

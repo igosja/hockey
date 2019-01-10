@@ -15,7 +15,7 @@ class UserFire
      * @throws Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $teamArray = Team::find()
             ->joinWith(['manager'])

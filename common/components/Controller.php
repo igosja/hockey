@@ -28,7 +28,7 @@ class Controller extends BaseController
      * @param string $text
      * @return void
      */
-    protected function setSuccessFlash($text = 'Изменения успешно сохранены'): void
+    protected function setSuccessFlash($text = 'Изменения успешно сохранены')
     {
         Yii::$app->session->setFlash('success', $text);
     }
@@ -37,7 +37,7 @@ class Controller extends BaseController
      * @param string $text
      * @return void
      */
-    protected function setErrorFlash($text = 'Не удалось сохранить данные'): void
+    protected function setErrorFlash($text = 'Не удалось сохранить данные')
     {
         Yii::$app->session->setFlash('error', $text);
     }

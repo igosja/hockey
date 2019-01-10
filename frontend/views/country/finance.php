@@ -46,7 +46,7 @@ print $this->render('_country');
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asDate($model->finance_date);
                 }
             ],
@@ -56,7 +56,7 @@ print $this->render('_country');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Было',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value_before);
                 }
             ],
@@ -65,7 +65,7 @@ print $this->render('_country');
                 'footer' => '+/-',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => '+/-',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value);
                 }
             ],
@@ -75,7 +75,7 @@ print $this->render('_country');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стало',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value_after);
                 }
             ],
@@ -83,7 +83,7 @@ print $this->render('_country');
                 'footer' => 'Комментарий',
                 'format' => 'raw',
                 'label' => 'Комментарий',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return $model->getText();
                 }
             ],

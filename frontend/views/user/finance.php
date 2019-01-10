@@ -46,7 +46,7 @@ print $this->render('_top');
                 'footer' => 'Дата',
                 'header' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return Yii::$app->formatter->asDate($model->finance_date, 'short');
                 }
             ],
@@ -56,7 +56,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'header' => 'Было',
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return Yii::$app->formatter->asCurrency($model->finance_value_before, 'USD');
                 }
             ],
@@ -65,7 +65,7 @@ print $this->render('_top');
                 'footer' => '+/-',
                 'header' => '+/-',
                 'headerOptions' => ['class' => 'col-10'],
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return Yii::$app->formatter->asCurrency($model->finance_value, 'USD');
                 }
             ],
@@ -75,7 +75,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'header' => 'Стало',
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return Yii::$app->formatter->asCurrency($model->finance_value_after, 'USD');
                 }
             ],
@@ -83,7 +83,7 @@ print $this->render('_top');
                 'footer' => 'Комментарий',
                 'format' => 'raw',
                 'header' => 'Комментарий',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return $model->getText();
                 }
             ],

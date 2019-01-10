@@ -11,9 +11,10 @@ use common\models\Team;
 class TeamPowerVs
 {
     /**
+     * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $teamArray = Team::find()
             ->where(['!=', 'team_id', 0])

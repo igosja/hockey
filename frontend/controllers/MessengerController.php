@@ -18,7 +18,7 @@ class MessengerController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -36,7 +36,7 @@ class MessengerController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $this->setSeoTitle('Личная переписка');
 
@@ -70,7 +70,7 @@ class MessengerController extends AbstractController
      * @throws \yii\web\NotFoundHttpException
      * @throws \Exception
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $user = User::find()
             ->where(['user_id' => $id])

@@ -27,21 +27,21 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сезон'],
                 'header' => 'С',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->achievement_season_id;
                 }
             ],
             [
                 'footer' => 'Команда',
                 'header' => 'Команда',
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->team->teamLink('img');
                 }
             ],
             [
                 'footer' => 'Турнир',
                 'header' => 'Турнир',
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->getTournament();
                 }
             ],
@@ -50,7 +50,7 @@ print $this->render('_top');
                 'footer' => 'Позиция',
                 'header' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->getPosition();
                 }
             ],

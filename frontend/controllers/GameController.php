@@ -25,7 +25,7 @@ class GameController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionPreview(int $id): string
+    public function actionPreview($id)
     {
         $game = Game::find()
             ->where(['game_id' => $id])
@@ -68,7 +68,7 @@ class GameController extends AbstractController
      * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $game = Game::find()
             ->where(['game_id' => $id])
@@ -178,7 +178,7 @@ class GameController extends AbstractController
      * @throws \yii\web\ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeleteComment(int $id, int $gameId): Response
+    public function actionDeleteComment($id, $gameId)
     {
         if (Yii::$app->user->isGuest) {
             $this->forbiddenRole();

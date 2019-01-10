@@ -63,7 +63,7 @@ LineupAsset::register($this);
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'label' => 'Дата',
-                'value' => function (Game $model) {
+                'value' => function ($model) {
                     return FormatHelper::asDatetime($model->schedule->schedule_date);
                 }
             ],
@@ -72,7 +72,7 @@ LineupAsset::register($this);
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Турнир',
                 'headerOptions' => ['class' => 'hidden-xs'],
-                'value' => function (Game $model) {
+                'value' => function ($model) {
                     return $model->schedule->tournamentType->tournament_type_name;
                 }
             ],
@@ -81,13 +81,13 @@ LineupAsset::register($this);
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Стадия',
                 'headerOptions' => ['class' => 'hidden-xs'],
-                'value' => function (Game $model) {
+                'value' => function ($model) {
                     return $model->schedule->stage->stage_name;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'value' => function (Game $model) use ($team) {
+                'value' => function ($model) use ($team) {
                     return $model->game_home_team_id == $team->team_id ? 'Д' : 'Г';
                 }
             ],
@@ -96,7 +96,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function (Game $model) use ($team) {
+                'value' => function ($model) use ($team) {
                     if ($model->game_home_team_id == $team->team_id) {
                         return $model->teamGuest->teamLink('sting', true);
                     } else {
@@ -112,7 +112,7 @@ LineupAsset::register($this);
                     'class' => 'hidden-xs',
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее ваш соперник)',
                 ],
-                'value' => function (Game $model) use ($team) {
+                'value' => function ($model) use ($team) {
                     return round($model->teamHome->team_power_vs / $team->team_power_vs * 100) . '%';
                 }
             ],
@@ -120,7 +120,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function (Game $model) {
+                'value' => function ($model) {
                     return Html::a(
                         '?',
                         ['game/preview', 'id' => $model->game_id],
@@ -132,7 +132,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function (Game $model) use ($team) {
+                'value' => function ($model) use ($team) {
                     return Html::a(
                         $model->game_home_team_id == $team->team_id
                             ? ($model->game_home_tactic_id_1 ? '+' : '-')
@@ -145,7 +145,7 @@ LineupAsset::register($this);
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $gameDataProvider,
-            'rowOptions' => function (Game $model): array {
+            'rowOptions' => function ($model) {
                 if ($model->game_id == Yii::$app->request->get('id')) {
                     return ['class' => 'info'];
                 }
@@ -503,9 +503,9 @@ LineupAsset::register($this);
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
 <?php ActiveForm::end(); ?>
-<script>
-    <?php for ($j = 0; $j <= 5; $j++) { ?>
-    <?php
+<?php
+$scriptBody = '';
+for ($j = 0; $j <= 5; $j++) {
     $array = '';
     $fArray = [];
 
@@ -528,41 +528,47 @@ LineupAsset::register($this);
         $array = 'rw_array';
         $fArray = $rwArray;
     }
-    ?>
-    var <?= $array; ?> =
-    [
-        <?php foreach ($fArray as $item) { ?>
+
+    $scriptBody = $scriptBody . '
+        var ' . $array . ' =
         [
-            <?= $item['player_id']; ?>,
-            '<?= $item->position(); ?> - <?=
-                (TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id)
-                    ? round($item->player_power_nominal * 0.75)
-                    : $item->player_power_real;
-                ?> - <?= $item->playerName(); ?>'
-        ],
-        <?php } ?>
-    ];
-    <?php } ?>
-    var gk_1_id = <?= $gk_1_id; ?>;
-    var gk_2_id = <?= $gk_2_id; ?>;
-    var ld_1_id = <?= $ld_1_id; ?>;
-    var rd_1_id = <?= $rd_1_id; ?>;
-    var lw_1_id = <?= $lw_1_id; ?>;
-    var cf_1_id = <?= $cf_1_id; ?>;
-    var rw_1_id = <?= $rw_1_id; ?>;
-    var ld_2_id = <?= $ld_2_id; ?>;
-    var rd_2_id = <?= $rd_2_id; ?>;
-    var lw_2_id = <?= $lw_2_id; ?>;
-    var cf_2_id = <?= $cf_2_id; ?>;
-    var rw_2_id = <?= $rw_2_id; ?>;
-    var ld_3_id = <?= $ld_3_id; ?>;
-    var rd_3_id = <?= $rd_3_id; ?>;
-    var lw_3_id = <?= $lw_3_id; ?>;
-    var cf_3_id = <?= $cf_3_id; ?>;
-    var rw_3_id = <?= $rw_3_id; ?>;
-    var ld_4_id = <?= $ld_4_id; ?>;
-    var rd_4_id = <?= $rd_4_id; ?>;
-    var lw_4_id = <?= $lw_4_id; ?>;
-    var cf_4_id = <?= $cf_4_id; ?>;
-    var rw_4_id = <?= $rw_4_id; ?>;
-</script>
+        ';
+    foreach ($fArray as $item) {
+        $scriptBody = $scriptBody . '[
+            ' . $item['player_id'] . ',
+            \'' . $item->position() . ' - ' .
+            ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id)
+                ? round($item->player_power_nominal * 0.75)
+                : $item->player_power_real . ' - ' . $item->playerName()) . '\'
+            ],';
+    }
+    $scriptBody = $scriptBody . '];';
+}
+$scriptBody = $scriptBody . '
+    var gk_1_id = ' . $gk_1_id . ';
+    var gk_2_id = ' . $gk_2_id . ';
+    var ld_1_id = ' . $ld_1_id . ';
+    var rd_1_id = ' . $rd_1_id . ';
+    var lw_1_id = ' . $lw_1_id . ';
+    var cf_1_id = ' . $cf_1_id . ';
+    var rw_1_id = ' . $rw_1_id . ';
+    var ld_2_id = ' . $ld_2_id . ';
+    var rd_2_id = ' . $rd_2_id . ';
+    var lw_2_id = ' . $lw_2_id . ';
+    var cf_2_id = ' . $cf_2_id . ';
+    var rw_2_id = ' . $rw_2_id . ';
+    var ld_3_id = ' . $ld_3_id . ';
+    var rd_3_id = ' . $rd_3_id . ';
+    var lw_3_id = ' . $lw_3_id . ';
+    var cf_3_id = ' . $cf_3_id . ';
+    var rw_3_id = ' . $rw_3_id . ';
+    var ld_4_id = ' . $ld_4_id . ';
+    var rd_4_id = ' . $rd_4_id . ';
+    var lw_4_id = ' . $lw_4_id . ';
+    var cf_4_id = ' . $cf_4_id . ';
+    var rw_4_id = ' . $rw_4_id . ';';
+$script = <<< JS
+    $scriptBody
+JS;
+$this->registerJs($script, \yii\web\View::POS_END);
+?>

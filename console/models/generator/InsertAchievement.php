@@ -18,7 +18,7 @@ class InsertAchievement
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $scheduleArray = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -68,7 +68,7 @@ class InsertAchievement
                         LEFT JOIN `team`
                         ON `participant_championship_team_id`=`team_id`
                         WHERE `participant_championship_season_id`=$seasonId
-                        AND `participant_championship_stage_id` IN (" . Stage::FINAL . ", 0)";
+                        AND `participant_championship_stage_id` IN (" . Stage::FINAL_GAME . ", 0)";
                 Yii::$app->db->createCommand($sql)->execute();
 
                 $sql = "INSERT INTO `achievement_player` (`achievement_player_country_id`, `achievement_player_division_id`, `achievement_player_is_playoff`, `achievement_player_player_id`, `achievement_player_season_id`, `achievement_player_stage_id`, `achievement_player_team_id`, `achievement_player_tournament_type_id`)
@@ -79,7 +79,7 @@ class InsertAchievement
                         LEFT JOIN `player`
                         ON `team_id`=`player_team_id`
                         WHERE `participant_championship_season_id`=$seasonId
-                        AND `participant_championship_stage_id` IN (" . Stage::FINAL . ", 0)";
+                        AND `participant_championship_stage_id` IN (" . Stage::FINAL_GAME . ", 0)";
                 Yii::$app->db->createCommand($sql)->execute();
 
                 $sql = "INSERT INTO `achievement` (`achievement_place`, `achievement_season_id`, `achievement_team_id`, `achievement_tournament_type_id`, `achievement_user_id`)
@@ -216,7 +216,7 @@ class InsertAchievement
                         WHERE `participant_league_season_id`=$seasonId
                         AND `participant_league_stage_id` IN (3, 4)";
                 Yii::$app->db->createCommand($sql)->execute();
-            } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && Stage::FINAL == $schedule->schedule_stage_id) {
+            } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                 $nextStage = Schedule::find()
                     ->where(['schedule_tournament_type_id' => TournamentType::LEAGUE])
                     ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")>CURDATE()')
@@ -233,7 +233,7 @@ class InsertAchievement
                         LEFT JOIN `team`
                         ON `participant_league_team_id`=`team_id`
                         WHERE `participant_league_season_id`=$seasonId
-                        AND `participant_league_stage_id` IN (" . Stage::FINAL . ", 0)";
+                        AND `participant_league_stage_id` IN (" . Stage::FINAL_GAME . ", 0)";
                 Yii::$app->db->createCommand($sql)->execute();
 
                 $sql = "INSERT INTO `achievement_player` (`achievement_player_player_id`, `achievement_player_season_id`, `achievement_player_stage_id`, `achievement_player_team_id`, `achievement_player_tournament_type_id`)
@@ -244,7 +244,7 @@ class InsertAchievement
                         LEFT JOIN `player`
                         ON `team_id`=`player_team_id`
                         WHERE `participant_league_season_id`=$seasonId
-                        AND `participant_league_stage_id` IN (" . Stage::FINAL . ", 0)";
+                        AND `participant_league_stage_id` IN (" . Stage::FINAL_GAME . ", 0)";
                 Yii::$app->db->createCommand($sql)->execute();
             }
         }

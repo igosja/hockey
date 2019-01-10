@@ -55,7 +55,7 @@ use yii\helpers\Html;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (History $model): string {
+                'value' => function (History $model) {
                     return FormatHelper::asDate($model->history_date);
                 }
             ],
@@ -63,7 +63,7 @@ use yii\helpers\Html;
                 'footer' => 'Событие',
                 'format' => 'raw',
                 'label' => 'Событие',
-                'value' => function (History $model): string {
+                'value' => function (History $model) {
                     return $model->text();
                 }
             ],
