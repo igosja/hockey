@@ -1648,7 +1648,7 @@ class LineupController extends AbstractController
                 $power = 1;
             }
 
-            $position = $position ?: 1;
+            $position = $position ? $position : 1;
 
             $position = round($power / $position * 100);
 

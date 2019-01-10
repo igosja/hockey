@@ -38,10 +38,10 @@ use common\components\FormatHelper;
                     <?= $team->team_visitor; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_visitor_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_visitor_place) ? $team->ratingTeam->rating_team_visitor_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_visitor_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_visitor_place_country) ? $team->ratingTeam->rating_team_visitor_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -50,10 +50,10 @@ use common\components\FormatHelper;
                     <?= $team->stadium->stadium_capacity; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_stadium_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_stadium_place) ? $team->ratingTeam->rating_team_stadium_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_stadium_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_stadium_place_country) ? $team->ratingTeam->rating_team_stadium_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -61,10 +61,10 @@ use common\components\FormatHelper;
                 <td class="text-center">
                     <?= $team->team_age; ?></td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_age_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_age_place) ? $team->ratingTeam->rating_team_age_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_age_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_age_place_country) ? $team->ratingTeam->rating_team_age_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -73,10 +73,10 @@ use common\components\FormatHelper;
                     <?= $team->team_player; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_player_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_player_place) ? $team->ratingTeam->rating_team_player_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_player_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_player_place_country) ? $team->ratingTeam->rating_team_player_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -85,10 +85,10 @@ use common\components\FormatHelper;
                     <?= $team->team_power_vs; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_power_vs_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_power_vs_place) ? $team->ratingTeam->rating_team_power_vs_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_power_vs_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_power_vs_place_country) ? $team->ratingTeam->rating_team_power_vs_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -97,10 +97,10 @@ use common\components\FormatHelper;
                     <?= $team->base->base_level; ?> (<?= $team->baseUsed() ?>)
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_base_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_base_place) ? $team->ratingTeam->rating_team_base_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_base_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_base_place_country) ? $team->ratingTeam->rating_team_base_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -109,10 +109,10 @@ use common\components\FormatHelper;
                     <?= FormatHelper::asCurrency($team->team_price_base); ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_base_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_base_place) ? $team->ratingTeam->rating_team_price_base_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_base_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_base_place_country) ? $team->ratingTeam->rating_team_price_base_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -121,10 +121,10 @@ use common\components\FormatHelper;
                     <?= FormatHelper::asCurrency($team->team_price_stadium); ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_stadium_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_stadium_place) ? $team->ratingTeam->rating_team_price_stadium_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_stadium_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_stadium_place_country) ? $team->ratingTeam->rating_team_price_stadium_place_country : 0; ?>
                 </td>
             </tr>
             <tr>
@@ -133,10 +133,10 @@ use common\components\FormatHelper;
                     <?= FormatHelper::asCurrency($team->team_price_total); ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_total_place ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_total_place) ? $team->ratingTeam->rating_team_price_total_place : 0; ?>
                 </td>
                 <td class="hidden-xs text-center">
-                    <?= $team->ratingTeam->rating_team_price_total_place_country ?? 0; ?>
+                    <?= isset($team->ratingTeam->rating_team_price_total_place_country) ? $team->ratingTeam->rating_team_price_total_place_country : 0; ?>
                 </td>
             </tr>
         </table>

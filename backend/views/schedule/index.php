@@ -19,8 +19,9 @@ use yii\helpers\Html;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
             Сегодня:
-            <?= $schedule->tournamentType->tournament_type_name ?? ''; ?>,
-            <?= $schedule->stage->stage_name ?? ''; ?>
+            <?= isset($schedule->tournamentType->tournament_type_name) ? $schedule->tournamentType->tournament_type_name : ''; ?>
+            ,
+            <?= isset($schedule->stage->stage_name) ? $schedule->stage->stage_name : ''; ?>
         </p>
     </div>
 </div>

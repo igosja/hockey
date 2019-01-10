@@ -249,7 +249,7 @@ AppAsset::register($this);
 
         try {
             print Breadcrumbs::widget([
-                'links' => $this->params['breadcrumbs'] ?? [],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]);
         } catch (Exception $e) {
             ErrorHelper::log($e);
