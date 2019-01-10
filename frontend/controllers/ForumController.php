@@ -264,7 +264,7 @@ class ForumController extends AbstractController
 
         $this->setSuccessFlash();
         return $this->redirect(
-            Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+            Yii::$app->request->referrer ? Yii::$app->request->referrer : ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
         );
     }
 
@@ -294,7 +294,7 @@ class ForumController extends AbstractController
         $model->delete();
 
         $this->setSuccessFlash('Сообшение успешно удалено');
-        return $this->redirect(Yii::$app->request->referrer ?: ['forum/theme', 'id' => $themeId]);
+        return $this->redirect(Yii::$app->request->referrer ? Yii::$app->request->referrer : ['forum/theme', 'id' => $themeId]);
     }
 
     /**
@@ -317,7 +317,7 @@ class ForumController extends AbstractController
 
         $this->setSuccessFlash('Жалоба успешно сохранена');
         return $this->redirect(
-            Yii::$app->request->referrer ?: ['forum/theme', 'id' => $forumMessage->forum_message_forum_theme_id]
+            Yii::$app->request->referrer ? Yii::$app->request->referrer : ['forum/theme', 'id' => $forumMessage->forum_message_forum_theme_id]
         );
     }
 
@@ -344,7 +344,7 @@ class ForumController extends AbstractController
         if ($model->forum_message_blocked && UserRole::USER == $this->user->user_user_role_id) {
             $this->setErrorFlash('Сообщение заблокировано и не может быть отредактировано');
             return $this->redirect(
-                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
+                Yii::$app->request->referrer ? Yii::$app->request->referrer : ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
             );
         }
 

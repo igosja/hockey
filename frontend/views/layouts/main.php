@@ -79,7 +79,7 @@ AppAsset::register($this);
                         <?= Html::beginForm(['team/change-my-team'], 'post', ['class' => 'form-inline']); ?>
                         <?= Html::dropDownList(
                             'teamId',
-                            $this->context->myTeam->team_id ?? 0,
+                            (isset($this->context->myTeam->team_id) ? $this->context->myTeam->team_id : 0),
                             ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
                             ['class' => 'form-control', 'onchange' => 'this.form.submit();']
                         ); ?>

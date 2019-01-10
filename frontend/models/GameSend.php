@@ -76,38 +76,38 @@ class GameSend extends Model
             $this->line[$item->lineup_line_id][$item->lineup_position_id - 1] = $item->lineup_player_id;
         }
 
-        $this->ticket = $this->game->game_ticket ?: $this->ticket;
+        $this->ticket = $this->game->game_ticket ? $this->game->game_ticket : $this->ticket;
 
         if ($this->game->game_guest_team_id == $this->team->team_id) {
             $this->home = false;
-            $this->mood = $this->game->game_guest_mood_id ?: $this->mood;
-            $this->rudeness_1 = $this->game->game_guest_rudeness_id_1 ?: $this->rudeness_1;
-            $this->rudeness_2 = $this->game->game_guest_rudeness_id_2 ?: $this->rudeness_2;
-            $this->rudeness_3 = $this->game->game_guest_rudeness_id_3 ?: $this->rudeness_3;
-            $this->rudeness_4 = $this->game->game_guest_rudeness_id_4 ?: $this->rudeness_4;
-            $this->style_1 = $this->game->game_guest_style_id_1 ?: $this->style_1;
-            $this->style_2 = $this->game->game_guest_style_id_2 ?: $this->style_2;
-            $this->style_3 = $this->game->game_guest_style_id_3 ?: $this->style_3;
-            $this->style_4 = $this->game->game_guest_style_id_4 ?: $this->style_4;
-            $this->tactic_1 = $this->game->game_guest_tactic_id_1 ?: $this->tactic_1;
-            $this->tactic_2 = $this->game->game_guest_tactic_id_2 ?: $this->tactic_2;
-            $this->tactic_3 = $this->game->game_guest_tactic_id_3 ?: $this->tactic_3;
-            $this->tactic_4 = $this->game->game_guest_tactic_id_4 ?: $this->tactic_4;
+            $this->mood = $this->game->game_guest_mood_id ? $this->game->game_guest_mood_id : $this->mood;
+            $this->rudeness_1 = $this->game->game_guest_rudeness_id_1 ? $this->game->game_guest_rudeness_id_1 : $this->rudeness_1;
+            $this->rudeness_2 = $this->game->game_guest_rudeness_id_2 ? $this->game->game_guest_rudeness_id_2 : $this->rudeness_2;
+            $this->rudeness_3 = $this->game->game_guest_rudeness_id_3 ? $this->game->game_guest_rudeness_id_3 : $this->rudeness_3;
+            $this->rudeness_4 = $this->game->game_guest_rudeness_id_4 ? $this->game->game_guest_rudeness_id_4 : $this->rudeness_4;
+            $this->style_1 = $this->game->game_guest_style_id_1 ? $this->game->game_guest_style_id_1 : $this->style_1;
+            $this->style_2 = $this->game->game_guest_style_id_2 ? $this->game->game_guest_style_id_2 : $this->style_2;
+            $this->style_3 = $this->game->game_guest_style_id_3 ? $this->game->game_guest_style_id_3 : $this->style_3;
+            $this->style_4 = $this->game->game_guest_style_id_4 ? $this->game->game_guest_style_id_4 : $this->style_4;
+            $this->tactic_1 = $this->game->game_guest_tactic_id_1 ? $this->game->game_guest_tactic_id_1 : $this->tactic_1;
+            $this->tactic_2 = $this->game->game_guest_tactic_id_2 ? $this->game->game_guest_tactic_id_2 : $this->tactic_2;
+            $this->tactic_3 = $this->game->game_guest_tactic_id_3 ? $this->game->game_guest_tactic_id_3 : $this->tactic_3;
+            $this->tactic_4 = $this->game->game_guest_tactic_id_4 ? $this->game->game_guest_tactic_id_4 : $this->tactic_4;
         } else {
             $this->home = true;
-            $this->mood = $this->game->game_home_mood_id ?: $this->mood;
-            $this->rudeness_1 = $this->game->game_home_rudeness_id_1 ?: $this->rudeness_1;
-            $this->rudeness_2 = $this->game->game_home_rudeness_id_2 ?: $this->rudeness_2;
-            $this->rudeness_3 = $this->game->game_home_rudeness_id_3 ?: $this->rudeness_3;
-            $this->rudeness_4 = $this->game->game_home_rudeness_id_4 ?: $this->rudeness_4;
-            $this->style_1 = $this->game->game_home_style_id_1 ?: $this->style_1;
-            $this->style_2 = $this->game->game_home_style_id_2 ?: $this->style_2;
-            $this->style_3 = $this->game->game_home_style_id_3 ?: $this->style_3;
-            $this->style_4 = $this->game->game_home_style_id_4 ?: $this->style_4;
-            $this->tactic_1 = $this->game->game_home_tactic_id_1 ?: $this->tactic_1;
-            $this->tactic_2 = $this->game->game_home_tactic_id_2 ?: $this->tactic_2;
-            $this->tactic_3 = $this->game->game_home_tactic_id_3 ?: $this->tactic_3;
-            $this->tactic_4 = $this->game->game_home_tactic_id_4 ?: $this->tactic_4;
+            $this->mood = $this->game->game_home_mood_id ? $this->game->game_home_mood_id : $this->mood;
+            $this->rudeness_1 = $this->game->game_home_rudeness_id_1 ? $this->game->game_home_rudeness_id_1 : $this->rudeness_1;
+            $this->rudeness_2 = $this->game->game_home_rudeness_id_2 ? $this->game->game_home_rudeness_id_2 : $this->rudeness_2;
+            $this->rudeness_3 = $this->game->game_home_rudeness_id_3 ? $this->game->game_home_rudeness_id_3 : $this->rudeness_3;
+            $this->rudeness_4 = $this->game->game_home_rudeness_id_4 ? $this->game->game_home_rudeness_id_4 : $this->rudeness_4;
+            $this->style_1 = $this->game->game_home_style_id_1 ? $this->game->game_home_style_id_1 : $this->style_1;
+            $this->style_2 = $this->game->game_home_style_id_2 ? $this->game->game_home_style_id_2 : $this->style_2;
+            $this->style_3 = $this->game->game_home_style_id_3 ? $this->game->game_home_style_id_3 : $this->style_3;
+            $this->style_4 = $this->game->game_home_style_id_4 ? $this->game->game_home_style_id_4 : $this->style_4;
+            $this->tactic_1 = $this->game->game_home_tactic_id_1 ? $this->game->game_home_tactic_id_1 : $this->tactic_1;
+            $this->tactic_2 = $this->game->game_home_tactic_id_2 ? $this->game->game_home_tactic_id_2 : $this->tactic_2;
+            $this->tactic_3 = $this->game->game_home_tactic_id_3 ? $this->game->game_home_tactic_id_3 : $this->tactic_3;
+            $this->tactic_4 = $this->game->game_home_tactic_id_4 ? $this->game->game_home_tactic_id_4 : $this->tactic_4;
         }
     }
 
