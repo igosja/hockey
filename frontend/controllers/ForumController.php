@@ -317,9 +317,7 @@ class ForumController extends AbstractController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash('Сообщение успешно отредактировано');
-            return $this->redirect(
-                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
-            );
+            return $this->redirect(['forum/theme', 'id' => $model->forum_message_forum_theme_id]);
         }
 
         $this->setSeoTitle('Редактирование сообщения');
@@ -350,9 +348,7 @@ class ForumController extends AbstractController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash('Сообщение успешно отредактировано');
-            return $this->redirect(
-                Yii::$app->request->referrer ?: ['forum/theme', 'id' => $model->forum_message_forum_theme_id]
-            );
+            return $this->redirect(['forum/theme', 'id' => $model->forum_message_forum_theme_id]);
         }
 
         $forumThemeOptions = [];
