@@ -32,7 +32,7 @@ class SiteController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -52,7 +52,7 @@ class SiteController extends AbstractController
     /**
      * @return array
      */
-    public function actions(): array
+    public function actions()
     {
         return [
             'error' => [
@@ -64,7 +64,7 @@ class SiteController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $complaint = Complaint::find()->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
@@ -77,7 +77,7 @@ class SiteController extends AbstractController
         $review = Review::find()->where(['review_check' => 0])->count();
         $support = Support::find()->where(['support_question' => 1, 'support_read' => 0])->count();
         $transferComment = TransferComment::find()->where(['transfer_comment_check' => 0])->count();
-        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
+        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW_ONE])->count();
 
         $countModeration = 0;
         $countModeration = $countModeration + $forumMessage;
@@ -92,7 +92,7 @@ class SiteController extends AbstractController
 
         $paymentArray = Payment::find()
             ->with([
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 }
             ])
@@ -152,7 +152,7 @@ class SiteController extends AbstractController
     /**
      * @return Response
      */
-    public function actionLogout(): Response
+    public function actionLogout()
     {
         Yii::$app->user->logout();
 
@@ -161,8 +161,9 @@ class SiteController extends AbstractController
 
     /**
      * @return Response
+     * @throws \Exception
      */
-    public function actionStatus(): Response
+    public function actionStatus()
     {
         Site::switchStatus();
         return $this->redirect(Yii::$app->request->referrer ?: ['site/index']);

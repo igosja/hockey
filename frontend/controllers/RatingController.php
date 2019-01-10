@@ -20,7 +20,7 @@ class RatingController extends AbstractController
      * @param int $id
      * @return string
      */
-    public function actionIndex($id = RatingType::TEAM_POWER): string
+    public function actionIndex($id = RatingType::TEAM_POWER)
     {
         $ratingType = RatingType::find()
             ->where(['rating_type_id' => $id])

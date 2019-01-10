@@ -19,7 +19,7 @@ class DayType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%day_type}}';
     }
@@ -27,7 +27,7 @@ class DayType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['day_type_id'], 'integer'],

@@ -22,7 +22,7 @@ class TeamAskController extends AbstractController
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function actionIndex(): bool
+    public function actionIndex()
     {
         $expression = new Expression('UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600');
         $teamAsk = (new Query())

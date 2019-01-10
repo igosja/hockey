@@ -16,7 +16,7 @@ class LogoController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = Logo::find();
         $dataProvider = new ActiveDataProvider([
@@ -36,7 +36,7 @@ class LogoController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = Logo::find()->where(['logo_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -57,7 +57,7 @@ class LogoController extends AbstractController
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionAccept(int $id): Response
+    public function actionAccept($id)
     {
         $model = Logo::find()->where(['logo_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -79,7 +79,7 @@ class LogoController extends AbstractController
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(int $id): Response
+    public function actionDelete($id)
     {
         $model = Logo::find()->where(['logo_id' => $id])->limit(1)->one();
         $this->notFound($model);

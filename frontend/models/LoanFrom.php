@@ -41,7 +41,7 @@ class LoanFrom extends Model
                 'loan_application_price',
                 'loan_application_team_id',
             ])
-            ->where(['loan_application_loan_id' => $this->player->loan->loan_id ?? 0])
+            ->where(['loan_application_loan_id' => (isset($this->player->loan->loan_id) ? $this->player->loan->loan_id : 0)])
             ->orderBy(['loan_application_price' => SORT_DESC, 'loan_application_date' => SORT_ASC])
             ->all();
     }
@@ -49,7 +49,7 @@ class LoanFrom extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['off'], 'boolean'],
@@ -61,7 +61,7 @@ class LoanFrom extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

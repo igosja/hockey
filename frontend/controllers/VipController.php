@@ -14,7 +14,7 @@ class VipController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -34,7 +34,7 @@ class VipController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $count = User::find()
             ->where(['>', 'user_date_vip', time()])

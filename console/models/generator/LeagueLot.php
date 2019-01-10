@@ -18,10 +18,11 @@ use Yii;
 class LeagueLot
 {
     /**
+     * @throws \Exception
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -333,11 +334,11 @@ class LeagueLot
                 ->orderBy(['schedule_id' => SORT_ASC])
                 ->limit(1)
                 ->one();
-            if ($check && Stage::FINAL == $check->schedule_stage_id) {
+            if ($check && Stage::FINAL_GAME == $check->schedule_stage_id) {
                 $stageArray = Schedule::find()
                     ->where([
                         'schedule_season_id' => $seasonId,
-                        'schedule_stage_id' => Stage::FINAL,
+                        'schedule_stage_id' => Stage::FINAL_GAME,
                         'schedule_tournament_type_id' => TournamentType::LEAGUE,
                     ])
                     ->orderBy(['schedule_id' => SORT_ASC])
@@ -374,7 +375,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function lot(int $stageId): array
+    private function lot($stageId)
     {
         $teamArray = $this->prepare($stageId);
         $teamArray = $this->all($teamArray, $stageId);
@@ -386,7 +387,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function prepare(int $stageId): array
+    private function prepare($stageId)
     {
         $seasonId = Season::getCurrentSeason();
 
@@ -457,7 +458,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function all(array $teamArray, int $stageId): array
+    private function all(array $teamArray, $stageId)
     {
         if (in_array($stageId, [Stage::QUALIFY_2, Stage::QUALIFY_3])) {
             if (!$team_result_array = $this->one($teamArray)) {
@@ -477,7 +478,7 @@ class LeagueLot
      * @param array $teamResultArray
      * @return array
      */
-    private function one($teamArray, $teamResultArray = []): array
+    private function one($teamArray, $teamResultArray = [])
     {
         $homeTeam = $this->teamHome($teamArray);
         $guestTeam = $this->teamGuest($teamArray, $homeTeam);
@@ -510,7 +511,7 @@ class LeagueLot
      * @param array $teamArray
      * @return array
      */
-    private function teamHome(array $teamArray): array
+    private function teamHome(array $teamArray)
     {
         $team = array_rand($teamArray[0]);
 
@@ -526,7 +527,7 @@ class LeagueLot
      * @param array $homeTeam
      * @return array
      */
-    private function teamGuest(array $teamArray, array $homeTeam): array
+    private function teamGuest(array $teamArray, array $homeTeam)
     {
         $shuffleArray = $teamArray[1];
 
@@ -554,7 +555,7 @@ class LeagueLot
      * @param int $groupNumber
      * @return array
      */
-    private function group($teamArray, $teamResultArray = [], $groupNumber = 1): array
+    private function group($teamArray, $teamResultArray = [], $groupNumber = 1)
     {
         $team1 = $this->team1($teamArray);
         $team2 = $this->team2($teamArray, $team1);
@@ -606,7 +607,7 @@ class LeagueLot
      * @param array $team_array
      * @return array
      */
-    private function team1(array $team_array): array
+    private function team1(array $team_array)
     {
         $team = array_rand($team_array[0]);
 
@@ -622,7 +623,7 @@ class LeagueLot
      * @param $team_1
      * @return array
      */
-    private function team2($teamArray, $team_1): array
+    private function team2($teamArray, $team_1)
     {
         $shuffleArray = $teamArray[1];
 
@@ -651,7 +652,7 @@ class LeagueLot
      * @param $team_2
      * @return array
      */
-    private function team3($teamArray, $team_1, $team_2): array
+    private function team3($teamArray, $team_1, $team_2)
     {
         $shuffleArray = $teamArray[1];
 
@@ -681,7 +682,7 @@ class LeagueLot
      * @param $team_3
      * @return array
      */
-    private function team4($teamArray, $team_1, $team_2, $team_3): array
+    private function team4($teamArray, $team_1, $team_2, $team_3)
     {
         $shuffleArray = $teamArray[1];
 

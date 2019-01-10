@@ -13,7 +13,7 @@ class DumpDatabase
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $dbName = null;
         if (preg_match('/dbname=([^;]*)/', Yii::$app->db->dsn, $match)) {

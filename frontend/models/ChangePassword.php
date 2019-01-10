@@ -24,7 +24,7 @@ class ChangePassword extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['old'], 'checkOldPassword'],
@@ -38,7 +38,7 @@ class ChangePassword extends Model
      * @return bool
      * @throws Exception
      */
-    public function change(): bool
+    public function change()
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -60,7 +60,7 @@ class ChangePassword extends Model
     /**
      * @param string $attribute
      */
-    public function checkOldPassword(string $attribute): void
+    public function checkOldPassword($attribute)
     {
         /**
          * @var User $user
@@ -74,7 +74,7 @@ class ChangePassword extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'new' => 'Новый пароль',

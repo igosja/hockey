@@ -17,7 +17,7 @@ class Squad extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%squad}}';
     }
@@ -25,7 +25,7 @@ class Squad extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['squad_id'], 'integer'],

@@ -13,7 +13,7 @@ class UpdateCronDate
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Site::updateAll(['site_date_cron' => time()], ['site_id' => 1]);
     }

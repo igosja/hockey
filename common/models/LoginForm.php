@@ -23,7 +23,7 @@ class LoginForm extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['password', 'username'], 'required'],
@@ -34,7 +34,7 @@ class LoginForm extends Model
     /**
      * @param string $attribute
      */
-    public function validatePassword(string $attribute)
+    public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
@@ -47,7 +47,7 @@ class LoginForm extends Model
     /**
      * @return bool
      */
-    public function login(): bool
+    public function login()
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), 2592000);
@@ -71,7 +71,7 @@ class LoginForm extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'password' => 'Пароль',

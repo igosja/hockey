@@ -49,7 +49,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Дата',
                     'headerOptions' => ['class' => 'col-10'],
                     'label' => 'Дата',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return Yii::$app->formatter->asDate($model->game->schedule->schedule_date, 'short');
                     }
                 ],
@@ -58,7 +58,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Матч',
                     'format' => 'raw',
                     'label' => 'Матч',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->game->teamOrNationalLink('home', false)
                             . '-'
                             . $model->game->teamOrNationalLink('guest', false);
@@ -71,7 +71,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-5', 'title' => 'Счёт'],
                     'label' => 'Сч',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return Html::a(
                             $model->game->formatScore(),
                             ['game/view', 'id' => $model->game->game_id]
@@ -83,7 +83,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Тип матча',
                     'headerOptions' => ['class' => 'col-13'],
                     'label' => 'Тип матча',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->game->schedule->tournamentType->tournament_type_name;
                     }
                 ],
@@ -92,7 +92,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Стадия',
                     'headerOptions' => ['class' => 'col-10'],
                     'label' => 'Стадия',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->game->schedule->stage->stage_name;
                     }
                 ],
@@ -102,7 +102,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['title' => 'Позиция'],
                     'headerOptions' => ['class' => 'col-10', 'title' => 'Позиция'],
                     'label' => 'Поз',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->position->position_name;
                     }
                 ],
@@ -112,7 +112,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->lineup_power_real;
                     }
                 ],
@@ -122,7 +122,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Шайбы'],
                     'label' => 'Ш',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->lineup_score;
                     }
                 ],
@@ -132,7 +132,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Голевые передачи'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Голевые передачи'],
                     'label' => 'П',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->lineup_score;
                     }
                 ],
@@ -142,7 +142,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Плюс/минус'],
                     'label' => '+/-',
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return HockeyHelper::plusNecessary($model->lineup_plus_minus);
                     }
                 ],
@@ -151,7 +151,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Изменение силы'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Изменение силы'],
-                    'value' => function (Lineup $model): string {
+                    'value' => function (Lineup $model) {
                         return $model->iconPowerChange();
                     }
                 ],

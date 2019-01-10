@@ -24,7 +24,7 @@ class Site extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%site}}';
     }
@@ -32,7 +32,7 @@ class Site extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -53,13 +53,13 @@ class Site extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function version(): string
+    public static function version()
     {
         $version = '0.0.0';
         $date = time();
 
         try {
-            $site = self::getDb()->cache(function (): self {
+            $site = self::getDb()->cache(function () {
                 return self::find()
                     ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
                     ->where(['site_id' => 1])
@@ -90,7 +90,7 @@ class Site extends AbstractActiveRecord
     /**
      * @return int
      */
-    public static function status(): int
+    public static function status()
     {
         $site = self::find()
             ->select(['site_status'])
@@ -106,9 +106,9 @@ class Site extends AbstractActiveRecord
     }
 
     /**
-     * @return void
+     * @throws Exception
      */
-    public static function switchStatus(): void
+    public static function switchStatus()
     {
         $model = Site::find()
             ->where(['site_id' => 1])

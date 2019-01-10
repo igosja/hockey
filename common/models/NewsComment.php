@@ -25,7 +25,7 @@ class NewsComment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%news_comment}}';
     }
@@ -33,7 +33,7 @@ class NewsComment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -55,7 +55,7 @@ class NewsComment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'news_comment_text' => 'Комментарий',
@@ -66,7 +66,7 @@ class NewsComment extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -81,7 +81,7 @@ class NewsComment extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function addComment(): bool
+    public function addComment()
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -116,7 +116,7 @@ class NewsComment extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id'])->cache();
     }

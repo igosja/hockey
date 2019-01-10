@@ -28,7 +28,7 @@ class SiteController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -48,7 +48,7 @@ class SiteController extends AbstractController
     /**
      * @return array
      */
-    public function actions(): array
+    public function actions()
     {
         return [
             'error' => [
@@ -60,7 +60,7 @@ class SiteController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         if (Yii::$app->request->get('ref')) {
             $cookies = Yii::$app->response->cookies;
@@ -116,7 +116,7 @@ class SiteController extends AbstractController
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionAuth(string $code)
+    public function actionAuth($code)
     {
         if (!Yii::$app->user->isGuest) {
             Yii::$app->user->logout();
@@ -164,7 +164,7 @@ class SiteController extends AbstractController
     /**
      * @return Response
      */
-    public function actionLogout(): Response
+    public function actionLogout()
     {
         Yii::$app->user->logout();
 
@@ -346,7 +346,7 @@ class SiteController extends AbstractController
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionAuthByKey(): Response
+    public function actionAuthByKey()
     {
         /**
          * @var User $user

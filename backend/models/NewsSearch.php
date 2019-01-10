@@ -15,7 +15,7 @@ class NewsSearch extends News
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['news_id'], 'integer'],
@@ -26,7 +26,7 @@ class NewsSearch extends News
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class NewsSearch extends News
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = News::find()->select(['news_id', 'news_date', 'news_title']);
 

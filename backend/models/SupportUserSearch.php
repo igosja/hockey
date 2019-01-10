@@ -15,7 +15,7 @@ class SupportUserSearch extends Support
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -24,7 +24,7 @@ class SupportUserSearch extends Support
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Support::find()
             ->select([

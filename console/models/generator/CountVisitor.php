@@ -14,9 +14,9 @@ use common\models\TournamentType;
 class CountVisitor
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $subQuery = Game::find()
             ->joinWith(['schedule'])

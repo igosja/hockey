@@ -101,7 +101,7 @@ abstract class AbstractController extends Controller
     /**
      * @return void
      */
-    private function checkSessionMyTeamId(): void
+    private function checkSessionMyTeamId()
     {
         if (Yii::$app->session->get('myTeamId')) {
             if (!in_array(Yii::$app->session->get('myTeamId'), array_keys($this->myTeamArray))) {
@@ -114,7 +114,7 @@ abstract class AbstractController extends Controller
      * @param $text
      * @return void
      */
-    public function setSeoTitle($text): void
+    public function setSeoTitle($text)
     {
         $this->view->title = $text;
         $this->setSeoDescription();
@@ -123,7 +123,7 @@ abstract class AbstractController extends Controller
     /**
      * @return void
      */
-    private function setSeoDescription(): void
+    private function setSeoDescription()
     {
         $this->view->registerMetaTag([
             'name' => 'description',
@@ -134,7 +134,7 @@ abstract class AbstractController extends Controller
     /**
      * @throws ForbiddenHttpException
      */
-    protected function forbiddenAuth(): void
+    protected function forbiddenAuth()
     {
         throw new ForbiddenHttpException('Эта страница доступна только авторизированных мользователям');
     }
@@ -142,7 +142,7 @@ abstract class AbstractController extends Controller
     /**
      * @throws ForbiddenHttpException
      */
-    protected function forbiddenRole(): void
+    protected function forbiddenRole()
     {
         throw new ForbiddenHttpException('Не хватает прав для выполнения этой операции');
     }

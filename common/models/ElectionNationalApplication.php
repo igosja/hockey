@@ -24,7 +24,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_national_application}}';
     }
@@ -32,7 +32,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -52,7 +52,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -66,7 +66,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNational(): ActiveQuery
+    public function getElectionNational()
     {
         return $this->hasOne(
             ElectionNational::class,
@@ -77,7 +77,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalPlayer(): ActiveQuery
+    public function getElectionNationalPlayer()
     {
         return $this->hasMany(
             ElectionNationalPlayer::class,
@@ -88,7 +88,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalVote(): ActiveQuery
+    public function getElectionNationalVote()
     {
         return $this->hasMany(
             ElectionNationalVote::class,
@@ -99,7 +99,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'election_national_application_user_id']);
     }

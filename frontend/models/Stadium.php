@@ -32,7 +32,7 @@ class Stadium extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -56,7 +56,7 @@ class Stadium extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'capacity' => 'Вместимость',

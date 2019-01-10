@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * Class Complaint
  * @package common\models
@@ -16,7 +18,7 @@ class Complaint extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%complaint}}';
     }
@@ -24,11 +26,27 @@ class Complaint extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['complaint_forum_message_id', 'complaint_id', 'complaint_date', 'complaint_user_id'], 'integer'],
             [['complaint_forum_message_id'], 'required'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->complaint_date = time();
+                $this->complaint_user_id = Yii::$app->user->id;
+            }
+            return true;
+        }
+        return false;
     }
 }

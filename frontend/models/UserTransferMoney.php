@@ -44,7 +44,7 @@ class UserTransferMoney extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['countryId', 'teamId'], 'integer'],
@@ -57,7 +57,7 @@ class UserTransferMoney extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'comment' => 'Комментарий',
@@ -71,7 +71,7 @@ class UserTransferMoney extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

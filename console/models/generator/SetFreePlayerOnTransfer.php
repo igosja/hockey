@@ -13,9 +13,9 @@ use common\models\Transfer;
 class SetFreePlayerOnTransfer
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $positionArray = [
             [Position::GK, 2],

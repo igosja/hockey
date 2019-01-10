@@ -26,7 +26,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%friendly_invite}}';
     }
@@ -34,7 +34,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -57,7 +57,7 @@ class FriendlyInvite extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -71,7 +71,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getFriendlyInviteStatus(): ActiveQuery
+    public function getFriendlyInviteStatus()
     {
         return $this->hasOne(
             FriendlyInviteStatus::class,
@@ -82,7 +82,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGuestTeam(): ActiveQuery
+    public function getGuestTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_guest_team_id']);
     }
@@ -90,7 +90,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getHomeTeam(): ActiveQuery
+    public function getHomeTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_home_team_id']);
     }

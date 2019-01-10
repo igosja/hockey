@@ -31,7 +31,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%payment}}';
     }
@@ -39,7 +39,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['payment_status'], 'in', 'range' => [self::NOT_PAID, self::PAID]],
@@ -49,7 +49,7 @@ class Payment extends AbstractActiveRecord
         ];
     }
 
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'payment_sum' => 'Сумма',
@@ -60,7 +60,7 @@ class Payment extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -75,7 +75,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function getPaymentHighChartsData(): array
+    public static function getPaymentHighChartsData()
     {
         $expression = new Expression('FROM_UNIXTIME(`payment_date`, \'%b-%Y\')');
         $payment = (new Query())
@@ -114,7 +114,7 @@ class Payment extends AbstractActiveRecord
      * @param string $dateEnd
      * @return array
      */
-    public static function getDateArrayByMonth(string $dateStart, string $dateEnd): array
+    public static function getDateArrayByMonth($dateStart, $dateEnd)
     {
         $dateArray = [];
 
@@ -129,7 +129,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function paymentUrl(): string
+    public function paymentUrl()
     {
         $merchantId = self::MERCHANT_ID;
         $secretKey = self::MERCHANT_SECRET_KEY;
@@ -149,7 +149,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'payment_user_id']);
     }

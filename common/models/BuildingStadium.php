@@ -24,7 +24,7 @@ class BuildingStadium extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%building_stadium}}';
     }
@@ -32,7 +32,7 @@ class BuildingStadium extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -54,7 +54,7 @@ class BuildingStadium extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -68,7 +68,7 @@ class BuildingStadium extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function endDate(): string
+    public function endDate()
     {
         $day = $this->building_stadium_day;
 
@@ -82,7 +82,7 @@ class BuildingStadium extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'building_stadium_team_id']);
     }

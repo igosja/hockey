@@ -14,7 +14,7 @@ class Name extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%name}}';
     }
@@ -22,7 +22,7 @@ class Name extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['name_id'], 'integer'],

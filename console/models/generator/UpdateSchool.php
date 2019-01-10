@@ -22,9 +22,9 @@ use yii\db\Expression;
 class UpdateSchool
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
 

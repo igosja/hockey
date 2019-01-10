@@ -24,7 +24,7 @@ class LoanController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = Loan::find()
             ->where(['loan_ready' => 0]);
@@ -46,7 +46,7 @@ class LoanController extends AbstractController
     /**
      * @return string
      */
-    public function actionHistory(): string
+    public function actionHistory()
     {
         $query = Loan::find()
             ->where(['!=', 'loan_ready', 0])
@@ -72,7 +72,7 @@ class LoanController extends AbstractController
      * @throws \yii\db\Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $loan = Loan::find()
             ->where(['loan_id' => $id])
@@ -99,7 +99,7 @@ class LoanController extends AbstractController
 
         $query = LoanComment::find()
             ->with([
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 }
             ])
@@ -136,7 +136,7 @@ class LoanController extends AbstractController
      * @throws \yii\web\ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeleteComment(int $id, int $loanId): Response
+    public function actionDeleteComment($id, $loanId)
     {
         /**
          * @var User $user

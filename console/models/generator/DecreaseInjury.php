@@ -15,7 +15,7 @@ class DecreaseInjury
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Player::updateAllCounters(['player_injury_day' => -1], ['>', 'player_injury', 0]);
 

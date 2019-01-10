@@ -12,8 +12,8 @@ function admin_bell() {
     $.ajax({
         dataType: 'json',
         success: function (data) {
-            let seoTitle = $('title');
-            let titleText = seoTitle.text().split(')');
+            var seoTitle = $('title');
+            var titleText = seoTitle.text().split(')');
             $('#admin-bell').html(data.bell);
             if (data.bell > 0) {
                 seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length - 1]);

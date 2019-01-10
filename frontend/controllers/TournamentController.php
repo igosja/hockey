@@ -20,7 +20,7 @@ class TournamentController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $seasonArray = Season::getSeasonArray();
@@ -32,10 +32,10 @@ class TournamentController extends AbstractController
 
         $championshipArray = Championship::find()
             ->with([
-                'country' => function (ActiveQuery $query): ActiveQuery {
+                'country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'division' => function (ActiveQuery $query): ActiveQuery {
+                'division' => function (ActiveQuery $query) {
                     return $query->select(['division_id', 'division_name']);
                 },
             ])
@@ -85,7 +85,7 @@ class TournamentController extends AbstractController
 
         $scheduleArray = Schedule::find()
             ->with([
-                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                'tournamentType' => function (ActiveQuery $query) {
                     return $query->select(['tournament_type_id', 'tournament_type_name']);
                 }
             ])

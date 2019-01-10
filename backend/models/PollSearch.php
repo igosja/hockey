@@ -15,7 +15,7 @@ class PollSearch extends Poll
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['poll_id'], 'integer'],
@@ -26,7 +26,7 @@ class PollSearch extends Poll
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class PollSearch extends Poll
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Poll::find()->select(['poll_id', 'poll_date', 'poll_text']);
 

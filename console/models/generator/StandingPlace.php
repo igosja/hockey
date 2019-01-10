@@ -23,9 +23,9 @@ class StandingPlace
     private $seasonId;
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $this->seasonId = Season::getCurrentSeason();
 
@@ -53,9 +53,9 @@ class StandingPlace
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function conference(): void
+    private function conference()
     {
         $conferenceArray = Conference::find()
             ->joinWith(['team'])
@@ -80,9 +80,9 @@ class StandingPlace
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function offSeason(): void
+    private function offSeason()
     {
         $offSeasonArray = OffSeason::find()
             ->joinWith(['team'])
@@ -107,9 +107,9 @@ class StandingPlace
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function championship(): void
+    private function championship()
     {
         $countryArray = Championship::find()
             ->where(['championship_season_id' => $this->seasonId])
@@ -155,9 +155,9 @@ class StandingPlace
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function league(): void
+    public function league()
     {
         $groupArray = League::find()
             ->where(['league_season_id' => $this->seasonId])
@@ -192,9 +192,9 @@ class StandingPlace
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function worldCup(): void
+    private function worldCup()
     {
         $divisionArray = WorldCup::find()
             ->where(['world_cup_season_id' => $this->seasonId])

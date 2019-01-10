@@ -16,7 +16,7 @@ class UpdatePhysical
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $sql = "UPDATE `player`
                 LEFT JOIN `physical_change`

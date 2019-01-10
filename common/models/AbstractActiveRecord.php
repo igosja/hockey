@@ -18,7 +18,7 @@ abstract class AbstractActiveRecord extends ActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function save($runValidation = true, $attributeNames = null): bool
+    public function save($runValidation = true, $attributeNames = null)
     {
         if (!parent::save($runValidation, $attributeNames)) {
             throw new Exception(ErrorHelper::modelErrorsToString($this));

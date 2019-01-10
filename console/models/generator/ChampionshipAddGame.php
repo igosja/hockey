@@ -17,15 +17,15 @@ use common\models\TournamentType;
 class ChampionshipAddGame
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->andWhere([
                 'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
-                'schedule_stage_id' => [Stage::QUARTER, Stage::SEMI, Stage::FINAL]
+                'schedule_stage_id' => [Stage::QUARTER, Stage::SEMI, Stage::FINAL_GAME]
             ])
             ->limit(1)
             ->one();
@@ -138,7 +138,7 @@ class ChampionshipAddGame
                     }
                 }
             }
-        } elseif (Stage::FINAL == $schedule->schedule_stage_id) {
+        } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
             $gameArray = Game::find()
                 ->where(['game_schedule_id' => $schedule->schedule_id])
                 ->orderBy(['game_id' => SORT_ASC])

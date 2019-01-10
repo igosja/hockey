@@ -36,7 +36,7 @@ class RatingTeam extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%rating_team}}';
     }
@@ -44,7 +44,7 @@ class RatingTeam extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -78,7 +78,7 @@ class RatingTeam extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'rating_team_team_id'])->cache();
     }

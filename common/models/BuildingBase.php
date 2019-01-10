@@ -25,7 +25,7 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%building_base}}';
     }
@@ -33,7 +33,7 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -55,7 +55,7 @@ class BuildingBase extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -69,7 +69,7 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function endDate(): string
+    public function endDate()
     {
         $day = $this->building_base_day;
 
@@ -83,7 +83,7 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuilding(): ActiveQuery
+    public function getBuilding()
     {
         return $this->hasOne(Building::class, ['building_id' => 'building_base_building_id']);
     }
@@ -91,7 +91,7 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'building_base_team_id']);
     }

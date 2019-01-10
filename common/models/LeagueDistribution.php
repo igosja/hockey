@@ -20,7 +20,7 @@ class LeagueDistribution extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%league_distribution}}';
     }
@@ -28,7 +28,7 @@ class LeagueDistribution extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [

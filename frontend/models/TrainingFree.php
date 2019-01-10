@@ -32,7 +32,7 @@ class TrainingFree extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['power', 'position', 'special'], 'safe'],
@@ -43,7 +43,7 @@ class TrainingFree extends Model
     /**
      * @return array
      */
-    public function redirectUrl(): array
+    public function redirectUrl()
     {
         $positionArray = [];
         foreach ($this->position as $player => $position) {

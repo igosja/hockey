@@ -45,7 +45,7 @@ use yii\helpers\Html;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Дата',
-                'value' => function (Schedule $model): string {
+                'value' => function (Schedule $model) {
                     return FormatHelper::asDate($model->schedule_date);
                 }
             ],
@@ -54,7 +54,7 @@ use yii\helpers\Html;
                 'footer' => 'Турнир',
                 'format' => 'raw',
                 'label' => 'Турнир',
-                'value' => function (Schedule $model): string {
+                'value' => function (Schedule $model) {
                     return Html::a(
                         $model->tournamentType->tournament_type_name,
                         ['schedule/view', 'id' => $model->schedule_id]
@@ -67,7 +67,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Стадия',
-                'value' => function (Schedule $model): string {
+                'value' => function (Schedule $model) {
                     return $model->stage->stage_name;
                 }
             ],

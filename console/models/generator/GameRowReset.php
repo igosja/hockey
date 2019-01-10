@@ -17,7 +17,7 @@ class GameRowReset
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $check = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`-86400, "%Y-%m-%d")=CURDATE()')

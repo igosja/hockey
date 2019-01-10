@@ -14,7 +14,7 @@ class NameCountry extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%name_country}}';
     }
@@ -22,7 +22,7 @@ class NameCountry extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['name_country_country_id', 'name_country_name_id'], 'integer'],
@@ -34,7 +34,7 @@ class NameCountry extends AbstractActiveRecord
      * @param integer $countryId
      * @return false|null|string
      */
-    public static function getRandNameId(int $countryId)
+    public static function getRandNameId($countryId)
     {
         return self::find()
             ->select(['name_country_name_id'])

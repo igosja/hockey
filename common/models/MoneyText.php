@@ -22,7 +22,7 @@ class MoneyText extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%money_text}}';
     }
@@ -30,7 +30,7 @@ class MoneyText extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['money_text_id'], 'integer'],

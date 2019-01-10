@@ -24,7 +24,7 @@ class TransferController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = Transfer::find()
             ->where(['transfer_ready' => 0]);
@@ -46,7 +46,7 @@ class TransferController extends AbstractController
     /**
      * @return string
      */
-    public function actionHistory(): string
+    public function actionHistory()
     {
         $query = Transfer::find()
             ->where(['!=', 'transfer_ready', 0])
@@ -72,7 +72,7 @@ class TransferController extends AbstractController
      * @throws \yii\db\Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $transfer = Transfer::find()
             ->where(['transfer_id' => $id])
@@ -99,7 +99,7 @@ class TransferController extends AbstractController
 
         $query = TransferComment::find()
             ->with([
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 }
             ])
@@ -136,7 +136,7 @@ class TransferController extends AbstractController
      * @throws \yii\web\ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeleteComment(int $id, int $transferId): Response
+    public function actionDeleteComment($id, $transferId)
     {
         /**
          * @var User $user

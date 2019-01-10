@@ -20,7 +20,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%statistic_chapter}}';
     }
@@ -28,7 +28,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function selectOptions(): array
+    public static function selectOptions()
     {
         $typesArray = self::find()
             ->with(['statisticType'])
@@ -51,7 +51,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['statistic_chapter_id', 'statistic_chapter_order'], 'integer'],
@@ -65,7 +65,7 @@ class StatisticChapter extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -84,7 +84,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStatisticType(): ActiveQuery
+    public function getStatisticType()
     {
         return $this->hasMany(StatisticType::class, ['statistic_type_statistic_chapter_id' => 'statistic_chapter_id']);
     }

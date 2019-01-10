@@ -16,7 +16,7 @@ class SupportController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new SupportUserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -35,7 +35,7 @@ class SupportController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \Exception
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $support = Support::find()
             ->where(['support_id' => $id])

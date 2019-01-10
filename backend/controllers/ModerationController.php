@@ -21,7 +21,7 @@ class ModerationController extends AbstractController
     /**
      * @return Response
      */
-    public function actionIndex(): Response
+    public function actionIndex()
     {
         return $this->redirect(['moderation/forum-message']);
     }
@@ -56,7 +56,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionForumMessageUpdate(int $id)
+    public function actionForumMessageUpdate($id)
     {
         $model = ForumMessage::find()
             ->where(['forum_message_id' => $id])
@@ -82,7 +82,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionForumMessageOk(int $id)
+    public function actionForumMessageOk($id)
     {
         ForumMessage::updateAll(['forum_message_check' => time()], ['forum_message_id' => $id]);
         return $this->redirect(['moderation/forum-message']);
@@ -92,7 +92,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionForumMessageDelete(int $id)
+    public function actionForumMessageDelete($id)
     {
         ForumMessage::deleteAll(['forum_message_id' => $id]);
         return $this->redirect(['moderation/forum-message']);
@@ -128,7 +128,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionGameCommentUpdate(int $id)
+    public function actionGameCommentUpdate($id)
     {
         $model = GameComment::find()
             ->where(['game_comment_id' => $id])
@@ -154,7 +154,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionGameCommentOk(int $id)
+    public function actionGameCommentOk($id)
     {
         GameComment::updateAll(['game_comment_check' => time()], ['game_comment_id' => $id]);
         return $this->redirect(['moderation/game-comment']);
@@ -164,7 +164,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionGameCommentDelete(int $id)
+    public function actionGameCommentDelete($id)
     {
         GameComment::deleteAll(['game_comment_id' => $id]);
         return $this->redirect(['moderation/game-comment']);
@@ -200,7 +200,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionNewsCommentUpdate(int $id)
+    public function actionNewsCommentUpdate($id)
     {
         $model = NewsComment::find()
             ->where(['news_comment_id' => $id])
@@ -226,7 +226,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionNewsCommentOk(int $id)
+    public function actionNewsCommentOk($id)
     {
         NewsComment::updateAll(['news_comment_check' => time()], ['news_comment_id' => $id]);
         return $this->redirect(['moderation/news-comment']);
@@ -236,7 +236,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionNewsCommentDelete(int $id)
+    public function actionNewsCommentDelete($id)
     {
         NewsComment::deleteAll(['news_comment_id' => $id]);
         return $this->redirect(['moderation/news-comment']);
@@ -272,7 +272,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionNewsUpdate(int $id)
+    public function actionNewsUpdate($id)
     {
         $model = News::find()
             ->where(['news_id' => $id])
@@ -298,7 +298,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionNewsOk(int $id)
+    public function actionNewsOk($id)
     {
         News::updateAll(['news_check' => time()], ['news_id' => $id]);
         return $this->redirect(['moderation/news']);
@@ -308,7 +308,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionNewsDelete(int $id)
+    public function actionNewsDelete($id)
     {
         News::deleteAll(['news_id' => $id]);
         return $this->redirect(['moderation/news']);
@@ -344,7 +344,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionLoanCommentUpdate(int $id)
+    public function actionLoanCommentUpdate($id)
     {
         $model = LoanComment::find()
             ->where(['loan_comment_id' => $id])
@@ -370,7 +370,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionLoanCommentOk(int $id)
+    public function actionLoanCommentOk($id)
     {
         LoanComment::updateAll(['loan_comment_check' => time()], ['loan_comment_id' => $id]);
         return $this->redirect(['moderation/loan-comment']);
@@ -380,7 +380,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionLoanCommentDelete(int $id)
+    public function actionLoanCommentDelete($id)
     {
         LoanComment::deleteAll(['loan_comment_id' => $id]);
         return $this->redirect(['moderation/loan-comment']);
@@ -416,7 +416,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionTransferCommentUpdate(int $id)
+    public function actionTransferCommentUpdate($id)
     {
         $model = TransferComment::find()
             ->where(['transfer_comment_id' => $id])
@@ -442,7 +442,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionTransferCommentOk(int $id)
+    public function actionTransferCommentOk($id)
     {
         TransferComment::updateAll(['transfer_comment_check' => time()], ['transfer_comment_id' => $id]);
         return $this->redirect(['moderation/transfer-comment']);
@@ -452,7 +452,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionTransferCommentDelete(int $id)
+    public function actionTransferCommentDelete($id)
     {
         TransferComment::deleteAll(['transfer_comment_id' => $id]);
         return $this->redirect(['moderation/transfer-comment']);
@@ -488,7 +488,7 @@ class ModerationController extends AbstractController
      * @return string|Response
      * @throws \Exception
      */
-    public function actionReviewUpdate(int $id)
+    public function actionReviewUpdate($id)
     {
         $model = Review::find()
             ->where(['review_id' => $id])
@@ -514,7 +514,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionReviewOk(int $id)
+    public function actionReviewOk($id)
     {
         Review::updateAll(['review_check' => time()], ['review_id' => $id]);
         return $this->redirect(['moderation/review']);
@@ -524,7 +524,7 @@ class ModerationController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function actionReviewDelete(int $id)
+    public function actionReviewDelete($id)
     {
         Review::deleteAll(['review_id' => $id]);
         return $this->redirect(['moderation/review']);

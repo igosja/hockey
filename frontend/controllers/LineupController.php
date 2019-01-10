@@ -27,7 +27,7 @@ class LineupController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -47,7 +47,7 @@ class LineupController extends AbstractController
      * @return string
      * @throws \Exception
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -237,28 +237,28 @@ class LineupController extends AbstractController
             $rwArray[] = $rwPlayer;
         }
 
-        $gk_1_id = $model->line[0][0] ?? 0;
-        $gk_2_id = $model->line[1][0] ?? 0;
-        $ld_1_id = $model->line[1][1] ?? 0;
-        $rd_1_id = $model->line[1][2] ?? 0;
-        $lw_1_id = $model->line[1][3] ?? 0;
-        $cf_1_id = $model->line[1][4] ?? 0;
-        $rw_1_id = $model->line[1][5] ?? 0;
-        $ld_2_id = $model->line[2][1] ?? 0;
-        $rd_2_id = $model->line[2][2] ?? 0;
-        $lw_2_id = $model->line[2][3] ?? 0;
-        $cf_2_id = $model->line[2][4] ?? 0;
-        $rw_2_id = $model->line[2][5] ?? 0;
-        $ld_3_id = $model->line[3][1] ?? 0;
-        $rd_3_id = $model->line[3][2] ?? 0;
-        $lw_3_id = $model->line[3][3] ?? 0;
-        $cf_3_id = $model->line[3][4] ?? 0;
-        $rw_3_id = $model->line[3][5] ?? 0;
-        $ld_4_id = $model->line[4][1] ?? 0;
-        $rd_4_id = $model->line[4][2] ?? 0;
-        $lw_4_id = $model->line[4][3] ?? 0;
-        $cf_4_id = $model->line[4][4] ?? 0;
-        $rw_4_id = $model->line[4][5] ?? 0;
+        $gk_1_id = isset($model->line[0][0]) ? $model->line[0][0] : 0;
+        $gk_2_id = isset($model->line[1][0]) ? $model->line[1][0] : 0;
+        $ld_1_id = isset($model->line[1][1]) ? $model->line[1][1] : 0;
+        $rd_1_id = isset($model->line[1][2]) ? $model->line[1][2] : 0;
+        $lw_1_id = isset($model->line[1][3]) ? $model->line[1][3] : 0;
+        $cf_1_id = isset($model->line[1][4]) ? $model->line[1][4] : 0;
+        $rw_1_id = isset($model->line[1][5]) ? $model->line[1][5] : 0;
+        $ld_2_id = isset($model->line[2][1]) ? $model->line[2][1] : 0;
+        $rd_2_id = isset($model->line[2][2]) ? $model->line[2][2] : 0;
+        $lw_2_id = isset($model->line[2][3]) ? $model->line[2][3] : 0;
+        $cf_2_id = isset($model->line[2][4]) ? $model->line[2][4] : 0;
+        $rw_2_id = isset($model->line[2][5]) ? $model->line[2][5] : 0;
+        $ld_3_id = isset($model->line[3][1]) ? $model->line[3][1] : 0;
+        $rd_3_id = isset($model->line[3][2]) ? $model->line[3][2] : 0;
+        $lw_3_id = isset($model->line[3][3]) ? $model->line[3][3] : 0;
+        $cf_3_id = isset($model->line[3][4]) ? $model->line[3][4] : 0;
+        $rw_3_id = isset($model->line[3][5]) ? $model->line[3][5] : 0;
+        $ld_4_id = isset($model->line[4][1]) ? $model->line[4][1] : 0;
+        $rd_4_id = isset($model->line[4][2]) ? $model->line[4][2] : 0;
+        $lw_4_id = isset($model->line[4][3]) ? $model->line[4][3] : 0;
+        $cf_4_id = isset($model->line[4][4]) ? $model->line[4][4] : 0;
+        $rw_4_id = isset($model->line[4][5]) ? $model->line[4][5] : 0;
 
         $noRest = null;
         $noSuper = null;
@@ -324,7 +324,7 @@ class LineupController extends AbstractController
      * @return array
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionTeamwork(int $id): array
+    public function actionTeamwork($id)
     {
         $game = $this->getGame($id);
 
@@ -1679,7 +1679,7 @@ class LineupController extends AbstractController
      * @return Game
      * @throws \yii\web\NotFoundHttpException
      */
-    public function getGame(int $id): Game
+    public function getGame($id)
     {
         $game = Game::find()
             ->where(['game_id' => $id, 'game_played' => 0])

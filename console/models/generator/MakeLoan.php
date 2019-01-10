@@ -27,7 +27,7 @@ class MakeLoan
      * @throws \yii\db\StaleObjectException
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $seasonId = Season::getCurrentSeason();
 

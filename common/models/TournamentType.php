@@ -23,7 +23,7 @@ class TournamentType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%tournament_type}}';
     }
@@ -31,7 +31,7 @@ class TournamentType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['tournament_type_id', 'tournament_type_day_type_id'], 'integer'],

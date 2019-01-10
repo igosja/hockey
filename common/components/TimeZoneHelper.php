@@ -13,7 +13,7 @@ class TimeZoneHelper
     /**
      * @return array
      */
-    public static function list(): array
+    public static function zoneList()
     {
         $result = [];
         $list = DateTimeZone::listIdentifiers();

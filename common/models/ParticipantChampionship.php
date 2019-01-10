@@ -26,7 +26,7 @@ class ParticipantChampionship extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%participant_championship}}';
     }
@@ -34,7 +34,7 @@ class ParticipantChampionship extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -57,7 +57,7 @@ class ParticipantChampionship extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getChampionship(): ActiveQuery
+    public function getChampionship()
     {
         return $this->hasOne(Championship::class, [
             'championship_country_id' => 'participant_championship_country_id',
@@ -70,7 +70,7 @@ class ParticipantChampionship extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'participant_championship_team_id']);
     }

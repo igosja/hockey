@@ -51,7 +51,7 @@ class LoanTo extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['maxDay', 'minDay'], 'integer', 'min' => 1, 'max' => 7],
@@ -64,7 +64,7 @@ class LoanTo extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'maxDay' => 'Дней аренды (max)',
@@ -77,7 +77,7 @@ class LoanTo extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

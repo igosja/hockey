@@ -14,7 +14,7 @@ class EventTextPenalty extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%event_text_penalty}}';
     }
@@ -34,7 +34,7 @@ class EventTextPenalty extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['event_text_penalty_id'], 'integer'],

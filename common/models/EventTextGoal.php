@@ -14,7 +14,7 @@ class EventTextGoal extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%event_text_goal}}';
     }
@@ -34,7 +34,7 @@ class EventTextGoal extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['event_text_goal_id'], 'integer'],

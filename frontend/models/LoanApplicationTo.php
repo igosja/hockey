@@ -50,8 +50,8 @@ class LoanApplicationTo extends Model
 
         $this->minPrice = ceil($this->player->player_price / 1000);
         $this->maxPrice = $this->team->team_finance;
-        $this->minDay = $this->player->loan->loan_day_min ?? 1;
-        $this->maxDay = $this->player->loan->loan_day_max ?? 7;
+        $this->minDay = isset($this->player->loan->loan_day_min) ? $this->player->loan->loan_day_min : 1;
+        $this->maxDay = isset($this->player->loan->loan_day_max) ? $this->player->loan->loan_day_max : 7;
         $this->loanApplication = LoanApplication::find()
             ->select([
                 'loan_application_id',
@@ -61,7 +61,7 @@ class LoanApplicationTo extends Model
             ])
             ->where([
                 'loan_application_team_id' => $this->team->team_id,
-                'loan_application_loan_id' => $this->player->loan->loan_id ?? 0,
+                'loan_application_loan_id' => isset($this->player->loan->loan_id) ? $this->player->loan->loan_id : 0,
             ])
             ->limit(1)
             ->one();
@@ -75,7 +75,7 @@ class LoanApplicationTo extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['day'], 'integer', 'min' => $this->minDay, 'max' => $this->maxDay],
@@ -88,7 +88,7 @@ class LoanApplicationTo extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'day' => 'Дней аренды',
@@ -101,7 +101,7 @@ class LoanApplicationTo extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

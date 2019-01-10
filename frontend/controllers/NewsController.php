@@ -23,7 +23,7 @@ class NewsController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -43,14 +43,14 @@ class NewsController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $query = News::find()
             ->with([
-                'newsComment' => function (ActiveQuery $query): ActiveQuery {
+                'newsComment' => function (ActiveQuery $query) {
                     return $query->select(['news_comment_news_id']);
                 },
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 },
             ])
@@ -84,7 +84,7 @@ class NewsController extends AbstractController
      * @return string|Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id)
+    public function actionView($id)
     {
         $news = News::find()->where(['news_id' => $id])->one();
         $this->notFound($news);
@@ -97,7 +97,7 @@ class NewsController extends AbstractController
 
         $query = NewsComment::find()
             ->with([
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 }
             ])
@@ -133,7 +133,7 @@ class NewsController extends AbstractController
      * @throws \yii\web\ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeleteComment(int $id, int $newsId): Response
+    public function actionDeleteComment($id, $newsId)
     {
         /**
          * @var User $user

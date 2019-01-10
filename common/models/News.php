@@ -26,7 +26,7 @@ class News extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%news}}';
     }
@@ -34,7 +34,7 @@ class News extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['news_id', 'news_check', 'news_country_id', 'news_date', 'news_user_id'], 'integer'],
@@ -47,7 +47,7 @@ class News extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'news_id' => 'Id',
@@ -61,7 +61,7 @@ class News extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -78,7 +78,7 @@ class News extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function text(): string
+    public function text()
     {
         return nl2br($this->news_text);
     }
@@ -86,7 +86,7 @@ class News extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'news_country_id']);
     }
@@ -94,7 +94,7 @@ class News extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNewsComment(): ActiveQuery
+    public function getNewsComment()
     {
         return $this->hasMany(NewsComment::class, ['news_comment_news_id' => 'news_id']);
     }
@@ -102,7 +102,7 @@ class News extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'news_user_id'])->cache();
     }

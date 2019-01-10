@@ -14,7 +14,7 @@ class FriendlyInviteDelete
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')

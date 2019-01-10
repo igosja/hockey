@@ -14,7 +14,7 @@ return [
         'definitions' => [
             \yii\i18n\Formatter::class => [
                 'numberFormatterOptions' => [
-                    NumberFormatter::MIN_SIGNIFICANT_DIGITS => 0,
+                    (extension_loaded('intl') ? NumberFormatter::MIN_SIGNIFICANT_DIGITS : 17) => 0,
                 ],
             ],
             \yii\grid\GridView::class => [
@@ -87,6 +87,9 @@ return [
                 'base/free' => 'base-free/view',
                 'base/free/build/<building:\d+>' => 'base-free/build',
                 'base/destroy/<building:\d+>' => 'base/destroy',
+                'forum/message/delete/<id:\d+>' => 'forum/message-delete',
+                'forum/message/move/<id:\d+>' => 'forum/message-move',
+                'forum/message/update/<id:\d+>' => 'forum/message-update',
                 'forum/theme/create/<id:\d+>' => 'forum/theme-create',
                 'login' => 'site/login',
                 'password' => 'site/password',

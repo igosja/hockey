@@ -20,14 +20,14 @@ class BellController extends AbstractController
     /**
      * @return array
      */
-    public function actionIndex(): array
+    public function actionIndex()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $complaint = Complaint::find()->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $logo = Logo::find()->count();
-        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW])->count();
+        $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW_ONE])->count();
         $support = Support::find()->where(['support_question' => 1, 'support_read' => 0])->count();
 
         $bell = $support + $poll + $logo + $complaint;

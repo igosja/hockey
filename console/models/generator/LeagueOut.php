@@ -19,7 +19,7 @@ class LeagueOut
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -39,7 +39,7 @@ class LeagueOut
             Stage::ROUND_OF_16,
             Stage::QUARTER,
             Stage::SEMI,
-            Stage::FINAL,
+            Stage::FINAL_GAME,
         ])) {
             $gameArray = Game::find()
                 ->where(['game_schedule_id' => $schedule->schedule_id])

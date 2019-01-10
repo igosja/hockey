@@ -21,7 +21,7 @@ class SetInjury
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $game = Game::find()
             ->joinWith(['schedule'])

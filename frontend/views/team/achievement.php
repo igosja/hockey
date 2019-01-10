@@ -35,14 +35,14 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Сезон'],
                 'label' => 'С',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->achievement_season_id;
                 }
             ],
             [
                 'footer' => 'Турнир',
                 'label' => 'Турнир',
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->getTournament();
                 }
             ],
@@ -51,7 +51,7 @@ use yii\grid\GridView;
                 'footer' => 'Позиция',
                 'label' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
-                'value' => function (Achievement $model): string {
+                'value' => function (Achievement $model) {
                     return $model->getPosition();
                 }
             ],

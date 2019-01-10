@@ -20,7 +20,7 @@ class City extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%city}}';
     }
@@ -28,7 +28,7 @@ class City extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['city_id', 'city_country_id'], 'integer'],
@@ -41,7 +41,7 @@ class City extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'city_country_id'])->cache();
     }
@@ -49,7 +49,7 @@ class City extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStadium(): ActiveQuery
+    public function getStadium()
     {
         return $this->hasMany(Stadium::class, ['stadium_city_id' => 'city_id']);
     }

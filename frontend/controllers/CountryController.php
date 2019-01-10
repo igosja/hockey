@@ -24,19 +24,19 @@ class CountryController extends AbstractController
      * @param integer $id
      * @return string
      */
-    public function actionTeam(int $id): string
+    public function actionTeam($id)
     {
         $query = Team::find()
             ->joinWith([
-                'manager' => function (ActiveQuery $query): ActiveQuery {
+                'manager' => function (ActiveQuery $query) {
                     return $query->select(['user_date_login', 'user_date_vip', 'user_id', 'user_login']);
                 },
-                'stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_country_id', 'city_id', 'city_name']);
                 }
             ])
             ->with([
-                'stadium' => function (ActiveQuery $query): ActiveQuery {
+                'stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_city_id', 'stadium_id']);
                 },
             ])
@@ -75,7 +75,7 @@ class CountryController extends AbstractController
      * @param int $id
      * @return string|\yii\web\Response
      */
-    public function actionNews(int $id = 0)
+    public function actionNews($id = 0)
     {
         if (!$id) {
             if (Yii::$app->user->isGuest) {
@@ -92,10 +92,10 @@ class CountryController extends AbstractController
 
         $query = News::find()
             ->with([
-                'newsComment' => function (ActiveQuery $query): ActiveQuery {
+                'newsComment' => function (ActiveQuery $query) {
                     return $query->select(['news_comment_news_id']);
                 },
-                'user' => function (ActiveQuery $query): ActiveQuery {
+                'user' => function (ActiveQuery $query) {
                     return $query->select(['user_id', 'user_login']);
                 },
             ])
@@ -121,7 +121,7 @@ class CountryController extends AbstractController
      * @param int $id
      * @return string|\yii\web\Response
      */
-    public function actionPoll(int $id)
+    public function actionPoll($id)
     {
         $query = Poll::find()
             ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE], 'poll_country_id' => $id])
@@ -142,10 +142,9 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @param int $id
      * @return string
      */
-    public function actionNational(int $id): string
+    public function actionNational()
     {
         $this->setSeoTitle('Сборные');
 
@@ -156,7 +155,7 @@ class CountryController extends AbstractController
      * @param int $id
      * @return string
      */
-    public function actionLeague(int $id): string
+    public function actionLeague($id)
     {
         $query = LeagueDistribution::find()
             ->where(['league_distribution_country_id' => $id])
@@ -178,7 +177,7 @@ class CountryController extends AbstractController
      * @param int $id
      * @return string
      */
-    public function actionFinance(int $id): string
+    public function actionFinance($id)
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 

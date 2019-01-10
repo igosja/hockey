@@ -19,7 +19,7 @@ class TransferCheck
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $transferArray = Transfer::find()
             ->with(['player.schoolTeam', 'seller', 'buyer'])

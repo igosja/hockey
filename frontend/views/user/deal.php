@@ -36,7 +36,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
                 'label' => 'Дата',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Yii::$app->formatter->asDate($model->transfer_date, 'short');
                 }
             ],
@@ -44,7 +44,7 @@ print $this->render('_top');
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Html::a(
                         $model->player->playerName(),
                         ['player/view', 'id' => $model->transfer_player_id]
@@ -58,7 +58,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'label' => 'Нац',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Html::a(
                         Html::img(
                             '/img/country/12/' . $model->player->player_country_id . '.png',
@@ -77,7 +77,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
                 'headerOptions' => ['title' => 'Позиция'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->position();
                 }
             ],
@@ -87,7 +87,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
                 'headerOptions' => ['title' => 'Возраст'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_age;
                 }
             ],
@@ -97,7 +97,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сила'],
                 'label' => 'С',
                 'headerOptions' => ['title' => 'Сила'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_power;
                 }
             ],
@@ -107,7 +107,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'headerOptions' => ['title' => 'Спецвозможности'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->special();
                 }
             ],
@@ -115,7 +115,7 @@ print $this->render('_top');
                 'footer' => 'Продавец',
                 'format' => 'raw',
                 'label' => 'Продавец',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -123,7 +123,7 @@ print $this->render('_top');
                 'footer' => 'Покупатель',
                 'format' => 'raw',
                 'label' => 'Покупатель',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -131,7 +131,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-right'],
                 'footer' => 'Цена',
                 'label' => 'Цена',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Yii::$app->formatter->asCurrency($model->transfer_price_buyer, 'USD');
                 }
             ],
@@ -162,7 +162,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
                 'label' => 'Дата',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Yii::$app->formatter->asDate($model->transfer_date, 'short');
                 }
             ],
@@ -170,7 +170,7 @@ print $this->render('_top');
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Html::a(
                         $model->player->playerName(),
                         ['player/view', 'id' => $model->transfer_player_id]
@@ -184,7 +184,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'label' => 'Нац',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Html::a(
                         Html::img(
                             '/img/country/12/' . $model->player->player_country_id . '.png',
@@ -203,7 +203,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
                 'headerOptions' => ['title' => 'Позиция'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->position();
                 }
             ],
@@ -213,7 +213,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
                 'headerOptions' => ['title' => 'Возраст'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_age;
                 }
             ],
@@ -223,7 +223,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сила'],
                 'label' => 'С',
                 'headerOptions' => ['title' => 'Сила'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_power;
                 }
             ],
@@ -233,7 +233,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'headerOptions' => ['title' => 'Спецвозможности'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->special();
                 }
             ],
@@ -241,7 +241,7 @@ print $this->render('_top');
                 'footer' => 'Продавец',
                 'format' => 'raw',
                 'label' => 'Продавец',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -249,7 +249,7 @@ print $this->render('_top');
                 'footer' => 'Покупатель',
                 'format' => 'raw',
                 'label' => 'Покупатель',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -257,7 +257,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-right'],
                 'footer' => 'Цена',
                 'label' => 'Цена',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return Yii::$app->formatter->asCurrency($model->transfer_price_buyer, 'USD');
                 }
             ],
@@ -288,7 +288,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
                 'label' => 'Дата',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Yii::$app->formatter->asDate($model->loan_date, 'short');
                 }
             ],
@@ -296,7 +296,7 @@ print $this->render('_top');
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Html::a(
                         $model->player->playerName(),
                         ['player/view', 'id' => $model->loan_player_id]
@@ -310,7 +310,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'label' => 'Нац',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Html::a(
                         Html::img(
                             '/img/country/12/' . $model->player->player_country_id . '.png',
@@ -329,7 +329,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
                 'headerOptions' => ['title' => 'Позиция'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->position();
                 }
             ],
@@ -339,7 +339,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
                 'headerOptions' => ['title' => 'Возраст'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_age;
                 }
             ],
@@ -349,7 +349,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сила'],
                 'label' => 'С',
                 'headerOptions' => ['title' => 'Сила'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_power;
                 }
             ],
@@ -359,7 +359,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'headerOptions' => ['title' => 'Спецвозможности'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->special();
                 }
             ],
@@ -367,7 +367,7 @@ print $this->render('_top');
                 'footer' => 'Владелец',
                 'format' => 'raw',
                 'label' => 'Владелец',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -375,7 +375,7 @@ print $this->render('_top');
                 'footer' => 'Арендатор',
                 'format' => 'raw',
                 'label' => 'Арендатор',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -383,7 +383,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Срок',
                 'label' => 'Срок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_day;
                 }
             ],
@@ -391,7 +391,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-right'],
                 'footer' => 'Цена',
                 'label' => 'Цена',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Yii::$app->formatter->asCurrency($model->loan_price_buyer, 'USD');
                 }
             ],
@@ -422,7 +422,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Дата',
                 'label' => 'Дата',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Yii::$app->formatter->asDate($model->loan_date, 'short');
                 }
             ],
@@ -430,7 +430,7 @@ print $this->render('_top');
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Html::a(
                         $model->player->playerName(),
                         ['player/view', 'id' => $model->loan_player_id]
@@ -444,7 +444,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'label' => 'Нац',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Html::a(
                         Html::img(
                             '/img/country/12/' . $model->player->player_country_id . '.png',
@@ -463,7 +463,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
                 'headerOptions' => ['title' => 'Позиция'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->position();
                 }
             ],
@@ -473,7 +473,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
                 'headerOptions' => ['title' => 'Возраст'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_age;
                 }
             ],
@@ -483,7 +483,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сила'],
                 'label' => 'С',
                 'headerOptions' => ['title' => 'Сила'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_power;
                 }
             ],
@@ -493,7 +493,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'label' => 'Спец',
                 'headerOptions' => ['title' => 'Спецвозможности'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->special();
                 }
             ],
@@ -501,7 +501,7 @@ print $this->render('_top');
                 'footer' => 'Владелец',
                 'format' => 'raw',
                 'label' => 'Владелец',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -509,7 +509,7 @@ print $this->render('_top');
                 'footer' => 'Арендатор',
                 'format' => 'raw',
                 'label' => 'Арендатор',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -517,7 +517,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Срок',
                 'label' => 'Срок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_day;
                 }
             ],
@@ -525,7 +525,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-right'],
                 'footer' => 'Цена',
                 'label' => 'Цена',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return Yii::$app->formatter->asCurrency($model->loan_price_buyer, 'USD');
                 }
             ],

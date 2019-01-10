@@ -15,7 +15,7 @@ class StadiumSearch extends Stadium
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['stadium_id', 'stadium_city_id'], 'integer'],
@@ -26,7 +26,7 @@ class StadiumSearch extends Stadium
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class StadiumSearch extends Stadium
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Stadium::find()
             ->where(['!=', 'stadium_id', 0]);

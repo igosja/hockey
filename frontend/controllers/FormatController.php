@@ -15,7 +15,7 @@ class FormatController extends AbstractController
     /**
      * @return array
      */
-    public function actionCurrency(): array
+    public function actionCurrency()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         return [

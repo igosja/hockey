@@ -19,6 +19,7 @@ use yii\helpers\Html;
  * @property string $forum_message_text
  * @property int $forum_message_user_id
  *
+ * @property Complaint[] $complaint
  * @property ForumTheme $forumTheme
  * @property User $user
  */
@@ -27,7 +28,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%forum_message}}';
     }
@@ -35,7 +36,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -60,7 +61,7 @@ class ForumMessage extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -77,9 +78,22 @@ class ForumMessage extends AbstractActiveRecord
 
     /**
      * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->complaint as $complaint) {
+            $complaint->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
+     * @return bool
      * @throws \Exception
      */
-    public function addMessage(): bool
+    public function addMessage()
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -110,7 +124,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function links(): string
+    public function links()
     {
         /**
          * @var User $user
@@ -123,36 +137,27 @@ class ForumMessage extends AbstractActiveRecord
         $isUser = (UserRole::USER == $user->user_user_role_id);
         $linkArray = [];
 
-        if (isset($auth_user_id)) {
-            if (($auth_user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
-                $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
-            }
+        if (($user->user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
+            $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
+        }
 
-            if ($auth_user_id == $this->forum_message_user_id || !$isUser) {
-                $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
-            }
+        if ($user->user_id == $this->forum_message_user_id || !$isUser) {
+            $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
+        }
 
-            if ($auth_user_id == $this->forum_message_user_id && $isUser) {
-                $linkArray[] = Html::a(
-                    'Пожаловаться',
-                    'javascript:',
-                    [
-                        'class' => 'forum-complain',
-                        'data-message' => $this->forum_message_id,
-                    ]
-                );
-            }
+        if ($user->user_id == $this->forum_message_user_id && $isUser && !$this->complaint) {
+            $linkArray[] = Html::a('Пожаловаться', ['forum/complaint', 'id' => $this->forum_message_id]);
+        }
 
-            if (!$isUser) {
-                $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
+        if (!$isUser) {
+            $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
 
-                if (!$this->forum_message_blocked) {
-                    $text = 'Блокировать';
-                } else {
-                    $text = 'Разблокировать';
-                }
-                $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
+            if (!$this->forum_message_blocked) {
+                $text = 'Блокировать';
+            } else {
+                $text = 'Разблокировать';
             }
+            $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
         }
 
         $result = implode(' | ', $linkArray);
@@ -161,9 +166,17 @@ class ForumMessage extends AbstractActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getComplaint()
+    {
+        return $this->hasMany(Complaint::class, ['complaint_forum_message_id' => 'forum_message_id']);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
-    public function getForumTheme(): ActiveQuery
+    public function getForumTheme()
     {
         return $this->hasOne(ForumTheme::class, ['forum_theme_id' => 'forum_message_forum_theme_id']);
     }
@@ -171,7 +184,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id']);
     }

@@ -19,17 +19,17 @@ class ScheduleController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $seasonArray = Season::getSeasonArray();
 
         $query = Schedule::find()
             ->with([
-                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                'tournamentType' => function (ActiveQuery $query) {
                     return $query->select(['tournament_type_id', 'tournament_type_name']);
                 },
-                'stage' => function (ActiveQuery $query): ActiveQuery {
+                'stage' => function (ActiveQuery $query) {
                     return $query->select(['stage_id', 'stage_name']);
                 },
             ])
@@ -61,14 +61,14 @@ class ScheduleController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $schedule = Schedule::find()
             ->with([
-                'tournamentType' => function (ActiveQuery $query): ActiveQuery {
+                'tournamentType' => function (ActiveQuery $query) {
                     return $query->select(['tournament_type_id', 'tournament_type_name']);
                 },
-                'stage' => function (ActiveQuery $query): ActiveQuery {
+                'stage' => function (ActiveQuery $query) {
                     return $query->select(['stage_id', 'stage_name']);
                 },
             ])
@@ -85,46 +85,46 @@ class ScheduleController extends AbstractController
 
         $query = Game::find()
             ->with([
-                'nationalHome' => function (ActiveQuery $query): ActiveQuery {
+                'nationalHome' => function (ActiveQuery $query) {
                     return $query->select(['national_id', 'national_country_id', 'national_national_type_id']);
                 },
-                'nationalHome.country' => function (ActiveQuery $query): ActiveQuery {
+                'nationalHome.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'nationalHome.nationalType' => function (ActiveQuery $query): ActiveQuery {
+                'nationalHome.nationalType' => function (ActiveQuery $query) {
                     return $query->select(['national_type_id', 'national_type_name']);
                 },
-                'nationalGuest' => function (ActiveQuery $query): ActiveQuery {
+                'nationalGuest' => function (ActiveQuery $query) {
                     return $query->select(['national_id', 'national_country_id', 'national_national_type_id']);
                 },
-                'nationalGuest.country' => function (ActiveQuery $query): ActiveQuery {
+                'nationalGuest.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'nationalGuest.nationalType' => function (ActiveQuery $query): ActiveQuery {
+                'nationalGuest.nationalType' => function (ActiveQuery $query) {
                     return $query->select(['national_type_id', 'national_type_name']);
                 },
-                'teamGuest' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_stadium_id']);
                 },
-                'teamGuest.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_id', 'stadium_city_id']);
                 },
-                'teamGuest.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_id', 'city_country_id', 'city_name']);
                 },
-                'teamGuest.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'teamGuest.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
-                'teamHome' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome' => function (ActiveQuery $query) {
                     return $query->select(['team_id', 'team_name', 'team_stadium_id']);
                 },
-                'teamHome.stadium' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium' => function (ActiveQuery $query) {
                     return $query->select(['stadium_id', 'stadium_city_id']);
                 },
-                'teamHome.stadium.city' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium.city' => function (ActiveQuery $query) {
                     return $query->select(['city_id', 'city_country_id', 'city_name']);
                 },
-                'teamHome.stadium.city.country' => function (ActiveQuery $query): ActiveQuery {
+                'teamHome.stadium.city.country' => function (ActiveQuery $query) {
                     return $query->select(['country_id', 'country_name']);
                 },
             ])

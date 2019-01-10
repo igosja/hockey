@@ -15,7 +15,7 @@ class UpdateTeamStatistic
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         StatisticTeam::updateAll(
             ['statistic_team_win_percent' => new Expression('statistic_team_win/statistic_team_game*100')],

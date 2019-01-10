@@ -17,7 +17,7 @@ class FillLineup
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -34,12 +34,12 @@ class FillLineup
                 if (0 == $i) {
                     $moodId = $game->game_guest_mood_id;
                     $nationalId = $game->game_guest_national_id;
-                    $countryId = $game->nationalGuest->national_country_id ?? null;
+                    $countryId = isset($game->nationalGuest->national_country_id) ? $game->nationalGuest->national_country_id : null;
                     $teamId = $game->game_guest_team_id;
                 } else {
                     $moodId = $game->game_home_mood_id;
                     $nationalId = $game->game_home_national_id;
-                    $countryId = $game->nationalHome->national_country_id ?? null;
+                    $countryId = isset($game->nationalHome->national_country_id) ? $game->nationalHome->national_country_id : null;
                     $teamId = $game->game_home_team_id;
                 }
 

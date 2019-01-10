@@ -15,7 +15,7 @@ class UpdatePlayerStatistic
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         StatisticPlayer::updateAll(
             [

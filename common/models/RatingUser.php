@@ -19,7 +19,7 @@ class RatingUser extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%rating_user}}';
     }
@@ -27,7 +27,7 @@ class RatingUser extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -44,7 +44,7 @@ class RatingUser extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'rating_user_user_id'])->cache();
     }

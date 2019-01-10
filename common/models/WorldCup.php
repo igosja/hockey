@@ -34,7 +34,7 @@ class WorldCup extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%world_cup}}';
     }
@@ -42,7 +42,7 @@ class WorldCup extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -82,7 +82,7 @@ class WorldCup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDivision(): ActiveQuery
+    public function getDivision()
     {
         return $this->hasOne(Division::class, ['division_id' => 'world_cup_division_id']);
     }
@@ -90,7 +90,7 @@ class WorldCup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational(): ActiveQuery
+    public function getNational()
     {
         return $this->hasOne(National::class, ['national_id' => 'world_cup_national_id']);
     }

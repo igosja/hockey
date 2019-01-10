@@ -14,7 +14,7 @@ class StadiumMaintenance
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Stadium::updateAll(['stadium_maintenance' => new Expression('ROUND(POW(stadium_capacity, 2) / 1000)')]);
     }

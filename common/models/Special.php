@@ -32,7 +32,7 @@ class Special extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%special}}';
     }
@@ -40,7 +40,7 @@ class Special extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['special_id', 'special_field', 'special_gk'], 'integer'],

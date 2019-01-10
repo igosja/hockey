@@ -31,7 +31,7 @@ class BaseController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -53,7 +53,7 @@ class BaseController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $team = Team::find()
             ->where(['team_id' => $id])
@@ -281,7 +281,7 @@ class BaseController extends AbstractController
      * @throws \yii\db\Exception
      * @return string|\yii\web\Response
      */
-    public function actionBuild(int $building)
+    public function actionBuild($building)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -465,7 +465,7 @@ class BaseController extends AbstractController
      * @throws \yii\web\NotFoundHttpException
      * @return string|\yii\web\Response
      */
-    public function actionDestroy(int $building)
+    public function actionDestroy($building)
     {
         $team = $this->myTeam;
         $this->notFound($team);
@@ -551,8 +551,6 @@ class BaseController extends AbstractController
                 $this->setErrorFlash('В скаутцентре идет изучение игроков.');
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             }
-
-            $baseLevel = $base->building_name . '_base_level';
 
             if (Building::MEDICAL == $building) {
                 $level = $team->baseMedical->base_medical_level - 1;
