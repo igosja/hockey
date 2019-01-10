@@ -23,7 +23,7 @@ class ScoutController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -190,7 +190,7 @@ class ScoutController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \yii\db\Exception
      */
-    public function actionCancel(int $id)
+    public function actionCancel($id)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);
@@ -247,7 +247,7 @@ class ScoutController extends AbstractController
     /**
      * @return bool
      */
-    private function isOnBuilding(): bool
+    private function isOnBuilding()
     {
         if (!$this->myTeam->buildingBase) {
             return false;

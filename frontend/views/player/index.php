@@ -119,7 +119,7 @@ use yii\widgets\ActiveForm;
                     'footer' => 'Игрок',
                     'format' => 'raw',
                     'label' => 'Игрок',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->playerLink();
                     }
                 ],
@@ -131,7 +131,7 @@ use yii\widgets\ActiveForm;
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs col-1', 'title' => 'Национальность'],
                     'label' => 'Нац',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->country->countryImageLink();
                     }
                 ],
@@ -142,7 +142,7 @@ use yii\widgets\ActiveForm;
                     'footerOptions' => ['title' => 'Позиция'],
                     'headerOptions' => ['title' => 'Позиция'],
                     'label' => 'Поз',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->position();
                     }
                 ],
@@ -153,7 +153,7 @@ use yii\widgets\ActiveForm;
                     'footerOptions' => ['title' => 'Возраст'],
                     'headerOptions' => ['title' => 'Возраст'],
                     'label' => 'В',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->player_age;
                     }
                 ],
@@ -164,7 +164,7 @@ use yii\widgets\ActiveForm;
                     'footerOptions' => ['title' => 'Сила'],
                     'headerOptions' => ['title' => 'Сила'],
                     'label' => 'С',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->player_power_nominal;
                     }
                 ],
@@ -174,7 +174,7 @@ use yii\widgets\ActiveForm;
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
                     'header' => 'Спец',
                     'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецсозможности'],
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->special();
                     }
                 ],
@@ -183,7 +183,7 @@ use yii\widgets\ActiveForm;
                     'footer' => 'Команда',
                     'format' => 'raw',
                     'label' => 'Команда',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return $model->team->teamLink('img');
                     }
                 ],
@@ -192,7 +192,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'hidden-xs text-right'],
                     'footer' => 'Цена',
                     'label' => 'Цена',
-                    'value' => function (Player $model): string {
+                    'value' => function (Player $model) {
                         return Yii::$app->formatter->asCurrency($model->player_price, 'USD');
                     }
                 ],

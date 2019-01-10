@@ -26,7 +26,7 @@ class BaseFreeController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -170,7 +170,7 @@ class BaseFreeController extends AbstractController
      * @throws \yii\db\Exception
      * @return string|\yii\web\Response
      */
-    public function actionBuild(int $building)
+    public function actionBuild($building)
     {
         if (!$this->myTeam) {
             return $this->redirect(['team/ask']);

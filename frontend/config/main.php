@@ -14,7 +14,7 @@ return [
         'definitions' => [
             \yii\i18n\Formatter::class => [
                 'numberFormatterOptions' => [
-                    NumberFormatter::MIN_SIGNIFICANT_DIGITS => 0,
+                    (extension_loaded('intl') ? NumberFormatter::MIN_SIGNIFICANT_DIGITS : 17) => 0,
                 ],
             ],
             \yii\grid\GridView::class => [

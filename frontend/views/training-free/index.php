@@ -134,7 +134,7 @@ use yii\helpers\Html;
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->playerLink();
                 }
             ],
@@ -145,7 +145,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Национальность'],
                 'label' => 'Нац',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->country->countryImage();
                 }
             ],
@@ -155,7 +155,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_age;
                 }
             ],
@@ -166,7 +166,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Номинальная сила'],
                 'label' => 'С',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     $result = $model->player_power_nominal;
                     if ($model->player_date_no_action < time()) {
                         $result = $result
@@ -183,7 +183,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-15', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     $result = '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
                         . $model->position()
                         . '</div><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">';
@@ -201,7 +201,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-15', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     $result = '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">'
                         . $model->special()
                         . '</div><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">';

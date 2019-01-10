@@ -13,12 +13,12 @@ class FriendlyInviteStatus extends AbstractActiveRecord
 {
     const ACCEPTED = 2;
     const CANCELED = 3;
-    const NEW = 1;
+    const NEW_ONE = 1;
 
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%friendly_invite_status}}';
     }
@@ -26,7 +26,7 @@ class FriendlyInviteStatus extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['friendly_invite_status_id'], 'integer'],

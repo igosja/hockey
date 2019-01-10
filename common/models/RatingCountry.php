@@ -21,7 +21,7 @@ class RatingCountry extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%rating_country}}';
     }
@@ -29,7 +29,7 @@ class RatingCountry extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -48,7 +48,7 @@ class RatingCountry extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'rating_country_country_id'])->cache();
     }

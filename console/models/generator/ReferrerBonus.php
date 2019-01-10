@@ -14,9 +14,9 @@ use yii\db\Expression;
 class ReferrerBonus
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $userArray = User::find()
             ->joinWith(['team'])

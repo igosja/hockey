@@ -26,7 +26,7 @@ class ForumThemeForm extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['name', 'text'], 'trim'],
@@ -40,7 +40,7 @@ class ForumThemeForm extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function create(int $id): bool
+    public function create($id)
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -79,7 +79,7 @@ class ForumThemeForm extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'name' => 'Название',
@@ -90,7 +90,7 @@ class ForumThemeForm extends Model
     /**
      * @return int
      */
-    public function getThemeId(): int
+    public function getThemeId()
     {
         return $this->themeId;
     }

@@ -17,7 +17,7 @@ class UpdateBuildingBase
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         BuildingBase::updateAllCounters(['building_base_day' => -1], ['building_base_ready' => 0]);
 

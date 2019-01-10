@@ -13,9 +13,10 @@ use common\models\HistoryText;
 class PresidentViceFire
 {
     /**
+     * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $countryArray = Country::find()
             ->joinWith(['vice'])

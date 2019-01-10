@@ -34,7 +34,7 @@ class UserController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -144,7 +144,7 @@ class UserController extends AbstractController
      * @param $id
      * @return string
      */
-    public function actionAchievement($id): string
+    public function actionAchievement($id)
     {
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -169,7 +169,7 @@ class UserController extends AbstractController
      * @param $id
      * @return string
      */
-    public function actionFinance($id): string
+    public function actionFinance($id)
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
 
@@ -194,7 +194,7 @@ class UserController extends AbstractController
      * @param $id
      * @return string
      */
-    public function actionDeal($id): string
+    public function actionDeal($id)
     {
         $dataProviderTransferFrom = new ActiveDataProvider([
             'pagination' => false,
@@ -293,7 +293,7 @@ class UserController extends AbstractController
             'model' => $model,
             'monthArray' => $monthArray,
             'sexArray' => Sex::selectOptions(),
-            'timeZoneArray' => TimeZoneHelper::list(),
+            'timeZoneArray' => TimeZoneHelper::zoneList(),
             'yearArray' => $yearArray,
         ]);
     }
@@ -379,7 +379,7 @@ class UserController extends AbstractController
     /**
      * @return string
      */
-    public function actionReferral(): string
+    public function actionReferral()
     {
         Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
         $query = User::find()

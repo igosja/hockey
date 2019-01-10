@@ -18,7 +18,7 @@ class PlayerGameRow
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $this->updatePlayer();
 
@@ -39,7 +39,7 @@ class PlayerGameRow
      * @throws \yii\db\Exception
      * @return void
      */
-    private function b(): void
+    private function b()
     {
         $sql = "UPDATE `player`
                 SET `player_game_row`=IF(`player_game_row`<0, `player_game_row`-1, -1)
@@ -99,7 +99,7 @@ class PlayerGameRow
      * @throws \yii\db\Exception
      * @return void
      */
-    private function c(): void
+    private function c()
     {
         $sql = "UPDATE `player`
                 LEFT JOIN `lineup`
@@ -130,7 +130,7 @@ class PlayerGameRow
     /**
      * @return void
      */
-    private function updatePlayer(): void
+    private function updatePlayer()
     {
         Player::updateAll(
             ['player_game_row_old' => new Expression('player_game_row')],

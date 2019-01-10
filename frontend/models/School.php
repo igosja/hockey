@@ -32,7 +32,7 @@ class School extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['position_id', 'special_id', 'style_id'], 'integer'],
@@ -42,7 +42,7 @@ class School extends Model
     /**
      * @return array
      */
-    public function redirectUrl(): array
+    public function redirectUrl()
     {
         return [
             'school/start',

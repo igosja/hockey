@@ -15,7 +15,7 @@ class InsertUser
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $data = [
             ['3763f51d2ac3d333cf588479879a1fe1', time(), 'jenya-legkov@mail.ru', 'Jenya', '$2y$13$JqfRNamUBiyZTfbKiVLZdeDNWQ/sLe3lQUw/sXnkcH09F1H4WyIyS'],

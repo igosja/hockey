@@ -20,7 +20,7 @@ class Scout extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['style'], 'safe'],
@@ -31,7 +31,7 @@ class Scout extends Model
     /**
      * @return array
      */
-    public function redirectUrl(): array
+    public function redirectUrl()
     {
         return ['scout/study', 'style' => $this->style];
     }

@@ -23,7 +23,7 @@ class Password extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['email'], 'email'],
@@ -37,7 +37,7 @@ class Password extends Model
     /**
      * @return bool
      */
-    public function send(): bool
+    public function send()
     {
         if (!$this->validate()) {
             return false;
@@ -77,7 +77,7 @@ class Password extends Model
      * @param $attribute
      * @return void
      */
-    public function orRequired($attribute): void
+    public function orRequired($attribute)
     {
         if (!$this->email && !$this->username) {
             $this->addError(
@@ -90,7 +90,7 @@ class Password extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'email' => 'Email',

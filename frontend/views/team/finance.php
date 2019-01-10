@@ -55,7 +55,7 @@ use yii\helpers\Html;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asDate($model->finance_date);
                 }
             ],
@@ -65,7 +65,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Было',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value_before);
                 }
             ],
@@ -74,7 +74,7 @@ use yii\helpers\Html;
                 'footer' => '+/-',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => '+/-',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value);
                 }
             ],
@@ -84,7 +84,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-10 hidden-xs'],
                 'label' => 'Стало',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return FormatHelper::asCurrency($model->finance_value_after);
                 }
             ],
@@ -92,7 +92,7 @@ use yii\helpers\Html;
                 'footer' => 'Комментарий',
                 'format' => 'raw',
                 'label' => 'Комментарий',
-                'value' => function (Finance $model): string {
+                'value' => function (Finance $model) {
                     return $model->getText();
                 }
             ],

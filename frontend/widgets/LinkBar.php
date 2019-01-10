@@ -46,7 +46,7 @@ class LinkBar extends Widget
     /**
      * @return void
      */
-    public function init(): void
+    public function init()
     {
         parent::init();
         if ($this->route === null && Yii::$app->controller !== null) {
@@ -60,7 +60,7 @@ class LinkBar extends Widget
     /**
      * @return string
      */
-    public function run(): string
+    public function run()
     {
         $this->renderBar();
         return $this->bar;
@@ -69,7 +69,7 @@ class LinkBar extends Widget
     /**
      * @return void
      */
-    private function renderBar(): void
+    private function renderBar()
     {
         $result = [];
         foreach ($this->items as $item) {
@@ -83,7 +83,7 @@ class LinkBar extends Widget
     /**
      * @return string
      */
-    private function renderItem(): string
+    private function renderItem()
     {
         if ($this->isActive()) {
             return Html::tag('span', $this->item['text'], ['class' => 'strong']);
@@ -95,7 +95,7 @@ class LinkBar extends Widget
     /**
      * @return bool
      */
-    private function isActive(): bool
+    private function isActive()
     {
         if (isset($this->item['alias']) && is_array($this->item['alias'])) {
             foreach ($this->item['alias'] as $alias) {

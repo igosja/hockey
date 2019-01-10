@@ -20,9 +20,9 @@ class CheckTeamMoodLimit
     private $game;
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -51,7 +51,7 @@ class CheckTeamMoodLimit
     /**
      * @return bool
      */
-    private function isFriendly(): bool
+    private function isFriendly()
     {
         if (TournamentType::FRIENDLY == $this->game->schedule->schedule_tournament_type_id) {
             return true;
@@ -60,7 +60,7 @@ class CheckTeamMoodLimit
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
     private function checkFriendly()
     {
@@ -70,9 +70,9 @@ class CheckTeamMoodLimit
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function checkTeam(): void
+    private function checkTeam()
     {
         if (Mood::SUPER == $this->game->game_home_mood_id) {
             if ($this->game->teamHome->team_mood_super <= 0) {
@@ -112,9 +112,9 @@ class CheckTeamMoodLimit
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function checkNational(): void
+    private function checkNational()
     {
         if (Mood::SUPER == $this->game->game_home_mood_id) {
             if ($this->game->nationalHome->national_mood_super <= 0) {

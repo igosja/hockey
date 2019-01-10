@@ -17,7 +17,7 @@ class Season extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%season}}';
     }
@@ -25,7 +25,7 @@ class Season extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['season_id'], 'integer'],
@@ -35,10 +35,10 @@ class Season extends AbstractActiveRecord
     /**
      * @return int
      */
-    public static function getCurrentSeason(): int
+    public static function getCurrentSeason()
     {
         try {
-            $result = self::getDb()->cache(function (): int {
+            $result = self::getDb()->cache(function () {
                 return self::find()->max('season_id');
             });
         } catch (Throwable $e) {
@@ -51,7 +51,7 @@ class Season extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function getSeasonArray(): array
+    public static function getSeasonArray()
     {
         $result = self::find()
             ->orderBy(['season_id' => SORT_DESC])

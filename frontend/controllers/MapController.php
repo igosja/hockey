@@ -11,7 +11,7 @@ class MapController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         return $this->renderPartial('index');
     }

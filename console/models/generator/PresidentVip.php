@@ -14,7 +14,7 @@ class PresidentVip
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $sql = "UPDATE `user`
                 SET `user_date_vip`=UNIX_TIMESTAMP()+2592000

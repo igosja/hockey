@@ -43,7 +43,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Место'],
                 'header' => 'М',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Место'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_place;
                 }
             ],
@@ -51,7 +51,7 @@ $user = Yii::$app->user->identity;
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'header' => 'Команда',
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->team->teamLink('string', true);
                 }
             ],
@@ -61,7 +61,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры'],
                 'header' => 'И',
                 'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Игры'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_game;
                 }
             ],
@@ -71,7 +71,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы'],
                 'header' => 'B',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_win;
                 }
             ],
@@ -81,7 +81,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы в овертайте'],
                 'header' => 'ВО',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы в овертайте'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_win_overtime;
                 }
             ],
@@ -91,7 +91,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Победы по буллитам'],
                 'header' => 'ВБ',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Победы по буллитам'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_win_shootout;
                 }
             ],
@@ -101,7 +101,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения по буллитам'],
                 'header' => 'ПБ',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения по буллитам'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_loose_shootout;
                 }
             ],
@@ -111,7 +111,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения в овертайте'],
                 'header' => 'ПО',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения в овертайте'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_loose_overtime;
                 }
             ],
@@ -121,7 +121,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Поражения'],
                 'header' => 'П',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Поражения'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_loose;
                 }
             ],
@@ -131,7 +131,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
                 'header' => 'Ш',
                 'headerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_score;
                 }
             ],
@@ -141,7 +141,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['style' => ['display' => 'none']],
                 'header' => 'Ш',
                 'headerOptions' => ['style' => ['display' => 'none']],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_pass;
                 }
             ],
@@ -151,7 +151,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Очки'],
                 'header' => 'О',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Очки'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->championship_point;
                 }
             ],
@@ -161,7 +161,7 @@ $user = Yii::$app->user->identity;
                 'footerOptions' => ['title' => 'Рейтинг силы команды'],
                 'header' => 'Vs',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Рейтинг силы команды'],
-                'value' => function (Championship $model): string {
+                'value' => function (Championship $model) {
                     return $model->team->team_power_vs;
                 },
                 'visible' => $user && $user->isVip(),

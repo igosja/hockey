@@ -273,7 +273,6 @@ function player_change() {
     var player_change = $('.player-change');
 
     for (var i = 0; i < player_change.length; i++) {
-        console.log($(player_change[i]).val());
         $('#tr-' + $(player_change[i]).val()).addClass('info');
     }
 

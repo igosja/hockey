@@ -21,7 +21,7 @@ print $this->render('_country');
                 'footer' => 'Сезон',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Сезон',
-                'value' => function (LeagueDistribution $model): string {
+                'value' => function (LeagueDistribution $model) {
                     return $model->league_distribution_season_id;
                 }
             ],
@@ -30,7 +30,7 @@ print $this->render('_country');
                 'footer' => 'Групповой этап',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Групповой этап',
-                'value' => function (LeagueDistribution $model): string {
+                'value' => function (LeagueDistribution $model) {
                     return $model->league_distribution_group;
                 }
             ],
@@ -39,7 +39,7 @@ print $this->render('_country');
                 'footer' => 'ОР3',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'ОР3',
-                'value' => function (LeagueDistribution $model): string {
+                'value' => function (LeagueDistribution $model) {
                     return $model->league_distribution_qualification_3;
                 }
             ],
@@ -48,7 +48,7 @@ print $this->render('_country');
                 'footer' => 'ОР2',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'ОР2',
-                'value' => function (LeagueDistribution $model): string {
+                'value' => function (LeagueDistribution $model) {
                     return $model->league_distribution_qualification_2;
                 }
             ],
@@ -57,7 +57,7 @@ print $this->render('_country');
                 'footer' => 'ОР1',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'ОР1',
-                'value' => function (LeagueDistribution $model): string {
+                'value' => function (LeagueDistribution $model) {
                     return $model->league_distribution_qualification_1;
                 }
             ],

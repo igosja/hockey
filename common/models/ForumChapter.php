@@ -21,7 +21,7 @@ class ForumChapter extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%forum_chapter}}';
     }
@@ -29,7 +29,7 @@ class ForumChapter extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['forum_chapter_id', 'forum_chapter_order'], 'integer'],
@@ -43,7 +43,7 @@ class ForumChapter extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -62,7 +62,7 @@ class ForumChapter extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumGroup(): ActiveQuery
+    public function getForumGroup()
     {
         return $this->hasMany(ForumGroup::class, ['forum_group_forum_chapter_id' => 'forum_chapter_id']);
     }

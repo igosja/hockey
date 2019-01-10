@@ -20,7 +20,7 @@ class LoanSpecial extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%loan_special}}';
     }
@@ -28,7 +28,7 @@ class LoanSpecial extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['loan_special_id', 'loan_special_level', 'loan_special_loan_id', 'loan_special_special_id'], 'integer'],
@@ -39,7 +39,7 @@ class LoanSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial(): ActiveQuery
+    public function getSpecial()
     {
         return $this->hasOne(Special::class, ['special_id' => 'loan_special_special_id']);
     }

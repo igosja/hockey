@@ -12,9 +12,9 @@ use common\models\NationalPlayerDay;
 class IncreaseNationalPlayerDay
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $lineupArray = Lineup::find()
             ->joinWith(['game.schedule'])

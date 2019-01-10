@@ -23,7 +23,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%team_ask}}';
     }
@@ -31,7 +31,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['team_ask_id', 'team_ask_date', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'], 'integer'],
@@ -43,7 +43,7 @@ class TeamAsk extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -58,7 +58,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'team_ask_team_id']);
     }
@@ -66,7 +66,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'team_ask_user_id']);
     }

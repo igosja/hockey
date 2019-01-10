@@ -19,7 +19,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%poll_answer}}';
     }
@@ -27,7 +27,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['poll_answer_id', 'poll_answer_poll_id'], 'integer'],
@@ -40,7 +40,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function beforeDelete(): bool
+    public function beforeDelete()
     {
         if (parent::beforeDelete()) {
             PollUser::deleteAll(['vote_user_answer_id' => $this->poll_answer_id]);
@@ -52,7 +52,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollUser(): ActiveQuery
+    public function getPollUser()
     {
         return $this->hasMany(PollUser::class, ['poll_user_poll_answer_id' => 'poll_answer_id']);
     }

@@ -22,9 +22,9 @@ use common\models\WorldCup;
 class Prize
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $scheduleArray = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -113,7 +113,7 @@ class Prize
                     ->with(['team'])
                     ->where([
                         'participant_championship_season_id' => $seasonId,
-                        'participant_championship_stage_id' => [Stage::FINAL, 0]
+                        'participant_championship_stage_id' => [Stage::FINAL_GAME, 0]
                     ])
                     ->orderBy(['participant_championship_id' => SORT_ASC])
                     ->each();
@@ -121,7 +121,7 @@ class Prize
                     /**
                      * @var ParticipantChampionship $championship
                      */
-                    if (Stage::FINAL == $championship->participant_championship_stage_id) {
+                    if (Stage::FINAL_GAME == $championship->participant_championship_stage_id) {
                         $prize = 4000000;
                     } else {
                         $prize = 5000000;
@@ -288,7 +288,7 @@ class Prize
                     $league->team->team_finance = $league->team->team_finance + $prize;
                     $league->team->save();
                 }
-            } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && Stage::FINAL == $schedule->schedule_stage_id) {
+            } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id && Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                 $nextStage = Schedule::find()
                     ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")>CURDATE()')
                     ->andWhere(['schedule_tournament_type_id' => TournamentType::LEAGUE])
@@ -302,11 +302,11 @@ class Prize
                     ->with(['team'])
                     ->where([
                         'participant_league_season_id' => $seasonId,
-                        'participant_league_stage_id' => [Stage::FINAL, 0]
+                        'participant_league_stage_id' => [Stage::FINAL_GAME, 0]
                     ])
                     ->all();
                 foreach ($leagueArray as $league) {
-                    if (Stage::FINAL == $league->participant_league_stage_id) {
+                    if (Stage::FINAL_GAME == $league->participant_league_stage_id) {
                         $prize = 23000000;
                     } else {
                         $prize = 25000000;

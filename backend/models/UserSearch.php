@@ -15,7 +15,7 @@ class UserSearch extends User
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['user_id'], 'integer'],
@@ -26,7 +26,7 @@ class UserSearch extends User
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class UserSearch extends User
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = User::find()->select(['user_id', 'user_login'])->andWhere(['!=', 'user_id', 0]);
 

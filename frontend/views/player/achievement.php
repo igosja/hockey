@@ -29,7 +29,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['title' => 'Сезон'],
                     'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
                     'label' => 'С',
-                    'value' => function (AchievementPlayer $model): string {
+                    'value' => function (AchievementPlayer $model) {
                         return $model->achievement_player_season_id;
                     }
                 ],
@@ -37,14 +37,14 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Команда',
                     'format' => 'raw',
                     'label' => 'Команда',
-                    'value' => function (AchievementPlayer $model): string {
+                    'value' => function (AchievementPlayer $model) {
                         return $model->team->teamLink();
                     }
                 ],
                 [
                     'footer' => 'Турнир',
                     'label' => 'Турнир',
-                    'value' => function (AchievementPlayer $model): string {
+                    'value' => function (AchievementPlayer $model) {
                         return $model->tournamentType->tournament_type_name;
                     }
                 ],
@@ -53,7 +53,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Позиция',
                     'headerOptions' => ['class' => 'col-10'],
                     'label' => 'Позиция',
-                    'value' => function (AchievementPlayer $model): string {
+                    'value' => function (AchievementPlayer $model) {
                         return $model->getPosition();
                     }
                 ],

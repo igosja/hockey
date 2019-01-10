@@ -18,7 +18,7 @@ class LineupToStatistic
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -31,11 +31,11 @@ class LineupToStatistic
             /**
              * @var Game $game
              */
-            $countryId = $game->teamHome->championship->championship_country_id ?? 0;
-            $divisionId = $game->teamHome->championship->championship_division_id ?? 0;
+            $countryId = isset($game->teamHome->championship->championship_country_id) ? $game->teamHome->championship->championship_country_id : 0;
+            $divisionId = isset($game->teamHome->championship->championship_division_id) ? $game->teamHome->championship->championship_division_id : 0;
 
             if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
-                $divisionId = $game->nationalHome->worldCup->world_cup_division_id ?? 0;
+                $divisionId = isset($game->nationalHome->worldCup->world_cup_division_id) ? $game->nationalHome->worldCup->world_cup_division_id : 0;
             }
 
             if (in_array($game->schedule->schedule_tournament_type_id, [

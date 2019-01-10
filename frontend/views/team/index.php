@@ -24,7 +24,7 @@ use yii\helpers\Html;
                 'footer' => 'Страна',
                 'format' => 'raw',
                 'label' => 'Страна',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->stadium->city->country->countryImage()
                         . ' ' . Html::a(
                             $model->stadium->city->country->country_name,
@@ -37,7 +37,7 @@ use yii\helpers\Html;
                 'footer' => 'Команды',
                 'headerOptions' => ['class' => 'col-25'],
                 'label' => 'Команды',
-                'value' => function (Team $model): int {
+                'value' => function (Team $model) {
                     return $model->count_team;
                 }
             ],

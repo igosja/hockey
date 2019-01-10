@@ -33,7 +33,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%country}}';
     }
@@ -41,7 +41,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -66,7 +66,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryImage(): string
+    public function countryImage()
     {
         return Html::img(
             '/img/country/12/' . $this->country_id . '.png',
@@ -80,7 +80,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryImageLink(): string
+    public function countryImageLink()
     {
         return Html::a($this->countryImage(), ['country/news', 'id' => $this->country_id]);
     }
@@ -88,7 +88,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryLink(): string
+    public function countryLink()
     {
         return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
     }
@@ -96,7 +96,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function selectOptions(): array
+    public static function selectOptions()
     {
         return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
     }
@@ -104,7 +104,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCity(): ActiveQuery
+    public function getCity()
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
     }
@@ -112,7 +112,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPresident(): ActiveQuery
+    public function getPresident()
     {
         return $this->hasOne(User::class, ['user_id' => 'country_president_id']);
     }
@@ -120,7 +120,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getVice(): ActiveQuery
+    public function getVice()
     {
         return $this->hasOne(User::class, ['user_id' => 'country_president_vice_id']);
     }

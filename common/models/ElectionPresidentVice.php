@@ -21,7 +21,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_president_vice}}';
     }
@@ -29,7 +29,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -47,7 +47,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication(): ActiveQuery
+    public function getApplication()
     {
         return $this->hasMany(
             ElectionPresidentViceApplication::class,
@@ -58,7 +58,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'election_president_vice_country_id']);
     }

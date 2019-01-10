@@ -66,12 +66,12 @@ class Stage extends AbstractActiveRecord
     const ROUND_OF_16 = 52;
     const QUARTER = 53;
     const SEMI = 54;
-    const FINAL = 55;
+    const FINAL_GAME = 55;
 
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%stage}}';
     }
@@ -79,7 +79,7 @@ class Stage extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['stage_id'], 'integer'],

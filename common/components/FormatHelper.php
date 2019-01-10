@@ -15,7 +15,7 @@ class FormatHelper
      * @param float $sum
      * @return string
      */
-    public static function asCurrency(float $sum): string
+    public static function asCurrency($sum)
     {
         $result = '';
         try {
@@ -30,7 +30,7 @@ class FormatHelper
      * @param int $time
      * @return string
      */
-    public static function asDate(int $time): string
+    public static function asDate($time)
     {
         $result = '';
         try {
@@ -45,7 +45,7 @@ class FormatHelper
      * @param int|\DateTime $time
      * @return string
      */
-    public static function asDateTime($time): string
+    public static function asDateTime($time)
     {
         $result = '';
         try {

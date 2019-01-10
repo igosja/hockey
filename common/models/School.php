@@ -33,7 +33,7 @@ class School extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%school}}';
     }
@@ -41,7 +41,7 @@ class School extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function schools(): array
+    public function schools()
     {
         return [
             [
@@ -67,7 +67,7 @@ class School extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition(): ActiveQuery
+    public function getPosition()
     {
         return $this->hasOne(Position::class, ['position_id' => 'school_position_id']);
     }
@@ -75,7 +75,7 @@ class School extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial(): ActiveQuery
+    public function getSpecial()
     {
         return $this->hasOne(Special::class, ['special_id' => 'school_special_id']);
     }
@@ -83,7 +83,7 @@ class School extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyle(): ActiveQuery
+    public function getStyle()
     {
         return $this->hasOne(Style::class, ['style_id' => 'school_style_id']);
     }
@@ -91,7 +91,7 @@ class School extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'school_team_id']);
     }

@@ -29,7 +29,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%achievement_player}}';
     }
@@ -37,7 +37,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -62,7 +62,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getPosition(): string
+    public function getPosition()
     {
         if ($this->achievement_player_place) {
             $result = $this->achievement_player_place;
@@ -78,7 +78,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStage(): ActiveQuery
+    public function getStage()
     {
         return $this->hasOne(Stage::class, ['stage_id' => 'achievement_player_stage_id']);
     }
@@ -86,7 +86,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'achievement_player_team_id']);
     }
@@ -94,7 +94,7 @@ class AchievementPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTournamentType(): ActiveQuery
+    public function getTournamentType()
     {
         return $this->hasOne(TournamentType::class, ['tournament_type_id' => 'achievement_player_tournament_type_id']);
     }

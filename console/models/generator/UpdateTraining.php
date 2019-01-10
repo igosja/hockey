@@ -25,10 +25,10 @@ class UpdateTraining
     private $training;
 
     /**
+     * @throws \Exception
      * @throws \yii\db\Exception
-     * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $this->increasePercent();
 
@@ -56,7 +56,7 @@ class UpdateTraining
      * @throws \yii\db\Exception
      * @return void
      */
-    private function increasePercent(): void
+    private function increasePercent()
     {
         $sql = "UPDATE `training`
                 LEFT JOIN `team`
@@ -71,9 +71,9 @@ class UpdateTraining
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function power(): void
+    private function power()
     {
         Player::updateAllCounters(
             ['player_power_nominal' => 1],
@@ -87,9 +87,9 @@ class UpdateTraining
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function position(): void
+    private function position()
     {
         $model = new PlayerPosition();
         $model->player_position_player_id = $this->training->training_player_id;
@@ -104,9 +104,9 @@ class UpdateTraining
     }
 
     /**
-     * @return void
+     * @throws \Exception
      */
-    private function special(): void
+    private function special()
     {
         $model = PlayerSpecial::find()->where([
             'player_special_player_id' => $this->training->training_player_id,

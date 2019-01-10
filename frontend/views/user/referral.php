@@ -95,7 +95,7 @@ print $this->render('_top');
                 'footer' => 'Менеджер',
                 'format' => 'raw',
                 'label' => 'Менеджер',
-                'value' => function (User $model): string {
+                'value' => function (User $model) {
                     return $model->userLink();
                 }
             ],
@@ -106,7 +106,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'label' => 'Последний визит',
                 'headerOptions' => ['class' => 'col-25 hidden-xs'],
-                'value' => function (User $model): string {
+                'value' => function (User $model) {
                     return $model->lastVisit();
                 }
             ],
@@ -116,7 +116,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Дата регистрации',
                 'headerOptions' => ['class' => 'col-25 hidden-xs'],
-                'value' => function (User $model): string {
+                'value' => function (User $model) {
                     return FormatHelper::asDateTime($model->user_date_register);
                 }
             ],

@@ -17,7 +17,7 @@ class RuleController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new RuleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -33,6 +33,7 @@ class RuleController extends AbstractController
 
     /**
      * @return string|\yii\web\Response
+     * @throws \Exception
      */
     public function actionCreate()
     {
@@ -53,10 +54,11 @@ class RuleController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return string|\yii\web\Response
+     * @throws \Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = Rule::find()->where(['rule_id' => $id])->limit(1)->one();
 
@@ -83,7 +85,7 @@ class RuleController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = Rule::find()->where(['rule_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -102,7 +104,7 @@ class RuleController extends AbstractController
      * @return \yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(int $id)
+    public function actionDelete($id)
     {
         $model = Rule::find()->where(['rule_id' => $id])->limit(1)->one();
         $this->notFound($model);

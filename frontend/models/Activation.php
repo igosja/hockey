@@ -25,7 +25,7 @@ class Activation extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['code'], 'trim'],
@@ -40,7 +40,7 @@ class Activation extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function activate(): bool
+    public function activate()
     {
         if (!$this->validate()) {
             return false;
@@ -64,7 +64,7 @@ class Activation extends Model
      * @param $attribute
      * @return void
      */
-    public function checkCode($attribute): void
+    public function checkCode($attribute)
     {
         $user = User::find()
             ->select(['user_date_confirm'])
@@ -84,7 +84,7 @@ class Activation extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'code' => 'Код',

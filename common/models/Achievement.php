@@ -31,7 +31,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%achievement}}';
     }
@@ -39,7 +39,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -64,7 +64,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getPosition(): string
+    public function getPosition()
     {
         if ($this->achievement_place) {
             $result = $this->achievement_place;
@@ -80,7 +80,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getTournament(): string
+    public function getTournament()
     {
         $result = $this->tournamentType->tournament_type_name;
 
@@ -112,7 +112,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'achievement_country_id']);
     }
@@ -120,7 +120,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDivision(): ActiveQuery
+    public function getDivision()
     {
         return $this->hasOne(Division::class, ['division_id' => 'achievement_division_id']);
     }
@@ -128,7 +128,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStage(): ActiveQuery
+    public function getStage()
     {
         return $this->hasOne(Stage::class, ['stage_id' => 'achievement_stage_id']);
     }
@@ -136,7 +136,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'achievement_team_id']);
     }
@@ -144,7 +144,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTournamentType(): ActiveQuery
+    public function getTournamentType()
     {
         return $this->hasOne(TournamentType::class, ['tournament_type_id' => 'achievement_tournament_type_id']);
     }

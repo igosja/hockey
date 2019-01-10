@@ -13,7 +13,7 @@ class UserHolidayEnd
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         User::updateAllCounters(['user_holiday_day' => 1], ['user_holiday' => 1]);
         User::updateAll(

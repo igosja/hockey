@@ -17,7 +17,7 @@ class NewsController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -58,7 +58,7 @@ class NewsController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = News::find()->where(['news_id' => $id])->limit(1)->one();
 
@@ -85,7 +85,7 @@ class NewsController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = News::find()->where(['news_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -104,7 +104,7 @@ class NewsController extends AbstractController
      * @return \yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(int $id)
+    public function actionDelete($id)
     {
         $model = News::find()->where(['news_id' => $id])->limit(1)->one();
         $this->notFound($model);

@@ -30,7 +30,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['title' => 'Сезон'],
                     'headerOptions' => ['class' => 'col-1', 'title' => 'Сезон'],
                     'label' => 'С',
-                    'value' => function (History $model): string {
+                    'value' => function (History $model) {
                         return $model->history_season_id;
                     }
                 ],
@@ -39,7 +39,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Дата',
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Дата',
-                    'value' => function (History $model): string {
+                    'value' => function (History $model) {
                         return FormatHelper::asDate($model->history_date);
                     }
                 ],
@@ -47,7 +47,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Событие',
                     'format' => 'raw',
                     'label' => 'Событие',
-                    'value' => function (History $model): string {
+                    'value' => function (History $model) {
                         return $model->text();
                     }
                 ],

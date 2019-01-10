@@ -14,7 +14,7 @@ class SurnameCountry extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%surname_country}}';
     }
@@ -22,7 +22,7 @@ class SurnameCountry extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['surname_country_country_id', 'surname_country_surname_id'], 'integer'],
@@ -35,7 +35,7 @@ class SurnameCountry extends AbstractActiveRecord
      * @param string $andWhere
      * @return false|null|string
      */
-    public static function getRandSurnameId(int $countryId, $andWhere = '1=1')
+    public static function getRandSurnameId($countryId, $andWhere = '1=1')
     {
         return self::find()
             ->select(['surname_country_surname_id'])
@@ -52,7 +52,7 @@ class SurnameCountry extends AbstractActiveRecord
      * @param int $length
      * @return int
      */
-    public static function getRandFreeSurnameId(int $teamId, int $countryId, int $length = 1): int
+    public static function getRandFreeSurnameId($teamId, $countryId, $length = 1)
     {
         $teamSurnameArray = Surname::find()
             ->joinWith(['player'])

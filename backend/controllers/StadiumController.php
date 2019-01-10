@@ -17,7 +17,7 @@ class StadiumController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new StadiumSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -36,7 +36,7 @@ class StadiumController extends AbstractController
      * @return string|\yii\web\Response
      * @throws \Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = Stadium::find()->where(['stadium_id' => $id])->limit(1)->one();
 
@@ -73,7 +73,7 @@ class StadiumController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = Stadium::find()->where(['stadium_id' => $id])->limit(1)->one();
         $this->notFound($model);

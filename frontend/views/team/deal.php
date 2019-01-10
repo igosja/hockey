@@ -44,7 +44,7 @@ use yii\grid\GridView;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return FormatHelper::asDate($model->transfer_date);
                 }
             ],
@@ -53,7 +53,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->player->playerLink();
                 }
             ],
@@ -64,7 +64,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
                 'label' => 'Нац',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->player->country->countryImageLink();
                 }
             ],
@@ -74,7 +74,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->position();
                 }
             ],
@@ -84,7 +84,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_age;
                 }
             ],
@@ -94,7 +94,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Сила'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
                 'label' => 'С',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_power;
                 }
             ],
@@ -104,7 +104,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->special();
                 }
             ],
@@ -112,7 +112,7 @@ use yii\grid\GridView;
                 'footer' => 'Покупатель',
                 'format' => 'raw',
                 'label' => 'Покупатель',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -121,7 +121,7 @@ use yii\grid\GridView;
                 'footer' => 'Цена',
                 'headerOptions' => ['class' => 'col-13'],
                 'label' => 'Цена',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return FormatHelper::asCurrency($model->transfer_price_buyer);
                 }
             ],
@@ -153,7 +153,7 @@ use yii\grid\GridView;
                 'footer' => 'Дата',
                 'label' => 'Дата',
                 'headerOptions' => ['class' => 'col-10'],
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return FormatHelper::asDate($model->transfer_date);
                 }
             ],
@@ -162,7 +162,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->player->playerLink();
                 }
             ],
@@ -173,7 +173,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
                 'label' => 'Нац',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->player->country->countryImageLink();
                 }
             ],
@@ -183,7 +183,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->position();
                 }
             ],
@@ -193,7 +193,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_age;
                 }
             ],
@@ -203,7 +203,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Сила'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
                 'label' => 'С',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->transfer_power;
                 }
             ],
@@ -213,7 +213,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->special();
                 }
             ],
@@ -221,7 +221,7 @@ use yii\grid\GridView;
                 'footer' => 'Продавец',
                 'format' => 'raw',
                 'label' => 'Продавец',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -230,7 +230,7 @@ use yii\grid\GridView;
                 'footer' => 'Цена',
                 'headerOptions' => ['class' => 'col-13'],
                 'label' => 'Цена',
-                'value' => function (Transfer $model): string {
+                'value' => function (Transfer $model) {
                     return FormatHelper::asCurrency($model->transfer_price_buyer);
                 }
             ],
@@ -262,7 +262,7 @@ use yii\grid\GridView;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return FormatHelper::asDate($model->loan_date);
                 }
             ],
@@ -271,7 +271,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->player->playerLink();
                 }
             ],
@@ -282,7 +282,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
                 'label' => 'Нац',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->player->country->countryImageLink();
                 }
             ],
@@ -292,7 +292,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->position();
                 }
             ],
@@ -302,7 +302,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_age;
                 }
             ],
@@ -312,7 +312,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Сила'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
                 'label' => 'С',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_power;
                 }
             ],
@@ -322,7 +322,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->special();
                 }
             ],
@@ -330,7 +330,7 @@ use yii\grid\GridView;
                 'footer' => 'Арендатор',
                 'format' => 'raw',
                 'label' => 'Арендатор',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->buyer->teamLink('img');
                 }
             ],
@@ -339,7 +339,7 @@ use yii\grid\GridView;
                 'footer' => 'Срок',
                 'headerOptions' => ['class' => 'col-5'],
                 'label' => 'Срок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_day;
                 }
             ],
@@ -348,7 +348,7 @@ use yii\grid\GridView;
                 'footer' => 'Цена',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Цена',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return FormatHelper::asCurrency($model->loan_price_buyer);
                 }
             ],
@@ -380,7 +380,7 @@ use yii\grid\GridView;
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return FormatHelper::asDate($model->loan_date);
                 }
             ],
@@ -389,7 +389,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Игрок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->player->playerLink();
                 }
             ],
@@ -400,7 +400,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs'],
                 'label' => 'Нац',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->player->country->countryImageLink();
                 }
             ],
@@ -410,7 +410,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->position();
                 }
             ],
@@ -420,7 +420,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_age;
                 }
             ],
@@ -430,7 +430,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Сила'],
                 'label' => 'С',
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_power;
                 }
             ],
@@ -440,7 +440,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->special();
                 }
             ],
@@ -448,7 +448,7 @@ use yii\grid\GridView;
                 'footer' => 'Владелец',
                 'format' => 'raw',
                 'label' => 'Владелец',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->seller->teamLink('img');
                 }
             ],
@@ -457,7 +457,7 @@ use yii\grid\GridView;
                 'footer' => 'Срок',
                 'headerOptions' => ['class' => 'col-5'],
                 'label' => 'Срок',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return $model->loan_day;
                 }
             ],
@@ -466,7 +466,7 @@ use yii\grid\GridView;
                 'footer' => 'Цена',
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Цена',
-                'value' => function (Loan $model): string {
+                'value' => function (Loan $model) {
                     return FormatHelper::asCurrency($model->loan_price_buyer);
                 }
             ],

@@ -16,9 +16,9 @@ use common\models\TournamentType;
 class ChampionshipLot
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -162,11 +162,11 @@ class ChampionshipLot
                     ->orderBy(['schedule_id' => SORT_ASC])
                     ->limit(1)
                     ->one();
-                if (Stage::FINAL == $check) {
+                if (Stage::FINAL_GAME == $check) {
                     $stageArray = Schedule::find()
                         ->where([
                             'schedule_season_id' => $seasonId,
-                            'schedule_stage_id' => Stage::FINAL,
+                            'schedule_stage_id' => Stage::FINAL_GAME,
                             'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                         ])
                         ->orderBy(['schedule_id' => SORT_ASC])

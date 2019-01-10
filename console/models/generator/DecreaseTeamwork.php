@@ -13,7 +13,7 @@ class DecreaseTeamwork
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Teamwork::updateAllCounters(['teamwork_value' => -1]);
         Teamwork::updateAll(['teamwork_value' => 25], ['>', 'teamwork_value', 25]);

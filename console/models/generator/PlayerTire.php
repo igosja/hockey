@@ -19,7 +19,7 @@ class PlayerTire
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $this->updateMood();
 
@@ -42,7 +42,7 @@ class PlayerTire
      * @throws \yii\db\Exception
      * @return void
      */
-    private function updateMood(): void
+    private function updateMood()
     {
         $sql = "UPDATE `player`
                 LEFT JOIN `lineup`
@@ -60,7 +60,7 @@ class PlayerTire
      * @throws \yii\db\Exception
      * @return void
      */
-    private function b(): void
+    private function b()
     {
         $sql = "UPDATE `player`
                 LEFT JOIN
@@ -134,7 +134,7 @@ class PlayerTire
      * @throws \yii\db\Exception
      * @return void
      */
-    private function c(): void
+    private function c()
     {
         $sql = "UPDATE `player`
                 LEFT JOIN
@@ -174,7 +174,7 @@ class PlayerTire
     /**
      * @return void
      */
-    private function updatePlayer(): void
+    private function updatePlayer()
     {
         Player::updateAll(['player_mood_id' => 0], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
         Player::updateAll(

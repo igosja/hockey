@@ -24,7 +24,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%forum_group}}';
     }
@@ -32,7 +32,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -49,7 +49,7 @@ class ForumGroup extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -70,7 +70,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function countMessage(): int
+    public function countMessage()
     {
         $result = 0;
         foreach ($this->forumTheme as $forumTheme) {
@@ -82,7 +82,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function countTheme(): int
+    public function countTheme()
     {
         return count($this->forumTheme);
     }
@@ -90,7 +90,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumChapter(): ActiveQuery
+    public function getForumChapter()
     {
         return $this->hasOne(ForumChapter::class, ['forum_chapter_id' => 'forum_group_forum_chapter_id']);
     }
@@ -98,7 +98,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumMessage(): ActiveQuery
+    public function getForumMessage()
     {
         return $this
             ->hasOne(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id'])
@@ -109,7 +109,7 @@ class ForumGroup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumTheme(): ActiveQuery
+    public function getForumTheme()
     {
         return $this->hasMany(ForumTheme::class, ['forum_theme_forum_group_id' => 'forum_group_id']);
     }

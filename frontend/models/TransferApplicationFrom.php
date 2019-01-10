@@ -27,7 +27,7 @@ class TransferApplicationFrom extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['off'], 'boolean'],
@@ -39,7 +39,7 @@ class TransferApplicationFrom extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function execute(): bool
+    public function execute()
     {
         if (!$this->validate()) {
             return false;

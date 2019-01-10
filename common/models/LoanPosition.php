@@ -19,7 +19,7 @@ class LoanPosition extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%loan_position}}';
     }
@@ -27,7 +27,7 @@ class LoanPosition extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['loan_position_id', 'loan_position_loan_id', 'loan_position_position_id'], 'integer'],
@@ -38,7 +38,7 @@ class LoanPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition(): ActiveQuery
+    public function getPosition()
     {
         return $this->hasOne(Position::class, ['position_id' => 'loan_position_position_id']);
     }

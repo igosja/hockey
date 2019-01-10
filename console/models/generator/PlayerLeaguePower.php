@@ -13,7 +13,7 @@ class PlayerLeaguePower
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Player::updateAll(
             ['player_power_nominal' => 15],

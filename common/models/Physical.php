@@ -22,7 +22,7 @@ class Physical extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%physical}}';
     }
@@ -30,7 +30,7 @@ class Physical extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['physical_opposite'], 'in', self::find()->select(['physical_id'])->column()],
@@ -44,10 +44,10 @@ class Physical extends AbstractActiveRecord
     /**
      * @return Physical
      */
-    public static function getRandPhysical(): Physical
+    public static function getRandPhysical()
     {
         try {
-            $physicalArray = self::getDb()->cache(function (): array {
+            $physicalArray = self::getDb()->cache(function () {
                 return self::find()
                     ->select(['physical_id', 'physical_value'])
                     ->all();
@@ -64,7 +64,7 @@ class Physical extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function image(): string
+    public function image()
     {
         return Html::img(
             '/img/physical/' . $this->physical_id . '.png',

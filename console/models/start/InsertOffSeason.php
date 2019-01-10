@@ -22,7 +22,7 @@ class InsertOffSeason
      * @throws Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $seasonId = Season::getCurrentSeason();
 

@@ -38,7 +38,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['title' => 'Сезон'],
                     'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
                     'label' => 'С',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->transfer_season_id;
                     }
                 ],
@@ -48,7 +48,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
                     'label' => 'Поз',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->position();
                     }
                 ],
@@ -58,7 +58,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
                     'label' => 'В',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->transfer_age;
                     }
                 ],
@@ -68,7 +68,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->transfer_power;
                     }
                 ],
@@ -78,7 +78,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                     'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->special();
                     }
                 ],
@@ -86,7 +86,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Продавец',
                     'format' => 'raw',
                     'label' => 'Продавец',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->seller->teamLink('img');
                     }
                 ],
@@ -95,7 +95,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'label' => 'Покупатель',
                     'headerOptions' => ['class' => 'col-25'],
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return $model->buyer->teamLink('img');
                     }
                 ],
@@ -105,7 +105,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
-                    'value' => function (Transfer $model): string {
+                    'value' => function (Transfer $model) {
                         return Html::a(
                             FormatHelper::asCurrency($model->transfer_price_buyer),
                             ['transfer/view', 'id' => $model->transfer_id]
@@ -141,7 +141,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['title' => 'Сезон'],
                     'headerOptions' => ['class' => 'col-5', 'title' => 'Сезон'],
                     'label' => 'С',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->loan_season_id;
                     }
                 ],
@@ -151,7 +151,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Позиция'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Позиция'],
                     'label' => 'Поз',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->position();
                     }
                 ],
@@ -161,7 +161,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Возраст'],
                     'label' => 'В',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->loan_age;
                     }
                 ],
@@ -171,7 +171,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Сила'],
                     'label' => 'С',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->loan_power;
                     }
                 ],
@@ -181,7 +181,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                     'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->special();
                     }
                 ],
@@ -189,7 +189,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Владелец',
                     'format' => 'raw',
                     'label' => 'Владелец',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->seller->teamLink('img');
                     }
                 ],
@@ -198,7 +198,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-25'],
                     'label' => 'Арендатор',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->buyer->teamLink('img');
                     }
                 ],
@@ -207,7 +207,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'footer' => 'Срок',
                     'headerOptions' => ['class' => 'col-5'],
                     'label' => 'Срок',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return $model->loan_day;
                     }
                 ],
@@ -217,7 +217,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Цена',
-                    'value' => function (Loan $model): string {
+                    'value' => function (Loan $model) {
                         return Html::a(
                             FormatHelper::asCurrency($model->loan_price_buyer),
                             ['loan/view', 'id' => $model->loan_id]

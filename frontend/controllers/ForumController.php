@@ -24,7 +24,7 @@ class ForumController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return [
             'access' => [
@@ -58,7 +58,7 @@ class ForumController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $forumChapterArray = ForumChapter::find()
             ->with([
@@ -88,7 +88,7 @@ class ForumController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionChapter(int $id): string
+    public function actionChapter($id)
     {
         $forumChapter = ForumChapter::find()
             ->with([
@@ -114,7 +114,7 @@ class ForumController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionGroup(int $id): string
+    public function actionGroup($id)
     {
         $forumGroup = ForumGroup::find()
             ->where(['forum_group_id' => $id])
@@ -149,7 +149,7 @@ class ForumController extends AbstractController
      * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionTheme(int $id)
+    public function actionTheme($id)
     {
         $forumTheme = ForumTheme::find()
             ->where(['forum_theme_id' => $id])
@@ -194,7 +194,7 @@ class ForumController extends AbstractController
     /**
      * @return string
      */
-    public function actionSearch(): string
+    public function actionSearch()
     {
         $query = ForumMessage::find()
             ->filterWhere(['like', 'forum_message_text', Yii::$app->request->get('q')]);
@@ -247,7 +247,7 @@ class ForumController extends AbstractController
      * @throws \yii\web\ForbiddenHttpException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionMessageBlock($id): Response
+    public function actionMessageBlock($id)
     {
         if (UserRole::USER == $this->user->user_user_role_id) {
             $this->forbiddenRole();
@@ -275,7 +275,7 @@ class ForumController extends AbstractController
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionMessageDelete($id): Response
+    public function actionMessageDelete($id)
     {
         $userId = null;
         if (UserRole::USER == $this->user->user_user_role_id) {
@@ -303,7 +303,7 @@ class ForumController extends AbstractController
      * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionMessageComplaint($id): Response
+    public function actionMessageComplaint($id)
     {
         $forumMessage = ForumMessage::find()
             ->where(['forum_message_id' => $id])

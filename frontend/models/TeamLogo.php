@@ -26,7 +26,7 @@ class TeamLogo extends Model
      * @param int $teamId
      * @param array $config
      */
-    public function __construct(int $teamId, array $config = [])
+    public function __construct($teamId, array $config = [])
     {
         parent::__construct($config);
         $this->teamId = $teamId;
@@ -35,7 +35,7 @@ class TeamLogo extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -54,7 +54,7 @@ class TeamLogo extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'file' => 'Эмблема',
@@ -66,7 +66,7 @@ class TeamLogo extends Model
      * @return bool
      * @throws \Exception
      */
-    public function upload(): bool
+    public function upload()
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;

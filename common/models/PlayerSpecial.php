@@ -19,7 +19,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%player_special}}';
     }
@@ -27,7 +27,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -41,7 +41,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLineup(): ActiveQuery
+    public function getLineup()
     {
         return $this->hasMany(Lineup::class, ['lineup_player_id' => 'player_special_player_id']);
     }
@@ -49,7 +49,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial(): ActiveQuery
+    public function getSpecial()
     {
         return $this->hasOne(Special::class, ['special_id' => 'player_special_special_id']);
     }

@@ -17,7 +17,7 @@ class LoanCheck
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $loanArray = Loan::find()
             ->with(['seller', 'buyer'])

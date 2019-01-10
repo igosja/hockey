@@ -16,7 +16,7 @@ class UpdateUserRating
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])

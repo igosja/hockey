@@ -26,7 +26,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%stadium}}';
     }
@@ -34,7 +34,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['stadium_id', 'stadium_capacity', 'stadium_city_id', 'stadium_date', 'stadium_maintenance'], 'integer'],
@@ -48,7 +48,7 @@ class Stadium extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -69,7 +69,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCity(): ActiveQuery
+    public function getCity()
     {
         return $this->hasOne(City::class, ['city_id' => 'stadium_city_id'])->cache();
     }
@@ -77,7 +77,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam(): ActiveQuery
+    public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_stadium_id' => 'stadium_id'])->cache();
     }

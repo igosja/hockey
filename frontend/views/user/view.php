@@ -34,7 +34,7 @@ print $this->render('_top');
             [
                 'footer' => 'Роль в игре',
                 'label' => 'Роль в игре',
-                'value' => function (Country $model): string {
+                'value' => function (Country $model) {
                     $result = $model->country_name . ' ';
                     if (Yii::$app->user->id == $model->country_president_id) {
                         $result = $result . '(Президент федерации)';
@@ -67,7 +67,7 @@ print $this->render('_top');
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (National $model): string {
+                'value' => function (National $model) {
                     $name = $model->country->country_name . ', ' . $model->nationalType->national_type_name;
                     if (Yii::$app->user->id == $model->national_vice_id) {
                         $name = $name . ' (заместитель)';
@@ -85,7 +85,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Дивизион',
-                'value' => function (National $model): string {
+                'value' => function (National $model) {
                     return $model->worldCup->division->division_name;
                 }
             ],
@@ -95,7 +95,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'label' => 'Vs',
-                'value' => function (National $model): string {
+                'value' => function (National $model) {
                     return $model->national_power_vs;
                 }
             ],
@@ -122,7 +122,7 @@ print $this->render('_top');
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'label' => 'Команда',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->teamLink('img');
                 }
             ],
@@ -133,7 +133,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Дивизион',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->division();
                 }
             ],
@@ -143,7 +143,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                 'label' => 'Vs',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return $model->team_power_vs;
                 }
             ],
@@ -153,7 +153,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Стоимость',
-                'value' => function (Team $model): string {
+                'value' => function (Team $model) {
                     return Yii::$app->formatter->asCurrency($model->team_price_total, 'USD');
                 }
             ],
@@ -197,7 +197,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сезон'],
                 'headerOptions' => ['class' => 'col-3', 'title' => 'Сезон'],
                 'label' => 'C',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_season_id;
                 }
             ],
@@ -205,7 +205,7 @@ print $this->render('_top');
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => $userRating->user_rating_rating,
                 'label' => 'Рейтинг',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_rating;
                 }
             ],
@@ -215,7 +215,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Игры'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Игры'],
                 'label' => 'И',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_game;
                 }
             ],
@@ -225,7 +225,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Победы'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы'],
                 'label' => 'B',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win;
                 }
             ],
@@ -235,7 +235,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Победы в овертайме/по буллитам'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Победы в овертайме/по буллитам'],
                 'label' => 'BО',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_overtime;
                 }
             ],
@@ -245,7 +245,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Поражения в овертайме/по буллитам/ничьи'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения в овертайме/по буллитам/ничьи'],
                 'label' => 'ПО',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_overtime;
                 }
             ],
@@ -255,7 +255,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Поражения'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Поражения'],
                 'label' => 'П',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose;
                 }
             ],
@@ -265,7 +265,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Выигранные коллизии'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Выигранные коллизии'],
                 'label' => 'К+',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_collision_win;
                 }
             ],
@@ -275,7 +275,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Проигранные коллизии'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Проигранные коллизии'],
                 'label' => 'К-',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_collision_loose;
                 }
             ],
@@ -285,7 +285,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Победы у команд с супернастроем'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Победы у команд с супернастроем'],
                 'label' => 'ВС',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_super;
                 }
             ],
@@ -295,7 +295,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у сильных соперников'],
                 'label' => 'В+',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_strong;
                 }
             ],
@@ -305,7 +305,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у равных соперников'],
                 'label' => 'В=',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_equal;
                 }
             ],
@@ -315,7 +315,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Победы у слабых соперников'],
                 'label' => 'В-',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_weak;
                 }
             ],
@@ -331,7 +331,7 @@ print $this->render('_top');
                     'title' => 'Победы в овертайме/по буллитам у сильных соперников',
                 ],
                 'label' => 'ВО+',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_overtime_strong;
                 }
             ],
@@ -347,7 +347,7 @@ print $this->render('_top');
                     'title' => 'Победы в овертайме/по буллитам у равных соперников',
                 ],
                 'label' => 'ВО=',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_overtime_equal;
                 }
             ],
@@ -363,7 +363,7 @@ print $this->render('_top');
                     'title' => 'Победы в овертайме/по буллитам у слабых соперников',
                 ],
                 'label' => 'ВО-',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_win_overtime_weak;
                 }
             ],
@@ -379,7 +379,7 @@ print $this->render('_top');
                     'title' => 'Поражения в овертайме/по буллитам/ничьи сильным соперникам',
                 ],
                 'label' => 'ПО+',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_overtime_strong;
                 }
             ],
@@ -395,7 +395,7 @@ print $this->render('_top');
                     'title' => 'Поражения в овертайме/по буллитам/ничьи равным соперникам',
                 ],
                 'label' => 'ПО=',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_overtime_equal;
                 }
             ],
@@ -411,7 +411,7 @@ print $this->render('_top');
                     'title' => 'Поражения в овертайме/по буллитам/ничьи слабым соперникам',
                 ],
                 'label' => 'ПО-',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_overtime_weak;
                 }
             ],
@@ -424,7 +424,7 @@ print $this->render('_top');
                     'title' => 'Поражения сильным соперникам'
                 ],
                 'label' => 'П+',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_strong;
                 }
             ],
@@ -434,7 +434,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения равным соперникам'],
                 'label' => 'П=',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_equal;
                 }
             ],
@@ -444,7 +444,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-sm hidden-xs', 'title' => 'Поражения слабым соперникам'],
                 'label' => 'П-',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_weak;
                 }
             ],
@@ -454,7 +454,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Поражения супернастроем'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Поражения супернастроем'],
                 'label' => 'ПС',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_loose_super;
                 }
             ],
@@ -464,7 +464,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Автосоставы'],
                 'headerOptions' => ['class' => 'col-3-5', 'title' => 'Автосоставы'],
                 'label' => 'А',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_auto;
                 }
             ],
@@ -474,7 +474,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против супернастроя'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против супернастроя'],
                 'label' => 'VС',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_vs_super;
                 }
             ],
@@ -484,7 +484,7 @@ print $this->render('_top');
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры против отдыха'],
                 'headerOptions' => ['class' => 'col-3-5 hidden-xs', 'title' => 'Игры против отдыха'],
                 'label' => 'VО',
-                'value' => function (UserRating $model): string {
+                'value' => function (UserRating $model) {
                     return $model->user_rating_vs_rest;
                 }
             ],
@@ -512,7 +512,7 @@ print $this->render('_top');
                 'footerOptions' => ['title' => 'Сезон'],
                 'headerOptions' => ['class' => 'col-1', 'title' => 'Сезон'],
                 'label' => 'С',
-                'value' => function (History $model): string {
+                'value' => function (History $model) {
                     return $model->history_season_id;
                 }
             ],
@@ -521,7 +521,7 @@ print $this->render('_top');
                 'footer' => 'Дата',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Дата',
-                'value' => function (History $model): string {
+                'value' => function (History $model) {
                     return Yii::$app->formatter->asDate($model->history_date, 'short');
                 }
             ],
@@ -529,7 +529,7 @@ print $this->render('_top');
                 'footer' => 'Событие',
                 'format' => 'raw',
                 'label' => 'Событие',
-                'value' => function (History $model): string {
+                'value' => function (History $model) {
                     return $model->text();
                 }
             ],

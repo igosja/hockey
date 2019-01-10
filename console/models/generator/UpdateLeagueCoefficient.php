@@ -15,9 +15,9 @@ use yii\db\Expression;
 class UpdateLeagueCoefficient
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])

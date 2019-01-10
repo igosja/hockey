@@ -14,7 +14,7 @@ class PlayerPowerNewToOld
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         Player::updateAll(
             ['player_power_old' => new Expression('`player_power_nominal`')],

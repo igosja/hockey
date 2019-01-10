@@ -22,7 +22,7 @@ class ElectionNational extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_national}}';
     }
@@ -30,7 +30,7 @@ class ElectionNational extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -49,7 +49,7 @@ class ElectionNational extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication(): ActiveQuery
+    public function getApplication()
     {
         return $this->hasMany(
             ElectionNationalApplication::class,
@@ -60,7 +60,7 @@ class ElectionNational extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational(): ActiveQuery
+    public function getNational()
     {
         return $this->hasOne(National::class, ['national_id' => 'election_national_national_id']);
     }

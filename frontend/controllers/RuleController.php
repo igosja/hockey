@@ -13,7 +13,7 @@ class RuleController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $rule = Rule::find()
             ->orderBy(['rule_order' => SORT_ASC])
@@ -31,7 +31,7 @@ class RuleController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView($id): string
+    public function actionView($id)
     {
         $rule = Rule::find()
             ->where(['rule_id' => $id])

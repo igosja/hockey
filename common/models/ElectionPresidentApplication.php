@@ -23,7 +23,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_president_application}}';
     }
@@ -31,7 +31,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -51,7 +51,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -65,7 +65,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'election_president_application_text' => 'Программа',
@@ -75,7 +75,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresident(): ActiveQuery
+    public function getElectionPresident()
     {
         return $this->hasOne(
             ElectionPresident::class,
@@ -86,7 +86,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresidentVote(): ActiveQuery
+    public function getElectionPresidentVote()
     {
         return $this->hasMany(
             ElectionPresidentVote::class,
@@ -97,7 +97,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'election_president_application_user_id']);
     }

@@ -16,7 +16,7 @@ class UserController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -35,7 +35,7 @@ class UserController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = User::find()->where(['user_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -54,7 +54,7 @@ class UserController extends AbstractController
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionAuth(int $id): Response
+    public function actionAuth($id)
     {
         $model = User::find()->where(['user_id' => $id])->limit(1)->one();
         $this->notFound($model);

@@ -186,8 +186,8 @@ class Menu extends Widget
                         $this->menuItemList[$item]['label'],
                         $this->menuItemList[$item]['url'],
                         [
-                            'class' => $this->menuItemList[$item]['css'] ?? '',
-                            'target' => $this->menuItemList[$item]['target'] ?? '',
+                            'class' => isset($this->menuItemList[$item]['css']) ? $this->menuItemList[$item]['css'] : '',
+                            'target' => isset($this->menuItemList[$item]['target']) ? $this->menuItemList[$item]['target'] : '',
                         ]
                     );
                 }
@@ -201,7 +201,7 @@ class Menu extends Widget
     /**
      * @return void
      */
-    private function setMenuItemList(): void
+    private function setMenuItemList()
     {
         $messenger = 0;
         $news = 0;

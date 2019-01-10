@@ -21,10 +21,11 @@ use yii\helpers\Html;
 class InsertNews
 {
     /**
+     * @throws \Exception
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $todayArray = Schedule::find()
             ->with(['stage'])
@@ -207,7 +208,7 @@ class InsertNews
      * @param Schedule[] $scheduleArray
      * @return string
      */
-    private function text(array $scheduleArray): string
+    private function text(array $scheduleArray)
     {
         $result = [];
 
@@ -219,17 +220,17 @@ class InsertNews
                     $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::QUARTER) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . ' Лиги чемпионов';
-                } elseif ($schedule->schedule_stage_id < Stage::FINAL) {
+                } elseif ($schedule->schedule_stage_id < Stage::FINAL_GAME) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала Лиги чемпионов';
-                } elseif (Stage::FINAL == $schedule->schedule_stage_id) {
+                } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
                 }
             } elseif (TournamentType::CHAMPIONSHIP == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
-                } elseif ($schedule->schedule_stage_id <= Stage::FINAL) {
+                } elseif ($schedule->schedule_stage_id <= Stage::FINAL_GAME) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала национальных чемпионатов';
-                } elseif (Stage::FINAL == $schedule->schedule_stage_id) {
+                } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                     $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id) {

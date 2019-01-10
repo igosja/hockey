@@ -31,7 +31,7 @@ class ErrorHelper
      * @param Model $model
      * @return string
      */
-    public static function modelErrorsToString($model): string
+    public static function modelErrorsToString($model)
     {
         return implode(', ', $model->getErrorSummary(true));
     }

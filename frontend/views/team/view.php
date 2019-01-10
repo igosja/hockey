@@ -53,7 +53,7 @@ use yii\grid\GridView;
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->playerLink()
                         . $model->iconPension()
                         . $model->iconInjury()
@@ -70,7 +70,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'hidden-xs col-1', 'title' => 'Национальность'],
                 'label' => 'Нац',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->country->countryImageLink();
                 }
             ],
@@ -81,7 +81,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->position();
                 }
             ],
@@ -92,7 +92,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_age;
                 }
             ],
@@ -104,7 +104,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['title' => 'Номинальная сила'],
                 'label' => 'С',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->powerNominal();
                 }
             ],
@@ -115,7 +115,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Усталость'],
                 'headerOptions' => ['title' => 'Усталость'],
                 'label' => 'У',
-                'value' => function (Player $model) use ($team): string {
+                'value' => function (Player $model) use ($team) {
                     return $team->myTeam() ? $model->player_tire : '?';
                 }
             ],
@@ -127,7 +127,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['title' => 'Форма'],
                 'label' => 'Ф',
-                'value' => function (Player $model) use ($team): string {
+                'value' => function (Player $model) use ($team) {
                     return $team->myTeam() ? $model->physical->image() : '?';
                 }
             ],
@@ -138,7 +138,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Реальная сила'],
                 'headerOptions' => ['title' => 'Реальная сила'],
                 'label' => 'РС',
-                'value' => function (Player $model) use ($team): string {
+                'value' => function (Player $model) use ($team) {
                     return $team->myTeam() ? $model->player_power_real : '~' . $model->player_power_nominal;
                 }
             ],
@@ -149,7 +149,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->special();
                 }
             ],
@@ -160,8 +160,8 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                 'label' => '+/-',
-                'value' => function (Player $model): string {
-                    return $model->statisticPlayer->statistic_player_plus_minus ?? 0;
+                'value' => function (Player $model) {
+                    return isset($model->statisticPlayer->statistic_player_plus_minus) ? $model->statisticPlayer->statistic_player_plus_minus : 0;
                 }
             ],
             [
@@ -171,8 +171,8 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры'],
                 'label' => 'И',
-                'value' => function (Player $model): string {
-                    return $model->statisticPlayer->statistic_player_game ?? 0;
+                'value' => function (Player $model) {
+                    return isset($model->statisticPlayer->statistic_player_game) ? $model->statisticPlayer->statistic_player_game : 0;
                 }
             ],
             [
@@ -182,8 +182,8 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
                 'label' => 'Ш',
-                'value' => function (Player $model): string {
-                    return $model->statisticPlayer->statistic_player_score ?? 0;
+                'value' => function (Player $model) {
+                    return isset($model->statisticPlayer->statistic_player_score) ? $model->statisticPlayer->statistic_player_score : 0;
                 }
             ],
             [
@@ -193,8 +193,8 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Результативные передачи'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Результативные передачи'],
                 'label' => 'П',
-                'value' => function (Player $model): string {
-                    return $model->statisticPlayer->statistic_player_assist ?? 0;
+                'value' => function (Player $model) {
+                    return isset($model->statisticPlayer->statistic_player_assist) ? $model->statisticPlayer->statistic_player_assist : 0;
                 }
             ],
             [
@@ -216,7 +216,7 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
                 'label' => 'Ст',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->iconStyle(true);
                 }
             ],
@@ -227,7 +227,7 @@ use yii\grid\GridView;
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
                 'label' => 'ИО',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_game_row;
                 }
             ],

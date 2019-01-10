@@ -22,7 +22,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_president}}';
     }
@@ -30,7 +30,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -49,7 +49,7 @@ class ElectionPresident extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -64,7 +64,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function applications(): array
+    public function applications()
     {
         $result = [];
         $total = 0;
@@ -88,7 +88,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication(): ActiveQuery
+    public function getApplication()
     {
         return $this->hasMany(
             ElectionPresidentApplication::class,
@@ -99,7 +99,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionStatus(): ActiveQuery
+    public function getElectionStatus()
     {
         return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_president_election_status_id']);
     }
@@ -107,7 +107,7 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry(): ActiveQuery
+    public function getCountry()
     {
         return $this->hasOne(Country::class, ['country_id' => 'election_president_country_id']);
     }

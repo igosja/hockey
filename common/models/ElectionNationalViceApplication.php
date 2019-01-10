@@ -23,7 +23,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%election_national_vice_application}}';
     }
@@ -31,7 +31,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -51,7 +51,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -65,7 +65,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalVice(): ActiveQuery
+    public function getElectionNationalVice()
     {
         return $this->hasOne(
             ElectionNationalVice::class,
@@ -76,7 +76,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalViceVote(): ActiveQuery
+    public function getElectionNationalViceVote()
     {
         return $this->hasMany(
             ElectionNationalVote::class,
@@ -87,7 +87,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getUser()
     {
         return $this->hasOne(User::class, ['user_id' => 'election_national_vice_application_user_id']);
     }

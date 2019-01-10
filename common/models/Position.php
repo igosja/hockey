@@ -22,7 +22,7 @@ class Position extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%position}}';
     }
@@ -30,7 +30,7 @@ class Position extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['position_id'], 'integer'],
@@ -45,7 +45,7 @@ class Position extends AbstractActiveRecord
      * @param int $id
      * @return string
      */
-    public static function nameById(int $id): string
+    public static function nameById($id)
     {
         return self::find()
             ->select(['position_name'])

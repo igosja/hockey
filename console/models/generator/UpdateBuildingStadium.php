@@ -17,7 +17,7 @@ class UpdateBuildingStadium
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         BuildingStadium::updateAllCounters(['building_stadium_day' => -1], ['building_stadium_ready' => 0]);
 

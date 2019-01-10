@@ -133,7 +133,7 @@ use yii\helpers\Html;
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->playerLink();
                 }
             ],
@@ -144,7 +144,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Национальность'],
                 'label' => 'Нац',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->country->countryImage();
                 }
             ],
@@ -154,7 +154,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Позиция'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Позиция'],
                 'label' => 'Поз',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->position();
                 }
             ],
@@ -164,7 +164,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Возраст'],
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                 'label' => 'В',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_age;
                 }
             ],
@@ -174,7 +174,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Номинальная сила'],
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Номинальная сила'],
                 'label' => 'С',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->player_power_nominal;
                 }
             ],
@@ -184,7 +184,7 @@ use yii\helpers\Html;
                 'footerOptions' => ['title' => 'Спецвозможности'],
                 'headerOptions' => ['class' => 'col-15', 'title' => 'Спецвозможности'],
                 'label' => 'Спец',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     return $model->special();
                 }
             ],
@@ -194,7 +194,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Стиль',
-                'value' => function (Player $model): string {
+                'value' => function (Player $model) {
                     $result = '';
                     if ($model->countScout() < 2) {
                         $result = $result

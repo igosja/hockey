@@ -22,7 +22,7 @@ class PasswordRestore extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['code', 'password'], 'required'],
@@ -40,7 +40,7 @@ class PasswordRestore extends Model
     /**
      * @return bool
      */
-    public function restore(): bool
+    public function restore()
     {
         if (!$this->validate()) {
             return false;
@@ -70,7 +70,7 @@ class PasswordRestore extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'password' => 'Пароль',

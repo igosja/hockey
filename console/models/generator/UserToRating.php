@@ -13,9 +13,9 @@ use common\models\UserRating;
 class UserToRating
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $seasonId = Season::getCurrentSeason();
 

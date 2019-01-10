@@ -24,7 +24,7 @@ class Message extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%message}}';
     }
@@ -32,7 +32,7 @@ class Message extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -56,7 +56,7 @@ class Message extends AbstractActiveRecord
      * @return bool
      * @throws \Exception
      */
-    public function addMessage(int $userId): bool
+    public function addMessage($userId)
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -80,7 +80,7 @@ class Message extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -94,7 +94,7 @@ class Message extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUserFrom(): ActiveQuery
+    public function getUserFrom()
     {
         return $this->hasOne(User::class, ['user_id' => 'message_user_id_from']);
     }
@@ -102,7 +102,7 @@ class Message extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUserTo(): ActiveQuery
+    public function getUserTo()
     {
         return $this->hasOne(User::class, ['user_id' => 'message_user_id_to']);
     }

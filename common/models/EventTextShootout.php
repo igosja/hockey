@@ -17,7 +17,7 @@ class EventTextShootout extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%event_text_shootout}}';
     }
@@ -25,7 +25,7 @@ class EventTextShootout extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['event_text_shootout_id'], 'integer'],

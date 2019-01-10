@@ -18,9 +18,9 @@ use yii\db\ActiveQuery;
 class PresidentViceVoteStatus
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $electionPresidentViceArray = ElectionPresidentVice::find()
             ->with(['application'])
@@ -53,9 +53,9 @@ class PresidentViceVoteStatus
 
     /**
      * @param ElectionPresidentVice $electionPresidentVice
-     * @return void
+     * @throws \Exception
      */
-    private function toOpen(ElectionPresidentVice $electionPresidentVice): void
+    private function toOpen(ElectionPresidentVice $electionPresidentVice)
     {
         $model = new ElectionPresidentApplication();
         $model->election_president_application_election_id = $electionPresidentVice->election_president_vice_id;
@@ -67,13 +67,13 @@ class PresidentViceVoteStatus
 
     /**
      * @param ElectionPresidentVice $electionPresidentVice
-     * @return void
+     * @throws \Exception
      */
-    private function toClose(ElectionPresidentVice $electionPresidentVice): void
+    private function toClose(ElectionPresidentVice $electionPresidentVice)
     {
         $electionPresidentViceApplication = ElectionPresidentViceApplication::find()
             ->joinWith([
-                'electionPresidentViceVote' => function (ActiveQuery $query): ActiveQuery {
+                'electionPresidentViceVote' => function (ActiveQuery $query) {
                     return $query
                         ->select([
                             'election_president_vice_vote_application_id',

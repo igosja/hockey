@@ -18,9 +18,9 @@ use yii\db\ActiveQuery;
 class NationalViceVoteStatus
 {
     /**
-     * @return void
+     * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $electionNationalViceArray = ElectionNationalVice::find()
             ->with(['application'])
@@ -53,9 +53,9 @@ class NationalViceVoteStatus
 
     /**
      * @param ElectionNationalVice $electionNationalVice
-     * @return void
+     * @throws \Exception
      */
-    private function toOpen(ElectionNationalVice $electionNationalVice): void
+    private function toOpen(ElectionNationalVice $electionNationalVice)
     {
         $model = new ElectionNationalApplication();
         $model->election_national_application_election_id = $electionNationalVice->election_national_vice_id;
@@ -67,13 +67,13 @@ class NationalViceVoteStatus
 
     /**
      * @param ElectionNationalVice $electionNationalVice
-     * @return void
+     * @throws \Exception
      */
-    private function toClose(ElectionNationalVice $electionNationalVice): void
+    private function toClose(ElectionNationalVice $electionNationalVice)
     {
         $electionNationalViceApplication = ElectionNationalViceApplication::find()
             ->joinWith([
-                'electionNationalViceVote' => function (ActiveQuery $query): ActiveQuery {
+                'electionNationalViceVote' => function (ActiveQuery $query) {
                     return $query
                         ->select([
                             'election_national_vice_vote_application_id',

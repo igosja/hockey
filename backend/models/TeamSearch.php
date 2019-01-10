@@ -15,7 +15,7 @@ class TeamSearch extends Team
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['team_id'], 'integer'],
@@ -26,7 +26,7 @@ class TeamSearch extends Team
     /**
      * @return array
      */
-    public function scenarios(): array
+    public function scenarios()
     {
         return Model::scenarios();
     }
@@ -35,7 +35,7 @@ class TeamSearch extends Team
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params): ActiveDataProvider
+    public function search($params)
     {
         $query = Team::find()
             ->where(['!=', 'team_id', 0]);

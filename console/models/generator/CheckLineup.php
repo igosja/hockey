@@ -14,7 +14,7 @@ class CheckLineup
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameSql = "SELECT `game_id`
                     FROM `game`

@@ -57,7 +57,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $gameArray = Game::find()
             ->joinWith(['schedule'])
@@ -110,7 +110,7 @@ class GameResult
     /**
      * @return void
      */
-    private function prepareResult(): void
+    private function prepareResult()
     {
         $teamArray = $this->prepareTeamArray();
 
@@ -169,7 +169,7 @@ class GameResult
     /**
      * @return array
      */
-    private function prepareTeamArray(): array
+    private function prepareTeamArray()
     {
         $result = [
             'player' => [
@@ -283,7 +283,7 @@ class GameResult
     /**
      * @return array
      */
-    private function prepareGkArray(): array
+    private function prepareGkArray()
     {
         $result = [
             'age' => 0,
@@ -313,7 +313,7 @@ class GameResult
     /**
      * @return array
      */
-    private function prepareFieldPlayerArray(): array
+    private function prepareFieldPlayerArray()
     {
         $result = [];
 
@@ -370,7 +370,7 @@ class GameResult
     /**
      * @return void
      */
-    private function countHomeBonus(): void
+    private function countHomeBonus()
     {
         if ($this->game->game_bonus_home) {
             $this->result['game_info']['home_bonus'] = 1 + $this->game->game_visitor / $this->game->game_stadium_capacity / 10;
@@ -380,7 +380,7 @@ class GameResult
     /**
      * @return void
      */
-    private function getPlayerInfo(): void
+    private function getPlayerInfo()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -482,7 +482,7 @@ class GameResult
     /**
      * @return void
      */
-    private function countPlayerBonus(): void
+    private function countPlayerBonus()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -712,7 +712,7 @@ class GameResult
     /**
      * @return void
      */
-    private function getTeamwork(): void
+    private function getTeamwork()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -741,7 +741,7 @@ class GameResult
                         ->orWhere(['teamwork_player_id_1' => $player2, 'teamwork_player_id_2' => $player1])
                         ->limit(1)
                         ->scalar();
-                    $teamwork = $teamwork + $teamworkOne ?? 0;
+                    $teamwork = $teamwork + (isset($teamworkOne) ? $teamworkOne : 0);
                 }
 
                 $this->result[$team]['team']['teamwork'][$j] = round($teamwork / 10);
@@ -754,7 +754,7 @@ class GameResult
      * @param array $playerArray
      * @return array
      */
-    private function getTeamworkPlayerIds(int $step, array $playerArray): array
+    private function getTeamworkPlayerIds($step, array $playerArray)
     {
         if (1 == $step) {
             $result = [$playerArray[0], $playerArray[1]];
@@ -785,7 +785,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    private function setTeamwork(): void
+    private function setTeamwork()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -827,7 +827,7 @@ class GameResult
     /**
      * @return void
      */
-    private function collision(): void
+    private function collision()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -857,7 +857,7 @@ class GameResult
     /**
      * @return void
      */
-    private function playerOptimalPower(): void
+    private function playerOptimalPower()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -963,7 +963,7 @@ class GameResult
     /**
      * @return void
      */
-    private function playerRealPower(): void
+    private function playerRealPower()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1038,7 +1038,7 @@ class GameResult
     /**
      * @return void
      */
-    private function teamPower(): void
+    private function teamPower()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1114,7 +1114,7 @@ class GameResult
     /**
      * @return void
      */
-    private function teamPowerForecast(): void
+    private function teamPowerForecast()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1151,7 +1151,7 @@ class GameResult
     /**
      * @return void
      */
-    private function optimality(): void
+    private function optimality()
     {
 
         $homePowerReal = $this->result['home']['team']['power']['total'];
@@ -1211,7 +1211,7 @@ class GameResult
     /**
      * @return void
      */
-    private function shouldWin(): void
+    private function shouldWin()
     {
         $result = 0;
         if ($this->result['home']['team']['power']['percent'] > 52) {
@@ -1227,7 +1227,7 @@ class GameResult
      * @param bool $endIfScore
      * @return void
      */
-    private function generateMinute(bool $endIfScore = false): void
+    private function generateMinute($endIfScore = false)
     {
         if (!$endIfScore || $this->result['minute'] < 65) {
             $this->defence();
@@ -1243,7 +1243,7 @@ class GameResult
     /**
      * @return void
      */
-    private function defence(): void
+    private function defence()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1260,7 +1260,7 @@ class GameResult
     /**
      * @return int
      */
-    private function getLineByMinute(): int
+    private function getLineByMinute()
     {
         if (0 == $this->result['minute'] % 4) {
             $line = 1;
@@ -1278,7 +1278,7 @@ class GameResult
     /**
      * @return void
      */
-    private function forward(): void
+    private function forward()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1295,7 +1295,7 @@ class GameResult
     /**
      * @return void
      */
-    private function tactic(): void
+    private function tactic()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1312,7 +1312,7 @@ class GameResult
     /**
      * @return void
      */
-    private function generatePenalty(): void
+    private function generatePenalty()
     {
         $rudenessHome = $this->result['home']['team']['rudeness'][$this->result['minute'] % 4 + 1];
         $rudenessGuest = $this->result['guest']['team']['rudeness'][$this->result['minute'] % 4 + 1];
@@ -1336,7 +1336,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function processPenalty(string $team): void
+    private function processPenalty($team)
     {
         $this->result['player'] = rand(Position::LD, Position::RW);
         $this->eventPenalty($team);
@@ -1349,7 +1349,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function eventPenalty(string $team): void
+    private function eventPenalty($team)
     {
         if ('home' == $team) {
             $second = rand(0, 14);
@@ -1380,7 +1380,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerPenaltyIncrease(string $team): void
+    private function playerPenaltyIncrease($team)
     {
         $countEvent = count($this->result['event']);
         $key = $this->getFieldKeyByPosition($this->result['player']);
@@ -1393,7 +1393,7 @@ class GameResult
      * @param int $position
      * @return string
      */
-    private function getFieldKeyByPosition(int $position): string
+    private function getFieldKeyByPosition($position)
     {
         if (Position::LD == $position) {
             $key = 'ld';
@@ -1416,7 +1416,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function currentPenaltyIncrease(string $team): void
+    private function currentPenaltyIncrease($team)
     {
         $this->result[$team]['team']['penalty']['current'][] = [
             'minute' => $this->result['minute'],
@@ -1428,7 +1428,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function teamPenaltyIncrease(string $team): void
+    private function teamPenaltyIncrease($team)
     {
         $this->result[$team]['team']['penalty']['total']++;
         $this->result[$team]['team']['penalty'][$this->getPeriodByMinute()]++;
@@ -1455,7 +1455,7 @@ class GameResult
     /**
      * @return void
      */
-    private function currentPenaltyDecrease(): void
+    private function currentPenaltyDecrease()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -1491,7 +1491,7 @@ class GameResult
     /**
      * @return void
      */
-    private function faceOff(): void
+    private function faceOff()
     {
         $this->selectFaceOff('home');
         $this->selectFaceOff('guest');
@@ -1514,7 +1514,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function selectFaceOff(string $team): void
+    private function selectFaceOff($team)
     {
         $penaltyPosition = $this->penaltyPositionArray($team);
 
@@ -1533,7 +1533,7 @@ class GameResult
      * @param string $team
      * @return array
      */
-    private function penaltyPositionArray(string $team): array
+    private function penaltyPositionArray($team)
     {
         $penaltyPositionArray = [];
 
@@ -1554,7 +1554,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerFaceOffIncrease(string $team): void
+    private function playerFaceOffIncrease($team)
     {
         $key = $this->getFieldKeyByPosition($this->result['face_off_' . $team]);
         $this->result[$team]['player']['field'][$key]['face_off']++;
@@ -1564,7 +1564,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerFaceOffPower(string $team): void
+    private function playerFaceOffPower($team)
     {
         $key = $this->getFieldKeyByPosition($this->result['face_off_' . $team]);
         $power = $this->result[$team]['player']['field'][$key]['power_real'];
@@ -1575,7 +1575,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerFaceOffWinIncrease(string $team): void
+    private function playerFaceOffWinIncrease($team)
     {
         $key = $this->getFieldKeyByPosition($this->result['face_off_' . $team]);
         $this->result[$team]['player']['field'][$key]['face_off_win']++;
@@ -1585,7 +1585,7 @@ class GameResult
      * @param bool $endIfScore
      * @return void
      */
-    private function generateAttack(bool $endIfScore): void
+    private function generateAttack($endIfScore)
     {
         $this->processAttack('home', 'guest');
         if (!$endIfScore || $this->result['minute'] < 65) {
@@ -1599,7 +1599,7 @@ class GameResult
      * @param bool $endIfScore
      * @return void
      */
-    private function processAttack(string $team, string $opponent, bool $endIfScore = false)
+    private function processAttack($team, $opponent, $endIfScore = false)
     {
         $teamPenaltyCurrent = count($this->result[$team]['team']['penalty']['current']);
 
@@ -1653,7 +1653,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function selectPlayerShot(string $team): void
+    private function selectPlayerShot($team)
     {
         $line = $this->getLineByMinute();
 
@@ -1697,7 +1697,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function teamShotIncrease(string $team, string $opponent): void
+    private function teamShotIncrease($team, $opponent)
     {
         $this->result[$opponent]['player']['gk']['shot']++;
         $this->result[$team]['team']['shot']['total']++;
@@ -1708,7 +1708,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerShotIncrease(string $team): void
+    private function playerShotIncrease($team)
     {
         $key = $this->getFieldKeyByPosition($this->result['player']);
         $this->result[$team]['player']['field'][$key]['shot']++;
@@ -1718,7 +1718,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function playerShotPower(string $team): void
+    private function playerShotPower($team)
     {
         $key = $this->getFieldKeyByPosition($this->result['player']);
         $shot = $this->result[$team]['player']['field'][$key]['power_real'];
@@ -1730,7 +1730,7 @@ class GameResult
      * @param string $opponent
      * @return bool
      */
-    private function canScore(string $team, string $opponent): bool
+    private function canScore($team, $opponent)
     {
         $result = false;
 
@@ -1753,7 +1753,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function assist1($team): void
+    private function assist1($team)
     {
         if (rand(0, 5)) {
             $this->selectAssist1($team);
@@ -1766,7 +1766,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function selectAssist1($team): void
+    private function selectAssist1($team)
     {
         if (1 == rand(1, 3)) {
             $this->result['assist_1'] = rand(Position::LD, Position::RD);
@@ -1786,7 +1786,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function assist2($team): void
+    private function assist2($team)
     {
         if (rand(0, 5)) {
             $this->selectAssist2($team);
@@ -1799,7 +1799,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function selectAssist2($team): void
+    private function selectAssist2($team)
     {
         if (1 == rand(1, 1000)) {
             $this->result['assist_2'] = Position::GK;
@@ -1823,7 +1823,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function teamScoreIncrease($team, $opponent): void
+    private function teamScoreIncrease($team, $opponent)
     {
         $this->result[$team]['team']['score']['total']++;
         $this->result[$opponent]['player']['gk']['pass']++;
@@ -1834,7 +1834,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function eventScore($team): void
+    private function eventScore($team)
     {
         if ('home' == $team) {
             $second = rand(30, 44);
@@ -1866,7 +1866,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function plusMinusIncrease($team, $opponent): void
+    private function plusMinusIncrease($team, $opponent)
     {
         $penaltyPositionTeam = $this->penaltyPositionArray($team);
         $penaltyPositionOpponent = $this->penaltyPositionArray($opponent);
@@ -1888,7 +1888,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function playerScoreIncrease($team, $opponent): void
+    private function playerScoreIncrease($team, $opponent)
     {
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
         $countOpponentPenalty = count($this->result[$opponent]['team']['penalty']['current']);
@@ -1927,7 +1927,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function playerAssist1Increase($team, $opponent): void
+    private function playerAssist1Increase($team, $opponent)
     {
         $powerShort = '';
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
@@ -1956,7 +1956,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function playerAssist2Increase($team, $opponent): void
+    private function playerAssist2Increase($team, $opponent)
     {
         $powerShort = '';
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
@@ -1995,7 +1995,7 @@ class GameResult
      * @param string $opponent
      * @return void
      */
-    private function currentPenaltyDecreaseAfterGoal(string $team, string $opponent): void
+    private function currentPenaltyDecreaseAfterGoal($team, $opponent)
     {
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
         $countOpponentPenalty = count($this->result[$opponent]['team']['penalty']['current']);
@@ -2026,7 +2026,7 @@ class GameResult
     /**
      * @return bool
      */
-    private function getContinue(): bool
+    private function getContinue()
     {
         $result = false;
 
@@ -2047,7 +2047,7 @@ class GameResult
             Stage::ROUND_OF_16,
             Stage::QUARTER,
             Stage::SEMI,
-            Stage::FINAL,
+            Stage::FINAL_GAME,
         ]);
 
         if ($ifScoreEquals && !$ifIsLeague) {
@@ -2098,7 +2098,7 @@ class GameResult
     /**
      * @return void
      */
-    private function gameWithBullet(): void
+    private function gameWithBullet()
     {
         $this->result['home']['player']['gk']['game_with_shootout'] = 1;
         $this->result['guest']['player']['gk']['game_with_shootout'] = 1;
@@ -2107,7 +2107,7 @@ class GameResult
     /**
      * @return void
      */
-    private function generateShootout(): void
+    private function generateShootout()
     {
         $guestPowerArray = [];
         $homePowerArray = [];
@@ -2206,7 +2206,7 @@ class GameResult
      * @param string $team
      * @return void
      */
-    private function teamScoreShootoutIncrease(string $team): void
+    private function teamScoreShootoutIncrease($team)
     {
         $this->result[$team]['team']['score']['shootout']++;
     }
@@ -2217,7 +2217,7 @@ class GameResult
      * @param string $playerKey
      * @return void
      */
-    private function eventShootout(string $team, int $eventTextBulletId, string $playerKey): void
+    private function eventShootout($team, $eventTextBulletId, $playerKey)
     {
         $this->result['event'][] = [
             'event_event_text_goal_id' => 0,
@@ -2241,7 +2241,7 @@ class GameResult
     /**
      * @return void
      */
-    private function calculateStatistic(): void
+    private function calculateStatistic()
     {
         if ($this->result['home']['team']['score']['total'] == $this->result['guest']['team']['score']['total']) {
             if ($this->result['home']['team']['score']['shootout'] > $this->result['guest']['team']['score']['shootout']) {
@@ -2388,7 +2388,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    private function toDataBase(): void
+    private function toDataBase()
     {
         $this->gameToDataBase();
         $this->eventToDataBase();
@@ -2400,7 +2400,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    public function gameToDataBase(): void
+    public function gameToDataBase()
     {
         $this->game->game_guest_collision_1 = $this->result['guest']['team']['collision'][1];
         $this->game->game_guest_collision_2 = $this->result['guest']['team']['collision'][2];
@@ -2467,7 +2467,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    private function eventToDataBase(): void
+    private function eventToDataBase()
     {
         foreach ($this->result['event'] as $event) {
             Event::log($event);
@@ -2478,7 +2478,7 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    private function lineupToDataBase(): void
+    private function lineupToDataBase()
     {
         for ($i = 0; $i < 2; $i++) {
             if (0 == $i) {
@@ -2542,10 +2542,10 @@ class GameResult
      * @throws \Exception
      * @return void
      */
-    private function statisticToDataBase(): void
+    private function statisticToDataBase()
     {
-        $countryId = $this->game->teamHome->championship->championship_country_id ?? 0;
-        $divisionId = $this->game->teamHome->championship->championship_division_id ?? 0;
+        $countryId = isset($this->game->teamHome->championship->championship_country_id) ? $this->game->teamHome->championship->championship_country_id : 0;
+        $divisionId = isset($this->game->teamHome->championship->championship_division_id) ? $this->game->teamHome->championship->championship_division_id : 0;
 
         if (in_array($this->game->schedule->schedule_tournament_type_id, [
             TournamentType::FRIENDLY,
@@ -2558,7 +2558,7 @@ class GameResult
         }
 
         if (TournamentType::NATIONAL == $this->game->schedule->schedule_tournament_type_id) {
-            $divisionId = $this->game->nationalHome->worldCup->world_cup_division_id ?? 0;
+            $divisionId = isset($this->game->nationalHome->worldCup->world_cup_division_id) ? $this->game->nationalHome->worldCup->world_cup_division_id : 0;
         }
 
         if (TournamentType::CHAMPIONSHIP == $this->game->schedule->schedule_tournament_type_id && $this->game->schedule->schedule_stage_id >= Stage::ROUND_OF_16) {

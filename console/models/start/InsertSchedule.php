@@ -18,7 +18,7 @@ class InsertSchedule
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $seasonId = Season::getCurrentSeason();
         $scheduleFriendlyArray = [6, 13, 20, 27, 34, 41, 48, 55, 61, 62];
@@ -80,11 +80,11 @@ class InsertSchedule
             Stage::SEMI,
             Stage::SEMI,
             Stage::FRIENDLY,
-            Stage::FINAL,
-            Stage::FINAL,
-            Stage::FINAL,
-            Stage::FINAL,
-            Stage::FINAL,
+            Stage::FINAL_GAME,
+            Stage::FINAL_GAME,
+            Stage::FINAL_GAME,
+            Stage::FINAL_GAME,
+            Stage::FINAL_GAME,
             Stage::FRIENDLY,
             Stage::FRIENDLY,
         ];

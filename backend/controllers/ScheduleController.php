@@ -14,7 +14,7 @@ class ScheduleController extends AbstractController
      * @param int|null $id
      * @return string|\yii\web\Response
      */
-    public function actionIndex(int $id = null)
+    public function actionIndex($id = null)
     {
         if ($id) {
             Schedule::updateAllCounters(['schedule_date' => 86400 * $id]);

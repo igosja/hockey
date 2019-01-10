@@ -34,7 +34,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName(): string
+    public static function tableName()
     {
         return '{{%finance}}';
     }
@@ -53,7 +53,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [
@@ -85,7 +85,7 @@ class Finance extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert): bool
+    public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -100,7 +100,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getText(): string
+    public function getText()
     {
         $text = $this->financeText->finance_text_text;
         if (false !== strpos($text, '{player}')) {
@@ -147,7 +147,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getFinanceText(): ActiveQuery
+    public function getFinanceText()
     {
         return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id']);
     }
@@ -155,7 +155,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuilding(): ActiveQuery
+    public function getBuilding()
     {
         return $this->hasOne(Building::class, ['building_id' => 'finance_building_id']);
     }
@@ -163,7 +163,7 @@ class Finance extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer(): ActiveQuery
+    public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'finance_player_id']);
     }

@@ -25,7 +25,7 @@ class SignUp extends Model
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             [['email'], 'email'],
@@ -42,7 +42,7 @@ class SignUp extends Model
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function signUp(): bool
+    public function signUp()
     {
         if (!$this->validate()) {
             return false;
@@ -85,7 +85,7 @@ class SignUp extends Model
     /**
      * @return array
      */
-    public function attributeLabels(): array
+    public function attributeLabels()
     {
         return [
             'email' => 'Email',

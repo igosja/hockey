@@ -22,7 +22,7 @@ class PollController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
         $searchModel = new PollSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
@@ -68,7 +68,7 @@ class PollController extends AbstractController
      * @throws \yii\db\Exception
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate($id)
     {
         $model = Poll::find()->where(['poll_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -97,7 +97,7 @@ class PollController extends AbstractController
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionView(int $id): string
+    public function actionView($id)
     {
         $model = Poll::find()->where(['poll_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -125,7 +125,7 @@ class PollController extends AbstractController
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDelete(int $id): Response
+    public function actionDelete($id)
     {
         $model = Poll::find()->where(['poll_id' => $id])->limit(1)->one();
         $this->notFound($model);
@@ -146,7 +146,7 @@ class PollController extends AbstractController
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionApprove(int $id): Response
+    public function actionApprove($id)
     {
         $model = Poll::find()->where(['poll_id' => $id])->limit(1)->one();
         $this->notFound($model);

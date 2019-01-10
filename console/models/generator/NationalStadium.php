@@ -14,7 +14,7 @@ class NationalStadium
     /**
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $nationalArray = National::find()
             ->orderBy(['national_id' => SORT_ASC])

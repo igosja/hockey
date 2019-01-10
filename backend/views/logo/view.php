@@ -36,33 +36,33 @@ use yii\widgets\DetailView;
             [
                 'captionOptions' => ['class' => 'col-lg-6'],
                 'label' => 'ID',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     return $model->logo_id;
                 },
             ],
             [
                 'label' => 'Время заявки',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     return FormatHelper::asDateTime($model->logo_date);
                 },
             ],
             [
                 'label' => 'Команда',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     return $model->team->team_name;
                 },
             ],
             [
                 'format' => 'raw',
                 'label' => 'Пользователь',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     return $model->user->userLink();
                 },
             ],
             [
                 'format' => 'raw',
                 'label' => 'Старый логотип',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     if (file_exists(Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png')) {
                         return Html::img(
                             '/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png'),
@@ -78,7 +78,7 @@ use yii\widgets\DetailView;
             [
                 'format' => 'raw',
                 'label' => 'Новый логотип',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     if (file_exists(Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png')) {
                         return Html::img(
                             '/upload/img/team/125/' . $model->team->team_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png'),
@@ -93,7 +93,7 @@ use yii\widgets\DetailView;
             ],
             [
                 'label' => 'Комментарий',
-                'value' => function (Logo $model): string {
+                'value' => function (Logo $model) {
                     return $model->logo_text;
                 },
             ],

@@ -20,7 +20,7 @@ class InsertSwiss
      * @throws \yii\db\Exception
      * @return void
      */
-    public function execute(): void
+    public function execute()
     {
         $schedule = Schedule::find()
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
@@ -73,7 +73,7 @@ class InsertSwiss
      * @return array
      * @throws \yii\db\Exception
      */
-    private function swissGame(int $tournamentTypeId, int $stageId): array
+    private function swissGame($tournamentTypeId, $stageId)
     {
         $positionDifference = 1;
 
@@ -88,7 +88,7 @@ class InsertSwiss
      * @return Swiss[]
      * @throws \yii\db\Exception
      */
-    private function swissPrepare(int $tournamentTypeId): array
+    private function swissPrepare($tournamentTypeId)
     {
         Yii::$app->db->createCommand()->truncateTable(Swiss::tableName())->execute();
 
@@ -150,7 +150,7 @@ class InsertSwiss
      * @param int $stageId
      * @return array
      */
-    private function swiss(int $tournamentTypeId, int $positionDifference, array $teamArray, int $stageId): array
+    private function swiss($tournamentTypeId, $positionDifference, array $teamArray, $stageId)
     {
         if (TournamentType::OFF_SEASON == $tournamentTypeId) {
             if (!$gameArray = $this->swissOne($tournamentTypeId, $positionDifference, $teamArray)) {
@@ -172,7 +172,7 @@ class InsertSwiss
      * @param array $gameArray
      * @return array
      */
-    private function swissOne(int $tournamentTypeId, int $difference, array $teamArray, array $gameArray = []): array
+    private function swissOne($tournamentTypeId, $difference, array $teamArray, array $gameArray = [])
     {
         $homeTeam = $this->getSwissHomeTeam($teamArray);
         $guestTeam = $this->getSwissGuestTeam($teamArray, $homeTeam, $difference);
@@ -202,7 +202,7 @@ class InsertSwiss
      * @param Swiss[] $teamArray
      * @return array
      */
-    private function getSwissHomeTeam(array $teamArray): array
+    private function getSwissHomeTeam(array $teamArray)
     {
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest) {
@@ -224,7 +224,7 @@ class InsertSwiss
      * @param int $positionDifference
      * @return array
      */
-    private function getSwissGuestTeam(array $teamArray, array $homeTeam, int $positionDifference): array
+    private function getSwissGuestTeam(array $teamArray, array $homeTeam, $positionDifference)
     {
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             if (
@@ -250,7 +250,7 @@ class InsertSwiss
      * @param int $stageId
      * @return array
      */
-    private function swissConference(array $teamArray, int $stageId): array
+    private function swissConference(array $teamArray, $stageId)
     {
         if (Stage::TOUR_1 == $stageId) {
             $keyArray = [
