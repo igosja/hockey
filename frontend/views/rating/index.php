@@ -310,6 +310,25 @@ use yii\helpers\Html;
                     return $model->user->country ? $model->user->country->countryImage() : '';
                 }
             ];
+            $columns[] = [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'С',
+                'footerOptions' => ['title' => 'Страна'],
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-1', 'title' => 'Страна'],
+                'label' => 'С',
+                'value' => function (RatingUser $model) {
+                    return $model->user->country ? $model->user->country->countryImage() : '';
+                }
+            ];
+            $columns[] = [
+                'contentOptions' => ['class' => 'text-center'],
+                'footer' => 'Рейтинг',
+                'label' => 'Рейтинг',
+                'value' => function (RatingUser $model) {
+                    return $model->user->user_rating;
+                }
+            ];
         } else {
             $columns[] = [
                 'footer' => 'Страна',
