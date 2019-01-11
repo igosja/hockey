@@ -168,4 +168,42 @@ class SiteController extends AbstractController
         Site::switchStatus();
         return $this->redirect(Yii::$app->request->referrer ? Yii::$app->request->referrer : ['site/index']);
     }
+
+    /**
+     * @param null $id
+     * @return string|Response
+     * @throws \Exception
+     */
+    public function actionVersion($id = null)
+    {
+        $site = Site::find()
+            ->where(['site_id' => 1])
+            ->limit(1)
+            ->one();
+        if ($id) {
+            if (1 == $id) {
+                $site->site_version_1 = $site->site_version_1 + 1;
+                $site->site_version_2 = 0;
+                $site->site_version_3 = 0;
+            } elseif (2 == $id) {
+                $site->site_version_2 = $site->site_version_2 + 1;
+                $site->site_version_3 = 0;
+            } else {
+                $site->site_version_3 = $site->site_version_3 + 1;
+            }
+
+            $site->site_version_date = time();
+            $site->save();
+
+            $this->setSuccessFlash();
+            return $this->redirect(['site/version']);
+        }
+
+        $this->view->title = 'Версия сайта';
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('version', [
+            'site' => $site,
+        ]);
+    }
 }
