@@ -303,10 +303,11 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Страна'],
+                'format' => 'raw',
                 'headerOptions' => ['title' => 'Страна'],
                 'label' => 'С',
                 'value' => function (RatingUser $model) {
-                    return $model->user->country ? $model->user->country->countryImage() : '';
+                    return $model->user->country ? $model->user->country->countryLink() : '';
                 }
             ];
         } else {
