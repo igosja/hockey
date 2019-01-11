@@ -306,7 +306,7 @@ use yii\helpers\Html;
                 'headerOptions' => ['title' => 'Страна'],
                 'label' => 'С',
                 'value' => function (RatingUser $model) {
-                    return $model->user->country->countryImage();
+                    return $model->user->country ? $model->user->country->countryImage() : '';
                 }
             ];
         } else {
