@@ -47,12 +47,19 @@ class ScheduleController extends AbstractController
             'query' => $query,
         ]);
 
+        $scheduleId = Schedule::find()
+            ->select(['schedule_id'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->limit(1)
+            ->scalar();
+
         $this->setSeoTitle('Рассписание');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'seasonArray' => $seasonArray,
             'seasonId' => $seasonId,
+            'scheduleId' => $scheduleId,
         ]);
     }
 

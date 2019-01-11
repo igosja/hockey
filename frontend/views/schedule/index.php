@@ -10,6 +10,7 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
+ * @var int $scheduleId
  */
 
 ?>
@@ -75,6 +76,12 @@ use yii\helpers\Html;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function (Schedule $model) use ($scheduleId) {
+                if ($scheduleId == $model->schedule_id) {
+                    return ['class' => 'info'];
+                }
+                return [];
+            },
             'showFooter' => true,
             'summary' => false,
         ]);
