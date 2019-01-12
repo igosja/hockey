@@ -75,17 +75,15 @@ class PresidentVoteStatus
     private function toClose(ElectionPresident $electionPresident)
     {
         $electionPresidentApplicationArray = ElectionPresidentApplication::find()
+            ->alias('epa')
             ->joinWith([
                 'electionPresidentVote' => function (ActiveQuery $query) {
                     return $query
-                        ->select([
-                            'election_president_vote_application_id',
-                            'COUNT(election_president_vote_application_id) AS election_president_vote_vote',
-                        ])
                         ->groupBy(['election_president_vote_application_id']);
                 },
                 'user',
             ])
+            ->select(['epa.*', 'COUNT(election_president_vote_application_id) AS election_president_vote_vote'])
             ->where(['election_president_application_election_id' => $electionPresident->election_president_id])
             ->andWhere(['!=', 'election_president_application_user_id', 0])
             ->andWhere([

@@ -163,6 +163,10 @@ class Game extends AbstractActiveRecord
     const TICKET_PRICE_MAX = 50;
     const TICKET_PRICE_MIN = 10;
 
+    public $penalty;
+    public $score;
+    public $shot;
+
     /**
      * @return string
      */
