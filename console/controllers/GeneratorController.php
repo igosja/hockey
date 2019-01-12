@@ -5,6 +5,7 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
+use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
 use console\models\generator\CountryAuto;
@@ -174,8 +175,6 @@ class GeneratorController extends AbstractController
             new NationalVoteStatus(),
             new NationalViceVoteStatus(),
             new NationalFire(),
-        ];
-        $modelArray = [
             new PresidentVoteStatus(),
             new PresidentViceVoteStatus(),
             new PresidentFire(),
@@ -205,7 +204,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-//            (new CheckCronDate())->execute();
+            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
