@@ -4,8 +4,12 @@ use common\components\FormatHelper;
 use common\models\Country;
 use yii\helpers\Html;
 
+if (!isset($id)) {
+    $id = Yii::$app->request->get('id');
+}
+
 $country = Country::find()
-    ->where(['country_id' => Yii::$app->request->get('id')])
+    ->where(['country_id' => $id])
     ->limit(1)
     ->one();
 $file_name = 'file_name';
@@ -97,17 +101,19 @@ $file_name = 'file_name';
                 'Создать новость',
                 ['country/news-create', 'id' => Yii::$app->request->get('id')]
             ); ?>
-            |
-            <?= Html::a(
-                'Создать опрос',
-                ['country/poll-create', 'id' => Yii::$app->request->get('id')]
-            ); ?>
-            <?php if (Yii::$app->user->id == $country->country_president_id): ?>
+            <?php if (false) : ?>
                 |
                 <?= Html::a(
-                    'Распределить фонд',
-                    ['country/money-transfer', 'id' => Yii::$app->request->get('id')]
+                    'Создать опрос',
+                    ['country/poll-create', 'id' => Yii::$app->request->get('id')]
                 ); ?>
+                <?php if (Yii::$app->user->id == $country->country_president_id): ?>
+                    |
+                    <?= Html::a(
+                        'Распределить фонд',
+                        ['country/money-transfer', 'id' => Yii::$app->request->get('id')]
+                    ); ?>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if ((Yii::$app->user->id == $country->country_president_id && $country->country_president_vice_id) || Yii::$app->user->id == $country->country_president_vice_id) : ?>
                 |
