@@ -6,6 +6,7 @@ use common\models\Country;
 use common\models\Finance;
 use common\models\LeagueDistribution;
 use common\models\News;
+use common\models\NewsComment;
 use common\models\Poll;
 use common\models\PollStatus;
 use common\models\Season;
@@ -13,6 +14,7 @@ use common\models\Team;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\filters\AccessControl;
 
 /**
  * Class CountryController
@@ -20,6 +22,26 @@ use yii\db\ActiveQuery;
  */
 class CountryController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['fire', 'news-create'],
+                'rules' => [
+                    [
+                        'actions' => ['fire', 'news-create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @param integer $id
      * @return string
@@ -118,6 +140,53 @@ class CountryController extends AbstractController
     }
 
     /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionNewsView($id)
+    {
+        $news = News::find()->where(['news_id' => $id])->one();
+        $this->notFound($news);
+
+        $model = new NewsComment();
+        if ($model->addComment()) {
+            $this->setSuccessFlash('Комментарий успешно сохранён');
+            return $this->refresh();
+        }
+
+        $query = NewsComment::find()
+            ->with([
+                'user' => function (ActiveQuery $query) {
+                    return $query->select(['user_id', 'user_login']);
+                }
+            ])
+            ->select([
+                'news_comment_id',
+                'news_comment_date',
+                'news_comment_news_id',
+                'news_comment_text',
+                'news_comment_user_id',
+            ])
+            ->where(['news_comment_news_id' => $id])
+            ->orderBy(['news_comment_id' => SORT_ASC]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeNewsComment'],
+            ],
+        ]);
+
+        $this->setSeoTitle('Комментарии к новости');
+
+        return $this->render('news-view', [
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'news' => $news,
+        ]);
+    }
+
+    /**
      * @param int $id
      * @return string|\yii\web\Response
      */
@@ -195,6 +264,74 @@ class CountryController extends AbstractController
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionNewsCreate($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($this->user->user_id != $country->country_president_id) {
+            $this->setErrorFlash('Только президент федерации может создавать новости');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $model = new News();
+        $model->news_country_id = $id;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Новость успешно сохранена');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        return $this->render('news-create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
+     */
+    public function actionFire($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Вы не занимаете руководящей должности в этой стране');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        if (!$country->country_president_vice_id) {
+            $this->setErrorFlash('Нельзя отказаться от должности если в федерации нет заместителя');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            if ($this->user->user_id == $country->country_president_id) {
+                $country->firePresident();
+            } elseif ($this->user->user_id == $country->country_president_vice_id) {
+                $country->fireVicePresident();
+            }
+
+            $this->setSuccessFlash('Вы успешно отказались от должности');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $this->setSeoTitle('Отказ от должности');
+
+        return $this->render('fire', [
+            'id' => $id,
         ]);
     }
 }

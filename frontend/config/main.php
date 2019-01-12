@@ -87,6 +87,8 @@ return [
                 'base/free' => 'base-free/view',
                 'base/free/build/<building:\d+>' => 'base-free/build',
                 'base/destroy/<building:\d+>' => 'base/destroy',
+                'country/news/create/<id:\d+>' => 'country/news-create',
+                'country/news/view/<id:\d+>' => 'country/news-view',
                 'forum/message/delete/<id:\d+>' => 'forum/message-delete',
                 'forum/message/move/<id:\d+>' => 'forum/message-move',
                 'forum/message/update/<id:\d+>' => 'forum/message-update',

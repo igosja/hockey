@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -99,6 +102,78 @@ class Country extends AbstractActiveRecord
     public static function selectOptions()
     {
         return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
+    }
+
+    /**
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function firePresident()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            History::log([
+                'history_country_id' => $this->country_id,
+                'history_history_text_id' => HistoryText::USER_PRESIDENT_OUT,
+                'history_user_id' => $this->country_president_id,
+            ]);
+            History::log([
+                'history_country_id' => $this->country_id,
+                'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_OUT,
+                'history_user_id' => $this->country_president_vice_id,
+            ]);
+            History::log([
+                'history_country_id' => $this->country_id,
+                'history_history_text_id' => HistoryText::USER_PRESIDENT_IN,
+                'history_user_id' => $this->country_president_vice_id,
+            ]);
+
+            $this->country_president_id = $this->country_president_vice_id;
+            $this->country_president_vice_id = 0;
+            $this->save(true, ['country_president_id', 'country_president_vice_id']);
+
+            foreach ($this->city as $city) {
+                foreach ($city->stadium as $stadium) {
+                    $stadium->team->team_attitude_president = Attitude::NEUTRAL;
+                    $stadium->team->save(true, ['team_attitude_president']);
+                }
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+            return false;
+        }
+
+        $transaction->commit();
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function fireVicePresident()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            History::log([
+                'history_country_id' => $this->country_id,
+                'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_OUT,
+                'history_user_id' => $this->country_president_vice_id,
+            ]);
+
+            $this->country_president_vice_id = 0;
+            $this->save(true, ['country_president_vice_id']);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+            return false;
+        }
+
+        $transaction->commit();
+        return true;
     }
 
     /**
