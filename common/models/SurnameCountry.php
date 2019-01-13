@@ -10,6 +10,8 @@ use yii\db\Expression;
  *
  * @property int $surname_country_country_id
  * @property int $surname_country_surname_id
+ *
+ * @property Surname $surname
  */
 class SurnameCountry extends AbstractActiveRecord
 {
@@ -40,6 +42,7 @@ class SurnameCountry extends AbstractActiveRecord
     public static function getRandSurnameId($countryId, $andWhere = '1=1')
     {
         return self::find()
+            ->joinWith(['surname'])
             ->select(['surname_country_surname_id'])
             ->where(['surname_country_country_id' => $countryId])
             ->andWhere($andWhere)
@@ -78,5 +81,13 @@ class SurnameCountry extends AbstractActiveRecord
         }
 
         return $surnameId;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSurname()
+    {
+        return $this->hasOne(Surname::class, ['surname_id' => 'surname_country_surname_id']);
     }
 }
