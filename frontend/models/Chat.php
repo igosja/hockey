@@ -2,10 +2,12 @@
 
 namespace frontend\models;
 
+use common\components\FormatHelper;
 use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 use yii\helpers\Json;
 
 /**
@@ -97,9 +99,10 @@ class Chat extends Model
     }
 
     /**
-     * @return false|string
+     * @param int $lastDate
+     * @return array|bool
      */
-    public function chatArray()
+    public function chatArray($lastDate = 0)
     {
         $file = Yii::getAlias('@webroot') . '/chat.txt';
         try {
@@ -111,6 +114,24 @@ class Chat extends Model
             return false;
         }
         $content = Json::decode($content);
-        return $content;
+        $result = [
+            'date' => 0,
+            'message' => [],
+        ];
+        foreach ($content as $value) {
+            if ($value['date'] > $lastDate) {
+                $result['message'][] = [
+                    'class' => $value['userId'] == Yii::$app->user->id ? 'message-from-me' : 'message-to-me',
+                    'date' => FormatHelper::asDateTime($value['date']),
+                    'text' => nl2br(Html::encode($value['text'])),
+                    'userId' => $value['userId'],
+                    'userLink' => $value['userLink'],
+                ];
+            }
+        }
+        if (isset($value)) {
+            $result['date'] = $value['date'];
+        }
+        return $result;
     }
 }
