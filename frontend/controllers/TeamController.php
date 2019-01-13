@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\models\Achievement;
+use common\models\Country;
 use common\models\ElectionPresident;
 use common\models\ElectionPresidentApplication;
 use common\models\ElectionPresidentVote;
@@ -14,6 +15,7 @@ use common\models\FriendlyInviteStatus;
 use common\models\Game;
 use common\models\History;
 use common\models\Loan;
+use common\models\LoanVote;
 use common\models\Logo;
 use common\models\Mood;
 use common\models\Player;
@@ -21,6 +23,7 @@ use common\models\Season;
 use common\models\Team;
 use common\models\TeamAsk;
 use common\models\Transfer;
+use common\models\TransferVote;
 use common\models\User;
 use Exception;
 use frontend\models\ChangeMyTeam;
@@ -1121,6 +1124,56 @@ class TeamController extends AbstractController
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['president/view']
                     );
+            }
+        }
+
+        $presidentCountryArray = Country::find()
+            ->where([
+                'or',
+                ['country_president_id' => $this->user->user_id],
+                ['country_president_vice_id' => $this->user->user_id],
+            ])
+            ->all();
+
+        if ($presidentCountryArray) {
+            $transfer = Transfer::find()
+                ->where([
+                    'not',
+                    [
+                        'transfer_id' => TransferVote::find()
+                            ->select(['transfer_vote_transfer_id'])
+                            ->where(['transfer_vote_user_id' => $this->user->user_id])
+                    ]
+                ])
+                ->andWhere(['transfer_checked' => 0])
+                ->andWhere(['!=', 'transfer_ready', 0])
+                ->limit(1)
+                ->one();
+            if ($transfer) {
+                $result[] = 'У вас есть непроверенные сделки. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['transfer/view', 'id' => $transfer->transfer_id]
+                    );
+            } else {
+                $loan = Loan::find()
+                    ->where([
+                        'not',
+                        [
+                            'loan_id' => LoanVote::find()
+                                ->select(['loan_vote_loan_id'])
+                                ->where(['loan_vote_user_id' => $this->user->user_id])
+                        ]
+                    ])
+                    ->andWhere(['loan_checked' => 0])
+                    ->andWhere(['!=', 'loan_ready', 0])
+                    ->limit(1)
+                    ->one();
+                if ($loan) {
+                    $result[] = 'У вас есть непроверенные сделки. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['loan/view', 'id' => $loan->loan_id]
+                        );
+                }
             }
         }
 
