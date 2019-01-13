@@ -30,10 +30,10 @@ class CountryController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['fire', 'news-create'],
+                'only' => ['fire', 'news-create', 'news-update'],
                 'rules' => [
                     [
-                        'actions' => ['fire', 'news-create'],
+                        'actions' => ['fire', 'news-create', 'news-update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -121,7 +121,7 @@ class CountryController extends AbstractController
                     return $query->select(['user_id', 'user_login']);
                 },
             ])
-            ->select(['news_id', 'news_date', 'news_text', 'news_title', 'news_user_id'])
+            ->select(['news_id', 'news_country_id', 'news_date', 'news_text', 'news_title', 'news_user_id'])
             ->where(['news_country_id' => $id])
             ->orderBy(['news_id' => SORT_DESC]);
 
@@ -140,13 +140,14 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @param $id
+     * @param int $id
+     * @param int $newsId
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionNewsView($id)
+    public function actionNewsView($id, $newsId)
     {
-        $news = News::find()->where(['news_id' => $id])->one();
+        $news = News::find()->where(['news_id' => $newsId])->one();
         $this->notFound($news);
 
         $model = new NewsComment();
@@ -278,7 +279,7 @@ class CountryController extends AbstractController
             ->where(['country_id' => $id])
             ->limit(1)
             ->one();
-        if ($this->user->user_id != $country->country_president_id) {
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
             $this->setErrorFlash('Только президент федерации может создавать новости');
             return $this->redirect(['country/news', 'id' => $id]);
         }
@@ -291,9 +292,59 @@ class CountryController extends AbstractController
             return $this->redirect(['country/news', 'id' => $id]);
         }
 
+        $this->setSeoTitle('Создание новости');
+
         return $this->render('news-create', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @param $id
+     * @param $newsId
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionNewsUpdate($id, $newsId)
+    {
+        $model = News::find()
+            ->where(['news_id' => $newsId, 'news_country_id' => $id, 'news_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Новость успешно сохранена');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $this->setSeoTitle('Редактирование новости');
+
+        return $this->render('news-update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param $newsId
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionNewsDelete($id, $newsId)
+    {
+        $model = News::find()
+            ->where(['news_id' => $newsId, 'news_country_id' => $id, 'news_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $model->delete();
+
+        $this->setSuccessFlash('Новость успешно удалена');
+        return $this->redirect(['country/news', 'id' => $id]);
     }
 
     /**

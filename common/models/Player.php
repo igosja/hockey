@@ -289,11 +289,21 @@ class Player extends AbstractActiveRecord
                 ->andWhere(['!=', 'scout_ready', 0])
                 ->count();
 
-            if (2 == $countScout || !$showOnlyIfStudied) {
+            if (2 == $countScout) {
                 $styleArray = Style::find()
                     ->select(['style_id', 'style_name'])
-                    ->where(['not', ['style_id' => [Style::NORMAL, $this->player_style_id]]])
-                    ->orWhere(['style_id' => $this->player_style_id])
+                    ->where(['style_id' => $this->player_style_id])
+                    ->orderBy(['style_id' => SORT_ASC])
+                    ->all();
+            } elseif (!$showOnlyIfStudied) {
+                $in = [$this->player_style_id];
+                for ($i = 1; $i < 3 - $countScout; $i++) {
+                    $styleToIn = Style::getRandStyleId($in);
+                    $in[] = $styleToIn;
+                }
+                $styleArray = Style::find()
+                    ->select(['style_id', 'style_name'])
+                    ->where(['style_id' => $in])
                     ->orderBy(['style_id' => SORT_ASC])
                     ->limit(3 - $countScout)
                     ->all();

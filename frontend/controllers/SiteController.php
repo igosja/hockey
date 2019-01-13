@@ -75,7 +75,7 @@ class SiteController extends AbstractController
             ->orderBy(['user_id' => SORT_ASC])
             ->all();
         $countryNews = News::find()
-            ->where(['!=', 'news_country_id', null])
+            ->where(['!=', 'news_country_id', 0])
             ->orderBy(['news_id' => SORT_DESC])
             ->limit(10)
             ->one();
@@ -93,7 +93,7 @@ class SiteController extends AbstractController
             ->orderBy(['forum_message_id' => SORT_DESC])
             ->limit(10)
             ->all();
-        $news = News::find()->orderBy(['news_id' => SORT_DESC])->one();
+        $news = News::find()->where(['news_country_id' => 0])->orderBy(['news_id' => SORT_DESC])->one();
         $reviews = Review::find()->orderBy(['review_id' => SORT_DESC])->limit(10)->all();
 
         $this->view->title = 'Хоккейный онлайн-менеджер';
