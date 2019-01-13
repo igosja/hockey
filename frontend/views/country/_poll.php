@@ -1,5 +1,6 @@
 <?php
 
+use common\models\PollStatus;
 use yii\helpers\Html;
 
 /**
@@ -13,8 +14,16 @@ use yii\helpers\Html;
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <?= Html::a(
                     '<span class="strong">' . $model->poll_text . '</span>',
-                    ['country/poll-view', 'id' => $model->poll_id]
+                    ['poll/view', 'id' => $model->poll_id]
                 ); ?>
+                <?php if ($model->poll_poll_status_id == PollStatus::NEW_ONE && !Yii::$app->user->isGuest && $model->poll_user_id == Yii::$app->user->id) : ?>
+                    <span class="text-size-3 font-grey">
+                        <?= Html::a(
+                            'Удалить',
+                            ['country/poll-delete', 'id' => $model->poll_country_id, 'pollId' => $model->poll_id]
+                        ); ?>
+                    </span>
+                <?php endif; ?>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
                 <?= $model->pollStatus->poll_status_name; ?>

@@ -30,7 +30,6 @@ use yii\web\IdentityInterface;
  * @property string $user_city
  * @property string $user_code
  * @property int $user_country_id
- * @property int $user_country_news_id
  * @property int $user_date_block
  * @property int $user_date_block_comment
  * @property int $user_date_block_comment_deal
@@ -108,7 +107,6 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_block_comment_news_block_reason_id',
                     'user_block_forum_block_reason_id',
                     'user_country_id',
-                    'user_country_news_id',
                     'user_date_block',
                     'user_date_block_comment',
                     'user_date_block_comment_deal',

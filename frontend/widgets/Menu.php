@@ -6,6 +6,7 @@ use common\models\Message;
 use common\models\News;
 use common\models\Support;
 use common\models\User;
+use frontend\controllers\AbstractController;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -203,6 +204,7 @@ class Menu extends Widget
      */
     private function setMenuItemList()
     {
+        $countryNews = 0;
         $messenger = 0;
         $news = 0;
         $support = 0;
@@ -222,11 +224,28 @@ class Menu extends Widget
 
             $lastNews = News::find()
                 ->select(['news_id'])
+                ->where(['news_country_id' => 0])
                 ->orderBy(['news_id' => SORT_DESC])
                 ->scalar();
 
             if ($lastNews > $lastUserNews) {
                 $news = 1;
+            }
+
+            /**
+             * @var AbstractController $controller
+             */
+            $controller = Yii::$app->controller;
+            if ($controller->myTeam) {
+                $lastCountryNews = News::find()
+                    ->select(['news_id'])
+                    ->where(['news_country_id' => $controller->myTeam->stadium->city->country->country_id])
+                    ->orderBy(['news_id' => SORT_DESC])
+                    ->scalar();
+
+                if ($lastCountryNews > $controller->myTeam->team_news_id) {
+                    $countryNews = 1;
+                }
             }
         }
 
@@ -241,6 +260,7 @@ class Menu extends Widget
                 'url' => ['chat/index'],
             ],
             self::ITEM_FEDERATION => [
+                'css' => $countryNews ? 'red' : '',
                 'label' => 'Федерация',
                 'url' => ['country/news'],
             ],

@@ -34,6 +34,7 @@ use yii\helpers\Html;
  * @property int $team_mood_rest
  * @property int $team_mood_super
  * @property string $team_name
+ * @property int $team_news_id
  * @property int $team_player
  * @property int $team_power_c_21
  * @property int $team_power_c_26
@@ -111,6 +112,7 @@ class Team extends AbstractActiveRecord
                     'team_free_base',
                     'team_mood_rest',
                     'team_mood_super',
+                    'team_news_id',
                     'team_player',
                     'team_power_c_21',
                     'team_power_c_26',
