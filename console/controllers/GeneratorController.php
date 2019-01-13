@@ -143,8 +143,6 @@ class GeneratorController extends AbstractController
             new PlayerTire(),
             new UpdateTraining(),
             new UpdatePhysical(),
-        ];
-        $modelArray = [
             new UpdateSchool(),
             new UpdateScout(),
             new UpdateBuildingBase(),
