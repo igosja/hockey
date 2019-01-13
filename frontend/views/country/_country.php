@@ -4,12 +4,8 @@ use common\components\FormatHelper;
 use common\models\Country;
 use yii\helpers\Html;
 
-if (!isset($id)) {
-    $id = Yii::$app->request->get('id');
-}
-
 $country = Country::find()
-    ->where(['country_id' => $id])
+    ->where(['country_id' => Yii::$app->request->get('id')])
     ->limit(1)
     ->one();
 $file_name = 'file_name';

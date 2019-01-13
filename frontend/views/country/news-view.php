@@ -15,7 +15,7 @@ use yii\widgets\ListView;
 
 $user = Yii::$app->user->identity;
 
-print $this->render('_country', ['id' => $news->news_country_id]);
+print $this->render('_country');
 
 ?>
 <div class="row">
@@ -26,6 +26,19 @@ print $this->render('_country', ['id' => $news->news_country_id]);
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-1 strong">
         <?= $news->news_title; ?>
+        <?php if (!Yii::$app->user->isGuest && $news->news_user_id == Yii::$app->user->id) : ?>
+            <span class="text-size-3 font-grey">
+                <?= Html::a(
+                    'Редактировать',
+                    ['country/news-update', 'id' => $news->news_country_id, 'newsId' => $news->news_id]
+                ); ?>
+                |
+                <?= Html::a(
+                    'Удалить',
+                    ['country/news-delete', 'id' => $news->news_country_id, 'newsId' => $news->news_id]
+                ); ?>
+            </span>
+        <?php endif; ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
         <?= FormatHelper::asDateTime($news->news_date); ?>

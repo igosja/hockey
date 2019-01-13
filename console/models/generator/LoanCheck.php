@@ -59,7 +59,7 @@ class LoanCheck
                 $loan->buyer->save();
 
                 $loan->loan_cancel = time();
-                $loan->save();
+                $loan->save(true, ['loan_cancel']);
             }
         }
 
@@ -69,7 +69,7 @@ class LoanCheck
                 'and',
                 ['!=', 'loan_ready', 0],
                 ['loan_checked' => 0],
-                'FROM_UNIXTIME(`loan_ready`+604800, "%Y-%m-%d")=CURDATE()',
+                'FROM_UNIXTIME(`loan_ready`+604800, "%Y-%m-%d")<=CURDATE()',
             ]
         );
     }
