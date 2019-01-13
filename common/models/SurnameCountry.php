@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\Expression;
+
 /**
  * Class SurnameCountry
  * @package common\models
@@ -56,7 +58,7 @@ class SurnameCountry extends AbstractActiveRecord
     {
         $teamSurnameArray = Surname::find()
             ->joinWith(['player'])
-            ->select('SUBSTRING(surname_name, 1, ' . $length . ') AS surname_name')
+            ->select(['surname_name' => new Expression('SUBSTRING(`surname_name`, 1, ' . $length . ')')])
             ->where(['player_team_id' => $teamId])
             ->orderBy(['player_id' => SORT_ASC])
             ->column();
