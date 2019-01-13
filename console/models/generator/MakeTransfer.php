@@ -139,8 +139,11 @@ class MakeTransfer
                 ->joinWith(['team'])
                 ->with(['team'])
                 ->where(['transfer_application_transfer_id' => $transfer->transfer_id])
-                ->andWhere(['not', ['transfer_application_team_id' => $teamArray]])
-                ->andWhere(['not', ['transfer_application_user_id' => $userArray]])
+                ->andWhere([
+                    'or',
+                    ['not', ['transfer_application_team_id' => $teamArray]],
+                    ['not', ['transfer_application_user_id' => $userArray]]
+                ])
                 ->andWhere('transfer_application_price<=team_finance')
                 ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
                 ->limit(1)

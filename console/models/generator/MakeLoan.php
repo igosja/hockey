@@ -139,8 +139,11 @@ class MakeLoan
                 ->joinWith(['team'])
                 ->with(['team'])
                 ->where(['loan_application_loan_id' => $loan->loan_id])
-                ->andWhere(['not', ['loan_application_team_id' => $teamArray]])
-                ->andWhere(['not', ['loan_application_user_id' => $userArray]])
+                ->andWhere([
+                    'or',
+                    ['not', ['loan_application_team_id' => $teamArray]],
+                    ['not', ['loan_application_user_id' => $userArray]]
+                ])
                 ->andWhere('loan_application_price*loan_application_day<=team_finance')
                 ->orderBy(new Expression('loan_application_price*loan_application_day DESC, loan_application_date ASC'))
                 ->limit(1)
