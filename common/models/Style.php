@@ -38,13 +38,15 @@ class Style extends AbstractActiveRecord
     }
 
     /**
-     * @return false|null|string
+     * @param null $notIn
+     * @return false|string|null
      */
-    public static function getRandStyleId()
+    public static function getRandStyleId($notIn = null)
     {
         return self::find()
             ->select(['style_id'])
             ->where(['!=', 'style_id', self::NORMAL])
+            ->andFilterWhere(['not', ['style_id' => $notIn]])
             ->orderBy('RAND()')
             ->limit(1)
             ->scalar();

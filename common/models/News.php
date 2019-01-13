@@ -76,6 +76,17 @@ class News extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->newsComment as $newsComment) {
+            $newsComment->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return string
      */
     public function text()
