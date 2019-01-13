@@ -40,6 +40,7 @@ class MakeTransfer
             ->with(['seller', 'player.schoolTeam'])
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
+            ->where(['transfer_id' => 5])
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
             ->each();
         foreach ($transferArray as $transfer) {
@@ -98,8 +99,8 @@ class MakeTransfer
                 ->andWhere(['!=', 'transfer_user_seller_id', 0])
                 ->andWhere([
                     'or',
-                    ['transfer_user_seller_id' => $transfer->transfer_team_seller_id],
-                    ['transfer_user_buyer_id' => $transfer->transfer_team_seller_id],
+                    ['transfer_user_seller_id' => $transfer->transfer_user_seller_id],
+                    ['transfer_user_buyer_id' => $transfer->transfer_user_seller_id],
                 ])
                 ->andWhere(['!=', 'transfer_ready', 0])
                 ->all();
@@ -119,8 +120,8 @@ class MakeTransfer
                 ->andWhere(['!=', 'loan_user_seller_id', 0])
                 ->andWhere([
                     'or',
-                    ['loan_user_seller_id' => $transfer->transfer_team_seller_id],
-                    ['loan_user_buyer_id' => $transfer->transfer_team_seller_id],
+                    ['loan_user_seller_id' => $transfer->transfer_user_seller_id],
+                    ['loan_user_buyer_id' => $transfer->transfer_user_seller_id],
                 ])
                 ->andWhere(['!=', 'loan_ready', 0])
                 ->all();

@@ -99,8 +99,8 @@ class MakeLoan
                 ->andWhere(['!=', 'transfer_user_seller_id', 0])
                 ->andWhere([
                     'or',
-                    ['transfer_user_seller_id' => $loan->loan_team_seller_id],
-                    ['transfer_user_buyer_id' => $loan->loan_team_seller_id],
+                    ['transfer_user_seller_id' => $loan->loan_user_seller_id],
+                    ['transfer_user_buyer_id' => $loan->loan_user_seller_id],
                 ])
                 ->andWhere(['!=', 'transfer_ready', 0])
                 ->all();
@@ -120,8 +120,8 @@ class MakeLoan
                 ->andWhere(['!=', 'loan_user_seller_id', 0])
                 ->andWhere([
                     'or',
-                    ['loan_user_seller_id' => $loan->loan_team_seller_id],
-                    ['loan_user_buyer_id' => $loan->loan_team_seller_id],
+                    ['loan_user_seller_id' => $loan->loan_user_seller_id],
+                    ['loan_user_buyer_id' => $loan->loan_user_seller_id],
                 ])
                 ->andWhere(['!=', 'loan_ready', 0])
                 ->all();
