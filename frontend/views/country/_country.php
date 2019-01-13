@@ -97,12 +97,12 @@ $file_name = 'file_name';
                 'Создать новость',
                 ['country/news-create', 'id' => Yii::$app->request->get('id')]
             ); ?>
+            |
+            <?= Html::a(
+                'Создать опрос',
+                ['country/poll-create', 'id' => Yii::$app->request->get('id')]
+            ); ?>
             <?php if (false) : ?>
-                |
-                <?= Html::a(
-                    'Создать опрос',
-                    ['country/poll-create', 'id' => Yii::$app->request->get('id')]
-                ); ?>
                 <?php if (Yii::$app->user->id == $country->country_president_id): ?>
                     |
                     <?= Html::a(
