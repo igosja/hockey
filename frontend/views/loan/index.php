@@ -4,6 +4,7 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Loan;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider

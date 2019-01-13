@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Country;
+use common\models\Loan;
 use common\models\Transfer;
 use common\models\TransferApplication;
 use common\models\TransferComment;
@@ -84,6 +86,50 @@ class TransferController extends AbstractController
         $model = new TransferVote(['transferId' => $id]);
         if ($model->saveVote()) {
             $this->setSuccessFlash('Ваш голос успешно сохранён');
+
+            $presidentCountryArray = Country::find()
+                ->where([
+                    'or',
+                    ['country_president_id' => $this->user->user_id],
+                    ['country_president_vice_id' => $this->user->user_id],
+                ])
+                ->all();
+
+            if ($presidentCountryArray) {
+                $transfer = Transfer::find()
+                    ->where([
+                        'not',
+                        [
+                            'transfer_id' => \common\models\TransferVote::find()
+                                ->select(['transfer_vote_transfer_id'])
+                                ->where(['transfer_vote_user_id' => $this->user->user_id])
+                        ]
+                    ])
+                    ->andWhere(['transfer_checked' => 0])
+                    ->andWhere(['!=', 'transfer_ready', 0])
+                    ->limit(1)
+                    ->one();
+                if ($transfer) {
+                    return $this->redirect(['transfer/view', 'id' => $transfer->transfer_id]);
+                } else {
+                    $loan = Loan::find()
+                        ->where([
+                            'not',
+                            [
+                                'loan_id' => \common\models\LoanVote::find()
+                                    ->select(['loan_vote_loan_id'])
+                                    ->where(['loan_vote_user_id' => $this->user->user_id])
+                            ]
+                        ])
+                        ->andWhere(['loan_checked' => 0])
+                        ->andWhere(['!=', 'loan_ready', 0])
+                        ->limit(1)
+                        ->one();
+                    if ($loan) {
+                        return $this->redirect(['loan/view', 'id' => $transfer->transfer_id]);
+                    }
+                }
+            }
             return $this->refresh();
         }
 
