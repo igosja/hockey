@@ -206,8 +206,18 @@ class CountryController extends AbstractController
      */
     public function actionPoll($id)
     {
+        $statusArray = [PollStatus::OPEN, PollStatus::CLOSE];
+
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $statusArray[] = PollStatus::NEW_ONE;
+        }
+
         $query = Poll::find()
-            ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE], 'poll_country_id' => $id])
+            ->where(['poll_poll_status_id' => $statusArray, 'poll_country_id' => $id])
             ->orderBy(['poll_id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -418,7 +428,7 @@ class CountryController extends AbstractController
         $model = new Poll();
         $model->poll_country_id = $id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->savePoll()) {
             $this->setSuccessFlash('Опрос успешно сохранён');
             return $this->redirect(['country/poll', 'id' => $id]);
         }
@@ -428,5 +438,27 @@ class CountryController extends AbstractController
         return $this->render('poll-create', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @param $id
+     * @param $pollId
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionPollDelete($id, $pollId)
+    {
+        $model = Poll::find()
+            ->where(['poll_id' => $pollId, 'poll_country_id' => $id, 'poll_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $model->delete();
+
+        $this->setSuccessFlash('Опрос успешно удалён');
+        return $this->redirect(['country/poll', 'id' => $id]);
     }
 }

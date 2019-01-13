@@ -36,8 +36,10 @@ print $this->render('_country');
                     {error}',
             ],
         ]); ?>
-        <?= $form->field($model, 'news_title')->textInput(['class' => 'form-control'])->label('Заголовок новости'); ?>
-        <?= $form->field($model, 'news_text')->textarea(['class' => 'form-control', 'rows' => 5])->label('Текст новости'); ?>
+        <?= $form->field($model, 'poll_text')->textarea(); ?>
+        <?php for ($i = 0; $i < 15; $i++) : ?>
+            <?= $form->field($model, 'answer[' . $i . ']')->textarea(); ?>
+        <?php endfor; ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn margin']); ?>
