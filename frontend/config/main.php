@@ -91,6 +91,8 @@ return [
                 'country/news/delete/<id:\d+>/<newsId:\d+>' => 'country/news-delete',
                 'country/news/update/<id:\d+>/<newsId:\d+>' => 'country/news-update',
                 'country/news/view/<id:\d+>/<newsId:\d+>' => 'country/news-view',
+                'country/poll/create/<id:\d+>' => 'country/poll-create',
+                'country/poll/delete/<id:\d+>/<pollId:\d+>' => 'country/poll-delete',
                 'forum/message/delete/<id:\d+>' => 'forum/message-delete',
                 'forum/message/move/<id:\d+>' => 'forum/message-move',
                 'forum/message/update/<id:\d+>' => 'forum/message-update',

@@ -43,7 +43,7 @@ class PollAnswer extends AbstractActiveRecord
     public function beforeDelete()
     {
         if (parent::beforeDelete()) {
-            PollUser::deleteAll(['vote_user_answer_id' => $this->poll_answer_id]);
+            PollUser::deleteAll(['poll_user_poll_answer_id' => $this->poll_answer_id]);
             return true;
         }
         return false;

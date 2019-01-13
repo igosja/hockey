@@ -85,13 +85,10 @@ class Poll extends AbstractActiveRecord
      */
     public function beforeDelete()
     {
-        if (parent::beforeDelete()) {
-            foreach ($this->pollAnswer as $item) {
-                $item->delete();
-            }
-            return true;
+        foreach ($this->pollAnswer as $item) {
+            $item->delete();
         }
-        return false;
+        return parent::beforeDelete();
     }
 
     /**
