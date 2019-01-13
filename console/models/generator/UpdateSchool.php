@@ -26,7 +26,7 @@ class UpdateSchool
      */
     public function execute()
     {
-//        School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
+        School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
 
         $seasonId = Season::getCurrentSeason();
 
@@ -129,7 +129,7 @@ class UpdateSchool
             $school->school_with_special_request = $school->school_with_special;
             $school->school_with_special = $withSpecialDb;
             $school->school_with_style_request = $school->school_with_style;
-            $school->school_with_style = $school->$withStyleDb;
+            $school->school_with_style = $withStyleDb;
             $school->save();
         }
     }
