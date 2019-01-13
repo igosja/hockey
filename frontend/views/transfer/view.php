@@ -192,6 +192,12 @@ $user = Yii::$app->user->identity;
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $applicationDataProvider,
+                'rowOptions' => function (TransferApplication $model) use ($transfer) {
+                    if ($model->transfer_application_team_id == $transfer->transfer_team_buyer_id) {
+                        return ['class' => 'info'];
+                    }
+                    return [];
+                },
                 'showFooter' => true,
             ]);
         } catch (Exception $e) {
@@ -207,19 +213,21 @@ $user = Yii::$app->user->identity;
             <span class="strong">Последние комментарии:</span>
         </div>
     </div>
-    <?php
+    <div class="row">
+        <?php
 
-    try {
-        print ListView::widget([
-            'dataProvider' => $commentDataProvider,
-            'itemOptions' => ['class' => 'row border-top'],
-            'itemView' => '_comment',
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
+        try {
+            print ListView::widget([
+                'dataProvider' => $commentDataProvider,
+                'itemOptions' => ['class' => 'row border-top'],
+                'itemView' => '_comment',
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-    ?>
+        ?>
+    </div>
 <?php endif; ?>
 <?php if (!$transfer->transfer_checked && !Yii::$app->user->isGuest) : ?>
     <div class="row margin-top">
