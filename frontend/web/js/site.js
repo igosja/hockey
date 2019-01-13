@@ -121,7 +121,6 @@ function chatMessage() {
     $.ajax({
         url: messageChat.data('url') + '?lastDate=' + messageChat.data('date'),
         success: function (data) {
-            console.log(data);
             var html = '';
             for (var i = 0; i < data.message.length; i++) {
                 html = html + '<div class="row margin-top">'
@@ -137,20 +136,6 @@ function chatMessage() {
             }
             messageChat.append(html);
             messageChat.data('date', data.date);
-        }
-    });
-}
-
-function chatUser() {
-    var userChat = $('.chat-user-scroll');
-    $.ajax({
-        url: userChat.data('url'),
-        success: function (data) {
-            var html = '';
-            for (var i = 0; i < data.length; i++) {
-                html = html + data[i].user + '<br/>';
-            }
-            userChat.html(html);
         }
     });
 }

@@ -72,6 +72,20 @@ $(document).ready(function() {
         chatMessage();
     }, 5000);
 });
+
+function chatUser() {
+    var userChat = $('.chat-user-scroll');
+    $.ajax({
+        url: userChat.data('url'),
+        success: function (data) {
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                html = html + data[i].user + '<br/>';
+            }
+            userChat.html(html);
+        }
+    });
+}
 JS;
 $this->registerJs($script);
 ?>
