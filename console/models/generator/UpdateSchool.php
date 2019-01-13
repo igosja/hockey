@@ -26,7 +26,7 @@ class UpdateSchool
      */
     public function execute()
     {
-        School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
+//        School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
 
         $seasonId = Season::getCurrentSeason();
 
