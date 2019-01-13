@@ -6,10 +6,9 @@
  * @var \yii\web\View $this
  */
 
-use common\components\FormatHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\widgets\Pjax;
 
 ?>
     <div class="row">
@@ -18,25 +17,13 @@ use yii\widgets\Pjax;
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="chat-scroll" data-url="<?= Url::to(['chat/message']); ?>"></div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div class="chat-user-scroll" data-url="<?= Url::to(['chat/user']); ?>"></div>
+        </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="chat-scroll">
-                <?php Pjax::begin(); ?>
-                <?php foreach ($chatArray as $chat) : ?>
-                    <div class="row margin-top">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">
-                            <?= FormatHelper::asDateTime($chat['date']); ?>,
-                            <?= $chat['userLink']; ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if ($chat['userId'] == Yii::$app->user->id) : ?>message-from-me<?php else : ?>message-to-me<?php endif; ?>">
-                            <?= nl2br(Html::encode($chat['text'])); ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-                <?= Html::a('Обновить', ['chat/index'], ['class' => 'hidden', 'id' => 'chat-reload']); ?>
-                <?php Pjax::end(); ?>
-            </div>
             <?php $form = ActiveForm::begin([
                 'id' => 'chat-form',
                 'fieldConfig' => [
@@ -74,11 +61,31 @@ $(document).ready(function() {
     $(document).on('ready pjax:success', function(){
         scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
     });
-
-    setInterval(function() {
-        $("#chat-reload").click();
+    
+    chatUser();
+    setInterval(function () {
+        chatUser();
+    }, 300000);
+    
+    chatMessage();
+    setInterval(function () {
+        chatMessage();
     }, 5000);
 });
+
+function chatUser() {
+    var userChat = $('.chat-user-scroll');
+    $.ajax({
+        url: userChat.data('url'),
+        success: function (data) {
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                html = html + data[i].user + '<br/>';
+            }
+            userChat.html(html);
+        }
+    });
+}
 JS;
 $this->registerJs($script);
 ?>
