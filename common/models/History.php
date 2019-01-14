@@ -176,7 +176,7 @@ class History extends AbstractActiveRecord
         );
         $text = str_replace(
             '{day}',
-            $this->history_value,
+            $this->history_value . ' дн.',
             $text
         );
         return $text;
