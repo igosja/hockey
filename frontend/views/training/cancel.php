@@ -40,7 +40,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Осталось тренировок силы:
-                <span class="strong"><?= $team->availableTrainingPosition(); ?></span>
+                <span class="strong"><?= $team->availableTrainingPower(); ?></span>
                 из
                 <span class="strong"><?= $team->baseTraining->base_training_power_count; ?></span>
             </div>
