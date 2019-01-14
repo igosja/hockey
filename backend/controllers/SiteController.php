@@ -18,6 +18,7 @@ use common\models\Site;
 use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
+use common\models\User;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
@@ -66,6 +67,20 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
+        $model = User::findOne(User::ADMIN_USER_ID);
+        print '<pre>';
+        print_r(Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'password-html', 'text' => 'password-text'],
+                ['model' => $model]
+            )
+            ->setTo($model->user_email)
+            ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+            ->setSubject('Восстановление пароля на сайте Виртуальной Хоккейной Лиги')
+            ->send());
+        exit;
+
         $complaint = Complaint::find()->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
