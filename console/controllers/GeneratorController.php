@@ -130,8 +130,6 @@ class GeneratorController extends AbstractController
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
-        ];
-        $modelArray = [
             new UpdatePlayerStatistic(),
             new UpdateUserRating(),
             new CountryAuto(),
@@ -140,6 +138,8 @@ class GeneratorController extends AbstractController
             new PlusMinus(),
             new DecreaseTeamwork(),
             new Standing(),
+        ];
+        $modelArray = [
             new StandingPlace(),
             new PlayerGameRow(),
             new PlayerTire(),
