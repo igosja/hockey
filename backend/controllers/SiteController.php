@@ -66,8 +66,6 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
-        phpinfo();
-        exit;
         $complaint = Complaint::find()->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
