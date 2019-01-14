@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\Complaint;
 use common\models\ForumMessage;
 use common\models\GameComment;
@@ -67,19 +68,23 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
-        $model = User::findOne(User::ADMIN_USER_ID);
-        print '<pre>';
-        print_r(Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'password-html', 'text' => 'password-text'],
-                ['model' => $model]
-            )
-            ->setTo($model->user_email)
-            ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-            ->setSubject('Восстановление пароля на сайте Виртуальной Хоккейной Лиги')
-            ->send());
-        exit;
+        if (Yii::$app->request->get('mail')) {
+            $model = User::findOne(User::ADMIN_USER_ID);
+            try {
+                Yii::$app
+                    ->mailer
+                    ->compose(
+                        ['html' => 'password-html', 'text' => 'password-text'],
+                        ['model' => $model]
+                    )
+                    ->setTo($model->user_email)
+                    ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+                    ->setSubject('Восстановление пароля на сайте Виртуальной Хоккейной Лиги')
+                    ->send();
+            } catch (\Exception $e) {
+                ErrorHelper::log($e);
+            }
+        }
 
         $complaint = Complaint::find()->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
