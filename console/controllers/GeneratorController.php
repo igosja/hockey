@@ -112,6 +112,8 @@ class GeneratorController extends AbstractController
             new UpdateCronDate(),
             new SiteClose(),
             new DumpDatabase(),
+        ];
+        $modelArray = [
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),
@@ -204,7 +206,9 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+            if (false) {
+                (new CheckCronDate())->execute();
+            }
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
