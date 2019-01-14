@@ -39,8 +39,8 @@ class FormatHelper
              * @var AbstractController $controller
              */
             $controller = Yii::$app->controller;
-            if (isset($controller->user) && $controller->user && $controller->user->user_timezone) {
-                Yii::$app->setTimeZone($controller->user->user_timezone);
+            if (isset($controller->user) && $controller->user && isset($controller->user->user_timezone) && $controller->user->user_timezone) {
+                Yii::$app->formatter->timeZone = $controller->user->user_timezone;
             }
 
             $result = Yii::$app->formatter->asDate($time, 'short');
@@ -62,7 +62,7 @@ class FormatHelper
              * @var AbstractController $controller
              */
             $controller = Yii::$app->controller;
-            if (isset($controller->user) && $controller->user && $controller->user->user_timezone) {
+            if (isset($controller->user) && $controller->user && isset($controller->user->user_timezone) && $controller->user->user_timezone) {
                 Yii::$app->formatter->timeZone = $controller->user->user_timezone;
             }
 
