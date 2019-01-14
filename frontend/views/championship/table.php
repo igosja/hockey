@@ -96,7 +96,7 @@ $user = Yii::$app->user->identity;
                     </td>
                     <td class="text-center col-10">
                         <?= Html::a(
-                            $item->formatScore($item),
+                            $item->formatScore(),
                             ['game/view', 'id' => $item->game_id]
                         ); ?>
                     </td>
