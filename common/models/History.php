@@ -26,6 +26,7 @@ use yii\helpers\Html;
  * @property int $history_user_2_id
  * @property int $history_value
  *
+ * @property Game $game
  * @property HistoryText $historyText
  * @property Player $player
  * @property Team $team
@@ -132,6 +133,16 @@ class History extends AbstractActiveRecord
                 $text
             );
         }
+        if (false !== strpos($text, '{game}')) {
+            $text = str_replace(
+                '{game}',
+                Html::a(
+                    $this->game->teamOrNationalLink('home', false, false) . ' - ' . $this->game->teamOrNationalLink('guest', false, false),
+                    ['game/view', 'id' => $this->game->game_id]
+                ),
+                $text
+            );
+        }
         if (false !== strpos($text, '{building}')) {
             $building = '';
             if (Building::BASE == $this->history_building_id) {
@@ -163,7 +174,20 @@ class History extends AbstractActiveRecord
             $this->history_value,
             $text
         );
+        $text = str_replace(
+            '{day}',
+            $this->history_value,
+            $text
+        );
         return $text;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getGame()
+    {
+        return $this->hasOne(Game::class, ['game_id' => 'history_game_id']);
     }
 
     /**
