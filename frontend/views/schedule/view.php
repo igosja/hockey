@@ -2,7 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
-use common\components\HockeyHelper;
+use common\models\Game;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -34,22 +34,16 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'col-47 text-right'],
                 'format' => 'raw',
-                'value' => function ($model) {
-                    /**
-                     * @var \common\models\Game $model
-                     */
+                'value' => function (Game $model) {
                     return $model->teamOrNationalLink();
                 }
             ],
             [
                 'contentOptions' => ['class' => 'col-6 text-center'],
                 'format' => 'raw',
-                'value' => function ($model) {
-                    /**
-                     * @var \common\models\Game $model
-                     */
+                'value' => function (Game $model) {
                     return Html::a(
-                        HockeyHelper::formatScore($model),
+                        $model->formatScore(),
                         ['game/view', 'id' => $model->game_id]
                     );
                 }
@@ -57,10 +51,7 @@ use yii\helpers\Html;
             [
                 'contentOptions' => ['class' => 'col-47'],
                 'format' => 'raw',
-                'value' => function ($model) {
-                    /**
-                     * @var \common\models\Game $model
-                     */
+                'value' => function (Game $model) {
                     return $model->teamOrNationalLink('guest');
                 }
             ],
