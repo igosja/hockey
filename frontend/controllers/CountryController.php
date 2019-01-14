@@ -30,10 +30,10 @@ class CountryController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['fire', 'news-create', 'news-update'],
+                'only' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create'],
                 'rules' => [
                     [
-                        'actions' => ['fire', 'news-create', 'news-update'],
+                        'actions' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -96,6 +96,7 @@ class CountryController extends AbstractController
     /**
      * @param int $id
      * @return string|\yii\web\Response
+     * @throws \Exception
      */
     public function actionNews($id = 0)
     {
@@ -131,6 +132,18 @@ class CountryController extends AbstractController
                 'pageSize' => Yii::$app->params['pageSizeNews'],
             ],
         ]);
+
+        if ($this->myTeam && $this->myTeam->stadium->city->country->country_id == $id) {
+            $lastNewsId = News::find()
+                ->select(['news_id'])
+                ->where(['news_country_id' => $id])
+                ->orderBy(['news_id' => SORT_DESC])
+                ->scalar();
+            if ($lastNewsId) {
+                $this->myTeam->team_news_id = $lastNewsId;
+                $this->myTeam->save(true, ['team_news_id']);
+            }
+        }
 
         $this->setSeoTitle('Новости федерации');
 
@@ -193,8 +206,18 @@ class CountryController extends AbstractController
      */
     public function actionPoll($id)
     {
+        $statusArray = [PollStatus::OPEN, PollStatus::CLOSE];
+
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $statusArray[] = PollStatus::NEW_ONE;
+        }
+
         $query = Poll::find()
-            ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE], 'poll_country_id' => $id])
+            ->where(['poll_poll_status_id' => $statusArray, 'poll_country_id' => $id])
             ->orderBy(['poll_id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -280,7 +303,7 @@ class CountryController extends AbstractController
             ->limit(1)
             ->one();
         if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
-            $this->setErrorFlash('Только президент федерации может создавать новости');
+            $this->setErrorFlash('Только президент федерации или его заместитель может создавать новости');
             return $this->redirect(['country/news', 'id' => $id]);
         }
 
@@ -384,5 +407,58 @@ class CountryController extends AbstractController
         return $this->render('fire', [
             'id' => $id,
         ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionPollCreate($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может создавать опросы');
+            return $this->redirect(['country/poll', 'id' => $id]);
+        }
+
+        $model = new Poll();
+        $model->poll_country_id = $id;
+
+        if ($model->savePoll()) {
+            $this->setSuccessFlash('Опрос успешно сохранён');
+            return $this->redirect(['country/poll', 'id' => $id]);
+        }
+
+        $this->setSeoTitle('Создание опроса');
+
+        return $this->render('poll-create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @param $pollId
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionPollDelete($id, $pollId)
+    {
+        $model = Poll::find()
+            ->where(['poll_id' => $pollId, 'poll_country_id' => $id, 'poll_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $model->delete();
+
+        $this->setSuccessFlash('Опрос успешно удалён');
+        return $this->redirect(['country/poll', 'id' => $id]);
     }
 }

@@ -539,7 +539,7 @@ for ($j = 0; $j <= 5; $j++) {
             \'' . $item->position() . ' - ' .
             ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id)
                 ? round($item->player_power_nominal * 0.75)
-                : $item->player_power_real . ' - ' . $item->playerName()) . '\'
+                : $item->player_power_real) . ' - ' . $item->playerName() . '\'
             ],';
     }
     $scriptBody = $scriptBody . '];';

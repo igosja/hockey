@@ -36,7 +36,7 @@ print $this->render('_top');
                 'label' => 'Роль в игре',
                 'value' => function (Country $model) {
                     $result = $model->country_name . ' ';
-                    if (Yii::$app->user->id == $model->country_president_id) {
+                    if (Yii::$app->request->get('id') == $model->country_president_id) {
                         $result = $result . '(Президент федерации)';
                     } else {
                         $result = $result . '(Заместитель президента федерации)';
@@ -69,7 +69,7 @@ print $this->render('_top');
                 'label' => 'Команда',
                 'value' => function (National $model) {
                     $name = $model->country->country_name . ', ' . $model->nationalType->national_type_name;
-                    if (Yii::$app->user->id == $model->national_vice_id) {
+                    if (Yii::$app->request->get('id') == $model->national_vice_id) {
                         $name = $name . ' (заместитель)';
                     }
                     return Html::a(
