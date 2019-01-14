@@ -13,7 +13,7 @@ use yii\db\Expression;
 use yii\db\Query;
 
 /**
- * Class BaseController
+ * Class TeamAskController
  * @package console\controllers
  */
 class TeamAskController extends AbstractController
