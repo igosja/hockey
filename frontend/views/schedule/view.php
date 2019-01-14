@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -48,7 +49,7 @@ use yii\helpers\Html;
                      * @var \common\models\Game $model
                      */
                     return Html::a(
-                        $model->formatScore(),
+                        HockeyHelper::formatScore($model),
                         ['game/view', 'id' => $model->game_id]
                     );
                 }
