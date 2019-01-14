@@ -22,7 +22,7 @@ return [
                 'username' => 'info@virtual-hockey.org',
                 'password' => 'rxttgRhOKztb1UI',
                 'port' => '587',
-                'encryption' => 'tls',
+                'encryption' => 'ssl',
             ],
         ],
     ],
