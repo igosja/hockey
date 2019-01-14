@@ -95,7 +95,10 @@ $user = Yii::$app->user->identity;
                         <?= HockeyHelper::formatAuto($item->game_home_auto); ?>
                     </td>
                     <td class="text-center col-10">
-                        <?= HockeyHelper::formatScore($item); ?>
+                        <?= Html::a(
+                            $item->formatScore($item),
+                            ['game/view', 'id' => $item->game_id]
+                        ); ?>
                     </td>
                     <td>
                         <?= $item->teamGuest->teamLink('string', true); ?>
