@@ -123,13 +123,6 @@ class PlayerController extends AbstractController
         $player = $this->getPlayer($id);
 
         $query = History::find()
-            ->select([
-                'history_date',
-                'history_history_text_id',
-                'history_player_id',
-                'history_season_id',
-                'history_team_id',
-            ])
             ->where(['history_player_id' => $id])
             ->orderBy(['history_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
