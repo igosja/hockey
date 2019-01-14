@@ -71,7 +71,7 @@ class PhysicalController extends AbstractController
         $query = Player::find()
             ->with(['playerPosition.position'])
             ->where(['player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
-            ->orderBy(['player_position_id' => SORT_ASC]);
+            ->orderBy(['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,

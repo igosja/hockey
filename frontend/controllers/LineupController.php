@@ -79,7 +79,7 @@ class LineupController extends AbstractController
         $query = Player::find()
             ->where(['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0])
             ->orWhere(['player_loan_team_id' => $this->myTeam->team_id])
-            ->orderBy(['player_position_id' => SORT_ASC]);
+            ->orderBy(['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC]);
         $playerDataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
