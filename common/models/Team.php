@@ -1009,7 +1009,7 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @return array
+     * @return Game[]
      */
     public function latestGame()
     {
@@ -1023,7 +1023,7 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @return array
+     * @return Game[]
      */
     public function nearestGame()
     {
@@ -1037,7 +1037,7 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @return array
+     * @return ForumMessage[]
      */
     public function forumLastArray()
     {

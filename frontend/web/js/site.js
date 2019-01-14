@@ -101,7 +101,7 @@ jQuery(document).ready(function () {
                 url: chatForm.attr('action'),
                 success: function () {
                     chatForm.find('textarea').val('');
-                    chatMessage();
+                    chatMessage(false);
                 }
             });
             return false;
@@ -116,7 +116,7 @@ function getDecreasePrice(capacityNew, capacityCurrent, oneSitPrice) {
     return parseInt((Math.pow(capacityCurrent, 1.1) - Math.pow(capacityNew, 1.1)) * oneSitPrice);
 }
 
-function chatMessage() {
+function chatMessage(scroll) {
     var messageChat = $('.chat-scroll');
     $.ajax({
         url: messageChat.data('url') + '?lastDate=' + messageChat.data('date'),
@@ -136,6 +136,9 @@ function chatMessage() {
             }
             messageChat.append(html);
             messageChat.data('date', data.date);
+            if (scroll) {
+                messageChat.scrollTop(messageChat.prop('scrollHeight'));
+            }
         }
     });
 }
