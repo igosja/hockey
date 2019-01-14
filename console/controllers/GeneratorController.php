@@ -138,8 +138,6 @@ class GeneratorController extends AbstractController
             new PlusMinus(),
             new DecreaseTeamwork(),
             new Standing(),
-        ];
-        $modelArray = [
             new StandingPlace(),
             new PlayerGameRow(),
             new PlayerTire(),
@@ -206,9 +204,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            if (false) {
-                (new CheckCronDate())->execute();
-            }
+            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
