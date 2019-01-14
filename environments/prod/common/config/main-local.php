@@ -18,7 +18,7 @@ return [
             'viewPath' => '@common/mail',
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'virtual-hockey.org',
+                'host' => 'mail.virtual-hockey.org',
                 'username' => 'info@virtual-hockey.org',
                 'password' => 'rxttgRhOKztb1UI',
                 'port' => '465',
