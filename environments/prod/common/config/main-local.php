@@ -21,7 +21,7 @@ return [
                 'host' => 'vps47126.hostlife.net',
                 'username' => 'info@virtual-hockey.org',
                 'password' => 'rxttgRhOKztb1UI',
-                'port' => '587',
+                'port' => '465',
                 'encryption' => 'ssl',
             ],
         ],

@@ -219,8 +219,8 @@ class TeamController extends AbstractController
                         'desc' => ['player_game_row' => SORT_DESC],
                     ],
                     'position' => [
-                        'asc' => ['player_position_id' => SORT_ASC],
-                        'desc' => ['player_position_id' => SORT_DESC],
+                        'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
+                        'desc' => ['player_position_id' => SORT_DESC, 'player_id' => SORT_DESC],
                     ],
                     'physical' => [
                         'asc' => [$team->myTeam() ? 'player_physical_id' : 'player_position_id' => SORT_ASC],
