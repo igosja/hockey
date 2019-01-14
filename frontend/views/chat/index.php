@@ -55,22 +55,19 @@ use yii\widgets\ActiveForm;
     </div>
 <?php
 $script = <<< JS
-$(document).ready(function() {
-    var scroll_div = $(".chat-scroll");
-    scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
-    $(document).on('ready pjax:success', function(){
-        scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
-    });
-    
+$(document).ready(function() {    
     chatUser();
     setInterval(function () {
         chatUser();
     }, 300000);
     
-    chatMessage();
+    chatMessage(true);
     setInterval(function () {
-        chatMessage();
+        chatMessage(false);
     }, 5000);
+
+    var scroll_div = $(".chat-scroll");
+    scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
 });
 
 function chatUser() {

@@ -47,7 +47,7 @@ use yii\helpers\Html;
                 'headerOptions' => ['class' => 'col-20'],
                 'label' => 'Дата',
                 'value' => function (Schedule $model) {
-                    return FormatHelper::asDate($model->schedule_date);
+                    return FormatHelper::asDateTime($model->schedule_date);
                 }
             ],
             [
