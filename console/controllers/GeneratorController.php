@@ -112,8 +112,6 @@ class GeneratorController extends AbstractController
             new UpdateCronDate(),
             new SiteClose(),
             new DumpDatabase(),
-        ];
-        $modelArray = [
             new PlayerPowerNewToOld(),
             new CheckTeamMoodLimit(),
             new CheckLineup(),
@@ -132,6 +130,8 @@ class GeneratorController extends AbstractController
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
+        ];
+        $modelArray = [
             new UpdatePlayerStatistic(),
             new UpdateUserRating(),
             new CountryAuto(),
