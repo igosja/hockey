@@ -98,8 +98,8 @@ class FillLineup
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                            ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
                             ->andFilterWhere(['player_country_id' => $countryId])
-                            ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
                             ->limit(1);
 
                         if (!$moodId) {
@@ -111,14 +111,13 @@ class FillLineup
                                         'player_position_position_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])
+                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
                                     ->andWhere([
                                         'or',
                                         ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
                                         ['player_loan_team_id' => $teamId],
-                                    ])
-                                    ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
-                                    ->limit(1);
+                                    ]);
                             } else {
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
@@ -128,18 +127,23 @@ class FillLineup
                                         'player_national_id' => $nationalId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::TIRE_MAX_FOR_LINEUP])
-                                    ->orderBy(['player_tire' => SORT_ASC, 'player_power_real' => SORT_DESC])
-                                    ->limit(1);
+                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP]);
                             }
 
-                            $player = $query->one();
+                            $player = $query->all();
                             if (!$player) {
-                                $player = $league->one();
+                                $player = $league->all();
                             }
                         } else {
-                            $player = $league->one();
+                            $player = $league->all();
                         }
+
+                        usort($player, function ($a, $b) {
+                            return ($a->player_tire - $b->player_tire);
+                        });
+
+                        $player = $player[0];
 
                         if (!$lineup) {
                             $lineup = new Lineup();
