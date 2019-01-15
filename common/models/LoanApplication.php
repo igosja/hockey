@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property int $loan_application_user_id
  *
  * @property Team $team
+ * @property User $user
  */
 class LoanApplication extends AbstractActiveRecord
 {
@@ -72,5 +73,13 @@ class LoanApplication extends AbstractActiveRecord
     public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'loan_application_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'loan_application_user_id']);
     }
 }

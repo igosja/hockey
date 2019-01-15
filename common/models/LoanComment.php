@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use Yii;
+use yii\db\ActiveQuery;
+
 /**
  * Class LoanComment
  * @package common\models
@@ -12,6 +15,8 @@ namespace common\models;
  * @property int $loan_comment_loan_id
  * @property string $loan_comment_text
  * @property int $loan_comment_user_id
+ *
+ * @property User $user
  */
 class LoanComment extends AbstractActiveRecord
 {
@@ -32,7 +37,7 @@ class LoanComment extends AbstractActiveRecord
             [
                 [
                     'loan_comment_id',
-                    '$loan_comment_check',
+                    'loan_comment_check',
                     'loan_comment_date',
                     'loan_comment_loan_id',
                     'loan_comment_user_id',
@@ -43,5 +48,29 @@ class LoanComment extends AbstractActiveRecord
             [['loan_comment_text'], 'safe'],
             [['loan_comment_text'], 'trim'],
         ];
+    }
+
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        if ($this->isNewRecord) {
+            $this->loan_comment_date = time();
+            $this->loan_comment_user_id = Yii::$app->user->id;
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'loan_comment_user_id']);
     }
 }

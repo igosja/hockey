@@ -96,6 +96,9 @@ class Transfer extends AbstractActiveRecord
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function alerts()
     {
         $result = [
