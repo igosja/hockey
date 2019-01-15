@@ -97,22 +97,22 @@ use yii\helpers\Html;
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs'],
-                    'footer' => 'Продавец',
+                    'footer' => 'Арендодатель',
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'label' => 'Продавец',
+                    'label' => 'Арендодатель',
                     'value' => function (Loan $model) {
                         return $model->seller->teamLink('img');
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs'],
-                    'footer' => 'Покупатель',
+                    'footer' => 'Арендатор',
                     'footerOptions' => ['class' => 'hidden-xs'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'label' => 'Покупатель',
+                    'label' => 'Арендатор',
                     'value' => function (Loan $model) {
                         return $model->buyer->teamLink('img');
                     }
@@ -120,8 +120,8 @@ use yii\helpers\Html;
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
-                    'footerOptions' => ['title' => 'Общая стоимость аренды'],
-                    'headerOptions' => ['title' => 'Общая стоимость аренды'],
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Общая стоимость аренды'],
+                    'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Общая стоимость аренды'],
                     'label' => 'Цена',
                     'value' => function (Loan $model) {
                         return FormatHelper::asCurrency($model->loan_price_buyer);
