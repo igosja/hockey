@@ -7,6 +7,9 @@ use common\models\Achievement;
 use common\models\Country;
 use common\models\ElectionPresident;
 use common\models\ElectionPresidentApplication;
+use common\models\ElectionPresidentVice;
+use common\models\ElectionPresidentViceApplication;
+use common\models\ElectionPresidentViceVote;
 use common\models\ElectionPresidentVote;
 use common\models\ElectionStatus;
 use common\models\Finance;
@@ -1123,6 +1126,50 @@ class TeamController extends AbstractController
                 $result[] = 'В вашей стране проходят выборы презитента федерации. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['president/view']
+                    );
+            }
+        }
+
+        if ($country->country_president_id && !$country->country_president_vice_id) {
+            $electionPresidentVice = ElectionPresidentVice::find()
+                ->where([
+                    'election_president_vice_country_id' => $country->country_id,
+                    'election_president_vice_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionPresidentVice) {
+                $electionPresidentVice = new ElectionPresidentVice();
+                $electionPresidentVice->election_president_vice_country_id = $country->country_id;
+                $electionPresidentVice->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionPresidentVice->election_president_vice_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей президентов федерации. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['president-vice/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionPresidentVice->election_president_vice_election_status_id) {
+                $electionPresidentVote = ElectionPresidentViceVote::find()
+                    ->where([
+                        'election_president_vice_vote_application_id' => ElectionPresidentViceApplication::find()
+                            ->select(['election_president_vice_application_id'])
+                            ->where(['election_president_vice_application_election_id' => $electionPresidentVice->election_president_vice_id]),
+                        'election_president_vice_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionPresidentVote) {
+                    Yii::$app->controller->redirect(['president-vice/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы заместителя презитента федерации. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['president-vice/view']
                     );
             }
         }

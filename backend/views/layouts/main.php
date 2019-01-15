@@ -214,11 +214,11 @@ AppAsset::register($this);
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
-                            'label' => 'Игровая статистика',
+                            'label' => 'Коррекция генератора',
                             'url' => ['analytics/game-statistic'],
                         ],
                         [
-                            'label' => 'Статистические данные',
+                            'label' => 'Слепки состояния сайта',
                             'url' => ['analytics/snapshot'],
                         ],
                     ],

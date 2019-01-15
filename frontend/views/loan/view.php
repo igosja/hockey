@@ -22,7 +22,7 @@ $user = Yii::$app->user->identity;
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1>
-                Трансферная сделка
+                Арендная сделка
             </h1>
         </div>
     </div>
@@ -86,7 +86,7 @@ $user = Yii::$app->user->identity;
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Дата трансфера:
+                    Дата аренды:
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                     <?= FormatHelper::asDate($loan->loan_ready); ?>
@@ -94,16 +94,16 @@ $user = Yii::$app->user->identity;
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Стоимость трансфера:
+                    Стоимость аренды:
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong <?php if ($loan->loan_cancel) : ?>del<?php endif; ?>">
                     <?= FormatHelper::asCurrency($loan->loan_price_buyer); ?>
-                    (<?= round($loan->loan_price_buyer / $loan->loan_player_price * 100); ?>%)
+                    (<?= $loan->loan_day; ?> дн.)
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Продавец (команда):
+                    Арендодатель (команда):
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                     <?= $loan->seller->teamLink('img'); ?>
@@ -111,7 +111,7 @@ $user = Yii::$app->user->identity;
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Продавец (менеджер):
+                    Арендодатель (менеджер):
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                     <?= $loan->managerSeller->userLink(); ?>
@@ -119,7 +119,7 @@ $user = Yii::$app->user->identity;
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Покупатель (команда):
+                    Арендатор (команда):
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                     <?= $loan->buyer->teamLink('img'); ?>
@@ -127,7 +127,7 @@ $user = Yii::$app->user->identity;
             </div>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 text-right">
-                    Покупатель (менеджер):
+                    Арендатор (менеджер):
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 strong">
                     <?= $loan->managerBuyer->userLink(); ?>
@@ -181,17 +181,31 @@ $user = Yii::$app->user->identity;
                     }
                 ],
                 [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Дней',
+                    'label' => 'Дней',
+                    'value' => function (LoanApplication $model) {
+                        return $model->loan_application_day;
+                    }
+                ],
+                [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
                     'label' => 'Цена',
                     'value' => function (LoanApplication $model) {
-                        return FormatHelper::asCurrency($model->loan_application_price);
+                        return FormatHelper::asCurrency($model->loan_application_price * $model->loan_application_day);
                     }
                 ],
             ];
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $applicationDataProvider,
+                'rowOptions' => function (LoanApplication $model) use ($loan) {
+                    if ($model->loan_application_team_id == $loan->loan_team_buyer_id) {
+                        return ['class' => 'info'];
+                    }
+                    return [];
+                },
                 'showFooter' => true,
             ]);
         } catch (Exception $e) {
@@ -207,19 +221,21 @@ $user = Yii::$app->user->identity;
             <span class="strong">Последние комментарии:</span>
         </div>
     </div>
-    <?php
+    <div class="row">
+        <?php
 
-    try {
-        print ListView::widget([
-            'dataProvider' => $commentDataProvider,
-            'itemOptions' => ['class' => 'row border-top'],
-            'itemView' => '_comment',
-        ]);
-    } catch (Exception $e) {
-        ErrorHelper::log($e);
-    }
+        try {
+            print ListView::widget([
+                'dataProvider' => $commentDataProvider,
+                'itemOptions' => ['class' => 'row border-top'],
+                'itemView' => '_comment',
+            ]);
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
 
-    ?>
+        ?>
+    </div>
 <?php endif; ?>
 <?php if (!$loan->loan_checked && !Yii::$app->user->isGuest) : ?>
     <div class="row margin-top">

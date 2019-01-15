@@ -72,16 +72,17 @@ class PresidentViceVoteStatus
     private function toClose(ElectionPresidentVice $electionPresidentVice)
     {
         $electionPresidentViceApplication = ElectionPresidentViceApplication::find()
+            ->alias('epa')
             ->joinWith([
                 'electionPresidentViceVote' => function (ActiveQuery $query) {
                     return $query
-                        ->select([
-                            'election_president_vice_vote_application_id',
-                            'COUNT(election_president_vice_vote_application_id) AS election_president_vice_vote_vote',
-                        ])
                         ->groupBy(['election_president_vice_vote_application_id']);
                 },
                 'user',
+            ])
+            ->select([
+                'epa.*',
+                'COUNT(election_president_vice_vote_application_id) AS election_president_vice_vote_vote'
             ])
             ->where(['election_president_vice_application_election_id' => $electionPresidentVice->election_president_vice_id])
             ->andWhere(['!=', 'election_president_application_user_id', 0])
@@ -109,10 +110,10 @@ class PresidentViceVoteStatus
             ]);
 
             $electionPresidentVice->country->country_president_vice_id = $electionPresidentViceApplication->election_president_vice_application_user_id;
-            $electionPresidentVice->country->save();
+            $electionPresidentVice->country->save(true, ['country_president_vice_id']);
         }
 
         $electionPresidentVice->election_president_vice_election_status_id = ElectionStatus::CLOSE;
-        $electionPresidentVice->save();
+        $electionPresidentVice->save(true, ['election_president_vice_election_status_id']);
     }
 }
