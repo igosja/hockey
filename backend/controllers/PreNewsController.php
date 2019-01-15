@@ -21,7 +21,7 @@ class PreNewsController extends AbstractController
             ->where(['pre_news_id' => 1])
             ->limit(1)
             ->one();
-        if ($model) {
+        if (!$model) {
             $model = new PreNews();
             $model->pre_news_id = 1;
             $model->save();
