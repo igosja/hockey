@@ -120,7 +120,7 @@ class PresidentVoteStatus
 
                 $electionPresident->country->country_president_id = $electionPresidentApplicationArray[0]->election_president_application_user_id;
                 $electionPresident->country->country_president_vice_id = isset($electionPresidentApplicationArray[1]->election_president_application_user_id) ? $electionPresidentApplicationArray[1]->election_president_application_user_id : 0;
-                $electionPresident->country->save();
+                $electionPresident->country->save(true, ['country_president_id', 'country_president_vice_id']);
             }
         }
 
