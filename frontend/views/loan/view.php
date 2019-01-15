@@ -181,7 +181,7 @@ $user = Yii::$app->user->identity;
                     }
                 ],
                 [
-                    'contentOptions' => ['class' => 'text-right'],
+                    'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Дней',
                     'label' => 'Дней',
                     'value' => function (LoanApplication $model) {

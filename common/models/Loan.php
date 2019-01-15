@@ -35,6 +35,8 @@ use yii\db\ActiveQuery;
  * @property LoanVote[] $loanVote
  * @property LoanVote[] $loanVoteMinus
  * @property LoanVote[] $loanVotePlus
+ * @property User $managerBuyer
+ * @property User $managerSeller
  * @property Player $player
  * @property LoanPosition[] $playerPosition
  * @property LoanSpecial[] $playerSpecial
@@ -344,6 +346,22 @@ class Loan extends AbstractActiveRecord
     public function getLoanVotePlus()
     {
         return $this->getLoanVote()->andWhere(['>', 'loan_vote_rating', 0]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getManagerBuyer()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'loan_user_buyer_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getManagerSeller()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'loan_user_seller_id']);
     }
 
     /**
