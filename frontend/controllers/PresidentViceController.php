@@ -48,7 +48,7 @@ class PresidentViceController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        if ($country->country_president_id) {
+        if ($country->country_president_vice_id || !$country->country_president_id) {
             return $this->redirect(['team/view']);
         }
 
