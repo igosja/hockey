@@ -48,7 +48,7 @@ class LoanApplicationTo extends Model
     {
         parent::__construct($config);
 
-        $this->minPrice = $this->player->loan->loan_price_seller;
+        $this->minPrice = isset($this->player->loan->loan_price_seller) ? $this->player->loan->loan_price_seller : ceil($this->player->player_price / 1000);
         $this->maxPrice = $this->team->team_finance;
         $this->minDay = isset($this->player->loan->loan_day_min) ? $this->player->loan->loan_day_min : 1;
         $this->maxDay = isset($this->player->loan->loan_day_max) ? $this->player->loan->loan_day_max : 7;
