@@ -24,7 +24,7 @@ $identity = Yii::$app->user->identity;
         |
         <?= Html::a(
             'Удалить',
-            ['news/delete-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id]
+            ['country/delete-news-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id]
         ); ?>
     <?php endif; ?>
 </div>
