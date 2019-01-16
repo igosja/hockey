@@ -24,7 +24,7 @@ class CountVisitor
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()');
         $specialArray = PlayerSpecial::find()
-            ->indexBy('lineup_game_id')
+            ->indexBy('lineup.lineup_game_id')
             ->joinWith(['lineup'])
             ->select(['SUM(player_special_level) AS player_special_level', 'lineup_game_id'])
             ->where(['player_special_special_id' => Special::IDOL])
