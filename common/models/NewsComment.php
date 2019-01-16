@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property string $news_comment_text
  * @property int $news_comment_user_id
  *
+ * @property News $news
  * @property User $user
  */
 class NewsComment extends AbstractActiveRecord
@@ -100,7 +101,6 @@ class NewsComment extends AbstractActiveRecord
             return false;
         }
 
-        $this->news_comment_news_id = Yii::$app->request->get('id');
         try {
             if (!$this->save()) {
                 return false;
@@ -111,6 +111,14 @@ class NewsComment extends AbstractActiveRecord
         }
 
         return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNews()
+    {
+        return $this->hasOne(News::class, ['news_id' => 'news_comment_news_id'])->cache();
     }
 
     /**

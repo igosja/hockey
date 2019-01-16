@@ -18,7 +18,6 @@ use yii\base\Model;
  * Class TransferTo
  * @package frontend\models
  *
- * @property int $maxPrice
  * @property int $minPrice
  * @property Player $player
  * @property int $price
@@ -29,7 +28,6 @@ class TransferTo extends Model
 {
     public $price;
     public $toLeague;
-    public $maxPrice = 0;
     public $minPrice = 0;
     public $player;
     public $team;
@@ -41,7 +39,6 @@ class TransferTo extends Model
     {
         parent::__construct($config);
 
-        $this->maxPrice = $this->team->team_finance;
         $this->minPrice = ceil($this->player->player_price / 2);
         $this->price = $this->minPrice;
     }
@@ -53,7 +50,7 @@ class TransferTo extends Model
     {
         return [
             [['toLeague'], 'boolean'],
-            [['price'], 'integer', 'min' => $this->minPrice, 'max' => $this->maxPrice],
+            [['price'], 'integer', 'min' => $this->minPrice],
             [['price', 'toLeague'], 'required'],
         ];
     }
