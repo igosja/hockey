@@ -42,7 +42,7 @@ class TransferApplicationTo extends Model
     {
         parent::__construct($config);
 
-        $this->minPrice = ceil($this->player->player_price / 2);
+        $this->minPrice = $this->player->transfer->transfer_price_seller;
         $this->maxPrice = $this->team->team_finance;
         $this->transferApplication = TransferApplication::find()
             ->select(['transfer_application_id', 'transfer_application_price', 'transfer_application_only_one'])
