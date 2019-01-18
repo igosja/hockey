@@ -79,7 +79,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
     public function getElectionPresidentViceVote()
     {
         return $this->hasMany(
-            ElectionPresidentVote::class,
+            ElectionPresidentViceVote::class,
             ['election_president_vice_vote_application_id' => 'election_president_vice_application_id']
         );
     }
