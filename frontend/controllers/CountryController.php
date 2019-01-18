@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\Finance;
 use common\models\LeagueDistribution;
@@ -11,6 +12,8 @@ use common\models\Poll;
 use common\models\PollStatus;
 use common\models\Season;
 use common\models\Team;
+use common\models\UserRole;
+use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -30,10 +33,10 @@ class CountryController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create'],
+                'only' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create', 'delete-news-comment'],
                 'rules' => [
                     [
-                        'actions' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create'],
+                        'actions' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create', 'delete-news-comment'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -160,10 +163,11 @@ class CountryController extends AbstractController
      */
     public function actionNewsView($id, $newsId)
     {
-        $news = News::find()->where(['news_id' => $newsId])->one();
+        $news = News::find()->where(['news_id' => $newsId, 'news_country_id' => $id])->limit(1)->one();
         $this->notFound($news);
 
         $model = new NewsComment();
+        $model->news_comment_news_id = $newsId;
         if ($model->addComment()) {
             $this->setSuccessFlash('Комментарий успешно сохранён');
             return $this->refresh();
@@ -182,7 +186,7 @@ class CountryController extends AbstractController
                 'news_comment_text',
                 'news_comment_user_id',
             ])
-            ->where(['news_comment_news_id' => $id])
+            ->where(['news_comment_news_id' => $newsId])
             ->orderBy(['news_comment_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -460,5 +464,36 @@ class CountryController extends AbstractController
 
         $this->setSuccessFlash('Опрос успешно удалён');
         return $this->redirect(['country/poll', 'id' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @param $newsId
+     * @return \yii\web\Response
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionDeleteNewsComment($id, $newsId)
+    {
+        if (UserRole::ADMIN != $this->user->user_user_role_id) {
+            $this->forbiddenRole();
+        }
+
+        $model = NewsComment::find()
+            ->where(['news_comment_id' => $id, 'news_comment_news_id' => $newsId])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $news = $model->news;
+
+        try {
+            $model->delete();
+            $this->setSuccessFlash('Комментарий успешно удалён.');
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+        }
+
+        return $this->redirect(['country/news-view', 'id' => $news->news_country_id, 'newsId' => $newsId]);
     }
 }

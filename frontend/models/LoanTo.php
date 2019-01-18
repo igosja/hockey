@@ -19,7 +19,6 @@ use yii\base\Model;
  * @package frontend\models
  *
  * @property int $maxDay
- * @property int $maxPrice
  * @property int $minDay
  * @property int $minPrice
  * @property Player $player
@@ -30,7 +29,6 @@ class LoanTo extends Model
 {
     public $price;
     public $maxDay = 7;
-    public $maxPrice = 0;
     public $minDay = 1;
     public $minPrice = 0;
     public $player;
@@ -43,7 +41,6 @@ class LoanTo extends Model
     {
         parent::__construct($config);
 
-        $this->maxPrice = $this->team->team_finance;
         $this->minPrice = ceil($this->player->player_price / 1000);
         $this->price = $this->minPrice;
     }
@@ -56,7 +53,7 @@ class LoanTo extends Model
         return [
             [['maxDay', 'minDay'], 'integer', 'min' => 1, 'max' => 7],
             [['maxDay'], 'compare', 'compareAttribute' => 'minDay', 'operator' => '>='],
-            [['price'], 'integer', 'min' => $this->minPrice, 'max' => $this->maxPrice],
+            [['price'], 'integer', 'min' => $this->minPrice],
             [['price', 'maxDay', 'minDay'], 'required'],
         ];
     }
