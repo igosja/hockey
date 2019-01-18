@@ -6,6 +6,7 @@
  * @var \yii\web\View $this
  */
 
+use coderlex\wysibb\WysiBB;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -42,7 +43,7 @@ use yii\widgets\ActiveForm;
                 <div class="row">{error}</div>',
                 ],
             ]); ?>
-            <?= $form->field($model, 'text')->textarea([
+            <?= $form->field($model, 'text')->widget(WysiBB::class, [
                 'class' => 'form-control',
             ])->label(false); ?>
             <div class="row">

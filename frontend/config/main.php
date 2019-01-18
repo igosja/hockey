@@ -51,6 +51,16 @@ return [
     'components' => [
         'assetManager' => [
             'appendTimestamp' => true,
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => [
+                        'js/jquery-1.10.0.min.js',
+                    ]
+                ],
+            ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
