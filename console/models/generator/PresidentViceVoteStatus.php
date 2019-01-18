@@ -3,7 +3,6 @@
 namespace console\models\generator;
 
 use common\models\Country;
-use common\models\ElectionPresidentApplication;
 use common\models\ElectionPresidentVice;
 use common\models\ElectionPresidentViceApplication;
 use common\models\ElectionStatus;
@@ -57,8 +56,9 @@ class PresidentViceVoteStatus
      */
     private function toOpen(ElectionPresidentVice $electionPresidentVice)
     {
-        $model = new ElectionPresidentApplication();
-        $model->election_president_application_election_id = $electionPresidentVice->election_president_vice_id;
+        $model = new ElectionPresidentViceApplication();
+        $model->election_president_vice_application_election_id = $electionPresidentVice->election_president_vice_id;
+        $model->election_president_vice_application_text = '-';
         $model->save();
 
         $electionPresidentVice->election_president_vice_election_status_id = ElectionStatus::OPEN;
