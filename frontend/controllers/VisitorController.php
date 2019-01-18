@@ -46,6 +46,9 @@ class VisitorController extends AbstractController
 
         $special = 0;
         foreach ($game->lineup as $lineup) {
+            if (!$lineup->player) {
+                continue;
+            }
             foreach ($lineup->player->playerSpecial as $playerSpecial) {
                 if (Special::IDOL == $playerSpecial->player_special_special_id) {
                     $special = $special + $playerSpecial->player_special_level;
