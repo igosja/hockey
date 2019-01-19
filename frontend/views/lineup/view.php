@@ -3,6 +3,7 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Game;
+use common\models\Physical;
 use common\models\Player;
 use common\models\TournamentType;
 use frontend\assets\LineupAsset;
@@ -63,7 +64,7 @@ LineupAsset::register($this);
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'label' => 'Дата',
-                'value' => function ($model) {
+                'value' => function (Game $model) {
                     return FormatHelper::asDatetime($model->schedule->schedule_date);
                 }
             ],
@@ -72,7 +73,7 @@ LineupAsset::register($this);
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Турнир',
                 'headerOptions' => ['class' => 'hidden-xs'],
-                'value' => function ($model) {
+                'value' => function (Game $model) {
                     return $model->schedule->tournamentType->tournament_type_name;
                 }
             ],
@@ -81,13 +82,13 @@ LineupAsset::register($this);
                 'footerOptions' => ['class' => 'hidden-xs'],
                 'label' => 'Стадия',
                 'headerOptions' => ['class' => 'hidden-xs'],
-                'value' => function ($model) {
+                'value' => function (Game $model) {
                     return $model->schedule->stage->stage_name;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'text-center'],
-                'value' => function ($model) use ($team) {
+                'value' => function (Game $model) use ($team) {
                     return $model->game_home_team_id == $team->team_id ? 'Д' : 'Г';
                 }
             ],
@@ -96,7 +97,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function ($model) use ($team) {
+                'value' => function (Game $model) use ($team) {
                     if ($model->game_home_team_id == $team->team_id) {
                         return $model->teamGuest->teamLink('sting', true);
                     } else {
@@ -112,7 +113,7 @@ LineupAsset::register($this);
                     'class' => 'hidden-xs',
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее ваш соперник)',
                 ],
-                'value' => function ($model) use ($team) {
+                'value' => function (Game $model) use ($team) {
                     return round($model->teamHome->team_power_vs / $team->team_power_vs * 100) . '%';
                 }
             ],
@@ -120,7 +121,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function ($model) {
+                'value' => function (Game $model) {
                     return Html::a(
                         '?',
                         ['game/preview', 'id' => $model->game_id],
@@ -132,7 +133,7 @@ LineupAsset::register($this);
                 'contentOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'label' => '',
-                'value' => function ($model) use ($team) {
+                'value' => function (Game $model) use ($team) {
                     return Html::a(
                         $model->game_home_team_id == $team->team_id
                             ? ($model->game_home_tactic_id_1 ? '+' : '-')
@@ -145,7 +146,7 @@ LineupAsset::register($this);
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $gameDataProvider,
-            'rowOptions' => function ($model) {
+            'rowOptions' => function (Game $model) {
                 if ($model->game_id == Yii::$app->request->get('id')) {
                     return ['class' => 'info'];
                 }
@@ -448,7 +449,9 @@ LineupAsset::register($this);
                     'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
                     'label' => 'Ф',
                     'value' => function (Player $model) use ($game) {
-                        return $model->physical->image();
+                        return TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id
+                            ? (Physical::findOne(Physical::DEFAULT_ID))->image()
+                            : $model->physical->image();
                     }
                 ],
                 [
@@ -458,7 +461,9 @@ LineupAsset::register($this);
                     'headerOptions' => ['title' => 'Реальная сила'],
                     'label' => 'РС',
                     'value' => function (Player $model) use ($game) {
-                        return $model->player_power_real;
+                        return TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id
+                            ? round($model->player_power_nominal * 0.75)
+                            : $model->player_power_real;
                     }
                 ],
                 [
