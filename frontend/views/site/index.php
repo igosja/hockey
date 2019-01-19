@@ -1,5 +1,6 @@
 <?php
 
+use common\components\HockeyHelper;
 use yii\helpers\Html;
 
 /**
@@ -176,7 +177,7 @@ use yii\helpers\Html;
                         </span>
                     </p>
                     <p class="text-justify">
-                        <?= $countryNews->text(); ?>
+                        <?= HockeyHelper::bbDecode($countryNews->news_text); ?>
                     </p>
                     <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
