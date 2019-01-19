@@ -141,6 +141,9 @@ class GeneratorController extends AbstractController
             new StandingPlace(),
             new PlayerGameRow(),
             new PlayerTire(),
+        ];
+
+        $modelArray = [
             new UpdateTraining(),
             new UpdatePhysical(),
             new UpdateSchool(),
@@ -204,7 +207,9 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+            if (false) {
+                (new CheckCronDate())->execute();
+            }
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
