@@ -28,10 +28,10 @@ use yii\helpers\Html;
                 <tr>
                     <th>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false, true, 'img'); ?>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false, true, 'img'); ?>
                         </div>
                     </th>
                 </tr>
