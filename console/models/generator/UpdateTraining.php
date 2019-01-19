@@ -35,6 +35,7 @@ class UpdateTraining
         $trainingArray = Training::find()
             ->where(['>=', 'training_percent', 100])
             ->andWhere(['training_ready' => 0])
+            ->andWhere(['>=', 'training_id', 137])
             ->orderBy(['training_id' => SORT_ASC])
             ->each();
         foreach ($trainingArray as $training) {
