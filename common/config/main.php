@@ -65,7 +65,7 @@ return [
             ],
         ],
     ],
-    'language' => 'ru',
+    'language' => 'en',
     'timeZone' => 'UTC',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 ];
