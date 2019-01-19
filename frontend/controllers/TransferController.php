@@ -126,7 +126,7 @@ class TransferController extends AbstractController
                         ->limit(1)
                         ->one();
                     if ($loan) {
-                        return $this->redirect(['loan/view', 'id' => $transfer->transfer_id]);
+                        return $this->redirect(['loan/view', 'id' => $loan->loan_id]);
                     }
                 }
             }
