@@ -260,7 +260,6 @@ class Loan extends AbstractActiveRecord
                 ])
                 ->andWhere(['transfer_cancel' => 0])
                 ->andWhere(['!=', 'transfer_ready', 0])
-                ->andWhere(['!=', 'transfer_id', $this->loan_id])
                 ->count();
             $loan = Loan::find()
                 ->where([
@@ -276,8 +275,8 @@ class Loan extends AbstractActiveRecord
                 ])
                 ->andWhere(['loan_cancel' => 0])
                 ->andWhere(['!=', 'loan_ready', 0])
+                ->andWhere(['!=', 'loan_id', $this->loan_id])
                 ->count();
-
 
             if ($transfer + $loan) {
                 $result['warning'][] = 'Менеджеры уже заключали <span class="strong">' . ($transfer + $loan) . ' сделок</span> между собой.';
