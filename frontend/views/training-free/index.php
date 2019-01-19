@@ -35,13 +35,13 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось спецвозможностей:
-                <span class="strong"><?= $user->user_shop_position; ?></span>
+                <span class="strong"><?= $user->user_shop_special; ?></span>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Осталось совмещений:
-                <span class="strong"><?= $user->user_shop_special; ?></span>
+                <span class="strong"><?= $user->user_shop_position; ?></span>
             </div>
         </div>
     </div>
