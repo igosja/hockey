@@ -116,11 +116,6 @@ class TrainingFreeController extends AbstractController
         $user = Yii::$app->user->identity;
         $team = $this->myTeam;
 
-        if ($this->isOnBuilding()) {
-            $this->setErrorFlash('На базе сейчас идет строительство.');
-            return $this->redirect(['training-free/index']);
-        }
-
         $data = Yii::$app->request->get();
 
         $confirmData = [
