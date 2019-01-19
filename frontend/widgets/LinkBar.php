@@ -112,8 +112,12 @@ class LinkBar extends Widget
                         $params = $alias;
                         unset($params[0]);
                         foreach ($params as $name => $value) {
-                            if ($value !== null && (!isset($this->params[$name]) || $this->params[$name] != $value)) {
-                                continue;
+                            if ($value !== null) {
+                                if (!isset($this->params[$name])) {
+                                    continue;
+                                } elseif ($this->params[$name] != $value) {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -124,6 +128,9 @@ class LinkBar extends Widget
         return false;
     }
 
+    /**
+     * @return void
+     */
     private function addUrlToAlias()
     {
         if (!isset($this->item['alias'])) {
