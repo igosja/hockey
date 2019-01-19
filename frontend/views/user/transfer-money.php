@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -78,7 +79,7 @@ print $this->render('_top');
             ->label('Сумма, $'); ?>
         <?= $form
             ->field($model, 'comment')
-            ->textarea(['class' => 'form-control'])
+            ->widget(WysiBB::class)
             ->label('Комментарий'); ?>
         <p class="text-center">
             <?= Html::submitButton('Перевести', ['class' => 'btn margin']); ?>

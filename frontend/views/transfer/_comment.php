@@ -1,6 +1,7 @@
 <?php
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\UserRole;
 use yii\helpers\Html;
 
@@ -16,7 +17,7 @@ $identity = Yii::$app->user->identity;
     <?= $model->user->userLink(['class' => 'strong']); ?>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <?= nl2br(Html::encode($model->transfer_comment_text)); ?>
+    <?= HockeyHelper::bbDecode($model->transfer_comment_text); ?>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
     <?= FormatHelper::asDateTime($model->transfer_comment_date); ?>

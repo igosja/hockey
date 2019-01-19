@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -116,7 +117,7 @@ $user = Yii::$app->user->identity;
                     <div class="row">{error}</div>',
             ],
         ]); ?>
-        <?= $form->field($model, 'forum_message_text')->textarea(['rows' => 5])->label('Ваш ответ:'); ?>
+        <?= $form->field($model, 'forum_message_text')->widget(WysiBB::class)->label('Ваш ответ:'); ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Ответить', ['class' => 'btn margin']); ?>

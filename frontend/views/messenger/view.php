@@ -1,6 +1,8 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -32,7 +34,7 @@ print $this->render('//user/_top');
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message <?php if (Yii::$app->user->id == $message->message_user_id_from) : ?>message-from-me<?php else : ?>message-to-me<?php endif; ?>">
-                        <?= nl2br(Html::encode($message->message_text)); ?>
+                        <?= HockeyHelper::bbDecode($message->message_text); ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -54,10 +56,7 @@ print $this->render('//user/_top');
                 <div class="row">{error}</div>',
             ],
         ]); ?>
-        <?= $form->field($model, 'message_text')->textarea([
-            'class' => 'form-control',
-            'rows' => 5,
-        ])->label('Ваше сообщение:'); ?>
+        <?= $form->field($model, 'message_text')->widget(WysiBB::class)->label('Ваше сообщение:'); ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Отправить', ['class' => 'btn margin']); ?>

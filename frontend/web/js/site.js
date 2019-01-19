@@ -100,7 +100,7 @@ jQuery(document).ready(function () {
                 type: 'post',
                 url: chatForm.attr('action'),
                 success: function () {
-                    chatForm.find('textarea').val('');
+                    chatForm.find('textarea').val('').htmlcode('');
                     chatMessage(false);
                 }
             });

@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\LoanApplication;
@@ -285,7 +286,7 @@ $user = Yii::$app->user->identity;
             </div>
         </div>
     <?php else : ?>
-        <?= $form->field($model, 'comment')->textarea(['rows' => 5])->label(false); ?>
+        <?= $form->field($model, 'comment')->widget(WysiBB::class)->label(false); ?>
     <?php endif; ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

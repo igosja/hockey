@@ -1,6 +1,7 @@
 <?php
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\ElectionPresidentViceApplication;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -57,7 +58,7 @@ print $this->render('//country/_country');
                             . '</div></div>
                             <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
-                            . nl2br($model->election_president_vice_application_text)
+                            . HockeyHelper::bbDecode($model->election_president_vice_application_text)
                             . '</div></div>';
                     }
                     return $result;
