@@ -9,6 +9,11 @@ jQuery(document).ready(function () {
     var other_3;
     var other_4;
     var prompt;
+    var i;
+    var j;
+    var line_player;
+    var line_player_id;
+    var select_html;
 
     var current_gk_1 = gk_1_id;
     var other_gk_1 = [gk_2_id];
@@ -20,24 +25,24 @@ jQuery(document).ready(function () {
     var select_gk_html_1 = '<option value="0">' + prompt_gk + '</option>';
     var select_gk_html_2 = '<option value="0">' + prompt_gk + '</option>';
 
-    for (var j = 0; j < position_gk_array.length; j++) {
+    for (j = 0; j < position_gk_array.length; j++) {
         if (position_gk_array[j][0] === current_gk_1) {
-            select_gk_html_1 = select_gk_html_1 + '<option value="' + position_gk_array[j][0] + '" selected>' + position_gk_array[j][1] + '</option>';
+            select_gk_html_1 = select_gk_html_1 + '<option value="' + position_gk_array[j][0] + '" style="background-color: ' + position_gk_array[j][2] + '" selected>' + position_gk_array[j][1] + '</option>';
         } else if (-1 === $.inArray(position_gk_array[j][0], other_gk_1)) {
-            select_gk_html_1 = select_gk_html_1 + '<option value="' + position_gk_array[j][0] + '">' + position_gk_array[j][1] + '</option>';
+            select_gk_html_1 = select_gk_html_1 + '<option value="' + position_gk_array[j][0] + '" style="background-color: ' + position_gk_array[j][2] + '">' + position_gk_array[j][1] + '</option>';
         }
 
         if (position_gk_array[j][0] === current_gk_2) {
-            select_gk_html_2 = select_gk_html_2 + '<option value="' + position_gk_array[j][0] + '" selected>' + position_gk_array[j][1] + '</option>';
+            select_gk_html_2 = select_gk_html_2 + '<option value="' + position_gk_array[j][0] + '" style="background-color: ' + position_gk_array[j][2] + '" selected>' + position_gk_array[j][1] + '</option>';
         } else if (-1 === $.inArray(position_gk_array[j][0], other_gk_2)) {
-            select_gk_html_2 = select_gk_html_2 + '<option value="' + position_gk_array[j][0] + '">' + position_gk_array[j][1] + '</option>';
+            select_gk_html_2 = select_gk_html_2 + '<option value="' + position_gk_array[j][0] + '" style="background-color: ' + position_gk_array[j][2] + '">' + position_gk_array[j][1] + '</option>';
         }
     }
 
     $('#line-0-0').html(select_gk_html_1);
     $('#line-1-0').html(select_gk_html_2);
 
-    for (var i = 1; i <= 5; i++) {
+    for (i = 1; i <= 5; i++) {
         if (1 === i) {
             current_1 = ld_1_id;
             other_1 = [ld_2_id, ld_3_id, ld_4_id, rd_1_id, rd_2_id, rd_3_id, rd_4_id, lw_1_id, lw_2_id, lw_3_id, lw_4_id, cf_1_id, cf_2_id, cf_3_id, cf_4_id, rw_1_id, rw_2_id, rw_3_id, rw_4_id];
@@ -100,29 +105,29 @@ jQuery(document).ready(function () {
         var select_html_3 = '<option value="0">' + prompt + '</option>';
         var select_html_4 = '<option value="0">' + prompt + '</option>';
 
-        for (var j = 0; j < position_array.length; j++) {
+        for (j = 0; j < position_array.length; j++) {
             if (position_array[j][0] === current_1) {
-                select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
+                select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
             } else if (-1 === $.inArray(position_array[j][0], other_1)) {
-                select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_2) {
-                select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
+                select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
             } else if (-1 === $.inArray(position_array[j][0], other_2)) {
-                select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_3) {
-                select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
+                select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
             } else if (-1 === $.inArray(position_array[j][0], other_3)) {
-                select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_4) {
-                select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '" selected>' + position_array[j][1] + '</option>';
+                select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
             } else if (-1 === $.inArray(position_array[j][0], other_3)) {
-                select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
         }
 
@@ -179,31 +184,29 @@ jQuery(document).ready(function () {
             position_array = rw_array;
         }
 
-        for (var i = 0; i <= 1; i++) {
+        for (i = 0; i <= 1; i++) {
             position_array = gk_array;
             prompt = 'GK -';
 
-            var line_player = $('#line-' + i + '-0');
+            line_player = $('#line-' + i + '-0');
+            line_player_id = parseInt(line_player.val());
+            select_html = '<option value="0">' + prompt + '</option>';
 
-            var line_player_id = parseInt(line_player.val());
-
-            var select_html = '<option value="0">' + prompt + '</option>';
-
-            for (var j = 0; j < position_array.length; j++) {
+            for (j = 0; j < position_array.length; j++) {
                 if (position_array[j][0] === player_id) {
                     if (i === line && 0 === position) {
-                        select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                        select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                     } else {
                         if (-1 === $.inArray(position_array[j][0], player_id_array)) {
-                            select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                            select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                         }
                     }
                 } else {
                     if (position_array[j][0] === line_player_id) {
-                        select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                        select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                     } else {
                         if (-1 === $.inArray(position_array[j][0], player_id_array)) {
-                            select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                            select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                         }
                     }
                 }
@@ -231,27 +234,25 @@ jQuery(document).ready(function () {
                     prompt = 'RW -';
                 }
 
-                var line_player = $('#line-' + i + '-' + k);
-
-                var line_player_id = parseInt(line_player.val());
-
-                var select_html = '<option value="0">' + prompt + '</option>';
+                line_player = $('#line-' + i + '-' + k);
+                line_player_id = parseInt(line_player.val());
+                select_html = '<option value="0">' + prompt + '</option>';
 
                 for (var j = 0; j < position_array.length; j++) {
                     if (position_array[j][0] === player_id) {
                         if (i === line && k === position) {
-                            select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                            select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                         } else {
                             if (-1 === $.inArray(position_array[j][0], player_id_array)) {
-                                select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                                select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                             }
                         }
                     } else {
                         if (position_array[j][0] === line_player_id) {
-                            select_html = select_html + '<option selected value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                            select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                         } else {
                             if (-1 === $.inArray(position_array[j][0], player_id_array)) {
-                                select_html = select_html + '<option value="' + position_array[j][0] + '">' + position_array[j][1] + '</option>';
+                                select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
                             }
                         }
                     }
@@ -280,8 +281,9 @@ function player_change() {
 }
 
 function send_ajax() {
-    var form_data = $('.game-form').serialize();
-    var url = $('.game-form').data('url');
+    var form = $('.game-form');
+    var form_data = form.serialize();
+    var url = form.data('url');
 
     $.ajax({
         data: form_data,

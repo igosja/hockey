@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -28,7 +29,7 @@ print $this->render('//country/_country');
 ]); ?>
 <?= $form
     ->field($model, 'election_president_application_text')
-    ->textarea(['class' => 'form-control', 'rows' => 5])
+    ->widget(WysiBB::class)
     ->label('Ваша программа'); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

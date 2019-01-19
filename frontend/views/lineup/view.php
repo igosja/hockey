@@ -438,7 +438,9 @@ LineupAsset::register($this);
                     'headerOptions' => ['title' => 'Усталость'],
                     'label' => 'У',
                     'value' => function (Player $model) use ($game) {
-                        return $model->player_tire . '%';
+                        return TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id
+                            ? '25%'
+                            : $model->player_tire . '%';
                     }
                 ],
                 [
@@ -542,9 +544,8 @@ for ($j = 0; $j <= 5; $j++) {
         $scriptBody = $scriptBody . '[
             ' . $item['player_id'] . ',
             \'' . $item->position() . ' - ' .
-            ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id)
-                ? round($item->player_power_nominal * 0.75)
-                : $item->player_power_real) . ' - ' . $item->playerName() . '\'
+            $item->player_power_real . ' - ' . $item->playerName() . '\',
+            \'#' . (isset($item['squad']) ? $item['squad']['squad_color'] : '') . '\'
             ],';
     }
     $scriptBody = $scriptBody . '];';

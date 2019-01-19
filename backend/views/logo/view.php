@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Logo;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -94,7 +95,7 @@ use yii\widgets\DetailView;
             [
                 'label' => 'Комментарий',
                 'value' => function (Logo $model) {
-                    return $model->logo_text;
+                    return HockeyHelper::bbDecode($model->logo_text);
                 },
             ],
         ];

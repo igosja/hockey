@@ -1,7 +1,9 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Support;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -39,7 +41,7 @@ use yii\widgets\ActiveForm;
                     } else {
                         $result = $result . ' ' . $model->admin->userLink();
                     }
-                    $result = $result . '<br/>' . nl2br($model->support_text);
+                    $result = $result . '<br/>' . HockeyHelper::bbDecode($model->support_text);
                     return $result;
                 }
             ],
@@ -58,7 +60,7 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'support_text')->textarea(['rows' => 5])->label(false); ?>
+        <?= $form->field($model, 'support_text')->widget(WysiBB::class)->label(false); ?>
         <div class="form-group">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Ответить', ['class' => 'btn btn-default']); ?>

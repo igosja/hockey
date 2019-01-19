@@ -3,11 +3,11 @@
 namespace frontend\models;
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
-use yii\helpers\Html;
 use yii\helpers\Json;
 
 /**
@@ -123,7 +123,7 @@ class Chat extends Model
                 $result['message'][] = [
                     'class' => $value['userId'] == Yii::$app->user->id ? 'message-from-me' : 'message-to-me',
                     'date' => FormatHelper::asDateTime($value['date']),
-                    'text' => nl2br(Html::encode($value['text'])),
+                    'text' => HockeyHelper::bbDecode($value['text']),
                     'userId' => $value['userId'],
                     'userLink' => $value['userLink'],
                 ];

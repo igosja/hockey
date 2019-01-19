@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use common\models\UserRole;
 use yii\helpers\Html;
 
@@ -21,7 +22,7 @@ $identity = Yii::$app->user->identity;
         ); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= nl2br($model->game_comment_text); ?>
+        <?= HockeyHelper::bbDecode($model->game_comment_text); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
         <?php
