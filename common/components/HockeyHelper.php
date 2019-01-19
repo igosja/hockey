@@ -161,13 +161,15 @@ class HockeyHelper
      * @param National $national
      * @param boolean $full
      * @param boolean $link
+     * @param string $linkType
      * @return string
      */
     public static function teamOrNationalLink(
         Team $team = null,
         National $national = null,
         $full = true,
-        $link = true
+        $link = true,
+        $linkType = 'string'
     )
     {
         if ($team) {
@@ -182,7 +184,11 @@ class HockeyHelper
             }
 
             if (true == $link) {
-                return Html::a($name, ['team/view', 'id' => $team->team_id]);
+                if ('string' == $linkType) {
+                    return Html::a($name, ['team/view', 'id' => $team->team_id]);
+                } else {
+                    return $team->teamLink($linkType);
+                }
             } else {
                 return $name;
             }
@@ -212,7 +218,7 @@ class HockeyHelper
         $text = Html::encode($text);
         $text = preg_replace('/\[link\=(.*?)\](.*?)\[\/link\]/s', '<a href="$1" target="_blank">$2</a>', $text);
         $text = preg_replace('/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $text);
-        $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img class="img-responsive" src="$1" />', $text);
+        $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img class="img-responsive" src="$1" alt="Image" />', $text);
         $text = str_replace('class="img-responsive" src="https://vhol.org/img/', 'src="https://vhol.org/img/', $text);
         $text = str_replace('class="img-responsive" src="/img/', 'src="/img/', $text);
         $text = str_replace('[p]', '<p>', $text);

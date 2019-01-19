@@ -278,7 +278,10 @@ $user = Yii::$app->user->identity;
             </div>
         </div>
     <?php else : ?>
-        <?= $form->field($model, 'comment')->widget(WysiBB::class)->label(false); ?>
+        <br/>
+        <div class="row margin-top">
+            <?= $form->field($model, 'comment')->widget(WysiBB::class)->label(false); ?>
+        </div>
     <?php endif; ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">

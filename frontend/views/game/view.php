@@ -41,7 +41,7 @@ $user = Yii::$app->user->identity;
                 <tr>
                     <th>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_home_auto); ?>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
@@ -61,7 +61,7 @@ $user = Yii::$app->user->identity;
                             ?>)
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_guest_auto); ?>
                         </div>
                     </th>
