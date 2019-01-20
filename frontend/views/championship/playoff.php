@@ -5,8 +5,11 @@ use yii\helpers\Html;
 
 /**
  * @var array $divisionArray
+ * @var int $divisionId
  * @var array $playoffArray
+ * @var bool $reviewCreate
  * @var array $roundArray
+ * @var array $scheduleId
  * @var array $seasonArray
  * @var int $seasonId
  */
@@ -91,3 +94,33 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php endforeach; ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>
+            <?= Html::a(
+                'Статистика',
+                [
+                    'championship/statistics',
+                    'countryId' => $country->country_id,
+                    'divisionId' => $divisionId,
+                    'roundId' => 2,
+                    'seasonId' => $seasonId,
+                ],
+                ['class' => 'btn margin']
+            ); ?>
+            <?php if ($reviewCreate && false) : ?>
+                <?= Html::a(
+                    'Написать обзор',
+                    [
+                        'review/create',
+                        'countryId' => $country->country_id,
+                        'divisionId' => $divisionId,
+                        'scheduleId' => $scheduleId,
+                        'seasonId' => $seasonId,
+                    ],
+                    ['class' => 'btn margin']
+                ); ?>
+            <?php endif; ?>
+        </p>
+    </div>
+</div>
