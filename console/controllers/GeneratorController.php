@@ -162,8 +162,6 @@ class GeneratorController extends AbstractController
             new LoanDecreaseAndReturn(),
             new MakeTransfer(),
             new TransferCheck(),
-        ];
-        $modelArray = [
             new MakeLoan(),
             new LoanCheck(),
             new TireBaseLevel(),
@@ -206,9 +204,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            if (false) {
-                (new CheckCronDate())->execute();
-            }
+            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
