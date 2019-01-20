@@ -22,6 +22,7 @@ use Yii;
  *
  * @property Country $country
  * @property Division $division
+ * @property ReviewGame[] $reviewGame
  * @property Stage $stage
  * @property User $user
  */
@@ -91,6 +92,14 @@ class Review extends AbstractActiveRecord
     public function getDivision()
     {
         return $this->hasOne(Division::class, ['division_id' => 'review_division_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviewGame()
+    {
+        return $this->hasMany(ReviewGame::class, ['review_game_review_id' => 'review_id']);
     }
 
     /**

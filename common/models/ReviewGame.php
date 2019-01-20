@@ -10,6 +10,8 @@ namespace common\models;
  * @property int $review_game_game_id
  * @property int $review_game_review_id
  * @property string $review_game_text
+ *
+ * @property Game $game
  */
 class ReviewGame extends AbstractActiveRecord
 {
@@ -37,5 +39,13 @@ class ReviewGame extends AbstractActiveRecord
             ],
             [['review_game_text'], 'safe'],
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGame()
+    {
+        return $this->hasOne(Game::class, ['game_id' => 'review_game_game_id']);
     }
 }
