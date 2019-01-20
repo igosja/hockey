@@ -8,7 +8,11 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
+ * @var \common\models\Country $country
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $divisionArray
+ * @var int $divisionId
+ * @var array $roundArray
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -18,8 +22,17 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            Конференция любительских клубов
+            <?= Html::a(
+                $country->country_name,
+                ['country/news', 'id' => $country->country_id],
+                ['class' => 'country-header-link']
+            ); ?>
         </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
     </div>
 </div>
 <?= Html::beginForm('', 'get'); ?>
@@ -37,6 +50,11 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//championship/_round-links', ['roundArray' => $roundArray]); ?>
+    </div>
 </div>
 <?php
 
@@ -118,3 +136,19 @@ if ($statisticType->isTeamChapter()) {
     ?>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>
+            <?= Html::a(
+                'Турнирная таблица',
+                [
+                    'championship/index',
+                    'countryId' => $country->country_id,
+                    'divisionId' => $divisionId,
+                    'seasonId' => $seasonId,
+                ],
+                ['class' => 'btn margin']
+            ); ?>
+        </p>
+    </div>
+</div>

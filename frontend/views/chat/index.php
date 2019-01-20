@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
                 'id' => 'chat-form',
                 'fieldConfig' => [
                     'errorOptions' => [
-                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center message-error notification-error',
+                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
                         'tag' => 'div'
                     ],
                     'options' => ['class' => 'row'],
