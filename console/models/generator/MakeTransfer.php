@@ -40,6 +40,7 @@ class MakeTransfer
             ->with(['seller', 'player.schoolTeam'])
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
+            ->andWhere(['>=', 'transfer_id', 141])
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
             ->each();
         foreach ($transferArray as $transfer) {
@@ -275,7 +276,7 @@ class MakeTransfer
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transfer->transfer_team_seller_id,
-                    'finance_value' => $transferApplication->transfer_application_price,
+                    'finance_value' => $price,
                     'finance_value_after' => $transfer->seller->team_finance + $price,
                     'finance_value_before' => $transfer->seller->team_finance,
                 ]);

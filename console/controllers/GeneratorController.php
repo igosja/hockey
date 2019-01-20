@@ -160,6 +160,8 @@ class GeneratorController extends AbstractController
             new Prize(),
             new InsertSwiss(),
             new LoanDecreaseAndReturn(),
+        ];
+        $modelArray = [
             new MakeTransfer(),
             new TransferCheck(),
             new MakeLoan(),
@@ -204,7 +206,9 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+            if (false) {
+                (new CheckCronDate())->execute();
+            }
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
