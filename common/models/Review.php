@@ -79,6 +79,19 @@ class Review extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->reviewGame as $reviewGame) {
+            $reviewGame->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCountry()

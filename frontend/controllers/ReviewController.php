@@ -9,6 +9,7 @@ use common\models\Game;
 use common\models\Review;
 use common\models\Schedule;
 use common\models\TournamentType;
+use common\models\UserRole;
 use frontend\models\CreateReview;
 use yii\filters\AccessControl;
 
@@ -51,8 +52,44 @@ class ReviewController extends AbstractController
             ->one();
         $this->notFound($review);
 
+        $this->setSeoTitle('Обзор национального чемпионата');
+
         return $this->render('view', [
             'review' => $review,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionDelete($id)
+    {
+        if (UserRole::ADMIN != $this->user->user_user_role_id) {
+            $this->forbiddenRole();
+        }
+        $review = Review::find()
+            ->where(['review_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($review);
+
+        $countryId = $review->review_country_id;
+        $divisionId = $review->review_division_id;
+        $seasonId = $review->review_season_id;
+
+        $review->delete();
+        $this->setSuccessFlash();
+
+        return $this->redirect([
+            'championship/index',
+            'countryId' => $countryId,
+            'divisionId' => $divisionId,
+            'seasonId' => $seasonId,
         ]);
     }
 
