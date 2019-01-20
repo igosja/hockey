@@ -6,6 +6,7 @@ use common\models\Championship;
 use common\models\Country;
 use common\models\Division;
 use common\models\Game;
+use common\models\Review;
 use common\models\Schedule;
 use common\models\TournamentType;
 use frontend\models\CreateReview;
@@ -25,14 +26,34 @@ class ReviewController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['create'],
                 'rules' => [
                     [
+                        'actions' => ['create'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
         ];
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionView($id)
+    {
+        $review = Review::find()
+            ->where(['review_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($review);
+
+        return $this->render('view', [
+            'review' => $review,
+        ]);
     }
 
     /**
