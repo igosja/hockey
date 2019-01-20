@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * Class Review
  * @package common\models
@@ -49,8 +51,6 @@ class Review extends AbstractActiveRecord
                     'review_season_id',
                     'review_schedule_id',
                     'review_stage_id',
-                    'review_text',
-                    'review_title',
                     'review_user_id',
                 ],
                 'integer'
@@ -70,6 +70,7 @@ class Review extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->review_date = time();
+                $this->review_user_id = Yii::$app->user->id;
             }
             return true;
         }
@@ -97,7 +98,7 @@ class Review extends AbstractActiveRecord
      */
     public function getStage()
     {
-        return $this->hasOne(Stage::class, ['division_id' => 'review_division_id']);
+        return $this->hasOne(Stage::class, ['stage_id' => 'review_stage_id']);
     }
 
     /**
