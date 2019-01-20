@@ -41,6 +41,7 @@ class MakeTransfer
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
             ->andWhere(['>=', 'transfer_id', 141])
+            ->andWhere(['transfer_id' => 141])
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
             ->each();
         foreach ($transferArray as $transfer) {
@@ -272,68 +273,68 @@ class MakeTransfer
             } elseif ($transfer->transfer_to_league) {
                 $price = round($transfer->player->player_price / 2);
 
-                Finance::log([
-                    'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
-                    'finance_player_id' => $transfer->transfer_player_id,
-                    'finance_team_id' => $transfer->transfer_team_seller_id,
-                    'finance_value' => $price,
-                    'finance_value_after' => $transfer->seller->team_finance + $price,
-                    'finance_value_before' => $transfer->seller->team_finance,
-                ]);
-
-                $transfer->seller->team_finance = $transfer->seller->team_finance + $price;
-                $transfer->seller->save(true, ['team_finance']);
-
-                $schoolPrice = round($price / 100);
-
-                Finance::log([
-                    'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
-                    'finance_player_id' => $transfer->transfer_player_id,
-                    'finance_team_id' => $transfer->player->player_school_id,
-                    'finance_value' => $schoolPrice,
-                    'finance_value_after' => $transfer->player->schoolTeam->team_finance + $schoolPrice,
-                    'finance_value_before' => $transfer->player->schoolTeam->team_finance,
-                ]);
-
-                $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance + $schoolPrice;
-                $transfer->player->schoolTeam->save(true, ['team_finance']);
-
-                $transfer->player->player_squad_id = 0;
-                $transfer->player->player_date_no_action = time() + 604800;
-                $transfer->player->player_no_deal = 0;
-                $transfer->player->player_order = 0;
-                $transfer->player->player_team_id = 0;
-                $transfer->player->save();
-
-                $transfer->transfer_age = $transfer->player->player_age;
-                $transfer->transfer_player_price = $transfer->player->player_price;
-                $transfer->transfer_power = $transfer->player->player_power_nominal;
-                $transfer->transfer_price_buyer = $price;
-                $transfer->transfer_ready = time();
-                $transfer->transfer_season_id = $seasonId;
-                $transfer->save();
-
-                foreach ($transfer->player->playerPosition as $position) {
-                    $transferPosition = new TransferPosition();
-                    $transferPosition->transfer_position_position_id = $position->player_position_position_id;
-                    $transferPosition->transfer_position_transfer_id = $transfer->transfer_id;
-                    $transferPosition->save();
-                }
-
-                foreach ($transfer->player->playerSpecial as $special) {
-                    $transferSpecial = new TransferSpecial();
-                    $transferSpecial->transfer_special_level = $special->player_special_level;
-                    $transferSpecial->transfer_special_special_id = $special->player_special_special_id;
-                    $transferSpecial->transfer_special_transfer_id = $transfer->transfer_id;
-                    $transferSpecial->save();
-                }
+//                Finance::log([
+//                    'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
+//                    'finance_player_id' => $transfer->transfer_player_id,
+//                    'finance_team_id' => $transfer->transfer_team_seller_id,
+//                    'finance_value' => $price,
+//                    'finance_value_after' => $transfer->seller->team_finance + $price,
+//                    'finance_value_before' => $transfer->seller->team_finance,
+//                ]);
+//
+//                $transfer->seller->team_finance = $transfer->seller->team_finance + $price;
+//                $transfer->seller->save(true, ['team_finance']);
+//
+//                $schoolPrice = round($price / 100);
+//
+//                Finance::log([
+//                    'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
+//                    'finance_player_id' => $transfer->transfer_player_id,
+//                    'finance_team_id' => $transfer->player->player_school_id,
+//                    'finance_value' => $schoolPrice,
+//                    'finance_value_after' => $transfer->player->schoolTeam->team_finance + $schoolPrice,
+//                    'finance_value_before' => $transfer->player->schoolTeam->team_finance,
+//                ]);
+//
+//                $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance + $schoolPrice;
+//                $transfer->player->schoolTeam->save(true, ['team_finance']);
+//
+//                $transfer->player->player_squad_id = 0;
+//                $transfer->player->player_date_no_action = time() + 604800;
+//                $transfer->player->player_no_deal = 0;
+//                $transfer->player->player_order = 0;
+//                $transfer->player->player_team_id = 0;
+//                $transfer->player->save();
+//
+//                $transfer->transfer_age = $transfer->player->player_age;
+//                $transfer->transfer_player_price = $transfer->player->player_price;
+//                $transfer->transfer_power = $transfer->player->player_power_nominal;
+//                $transfer->transfer_price_buyer = $price;
+//                $transfer->transfer_ready = time();
+//                $transfer->transfer_season_id = $seasonId;
+//                $transfer->save();
+//
+//                foreach ($transfer->player->playerPosition as $position) {
+//                    $transferPosition = new TransferPosition();
+//                    $transferPosition->transfer_position_position_id = $position->player_position_position_id;
+//                    $transferPosition->transfer_position_transfer_id = $transfer->transfer_id;
+//                    $transferPosition->save();
+//                }
+//
+//                foreach ($transfer->player->playerSpecial as $special) {
+//                    $transferSpecial = new TransferSpecial();
+//                    $transferSpecial->transfer_special_level = $special->player_special_level;
+//                    $transferSpecial->transfer_special_special_id = $special->player_special_special_id;
+//                    $transferSpecial->transfer_special_transfer_id = $transfer->transfer_id;
+//                    $transferSpecial->save();
+//                }
 
                 History::log([
                     'history_history_text_id' => HistoryText::PLAYER_FREE,
                     'history_player_id' => $transfer->transfer_player_id,
                     'history_team_id' => $transfer->transfer_team_seller_id,
-                    'history_team_2_id' => $transferApplication->transfer_application_team_id,
-                    'history_value' => $transferApplication->transfer_application_price,
+                    'history_team_2_id' => 0,
+                    'history_value' => $price,
                 ]);
 
                 $transferDeleteArray = Transfer::find()
@@ -351,5 +352,7 @@ class MakeTransfer
                 }
             }
         }
+        print 'yep';
+        exit;
     }
 }
