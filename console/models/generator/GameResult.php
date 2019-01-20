@@ -1755,7 +1755,7 @@ class GameResult
      */
     private function assist1($team)
     {
-        if (rand(0, 5)) {
+        if (rand(0, 5) > 1) {
             $this->selectAssist1($team);
         } else {
             $this->result['assist_1'] = 0;
@@ -1788,7 +1788,7 @@ class GameResult
      */
     private function assist2($team)
     {
-        if (rand(0, 5)) {
+        if (rand(0, 5) > 2) {
             $this->selectAssist2($team);
         } else {
             $this->result['assist_2'] = 0;
@@ -1811,9 +1811,9 @@ class GameResult
 
         $penaltyPosition = $this->penaltyPositionArray($team);
         $penaltyPosition[] = $this->result['player'];
+        $penaltyPosition[] = $this->result['assist_1'];
 
-        $ifInArray = in_array($this->result['assist_1'], $penaltyPosition);
-        if ($ifInArray || $this->result['assist_2'] == $this->result['assist_1']) {
+        if (in_array($this->result['assist_2'], $penaltyPosition)) {
             $this->selectAssist2($team);
         }
     }
