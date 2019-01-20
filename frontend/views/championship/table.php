@@ -303,7 +303,7 @@ $user = Yii::$app->user->identity;
                 ],
                 ['class' => 'btn margin']
             ); ?>
-            <?php if ($reviewCreate && false) : ?>
+            <?php if ($reviewCreate) : ?>
                 <?= Html::a(
                     'Написать обзор',
                     [
@@ -313,7 +313,7 @@ $user = Yii::$app->user->identity;
                         'scheduleId' => $scheduleId,
                         'seasonId' => $seasonId,
                     ],
-                    ['class' => 'btn margin']
+                    ['class' => 'btn margin', 'target' => '_blank']
                 ); ?>
             <?php endif; ?>
         </p>
