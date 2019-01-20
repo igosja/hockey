@@ -160,10 +160,10 @@ class GeneratorController extends AbstractController
             new Prize(),
             new InsertSwiss(),
             new LoanDecreaseAndReturn(),
-        ];
-        $modelArray = [
             new MakeTransfer(),
             new TransferCheck(),
+        ];
+        $modelArray = [
             new MakeLoan(),
             new LoanCheck(),
             new TireBaseLevel(),

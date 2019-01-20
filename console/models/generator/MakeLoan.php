@@ -109,7 +109,7 @@ class MakeLoan
                     $userArray[] = $item->transfer_user_buyer_id;
                 }
 
-                if (!in_array($item->loan_user_seller_id, [0, $loan->loan_user_seller_id])) {
+                if (!in_array($item->transfer_user_buyer_id, [0, $loan->loan_user_seller_id])) {
                     $userArray[] = $item->loan_user_seller_id;
                 }
             }
