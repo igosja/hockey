@@ -417,7 +417,7 @@ class ForumController extends AbstractController
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionDeleteTheme($id)
+    public function actionThemeDelete($id)
     {
         $model = ForumTheme::find()
             ->where(['forum_theme_id' => $id])
