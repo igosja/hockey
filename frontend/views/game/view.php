@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
@@ -40,7 +41,7 @@ $user = Yii::$app->user->identity;
                 <tr>
                     <th>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_home_auto); ?>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
@@ -60,7 +61,7 @@ $user = Yii::$app->user->identity;
                             ?>)
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false); ?>
+                            <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_guest_auto); ?>
                         </div>
                     </th>
@@ -500,7 +501,7 @@ $user = Yii::$app->user->identity;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию матчей до
-                <?= FormatHelper::asDatetime($user->user_date_block_comment_news); ?>
+                <?= FormatHelper::asDatetime($user->user_date_block_comment_game); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockCommentGame->block_reason_text; ?>
             </div>
@@ -532,7 +533,7 @@ $user = Yii::$app->user->identity;
                 <div class="row">{error}</div>',
             ],
         ]); ?>
-        <?= $form->field($model, 'game_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
+        <?= $form->field($model, 'game_comment_text')->widget(WysiBB::class)->label('Ваш комментарий:'); ?>
         <div class="row margin-top-small">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>

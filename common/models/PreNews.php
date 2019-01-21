@@ -12,8 +12,6 @@ namespace common\models;
  */
 class PreNews extends AbstractActiveRecord
 {
-    const PAGE_LIMIT = 10;
-
     /**
      * @return string
      */
@@ -30,6 +28,14 @@ class PreNews extends AbstractActiveRecord
         return [
             [['pre_news_id'], 'integer'],
             [['pre_news_new', 'pre_news_error'], 'trim'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'pre_news_new' => 'Новое на сайте',
+            'pre_news_error' => 'Работа над ошибками',
         ];
     }
 }

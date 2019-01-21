@@ -1,7 +1,9 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
@@ -46,7 +48,7 @@ print $this->render('_country');
         <?= $news->user->userLink(['class' => 'strong']); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= nl2br(Html::encode($news->news_text)); ?>
+        <?= HockeyHelper::bbDecode($news->news_text); ?>
     </div>
 </div>
 <?php if ($dataProvider->models) : ?>
@@ -108,7 +110,7 @@ print $this->render('_country');
                     <div class="row">{error}</div>',
             ],
         ]); ?>
-        <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
+        <?= $form->field($model, 'news_comment_text')->widget(WysiBB::class)->label('Ваш комментарий:'); ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>

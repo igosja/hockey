@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -94,7 +95,7 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <?= $form->field($model, 'file')->fileInput(); ?>
-<?= $form->field($model, 'text')->textarea(); ?>
+<?= $form->field($model, 'text')->widget(WysiBB::class); ?>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs"></div>
     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">

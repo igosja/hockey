@@ -6,7 +6,6 @@ use common\models\History;
 use common\models\HistoryText;
 use common\models\NameCountry;
 use common\models\Player;
-use common\models\PlayerPosition;
 use common\models\PlayerSpecial;
 use common\models\School;
 use common\models\Scout;
@@ -92,11 +91,6 @@ class UpdateSchool
             $player->player_tire = $school->team->baseMedical->base_medical_tire;
             $player->player_training_ability = rand(1, 5);
             $player->save();
-
-            $playerPosition = new PlayerPosition();
-            $playerPosition->player_position_player_id = $player->player_id;
-            $playerPosition->player_position_position_id = $school->school_position_id;
-            $playerPosition->save();
 
             if ($specialId) {
                 $playerSpecial = new PlayerSpecial();

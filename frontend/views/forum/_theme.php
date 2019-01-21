@@ -48,14 +48,16 @@ $user = Yii::$app->user->identity;
     <?= $model->forum_theme_count_view; ?>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-size-2">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= $model->forumMessage[0]->user->userLink(['color' => true]); ?>
+    <?php if (isset($model->forumMessage[0])) : ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= $model->forumMessage[0]->user->userLink(['color' => true]); ?>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?= FormatHelper::asDateTime($model->forumMessage[0]->forum_message_date); ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= FormatHelper::asDateTime($model->forumMessage[0]->forum_message_date); ?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>

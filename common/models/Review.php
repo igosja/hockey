@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * Class Review
  * @package common\models
@@ -20,6 +22,7 @@ namespace common\models;
  *
  * @property Country $country
  * @property Division $division
+ * @property ReviewGame[] $reviewGame
  * @property Stage $stage
  * @property User $user
  */
@@ -49,8 +52,6 @@ class Review extends AbstractActiveRecord
                     'review_season_id',
                     'review_schedule_id',
                     'review_stage_id',
-                    'review_text',
-                    'review_title',
                     'review_user_id',
                 ],
                 'integer'
@@ -70,10 +71,24 @@ class Review extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->review_date = time();
+                $this->review_user_id = Yii::$app->user->id;
             }
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->reviewGame as $reviewGame) {
+            $reviewGame->delete();
+        }
+        return parent::beforeDelete();
     }
 
     /**
@@ -95,9 +110,17 @@ class Review extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getReviewGame()
+    {
+        return $this->hasMany(ReviewGame::class, ['review_game_review_id' => 'review_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getStage()
     {
-        return $this->hasOne(Stage::class, ['division_id' => 'review_division_id']);
+        return $this->hasOne(Stage::class, ['stage_id' => 'review_stage_id']);
     }
 
     /**

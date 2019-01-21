@@ -14,8 +14,8 @@ use yii\db\ActiveQuery;
  * @property int $election_president_election_status_id
  *
  * @property ElectionPresidentApplication[] $application
- * @property ElectionStatus $electionStatus
  * @property Country $country
+ * @property ElectionStatus $electionStatus
  */
 class ElectionPresident extends AbstractActiveRecord
 {
@@ -99,16 +99,16 @@ class ElectionPresident extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionStatus()
+    public function getCountry()
     {
-        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_president_election_status_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'election_president_country_id']);
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getElectionStatus()
     {
-        return $this->hasOne(Country::class, ['country_id' => 'election_president_country_id']);
+        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_president_election_status_id']);
     }
 }

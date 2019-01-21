@@ -51,6 +51,16 @@ return [
     'components' => [
         'assetManager' => [
             'appendTimestamp' => true,
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => [
+                        'js/jquery-1.10.0.min.js',
+                    ]
+                ],
+            ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -88,6 +98,7 @@ return [
                 'base/free/build/<building:\d+>' => 'base-free/build',
                 'base/destroy/<building:\d+>' => 'base/destroy',
                 'country/news/create/<id:\d+>' => 'country/news-create',
+                'country/news/comment/delete/<id:\d+>/<newsId:\d+>' => 'country/delete-news-comment',
                 'country/news/delete/<id:\d+>/<newsId:\d+>' => 'country/news-delete',
                 'country/news/update/<id:\d+>/<newsId:\d+>' => 'country/news-update',
                 'country/news/view/<id:\d+>/<newsId:\d+>' => 'country/news-view',

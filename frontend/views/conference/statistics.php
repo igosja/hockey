@@ -93,7 +93,7 @@ if ($statisticType->isTeamChapter()) {
         ],
         [
             'contentOptions' => ['class' => 'text-center'],
-            'value' => function (StatisticTeam $model) use ($statisticType) {
+            'value' => function (StatisticPlayer $model) use ($statisticType) {
                 $select = $statisticType->statistic_type_select;
                 return $model->$select;
             }

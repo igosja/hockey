@@ -12,6 +12,10 @@ use yii\helpers\Html;
  * @var array $divisionArray
  * @var int $divisionId
  * @var \common\models\Game[] $gameArray
+ * @var \common\models\Review[] $reviewArray
+ * @var bool $reviewCreate
+ * @var array $roundArray
+ * @var array $scheduleId
  * @var array $seasonArray
  * @var int $seasonId
  * @var array $stageArray
@@ -33,8 +37,13 @@ $user = Yii::$app->user->identity;
         </h1>
     </div>
 </div>
-<?= Html::beginForm(['championship/table'], 'get'); ?>
 <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
+    </div>
+</div>
+<?= Html::beginForm(['championship/table'], 'get'); ?>
+<div class="row margin-top-small">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
         <?= Html::label('Сезон', 'seasonId'); ?>
@@ -65,11 +74,16 @@ $user = Yii::$app->user->identity;
         </p>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//championship/_round-links', ['roundArray' => $roundArray]); ?>
+    </div>
+</div>
 <?= Html::beginForm(
     ['championship/table', 'countryId' => $country->country_id, 'seasonId' => $seasonId, 'divisionId' => $divisionId],
     'get'
 ); ?>
-<div class="row">
+<div class="row margin-top-small">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
         <?= Html::label('Тур', 'stageId'); ?>
@@ -85,7 +99,7 @@ $user = Yii::$app->user->identity;
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
 </div>
 <?= Html::endForm(); ?>
-<div class="row">
+<div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table">
             <?php foreach ($gameArray as $item) { ?>
@@ -109,7 +123,7 @@ $user = Yii::$app->user->identity;
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row margin-top-small">
     <?php
 
     try {
@@ -257,3 +271,51 @@ $user = Yii::$app->user->identity;
     ?>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
+<?php if ($reviewArray) : ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong margin-top text-center">
+            Обзоры:
+        </div>
+    </div>
+    <?php foreach ($reviewArray as $review) : ?>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-11">
+                <?= $review->stage->stage_name; ?> -
+                <?= Html::a($review->review_title, ['review/view', 'id' => $review->review_id]); ?>
+                -
+                <?= $review->user->userLink(); ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>
+            <?= Html::a(
+                'Статистика',
+                [
+                    'championship/statistics',
+                    'countryId' => $country->country_id,
+                    'divisionId' => $divisionId,
+                    'roundId' => 1,
+                    'seasonId' => $seasonId,
+                ],
+                ['class' => 'btn margin']
+            ); ?>
+            <?php if ($reviewCreate) : ?>
+                <?= Html::a(
+                    'Написать обзор',
+                    [
+                        'review/create',
+                        'countryId' => $country->country_id,
+                        'divisionId' => $divisionId,
+                        'scheduleId' => $scheduleId,
+                        'seasonId' => $seasonId,
+                    ],
+                    ['class' => 'btn margin', 'target' => '_blank']
+                ); ?>
+            <?php endif; ?>
+        </p>
+    </div>
+</div>

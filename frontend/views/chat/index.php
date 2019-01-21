@@ -6,6 +6,7 @@
  * @var \yii\web\View $this
  */
 
+use coderlex\wysibb\WysiBB;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -28,7 +29,7 @@ use yii\widgets\ActiveForm;
                 'id' => 'chat-form',
                 'fieldConfig' => [
                     'errorOptions' => [
-                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center message-error notification-error',
+                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center notification-error',
                         'tag' => 'div'
                     ],
                     'options' => ['class' => 'row'],
@@ -42,9 +43,7 @@ use yii\widgets\ActiveForm;
                 <div class="row">{error}</div>',
                 ],
             ]); ?>
-            <?= $form->field($model, 'text')->textarea([
-                'class' => 'form-control',
-            ])->label(false); ?>
+            <?= $form->field($model, 'text')->widget(WysiBB::class)->label(false); ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <?= Html::submitButton('Отправить', ['class' => 'btn margin']); ?>
@@ -55,7 +54,7 @@ use yii\widgets\ActiveForm;
     </div>
 <?php
 $script = <<< JS
-$(document).ready(function() {    
+$(document).ready(function() {
     chatUser();
     setInterval(function () {
         chatUser();

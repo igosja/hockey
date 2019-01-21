@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -10,7 +11,6 @@ use yii\widgets\ActiveForm;
 print $this->render('_country');
 
 ?>
-
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
@@ -37,7 +37,7 @@ print $this->render('_country');
             ],
         ]); ?>
         <?= $form->field($model, 'news_title')->textInput(['class' => 'form-control'])->label('Заголовок новости'); ?>
-        <?= $form->field($model, 'news_text')->textarea(['class' => 'form-control', 'rows' => 5])->label('Текст новости'); ?>
+        <?= $form->field($model, 'news_text')->widget(WysiBB::class)->label('Текст новости'); ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn margin']); ?>

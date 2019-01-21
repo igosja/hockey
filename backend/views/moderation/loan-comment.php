@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use common\models\LoanComment;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -65,6 +66,6 @@ use yii\widgets\DetailView;
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= nl2br(Html::encode($model->loan_comment_text)); ?>
+        <?= HockeyHelper::bbDecode($model->loan_comment_text); ?>
     </div>
 </div>

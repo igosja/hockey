@@ -1,6 +1,7 @@
 <?php
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use yii\helpers\Html;
 
 /**
@@ -37,6 +38,6 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= nl2br(Html::encode($model->news_text)); ?>
+        <?= HockeyHelper::bbDecode($model->news_text); ?>
     </div>
 </div>

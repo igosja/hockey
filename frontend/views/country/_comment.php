@@ -1,6 +1,7 @@
 <?php
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\UserRole;
 use yii\helpers\Html;
 
@@ -16,7 +17,7 @@ $identity = Yii::$app->user->identity;
     <?= $model->user->userLink(['class' => 'strong']); ?>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <?= nl2br(Html::encode($model->news_comment_text)); ?>
+    <?= HockeyHelper::bbDecode($model->news_comment_text); ?>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
     <?= FormatHelper::asDateTime($model->news_comment_date); ?>
@@ -24,7 +25,7 @@ $identity = Yii::$app->user->identity;
         |
         <?= Html::a(
             'Удалить',
-            ['news/delete-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id]
+            ['country/delete-news-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id]
         ); ?>
     <?php endif; ?>
 </div>

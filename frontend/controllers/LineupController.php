@@ -86,6 +86,7 @@ class LineupController extends AbstractController
         ]);
 
         $playerArray = Player::find()
+            ->with(['squad'])
             ->where([
                 'or',
                 ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],
@@ -109,6 +110,7 @@ class LineupController extends AbstractController
         $cfArray = [];
         $rwArray = [];
         $playerArray = Player::find()
+            ->with(['squad'])
             ->where([
                 'or',
                 ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],

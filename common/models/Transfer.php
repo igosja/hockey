@@ -96,6 +96,9 @@ class Transfer extends AbstractActiveRecord
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function alerts()
     {
         $result = [
@@ -282,7 +285,7 @@ class Transfer extends AbstractActiveRecord
     {
         $result = [];
         foreach ($this->playerSpecial as $special) {
-            $result[] = $special->special->special_name . $special->player_special_level;
+            $result[] = $special->special->special_name . $special->transfer_special_level;
         }
         return implode('', $result);
     }

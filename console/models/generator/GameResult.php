@@ -32,16 +32,16 @@ use common\models\TournamentType;
  */
 class GameResult
 {
-    const AUTO_PENALTY = 25;
-    const COEFFICIENT_DEFENCE = 1;
-    const COEFFICIENT_DEFENCE_GK = 6;
-    const COEFFICIENT_FORWARD = 6;
-    const COEFFICIENT_GK = 5;
-    const COEFFICIENT_RUDENESS = 2;
-    const COEFFICIENT_SHOT_1 = 5;
-    const COEFFICIENT_SHOT_2 = 2;
-    const LIMIT_RUDENESS = 38;
-    const MAX_RUDENESS = 40;
+    const AUTO_PENALTY = 25; //Штраф за автососав
+    const COEFFICIENT_DEFENCE = 1; //Меньше цифра - больше бросков
+    const COEFFICIENT_DEFENCE_GK = 6; //Больше цифра - сильнее вратарь (min 6)
+    const COEFFICIENT_FORWARD = 5; //Меньше цифра - больше бросков
+    const COEFFICIENT_GK = 5; //Больше цифра - слабее вратарь
+    const COEFFICIENT_RUDENESS = 2; //Больше цифра - больше штрафов
+    const COEFFICIENT_SHOT_1 = 5; //Больше цифра - слабее бросок
+    const COEFFICIENT_SHOT_2 = 2; //Больше цифра - сильнее бросок
+    const LIMIT_RUDENESS = 39; //Больше цифра - меньше штрафов
+    const MAX_RUDENESS = 40; //Больше цифра - больше штрафов
 
     /**
      * @var Game $game
@@ -1755,7 +1755,7 @@ class GameResult
      */
     private function assist1($team)
     {
-        if (rand(0, 5)) {
+        if (rand(0, 5) > 1) {
             $this->selectAssist1($team);
         } else {
             $this->result['assist_1'] = 0;
@@ -1788,7 +1788,7 @@ class GameResult
      */
     private function assist2($team)
     {
-        if (rand(0, 5)) {
+        if (rand(0, 5) > 2) {
             $this->selectAssist2($team);
         } else {
             $this->result['assist_2'] = 0;
@@ -1811,9 +1811,9 @@ class GameResult
 
         $penaltyPosition = $this->penaltyPositionArray($team);
         $penaltyPosition[] = $this->result['player'];
+        $penaltyPosition[] = $this->result['assist_1'];
 
-        $ifInArray = in_array($this->result['assist_1'], $penaltyPosition);
-        if ($ifInArray || $this->result['assist_2'] == $this->result['assist_1']) {
+        if (in_array($this->result['assist_2'], $penaltyPosition)) {
             $this->selectAssist2($team);
         }
     }

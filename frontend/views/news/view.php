@@ -1,5 +1,6 @@
 <?php
 
+use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use yii\helpers\Html;
@@ -93,7 +94,7 @@ $user = Yii::$app->user->identity;
                     <div class="row">{error}</div>',
             ],
         ]); ?>
-        <?= $form->field($model, 'news_comment_text')->textarea(['rows' => 5])->label('Ваш комментарий:'); ?>
+        <?= $form->field($model, 'news_comment_text')->widget(WysiBB::class)->label('Ваш комментарий:'); ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Комментировать', ['class' => 'btn margin']); ?>

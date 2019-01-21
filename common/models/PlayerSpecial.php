@@ -8,6 +8,7 @@ use yii\db\ActiveQuery;
  * Class PlayerSpecial
  * @package common\models
  *
+ * @property int $player_special_id
  * @property int $player_special_level
  * @property int $player_special_player_id
  * @property int $player_special_special_id
@@ -31,7 +32,7 @@ class PlayerSpecial extends AbstractActiveRecord
     {
         return [
             [
-                ['player_special_level', 'player_special_player_id', 'player_special_special_id'],
+                ['player_special_id', 'player_special_level', 'player_special_player_id', 'player_special_special_id'],
                 'integer'
             ],
             [['player_special_level', 'player_special_player_id', 'player_special_special_id'], 'required'],

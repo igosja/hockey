@@ -76,6 +76,10 @@ class Country extends AbstractActiveRecord
             [
                 'alt' => $this->country_name,
                 'title' => $this->country_name,
+                'style' => [
+                    'position' => 'relative',
+                    'top' => '1px',
+                ],
             ]
         );
     }

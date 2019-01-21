@@ -3,8 +3,10 @@
 namespace backend\controllers;
 
 use backend\models\UserSearch;
+use common\models\BlockReason;
 use common\models\User;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
 /**
@@ -61,5 +63,165 @@ class UserController extends AbstractController
 
         Yii::$app->request->setBaseUrl('');
         return $this->redirect(['site/auth', 'code' => $model->user_code]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionBlockComment($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block_comment = $model->time * 86400 + time();
+            if ($model->save()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block-comment', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionBlockCommentDeal($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block_comment_deal = $model->time * 86400 + time();
+            if ($model->save()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block-comment-deal', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionBlockCommentGame($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block_comment_game = $model->time * 86400 + time();
+            if ($model->save()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block-comment-game', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionBlockCommentNews($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block_comment_news = $model->time * 86400 + time();
+            if ($model->save()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block-comment-news', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionBlockForum($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block_forum = $model->time * 86400 + time();
+            if ($model->save()) {
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block-forum', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
     }
 }
