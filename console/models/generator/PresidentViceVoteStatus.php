@@ -85,7 +85,7 @@ class PresidentViceVoteStatus
                 'COUNT(election_president_vice_vote_application_id) AS election_president_vice_vote_vote'
             ])
             ->where(['election_president_vice_application_election_id' => $electionPresidentVice->election_president_vice_id])
-            ->andWhere(['!=', 'election_president_application_user_id', 0])
+            ->andWhere(['!=', 'election_president_vice_application_user_id', 0])
             ->andWhere([
                 'not',
                 ['election_president_vice_application_user_id' => Country::find()->select(['country_president_id'])]
