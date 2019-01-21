@@ -27,10 +27,10 @@ class ReviewController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['create'],
+                'only' => ['create', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['create'],
+                        'actions' => ['create', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

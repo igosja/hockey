@@ -36,6 +36,7 @@ class ForumController extends AbstractController
                     'message-move',
                     'message-update',
                     'theme-create',
+                    'theme-delete',
                 ],
                 'rules' => [
                     [
@@ -46,6 +47,7 @@ class ForumController extends AbstractController
                             'message-move',
                             'message-update',
                             'theme-create',
+                            'theme-delete',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -405,6 +407,32 @@ class ForumController extends AbstractController
         return $this->render('message-move', [
             'forumThemeArray' => $forumThemeOptions,
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionDeleteTheme($id)
+    {
+        $model = ForumTheme::find()
+            ->where(['forum_theme_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($model);
+
+        $groupId = $model->forum_theme_forum_group_id;
+
+        $model->delete();
+
+        $this->setSuccessFlash();
+        return $this->redirect(Yii::$app->request->referrer ? Yii::$app->request->referrer : [
+            'forum/group',
+            'id' => $groupId
         ]);
     }
 }
