@@ -501,7 +501,7 @@ $user = Yii::$app->user->identity;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию матчей до
-                <?= FormatHelper::asDatetime($user->user_date_block_comment_news); ?>
+                <?= FormatHelper::asDatetime($user->user_date_block_comment_game); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockCommentGame->block_reason_text; ?>
             </div>
