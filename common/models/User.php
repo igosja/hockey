@@ -79,6 +79,8 @@ class User extends AbstractActiveRecord implements IdentityInterface
     const MAX_HOLIDAY = 30;
     const MAX_VIP_HOLIDAY = 60;
 
+    public $time;
+
     /**
      * @return string
      */
@@ -96,6 +98,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             [['user_email'], 'email'],
             [
                 [
+                    'time',
                     'user_id',
                     'user_birth_day',
                     'user_birth_month',
