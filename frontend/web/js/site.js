@@ -105,7 +105,14 @@ jQuery(document).ready(function () {
                 }
             });
             return false;
-        });
+        }).on('click', '#relation-link', function () {
+        var relation_body = $('.relation-body');
+        if (relation_body.hasClass('hidden')) {
+            relation_body.removeClass('hidden');
+        } else {
+            relation_body.addClass('hidden');
+        }
+    });
 });
 
 function getIncreasePrice(capacityNew, capacityCurrent, oneSitPrice) {

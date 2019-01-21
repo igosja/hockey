@@ -14,7 +14,7 @@ $identity = Yii::$app->user->identity;
 
 ?>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
-    <?= $model->user->userLink(['class' => 'strong']); ?>
+    <?= $model->user->userLink(['class' => 'strong', 'color' => true]); ?>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <?= HockeyHelper::bbDecode($model->loan_comment_text); ?>

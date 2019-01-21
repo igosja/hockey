@@ -277,6 +277,15 @@ class LineupController extends AbstractController
             ->andFilterWhere(['!=', 'mood_id', $noRest])
             ->orderBy(['mood_id' => SORT_ASC])
             ->all();
+        $moodArray = ArrayHelper::map($moodArray, 'mood_id', 'mood_name');
+
+        foreach ($moodArray as $moodId => $moodName) {
+            if (Mood::SUPER == $moodId) {
+                $moodArray[$moodId] = $moodName . ' (' . $this->myTeam->team_mood_super . ')';
+            } elseif (Mood::REST == $moodId) {
+                $moodArray[$moodId] = $moodName . ' (' . $this->myTeam->team_mood_rest . ')';
+            }
+        }
 
         $this->setSeoTitle('Отправка состава');
 
@@ -310,7 +319,7 @@ class LineupController extends AbstractController
             'ldArray' => $ldArray,
             'lwArray' => $lwArray,
             'model' => $model,
-            'moodArray' => ArrayHelper::map($moodArray, 'mood_id', 'mood_name'),
+            'moodArray' => $moodArray,
             'playerDataProvider' => $playerDataProvider,
             'rdArray' => $rdArray,
             'rudenessArray' => ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name'),

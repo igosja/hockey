@@ -181,6 +181,66 @@ class Country extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function attitudePresident()
+    {
+        $result = 0;
+        foreach ($this->city as $city) {
+            $result = $result + count($city->stadium);
+        }
+        return $result;
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudePresidentNegative()
+    {
+        $result = 0;
+        foreach ($this->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::NEGATIVE == $stadium->team->team_attitude_president) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudePresident() * 100);
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudePresidentNeutral()
+    {
+        $result = 0;
+        foreach ($this->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::NEUTRAL == $stadium->team->team_attitude_president) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudePresident() * 100);
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudePresidentPositive()
+    {
+        $result = 0;
+        foreach ($this->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::POSITIVE == $stadium->team->team_attitude_president) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudePresident() * 100);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCity()
