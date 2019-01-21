@@ -1,14 +1,27 @@
 <?php
 
 use common\components\FormatHelper;
+use common\models\Attitude;
 use common\models\Country;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $country = Country::find()
     ->where(['country_id' => Yii::$app->request->get('id')])
     ->limit(1)
     ->one();
 $file_name = 'file_name';
+
+$attitudeArray = Attitude::find()
+    ->orderBy(['attitude_order' => SORT_ASC])
+    ->all();
+$attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name');
+
+/**
+ * @var \frontend\controllers\AbstractController $controller
+ */
+$controller = Yii::$app->controller;
 
 ?>
     <div class="row margin-top">
@@ -55,11 +68,11 @@ $file_name = 'file_name';
             Рейтинг президента:
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <span class="font-green"><?= 0 ?>%</span>
+            <span class="font-green"><?= $country->attitudePresidentPositive() ?>%</span>
             |
-            <span class="font-yellow"><?= 0 ?>%</span>
+            <span class="font-yellow"><?= $country->attitudePresidentNeutral() ?>%</span>
             |
-            <span class="font-red"><?= 0 ?>%</span>
+            <span class="font-red"><?= $country->attitudePresidentNegative() ?>%</span>
         </div>
     </div>
     <div class="row">
@@ -90,6 +103,45 @@ $file_name = 'file_name';
             <?= FormatHelper::asCurrency($country->country_finance); ?>
         </div>
     </div>
+<?php if ($controller->myTeam && $controller->myTeam->stadium->city->country->country_id == $country->country_id) : ?>
+    <?php $form = ActiveForm::begin([
+        'action' => ['country/attitude-president', 'id' => $country->country_id],
+        'fieldConfig' => [
+            'labelOptions' => ['class' => 'strong'],
+            'options' => ['class' => 'row text-left'],
+            'template' => '<div class="col-lg-3 col-md-3 col-sm-2"></div>{input}',
+        ],
+    ]); ?>
+    <div class="row text-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-head">
+            Ваше отношение к президенту федерации:
+            <a href="javascript:" id="relation-link"><?= $controller->myTeam->attitudePresident->attitude_name; ?></a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-body hidden">
+            <?= $form
+                ->field($controller->myTeam, 'team_attitude_president')
+                ->radioList($attitudeArray, [
+                    'item' => function ($index, $model, $name, $checked, $value) {
+                        $result = '<div class="hidden-lg hidden-md hidden-sm col-xs-3"></div><div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">'
+                            . Html::radio($name, $checked, [
+                                'index' => $index,
+                                'label' => $model,
+                                'value' => $value,
+                            ])
+                            . '</div>';
+                        return $result;
+                    }
+                ])
+                ->label(false); ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <?= Html::submitButton('Изменить отношение', ['class' => 'btn margin']); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php ActiveForm::end(); ?>
+<?php endif; ?>
 <?php if (in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) : ?>
     <div class="row margin">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
