@@ -71,6 +71,19 @@ class ForumTheme extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function beforeDelete()
+    {
+        foreach ($this->forumMessage as $forumMessage) {
+            $forumMessage->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getForumGroup()
