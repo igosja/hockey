@@ -176,8 +176,6 @@ class GeneratorController extends AbstractController
             new NationalViceVoteStatus(),
             new NationalFire(),
             new PresidentVoteStatus(),
-        ];
-        $modelArray = [
             new PresidentViceVoteStatus(),
             new PresidentFire(),
             new PresidentViceFire(),
@@ -206,9 +204,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            if (false) {
-                (new CheckCronDate())->execute();
-            }
+            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
