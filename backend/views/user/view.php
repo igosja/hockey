@@ -75,6 +75,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Доступ ко всем комментариям',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment > time()) {
@@ -90,6 +91,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Доступ к комментариям сделок',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment_deal > time()) {
@@ -105,6 +107,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Доступ к комментариям сделок',
                 'value' => function (User $model) {
                     if ($model->user_date_block_forum > time()) {
@@ -120,6 +123,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Доступ к комментариям матчей',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment_game > time()) {
@@ -135,6 +139,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Доступ к комментариям новостей',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment_news > time()) {
