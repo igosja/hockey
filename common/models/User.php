@@ -98,6 +98,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             [['user_email'], 'email'],
             [
                 [
+                    'time',
                     'user_id',
                     'user_birth_day',
                     'user_birth_month',
