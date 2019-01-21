@@ -54,6 +54,7 @@ use yii\helpers\Html;
  * @property int $team_vice_id
  * @property int $team_visitor
  *
+ * @property Attitude $attitudePresident
  * @property Base $base
  * @property BaseMedical $baseMedical
  * @property BasePhysical $basePhysical
@@ -572,6 +573,9 @@ class Team extends AbstractActiveRecord
                 ->where(['player_team_id' => $this->team_id])
                 ->all();
             foreach ($playerArray as $player) {
+                /**
+                 * @var Player $player
+                 */
                 $player->makeFree();
             }
 
@@ -1063,6 +1067,14 @@ class Team extends AbstractActiveRecord
     public function rosterPhrase()
     {
         return RosterPhrase::rand();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAttitudePresident()
+    {
+        return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_president']);
     }
 
     /**

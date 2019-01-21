@@ -33,16 +33,51 @@ class CountryController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create', 'delete-news-comment'],
+                'only' => [
+                    'attitude-president',
+                    'fire',
+                    'news-create',
+                    'news-update',
+                    'news-delete',
+                    'poll-create',
+                    'delete-news-comment',
+                ],
                 'rules' => [
                     [
-                        'actions' => ['fire', 'news-create', 'news-update', 'news-delete', 'poll-create', 'delete-news-comment'],
+                        'actions' => [
+                            'attitude-president',
+                            'fire',
+                            'news-create',
+                            'news-update',
+                            'news-delete',
+                            'poll-create',
+                            'delete-news-comment',
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
         ];
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
+    public function actionAttitudePresident($id)
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        if (!$this->myTeam->load(Yii::$app->request->post())) {
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $this->myTeam->save(true, ['team_attitude_president']);
+        return $this->redirect(['country/news', 'id' => $id]);
     }
 
     /**
