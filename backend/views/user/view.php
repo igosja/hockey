@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -44,7 +45,7 @@ use yii\widgets\DetailView;
                 },
             ],
             [
-                'label' => 'Название',
+                'label' => 'Логин',
                 'value' => function (User $model) {
                     return $model->user_login;
                 },
@@ -53,6 +54,99 @@ use yii\widgets\DetailView;
                 'label' => 'Email',
                 'value' => function (User $model) {
                     return $model->user_email;
+                },
+            ],
+            [
+                'label' => 'Баланс',
+                'value' => function (User $model) {
+                    return $model->user_money;
+                },
+            ],
+            [
+                'label' => 'Дата последнего посещения',
+                'value' => function (User $model) {
+                    return $model->lastVisit();
+                },
+            ],
+            [
+                'label' => 'Дата регистрации',
+                'value' => function (User $model) {
+                    return FormatHelper::asDateTime($model->user_date_register);
+                },
+            ],
+            [
+                'label' => 'Доступ ко всем комментариям',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_comment > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_comment);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-comment', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'label' => 'Доступ к комментариям сделок',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_comment_deal > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_comment_deal);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-comment-deal', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'label' => 'Доступ к комментариям сделок',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_forum > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_forum);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-forum', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'label' => 'Доступ к комментариям матчей',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_comment_game > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_comment_game);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-comment-game', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'label' => 'Доступ к комментариям новостей',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_comment_news > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_comment_news);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-comment-news', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
                 },
             ],
         ];
