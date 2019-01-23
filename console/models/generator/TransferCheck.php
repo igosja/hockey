@@ -84,7 +84,7 @@ class TransferCheck
                         'finance_value_before' => $buyerTeam->team_finance,
                     ]);
 
-                    $buyerTeam->team_finance = $buyerTeam->team_finance - $transfer->transfer_price_buyer;
+                    $buyerTeam->team_finance = $buyerTeam->team_finance + $transfer->transfer_price_buyer;
                     $buyerTeam->save(true, ['team_finance']);
                 }
 

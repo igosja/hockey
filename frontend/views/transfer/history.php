@@ -120,9 +120,14 @@ use yii\helpers\Html;
                 [
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
+                    'format' => 'raw',
                     'label' => 'Цена',
                     'value' => function (Transfer $model) {
-                        return FormatHelper::asCurrency($model->transfer_price_buyer);
+                        $class = '';
+                        if ($model->transfer_cancel) {
+                            $class = 'del';
+                        }
+                        return '<span class="' . $class . '">' . FormatHelper::asCurrency($model->transfer_price_buyer) . '</span>';
                     }
                 ],
                 [
