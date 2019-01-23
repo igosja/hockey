@@ -145,8 +145,8 @@ class ForumMessage extends AbstractActiveRecord
             $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
         }
 
-        if ($user->user_id == $this->forum_message_user_id && $isUser && !$this->complaint) {
-            $linkArray[] = Html::a('Пожаловаться', ['forum/complaint', 'id' => $this->forum_message_id]);
+        if (!$this->complaint) {
+            $linkArray[] = Html::a('Пожаловаться', ['forum/message-complaint', 'id' => $this->forum_message_id]);
         }
 
         if (!$isUser) {
