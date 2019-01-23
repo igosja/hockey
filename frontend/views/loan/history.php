@@ -121,10 +121,15 @@ use yii\helpers\Html;
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Общая стоимость аренды'],
+                    'format' => 'raw',
                     'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Общая стоимость аренды'],
                     'label' => 'Цена',
                     'value' => function (Loan $model) {
-                        return FormatHelper::asCurrency($model->loan_price_buyer);
+                        $class = '';
+                        if ($model->loan_cancel) {
+                            $class = 'del';
+                        }
+                        return '<span class="' . $class . '">' . FormatHelper::asCurrency($model->loan_price_buyer) . '</span>';
                     }
                 ],
                 [
