@@ -55,7 +55,7 @@ class LoanCheck
                     'finance_value_before' => $loan->buyer->team_finance,
                 ]);
 
-                $loan->buyer->team_finance = $loan->buyer->team_finance - $loan->loan_price_buyer;
+                $loan->buyer->team_finance = $loan->buyer->team_finance + $loan->loan_price_buyer;
                 $loan->buyer->save();
 
                 $loan->loan_cancel = time();
