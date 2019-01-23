@@ -19,7 +19,7 @@ try {
                 'url' => ['player/deal', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
-                'text' => 'Транфер',
+                'text' => 'Трансфер',
                 'url' => ['player/transfer', 'id' => Yii::$app->request->get('id', 1)],
             ],
             [
