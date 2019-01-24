@@ -80,6 +80,11 @@ class LoanTo extends Model
             return false;
         }
 
+        if ($this->player->loan) {
+            Yii::$app->session->setFlash('error', 'Игрок уже выставлен на арендный рынок.');
+            return false;
+        }
+
         if ($this->player->player_date_no_action > time()) {
             Yii::$app->session->setFlash(
                 'error',
