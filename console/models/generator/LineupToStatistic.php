@@ -82,7 +82,7 @@ class LineupToStatistic
                     $model->statistic_player_championship_playoff = $isPlayoff;
                     $model->statistic_player_country_id = $countryId;
                     $model->statistic_player_division_id = $divisionId;
-                    $model->statistic_player_is_gk = $divisionId;
+                    $model->statistic_player_is_gk = $isGk;
                     $model->statistic_player_national_id = $lineup->lineup_national_id;
                     $model->statistic_player_player_id = $lineup->lineup_player_id;
                     $model->statistic_player_season_id = $game->schedule->schedule_season_id;
