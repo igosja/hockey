@@ -366,7 +366,7 @@ class TeamController extends AbstractController
                     return $query->select(['history_text_id', 'history_text_text']);
                 },
                 'team' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name']);
+                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
                 },
                 'player' => function (ActiveQuery $query) {
                     return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
