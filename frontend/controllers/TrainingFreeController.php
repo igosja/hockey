@@ -345,8 +345,7 @@ class TrainingFreeController extends AbstractController
                             LEFT JOIN `physical`
                             ON `player_physical_id`=`physical_id`
                             SET `player_power_real`=`player_power_nominal`*(100-`player_tire`)/100*`physical_value`/100
-                            WHERE `player_id`=" . $power['id'] . "
-                            LIMIT 1";
+                            WHERE `player_id`=" . $power['id'];
                     Yii::$app->db->createCommand($sql)->execute();
                 }
 
