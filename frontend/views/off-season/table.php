@@ -149,20 +149,20 @@ $user = Yii::$app->user->identity;
             ],
             [
                 'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
-                'footer' => 'Ш',
-                'footerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
-                'headerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
-                'label' => 'Ш',
+                'footer' => 'ЗШ',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
+                'label' => 'ЗШ',
                 'value' => function (OffSeason $model) {
                     return $model->off_season_score;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
-                'footer' => 'Ш',
-                'footerOptions' => ['style' => ['display' => 'none']],
-                'headerOptions' => ['style' => ['display' => 'none']],
-                'label' => 'Ш',
+                'footer' => 'ПШ',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
+                'label' => 'ПШ',
                 'value' => function (OffSeason $model) {
                     return $model->off_season_pass;
                 }
