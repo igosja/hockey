@@ -154,6 +154,29 @@ use yii\grid\GridView;
                 }
             ],
             [
+                'attribute' => 'style',
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Ст',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
+                'label' => 'Ст',
+                'value' => function (Player $model) {
+                    return $model->iconStyle(true);
+                }
+            ],
+            [
+                'attribute' => 'game_row',
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'ИО',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
+                'label' => 'ИО',
+                'value' => function (Player $model) {
+                    return $model->player_game_row;
+                }
+            ],
+            [
                 'attribute' => 'plus_minus',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => '+/-',
@@ -206,29 +229,6 @@ use yii\grid\GridView;
                 'label' => 'Цена',
                 'value' => function (Player $model) {
                     return FormatHelper::asCurrency($model->player_price);
-                }
-            ],
-            [
-                'attribute' => 'style',
-                'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'Ст',
-                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
-                'label' => 'Ст',
-                'value' => function (Player $model) {
-                    return $model->iconStyle(true);
-                }
-            ],
-            [
-                'attribute' => 'game_row',
-                'contentOptions' => ['class' => 'hidden-xs text-center'],
-                'footer' => 'ИО',
-                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
-                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
-                'label' => 'ИО',
-                'value' => function (Player $model) {
-                    return $model->player_game_row;
                 }
             ],
         ];
