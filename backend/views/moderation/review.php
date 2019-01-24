@@ -70,7 +70,7 @@ use yii\widgets\DetailView;
     </div>
 </div>
 <?php foreach ($model->reviewGame as $reviewGame) : ?>
-    <div class="row">
+    <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?= HockeyHelper::bbDecode($reviewGame->review_game_text); ?>
         </div>
