@@ -76,6 +76,11 @@ class TransferTo extends Model
             return false;
         }
 
+        if ($this->player->transfer) {
+            Yii::$app->session->setFlash('error', 'Игрок уже выставлен на трансфер.');
+            return false;
+        }
+
         if ($this->player->player_national_id) {
             Yii::$app->session->setFlash('error', 'Нельзя продать игрока сборной.');
             return false;

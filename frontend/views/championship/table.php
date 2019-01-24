@@ -218,20 +218,20 @@ $user = Yii::$app->user->identity;
             ],
             [
                 'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
-                'footer' => 'Ш',
-                'footerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
-                'header' => 'Ш',
-                'headerOptions' => ['class' => 'hidden-xs', 'colspan' => 2, 'title' => 'Шайбы'],
+                'footer' => 'ЗШ',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
+                'label' => 'ЗШ',
                 'value' => function (Championship $model) {
                     return $model->championship_score;
                 }
             ],
             [
                 'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
-                'footer' => 'Ш',
-                'footerOptions' => ['style' => ['display' => 'none']],
-                'header' => 'Ш',
-                'headerOptions' => ['style' => ['display' => 'none']],
+                'footer' => 'ПШ',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
+                'label' => 'ПШ',
                 'value' => function (Championship $model) {
                     return $model->championship_pass;
                 }

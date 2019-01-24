@@ -260,6 +260,7 @@ class Loan extends AbstractActiveRecord
                 ])
                 ->andWhere(['transfer_cancel' => 0])
                 ->andWhere(['!=', 'transfer_ready', 0])
+                ->andWhere(['<', 'transfer_ready', $this->loan_ready])
                 ->count();
             $loan = Loan::find()
                 ->where([
@@ -275,6 +276,7 @@ class Loan extends AbstractActiveRecord
                 ])
                 ->andWhere(['loan_cancel' => 0])
                 ->andWhere(['!=', 'loan_ready', 0])
+                ->andWhere(['<', 'loan_ready', $this->loan_ready])
                 ->andWhere(['!=', 'loan_id', $this->loan_id])
                 ->count();
 

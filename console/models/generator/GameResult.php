@@ -1641,6 +1641,7 @@ class GameResult
                 $this->playerAssist1Increase($team, $opponent);
                 $this->playerAssist2Increase($team, $opponent);
                 $this->currentPenaltyDecreaseAfterGoal($team, $opponent);
+                $this->emptyPlayerAfterGoal();
 
                 if ($endIfScore) {
                     $this->result['minute'] = 65;
@@ -1788,7 +1789,7 @@ class GameResult
      */
     private function assist2($team)
     {
-        if (rand(0, 5) > 2) {
+        if ($this->result['assist_1'] && rand(0, 5) > 2) {
             $this->selectAssist2($team);
         } else {
             $this->result['assist_2'] = 0;
@@ -1929,6 +1930,9 @@ class GameResult
      */
     private function playerAssist1Increase($team, $opponent)
     {
+        if (!$this->result['assist_1']) {
+            return;
+        }
         $powerShort = '';
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
         $countOpponentPenalty = count($this->result[$opponent]['team']['penalty']['current']);
@@ -1958,6 +1962,9 @@ class GameResult
      */
     private function playerAssist2Increase($team, $opponent)
     {
+        if (!$this->result['assist_2']) {
+            return;
+        }
         $powerShort = '';
         $countTeamPenalty = count($this->result[$team]['team']['penalty']['current']);
         $countOpponentPenalty = count($this->result[$opponent]['team']['penalty']['current']);
@@ -2382,6 +2389,13 @@ class GameResult
         $this->result['home']['team']['penalty']['opponent'] = $this->result['guest']['team']['penalty']['total'];
         $this->result['guest']['team']['pass'] = $this->result['home']['team']['score']['total'];
         $this->result['home']['team']['pass'] = $this->result['guest']['team']['score']['total'];
+    }
+
+    private function emptyPlayerAfterGoal()
+    {
+        $this->result['player'] = 0;
+        $this->result['assist_1'] = 0;
+        $this->result['assist_2'] = 0;
     }
 
     /**
