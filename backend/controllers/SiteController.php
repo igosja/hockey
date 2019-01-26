@@ -86,7 +86,7 @@ class SiteController extends AbstractController
             }
         }
 
-        $complaint = Complaint::find()->count();
+        $complaint = Complaint::find()->where(['complaint_ready' => 0])->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $gameComment = GameComment::find()->where(['game_comment_check' => 0])->count();
