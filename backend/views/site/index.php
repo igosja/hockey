@@ -107,8 +107,10 @@ use yii\helpers\Html;
             ); ?>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-complain"
-         <?php if (0 == $complaint) : ?>style="display:none;"<?php endif; ?>>
+    <div
+            class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-complaint"
+            <?php if (0 == $complaint) : ?>style="display:none;"<?php endif; ?>
+    >
         <div class="panel panel-red panel-complain">
             <div class="panel-heading">
                 <div class="row">
