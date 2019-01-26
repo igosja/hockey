@@ -24,7 +24,7 @@ class BellController extends AbstractController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $complaint = Complaint::find()->count();
+        $complaint = Complaint::find()->where(['complaint_ready' => 0])->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $logo = Logo::find()->count();
         $poll = Poll::find()->where(['poll_poll_status_id' => PollStatus::NEW_ONE])->count();

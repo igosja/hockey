@@ -11,7 +11,10 @@ use Yii;
  * @property int $complaint_id
  * @property int $complaint_date
  * @property int $complaint_forum_message_id
+ * @property int $complaint_ready
  * @property int $complaint_user_id
+ *
+ * @property User $user
  */
 class Complaint extends AbstractActiveRecord
 {
@@ -48,5 +51,13 @@ class Complaint extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'complaint_user_id']);
     }
 }
