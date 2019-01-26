@@ -41,6 +41,15 @@ class PollController extends AbstractController
      */
     public function actionIndex()
     {
+        Poll::updateAll(
+            ['poll_poll_status_id' => PollStatus::CLOSE],
+            [
+                'and',
+                ['poll_poll_status_id' => PollStatus::NEW_ONE],
+                ['<', 'poll_date', time() - 604800]
+            ]
+        );
+
         $query = Poll::find()
             ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE]])
             ->orderBy(['poll_id' => SORT_DESC]);
@@ -73,7 +82,7 @@ class PollController extends AbstractController
         $this->notFound($poll);
 
         if (!Yii::$app->user->isGuest) {
-            if (PollStatus::OPEN == $poll->poll_poll_status_id) {
+            if (PollStatus::OPEN == $poll->poll_poll_status_id && (!$poll->poll_country_id || ($this->myTeam && $this->myTeam->stadium->city->country->country_id == $poll->poll_country_id))) {
                 $pollUser = PollUser::find()
                     ->where([
                         'poll_user_poll_answer_id' => PollAnswer::find()
@@ -106,6 +115,10 @@ class PollController extends AbstractController
         $this->notFound($poll);
 
         if (PollStatus::OPEN != $poll->poll_poll_status_id) {
+            return $this->redirect(['poll/view', 'id' => $id]);
+        }
+
+        if ($poll->poll_country_id && (!$this->myTeam || $this->myTeam->stadium->city->country->country_id != $poll->poll_country_id)) {
             return $this->redirect(['poll/view', 'id' => $id]);
         }
 

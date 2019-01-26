@@ -4,6 +4,10 @@ namespace frontend\widgets;
 
 use common\models\Message;
 use common\models\News;
+use common\models\Poll;
+use common\models\PollAnswer;
+use common\models\PollStatus;
+use common\models\PollUser;
 use common\models\Support;
 use common\models\User;
 use frontend\controllers\AbstractController;
@@ -208,6 +212,7 @@ class Menu extends Widget
         $messenger = 0;
         $news = 0;
         $support = 0;
+        $poll = 0;
         if (!Yii::$app->user->isGuest) {
             $support = Support::find()
                 ->where(['support_user_id' => Yii::$app->user->id, 'support_question' => 0, 'support_read' => 0])
@@ -232,6 +237,22 @@ class Menu extends Widget
                 $news = 1;
             }
 
+            $poll = Poll::find()
+                ->where(['poll_poll_status_id' => PollStatus::OPEN, 'poll_country_id' => 0])
+                ->andWhere([
+                    'not',
+                    [
+                        'poll_id' => PollAnswer::find()
+                            ->select(['poll_answer_poll_id'])
+                            ->where([
+                                'poll_answer_id' => PollUser::find()
+                                    ->select(['poll_user_poll_answer_id'])
+                                    ->where(['poll_user_user_id' => Yii::$app->user->id])
+                            ])
+                    ]
+                ])
+                ->count();
+
             /**
              * @var AbstractController $controller
              */
@@ -245,6 +266,27 @@ class Menu extends Widget
 
                 if ($lastCountryNews > $controller->myTeam->team_news_id) {
                     $countryNews = 1;
+                }
+
+                if (!$poll) {
+                    $poll = Poll::find()
+                        ->where([
+                            'poll_poll_status_id' => PollStatus::OPEN,
+                            'poll_country_id' => $controller->myTeam->stadium->city->country->country_id,
+                        ])
+                        ->andWhere([
+                            'not',
+                            [
+                                'poll_id' => PollAnswer::find()
+                                    ->select(['poll_answer_poll_id'])
+                                    ->where([
+                                        'poll_answer_id' => PollUser::find()
+                                            ->select(['poll_user_poll_answer_id'])
+                                            ->where(['poll_user_user_id' => Yii::$app->user->id])
+                                    ])
+                            ]
+                        ])
+                        ->count();
                 }
             }
         }
@@ -300,6 +342,7 @@ class Menu extends Widget
                 'url' => ['player/index'],
             ],
             self::ITEM_POLL => [
+                'css' => $poll ? 'red' : '',
                 'label' => 'Опросы',
                 'url' => ['poll/index'],
             ],
