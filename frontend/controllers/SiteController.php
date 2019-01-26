@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Cookie;
 use common\models\ForumMessage;
 use common\models\LoginForm;
 use common\models\News;
@@ -134,6 +135,7 @@ class SiteController extends AbstractController
 
     /**
      * @return array|string|Response
+     * @throws Exception
      */
     public function actionLogin()
     {
@@ -149,6 +151,44 @@ class SiteController extends AbstractController
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $cookies = Yii::$app->request->cookies;
+            /**
+             * @var User $user
+             */
+            $user = Yii::$app->user->identity;
+            if ($cookies->getValue('computer_code')) {
+                $child = User::find()
+                    ->where(['!=', 'user_id', Yii::$app->user->id])
+                    ->andWhere(['user_code' => $cookies->getValue('computer_code')])
+                    ->limit(1)
+                    ->one();
+                if ($child) {
+                    $cookie = Cookie::find()
+                        ->where([
+                            'or',
+                            ['cookie_user_1_id' => Yii::$app->user->id, 'cookie_user_2_id' => $child->user_id],
+                            ['cookie_user_2_id' => Yii::$app->user->id, 'cookie_user_1_id' => $child->user_id],
+                        ])
+                        ->limit(1)
+                        ->one();
+                    if (!$cookie) {
+                        $cookie = new Cookie();
+                        $cookie->cookie_user_1_id = Yii::$app->user->id;
+                        $cookie->cookie_user_2_id = $child->user_id;
+                        $cookie->save();
+                    }
+                    $cookie->cookie_date = time();
+                    $cookie->cookie_count = $cookie->cookie_count + 1;
+                    $cookie->save(true, ['cookie_date', 'cookie_count']);
+                }
+            }
+
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'computer_code',
+                'value' => $user->user_code,
+            ]));
+
             return $this->redirect(['team/view']);
         } else {
             $model->password = '';

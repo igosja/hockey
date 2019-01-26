@@ -197,6 +197,17 @@ $user = Yii::$app->user->identity;
                         return FormatHelper::asCurrency($model->loan_application_price * $model->loan_application_day);
                     }
                 ],
+                [
+                    'footer' => 'Примечание',
+                    'label' => 'Примечание',
+                    'value' => function (LoanApplication $model) {
+                        $result = '';
+                        if ($model->dealReason) {
+                            $result = $model->dealReason->deal_reason_text;
+                        }
+                        return $result;
+                    }
+                ],
             ];
             print GridView::widget([
                 'columns' => $columns,

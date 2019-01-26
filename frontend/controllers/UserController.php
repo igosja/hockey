@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\components\ErrorHelper;
 use common\components\TimeZoneHelper;
 use common\models\Achievement;
+use common\models\City;
 use common\models\Country;
 use common\models\Finance;
 use common\models\History;
@@ -348,12 +349,21 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @return string|Response
+     * @throws \Exception
+     */
     public function actionMoneyTransfer()
     {
         $model = new UserTransferMoney(['user' => Yii::$app->user->identity]);
+        if ($model->execute()) {
+            $this->setSuccessFlash('Деньги успешно переведены');
+            return $this->refresh();
+        }
 
         $countryArray = Country::find()
             ->where(['!=', 'country_id', 0])
+            ->andWhere(['country_id' => City::find()->select(['city_country_id'])])
             ->orderBy(['country_name' => SORT_ASC])
             ->all();
 

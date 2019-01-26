@@ -18,7 +18,7 @@ function admin_bell() {
             if (data.bell > 0) {
                 seoTitle.text('(' + data.bell + ') ' + titleText[titleText.length - 1]);
             } else {
-                seoTitle.text(titleText[titleText.length]);
+                seoTitle.text(titleText[titleText.length - 1]);
             }
 
             $('.admin-support').html(data.support);

@@ -2,11 +2,15 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\models\Cookie;
 use common\models\User;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
+ * @var \yii\data\ActiveDataProvider $cookieDataProvider
+ * @var \yii\data\ActiveDataProvider $ipDataProvider
  * @var User $model
  * @var \yii\web\View $this
  */
@@ -63,9 +67,16 @@ use yii\widgets\DetailView;
                 },
             ],
             [
+                'format' => 'raw',
                 'label' => 'Дата последнего посещения',
                 'value' => function (User $model) {
                     return $model->lastVisit();
+                },
+            ],
+            [
+                'label' => 'IP',
+                'value' => function (User $model) {
+                    return $model->user_ip;
                 },
             ],
             [
@@ -158,6 +169,73 @@ use yii\widgets\DetailView;
         print DetailView::widget([
             'attributes' => $attributes,
             'model' => $model,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
+</div>
+<div class="row">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'label' => 'Пересечение по ip',
+                'value' => function (User $model) {
+                    return $model->user_ip;
+                }
+            ],
+            [
+                'format' => 'raw',
+                'label' => 'Пользователь',
+                'value' => function (User $model) {
+                    return $model->userLink(['target' => '_blank']);
+                },
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $ipDataProvider,
+            'emptyText' => false,
+            'showOnEmpty' => false,
+        ]);
+    } catch (Exception $e) {
+        ErrorHelper::log($e);
+    }
+
+    ?>
+</div>
+<div class="row">
+    <?php
+
+    try {
+        $columns = [
+            [
+                'label' => 'Пересечение по cookie',
+                'value' => function (Cookie $model) {
+                    return $model->cookie_count;
+                }
+            ],
+            [
+                'format' => 'raw',
+                'label' => 'Пользователь',
+                'value' => function (Cookie $model) {
+                    if (Yii::$app->request->get('id') == $model->cookie_user_1_id) {
+                        $result = $model->userTwo->userLink(['target' => '_blank']);
+                    } else {
+                        $result = $model->userOne->userLink(['target' => '_blank']);
+                    }
+                    return $result;
+                },
+            ],
+        ];
+        print GridView::widget([
+            'columns' => $columns,
+            'dataProvider' => $cookieDataProvider,
+            'emptyText' => false,
+            'showOnEmpty' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);

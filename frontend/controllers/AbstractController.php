@@ -92,7 +92,10 @@ abstract class AbstractController extends Controller
 
             $this->user = Yii::$app->user->identity;
             $this->user->user_date_login = time();
-            $this->user->save(true, ['user_date_login']);
+            if (Yii::$app->request->userIP && (User::ADMIN_USER_ID == $this->user->user_id || !in_array(Yii::$app->request->userIP, $allowedIp))) {
+                $this->user->user_ip = Yii::$app->request->userIP;
+            }
+            $this->user->save(true, ['user_date_login', 'user_ip']);
         }
 
         return true;

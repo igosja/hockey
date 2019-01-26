@@ -141,6 +141,11 @@ class Finance extends AbstractActiveRecord
             $this->finance_level,
             $text
         );
+
+        if ($this->finance_comment) {
+            $text = $text . ' (' . $this->finance_comment . ')';
+        }
+
         return $text;
     }
 
