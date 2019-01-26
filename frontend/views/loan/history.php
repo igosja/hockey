@@ -5,9 +5,14 @@ use common\components\FormatHelper;
 use common\models\Loan;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /**
+ * @var array $countryArray
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \frontend\models\LoanHistorySearch $model
+ * @var array $positionArray
+ * @var \yii\web\View $this
  */
 
 ?>
@@ -21,6 +26,88 @@ use yii\helpers\Html;
             <?= $this->render('//loan/_links'); ?>
         </div>
     </div>
+<?php $form = ActiveForm::begin([
+    'action' => ['loan/history'],
+    'fieldConfig' => [
+        'template' => '{input}',
+    ],
+    'method' => 'get',
+]); ?>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+            Условия поиска:
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <?= $form->field($model, 'country')->dropDownList(
+                $countryArray,
+                ['class' => 'form-control', 'prompt' => 'Национальность']
+            ); ?>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
+            <?= $form->field($model, 'name')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Имя',
+            ]); ?>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+            <?= $form->field($model, 'surname')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Фамилия',
+            ]); ?>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <?= $form->field($model, 'position')->dropDownList(
+                $positionArray,
+                ['class' => 'form-control', 'prompt' => 'Позиция']
+            ); ?>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <?= $form->field($model, 'ageMin')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Возраст, от',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <?= $form->field($model, 'ageMax')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Возраст, до',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <?= $form->field($model, 'powerMin')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Сила, от',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <?= $form->field($model, 'powerMax')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Сила, до',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <?= $form->field($model, 'priceMin')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Цена, от',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <?= $form->field($model, 'priceMax')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Цена, до',
+                'type' => 'number',
+            ]); ?>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+            <?= Html::submitButton('Поиск', ['class' => 'form-control submit-blue']); ?>
+        </div>
+    </div>
+<?php ActiveForm::end(); ?>
     <div class="row">
         <?php
 

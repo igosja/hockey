@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 /**
  * @var array $countryArray
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \frontend\models\PlayerSearch $model
  * @var array $positionArray
  * @var \yii\web\View $this
  */
