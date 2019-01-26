@@ -16,7 +16,9 @@ use yii\widgets\ActiveForm;
         </p>
         <p>
             Начальная трансферная цена игрока должна быть не меньше
-            <span class="strong"><?= FormatHelper::asCurrency($model->minPrice); ?></span>.
+            <span class="strong"><?= FormatHelper::asCurrency($model->minPrice); ?></span>
+            и не больше
+            <span class="strong"><?= FormatHelper::asCurrency($model->maxPrice); ?></span>.
         </p>
         <?php $form = ActiveForm::begin([
             'enableAjaxValidation' => true,
