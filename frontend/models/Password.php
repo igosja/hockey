@@ -45,7 +45,6 @@ class Password extends Model
 
         try {
             $model = User::find()
-                ->select(['user_code', 'user_email'])
                 ->andFilterWhere(['user_email' => $this->email])
                 ->andFilterWhere(['user_login' => $this->username])
                 ->limit(1)

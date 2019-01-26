@@ -61,14 +61,12 @@ class Site extends AbstractActiveRecord
         try {
             $site = self::getDb()->cache(function () {
                 return self::find()
-                    ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
                     ->where(['site_id' => 1])
                     ->one();
             });
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $site = self::find()
-                ->select(['site_version_1', 'site_version_2', 'site_version_3', 'site_version_date'])
                 ->where(['site_id' => 1])
                 ->one();
         }
@@ -93,7 +91,6 @@ class Site extends AbstractActiveRecord
     public static function status()
     {
         $site = self::find()
-            ->select(['site_status'])
             ->where(['site_id' => 1])
             ->one();
 

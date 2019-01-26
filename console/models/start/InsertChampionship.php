@@ -43,7 +43,6 @@ class InsertChampionship
              */
             $teamArray = Team::find()
                 ->joinWith(['stadium.city'])
-                ->select(['team_id'])
                 ->where(['city_country_id' => $country->city_country_id])
                 ->orderBy(['team_id' => SORT_ASC])
                 ->limit(16)
@@ -58,7 +57,6 @@ class InsertChampionship
 
             $teamArray = Team::find()
                 ->joinWith(['stadium.city'])
-                ->select(['team_id'])
                 ->where(['city_country_id' => $country->city_country_id])
                 ->orderBy(['team_id' => SORT_ASC])
                 ->offset(16)
@@ -87,7 +85,6 @@ class InsertChampionship
             ->execute();
 
         $scheduleArray = Schedule::find()
-            ->select(['schedule_id'])
             ->where([
                 'schedule_season_id' => $seasonId,
                 'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP

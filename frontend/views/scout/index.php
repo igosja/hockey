@@ -196,7 +196,7 @@ use yii\helpers\Html;
                 'label' => 'Стиль',
                 'value' => function (Player $model) {
                     $result = '';
-                    if ($model->countScout() < 2) {
+                    if ($model->countScout() < 2 && $model->player_date_no_action < time()) {
                         $result = $result
                             . ' '
                             . Html::checkbox('style[' . $model->player_id . ']');

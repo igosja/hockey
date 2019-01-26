@@ -43,7 +43,6 @@ class ActivationRepeat extends Model
 
         try {
             $model = User::find()
-                ->select(['user_code', 'user_login'])
                 ->where(['user_email' => $this->email])
                 ->limit(1)
                 ->one();
@@ -77,7 +76,6 @@ class ActivationRepeat extends Model
     public function checkEmail($attribute)
     {
         $user = User::find()
-            ->select(['user_date_confirm'])
             ->where(['user_email' => $this->$attribute])
             ->limit(1)
             ->one();

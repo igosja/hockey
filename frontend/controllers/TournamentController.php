@@ -32,14 +32,9 @@ class TournamentController extends AbstractController
 
         $championshipArray = Championship::find()
             ->with([
-                'country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-                'division' => function (ActiveQuery $query) {
-                    return $query->select(['division_id', 'division_name']);
-                },
+                'country',
+                'division',
             ])
-            ->select(['championship_country_id', 'championship_division_id'])
             ->where(['championship_season_id' => $seasonId])
             ->groupBy(['championship_country_id', 'championship_division_id'])
             ->orderBy(['championship_country_id' => SORT_ASC, 'championship_division_id' => SORT_ASC])
@@ -71,7 +66,7 @@ class TournamentController extends AbstractController
             );
         }
 
-        $divisionArray = Division::find()->select(['division_id'])->orderBy(['division_id' => SORT_ASC])->all();
+        $divisionArray = Division::find()->orderBy(['division_id' => SORT_ASC])->all();
 
         for ($i = 0, $countCountry = count($countryArray); $i < $countCountry; $i++) {
             foreach ($divisionArray as $division) {
@@ -85,11 +80,8 @@ class TournamentController extends AbstractController
 
         $scheduleArray = Schedule::find()
             ->with([
-                'tournamentType' => function (ActiveQuery $query) {
-                    return $query->select(['tournament_type_id', 'tournament_type_name']);
-                }
+                'tournamentType',
             ])
-            ->select(['schedule_tournament_type_id'])
             ->where(['schedule_season_id' => $seasonId])
             ->groupBy(['schedule_tournament_type_id'])
             ->orderBy(['schedule_tournament_type_id' => SORT_ASC])

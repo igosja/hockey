@@ -32,7 +32,6 @@ class StatisticChapter extends AbstractActiveRecord
     {
         $typesArray = self::find()
             ->with(['statisticType'])
-            ->select(['statistic_chapter_id', 'statistic_chapter_name'])
             ->orderBy(['statistic_chapter_order' => SORT_ASC])
             ->all();
 

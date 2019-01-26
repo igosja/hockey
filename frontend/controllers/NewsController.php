@@ -47,14 +47,9 @@ class NewsController extends AbstractController
     {
         $query = News::find()
             ->with([
-                'newsComment' => function (ActiveQuery $query) {
-                    return $query->select(['news_comment_news_id']);
-                },
-                'user' => function (ActiveQuery $query) {
-                    return $query->select(['user_id', 'user_login']);
-                },
+                'newsComment',
+                'user',
             ])
-            ->select(['news_id', 'news_date', 'news_text', 'news_title', 'news_user_id'])
             ->where(['news_country_id' => 0])
             ->orderBy(['news_id' => SORT_DESC]);
 
@@ -98,16 +93,7 @@ class NewsController extends AbstractController
 
         $query = NewsComment::find()
             ->with([
-                'user' => function (ActiveQuery $query) {
-                    return $query->select(['user_id', 'user_login']);
-                }
-            ])
-            ->select([
-                'news_comment_id',
-                'news_comment_date',
-                'news_comment_news_id',
-                'news_comment_text',
-                'news_comment_user_id',
+                'user',
             ])
             ->where(['news_comment_news_id' => $id])
             ->orderBy(['news_comment_id' => SORT_ASC]);

@@ -46,11 +46,8 @@ class PlayerController extends AbstractController
         $countryArray = ArrayHelper::map(
             Player::find()
                 ->with([
-                    'country' => function (ActiveQuery $query) {
-                        return $query->select(['country_id', 'country_name']);
-                    },
+                    'country',
                 ])
-                ->select(['player_country_id'])
                 ->groupBy(['player_country_id'])
                 ->orderBy(['player_country_id' => SORT_ASC])
                 ->all(),
@@ -60,7 +57,6 @@ class PlayerController extends AbstractController
 
         $positionArray = ArrayHelper::map(
             Position::find()
-                ->select(['position_id', 'position_name'])
                 ->orderBy(['position_id' => SORT_ASC])
                 ->all(),
             'position_id',
@@ -90,10 +86,6 @@ class PlayerController extends AbstractController
 
         $query = Lineup::find()
             ->joinWith(['game.schedule'])
-            ->with([
-            ])
-            ->select([
-            ])
             ->where(['lineup_player_id' => $id])
             ->andWhere(['schedule.schedule_season_id' => $seasonId])
             ->andWhere(['!=', 'game.game_played', 0])
@@ -356,12 +348,6 @@ class PlayerController extends AbstractController
         $player = $this->getPlayer($id);
 
         $query = AchievementPlayer::find()
-            ->select([
-                'achievement_player_season_id',
-                'achievement_player_stage_id',
-                'achievement_player_team_id',
-                'achievement_player_tournament_type_id',
-            ])
             ->where(['achievement_player_player_id' => $id])
             ->orderBy(['achievement_player_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
@@ -412,82 +398,16 @@ class PlayerController extends AbstractController
     {
         $player = Player::find()
             ->with([
-                'country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-                'loanTeam' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
-                },
-                'loanTeam.stadium' => function (ActiveQuery $query) {
-                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
-                },
-                'loanTeam.stadium.city' => function (ActiveQuery $query) {
-                    return $query->select(['city_id', 'city_country_id', 'city_name']);
-                },
-                'loanTeam.stadium.city.country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-                'name' => function (ActiveQuery $query) {
-                    return $query->select(['name_id', 'name_name']);
-                },
-                'physical' => function (ActiveQuery $query) {
-                    return $query->select(['physical_id', 'physical_name']);
-                },
-                'playerPosition' => function (ActiveQuery $query) {
-                    return $query->select(['player_position_player_id', 'player_position_position_id']);
-                },
-                'playerPosition.position' => function (ActiveQuery $query) {
-                    return $query->select(['position_id', 'position_name']);
-                },
-                'playerSpecial' => function (ActiveQuery $query) {
-                    return $query->select([
-                        'player_special_level',
-                        'player_special_player_id',
-                        'player_special_special_id',
-                    ]);
-                },
-                'playerSpecial.special' => function (ActiveQuery $query) {
-                    return $query->select(['special_id', 'special_name']);
-                },
-                'style' => function (ActiveQuery $query) {
-                    return $query->select(['style_id', 'style_name']);
-                },
-                'surname' => function (ActiveQuery $query) {
-                    return $query->select(['surname_id', 'surname_name']);
-                },
-                'team' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
-                },
-                'team.stadium' => function (ActiveQuery $query) {
-                    return $query->select(['stadium_id', 'stadium_city_id', 'stadium_name']);
-                },
-                'team.stadium.city' => function (ActiveQuery $query) {
-                    return $query->select(['city_id', 'city_country_id', 'city_name']);
-                },
-                'team.stadium.city.country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-            ])
-            ->select([
-                'player_age',
-                'player_country_id',
-                'player_id',
-                'player_injury',
-                'player_injury_day',
-                'player_loan_day',
-                'player_loan_team_id',
-                'player_name_id',
-                'player_national_id',
-                'player_physical_id',
-                'player_power_nominal',
-                'player_power_real',
-                'player_price',
-                'player_salary',
-                'player_squad_id',
-                'player_style_id',
-                'player_surname_id',
-                'player_team_id',
-                'player_tire',
+                'country',
+                'loanTeam.stadium.city.country',
+                'name',
+                'physical',
+                'playerPosition.position',
+                'playerSpecial.special',
+                'style',
+                'surname',
+                'team',
+                'team.stadium.city.country',
             ])
             ->where(['player_id' => $id])
             ->limit(1)
