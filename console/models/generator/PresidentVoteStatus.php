@@ -40,7 +40,7 @@ class PresidentVoteStatus
         $electionPresidentArray = ElectionPresident::find()
             ->with(['application'])
             ->where(['election_president_election_status_id' => ElectionStatus::OPEN])
-            ->andWhere(['<', 'election_president_date', time() - 432000])
+            ->andWhere(['<', 'election_president_date', time() - 259200])
             ->orderBy(['election_president_id' => SORT_ASC])
             ->each();
         foreach ($electionPresidentArray as $electionPresident) {
@@ -64,7 +64,8 @@ class PresidentVoteStatus
         $model->save();
 
         $electionPresident->election_president_election_status_id = ElectionStatus::OPEN;
-        $electionPresident->save(true, ['election_president_election_status_id']);
+        $electionPresident->election_president_date = time();
+        $electionPresident->save(true, ['election_president_election_status_id', 'election_president_date']);
     }
 
     /**
