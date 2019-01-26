@@ -4,8 +4,10 @@ namespace backend\controllers;
 
 use backend\models\UserSearch;
 use common\models\BlockReason;
+use common\models\Cookie;
 use common\models\User;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
@@ -42,11 +44,29 @@ class UserController extends AbstractController
         $model = User::find()->where(['user_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
+        $query = User::find()
+            ->where(['user_ip' => $model->user_ip])
+            ->andWhere(['!=', 'user_id', $model->user_id]);
+        $ipDataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $query = Cookie::find()
+            ->where(['cookie_user_1_id' => $model->user_id])
+            ->orWhere(['cookie_user_2_id' => $model->user_id]);
+        $cookieDataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
         $this->view->title = $model->user_login;
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('view', [
+            'cookieDataProvider' => $cookieDataProvider,
+            'ipDataProvider' => $ipDataProvider,
             'model' => $model,
         ]);
     }
