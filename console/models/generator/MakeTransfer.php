@@ -223,7 +223,7 @@ class MakeTransfer
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
-                $transfer->player->player_no_deal = 0;
+                $transfer->player->player_no_deal = 1;
                 $transfer->player->player_order = 0;
                 $transfer->player->player_team_id = $transferApplication->transfer_application_team_id;
                 $transfer->player->save();
@@ -328,7 +328,7 @@ class MakeTransfer
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
-                $transfer->player->player_no_deal = 0;
+                $transfer->player->player_no_deal = 1;
                 $transfer->player->player_order = 0;
                 $transfer->player->player_team_id = 0;
                 $transfer->player->save();
