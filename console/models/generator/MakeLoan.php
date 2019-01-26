@@ -2,6 +2,7 @@
 
 namespace console\models\generator;
 
+use common\models\DealReason;
 use common\models\Finance;
 use common\models\FinanceText;
 use common\models\History;
@@ -135,21 +136,50 @@ class MakeLoan
                 }
             }
 
-            $loanApplication = LoanApplication::find()
-                ->joinWith(['team'])
-                ->with(['team'])
+            $sold = false;
+
+            $loanApplicationArray = LoanApplication::find()
                 ->where(['loan_application_loan_id' => $loan->loan_id])
-                ->andWhere([
-                    'or',
-                    ['not', ['loan_application_team_id' => $teamArray]],
-                    ['not', ['loan_application_user_id' => $userArray]]
-                ])
-                ->andWhere('loan_application_price*loan_application_day<=team_finance')
                 ->orderBy(new Expression('loan_application_price*loan_application_day DESC, loan_application_date ASC'))
-                ->limit(1)
-                ->one();
-            if ($loanApplication) {
+                ->all();
+            foreach ($loanApplicationArray as $loanApplication) {
+                if ($sold) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::NOT_BEST;
+                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
+
                 $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
+
+                if (in_array($loanApplication->loan_application_team_id, $teamArray)) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::TEAM_LIMIT;
+                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
+                if (in_array($loanApplication->loan_application_user_id, $userArray)) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::MANAGER_LIMIT;
+                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
+                /**
+                 * @var LoanApplication $loanApplication
+                 */
+                if (1 == count($loanApplicationArray) && $loanApplication->team->team_finance > $loan->loan_price_seller * $loanApplication->loan_application_day) {
+                    $loanApplication->loan_application_price = $loan->loan_price_seller;
+                    $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
+                }
+                if (count($loanApplicationArray) > 1 && $loanApplication->loan_application_id == $loanApplicationArray[0]->loan_application_id) {
+                    $newPrice = ceil($loanApplicationArray[1]->loan_application_price * $loanApplicationArray[1]->loan_application_day / $loanApplication->loan_application_day) + 1;
+                    if ($loanApplication->transfer_application_price > $newPrice) {
+                        $loanApplication->transfer_application_price = $newPrice;
+                        $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
+                    }
+                }
+                if ($price > $loanApplication->team->team_finance) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::NO_MONEY;
+                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_LOAN,
@@ -245,6 +275,11 @@ class MakeLoan
                         'loan_application_loan_id' => $subQuery,
                     ]);
                 }
+
+                $loanApplication->loan_application_deal_reason_id = 0;
+                $loanApplication->save(true, ['loan_application_deal_reason_id', 'loan_application_price']);
+
+                $sold = true;
             }
         }
     }

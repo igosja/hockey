@@ -2,6 +2,7 @@
 
 namespace console\models\generator;
 
+use common\models\DealReason;
 use common\models\Finance;
 use common\models\FinanceText;
 use common\models\History;
@@ -134,20 +135,42 @@ class MakeTransfer
                 }
             }
 
-            $transferApplication = TransferApplication::find()
-                ->joinWith(['team'])
-                ->with(['team'])
+            $sold = false;
+
+            $transferApplicationArray = TransferApplication::find()
                 ->where(['transfer_application_transfer_id' => $transfer->transfer_id])
-                ->andWhere([
-                    'or',
-                    ['not', ['transfer_application_team_id' => $teamArray]],
-                    ['not', ['transfer_application_user_id' => $userArray]]
-                ])
-                ->andWhere('transfer_application_price<=team_finance')
                 ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
-                ->limit(1)
-                ->one();
-            if ($transferApplication) {
+                ->all();
+            foreach ($transferApplicationArray as $transferApplication) {
+                if ($sold) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::NOT_BEST;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
+                if (in_array($transferApplication->transfer_application_team_id, $teamArray)) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::TEAM_LIMIT;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
+                if (in_array($transferApplication->transfer_application_user_id, $userArray)) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::MANAGER_LIMIT;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
+                /**
+                 * @var TransferApplication $transferApplication
+                 */
+                if (1 == count($transferApplicationArray) && $transferApplication->team->team_finance > $transfer->transfer_price_seller) {
+                    $transferApplication->transfer_application_price = $transfer->transfer_price_seller;
+                }
+                if (count($transferApplicationArray) > 1 && $transferApplication->transfer_application_id == $transferApplicationArray[0]->transfer_application_id) {
+                    $transferApplication->transfer_application_price = $transferApplicationArray[1]->transfer_application_price + 1;
+                }
+                if ($transferApplication->transfer_application_price > $transferApplication->team->team_finance) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::NO_MONEY;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
                 if ($transfer->transfer_team_seller_id) {
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
@@ -268,7 +291,13 @@ class MakeTransfer
                         'transfer_application_transfer_id' => $subQuery,
                     ]);
                 }
-            } elseif ($transfer->transfer_to_league) {
+
+                $transferApplication->transfer_application_deal_reason_id = 0;
+                $transferApplication->save(true, ['transfer_application_deal_reason_id', 'transfer_application_price']);
+
+                $sold = true;
+            }
+            if ($transfer->transfer_to_league && !$sold) {
                 $price = round($transfer->player->player_price / 2);
 
                 Finance::log([

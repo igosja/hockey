@@ -189,6 +189,17 @@ $user = Yii::$app->user->identity;
                         return FormatHelper::asCurrency($model->transfer_application_price);
                     }
                 ],
+                [
+                    'footer' => 'Примечание',
+                    'label' => 'Примечание',
+                    'value' => function (TransferApplication $model) {
+                        $result = '';
+                        if ($model->dealReason) {
+                            $result = $model->dealReason->deal_reason_text;
+                        }
+                        return $result;
+                    }
+                ],
             ];
             print GridView::widget([
                 'columns' => $columns,

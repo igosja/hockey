@@ -11,12 +11,14 @@ use yii\db\ActiveQuery;
  * @property int $loan_application_id
  * @property int $loan_application_date
  * @property int $loan_application_day
+ * @property int $loan_application_deal_reason_id
  * @property int $loan_application_only_one
  * @property int $loan_application_price
  * @property int $loan_application_team_id
  * @property int $loan_application_loan_id
  * @property int $loan_application_user_id
  *
+ * @property DealReason $dealReason
  * @property Team $team
  * @property User $user
  */
@@ -41,6 +43,7 @@ class LoanApplication extends AbstractActiveRecord
                     'loan_application_id',
                     'loan_application_date',
                     'loan_application_day',
+                    'loan_application_deal_reason_id',
                     'loan_application_loan_id',
                     'loan_application_only_one',
                     'loan_application_price',
@@ -65,6 +68,14 @@ class LoanApplication extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getDealReason()
+    {
+        return $this->hasOne(DealReason::class, ['deal_reason_id' => 'loan_application_deal_reason_id']);
     }
 
     /**
