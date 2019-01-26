@@ -7,14 +7,19 @@ use common\models\Country;
 use common\models\Loan;
 use common\models\LoanApplication;
 use common\models\LoanComment;
+use common\models\Player;
+use common\models\Position;
 use common\models\Transfer;
 use common\models\User;
 use common\models\UserRole;
+use frontend\models\LoanHistorySearch;
+use frontend\models\LoanSearch;
 use frontend\models\LoanVote;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
 /**
@@ -28,20 +33,40 @@ class LoanController extends AbstractController
      */
     public function actionIndex()
     {
-        $query = Loan::find()
-            ->where(['loan_ready' => 0]);
+        $searchModel = new LoanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
 
-        $dataProvider = new ActiveDataProvider([
-            'pagination' => [
-                'pageSize' => Yii::$app->params['pageSizeTable'],
-            ],
-            'query' => $query,
-        ]);
+        $countryArray = ArrayHelper::map(
+            Player::find()
+                ->with([
+                    'country' => function (ActiveQuery $query) {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->select(['player_country_id'])
+                ->groupBy(['player_country_id'])
+                ->orderBy(['player_country_id' => SORT_ASC])
+                ->all(),
+            'country.country_id',
+            'country.country_name'
+        );
+
+        $positionArray = ArrayHelper::map(
+            Position::find()
+                ->select(['position_id', 'position_name'])
+                ->orderBy(['position_id' => SORT_ASC])
+                ->all(),
+            'position_id',
+            'position_name'
+        );
 
         $this->setSeoTitle('Аренда хоккеистов');
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider
+            'countryArray' => $countryArray,
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+            'positionArray' => $positionArray,
         ]);
     }
 
@@ -50,21 +75,40 @@ class LoanController extends AbstractController
      */
     public function actionHistory()
     {
-        $query = Loan::find()
-            ->where(['!=', 'loan_ready', 0])
-            ->orderBy(['loan_ready' => SORT_DESC]);
+        $searchModel = new LoanHistorySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
 
-        $dataProvider = new ActiveDataProvider([
-            'pagination' => [
-                'pageSize' => Yii::$app->params['pageSizeTable'],
-            ],
-            'query' => $query,
-        ]);
+        $countryArray = ArrayHelper::map(
+            Player::find()
+                ->with([
+                    'country' => function (ActiveQuery $query) {
+                        return $query->select(['country_id', 'country_name']);
+                    },
+                ])
+                ->select(['player_country_id'])
+                ->groupBy(['player_country_id'])
+                ->orderBy(['player_country_id' => SORT_ASC])
+                ->all(),
+            'country.country_id',
+            'country.country_name'
+        );
+
+        $positionArray = ArrayHelper::map(
+            Position::find()
+                ->select(['position_id', 'position_name'])
+                ->orderBy(['position_id' => SORT_ASC])
+                ->all(),
+            'position_id',
+            'position_name'
+        );
 
         $this->setSeoTitle('Аренда хоккеистов');
 
         return $this->render('history', [
-            'dataProvider' => $dataProvider
+            'countryArray' => $countryArray,
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+            'positionArray' => $positionArray,
         ]);
     }
 
