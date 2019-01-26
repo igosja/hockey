@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\News $model
+ * @var \common\models\Poll $model
  */
 
 print $this->render('_country');
@@ -35,6 +35,10 @@ print $this->render('_country');
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
                     {error}',
             ],
+        ]); ?>
+        <?= $form->field($model, 'poll_country_id')->dropDownList([
+            $model->poll_country_id => 'Опрос внутри федерации',
+            0 => 'Опрос во всё Лиге',
         ]); ?>
         <?= $form->field($model, 'poll_text')->textarea(); ?>
         <?php for ($i = 0; $i < 15; $i++) : ?>
