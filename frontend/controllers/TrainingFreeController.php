@@ -16,6 +16,7 @@ use common\models\Training;
 use common\models\Transfer;
 use common\models\User;
 use Exception;
+use frontend\models\TrainingFree;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -53,7 +54,7 @@ class TrainingFreeController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
-        $model = new \frontend\models\TrainingFree();
+        $model = new TrainingFree();
         if ($model->load(Yii::$app->request->post(), '')) {
             return $this->redirect($model->redirectUrl());
         }
@@ -130,6 +131,7 @@ class TrainingFreeController extends AbstractController
             foreach ($data['power'] as $playerId => $power) {
                 $player = Player::find()
                     ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
+                    ->andWhere(['<', 'player_date_no_action', time()])
                     ->limit(1)
                     ->one();
                 if (!$player) {
@@ -174,6 +176,7 @@ class TrainingFreeController extends AbstractController
             foreach ($data['position'] as $playerId => $position) {
                 $player = Player::find()
                     ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
+                    ->andWhere(['<', 'player_date_no_action', time()])
                     ->limit(1)
                     ->one();
                 if (!$player) {
@@ -239,6 +242,7 @@ class TrainingFreeController extends AbstractController
             foreach ($data['special'] as $playerId => $special) {
                 $player = Player::find()
                     ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
+                    ->andWhere(['<', 'player_date_no_action', time()])
                     ->limit(1)
                     ->one();
                 if (!$player) {

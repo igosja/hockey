@@ -53,12 +53,6 @@ class LoanApplicationTo extends Model
         $this->minDay = isset($this->player->loan->loan_day_min) ? $this->player->loan->loan_day_min : 1;
         $this->maxDay = isset($this->player->loan->loan_day_max) ? $this->player->loan->loan_day_max : 7;
         $this->loanApplication = LoanApplication::find()
-            ->select([
-                'loan_application_id',
-                'loan_application_day',
-                'loan_application_price',
-                'loan_application_only_one',
-            ])
             ->where([
                 'loan_application_team_id' => $this->team->team_id,
                 'loan_application_loan_id' => isset($this->player->loan->loan_id) ? $this->player->loan->loan_id : 0,
@@ -108,7 +102,6 @@ class LoanApplicationTo extends Model
         }
 
         $loan = Loan::find()
-            ->select(['loan_id', 'loan_team_seller_id', 'loan_user_seller_id'])
             ->where(['loan_player_id' => $this->player->player_id, 'loan_ready' => 0])
             ->one();
         if (!$loan) {
@@ -131,7 +124,6 @@ class LoanApplicationTo extends Model
         $teamArray = [0];
 
         $transferArray = Transfer::find()
-            ->select(['transfer_team_buyer_id', 'transfer_team_seller_id'])
             ->where(['transfer_season_id' => $controller->seasonId])
             ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere(['!=', 'transfer_team_buyer_id', 0])
@@ -154,7 +146,6 @@ class LoanApplicationTo extends Model
         }
 
         $loanArray = Loan::find()
-            ->select(['loan_team_buyer_id', 'loan_team_seller_id'])
             ->where(['loan_season_id' => $controller->seasonId])
             ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere(['!=', 'loan_team_buyer_id', 0])
@@ -184,7 +175,6 @@ class LoanApplicationTo extends Model
         $userArray = [0];
 
         $transferArray = Transfer::find()
-            ->select(['transfer_user_buyer_id', 'transfer_user_seller_id'])
             ->where(['transfer_season_id' => $controller->seasonId])
             ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere(['!=', 'transfer_user_buyer_id', 0])
@@ -207,7 +197,6 @@ class LoanApplicationTo extends Model
         }
 
         $loanArray = Loan::find()
-            ->select(['loan_user_buyer_id', 'loan_user_seller_id'])
             ->where(['loan_season_id' => $controller->seasonId])
             ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere(['!=', 'loan_user_buyer_id', 0])

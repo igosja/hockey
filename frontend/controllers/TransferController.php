@@ -39,11 +39,8 @@ class TransferController extends AbstractController
         $countryArray = ArrayHelper::map(
             Player::find()
                 ->with([
-                    'country' => function (ActiveQuery $query) {
-                        return $query->select(['country_id', 'country_name']);
-                    },
+                    'country',
                 ])
-                ->select(['player_country_id'])
                 ->groupBy(['player_country_id'])
                 ->orderBy(['player_country_id' => SORT_ASC])
                 ->all(),
@@ -53,7 +50,6 @@ class TransferController extends AbstractController
 
         $positionArray = ArrayHelper::map(
             Position::find()
-                ->select(['position_id', 'position_name'])
                 ->orderBy(['position_id' => SORT_ASC])
                 ->all(),
             'position_id',
@@ -81,11 +77,8 @@ class TransferController extends AbstractController
         $countryArray = ArrayHelper::map(
             Player::find()
                 ->with([
-                    'country' => function (ActiveQuery $query) {
-                        return $query->select(['country_id', 'country_name']);
-                    },
+                    'country',
                 ])
-                ->select(['player_country_id'])
                 ->groupBy(['player_country_id'])
                 ->orderBy(['player_country_id' => SORT_ASC])
                 ->all(),
@@ -95,7 +88,6 @@ class TransferController extends AbstractController
 
         $positionArray = ArrayHelper::map(
             Position::find()
-                ->select(['position_id', 'position_name'])
                 ->orderBy(['position_id' => SORT_ASC])
                 ->all(),
             'position_id',
@@ -189,16 +181,7 @@ class TransferController extends AbstractController
 
         $query = TransferComment::find()
             ->with([
-                'user' => function (ActiveQuery $query) {
-                    return $query->select(['user_id', 'user_login']);
-                }
-            ])
-            ->select([
-                'transfer_comment_id',
-                'transfer_comment_date',
-                'transfer_comment_transfer_id',
-                'transfer_comment_text',
-                'transfer_comment_user_id',
+                'user',
             ])
             ->where(['transfer_comment_transfer_id' => $id])
             ->orderBy(['transfer_comment_id' => SORT_ASC]);

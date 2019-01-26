@@ -21,10 +21,8 @@ class InsertNational
     public function execute()
     {
         $nationalTypeArray = NationalType::find()
-            ->select(['national_type_id'])
             ->each();
         $cityArray = City::find()
-            ->select(['city_country_id'])
             ->where(['!=', 'city_country_id', 0])
             ->groupBy('city_country_id')
             ->orderBy(['city_country_id' => SORT_ASC])

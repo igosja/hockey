@@ -37,7 +37,7 @@ class PollSearch extends Poll
      */
     public function search($params)
     {
-        $query = Poll::find()->select(['poll_id', 'poll_date', 'poll_text']);
+        $query = Poll::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

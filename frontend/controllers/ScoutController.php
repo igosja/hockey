@@ -105,6 +105,7 @@ class ScoutController extends AbstractController
             foreach ($data['style'] as $playerId => $style) {
                 $player = Player::find()
                     ->where(['player_id' => $playerId, 'player_team_id' => $team->team_id])
+                    ->andWhere(['<', 'player_date_no_action', time()])
                     ->limit(1)
                     ->one();
                 if (!$player) {

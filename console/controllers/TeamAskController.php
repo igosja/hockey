@@ -26,7 +26,6 @@ class TeamAskController extends AbstractController
     {
         $expression = new Expression('UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600');
         $teamAsk = (new Query())
-            ->select(['team_ask_id', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'])
             ->from(TeamAsk::tableName())
             ->leftJoin(
                 [
@@ -34,7 +33,7 @@ class TeamAskController extends AbstractController
                             ->select(['count_history' => 'COUNT(history_id)', 'history_user_id'])
                             ->from(History::tableName())
                             ->where(['history_history_text_id' => HistoryText::USER_MANAGER_TEAM_IN])
-                            ->andWhere(['history_user_id' => TeamAsk::find()->select(['team_ask_user_id'])->column()])
+                            ->andWhere(['history_user_id' => TeamAsk::find()->select(['team_ask_user_id'])])
                             ->groupBy(['history_user_id'])
                             ->createCommand()
                             ->rawSql . ')'

@@ -36,7 +36,6 @@ class RatingChapter extends AbstractActiveRecord
     {
         $typesArray = self::find()
             ->with(['ratingType'])
-            ->select(['rating_chapter_id', 'rating_chapter_name'])
             ->orderBy(['rating_chapter_order' => SORT_ASC])
             ->all();
 

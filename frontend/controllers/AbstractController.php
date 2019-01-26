@@ -79,7 +79,6 @@ abstract class AbstractController extends Controller
         if (!Yii::$app->user->isGuest) {
             $this->myTeamArray = Team::find()
                 ->indexBy(['team_id'])
-                ->select(['team_id', 'team_name', 'team_stadium_id'])
                 ->where(['team_user_id' => Yii::$app->user->id])
                 ->all();
 

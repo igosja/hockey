@@ -20,7 +20,6 @@ class ChangeMyTeam extends Model
     public function rules()
     {
         return [
-            [['teamId'], 'in', 'range' => Team::find()->select(['team_id'])->column()],
             [['teamId'], 'integer'],
             [['teamId'], 'required'],
         ];
