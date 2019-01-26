@@ -220,7 +220,7 @@ class TransferTo extends Model
 
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Нельзя продать игрока, который находится на тренировке.');
+            Yii::$app->session->setFlash('success', 'Игрок успешно выставлен на трансфер.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
