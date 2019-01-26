@@ -27,7 +27,6 @@ class InsertOffSeason
         $seasonId = Season::getCurrentSeason();
 
         $teamArray = Team::find()
-            ->select(['team_id'])
             ->where(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
             ->each();

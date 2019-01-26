@@ -67,7 +67,6 @@ class Activation extends Model
     public function checkCode($attribute)
     {
         $user = User::find()
-            ->select(['user_date_confirm'])
             ->where(['user_code' => $this->$attribute])
             ->limit(1)
             ->one();

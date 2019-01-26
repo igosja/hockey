@@ -37,7 +37,7 @@ class RuleSearch extends Rule
      */
     public function search($params)
     {
-        $query = Rule::find()->select(['rule_id', 'rule_title', 'rule_order']);
+        $query = Rule::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

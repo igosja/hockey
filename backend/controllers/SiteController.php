@@ -112,11 +112,8 @@ class SiteController extends AbstractController
 
         $paymentArray = Payment::find()
             ->with([
-                'user' => function (ActiveQuery $query) {
-                    return $query->select(['user_id', 'user_login']);
-                }
+                'user',
             ])
-            ->select(['payment_date', 'payment_sum', 'payment_user_id'])
             ->where(['payment_status' => Payment::PAID])
             ->limit(10)
             ->orderBy(['payment_id' => SORT_DESC])

@@ -35,7 +35,6 @@ class TransferFrom extends Model
         parent::__construct($config);
 
         $this->transferApplicationArray = TransferApplication::find()
-            ->select(['transfer_application_date', 'transfer_application_price', 'transfer_application_team_id'])
             ->where(['transfer_application_transfer_id' => (isset($this->player->transfer->transfer_id) ? $this->player->transfer->transfer_id : 0)])
             ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
             ->all();
@@ -63,7 +62,6 @@ class TransferFrom extends Model
         }
 
         $transfer = Transfer::find()
-            ->select(['transfer_id'])
             ->where(['transfer_player_id' => $this->player->player_id, 'transfer_ready' => 0])
             ->one();
         if (!$transfer) {
