@@ -10,12 +10,14 @@ use yii\db\ActiveQuery;
  *
  * @property int $transfer_application_id
  * @property int $transfer_application_date
+ * @property int $transfer_application_deal_reason_id
  * @property int $transfer_application_only_one
  * @property int $transfer_application_price
  * @property int $transfer_application_team_id
  * @property int $transfer_application_transfer_id
  * @property int $transfer_application_user_id
  *
+ * @property DealReason $dealReason
  * @property Team $team
  * @property User $user
  */
@@ -39,6 +41,7 @@ class TransferApplication extends AbstractActiveRecord
                 [
                     'transfer_application_id',
                     'transfer_application_date',
+                    'transfer_application_deal_reason_id',
                     'transfer_application_only_one',
                     'transfer_application_price',
                     'transfer_application_team_id',
@@ -63,6 +66,14 @@ class TransferApplication extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getDealReason()
+    {
+        return $this->hasOne(DealReason::class, ['deal_reason_id' => 'transfer_application_deal_reason_id']);
     }
 
     /**
