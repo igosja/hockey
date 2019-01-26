@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\models\Poll;
 use common\models\PollStatus;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -41,6 +42,19 @@ use yii\widgets\DetailView;
         $attributes = [
             'poll_id',
             'poll_date:datetime',
+            [
+                'label' => 'Страна опроса',
+                'value' => function (Poll $model) {
+                    return $model->country->country_name;
+                },
+            ],
+            [
+                'label' => 'Автор',
+                'format' => 'raw',
+                'value' => function (Poll $model) {
+                    return $model->user->userLink();
+                },
+            ],
             'poll_text',
         ];
         print DetailView::widget([

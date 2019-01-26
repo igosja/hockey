@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property int $poll_user_id
  * @property int $poll_poll_status_id
  *
+ * @property Country $country
  * @property PollAnswer[] $pollAnswer
  * @property PollStatus $pollStatus
  * @property User $user
@@ -56,6 +57,7 @@ class Poll extends AbstractActiveRecord
         return [
             'answer' => 'Ответ',
             'poll_id' => 'Id',
+            'poll_country_id' => 'Страна опроса',
             'poll_date' => 'Дата',
             'poll_text' => 'Вопрос',
         ];
@@ -165,6 +167,14 @@ class Poll extends AbstractActiveRecord
             return $b['count'] > $a['count'] ? 1 : 0;
         });
         return $result;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry()
+    {
+        return $this->hasOne(Country::class, ['country_id' => 'poll_country_id']);
     }
 
     /**

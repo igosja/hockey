@@ -39,7 +39,7 @@ class NationalVoteStatus
         $electionNationalArray = ElectionNational::find()
             ->with(['application'])
             ->where(['election_national_election_status_id' => ElectionStatus::OPEN])
-            ->andWhere(['<', 'election_national_date', time() - 432000])
+            ->andWhere(['<', 'election_national_date', time() - 259200])
             ->orderBy(['election_national_id' => SORT_ASC])
             ->each();
         foreach ($electionNationalArray as $electionNational) {
@@ -58,8 +58,10 @@ class NationalVoteStatus
     {
         $model = new ElectionNationalApplication();
         $model->election_national_application_election_id = $electionNational->election_national_id;
+        $model->election_national_application_text = '-';
         $model->save();
 
+        $electionNational->election_national_date = time();
         $electionNational->election_national_election_status_id = ElectionStatus::OPEN;
         $electionNational->save();
     }

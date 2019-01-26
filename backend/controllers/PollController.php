@@ -151,9 +151,10 @@ class PollController extends AbstractController
         $model = Poll::find()->where(['poll_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
+        $model->poll_date = time();
         $model->poll_poll_status_id = PollStatus::OPEN;
         try {
-            $model->save();
+            $model->save(true, ['poll_date', 'poll_poll_status_id']);
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
