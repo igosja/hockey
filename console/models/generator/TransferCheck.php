@@ -6,6 +6,7 @@ use common\models\Finance;
 use common\models\FinanceText;
 use common\models\History;
 use common\models\HistoryText;
+use common\models\Team;
 use common\models\Transfer;
 use common\models\TransferVote;
 
@@ -22,7 +23,7 @@ class TransferCheck
     public function execute()
     {
         $transferArray = Transfer::find()
-            ->with(['player.schoolTeam', 'seller', 'buyer'])
+            ->with(['player'])
             ->where(['transfer_checked' => 0])
             ->andWhere(['!=', 'transfer_ready', 0])
             ->andWhere('FROM_UNIXTIME(`transfer_ready`+604800, "%Y-%m-%d")<=CURDATE()')
@@ -38,23 +39,28 @@ class TransferCheck
             if ($check < 0) {
                 $schoolPrice = round($transfer->transfer_price_buyer / 100);
 
+                $schoolTeam = Team::find()
+                    ->where(['team_id' => $transfer->player->player_school_id])
+                    ->limit(1)
+                    ->one();
+
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transfer->player->player_school_id,
                     'finance_value' => -$schoolPrice,
-                    'finance_value_after' => $transfer->player->schoolTeam->team_finance - $schoolPrice,
-                    'finance_value_before' => $transfer->player->schoolTeam->team_finance,
+                    'finance_value_after' => $schoolTeam->team_finance - $schoolPrice,
+                    'finance_value_before' => $schoolTeam->team_finance,
                 ]);
 
-                $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance - $schoolPrice;
-                $transfer->player->schoolTeam->save(true, ['team_finance']);
+                $schoolTeam->team_finance = $schoolTeam->team_finance - $schoolPrice;
+                $schoolTeam->save(true, ['team_finance']);
 
                 if ($transfer->transfer_team_seller_id) {
-                    $sellerTeam = $transfer->seller;
-                    if ($transfer->player->player_school_id == $transfer->transfer_team_seller_id) {
-                        $sellerTeam = $transfer->player->schoolTeam;
-                    }
+                    $sellerTeam = Team::find()
+                        ->where(['team_id' => $transfer->transfer_team_seller_id])
+                        ->limit(1)
+                        ->one();
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
@@ -70,10 +76,10 @@ class TransferCheck
                 }
 
                 if ($transfer->transfer_team_buyer_id) {
-                    $buyerTeam = $transfer->buyer;
-                    if ($transfer->player->player_school_id == $transfer->transfer_team_buyer_id) {
-                        $buyerTeam = $transfer->player->schoolTeam;
-                    }
+                    $buyerTeam = Team::find()
+                        ->where(['team_id' => $transfer->transfer_team_buyer_id])
+                        ->limit(1)
+                        ->one();
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
