@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\FormatHelper;
+use DateTime;
 use Exception;
 use yii\db\ActiveQuery;
 
@@ -87,10 +88,11 @@ class Loan extends AbstractActiveRecord
 
     /**
      * @return string
+     * @throws Exception
      */
     public function dealDate()
     {
-        $today = strtotime(date('Y-m-d 09:00:00'));
+        $today = (new DateTime())->setTime(9, 0, 0)->getTimestamp();
 
         if ($today < $this->loan_date + 86400 || $today < time()) {
             $today = $today + 86400;

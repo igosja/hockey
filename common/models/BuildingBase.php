@@ -3,6 +3,8 @@
 namespace common\models;
 
 use common\components\FormatHelper;
+use DateInterval;
+use DateTime;
 use yii\db\ActiveQuery;
 
 /**
@@ -68,16 +70,22 @@ class BuildingBase extends AbstractActiveRecord
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function endDate()
     {
         $day = $this->building_base_day;
 
-        if (strtotime(date('Y-m-d 09:00:00')) > time()) {
+        $today = (new DateTime())->setTime(9, 0, 0)->getTimestamp();
+
+        if ($today > time()) {
             $day--;
         }
 
-        return FormatHelper::asDate(strtotime('+' . $day . 'days'));
+        $interval = new DateInterval('P' . $day . 'D');
+        $end = (new DateTime())->add($interval)->getTimestamp();
+
+        return FormatHelper::asDate($end);
     }
 
     /**
