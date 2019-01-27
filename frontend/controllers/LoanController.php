@@ -18,7 +18,6 @@ use frontend\models\LoanVote;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
@@ -56,12 +55,32 @@ class LoanController extends AbstractController
             'position_name'
         );
 
+        $myApplicationArray = [];
+        $myPlayerArray = [];
+        if ($this->myTeam) {
+            $myApplicationArray = Loan::find()
+                ->where([
+                    'loan_ready' => 0,
+                    'loan_id' => LoanApplication::find()
+                        ->select(['loan_application_loan_id'])
+                        ->where(['loan_application_team_id' => $this->myTeam->team_id])
+                ])
+                ->orderBy(['loan_id' => SORT_ASC])
+                ->all();
+            $myPlayerArray = Loan::find()
+                ->where(['loan_team_seller_id' => $this->myTeam->team_id, 'loan_ready' => 0])
+                ->orderBy(['loan_id' => SORT_ASC])
+                ->all();
+        }
+
         $this->setSeoTitle('Аренда хоккеистов');
 
         return $this->render('index', [
             'countryArray' => $countryArray,
             'dataProvider' => $dataProvider,
             'model' => $searchModel,
+            'myApplicationArray' => $myApplicationArray,
+            'myPlayerArray' => $myPlayerArray,
             'positionArray' => $positionArray,
         ]);
     }
