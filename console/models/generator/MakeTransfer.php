@@ -11,6 +11,7 @@ use common\models\Loan;
 use common\models\PhysicalChange;
 use common\models\Schedule;
 use common\models\Season;
+use common\models\Team;
 use common\models\Transfer;
 use common\models\TransferApplication;
 use common\models\TransferPosition;
@@ -38,7 +39,7 @@ class MakeTransfer
 
         $transferArray = Transfer::find()
             ->joinWith(['player'])
-            ->with(['seller', 'player.schoolTeam'])
+            ->with(['player'])
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
@@ -157,10 +158,14 @@ class MakeTransfer
                     $transferApplication->save(true, ['transfer_application_deal_reason_id']);
                     continue;
                 }
+                $buyerTeam = Team::find()
+                    ->where(['team_id' => $transferApplication->transfer_application_team_id])
+                    ->limit(1)
+                    ->one();
                 /**
                  * @var TransferApplication $transferApplication
                  */
-                if (1 == count($transferApplicationArray) && $transferApplication->team->team_finance > $transfer->transfer_price_seller) {
+                if (1 == count($transferApplicationArray) && $buyerTeam->team_finance > $transfer->transfer_price_seller) {
                     $transferApplication->transfer_application_price = $transfer->transfer_price_seller;
                 }
                 if (count($transferApplicationArray) > 1 && $transferApplication->transfer_application_id == $transferApplicationArray[0]->transfer_application_id) {
@@ -172,25 +177,29 @@ class MakeTransfer
                     continue;
                 }
                 if ($transfer->transfer_team_seller_id) {
+                    $sellerTeam = Team::find()
+                        ->where(['team_id' => $transfer->transfer_team_seller_id])
+                        ->limit(1)
+                        ->one();
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                         'finance_player_id' => $transfer->transfer_player_id,
                         'finance_team_id' => $transfer->transfer_team_seller_id,
                         'finance_value' => $transferApplication->transfer_application_price,
-                        'finance_value_after' => $transfer->seller->team_finance + $transferApplication->transfer_application_price,
-                        'finance_value_before' => $transfer->seller->team_finance,
+                        'finance_value_after' => $sellerTeam->team_finance + $transferApplication->transfer_application_price,
+                        'finance_value_before' => $sellerTeam->team_finance,
                     ]);
 
-                    $transfer->seller->team_finance = $transfer->seller->team_finance + $transferApplication->transfer_application_price;
-                    $transfer->seller->save(true, ['team_finance']);
+                    $sellerTeam->team_finance = $sellerTeam->team_finance + $transferApplication->transfer_application_price;
+                    $sellerTeam->save(true, ['team_finance']);
                 }
 
                 $schoolPrice = round($transferApplication->transfer_application_price / 100);
 
-                $schoolTeam = $transfer->player->schoolTeam;
-                if ($transfer->player->player_school_id == $transfer->transfer_team_seller_id) {
-                    $schoolTeam = $transfer->seller;
-                }
+                $schoolTeam = Team::find()
+                    ->where(['team_id' => $transfer->player->player_school_id])
+                    ->limit(1)
+                    ->one();
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
@@ -203,11 +212,6 @@ class MakeTransfer
 
                 $schoolTeam->team_finance = $schoolTeam->team_finance + $schoolPrice;
                 $schoolTeam->save(true, ['team_finance']);
-
-                $buyerTeam = $transferApplication->team;
-                if ($transfer->player->player_school_id == $transferApplication->transfer_application_team_id) {
-                    $buyerTeam = $schoolTeam;
-                }
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::OUTCOME_TRANSFER,
@@ -300,31 +304,41 @@ class MakeTransfer
             if ($transfer->transfer_to_league && !$sold) {
                 $price = round($transfer->player->player_price / 2);
 
+                $sellerTeam = Team::find()
+                    ->where(['team_id' => $transfer->transfer_team_seller_id])
+                    ->limit(1)
+                    ->one();
+
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transfer->transfer_team_seller_id,
                     'finance_value' => $price,
-                    'finance_value_after' => $transfer->seller->team_finance + $price,
-                    'finance_value_before' => $transfer->seller->team_finance,
+                    'finance_value_after' => $sellerTeam->team_finance + $price,
+                    'finance_value_before' => $sellerTeam->team_finance,
                 ]);
 
-                $transfer->seller->team_finance = $transfer->seller->team_finance + $price;
-                $transfer->seller->save(true, ['team_finance']);
+                $sellerTeam->team_finance = $sellerTeam->team_finance + $price;
+                $sellerTeam->save(true, ['team_finance']);
 
                 $schoolPrice = round($price / 100);
+
+                $schoolTeam = Team::find()
+                    ->where(['team_id' => $transfer->player->player_school_id])
+                    ->limit(1)
+                    ->one();
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_TRANSFER_FIRST_TEAM,
                     'finance_player_id' => $transfer->transfer_player_id,
                     'finance_team_id' => $transfer->player->player_school_id,
                     'finance_value' => $schoolPrice,
-                    'finance_value_after' => $transfer->player->schoolTeam->team_finance + $schoolPrice,
-                    'finance_value_before' => $transfer->player->schoolTeam->team_finance,
+                    'finance_value_after' => $schoolTeam->team_finance + $schoolPrice,
+                    'finance_value_before' => $schoolTeam->team_finance,
                 ]);
 
-                $transfer->player->schoolTeam->team_finance = $transfer->player->schoolTeam->team_finance + $schoolPrice;
-                $transfer->player->schoolTeam->save(true, ['team_finance']);
+                $schoolTeam->team_finance = $schoolTeam->team_finance + $schoolPrice;
+                $schoolTeam->save(true, ['team_finance']);
 
                 $transfer->player->player_squad_id = 0;
                 $transfer->player->player_date_no_action = time() + 604800;
