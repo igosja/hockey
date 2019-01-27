@@ -78,11 +78,51 @@ class LineupController extends AbstractController
 
         $query = Player::find()
             ->where(['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0])
-            ->orWhere(['player_loan_team_id' => $this->myTeam->team_id])
-            ->orderBy(['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC]);
+            ->orWhere(['player_loan_team_id' => $this->myTeam->team_id]);
         $playerDataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
+            'sort' => [
+                'attributes' => [
+                    'age' => [
+                        'asc' => ['player_age' => SORT_ASC],
+                        'desc' => ['player_age' => SORT_DESC],
+                    ],
+                    'country' => [
+                        'asc' => ['player_country_id' => SORT_ASC],
+                        'desc' => ['player_country_id' => SORT_DESC],
+                    ],
+                    'game_row' => [
+                        'asc' => ['player_game_row' => SORT_ASC],
+                        'desc' => ['player_game_row' => SORT_DESC],
+                    ],
+                    'position' => [
+                        'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
+                        'desc' => ['player_position_id' => SORT_DESC, 'player_id' => SORT_DESC],
+                    ],
+                    'physical' => [
+                        'asc' => ['player_physical_id' => SORT_ASC],
+                        'desc' => ['player_physical_id' => SORT_DESC],
+                    ],
+                    'power_nominal' => [
+                        'asc' => ['player_power_nominal' => SORT_ASC],
+                        'desc' => ['player_power_nominal' => SORT_DESC],
+                    ],
+                    'power_real' => [
+                        'asc' => ['player_power_real' => SORT_ASC],
+                        'desc' => ['player_power_real' => SORT_DESC],
+                    ],
+                    'squad' => [
+                        'asc' => ['player_squad_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
+                        'desc' => ['player_squad_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
+                    ],
+                    'tire' => [
+                        'asc' => ['player_tire' => SORT_ASC],
+                        'desc' => ['player_tire' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => ['position' => SORT_ASC],
+            ],
         ]);
 
         $playerArray = Player::find()
