@@ -918,6 +918,13 @@ blockquote:before {
     width: auto;
 }
 
+.team-logo-game {
+    height: auto;
+    max-height: 30px;
+    max-width: 100%;
+    width: auto;
+}
+
 .team-logo-link {
     height: 125px;
     display: table-cell;
