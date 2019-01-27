@@ -12,6 +12,7 @@ use yii\helpers\Html;
  * @var int $seasonId
  * @var \common\models\Team $team
  * @var \yii\web\View $this
+ * @var int $totalPoint
  */
 
 ?>
@@ -135,6 +136,7 @@ use yii\helpers\Html;
             ],
             [
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => HockeyHelper::plusNecessary($totalPoint),
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Количество набранных/потерянных баллов'],
                 'headerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Количество набранных/потерянных баллов'],
                 'value' => function ($model) {

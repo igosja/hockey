@@ -111,14 +111,14 @@ use yii\helpers\Html;
             class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-complaint"
             <?php if (0 == $complaint) : ?>style="display:none;"<?php endif; ?>
     >
-        <div class="panel panel-red panel-complain">
+        <div class="panel panel-red panel-complaint">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
                         <i class="fa fa-exclamation-circle fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge admin-complain"><?= $complaint; ?></div>
+                        <div class="huge admin-complaint"><?= $complaint; ?></div>
                         <div>Жалобы</div>
                     </div>
                 </div>

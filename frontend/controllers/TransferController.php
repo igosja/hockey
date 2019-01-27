@@ -18,7 +18,6 @@ use frontend\models\TransferVote;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
@@ -56,12 +55,32 @@ class TransferController extends AbstractController
             'position_name'
         );
 
+        $myApplicationArray = [];
+        $myPlayerArray = [];
+        if ($this->myTeam) {
+            $myApplicationArray = Transfer::find()
+                ->where([
+                    'transfer_ready' => 0,
+                    'transfer_id' => TransferApplication::find()
+                        ->select(['transfer_application_transfer_id'])
+                        ->where(['transfer_application_team_id' => $this->myTeam->team_id])
+                ])
+                ->orderBy(['transfer_id' => SORT_ASC])
+                ->all();
+            $myPlayerArray = Transfer::find()
+                ->where(['transfer_team_seller_id' => $this->myTeam->team_id, 'transfer_ready' => 0])
+                ->orderBy(['transfer_id' => SORT_ASC])
+                ->all();
+        }
+
         $this->setSeoTitle('Трансфер хоккеистов');
 
         return $this->render('index', [
             'countryArray' => $countryArray,
             'dataProvider' => $dataProvider,
             'model' => $searchModel,
+            'myApplicationArray' => $myApplicationArray,
+            'myPlayerArray' => $myPlayerArray,
             'positionArray' => $positionArray,
         ]);
     }

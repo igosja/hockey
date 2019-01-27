@@ -34,14 +34,14 @@ class GameResult
 {
     const AUTO_PENALTY = 25; //Штраф за автососав
     const COEFFICIENT_DEFENCE = 1; //Меньше цифра - больше бросков
-    const COEFFICIENT_DEFENCE_GK = 6; //Больше цифра - сильнее вратарь (min 6)
+    const COEFFICIENT_DEFENCE_GK = 7; //Больше цифра - сильнее вратарь (min 6)
     const COEFFICIENT_FORWARD = 5; //Меньше цифра - больше бросков
     const COEFFICIENT_GK = 5; //Больше цифра - слабее вратарь
     const COEFFICIENT_RUDENESS = 2; //Больше цифра - больше штрафов
     const COEFFICIENT_SHOT_1 = 5; //Больше цифра - слабее бросок
     const COEFFICIENT_SHOT_2 = 2; //Больше цифра - сильнее бросок
     const LIMIT_RUDENESS = 39; //Больше цифра - меньше штрафов
-    const MAX_RUDENESS = 40; //Больше цифра - больше штрафов
+    const MAX_RUDENESS = 39; //Больше цифра - больше штрафов
 
     /**
      * @var Game $game
