@@ -11,6 +11,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 /**
  * @var int $gk_1_id
@@ -377,6 +378,7 @@ LineupAsset::register($this);
         try {
             $columns = [
                 [
+                    'attribute' => 'squad',
                     'contentOptions' => function (Player $model) {
                         if ($model->squad) {
                             return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
@@ -391,6 +393,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => 'country',
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Нац',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Национальность'],
@@ -402,6 +405,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => 'position',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Поз',
                     'footerOptions' => ['title' => 'Позиция'],
@@ -412,6 +416,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => 'age',
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'В',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Возраст'],
@@ -422,6 +427,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => 'power_nominal',
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Сила'],
@@ -432,6 +438,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id ? '' : 'tire',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'У',
                     'footerOptions' => ['title' => 'Усталость'],
@@ -444,6 +451,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id ? '' : 'physical',
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Ф',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
@@ -457,6 +465,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id ? 'power_nominal' : 'power_real',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'РС',
                     'footerOptions' => ['title' => 'Реальная сила'],
@@ -479,6 +488,7 @@ LineupAsset::register($this);
                     }
                 ],
                 [
+                    'attribute' => 'game_row',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'ИО',
                     'footerOptions' => ['title' => 'Играл/отдыхал подряд'],
@@ -489,6 +499,7 @@ LineupAsset::register($this);
                     }
                 ],
             ];
+            Pjax::begin();
             print GridView::widget([
                 'columns' => $columns,
                 'dataProvider' => $playerDataProvider,
@@ -501,6 +512,7 @@ LineupAsset::register($this);
                 'showFooter' => true,
                 'summary' => false,
             ]);
+            Pjax::end();
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
@@ -575,6 +587,9 @@ $scriptBody = $scriptBody . '
     var rw_4_id = ' . $rw_4_id . ';';
 $script = <<< JS
     $scriptBody
+    $(document).on("ready pjax:end", function() {
+        player_change();
+    })
 JS;
 $this->registerJs($script, \yii\web\View::POS_END);
 ?>
