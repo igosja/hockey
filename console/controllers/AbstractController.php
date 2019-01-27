@@ -17,8 +17,10 @@ abstract class AbstractController extends Controller
     {
         for ($i = 0, $countModel = count($modelArray); $i < $countModel; $i++) {
             $this->stdout('Начинаем ' . get_class($modelArray[$i]) . '...');
+            $start = microtime(true);
             $modelArray[$i]->execute();
-            $this->stdout(' Готово. ' . round(($i + 1) / $countModel * 100, 1) . '% выполнено' . PHP_EOL);
+            $time = microtime(true) - $start;
+            $this->stdout(' Готово. ' . round(($i + 1) / $countModel * 100, 1) . '% выполнено (' . sprintf('%.3f', $time) . ' сек)' . PHP_EOL);
         }
     }
 }
