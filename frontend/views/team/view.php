@@ -49,7 +49,7 @@ use yii\grid\GridView;
                 'header' => '№',
             ],
             [
-                'attribute' => 'player',
+                'attribute' => 'squad',
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',

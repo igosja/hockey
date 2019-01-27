@@ -70,17 +70,45 @@ $user = Yii::$app->user->identity;
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= FormatHelper::asDatetime($game->schedule->schedule_date); ?>,
-            <?= $game->tournamentLink(); ?>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
+            <?php if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamHome->team_id . '.png')) : ?>
+                <?= Html::img(
+                    '/img/team/125/' . $game->teamHome->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamHome->team_id . '.png'),
+                    [
+                        'alt' => $game->teamHome->team_name,
+                        'class' => 'team-logo-game',
+                        'title' => $game->teamHome->team_name,
+                    ]
+                ); ?>
+            <?php endif; ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
-            (<?= $game->stadium->stadium_capacity; ?>),
-            Зрителей: <?= $game->game_visitor; ?>.
-            Билет: <?= FormatHelper::asCurrency($game->game_ticket); ?>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-center">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <?= FormatHelper::asDatetime($game->schedule->schedule_date); ?>,
+                    <?= $game->tournamentLink(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
+                    (<?= $game->stadium->stadium_capacity; ?>),
+                    Зрителей: <?= $game->game_visitor; ?>.
+                    Билет: <?= FormatHelper::asCurrency($game->game_ticket); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
+            <?php if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamGuest->team_id . '.png')) : ?>
+                <?= Html::img(
+                    '/img/team/125/' . $game->teamGuest->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamGuest->team_id . '.png'),
+                    [
+                        'alt' => $game->teamGuest->team_name,
+                        'class' => 'team-logo-game',
+                        'title' => $game->teamGuest->team_name,
+                    ]
+                ); ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="row">

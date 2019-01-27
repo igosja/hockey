@@ -62,9 +62,15 @@ abstract class AbstractController extends Controller
             '185.38.209.242',//Zhabaeva-7
             '31.172.137.26',//Zhabaeva-7
             '127.0.0.1',
+            '185.74.253.156', //Server
         ];
 
-        if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
+        $userIp = Yii::$app->request->headers->get('x-real-ip');
+        if (!$userIp) {
+            $userIp = Yii::$app->request->userIP;
+        }
+
+        if (YII_DEBUG && !in_array($userIp, $allowedIp) && !($action instanceof ErrorAction)) {
             throw new ForbiddenHttpException(
                 'Этот сайт предназначен для разработки. Пользовательский сайт находиться по адресу https://virtual-hockey.org'
             );
@@ -91,8 +97,8 @@ abstract class AbstractController extends Controller
 
             $this->user = Yii::$app->user->identity;
             $this->user->user_date_login = time();
-            if (Yii::$app->request->userIP && (User::ADMIN_USER_ID == $this->user->user_id || !in_array(Yii::$app->request->userIP, $allowedIp))) {
-                $this->user->user_ip = Yii::$app->request->userIP;
+            if ($userIp && (User::ADMIN_USER_ID == $this->user->user_id || !in_array($userIp, $allowedIp))) {
+                $this->user->user_ip = $userIp;
             }
             $this->user->save(true, ['user_date_login', 'user_ip']);
         }

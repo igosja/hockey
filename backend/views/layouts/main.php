@@ -52,7 +52,7 @@ AppAsset::register($this);
             'items' => [
                 [
                     'label' => '<i class="fa fa-user fa-fw"></i> Заявки на команды <span class="badge"></span>',
-                    'url' => ['team-request/index'],
+                    'url' => ['team-ask/index'],
                 ],
                 [
                     'label' => '<i class="fa fa-shield fa-fw"></i> Логотипы <span class="badge admin-logo"></span>',
