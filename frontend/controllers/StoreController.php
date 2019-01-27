@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\models\Finance;
+use common\models\FinanceText;
 use common\models\Money;
 use common\models\MoneyText;
 use common\models\Payment;
@@ -409,7 +411,17 @@ class StoreController extends AbstractController
                 $user->user_money = $user->user_money - $price;
                 $user->save(true, ['user_money']);
 
-                $this->myTeam->team_finance = $this->myTeam->team_finance + 1000000;
+                $teamMoney = 1000000;
+
+                Finance::log([
+                    'finance_finance_text_id' => FinanceText::INCOME_PRIZE_VIP,
+                    'finance_team_id' => $this->myTeam->team_id,
+                    'finance_value' => $teamMoney,
+                    'finance_value_after' => $this->myTeam->team_finance + $teamMoney,
+                    'finance_value_before' => $this->myTeam->team_finance,
+                ]);
+
+                $this->myTeam->team_finance = $this->myTeam->team_finance + $teamMoney;
                 $this->myTeam->save(true, ['team_finance']);
             } catch (Exception $e) {
                 ErrorHelper::log($e);
