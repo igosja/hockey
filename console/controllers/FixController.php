@@ -1,41 +1,26 @@
 <?php
 
-namespace backend\controllers;
+namespace console\controllers;
 
 use common\models\Finance;
 use common\models\FinanceText;
-use common\models\Loan;
 use common\models\Team;
-use common\models\Transfer;
+use Exception;
 
 /**
- * Class FinanceController
- * @package backend\controllers
+ * Class FixController
+ * @package console\controllers
  */
-class FinanceController extends AbstractController
+class FixController extends AbstractController
 {
     /**
-     * @throws \Exception
-     * @return void
+     * @throws Exception
      */
-    public function actionIndex()
+    public function actionFinance()
     {
         $teamArray = Team::find()
             ->select(['team_id', 'team_finance'])
             ->where(['!=', 'team_id', 0])
-            ->andWhere([
-                'or',
-                [
-                    'team_id' => Transfer::find()
-                        ->select(['transfer_team_buyer_id'])
-                        ->where(['!=', 'transfer_cancel', 0])
-                ],
-                [
-                    'team_id' => Loan::find()
-                        ->select(['loan_team_buyer_id'])
-                        ->where(['!=', 'loan_cancel', 0])
-                ]
-            ])
             ->each();
         foreach ($teamArray as $team) {
             $value = 0;

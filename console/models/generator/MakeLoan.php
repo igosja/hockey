@@ -14,6 +14,7 @@ use common\models\LoanSpecial;
 use common\models\PhysicalChange;
 use common\models\Schedule;
 use common\models\Season;
+use common\models\Team;
 use common\models\Transfer;
 use yii\db\Expression;
 
@@ -39,7 +40,7 @@ class MakeLoan
 
         $loanArray = Loan::find()
             ->joinWith(['player'])
-            ->with(['seller', 'player'])
+            ->with(['player'])
             ->where(['loan_ready' => 0])
             ->andWhere('`loan_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'loan_id' => SORT_ASC])
@@ -161,49 +162,57 @@ class MakeLoan
                     $loanApplication->save(true, ['loan_application_deal_reason_id']);
                     continue;
                 }
+                $buyerTeam = Team::find()
+                    ->where(['team_id' => $loanApplication->loan_application_team_id])
+                    ->limit(1)
+                    ->one();
                 /**
                  * @var LoanApplication $loanApplication
                  */
-                if (1 == count($loanApplicationArray) && $loanApplication->team->team_finance > $loan->loan_price_seller * $loanApplication->loan_application_day) {
+                if (1 == count($loanApplicationArray) && $buyerTeam->team_finance > $loan->loan_price_seller * $loanApplication->loan_application_day) {
                     $loanApplication->loan_application_price = $loan->loan_price_seller;
                     $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
                 }
                 if (count($loanApplicationArray) > 1 && $loanApplication->loan_application_id == $loanApplicationArray[0]->loan_application_id) {
                     $newPrice = ceil($loanApplicationArray[1]->loan_application_price * $loanApplicationArray[1]->loan_application_day / $loanApplication->loan_application_day) + 1;
-                    if ($loanApplication->transfer_application_price > $newPrice) {
-                        $loanApplication->transfer_application_price = $newPrice;
+                    if ($loanApplication->loan_application_price > $newPrice) {
+                        $loanApplication->loan_application_price = $newPrice;
                         $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
                     }
                 }
-                if ($price > $loanApplication->team->team_finance) {
+                if ($price > $buyerTeam->team_finance) {
                     $loanApplication->loan_application_deal_reason_id = DealReason::NO_MONEY;
                     $loanApplication->save(true, ['loan_application_deal_reason_id']);
                     continue;
                 }
 
+                $sellerTeam = Team::find()
+                    ->where(['team_id' => $loan->loan_team_seller_id])
+                    ->limit(1)
+                    ->one();
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::INCOME_LOAN,
                     'finance_player_id' => $loan->loan_player_id,
                     'finance_team_id' => $loan->loan_team_seller_id,
                     'finance_value' => $price,
-                    'finance_value_after' => $loan->seller->team_finance + $price,
-                    'finance_value_before' => $loan->seller->team_finance,
+                    'finance_value_after' => $sellerTeam->team_finance + $price,
+                    'finance_value_before' => $sellerTeam->team_finance,
                 ]);
 
-                $loan->seller->team_finance = $loan->seller->team_finance + $price;
-                $loan->seller->save(true, ['team_finance']);
+                $sellerTeam->team_finance = $sellerTeam->team_finance + $price;
+                $sellerTeam->save(true, ['team_finance']);
 
                 Finance::log([
                     'finance_finance_text_id' => FinanceText::OUTCOME_LOAN,
                     'finance_player_id' => $loan->loan_player_id,
                     'finance_team_id' => $loanApplication->loan_application_team_id,
                     'finance_value' => -$price,
-                    'finance_value_after' => $loanApplication->team->team_finance - $price,
-                    'finance_value_before' => $loanApplication->team->team_finance,
+                    'finance_value_after' => $buyerTeam->team_finance - $price,
+                    'finance_value_before' => $buyerTeam->team_finance,
                 ]);
 
-                $loanApplication->team->team_finance = $loanApplication->team->team_finance - $price;
-                $loanApplication->team->save(true, ['team_finance']);
+                $buyerTeam->team_finance = $buyerTeam->team_finance - $price;
+                $buyerTeam->save(true, ['team_finance']);
 
                 $loan->player->player_squad_id = 0;
                 $loan->player->player_loan_day = $loanApplication->loan_application_day;
