@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use common\models\Achievement;
 use common\models\Country;
 use common\models\ElectionPresident;
@@ -293,6 +294,11 @@ class TeamController extends AbstractController
             'query' => $query,
         ]);
 
+        $totalPoint = 0;
+        foreach ($dataProvider->models as $game) {
+            $totalPoint = $totalPoint + (int)HockeyHelper::gamePlusMinus($game, $id);
+        }
+
         $this->setSeoTitle($team->fullName() . '. Матчи команды');
 
         return $this->render('game', [
@@ -300,6 +306,7 @@ class TeamController extends AbstractController
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
             'team' => $team,
+            'totalPoint' => $totalPoint,
         ]);
     }
 
