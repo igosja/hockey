@@ -3,6 +3,7 @@
 namespace console\models\generator;
 
 use common\models\Country;
+use common\models\RatingChapter;
 use common\models\RatingCountry;
 use common\models\RatingTeam;
 use common\models\RatingType;
@@ -64,6 +65,7 @@ class UpdateRating
         Yii::$app->db->createCommand($sql)->execute();
 
         $ratingTypeArray = RatingType::find()
+            ->where(['rating_type_rating_chapter_id' => RatingChapter::COUNTRY])
             ->orderBy(['rating_type_rating_chapter_id' => SORT_ASC, 'rating_type_id' => SORT_ASC])
             ->each();
         foreach ($ratingTypeArray as $ratingType) {
@@ -101,7 +103,7 @@ class UpdateRating
                 $order = '`user_rating` DESC';
                 $place = 'rating_user_rating_place';
             } elseif (RatingType::COUNTRY_STADIUM == $ratingType->rating_type_id) {
-                $order = '`country_stadium` DESC';
+                $order = '`country_stadium_capacity` DESC';
                 $place = 'rating_country_stadium_place';
             } elseif (RatingType::COUNTRY_AUTO == $ratingType->rating_type_id) {
                 $order = '`country_auto`/`country_game`';
@@ -181,7 +183,7 @@ class UpdateRating
                     ->joinWith(['city'])
                     ->where(['!=', 'city_id', 0])
                     ->groupBy(['country_id'])
-                    ->orderBy(['country_id' => SORT_ASC])
+                    ->orderBy(new Expression($order . ', `country_id`'))
                     ->each();
                 foreach ($countryArray as $country) {
                     /**
