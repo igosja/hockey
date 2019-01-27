@@ -43,7 +43,7 @@ function admin_bell() {
             }
 
             $('.admin-complaint').html(data.complaint);
-            if (data.complain > 0) {
+            if (data.complaint > 0) {
                 $('.panel-complaint').show();
             } else {
                 $('.panel-complaint').hide();
