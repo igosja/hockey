@@ -40,7 +40,7 @@ use yii\helpers\Html;
         $columns = [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'contentOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'col-5 text-center'],
                 'footer' => '№',
                 'header' => '№',
             ],
@@ -364,7 +364,7 @@ use yii\helpers\Html;
                     'label' => '%',
                     'value' => function (RatingCountry $model) {
                         return Yii::$app->formatter->asDecimal(
-                            $model->country->country_auto / ($model->country->country_game ? $model->country->country_game : 1) * 100
+                            round($model->country->country_auto / ($model->country->country_game ? $model->country->country_game : 1) * 100, 1)
                         );
                     }
                 ];
