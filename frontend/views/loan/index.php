@@ -11,6 +11,8 @@ use yii\widgets\ActiveForm;
  * @var array $countryArray
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \frontend\models\LoanSearch $model
+ * @var \common\models\Loan[] $myApplicationArray
+ * @var \common\models\Loan[] $myPlayerArray
  * @var array $positionArray
  * @var \yii\web\View $this
  */
@@ -108,7 +110,94 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 <?php ActiveForm::end(); ?>
-    <div class="row">
+<?php if ($myPlayerArray) : ?>
+    <div class="row margin-top-small">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th class="col-3">№</th>
+                    <th class="col-20">Ваши игроки</th>
+                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
+                    <th class="col-5" title="Позиция">Поз</th>
+                    <th class="col-5" title="Возраст">В</th>
+                    <th class="col-5" title="Сила">С</th>
+                    <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
+                    <th class="hidden-xs">Команда</th>
+                    <th class="col-5" title="Срок аренды (календарных дней)">Дней</th>
+                    <th class="col-10" title="Минимальная запрашиваемая цена">Цена</th>
+                    <th class="col-10" title="Дата проведения торгов">Торги</th>
+                </tr>
+                <?php $i = 1;
+                foreach ($myPlayerArray as $myPlayer) : ?>
+                    <tr>
+                        <td class="text-center"><?= $i; ?></td>
+                        <td><?= $myPlayer->player->playerLink(); ?></td>
+                        <td class="hidden-xs text-center"><?= $myPlayer->player->country->countryImageLink(); ?></td>
+                        <td class="text-center"><?= $myPlayer->player->position(); ?></td>
+                        <td class="text-center"><?= $myPlayer->player->player_age; ?></td>
+                        <td class="text-center"><?= $myPlayer->player->player_power_nominal; ?></td>
+                        <td class="text-center hidden-xs"><?= $myPlayer->player->special(); ?></td>
+                        <td class="hidden-xs"><?= $myPlayer->seller->teamLink('img'); ?></td>
+                        <td class="text-center"><?= $myPlayer->loan_day_min; ?>-<?= $myPlayer->loan_day_max; ?></td>
+                        <td class="text-right"><?= FormatHelper::asCurrency($myPlayer->loan_price_seller); ?></td>
+                        <td class="text-center">
+                            <?php try {
+                                print $myPlayer->dealDate();
+                            } catch (Exception $e) {
+                                ErrorHelper::log($e);
+                            } ?>
+                        </td>
+                    </tr>
+                    <?php $i++; endforeach; ?>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($myApplicationArray) : ?>
+    <div class="row margin-top-small">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th class="col-3">№</th>
+                    <th class="col-20">Ваши заявки</th>
+                    <th class="col-1 hidden-xs" title="Национальность">Нац</th>
+                    <th class="col-5" title="Позиция">Поз</th>
+                    <th class="col-5" title="Возраст">В</th>
+                    <th class="col-5" title="Сила">С</th>
+                    <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
+                    <th class="hidden-xs">Команда</th>
+                    <th class="col-5" title="Срок аренды (календарных дней)">Дней</th>
+                    <th class="col-10" title="Минимальная запрашиваемая цена">Цена</th>
+                    <th class="col-10" title="Дата проведения торгов">Торги</th>
+                </tr>
+                <?php $i = 1;
+                foreach ($myApplicationArray as $myApplication) : ?>
+                    <tr>
+                        <td class="text-center"><?= $i; ?></td>
+                        <td><?= $myApplication->player->playerLink(); ?></td>
+                        <td class="hidden-xs text-center"><?= $myApplication->player->country->countryImageLink(); ?></td>
+                        <td class="text-center"><?= $myApplication->player->position(); ?></td>
+                        <td class="text-center"><?= $myApplication->player->player_age; ?></td>
+                        <td class="text-center"><?= $myApplication->player->player_power_nominal; ?></td>
+                        <td class="text-center hidden-xs"><?= $myApplication->player->special(); ?></td>
+                        <td class="hidden-xs"><?= $myApplication->seller->teamLink('img'); ?></td>
+                        <td class="text-center"><?= $myApplication->loan_day_min; ?>
+                            -<?= $myApplication->loan_day_max; ?></td>
+                        <td class="text-right"><?= FormatHelper::asCurrency($myApplication->loan_price_seller); ?></td>
+                        <td class="text-center">
+                            <?php try {
+                                print $myApplication->dealDate();
+                            } catch (Exception $e) {
+                                ErrorHelper::log($e);
+                            } ?>
+                        </td>
+                    </tr>
+                    <?php $i++; endforeach; ?>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
+    <div class="row margin-top-small">
         <?php
 
         try {
@@ -118,10 +207,12 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '№',
                     'header' => '№',
+                    'headerOptions' => ['class' => 'col-3'],
                 ],
                 [
                     'footer' => 'Игрок',
                     'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-20'],
                     'label' => 'Игрок',
                     'value' => function (Loan $model) {
                         return Html::a(
@@ -146,7 +237,7 @@ use yii\widgets\ActiveForm;
                     'footer' => 'Поз',
                     'footerOptions' => ['title' => 'Позиция'],
                     'format' => 'raw',
-                    'headerOptions' => ['title' => 'Позиция'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Позиция'],
                     'label' => 'Поз',
                     'value' => function (Loan $model) {
                         return $model->player->position();
@@ -156,7 +247,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В',
                     'footerOptions' => ['title' => 'Возраст'],
-                    'headerOptions' => ['title' => 'Возраст'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Возраст'],
                     'label' => 'В',
                     'value' => function (Loan $model) {
                         return $model->player->player_age;
@@ -166,7 +257,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['title' => 'Сила'],
-                    'headerOptions' => ['title' => 'Сила'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Сила'],
                     'label' => 'С',
                     'value' => function (Loan $model) {
                         return $model->player->player_power_nominal;
@@ -176,7 +267,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center hidden-xs'],
                     'footer' => 'Спец',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
-                    'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Спецвозможности'],
+                    'headerOptions' => ['class' => 'col-10 hidden-xs', 'title' => 'Спецвозможности'],
                     'label' => 'Спец',
                     'value' => function (Loan $model) {
                         return $model->player->special();
@@ -197,7 +288,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Дней',
                     'footerOptions' => ['title' => 'Срок аренды (календарных дней)'],
-                    'headerOptions' => ['title' => 'Срок аренды (календарных дней)'],
+                    'headerOptions' => ['class' => 'col-5', 'title' => 'Срок аренды (календарных дней)'],
                     'label' => 'Дней',
                     'value' => function (Loan $model) {
                         return $model->loan_day_min . '-' . $model->loan_day_max;
@@ -207,7 +298,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
                     'footerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
-                    'headerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
                     'label' => 'Цена',
                     'value' => function (Loan $model) {
                         return FormatHelper::asCurrency($model->loan_price_seller);
@@ -217,7 +308,7 @@ use yii\widgets\ActiveForm;
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Торги',
                     'footerOptions' => ['title' => 'Дата проведения торгов'],
-                    'headerOptions' => ['title' => 'Дата проведения торгов'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Дата проведения торгов'],
                     'label' => 'Торги',
                     'value' => function (Loan $model) {
                         return $model->dealDate();
