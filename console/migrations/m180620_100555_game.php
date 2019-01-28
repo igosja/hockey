@@ -16,7 +16,7 @@ class m180620_100555_game extends Migration
     {
         $this->createTable(self::TABLE, [
             'game_id' => $this->primaryKey(11),
-            'game_bonus_home' => $this->integer(1)->defaultValue(0),
+            'game_bonus_home' => $this->integer(1)->defaultValue(1),
             'game_guest_auto' => $this->integer(1)->defaultValue(0),
             'game_guest_collision_1' => $this->integer(1)->defaultValue(0),
             'game_guest_collision_2' => $this->integer(1)->defaultValue(0),
