@@ -3,7 +3,6 @@
 namespace console\models\generator;
 
 use common\models\Country;
-use common\models\RatingChapter;
 use common\models\RatingCountry;
 use common\models\RatingTeam;
 use common\models\RatingType;
@@ -65,7 +64,6 @@ class UpdateRating
         Yii::$app->db->createCommand($sql)->execute();
 
         $ratingTypeArray = RatingType::find()
-            ->where(['rating_type_rating_chapter_id' => RatingChapter::COUNTRY])
             ->orderBy(['rating_type_rating_chapter_id' => SORT_ASC, 'rating_type_id' => SORT_ASC])
             ->each();
         foreach ($ratingTypeArray as $ratingType) {
