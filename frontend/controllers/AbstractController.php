@@ -102,7 +102,7 @@ abstract class AbstractController extends Controller
             }
             $this->user->save(true, ['user_date_login', 'user_ip']);
 
-            if ($this->user->user_date_block > time() && !($action instanceof ErrorAction) && !($action->controller instanceof SupportController)) {
+            if ($this->user->user_date_block > time() && !($action instanceof ErrorAction) && !($action->controller instanceof SupportController) && !($action->controller instanceof SiteController)) {
                 throw new ForbiddenHttpException(
                     'Вам заблокирован доступ к сайту.
                     Причина блокировки - ' . $this->user->reasonBlock->block_reason_text
