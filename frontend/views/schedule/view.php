@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Game;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -35,7 +36,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'col-47 text-right'],
                 'format' => 'raw',
                 'value' => function (Game $model) {
-                    return $model->teamOrNationalLink();
+                    return $model->teamOrNationalLink() . HockeyHelper::formatAuto($model->game_home_auto);
                 }
             ],
             [
@@ -52,7 +53,7 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'col-47'],
                 'format' => 'raw',
                 'value' => function (Game $model) {
-                    return $model->teamOrNationalLink('guest');
+                    return $model->teamOrNationalLink('guest') . HockeyHelper::formatAuto($model->game_guest_auto);
                 }
             ],
         ];
