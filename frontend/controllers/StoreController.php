@@ -577,7 +577,7 @@ class StoreController extends AbstractController
 
         $bonusArray = $this->getBonusArray();
         foreach ($bonusArray as $sum => $bonus) {
-            if ($paymentSum >= $sum) {
+            if ($paymentSum < $sum) {
                 return $bonus;
             }
         }

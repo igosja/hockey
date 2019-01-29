@@ -35,6 +35,9 @@ use yii\widgets\DetailView;
             ['class' => 'btn btn-default', 'target' => '_blank']
         ); ?>
     </li>
+    <li>
+        <?= Html::a('Внести оплату', ['user/pay', 'id' => $model->user_id], ['class' => 'btn btn-default']); ?>
+    </li>
 </ul>
 <div class="row">
     <?php

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\UserSearch;
 use common\models\BlockReason;
 use common\models\Cookie;
+use common\models\Payment;
 use common\models\User;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -83,6 +84,33 @@ class UserController extends AbstractController
 
         Yii::$app->request->setBaseUrl('');
         return $this->redirect(['site/auth', 'code' => $model->user_code]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionPay($id)
+    {
+        $user = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($user);
+
+        $model = new Payment();
+        $model->payment_user_id = $id;
+        if ($model->pay()) {
+            $this->setSuccessFlash();
+            $this->redirect(['user/view', 'id' => $id]);
+        }
+
+        $this->view->title = $user->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('pay', [
+            'model' => $model,
+        ]);
     }
 
     /**
