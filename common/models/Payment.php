@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\components\ErrorHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
@@ -65,7 +67,9 @@ class Payment extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->payment_date = time();
-                $this->payment_user_id = Yii::$app->user->id;
+                if (!$this->payment_user_id) {
+                    $this->payment_user_id = Yii::$app->user->id;
+                }
             }
             return true;
         }
@@ -144,6 +148,96 @@ class Payment extends AbstractActiveRecord
         ];
 
         return 'http://www.free-kassa.ru/merchant/cash.php?' . http_build_query($params);
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function pay()
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->validate()) {
+            return false;
+        }
+
+        $bonus = $this->paymentBonus($this->payment_user_id);
+
+        if ($this->payment_sum >= 100) {
+            $bonus = $bonus + 10;
+        }
+
+        $sum = round($this->payment_sum * (100 + $bonus) / 100, 2);
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $this->payment_status = Payment::PAID;
+            $this->save();
+
+            Money::log([
+                'money_money_text_id' => MoneyText::INCOME_ADD_FUNDS,
+                'money_user_id' => $this->payment_user_id,
+                'money_value' => $sum,
+                'money_value_after' => $this->user->user_money + $sum,
+                'money_value_before' => $this->user->user_money,
+            ]);
+
+            $this->user->user_money = $this->user->user_money + $sum;
+            $this->user->save();
+
+            if ($this->user->referrer) {
+                $sum = round($sum / 10, 2);
+
+                Money::log([
+                    'money_money_text_id' => MoneyText::INCOME_REFERRAL,
+                    'money_user_id' => $this->user->user_referrer_id,
+                    'money_value' => $sum,
+                    'money_value_after' => $this->user->referrer->user_money + $sum,
+                    'money_value_before' => $this->user->referrer->user_money,
+                ]);
+
+                $this->user->referrer->user_money = $this->user->referrer->user_money + $sum;
+                $this->user->save();
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+            return false;
+        }
+
+        $transaction->commit();
+        return true;
+    }
+
+    /**
+     * @param int $userId
+     * @return int
+     */
+    private function paymentBonus($userId)
+    {
+        $paymentSum = Payment::find()
+            ->where(['payment_user_id' => $userId, 'payment_status' => Payment::PAID])
+            ->sum('payment_sum');
+
+        $bonusArray = $this->getBonusArray();
+        foreach ($bonusArray as $sum => $bonus) {
+            if ($paymentSum < $sum) {
+                return $bonus;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * @return array
+     */
+    private function getBonusArray()
+    {
+        return [0 => 0, 10 => 2, 25 => 4, 50 => 6, 75 => 8, 100 => 10, 200 => 15, 300 => 20, 500 => 25];
     }
 
     /**
