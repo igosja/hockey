@@ -1587,7 +1587,7 @@ class GameResult
      */
     private function generateAttack($endIfScore)
     {
-        $this->processAttack('home', 'guest');
+        $this->processAttack('home', 'guest', $endIfScore);
         if (!$endIfScore || $this->result['minute'] < 65) {
             $this->processAttack('guest', 'home', $endIfScore);
         }
