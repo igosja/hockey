@@ -108,6 +108,10 @@ abstract class AbstractController extends Controller
                     Причина блокировки - ' . $this->user->reasonBlock->block_reason_text
                 );
             }
+
+            if (!$this->user->user_date_confirm) {
+                Yii::$app->session->setFlash('warning', 'Пожалуйста, подтвердите свой почтовый адрес');
+            }
         }
 
         return true;
