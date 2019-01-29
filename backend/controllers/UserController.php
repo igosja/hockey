@@ -91,6 +91,41 @@ class UserController extends AbstractController
      * @throws \Exception
      * @throws \yii\web\NotFoundHttpException
      */
+    public function actionBlock($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_date_block = $model->time * 86400 + time();
+            if ($model->save()) {
+                foreach ($model->team as $team) {
+                    $team->managerFire();
+                }
+                $this->setSuccessFlash();
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }
+        }
+
+        $blockReasonArray = BlockReason::find()->all();
+        $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
+
+        $this->view->title = $model->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('block', [
+            'blockReasonArray' => $blockReasonArray,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
     public function actionBlockComment($id)
     {
         $model = User::find()->where(['user_id' => $id])->limit(1)->one();
