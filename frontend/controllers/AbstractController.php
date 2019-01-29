@@ -101,6 +101,17 @@ abstract class AbstractController extends Controller
                 $this->user->user_ip = $userIp;
             }
             $this->user->save(true, ['user_date_login', 'user_ip']);
+
+            if ($this->user->user_date_block > time() && !($action instanceof ErrorAction) && !($action->controller instanceof SupportController) && !($action->controller instanceof SiteController)) {
+                throw new ForbiddenHttpException(
+                    'Вам заблокирован доступ к сайту.
+                    Причина блокировки - ' . $this->user->reasonBlock->block_reason_text
+                );
+            }
+
+            if (!$this->user->user_date_confirm) {
+                Yii::$app->session->setFlash('warning', 'Пожалуйста, подтвердите свой почтовый адрес');
+            }
         }
 
         return true;

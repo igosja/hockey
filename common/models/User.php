@@ -65,6 +65,7 @@ use yii\web\IdentityInterface;
  * @property Country $country
  * @property Country $president
  * @property Country $presidentVice
+ * @property BlockReason $reasonBlock
  * @property BlockReason $reasonBlockComment
  * @property BlockReason $reasonBlockCommentDeal
  * @property BlockReason $reasonBlockCommentGame
@@ -477,6 +478,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function getPresidentVice()
     {
         return $this->hasOne(Country::class, ['country_president_vice_id' => 'user_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlock()
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_block_reason_id']);
     }
 
     /**

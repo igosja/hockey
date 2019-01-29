@@ -41,6 +41,9 @@ class NewsSearch extends News
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['news_id' => SORT_DESC],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
