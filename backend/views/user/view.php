@@ -87,6 +87,22 @@ use yii\widgets\DetailView;
             ],
             [
                 'format' => 'raw',
+                'label' => 'Доступ к сайту',
+                'value' => function (User $model) {
+                    if ($model->user_date_block > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'format' => 'raw',
                 'label' => 'Доступ ко всем комментариям',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment > time()) {
@@ -119,7 +135,7 @@ use yii\widgets\DetailView;
             ],
             [
                 'format' => 'raw',
-                'label' => 'Доступ к комментариям сделок',
+                'label' => 'Доступ к форуму',
                 'value' => function (User $model) {
                     if ($model->user_date_block_forum > time()) {
                         $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_forum);

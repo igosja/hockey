@@ -41,6 +41,9 @@ class PollSearch extends Poll
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['poll_id' => SORT_DESC],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
