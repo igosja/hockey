@@ -13,7 +13,7 @@ abstract class AbstractController extends Controller
     /**
      * @param array $modelArray
      */
-    protected function progress(array $modelArray)
+    public function progress(array $modelArray)
     {
         for ($i = 0, $countModel = count($modelArray); $i < $countModel; $i++) {
             $this->stdout('Начинаем ' . get_class($modelArray[$i]) . '...');
