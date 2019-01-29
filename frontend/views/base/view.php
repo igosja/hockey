@@ -313,7 +313,7 @@ use yii\helpers\Html;
                 <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12<?php if ($delScout) : ?> del<?php endif; ?>">
-                            Уровень: <span class="strong"><?= $team->baseScout->base_scout_base_level; ?></span>
+                            Уровень: <span class="strong"><?= $team->baseScout->base_scout_level; ?></span>
                         </div>
                     </div>
                     <div class="row">
