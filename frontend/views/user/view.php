@@ -171,7 +171,7 @@ print $this->render('_top');
 
     ?>
 </div>
-<?php if (Yii::$app->user->id == Yii::$app->request->get('id')) : ?>
+<?php if (Yii::$app->user->id == Yii::$app->request->get('id') && Yii::$app->user->identity->team) : ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= Html::a(

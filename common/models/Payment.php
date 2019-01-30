@@ -186,7 +186,7 @@ class Payment extends AbstractActiveRecord
             ]);
 
             $this->user->user_money = $this->user->user_money + $sum;
-            $this->user->save();
+            $this->user->save(true, ['user_money']);
 
             if ($this->user->referrer) {
                 $sum = round($sum / 10, 2);
@@ -200,7 +200,7 @@ class Payment extends AbstractActiveRecord
                 ]);
 
                 $this->user->referrer->user_money = $this->user->referrer->user_money + $sum;
-                $this->user->save();
+                $this->user->referrer->save(true, ['user_money']);
             }
         } catch (Exception $e) {
             ErrorHelper::log($e);
