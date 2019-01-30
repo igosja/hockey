@@ -28,10 +28,7 @@ use yii\widgets\ActiveForm;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Автор:
-                <?= Html::a(
-                    $poll->user->user_login,
-                    ['user/view', 'id' => $poll->poll_user_id]
-                ); ?>
+                <?= $poll->user->userLink(['color' => true]); ?>
             </div>
         </div>
         <?php $form = ActiveForm::begin([

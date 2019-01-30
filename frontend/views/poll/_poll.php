@@ -22,7 +22,7 @@ use yii\helpers\Html;
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
             Автор:
-            <?= $model->user->userLink(); ?>
+            <?= $model->user->userLink(['color' => true]); ?>
         </div>
     </div>
     <?php foreach ($model->answers() as $answer) : ?>
