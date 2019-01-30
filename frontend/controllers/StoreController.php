@@ -539,7 +539,7 @@ class StoreController extends AbstractController
             ]);
 
             $payment->user->user_money = $payment->user->user_money + $sum;
-            $payment->user->save();
+            $payment->user->save(true, ['user_money']);
 
             if ($payment->user->referrer) {
                 $sum = round($sum / 10, 2);
@@ -553,7 +553,7 @@ class StoreController extends AbstractController
                 ]);
 
                 $payment->user->referrer->user_money = $payment->user->referrer->user_money + $sum;
-                $payment->user->save();
+                $payment->user->referrer->save(true, ['user_money']);
             }
         } catch (Exception $e) {
             ErrorHelper::log($e);
