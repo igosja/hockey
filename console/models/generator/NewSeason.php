@@ -5,9 +5,13 @@ namespace console\models\generator;
 use common\components\ErrorHelper;
 use common\models\Schedule;
 use console\controllers\AbstractController;
+use console\models\newSeason\CountryAuto as AutoReset;
 use console\models\newSeason\FireNational;
+use console\models\newSeason\Injury;
 use console\models\newSeason\NoDeal;
 use console\models\newSeason\PlayerFromNational;
+use console\models\newSeason\PlayerGameRow as GameRow;
+use console\models\newSeason\RandPhysical;
 use Exception;
 use Yii;
 
@@ -48,20 +52,20 @@ class NewSeason
             'f_igosja_newseason_worldcup',
             'f_igosja_newseason_building_base',
             'f_igosja_newseason_building_stadium',
-            'f_igosja_newseason_phisical',
+            new RandPhysical(),
             'f_igosja_newseason_tire_base_level',
             'f_igosja_newseason_training',
             'f_igosja_newseason_school',
             'f_igosja_newseason_scout',
             'f_igosja_newseason_player_power_change',
-            'f_igosja_newseason_injury',
+            new Injury(),
             'f_igosja_newseason_older_player',
             'f_igosja_newseason_pension',
             'f_igosja_newseason_pension_inform',
             'f_igosja_newseason_maintenance',
-            'f_igosja_newseason_mood_reset',
-            'f_igosja_newseason_player_game_row',
-            'f_igosja_newseason_country_auto',
+            new MoodReset(),
+            new GameRow(),
+            new AutoReset(),
             'f_igosja_newseason_truncate',
         ];
 
