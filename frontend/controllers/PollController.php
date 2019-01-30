@@ -50,8 +50,14 @@ class PollController extends AbstractController
             ]
         );
 
+        $countryId = [0];
+        if ($this->myTeam) {
+            $countryId[] = $this->myTeam->stadium->city->country->country_id;
+        }
+
         $query = Poll::find()
             ->where(['poll_poll_status_id' => [PollStatus::OPEN, PollStatus::CLOSE]])
+            ->andWhere(['poll_country_id' => $countryId])
             ->orderBy(['poll_id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
