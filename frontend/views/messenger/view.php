@@ -39,29 +39,48 @@ print $this->render('//user/_top');
                 </div>
             <?php endforeach; ?>
         </div>
-        <?php $form = ActiveForm::begin([
-            'fieldConfig' => [
-                'errorOptions' => [
-                    'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center message-error notification-error',
-                    'tag' => 'div'
-                ],
-                'options' => ['class' => 'row'],
-                'template' =>
-                    '<div class="row">
+        <?php if (!$user->user_date_confirm) : ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вам заблокирован доступ к личным сообщениям
+                    <br/>
+                    Причина - ваш почтовый адрес не подтверждён
+                </div>
+            </div>
+        <?php elseif ($user->user_date_block_comment >= time()) : ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вам заблокирован доступ к личным сообщениям до
+                    <?= FormatHelper::asDateTime($user->user_date_block_comment); ?>
+                    <br/>
+                    Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <?php $form = ActiveForm::begin([
+                'fieldConfig' => [
+                    'errorOptions' => [
+                        'class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center message-error notification-error',
+                        'tag' => 'div'
+                    ],
+                    'options' => ['class' => 'row'],
+                    'template' =>
+                        '<div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{label}</div>
                 </div>
                 <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
                 </div>
                 <div class="row">{error}</div>',
-            ],
-        ]); ?>
-        <?= $form->field($model, 'message_text')->widget(WysiBB::class)->label('Ваше сообщение:'); ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <?= Html::submitButton('Отправить', ['class' => 'btn margin']); ?>
+                ],
+            ]); ?>
+            <?= $form->field($model, 'message_text')->widget(WysiBB::class)->label('Ваше сообщение:'); ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <?= Html::submitButton('Отправить', ['class' => 'btn margin']); ?>
+                </div>
             </div>
-        </div>
-        <?php ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
+        <?php endif; ?>
     </div>
 </div>

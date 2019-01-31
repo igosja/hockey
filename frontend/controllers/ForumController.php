@@ -222,6 +222,10 @@ class ForumController extends AbstractController
      */
     public function actionThemeCreate($id)
     {
+        if (!$this->user->user_date_confirm || $this->user->user_date_block_forum > time() || $this->user->user_date_block_comment > time()) {
+            return $this->redirect(['forum/group', 'id' => $id]);
+        }
+
         $forumGroup = ForumGroup::find()
             ->where(['forum_group_id' => $id])
             ->limit(1)

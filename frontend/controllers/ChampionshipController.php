@@ -515,7 +515,6 @@ class ChampionshipController extends AbstractController
     /**
      * @param $countryId
      * @param $divisionId
-     * @param $roundId
      * @param $seasonId
      * @return array
      */
@@ -555,6 +554,10 @@ class ChampionshipController extends AbstractController
     private function canReviewCreate($gameArray, $countryId, $divisionId, $scheduleId)
     {
         if (!$this->user) {
+            return false;
+        }
+
+        if (!$this->user->user_date_confirm) {
             return false;
         }
 

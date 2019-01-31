@@ -101,7 +101,7 @@ class TransferVote extends Model
             $model->transfer_vote_rating = $this->vote;
             $model->save();
 
-            if ($user->user_date_block_comment_deal < time() && $user->user_date_block_comment < time() && $this->comment) {
+            if ($user->user_date_block_comment_deal < time() && $user->user_date_block_comment < time() && $user->user_date_confirm && $this->comment) {
                 $model = new TransferComment();
                 $model->transfer_comment_text = $this->comment;
                 $model->transfer_comment_transfer_id = $this->transferId;

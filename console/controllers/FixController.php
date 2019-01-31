@@ -4,6 +4,8 @@ namespace console\controllers;
 
 use common\models\Finance;
 use common\models\FinanceText;
+use common\models\Review;
+use common\models\ReviewGame;
 use common\models\Team;
 use Exception;
 
@@ -46,5 +48,10 @@ class FixController extends AbstractController
             $team->team_finance = $value;
             $team->save(true, ['team_finance']);
         }
+    }
+
+    public function actionReview()
+    {
+        ReviewGame::deleteAll(['not', ['review_game_review_id' => Review::find()->select(['review_id'])]]);
     }
 }

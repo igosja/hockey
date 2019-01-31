@@ -93,7 +93,7 @@ use miloschuman\highcharts\Highcharts;
                     Рейтинг посещаемости хозяев
                 </td>
                 <td class="text-right">
-                    <?= $game->teamHome->team_visitor / 100; ?>
+                    <?= Yii::$app->formatter->asDecimal($game->teamHome->team_visitor / 100); ?>
                 </td>
             </tr>
             <tr>
@@ -101,7 +101,7 @@ use miloschuman\highcharts\Highcharts;
                     Рейтинг посещаемости гостей
                 </td>
                 <td class="text-right">
-                    <?= $game->teamGuest->team_visitor / 100; ?>
+                    <?= Yii::$app->formatter->asDecimal($game->teamGuest->team_visitor / 100); ?>
                 </td>
             </tr>
             <tr>

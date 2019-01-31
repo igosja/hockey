@@ -51,6 +51,7 @@ class ChatController extends AbstractController
 
         return $this->render('index', [
             'model' => $model,
+            'user' => Yii::$app->user->identity,
         ]);
     }
 

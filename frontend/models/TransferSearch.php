@@ -103,10 +103,10 @@ class TransferSearch extends Transfer
             ->where(['transfer_ready' => 0]);
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
             'pagination' => [
                 'pageSize' => Yii::$app->params['pageSizeTable'],
             ],
+            'query' => $query,
         ]);
 
         if (!($this->load($params) && $this->validate())) {

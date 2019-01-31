@@ -74,7 +74,15 @@ print $this->render('_country');
     </div>
 <?php endif; ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
-    <?php if ($user->user_date_block_comment_news >= time()) : ?>
+    <?php if (!$user->user_date_confirm) : ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию новостей
+                <br/>
+                Причина - ваш почтовый адрес не подтверждён
+            </div>
+        </div>
+    <?php elseif ($user->user_date_block_comment_news >= time()) : ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию новостей до

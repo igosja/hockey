@@ -64,6 +64,13 @@ class Chat extends Model
          */
         $user = Yii::$app->user->identity;
 
+        if (!$user->user_date_confirm) {
+            return false;
+        }
+        if ($user->user_date_block_comment > time()) {
+            return false;
+        }
+
         $file = Yii::getAlias('@webroot') . '/chat.txt';
 
         try {

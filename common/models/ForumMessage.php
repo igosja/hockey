@@ -102,6 +102,9 @@ class ForumMessage extends AbstractActiveRecord
          * @var User $user
          */
         $user = Yii::$app->user->identity;
+        if (!$user->user_date_confirm) {
+            return false;
+        }
         if ($user->user_date_block_forum >= time()) {
             return false;
         }

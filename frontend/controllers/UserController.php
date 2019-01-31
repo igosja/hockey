@@ -150,11 +150,6 @@ class UserController extends AbstractController
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => Achievement::find()
-                ->with([
-                ])
-                ->select([
-                    'achievement_season_id',
-                ])
                 ->where(['achievement_user_id' => $id])
                 ->orderBy(['achievement_id' => SORT_DESC]),
         ]);
