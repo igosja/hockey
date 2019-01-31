@@ -26,8 +26,9 @@ $user = $model->message_user_id_from == Yii::$app->user->id ? $model->userTo : $
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        Команда:
+        Команды:
         <?php foreach ($user->team as $team) : ?>
+            <br/>
             <?= $team->teamLink('img'); ?>
         <?php endforeach; ?>
     </div>
