@@ -5,12 +5,21 @@ namespace console\models\generator;
 use common\components\ErrorHelper;
 use common\models\Schedule;
 use console\controllers\AbstractController;
-use console\models\newSeason\CountryAuto as AutoReset;
+use console\models\newSeason\BaseMaintenance;
+use console\models\newSeason\CountryAutoReset;
+use console\models\newSeason\EndSchool;
+use console\models\newSeason\EndScout;
+use console\models\newSeason\EndTraining;
 use console\models\newSeason\FireNational;
+use console\models\newSeason\GameRow;
 use console\models\newSeason\Injury;
+use console\models\newSeason\InsertSchedule;
 use console\models\newSeason\NoDeal;
+use console\models\newSeason\OlderPlayer;
+use console\models\newSeason\Pension;
+use console\models\newSeason\PensionInform;
 use console\models\newSeason\PlayerFromNational;
-use console\models\newSeason\PlayerGameRow as GameRow;
+use console\models\newSeason\PlayerPowerChange;
 use console\models\newSeason\RandPhysical;
 use Exception;
 use Yii;
@@ -43,7 +52,7 @@ class NewSeason
             'f_igosja_newseason_league_participant',
             'f_igosja_newseason_league_coefficient',
             'f_igosja_newseason_league_limit',
-            'f_igosja_newseason_schedule',
+            new InsertSchedule(),
             'f_igosja_newseason_championship_rotate',
             'f_igosja_newseason_offseason',
             'f_igosja_newseason_conference',
@@ -54,18 +63,18 @@ class NewSeason
             'f_igosja_newseason_building_stadium',
             new RandPhysical(),
             'f_igosja_newseason_tire_base_level',
-            'f_igosja_newseason_training',
-            'f_igosja_newseason_school',
-            'f_igosja_newseason_scout',
-            'f_igosja_newseason_player_power_change',
+            new EndTraining(),
+            new EndSchool(),
+            new EndScout(),
+            new PlayerPowerChange(),
             new Injury(),
-            'f_igosja_newseason_older_player',
-            'f_igosja_newseason_pension',
-            'f_igosja_newseason_pension_inform',
-            'f_igosja_newseason_maintenance',
+            new Pension(),
+            new OlderPlayer(),
+            new PensionInform(),
+            new BaseMaintenance(),
             new MoodReset(),
             new GameRow(),
-            new AutoReset(),
+            new CountryAutoReset(),
             'f_igosja_newseason_truncate',
         ];
 

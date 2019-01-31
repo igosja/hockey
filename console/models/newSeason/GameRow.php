@@ -2,19 +2,19 @@
 
 namespace console\models\newSeason;
 
-use common\models\Country;
+use common\models\Player;
 
 /**
- * Class CountryAuto
+ * Class GameRow
  * @package console\models\newSeason
  */
-class CountryAuto
+class GameRow
 {
     /**
      * @return void
      */
     public function execute()
     {
-        Country::updateAll(['country_auto' => 0], ['!=', 'country_auto', 0]);
+        Player::updateAll(['player_game_row' => -1], ['!=', 'player_game_row', -1]);
     }
 }
