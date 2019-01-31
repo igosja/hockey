@@ -74,18 +74,10 @@ class TeamController extends AbstractController
         $query = Team::find()
             ->select(['count_team' => 'COUNT(team_id)', 'team_stadium_id'])
             ->with([
-                'stadium' => function (ActiveQuery $query) {
-                    return $query->select(['stadium_city_id', 'stadium_id']);
-                },
-                'stadium.city' => function (ActiveQuery $query) {
-                    return $query->select(['city_country_id', 'city_id']);
-                },
                 'stadium.city.country'
             ])
             ->joinWith([
-                'stadium.city.country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
+                'stadium.city.country',
             ])
             ->where(['!=', 'team_id', 0])
             ->orderBy(['country_id' => SORT_ASC])
@@ -232,59 +224,11 @@ class TeamController extends AbstractController
         $query = Game::find()
             ->joinWith(['schedule'])
             ->with([
-                'schedule' => function (ActiveQuery $query) {
-                    return $query->select([
-                        'schedule_id',
-                        'schedule_date',
-                        'schedule_tournament_type_id',
-                        'schedule_stage_id'
-                    ]);
-                },
-                'schedule.stage' => function (ActiveQuery $query) {
-                    return $query->select(['stage_id', 'stage_name']);
-                },
-                'schedule.tournamentType' => function (ActiveQuery $query) {
-                    return $query->select(['tournament_type_id', 'tournament_type_name']);
-                },
-                'teamGuest' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
-                },
-                'teamGuest.stadium' => function (ActiveQuery $query) {
-                    return $query->select(['stadium_id', 'stadium_city_id']);
-                },
-                'teamGuest.stadium.city' => function (ActiveQuery $query) {
-                    return $query->select(['city_id', 'city_country_id', 'city_name']);
-                },
-                'teamGuest.stadium.city.country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-                'teamHome' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name', 'team_power_vs', 'team_stadium_id']);
-                },
-                'teamHome.stadium' => function (ActiveQuery $query) {
-                    return $query->select(['stadium_id', 'stadium_city_id']);
-                },
-                'teamHome.stadium.city' => function (ActiveQuery $query) {
-                    return $query->select(['city_id', 'city_country_id', 'city_name']);
-                },
-                'teamHome.stadium.city.country' => function (ActiveQuery $query) {
-                    return $query->select(['country_id', 'country_name']);
-                },
-            ])
-            ->select([
-                'game_id',
-                'game_guest_auto',
-                'game_guest_plus_minus',
-                'game_guest_power',
-                'game_guest_score',
-                'game_guest_team_id',
-                'game_home_auto',
-                'game_home_plus_minus',
-                'game_home_power',
-                'game_home_score',
-                'game_home_team_id',
-                'game_played',
-                'game_schedule_id',
+                'schedule',
+                'schedule.stage',
+                'schedule.tournamentType',
+                'teamGuest.stadium.city.country',
+                'teamHome.stadium.city.country',
             ])
             ->where(['or', ['game_home_team_id' => $id], ['game_guest_team_id' => $id]])
             ->andWhere(['schedule_season_id' => $seasonId])
@@ -323,39 +267,20 @@ class TeamController extends AbstractController
 
         $query = History::find()
             ->with([
-                'historyText' => function (ActiveQuery $query) {
-                    return $query->select(['history_text_id', 'history_text_text']);
-                },
-                'team' => function (ActiveQuery $query) {
-                    return $query->select(['team_id', 'team_name', 'team_stadium_id']);
-                },
-                'player' => function (ActiveQuery $query) {
-                    return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
-                },
-                'player.name' => function (ActiveQuery $query) {
-                    return $query->select(['name_id', 'name_name']);
-                },
-                'player.surname' => function (ActiveQuery $query) {
-                    return $query->select(['surname_id', 'surname_name']);
-                },
-                'user' => function (ActiveQuery $query) {
-                    return $query->select(['user_id', 'user_login']);
-                },
-            ])
-            ->select([
-                'history_building_id',
-                'history_date',
-                'history_history_text_id',
-                'history_player_id',
-                'history_team_id',
-                'history_user_id',
-                'history_value',
+                'historyText',
+                'team',
+                'player',
+                'player.name',
+                'player.surname',
+                'user',
             ])
             ->where(['or', ['history_team_id' => $id], ['history_team_2_id' => $id]])
             ->andWhere(['history_season_id' => $seasonId])
             ->orderBy(['history_id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
             'query' => $query,
         ]);
 
@@ -382,29 +307,10 @@ class TeamController extends AbstractController
 
         $query = Finance::find()
             ->with([
-                'financeText' => function (ActiveQuery $query) {
-                    return $query->select(['finance_text_id', 'finance_text_text']);
-                },
-                'player' => function (ActiveQuery $query) {
-                    return $query->select(['player_id', 'player_name_id', 'player_surname_id']);
-                },
-                'player.name' => function (ActiveQuery $query) {
-                    return $query->select(['name_id', 'name_name']);
-                },
-                'player.surname' => function (ActiveQuery $query) {
-                    return $query->select(['surname_id', 'surname_name']);
-                },
-            ])
-            ->select([
-                'finance_building_id',
-                'finance_capacity',
-                'finance_date',
-                'finance_finance_text_id',
-                'finance_level',
-                'finance_player_id',
-                'finance_value',
-                'finance_value_after',
-                'finance_value_before',
+                'financeText',
+                'player',
+                'player.name',
+                'player.surname',
             ])
             ->where(['finance_team_id' => $id])
             ->andWhere(['finance_season_id' => $seasonId])

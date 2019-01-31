@@ -33,6 +33,7 @@ print $this->render('_top');
             ],
             [
                 'footer' => 'Команда',
+                'format' => 'raw',
                 'header' => 'Команда',
                 'value' => function (Achievement $model) {
                     return $model->team->teamLink('img');
