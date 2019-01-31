@@ -1,6 +1,6 @@
 <?php
 
-namespace console\models\generator;
+namespace console\models\newSeason;
 
 use common\models\History;
 use common\models\HistoryText;
@@ -14,17 +14,17 @@ use common\models\Style;
 use common\models\SurnameCountry;
 
 /**
- * Class UpdateSchool
+ * Class EndSchool
  * @package console\models\generator
  */
-class UpdateSchool
+class EndSchool
 {
     /**
      * @throws \Exception
      */
     public function execute()
     {
-        School::updateAllCounters(['school_day' => -1], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
+        School::updateAll(['school_day' => 0], ['and', ['>', 'school_day', 0], ['school_ready' => 0]]);
 
         $seasonId = Season::getCurrentSeason();
 

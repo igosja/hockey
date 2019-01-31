@@ -8,7 +8,6 @@ use Exception;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQuery;
-use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;
@@ -277,7 +276,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->generateUserCode();
-                $this->user_date_register = new Expression('UNIX_TIMESTAMP()');
+                $this->user_date_register = time();
             }
             return true;
         }

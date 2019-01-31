@@ -1,6 +1,6 @@
 <?php
 
-namespace console\models\generator;
+namespace console\models\newSeason;
 
 use common\models\History;
 use common\models\HistoryText;
@@ -8,15 +8,14 @@ use common\models\Player;
 use common\models\PlayerPosition;
 use common\models\PlayerSpecial;
 use common\models\Training;
-use Yii;
 
 /**
- * Class UpdateTraining
+ * Class EndTraining
  * @package console\models\generator
  *
  * @property Training $training
  */
-class UpdateTraining
+class EndTraining
 {
     /**
      * @var Training $training
@@ -57,16 +56,7 @@ class UpdateTraining
      */
     private function increasePercent()
     {
-        $sql = "UPDATE `training`
-                LEFT JOIN `team`
-                ON `training_team_id`=`team_id`
-                LEFT JOIN `base_training`
-                ON `team_base_training_id`=`base_training_id`
-                LEFT JOIN `player`
-                ON `training_player_id`=`player_id`
-                SET `training_percent`=`training_percent`+`base_training_training_speed_min`+(`base_training_training_speed_max`-`base_training_training_speed_min`)/2*RAND()+`player_training_ability`
-                WHERE `training_ready`=0";
-        Yii::$app->db->createCommand($sql)->execute();
+        Training::updateAll(['training_percent' => 100], ['training_ready' => 0]);
     }
 
     /**

@@ -1,0 +1,43 @@
+<?php
+
+namespace console\models\newSeason;
+
+use common\models\Finance;
+use common\models\FinanceText;
+use common\models\Team;
+
+/**
+ * Class BaseMaintenance
+ * @package console\models\newSeason
+ */
+class BaseMaintenance
+{
+    /**
+     * @throws \Exception
+     * @return void
+     */
+    public function execute()
+    {
+        $teamArray = Team::find()
+            ->where(['!=', 'team_id', 0])
+            ->orderBy(['team_id' => SORT_ASC])
+            ->each();
+        foreach ($teamArray as $team) {
+            /**
+             * @var Team $team
+             */
+            $maintenance = $team->baseMaintenance();
+
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::OUTCOME_MAINTENANCE,
+                'finance_team_id' => $team->team_id,
+                'finance_value' => -$maintenance,
+                'finance_value_after' => $team->team_finance - $maintenance,
+                'finance_value_before' => $team->team_finance,
+            ]);
+
+            $team->team_finance = $team->team_finance - $maintenance;
+            $team->save(true, ['team_finance']);
+        }
+    }
+}
