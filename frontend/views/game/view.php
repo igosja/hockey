@@ -525,7 +525,15 @@ $user = Yii::$app->user->identity;
     </div>
 <?php endif; ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
-    <?php if ($user->user_date_block_comment_game >= time()) : ?>
+    <?php if (!$user->user_date_confirm) : ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к комментированию матчей
+                <br/>
+                Причина - ваш почтовый адрес не подтверждён
+            </div>
+        </div>
+    <?php elseif ($user->user_date_block_comment_game >= time()) : ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к комментированию матчей до

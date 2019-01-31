@@ -38,7 +38,7 @@ $user = Yii::$app->user->identity;
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <?php if (!Yii::$app->user->isGuest && $user->user_date_block_forum < time() && $user->user_date_block < time()) : ?>
+                <?php if (!Yii::$app->user->isGuest && $user->user_date_block_forum < time() && $user->user_date_block < time() && $user->user_date_confirm) : ?>
                     <?= Html::a(
                         'Создать тему',
                         ['forum/theme-create', 'id' => Yii::$app->request->get('id')],
