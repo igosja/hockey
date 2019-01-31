@@ -46,10 +46,15 @@ class Activation extends Model
             return false;
         }
 
+        $user = User::find()
+            ->where(['user_code' => $this->code])
+            ->limit(1)
+            ->one();
+
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            User::updateAll(['user_date_confirm' => new Expression('UNIX_TIMESTAMP()')]);
+            User::updateAll(['user_date_confirm' => new Expression('UNIX_TIMESTAMP()')], ['user_id' => $user->user_id]);
             $transaction->commit();
         } catch (Exception $e) {
             ErrorHelper::log($e);
