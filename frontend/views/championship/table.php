@@ -261,6 +261,18 @@ $user = Yii::$app->user->identity;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function (Championship $model) {
+                $class = '';
+                $title = '';
+                if ($model->championship_place <= 8) {
+                    $class = 'tournament-table-up';
+                    $title = 'Зона плей-офф';
+                } elseif ($model->championship_place >= 15) {
+                    $class = 'tournament-table-down';
+                    $title = 'Зона вылета';
+                }
+                return ['class' => $class, 'title' => $title];
+            },
             'showFooter' => true,
             'summary' => false,
         ]);

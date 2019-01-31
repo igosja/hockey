@@ -515,7 +515,6 @@ class ChampionshipController extends AbstractController
     /**
      * @param $countryId
      * @param $divisionId
-     * @param $roundId
      * @param $seasonId
      * @return array
      */
