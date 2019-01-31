@@ -123,7 +123,7 @@ use yii\helpers\Html;
                     'footer' => 'Помещаемость',
                     'label' => 'Помещаемость',
                     'value' => function (RatingTeam $model) {
-                        return $model->team->team_visitor;
+                        return Yii::$app->formatter->asDecimal($model->team->team_visitor / 100);
                     }
                 ];
             } elseif (RatingType::TEAM_BASE == $ratingType->rating_type_id) {

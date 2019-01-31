@@ -162,7 +162,7 @@ use yii\helpers\Html;
                 'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг посещаемости'],
                 'label' => 'РП',
                 'value' => function (FriendlyInvite $model) {
-                    return $model->homeTeam->team_visitor / 100;
+                    return Yii::$app->formatter->asDecimal($model->homeTeam->team_visitor / 100);
                 }
             ],
         ];

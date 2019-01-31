@@ -35,7 +35,7 @@ use common\components\FormatHelper;
             <tr>
                 <td>Рейтинг посещаемости:</td>
                 <td class="col-10 text-center">
-                    <?= $team->team_visitor; ?>
+                    <?= Yii::$app->formatter->asDecimal($team->team_visitor / 100); ?>
                 </td>
                 <td class="hidden-xs text-center">
                     <?= isset($team->ratingTeam->rating_team_visitor_place) ? $team->ratingTeam->rating_team_visitor_place : 0; ?>
@@ -59,7 +59,7 @@ use common\components\FormatHelper;
             <tr>
                 <td>Средн. возраст игроков:</td>
                 <td class="text-center">
-                    <?= $team->team_age; ?></td>
+                    <?= Yii::$app->formatter->asDecimal($team->team_age); ?></td>
                 <td class="hidden-xs text-center">
                     <?= isset($team->ratingTeam->rating_team_age_place) ? $team->ratingTeam->rating_team_age_place : 0; ?>
                 </td>
