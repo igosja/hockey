@@ -24,7 +24,7 @@ class TeamAskController extends AbstractController
      */
     public function actionIndex()
     {
-        $expression = new Expression('UNIX_TIMESTAMP()-CEIL(IFNULL(`count_history`, 0)/5)-IFNULL(`count_history`, 0)*3600');
+        $expression = new Expression('UNIX_TIMESTAMP()-IFNULL(`count_history`, 0)*46800');
         $teamAsk = (new Query())
             ->from(TeamAsk::tableName())
             ->leftJoin(
