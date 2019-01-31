@@ -32,6 +32,7 @@ use common\components\HockeyHelper;
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             Команды:
             <?php foreach ($model->user->team as $team) : ?>
+                <br/>
                 <?= $team->teamLink('img'); ?>
             <?php endforeach; ?>
         </div>
