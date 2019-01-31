@@ -103,6 +103,15 @@ class ReviewController extends AbstractController
      */
     public function actionCreate($countryId, $divisionId, $scheduleId)
     {
+        if (!$this->user->user_date_confirm || $this->user->user_date_block_forum > time() || $this->user->user_date_block_comment > time()) {
+
+            return $this->redirect([
+                'championship/index',
+                'countryId' => $countryId,
+                'divisionId' => $divisionId,
+            ]);
+        }
+
         $country = Country::find()
             ->where(['country_id' => $countryId])
             ->limit(1)

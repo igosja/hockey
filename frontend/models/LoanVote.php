@@ -101,7 +101,7 @@ class LoanVote extends Model
             $model->loan_vote_rating = $this->vote;
             $model->save();
 
-            if ($user->user_date_block_comment_deal < time() && $user->user_date_block_comment < time() && $this->comment) {
+            if ($user->user_date_block_comment_deal < time() && $user->user_date_block_comment < time() && $user->user_date_confirm && $this->comment) {
                 $model = new LoanComment();
                 $model->loan_comment_text = $this->comment;
                 $model->loan_comment_loan_id = $this->loanId;

@@ -558,6 +558,10 @@ class ChampionshipController extends AbstractController
             return false;
         }
 
+        if (!$this->user->user_date_confirm) {
+            return false;
+        }
+
         if (!$gameArray) {
             return false;
         }

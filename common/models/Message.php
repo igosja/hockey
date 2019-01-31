@@ -61,6 +61,17 @@ class Message extends AbstractActiveRecord
         if (Yii::$app->user->isGuest) {
             return false;
         }
+        /**
+         * @var User $user
+         */
+        $user = Yii::$app->user->identity;
+
+        if (!$user->user_date_confirm) {
+            return false;
+        }
+        if (!$user->user_date_block_comment) {
+            return false;
+        }
 
         if (!$this->load(Yii::$app->request->post())) {
             return false;

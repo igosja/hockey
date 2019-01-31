@@ -204,7 +204,7 @@ use yii\helpers\Html;
                                     <?= FormatHelper::asDateTime($item->payment_date); ?>
                                 </td>
                                 <td>
-                                    <?= FormatHelper::asCurrency($item->payment_sum); ?>
+                                    <?= Yii::$app->formatter->asDecimal($item->payment_sum); ?>
                                 </td>
                                 <td>
                                     <?= Html::a(

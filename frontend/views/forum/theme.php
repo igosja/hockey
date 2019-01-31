@@ -2,6 +2,7 @@
 
 use coderlex\wysibb\WysiBB;
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
@@ -65,19 +66,19 @@ $user = Yii::$app->user->identity;
     </div>
 </div>
 <?php if (!Yii::$app->user->isGuest) : ?>
-    <?php if ($user->user_date_block_forum >= time()) : ?>
+    <?php if (!$user->user_date_confirm) : ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                Вам заблокирован доступ к форуму
+                <br/>
+                Причина - ваш почтовый адрес не подтверждён
+            </div>
+        </div>
+    <?php elseif ($user->user_date_block_forum >= time()) : ?>
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к форуму до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_forum, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDatetime($user->user_date_block_forum); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockForum->block_reason_text; ?>
             </div>
@@ -86,15 +87,7 @@ $user = Yii::$app->user->identity;
         <div class="row margin-top">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
                 Вам заблокирован доступ к форуму до
-                <?php
-
-                try {
-                    Yii::$app->formatter->asDatetime($user->user_date_block_comment, 'short');
-                } catch (Exception $e) {
-                    ErrorHelper::log($e);
-                }
-
-                ?>
+                <?= FormatHelper::asDateTime($user->user_date_block_comment); ?>
                 <br/>
                 Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
             </div>

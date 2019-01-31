@@ -89,12 +89,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionForumMessageDelete($id)
     {
-        ForumMessage::deleteAll(['forum_message_id' => $id]);
+        $model = ForumMessage::find()
+            ->where(['forum_message_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/forum-message']);
     }
 
@@ -161,12 +169,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionGameCommentDelete($id)
     {
-        GameComment::deleteAll(['game_comment_id' => $id]);
+        $model = GameComment::find()
+            ->where(['game_comment_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/game-comment']);
     }
 
@@ -233,12 +249,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionNewsCommentDelete($id)
     {
-        NewsComment::deleteAll(['news_comment_id' => $id]);
+        $model = NewsComment::find()
+            ->where(['news_comment_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/news-comment']);
     }
 
@@ -305,12 +329,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionNewsDelete($id)
     {
-        News::deleteAll(['news_id' => $id]);
+        $model = News::find()
+            ->where(['news_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/news']);
     }
 
@@ -377,12 +409,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionLoanCommentDelete($id)
     {
-        LoanComment::deleteAll(['loan_comment_id' => $id]);
+        $model = LoanComment::find()
+            ->where(['loan_comment_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/loan-comment']);
     }
 
@@ -449,12 +489,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionTransferCommentDelete($id)
     {
-        TransferComment::deleteAll(['transfer_comment_id' => $id]);
+        $model = TransferComment::find()
+            ->where(['transfer_comment_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/transfer-comment']);
     }
 
@@ -521,12 +569,20 @@ class ModerationController extends AbstractController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionReviewDelete($id)
     {
-        Review::deleteAll(['review_id' => $id]);
+        $model = Review::find()
+            ->where(['review_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
         return $this->redirect(['moderation/review']);
     }
 }
