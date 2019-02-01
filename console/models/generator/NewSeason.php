@@ -19,9 +19,14 @@ use console\models\newSeason\Injury;
 use console\models\newSeason\InsertChampionship;
 use console\models\newSeason\InsertConference;
 use console\models\newSeason\InsertLeague;
+use console\models\newSeason\InsertLeagueCoefficient;
+use console\models\newSeason\InsertLeagueParticipant;
+use console\models\newSeason\InsertNewSeason;
 use console\models\newSeason\InsertOffSeason;
 use console\models\newSeason\InsertSchedule;
 use console\models\newSeason\InsertWorldCup;
+use console\models\newSeason\LeagueLimit;
+use console\models\newSeason\NationalTransferMoney;
 use console\models\newSeason\NoDeal;
 use console\models\newSeason\OlderPlayer;
 use console\models\newSeason\Pension;
@@ -30,6 +35,7 @@ use console\models\newSeason\PlayerFromNational;
 use console\models\newSeason\PlayerPowerChange;
 use console\models\newSeason\PlayerTireBaseLevel;
 use console\models\newSeason\RandPhysical;
+use console\models\newSeason\TruncateTables;
 use Exception;
 use Yii;
 
@@ -53,14 +59,13 @@ class NewSeason
         }
 
         $modelArray = [
-            'f_igosja_newseason_insert_season',
             new NoDeal(),
             new FireNational(),
             new PlayerFromNational(),
-            'f_igosja_newseason_national_transfer_money',
-            'f_igosja_newseason_league_participant',
-            'f_igosja_newseason_league_coefficient',
-            'f_igosja_newseason_league_limit',
+            new NationalTransferMoney(),
+            new InsertLeagueParticipant(),
+            new InsertLeagueCoefficient(),
+            new LeagueLimit(),
             new InsertSchedule(),
             new ChampionshipRotate(),
             new InsertOffSeason(),
@@ -84,7 +89,8 @@ class NewSeason
             new MoodReset(),
             new GameRow(),
             new CountryAutoReset(),
-            'f_igosja_newseason_truncate',
+            new TruncateTables(),
+            new InsertNewSeason(),
         ];
 
         try {
