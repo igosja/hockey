@@ -9,9 +9,12 @@ use yii\widgets\ActiveForm;
 /**
  * @var int $lazy
  * @var \common\models\Message[] $messageArray
+ * @var \common\models\User $user
  */
 
 print $this->render('//user/_top');
+
+$user = Yii::$app->user->identity;
 
 ?>
 <div class="row">
