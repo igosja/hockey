@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Message;
 use common\models\User;
 use Yii;
@@ -117,7 +119,67 @@ class MessengerController extends AbstractController
         return $this->render('view', [
             'lazy' => $lazy,
             'model' => $model,
-            'messageArray' => $messageArray,
+            'messageArray' => array_reverse($messageArray),
         ]);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function actionLoad($id)
+    {
+        $messageArray = Message::find()
+            ->where([
+                'or',
+                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
+                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+            ])
+            ->offset(Yii::$app->request->get('offset'))
+            ->limit(Yii::$app->request->get('limit'))
+            ->orderBy(['message_id' => SORT_DESC])
+            ->all();
+        $messageArray = array_reverse($messageArray);
+
+        $countMessage = Message::find()
+            ->where([
+                'or',
+                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
+                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+            ])
+            ->count();
+
+        if ($countMessage > count($messageArray) + Yii::$app->request->get('offset')) {
+            $lazy = 1;
+        } else {
+            $lazy = 0;
+        }
+
+        $list = '';
+
+        foreach ($messageArray as $message) {
+            /**
+             * @var Message $message
+             */
+            $list = $list
+                . '<div class="row margin-top"><div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">'
+                . FormatHelper::asDateTime($message->message_date)
+                . ', '
+                . $message->userFrom->userLink()
+                . '</div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message '
+                . (Yii::$app->user->id == $message->message_user_id_from ? 'message-from-me' : 'message-to-me')
+                . '">'
+                . HockeyHelper::bbDecode($message->message_text)
+                . '</div></div>';
+        }
+
+        $result = [
+            'offset' => Yii::$app->request->get('offset') + Yii::$app->request->get('limit'),
+            'lazy' => $lazy,
+            'list' => $list,
+        ];
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $result;
     }
 }
