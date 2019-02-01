@@ -6,20 +6,29 @@ use common\components\ErrorHelper;
 use common\models\Schedule;
 use console\controllers\AbstractController;
 use console\models\newSeason\BaseMaintenance;
+use console\models\newSeason\ChampionshipRotate;
 use console\models\newSeason\CountryAutoReset;
+use console\models\newSeason\EndBuildingBase;
+use console\models\newSeason\EndBuildingStadium;
 use console\models\newSeason\EndSchool;
 use console\models\newSeason\EndScout;
 use console\models\newSeason\EndTraining;
 use console\models\newSeason\FireNational;
 use console\models\newSeason\GameRow;
 use console\models\newSeason\Injury;
+use console\models\newSeason\InsertChampionship;
+use console\models\newSeason\InsertConference;
+use console\models\newSeason\InsertLeague;
+use console\models\newSeason\InsertOffSeason;
 use console\models\newSeason\InsertSchedule;
+use console\models\newSeason\InsertWorldCup;
 use console\models\newSeason\NoDeal;
 use console\models\newSeason\OlderPlayer;
 use console\models\newSeason\Pension;
 use console\models\newSeason\PensionInform;
 use console\models\newSeason\PlayerFromNational;
 use console\models\newSeason\PlayerPowerChange;
+use console\models\newSeason\PlayerTireBaseLevel;
 use console\models\newSeason\RandPhysical;
 use Exception;
 use Yii;
@@ -53,16 +62,16 @@ class NewSeason
             'f_igosja_newseason_league_coefficient',
             'f_igosja_newseason_league_limit',
             new InsertSchedule(),
-            'f_igosja_newseason_championship_rotate',
-            'f_igosja_newseason_offseason',
-            'f_igosja_newseason_conference',
-            'f_igosja_newseason_championship',
-            'f_igosja_newseason_league',
-            'f_igosja_newseason_worldcup',
-            'f_igosja_newseason_building_base',
-            'f_igosja_newseason_building_stadium',
+            new ChampionshipRotate(),
+            new InsertOffSeason(),
+            new InsertConference(),
+            new InsertChampionship(),
+            new InsertLeague(),
+            new InsertWorldCup(),
+            new EndBuildingBase(),
+            new EndBuildingStadium(),
             new RandPhysical(),
-            'f_igosja_newseason_tire_base_level',
+            new PlayerTireBaseLevel(),
             new EndTraining(),
             new EndSchool(),
             new EndScout(),

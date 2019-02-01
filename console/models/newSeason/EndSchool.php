@@ -15,7 +15,7 @@ use common\models\SurnameCountry;
 
 /**
  * Class EndSchool
- * @package console\models\generator
+ * @package console\models\newSeason
  */
 class EndSchool
 {

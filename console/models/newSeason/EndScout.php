@@ -6,7 +6,7 @@ use common\models\Scout;
 
 /**
  * Class EndScout
- * @package console\models\generator
+ * @package console\models\newSeason
  */
 class EndScout
 {
