@@ -4,6 +4,7 @@ use coderlex\wysibb\WysiBB;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /**
@@ -25,6 +26,7 @@ $user = Yii::$app->user->identity;
                     'continue' => $lazy,
                     'limit' => Yii::$app->params['pageSizeMessage'],
                     'offset' => Yii::$app->params['pageSizeMessage'],
+                    'url' => Url::to(['messenger/load', 'id' => Yii::$app->request->get('id')]),
                 ],
                 'id' => 'lazy',
             ]); ?>
@@ -87,3 +89,34 @@ $user = Yii::$app->user->identity;
         <?php endif; ?>
     </div>
 </div>
+<?php
+$script = <<< JS
+var lazy_in_progress = 0;
+var scroll_div = $(".message-scroll");
+var lazy_div = $('#lazy');
+
+scroll_div.scrollTop(scroll_div.prop('scrollHeight'));
+
+scroll_div.on('scroll', function() {
+    if (scroll_div.scrollTop() + scroll_div.offset().top <= lazy_div.offset().top && 0 === lazy_in_progress && 1 === lazy_div.data('continue'))
+    {
+        lazy_in_progress = 1;
+
+        $.ajax({
+            url: lazy_div.data('url') + '?limit=' + lazy_div.data('limit') + '&offset=' + lazy_div.data('offset'),
+            dataType: 'json',
+            success: function (data)
+            {
+                var scroll_height = scroll_div.prop('scrollHeight');
+                lazy_div.after(data['list']);
+                lazy_div.data('offset', data['offset']);
+                lazy_div.data('continue', data['lazy']);
+                lazy_in_progress = 0;
+                scroll_div.scrollTop(scroll_div.prop('scrollHeight') - scroll_height);
+            }
+        });
+    }
+});
+JS;
+$this->registerJs($script);
+?>
