@@ -4,6 +4,7 @@ namespace console\models\generator;
 
 use common\models\Physical;
 use common\models\Player;
+use common\models\Transfer;
 use Yii;
 
 /**
@@ -31,6 +32,19 @@ class UpdatePhysical
 
         Player::updateAllCounters(['player_physical_id' => 1], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
         Player::updateAll(['player_physical_id' => 1], ['>', 'player_physical_id', 20]);
-        Player::updateAll(['player_physical_id' => Physical::DEFAULT_ID], ['player_team_id' => 0]);
+        Player::updateAll(
+            ['player_physical_id' => Physical::DEFAULT_ID],
+            [
+                'and',
+                ['player_team_id' => 0],
+                [
+                    'not',
+                    [
+                        'player_id' => Transfer::find()
+                            ->select(['transfer_player_id'])
+                            ->where(['transfer_checked' => 0])
+                    ]
+                ]
+            ]);
     }
 }

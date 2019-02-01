@@ -566,6 +566,32 @@ class Team extends AbstractActiveRecord
             ];
         }
 
+        $transfer = Transfer::find()
+            ->where(['transfer_checked' => 0])
+            ->andWhere([
+                'or',
+                ['transfer_team_buyer_id' => $this->team_id],
+                ['transfer_team_seller_id' => $this->team_id]
+            ])
+            ->count();
+        if ($transfer) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: по совершенным трансферам команды еще идет голосование.'
+            ];
+        }
+
+        $loan = Loan::find()
+            ->where(['loan_checked' => 0])
+            ->andWhere(['or', ['loan_team_buyer_id' => $this->team_id], ['loan_team_seller_id' => $this->team_id]])
+            ->count();
+        if ($loan) {
+            return [
+                'status' => false,
+                'message' => 'Перерегистрировать нельзя: по совершенным арендам команды еще идет голосование.'
+            ];
+        }
+
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
