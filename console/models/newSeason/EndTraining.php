@@ -11,7 +11,7 @@ use common\models\Training;
 
 /**
  * Class EndTraining
- * @package console\models\generator
+ * @package console\models\newSeason
  *
  * @property Training $training
  */

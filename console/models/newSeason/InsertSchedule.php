@@ -10,7 +10,7 @@ use Yii;
 
 /**
  * Class InsertSchedule
- * @package console\models\start
+ * @package console\models\newSeason
  */
 class InsertSchedule
 {
