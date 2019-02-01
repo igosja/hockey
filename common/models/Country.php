@@ -187,7 +187,11 @@ class Country extends AbstractActiveRecord
     {
         $result = 0;
         foreach ($this->city as $city) {
-            $result = $result + count($city->stadium);
+            foreach ($city->stadium as $stadium) {
+                if ($stadium->team->team_user_id) {
+                    $result++;
+                }
+            }
         }
         return $result;
     }
@@ -200,7 +204,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEGATIVE == $stadium->team->team_attitude_president) {
+                if (Attitude::NEGATIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
                     $result++;
                 }
             }
@@ -216,7 +220,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEUTRAL == $stadium->team->team_attitude_president) {
+                if (Attitude::NEUTRAL == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
                     $result++;
                 }
             }
@@ -232,7 +236,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::POSITIVE == $stadium->team->team_attitude_president) {
+                if (Attitude::POSITIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
                     $result++;
                 }
             }

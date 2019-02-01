@@ -69,7 +69,7 @@ class Message extends AbstractActiveRecord
         if (!$user->user_date_confirm) {
             return false;
         }
-        if (!$user->user_date_block_comment) {
+        if ($user->user_date_block_comment) {
             return false;
         }
 

@@ -3,6 +3,7 @@
 namespace console\models\generator;
 
 use common\models\Player;
+use common\models\Transfer;
 
 /**
  * Class PlayerLeaguePower
@@ -17,7 +18,18 @@ class PlayerLeaguePower
     {
         Player::updateAll(
             ['player_power_nominal' => 15],
-            ['player_team_id' => 0]
+            [
+                'and',
+                ['player_team_id' => 0],
+                [
+                    'not',
+                    [
+                        'player_id' => Transfer::find()
+                            ->select(['transfer_player_id'])
+                            ->where(['transfer_checked' => 0])
+                    ]
+                ]
+            ]
         );
     }
 }
