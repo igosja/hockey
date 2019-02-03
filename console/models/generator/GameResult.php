@@ -78,6 +78,7 @@ class GameResult
             $this->collision();
             $this->playerOptimalPower();
             $this->playerRealPower();
+            $this->countCaptainBonus();
             $this->teamPower();
             $this->teamPowerForecast();
             $this->optimality();
@@ -176,6 +177,15 @@ class GameResult
                 'gk' => $this->prepareGkArray(),
                 'gk2' => $this->prepareGkArray(),
                 'field' => $this->prepareFieldPlayerArray(),
+                'captain' => [
+                    'age' => 0,
+                    'bonus' => [
+                        'age' => 0,
+                        'power' => 0,
+                    ],
+                    'player_id' => 0,
+                    'power' => 0,
+                ]
             ],
             'team' => [
                 'auto' => 0,
@@ -476,6 +486,13 @@ class GameResult
                     $this->result[$team]['player']['field'][$key]['power_optimal'] = $lineupArray[$j]->player->player_power_real;
                 }
             }
+
+            foreach ($lineupArray as $lineup) {
+                if ($lineup->lineup_captain) {
+                    $this->result[$team]['player']['captain']['age'] = $lineup->player->player_age;
+                    $this->result[$team]['player']['captain']['player_id'] = $lineup->lineup_player_id;
+                }
+            }
         }
     }
 
@@ -707,6 +724,122 @@ class GameResult
                 }
             }
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function countCaptainBonus()
+    {
+        for ($i = 0; $i < 2; $i++) {
+            if (0 == $i) {
+                $team = 'home';
+            } else {
+                $team = 'guest';
+            }
+
+            if ($this->result[$team]['player']['captain']['age']) {
+                if ($this->result[$team]['player']['captain']['age'] >= 38) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 8;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 36) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 6;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 34) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 4;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 32) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 2;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 30) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 1;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 27) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = 0;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 25) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = -1;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 23) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = -2;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 21) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = -4;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 19) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = -6;
+                } elseif ($this->result[$team]['player']['captain']['age'] >= 19) {
+                    $this->result[$team]['player']['captain']['bonus']['age'] = -8;
+                }
+            }
+
+            $teamPower = $this->result[$team]['player']['gk']['power_real']
+                + $this->result[$team]['player']['field']['ld_1']['power_real']
+                + $this->result[$team]['player']['field']['rd_1']['power_real']
+                + $this->result[$team]['player']['field']['ld_2']['power_real']
+                + $this->result[$team]['player']['field']['rd_2']['power_real']
+                + $this->result[$team]['player']['field']['ld_3']['power_real']
+                + $this->result[$team]['player']['field']['rd_3']['power_real']
+                + $this->result[$team]['player']['field']['ld_4']['power_real']
+                + $this->result[$team]['player']['field']['rd_4']['power_real']
+                + $this->result[$team]['player']['field']['lw_1']['power_real']
+                + $this->result[$team]['player']['field']['cf_1']['power_real']
+                + $this->result[$team]['player']['field']['rw_1']['power_real']
+                + $this->result[$team]['player']['field']['lw_2']['power_real']
+                + $this->result[$team]['player']['field']['cf_2']['power_real']
+                + $this->result[$team]['player']['field']['rw_2']['power_real']
+                + $this->result[$team]['player']['field']['lw_3']['power_real']
+                + $this->result[$team]['player']['field']['cf_3']['power_real']
+                + $this->result[$team]['player']['field']['rw_3']['power_real']
+                + $this->result[$team]['player']['field']['lw_4']['power_real']
+                + $this->result[$team]['player']['field']['cf_4']['power_real']
+                + $this->result[$team]['player']['field']['rw_4']['power_real'];
+            $averagePower = $teamPower / 21;
+
+            if ($this->result[$team]['player']['captain']['power']) {
+                if ($this->result[$team]['player']['captain']['power'] / $averagePower > 1.2) {
+                    $this->result[$team]['player']['captain']['bonus']['power'] = 2;
+                } elseif ($this->result[$team]['player']['captain']['power'] / $averagePower < 0.8) {
+                    $this->result[$team]['player']['captain']['bonus']['power'] = -2;
+                }
+            }
+
+            $this->result[$team]['player']['gk']['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['gk']['power_real'], $team);
+            $this->result[$team]['player']['gk2']['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['gk2']['power_real'], $team);
+
+            for ($line = 1; $line <= 4; $line++) {
+                for ($k = Position::LD; $k <= Position::RW; $k++) {
+                    if (Position::LD == $k) {
+                        $key = 'ld';
+                    } elseif (Position::RD == $k) {
+                        $key = 'rd';
+                    } elseif (Position::LW == $k) {
+                        $key = 'lw';
+                    } elseif (Position::CF == $k) {
+                        $key = 'cf';
+                    } else {
+                        $key = 'rw';
+                    }
+
+                    $key = $key . '_' . $line;
+
+                    $this->result[$team]['player']['field'][$key]['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['field'][$key]['power_real'], $team);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $power
+     * @param $team
+     * @return float
+     */
+    private function useCaptainBonus($power, $team)
+    {
+        if ($this->result[$team]['player']['captain']['bonus']['age'] > 0) {
+            $power = $power + $this->result[$team]['player']['captain']['power'] * $this->result[$team]['player']['captain']['bonus']['age'] / 100;
+        } elseif ($this->result[$team]['player']['captain']['bonus']['age'] < 0) {
+            $power = $power * (100 - $this->result[$team]['player']['captain']['bonus']['age']) / 100;
+        }
+
+        if ($this->result[$team]['player']['captain']['bonus']['power'] > 0) {
+            $power = $power + $this->result[$team]['player']['captain']['power'] * $this->result[$team]['player']['captain']['bonus']['power'] / 100;
+        } elseif ($this->result[$team]['player']['captain']['bonus']['power'] < 0) {
+            $power = $power * (100 - $this->result[$team]['player']['captain']['bonus']['power']) / 100;
+        }
+
+        return round($power);
     }
 
     /**
@@ -1030,6 +1163,9 @@ class GameResult
                     }
 
                     $this->result[$team]['player']['field'][$key]['power_real'] = $power;
+                    if ($playerId == $this->result[$team]['player']['captain']['player_id']) {
+                        $this->result[$team]['player']['captain']['power'] = $power;
+                    }
                 }
             }
         }

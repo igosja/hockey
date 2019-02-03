@@ -63,6 +63,12 @@ class LineupController extends AbstractController
 
         $query = Game::find()
             ->joinWith(['schedule'])
+            ->with([
+                'schedule.stage',
+                'schedule.tournamentType',
+                'teamGuest.stadium.city',
+                'teamHome.stadium.city',
+            ])
             ->where(['game_played' => 0])
             ->andWhere([
                 'or',
@@ -77,6 +83,12 @@ class LineupController extends AbstractController
         ]);
 
         $query = Player::find()
+            ->with([
+                'physical',
+                'playerPosition.position',
+                'playerSpecial.special',
+                'squad',
+            ])
             ->where(['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0])
             ->orWhere(['player_loan_team_id' => $this->myTeam->team_id]);
         $playerDataProvider = new ActiveDataProvider([
@@ -126,7 +138,10 @@ class LineupController extends AbstractController
         ]);
 
         $playerArray = Player::find()
-            ->with(['squad'])
+            ->with([
+                'playerPosition.position',
+                'squad',
+            ])
             ->where([
                 'or',
                 ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],
@@ -150,7 +165,10 @@ class LineupController extends AbstractController
         $cfArray = [];
         $rwArray = [];
         $playerArray = Player::find()
-            ->with(['squad'])
+            ->with([
+                'playerPosition.position',
+                'squad',
+            ])
             ->where([
                 'or',
                 ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],
