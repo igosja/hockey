@@ -55,8 +55,7 @@ class RuleController extends AbstractController
     {
         $query = Rule::find()
             ->filterWhere(['like', 'rule_text', Yii::$app->request->get('q')])
-            ->orderBy(['rule_id' => SORT_ASC])
-            ->all();
+            ->orderBy(['rule_id' => SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
