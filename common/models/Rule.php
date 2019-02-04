@@ -16,6 +16,8 @@ use Yii;
  */
 class Rule extends AbstractActiveRecord
 {
+    const SEARCH_SYMBOLS = 50;
+
     /**
      * @return string
      */
@@ -76,12 +78,12 @@ class Rule extends AbstractActiveRecord
      */
     public function formatSearchText()
     {
-        $text = $this->rule_text;
-        $startPosition = mb_strpos($text, Yii::$app->request->get('q')) - 20;
+        $text = strip_tags($this->rule_text);
+        $startPosition = mb_strpos($text, Yii::$app->request->get('q')) - self::SEARCH_SYMBOLS;
         if ($startPosition < 0) {
             $startPosition = 0;
         }
-        $length = mb_strlen(Yii::$app->request->get('q')) + 40;
+        $length = mb_strlen(Yii::$app->request->get('q')) + self::SEARCH_SYMBOLS * 2;
         $text = '...' . mb_substr($text, $startPosition, $length) . '...';
         $text = str_ireplace(
             Yii::$app->request->get('q'),
