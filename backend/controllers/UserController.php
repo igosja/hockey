@@ -74,6 +74,35 @@ class UserController extends AbstractController
 
     /**
      * @param int $id
+     * @return string
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionUpdate($id)
+    {
+        $model = User::find()->where(['user_id' => $id])->limit(1)->one();
+        $this->notFound($model);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash();
+            return $this->redirect(['user/view', 'id' => $model->user_id]);
+        }
+
+        $this->view->title = 'Редактирование причины блокировки';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
+        $this->view->params['breadcrumbs'][] = [
+            'label' => $model->user_login,
+            'url' => ['user/view', 'id' => $model->user_id]
+        ];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param int $id
      * @return Response
      * @throws \yii\web\NotFoundHttpException
      */
