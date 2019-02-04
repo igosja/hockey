@@ -11,6 +11,7 @@ use yii\db\ActiveQuery;
  * @property int $lineup_id
  * @property int $lineup_age
  * @property int $lineup_assist
+ * @property int $lineup_captain
  * @property int $lineup_game_id
  * @property int $lineup_line_id
  * @property int $lineup_national_id
@@ -53,6 +54,7 @@ class Lineup extends AbstractActiveRecord
                     'lineup_id',
                     'lineup_age',
                     'lineup_assist',
+                    'lineup_captain',
                     'lineup_game_id',
                     'lineup_line_id',
                     'lineup_national_id',
@@ -73,6 +75,15 @@ class Lineup extends AbstractActiveRecord
         ];
     }
 
+    public function iconCaptain()
+    {
+        $result = '';
+        if ($this->lineup_captain) {
+            $result = '<i class="fa fa-copyright" title="Капитан"></i>';
+        }
+        return $result;
+    }
+
     /**
      * @return string
      */
@@ -80,9 +91,9 @@ class Lineup extends AbstractActiveRecord
     {
         $result = '';
         if ($this->lineup_power_change > 0) {
-            $result = '<i class="fa fa-plus-square-o"></i>';
+            $result = '<i class="fa fa-plus-square-o" title="+1 балл по результатам матча"></i>';
         } elseif ($this->lineup_power_change < 0) {
-            $result = '<i class="fa fa-minus-square-o"></i>';
+            $result = '<i class="fa fa-minus-square-o" title="-1 балл по результатам матча"></i>';
         }
         return $result;
     }

@@ -5,6 +5,7 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use console\models\generator\ChampionshipAddGame;
 use console\models\generator\ChampionshipLot;
+use console\models\generator\CheckCaptain;
 use console\models\generator\CheckCronDate;
 use console\models\generator\CheckLineup;
 use console\models\generator\CheckTeamMoodLimit;
@@ -115,6 +116,7 @@ class GeneratorController extends AbstractController
             new PlayerPowerNewToOld(),
             new CheckLineup(),
             new FillLineup(),
+            new CheckCaptain(),
             new SetAuto(),
             new CheckTeamMoodLimit(),
             new SetDefaultStyle(),

@@ -18,6 +18,7 @@ use yii\base\Model;
  * Class GameSend
  * @package frontend\models
  *
+ * @property int $captain
  * @property Game $game
  * @property bool $home
  * @property array $line
@@ -39,6 +40,7 @@ use yii\base\Model;
  */
 class GameSend extends Model
 {
+    public $captain;
     public $game;
     public $home;
     public $line;
@@ -74,6 +76,9 @@ class GameSend extends Model
             ->all();
         foreach ($lineupArray as $item) {
             $this->line[$item->lineup_line_id][$item->lineup_position_id - 1] = $item->lineup_player_id;
+            if ($item->lineup_captain) {
+                $this->captain = $item->lineup_player_id;
+            }
         }
 
         $this->ticket = $this->game->game_ticket ? $this->game->game_ticket : $this->ticket;
@@ -120,6 +125,7 @@ class GameSend extends Model
             [['line'], 'safe'],
             [
                 [
+                    'captain',
                     'mood',
                     'rudeness_1',
                     'rudeness_2',
@@ -353,6 +359,11 @@ class GameSend extends Model
                 $lineup->lineup_line_id = $lineId;
                 $lineup->lineup_position_id = $positionId;
                 $lineup->lineup_team_id = $this->team->team_id;
+            }
+            if ($this->captain == $playerId) {
+                $lineup->lineup_captain = 1;
+            } else {
+                $lineup->lineup_captain = 0;
             }
             $lineup->lineup_player_id = $playerId;
             $lineup->save();

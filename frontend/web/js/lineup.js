@@ -42,6 +42,9 @@ jQuery(document).ready(function () {
     $('#line-0-0').html(select_gk_html_1);
     $('#line-1-0').html(select_gk_html_2);
 
+    var captain_id = $('#captain').data('id');
+    var select_captain_html = '<option value="0"></option>';
+
     for (i = 1; i <= 5; i++) {
         if (1 === i) {
             current_1 = ld_1_id;
@@ -108,24 +111,44 @@ jQuery(document).ready(function () {
         for (j = 0; j < position_array.length; j++) {
             if (position_array[j][0] === current_1) {
                 select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                if (captain_id === current_1) {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                } else {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                }
             } else if (-1 === $.inArray(position_array[j][0], other_1)) {
                 select_html_1 = select_html_1 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_2) {
                 select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                if (captain_id === current_2) {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                } else {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                }
             } else if (-1 === $.inArray(position_array[j][0], other_2)) {
                 select_html_2 = select_html_2 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_3) {
                 select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                if (captain_id === current_3) {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                } else {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                }
             } else if (-1 === $.inArray(position_array[j][0], other_3)) {
                 select_html_3 = select_html_3 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
 
             if (position_array[j][0] === current_4) {
                 select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                if (captain_id === current_4) {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                } else {
+                    select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                }
             } else if (-1 === $.inArray(position_array[j][0], other_3)) {
                 select_html_4 = select_html_4 + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
             }
@@ -137,12 +160,15 @@ jQuery(document).ready(function () {
         $('#line-4-' + i).html(select_html_4);
     }
 
+    $('#captain').html(select_captain_html);
+
     player_change();
 
     $('.lineup-change').on('change', function () {
         var position = parseInt($(this).data('position'));
         var line = parseInt($(this).data('line'));
         var player_id = parseInt($(this).val());
+        var captain_id = parseInt($('#captain').val());
 
         var player_id_array =
             [
@@ -215,6 +241,8 @@ jQuery(document).ready(function () {
             line_player.html(select_html);
         }
 
+        var select_captain_html = '<option value="0"></option>';
+
         for (var i = 1; i <= 4; i++) {
             for (var k = 1; k <= 5; k++) {
                 if (1 === k) {
@@ -242,6 +270,11 @@ jQuery(document).ready(function () {
                     if (position_array[j][0] === player_id) {
                         if (i === line && k === position) {
                             select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                            if (captain_id === player_id) {
+                                select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                            } else {
+                                select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                            }
                         } else {
                             if (-1 === $.inArray(position_array[j][0], player_id_array)) {
                                 select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
@@ -250,6 +283,11 @@ jQuery(document).ready(function () {
                     } else {
                         if (position_array[j][0] === line_player_id) {
                             select_html = select_html + '<option selected value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                            if (captain_id === line_player_id) {
+                                select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '" selected>' + position_array[j][1] + '</option>';
+                            } else {
+                                select_captain_html = select_captain_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
+                            }
                         } else {
                             if (-1 === $.inArray(position_array[j][0], player_id_array)) {
                                 select_html = select_html + '<option value="' + position_array[j][0] + '" style="background-color: ' + position_array[j][2] + '">' + position_array[j][1] + '</option>';
@@ -261,6 +299,8 @@ jQuery(document).ready(function () {
                 line_player.html(select_html);
             }
         }
+
+        $('#captain').html(select_captain_html);
     });
 
     $('.player-change').on('change', function () {

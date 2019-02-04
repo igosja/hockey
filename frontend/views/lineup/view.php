@@ -366,6 +366,25 @@ LineupAsset::register($this);
                 </div>
             <?php endfor; ?>
         <?php endfor; ?>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
+                Капитан:
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= $form
+                    ->field($model, 'captain')
+                    ->dropDownList([], [
+                        'class' => 'form-control',
+                        'data' => [
+                            'id' => $model->captain,
+                        ],
+                        'id' => 'captain',
+                    ])
+                    ->label(false); ?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn margin']); ?>
