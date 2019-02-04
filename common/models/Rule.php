@@ -79,7 +79,7 @@ class Rule extends AbstractActiveRecord
     public function formatSearchText()
     {
         $text = strip_tags($this->rule_text);
-        $startPosition = mb_strpos($text, Yii::$app->request->get('q')) - self::SEARCH_SYMBOLS;
+        $startPosition = mb_stripos($text, Yii::$app->request->get('q')) - self::SEARCH_SYMBOLS;
         if ($startPosition < 0) {
             $startPosition = 0;
         }
