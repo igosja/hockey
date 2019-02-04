@@ -28,6 +28,8 @@ use yii\db\ActiveQuery;
  * @property Building $building
  * @property FinanceText $financeText
  * @property Player $player
+ * @property Team $team
+ * @property User $user
  */
 class Finance extends AbstractActiveRecord
 {
@@ -110,6 +112,20 @@ class Finance extends AbstractActiveRecord
                 $text
             );
         }
+        if (false !== strpos($text, '{team}')) {
+            $text = str_replace(
+                '{team}',
+                $this->team->teamLink(),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{user}')) {
+            $text = str_replace(
+                '{user}',
+                $this->user->userLink(),
+                $text
+            );
+        }
         if (false !== strpos($text, '{building}')) {
             $building = '';
             if (Building::BASE == $this->finance_building_id) {
@@ -171,5 +187,21 @@ class Finance extends AbstractActiveRecord
     public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'finance_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam()
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'finance_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'finance_user_id']);
     }
 }

@@ -144,14 +144,6 @@ class MakeLoan
                 ->orderBy(new Expression('loan_application_price*loan_application_day DESC, loan_application_date ASC'))
                 ->all();
             foreach ($loanApplicationArray as $loanApplication) {
-                if ($sold) {
-                    $loanApplication->loan_application_deal_reason_id = DealReason::NOT_BEST;
-                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
-                    continue;
-                }
-
-                $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
-
                 if (in_array($loanApplication->loan_application_team_id, $teamArray)) {
                     $loanApplication->loan_application_deal_reason_id = DealReason::TEAM_LIMIT;
                     $loanApplication->save(true, ['loan_application_deal_reason_id']);
@@ -162,6 +154,21 @@ class MakeLoan
                     $loanApplication->save(true, ['loan_application_deal_reason_id']);
                     continue;
                 }
+            }
+
+            $loanApplicationArray = LoanApplication::find()
+                ->where(['loan_application_loan_id' => $loan->loan_id, 'loan_application_deal_reason_id' => 0])
+                ->orderBy(new Expression('loan_application_price*loan_application_day DESC, loan_application_date ASC'))
+                ->all();
+            foreach ($loanApplicationArray as $loanApplication) {
+                if ($sold) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::NOT_BEST;
+                    $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
+
+                $price = $loanApplication->loan_application_price * $loanApplication->loan_application_day;
+
                 $buyerTeam = Team::find()
                     ->where(['team_id' => $loanApplication->loan_application_team_id])
                     ->limit(1)

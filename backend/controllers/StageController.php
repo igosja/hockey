@@ -2,27 +2,27 @@
 
 namespace backend\controllers;
 
-use backend\models\BlockReasonSearch;
+use backend\models\StageSearch;
 use common\components\ErrorHelper;
-use common\models\BlockReason;
+use common\models\Stage;
 use Throwable;
 use Yii;
 
 /**
- * Class BlockReasonController
+ * Class StageController
  * @package backend\controllers
  */
-class BlockReasonController extends AbstractController
+class StageController extends AbstractController
 {
     /**
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new BlockReasonSearch();
+        $searchModel = new StageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
-        $this->view->title = 'Причины блокировки';
+        $this->view->title = 'Стадии соревнований';
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('index', [
@@ -37,15 +37,15 @@ class BlockReasonController extends AbstractController
      */
     public function actionCreate()
     {
-        $model = new BlockReason();
+        $model = new Stage();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash();
-            return $this->redirect(['block-reason/view', 'id' => $model->block_reason_id]);
+            return $this->redirect(['stage/view', 'id' => $model->stage_id]);
         }
 
-        $this->view->title = 'Создание причины блокировки';
-        $this->view->params['breadcrumbs'][] = ['label' => 'Причины блокировки', 'url' => ['block-reason/index']];
+        $this->view->title = 'Создание стадии соревнований';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('create', [
@@ -60,19 +60,19 @@ class BlockReasonController extends AbstractController
      */
     public function actionUpdate($id)
     {
-        $model = BlockReason::find()->where(['block_reason_id' => $id])->limit(1)->one();
+        $model = Stage::find()->where(['stage_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash();
-            return $this->redirect(['block-reason/view', 'id' => $model->block_reason_id]);
+            return $this->redirect(['stage/view', 'id' => $model->stage_id]);
         }
 
         $this->view->title = 'Редактирование причины блокировки';
-        $this->view->params['breadcrumbs'][] = ['label' => 'Причины блокировки', 'url' => ['block-reason/index']];
+        $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
         $this->view->params['breadcrumbs'][] = [
-            'label' => $model->block_reason_text,
-            'url' => ['block-reason/view', 'id' => $model->block_reason_id]
+            'label' => $model->stage_name,
+            'url' => ['stage/view', 'id' => $model->stage_id]
         ];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -88,11 +88,11 @@ class BlockReasonController extends AbstractController
      */
     public function actionView($id)
     {
-        $model = BlockReason::find()->where(['block_reason_id' => $id])->limit(1)->one();
+        $model = Stage::find()->where(['stage_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
-        $this->view->title = $model->block_reason_text;
-        $this->view->params['breadcrumbs'][] = ['label' => 'Причины блокировки', 'url' => ['block-reason/index']];
+        $this->view->title = $model->stage_name;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('view', [
@@ -107,7 +107,7 @@ class BlockReasonController extends AbstractController
      */
     public function actionDelete($id)
     {
-        $model = BlockReason::find()->where(['block_reason_id' => $id])->limit(1)->one();
+        $model = Stage::find()->where(['stage_id' => $id])->limit(1)->one();
         $this->notFound($model);
 
         try {
@@ -118,6 +118,6 @@ class BlockReasonController extends AbstractController
             ErrorHelper::log($e);
         }
 
-        return $this->redirect(['block-reason/index']);
+        return $this->redirect(['stage/index']);
     }
 }

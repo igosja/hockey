@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * Class Rule
  * @package common\models
@@ -14,6 +16,8 @@ namespace common\models;
  */
 class Rule extends AbstractActiveRecord
 {
+    const SEARCH_SYMBOLS = 200;
+
     /**
      * @return string
      */
@@ -56,6 +60,9 @@ class Rule extends AbstractActiveRecord
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -64,5 +71,26 @@ class Rule extends AbstractActiveRecord
             'rule_text' => 'Текст',
             'rule_title' => 'Заголовок',
         ];
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function formatSearchText()
+    {
+        $text = strip_tags($this->rule_text);
+        $startPosition = mb_stripos($text, Yii::$app->request->get('q')) - self::SEARCH_SYMBOLS;
+        if ($startPosition < 0) {
+            $startPosition = 0;
+        }
+        $length = mb_strlen(Yii::$app->request->get('q')) + self::SEARCH_SYMBOLS * 2;
+        $text = '...' . mb_substr($text, $startPosition, $length) . '...';
+        $text = str_ireplace(
+            Yii::$app->request->get('q'),
+            '<span class="info">' . Yii::$app->request->get('q') . '</span>',
+            $text
+        );
+
+        return $text;
     }
 }

@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\models\Rule;
+use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * Class RuleController
@@ -43,6 +45,26 @@ class RuleController extends AbstractController
 
         return $this->render('view', [
             'rule' => $rule,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionSearch()
+    {
+        $query = Rule::find()
+            ->filterWhere(['like', 'rule_text', Yii::$app->request->get('q')])
+            ->orderBy(['rule_id' => SORT_ASC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle('Результаты поиска - Правила');
+
+        return $this->render('search', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

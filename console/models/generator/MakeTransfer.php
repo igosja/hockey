@@ -143,11 +143,6 @@ class MakeTransfer
                 ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
                 ->all();
             foreach ($transferApplicationArray as $transferApplication) {
-                if ($sold) {
-                    $transferApplication->transfer_application_deal_reason_id = DealReason::NOT_BEST;
-                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
-                    continue;
-                }
                 if (in_array($transferApplication->transfer_application_team_id, $teamArray)) {
                     $transferApplication->transfer_application_deal_reason_id = DealReason::TEAM_LIMIT;
                     $transferApplication->save(true, ['transfer_application_deal_reason_id']);
@@ -155,6 +150,21 @@ class MakeTransfer
                 }
                 if (in_array($transferApplication->transfer_application_user_id, $userArray)) {
                     $transferApplication->transfer_application_deal_reason_id = DealReason::MANAGER_LIMIT;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
+            }
+
+            $transferApplicationArray = TransferApplication::find()
+                ->where([
+                    'transfer_application_transfer_id' => $transfer->transfer_id,
+                    'transfer_application_deal_reason_id' => 0
+                ])
+                ->orderBy(['transfer_application_price' => SORT_DESC, 'transfer_application_date' => SORT_ASC])
+                ->all();
+            foreach ($transferApplicationArray as $transferApplication) {
+                if ($sold) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::NOT_BEST;
                     $transferApplication->save(true, ['transfer_application_deal_reason_id']);
                     continue;
                 }

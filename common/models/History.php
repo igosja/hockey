@@ -31,6 +31,7 @@ use yii\helpers\Html;
  * @property HistoryText $historyText
  * @property Player $player
  * @property Team $team
+ * @property Team $teamTwo
  * @property User $user
  */
 class History extends AbstractActiveRecord
@@ -111,6 +112,13 @@ class History extends AbstractActiveRecord
             $text = str_replace(
                 '{team}',
                 $this->team->teamLink(),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{team2}')) {
+            $text = str_replace(
+                '{team2}',
+                $this->teamTwo->teamLink(),
                 $text
             );
         }
@@ -228,6 +236,14 @@ class History extends AbstractActiveRecord
     public function getTeam()
     {
         return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeamTwo()
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'history_team_2_id']);
     }
 
     /**
