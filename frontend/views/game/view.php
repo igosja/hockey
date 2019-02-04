@@ -376,6 +376,7 @@ $user = Yii::$app->user->identity;
                             </td>
                             <td <?php if (1 == $j) : ?>class="border-bottom-blue"<?php endif; ?>>
                                 <?= $lineupArray[$j]->player->playerLink(); ?>
+                                <?= $lineupArray[$j]->iconCaptain(); ?>
                                 <?= $lineupArray[$j]->iconPowerChange(); ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">

@@ -95,6 +95,7 @@ class FillLineup
                                 'player_school_id' => 0,
                                 'player_injury' => 0,
                                 'player_position_position_id' => $positionId,
+                                'player_power_nominal' => 15,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
