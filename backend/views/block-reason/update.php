@@ -16,8 +16,7 @@ use yii\helpers\Html;
 <ul class="list-inline preview-links text-center">
     <li>
         <?= Html::a('Список', ['block-reason/index'], ['class' => 'btn btn-default']); ?>
-        <?= Html::a('Просмотр', ['block-reason/view', 'id' => $model->block_reason_id],
-            ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Просмотр', ['block-reason/view', 'id' => $model->block_reason_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <?= $this->render('_form', ['model' => $model]); ?>

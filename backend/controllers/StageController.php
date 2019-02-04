@@ -68,7 +68,7 @@ class StageController extends AbstractController
             return $this->redirect(['stage/view', 'id' => $model->stage_id]);
         }
 
-        $this->view->title = 'Редактирование причины блокировки';
+        $this->view->title = 'Редактирование стадии соревнований';
         $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
         $this->view->params['breadcrumbs'][] = [
             'label' => $model->stage_name,
