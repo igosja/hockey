@@ -14,7 +14,7 @@ use yii\helpers\Html;
                 <h1>Правила</h1>
             </div>
         </div>
-        <?= Html::beginForm(['rule/search'], 'get', ['class' => 'form-inline']); ?>
+        <?= Html::beginForm(['rule/search'], 'get', ['class' => 'form-inline text-center']); ?>
         <?= Html::textInput('q', Yii::$app->request->get('q'), ['class' => 'form-control form-small']); ?>
         <?= Html::submitButton('Поиск', ['class' => 'btn']); ?>
         <?= Html::endForm(); ?>
