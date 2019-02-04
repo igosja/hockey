@@ -8,8 +8,6 @@ use yii\helpers\Html;
  */
 
 ?>
-
-
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -47,7 +45,8 @@ use yii\helpers\Html;
         <div class="col-lg-12 col-md-12 col-sm-12">
             <?= str_ireplace(
                 Yii::$app->request->get('q'),
-                '<span class="info">' . Yii::$app->request->get('q') . '</span>', $model->forum_message_text
+                '<span class="info">' . Yii::$app->request->get('q') . '</span>',
+                $model->forum_message_text
             ); ?>
         </div>
     </div>
