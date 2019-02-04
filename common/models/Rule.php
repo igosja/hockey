@@ -16,7 +16,7 @@ use Yii;
  */
 class Rule extends AbstractActiveRecord
 {
-    const SEARCH_SYMBOLS = 50;
+    const SEARCH_SYMBOLS = 200;
 
     /**
      * @return string
