@@ -112,6 +112,11 @@ jQuery(document).ready(function () {
         } else {
             relation_body.addClass('hidden');
         }
+    }).on('click', '.forum-quote', function () {
+        var forumMessageField = $('#forummessage-forum_message_text');
+        var forumMessageText = forumMessageField.htmlcode() + forumMessageField.getBBCodeByCommand("quote", {seltext: $(this).data('text')});
+        forumMessageField.htmlcode('');
+        forumMessageField.insertAtCursor(forumMessageText);
     });
 });
 

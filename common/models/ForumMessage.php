@@ -138,7 +138,13 @@ class ForumMessage extends AbstractActiveRecord
         }
 
         $isUser = (UserRole::USER == $user->user_user_role_id);
-        $linkArray = [];
+        $linkArray = [
+            Html::a(
+                'Цитировать',
+                'javascript:',
+                ['class' => 'forum-quote', 'data' => ['text' => $this->forum_message_text]]
+            ),
+        ];
 
         if (($user->user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
             $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
