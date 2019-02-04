@@ -210,6 +210,17 @@ AppAsset::register($this);
                     'url' => 'javascript:',
                 ],
                 [
+                    'label' => 'Тексты',
+                    'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
+                    'items' => [
+                        [
+                            'label' => 'Стадии соревнований',
+                            'url' => ['stage/index'],
+                        ],
+                    ],
+                    'url' => 'javascript:',
+                ],
+                [
                     'label' => 'Показатели сайта',
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
