@@ -35,6 +35,7 @@ use yii\helpers\Html;
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],
                 'headerOptions' => ['class' => 'col-lg-1'],
+                'template' => '{view} {update}'
             ],
         ];
         print GridView::widget([
