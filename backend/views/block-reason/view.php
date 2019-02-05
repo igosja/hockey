@@ -20,12 +20,10 @@ use yii\widgets\DetailView;
         <?= Html::a('Список', ['block-reason/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Изменить', ['block-reason/update', 'id' => $model->block_reason_id],
-            ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Изменить', ['block-reason/update', 'id' => $model->block_reason_id], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Удалить', ['block-reason/delete', 'id' => $model->block_reason_id],
-            ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Удалить', ['block-reason/delete', 'id' => $model->block_reason_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">

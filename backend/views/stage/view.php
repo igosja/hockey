@@ -20,12 +20,7 @@ use yii\widgets\DetailView;
         <?= Html::a('Список', ['stage/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Изменить', ['stage/update', 'id' => $model->stage_id],
-            ['class' => 'btn btn-default']); ?>
-    </li>
-    <li>
-        <?= Html::a('Удалить', ['stage/delete', 'id' => $model->stage_id],
-            ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Изменить', ['stage/update', 'id' => $model->stage_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
