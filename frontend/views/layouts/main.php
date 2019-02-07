@@ -127,23 +127,27 @@ $context = $this->context;
             ?>
             <?= $content; ?>
             <?php if (YII_ENV_PROD && (!$context->user || !$context->user->isVip())) : ?>
-                <?= Html::tag(
-                    'ins',
-                    '',
-                    [
-                        'class' => 'adsbygoogle',
-                        'data' => [
-                            'ad-client' => 'ca-pub-2661040610443010',
-                            'ad-format' => 'auto',
-                            'ad-slot' => '9696110553',
-                            'full-width-responsive' => 'true',
-                        ],
-                        'style' => ['display' => 'block'],
-                    ]
-                ); ?>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
+                        <?= Html::tag(
+                            'ins',
+                            '',
+                            [
+                                'class' => 'adsbygoogle',
+                                'data' => [
+                                    'ad-client' => 'ca-pub-2661040610443010',
+                                    'ad-format' => 'auto',
+                                    'ad-slot' => '9696110553',
+                                    'full-width-responsive' => 'true',
+                                ],
+                                'style' => ['display' => 'block'],
+                            ]
+                        ); ?>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
         <div class="row">
