@@ -2,6 +2,7 @@
 
 /**
  * @var string $content
+ * @var \frontend\controllers\AbstractController $context
  * @var \yii\web\View $this
  * @var \frontend\controllers\AbstractController $this ->context
  */
@@ -17,6 +18,7 @@ use yii\helpers\Html;
 //use yii\widgets\Pjax;
 
 AppAsset::register($this);
+$context = $this->context;
 
 ?>
 <?php $this->beginPage(); ?>
@@ -47,22 +49,18 @@ AppAsset::register($this);
             <!--LiveInternet counter-->
             <script type="text/javascript">
                 new Image().src = "//counter.yadro.ru/hit?r" +
-                    escape(document.referrer) + ((typeof(screen) === "undefined") ? "" :
+                    escape(document.referrer) + ((typeof (screen) === "undefined") ? "" :
                         ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
                         screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
                     ";h" + escape(document.title.substring(0, 150)) +
                     ";" + Math.random();
             </script>
             <!--/LiveInternet-->
+        <?php if (!$context->user || !$context->user->isVip()) : ?>
             <!-- Google AdSense -->
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "ca-pub-2661040610443010",
-                    enable_page_level_ads: true
-                });
-            </script>
             <!-- /Google AdSense -->
+        <?php endif; ?>
         <?php endif; ?>
     </head>
     <body>
@@ -128,6 +126,29 @@ AppAsset::register($this);
 
             ?>
             <?= $content; ?>
+            <?php if (YII_ENV_PROD && (!$context->user || !$context->user->isVip())) : ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
+                        <?= Html::tag(
+                            'ins',
+                            '',
+                            [
+                                'class' => 'adsbygoogle',
+                                'data' => [
+                                    'ad-client' => 'ca-pub-2661040610443010',
+                                    'ad-format' => 'auto',
+                                    'ad-slot' => '9696110553',
+                                    'full-width-responsive' => 'true',
+                                ],
+                                'style' => ['display' => 'block'],
+                            ]
+                        ); ?>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer text-center">
