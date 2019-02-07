@@ -4,8 +4,7 @@ namespace console\controllers;
 
 use common\models\Finance;
 use common\models\FinanceText;
-use common\models\Review;
-use common\models\ReviewGame;
+use common\models\Game;
 use common\models\Team;
 use Exception;
 
@@ -50,8 +49,19 @@ class FixController extends AbstractController
         }
     }
 
-    public function actionReview()
+    public function actionStat()
     {
-        ReviewGame::deleteAll(['not', ['review_game_review_id' => Review::find()->select(['review_id'])]]);
+        $gameArray = Game::find()
+            ->where(['!=', 'game_played', 0])
+            ->orderBy(['game_id' => SORT_ASC])
+            ->each();
+        foreach ($gameArray as $game) {
+            /**
+             * @var Game $game
+             */
+            print '<pre>';
+            print_r($game);
+            exit;
+        }
     }
 }

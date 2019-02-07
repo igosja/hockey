@@ -4,7 +4,10 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\models\Cookie;
+use common\models\Event;
+use common\models\EventType;
 use common\models\ForumMessage;
+use common\models\Game;
 use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
@@ -63,6 +66,35 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
+        $gameArray = Game::find()
+            ->where(['!=', 'game_played', 0])
+            ->orderBy(['game_id' => SORT_ASC])
+            ->each();
+        foreach ($gameArray as $game) {
+            /**
+             * @var Game $game
+             */
+            $eventArray = Event::find()
+                ->where(['event_game_id' => $game->game_id])
+                ->orderBy(['event_id' => SORT_ASC])
+                ->all();
+            foreach ($eventArray as $event) {
+                if (EventType::GOAL == $event->event_event_type_id) {
+                    if ($event->event_player_assist_1_id == $event->event_player_score_id) {
+                        $event->event_player_assist_1_id = 0;
+                        $event->event_player_assist_2_id = 0;
+                        $event->save(true, ['event_player_assist_1_id', 'event_player_assist_2_id']);
+                    } elseif (in_array($event->event_player_assist_2_id, [$event->event_player_score_id, $event->event_player_assist_1_id])) {
+                        $event->event_player_assist_2_id = 0;
+                        $event->save(true, ['event_player_assist_2_id']);
+                    }
+                }
+            }
+            print '<pre>';
+            print_r($eventArray);
+            exit;
+        }
+        exit;
         if (Yii::$app->request->get('ref')) {
             $cookies = Yii::$app->response->cookies;
             $cookies->add(new \yii\web\Cookie([
