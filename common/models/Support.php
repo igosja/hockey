@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -114,6 +115,7 @@ class Support extends AbstractActiveRecord
         if ($this->isNewRecord) {
             $this->support_date = time();
         }
+        $this->support_text = HockeyHelper::clearBbCodeBeforeSave($this->support_text);
         return true;
     }
 

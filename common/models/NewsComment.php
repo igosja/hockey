@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\ErrorHelper;
+use common\components\HockeyHelper;
 use Exception;
 use Yii;
 use yii\db\ActiveQuery;
@@ -76,6 +77,7 @@ class NewsComment extends AbstractActiveRecord
             $this->news_comment_date = time();
             $this->news_comment_user_id = Yii::$app->user->id;
         }
+        $this->news_comment_text = HockeyHelper::clearBbCodeBeforeSave($this->news_comment_text);
         return true;
     }
 

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\Html;
@@ -71,6 +72,7 @@ class ForumMessage extends AbstractActiveRecord
             if ($this->isAttributeChanged('forum_message_text')) {
                 $this->forum_message_check = 0;
             }
+            $this->forum_message_text = HockeyHelper::clearBbCodeBeforeSave($this->forum_message_text);
             return true;
         }
         return false;

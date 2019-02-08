@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -63,6 +64,7 @@ class GameComment extends AbstractActiveRecord
             $this->game_comment_date = time();
             $this->game_comment_user_id = Yii::$app->user->id;
         }
+        $this->game_comment_text = HockeyHelper::clearBbCodeBeforeSave($this->game_comment_text);
         return true;
     }
 

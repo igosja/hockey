@@ -89,7 +89,7 @@ class Chat extends Model
 
         $content[] = [
             'date' => time(),
-            'text' => $this->text,
+            'text' => HockeyHelper::clearBbCodeBeforeSave($this->text),
             'userId' => $user->user_id,
             'userLink' => $user->userLink(['data-pjax' => 0, 'target' => '_blank']),
         ];
