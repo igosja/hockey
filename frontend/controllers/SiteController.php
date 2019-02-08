@@ -74,6 +74,36 @@ class SiteController extends AbstractController
             /**
              * @var Game $game
              */
+            $lineupArray = [];
+            foreach ($game->lineup as $lineup) {
+                $lineupArray[$lineup->lineup_player_id] = [
+                    'lineup_id' => $lineup->lineup_id,
+                    'lineup_team_id' => $lineup->lineup_team_id,
+                    'lineup_position_id' => $lineup->lineup_position_id,
+                    'assist' => 0,
+                    'assist_power' => 0,
+                    'assist_short' => 0,
+                    'game_with_shootout' => 0,
+                    'loose' => 0,
+                    'pass' => 0,
+                    'point' => 0,
+                    'save' => 0,
+                    'shot_gk' => 0,
+                    'shutout' => 0,
+                    'win' => 0,
+                    'shootout_win' => 0,
+                    'face_off' => 0,
+                    'face_off_win' => 0,
+                    'plus_minus' => $lineup->lineup_plus_minus,
+                    'score' => 0,
+                    'score_draw' => 0,
+                    'score_power' => 0,
+                    'score_short' => 0,
+                    'score_win' => 0,
+                    'score_shot' => 0,
+                ];
+            }
+
             $eventArray = Event::find()
                 ->where(['event_game_id' => $game->game_id])
                 ->orderBy(['event_id' => SORT_ASC])
@@ -90,6 +120,7 @@ class SiteController extends AbstractController
                     }
                 }
             }
+
             print '<pre>';
             print_r($eventArray);
             exit;
