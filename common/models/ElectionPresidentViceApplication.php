@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use yii\db\ActiveQuery;
 
 /**
@@ -57,6 +58,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
             if ($this->isNewRecord) {
                 $this->election_president_vice_application_date = time();
             }
+            $this->election_president_vice_application_text = HockeyHelper::clearBbCodeBeforeSave($this->election_president_vice_application_text);
             return true;
         }
         return false;

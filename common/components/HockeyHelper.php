@@ -170,8 +170,7 @@ class HockeyHelper
         $full = true,
         $link = true,
         $linkType = 'string'
-    )
-    {
+    ) {
         if ($team) {
             $name = $team->team_name;
 
@@ -213,6 +212,10 @@ class HockeyHelper
         return '';
     }
 
+    /**
+     * @param $text
+     * @return mixed|string|string[]|null
+     */
     public static function bbDecode($text)
     {
         $text = Html::encode($text);
@@ -264,6 +267,16 @@ class HockeyHelper
 //        $text = str_replace(':angry:', '<img alt="smile" src="/js/wysibb/theme/default/img/smiles/sm09.png" />', $text);
         $text = nl2br($text);
 
+        return $text;
+    }
+
+    /**
+     * @param $text
+     * @return mixed
+     */
+    public static function clearBbCodeBeforeSave($text)
+    {
+        $text = str_replace(']?', ']', $text);
         return $text;
     }
 }

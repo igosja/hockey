@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -63,6 +64,7 @@ class TransferComment extends AbstractActiveRecord
             $this->transfer_comment_date = time();
             $this->transfer_comment_user_id = Yii::$app->user->id;
         }
+        $this->transfer_comment_text = HockeyHelper::clearBbCodeBeforeSave($this->transfer_comment_text);
         return true;
     }
 
