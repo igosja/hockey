@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -70,6 +71,7 @@ class News extends AbstractActiveRecord
                     $this->news_user_id = Yii::$app->user->id;
                 }
             }
+            $this->news_text = HockeyHelper::clearBbCodeBeforeSave($this->news_text);
             return true;
         }
         return false;

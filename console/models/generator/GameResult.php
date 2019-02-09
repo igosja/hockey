@@ -77,8 +77,8 @@ class GameResult
             $this->setTeamwork();
             $this->collision();
             $this->playerOptimalPower();
-            $this->playerRealPower();
             $this->countCaptainBonus();
+            $this->playerRealPower();
             $this->teamPower();
             $this->teamPowerForecast();
             $this->optimality();
@@ -764,27 +764,27 @@ class GameResult
                 }
             }
 
-            $teamPower = $this->result[$team]['player']['gk']['power_real']
-                + $this->result[$team]['player']['field']['ld_1']['power_real']
-                + $this->result[$team]['player']['field']['rd_1']['power_real']
-                + $this->result[$team]['player']['field']['ld_2']['power_real']
-                + $this->result[$team]['player']['field']['rd_2']['power_real']
-                + $this->result[$team]['player']['field']['ld_3']['power_real']
-                + $this->result[$team]['player']['field']['rd_3']['power_real']
-                + $this->result[$team]['player']['field']['ld_4']['power_real']
-                + $this->result[$team]['player']['field']['rd_4']['power_real']
-                + $this->result[$team]['player']['field']['lw_1']['power_real']
-                + $this->result[$team]['player']['field']['cf_1']['power_real']
-                + $this->result[$team]['player']['field']['rw_1']['power_real']
-                + $this->result[$team]['player']['field']['lw_2']['power_real']
-                + $this->result[$team]['player']['field']['cf_2']['power_real']
-                + $this->result[$team]['player']['field']['rw_2']['power_real']
-                + $this->result[$team]['player']['field']['lw_3']['power_real']
-                + $this->result[$team]['player']['field']['cf_3']['power_real']
-                + $this->result[$team]['player']['field']['rw_3']['power_real']
-                + $this->result[$team]['player']['field']['lw_4']['power_real']
-                + $this->result[$team]['player']['field']['cf_4']['power_real']
-                + $this->result[$team]['player']['field']['rw_4']['power_real'];
+            $teamPower = $this->result[$team]['player']['gk']['power_optimal']
+                + $this->result[$team]['player']['field']['ld_1']['power_optimal']
+                + $this->result[$team]['player']['field']['rd_1']['power_optimal']
+                + $this->result[$team]['player']['field']['ld_2']['power_optimal']
+                + $this->result[$team]['player']['field']['rd_2']['power_optimal']
+                + $this->result[$team]['player']['field']['ld_3']['power_optimal']
+                + $this->result[$team]['player']['field']['rd_3']['power_optimal']
+                + $this->result[$team]['player']['field']['ld_4']['power_optimal']
+                + $this->result[$team]['player']['field']['rd_4']['power_optimal']
+                + $this->result[$team]['player']['field']['lw_1']['power_optimal']
+                + $this->result[$team]['player']['field']['cf_1']['power_optimal']
+                + $this->result[$team]['player']['field']['rw_1']['power_optimal']
+                + $this->result[$team]['player']['field']['lw_2']['power_optimal']
+                + $this->result[$team]['player']['field']['cf_2']['power_optimal']
+                + $this->result[$team]['player']['field']['rw_2']['power_optimal']
+                + $this->result[$team]['player']['field']['lw_3']['power_optimal']
+                + $this->result[$team]['player']['field']['cf_3']['power_optimal']
+                + $this->result[$team]['player']['field']['rw_3']['power_optimal']
+                + $this->result[$team]['player']['field']['lw_4']['power_optimal']
+                + $this->result[$team]['player']['field']['cf_4']['power_optimal']
+                + $this->result[$team]['player']['field']['rw_4']['power_optimal'];
             $averagePower = $teamPower / 21;
 
             if ($this->result[$team]['player']['captain']['power']) {
@@ -795,8 +795,8 @@ class GameResult
                 }
             }
 
-            $this->result[$team]['player']['gk']['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['gk']['power_real'], $team);
-            $this->result[$team]['player']['gk2']['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['gk2']['power_real'], $team);
+            $this->result[$team]['player']['gk']['power_optimal'] = $this->useCaptainBonus($this->result[$team]['player']['gk']['power_optimal'], $team);
+            $this->result[$team]['player']['gk2']['power_optimal'] = $this->useCaptainBonus($this->result[$team]['player']['gk2']['power_optimal'], $team);
 
             for ($line = 1; $line <= 4; $line++) {
                 for ($k = Position::LD; $k <= Position::RW; $k++) {
@@ -814,7 +814,7 @@ class GameResult
 
                     $key = $key . '_' . $line;
 
-                    $this->result[$team]['player']['field'][$key]['power_real'] = $this->useCaptainBonus($this->result[$team]['player']['field'][$key]['power_real'], $team);
+                    $this->result[$team]['player']['field'][$key]['power_optimal'] = $this->useCaptainBonus($this->result[$team]['player']['field'][$key]['power_optimal'], $team);
                 }
             }
         }

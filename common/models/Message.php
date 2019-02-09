@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -99,6 +100,7 @@ class Message extends AbstractActiveRecord
         if ($this->isNewRecord) {
             $this->message_date = time();
         }
+        $this->message_text = HockeyHelper::clearBbCodeBeforeSave($this->message_text);
         return true;
     }
 

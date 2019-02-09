@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\HockeyHelper;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -52,6 +53,7 @@ class Logo extends AbstractActiveRecord
                 $this->logo_date = time();
                 $this->logo_user_id = Yii::$app->user->id;
             }
+            $this->logo_text = HockeyHelper::clearBbCodeBeforeSave($this->logo_text);
             return true;
         }
         return false;
