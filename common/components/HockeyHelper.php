@@ -219,6 +219,7 @@ class HockeyHelper
     public static function bbDecode($text)
     {
         $text = Html::encode($text);
+        $text = str_replace(']?', ']', $text);
         $text = preg_replace('/\[link\=(.*?)\](.*?)\[\/link\]/s', '<a href="$1" target="_blank">$2</a>', $text);
         $text = preg_replace('/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $text);
         $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img class="img-responsive" src="$1" alt="Image" />', $text);
