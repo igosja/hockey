@@ -237,7 +237,7 @@ class MakeLoan
                 $loan->loan_day = $loanApplication->loan_application_day;
                 $loan->loan_player_price = $loan->player->player_price;
                 $loan->loan_power = $loan->player->player_power_nominal;
-                $loan->loan_price_buyer = $loanApplication->loan_application_price;
+                $loan->loan_price_buyer = $price;
                 $loan->loan_ready = time();
                 $loan->loan_season_id = $seasonId;
                 $loan->loan_team_buyer_id = $loanApplication->loan_application_team_id;
