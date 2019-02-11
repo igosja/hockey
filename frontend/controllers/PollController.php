@@ -45,7 +45,7 @@ class PollController extends AbstractController
             ['poll_poll_status_id' => PollStatus::CLOSE],
             [
                 'and',
-                ['poll_poll_status_id' => PollStatus::NEW_ONE],
+                ['poll_poll_status_id' => PollStatus::OPEN],
                 ['<', 'poll_date', time() - 604800]
             ]
         );
