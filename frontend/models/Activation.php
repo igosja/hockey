@@ -7,7 +7,6 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
-use yii\db\Expression;
 
 /**
  * Class Activation
@@ -54,7 +53,7 @@ class Activation extends Model
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            User::updateAll(['user_date_confirm' => new Expression('UNIX_TIMESTAMP()')], ['user_id' => $user->user_id]);
+            User::updateAll(['user_date_confirm' => time()], ['user_id' => $user->user_id]);
             $transaction->commit();
         } catch (Exception $e) {
             ErrorHelper::log($e);
