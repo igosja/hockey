@@ -9,7 +9,6 @@ use common\models\PlayerPosition;
 use common\models\PlayerSpecial;
 use common\models\Training;
 use Yii;
-use yii\db\Expression;
 
 /**
  * Class UpdateTraining
@@ -132,7 +131,7 @@ class UpdateTraining
     private function ready()
     {
         Training::updateAll(
-            ['training_percent' => 100, 'training_ready' => new Expression('UNIX_TIMESTAMP()')],
+            ['training_percent' => 100, 'training_ready' => time()],
             ['>=', 'training_percent', 100]
         );
     }

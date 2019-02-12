@@ -66,7 +66,7 @@ class SchoolController extends AbstractController
             'positionArray' => ArrayHelper::map(Position::find()->all(), 'position_id', 'position_name'),
             'schoolArray' => $schoolArray,
             'specialArray' => ArrayHelper::map(Special::find()->all(), 'special_id', 'special_text'),
-            'styleArray' => ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name'),
+            'styleArray' => ArrayHelper::map(Style::find()->where(['!=', 'style_id', Style::NORMAL])->all(), 'style_id', 'style_name'),
             'team' => $team,
         ]);
     }
@@ -167,6 +167,7 @@ class SchoolController extends AbstractController
 
         $style = Style::find()
             ->andFilterWhere(['style_id' => $styleId])
+            ->andWhere(['!=', 'style_id', Style::NORMAL])
             ->orderBy('RAND()')
             ->limit(1)
             ->one();
