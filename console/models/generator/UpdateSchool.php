@@ -2,8 +2,6 @@
 
 namespace console\models\generator;
 
-use common\models\History;
-use common\models\HistoryText;
 use common\models\NameCountry;
 use common\models\Player;
 use common\models\PlayerSpecial;
@@ -12,7 +10,6 @@ use common\models\Scout;
 use common\models\Season;
 use common\models\Style;
 use common\models\SurnameCountry;
-use yii\db\Expression;
 
 /**
  * Class UpdateSchool
@@ -41,39 +38,45 @@ class UpdateSchool
              */
             $specialId = $school->school_special_id;
             $styleId = $school->school_style_id;
-            $withSpecial = $school->school_with_special;
-            $withSpecialDb = $school->team->baseSchool->base_school_with_special;
-            $withStyle = $school->school_with_style;
-            $withStyleDb = $school->team->baseSchool->base_school_with_style;
+            $withSpecial = $school->team->baseSchool->base_school_with_special;
+            $withStyle = $school->team->baseSchool->base_school_with_style;
 
-            if ($withSpecial || $withSpecialDb) {
-                if (0 != $school->team->baseSchool->base_school_with_special) {
-                    $check = School::find()->where([
-                        'school_team_id' => $school->school_team_id,
-                        'school_with_special' => 1,
-                        'school_season_id' => $seasonId,
-                    ])->andWhere(['!=', 'school_ready', 0])->count();
+            if ($school->school_with_special || $school->school_with_style) {
+                if ($school->school_with_special) {
+                    $check = School::find()
+                        ->where([
+                            'school_team_id' => $school->school_team_id,
+                            'school_with_special' => 1,
+                            'school_season_id' => $seasonId,
+                        ])
+                        ->andWhere(['!=', 'school_ready', 0])
+                        ->count();
 
                     if ($check >= $withSpecial) {
                         $specialId = 0;
-                        $withSpecialDb = 0;
+                        $withSpecial = 0;
                     }
                 }
 
-                if (0 != $withStyleDb) {
-                    $check = School::find()->where([
-                        'school_team_id' => $school->school_team_id,
-                        'school_with_style' => 1,
-                        'school_season_id' => $seasonId,
-                    ])->andWhere(['!=', 'school_ready', 0])->count();
+                if ($school->school_with_style) {
+                    $check = School::find()
+                        ->where([
+                            'school_team_id' => $school->school_team_id,
+                            'school_with_style' => 1,
+                            'school_season_id' => $seasonId,
+                        ])
+                        ->andWhere(['!=', 'school_ready', 0])
+                        ->count();
 
                     if ($check >= $withStyle) {
                         $styleId = Style::getRandStyleId();
-                        $withStyleDb = 0;
+                        $withStyle = 0;
                     }
                 }
             } else {
+                $withSpecial = 0;
                 $specialId = 0;
+                $withStyle = 0;
                 $styleId = Style::getRandStyleId();
             }
 
@@ -105,25 +108,26 @@ class UpdateSchool
                     $scout = new Scout();
                     $scout->scout_percent = 100;
                     $scout->scout_player_id = $player->player_id;
-                    $scout->scout_ready = new Expression('UNIX_TIMESTAMP()');
+                    $scout->scout_ready = time();
                     $scout->scout_style = 1;
                     $scout->scout_team_id = $school->school_team_id;
                     $scout->save();
                 }
             }
 
-            History::log([
-                'history_history_text_id' => HistoryText::PLAYER_FROM_SCHOOL,
-                'history_player_id' => $player->player_id,
-                'history_team_id' => $school->school_team_id,
-            ]);
+            if ($withSpecial) {
+                $withSpecial = 1;
+            }
+            if ($withStyle) {
+                $withStyle = 1;
+            }
 
-            $school->school_ready = new Expression('UNIX_TIMESTAMP()');
+            $school->school_ready = time();
             $school->school_season_id = $seasonId;
             $school->school_with_special_request = $school->school_with_special;
-            $school->school_with_special = $withSpecialDb;
+            $school->school_with_special = $withSpecial;
             $school->school_with_style_request = $school->school_with_style;
-            $school->school_with_style = $withStyleDb;
+            $school->school_with_style = $withStyle;
             $school->save();
         }
     }
