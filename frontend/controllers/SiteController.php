@@ -4,10 +4,7 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\models\Cookie;
-use common\models\Event;
-use common\models\EventType;
 use common\models\ForumMessage;
-use common\models\Game;
 use common\models\LoginForm;
 use common\models\News;
 use common\models\Review;
@@ -66,66 +63,6 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
-        $gameArray = Game::find()
-            ->where(['!=', 'game_played', 0])
-            ->orderBy(['game_id' => SORT_ASC])
-            ->each();
-        foreach ($gameArray as $game) {
-            /**
-             * @var Game $game
-             */
-            $lineupArray = [];
-            foreach ($game->lineup as $lineup) {
-                $lineupArray[$lineup->lineup_player_id] = [
-                    'lineup_id' => $lineup->lineup_id,
-                    'lineup_team_id' => $lineup->lineup_team_id,
-                    'lineup_position_id' => $lineup->lineup_position_id,
-                    'assist' => 0,
-                    'assist_power' => 0,
-                    'assist_short' => 0,
-                    'game_with_shootout' => 0,
-                    'loose' => 0,
-                    'pass' => 0,
-                    'point' => 0,
-                    'save' => 0,
-                    'shot_gk' => 0,
-                    'shutout' => 0,
-                    'win' => 0,
-                    'shootout_win' => 0,
-                    'face_off' => 0,
-                    'face_off_win' => 0,
-                    'plus_minus' => $lineup->lineup_plus_minus,
-                    'score' => 0,
-                    'score_draw' => 0,
-                    'score_power' => 0,
-                    'score_short' => 0,
-                    'score_win' => 0,
-                    'score_shot' => 0,
-                ];
-            }
-
-            $eventArray = Event::find()
-                ->where(['event_game_id' => $game->game_id])
-                ->orderBy(['event_id' => SORT_ASC])
-                ->all();
-            foreach ($eventArray as $event) {
-                if (EventType::GOAL == $event->event_event_type_id) {
-                    if ($event->event_player_assist_1_id == $event->event_player_score_id) {
-                        $event->event_player_assist_1_id = 0;
-                        $event->event_player_assist_2_id = 0;
-                        $event->save(true, ['event_player_assist_1_id', 'event_player_assist_2_id']);
-                    } elseif (in_array($event->event_player_assist_2_id, [$event->event_player_score_id, $event->event_player_assist_1_id])) {
-                        $event->event_player_assist_2_id = 0;
-                        $event->save(true, ['event_player_assist_2_id']);
-                    }
-                }
-            }
-
-            print '<pre>';
-            print_r($eventArray);
-            exit;
-        }
-        exit;
         if (Yii::$app->request->get('ref')) {
             $cookies = Yii::$app->response->cookies;
             $cookies->add(new \yii\web\Cookie([
