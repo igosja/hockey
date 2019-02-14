@@ -59,7 +59,8 @@ use yii\grid\GridView;
                         . $model->iconInjury()
                         . $model->iconNational()
                         . $model->iconDeal()
-                        . $model->iconTraining();
+                        . $model->iconTraining()
+                        . $model->iconLoan();
                 }
             ],
             [
