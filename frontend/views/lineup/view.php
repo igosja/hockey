@@ -408,7 +408,9 @@ LineupAsset::register($this);
                     'format' => 'raw',
                     'label' => 'Игрок',
                     'value' => function (Player $model) {
-                        return $model->playerLink(['target' => '_blank']);
+                        return $model->playerLink(['target' => '_blank'])
+                            . $model->iconInjury()
+                            . $model->iconNational();
                     }
                 ],
                 [
