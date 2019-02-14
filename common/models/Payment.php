@@ -229,7 +229,7 @@ class Payment extends AbstractActiveRecord
             }
         }
 
-        return 0;
+        return end($bonusArray);
     }
 
     /**
