@@ -630,9 +630,6 @@ class TeamController extends AbstractController
                         ->all();
                     if ($teamCountryArray) {
                         foreach ($teamCountryArray as $item) {
-                            /**
-                             * @var Team $item
-                             */
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     } else {
@@ -643,7 +640,9 @@ class TeamController extends AbstractController
                 }
             } else {
                 if (1 == count($this->myTeamArray)) {
-                    $leaveArray[0] = 'Беру дополнительную команду';
+                    if ($team->stadium->city->country->country_id != $this->myTeam->stadium->city->country->country_id) {
+                        $leaveArray[0] = 'Беру дополнительную команду';
+                    }
                     $leaveArray[$this->myTeam->team_id] = $this->myTeam->fullName();
                 } else {
                     $teamCountryArray = Team::find()
