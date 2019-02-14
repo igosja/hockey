@@ -28,5 +28,6 @@ class DumpDatabase
             . ' | gzip > `date +'
             . Yii::getAlias('@common')
             . '/../../dump.\%Y\%m\%d.sql.gz`');
+        sleep(300);
     }
 }
