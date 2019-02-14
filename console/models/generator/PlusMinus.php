@@ -126,7 +126,7 @@ class PlusMinus
 
             if ($this->game->game_home_plus_minus < 0) {
                 $lineupArray = Lineup::find()
-                    ->with(['player'])
+                    ->joinWith(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -143,6 +143,7 @@ class PlusMinus
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )')
+                    ->andWhere(['!=', 'player_team_id', 0])
                     ->orderBy('RAND()')
                     ->limit(-$this->game->game_home_plus_minus)
                     ->all();
@@ -161,7 +162,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_home_plus_minus > 0) {
                 $lineupArray = Lineup::find()
-                    ->with(['player'])
+                    ->joinWith(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_home_team_id,
                         'lineup_national_id' => $this->game->game_home_national_id,
@@ -178,6 +179,7 @@ class PlusMinus
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )')
+                    ->andWhere(['!=', 'player_team_id', 0])
                     ->orderBy('RAND()')
                     ->limit($this->game->game_home_plus_minus)
                     ->all();
@@ -198,7 +200,7 @@ class PlusMinus
 
             if ($this->game->game_guest_plus_minus < 0) {
                 $lineupArray = Lineup::find()
-                    ->with(['player'])
+                    ->joinWith(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,
@@ -215,6 +217,7 @@ class PlusMinus
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )')
+                    ->andWhere(['!=', 'player_team_id', 0])
                     ->orderBy('RAND()')
                     ->limit(-$this->game->game_guest_plus_minus)
                     ->all();
@@ -233,7 +236,7 @@ class PlusMinus
                 }
             } elseif ($this->game->game_guest_plus_minus > 0) {
                 $lineupArray = Lineup::find()
-                    ->with(['player'])
+                    ->joinWith(['player'])
                     ->where([
                         'lineup_team_id' => $this->game->game_guest_team_id,
                         'lineup_national_id' => $this->game->game_guest_national_id,
@@ -250,6 +253,7 @@ class PlusMinus
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )')
+                    ->andWhere(['!=', 'player_team_id', 0])
                     ->orderBy('RAND()')
                     ->limit($this->game->game_guest_plus_minus)
                     ->all();
