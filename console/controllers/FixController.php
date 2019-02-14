@@ -9,7 +9,10 @@ use common\models\FinanceText;
 use common\models\Game;
 use common\models\Lineup;
 use common\models\Position;
+use common\models\Stage;
+use common\models\StatisticPlayer;
 use common\models\Team;
+use common\models\TournamentType;
 use Exception;
 
 /**
@@ -53,8 +56,12 @@ class FixController extends AbstractController
         }
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     public function actionStat()
     {
+        \Yii::$app->db->createCommand()->truncateTable(StatisticPlayer::tableName())->execute();
         $gameArray = Game::find()
             ->where(['!=', 'game_played', 0])
             ->orderBy(['game_id' => SORT_ASC])
@@ -72,6 +79,7 @@ class FixController extends AbstractController
                     'lineup_id' => $lineup->lineup_id,
                     'lineup_team_id' => $lineup->lineup_team_id,
                     'lineup_position_id' => $lineup->lineup_position_id,
+                    'lineup_player_id' => $lineup->lineup_player_id,
                     'lineup_line_id' => $lineup->lineup_line_id,
                     'assist' => 0,
                     'assist_power' => 0,
@@ -268,6 +276,29 @@ class FixController extends AbstractController
                 $lineup[$playerId] = $lineup;
             }
 
+            $countryId = isset($game->teamHome->championship->championship_country_id) ? $game->teamHome->championship->championship_country_id : 0;
+            $divisionId = isset($game->teamHome->championship->championship_division_id) ? $game->teamHome->championship->championship_division_id : 0;
+
+            if (in_array($game->schedule->schedule_tournament_type_id, [
+                TournamentType::FRIENDLY,
+                TournamentType::CONFERENCE,
+                TournamentType::LEAGUE,
+                TournamentType::OFF_SEASON,
+            ])) {
+                $countryId = 0;
+                $divisionId = 0;
+            }
+
+            if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
+                $divisionId = isset($game->nationalHome->worldCup->world_cup_division_id) ? $game->nationalHome->worldCup->world_cup_division_id : 0;
+            }
+
+            if (TournamentType::CHAMPIONSHIP == $game->schedule->schedule_tournament_type_id && $game->schedule->schedule_stage_id >= Stage::ROUND_OF_16) {
+                $is_playoff = 1;
+            } else {
+                $is_playoff = 0;
+            }
+
             foreach ($lineupArray as $lineup) {
                 if ($lineup['lineup_position_id'] == Position::GK && $lineup['lineup_line_id']) {
                     continue;
@@ -277,6 +308,84 @@ class FixController extends AbstractController
                     ->one();
                 $model->lineup_assist = $lineup['assist'];
                 $model->save(true, ['lineup_assist']);
+
+                if ($lineup['lineup_position_id'] == Position::GK) {
+                    $model = StatisticPlayer::find()->where([
+                        'statistic_player_championship_playoff' => $is_playoff,
+                        'statistic_player_country_id' => $countryId,
+                        'statistic_player_division_id' => $divisionId,
+                        'statistic_player_is_gk' => 1,
+                        'statistic_player_player_id' => $lineup['lineup_player_id'],
+                        'statistic_player_season_id' => $game->schedule->schedule_season_id,
+                        'statistic_player_team_id' => $lineup['lineup_team_id'],
+                        'statistic_player_tournament_type_id' => $game->schedule->schedule_tournament_type_id,
+                    ])->limit(1)->one();
+                    if (!$model) {
+                        $model = new StatisticPlayer();
+                        $model->statistic_player_championship_playoff = $is_playoff;
+                        $model->statistic_player_country_id = $countryId;
+                        $model->statistic_player_division_id = $divisionId;
+                        $model->statistic_player_is_gk = 1;
+                        $model->statistic_player_player_id = $lineup['lineup_player_id'];
+                        $model->statistic_player_season_id = $game->schedule->schedule_season_id;
+                        $model->statistic_player_team_id = $lineup['lineup_team_id'];
+                        $model->statistic_player_tournament_type_id = $game->schedule->schedule_tournament_type_id;
+                    }
+                    $model->statistic_player_assist = $model->statistic_player_assist + $lineup['assist'];
+                    $model->statistic_player_assist_power = $model->statistic_player_assist_power + $lineup['assist_power'];
+                    $model->statistic_player_assist_short = $model->statistic_player_assist_short + $lineup['assist_short'];
+                    $model->statistic_player_game = $model->statistic_player_game + 1;
+                    $model->statistic_player_game_with_shootout = $model->statistic_player_game_with_shootout + $lineup['game_with_shootout'];
+                    $model->statistic_player_loose = $model->statistic_player_loose + $lineup['loose'];
+                    $model->statistic_player_pass = $model->statistic_player_pass + $lineup['pass'];
+                    $model->statistic_player_point = $model->statistic_player_point + $lineup['point'];
+                    $model->statistic_player_save = $model->statistic_player_save + $lineup['save'];
+                    $model->statistic_player_shot_gk = $model->statistic_player_shot_gk + $lineup['shot_gk'];
+                    $model->statistic_player_shutout = $model->statistic_player_shutout + $lineup['shootout'];
+                    $model->statistic_player_win = $model->statistic_player_win + $lineup['win'];
+                    $model->save();
+                }
+
+                $model = StatisticPlayer::find()->where([
+                    'statistic_player_championship_playoff' => $is_playoff,
+                    'statistic_player_country_id' => $countryId,
+                    'statistic_player_division_id' => $divisionId,
+                    'statistic_player_is_gk' => 0,
+                    'statistic_player_player_id' => $lineup['lineup_player_id'],
+                    'statistic_player_season_id' => $game->schedule->schedule_season_id,
+                    'statistic_player_team_id' => $lineup['lineup_team_id'],
+                    'statistic_player_tournament_type_id' => $game->schedule->schedule_tournament_type_id,
+                ])->limit(1)->one();
+                if (!$model) {
+                    $model = new StatisticPlayer();
+                    $model->statistic_player_championship_playoff = $is_playoff;
+                    $model->statistic_player_country_id = $countryId;
+                    $model->statistic_player_division_id = $divisionId;
+                    $model->statistic_player_is_gk = 0;
+                    $model->statistic_player_player_id = $lineup['lineup_player_id'];
+                    $model->statistic_player_season_id = $game->schedule->schedule_season_id;
+                    $model->statistic_player_team_id = $lineup['lineup_team_id'];
+                    $model->statistic_player_tournament_type_id = $game->schedule->schedule_tournament_type_id;
+                }
+                $model->statistic_player_assist = $model->statistic_player_assist + $lineup['assist'];
+                $model->statistic_player_assist_power = $model->statistic_player_assist_power + $lineup['assist_power'];
+                $model->statistic_player_assist_short = $model->statistic_player_assist_short + $lineup['assist_short'];
+                $model->statistic_player_shootout_win = $model->statistic_player_shootout_win + $lineup['shootout_win'];
+                $model->statistic_player_face_off = $model->statistic_player_face_off + $lineup['face_off'];
+                $model->statistic_player_face_off_win = $model->statistic_player_face_off_win + $lineup['face_off_win'];
+                $model->statistic_player_game = $model->statistic_player_game + 1;
+                $model->statistic_player_loose = $model->statistic_player_loose + $lineup['loose'];
+                $model->statistic_player_penalty = $model->statistic_player_penalty + $lineup * 2;
+                $model->statistic_player_plus_minus = $model->statistic_player_plus_minus + $lineup['plus_minus'];
+                $model->statistic_player_point = $model->statistic_player_point + $lineup['point'];
+                $model->statistic_player_score = $model->statistic_player_score + $lineup['score'];
+                $model->statistic_player_score_draw = $model->statistic_player_score_draw + $lineup['score_draw'];
+                $model->statistic_player_score_power = $model->statistic_player_score_power + $lineup['score_power'];
+                $model->statistic_player_score_short = $model->statistic_player_score_short + $lineup['score_short'];
+                $model->statistic_player_score_win = $model->statistic_player_score_win + $lineup['score_win'];
+                $model->statistic_player_shot = $model->statistic_player_shot + $lineup['shot'];
+                $model->statistic_player_win = $model->statistic_player_win + $lineup['win'];
+                $model->save();
             }
             exit;
         }
