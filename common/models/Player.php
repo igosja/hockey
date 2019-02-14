@@ -370,6 +370,18 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
+    public function iconLoan()
+    {
+        $result = '';
+        if ($this->player_loan_day) {
+            $result = ' <span title="В аренде">(' . $this->player_loan_day . ')</i>';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
     public function powerNominal()
     {
         $class = '';

@@ -12,7 +12,9 @@ namespace common\models;
 class MoneyText extends AbstractActiveRecord
 {
     const INCOME_ADD_FUNDS = 1;
+    const INCOME_FRIEND = 8;
     const INCOME_REFERRAL = 2;
+    const OUTCOME_FRIEND = 9;
     const OUTCOME_POINT = 3;
     const OUTCOME_POSITION = 5;
     const OUTCOME_SPECIAL = 6;

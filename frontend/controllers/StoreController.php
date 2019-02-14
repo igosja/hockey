@@ -582,7 +582,7 @@ class StoreController extends AbstractController
             }
         }
 
-        return 0;
+        return end($bonusArray);
     }
 
     /**
