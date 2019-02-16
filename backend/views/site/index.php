@@ -6,6 +6,7 @@ use miloschuman\highcharts\Highcharts;
 use yii\helpers\Html;
 
 /**
+ * @var int $chat
  * @var int $complaint
  * @var int $countModeration
  * @var int $forumMessage
@@ -227,6 +228,13 @@ use yii\helpers\Html;
             </div>
             <div class="panel-body">
                 <div class="list-group">
+                    <?= Html::a(
+                        'Чат <span class="pull-right text-muted small"><em>'
+                        . $chat
+                        . '</em></span>',
+                        ['moderation/chat'],
+                        ['class' => 'list-group-item']
+                    ); ?>
                     <?= Html::a(
                         'Форум <span class="pull-right text-muted small"><em>'
                         . $forumMessage

@@ -70,6 +70,9 @@ class Chat extends Model
         if ($user->user_date_block_comment > time()) {
             return false;
         }
+        if ($user->user_date_block_chat > time()) {
+            return false;
+        }
 
         $file = Yii::getAlias('@webroot') . '/chat.txt';
 
@@ -88,6 +91,8 @@ class Chat extends Model
         $chat = fopen($file, "w");
 
         $content[] = [
+            'id' => md5(uniqid(rand(), 1)),
+            'check' => 0,
             'date' => time(),
             'text' => HockeyHelper::clearBbCodeBeforeSave($this->text),
             'userId' => $user->user_id,
