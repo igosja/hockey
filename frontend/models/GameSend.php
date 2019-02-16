@@ -187,7 +187,7 @@ class GameSend extends Model
             $this->mood = Mood::NORMAL;
         }
 
-        if ((Mood::SUPER == $this->mood && $this->team->team_mood_super <= 0) || (Mood::REST == $this->mood && $this->team->team_mood_super <= 0) || (Mood::NORMAL != $this->mood && TournamentType::FRIENDLY == $this->game->schedule->schedule_tournament_type_id)) {
+        if ((Mood::SUPER == $this->mood && $this->team->team_mood_super <= 0) || (Mood::REST == $this->mood && $this->team->team_mood_rest <= 0) || (Mood::NORMAL != $this->mood && TournamentType::FRIENDLY == $this->game->schedule->schedule_tournament_type_id)) {
             $this->mood = Mood::NORMAL;
         }
 
