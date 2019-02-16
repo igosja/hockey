@@ -7,6 +7,7 @@ use common\models\Conference;
 use common\models\Country;
 use common\models\Division;
 use common\models\Game;
+use common\models\ParticipantChampionship;
 use common\models\Review;
 use common\models\Schedule;
 use common\models\Stage;
@@ -228,6 +229,15 @@ class ChampionshipController extends AbstractController
             if ($scheduleId) {
                 $gameArray = Game::find()
                     ->where(['game_schedule_id' => $scheduleId])
+                    ->andWhere([
+                        'game_home_team_id' => ParticipantChampionship::find()
+                            ->select(['participant_championship_team_id'])
+                            ->where([
+                                'participant_championship_country_id' => $countryId,
+                                'participant_championship_division_id' => $divisionId,
+                                'participant_championship_season_id' => $seasonId,
+                            ])
+                    ])
                     ->orderBy(['game_id' => SORT_ASC])
                     ->all();
                 if ($gameArray) {
