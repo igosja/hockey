@@ -15,6 +15,7 @@ use yii\db\Query;
  *
  * @property int $payment_id
  * @property int $payment_date
+ * @property string $payment_log
  * @property int $payment_status
  * @property float $payment_sum
  * @property int $payment_user_id
@@ -48,6 +49,7 @@ class Payment extends AbstractActiveRecord
             [['payment_id', 'payment_date'], 'integer'],
             [['payment_sum'], 'number', 'min' => 1],
             [['payment_sum'], 'required'],
+            [['payment_log'], 'string'],
         ];
     }
 
@@ -174,6 +176,7 @@ class Payment extends AbstractActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
+            $this->payment_log = 'admin payment';
             $this->payment_status = Payment::PAID;
             $this->save();
 

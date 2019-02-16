@@ -124,6 +124,22 @@ use yii\widgets\DetailView;
             ],
             [
                 'format' => 'raw',
+                'label' => 'Доступ к чату',
+                'value' => function (User $model) {
+                    if ($model->user_date_block_chat > time()) {
+                        $result = 'Заблокирован до ' . FormatHelper::asDateTime($model->user_date_block_chat);
+                    } else {
+                        $result = 'Открыт ' . Html::a(
+                                'Блокировать',
+                                ['user/block-chat', 'id' => $model->user_id],
+                                ['class' => 'btn btn-default btn-xs']
+                            );
+                    }
+                    return $result;
+                },
+            ],
+            [
+                'format' => 'raw',
                 'label' => 'Доступ к комментариям сделок',
                 'value' => function (User $model) {
                     if ($model->user_date_block_comment_deal > time()) {

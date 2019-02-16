@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property int $user_birth_month
  * @property int $user_birth_year
  * @property int $user_block_block_reason_id
+ * @property int $user_block_chat_block_reason_id
  * @property int $user_block_comment_block_reason_id
  * @property int $user_block_comment_deal_block_reason_id
  * @property int $user_block_comment_game_block_reason_id
@@ -30,6 +31,7 @@ use yii\web\IdentityInterface;
  * @property string $user_code
  * @property int $user_country_id
  * @property int $user_date_block
+ * @property int $user_date_block_chat
  * @property int $user_date_block_comment
  * @property int $user_date_block_comment_deal
  * @property int $user_date_block_comment_game
@@ -65,6 +67,7 @@ use yii\web\IdentityInterface;
  * @property Country $president
  * @property Country $presidentVice
  * @property BlockReason $reasonBlock
+ * @property BlockReason $reasonBlockChat
  * @property BlockReason $reasonBlockComment
  * @property BlockReason $reasonBlockCommentDeal
  * @property BlockReason $reasonBlockCommentGame
@@ -105,6 +108,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_birth_month',
                     'user_birth_year',
                     'user_block_block_reason_id',
+                    'user_block_chat_block_reason_id',
                     'user_block_comment_block_reason_id',
                     'user_block_comment_deal_block_reason_id',
                     'user_block_comment_game_block_reason_id',
@@ -112,6 +116,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_block_forum_block_reason_id',
                     'user_country_id',
                     'user_date_block',
+                    'user_date_block_chat',
                     'user_date_block_comment',
                     'user_date_block_comment_deal',
                     'user_date_block_comment_game',
@@ -493,6 +498,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
     public function getReasonBlockComment()
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_block_reason_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReasonBlockChat()
+    {
+        return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_chat_block_reason_id']);
     }
 
     /**
