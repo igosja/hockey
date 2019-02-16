@@ -14,6 +14,7 @@ use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Response;
 
 /**
@@ -527,6 +528,7 @@ class StoreController extends AbstractController
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
+            $payment->payment_log = Json::decode($_REQUEST);
             $payment->payment_status = Payment::PAID;
             $payment->save();
 
