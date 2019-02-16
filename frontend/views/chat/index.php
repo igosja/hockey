@@ -44,6 +44,15 @@ use yii\widgets\ActiveForm;
                         Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
                     </div>
                 </div>
+            <?php elseif ($user->user_date_block_chat >= time()) : ?>
+                <div class="row margin-top">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                        Вам заблокирован доступ к чату до
+                        <?= FormatHelper::asDateTime($user->user_date_block_chat); ?>
+                        <br/>
+                        Причина - <?= $user->reasonBlockChat->block_reason_text; ?>
+                    </div>
+                </div>
             <?php else: ?>
                 <?php $form = ActiveForm::begin([
                     'id' => 'chat-form',

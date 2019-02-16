@@ -18,8 +18,10 @@ use common\models\Site;
 use common\models\Support;
 use common\models\Team;
 use common\models\TransferComment;
+use Exception;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Response;
 
 /**
@@ -65,6 +67,22 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
+        $file = Yii::getAlias('@frontend') . '/web/chat.txt';
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
+        if (!$content) {
+            return false;
+        }
+        $content = Json::decode($content);
+        $chat = 0;
+        foreach ($content as $value) {
+            if (!isset($value['check']) || !$value['check']) {
+                $chat++;
+            }
+        }
         $complaint = Complaint::find()->where(['complaint_ready' => 0])->count();
         $forumMessage = ForumMessage::find()->where(['forum_message_check' => 0])->count();
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
@@ -86,6 +104,7 @@ class SiteController extends AbstractController
         $countModeration = $countModeration + $newsComment;
         $countModeration = $countModeration + $transferComment;
         $countModeration = $countModeration + $review;
+        $countModeration = $countModeration + $chat;
 
         list($paymentCategories, $paymentData) = Payment::getPaymentHighChartsData();
 
@@ -101,6 +120,7 @@ class SiteController extends AbstractController
         $this->view->title = 'Административный раздел';
 
         return $this->render('index', [
+            'chat' => $chat,
             'complaint' => $complaint,
             'countModeration' => $countModeration,
             'forumMessage' => $forumMessage,

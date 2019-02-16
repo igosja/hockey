@@ -9,7 +9,9 @@ use common\models\News;
 use common\models\NewsComment;
 use common\models\Review;
 use common\models\TransferComment;
+use Exception;
 use Yii;
+use yii\helpers\Json;
 use yii\web\Response;
 
 /**
@@ -23,7 +25,110 @@ class ModerationController extends AbstractController
      */
     public function actionIndex()
     {
-        return $this->redirect(['moderation/forum-message']);
+        return $this->redirect(['moderation/chat']);
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionChat()
+    {
+        $model = null;
+        $file = Yii::getAlias('@frontend') . '/web/chat.txt';
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
+        if (!$content) {
+            return $this->redirect(['moderation/game-comment']);
+        }
+        $content = Json::decode($content);
+        $content = array_reverse($content);
+        foreach ($content as $value) {
+            if (!isset($value['check']) || !$value['check']) {
+                $model = $value;
+            }
+        }
+
+        if (!$model) {
+            return $this->redirect(['moderation/game-comment']);
+        }
+
+        $this->view->title = 'Чат';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Модерация', 'url' => ['moderation/index']];
+        $this->view->params['breadcrumbs'][] = $this->view->title;
+
+        return $this->render('chat', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function actionChatOk($id)
+    {
+        $model = null;
+        $file = Yii::getAlias('@frontend') . '/web/chat.txt';
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
+        if (!$content) {
+            return $this->redirect(['moderation/chat']);
+        }
+        $content = Json::decode($content);
+        foreach ($content as $key => $value) {
+            if ($value['date'] == $id) {
+                $content[$key]['check'] = time();
+            }
+        }
+
+        $chat = fopen($file, "w");
+
+        $text = Json::encode($content);
+        fwrite($chat, $text);
+        fclose($chat);
+
+        return $this->redirect(['moderation/chat']);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionChatDelete($id)
+    {
+        $model = null;
+        $file = Yii::getAlias('@frontend') . '/web/chat.txt';
+        try {
+            $content = file_get_contents($file);
+        } catch (Exception $e) {
+            $content = false;
+        }
+        if (!$content) {
+            return $this->redirect(['moderation/chat']);
+        }
+        $content = Json::decode($content);
+        foreach ($content as $key => $value) {
+            if ($value['date'] == $id) {
+                unset($content[$key]);
+            }
+        }
+
+        $chat = fopen($file, "w");
+
+        $text = Json::encode($content);
+        fwrite($chat, $text);
+        fclose($chat);
+
+        return $this->redirect(['moderation/chat']);
     }
 
     /**
