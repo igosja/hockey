@@ -467,8 +467,8 @@ LineupAsset::register($this);
                     'label' => 'У',
                     'value' => function (Player $model) use ($game) {
                         return TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id
-                            ? '25%'
-                            : $model->player_tire . '%';
+                            ? '25'
+                            : $model->player_tire;
                     }
                 ],
                 [
@@ -506,6 +506,18 @@ LineupAsset::register($this);
                     'label' => 'Спец',
                     'value' => function (Player $model) {
                         return $model->special();
+                    }
+                ],
+                [
+                    'attribute' => 'style',
+                    'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => 'Ст',
+                    'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],
+                    'label' => 'Ст',
+                    'value' => function (Player $model) {
+                        return $model->iconStyle(true);
                     }
                 ],
                 [
