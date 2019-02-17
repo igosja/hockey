@@ -55,7 +55,7 @@ use yii\helpers\Html;
  * @property PlayerSpecial[] $playerSpecial
  * @property Team $schoolTeam
  * @property Squad $squad
- * @property StatisticPlayer $statisticPlayer
+ * @property StatisticPlayer[] $statisticPlayer
  * @property Style $style
  * @property Surname $surname
  * @property Team $team
@@ -626,7 +626,9 @@ class Player extends AbstractActiveRecord
      */
     public function getStatisticPlayer()
     {
-        return $this->hasOne(StatisticPlayer::class, ['statistic_player_player_id' => 'player_id']);
+        return $this
+            ->hasMany(StatisticPlayer::class, ['statistic_player_player_id' => 'player_id'])
+            ->andWhere(['statistic_player_season_id' => Season::getCurrentSeason()]);
     }
 
     /**

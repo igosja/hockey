@@ -362,6 +362,7 @@ class ChampionshipController extends AbstractController
             'divisionArray' => $this->getDivisionStatisticsLinksArray($countryId, $roundId, $seasonId),
             'divisionId' => $divisionId,
             'roundArray' => $this->getRoundStatisticsLinksArray($countryId, $divisionId, $seasonId),
+            'roundId' => $roundId,
             'seasonId' => $seasonId,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),

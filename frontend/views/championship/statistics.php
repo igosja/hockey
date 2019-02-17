@@ -13,6 +13,7 @@ use yii\helpers\Html;
  * @var array $divisionArray
  * @var int $divisionId
  * @var array $roundArray
+ * @var int $roundId
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -35,8 +36,11 @@ use yii\helpers\Html;
         <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
     </div>
 </div>
-<?= Html::beginForm('', 'get'); ?>
+<?= Html::beginForm(['championship/statistics'], 'get'); ?>
 <?= Html::hiddenInput('seasonId', $seasonId); ?>
+<?= Html::hiddenInput('divisionId', $divisionId); ?>
+<?= Html::hiddenInput('countryId', $country->country_id); ?>
+<?= Html::hiddenInput('roundId', $roundId); ?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
         <?= Html::label('Статистика', 'statisticType'); ?>
