@@ -117,15 +117,13 @@ class TeamController extends AbstractController
         }
 
         $query = Player::find()
-            ->joinWith([
-                'statisticPlayer',
-            ])
             ->with([
                 'country',
                 'name',
                 'physical',
                 'playerPosition.position',
                 'playerSpecial.special',
+                'statisticPlayer',
                 'style',
                 'surname',
             ])
@@ -139,22 +137,6 @@ class TeamController extends AbstractController
                     'age' => [
                         'asc' => ['player_age' => SORT_ASC],
                         'desc' => ['player_age' => SORT_DESC],
-                    ],
-                    'assist' => [
-                        'asc' => ['statistic_player.statistic_player_assist' => SORT_ASC],
-                        'desc' => ['statistic_player.statistic_player_assist' => SORT_DESC],
-                    ],
-                    'game' => [
-                        'asc' => ['statistic_player.statistic_player_game' => SORT_ASC],
-                        'desc' => ['statistic_player.statistic_player_game' => SORT_DESC],
-                    ],
-                    'score' => [
-                        'asc' => ['statistic_player.statistic_player_score' => SORT_ASC],
-                        'desc' => ['statistic_player.statistic_player_score' => SORT_DESC],
-                    ],
-                    'plus_minus' => [
-                        'asc' => ['statistic_player.statistic_player_plus_minus' => SORT_ASC],
-                        'desc' => ['statistic_player.statistic_player_plus_minus' => SORT_DESC],
                     ],
                     'country' => [
                         'asc' => ['player_country_id' => SORT_ASC],

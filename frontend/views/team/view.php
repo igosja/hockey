@@ -185,7 +185,11 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                 'label' => '+/-',
                 'value' => function (Player $model) {
-                    return isset($model->statisticPlayer->statistic_player_plus_minus) ? $model->statisticPlayer->statistic_player_plus_minus : 0;
+                    $result = 0;
+                    foreach ($model->statisticPlayer as $statisticPlayer) {
+                        $result = $result + $statisticPlayer->statistic_player_plus_minus;
+                    }
+                    return $result;
                 }
             ],
             [
@@ -196,7 +200,11 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Игры'],
                 'label' => 'И',
                 'value' => function (Player $model) {
-                    return isset($model->statisticPlayer->statistic_player_game) ? $model->statisticPlayer->statistic_player_game : 0;
+                    $result = 0;
+                    foreach ($model->statisticPlayer as $statisticPlayer) {
+                        $result = $result + $statisticPlayer->statistic_player_game;
+                    }
+                    return $result;
                 }
             ],
             [
@@ -207,7 +215,11 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
                 'label' => 'Ш',
                 'value' => function (Player $model) {
-                    return isset($model->statisticPlayer->statistic_player_score) ? $model->statisticPlayer->statistic_player_score : 0;
+                    $result = 0;
+                    foreach ($model->statisticPlayer as $statisticPlayer) {
+                        $result = $result + $statisticPlayer->statistic_player_score;
+                    }
+                    return $result;
                 }
             ],
             [
@@ -218,7 +230,11 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Результативные передачи'],
                 'label' => 'П',
                 'value' => function (Player $model) {
-                    return isset($model->statisticPlayer->statistic_player_assist) ? $model->statisticPlayer->statistic_player_assist : 0;
+                    $result = 0;
+                    foreach ($model->statisticPlayer as $statisticPlayer) {
+                        $result = $result + $statisticPlayer->statistic_player_assist;
+                    }
+                    return $result;
                 }
             ],
             [
