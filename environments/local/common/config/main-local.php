@@ -6,10 +6,7 @@ return [
             'charset' => 'utf8',
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=vhol',
-            'enableSchemaCache' => true,
             'password' => 'zuI2QbJJ',
-            'schemaCache' => 'cache',
-            'schemaCacheDuration' => 86400,
             'username' => 'vhol',
         ],
         'mailer' => [
