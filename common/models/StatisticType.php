@@ -117,6 +117,7 @@ class StatisticType extends AbstractActiveRecord
             StatisticType::PLAYER_SAVE,
             StatisticType::PLAYER_SAVE_PERCENT,
             StatisticType::PLAYER_SHOT_GK,
+            StatisticType::PLAYER_SHUTOUT,
         ]);
     }
 }

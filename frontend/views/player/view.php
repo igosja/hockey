@@ -133,7 +133,7 @@ print $this->render('//player/_player', ['player' => $player]);
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Голевые передачи'],
                     'label' => 'П',
                     'value' => function (Lineup $model) {
-                        return $model->lineup_score;
+                        return $model->lineup_assist;
                     }
                 ],
                 [
