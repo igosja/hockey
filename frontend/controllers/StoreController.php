@@ -528,7 +528,7 @@ class StoreController extends AbstractController
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            $payment->payment_log = Json::decode($_REQUEST);
+            $payment->payment_log = Json::encode($_REQUEST);
             $payment->payment_status = Payment::PAID;
             $payment->save();
 
