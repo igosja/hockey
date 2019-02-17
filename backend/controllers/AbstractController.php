@@ -5,8 +5,6 @@ namespace backend\controllers;
 use common\components\Controller;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\ErrorAction;
-use yii\web\ForbiddenHttpException;
 
 /**
  * Class AbstractController
@@ -36,8 +34,7 @@ abstract class AbstractController extends Controller
 
     /**
      * @param $action
-     * @return bool
-     * @throws ForbiddenHttpException
+     * @return bool|\yii\web\Response
      * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
@@ -57,10 +54,9 @@ abstract class AbstractController extends Controller
             '127.0.0.1',
         ];
 
-        if (YII_DEBUG && !in_array(Yii::$app->request->userIP, $allowedIp) && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException(
-                'Этот сайт предназначен для разработки. Пользовательский сайт находиться по адресу https://virtual-hockey.org'
-            );
+        if (!in_array(Yii::$app->request->userIP, $allowedIp)) {
+            Yii::$app->request->setBaseUrl('');
+            return $this->redirect(['site/index']);
         }
 
         return true;
