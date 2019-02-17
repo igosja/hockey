@@ -58,6 +58,8 @@ LineupAsset::register($this);
 
 ?>
 <div class="row margin-top">
+    <a href="javascript:">Save as</a>
+    <a href="javascript:">Load template</a>
     <?php
 
     try {
