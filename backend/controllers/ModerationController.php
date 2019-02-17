@@ -42,7 +42,7 @@ class ModerationController extends AbstractController
             $content = false;
         }
         if (!$content) {
-            return $this->redirect(['moderation/game-comment']);
+            return $this->redirect(['moderation/forum-message']);
         }
         $content = Json::decode($content);
         $content = array_reverse($content);
@@ -53,7 +53,7 @@ class ModerationController extends AbstractController
         }
 
         if (!$model) {
-            return $this->redirect(['moderation/game-comment']);
+            return $this->redirect(['moderation/forum-message']);
         }
 
         $this->view->title = 'Чат';
