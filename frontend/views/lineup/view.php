@@ -41,6 +41,7 @@ use yii\widgets\Pjax;
  * @var Game $game
  * @var Player[] $gkArray
  * @var Player[] $ldArray
+ * @var \common\models\LineupTemplate[] $lineupTemplateArray
  * @var Player[] $lwArray
  * @var \frontend\models\GameSend $model
  * @var array $moodArray
@@ -58,8 +59,70 @@ LineupAsset::register($this);
 
 ?>
 <div class="row margin-top">
-    <a href="javascript:">Save as</a>
-    <a href="javascript:">Load template</a>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+        <a href="javascript:" class="link-template-save">Сохранить как...</a>
+        |
+        <a href="javascript:" class="link-template-load">Загрузить шаблон</a>
+    </div>
+</div>
+<div class="row margin-top div-template-save" style="display: none;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php $form = ActiveForm::begin([
+            'action' => ['lineup/template-save'],
+            'fieldConfig' => [
+                'options' => ['class' => 'row'],
+                'template' =>
+                    '<div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right xs-text-center">{label}</div>
+                    <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">{input}</div>',
+            ],
+            'id' => 'template-save',
+            'options' => ['class' => 'margin-no'],
+        ]); ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= $form->field($model, 'name')->textInput(); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn margin', 'id' => 'template-save-submit']); ?>
+            </div>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+</div>
+<div class="row margin-top margin-bottom div-template-load" style="display: none;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <table class="table table-bordered table-hover">
+            <?php foreach ($lineupTemplateArray as $lineupTemplate) : ?>
+                <tr>
+                    <td>
+                        <?= $lineupTemplate->lineup_template_name; ?>
+                    </td>
+                    <td>
+                        <?= Html::a(
+                            '<i class="fa fa-upload" aria-hidden="true" title="Загрузить"></i>',
+                            'javascript:',
+                            [
+                                'class' => 'template-load',
+                                'data-url' => Url::to(['lineup/template-load', 'id' => $lineupTemplate->lineup_template_id]),
+                            ]
+                        ); ?>
+                        <?= Html::a(
+                            '<i class="fa fa-trash-o" aria-hidden="true" title="Удалить"></i>',
+                            'javascript:',
+                            [
+                                'class' => 'template-delete',
+                                'data-url' => Url::to(['lineup/template-delete', 'id' => $lineupTemplate->lineup_template_id]),
+                            ]
+                        ); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+<div class="row">
     <?php
 
     try {
@@ -165,6 +228,7 @@ LineupAsset::register($this);
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
 <?php $form = ActiveForm::begin([
+    'id' => 'lineup-send',
     'options' => ['class' => 'margin-no game-form', 'data-url' => Url::to(['lineup/teamwork', 'id' => $game->game_id])],
 ]); ?>
 <div class="row margin-top">

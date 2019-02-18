@@ -306,6 +306,66 @@ jQuery(document).ready(function () {
     $('.player-change').on('change', function () {
         player_change();
     });
+
+    $('#template-save-submit').on('click', function () {
+        $.ajax({
+            'data': $('#template-save, #lineup-send').serialize(),
+            'method': 'post',
+            'url': $('#template-save').attr('action'),
+        });
+        return false;
+    });
+
+    $('.template-delete').on('click', function () {
+        $.ajax({
+            'url': $(this).data('url'),
+        });
+    });
+
+    $('.template-load').on('click', function () {
+        $.ajax({
+            'dataType': 'json',
+            'url': $(this).data('url'),
+            'success': function (data) {
+                $('#gamesend-tactic_1').val(data.lineup_template_tactic_id_1);
+                $('#gamesend-tactic_2').val(data.lineup_template_tactic_id_2);
+                $('#gamesend-tactic_3').val(data.lineup_template_tactic_id_3);
+                $('#gamesend-tactic_4').val(data.lineup_template_tactic_id_4);
+                $('#gamesend-rudeness_1').val(data.lineup_template_rudeness_id_1);
+                $('#gamesend-rudeness_2').val(data.lineup_template_rudeness_id_2);
+                $('#gamesend-rudeness_3').val(data.lineup_template_rudeness_id_3);
+                $('#gamesend-rudeness_4').val(data.lineup_template_rudeness_id_4);
+                $('#gamesend-style_1').val(data.lineup_template_style_id_1);
+                $('#gamesend-style_2').val(data.lineup_template_style_id_2);
+                $('#gamesend-style_3').val(data.lineup_template_style_id_3);
+                $('#gamesend-style_4').val(data.lineup_template_style_id_4);
+                $('#line-0-0').val(data.lineup_template_player_gk_1);
+                $('#line-1-0').val(data.lineup_template_player_gk_2);
+                $('#line-1-1').val(data.lineup_template_player_ld_1);
+                $('#line-1-2').val(data.lineup_template_player_rd_1);
+                $('#line-1-3').val(data.lineup_template_player_lw_1);
+                $('#line-1-4').val(data.lineup_template_player_cf_1);
+                $('#line-1-5').val(data.lineup_template_player_rw_1);
+                $('#line-2-1').val(data.lineup_template_player_ld_2);
+                $('#line-2-2').val(data.lineup_template_player_rd_2);
+                $('#line-2-3').val(data.lineup_template_player_lw_2);
+                $('#line-2-4').val(data.lineup_template_player_cf_2);
+                $('#line-2-5').val(data.lineup_template_player_rw_2);
+                $('#line-3-1').val(data.lineup_template_player_ld_3);
+                $('#line-3-2').val(data.lineup_template_player_rd_3);
+                $('#line-3-3').val(data.lineup_template_player_lw_3);
+                $('#line-3-4').val(data.lineup_template_player_cf_3);
+                $('#line-3-5').val(data.lineup_template_player_rw_3);
+                $('#line-4-1').val(data.lineup_template_player_ld_4);
+                $('#line-4-2').val(data.lineup_template_player_rd_4);
+                $('#line-4-3').val(data.lineup_template_player_lw_4);
+                $('#line-4-4').val(data.lineup_template_player_cf_4);
+                $('#line-4-5').val(data.lineup_template_player_rw_4).trigger('change');
+                $('#captain').val(data.lineup_template_captain);
+                player_change();
+            }
+        });
+    });
 });
 
 function player_change() {

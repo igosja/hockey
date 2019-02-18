@@ -7,6 +7,7 @@ namespace common\models;
  * @package common\models
  *
  * @property int $lineup_template_id
+ * @property string $lineup_template_captain
  * @property string $lineup_template_name
  * @property int $lineup_template_national_id
  * @property int $lineup_template_player_cf_1
@@ -64,6 +65,7 @@ class LineupTemplate extends AbstractActiveRecord
             [
                 [
                     'lineup_template_id',
+                    'lineup_template_captain',
                     'lineup_template_national_id',
                     'lineup_template_player_cf_1',
                     'lineup_template_player_cf_2',

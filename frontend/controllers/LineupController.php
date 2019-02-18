@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Game;
+use common\models\LineupTemplate;
 use common\models\Mood;
 use common\models\Player;
 use common\models\Position;
@@ -345,6 +346,11 @@ class LineupController extends AbstractController
             }
         }
 
+        $lineupTemplateArray = LineupTemplate::find()
+            ->where(['lineup_template_team_id' => $this->myTeam->team_id])
+            ->orderBy(['lineup_template_name' => SORT_ASC])
+            ->all();
+
         $this->setSeoTitle('Отправка состава');
 
         return $this->render('view', [
@@ -375,6 +381,7 @@ class LineupController extends AbstractController
             'gameDataProvider' => $gameDataProvider,
             'gkArray' => $gkArray,
             'ldArray' => $ldArray,
+            'lineupTemplateArray' => $lineupTemplateArray,
             'lwArray' => $lwArray,
             'model' => $model,
             'moodArray' => $moodArray,
@@ -1741,6 +1748,48 @@ class LineupController extends AbstractController
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $result;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function actionTemplateSave()
+    {
+        $model = new GameSend();
+        $model->saveLineupTemplate();
+    }
+
+    /**
+     * @param $id
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionTemplateDelete($id)
+    {
+        $model = LineupTemplate::find()
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array|LineupTemplate|\yii\db\ActiveRecord|null
+     */
+    public function actionTemplateLoad($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = LineupTemplate::find()
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return (new LineupTemplate())->attributes;
+        }
+        return $model->attributes;
     }
 
     /**

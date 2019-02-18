@@ -16,6 +16,7 @@ class m190217_154226_lineup_template extends Migration
     {
         $this->createTable(self::TABLE, [
             'lineup_template_id' => $this->primaryKey(),
+            'lineup_template_captain' => $this->integer()->defaultValue(0),
             'lineup_template_name' => $this->string(),
             'lineup_template_national_id' => $this->integer()->defaultValue(0),
             'lineup_template_player_cf_1' => $this->integer()->defaultValue(0),
