@@ -98,7 +98,7 @@ class ChampionshipLot
                 ->orderBy(['schedule_id' => SORT_ASC])
                 ->limit(1)
                 ->one();
-            if (Stage::SEMI == $check) {
+            if (Stage::SEMI == $check->schedule_stage_id) {
                 $stageArray = Schedule::find()
                     ->where([
                         'schedule_season_id' => $seasonId,
@@ -162,7 +162,7 @@ class ChampionshipLot
                     ->orderBy(['schedule_id' => SORT_ASC])
                     ->limit(1)
                     ->one();
-                if (Stage::FINAL_GAME == $check) {
+                if (Stage::FINAL_GAME == $check->schedule_stage_id) {
                     $stageArray = Schedule::find()
                         ->where([
                             'schedule_season_id' => $seasonId,
