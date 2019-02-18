@@ -258,7 +258,7 @@ class ChampionshipController extends AbstractController
 
                                 $participantArray[$i]['game'][] = Html::a(
                                     $game->formatScore($formatScore),
-                                    ['game/view', $game->game_id]
+                                    ['game/view', 'id' => $game->game_id]
                                 );
                             }
                         }
@@ -270,7 +270,7 @@ class ChampionshipController extends AbstractController
                                 'game' => [
                                     Html::a(
                                         $game->formatScore(),
-                                        ['game/view', $game->game_id]
+                                        ['game/view', 'id' => $game->game_id]
                                     )
                                 ],
                             ];
