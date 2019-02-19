@@ -389,7 +389,7 @@ $user = Yii::$app->user->identity;
                             <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $lineupArray[$j]->lineup_power_real; ?>
                             </td>
-                            <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
+                            <td class="text-size-2 hidden-xs hidden-sm text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $lineupArray[$j]->special(); ?>
                             </td>
                             <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
