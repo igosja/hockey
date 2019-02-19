@@ -49,7 +49,7 @@ class m180623_092600_user extends Migration
             'user_money' => $this->decimal(11, 2)->defaultValue(0),
             'user_name' => $this->string(255),
             'user_news_id' => $this->integer(11)->defaultValue(0),
-            'user_password' => $this->string(),
+            'user_password' => $this->string(255),
             'user_rating' => $this->decimal(6, 2)->defaultValue(500),
             'user_referrer_done' => $this->integer(1)->defaultValue(0),
             'user_referrer_id' => $this->integer(11)->defaultValue(0),

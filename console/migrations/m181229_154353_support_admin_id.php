@@ -19,7 +19,7 @@ class m181229_154353_support_admin_id extends Migration
         $this->addColumn(self::TABLE, 'support_question', $this->integer(1)->defaultValue(1)->after('support_date'));
         $this->renameColumn(self::TABLE, 'support_user_id_from', 'support_user_id');
         $this->renameColumn(self::TABLE, 'support_user_id_to', 'support_admin_id');
-        $this->alterColumn(self::TABLE, 'support_admin_id', $this->integer()->defaultValue(0)->after('support_id'));
+        $this->alterColumn(self::TABLE, 'support_admin_id', $this->integer(11)->defaultValue(0)->after('support_id'));
         $this->createIndex('support_user_id', self::TABLE, 'support_user_id');
     }
 

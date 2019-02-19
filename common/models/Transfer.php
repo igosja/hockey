@@ -291,7 +291,7 @@ class Transfer extends AbstractActiveRecord
         foreach ($this->playerSpecial as $special) {
             $result[] = $special->special->special_name . $special->transfer_special_level;
         }
-        return implode('', $result);
+        return implode(' ', $result);
     }
 
     /**

@@ -14,7 +14,7 @@ class m190126_143506_user_ip extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn(self::TABLE, 'user_ip', $this->string()->after('user_holiday_day'));
+        $this->addColumn(self::TABLE, 'user_ip', $this->string(255)->after('user_holiday_day'));
     }
 
     /**

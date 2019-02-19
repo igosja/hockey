@@ -65,6 +65,7 @@ use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\Snapshot;
+use console\models\generator\PlayerSpecialToLineup;
 use console\models\generator\StadiumMaintenance;
 use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
@@ -116,6 +117,7 @@ class GeneratorController extends AbstractController
             new PlayerPowerNewToOld(),
             new CheckLineup(),
             new FillLineup(),
+            new PlayerSpecialToLineup(),
             new CheckCaptain(),
             new SetAuto(),
             new CheckTeamMoodLimit(),

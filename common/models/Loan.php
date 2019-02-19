@@ -123,7 +123,7 @@ class Loan extends AbstractActiveRecord
         foreach ($this->playerSpecial as $special) {
             $result[] = $special->special->special_name . $special->loan_special_level;
         }
-        return implode('', $result);
+        return implode(' ', $result);
     }
 
     /**
