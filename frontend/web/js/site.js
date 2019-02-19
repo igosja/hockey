@@ -117,6 +117,12 @@ jQuery(document).ready(function () {
         var forumMessageText = forumMessageField.htmlcode() + forumMessageField.getBBCodeByCommand("quote", {seltext: $(this).data('text')});
         forumMessageField.htmlcode('');
         forumMessageField.insertAtCursor(forumMessageText);
+    }).on('click', '.link-template-save', function () {
+        $('.div-template-load').hide(400);
+        $('.div-template-save').toggle(400);
+    }).on('click', '.link-template-load', function () {
+        $('.div-template-save').hide(400);
+        $('.div-template-load').toggle(400);
     });
 });
 

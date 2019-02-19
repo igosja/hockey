@@ -15,8 +15,8 @@ class m190119_095001_primary_key extends Migration
     public function safeUp()
     {
         $this->addColumn(self::TABLE, 'player_special_id', $this->primaryKey());
-        $this->alterColumn(self::TABLE, 'player_special_level', $this->integer()->after('player_special_id'));
-        $this->alterColumn(self::TABLE, 'player_special_player_id', $this->integer()->after('player_special_level'));
+        $this->alterColumn(self::TABLE, 'player_special_level', $this->integer(1)->after('player_special_id'));
+        $this->alterColumn(self::TABLE, 'player_special_player_id', $this->integer(11)->after('player_special_level'));
         $this->alterColumn(self::TABLE, 'player_special_special_id', $this->integer(2)->after('player_special_player_id'));
     }
 

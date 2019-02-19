@@ -16,8 +16,8 @@ class m190120_083513_review_game extends Migration
     {
         $this->createTable(self::TABLE, [
             'review_game_id' => $this->primaryKey(),
-            'review_game_game_id' => $this->integer()->defaultValue(0),
-            'review_game_review_id' => $this->integer()->defaultValue(0),
+            'review_game_game_id' => $this->integer(11)->defaultValue(0),
+            'review_game_review_id' => $this->integer(11)->defaultValue(0),
             'review_game_text' => $this->text(),
         ]);
 

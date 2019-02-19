@@ -18,7 +18,7 @@ class m190126_164412_deal_reason extends Migration
     {
         $this->createTable(self::TABLE, [
             'deal_reason_id' => $this->primaryKey(2),
-            'deal_reason_text' => $this->string()
+            'deal_reason_text' => $this->string(255)
         ]);
 
         $this->batchInsert(self::TABLE, ['deal_reason_text'], [
