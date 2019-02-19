@@ -28,6 +28,7 @@ use yii\db\ActiveQuery;
  * @property int $lineup_team_id
  *
  * @property Game $game
+ * @property LineupSpecial[] $playerSpecial
  * @property Player $player
  * @property Position $position
  */
@@ -99,11 +100,31 @@ class Lineup extends AbstractActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function special()
+    {
+        $result = [];
+        foreach ($this->playerSpecial as $special) {
+            $result[] = $special->special->special_name . $special->lineup_special_level;
+        }
+        return implode(' ', $result);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getGame()
     {
         return $this->hasOne(Game::class, ['game_id' => 'lineup_game_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPlayerSpecial()
+    {
+        return $this->hasMany(LineupSpecial::class, ['lineup_special_lineup_id' => 'lineup_id']);
     }
 
     /**

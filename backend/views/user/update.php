@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'user_login')->textarea(); ?>
+        <?= $form->field($model, 'user_login')->textInput(); ?>
         <div class="form-group">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-default']); ?>

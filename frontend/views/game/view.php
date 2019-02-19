@@ -337,18 +337,19 @@ $user = Yii::$app->user->identity;
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <th title="Позиция">П</th>
+                        <th class="col-6" title="Позиция">П</th>
                         <th>
                             <?= HockeyHelper::teamOrNationalLink($team, $national, false); ?>
                         </th>
-                        <th class="hidden-xs" title="Возраст">В</th>
-                        <th class="hidden-xs" title="Номинальная сила">НС</th>
-                        <th title="Реальная сила">РС</th>
-                        <th class="hidden-xs" title="Штрафные минуты">ШМ</th>
-                        <th class="hidden-xs" title="Броски">Б</th>
-                        <th title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
-                        <th title="Голевые передачи">П</th>
-                        <th title="Плюс/минус">+/-</th>
+                        <th class="col-6 hidden-xs" title="Возраст">В</th>
+                        <th class="col-6 hidden-xs" title="Номинальная сила">НС</th>
+                        <th class="col-6" title="Реальная сила">РС</th>
+                        <th class="hidden-xs hidden-sm" title="Спецвозможности">Сп</th>
+                        <th class="col-6 hidden-xs" title="Штрафные минуты">ШМ</th>
+                        <th class="col-6 hidden-xs" title="Броски">Б</th>
+                        <th class="col-6" title="Заброшенные шайбы (Пропушенные шайбы для вратарей)">Ш</th>
+                        <th class="col-6" title="Голевые передачи">П</th>
+                        <th class="col-6" title="Плюс/минус">+/-</th>
                     </tr>
                     <?php $power = 0; ?>
                     <?php for ($j = 0, $countLineup = count($lineupArray); $j < $countLineup; $j++) : ?>
@@ -388,6 +389,9 @@ $user = Yii::$app->user->identity;
                             <td class="text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
                                 <?= $lineupArray[$j]->lineup_power_real; ?>
                             </td>
+                            <td class="text-size-2 hidden-xs hidden-sm text-center <?php if (1 == $j): ?>border-bottom-blue<?php endif; ?>">
+                                <?= $lineupArray[$j]->special(); ?>
+                            </td>
                             <td class="hidden-xs text-center <?php if (1 == $j) : ?>border-bottom-blue<?php endif; ?>">
                                 <?= $lineupArray[$j]->lineup_penalty; ?>
                             </td>
@@ -410,7 +414,7 @@ $user = Yii::$app->user->identity;
                         </tr>
                         <?php if (in_array($j, [6, 11, 16, 21])) : ?>
                             <tr>
-                                <td class="text-center border-bottom-blue" colspan="10">
+                                <td class="text-center border-bottom-blue" colspan="11">
                                     <span class="text-size-2">Общая сила звена -</span> <?= $power; ?>
                                 </td>
                             </tr>
