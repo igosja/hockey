@@ -14,6 +14,7 @@ jQuery(document).ready(function () {
     var line_player;
     var line_player_id;
     var select_html;
+    var captainSelect = $('#captain');
 
     var current_gk_1 = gk_1_id;
     var other_gk_1 = [gk_2_id];
@@ -42,7 +43,7 @@ jQuery(document).ready(function () {
     $('#line-0-0').html(select_gk_html_1);
     $('#line-1-0').html(select_gk_html_2);
 
-    var captain_id = $('#captain').data('id');
+    var captain_id = captainSelect.data('id');
     var select_captain_html = '<option value="0"></option>';
 
     for (i = 1; i <= 5; i++) {
@@ -160,15 +161,18 @@ jQuery(document).ready(function () {
         $('#line-4-' + i).html(select_html_4);
     }
 
-    $('#captain').html(select_captain_html);
+    captainSelect.html(select_captain_html);
 
     player_change();
+    if ($('.div-template-load')) {
+        get_templates();
+    }
 
     $('.lineup-change').on('change', function () {
         var position = parseInt($(this).data('position'));
         var line = parseInt($(this).data('line'));
         var player_id = parseInt($(this).val());
-        var captain_id = parseInt($('#captain').val());
+        var captain_id = parseInt(captainSelect.val());
 
         var player_id_array =
             [
@@ -300,7 +304,7 @@ jQuery(document).ready(function () {
             }
         }
 
-        $('#captain').html(select_captain_html);
+        captainSelect.html(select_captain_html);
     });
 
     $('.player-change').on('change', function () {
@@ -312,17 +316,25 @@ jQuery(document).ready(function () {
             'data': $('#template-save, #lineup-send').serialize(),
             'method': 'post',
             'url': $('#template-save').attr('action'),
+            'complete': function () {
+                get_templates();
+                $('.div-template-save').hide(400);
+                $('.div-template-load').show(400);
+            }
         });
         return false;
     });
 
-    $('.template-delete').on('click', function () {
+    $(document).on('click', '.template-delete', function () {
         $.ajax({
             'url': $(this).data('url'),
+            'complete': function () {
+                get_templates();
+            }
         });
     });
 
-    $('.template-load').on('click', function () {
+    $(document).on('click', '.template-load', function () {
         $.ajax({
             'dataType': 'json',
             'url': $(this).data('url'),
@@ -398,6 +410,15 @@ function send_ajax() {
             $('.span-teamwork-2').html(data.teamwork_2);
             $('.span-teamwork-3').html(data.teamwork_3);
             $('.span-teamwork-4').html(data.teamwork_4);
+        }
+    });
+}
+
+function get_templates() {
+    $.ajax({
+        url: $('.div-template-load').data('url'),
+        success: function (data) {
+            $('.div-template-load').html(data);
         }
     });
 }

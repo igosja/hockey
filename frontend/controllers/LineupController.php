@@ -346,11 +346,6 @@ class LineupController extends AbstractController
             }
         }
 
-        $lineupTemplateArray = LineupTemplate::find()
-            ->where(['lineup_template_team_id' => $this->myTeam->team_id])
-            ->orderBy(['lineup_template_name' => SORT_ASC])
-            ->all();
-
         $this->setSeoTitle('Отправка состава');
 
         return $this->render('view', [
@@ -381,10 +376,10 @@ class LineupController extends AbstractController
             'gameDataProvider' => $gameDataProvider,
             'gkArray' => $gkArray,
             'ldArray' => $ldArray,
-            'lineupTemplateArray' => $lineupTemplateArray,
             'lwArray' => $lwArray,
             'model' => $model,
             'moodArray' => $moodArray,
+            'isVip' => $this->user->isVip(),
             'playerDataProvider' => $playerDataProvider,
             'rdArray' => $rdArray,
             'rudenessArray' => ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name'),
@@ -1751,10 +1746,30 @@ class LineupController extends AbstractController
     }
 
     /**
+     * @return string
+     */
+    public function actionTemplate()
+    {
+        if (!$this->user->isVip()) {
+            return '';
+        }
+        $lineupTemplateArray = LineupTemplate::find()
+            ->where(['lineup_template_team_id' => $this->myTeam->team_id])
+            ->orderBy(['lineup_template_name' => SORT_ASC])
+            ->all();
+        return $this->renderPartial('_template_table', [
+            'lineupTemplateArray' => $lineupTemplateArray,
+        ]);
+    }
+
+    /**
      * @throws \Exception
      */
     public function actionTemplateSave()
     {
+        if (!$this->user->isVip()) {
+            return;
+        }
         $model = new GameSend();
         $model->saveLineupTemplate();
     }
@@ -1766,6 +1781,9 @@ class LineupController extends AbstractController
      */
     public function actionTemplateDelete($id)
     {
+        if (!$this->user->isVip()) {
+            return;
+        }
         $model = LineupTemplate::find()
             ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
             ->limit(1)
