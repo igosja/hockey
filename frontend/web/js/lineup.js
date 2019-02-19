@@ -14,6 +14,7 @@ jQuery(document).ready(function () {
     var line_player;
     var line_player_id;
     var select_html;
+    var captainSelect = $('#captain');
 
     var current_gk_1 = gk_1_id;
     var other_gk_1 = [gk_2_id];
@@ -42,7 +43,7 @@ jQuery(document).ready(function () {
     $('#line-0-0').html(select_gk_html_1);
     $('#line-1-0').html(select_gk_html_2);
 
-    var captain_id = $('#captain').data('id');
+    var captain_id = captainSelect.data('id');
     var select_captain_html = '<option value="0"></option>';
 
     for (i = 1; i <= 5; i++) {
@@ -160,15 +161,18 @@ jQuery(document).ready(function () {
         $('#line-4-' + i).html(select_html_4);
     }
 
-    $('#captain').html(select_captain_html);
+    captainSelect.html(select_captain_html);
 
     player_change();
+    if ($('.div-template-load')) {
+        get_templates();
+    }
 
     $('.lineup-change').on('change', function () {
         var position = parseInt($(this).data('position'));
         var line = parseInt($(this).data('line'));
         var player_id = parseInt($(this).val());
-        var captain_id = parseInt($('#captain').val());
+        var captain_id = parseInt(captainSelect.val());
 
         var player_id_array =
             [
@@ -300,11 +304,79 @@ jQuery(document).ready(function () {
             }
         }
 
-        $('#captain').html(select_captain_html);
+        captainSelect.html(select_captain_html);
     });
 
     $('.player-change').on('change', function () {
         player_change();
+    });
+
+    $('#template-save-submit').on('click', function () {
+        $.ajax({
+            'data': $('#template-save, #lineup-send').serialize(),
+            'method': 'post',
+            'url': $('#template-save').attr('action'),
+            'complete': function () {
+                get_templates();
+                $('.div-template-save').hide(400);
+                $('.div-template-load').show(400);
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '.template-delete', function () {
+        $.ajax({
+            'url': $(this).data('url'),
+            'complete': function () {
+                get_templates();
+            }
+        });
+    });
+
+    $(document).on('click', '.template-load', function () {
+        $.ajax({
+            'dataType': 'json',
+            'url': $(this).data('url'),
+            'success': function (data) {
+                $('#gamesend-tactic_1').val(data.lineup_template_tactic_id_1);
+                $('#gamesend-tactic_2').val(data.lineup_template_tactic_id_2);
+                $('#gamesend-tactic_3').val(data.lineup_template_tactic_id_3);
+                $('#gamesend-tactic_4').val(data.lineup_template_tactic_id_4);
+                $('#gamesend-rudeness_1').val(data.lineup_template_rudeness_id_1);
+                $('#gamesend-rudeness_2').val(data.lineup_template_rudeness_id_2);
+                $('#gamesend-rudeness_3').val(data.lineup_template_rudeness_id_3);
+                $('#gamesend-rudeness_4').val(data.lineup_template_rudeness_id_4);
+                $('#gamesend-style_1').val(data.lineup_template_style_id_1);
+                $('#gamesend-style_2').val(data.lineup_template_style_id_2);
+                $('#gamesend-style_3').val(data.lineup_template_style_id_3);
+                $('#gamesend-style_4').val(data.lineup_template_style_id_4);
+                $('#line-0-0').val(data.lineup_template_player_gk_1);
+                $('#line-1-0').val(data.lineup_template_player_gk_2);
+                $('#line-1-1').val(data.lineup_template_player_ld_1);
+                $('#line-1-2').val(data.lineup_template_player_rd_1);
+                $('#line-1-3').val(data.lineup_template_player_lw_1);
+                $('#line-1-4').val(data.lineup_template_player_cf_1);
+                $('#line-1-5').val(data.lineup_template_player_rw_1);
+                $('#line-2-1').val(data.lineup_template_player_ld_2);
+                $('#line-2-2').val(data.lineup_template_player_rd_2);
+                $('#line-2-3').val(data.lineup_template_player_lw_2);
+                $('#line-2-4').val(data.lineup_template_player_cf_2);
+                $('#line-2-5').val(data.lineup_template_player_rw_2);
+                $('#line-3-1').val(data.lineup_template_player_ld_3);
+                $('#line-3-2').val(data.lineup_template_player_rd_3);
+                $('#line-3-3').val(data.lineup_template_player_lw_3);
+                $('#line-3-4').val(data.lineup_template_player_cf_3);
+                $('#line-3-5').val(data.lineup_template_player_rw_3);
+                $('#line-4-1').val(data.lineup_template_player_ld_4);
+                $('#line-4-2').val(data.lineup_template_player_rd_4);
+                $('#line-4-3').val(data.lineup_template_player_lw_4);
+                $('#line-4-4').val(data.lineup_template_player_cf_4);
+                $('#line-4-5').val(data.lineup_template_player_rw_4).trigger('change');
+                $('#captain').val(data.lineup_template_captain);
+                player_change();
+            }
+        });
     });
 });
 
@@ -338,6 +410,15 @@ function send_ajax() {
             $('.span-teamwork-2').html(data.teamwork_2);
             $('.span-teamwork-3').html(data.teamwork_3);
             $('.span-teamwork-4').html(data.teamwork_4);
+        }
+    });
+}
+
+function get_templates() {
+    $.ajax({
+        url: $('.div-template-load').data('url'),
+        success: function (data) {
+            $('.div-template-load').html(data);
         }
     });
 }

@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Game;
+use common\models\LineupTemplate;
 use common\models\Mood;
 use common\models\Player;
 use common\models\Position;
@@ -378,6 +379,7 @@ class LineupController extends AbstractController
             'lwArray' => $lwArray,
             'model' => $model,
             'moodArray' => $moodArray,
+            'isVip' => $this->user->isVip(),
             'playerDataProvider' => $playerDataProvider,
             'rdArray' => $rdArray,
             'rudenessArray' => ArrayHelper::map(Rudeness::find()->all(), 'rudeness_id', 'rudeness_name'),
@@ -1741,6 +1743,71 @@ class LineupController extends AbstractController
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function actionTemplate()
+    {
+        if (!$this->user->isVip()) {
+            return '';
+        }
+        $lineupTemplateArray = LineupTemplate::find()
+            ->where(['lineup_template_team_id' => $this->myTeam->team_id])
+            ->orderBy(['lineup_template_name' => SORT_ASC])
+            ->all();
+        return $this->renderPartial('_template_table', [
+            'lineupTemplateArray' => $lineupTemplateArray,
+        ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function actionTemplateSave()
+    {
+        if (!$this->user->isVip()) {
+            return;
+        }
+        $model = new GameSend();
+        $model->saveLineupTemplate();
+    }
+
+    /**
+     * @param $id
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionTemplateDelete($id)
+    {
+        if (!$this->user->isVip()) {
+            return;
+        }
+        $model = LineupTemplate::find()
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
+        if ($model) {
+            $model->delete();
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array|LineupTemplate|\yii\db\ActiveRecord|null
+     */
+    public function actionTemplateLoad($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = LineupTemplate::find()
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return (new LineupTemplate())->attributes;
+        }
+        return $model->attributes;
     }
 
     /**
