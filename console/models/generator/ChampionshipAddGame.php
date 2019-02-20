@@ -92,16 +92,16 @@ class ChampionshipAddGame
                             $looseTeamId = $game->game_home_team_id;
                         }
 
-                        $model = ParticipantLeague::find()
+                        $model = ParticipantChampionship::find()
                             ->where([
-                                'participant_league_team_id' => $looseTeamId,
-                                'participant_league_season_id' => $seasonId,
-                                'participant_league_stage_id' => 0,
+                                'participant_championship_team_id' => $looseTeamId,
+                                'participant_championship_season_id' => $seasonId,
+                                'participant_championship_stage_id' => 0,
                             ])
                             ->limit(1)
                             ->one();
                         if ($model) {
-                            $model->participant_league_stage_id = $schedule->schedule_stage_id;
+                            $model->participant_championship_stage_id = $schedule->schedule_stage_id;
                             $model->save();
                         }
                     } else {
@@ -195,20 +195,19 @@ class ChampionshipAddGame
                             $looseTeamId = $game->game_home_team_id;
                         }
 
-                        $model = ParticipantLeague::find()
+                        $model = ParticipantChampionship::find()
                             ->where([
-                                'participant_league_team_id' => $looseTeamId,
-                                'participant_league_season_id' => $seasonId,
-                                'participant_league_stage_id' => 0,
+                                'participant_championship_team_id' => $looseTeamId,
+                                'participant_championship_season_id' => $seasonId,
+                                'participant_championship_stage_id' => 0,
                             ])
                             ->limit(1)
                             ->one();
                         if ($model) {
-                            $model->participant_league_stage_id = $schedule->schedule_stage_id;
+                            $model->participant_championship_stage_id = $schedule->schedule_stage_id;
                             $model->save();
                         }
-                    } elseif ((3 == count($prevArray) && in_array(1,
-                                [$homeWin, $guestWin])) || 4 == count($prevArray)) {
+                    } elseif ((3 == count($prevArray) && in_array(1, [$homeWin, $guestWin])) || 4 == count($prevArray)) {
                         if (3 == count($prevArray) && in_array(1, [$homeWin, $guestWin])) {
                             $offset = 3;
                         } else {
@@ -239,11 +238,11 @@ class ChampionshipAddGame
                             ->limit(2)
                             ->all();
 
-                        if (in_array(count($prevArray), array(2, 3)) && in_array(1, array($homeWin, $guestWin))) {
+                        if (in_array(count($prevArray), [2, 3]) && in_array(1, [$homeWin, $guestWin])) {
                             $team1 = $teamArray[1]->participant_championship_team_id;
                             $stadiumId = $teamArray[1]->championship->team->team_stadium_id;
                             $team2 = $teamArray[0]->participant_championship_team_id;
-                        } elseif (4 == count($prevArray)) {
+                        } else {
                             $team1 = $teamArray[0]->participant_championship_team_id;
                             $stadiumId = $teamArray[0]->championship->team->team_stadium_id;
                             $team2 = $teamArray[1]->participant_championship_team_id;
