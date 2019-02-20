@@ -2,10 +2,8 @@
 
 namespace frontend\models;
 
-use common\models\Country;
-use common\models\Finance;
-use common\models\FinanceText;
-use common\models\Team;
+use common\models\Money;
+use common\models\MoneyText;
 use common\models\User;
 use Exception;
 use Yii;
@@ -15,20 +13,15 @@ use yii\base\Model;
  * Class UserTransferMoney
  * @package frontend\models
  *
- * @property int $available
- * @property string $comment
- * @property int $countryId
  * @property int $sum
- * @property int $teamId
  * @property User $user
+ * @property int $userId
  */
 class UserTransferMoney extends Model
 {
-    public $comment;
-    public $countryId;
     public $sum;
-    public $teamId;
     public $user;
+    public $userId;
 
     /**
      * @param array $config
@@ -44,27 +37,11 @@ class UserTransferMoney extends Model
     public function rules()
     {
         return [
-            [['countryId', 'teamId'], 'integer', 'min' => 1],
-            [['countryId', 'teamId'], 'checkTeamOrCountry', 'skipOnEmpty' => false],
-            [['sum'], 'integer', 'min' => 1, 'max' => $this->user->user_finance],
-            [['sum'], 'required'],
-            [['comment'], 'safe'],
-            [['countryId'], 'exist', 'targetClass' => Country::class, 'targetAttribute' => ['countryId' => 'country_id']],
-            [['teamId'], 'exist', 'targetClass' => Team::class, 'targetAttribute' => ['teamId' => 'team_id']],
+            [['userId'], 'integer', 'min' => 1],
+            [['sum'], 'number', 'min' => 0.01, 'max' => $this->user->user_money],
+            [['sum', 'userId'], 'required'],
+            [['userId'], 'exist', 'targetClass' => User::class, 'targetAttribute' => ['userId' => 'user_id']],
         ];
-    }
-
-    /**
-     * @return void
-     */
-    public function checkTeamOrCountry()
-    {
-        if (!$this->teamId && !$this->countryId) {
-            $this->addError(
-                'teamId',
-                Yii::t('yii', '{attribute} cannot be blank.', ['attribute' => $this->getAttributeLabel('teamId')])
-            );
-        }
     }
 
     /**
@@ -73,10 +50,8 @@ class UserTransferMoney extends Model
     public function attributeLabels()
     {
         return [
-            'comment' => 'Комментарий',
-            'countryId' => 'Федерация',
             'sum' => 'Сумма',
-            'teamId' => 'Команда',
+            'userId' => 'Менеджер',
         ];
     }
 
@@ -94,12 +69,7 @@ class UserTransferMoney extends Model
             return false;
         }
 
-        if ($this->teamId) {
-            $this->incomeTeam();
-        } else {
-            $this->incomeCountry();
-        }
-
+        $this->incomeUser();
         $this->outcomeUser();
         return true;
     }
@@ -108,56 +78,26 @@ class UserTransferMoney extends Model
      * @return bool
      * @throws Exception
      */
-    private function incomeTeam()
+    private function incomeUser()
     {
-        $team = Team::find()
-            ->where(['team_id' => $this->teamId])
+        $user = User::find()
+            ->where(['user_id' => $this->userId])
             ->limit(1)
             ->one();
-        if (!$team) {
+        if (!$user) {
             return false;
         }
 
-        Finance::log([
-            'finance_comment' => ($this->comment ? $this->comment . ' ' : '') . $this->user->user_login,
-            'finance_finance_text_id' => FinanceText::USER_TRANSFER,
-            'finance_team_id' => $team->team_id,
-            'finance_value' => $this->sum,
-            'finance_value_after' => $team->team_finance + $this->sum,
-            'finance_value_before' => $team->team_finance,
+        Money::log([
+            'money_money_text_id' => MoneyText::INCOME_FRIEND,
+            'money_user_id' => $user->user_id,
+            'money_value' => $this->sum,
+            'money_value_after' => $user->user_money + $this->sum,
+            'money_value_before' => $user->user_money,
         ]);
 
-        $team->team_finance = $team->team_finance + $this->sum;
-        $team->save(true, ['team_finance']);
-
-        return true;
-    }
-
-    /**
-     * @return bool
-     * @throws Exception
-     */
-    private function incomeCountry()
-    {
-        $country = Country::find()
-            ->where(['country_id' => $this->countryId])
-            ->limit(1)
-            ->one();
-        if (!$country) {
-            return false;
-        }
-
-        Finance::log([
-            'finance_comment' => ($this->comment ? $this->comment . ', ' : '') . $this->user->user_login,
-            'finance_country_id' => $country->country_id,
-            'finance_finance_text_id' => FinanceText::USER_TRANSFER,
-            'finance_value' => $this->sum,
-            'finance_value_after' => $country->country_finance + $this->sum,
-            'finance_value_before' => $country->country_finance,
-        ]);
-
-        $country->country_finance = $country->country_finance + $this->sum;
-        $country->save(true, ['country_finance']);
+        $user->user_money = $user->user_money + $this->sum;
+        $user->save(true, ['user_money']);
 
         return true;
     }
@@ -167,15 +107,15 @@ class UserTransferMoney extends Model
      */
     private function outcomeUser()
     {
-        Finance::log([
-            'finance_finance_text_id' => FinanceText::USER_TRANSFER,
-            'finance_user_id' => $this->user->user_id,
-            'finance_value' => $this->sum,
-            'finance_value_after' => $this->user->user_finance - $this->sum,
-            'finance_value_before' => $this->user->user_finance,
+        Money::log([
+            'money_money_text_id' => MoneyText::OUTCOME_FRIEND,
+            'money_user_id' => $this->user->user_id,
+            'money_value' => -$this->sum,
+            'money_value_after' => $this->user->user_money - $this->sum,
+            'money_value_before' => $this->user->user_money,
         ]);
 
-        $this->user->user_finance = $this->user->user_finance - $this->sum;
-        $this->user->save(true, ['user_finance']);
+        $this->user->user_money = $this->user->user_money - $this->sum;
+        $this->user->save(true, ['user_money']);
     }
 }

@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var array $countryArray
- * @var \frontend\models\UserTransferMoney $model
+ * @var \frontend\models\UserTransferFinance $model
  * @var array $teamArray
  */
 
@@ -28,12 +28,7 @@ print $this->render('_top');
     </div>
 </div>
 <div class="row margin-top">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        Вы собираетесь провести процедуру перерегистрации команды
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-center">
             Деньги на личном счете менеджера появляются как премиальные за написание обзоров,
             участие в пресс-конференциях, тренерскую работу в сборных либо за воспитание подопечных.

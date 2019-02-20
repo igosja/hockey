@@ -15,7 +15,7 @@ use yii\helpers\Html;
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong">
-        <p class="text-center">Ваш счёт - <?= $user->user_money; ?></p>
+        <p class="text-center">Ваш счёт - <?= Yii::$app->formatter->asDecimal($user->user_money, 2); ?></p>
     </div>
 </div>
 <div class="row margin-top-small text-center">

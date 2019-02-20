@@ -18,6 +18,7 @@ use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
 use frontend\models\ChangePassword;
+use frontend\models\UserTransferFinance;
 use frontend\models\UserTransferMoney;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -42,7 +43,7 @@ class UserController extends AbstractController
                 'class' => AccessControl::class,
                 'only' => [
                     'drop-team',
-                    'transfer-money',
+                    'money-transfer',
                     'questionnaire',
                     'holiday',
                     'password',
@@ -54,7 +55,7 @@ class UserController extends AbstractController
                         'allow' => true,
                         'actions' => [
                             'drop-team',
-                            'transfer-money',
+                            'money-transfer',
                             'questionnaire',
                             'holiday',
                             'password',
@@ -350,7 +351,7 @@ class UserController extends AbstractController
      */
     public function actionMoneyTransfer()
     {
-        $model = new UserTransferMoney(['user' => Yii::$app->user->identity]);
+        $model = new UserTransferFinance(['user' => Yii::$app->user->identity]);
         if ($model->execute()) {
             $this->setSuccessFlash('Деньги успешно переведены');
             return $this->refresh();
@@ -374,7 +375,7 @@ class UserController extends AbstractController
 
         $this->setSeoTitle('Перевод денег с личного счета');
 
-        return $this->render('transfer-money', [
+        return $this->render('money-transfer', [
             'countryArray' => ArrayHelper::map($countryArray, 'country_id', 'country_name'),
             'model' => $model,
             'teamArray' => $teamItems,

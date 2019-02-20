@@ -225,10 +225,14 @@ class Payment extends AbstractActiveRecord
             ->where(['payment_user_id' => $userId, 'payment_status' => Payment::PAID])
             ->sum('payment_sum');
 
+        $result = 0;
         $bonusArray = $this->getBonusArray();
         foreach ($bonusArray as $sum => $bonus) {
-            if ($paymentSum < $sum) {
-                return $bonus;
+            if ($paymentSum > $sum) {
+                $result = $bonus;
+            }
+            if ($paymentSum <= $sum) {
+                return $result;
             }
         }
 

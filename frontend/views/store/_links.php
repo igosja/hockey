@@ -15,6 +15,10 @@ try {
                 'url' => ['store/payment'],
             ],
             [
+                'text' => 'Подарок другу',
+                'url' => ['store/send'],
+            ],
+            [
                 'text' => 'История платежей',
                 'url' => ['store/history'],
             ],
