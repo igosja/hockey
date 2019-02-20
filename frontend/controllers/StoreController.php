@@ -11,9 +11,11 @@ use common\models\MoneyText;
 use common\models\Payment;
 use common\models\User;
 use Exception;
+use frontend\models\UserTransferMoney;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Response;
 
@@ -80,10 +82,7 @@ class StoreController extends AbstractController
             return $this->redirect($model->paymentUrl());
         }
 
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $bonusArray = $this->getBonusArray();
         $bonus = $this->paymentBonus($user->user_id);
@@ -110,14 +109,39 @@ class StoreController extends AbstractController
     }
 
     /**
+     * @return string|Response
+     * @throws \Exception
+     */
+    public function actionSend()
+    {
+        $user = $this->user;
+        $model = new UserTransferMoney(['user' => $user]);
+        if ($model->execute()) {
+            $this->setSuccessFlash('Деньги успешно переведены');
+            return $this->refresh();
+        }
+
+        $userArray = User::find()
+            ->where(['!=', 'user_id', 0])
+            ->andWhere(['>', 'user_date_login', time()-604800])
+            ->orderBy(['user_login' => SORT_ASC])
+            ->all();
+
+        $this->setSeoTitle('Подарок другу');
+
+        return $this->render('send', [
+            'model' => $model,
+            'user' => $user,
+            'userArray' => ArrayHelper::map($userArray, 'user_id', 'user_login'),
+        ]);
+    }
+
+    /**
      * @return string
      */
     public function actionHistory()
     {
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
         $query = Money::find()
             ->where(['money_user_id' => $user->user_id])
             ->orderBy(['money_id' => SORT_ASC]);
@@ -140,11 +164,7 @@ class StoreController extends AbstractController
      */
     public function actionVip($day)
     {
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
-
+        $user = $this->user;
         if (!in_array($day, [15, 30, 60, 180, 365])) {
             $day = 15;
         }
@@ -213,10 +233,7 @@ class StoreController extends AbstractController
      */
     public function actionPower()
     {
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $price = 1;
 
@@ -269,10 +286,7 @@ class StoreController extends AbstractController
      */
     public function actionPosition()
     {
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $price = 3;
 
@@ -325,10 +339,7 @@ class StoreController extends AbstractController
      */
     public function actionSpecial()
     {
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $price = 3;
 
@@ -385,10 +396,7 @@ class StoreController extends AbstractController
             return $this->redirect(['team/ask']);
         }
 
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $price = 5;
 
