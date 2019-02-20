@@ -63,7 +63,7 @@ class Stadium extends AbstractActiveRecord
 
     public function countMaintenance()
     {
-        $this->stadium_maintenance = round(pow($this->stadium_capacity, 1.3));
+        $this->stadium_maintenance = round(pow($this->stadium_capacity / 35, 2));
     }
 
     /**
