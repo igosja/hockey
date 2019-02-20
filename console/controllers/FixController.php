@@ -8,7 +8,9 @@ use common\models\Finance;
 use common\models\FinanceText;
 use common\models\Game;
 use common\models\Lineup;
+use common\models\ParticipantChampionship;
 use common\models\Position;
+use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\StatisticPlayer;
@@ -406,5 +408,84 @@ class FixController extends AbstractController
             ],
             ['statistic_player_season_id' => Season::getCurrentSeason(), 'statistic_player_is_gk' => 0]
         );
+    }
+
+    public function actionChamp()
+    {
+        $seasonId = 1;
+        $stageId = 53;
+
+        $gameArray = Game::find()
+            ->where(['game_schedule_id' => [82, 84]])
+            ->orderBy(['game_id' => SORT_ASC])
+            ->each();
+        foreach ($gameArray as $game) {
+            /**
+             * @var Game $game
+             */
+            $prevArray = Game::find()
+                ->joinWith(['schedule'])
+                ->where([
+                    'or',
+                    [
+                        'game_home_team_id' => $game->game_home_team_id,
+                        'game_guest_team_id' => $game->game_guest_team_id
+                    ],
+                    [
+                        'game_home_team_id' => $game->game_guest_team_id,
+                        'game_guest_team_id' => $game->game_home_team_id
+                    ],
+                ])
+                ->andWhere(['!=', 'game_played', 0])
+                ->andWhere(['<', 'game_schedule_id', $game->game_schedule_id])
+                ->andWhere([
+                    'schedule.schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                    'schedule.schedule_stage_id' => $stageId,
+                    'schedule.schedule_season_id' => $seasonId,
+                ])
+                ->orderBy(['game_id' => SORT_ASC])
+                ->all();
+            if (count($prevArray) > 1) {
+                $homeWin = 0;
+                $guestWin = 0;
+
+                foreach ($prevArray as $prev) {
+                    if ($prev->game_home_score + $prev->game_home_score_shootout > $prev->game_guest_score + $prev->game_guest_score_shootout) {
+                        if ($game->game_home_team_id == $prev->game_home_team_id) {
+                            $homeWin++;
+                        } else {
+                            $guestWin++;
+                        }
+                    } else {
+                        if ($game->game_home_team_id == $prev->game_home_team_id) {
+                            $guestWin++;
+                        } else {
+                            $homeWin++;
+                        }
+                    }
+                }
+
+                if (in_array(2, [$homeWin, $guestWin])) {
+                    if (2 == $homeWin) {
+                        $looseTeamId = $game->game_guest_team_id;
+                    } else {
+                        $looseTeamId = $game->game_home_team_id;
+                    }
+
+                    $model = ParticipantChampionship::find()
+                        ->where([
+                            'participant_championship_team_id' => $looseTeamId,
+                            'participant_championship_season_id' => $seasonId,
+                            'participant_championship_stage_id' => 0,
+                        ])
+                        ->limit(1)
+                        ->one();
+                    if ($model) {
+                        $model->participant_championship_stage_id = $stageId;
+                        $model->save();
+                    }
+                }
+            }
+        }
     }
 }
