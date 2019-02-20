@@ -143,7 +143,7 @@ $user = Yii::$app->user->identity;
                 'format' => 'raw',
                 'header' => 'Команда',
                 'value' => function (Championship $model) {
-                    return $model->team->teamLink('string', true);
+                    return $model->team->iconFreeTeam() . $model->team->teamLink('string', true);
                 }
             ],
             [
