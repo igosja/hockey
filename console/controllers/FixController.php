@@ -425,6 +425,11 @@ class FixController extends AbstractController
                         ->where(['schedule_stage_id' => Stage::SEMI])
                 ])
         ]);
+        Game::deleteAll([
+            'game_schedule_id' => Schedule::find()
+                ->select(['schedule_id'])
+                ->where(['schedule_stage_id' => Stage::SEMI])
+        ]);
         (new ChampionshipLot())->execute();
     }
 }
