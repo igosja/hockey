@@ -2,12 +2,8 @@
 
 namespace frontend\models;
 
-use common\models\Country;
-use common\models\Finance;
-use common\models\FinanceText;
 use common\models\Money;
 use common\models\MoneyText;
-use common\models\Team;
 use common\models\User;
 use Exception;
 use Yii;
@@ -43,7 +39,7 @@ class UserTransferMoney extends Model
         return [
             [['userId'], 'integer', 'min' => 1],
             [['sum'], 'number', 'min' => 0.01, 'max' => $this->user->user_money],
-            [['sum'], 'required'],
+            [['sum', 'userId'], 'required'],
             [['userId'], 'exist', 'targetClass' => User::class, 'targetAttribute' => ['userId' => 'user_id']],
         ];
     }
@@ -114,9 +110,9 @@ class UserTransferMoney extends Model
         Money::log([
             'money_money_text_id' => MoneyText::OUTCOME_FRIEND,
             'money_user_id' => $this->user->user_id,
-            'money_value' => $this->sum,
+            'money_value' => -$this->sum,
             'money_value_after' => $this->user->user_money - $this->sum,
-            'money_value_before' => -$this->user->user_money,
+            'money_value_before' => $this->user->user_money,
         ]);
 
         $this->user->user_money = $this->user->user_money - $this->sum;

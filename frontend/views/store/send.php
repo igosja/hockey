@@ -1,6 +1,5 @@
 <?php
 
-use common\components\FormatHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -65,12 +64,12 @@ use yii\widgets\ActiveForm;
                 Доступно
             </div>
             <div class="col-lg-3 col-md-5 col-sm-5 col-xs-12">
-                <span class="strong"><?= Yii::$app->formatter->asDecimal($user->user_money); ?></span>
+                <span class="strong"><?= Yii::$app->formatter->asDecimal($user->user_money, 2); ?></span>
             </div>
         </div>
         <?= $form
             ->field($model, 'sum')
-            ->textInput(['class' => 'form-control', 'type' => 'number'])
+            ->textInput(['class' => 'form-control', 'type' => 'number', 'step' => 0.01])
             ->label('Сумма'); ?>
         <p class="text-center">
             <?= Html::submitButton('Перевести', ['class' => 'btn margin']); ?>
