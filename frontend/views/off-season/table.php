@@ -74,7 +74,7 @@ $user = Yii::$app->user->identity;
                 'format' => 'raw',
                 'label' => 'Команда',
                 'value' => function (OffSeason $model) {
-                    return $model->team->teamLink('img');
+                    return $model->team->iconFreeTeam() . $model->team->teamLink('img');
                 }
             ],
             [

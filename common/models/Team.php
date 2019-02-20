@@ -700,6 +700,18 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
+    public function iconFreeTeam()
+    {
+        $result = '';
+        if (!$this->team_user_id) {
+            $result = '<i class="fa fa-flag-o" title="Свободная команда"></i> ';
+        }
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
     public function offSeason()
     {
         $result = Html::a(

@@ -362,7 +362,7 @@ class Player extends AbstractActiveRecord
 
         $result = '';
         if ($countTraining) {
-            $result = ' <i class="fa fa-caret-square-o-up " title="На тренировке"></i>';
+            $result = ' <i class="fa fa-caret-square-o-up" title="На тренировке"></i>';
         }
         return $result;
     }
