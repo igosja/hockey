@@ -32,7 +32,7 @@ class InsertNews
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
-        $today = $this->text($todayArray);
+        $today = $this->text($todayArray, true);
 
         $tomorrowArray = Schedule::find()
             ->with(['stage'])
@@ -63,7 +63,7 @@ class InsertNews
         $text = '';
 
         if ($today) {
-            $text = $text . '<p class="strong">СЕГОДНЯ</p>' . "\r\n" . '<p>Сегодня состоялись ' . $today . '.</p>' . "\r\n";
+            $text = $text . '<p class="strong">СЕГОДНЯ</p>' . "\r\n" . '<p>Сегодня ' . $today . '.</p>' . "\r\n";
 
             $sql = "SELECT `game_id`,
                            `game_guest_score`,
@@ -205,44 +205,172 @@ class InsertNews
     }
 
     /**
-     * @param Schedule[] $scheduleArray
+     * @param array $scheduleArray
+     * @param bool $today
      * @return string
      */
-    private function text(array $scheduleArray)
+    private function text(array $scheduleArray, $today = false)
     {
         $result = [];
+        if ($today) {
+            $before = 'состоялись';
+        } else {
+            $before = 'будут сыграны';
+        }
 
         foreach ($scheduleArray as $schedule) {
+            $stageName = $this->stageName($schedule->schedule_stage_id);
             if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
-                $result[] = $schedule->stage->stage_name . 'а Чемпионата мира среди сборных';
+                $result[] = $stageName . ' Чемпионата мира среди сборных';
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1 && $schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_6) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
+                    $result[] = 'матчи ' . $stageName . ' Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::QUARTER) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' Лиги чемпионов';
+                    $result[] = 'матчи ' . $stageName . ' Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::FINAL_GAME) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала Лиги чемпионов';
+                    $result[] = $stageName . ' Лиги чемпионов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а Лиги чемпионов';
+                    if ($today) {
+                        $before = 'состоялся';
+                    } else {
+                        $before = 'будет сыгран';
+                    }
+                    $result[] = $stageName . ' Лиги чемпионов';
                 }
             } elseif (TournamentType::CHAMPIONSHIP == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
+                    $result[] = 'матчи ' . $stageName . ' национальных чемпионатов';
                 } elseif ($schedule->schedule_stage_id <= Stage::FINAL_GAME) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . ' финала национальных чемпионатов';
+                    $result[] = $stageName . ' национальных чемпионатов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
-                    $result[] = 'матчи ' . $schedule->stage->stage_name . 'а национальных чемпионатов';
+                    $result[] = $stageName . 'ы национальных чемпионатов';
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $schedule->stage->stage_name . 'а конференции любительских клубов';
+                $result[] = 'матчи ' . $stageName . ' конференции любительских клубов';
             } elseif (TournamentType::OFF_SEASON == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $schedule->stage->stage_name . 'а кубка межсезонья';
+                $result[] = 'матчи ' . $stageName . ' кубка межсезонья';
             } elseif (TournamentType::FRIENDLY == $schedule->schedule_tournament_type_id) {
                 $result[] = 'товарищеские матчи';
             }
         }
 
-        $result = implode(' и ', $result);
+        $result = $before . ' ' . implode(' и ', $result);
+
+        return $result;
+    }
+
+    private function stageName($stageId)
+    {
+        $result = '';
+        if (Stage::TOUR_1 == $stageId) {
+            $result = '1-го тура';
+        } elseif (Stage::TOUR_2 == $stageId) {
+            $result = '2-го тура';
+        } elseif (Stage::TOUR_3 == $stageId) {
+            $result = '3-го тура';
+        } elseif (Stage::TOUR_4 == $stageId) {
+            $result = '4-го тура';
+        } elseif (Stage::TOUR_5 == $stageId) {
+            $result = '5-го тура';
+        } elseif (Stage::TOUR_6 == $stageId) {
+            $result = '6-го тура';
+        } elseif (Stage::TOUR_7 == $stageId) {
+            $result = '7-го тура';
+        } elseif (Stage::TOUR_8 === $stageId) {
+            $result = '8-го тура';
+        } elseif (Stage::TOUR_9 == $stageId) {
+            $result = '9-го тура';
+        } elseif (Stage::TOUR_10 == $stageId) {
+            $result = '10-го тура';
+        } elseif (Stage::TOUR_11 == $stageId) {
+            $result = '11-го тура';
+        } elseif (Stage::TOUR_12 == $stageId) {
+            $result = '12-го тура';
+        } elseif (Stage::TOUR_13 == $stageId) {
+            $result = '13-го тура';
+        } elseif (Stage::TOUR_14 == $stageId) {
+            $result = '14-го тура';
+        } elseif (Stage::TOUR_15 == $stageId) {
+            $result = '15-го тура';
+        } elseif (Stage::TOUR_16 == $stageId) {
+            $result = '16-го тура';
+        } elseif (Stage::TOUR_17 == $stageId) {
+            $result = '17-го тура';
+        } elseif (Stage::TOUR_18 == $stageId) {
+            $result = '18-го тура';
+        } elseif (Stage::TOUR_19 == $stageId) {
+            $result = '19-го тура';
+        } elseif (Stage::TOUR_20 == $stageId) {
+            $result = '20-го тура';
+        } elseif (Stage::TOUR_21 == $stageId) {
+            $result = '21-го тура';
+        } elseif (Stage::TOUR_22 == $stageId) {
+            $result = '22-го тура';
+        } elseif (Stage::TOUR_23 == $stageId) {
+            $result = '23-го тура';
+        } elseif (Stage::TOUR_24 == $stageId) {
+            $result = '24-го тура';
+        } elseif (Stage::TOUR_25 == $stageId) {
+            $result = '25-го тура';
+        } elseif (Stage::TOUR_26 == $stageId) {
+            $result = '26-го тура';
+        } elseif (Stage::TOUR_27 == $stageId) {
+            $result = '27-го тура';
+        } elseif (Stage::TOUR_28 == $stageId) {
+            $result = '28-го тура';
+        } elseif (Stage::TOUR_29 == $stageId) {
+            $result = '29-го тура';
+        } elseif (Stage::TOUR_30 == $stageId) {
+            $result = '30-го тура';
+        } elseif (Stage::TOUR_31 == $stageId) {
+            $result = '31-го тура';
+        } elseif (Stage::TOUR_32 == $stageId) {
+            $result = '32-го тура';
+        } elseif (Stage::TOUR_33 == $stageId) {
+            $result = '33-го тура';
+        } elseif (Stage::TOUR_34 == $stageId) {
+            $result = '34-го тура';
+        } elseif (Stage::TOUR_35 == $stageId) {
+            $result = '35-го тура';
+        } elseif (Stage::TOUR_36 == $stageId) {
+            $result = '36-го тура';
+        } elseif (Stage::TOUR_37 == $stageId) {
+            $result = '37-го тура';
+        } elseif (Stage::TOUR_38 == $stageId) {
+            $result = '38-го тура';
+        } elseif (Stage::TOUR_39 == $stageId) {
+            $result = '39-го тура';
+        } elseif (Stage::TOUR_40 == $stageId) {
+            $result = '40-го тура';
+        } elseif (Stage::TOUR_41 == $stageId) {
+            $result = '41-го тура';
+        } elseif (Stage::QUALIFY_1 == $stageId) {
+            $result = '1-го ОР';
+        } elseif (Stage::QUALIFY_2 == $stageId) {
+            $result = '2-го ОР';
+        } elseif (Stage::QUALIFY_3 == $stageId) {
+            $result = '3-го ОР';
+        } elseif (Stage::TOUR_LEAGUE_1 == $stageId) {
+            $result = '1-го тура';
+        } elseif (Stage::TOUR_LEAGUE_2 == $stageId) {
+            $result = '2-го тура';
+        } elseif (Stage::TOUR_LEAGUE_3 == $stageId) {
+            $result = '3-го тура';
+        } elseif (Stage::TOUR_LEAGUE_4 == $stageId) {
+            $result = '4-го тура';
+        } elseif (Stage::TOUR_LEAGUE_5 == $stageId) {
+            $result = '5-го тура';
+        } elseif (Stage::TOUR_LEAGUE_6 == $stageId) {
+            $result = '6-го тура';
+        } elseif (Stage::ROUND_OF_16 == $stageId) {
+            $result = '1/8 финала';
+        } elseif (Stage::QUARTER == $stageId) {
+            $result = 'четрвертьфиналы';
+        } elseif (Stage::SEMI == $stageId) {
+            $result = 'полуфиналы';
+        } elseif (Stage::FINAL_GAME == $stageId) {
+            $result = 'финал';
+        }
 
         return $result;
     }
