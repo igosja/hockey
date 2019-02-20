@@ -23,7 +23,7 @@ print $this->render('_country');
                 'format' => 'raw',
                 'label' => 'Команда',
                 'value' => function (Team $model) {
-                    return $model->teamLink('string', true);
+                    return $model->iconFreeTeam() . $model->teamLink('string', true);
                 }
             ],
             [
