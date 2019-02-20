@@ -8,15 +8,12 @@ use common\models\Finance;
 use common\models\FinanceText;
 use common\models\Game;
 use common\models\Lineup;
-use common\models\ParticipantChampionship;
 use common\models\Position;
-use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\StatisticPlayer;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\ChampionshipLot;
 use Exception;
 use yii\db\Expression;
 
@@ -409,27 +406,5 @@ class FixController extends AbstractController
             ],
             ['statistic_player_season_id' => Season::getCurrentSeason(), 'statistic_player_is_gk' => 0]
         );
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function actionChamp()
-    {
-        Lineup::deleteAll([
-            'lineup_game_id' => Game::find()
-                ->select(['game_id'])
-                ->where([
-                    'game_schedule_id' => Schedule::find()
-                        ->select(['schedule_id'])
-                        ->where(['schedule_stage_id' => Stage::SEMI])
-                ])
-        ]);
-        Game::deleteAll([
-            'game_schedule_id' => Schedule::find()
-                ->select(['schedule_id'])
-                ->where(['schedule_stage_id' => Stage::SEMI])
-        ]);
-        (new ChampionshipLot())->execute();
     }
 }
