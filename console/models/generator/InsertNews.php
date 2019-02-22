@@ -179,7 +179,7 @@ class InsertNews
         }
 
         if ($tomorrow) {
-            $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p>' . "\r\n" . '<p>В ' . $day . ' в Лиге будут сыграны ' . $tomorrow . '.</p>' . "\r\n";
+            $text = $text . '<p class="strong">ЗАВТРА ДНЁМ</p>' . "\r\n" . '<p>В ' . $day . ' в Лиге ' . $tomorrow . '.</p>' . "\r\n";
         }
 
         $preNews = PreNews::find()

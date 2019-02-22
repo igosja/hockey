@@ -14,8 +14,6 @@ use common\models\Stage;
 use common\models\StatisticPlayer;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\InsertAchievement;
-use console\models\generator\Prize;
 use Exception;
 use yii\db\Expression;
 
@@ -408,14 +406,5 @@ class FixController extends AbstractController
             ],
             ['statistic_player_season_id' => Season::getCurrentSeason(), 'statistic_player_is_gk' => 0]
         );
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function actionChamp()
-    {
-        (new Prize())->execute();
-        (new InsertAchievement())->execute();
     }
 }
