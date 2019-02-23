@@ -1051,6 +1051,27 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public function myTeamOrVice()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+
+        if (!$controller->myTeamOrVice) {
+            return false;
+        }
+
+        if ($controller->myTeamOrVice->team_id != $this->team_id) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return Game[]
      */
     public function latestGame()

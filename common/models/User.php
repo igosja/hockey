@@ -415,6 +415,64 @@ class User extends AbstractActiveRecord implements IdentityInterface
         if (!$this->save(true, ['user_holiday'])) {
             return false;
         }
+        $vice = Yii::$app->request->post('vice');
+        if (!$vice) {
+            return true;
+        }
+        foreach ($vice as $teamId => $userId) {
+            $team = Team::find()
+                ->where(['team_user_id' => $this->user_id])
+                ->limit(1)
+                ->one();
+            if (!$team) {
+                continue;
+            }
+            $user = User::find()
+                ->where(['>', 'user_date_login', time() - 604800])
+                ->andWhere(['user_id' => $userId])
+                ->andWhere([
+                    'not',
+                    [
+                        'user_id' => Team::find()
+                            ->joinWith(['stadium.city.country'])
+                            ->select(['team_user_id'])
+                            ->where(['country_id' => $team->stadium->city->country->country_id])
+                    ]
+                ])
+                ->andWhere([
+                    'not',
+                    [
+                        'user_id' => Team::find()
+                            ->joinWith(['stadium.city.country'])
+                            ->select(['team_vice_id'])
+                            ->where(['country_id' => $team->stadium->city->country->country_id])
+                            ->andWhere(['!=', 'team_id', $team->team_id])
+                    ]
+                ])
+                ->limit(1)
+                ->one();
+            if (!$user) {
+                continue;
+            }
+
+            if ($team->team_vice_id && $user->user_id != $team->team_vice_id) {
+                History::log([
+                    'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
+                    'history_team_id' => $team->team_id,
+                    'history_user_id' => $team->team_vice_id,
+                ]);
+            }
+            if ($user->user_id && $user->user_id != $team->team_vice_id) {
+                History::log([
+                    'history_history_text_id' => HistoryText::USER_VICE_TEAM_IN,
+                    'history_team_id' => $team->team_id,
+                    'history_user_id' => $user->user_id,
+                ]);
+            }
+
+            $team->team_vice_id = (int)$user->user_id;
+            $team->save(true, ['team_vice_id']);
+        }
         return true;
     }
 

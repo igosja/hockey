@@ -393,7 +393,7 @@ class StoreController extends AbstractController
     public function actionFinance()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $user = $this->user;

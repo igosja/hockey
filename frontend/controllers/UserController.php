@@ -19,7 +19,6 @@ use common\models\User;
 use common\models\UserRating;
 use frontend\models\ChangePassword;
 use frontend\models\UserTransferFinance;
-use frontend\models\UserTransferMoney;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -312,10 +311,43 @@ class UserController extends AbstractController
             return $this->refresh();
         }
 
+        $teamArray = [];
+        foreach ($this->myTeamArray as $myTeam) {
+            $userArray = User::find()
+                ->where(['>', 'user_date_login', time() - 604800])
+                ->andWhere(['!=', 'user_id', $this->user->user_id])
+                ->andWhere([
+                    'not',
+                    [
+                        'user_id' => Team::find()
+                            ->joinWith(['stadium.city.country'])
+                            ->select(['team_user_id'])
+                            ->where(['country_id' => $myTeam->stadium->city->country->country_id])
+                    ]
+                ])
+                ->andWhere([
+                    'not',
+                    [
+                        'user_id' => Team::find()
+                            ->joinWith(['stadium.city.country'])
+                            ->select(['team_vice_id'])
+                            ->where(['country_id' => $myTeam->stadium->city->country->country_id])
+                            ->andWhere(['!=', 'team_id', $myTeam->team_id])
+                    ]
+                ])
+                ->orderBy(['user_login' => SORT_ASC])
+                ->all();
+            $teamArray[] = [
+                'team' => $myTeam,
+                'userArray' => ArrayHelper::map($userArray, 'user_id', 'user_login'),
+            ];
+        }
+
         $this->setSeoTitle('Отпуск менеджера');
 
         return $this->render('holiday', [
             'model' => $model,
+            'teamArray' => $teamArray,
         ]);
     }
 
@@ -408,7 +440,7 @@ class UserController extends AbstractController
     public function actionDropTeam()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         if (Yii::$app->request->get('ok')) {
@@ -436,7 +468,7 @@ class UserController extends AbstractController
     public function actionReRegister()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         if (Yii::$app->request->get('ok')) {

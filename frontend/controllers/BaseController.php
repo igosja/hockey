@@ -284,7 +284,7 @@ class BaseController extends AbstractController
     public function actionBuild($building)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -635,7 +635,7 @@ class BaseController extends AbstractController
     public function actionCancel($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;

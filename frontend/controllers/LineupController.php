@@ -50,13 +50,13 @@ class LineupController extends AbstractController
      */
     public function actionView($id)
     {
-        if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+        if (!$this->myTeamOrVice) {
+            return $this->redirect(['team/view']);
         }
 
         $game = $this->getGame($id);
 
-        $model = new GameSend(['game' => $game, 'team' => $this->myTeam]);
+        $model = new GameSend(['game' => $game, 'team' => $this->myTeamOrVice]);
         if ($model->saveLineup()) {
             $this->setSuccessFlash('Состав успешно отправлен.');
             return $this->refresh();
@@ -73,8 +73,8 @@ class LineupController extends AbstractController
             ->where(['game_played' => 0])
             ->andWhere([
                 'or',
-                ['game_guest_team_id' => $this->myTeam->team_id],
-                ['game_home_team_id' => $this->myTeam->team_id]
+                ['game_guest_team_id' => $this->myTeamOrVice->team_id],
+                ['game_home_team_id' => $this->myTeamOrVice->team_id]
             ])
             ->orderBy(['schedule_date' => SORT_ASC])
             ->limit(5);
@@ -90,8 +90,8 @@ class LineupController extends AbstractController
                 'playerSpecial.special',
                 'squad',
             ])
-            ->where(['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0])
-            ->orWhere(['player_loan_team_id' => $this->myTeam->team_id]);
+            ->where(['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0])
+            ->orWhere(['player_loan_team_id' => $this->myTeamOrVice->team_id]);
         $playerDataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
@@ -145,8 +145,8 @@ class LineupController extends AbstractController
             ])
             ->where([
                 'or',
-                ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],
-                ['player_loan_team_id' => $this->myTeam->team_id]
+                ['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0],
+                ['player_loan_team_id' => $this->myTeamOrVice->team_id]
             ])
             ->andWhere(['player_position_id' => Position::GK])
             ->orderBy(['player_power_real' => SORT_DESC])
@@ -172,8 +172,8 @@ class LineupController extends AbstractController
             ])
             ->where([
                 'or',
-                ['player_team_id' => $this->myTeam->team_id, 'player_loan_team_id' => 0],
-                ['player_loan_team_id' => $this->myTeam->team_id]
+                ['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0],
+                ['player_loan_team_id' => $this->myTeamOrVice->team_id]
             ])
             ->andWhere(['!=', 'player_position_id', Position::GK])
             ->orderBy(['player_power_real' => SORT_DESC])
@@ -326,9 +326,9 @@ class LineupController extends AbstractController
         if (TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) {
             $noSuper = Mood::SUPER;
             $noRest = Mood::REST;
-        } elseif ($this->myTeam->team_mood_rest <= 0) {
+        } elseif ($this->myTeamOrVice->team_mood_rest <= 0) {
             $noRest = Mood::REST;
-        } elseif ($this->myTeam->team_mood_super <= 0) {
+        } elseif ($this->myTeamOrVice->team_mood_super <= 0) {
             $noSuper = Mood::SUPER;
         }
         $moodArray = Mood::find()
@@ -340,9 +340,9 @@ class LineupController extends AbstractController
 
         foreach ($moodArray as $moodId => $moodName) {
             if (Mood::SUPER == $moodId) {
-                $moodArray[$moodId] = $moodName . ' (' . $this->myTeam->team_mood_super . ')';
+                $moodArray[$moodId] = $moodName . ' (' . $this->myTeamOrVice->team_mood_super . ')';
             } elseif (Mood::REST == $moodId) {
-                $moodArray[$moodId] = $moodName . ' (' . $this->myTeam->team_mood_rest . ')';
+                $moodArray[$moodId] = $moodName . ' (' . $this->myTeamOrVice->team_mood_rest . ')';
             }
         }
 
@@ -386,7 +386,7 @@ class LineupController extends AbstractController
             'rwArray' => $rwArray,
             'styleArray' => ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name'),
             'tacticArray' => ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name'),
-            'team' => $this->myTeam,
+            'team' => $this->myTeamOrVice,
         ]);
     }
 
@@ -1723,7 +1723,7 @@ class LineupController extends AbstractController
 
             $position = round($power / $position * 100);
 
-            $lineup = round($power / $this->myTeam->team_power_vs * 100);
+            $lineup = round($power / $this->myTeamOrVice->team_power_vs * 100);
 
             $teamwork_1 = round($teamwork_1 / 10);
             $teamwork_2 = round($teamwork_2 / 10);
@@ -1754,7 +1754,7 @@ class LineupController extends AbstractController
             return '';
         }
         $lineupTemplateArray = LineupTemplate::find()
-            ->where(['lineup_template_team_id' => $this->myTeam->team_id])
+            ->where(['lineup_template_team_id' => $this->myTeamOrVice->team_id])
             ->orderBy(['lineup_template_name' => SORT_ASC])
             ->all();
         return $this->renderPartial('_template_table', [
@@ -1785,7 +1785,7 @@ class LineupController extends AbstractController
             return;
         }
         $model = LineupTemplate::find()
-            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeamOrVice->team_id])
             ->limit(1)
             ->one();
         if ($model) {
@@ -1801,7 +1801,7 @@ class LineupController extends AbstractController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $model = LineupTemplate::find()
-            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeamOrVice->team_id])
             ->limit(1)
             ->one();
         if (!$model) {
@@ -1821,8 +1821,8 @@ class LineupController extends AbstractController
             ->where(['game_id' => $id, 'game_played' => 0])
             ->andWhere([
                 'or',
-                ['game_guest_team_id' => $this->myTeam->team_id],
-                ['game_home_team_id' => $this->myTeam->team_id]
+                ['game_guest_team_id' => $this->myTeamOrVice->team_id],
+                ['game_home_team_id' => $this->myTeamOrVice->team_id]
             ])
             ->limit(1)
             ->one();

@@ -101,8 +101,8 @@ class TeamController extends AbstractController
      */
     public function actionView($id = null)
     {
-        if (!$id && $this->myTeam) {
-            return $this->redirect(['view', 'id' => $this->myTeam->team_id]);
+        if (!$id && $this->myTeamOrVice) {
+            return $this->redirect(['view', 'id' => $this->myTeamOrVice->team_id]);
         }
 
         if (!$id) {
@@ -423,7 +423,7 @@ class TeamController extends AbstractController
         if ($id) {
             if (!Team::find()->where(['team_id' => $id, 'team_user_id' => 0])->count()) {
                 Yii::$app->session->setFlash('error', 'Команда выбрана неправильно.');
-                return $this->redirect(['team/ask']);
+                return $this->redirect(['team/view']);
             }
 
             if (TeamAsk::find()->where([
@@ -431,7 +431,7 @@ class TeamController extends AbstractController
                 'team_ask_user_id' => Yii::$app->user->id
             ])->count()) {
                 Yii::$app->session->setFlash('error', 'Вы уже подали заявку на эту команду.');
-                return $this->redirect(['team/ask']);
+                return $this->redirect(['team/view']);
             }
 
             $transaction = Yii::$app->db->beginTransaction();
@@ -446,7 +446,7 @@ class TeamController extends AbstractController
                 ErrorHelper::log($e);
             }
 
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $delete = Yii::$app->request->get('delete');
@@ -454,7 +454,7 @@ class TeamController extends AbstractController
             TeamAsk::deleteAll(['team_ask_id' => $delete, 'team_ask_user_id' => Yii::$app->user->id]);
 
             Yii::$app->session->setFlash('success', 'Заявка успешно удалена.');
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $teamAskArray = TeamAsk::find()

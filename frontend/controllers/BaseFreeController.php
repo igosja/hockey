@@ -47,7 +47,7 @@ class BaseFreeController extends AbstractController
     public function actionView()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -173,7 +173,7 @@ class BaseFreeController extends AbstractController
     public function actionBuild($building)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;

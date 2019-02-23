@@ -44,7 +44,7 @@ class ScoutController extends AbstractController
     public function actionIndex()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -84,7 +84,7 @@ class ScoutController extends AbstractController
     public function actionStudy()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -194,7 +194,7 @@ class ScoutController extends AbstractController
     public function actionCancel($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
