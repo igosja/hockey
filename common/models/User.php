@@ -427,6 +427,10 @@ class User extends AbstractActiveRecord implements IdentityInterface
             if (!$team) {
                 continue;
             }
+            $userId = (int)$userId;
+            if (!$this->user_holiday && !$this->isVip()) {
+                $userId = 0;
+            }
             $user = User::find()
                 ->where(['>', 'user_date_login', time() - 604800])
                 ->andWhere(['user_id' => $userId])
@@ -452,25 +456,25 @@ class User extends AbstractActiveRecord implements IdentityInterface
                 ->limit(1)
                 ->one();
             if (!$user) {
-                continue;
+                $userId = 0;
             }
 
-            if ($team->team_vice_id && $user->user_id != $team->team_vice_id) {
+            if ($team->team_vice_id && $userId != $team->team_vice_id) {
                 History::log([
                     'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
                     'history_team_id' => $team->team_id,
                     'history_user_id' => $team->team_vice_id,
                 ]);
             }
-            if ($user->user_id && $user->user_id != $team->team_vice_id) {
+            if ($userId && $userId != $team->team_vice_id) {
                 History::log([
                     'history_history_text_id' => HistoryText::USER_VICE_TEAM_IN,
                     'history_team_id' => $team->team_id,
-                    'history_user_id' => $user->user_id,
+                    'history_user_id' => $userId,
                 ]);
             }
 
-            $team->team_vice_id = (int)$user->user_id;
+            $team->team_vice_id = $userId;
             $team->save(true, ['team_vice_id']);
         }
         return true;

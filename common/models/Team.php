@@ -384,6 +384,22 @@ class Team extends AbstractActiveRecord
             'history_user_id' => $user_id,
         ]);
 
+        $viceTeamArray = Team::find()
+            ->joinWith(['stadium.city.country'])
+            ->where(['team_vice_id' => $user_id, 'country_id' => $this->stadium->city->country->country_id])
+            ->orderBy(['team_id' => SORT_ASC])
+            ->all();
+        foreach ($viceTeamArray as $viceTeam) {
+            History::log([
+                'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
+                'history_team_id' => $viceTeam->team_id,
+                'history_user_id' => $user_id,
+            ]);
+
+            $viceTeam->team_vice_id = 0;
+            $viceTeam->save(true, ['team_vice_id']);
+        }
+
         Yii::$app->mailer->compose(
             ['html' => 'default-html', 'text' => 'default-text'],
             ['text' => 'Ваша заявка на получение команды одобрена.']
