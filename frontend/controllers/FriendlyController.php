@@ -48,7 +48,7 @@ class FriendlyController extends AbstractController
     public function actionIndex()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -115,7 +115,7 @@ class FriendlyController extends AbstractController
     public function actionView($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -238,7 +238,7 @@ class FriendlyController extends AbstractController
     public function actionSend($id, $teamId)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $schedule = Schedule::find()
@@ -422,7 +422,7 @@ class FriendlyController extends AbstractController
     public function actionAccept($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $invite = FriendlyInvite::find()
@@ -536,7 +536,7 @@ class FriendlyController extends AbstractController
     public function actionCancel($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $model = FriendlyInvite::find()
@@ -577,7 +577,7 @@ class FriendlyController extends AbstractController
     public function actionStatus()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $model = $this->myTeam;

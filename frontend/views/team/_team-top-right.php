@@ -3,12 +3,13 @@
 /**
  * @var \frontend\controllers\AbstractController $controller
  * @var \common\models\Team $team
+ * @var \yii\web\View $this
  */
 
 use common\components\FormatHelper;
 use yii\helpers\Html;
 
-$controller = Yii::$app->controller;
+$controller = $this->context;
 $myTeamIds = [];
 foreach ($controller->myTeamArray as $item) {
     $myTeamIds[] = $item->team_id;
@@ -133,7 +134,7 @@ foreach ($controller->myTeamArray as $item) {
                 ['team/view', 'id' => $item->game_home_team_id == $team->team_id ? $item->game_guest_team_id : $item->game_home_team_id]
             ); ?>
             -
-            <?php if ($team->myTeam()) : ?>
+            <?php if ($team->myTeamOrVice()) : ?>
                 <?= Html::a(
                     (($item->game_home_team_id == $team->team_id && $item->game_home_tactic_id_1)
                         || ($item->game_guest_team_id == $team->team_id && $item->game_guest_tactic_id_1))

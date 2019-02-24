@@ -4,7 +4,6 @@
  * @var string $content
  * @var \frontend\controllers\AbstractController $context
  * @var \yii\web\View $this
- * @var \frontend\controllers\AbstractController $this ->context
  */
 
 use common\components\ErrorHelper;
@@ -12,7 +11,6 @@ use common\models\Site;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use frontend\widgets\Menu;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 //use yii\widgets\Pjax;
@@ -83,11 +81,21 @@ $context = $this->context;
                     <?php if (Yii::$app->user->isGuest): ?>
                         <?= Html::a('Вход', ['site/login'], ['class' => 'btn']); ?>
                     <?php else: ?>
+                        <?php
+                        $teamArray = [];
+                        foreach ($context->myTeamArray as $myTeam) {
+                            $teamArray[$myTeam->team_id] = $myTeam->team_name
+                                . ' ('
+                                . $myTeam->stadium->city->country->country_name
+                                . ($myTeam->team_vice_id == $context->user->user_id ? ', зам' : '')
+                                . ')';
+                        }
+                        ?>
                         <?= Html::beginForm(['team/change-my-team'], 'post', ['class' => 'form-inline']); ?>
                         <?= Html::dropDownList(
                             'teamId',
-                            (isset($this->context->myTeam->team_id) ? $this->context->myTeam->team_id : 0),
-                            ArrayHelper::map($this->context->myTeamArray, 'team_id', 'team_name'),
+                            $context->myTeamOrVice ? $context->myTeamOrVice->team_id : 0,
+                            $teamArray,
                             ['class' => 'form-control', 'onchange' => 'this.form.submit();']
                         ); ?>
                         <?= Html::a('Выход', ['site/logout'], ['class' => 'btn margin']); ?>

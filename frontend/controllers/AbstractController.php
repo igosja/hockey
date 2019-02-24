@@ -8,6 +8,7 @@ use common\models\Site;
 use common\models\Team;
 use common\models\User;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
 
@@ -16,6 +17,8 @@ use yii\web\ForbiddenHttpException;
  * @package frontend\controllers
  *
  * @property Team $myTeam
+ * @property Team $myTeamOrVice
+ * @property Team $myTeamVice
  * @property Team[] $myTeamArray
  * @property int $seasonId
  * @property User $user
@@ -26,6 +29,15 @@ abstract class AbstractController extends Controller
      * @var Team $myTeam
      */
     public $myTeam = null;
+    /**
+     * @var Team $myTeamOrVice
+     */
+    public $myTeamOrVice = null;
+
+    /**
+     * @var Team $myTeamVice
+     */
+    public $myTeamVice = null;
 
     /**
      * @var Team[] $myTeamArray
@@ -83,10 +95,16 @@ abstract class AbstractController extends Controller
         $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
-            $this->myTeamArray = Team::find()
-                ->indexBy(['team_id'])
-                ->where(['team_user_id' => Yii::$app->user->id])
-                ->all();
+            $this->myTeamArray = ArrayHelper::merge(
+                Team::find()
+                    ->indexBy(['team_id'])
+                    ->where(['team_user_id' => Yii::$app->user->id])
+                    ->all(),
+                Team::find()
+                    ->indexBy(['team_id'])
+                    ->where(['team_vice_id' => Yii::$app->user->id])
+                    ->all(),
+                );
 
             $this->checkSessionMyTeamId();
             $this->myTeam = Team::find()
@@ -94,6 +112,15 @@ abstract class AbstractController extends Controller
                 ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])
                 ->limit(1)
                 ->one();
+
+            $this->checkSessionMyTeamId();
+            $this->myTeamVice = Team::find()
+                ->where(['team_vice_id' => Yii::$app->user->id])
+                ->andFilterWhere(['team_id' => Yii::$app->session->get('myTeamId')])
+                ->limit(1)
+                ->one();
+
+            $this->myTeamOrVice = $this->myTeam ?: $this->myTeamVice;
 
             $this->user = Yii::$app->user->identity;
             $this->user->user_date_login = time();
