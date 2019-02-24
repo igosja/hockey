@@ -103,7 +103,7 @@ abstract class AbstractController extends Controller
                 Team::find()
                     ->indexBy(['team_id'])
                     ->where(['team_vice_id' => Yii::$app->user->id])
-                    ->all(),
+                    ->all()
                 );
 
             $this->checkSessionMyTeamId();
