@@ -45,7 +45,7 @@ class PhysicalController extends AbstractController
     public function actionIndex()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -178,7 +178,7 @@ class PhysicalController extends AbstractController
     public function actionChange($physicalId, $playerId, $scheduleId)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;

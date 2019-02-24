@@ -39,7 +39,7 @@ class VisitorController extends AbstractController
     public function actionView($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $game = $this->getGame($id);

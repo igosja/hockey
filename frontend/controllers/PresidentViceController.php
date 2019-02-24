@@ -42,7 +42,7 @@ class PresidentViceController extends AbstractController
     public function actionApplication()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $country = $this->myTeam->stadium->city->country;
@@ -119,7 +119,7 @@ class PresidentViceController extends AbstractController
     public function actionView()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $country = $this->myTeam->stadium->city->country;
@@ -178,7 +178,7 @@ class PresidentViceController extends AbstractController
     public function actionPoll()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $country = $this->myTeam->stadium->city->country;

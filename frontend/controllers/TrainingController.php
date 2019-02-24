@@ -50,7 +50,7 @@ class TrainingController extends AbstractController
     public function actionIndex()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $model = new \frontend\models\Training();
@@ -90,7 +90,7 @@ class TrainingController extends AbstractController
     public function actionTrain()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -411,7 +411,7 @@ class TrainingController extends AbstractController
     public function actionCancel($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;

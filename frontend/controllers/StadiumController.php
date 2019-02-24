@@ -44,7 +44,7 @@ class StadiumController extends AbstractController
     public function actionIncrease()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -66,7 +66,7 @@ class StadiumController extends AbstractController
     public function actionDecrease()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -89,7 +89,7 @@ class StadiumController extends AbstractController
     public function actionBuild()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -174,7 +174,7 @@ class StadiumController extends AbstractController
     public function actionDestroy()
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
@@ -254,7 +254,7 @@ class StadiumController extends AbstractController
     public function actionCancel($id)
     {
         if (!$this->myTeam) {
-            return $this->redirect(['team/ask']);
+            return $this->redirect(['team/view']);
         }
 
         $team = $this->myTeam;
