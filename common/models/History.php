@@ -30,6 +30,8 @@ use yii\helpers\Html;
  * @property Game $game
  * @property HistoryText $historyText
  * @property Player $player
+ * @property Position $position
+ * @property Special $special
  * @property Team $team
  * @property Team $teamTwo
  * @property User $user
@@ -159,6 +161,20 @@ class History extends AbstractActiveRecord
                 $text
             );
         }
+        if (false !== strpos($text, '{position}')) {
+            $text = str_replace(
+                '{position}',
+                $this->position->position_text,
+                $text
+            );
+        }
+        if (false !== strpos($text, '{special}')) {
+            $text = str_replace(
+                '{special}',
+                $this->special->special_text,
+                $text
+            );
+        }
         if (false !== strpos($text, '{building}')) {
             $building = '';
             if (Building::BASE == $this->history_building_id) {
@@ -228,6 +244,22 @@ class History extends AbstractActiveRecord
     public function getPlayer()
     {
         return $this->hasOne(Player::class, ['player_id' => 'history_player_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPosition()
+    {
+        return $this->hasOne(Position::class, ['position_id' => 'history_position_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSpecial()
+    {
+        return $this->hasOne(Special::class, ['special_id' => 'history_special_id']);
     }
 
     /**
