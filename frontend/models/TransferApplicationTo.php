@@ -92,6 +92,7 @@ class TransferApplicationTo extends Model
 
         $transfer = Transfer::find()
             ->where(['transfer_player_id' => $this->player->player_id, 'transfer_ready' => 0])
+            ->limit(1)
             ->one();
         if (!$transfer) {
             return false;
@@ -104,6 +105,15 @@ class TransferApplicationTo extends Model
 
         if ($transfer->transfer_user_seller_id == Yii::$app->user->id) {
             Yii::$app->session->setFlash('error', 'Нельзя покупать игрока у своей команды.');
+            return false;
+        }
+
+        $check = TransferApplication::find()
+            ->where(['transfer_application_transfer_id' => $transfer->transfer_id, 'transfer_application_user_id' => Yii::$app->user->id])
+            ->andFilterWhere(['!=', 'transfer_application_id', ($this->transferApplication ? $this->transferApplication->transfer_application_id : null)])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Вы уже подали заявку на этого игрока от имени другой своей команды.');
             return false;
         }
 

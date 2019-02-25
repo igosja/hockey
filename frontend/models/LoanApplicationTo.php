@@ -118,6 +118,15 @@ class LoanApplicationTo extends Model
             return false;
         }
 
+        $check = LoanApplication::find()
+            ->where(['loan_application_loan_id' => $loan->loan_id, 'loan_application_user_id' => Yii::$app->user->id])
+            ->andFilterWhere(['!=', 'loan_application_id', $this->loanApplication ? $this->loanApplication->loan_application_id : null])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Вы уже подали заявку на этого игрока от имени другой своей команды.');
+            return false;
+        }
+
         /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
 

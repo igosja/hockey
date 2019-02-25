@@ -67,7 +67,7 @@ class TransferApplicationFrom extends Model
             $transferApplication->delete();
             $transaction->commit();
 
-            Yii::$app->session->setFlash('success', 'Order successfully successfully removed.');
+            Yii::$app->session->setFlash('success', 'Заявка успешно удалена.');
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
