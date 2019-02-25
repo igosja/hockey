@@ -327,6 +327,9 @@ jQuery(document).ready(function () {
 
     $(document).on('click', '.template-delete', function () {
         $.ajax({
+            beforeSend: function () {
+                return confirm("Вы собираетесь удалить шаблон. Вы уверены?");
+            },
             'url': $(this).data('url'),
             'complete': function () {
                 get_templates();
