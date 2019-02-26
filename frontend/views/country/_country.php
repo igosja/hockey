@@ -44,63 +44,79 @@ $controller = Yii::$app->controller;
     </div>
 <?php endif; ?>
     <div class="row margin-top">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Президент:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?php if ($country->country_president_id) : ?>
-                <?= $country->president->userLink(); ?>
-            <?php else : ?>
-                -
+        <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 text-center team-logo-div">
+            <?php if (file_exists(Yii::getAlias('@webroot') . '/img/country/125/' . $country->country_id . '.png')) : ?>
+                <?= Html::img(
+                    '/img/country/125/' . $country->country_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/country/125/' . $country->country_id . '.png'),
+                    [
+                        'alt' => $country->country_name,
+                        'class' => 'team-logo',
+                        'title' => $country->country_name,
+                    ]
+                ); ?>
             <?php endif; ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Последний визит:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?= $country->president->lastVisit(); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Рейтинг президента:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <span class="font-green"><?= $country->attitudePresidentPositive() ?>%</span>
-            |
-            <span class="font-yellow"><?= $country->attitudePresidentNeutral() ?>%</span>
-            |
-            <span class="font-red"><?= $country->attitudePresidentNegative() ?>%</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Заместитель президента:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?php if ($country->country_president_vice_id) : ?>
-                <?= $country->vice->userLink(); ?>
-            <?php else : ?>
-                -
-            <?php endif; ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Последний визит:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?= $country->vice->lastVisit(); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
-            Фонд федерации:
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <?= FormatHelper::asCurrency($country->country_finance); ?>
+        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Президент:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?php if ($country->country_president_id) : ?>
+                        <?= $country->president->userLink(); ?>
+                    <?php else : ?>
+                        -
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Последний визит:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?= $country->president->lastVisit(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Рейтинг президента:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="font-green"><?= $country->attitudePresidentPositive() ?>%</span>
+                    |
+                    <span class="font-yellow"><?= $country->attitudePresidentNeutral() ?>%</span>
+                    |
+                    <span class="font-red"><?= $country->attitudePresidentNegative() ?>%</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Заместитель президента:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?php if ($country->country_president_vice_id) : ?>
+                        <?= $country->vice->userLink(); ?>
+                    <?php else : ?>
+                        -
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Последний визит:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?= $country->vice->lastVisit(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right strong">
+                    Фонд федерации:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?= FormatHelper::asCurrency($country->country_finance); ?>
+                </div>
+            </div>
         </div>
     </div>
 <?php if ($controller->myTeam && $controller->myTeam->stadium->city->country->country_id == $country->country_id) : ?>
