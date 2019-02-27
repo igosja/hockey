@@ -911,6 +911,13 @@ blockquote:before {
     vertical-align: -10px;
 }
 
+.country-logo {
+    height: auto;
+    max-height: 100px;
+    max-width: 100%;
+    width: auto;
+}
+
 .team-logo {
     height: auto;
     max-height: 125px;
