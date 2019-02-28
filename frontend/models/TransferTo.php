@@ -188,8 +188,8 @@ class TransferTo extends Model
             }
         }
 
-        if ($this->player->player_age < 19) {
-            Yii::$app->session->setFlash('error', 'Нельзя продавать игроков младше 19 лет.');
+        if ($this->player->player_age < 18) {
+            Yii::$app->session->setFlash('error', 'Нельзя продавать игроков младше 18 лет.');
             return false;
         }
 
