@@ -79,7 +79,7 @@ class ChampionshipController extends AbstractController
      */
     public function actionTable()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $countryId = Yii::$app->request->get('countryId', Country::DEFAULT_ID);
         $divisionId = Yii::$app->request->get('divisionId', Division::D1);
         $stageId = Yii::$app->request->get('stageId');
@@ -97,6 +97,7 @@ class ChampionshipController extends AbstractController
                     'schedule_season_id' => $seasonId,
                 ])
                 ->andWhere(['<=', 'schedule_date', time()])
+                ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_30])
                 ->orderBy(['schedule_date' => SORT_DESC])
                 ->limit(1)
                 ->one();
@@ -107,6 +108,7 @@ class ChampionshipController extends AbstractController
                         'schedule_season_id' => $seasonId,
                     ])
                     ->andWhere(['>', 'schedule_date', time()])
+                    ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_30])
                     ->orderBy(['schedule_date' => SORT_ASC])
                     ->limit(1)
                     ->one();
@@ -200,7 +202,7 @@ class ChampionshipController extends AbstractController
      */
     public function actionPlayoff()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $countryId = Yii::$app->request->get('countryId', Country::DEFAULT_ID);
         $divisionId = Yii::$app->request->get('divisionId', Division::D1);
 
@@ -307,7 +309,7 @@ class ChampionshipController extends AbstractController
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $countryId = Yii::$app->request->get('countryId', Country::DEFAULT_ID);
         $divisionId = Yii::$app->request->get('divisionId', Division::D1);
         $roundId = Yii::$app->request->get('roundId', 1);

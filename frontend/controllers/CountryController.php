@@ -8,6 +8,7 @@ use common\models\Finance;
 use common\models\LeagueDistribution;
 use common\models\News;
 use common\models\NewsComment;
+use common\models\ParticipantLeague;
 use common\models\Poll;
 use common\models\PollStatus;
 use common\models\Season;
@@ -289,19 +290,32 @@ class CountryController extends AbstractController
      */
     public function actionLeague($id)
     {
-        $query = LeagueDistribution::find()
+        $leagueDistribution = LeagueDistribution::find()
             ->where(['league_distribution_country_id' => $id])
             ->orderBy(['league_distribution_season_id' => SORT_DESC])
-            ->limit(1);
-        $dataProvider = new ActiveDataProvider([
-            'pagination' => false,
-            'query' => $query,
-        ]);
+            ->limit(1)
+            ->one();
+
+        $teamArray = [];
+        $seasonArray = ParticipantLeague::find()
+            ->joinWith(['team.stadium.city.country'])
+            ->where(['country_id' => $id])
+            ->groupBy(['participant_league_season_id'])
+            ->orderBy(['participant_league_season_id' => SORT_DESC])
+            ->all();
+        foreach ($seasonArray as $season) {
+            $teamArray[$season->participant_league_season_id] = ParticipantLeague::find()
+                ->joinWith(['team.stadium.city.country', 'leagueCoefficient'])
+                ->where(['country_id' => $id, 'participant_league_season_id' => $season->participant_league_season_id])
+                ->orderBy(['league_coefficient_point' => SORT_DESC, 'participant_league_stage_in' => SORT_DESC])
+                ->all();
+        }
 
         $this->setSeoTitle('Лига чемпионов');
 
         return $this->render('league', [
-            'dataProvider' => $dataProvider,
+            'leagueDistribution' => $leagueDistribution,
+            'teamArray' => $teamArray,
         ]);
     }
 

@@ -17,7 +17,7 @@ use yii\helpers\Html;
 print $this->render('//player/_player', ['player' => $player]);
 
 ?>
-<?= Html::beginForm('', 'get'); ?>
+<?= Html::beginForm(['player/view', 'id' => $player->player_id], 'get'); ?>
 <div class="row margin-top-small">
     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <?= $this->render('//player/_links'); ?>

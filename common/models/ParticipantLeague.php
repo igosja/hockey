@@ -18,6 +18,8 @@ use yii\db\ActiveQuery;
  * @property int $participant_league_stage_in
  * @property int $participant_league_team_id
  *
+ * @property LeagueCoefficient $leagueCoefficient
+ * @property Stage $stage
  * @property Team $team
  */
 class ParticipantLeague extends AbstractActiveRecord
@@ -51,6 +53,25 @@ class ParticipantLeague extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLeagueCoefficient()
+    {
+        return $this->hasOne(LeagueCoefficient::class, [
+            'league_coefficient_team_id' => 'participant_league_team_id',
+            'league_coefficient_season_id' => 'participant_league_season_id'
+        ]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStage()
+    {
+        return $this->hasOne(Stage::class, ['stage_id' => 'participant_league_stage_in']);
     }
 
     /**
