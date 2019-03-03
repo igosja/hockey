@@ -3,7 +3,9 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Yii;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class ElectionNationalApplication
@@ -22,6 +24,16 @@ use yii\db\ActiveQuery;
  */
 class ElectionNationalApplication extends AbstractActiveRecord
 {
+    /**
+     * @var array $player
+     */
+    public $player;
+
+    /**
+     * @var array $playerArray
+     */
+    public $playerArray;
+
     /**
      * @return string
      */
@@ -45,7 +57,9 @@ class ElectionNationalApplication extends AbstractActiveRecord
                 ],
                 'integer'
             ],
-            [['election_national_application_text'], 'safe']
+            [['election_national_application_text'], 'required'],
+            [['election_national_application_text'], 'safe'],
+            [['player'], 'checkPlayer'],
         ];
     }
 
@@ -63,6 +77,91 @@ class ElectionNationalApplication extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function checkPlayer($attribute)
+    {
+        $formPlayerArray = [];
+        foreach ($this->$attribute as $positionId => $playerArray) {
+            $playerArray = array_diff($playerArray, [0]);
+            $formPlayerArray = ArrayHelper::merge($formPlayerArray, $playerArray);
+
+            $limit = 6;
+            if (Position::GK == $positionId) {
+                $limit = 2;
+            }
+
+            if (count($playerArray) != $limit) {
+                $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
+            }
+
+            foreach ($playerArray as $playerId) {
+                $player = Player::find()
+                    ->where(['!=', 'player_team_id', 0])
+                    ->andWhere([
+                        'player_id' => $playerId,
+                        'player_position_id' => $positionId,
+                        'player_country_id' => $this->electionNational->election_national_country_id,
+                    ])
+                    ->exists();
+                if (!$player) {
+                    $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
+                }
+            }
+        }
+
+        $this->playerArray = $formPlayerArray;
+    }
+
+    /**
+     * @return void
+     */
+    public function loadPlayer()
+    {
+        $this->playerArray = [];
+        foreach ($this->electionNationalPlayer as $electionNationalPlayer) {
+            $this->playerArray[] = $electionNationalPlayer->election_national_player_player_id;
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function saveApplication()
+    {
+        $this->loadPlayer();
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        if (!$this->validate()) {
+            return false;
+        }
+
+        $this->save();
+
+        ElectionNationalPlayer::deleteAll(['election_national_player_application_id' => $this->election_national_application_id]);
+
+        foreach ($this->playerArray as $playerId) {
+            $model = new ElectionNationalPlayer();
+            $model->election_national_player_player_id = $playerId;
+            $model->election_national_player_application_id = $this->election_national_application_id;
+            $model->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'election_national_application_text' => 'Программа',
+        ];
     }
 
     /**
