@@ -89,7 +89,9 @@ class Finance extends AbstractActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->finance_season_id = Season::getCurrentSeason();
+                if (!$this->finance_season_id) {
+                    $this->finance_season_id = Season::getCurrentSeason();
+                }
                 $this->finance_date = time();
             }
             return true;

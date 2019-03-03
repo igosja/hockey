@@ -33,6 +33,7 @@ use console\models\newSeason\Pension;
 use console\models\newSeason\PensionInform;
 use console\models\newSeason\PlayerFromNational;
 use console\models\newSeason\PlayerPowerChange;
+use console\models\newSeason\PlayerPriceAndSalary;
 use console\models\newSeason\PlayerTireBaseLevel;
 use console\models\newSeason\RandPhysical;
 use console\models\newSeason\TruncateTables;
@@ -54,7 +55,7 @@ class NewSeason
             ->where('FROM_UNIXTIME(`schedule_date`-86400, \'%Y-%m-%d\')=CURDATE()')
             ->limit(1)
             ->one();
-        if (!$schedule) {
+        if ($schedule) {
             return true;
         }
 
@@ -85,6 +86,7 @@ class NewSeason
             new Pension(),
             new OlderPlayer(),
             new PensionInform(),
+            new PlayerPriceAndSalary(),
             new BaseMaintenance(),
             new MoodReset(),
             new GameRow(),

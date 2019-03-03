@@ -4,6 +4,7 @@ namespace console\models\newSeason;
 
 use common\models\Game;
 use common\models\National;
+use common\models\NationalType;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
@@ -25,23 +26,24 @@ class InsertWorldCup
     {
         $seasonId = Season::getCurrentSeason() + 1;
 
-        $nationalArray = National::find()
-            ->orderBy(['national_national_type_id' => SORT_ASC])
+        $nationalTypeArray = NationalType::find()
+            ->where(['national_type_id' => NationalType::MAIN])
+            ->orderBy(['national_type_id' => SORT_ASC])
             ->all();
-        foreach ($nationalArray as $national) {
-            $nationalTypeId = $national->national_national_type_id;
+        foreach ($nationalTypeArray as $nationalType) {
+            $nationalTypeId = $nationalType->national_type_id;
 
-            $teamArray = National::find()
-                ->where(['national_national_type_id', $national->national_national_type_id])
-                ->orderBy(['team_id' => SORT_ASC])
+            $nationalArray = National::find()
+                ->where(['national_national_type_id' => $nationalType->national_type_id])
+                ->orderBy(['national_id' => SORT_ASC])
                 ->each();
 
             $data = [];
-            foreach ($teamArray as $team) {
+            foreach ($nationalArray as $national) {
                 /**
-                 * @var National $team
+                 * @var National $national
                  */
-                $data[] = [1, $team->national_id, $national->national_national_type_id, $seasonId];
+                $data[] = [1, $national->national_id, $national->national_national_type_id, $seasonId];
             }
 
             Yii::$app->db
@@ -66,26 +68,24 @@ class InsertWorldCup
                     'world_cup_season_id' => $seasonId
                 ]
             );
-        }
 
-        $scheduleArray = Schedule::find()
-            ->where(['schedule_season_id' => $seasonId, 'schedule_tournament_type_id' => TournamentType::NATIONAL])
-            ->orderBy(['schedule_id' => SORT_ASC])
-            ->all();
+            $scheduleArray = Schedule::find()
+                ->where(['schedule_season_id' => $seasonId, 'schedule_tournament_type_id' => TournamentType::NATIONAL])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->all();
 
-        $schedule_id_01 = $scheduleArray[0]->schedule_id;
-        $schedule_id_02 = $scheduleArray[1]->schedule_id;
-        $schedule_id_03 = $scheduleArray[2]->schedule_id;
-        $schedule_id_04 = $scheduleArray[3]->schedule_id;
-        $schedule_id_05 = $scheduleArray[4]->schedule_id;
-        $schedule_id_06 = $scheduleArray[5]->schedule_id;
-        $schedule_id_07 = $scheduleArray[6]->schedule_id;
-        $schedule_id_08 = $scheduleArray[7]->schedule_id;
-        $schedule_id_09 = $scheduleArray[8]->schedule_id;
-        $schedule_id_10 = $scheduleArray[9]->schedule_id;
-        $schedule_id_11 = $scheduleArray[10]->schedule_id;
+            $schedule_id_01 = $scheduleArray[0]->schedule_id;
+            $schedule_id_02 = $scheduleArray[1]->schedule_id;
+            $schedule_id_03 = $scheduleArray[2]->schedule_id;
+            $schedule_id_04 = $scheduleArray[3]->schedule_id;
+            $schedule_id_05 = $scheduleArray[4]->schedule_id;
+            $schedule_id_06 = $scheduleArray[5]->schedule_id;
+            $schedule_id_07 = $scheduleArray[6]->schedule_id;
+            $schedule_id_08 = $scheduleArray[7]->schedule_id;
+            $schedule_id_09 = $scheduleArray[8]->schedule_id;
+            $schedule_id_10 = $scheduleArray[9]->schedule_id;
+            $schedule_id_11 = $scheduleArray[10]->schedule_id;
 
-        foreach ($nationalArray as $national) {
             $worldCupArray = WorldCup::find()
                 ->where([
                     'world_cup_national_type_id' => $national->national_national_type_id,
