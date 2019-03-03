@@ -23,7 +23,7 @@ class ConferenceController extends AbstractController
      */
     public function actionIndex()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $count = Conference::find()
             ->where(['conference_season_id' => $seasonId])
             ->count();
@@ -88,7 +88,7 @@ class ConferenceController extends AbstractController
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])

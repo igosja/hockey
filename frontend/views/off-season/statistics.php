@@ -9,6 +9,8 @@ use yii\helpers\Html;
 
 /**
  * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var array $divisionArray
+ * @var int $divisionId
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -23,7 +25,6 @@ use yii\helpers\Html;
     </div>
 </div>
 <?= Html::beginForm(['off-season/statistics'], 'get'); ?>
-<?= Html::hiddenInput('seasonId', $seasonId); ?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
         <?= Html::label('Статистика', 'statisticType'); ?>
@@ -38,6 +39,7 @@ use yii\helpers\Html;
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
 </div>
+<?= Html::endForm(); ?>
 <?php
 
 if ($statisticType->isTeamChapter()) {
