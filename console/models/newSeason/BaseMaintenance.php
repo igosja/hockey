@@ -4,6 +4,7 @@ namespace console\models\newSeason;
 
 use common\models\Finance;
 use common\models\FinanceText;
+use common\models\Season;
 use common\models\Team;
 
 /**
@@ -18,6 +19,8 @@ class BaseMaintenance
      */
     public function execute()
     {
+        $seasonId = Season::getCurrentSeason() + 1;
+
         $teamArray = Team::find()
             ->where(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
@@ -30,6 +33,7 @@ class BaseMaintenance
 
             Finance::log([
                 'finance_finance_text_id' => FinanceText::OUTCOME_MAINTENANCE,
+                'finance_season_id' => $seasonId,
                 'finance_team_id' => $team->team_id,
                 'finance_value' => -$maintenance,
                 'finance_value_after' => $team->team_finance - $maintenance,

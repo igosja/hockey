@@ -26,8 +26,10 @@ class InsertLeagueParticipant
     {
         $seasonId = Season::getCurrentSeason();
 
+        $data = [];
+
         $distributionArray = LeagueDistribution::find()
-            ->where(['league_distribution_season_id' => $seasonId])
+            ->where(['league_distribution_season_id' => $seasonId + 1])
             ->orderBy(['league_distribution_id' => SORT_ASC])
             ->all();
         foreach ($distributionArray as $distribution) {
@@ -105,11 +107,9 @@ class InsertLeagueParticipant
                 }
             }
 
-            $data = [];
-
             if ($distribution->league_distribution_group) {
                 $groupParticipantArray = array_slice($participantArray, 0, $distribution->league_distribution_group);
-                array_splice($groupParticipantArray, 0, $distribution->league_distribution_group);
+                array_splice($participantArray, 0, $distribution->league_distribution_group);
 
                 foreach ($groupParticipantArray as $item) {
                     $data[] = [$seasonId + 1, Stage::TOUR_LEAGUE_1, $item];
@@ -135,19 +135,19 @@ class InsertLeagueParticipant
                     }
                 }
             }
-
-            Yii::$app->db
-                ->createCommand()
-                ->batchInsert(
-                    ParticipantLeague::tableName(),
-                    [
-                        'participant_league_season_id',
-                        'participant_league_stage_in',
-                        'participant_league_team_id',
-                    ],
-                    $participantArray
-                )
-                ->execute();
         }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                ParticipantLeague::tableName(),
+                [
+                    'participant_league_season_id',
+                    'participant_league_stage_in',
+                    'participant_league_team_id',
+                ],
+                $data
+            )
+            ->execute();
     }
 }

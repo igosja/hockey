@@ -165,7 +165,7 @@ class ChampionshipRotate
 
             if ($rotateArray) {
                 $division = Championship::find()
-                    ->where(['country' => $country->country_id, 'championship_season_id' => $seasonId])
+                    ->where(['championship_country_id' => $country->country_id, 'championship_season_id' => $seasonId])
                     ->orderBy(['championship_division_id' => SORT_DESC])
                     ->limit(1)
                     ->one();

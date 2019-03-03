@@ -25,7 +25,7 @@ class LeagueLimit
         $data = [];
 
         $ratingCountryArray = RatingCountry::find()
-            ->orderBy(['rating_country_league_place'])
+            ->orderBy(['rating_country_league_place' => SORT_ASC])
             ->all();
         foreach ($ratingCountryArray as $ratingCountry) {
             if ($ratingCountry->rating_country_league_place <= 4) {
