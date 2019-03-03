@@ -226,7 +226,7 @@ class InsertSchedule
             Stage::FRIENDLY,
         ];
 
-        $startDate = strtotime('Mon') + 12 * 60 * 60;
+        $startDate = strtotime('Mon') + 9 * 60 * 60;
 
         $data = [];
 

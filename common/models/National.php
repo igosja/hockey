@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveQuery;
+use yii\helpers\Html;
 
 /**
  * Class National
@@ -132,6 +133,25 @@ class National extends AbstractActiveRecord
         $this->save(true, ['national_vice_id']);
 
         return true;
+    }
+
+    public function nationalLink($image = false)
+    {
+        $result = '';
+        if ($image) {
+            $result = $result . Html::img(
+                    '/img/country/12/' . $this->country->country_id . '.png',
+                    [
+                        'alt' => $this->country->country_name,
+                        'title' => $this->country->country_name,
+                    ]
+                ) . ' ';
+        }
+        $result = $result . Html::a(
+                $this->country->country_name,
+                ['national/view', 'id' => $this->national_id]
+            );
+        return $result;
     }
 
     /**
