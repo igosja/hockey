@@ -2,8 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\Championship;
-use common\models\Country;
 use common\models\Division;
 use common\models\Game;
 use common\models\Schedule;
@@ -123,7 +121,6 @@ class WorldChampionshipController extends AbstractController
     }
 
     /**
-     * @param $countryId
      * @param $seasonId
      * @return array
      */
@@ -178,20 +175,11 @@ class WorldChampionshipController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
         $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
-        $countryId = Yii::$app->request->get('countryId', Country::DEFAULT_ID);
         $divisionId = Yii::$app->request->get('divisionId', Division::D1);
-        $roundId = Yii::$app->request->get('roundId', 1);
-
-        $country = Country::find()
-            ->where(['country_id' => $countryId])
-            ->limit(1)
-            ->one();
-        $this->notFound($country);
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])
@@ -207,10 +195,8 @@ class WorldChampionshipController extends AbstractController
         if ($statisticType->isTeamChapter()) {
             $query = StatisticTeam::find()
                 ->where([
-                    'statistic_team_championship_playoff' => (1 == $roundId ? 0 : 1),
-                    'statistic_team_country_id' => $countryId,
                     'statistic_team_division_id' => $divisionId,
-                    'statistic_team_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                    'statistic_team_tournament_type_id' => TournamentType::NATIONAL,
                     'statistic_team_season_id' => $seasonId,
                 ])
                 ->orderBy([$statisticType->statistic_type_select => $statisticType->statistic_type_sort]);
@@ -222,10 +208,8 @@ class WorldChampionshipController extends AbstractController
 
             $query = StatisticPlayer::find()
                 ->where([
-                    'statistic_player_championship_playoff' => (1 == $roundId ? 0 : 1),
-                    'statistic_player_country_id' => $countryId,
                     'statistic_player_division_id' => $divisionId,
-                    'statistic_player_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                    'statistic_player_tournament_type_id' => TournamentType::NATIONAL,
                     'statistic_player_season_id' => $seasonId,
                 ])
                 ->andFilterWhere(['statistic_player_is_gk' => $isGk])
@@ -239,15 +223,12 @@ class WorldChampionshipController extends AbstractController
             'query' => $query,
             'sort' => false,
         ]);
-        $this->setSeoTitle($country->country_name . '. Статистика национального чемпионата');
+        $this->setSeoTitle('Статистика чемпионата мира');
 
         return $this->render('statistics', [
-            'country' => $country,
             'dataProvider' => $dataProvider,
             'divisionArray' => $this->getDivisionStatisticsLinksArray($seasonId),
             'divisionId' => $divisionId,
-            'roundArray' => $this->getRoundStatisticsLinksArray($countryId, $divisionId, $seasonId),
-            'roundId' => $roundId,
             'seasonId' => $seasonId,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),
@@ -255,8 +236,6 @@ class WorldChampionshipController extends AbstractController
     }
 
     /**
-     * @param $countryId
-     * @param $roundId
      * @param $seasonId
      * @return array
      */
@@ -264,56 +243,24 @@ class WorldChampionshipController extends AbstractController
     {
         $result = [];
 
-        $championshipArray = Championship::find()
+        $worldCupArray = WorldCup::find()
             ->with(['division'])
             ->where([
-                'championship_season_id' => $seasonId,
+                'world_cup_season_id' => $seasonId,
             ])
-            ->groupBy(['championship_division_id'])
-            ->orderBy(['championship_division_id' => SORT_ASC])
+            ->groupBy(['world_cup_division_id'])
+            ->orderBy(['world_cup_division_id' => SORT_ASC])
             ->all();
-        foreach ($championshipArray as $championship) {
+        foreach ($worldCupArray as $worldCup) {
             $result[] = [
-                'text' => $championship->division->division_name,
+                'text' => $worldCup->division->division_name,
                 'url' => [
-                    'championship/statistics',
-                    'divisionId' => $championship->division->division_id,
+                    'world-championship/statistics',
+                    'divisionId' => $worldCup->division->division_id,
                     'seasonId' => $seasonId,
                 ]
             ];
         }
         return $result;
-    }
-
-    /**
-     * @param $countryId
-     * @param $divisionId
-     * @param $seasonId
-     * @return array
-     */
-    private function getRoundStatisticsLinksArray($countryId, $divisionId, $seasonId)
-    {
-        return [
-            [
-                'text' => 'Регулярный сезон',
-                'url' => [
-                    'championship/statistics',
-                    'countryId' => $countryId,
-                    'divisionId' => $divisionId,
-                    'roundId' => 1,
-                    'seasonId' => $seasonId,
-                ]
-            ],
-            [
-                'text' => 'Плей-офф',
-                'url' => [
-                    'championship/statistics',
-                    'countryId' => $countryId,
-                    'divisionId' => $divisionId,
-                    'roundId' => 2,
-                    'seasonId' => $seasonId,
-                ]
-            ],
-        ];
     }
 }
