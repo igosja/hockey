@@ -40,11 +40,12 @@ use console\models\generator\NationalStadium;
 use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
+use console\models\generator\NewSeason;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerPowerS;
-use console\models\generator\PlayerPriceAndSalary;
+use console\models\generator\PlayerPrice;
 use console\models\generator\PlayerRealPower;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
@@ -184,9 +185,9 @@ class GeneratorController extends AbstractController
             new PresidentFire(),
             new PresidentViceFire(),
             new ReferrerBonus(),
-//            new NewSeason(),
+            new NewSeason(),
             new PlayerLeaguePower(),
-            new PlayerPriceAndSalary(),
+            new PlayerPrice(),
             new PlayerPowerS(),
             new PlayerRealPower(),
             new TakeSalary(),
