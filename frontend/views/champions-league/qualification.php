@@ -83,7 +83,6 @@ use yii\helpers\Html;
                 'Статистика',
                 [
                     'champions-league/statistics',
-                    'roundId' => 3,
                     'seasonId' => $seasonId,
                 ],
                 ['class' => 'btn margin']

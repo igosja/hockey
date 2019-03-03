@@ -23,24 +23,12 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            <?= Html::a(
-                $country->country_name,
-                ['country/news', 'id' => $country->country_id],
-                ['class' => 'country-header-link']
-            ); ?>
+            Лига Чемпионов
         </h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
-    </div>
-</div>
-<?= Html::beginForm(['championship/statistics'], 'get'); ?>
+<?= Html::beginForm(['champions-league/statistics'], 'get'); ?>
 <?= Html::hiddenInput('seasonId', $seasonId); ?>
-<?= Html::hiddenInput('divisionId', $divisionId); ?>
-<?= Html::hiddenInput('countryId', $country->country_id); ?>
-<?= Html::hiddenInput('roundId', $roundId); ?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
         <?= Html::label('Статистика', 'statisticType'); ?>
@@ -54,11 +42,6 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= $this->render('//championship/_round-links', ['roundArray' => $roundArray]); ?>
-    </div>
 </div>
 <?php
 
@@ -146,9 +129,7 @@ if ($statisticType->isTeamChapter()) {
             <?= Html::a(
                 'Турнирная таблица',
                 [
-                    'championship/index',
-                    'countryId' => $country->country_id,
-                    'divisionId' => $divisionId,
+                    'champions-league/index',
                     'seasonId' => $seasonId,
                 ],
                 ['class' => 'btn margin']
