@@ -19,5 +19,9 @@ class OlderPlayer
             ['player_age' => 1],
             ['and', ['!=', 'player_team_id', 0], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]]
         );
+        Player::updateAllCounters(
+            ['player_age' => 1],
+            ['and', ['player_team_id' => 0], ['!=', 'player_age', 18], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]]
+        );
     }
 }

@@ -55,7 +55,7 @@ class NewSeason
             ->where('FROM_UNIXTIME(`schedule_date`-86400, \'%Y-%m-%d\')=CURDATE()')
             ->limit(1)
             ->one();
-        if (!$schedule) {
+        if ($schedule) {
             return true;
         }
 

@@ -16,6 +16,6 @@ class RandPhysical
      */
     public function execute()
     {
-        Player::updateAll(['player_physical_id' => new Expression('FLOOR(1+RAND()*24)')], ['!=', 'player_team_id', 0]);
+        Player::updateAll(['player_physical_id' => new Expression('FLOOR(1+RAND()*20)')], ['!=', 'player_team_id', 0]);
     }
 }
