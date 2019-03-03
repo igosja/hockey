@@ -24,7 +24,6 @@ use frontend\models\TransferTo;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -415,5 +414,10 @@ class PlayerController extends AbstractController
         $this->notFound($player);
 
         return $player;
+    }
+
+    public function actionAva()
+    {
+        return $this->renderPartial('ava');
     }
 }
