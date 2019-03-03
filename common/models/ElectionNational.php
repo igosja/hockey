@@ -47,6 +47,22 @@ class ElectionNational extends AbstractActiveRecord
     }
 
     /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->election_national_election_status_id = ElectionStatus::CANDIDATES;
+                $this->election_national_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getApplication()
