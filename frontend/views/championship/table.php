@@ -42,7 +42,9 @@ $user = Yii::$app->user->identity;
         <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
     </div>
 </div>
-<?= Html::beginForm(['championship/table'], 'get'); ?>
+<?= Html::beginForm(['championship/index'], 'get'); ?>
+<?= Html::hiddenInput('divisionId', $divisionId); ?>
+<?= Html::hiddenInput('countryId', $country->country_id); ?>
 <div class="row margin-top-small">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">

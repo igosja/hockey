@@ -8,12 +8,9 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Country $country
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $divisionArray
  * @var int $divisionId
- * @var array $roundArray
- * @var int $roundId
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -23,24 +20,18 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            <?= Html::a(
-                $country->country_name,
-                ['country/news', 'id' => $country->country_id],
-                ['class' => 'country-header-link']
-            ); ?>
+            Чемпионат мира среди сборных
         </h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= $this->render('//championship/_division-links', ['divisionArray' => $divisionArray]); ?>
+        <?= $this->render('//world-championship/_division-links', ['divisionArray' => $divisionArray]); ?>
     </div>
 </div>
-<?= Html::beginForm(['championship/statistics'], 'get'); ?>
+<?= Html::beginForm(['world-championship/statistics'], 'get'); ?>
 <?= Html::hiddenInput('seasonId', $seasonId); ?>
 <?= Html::hiddenInput('divisionId', $divisionId); ?>
-<?= Html::hiddenInput('countryId', $country->country_id); ?>
-<?= Html::hiddenInput('roundId', $roundId); ?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
         <?= Html::label('Статистика', 'statisticType'); ?>
@@ -54,11 +45,6 @@ use yii\helpers\Html;
         ); ?>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
-</div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <?= $this->render('//championship/_round-links', ['roundArray' => $roundArray]); ?>
-    </div>
 </div>
 <?php
 
@@ -146,8 +132,7 @@ if ($statisticType->isTeamChapter()) {
             <?= Html::a(
                 'Турнирная таблица',
                 [
-                    'championship/index',
-                    'countryId' => $country->country_id,
+                    'world-championship/index',
                     'divisionId' => $divisionId,
                     'seasonId' => $seasonId,
                 ],

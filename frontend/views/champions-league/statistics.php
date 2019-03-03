@@ -8,9 +8,12 @@ use yii\grid\SerialColumn;
 use yii\helpers\Html;
 
 /**
+ * @var \common\models\Country $country
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $divisionArray
  * @var int $divisionId
+ * @var array $roundArray
+ * @var int $roundId
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -20,11 +23,12 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>
-            Кубок межсезонья
+            Лига Чемпионов
         </h1>
     </div>
 </div>
-<?= Html::beginForm(['off-season/statistics'], 'get'); ?>
+<?= Html::beginForm(['champions-league/statistics'], 'get'); ?>
+<?= Html::hiddenInput('seasonId', $seasonId); ?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
         <?= Html::label('Статистика', 'statisticType'); ?>
@@ -39,7 +43,6 @@ use yii\helpers\Html;
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
 </div>
-<?= Html::endForm(); ?>
 <?php
 
 if ($statisticType->isTeamChapter()) {
@@ -52,9 +55,9 @@ if ($statisticType->isTeamChapter()) {
             'headerOptions' => ['class' => 'col-10'],
         ],
         [
-            'label' => 'Команда',
             'footer' => 'Команда',
             'format' => 'raw',
+            'label' => 'Команда',
             'value' => function (StatisticTeam $model) {
                 return $model->team->teamLink('img');
             }
@@ -120,3 +123,17 @@ if ($statisticType->isTeamChapter()) {
     ?>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <p>
+            <?= Html::a(
+                'Турнирная таблица',
+                [
+                    'champions-league/index',
+                    'seasonId' => $seasonId,
+                ],
+                ['class' => 'btn margin']
+            ); ?>
+        </p>
+    </div>
+</div>

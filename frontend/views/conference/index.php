@@ -16,7 +16,7 @@ use yii\helpers\Html;
         </h1>
     </div>
 </div>
-<?= Html::beginForm('', 'get'); ?>
+<?= Html::beginForm(['conference/index'], 'get'); ?>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">

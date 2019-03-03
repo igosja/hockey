@@ -23,7 +23,7 @@ class OffSeasonController extends AbstractController
      */
     public function actionIndex()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $count = OffSeason::find()->where(['off_season_season_id' => $seasonId])->count();
 
         $this->setSeoTitle('Кубок межсезонья');
@@ -40,7 +40,7 @@ class OffSeasonController extends AbstractController
      */
     public function actionTable()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $countryId = Yii::$app->request->get('countryId');
 
         $query = OffSeason::find()
@@ -86,7 +86,7 @@ class OffSeasonController extends AbstractController
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])
@@ -133,7 +133,6 @@ class OffSeasonController extends AbstractController
 
         return $this->render('statistics', [
             'dataProvider' => $dataProvider,
-            'seasonId' => $seasonId,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),
         ]);

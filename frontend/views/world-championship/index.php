@@ -263,7 +263,6 @@ $user = Yii::$app->user->identity;
                 [
                     'world-championship/statistics',
                     'divisionId' => $divisionId,
-                    'roundId' => 1,
                     'seasonId' => $seasonId,
                 ],
                 ['class' => 'btn margin']
