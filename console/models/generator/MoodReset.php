@@ -2,10 +2,8 @@
 
 namespace console\models\generator;
 
-use common\models\Schedule;
-use common\models\Stage;
+use common\models\National;
 use common\models\Team;
-use common\models\TournamentType;
 
 /**
  * Class MoodReset
@@ -18,18 +16,7 @@ class MoodReset
      */
     public function execute()
     {
-        $check = Schedule::find()
-            ->where('FROM_UNIXTIME(`schedule_date`-86400, "%Y-%m-%d")=CURDATE()')
-            ->andWhere([
-                'schedule_stage_id' => Stage::TOUR_1,
-                'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP
-            ])
-            ->limit(1)
-            ->one();
-        if (!$check) {
-            return;
-        }
-
-        Team::updateAll(['team_mood_rest' => 3, 'team_mood_super' => 3], ['!=', 'team_id', 0]);
+        Team::updateAll(['team_mood_rest' => 2, 'team_mood_super' => 2], ['!=', 'team_id', 0]);
+        National::updateAll(['national_mood_rest' => 2, 'national_mood_super' => 2], ['!=', 'national_id', 0]);
     }
 }

@@ -29,6 +29,8 @@ use yii\db\ActiveQuery;
  *
  * @property Country $country
  * @property NationalType $nationalType
+ * @property User $user
+ * @property User $vice
  * @property WorldCup $worldCup
  */
 class National extends AbstractActiveRecord
@@ -74,6 +76,65 @@ class National extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function fireUser()
+    {
+        if ($this->national_user_id) {
+            return true;
+        }
+
+        History::log([
+            'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_OUT,
+            'history_national_id' => $this->national_id,
+            'history_user_id' => $this->national_user_id,
+        ]);
+
+        if ($this->national_vice_id) {
+            History::log([
+                'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_OUT,
+                'history_national_id' => $this->national_id,
+                'history_user_id' => $this->national_vice_id,
+            ]);
+
+            History::log([
+                'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_IN,
+                'history_national_id' => $this->national_id,
+                'history_user_id' => $this->national_vice_id,
+            ]);
+        }
+
+        $this->national_user_id = $this->national_vice_id;
+        $this->national_vice_id = 0;
+        $this->save(true, ['national_user_id', 'national_vice_id']);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function fireVice()
+    {
+        if ($this->national_vice_id) {
+            return true;
+        }
+
+        History::log([
+            'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_OUT,
+            'history_national_id' => $this->national_id,
+            'history_user_id' => $this->national_vice_id,
+        ]);
+
+        $this->national_vice_id = 0;
+        $this->save(true, ['national_vice_id']);
+
+        return true;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry()
@@ -87,6 +148,22 @@ class National extends AbstractActiveRecord
     public function getNationalType()
     {
         return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'national_user_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVice()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'national_vice_id']);
     }
 
     /**

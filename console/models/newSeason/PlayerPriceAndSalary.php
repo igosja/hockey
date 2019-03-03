@@ -1,6 +1,6 @@
 <?php
 
-namespace console\models\generator;
+namespace console\models\newSeason;
 
 use common\models\Season;
 use Yii;
@@ -17,7 +17,7 @@ class PlayerPriceAndSalary
      */
     public function execute()
     {
-        $seasonId = Season::getCurrentSeason();
+        $seasonId = Season::getCurrentSeason() + 1;
 
         $sql = "UPDATE `player`
                 LEFT JOIN
