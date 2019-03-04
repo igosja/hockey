@@ -26,6 +26,7 @@ use console\models\newSeason\InsertOffSeason;
 use console\models\newSeason\InsertSchedule;
 use console\models\newSeason\InsertWorldCup;
 use console\models\newSeason\LeagueLimit;
+use console\models\newSeason\MoodResetAll;
 use console\models\newSeason\NationalTransferMoney;
 use console\models\newSeason\NoDeal;
 use console\models\newSeason\OlderPlayer;
@@ -88,7 +89,7 @@ class NewSeason
             new PensionInform(),
             new PlayerPriceAndSalary(),
             new BaseMaintenance(),
-            new MoodReset(),
+            new MoodResetAll(),
             new GameRow(),
             new CountryAutoReset(),
             new TruncateTables(),
