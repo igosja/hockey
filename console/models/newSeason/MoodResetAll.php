@@ -6,10 +6,10 @@ use common\models\National;
 use common\models\Team;
 
 /**
- * Class MoodReset
+ * Class MoodResetAll
  * @package console\models\newSeason
  */
-class MoodReset
+class MoodResetAll
 {
     /**
      * @return void
