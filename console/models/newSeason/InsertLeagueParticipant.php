@@ -55,12 +55,26 @@ class InsertLeagueParticipant
                         'championship_country_id' => $distribution->league_distribution_country_id,
                         'championship_division_id' => Division::D1,
                         'championship_season_id' => $seasonId,
+                        'championship_place' => 1
                     ])
                     ->andWhere(['not', ['championship_team_id' => $participantArray]])
-                    ->orderBy(['championship_place' => SORT_ASC])
                     ->limit(1)
                     ->one();
-                $participantArray[] = $championship->championship_team_id;
+                if ($participantArray) {
+                    $participantArray[] = $championship->championship_team_id;
+                } else {
+                    $participantChampionship = ParticipantChampionship::find()
+                        ->where([
+                            'participant_championship_country_id' => $distribution->league_distribution_country_id,
+                            'participant_championship_division_id' => Division::D1,
+                            'participant_championship_season_id' => $seasonId,
+                            'participant_championship_stage_id' => Stage::FINAL_GAME,
+                        ])
+                        ->andWhere(['not', ['participant_championship_team_id' => $participantArray]])
+                        ->limit(1)
+                        ->one();
+                    $participantArray[] = $participantChampionship->participant_championship_team_id;
+                }
             }
 
             if ($distributionTotal > 2) {
