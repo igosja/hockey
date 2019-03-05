@@ -11,6 +11,8 @@ namespace common\models;
  * @property int $swiss_home
  * @property int $swiss_place
  * @property int $swiss_team_id
+ *
+ * @property Team $team
  */
 class Swiss extends AbstractActiveRecord
 {
@@ -32,5 +34,13 @@ class Swiss extends AbstractActiveRecord
         return [
             [['swiss_id', 'swiss_guest', 'swiss_home', 'swiss_place', 'swiss_team_id'], 'integer'],
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeam()
+    {
+        return $this->hasOne(Team::class, ['team_id' => 'swiss_team_id']);
     }
 }
