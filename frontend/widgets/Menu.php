@@ -9,7 +9,6 @@ use common\models\PollAnswer;
 use common\models\PollStatus;
 use common\models\PollUser;
 use common\models\Support;
-use common\models\User;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\base\Widget;
@@ -286,8 +285,8 @@ class Menu extends Widget
                 'url' => ['chat/index'],
             ],
             self::ITEM_FEDERATION => [
-                'css' => $countryNews ? 'red' : '' . ($countryNews ? ' <sup class="text-size-3">' . $countryNews . '</sup>' : ''),
-                'label' => 'Федерация',
+                'css' => $countryNews ? 'red' : '',
+                'label' => 'Федерация' . ($countryNews ? ' <sup class="text-size-4">' . $countryNews . '</sup>' : ''),
                 'url' => ['country/news'],
             ],
             self::ITEM_FORUM => [
@@ -304,8 +303,8 @@ class Menu extends Widget
                 'url' => ['loan/index'],
             ],
             self::ITEM_MESSENGER => [
-                'css' => $messenger ? 'red' : '' . ($messenger ? ' <sup class="text-size-3">' . $messenger . '</sup>' : ''),
-                'label' => 'Общение',
+                'css' => $messenger ? 'red' : '',
+                'label' => 'Общение' . ($messenger ? '<sup class="text-size-4">' . $messenger . '</sup>' : ''),
                 'url' => ['messenger/index'],
             ],
             self::ITEM_NATIONAL_TEAM => [
@@ -313,8 +312,8 @@ class Menu extends Widget
                 'url' => ['national/index'],
             ],
             self::ITEM_NEWS => [
-                'css' => $news ? 'red' : '' . ($news ? ' <sup class="text-size-3">' . $news . '</sup>' : ''),
-                'label' => 'Новости',
+                'css' => $news ? 'red' : '',
+                'label' => 'Новости' . ($news ? '<sup class="text-size-4">' . $news . '</sup>' : ''),
                 'url' => ['news/index'],
             ],
             self::ITEM_PASSWORD => [
@@ -326,8 +325,8 @@ class Menu extends Widget
                 'url' => ['player/index'],
             ],
             self::ITEM_POLL => [
-                'css' => $poll ? 'red' : '' . ($poll ? ' <sup class="text-size-3">' . $poll . '</sup>' : ''),
-                'label' => 'Опросы',
+                'css' => $poll ? 'red' : '',
+                'label' => 'Опросы' . ($poll ? '<sup class="text-size-4">' . $poll . '</sup>' : ''),
                 'url' => ['poll/index'],
             ],
             self::ITEM_PROFILE => [
@@ -362,7 +361,7 @@ class Menu extends Widget
             ],
             self::ITEM_SUPPORT => [
                 'css' => $support ? 'red' : '',
-                'label' => 'Техподдержка' . ($support ? ' <sup class="text-size-3">' . $support . '</sup>' : ''),
+                'label' => 'Техподдержка' . ($support ? ' <sup class="text-size-4">' . $support . '</sup>' : ''),
                 'url' => ['support/index'],
             ],
             self::ITEM_TEAM => [
