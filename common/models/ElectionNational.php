@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  * @property int $election_national_national_type_id
  *
  * @property ElectionNationalApplication[] $application
+ * @property ElectionStatus $electionStatus
  * @property National $national
  */
 class ElectionNational extends AbstractActiveRecord
@@ -71,6 +72,14 @@ class ElectionNational extends AbstractActiveRecord
             ElectionNationalApplication::class,
             ['election_national_application_election_id' => 'election_national_id']
         );
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getElectionStatus()
+    {
+        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_national_election_status_id']);
     }
 
     /**

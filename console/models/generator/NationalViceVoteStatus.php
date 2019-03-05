@@ -74,16 +74,17 @@ class NationalViceVoteStatus
     private function toClose(ElectionNationalVice $electionNationalVice)
     {
         $electionNationalViceApplication = ElectionNationalViceApplication::find()
+            ->alias('ena')
             ->joinWith([
                 'electionNationalViceVote' => function (ActiveQuery $query) {
                     return $query
-                        ->select([
-                            'election_national_vice_vote_application_id',
-                            'COUNT(election_national_vice_vote_application_id) AS election_national_vice_vote_vote',
-                        ])
                         ->groupBy(['election_national_vice_vote_application_id']);
                 },
                 'user',
+            ])
+            ->select([
+                'ena.*',
+                'COUNT(election_national_vice_vote_application_id) AS election_national_vice_vote_vote'
             ])
             ->where(['election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id])
             ->andWhere(['!=', 'election_national_application_user_id', 0])
