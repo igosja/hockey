@@ -25,7 +25,7 @@ class m180623_071658_tournament_type extends Migration
             self::TABLE,
             ['tournament_type_day_type_id', 'tournament_type_name', 'tournament_type_visitor'],
             [
-                [3, 'Чемпинат мира', 200],
+                [3, 'Чемпионат мира', 200],
                 [3, 'Лига Чемпионов', 150],
                 [2, 'Чемпионат', 100],
                 [2, 'Конференция', 90],
