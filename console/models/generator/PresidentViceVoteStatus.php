@@ -63,7 +63,7 @@ class PresidentViceVoteStatus
 
         $electionPresidentVice->election_president_vice_date = time();
         $electionPresidentVice->election_president_vice_election_status_id = ElectionStatus::OPEN;
-        $electionPresidentVice->save();
+        $electionPresidentVice->save(true, ['election_president_vice_date', 'election_president_vice_election_status_id']);
     }
 
     /**

@@ -8,6 +8,9 @@ use common\models\Achievement;
 use common\models\Country;
 use common\models\ElectionNational;
 use common\models\ElectionNationalApplication;
+use common\models\ElectionNationalVice;
+use common\models\ElectionNationalViceApplication;
+use common\models\ElectionNationalViceVote;
 use common\models\ElectionNationalVote;
 use common\models\ElectionPresident;
 use common\models\ElectionPresidentApplication;
@@ -1074,6 +1077,52 @@ class TeamController extends AbstractController
                 $result[] = 'В вашей стране проходят выборы тренера нацинальной сборной. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['national-election/view']
+                    );
+            }
+        }
+
+        if ($national->national_user_id && !$national->national_vice_id) {
+            $electionNationalVice = ElectionNationalVice::find()
+                ->where([
+                    'election_national_vice_country_id' => $country->country_id,
+                    'election_national_vice_national_type_id' => NationalType::MAIN,
+                    'election_president_vice_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionNationalVice) {
+                $electionNationalVice = new ElectionNationalVice();
+                $electionNationalVice->election_national_vice_country_id = $country->country_id;
+                $electionNationalVice->election_national_vice_national_type_id = NationalType::MAIN;
+                $electionNationalVice->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера нацинальной сборной. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
+                $electionNationalVote = ElectionNationalViceVote::find()
+                    ->where([
+                        'election_national_vice_vote_application_id' => ElectionNationalViceApplication::find()
+                            ->select(['election_national_vice_application_id'])
+                            ->where(['election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id]),
+                        'election_national_vice_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionNationalVote) {
+                    Yii::$app->controller->redirect(['national-election-vice/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы заместителя тренера нацинальной сборной. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/view']
                     );
             }
         }
