@@ -56,6 +56,24 @@ print $this->render('//country/_country');
                             Дата регистрации: '
                             . FormatHelper::asDate($model->user->user_date_register)
                             . '</div></div>
+                            <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Рейтинг менеджера: '
+                            . $model->user->user_rating
+                            . '</div></div>
+                            <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Сила состава: '
+                            . $model->playerPower()
+                            . ' ['
+                            . Html::a(
+                                'Смотреть состав',
+                                ['national-election/player', 'id' => $model->election_national_application_id],
+                                ['target' => '_blank']
+                            )
+                            . ']
+                            </div>
+                            </div>
                             <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
                             . HockeyHelper::bbDecode($model->election_national_application_text)

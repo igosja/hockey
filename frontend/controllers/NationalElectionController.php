@@ -350,4 +350,38 @@ class NationalElectionController extends AbstractController
             'model' => $model,
         ]);
     }
+
+    public function actionPlayer($id)
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        $electionNationalApplication = ElectionNationalApplication::find()
+            ->where(['election_national_application_id' => $id])
+            ->limit(1)
+            ->one();
+
+        if (!$electionNationalApplication) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionNational = ElectionNational::find()
+            ->where(['election_national_id' => $electionNationalApplication->election_national_application_election_id])
+            ->limit(1)
+            ->one();
+
+        if (!$electionNational) {
+            return $this->redirect(['team/view']);
+        }
+
+        $this->setSeoTitle('Состав тренера национальной сборной');
+
+        return $this->render('player', [
+            'electionNationalApplication' => $electionNationalApplication,
+        ]);
+    }
 }

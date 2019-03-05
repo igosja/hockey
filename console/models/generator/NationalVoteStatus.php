@@ -75,22 +75,13 @@ class NationalVoteStatus
         $electionNationalApplicationArray = ElectionNationalApplication::find()
             ->alias('ena')
             ->joinWith([
-                'electionNationalPlayer' => function (ActiveQuery $query) {
-                    return $query
-                        ->joinWith(['player'])
-                        ->select([
-                            'election_national_player_application_id',
-                            'SUM(player_power_nominal_s) AS player_power_nominal_s',
-                        ])
-                        ->groupBy(['election_national_player_application_id']);
-                },
                 'electionNationalVote' => function (ActiveQuery $query) {
                     return $query
                         ->groupBy(['election_national_vote_application_id']);
                 },
                 'user',
             ])
-            ->select(['epa.*', 'COUNT(election_president_vote_application_id) AS election_president_vote_vote', 'player_power_nominal_s'])
+            ->select(['ena.*', 'COUNT(election_national_vote_application_id) AS election_national_vote_vote'])
             ->where(['election_national_application_election_id' => $electionNational->election_national_id])
             ->andWhere(['!=', 'election_national_application_user_id', 0])
             ->andWhere([
@@ -103,7 +94,6 @@ class NationalVoteStatus
             ])
             ->orderBy([
                 'election_national_vote_vote' => SORT_DESC,
-                'election_national_application_power' => SORT_DESC,
                 'user_rating' => SORT_DESC,
                 'user_date_register' => SORT_ASC,
                 'election_national_application_id' => SORT_ASC,
