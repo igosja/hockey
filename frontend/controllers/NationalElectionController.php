@@ -4,9 +4,7 @@ namespace frontend\controllers;
 
 use common\models\ElectionNational;
 use common\models\ElectionNationalApplication;
-use common\models\ElectionPresident;
-use common\models\ElectionPresidentApplication;
-use common\models\ElectionPresidentVote;
+use common\models\ElectionNationalVote;
 use common\models\ElectionStatus;
 use common\models\National;
 use common\models\NationalType;
@@ -228,49 +226,54 @@ class NationalElectionController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        if ($country->country_president_id) {
+        $national = National::find()
+            ->where(['national_national_type_id' => NationalType::MAIN, 'national_country_id' => $country->country_id])
+            ->limit(1)
+            ->one();
+
+        if ($national->national_user_id) {
             return $this->redirect(['team/view']);
         }
 
-        $electionPresident = ElectionPresident::find()
+        $electionNational = ElectionNational::find()
             ->where([
-                'election_president_country_id' => $country->country_id,
-                'election_president_election_status_id' => ElectionStatus::CANDIDATES
+                'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_election_status_id' => ElectionStatus::CANDIDATES
             ])
             ->count();
 
-        if ($electionPresident) {
-            return $this->redirect(['president/application']);
+        if ($electionNational) {
+            return $this->redirect(['national-election/application']);
         }
 
-        $electionPresident = ElectionPresident::find()
+        $electionNational = ElectionNational::find()
             ->where([
-                'election_president_country_id' => $country->country_id,
-                'election_president_election_status_id' => ElectionStatus::OPEN,
+                'election_national_country_id' => $country->country_id,
+                'election_national_election_status_id' => ElectionStatus::OPEN,
             ])
             ->limit(1)
             ->one();
 
-        if (!$electionPresident) {
+        if (!$electionNational) {
             return $this->redirect(['team/view']);
         }
 
-        $voteUser = ElectionPresidentVote::find()
+        $voteUser = ElectionNationalVote::find()
             ->where([
-                'election_president_vote_application_id' => ElectionPresidentApplication::find()
-                    ->select(['election_president_application_id'])
-                    ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
-                'election_president_vote_user_id' => Yii::$app->user->id,
+                'election_national_vote_application_id' => ElectionNationalApplication::find()
+                    ->select(['election_national_application_id'])
+                    ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
+                'election_national_vote_user_id' => Yii::$app->user->id,
             ])
             ->count();
         if (!$voteUser) {
-            return $this->redirect(['president/poll']);
+            return $this->redirect(['national-election/poll']);
         }
 
-        $this->setSeoTitle('Голосование за президента федерации');
-
+        $this->setSeoTitle('Голосование за тренера национальной сборной');
         return $this->render('view', [
-            'electionPresident' => $electionPresident,
+            'electionNational' => $electionNational,
         ]);
     }
 
@@ -287,56 +290,63 @@ class NationalElectionController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        if ($country->country_president_id) {
+        $national = National::find()
+            ->where(['national_national_type_id' => NationalType::MAIN, 'national_country_id' => $country->country_id])
+            ->limit(1)
+            ->one();
+
+        if ($national->national_user_id) {
             return $this->redirect(['team/view']);
         }
 
-        $electionPresident = ElectionPresident::find()
+        $electionNational = ElectionNational::find()
             ->where([
-                'election_president_country_id' => $country->country_id,
-                'election_president_election_status_id' => ElectionStatus::CANDIDATES
+                'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_election_status_id' => ElectionStatus::CANDIDATES
             ])
             ->count();
 
-        if ($electionPresident) {
-            return $this->redirect(['president/application']);
+        if ($electionNational) {
+            return $this->redirect(['national-election/application']);
         }
 
-        $electionPresident = ElectionPresident::find()
+        $electionNational = ElectionNational::find()
             ->where([
-                'election_president_country_id' => $country->country_id,
-                'election_president_election_status_id' => ElectionStatus::OPEN,
+                'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_election_status_id' => ElectionStatus::OPEN,
             ])
             ->limit(1)
             ->one();
 
-        if (!$electionPresident) {
+        if (!$electionNational) {
             return $this->redirect(['team/view']);
         }
 
-        $voteUser = ElectionPresidentVote::find()
+        $voteUser = ElectionNationalVote::find()
             ->where([
-                'election_president_vote_application_id' => ElectionPresidentApplication::find()
-                    ->select(['election_president_application_id'])
-                    ->where(['election_president_application_election_id' => $electionPresident->election_president_id]),
-                'election_president_vote_user_id' => Yii::$app->user->id,
+                'election_national_vote_application_id' => ElectionNationalApplication::find()
+                    ->select(['election_national_application_id'])
+                    ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
+                'election_national_vote_user_id' => Yii::$app->user->id,
             ])
             ->count();
         if ($voteUser) {
-            return $this->redirect(['president/view']);
+            return $this->redirect(['national-election/view']);
         }
 
-        $model = new ElectionPresidentVote();
-        $model->election_president_vote_user_id = Yii::$app->user->id;
+        $model = new ElectionNationalVote();
+        $model->election_national_vote_user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash('Ваш голос успешно сохранён.');
             return $this->refresh();
         }
 
-        $this->setSeoTitle('Голосование за президента федерации');
+        $this->setSeoTitle('Голосование за тренера национальной сборной');
 
         return $this->render('poll', [
-            'electionPresident' => $electionPresident,
+            'electionNational' => $electionNational,
             'model' => $model,
         ]);
     }

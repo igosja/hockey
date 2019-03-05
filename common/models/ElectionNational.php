@@ -64,6 +64,30 @@ class ElectionNational extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function applications()
+    {
+        $result = [];
+        $total = 0;
+        foreach ($this->application as $application) {
+            $count = count($application->electionNationalVote);
+            $result[] = [
+                'count' => $count,
+                'user' => $application->election_national_application_user_id ? $application->user->userLink() : 'Потив всех',
+            ];
+            $total = $total + $count;
+        }
+        foreach ($result as $key => $value) {
+            $result[$key]['percent'] = $total ? round($result[$key]['count'] / $total * 100) : 0;
+        }
+        usort($result, function ($a, $b) {
+            return $b['count'] > $a['count'] ? 1 : 0;
+        });
+        return $result;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getApplication()
