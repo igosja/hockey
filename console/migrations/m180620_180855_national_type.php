@@ -16,7 +16,7 @@ class m180620_180855_national_type extends Migration
     {
         $this->createTable(self::TABLE, [
             'national_type_id' => $this->primaryKey(1),
-            'national_type_name' => $this->string(10),
+            'national_type_name' => $this->string(15),
         ]);
 
         $this->batchInsert(self::TABLE, ['national_type_name'], [

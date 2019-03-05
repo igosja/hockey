@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  * @property int $election_national_national_type_id
  *
  * @property ElectionNationalApplication[] $application
+ * @property ElectionStatus $electionStatus
  * @property National $national
  */
 class ElectionNational extends AbstractActiveRecord
@@ -63,6 +64,30 @@ class ElectionNational extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function applications()
+    {
+        $result = [];
+        $total = 0;
+        foreach ($this->application as $application) {
+            $count = count($application->electionNationalVote);
+            $result[] = [
+                'count' => $count,
+                'user' => $application->election_national_application_user_id ? $application->user->userLink() : 'Потив всех',
+            ];
+            $total = $total + $count;
+        }
+        foreach ($result as $key => $value) {
+            $result[$key]['percent'] = $total ? round($result[$key]['count'] / $total * 100) : 0;
+        }
+        usort($result, function ($a, $b) {
+            return $b['count'] > $a['count'] ? 1 : 0;
+        });
+        return $result;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getApplication()
@@ -76,8 +101,19 @@ class ElectionNational extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getElectionStatus()
+    {
+        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_national_election_status_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getNational()
     {
-        return $this->hasOne(National::class, ['national_id' => 'election_national_national_id']);
+        return $this->hasOne(National::class, [
+            'national_country_id' => 'election_national_country_id',
+            'national_national_type_id' => 'election_national_national_type_id'
+        ]);
     }
 }

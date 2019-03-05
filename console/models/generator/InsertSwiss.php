@@ -7,6 +7,7 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\Swiss;
+use common\models\Team;
 use common\models\TournamentType;
 use Yii;
 
@@ -109,12 +110,14 @@ class InsertSwiss
         }
 
         $teamArray = Swiss::find()
+            ->with(['team'])
             ->orderBy(['swiss_id' => SORT_ASC])
             ->all();
         if (TournamentType::OFF_SEASON == $tournamentTypeId) {
             $maxCount = 1;
 
             for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
+                $userTeamSubQuery = null;
                 $subQuery = Game::find()
                     ->select('IF(`game_home_team_id`=' . $teamArray[$i]->swiss_team_id . ', `game_guest_team_id`, `game_home_team_id`) AS `game_home_team_id`')
                     ->joinWith(['schedule'])
@@ -129,10 +132,16 @@ class InsertSwiss
                     ])
                     ->groupBy(['game_home_team_id'])
                     ->having(['>=', 'COUNT(`game_id`)', $maxCount]);
+                if ($teamArray[$i]->team->team_user_id) {
+                    $userTeamSubQuery = Team::find()
+                        ->select(['team_id'])
+                        ->where(['team_user_id' => $teamArray[$i]->swiss_team_id]);
+                }
                 $free = Swiss::find()
                     ->select(['swiss_team_id'])
                     ->where(['!=', 'swiss_team_id', $teamArray[$i]->swiss_team_id])
                     ->andWhere(['not', ['swiss_team_id' => $subQuery]])
+                    ->andFilterWhere(['not', ['swiss_team_id' => $userTeamSubQuery]])
                     ->orderBy(['swiss_id' => SORT_ASC])
                     ->column();
 
