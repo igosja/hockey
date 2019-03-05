@@ -114,6 +114,20 @@ class ElectionNationalApplication extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function playerPower()
+    {
+        $result = 0;
+
+        foreach ($this->electionNationalPlayer as $electionNationalPlayer) {
+            $result = $result + $electionNationalPlayer->player->player_power_nominal_s;
+        }
+
+        return $result;
+    }
+
+    /**
      * @return void
      */
     public function loadPlayer()

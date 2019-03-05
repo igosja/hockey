@@ -14,7 +14,7 @@ use common\models\Stage;
 use common\models\StatisticPlayer;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\ChampionshipLot;
+use console\models\generator\NationalVoteStatus;
 use Exception;
 use yii\db\Expression;
 
@@ -409,8 +409,11 @@ class FixController extends AbstractController
         );
     }
 
-    public function actionChamp()
+    /**
+     * @throws Exception
+     */
+    public function actionNational()
     {
-        (new ChampionshipLot())->execute();
+        (new NationalVoteStatus())->execute();
     }
 }

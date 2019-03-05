@@ -63,7 +63,7 @@ class NationalVoteStatus
 
         $electionNational->election_national_date = time();
         $electionNational->election_national_election_status_id = ElectionStatus::OPEN;
-        $electionNational->save();
+        $electionNational->save(true, ['election_national_date', 'election_national_election_status_id']);
     }
 
     /**
@@ -73,26 +73,15 @@ class NationalVoteStatus
     private function toClose(ElectionNational $electionNational)
     {
         $electionNationalApplicationArray = ElectionNationalApplication::find()
+            ->alias('ena')
             ->joinWith([
-                'electionNationalPlayer' => function (ActiveQuery $query) {
-                    return $query
-                        ->joinWith(['player'])
-                        ->select([
-                            'election_national_player_application_id',
-                            'SUM(player_power_nominal_s) AS election_national_application_power',
-                        ])
-                        ->groupBy(['election_national_player_application_id']);
-                },
                 'electionNationalVote' => function (ActiveQuery $query) {
                     return $query
-                        ->select([
-                            'election_national_vote_application_id',
-                            'COUNT(election_national_vote_application_id) AS election_national_vote_vote',
-                        ])
                         ->groupBy(['election_national_vote_application_id']);
                 },
                 'user',
             ])
+            ->select(['ena.*', 'COUNT(election_national_vote_application_id) AS election_national_vote_vote'])
             ->where(['election_national_application_election_id' => $electionNational->election_national_id])
             ->andWhere(['!=', 'election_national_application_user_id', 0])
             ->andWhere([
@@ -105,7 +94,6 @@ class NationalVoteStatus
             ])
             ->orderBy([
                 'election_national_vote_vote' => SORT_DESC,
-                'election_national_application_power' => SORT_DESC,
                 'user_rating' => SORT_DESC,
                 'user_date_register' => SORT_ASC,
                 'election_national_application_id' => SORT_ASC,
@@ -130,16 +118,16 @@ class NationalVoteStatus
 
                 $electionNational->national->national_user_id = $electionNationalApplicationArray[0]->election_national_application_user_id;
                 $electionNational->national->national_vice_id = isset($electionNationalApplicationArray[1]->election_national_application_user_id) ? $electionNationalApplicationArray[1]->election_national_application_user_id : 0;
-                $electionNational->national->save();
+                $electionNational->national->save(true, ['national_user_id', 'national_vice_id']);
 
                 foreach ($electionNationalApplicationArray[0]->electionNationalPlayer as $electionNationalPlayer) {
                     $electionNationalPlayer->player->player_national_id = $electionNational->election_national_id;
-                    $electionNationalPlayer->player->save();
+                    $electionNationalPlayer->player->save(true, ['player_national_id']);
                 }
             }
         }
 
         $electionNational->election_national_election_status_id = ElectionStatus::CLOSE;
-        $electionNational->save();
+        $electionNational->save(true, ['election_national_election_status_id']);
     }
 }
