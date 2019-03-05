@@ -107,7 +107,7 @@ class PresidentViceController extends AbstractController
             return $this->refresh();
         }
 
-        $this->setSeoTitle('Подача заявки на заместителя президента федерации');
+        $this->setSeoTitle('Подача заявки на должность заместителя президента федерации');
         return $this->render('application', [
             'model' => $model,
         ]);
