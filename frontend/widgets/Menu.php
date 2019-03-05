@@ -208,6 +208,10 @@ class Menu extends Widget
      */
     private function setMenuItemList()
     {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
         $countryNews = 0;
         $messenger = 0;
         $news = 0;
@@ -222,20 +226,10 @@ class Menu extends Widget
                 ->where(['message_user_id_to' => Yii::$app->user->id, 'message_read' => 0])
                 ->count();
 
-            $lastUserNews = User::find()
-                ->select(['user_news_id'])
-                ->where(['user_id' => Yii::$app->user->id])
-                ->scalar();
-
-            $lastNews = News::find()
-                ->select(['news_id'])
+            $news = News::find()
                 ->where(['news_country_id' => 0])
-                ->orderBy(['news_id' => SORT_DESC])
-                ->scalar();
-
-            if ($lastNews > $lastUserNews) {
-                $news = 1;
-            }
+                ->andWhere(['>', 'news_id', $controller->user->user_news_id])
+                ->count();
 
             $poll = Poll::find()
                 ->where(['poll_poll_status_id' => PollStatus::OPEN, 'poll_country_id' => 0])
@@ -252,21 +246,11 @@ class Menu extends Widget
                     ]
                 ])
                 ->count();
-
-            /**
-             * @var AbstractController $controller
-             */
-            $controller = Yii::$app->controller;
             if ($controller->myTeam) {
-                $lastCountryNews = News::find()
-                    ->select(['news_id'])
+                $countryNews = News::find()
                     ->where(['news_country_id' => $controller->myTeam->stadium->city->country->country_id])
-                    ->orderBy(['news_id' => SORT_DESC])
-                    ->scalar();
-
-                if ($lastCountryNews > $controller->myTeam->team_news_id) {
-                    $countryNews = 1;
-                }
+                    ->andWhere(['>', 'news_id', $controller->myTeam->team_news_id])
+                    ->count();
 
                 if (!$poll) {
                     $poll = Poll::find()
@@ -302,7 +286,7 @@ class Menu extends Widget
                 'url' => ['chat/index'],
             ],
             self::ITEM_FEDERATION => [
-                'css' => $countryNews ? 'red' : '',
+                'css' => $countryNews ? 'red' : '' . ($countryNews ? ' <sup class="text-size-3">' . $countryNews . '</sup>' : ''),
                 'label' => 'Федерация',
                 'url' => ['country/news'],
             ],
@@ -320,7 +304,7 @@ class Menu extends Widget
                 'url' => ['loan/index'],
             ],
             self::ITEM_MESSENGER => [
-                'css' => $messenger ? 'red' : '',
+                'css' => $messenger ? 'red' : '' . ($messenger ? ' <sup class="text-size-3">' . $messenger . '</sup>' : ''),
                 'label' => 'Общение',
                 'url' => ['messenger/index'],
             ],
@@ -329,7 +313,7 @@ class Menu extends Widget
                 'url' => ['national/index'],
             ],
             self::ITEM_NEWS => [
-                'css' => $news ? 'red' : '',
+                'css' => $news ? 'red' : '' . ($news ? ' <sup class="text-size-3">' . $news . '</sup>' : ''),
                 'label' => 'Новости',
                 'url' => ['news/index'],
             ],
@@ -342,7 +326,7 @@ class Menu extends Widget
                 'url' => ['player/index'],
             ],
             self::ITEM_POLL => [
-                'css' => $poll ? 'red' : '',
+                'css' => $poll ? 'red' : '' . ($poll ? ' <sup class="text-size-3">' . $poll . '</sup>' : ''),
                 'label' => 'Опросы',
                 'url' => ['poll/index'],
             ],
@@ -378,7 +362,7 @@ class Menu extends Widget
             ],
             self::ITEM_SUPPORT => [
                 'css' => $support ? 'red' : '',
-                'label' => 'Техподдержка',
+                'label' => 'Техподдержка' . ($support ? ' <sup class="text-size-3">' . $support . '</sup>' : ''),
                 'url' => ['support/index'],
             ],
             self::ITEM_TEAM => [
