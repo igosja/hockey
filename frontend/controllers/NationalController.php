@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\HockeyHelper;
+use common\models\Finance;
 use common\models\Game;
 use common\models\History;
 use common\models\National;
@@ -171,6 +172,42 @@ class NationalController extends AbstractController
         $this->setSeoTitle($national->fullName() . '. События сборной');
 
         return $this->render('event', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+            'national' => $national,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionFinance($id)
+    {
+        $national = $this->getNational($id);
+
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $query = Finance::find()
+            ->with([
+                'financeText',
+                'player',
+                'player.name',
+                'player.surname',
+            ])
+            ->where(['finance_national_id' => $id])
+            ->andWhere(['finance_season_id' => $seasonId])
+            ->orderBy(['finance_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($national->fullName() . '. Финансы сборной');
+
+        return $this->render('finance', [
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
