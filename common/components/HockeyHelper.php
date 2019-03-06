@@ -27,15 +27,15 @@ class HockeyHelper
     {
         if ($game->game_home_team_id == $teamId) {
             if ($game->game_played) {
-                $result = self::powerPercent($game->game_guest_power / $game->game_home_power * 100);
+                $result = self::powerPercent($game->game_guest_power / ($game->game_home_power ?: 1) * 100);
             } else {
-                $result = self::powerPercent($game->teamGuest->team_power_vs / $game->teamHome->team_power_vs * 100);
+                $result = self::powerPercent($game->teamGuest->team_power_vs / ($game->teamHome->team_power_vs ?: 1) * 100);
             }
         } else {
             if ($game->game_played) {
-                $result = self::powerPercent($game->game_home_power / $game->game_guest_power * 100);
+                $result = self::powerPercent($game->game_home_power / ($game->game_guest_power ?: 1) * 100);
             } else {
-                $result = self::powerPercent($game->teamHome->team_power_vs / $game->teamGuest->team_power_vs * 100);
+                $result = self::powerPercent($game->teamHome->team_power_vs / ($game->teamGuest->team_power_vs ?: 1) * 100);
             }
         }
         return $result;
@@ -117,10 +117,18 @@ class HockeyHelper
      */
     public static function opponentLink($game, $teamId)
     {
-        if ($game->game_home_team_id == $teamId) {
-            return $game->teamGuest->teamLink('img');
+        if ($game->game_home_team_id) {
+            if ($game->game_home_team_id == $teamId) {
+                return $game->teamGuest->teamLink('img');
+            } else {
+                return $game->teamHome->teamLink('img');
+            }
         } else {
-            return $game->teamHome->teamLink('img');
+            if ($game->game_home_national_id == $teamId) {
+                return $game->nationalGuest->nationalLink(true);
+            } else {
+                return $game->nationalHome->nationalLink(true);
+            }
         }
     }
 
