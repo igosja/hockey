@@ -465,7 +465,7 @@ class Game extends AbstractActiveRecord
             $team = $this->teamGuest;
             $national = $this->nationalGuest;
         }
-        if ($team) {
+        if ($team->team_id) {
             $name = $team->team_name;
 
             if (true == $full) {
@@ -481,7 +481,7 @@ class Game extends AbstractActiveRecord
             } else {
                 return $name;
             }
-        } elseif ($national) {
+        } elseif ($national->national_id) {
             $name = $national->country->country_name;
 
             if ($full) {

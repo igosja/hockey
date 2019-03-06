@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\Controller;
+use common\models\National;
 use common\models\Season;
 use common\models\Site;
 use common\models\Team;
@@ -16,6 +17,8 @@ use yii\web\ForbiddenHttpException;
  * Class AbstractController
  * @package frontend\controllers
  *
+ * @property National $myNational
+ * @property National $myNationalVice
  * @property Team $myTeam
  * @property Team $myTeamOrVice
  * @property Team $myTeamVice
@@ -26,9 +29,20 @@ use yii\web\ForbiddenHttpException;
 abstract class AbstractController extends Controller
 {
     /**
+     * @var National $myNational
+     */
+    public $myNational = null;
+
+    /**
+     * @var National $myNationalVice
+     */
+    public $myNationalVice = null;
+
+    /**
      * @var Team $myTeam
      */
     public $myTeam = null;
+
     /**
      * @var Team $myTeamOrVice
      */
@@ -121,6 +135,16 @@ abstract class AbstractController extends Controller
                 ->one();
 
             $this->myTeamOrVice = $this->myTeam ?: $this->myTeamVice;
+
+            $this->myNational = National::find()
+                ->where(['national_user_id' => Yii::$app->user->id])
+                ->limit(1)
+                ->one();
+
+            $this->myNationalVice = National::find()
+                ->where(['national_vice_id' => Yii::$app->user->id])
+                ->limit(1)
+                ->one();
 
             $this->user = Yii::$app->user->identity;
             $this->user->user_date_login = time();
