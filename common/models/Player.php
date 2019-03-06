@@ -55,6 +55,7 @@ use yii\helpers\Html;
  * @property PlayerSpecial[] $playerSpecial
  * @property Team $schoolTeam
  * @property Squad $squad
+ * @property Squad $squadNational
  * @property StatisticPlayer[] $statisticPlayer
  * @property Style $style
  * @property Surname $surname
@@ -631,6 +632,14 @@ class Player extends AbstractActiveRecord
     public function getSquad()
     {
         return $this->hasOne(Squad::class, ['squad_id' => 'player_squad_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSquadNational()
+    {
+        return $this->hasOne(Squad::class, ['squad_id' => 'player_national_line_id']);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use frontend\controllers\AbstractController;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\Html;
 
@@ -30,6 +32,7 @@ use yii\helpers\Html;
  *
  * @property Country $country
  * @property NationalType $nationalType
+ * @property Stadium $stadium
  * @property User $user
  * @property User $vice
  * @property WorldCup $worldCup
@@ -74,6 +77,36 @@ class National extends AbstractActiveRecord
                 'integer'
             ],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function fullName()
+    {
+        return $this->country->country_name
+            . ' (' . $this->nationalType->national_type_name
+            . ')';
+    }
+
+    /**
+     * @return string
+     */
+    public function division()
+    {
+        $result = '-';
+        if ($this->worldCup) {
+            $result = Html::a(
+                $this->worldCup->division->division_name . ', ' .
+                $this->worldCup->world_cup_place . ' ' .
+                'место',
+                [
+                    'world-championship/index',
+                    'divisionId' => $this->worldCup->division->division_id,
+                ]
+            );
+        }
+        return $result;
     }
 
     /**
@@ -135,6 +168,10 @@ class National extends AbstractActiveRecord
         return true;
     }
 
+    /**
+     * @param bool $image
+     * @return string
+     */
     public function nationalLink($image = false)
     {
         $result = '';
@@ -152,6 +189,71 @@ class National extends AbstractActiveRecord
                 ['national/view', 'id' => $this->national_id]
             );
         return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    public function myTeam()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+
+        if (!$controller->myNational && $controller->myNationalVice) {
+            return false;
+        }
+
+        $myNationalArray = [];
+        if ($controller->myNational) {
+            $myNationalArray[] = $controller->myNational->national_id;
+        }
+        if ($controller->myNationalVice) {
+            $myNationalArray[] = $controller->myNationalVice->national_id;
+        }
+
+        if (!in_array($this->national_id, $myNationalArray)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return Game[]
+     */
+    public function latestGame()
+    {
+        return array_reverse(Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_national_id' => $this->national_id], ['game_guest_national_id' => $this->national_id]])
+            ->andWhere(['!=', 'game_played', 0])
+            ->orderBy(['schedule_date' => SORT_DESC])
+            ->limit(3)
+            ->all());
+    }
+
+    /**
+     * @return Game[]
+     */
+    public function nearestGame()
+    {
+        return Game::find()
+            ->joinWith(['schedule'])
+            ->where(['or', ['game_home_national_id' => $this->national_id], ['game_guest_national_id' => $this->national_id]])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['schedule_date' => SORT_ASC])
+            ->limit(2)
+            ->all();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStadium()
+    {
+        return $this->hasOne(Stadium::class, ['stadium_id' => 'national_stadium_id']);
     }
 
     /**
