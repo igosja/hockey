@@ -2,8 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\components\HockeyHelper;
+use common\models\Game;
 use common\models\National;
 use common\models\Player;
+use common\models\Season;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Response;
 
@@ -89,6 +93,48 @@ class NationalController extends AbstractController
         return $this->render('view', [
             'dataProvider' => $dataProvider,
             'national' => $national,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionGame($id)
+    {
+        $national = $this->getNational($id);
+
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $query = Game::find()
+            ->joinWith(['schedule'])
+            ->with([
+                'schedule',
+                'schedule.stage',
+                'schedule.tournamentType',
+            ])
+            ->where(['or', ['game_home_national_id' => $id], ['game_guest_national_id' => $id]])
+            ->andWhere(['schedule_season_id' => $seasonId])
+            ->orderBy(['schedule_date' => SORT_ASC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $totalPoint = 0;
+        foreach ($dataProvider->models as $game) {
+            $totalPoint = $totalPoint + (int)HockeyHelper::gamePlusMinus($game, $id);
+        }
+
+        $this->setSeoTitle($national->fullName() . '. Матчи команды');
+
+        return $this->render('game', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+            'national' => $national,
+            'totalPoint' => $totalPoint,
         ]);
     }
 

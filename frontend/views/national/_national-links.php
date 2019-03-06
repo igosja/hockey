@@ -12,6 +12,10 @@ try {
                 'text' => 'Игроки',
                 'url' => ['national/view', 'id' => $id],
             ],
+            [
+                'text' => 'Матчи',
+                'url' => ['national/game', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {
