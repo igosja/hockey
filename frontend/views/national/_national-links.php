@@ -16,6 +16,10 @@ try {
                 'text' => 'Матчи',
                 'url' => ['national/game', 'id' => $id],
             ],
+            [
+                'text' => 'События',
+                'url' => ['national/event', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {

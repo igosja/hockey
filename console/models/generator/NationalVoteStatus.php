@@ -104,14 +104,14 @@ class NationalVoteStatus
             if ($electionNationalApplicationArray[0]->election_national_application_user_id) {
                 History::log([
                     'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_IN,
-                    'history_national_id' => $electionNational->election_national_id,
+                    'history_national_id' => $electionNational->national->national_id,
                     'history_user_id' => $electionNationalApplicationArray[0]->election_national_application_user_id,
                 ]);
 
                 if (isset($electionNationalApplicationArray[1])) {
                     History::log([
                         'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_IN,
-                        'history_national_id' => $electionNational->election_national_id,
+                        'history_national_id' => $electionNational->national->national_id,
                         'history_user_id' => $electionNationalApplicationArray[1]->election_national_application_user_id,
                     ]);
                 }

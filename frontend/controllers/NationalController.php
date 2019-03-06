@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\HockeyHelper;
 use common\models\Game;
+use common\models\History;
 use common\models\National;
 use common\models\Player;
 use common\models\Season;
@@ -127,7 +128,7 @@ class NationalController extends AbstractController
             $totalPoint = $totalPoint + (int)HockeyHelper::gamePlusMinus($game, $id);
         }
 
-        $this->setSeoTitle($national->fullName() . '. Матчи команды');
+        $this->setSeoTitle($national->fullName() . '. Матчи сборной');
 
         return $this->render('game', [
             'dataProvider' => $dataProvider,
@@ -135,6 +136,45 @@ class NationalController extends AbstractController
             'seasonArray' => Season::getSeasonArray(),
             'national' => $national,
             'totalPoint' => $totalPoint,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionEvent($id)
+    {
+        $national = $this->getNational($id);
+
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $query = History::find()
+            ->with([
+                'historyText',
+                'national',
+                'player',
+                'player.name',
+                'player.surname',
+                'user',
+            ])
+            ->where(['history_national_id' => $id, 'history_season_id' => $seasonId])
+            ->orderBy(['history_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSizeTable'],
+            ],
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($national->fullName() . '. События сборной');
+
+        return $this->render('event', [
+            'dataProvider' => $dataProvider,
+            'seasonId' => $seasonId,
+            'seasonArray' => Season::getSeasonArray(),
+            'national' => $national,
         ]);
     }
 

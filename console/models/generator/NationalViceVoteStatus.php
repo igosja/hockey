@@ -107,7 +107,7 @@ class NationalViceVoteStatus
         if ($electionNationalViceApplication) {
             History::log([
                 'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_IN,
-                'history_national_id' => $electionNationalVice->election_national_vice_id,
+                'history_national_id' => $electionNationalVice->national->national_id,
                 'history_user_id' => $electionNationalViceApplication->election_national_vice_application_user_id,
             ]);
 

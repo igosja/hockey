@@ -25,7 +25,7 @@ use yii\helpers\Html;
         <?= $this->render('//national/_national-top-right', ['national' => $national]); ?>
     </div>
 </div>
-<?= Html::beginForm('', 'get'); ?>
+<?= Html::beginForm(['national/game', 'id' => $national->national_id], 'get'); ?>
 <div class="row margin-top-small">
     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <?= $this->render('//national/_national-links'); ?>
