@@ -20,6 +20,10 @@ try {
                 'text' => 'События',
                 'url' => ['national/event', 'id' => $id],
             ],
+            [
+                'text' => 'Финансы',
+                'url' => ['national/finance', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {
