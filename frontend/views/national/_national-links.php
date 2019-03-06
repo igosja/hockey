@@ -24,6 +24,10 @@ try {
                 'text' => 'Финансы',
                 'url' => ['national/finance', 'id' => $id],
             ],
+            [
+                'text' => 'Достижения',
+                'url' => ['national/achievement', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {
