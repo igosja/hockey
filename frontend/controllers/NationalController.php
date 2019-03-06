@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\components\HockeyHelper;
+use common\models\Achievement;
 use common\models\Finance;
 use common\models\Game;
 use common\models\History;
@@ -211,6 +212,31 @@ class NationalController extends AbstractController
             'dataProvider' => $dataProvider,
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
+            'national' => $national,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionAchievement($id)
+    {
+        $national = $this->getNational($id);
+
+        $query = Achievement::find()
+            ->where(['achievement_national_id' => $id])
+            ->orderBy(['achievement_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($national->fullName() . '. Достижения сборной');
+
+        return $this->render('achievement', [
+            'dataProvider' => $dataProvider,
             'national' => $national,
         ]);
     }
