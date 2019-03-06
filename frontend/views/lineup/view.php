@@ -325,9 +325,9 @@ LineupAsset::register($this);
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
                 Сила состава: <span class="strong span-power">0</span>
                 <br/>
-                Отпимальность позиций: <span class="strong span-position-percent">0</span>%
+                Оптимальность позиций: <span class="strong span-position-percent">0</span>%
                 <br/>
-                Отпимальность состава: <span class="strong span-lineup-percent">0</span>%
+                Оптимальность состава: <span class="strong span-lineup-percent">0</span>%
                 <br/>
                 Сыгранность:
                 <span class="strong span-teamwork-1">0</span>%
