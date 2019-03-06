@@ -783,6 +783,9 @@ class Team extends AbstractActiveRecord
             + $this->baseTraining->base_training_level;
     }
 
+    /**
+     * @return string
+     */
     public function fullName()
     {
         return $this->team_name
