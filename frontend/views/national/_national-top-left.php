@@ -23,7 +23,7 @@ use yii\helpers\Html;
         <div class="row margin-top-small">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Менеджер:
-                <?php if ($national->manager->canDialog()) : ?>
+                <?php if ($national->user->canDialog()) : ?>
                     <?= Html::a(
                         '<i class="fa fa-envelope-o"></i>',
                         ['messenger/view', 'id' => $national->user->user_id]
@@ -43,7 +43,7 @@ use yii\helpers\Html;
                 <?= $national->user->userLink(['class' => 'strong']); ?>
             </div>
         </div>
-        <?php if ($national->team_vice_id) : ?>
+        <?php if ($national->national_vice_id) : ?>
             <div class="row margin-top-small">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     Заместитель:
@@ -63,7 +63,7 @@ use yii\helpers\Html;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     Ник:
-                    <?= $national->manager->iconVip(); ?>
+                    <?= $national->vice->iconVip(); ?>
                     <?= $national->vice->userLink(['class' => 'strong']); ?>
                 </div>
             </div>

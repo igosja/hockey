@@ -121,7 +121,7 @@ class NationalVoteStatus
                 $electionNational->national->save(true, ['national_user_id', 'national_vice_id']);
 
                 foreach ($electionNationalApplicationArray[0]->electionNationalPlayer as $electionNationalPlayer) {
-                    $electionNationalPlayer->player->player_national_id = $electionNational->election_national_id;
+                    $electionNationalPlayer->player->player_national_id = $electionNational->national->national_id;
                     $electionNationalPlayer->player->save(true, ['player_national_id']);
                 }
             }

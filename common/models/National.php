@@ -205,7 +205,15 @@ class National extends AbstractActiveRecord
             return false;
         }
 
-        if (!in_array($this->national_id, [$controller->myNational->national_id, $controller->myNationalVice->national_id])) {
+        $myNationalArray = [];
+        if ($controller->myNational) {
+            $myNationalArray[] = $controller->myNational->national_id;
+        }
+        if ($controller->myNationalVice) {
+            $myNationalArray[] = $controller->myNationalVice->national_id;
+        }
+
+        if (!in_array($this->national_id, $myNationalArray)) {
             return false;
         }
 
