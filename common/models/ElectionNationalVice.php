@@ -112,6 +112,9 @@ class ElectionNationalVice extends AbstractActiveRecord
      */
     public function getNational()
     {
-        return $this->hasOne(National::class, ['national_id' => 'election_national_vice_national_id']);
+        return $this->hasOne(National::class, [
+            'national_country_id' => 'election_national_vice_country_id',
+            'national_national_type_id' => 'election_national_vice_national_type_id',
+        ]);
     }
 }
