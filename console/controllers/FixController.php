@@ -2,20 +2,30 @@
 
 namespace console\controllers;
 
+use common\components\ErrorHelper;
+use common\models\City;
+use common\models\Conference;
+use common\models\Country;
 use common\models\Event;
 use common\models\EventType;
 use common\models\Finance;
 use common\models\FinanceText;
 use common\models\Game;
 use common\models\Lineup;
+use common\models\Name;
+use common\models\NameCountry;
+use common\models\OffSeason;
 use common\models\Position;
 use common\models\Season;
+use common\models\Stadium;
 use common\models\Stage;
 use common\models\StatisticPlayer;
+use common\models\Surname;
+use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\NationalVoteStatus;
 use Exception;
+use Yii;
 use yii\db\Expression;
 
 /**
@@ -412,8 +422,426 @@ class FixController extends AbstractController
     /**
      * @throws Exception
      */
-    public function actionNational()
+    public function actionNewFed()
     {
-        (new NationalVoteStatus())->execute();
+        $kazName = [
+            'Азат',
+            'Асмет',
+            'Атымтай',
+            'Арнур',
+            'Aманжол',
+            'Ануар',
+            'Абзал',
+            'Ахан',
+            'Ахмет',
+            'Ахат',
+            'Габит',
+            'Баязит',
+            'Баят',
+            'Бактияр',
+            'Берик',
+            'Бошай',
+            'Гани',
+            'Гарифолла',
+            'Дияр',
+            'Едиге',
+            'Ердос',
+            'Ескали',
+            'Жаназар',
+            'Жусип',
+            'Жиренше',
+            'Жолан',
+            'Жамбыл',
+            'Жанболат',
+            'Жангир',
+            'Жагыпар',
+            'Жетес',
+            'Жуман',
+            'Зайыр',
+            'Закария',
+            'Заки',
+            'Илияс',
+            'Кайыргали',
+            'Камбар',
+            'Кайым',
+            'Мархабат',
+            'Медеу',
+            'Маулен',
+            'Малик',
+            'Мансур',
+            'Мустафа',
+            'Мамажан',
+            'Мирас',
+            'Магауия',
+            'Накып',
+            'Омар',
+            'Райыс',
+            'Сайын',
+            'Сырым',
+            'Серке',
+            'Тауман',
+            'Талип',
+            'Такауи',
+            'Таргын',
+            'Улан',
+            'Умбет',
+            'Хафиз',
+            'Шашубай',
+            'Шерхан',
+            'Шона',
+            'Шарип',
+        ];
+
+        $nameArray = [
+            [
+                'country' => 'Казахстан',
+                'list' => $kazName,
+            ],
+        ];
+
+        $data = [];
+        foreach ($nameArray as $country) {
+            $countryId = Country::find()
+                ->select(['country_id'])
+                ->where(['country_name' => $country['country']])
+                ->limit(1)
+                ->scalar();
+
+            $nameCountryList = Name::find()
+                ->where(['name_name' => $country['list']])
+                ->indexBy(['name_name'])
+                ->all();
+            foreach ($country['list'] as $item) {
+                if (isset($nameCountryList[$item])) {
+                    $data[] = [$countryId, $nameCountryList[$item]->name_id];
+                    continue;
+                }
+
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $name = new Name();
+                    $name->name_name = $item;
+                    $name->save();
+                    $transaction->commit();
+                    $data[] = [$countryId, $name->name_id];
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                NameCountry::tableName(),
+                ['name_country_country_id', 'name_country_name_id'],
+                $data
+            )
+            ->execute();
+
+        $kazSurname = [
+            'Абдиров',
+            'Абдрахманов',
+            'Абдрашев',
+            'Абдулин',
+            'Абилев',
+            'Абилов',
+            'Абильдаев',
+            'Абишев',
+            'Абуталипов',
+            'Айтхожин',
+            'Алибеков',
+            'Алиев',
+            'Алимжанов',
+            'Алтынбаев',
+            'Аманжолов',
+            'Асанбаев',
+            'Аубакиров',
+            'Ахмадиев',
+            'Ахметов',
+            'Ашимов',
+            'Аширбеков',
+            'Аширов',
+            'Бабаев',
+            'Базарбаев',
+            'Байжанбаев',
+            'Байжанов',
+            'Баймуратов',
+            'Байсултанов',
+            'Балиев',
+            'Бекжанов',
+            'Бектуров',
+            'Буркитбаев',
+            'Валиханов',
+            'Габдуллин',
+            'Галиакберов',
+            'Галиев',
+            'Джандосов',
+            'Джумалиев',
+            'Ертаев',
+            'Есимов',
+            'Жубанов',
+            'Жумабаев',
+            'Жумагулов',
+            'Жумадилов',
+            'Жунусов',
+            'Ибраев',
+            'Идрисов',
+            'Иксанов',
+            'Имашев',
+            'Исабаев',
+            'Исабеков',
+            'Искаков',
+            'Искалиев',
+            'Кабаев',
+            'Калиев',
+            'Камалов',
+            'Карашев',
+            'Карибжанов',
+            'Каримов',
+            'Касымов',
+            'Керимов',
+            'Кетебаев',
+            'Косанов',
+            'Кулибаев',
+            'Кунаев',
+            'Курмангалиев',
+            'Курманов',
+            'Кусаинов',
+            'Кушеков',
+            'Майкеев',
+            'Мамбетов',
+            'Муканов',
+            'Мукашев',
+            'Мусабаев',
+            'Мусатаев',
+            'Мустафин',
+            'Мухамеджанов',
+            'Мухтаров',
+            'Мырзахметов',
+            'Набиев',
+            'Назарбаев',
+            'Назаров',
+            'Нарымбаев',
+            'Ниязов',
+            'Ниязымбетов',
+            'Ногаев',
+            'Нугманов',
+            'Нурбаев',
+            'Нургалиев',
+            'Нурмагамбетов',
+            'Нурмухамедов',
+            'Нурпеисов',
+            'Оразалин',
+            'Оспанов',
+            'Рахимов',
+            'Рымбаев',
+            'Рыскулов',
+            'Сагатов',
+            'Садвакасов',
+            'Садыков',
+            'Сакиев',
+            'Сапаров',
+            'Сарсенов',
+            'Сатпаев',
+            'Саттаров',
+            'Сегизбаев',
+            'Сейфуллин',
+            'Сериков',
+            'Серкебаев',
+            'Смагулов',
+            'Смаков',
+            'Сулейменов',
+            'Султанов',
+            'Тажибаев',
+            'Тайманов',
+            'Ташенев',
+            'Темирбулатов',
+            'Тюрякулов',
+            'Ундасынов',
+            'Уразаев',
+            'Уразов',
+            'Утешев',
+            'Хакимов',
+            'Шакенов',
+            'Шакиров',
+            'Шарипов',
+            'Шаяхметов',
+            'Юсупов',
+        ];
+
+        $surnameArray = [
+            [
+                'country' => 'Казахстан',
+                'list' => $kazSurname,
+            ],
+        ];
+
+        $data = [];
+        foreach ($surnameArray as $country) {
+            $countryId = Country::find()
+                ->select(['country_id'])
+                ->where(['country_name' => $country['country']])
+                ->limit(1)
+                ->scalar();
+
+            $surnameCountryList = Surname::find()
+                ->where(['surname_name' => $country['list']])
+                ->indexBy(['surname_name'])
+                ->all();
+            foreach ($country['list'] as $item) {
+                if (isset($surnameCountryList[$item])) {
+                    $data[] = [$countryId, $surnameCountryList[$item]->surname_id];
+                    continue;
+                }
+
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $surname = new Surname();
+                    $surname->surname_name = $item;
+                    $surname->save();
+                    $transaction->commit();
+                    $data[] = [$countryId, $surname->surname_id];
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                SurnameCountry::tableName(),
+                ['surname_country_country_id', 'surname_country_surname_id'],
+                $data
+            )
+            ->execute();
+
+
+        $teamArray = [
+            [
+                'country' => 'Казахстан',
+                'list' => [
+                    ['team' => 'Актау', 'stadium' => 'Актау', 'city' => 'Актау'],
+                    ['team' => 'Актобе', 'stadium' => 'Актобе', 'city' => 'Актобе'],
+                    ['team' => 'Алматы', 'stadium' => 'Халык', 'city' => 'Алматы'],
+                    ['team' => 'Алтай', 'stadium' => 'Борис Александров', 'city' => 'Усть-Каменогорск'],
+                    ['team' => 'Алтай-Торпедо', 'stadium' => 'Борис Александров', 'city' => 'Усть-Каменогорск'],
+                    ['team' => 'Арлан', 'stadium' => 'Бурабай', 'city' => 'Кокшетау'],
+                    ['team' => 'Арыстан', 'stadium' => 'Муз Айдыны', 'city' => 'Темиртау'],
+                    ['team' => 'Астана', 'stadium' => 'Казахстан', 'city' => 'Астана'],
+                    ['team' => 'Барс', 'stadium' => 'Астана', 'city' => 'Астана'],
+                    ['team' => 'Барыс', 'stadium' => 'Барыс', 'city' => 'Астана'],
+                    ['team' => 'Бейбарыс', 'stadium' => 'Хиуаз Доспанова', 'city' => 'Атырау'],
+                    ['team' => 'Горняк', 'stadium' => 'Рудный', 'city' => 'Рудный'],
+                    ['team' => 'Димаш', 'stadium' => 'Димаш', 'city' => 'Алматы'],
+                    ['team' => 'Енбек', 'stadium' => 'Алматы', 'city' => 'Алматы'],
+                    ['team' => 'Иртыш', 'stadium' => 'Центральный', 'city' => 'Павлодар'],
+                    ['team' => 'Казахмыс', 'stadium' => 'Сатпаев', 'city' => 'Сатпаев'],
+                    ['team' => 'Кызылорда', 'stadium' => 'Кызылорда', 'city' => 'Кызылорда'],
+                    ['team' => 'Костанай', 'stadium' => 'Костанай', 'city' => 'Костанай'],
+                    ['team' => 'Кулагер', 'stadium' => 'Александр Винокуров', 'city' => 'Петропавловск'],
+                    ['team' => 'Нефтяник', 'stadium' => 'Нефтяник', 'city' => 'Павлодар'],
+                    ['team' => 'Номад', 'stadium' => 'Барыс', 'city' => 'Астана'],
+                    ['team' => 'Павлодар', 'stadium' => 'Павлодар', 'city' => 'Павлодар'],
+                    ['team' => 'Сарыарка', 'stadium' => 'Караганда', 'city' => 'Караганда'],
+                    ['team' => 'Семей', 'stadium' => 'Семей', 'city' => 'Семей'],
+                    ['team' => 'Снежные Барсы', 'stadium' => 'Барыс', 'city' => 'Астана'],
+                    ['team' => 'Тараз', 'stadium' => 'Тараз', 'city' => 'Тараз'],
+                    ['team' => 'Темиртау', 'stadium' => 'Темиртау', 'city' => 'Темиртау'],
+                    ['team' => 'Томирис', 'stadium' => 'Томирис', 'city' => 'Астана'],
+                    ['team' => 'Торпедо', 'stadium' => 'Борис Александров', 'city' => 'Усть-Каменогорск'],
+                    ['team' => 'Туркестан', 'stadium' => 'Туркестан', 'city' => 'Туркестан'],
+                    ['team' => 'Уральск', 'stadium' => 'Уральск', 'city' => 'Уральск'],
+                    ['team' => 'Шымкент', 'stadium' => 'Шымкент', 'city' => 'Шымкент'],
+                    ['team' => 'Южная столица', 'stadium' => 'Астана', 'city' => 'Астана'],
+                    ['team' => 'Юность', 'stadium' => 'Юность', 'city' => 'Караганда'],
+                ],
+            ],
+        ];
+
+        foreach ($teamArray as $country) {
+            $countryId = Country::find()
+                ->select(['country_id'])
+                ->where(['country_name' => $country['country']])
+                ->limit(1)
+                ->scalar();
+
+            shuffle($country['list']);
+
+            foreach ($country['list'] as $item) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $city = City::find()
+                        ->where(['city_name' => $item['city']])
+                        ->limit(1)
+                        ->one();
+                    if (!$city) {
+                        $city = new City();
+                        $city->city_country_id = $countryId;
+                        $city->city_name = $item['city'];
+                        $city->save();
+                    }
+
+                    $stadium = new Stadium();
+                    $stadium->stadium_city_id = $city->city_id;
+                    $stadium->stadium_name = $item['stadium'];
+                    $stadium->save();
+
+                    $team = new Team();
+                    $team->team_stadium_id = $stadium->stadium_id;
+                    $team->team_name = $item['team'];
+                    $team->save();
+
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    ErrorHelper::log($e);
+                }
+            }
+        }
+
+        $seasonId = Season::getCurrentSeason();
+
+        $teamArray = Team::find()
+            ->where(['!=', 'team_id', 0])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => OffSeason::find()
+                        ->select(['off_season_team_id'])
+                        ->where(['off_season_season_id' => $seasonId])
+                ]
+            ])
+            ->orderBy(['team_id' => SORT_ASC])
+            ->each();
+
+        $data = [];
+        foreach ($teamArray as $team) {
+            /**
+             * @var Team $team
+             */
+            $data[] = [$seasonId, $team->team_id];
+        }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                OffSeason::tableName(),
+                ['off_season_season_id', 'off_season_team_id'],
+                $data
+            )
+            ->execute();
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Conference::tableName(),
+                ['conference_season_id', 'conference_team_id'],
+                $data
+            )
+            ->execute();
     }
 }
