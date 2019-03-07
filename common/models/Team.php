@@ -1238,7 +1238,9 @@ class Team extends AbstractActiveRecord
      */
     public function getConference()
     {
-        return $this->hasOne(Conference::class, ['conference_team_id' => 'team_id']);
+        return $this
+            ->hasOne(Conference::class, ['conference_team_id' => 'team_id'])
+            ->andWhere(['conference_season_id' => Season::getCurrentSeason()]);
     }
 
     /**
@@ -1262,7 +1264,9 @@ class Team extends AbstractActiveRecord
      */
     public function getOffSeason()
     {
-        return $this->hasOne(OffSeason::class, ['off_season_team_id' => 'team_id']);
+        return $this
+            ->hasOne(OffSeason::class, ['off_season_team_id' => 'team_id'])
+            ->andWhere(['off_season_season_id' => Season::getCurrentSeason()]);
     }
 
     /**
