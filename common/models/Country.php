@@ -193,6 +193,9 @@ class Country extends AbstractActiveRecord
                 }
             }
         }
+        if (!$result) {
+            $result = 1;
+        }
         return $result;
     }
 
