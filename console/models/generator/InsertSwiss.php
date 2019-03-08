@@ -236,6 +236,11 @@ class InsertSwiss
     private function getSwissGuestTeam(array $teamArray, array $homeTeam, $positionDifference)
     {
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
+            if (!isset($homeTeam['place'])) {
+                print '<pre>';
+                print_r($homeTeam);
+                exit;
+            }
             if (
                 $teamArray[$i]->swiss_home >= $teamArray[$i]->swiss_guest
                 && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
