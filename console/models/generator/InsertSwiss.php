@@ -246,7 +246,7 @@ class InsertSwiss
                 exit;
             }
             if (
-                $teamArray[$i]->swiss_home >= $teamArray[$i]->swiss_guest
+                $teamArray[$i]->swiss_home + 2 >= $teamArray[$i]->swiss_guest
                 && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
                 && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
                 && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
