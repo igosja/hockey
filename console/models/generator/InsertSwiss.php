@@ -218,7 +218,7 @@ class InsertSwiss
     private function getSwissHomeTeam(array $teamArray)
     {
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest) {
+            if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest + 2) {
                 return [
                     'i' => $i,
                     'team_id' => $teamArray[$i]->swiss_team_id,
