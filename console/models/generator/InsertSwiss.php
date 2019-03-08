@@ -94,6 +94,10 @@ class InsertSwiss
         Yii::$app->db->createCommand()->truncateTable(Swiss::tableName())->execute();
 
         if (TournamentType::OFF_SEASON == $tournamentTypeId) {
+            $sql = "UPDATE `off_season`
+                    SET `off_season_place`=`off_season_team_id`
+                    WHERE `off_season_place`=0";
+            Yii::$app->db->createCommand($sql)->execute();
             $sql = "INSERT INTO `swiss` (`swiss_guest`, `swiss_home`, `swiss_place`, `swiss_team_id`)
                     SELECT `off_season_guest`, `off_season_home`, `off_season_place`, `off_season_team_id`
                     FROM `off_season`
@@ -213,9 +217,6 @@ class InsertSwiss
      */
     private function getSwissHomeTeam(array $teamArray)
     {
-        print '<pre>';
-        print_r($teamArray);
-        exit;
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest) {
                 return [
