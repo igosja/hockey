@@ -18,6 +18,7 @@ use yii\web\ForbiddenHttpException;
  * @package frontend\controllers
  *
  * @property National $myNational
+ * @property National $myNationalOrVice
  * @property National $myNationalVice
  * @property Team $myTeam
  * @property Team $myTeamOrVice
@@ -32,6 +33,11 @@ abstract class AbstractController extends Controller
      * @var National $myNational
      */
     public $myNational = null;
+
+    /**
+     * @var National $myNationalOrVice
+     */
+    public $myNationalOrVice = null;
 
     /**
      * @var National $myNationalVice
@@ -145,6 +151,8 @@ abstract class AbstractController extends Controller
                 ->where(['national_vice_id' => Yii::$app->user->id])
                 ->limit(1)
                 ->one();
+
+            $this->myNationalOrVice = $this->myNational ?: $this->myNationalVice;
 
             $this->user = Yii::$app->user->identity;
             $this->user->user_date_login = time();
