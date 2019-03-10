@@ -365,6 +365,44 @@ class NationalController extends AbstractController
     }
 
     /**
+     * @param $id
+     * @return string|Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionFire($id)
+    {
+        $national = $this->getNational($id);
+        if (!in_array($this->user->user_id, [$national->national_user_id, $national->national_vice_id])) {
+            $this->setErrorFlash('Вы не занимаете руководящей должности в этой сборной');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        if (!$national->national_vice_id) {
+            $this->setErrorFlash('Нельзя отказаться от должности если в сборной нет заместителя');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            if ($this->user->user_id == $national->national_user_id) {
+                $national->fireUser();
+            } elseif ($this->user->user_id == $national->national_vice_id) {
+                $national->fireVice();
+            }
+
+            $this->setSuccessFlash('Вы успешно отказались от должности');
+            return $this->redirect(['national/view', 'id' => $id]);
+        }
+
+        $this->setSeoTitle('Отказ от должности');
+
+        return $this->render('fire', [
+            'id' => $id,
+            'national' => $national,
+        ]);
+    }
+
+    /**
      * @param int $id
      * @return National
      * @throws \yii\web\NotFoundHttpException

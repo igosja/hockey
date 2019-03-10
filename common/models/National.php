@@ -115,7 +115,7 @@ class National extends AbstractActiveRecord
      */
     public function fireUser()
     {
-        if ($this->national_user_id) {
+        if (!$this->national_user_id) {
             return true;
         }
 
@@ -152,7 +152,7 @@ class National extends AbstractActiveRecord
      */
     public function fireVice()
     {
-        if ($this->national_vice_id) {
+        if (!$this->national_vice_id) {
             return true;
         }
 

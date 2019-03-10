@@ -33,6 +33,16 @@ use yii\helpers\Html;
                     ['class' => 'no-underline']
                 ); ?>
             <?php endif; ?>
+            <?php if ((Yii::$app->user->id == $national->national_user_id && $national->national_vice_id) || Yii::$app->user->id == $national->national_vice_id) : ?>
+                <?= Html::a(
+                    Html::img(
+                        '/img/roster/fire.png',
+                        ['alt' => 'Отказаться от должности', 'title' => 'Отказаться от должности']
+                    ),
+                    ['national/fire', 'id' => $national->national_id],
+                    ['class' => 'no-underline']
+                ); ?>
+            <?php endif; ?>
             <?= Html::a(
                 Html::img(
                     '/img/roster/questionnaire.png',
