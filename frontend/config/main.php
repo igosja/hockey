@@ -103,6 +103,7 @@ return [
                 'forum/message/move/<id:\d+>' => 'forum/message-move',
                 'forum/message/update/<id:\d+>' => 'forum/message-update',
                 'forum/theme/create/<id:\d+>' => 'forum/theme-create',
+                'lineup/national/<id:\d+>' => 'lineup-national/view',
                 'login' => 'site/login',
                 'password' => 'site/password',
                 'password/restore' => 'site/password-restore',
