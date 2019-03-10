@@ -88,7 +88,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['title' => 'Усталость'],
                 'label' => 'У',
                 'value' => function (Player $model) use ($national) {
-                    return $national->myTeam() ? $model->player_tire : '?';
+                    return $national->myTeamOrVice() ? $model->player_tire : '?';
                 }
             ],
             [
@@ -100,7 +100,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['title' => 'Форма'],
                 'label' => 'Ф',
                 'value' => function (Player $model) use ($national) {
-                    return $national->myTeam() ? $model->physical->image() : '?';
+                    return $national->myTeamOrVice() ? $model->physical->image() : '?';
                 }
             ],
             [
@@ -111,7 +111,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['title' => 'Реальная сила'],
                 'label' => 'РС',
                 'value' => function (Player $model) use ($national) {
-                    return $national->myTeam() ? $model->player_power_real : '~' . $model->player_power_nominal;
+                    return $national->myTeamOrVice() ? $model->player_power_real : '~' . $model->player_power_nominal;
                 }
             ],
             [
@@ -214,7 +214,7 @@ use yii\grid\GridView;
             'dataProvider' => $dataProvider,
             'rowOptions' => function (Player $model) use ($national) {
                 $result = [];
-                if ($national->myTeam() && $model->squadNational) {
+                if ($national->myTeamOrVice() && $model->squadNational) {
                     $result['style'] = ['background-color' => '#' . $model->squadNational->squad_color];
                 }
                 return $result;

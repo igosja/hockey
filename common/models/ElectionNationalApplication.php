@@ -79,6 +79,9 @@ class ElectionNationalApplication extends AbstractActiveRecord
         return false;
     }
 
+    /**
+     * @param $attribute
+     */
     public function checkPlayer($attribute)
     {
         $formPlayerArray = [];

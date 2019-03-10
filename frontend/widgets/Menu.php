@@ -131,6 +131,7 @@ class Menu extends Widget
             [
                 [
                     self::ITEM_ROSTER,
+                    self::ITEM_NATIONAL_TEAM,
                     self::ITEM_PROFILE,
                     self::ITEM_SCHEDULE,
                 ],
@@ -167,6 +168,11 @@ class Menu extends Widget
         foreach ($this->menuItems as $itemRows) {
             $rowsMobile = [];
             foreach ($itemRows as $itemRowsMobile) {
+                foreach ($itemRowsMobile as $key => $value) {
+                    if (strpos($value, 'hidden')) {
+                        unset($itemRowsMobile[$key]);
+                    }
+                }
                 $rowsMobile[] = implode(' | ', $itemRowsMobile);
             }
             $rows[] = implode(
@@ -274,6 +280,14 @@ class Menu extends Widget
             }
         }
 
+        $nationalId = 0;
+        if ($controller->myNational) {
+            $nationalId = $controller->myNational->national_id;
+        }
+        if ($controller->myNationalVice) {
+            $nationalId = $controller->myNationalVice->national_id;
+        }
+
         $this->menuItemList = [
             self::ITEM_CHANGE_TEAM => [
                 'label' => 'Сменить клуб',
@@ -308,8 +322,9 @@ class Menu extends Widget
                 'url' => ['messenger/index'],
             ],
             self::ITEM_NATIONAL_TEAM => [
+                'css' => $nationalId ? '' : 'hidden',
                 'label' => 'Сборная',
-                'url' => ['national/index'],
+                'url' => ['national/view', 'id' => $nationalId],
             ],
             self::ITEM_NEWS => [
                 'css' => $news ? 'red' : '',

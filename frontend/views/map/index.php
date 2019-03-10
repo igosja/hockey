@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//maps.googleapis.com/maps/api/js?v=3.exp&language=uk"></script>
+    <title>Карта</title>
 </head>
 <body>
 <style>
@@ -585,14 +586,14 @@
             //     position: new google.maps.LatLng(49.891944, 28.6), //Бердичів
             //     map: map
             // }),
-            // new google.maps.Marker({
-            //     position: new google.maps.LatLng(50.973611, 28.614444), //Коростень
-            //     map: map
-            // }),
-            // new google.maps.Marker({
-            //     position: new google.maps.LatLng(50.768889, 29.27), //Малин
-            //     map: map
-            // }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(50.947454, 28.641747), //Коростень
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(50.768889, 29.27), //Малин
+                map: map
+            }),
             // new google.maps.Marker({
             //     position: new google.maps.LatLng(44.593, 33.5334), //Севастополь
             //     map: map
