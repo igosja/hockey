@@ -51,5 +51,6 @@ print $this->render('//country/_country');
                 </table>
             </div>
         </div>
+        <?= $this->render('//site/_show-full-table'); ?>
     </div>
 </div>

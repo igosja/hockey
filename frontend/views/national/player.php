@@ -1,6 +1,5 @@
 <?php
 
-use coderlex\wysibb\WysiBB;
 use common\models\Position;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -10,17 +9,19 @@ use yii\widgets\ActiveForm;
  * @var \common\models\Player[] $gkArray
  * @var \common\models\Player[] $ldArray
  * @var \common\models\Player[] $lwArray
- * @var \common\models\ElectionNationalApplication $model
+ * @var \frontend\models\NationalPlayer $model
+ * @var \common\models\National $national
  * @var \common\models\Player[] $rdArray
  * @var \common\models\Player[] $rwArray
  */
 
-print $this->render('//country/_country');
-
 ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h4>Подача заявки на пост тренера национальной сборной</h4>
+<div class="row margin-top">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <?= $this->render('//national/_national-top-left', ['national' => $national]); ?>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+        <?= $this->render('//national/_national-top-right', ['national' => $national]); ?>
     </div>
 </div>
 <?php $form = ActiveForm::begin([
@@ -34,14 +35,9 @@ print $this->render('//country/_country');
             {error}',
     ],
 ]); ?>
-<?= $form
-    ->field($model, 'election_national_application_text')
-    ->widget(WysiBB::class)
-    ->label('Ваша программа'); ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <p>В заявке обязательно должно быть 32 игрока - 2 вратаря и 30 полевых хоккеистов (по шесть человек на каждую
-            позицию).</p>
+        <p>В сборной должно быть 32 игрока - 2 вратаря и 30 полевых хоккеистов (по шесть человек на каждую позицию).</p>
     </div>
 </div>
 <?php for ($i = Position::GK; $i <= Position::RW; $i++) : ?>
@@ -78,7 +74,7 @@ print $this->render('//country/_country');
                     <tr>
                         <td class="text-center">
                             <?= Html::checkbox(
-                                'ElectionNationalApplication[player][' . $i . '][]',
+                                'NationalPlayer[player][' . $i . '][]',
                                 in_array($item->player_id, $model->playerArray),
                                 [
                                     'value' => $item->player_id,

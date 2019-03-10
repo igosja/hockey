@@ -26,10 +26,10 @@ use yii\helpers\Html;
             <?php if ($national->myTeam()) : ?>
                 <?= Html::a(
                     Html::img(
-                        '/img/roster/school.png',
-                        ['alt' => 'Подготовка молодёжи', 'title' => 'Подготовка молодёжи']
+                        '/img/roster/substitute.png',
+                        ['alt' => 'Изменить состав сборной', 'title' => 'Изменить состав сборной']
                     ),
-                    ['school/index'],
+                    ['national/player', 'id' => $national->national_id],
                     ['class' => 'no-underline']
                 ); ?>
             <?php endif; ?>
@@ -78,13 +78,13 @@ use yii\helpers\Html;
                 ['national/view', 'id' => $item->game_home_national_id == $national->national_id ? $item->game_guest_national_id : $item->game_home_national_id]
             ); ?>
             -
-            <?php if ($national->myTeam()) : ?>
+            <?php if ($national->myTeamOrVice()) : ?>
                 <?= Html::a(
                     (($item->game_home_national_id == $national->national_id && $item->game_home_tactic_id_1)
                         || ($item->game_guest_national_id == $national->national_id && $item->game_guest_tactic_id_1))
                         ? 'Ред.'
                         : 'Отпр.',
-                    ['lineup/view', 'id' => $item->game_id]
+                    ['lineup-national/view', 'id' => $item->game_id]
                 ); ?>
             <?php else: ?>
                 <?= Html::a(
