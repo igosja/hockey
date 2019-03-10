@@ -112,6 +112,7 @@ return [
                 'training/free' => 'training-free/index',
                 'training/free/train' => 'training-free/train',
                 'user/money-transfer/<id:\d+>' => 'user/money-transfer',
+                'visitor/national/<id:\d+>' => 'visitor-national/view',
                 '<controller:\w+>/p/<page:\d+>/pp/<per-page:\d+>' => '<controller>/index',
                 '<controller:\w+>/p/<page:\d+>' => '<controller>/index',
                 '<controller:\w+>' => '<controller>/index',

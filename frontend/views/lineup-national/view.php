@@ -221,7 +221,7 @@ LineupAsset::register($this);
         ->textInput(['class' => 'form-control', 'disabled' => !$model->home])
         ->label('Билет, $'); ?>
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4" style="height: 20px">
-        [<?= Html::a('Зрители', ['visitor/view', 'id' => $game->game_id], ['target' => '_blank']); ?>]
+        [<?= Html::a('Зрители', ['visitor-national/view', 'id' => $game->game_id], ['target' => '_blank']); ?>]
     </div>
     <?= $form
         ->field($model, 'mood', [
