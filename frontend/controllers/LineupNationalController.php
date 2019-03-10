@@ -12,7 +12,7 @@ use common\models\Style;
 use common\models\Tactic;
 use common\models\Teamwork;
 use common\models\TournamentType;
-use frontend\models\GameSend;
+use frontend\models\GameNationalSend;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -50,13 +50,13 @@ class LineupNationalController extends AbstractController
      */
     public function actionView($id)
     {
-        if (!$this->myTeamOrVice) {
-            return $this->redirect(['team/view']);
+        if (!$this->myNationalOrVice) {
+            return $this->redirect(['national/view']);
         }
 
         $game = $this->getGame($id);
 
-        $model = new GameSend(['game' => $game, 'team' => $this->myTeamOrVice]);
+        $model = new GameNationalSend(['game' => $game, 'national' => $this->myNationalOrVice]);
         if ($model->saveLineup()) {
             $this->setSuccessFlash('Состав успешно отправлен.');
             return $this->refresh();
@@ -67,14 +67,14 @@ class LineupNationalController extends AbstractController
             ->with([
                 'schedule.stage',
                 'schedule.tournamentType',
-                'teamGuest.stadium.city',
-                'teamHome.stadium.city',
+                'nationalGuest.stadium.city',
+                'nationalHome.stadium.city',
             ])
             ->where(['game_played' => 0])
             ->andWhere([
                 'or',
-                ['game_guest_team_id' => $this->myTeamOrVice->team_id],
-                ['game_home_team_id' => $this->myTeamOrVice->team_id]
+                ['game_guest_national_id' => $this->myNationalOrVice->national_id],
+                ['game_home_national_id' => $this->myNationalOrVice->national_id]
             ])
             ->orderBy(['schedule_date' => SORT_ASC])
             ->limit(5);
@@ -88,10 +88,9 @@ class LineupNationalController extends AbstractController
                 'physical',
                 'playerPosition.position',
                 'playerSpecial.special',
-                'squad',
+                'squadNational',
             ])
-            ->where(['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0])
-            ->orWhere(['player_loan_team_id' => $this->myTeamOrVice->team_id]);
+            ->where(['player_national_id' => $this->myNationalOrVice->national_id]);
         $playerDataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
@@ -100,10 +99,6 @@ class LineupNationalController extends AbstractController
                     'age' => [
                         'asc' => ['player_age' => SORT_ASC],
                         'desc' => ['player_age' => SORT_DESC],
-                    ],
-                    'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
                     ],
                     'game_row' => [
                         'asc' => ['player_game_row' => SORT_ASC],
@@ -126,8 +121,8 @@ class LineupNationalController extends AbstractController
                         'desc' => ['player_power_real' => SORT_DESC],
                     ],
                     'squad' => [
-                        'asc' => ['player_squad_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
-                        'desc' => ['player_squad_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
+                        'asc' => ['player_national_line_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
+                        'desc' => ['player_national_line_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
                     ],
                     'tire' => [
                         'asc' => ['player_tire' => SORT_ASC],
@@ -141,13 +136,9 @@ class LineupNationalController extends AbstractController
         $playerArray = Player::find()
             ->with([
                 'playerPosition.position',
-                'squad',
+                'squadNational',
             ])
-            ->where([
-                'or',
-                ['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0],
-                ['player_loan_team_id' => $this->myTeamOrVice->team_id]
-            ])
+            ->where(['player_national_id' => $this->myNationalOrVice->national_id])
             ->andWhere(['player_position_id' => Position::GK])
             ->orderBy(['player_power_real' => SORT_DESC])
             ->all();
@@ -168,13 +159,9 @@ class LineupNationalController extends AbstractController
         $playerArray = Player::find()
             ->with([
                 'playerPosition.position',
-                'squad',
+                'squadNational',
             ])
-            ->where([
-                'or',
-                ['player_team_id' => $this->myTeamOrVice->team_id, 'player_loan_team_id' => 0],
-                ['player_loan_team_id' => $this->myTeamOrVice->team_id]
-            ])
+            ->where(['player_national_id' => $this->myNationalOrVice->national_id])
             ->andWhere(['!=', 'player_position_id', Position::GK])
             ->orderBy(['player_power_real' => SORT_DESC])
             ->all();
@@ -326,9 +313,9 @@ class LineupNationalController extends AbstractController
         if (TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) {
             $noSuper = Mood::SUPER;
             $noRest = Mood::REST;
-        } elseif ($this->myTeamOrVice->team_mood_rest <= 0) {
+        } elseif ($this->myNationalOrVice->national_mood_rest <= 0) {
             $noRest = Mood::REST;
-        } elseif ($this->myTeamOrVice->team_mood_super <= 0) {
+        } elseif ($this->myNationalOrVice->national_mood_super <= 0) {
             $noSuper = Mood::SUPER;
         }
         $moodArray = Mood::find()
@@ -340,9 +327,9 @@ class LineupNationalController extends AbstractController
 
         foreach ($moodArray as $moodId => $moodName) {
             if (Mood::SUPER == $moodId) {
-                $moodArray[$moodId] = $moodName . ' (' . $this->myTeamOrVice->team_mood_super . ')';
+                $moodArray[$moodId] = $moodName . ' (' . $this->myNationalOrVice->national_mood_super . ')';
             } elseif (Mood::REST == $moodId) {
-                $moodArray[$moodId] = $moodName . ' (' . $this->myTeamOrVice->team_mood_rest . ')';
+                $moodArray[$moodId] = $moodName . ' (' . $this->myNationalOrVice->national_mood_rest . ')';
             }
         }
 
@@ -386,7 +373,7 @@ class LineupNationalController extends AbstractController
             'rwArray' => $rwArray,
             'styleArray' => ArrayHelper::map(Style::find()->all(), 'style_id', 'style_name'),
             'tacticArray' => ArrayHelper::map(Tactic::find()->all(), 'tactic_id', 'tactic_name'),
-            'team' => $this->myTeamOrVice,
+            'national' => $this->myNationalOrVice,
         ]);
     }
 
@@ -401,8 +388,8 @@ class LineupNationalController extends AbstractController
             ->where(['game_id' => $id, 'game_played' => 0])
             ->andWhere([
                 'or',
-                ['game_guest_team_id' => $this->myTeamOrVice->team_id],
-                ['game_home_team_id' => $this->myTeamOrVice->team_id]
+                ['game_guest_national_id' => $this->myNationalOrVice->national_id],
+                ['game_home_national_id' => $this->myNationalOrVice->national_id]
             ])
             ->limit(1)
             ->one();
@@ -412,15 +399,11 @@ class LineupNationalController extends AbstractController
     }
 
     /**
-     * @param int $id
      * @return array
-     * @throws \yii\web\NotFoundHttpException
      */
-    public function actionTeamwork($id)
+    public function actionTeamwork()
     {
-        $game = $this->getGame($id);
-
-        $model = new GameSend();
+        $model = new GameNationalSend();
         $model->load(Yii::$app->request->post());
 
         $result = [
@@ -472,7 +455,7 @@ class LineupNationalController extends AbstractController
                     ->one();
                 if ($player) {
                     $power = $power + $player->player_power_real;
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -510,8 +493,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -549,8 +532,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -588,8 +571,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -627,8 +610,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -666,8 +649,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -705,8 +688,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -744,8 +727,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -783,8 +766,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -822,8 +805,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -861,8 +844,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -900,8 +883,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -939,8 +922,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -978,8 +961,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1017,8 +1000,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1056,8 +1039,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1095,8 +1078,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1134,8 +1117,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1173,8 +1156,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1212,8 +1195,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1251,8 +1234,8 @@ class LineupNationalController extends AbstractController
                             }
                         }
                     }
-                    $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
-                    $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
+                    $power = $power + round($player->player_power_real * $coefficient);
+                    $position = $position + $player->player_power_real;
                 }
             }
 
@@ -1744,7 +1727,7 @@ class LineupNationalController extends AbstractController
 
             $position = round($power / $position * 100);
 
-            $lineup = round($power / $this->myTeamOrVice->team_power_vs * 100);
+            $lineup = round($power / ($this->myNationalOrVice->national_power_vs ?: 1) * 100);
 
             $teamwork_1 = round($teamwork_1 / 10);
             $teamwork_2 = round($teamwork_2 / 10);
@@ -1775,7 +1758,7 @@ class LineupNationalController extends AbstractController
             return '';
         }
         $lineupTemplateArray = LineupTemplate::find()
-            ->where(['lineup_template_team_id' => $this->myTeamOrVice->team_id])
+            ->where(['lineup_template_national_id' => $this->myNationalOrVice->national_id])
             ->orderBy(['lineup_template_name' => SORT_ASC])
             ->all();
         return $this->renderPartial('_template_table', [
@@ -1791,7 +1774,7 @@ class LineupNationalController extends AbstractController
         if (!$this->user->isVip()) {
             return;
         }
-        $model = new GameSend();
+        $model = new GameNationalSend();
         $model->saveLineupTemplate();
     }
 
@@ -1806,7 +1789,7 @@ class LineupNationalController extends AbstractController
             return;
         }
         $model = LineupTemplate::find()
-            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeamOrVice->team_id])
+            ->where(['lineup_template_id' => $id, 'lineup_template_national_id' => $this->myNationalOrVice->national_id])
             ->limit(1)
             ->one();
         if ($model) {
@@ -1822,7 +1805,7 @@ class LineupNationalController extends AbstractController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $model = LineupTemplate::find()
-            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeamOrVice->team_id])
+            ->where(['lineup_template_id' => $id, 'lineup_template_national_id' => $this->myNationalOrVice->national_id])
             ->limit(1)
             ->one();
         if (!$model) {
