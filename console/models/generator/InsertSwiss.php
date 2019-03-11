@@ -274,7 +274,7 @@ class InsertSwiss
         }
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             if (
-                $teamArray[$i]->swiss_home >= $teamArray[$i]->swiss_guest - 1
+                $teamArray[$i]->swiss_home + 1 >= $teamArray[$i]->swiss_guest
                 && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
                 && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
                 && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
@@ -289,7 +289,7 @@ class InsertSwiss
         }
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             if (
-                $teamArray[$i]->swiss_home >= $teamArray[$i]->swiss_guest - 2
+                $teamArray[$i]->swiss_home + 2 >= $teamArray[$i]->swiss_guest
                 && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
                 && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
                 && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
