@@ -107,6 +107,7 @@ return [
                 'login' => 'site/login',
                 'password' => 'site/password',
                 'password/restore' => 'site/password-restore',
+                'player/national/squad/<id:\d+>' => 'player/national-squad',
                 'rating/<page:\d+>' => 'rating/index',
                 'sign-up' => 'site/sign-up',
                 'training/free' => 'training-free/index',

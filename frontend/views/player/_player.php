@@ -29,8 +29,8 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                 <?= $player->playerName(); ?>
             </div>
             <?php if (isset($squadArray)): ?>
-                <?php if ($player->myPlayer()): ?>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?php if ($player->myPlayer()): ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                 <label for="select-line">Состав:</label>
@@ -49,10 +49,8 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                                 ); ?>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-                <?php if ($player->myPlayer()): ?>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?php endif; ?>
+                    <?php if ($player->myNationalPlayer()): ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                 <label for="select-line">Состав в сборной:</label>
@@ -71,8 +69,8 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                                 ); ?>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>
