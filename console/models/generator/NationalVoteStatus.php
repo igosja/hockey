@@ -88,20 +88,29 @@ class NationalVoteStatus
                 'not',
                 ['election_national_application_user_id' => National::find()->select(['national_user_id'])]
             ])
-            ->andWhere([
-                'not',
-                ['election_national_application_user_id' => National::find()->select(['national_vice_id'])]
-            ])
             ->orderBy([
                 'election_national_vote_vote' => SORT_DESC,
                 'user_rating' => SORT_DESC,
                 'user_date_register' => SORT_ASC,
                 'election_national_application_id' => SORT_ASC,
             ])
-            ->limit(2)
             ->all();
         if ($electionNationalApplicationArray) {
             if ($electionNationalApplicationArray[0]->election_national_application_user_id) {
+                $nationalViceArray = National::find()
+                    ->where(['national_vice_id' => $electionNationalApplicationArray[0]->election_national_application_user_id])
+                    ->all();
+                foreach ($nationalViceArray as $nationalVice) {
+                    History::log([
+                        'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_OUT,
+                        'history_national_id' => $nationalVice->national_id,
+                        'history_user_id' => $electionNationalApplicationArray[0]->election_national_application_user_id,
+                    ]);
+
+                    $nationalVice->national_vice_id = 0;
+                    $nationalVice->save(true, ['national_vice_id']);
+                }
+
                 History::log([
                     'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_IN,
                     'history_national_id' => $electionNational->national->national_id,
@@ -109,11 +118,16 @@ class NationalVoteStatus
                 ]);
 
                 if (isset($electionNationalApplicationArray[1])) {
-                    History::log([
-                        'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_IN,
-                        'history_national_id' => $electionNational->national->national_id,
-                        'history_user_id' => $electionNationalApplicationArray[1]->election_national_application_user_id,
-                    ]);
+                    $check = National::find()
+                        ->where(['national_vice_id' => $electionNationalApplicationArray[1]->election_national_application_user_id])
+                        ->count();
+                    if (!$check) {
+                        History::log([
+                            'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_IN,
+                            'history_national_id' => $electionNational->national->national_id,
+                            'history_user_id' => $electionNationalApplicationArray[1]->election_national_application_user_id,
+                        ]);
+                    }
                 }
 
                 $electionNational->national->national_user_id = $electionNationalApplicationArray[0]->election_national_application_user_id;
