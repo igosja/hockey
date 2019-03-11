@@ -121,8 +121,8 @@ class LineupNationalController extends AbstractController
                         'desc' => ['player_power_real' => SORT_DESC],
                     ],
                     'squad' => [
-                        'asc' => ['player_national_line_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
-                        'desc' => ['player_national_line_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
+                        'asc' => ['player_national_squad_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
+                        'desc' => ['player_national_squad_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
                     ],
                     'tire' => [
                         'asc' => ['player_tire' => SORT_ASC],

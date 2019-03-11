@@ -11,7 +11,7 @@ use yii\helpers\Url;
  * @var \yii\web\View $this
  */
 
-if ($player->myPlayer()) {
+if ($player->myPlayer() || $player->myNationalPlayer()) {
     if ('view' == Yii::$app->controller->action->id) {
         $squadArray = Squad::find()->all();
         $squadStyle = [];
@@ -29,8 +29,8 @@ if ($player->myPlayer()) {
                 <?= $player->playerName(); ?>
             </div>
             <?php if (isset($squadArray)): ?>
-                <?php if ($player->myPlayer()): ?>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <?php if ($player->myPlayer()): ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                 <label for="select-line">Состав:</label>
@@ -49,8 +49,28 @@ if ($player->myPlayer()) {
                                 ); ?>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if ($player->myNationalPlayer()): ?>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                <label for="select-line">Состав в сборной:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <?= Html::dropDownList(
+                                    'squad_id',
+                                    $player->player_national_squad_id,
+                                    ArrayHelper::map($squadArray, 'squad_id', 'squad_name'),
+                                    [
+                                        'class' => 'form-control',
+                                        'data' => ['url' => Url::to(['national-squad', 'id' => $player->player_id])],
+                                        'id' => 'select-national-squad',
+                                        'options' => $squadStyle,
+                                    ]
+                                ); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>

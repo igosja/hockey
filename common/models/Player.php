@@ -27,7 +27,7 @@ use yii\helpers\Html;
  * @property int $player_mood_id
  * @property int $player_name_id
  * @property int $player_national_id
- * @property int $player_national_line_id
+ * @property int $player_national_squad_id
  * @property int $player_no_deal
  * @property int $player_order
  * @property int $player_physical_id
@@ -99,7 +99,7 @@ class Player extends AbstractActiveRecord
                     'player_mood_id',
                     'player_name_id',
                     'player_national_id',
-                    'player_national_line_id',
+                    'player_national_squad_id',
                     'player_no_deal',
                     'player_order',
                     'player_physical_id',
@@ -157,7 +157,7 @@ class Player extends AbstractActiveRecord
                 $this->player_game_row = -1;
                 $this->player_game_row_old = -1;
                 $this->player_squad_id = 1;
-                $this->player_national_line_id = 1;
+                $this->player_national_squad_id = 1;
                 $this->player_physical_id = $physical->physical_id;
                 $this->player_power_nominal_s = $this->player_power_nominal;
                 $this->player_power_old = $this->player_power_nominal;
@@ -458,6 +458,24 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
+     */
+    public function myNationalPlayer()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        if (!$controller->myNational) {
+            return false;
+        }
+        if ($controller->myNational->national_id != $this->player_national_id) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function trainingPositionDropDownList()
@@ -548,14 +566,14 @@ class Player extends AbstractActiveRecord
 
         $this->player_loan_day = 0;
         $this->player_loan_team_id = 0;
-        $this->player_national_line_id = Squad::SQUAD_DEFAULT;
+        $this->player_national_squad_id = Squad::SQUAD_DEFAULT;
         $this->player_order = 0;
         $this->player_squad_id = Squad::SQUAD_DEFAULT;
         $this->player_team_id = 0;
         $this->save(true, [
             'player_loan_day',
             'player_loan_team_id',
-            'player_national_line_id',
+            'player_national_squad_id',
             'player_order',
             'player_squad_id',
             'player_team_id',
@@ -639,7 +657,7 @@ class Player extends AbstractActiveRecord
      */
     public function getSquadNational()
     {
-        return $this->hasOne(Squad::class, ['squad_id' => 'player_national_line_id']);
+        return $this->hasOne(Squad::class, ['squad_id' => 'player_national_squad_id']);
     }
 
     /**

@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
             table_list.find('th').removeClass('hidden-xs');
             table_list.find('td').removeClass('hidden-xs');
         })
-        .on('change', '#select-squad', function () {
+        .on('change', '#select-squad, #select-national-squad', function () {
             var line_id = $(this).val();
             var url = $(this).data('url');
             $.ajax({
