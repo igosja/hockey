@@ -115,7 +115,7 @@ class National extends AbstractActiveRecord
      */
     public function fireUser()
     {
-        if ($this->national_user_id) {
+        if (!$this->national_user_id) {
             return true;
         }
 
@@ -152,7 +152,7 @@ class National extends AbstractActiveRecord
      */
     public function fireVice()
     {
-        if ($this->national_vice_id) {
+        if (!$this->national_vice_id) {
             return true;
         }
 
@@ -201,7 +201,28 @@ class National extends AbstractActiveRecord
          */
         $controller = Yii::$app->controller;
 
-        if (!$controller->myNational && $controller->myNationalVice) {
+        if (!$controller->myNational) {
+            return false;
+        }
+
+        if ($this->national_id != $controller->myNational->national_id) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function myTeamOrVice()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+
+        if (!$controller->myNational && !$controller->myNationalVice) {
             return false;
         }
 

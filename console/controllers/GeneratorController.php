@@ -14,7 +14,6 @@ use console\models\generator\CountryStadiumCapacity;
 use console\models\generator\CountVisitor;
 use console\models\generator\DecreaseInjury;
 use console\models\generator\DecreaseTeamwork;
-use console\models\generator\DumpDatabase;
 use console\models\generator\FillLineup;
 use console\models\generator\FinanceStadium;
 use console\models\generator\FriendlyInviteDelete;
@@ -47,6 +46,7 @@ use console\models\generator\PlayerPowerNewToOld;
 use console\models\generator\PlayerPowerS;
 use console\models\generator\PlayerPrice;
 use console\models\generator\PlayerRealPower;
+use console\models\generator\PlayerSpecialToLineup;
 use console\models\generator\PlayerTire;
 use console\models\generator\PlusMinus;
 use console\models\generator\PresidentFire;
@@ -66,7 +66,6 @@ use console\models\generator\SetUserAuto;
 use console\models\generator\SiteClose;
 use console\models\generator\SiteOpen;
 use console\models\generator\Snapshot;
-use console\models\generator\PlayerSpecialToLineup;
 use console\models\generator\StadiumMaintenance;
 use console\models\generator\Standing;
 use console\models\generator\StandingPlace;
@@ -114,7 +113,7 @@ class GeneratorController extends AbstractController
         $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
-            new DumpDatabase(),
+//            new DumpDatabase(),
             new PlayerPowerNewToOld(),
             new CheckLineup(),
             new FillLineup(),

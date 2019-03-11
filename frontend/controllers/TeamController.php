@@ -1035,7 +1035,7 @@ class TeamController extends AbstractController
             ->limit(1)
             ->one();
 
-        if (!$national->national_user_id && !$national->national_vice_id) {
+        if ($national && !$national->national_user_id && !$national->national_vice_id) {
             $electionNational = ElectionNational::find()
                 ->where([
                     'election_national_country_id' => $country->country_id,
@@ -1081,7 +1081,7 @@ class TeamController extends AbstractController
             }
         }
 
-        if ($national->national_user_id && !$national->national_vice_id) {
+        if ($national && $national->national_user_id && !$national->national_vice_id) {
             $electionNationalVice = ElectionNationalVice::find()
                 ->where([
                     'election_national_vice_country_id' => $country->country_id,
