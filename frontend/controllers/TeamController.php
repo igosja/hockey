@@ -1086,7 +1086,7 @@ class TeamController extends AbstractController
                 ->where([
                     'election_national_vice_country_id' => $country->country_id,
                     'election_national_vice_national_type_id' => NationalType::MAIN,
-                    'election_president_vice_election_status_id' => [
+                    'election_national_vice_election_status_id' => [
                         ElectionStatus::CANDIDATES,
                         ElectionStatus::OPEN,
                     ],
