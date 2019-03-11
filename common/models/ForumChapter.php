@@ -64,6 +64,8 @@ class ForumChapter extends AbstractActiveRecord
      */
     public function getForumGroup()
     {
-        return $this->hasMany(ForumGroup::class, ['forum_group_forum_chapter_id' => 'forum_chapter_id']);
+        return $this
+            ->hasMany(ForumGroup::class, ['forum_group_forum_chapter_id' => 'forum_chapter_id'])
+            ->orderBy(['forum_group_order' => SORT_ASC]);
     }
 }

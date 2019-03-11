@@ -91,20 +91,29 @@ class PresidentVoteStatus
                 'not',
                 ['election_president_application_user_id' => Country::find()->select(['country_president_id'])]
             ])
-            ->andWhere([
-                'not',
-                ['election_president_application_user_id' => Country::find()->select(['country_president_vice_id'])]
-            ])
             ->orderBy([
                 'election_president_vote_vote' => SORT_DESC,
                 'user_rating' => SORT_DESC,
                 'user_date_register' => SORT_ASC,
                 'election_president_application_id' => SORT_ASC,
             ])
-            ->limit(2)
             ->all();
         if ($electionPresidentApplicationArray) {
             if ($electionPresidentApplicationArray[0]->election_president_application_user_id) {
+                $countryViceArray = Country::find()
+                    ->where(['country_president_vice_id' => $electionPresidentApplicationArray[0]->election_president_application_user_id])
+                    ->all();
+                foreach ($countryViceArray as $countryVice) {
+                    History::log([
+                        'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_OUT,
+                        'history_country_id' => $countryVice->country_id,
+                        'history_user_id' => $electionPresidentApplicationArray[0]->election_president_application_user_id,
+                    ]);
+
+                    $countryVice->country_president_vice_id = 0;
+                    $countryVice->save(true, ['country_president_vice_id']);
+                }
+
                 History::log([
                     'history_history_text_id' => HistoryText::USER_PRESIDENT_IN,
                     'history_country_id' => $electionPresident->election_president_country_id,
@@ -112,11 +121,16 @@ class PresidentVoteStatus
                 ]);
 
                 if (isset($electionPresidentApplicationArray[1])) {
-                    History::log([
-                        'history_country_id' => $electionPresident->election_president_country_id,
-                        'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_IN,
-                        'history_user_id' => $electionPresidentApplicationArray[1]->election_president_application_user_id,
-                    ]);
+                    $check = Country::find()
+                        ->where(['country_president_vice_id' => $electionPresidentApplicationArray[1]->election_president_application_user_id])
+                        ->count();
+                    if (!$check) {
+                        History::log([
+                            'history_country_id' => $electionPresident->election_president_country_id,
+                            'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_IN,
+                            'history_user_id' => $electionPresidentApplicationArray[1]->election_president_application_user_id,
+                        ]);
+                    }
                 }
 
                 $electionPresident->country->country_president_id = $electionPresidentApplicationArray[0]->election_president_application_user_id;

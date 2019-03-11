@@ -12,7 +12,7 @@ use common\models\Stadium;
 class NationalStadium
 {
     /**
-     * @return void
+     * @throws \Exception
      */
     public function execute()
     {
@@ -35,6 +35,7 @@ class NationalStadium
             }
 
             $national->national_stadium_id = $stadium->stadium_id;
+            $national->save(true, ['national_stadium_id']);
         }
     }
 }

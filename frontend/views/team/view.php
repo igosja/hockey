@@ -155,7 +155,6 @@ use yii\grid\GridView;
                 }
             ],
             [
-                'attribute' => 'style',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Ст',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Стиль'],

@@ -87,7 +87,7 @@ use yii\helpers\Html;
                     Прогноз на матч
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 table-responsive">
-                    <?php if ($game->teamHome) : ?>
+                    <?php if ($game->teamHome->team_id) : ?>
                         <table class="table table-bordered">
                             <tr>
                                 <td
