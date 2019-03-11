@@ -80,10 +80,6 @@ class NationalController extends AbstractController
                         'asc' => ['player_squad_id' => SORT_ASC, 'player_position_id' => SORT_ASC],
                         'desc' => ['player_squad_id' => SORT_DESC, 'player_position_id' => SORT_ASC],
                     ],
-                    'style' => [
-                        'asc' => ['player_style_id' => SORT_ASC],
-                        'desc' => ['player_style_id' => SORT_DESC],
-                    ],
                     'tire' => [
                         'asc' => [$national->myTeam() ? 'player_tire' : 'player_position_id' => SORT_ASC],
                         'desc' => [$national->myTeam() ? 'player_tire' : 'player_position_id' => SORT_DESC],
