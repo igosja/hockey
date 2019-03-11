@@ -19,13 +19,13 @@
 <div id="map"></div>
 <script>
     function initialize(lat, lng) {
-        let myLatlng = new google.maps.LatLng(lat, lng);
-        let mapOptions = {
+        var myLatlng = new google.maps.LatLng(lat, lng);
+        var mapOptions = {
             zoom: 6,
             center: myLatlng
         };
-        let map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        let marker = [
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        var marker = [
             new google.maps.Marker({
                 position: new google.maps.LatLng(51.404742, 30.055595), //Припять
                 map: map
@@ -815,7 +815,7 @@
     }
 
     jQuery(document).ready(function ($) {
-        let map_div = $("#map");
+        var map_div = $("#map");
         if (map_div.length) {
             initialize(48.5505313, 30.6270735);
         }
