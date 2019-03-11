@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
@@ -267,6 +268,80 @@ class National extends AbstractActiveRecord
             ->orderBy(['schedule_date' => SORT_ASC])
             ->limit(2)
             ->all();
+    }
+
+    /**
+     * @throws Exception
+     * @return void
+     */
+    public function updatePower()
+    {
+        $player1 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_national_id' => $this->national_id, 'player_position_id' => Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(1)
+            ->column();
+        $player2 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_national_id' => $this->national_id, 'player_position_id' => Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(2)
+            ->column();
+        $player20 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_national_id' => $this->national_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(20)
+            ->column();
+        $player25 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_national_id' => $this->national_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(25)
+            ->column();
+        $player30 = Player::find()
+            ->select(['player_id'])
+            ->where(['player_national_id' => $this->national_id])
+            ->andWhere(['!=', 'player_position_id', Position::GK])
+            ->orderBy(['player_power_nominal' => SORT_DESC])
+            ->limit(30)
+            ->column();
+        $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal');
+        $power_c_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal');
+        $power_c_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal');
+        $power_c_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal');
+        $power = Player::find()->where(['player_id' => $player20])->sum('player_power_nominal_s');
+        $power_s_21 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_id' => $player25])->sum('player_power_nominal_s');
+        $power_s_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
+        $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal_s');
+        $power_s_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal_s');
+        $power_v = round(($power_c_21 + $power_c_26 + $power_c_21) / 79 * 21);
+        $power_vs = round(($power_s_21 + $power_s_26 + $power_s_32) / 79 * 21);
+
+        $this->national_power_c_21 = $power_c_21;
+        $this->national_power_c_26 = $power_c_26;
+        $this->national_power_c_32 = $power_c_32;
+        $this->national_power_s_21 = $power_s_21;
+        $this->national_power_s_26 = $power_s_26;
+        $this->national_power_s_32 = $power_s_32;
+        $this->national_power_v = $power_v;
+        $this->national_power_vs = $power_vs;
+        $this->save(true, [
+            'national_power_c_21',
+            'national_power_c_26',
+            'national_power_c_32',
+            'national_power_s_21',
+            'national_power_s_26',
+            'national_power_s_32',
+            'national_power_v',
+            'national_power_vs',
+        ]);
     }
 
     /**

@@ -365,7 +365,16 @@ class Team extends AbstractActiveRecord
         $this->team_power_s_32 = $power_s_32;
         $this->team_power_v = $power_v;
         $this->team_power_vs = $power_vs;
-        $this->save();
+        $this->save(true, [
+            'team_power_c_21',
+            'team_power_c_26',
+            'team_power_c_32',
+            'team_power_s_21',
+            'team_power_s_26',
+            'team_power_s_32',
+            'team_power_v',
+            'team_power_vs',
+        ]);
     }
 
     /**
