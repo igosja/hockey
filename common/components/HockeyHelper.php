@@ -179,7 +179,7 @@ class HockeyHelper
         $link = true,
         $linkType = 'string'
     ) {
-        if ($team) {
+        if ($team && $team->team_id) {
             $name = $team->team_name;
 
             if (true == $full) {
