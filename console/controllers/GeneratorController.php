@@ -208,7 +208,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+//            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);

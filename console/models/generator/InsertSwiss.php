@@ -213,36 +213,16 @@ class InsertSwiss
      */
     private function getSwissHomeTeam(array $teamArray)
     {
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                    'place' => $teamArray[$i]->swiss_place,
-                    'opponent' => $teamArray[$i]['opponent'],
-                ];
-            }
-        }
-
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest + 1) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                    'place' => $teamArray[$i]->swiss_place,
-                    'opponent' => $teamArray[$i]['opponent'],
-                ];
-            }
-        }
-
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest + 2) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                    'place' => $teamArray[$i]->swiss_place,
-                    'opponent' => $teamArray[$i]['opponent'],
-                ];
+        for ($k = 0; $k<=10; $k++) {
+            for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
+                if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest + $k) {
+                    return [
+                        'i' => $i,
+                        'team_id' => $teamArray[$i]->swiss_team_id,
+                        'place' => $teamArray[$i]->swiss_place,
+                        'opponent' => $teamArray[$i]['opponent'],
+                    ];
+                }
             }
         }
 
@@ -257,49 +237,21 @@ class InsertSwiss
      */
     private function getSwissGuestTeam(array $teamArray, array $homeTeam, $positionDifference)
     {
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if (
-                $teamArray[$i]->swiss_home >= $teamArray[$i]->swiss_guest
-                && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
-                && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
-                && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
-                && in_array($homeTeam['team_id'], $teamArray[$i]['opponent'])
-                && in_array($teamArray[$i]->swiss_team_id, $homeTeam['opponent'])
-            ) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                ];
-            }
-        }
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if (
-                $teamArray[$i]->swiss_home + 1 >= $teamArray[$i]->swiss_guest
-                && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
-                && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
-                && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
-                && in_array($homeTeam['team_id'], $teamArray[$i]['opponent'])
-                && in_array($teamArray[$i]->swiss_team_id, $homeTeam['opponent'])
-            ) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                ];
-            }
-        }
-        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-            if (
-                $teamArray[$i]->swiss_home + 2 >= $teamArray[$i]->swiss_guest
-                && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
-                && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
-                && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
-                && in_array($homeTeam['team_id'], $teamArray[$i]['opponent'])
-                && in_array($teamArray[$i]->swiss_team_id, $homeTeam['opponent'])
-            ) {
-                return [
-                    'i' => $i,
-                    'team_id' => $teamArray[$i]->swiss_team_id,
-                ];
+        for ($k = 0; $k<=10; $k++) {
+            for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
+                if (
+                    $teamArray[$i]->swiss_home + $k >= $teamArray[$i]->swiss_guest
+                    && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
+                    && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
+                    && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
+                    && in_array($homeTeam['team_id'], $teamArray[$i]['opponent'])
+                    && in_array($teamArray[$i]->swiss_team_id, $homeTeam['opponent'])
+                ) {
+                    return [
+                        'i' => $i,
+                        'team_id' => $teamArray[$i]->swiss_team_id,
+                    ];
+                }
             }
         }
 
