@@ -24,7 +24,6 @@ use frontend\models\TransferTo;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -382,11 +381,29 @@ class PlayerController extends AbstractController
         $this->notFound($player);
 
         $player->player_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
-        if (!$player->save()) {
+        return $player->save(true, ['player_squad_id']);
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionNationalSquad($id)
+    {
+        if (!$this->myNational) {
             return false;
         }
 
-        return true;
+        $player = Player::find()
+            ->where(['player_id' => $id, 'player_national_id' => $this->myNational->national_id])
+            ->limit(1)
+            ->one();
+        $this->notFound($player);
+
+        $player->player_national_squad_id = Yii::$app->request->get('squad', Squad::SQUAD_DEFAULT);
+        return $player->save(true, ['player_national_squad_id']);
     }
 
     /**
