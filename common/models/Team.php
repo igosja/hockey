@@ -740,10 +740,13 @@ class Team extends AbstractActiveRecord
      */
     public function offSeason()
     {
-        $result = Html::a(
-            $this->offSeason->off_season_place . ' место',
-            ['off-season/table']
-        );
+        $result = '-';
+        if ($this->offSeason) {
+            $result = Html::a(
+                $this->offSeason->off_season_place . ' место',
+                ['off-season/table']
+            );
+        }
         return $result;
     }
 
