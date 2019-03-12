@@ -33,7 +33,7 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
 </div>
 <?php if ($controller->myTeam && $controller->myTeam->stadium->city->country->country_id == $national->national_country_id) : ?>
     <?php $form = ActiveForm::begin([
-        'action' => ['national/attitude-national', 'id' => $national->national_country_id],
+        'action' => ['national/attitude-national', 'id' => $national->national_id],
         'fieldConfig' => [
             'labelOptions' => ['class' => 'strong'],
             'options' => ['class' => 'row text-left'],

@@ -43,6 +43,16 @@ use yii\helpers\Html;
                 <?= $national->user->userLink(['class' => 'strong']); ?>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                Рейтинг тренера:
+                <span class="font-green strong"><?= $national->attitudeNationalPositive() ?>%</span>
+                |
+                <span class="font-yellow strong"><?= $national->attitudeNationalNeutral() ?>%</span>
+                |
+                <span class="font-red strong"><?= $national->attitudeNationalNegative() ?>%</span>
+            </div>
+        </div>
         <?php if ($national->national_vice_id) : ?>
             <div class="row margin-top-small">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

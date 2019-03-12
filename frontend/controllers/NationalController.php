@@ -454,6 +454,7 @@ class NationalController extends AbstractController
     public function getNational($id)
     {
         $national = National::find()
+            ->with(['country.city.stadium.team'])
             ->where(['national_id' => $id])
             ->limit(1)
             ->one();
