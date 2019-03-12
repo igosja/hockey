@@ -1,14 +1,26 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\models\Attitude;
 use common\models\Player;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /**
+ * @var \frontend\controllers\AbstractController $controller
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \common\models\National $national
  * @var \yii\web\View $this
  */
+
+$controller = Yii::$app->controller;
+
+$attitudeArray = Attitude::find()
+    ->orderBy(['attitude_order' => SORT_ASC])
+    ->all();
+$attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name');
 
 ?>
 <div class="row margin-top">
@@ -19,6 +31,45 @@ use yii\grid\GridView;
         <?= $this->render('//national/_national-top-right', ['national' => $national]); ?>
     </div>
 </div>
+<?php if ($controller->myTeam && $controller->myTeam->stadium->city->country->country_id == $national->national_country_id) : ?>
+    <?php $form = ActiveForm::begin([
+        'action' => ['national/attitude-national', 'id' => $national->national_id],
+        'fieldConfig' => [
+            'labelOptions' => ['class' => 'strong'],
+            'options' => ['class' => 'row text-left'],
+            'template' => '<div class="col-lg-3 col-md-3 col-sm-2"></div>{input}',
+        ],
+    ]); ?>
+    <div class="row text-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-head">
+            Ваше отношение к тренеру сборной:
+            <a href="javascript:" id="relation-link"><?= $controller->myTeam->attitudeNational->attitude_name; ?></a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-body hidden">
+            <?= $form
+                ->field($controller->myTeam, 'team_attitude_national')
+                ->radioList($attitudeArray, [
+                    'item' => function ($index, $model, $name, $checked, $value) {
+                        $result = '<div class="hidden-lg hidden-md hidden-sm col-xs-3"></div><div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">'
+                            . Html::radio($name, $checked, [
+                                'index' => $index,
+                                'label' => $model,
+                                'value' => $value,
+                            ])
+                            . '</div>';
+                        return $result;
+                    }
+                ])
+                ->label(false); ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <?= Html::submitButton('Изменить отношение', ['class' => 'btn margin']); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php ActiveForm::end(); ?>
+<?php endif; ?>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= $this->render('//national/_national-links'); ?>

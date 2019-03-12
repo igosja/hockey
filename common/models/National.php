@@ -345,6 +345,73 @@ class National extends AbstractActiveRecord
     }
 
     /**
+     * @return int
+     */
+    public function attitudeNational()
+    {
+        $result = 0;
+        foreach ($this->country->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if ($stadium->team->team_user_id) {
+                    $result++;
+                }
+            }
+        }
+        if (!$result) {
+            $result = 1;
+        }
+        return $result;
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudeNationalNegative()
+    {
+        $result = 0;
+        foreach ($this->country->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::NEGATIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudeNational() * 100);
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudeNationalNeutral()
+    {
+        $result = 0;
+        foreach ($this->country->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::NEUTRAL == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudeNational() * 100);
+    }
+
+    /**
+     * @return float
+     */
+    public function attitudeNationalPositive()
+    {
+        $result = 0;
+        foreach ($this->country->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                if (Attitude::POSITIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                    $result++;
+                }
+            }
+        }
+        return round($result / $this->attitudeNational() * 100);
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getStadium()
