@@ -54,6 +54,7 @@ use yii\helpers\Html;
  * @property int $team_vice_id
  * @property int $team_visitor
  *
+ * @property Attitude $attitudeNational
  * @property Attitude $attitudePresident
  * @property Base $base
  * @property BaseMedical $baseMedical
@@ -739,10 +740,13 @@ class Team extends AbstractActiveRecord
      */
     public function offSeason()
     {
-        $result = Html::a(
-            $this->offSeason->off_season_place . ' место',
-            ['off-season/table']
-        );
+        $result = '-';
+        if ($this->offSeason) {
+            $result = Html::a(
+                $this->offSeason->off_season_place . ' место',
+                ['off-season/table']
+            );
+        }
         return $result;
     }
 
@@ -1154,6 +1158,14 @@ class Team extends AbstractActiveRecord
     public function rosterPhrase()
     {
         return RosterPhrase::rand();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAttitudeNational()
+    {
+        return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_national']);
     }
 
     /**

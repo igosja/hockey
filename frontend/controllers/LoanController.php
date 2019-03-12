@@ -151,7 +151,19 @@ class LoanController extends AbstractController
                 ->all();
 
             if ($presidentCountryArray) {
+                $presidentTeamIds = [];
+                $presidentCountryIds = [];
+                foreach ($presidentCountryArray as $country) {
+                    $presidentCountryIds[] = $country->country_id;
+                    foreach ($country->city as $city) {
+                        foreach ($city->stadium as $stadium) {
+                            $presidentTeamIds[] = $stadium->team->team_id;
+                        }
+                    }
+                }
+
                 $transfer = Transfer::find()
+                    ->joinWith(['player'])
                     ->where([
                         'not',
                         [
@@ -162,12 +174,19 @@ class LoanController extends AbstractController
                     ])
                     ->andWhere(['transfer_checked' => 0])
                     ->andWhere(['!=', 'transfer_ready', 0])
+                    ->andWhere([
+                        'or',
+                        ['transfer_team_buyer_id' => $presidentTeamIds],
+                        ['transfer_team_seller_id' => $presidentTeamIds],
+                        ['transfer_player_id' => $presidentCountryIds],
+                    ])
                     ->limit(1)
                     ->one();
                 if ($transfer) {
                     return $this->redirect(['transfer/view', 'id' => $transfer->transfer_id]);
                 } else {
                     $loan = Loan::find()
+                        ->joinWith(['player'])
                         ->where([
                             'not',
                             [
@@ -178,10 +197,60 @@ class LoanController extends AbstractController
                         ])
                         ->andWhere(['loan_checked' => 0])
                         ->andWhere(['!=', 'loan_ready', 0])
+                        ->andWhere([
+                            'or',
+                            ['loan_team_buyer_id' => $presidentTeamIds],
+                            ['loan_team_seller_id' => $presidentTeamIds],
+                            ['loan_player_id' => $presidentCountryIds],
+                        ])
                         ->limit(1)
                         ->one();
                     if ($loan) {
                         return $this->redirect(['loan/view', 'id' => $loan->loan_id]);
+                    } else {
+                        $transfer = Transfer::find()
+                            ->where([
+                                'not',
+                                [
+                                    'transfer_id' => \common\models\TransferVote::find()
+                                        ->select(['transfer_vote_transfer_id'])
+                                        ->where(['transfer_vote_user_id' => $this->user->user_id])
+                                ]
+                            ])
+                            ->andWhere(['transfer_checked' => 0])
+                            ->andWhere(['!=', 'transfer_ready', 0])
+                            ->andWhere([
+                                'transfer_id' => \common\models\TransferVote::find()
+                                    ->select(['transfer_vote_transfer_id'])
+                                    ->where(['<', 'transfer_vote_rating', 0])
+                            ])
+                            ->limit(1)
+                            ->one();
+                        if ($transfer) {
+                            return $this->redirect(['transfer/view', 'id' => $transfer->transfer_id]);
+                        } else {
+                            $loan = Loan::find()
+                                ->where([
+                                    'not',
+                                    [
+                                        'loan_id' => \common\models\LoanVote::find()
+                                            ->select(['loan_vote_loan_id'])
+                                            ->where(['loan_vote_user_id' => $this->user->user_id])
+                                    ]
+                                ])
+                                ->andWhere(['loan_checked' => 0])
+                                ->andWhere(['!=', 'loan_ready', 0])
+                                ->andWhere([
+                                    'loan_id' => \common\models\LoanVote::find()
+                                        ->select(['loan_vote_loan_id'])
+                                        ->where(['<', 'loan_vote_rating', 0])
+                                ])
+                                ->limit(1)
+                                ->one();
+                            if ($loan) {
+                                return $this->redirect(['loan/view', 'id' => $loan->loan_id]);
+                            }
+                        }
                     }
                 }
             }
