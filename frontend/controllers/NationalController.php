@@ -14,6 +14,7 @@ use common\models\Season;
 use frontend\models\NationalPlayer;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Response;
 
 /**
@@ -22,6 +23,53 @@ use yii\web\Response;
  */
 class NationalController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [
+                    'attitude-national',
+                    'fire',
+                    'player',
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'attitude-national',
+                            'fire',
+                            'player',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
+    public function actionAttitudeNational($id)
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['national/view', 'id' => $id]);
+        }
+
+        if (!$this->myTeam->load(Yii::$app->request->post())) {
+            return $this->redirect(['national/view', 'id' => $id]);
+        }
+
+        $this->myTeam->save(true, ['team_attitude_national']);
+        return $this->redirect(['national/view', 'id' => $id]);
+    }
+
     /**
      * @param $id
      * @return string|Response
