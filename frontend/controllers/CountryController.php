@@ -6,6 +6,7 @@ use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\Finance;
 use common\models\LeagueDistribution;
+use common\models\National;
 use common\models\News;
 use common\models\NewsComment;
 use common\models\ParticipantLeague;
@@ -277,11 +278,22 @@ class CountryController extends AbstractController
     /**
      * @return string
      */
-    public function actionNational()
+    public function actionNational($id)
     {
+        $query = National::find()
+            ->where(['national_country_id' => $id])
+            ->orderBy(['national_national_type_id' => SORT_ASC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+        ]);
+
         $this->setSeoTitle('Сборные');
 
-        return $this->render('national');
+        return $this->render('national', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
