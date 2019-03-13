@@ -40,7 +40,7 @@ print $this->render('//country/_country');
             ],
         ]); ?>
         <?= $form
-            ->field($model, 'election_national_vote_application_id')
+            ->field($model, 'election_national_vice_vote_application_id')
             ->radioList($electionNationalVice->application, [
                 'item' => function ($index, ElectionNationalViceApplication $model, $name, $checked) {
                     $result = '<div class="row border-top"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
