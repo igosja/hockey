@@ -117,6 +117,6 @@ class News extends AbstractActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_user_id'])->cache();
+        return $this->hasOne(User::class, ['user_id' => 'news_user_id']);
     }
 }

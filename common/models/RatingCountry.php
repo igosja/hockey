@@ -50,6 +50,6 @@ class RatingCountry extends AbstractActiveRecord
      */
     public function getCountry()
     {
-        return $this->hasOne(Country::class, ['country_id' => 'rating_country_country_id'])->cache();
+        return $this->hasOne(Country::class, ['country_id' => 'rating_country_country_id']);
     }
 }
