@@ -34,7 +34,7 @@ $user = Yii::$app->user->identity;
                     ['title' => 'Интересный и правильный матч, заслуживает внимания']
                 ); ?>
             <?php endif; ?>
-            <?= $game->rating(); ?>
+            <span title="Оценка матча"><?= $game->rating(); ?></span>
             <?php if (!Yii::$app->user->isGuest) : ?>
                 <?= Html::a(
                     '<i class="fa fa-thumbs-down" aria-hidden="true"></i>',
