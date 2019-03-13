@@ -26,7 +26,24 @@ $user = Yii::$app->user->identity;
 
 ?>
     <div class="row margin-top">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <?php if (!Yii::$app->user->isGuest) : ?>
+                <?= Html::a(
+                    '<i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+                    ['game/vote', 'id' => $game->game_id, 'vote' => 1],
+                    ['title' => 'Интересный и правильный матч, заслуживает внимания']
+                ); ?>
+            <?php endif; ?>
+            <?= $game->rating(); ?>
+            <?php if (!Yii::$app->user->isGuest) : ?>
+                <?= Html::a(
+                    '<i class="fa fa-thumbs-down" aria-hidden="true"></i>',
+                    ['game/vote', 'id' => $game->game_id, 'vote' => -1],
+                    ['title' => 'Неинтересный и нелогичный матч, генератор не прав']
+                ); ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
             <span class="strong">Результат</span>
             |
             <?= Html::a(
