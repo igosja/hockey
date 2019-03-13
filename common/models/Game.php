@@ -122,6 +122,9 @@ use yii\helpers\Html;
  * @property int $game_stadium_id
  * @property int $game_visitor
  *
+ * @property GameVote[] $gameVote
+ * @property GameVote[] $gameVoteMinus
+ * @property GameVote[] $gameVotePlus
  * @property Lineup[] $lineup
  * @property Mood $moodGuest
  * @property Mood $moodHome
@@ -500,6 +503,45 @@ class Game extends AbstractActiveRecord
         }
 
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function rating()
+    {
+        $returnArray = [
+            '<span class="font-green">' . count($this->gameVotePlus) . '</span>',
+            '<span class="font-red">' . count($this->gameVoteMinus) . '</span>',
+        ];
+
+        $return = implode(' | ', $returnArray);
+
+        return $return;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getGameVote()
+    {
+        return $this->hasMany(GameVote::class, ['game_vote_game_id' => 'game_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getGameVoteMinus()
+    {
+        return $this->getGameVote()->andWhere(['<', 'game_vote_rating', 0]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getGameVotePlus()
+    {
+        return $this->getGameVote()->andWhere(['>', 'game_vote_rating', 0]);
     }
 
     /**

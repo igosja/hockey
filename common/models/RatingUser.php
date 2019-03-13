@@ -46,6 +46,6 @@ class RatingUser extends AbstractActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['user_id' => 'rating_user_user_id'])->cache();
+        return $this->hasOne(User::class, ['user_id' => 'rating_user_user_id']);
     }
 }

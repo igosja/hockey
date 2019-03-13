@@ -92,7 +92,7 @@ class Event extends AbstractActiveRecord
      */
     public function getEventTextGoal()
     {
-        return $this->hasOne(EventTextGoal::class, ['event_text_goal_id' => 'event_event_text_goal_id'])->cache();
+        return $this->hasOne(EventTextGoal::class, ['event_text_goal_id' => 'event_event_text_goal_id']);
     }
 
     /**
@@ -101,7 +101,7 @@ class Event extends AbstractActiveRecord
     public function getEventTextPenalty()
     {
         return $this->hasOne(EventTextPenalty::class,
-            ['event_text_penalty_id' => 'event_event_text_penalty_id'])->cache();
+            ['event_text_penalty_id' => 'event_event_text_penalty_id']);
     }
 
     /**
@@ -110,7 +110,7 @@ class Event extends AbstractActiveRecord
     public function getEventTextShootout()
     {
         return $this->hasOne(EventTextShootout::class,
-            ['event_text_shootout_id' => 'event_event_text_shootout_id'])->cache();
+            ['event_text_shootout_id' => 'event_event_text_shootout_id']);
     }
 
     /**
@@ -118,7 +118,7 @@ class Event extends AbstractActiveRecord
      */
     public function getEventType()
     {
-        return $this->hasOne(EventType::class, ['event_type_id' => 'event_event_type_id'])->cache();
+        return $this->hasOne(EventType::class, ['event_type_id' => 'event_event_type_id']);
     }
 
     /**
@@ -126,7 +126,7 @@ class Event extends AbstractActiveRecord
      */
     public function getNational()
     {
-        return $this->hasOne(National::class, ['national_id' => 'event_national_id'])->cache();
+        return $this->hasOne(National::class, ['national_id' => 'event_national_id']);
     }
 
     /**
@@ -134,7 +134,7 @@ class Event extends AbstractActiveRecord
      */
     public function getPlayerAssist1()
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_1_id'])->cache();
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_1_id']);
     }
 
     /**
@@ -142,7 +142,7 @@ class Event extends AbstractActiveRecord
      */
     public function getPlayerAssist2()
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_2_id'])->cache();
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_2_id']);
     }
 
     /**
@@ -150,7 +150,7 @@ class Event extends AbstractActiveRecord
      */
     public function getPlayerPenalty()
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_penalty_id'])->cache();
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_penalty_id']);
     }
 
     /**
@@ -158,7 +158,7 @@ class Event extends AbstractActiveRecord
      */
     public function getPlayerScore()
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_score_id'])->cache();
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_score_id']);
     }
 
     /**
@@ -166,6 +166,6 @@ class Event extends AbstractActiveRecord
      */
     public function getTeam()
     {
-        return $this->hasOne(Team::class, ['team_id' => 'event_team_id'])->cache();
+        return $this->hasOne(Team::class, ['team_id' => 'event_team_id']);
     }
 }

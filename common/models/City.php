@@ -43,7 +43,7 @@ class City extends AbstractActiveRecord
      */
     public function getCountry()
     {
-        return $this->hasOne(Country::class, ['country_id' => 'city_country_id'])->cache();
+        return $this->hasOne(Country::class, ['country_id' => 'city_country_id']);
     }
 
     /**
