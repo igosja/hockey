@@ -585,7 +585,7 @@ class Player extends AbstractActiveRecord
      */
     public function getCountry()
     {
-        return $this->hasOne(Country::class, ['country_id' => 'player_country_id'])->cache();
+        return $this->hasOne(Country::class, ['country_id' => 'player_country_id']);
     }
 
     /**
@@ -609,7 +609,7 @@ class Player extends AbstractActiveRecord
      */
     public function getName()
     {
-        return $this->hasOne(Name::class, ['name_id' => 'player_name_id'])->cache();
+        return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
     }
 
     /**
@@ -641,7 +641,7 @@ class Player extends AbstractActiveRecord
      */
     public function getSchoolTeam()
     {
-        return $this->hasOne(Team::class, ['team_id' => 'player_school_id'])->cache();
+        return $this->hasOne(Team::class, ['team_id' => 'player_school_id']);
     }
 
     /**
@@ -675,7 +675,7 @@ class Player extends AbstractActiveRecord
      */
     public function getStyle()
     {
-        return $this->hasOne(Style::class, ['style_id' => 'player_style_id'])->cache();
+        return $this->hasOne(Style::class, ['style_id' => 'player_style_id']);
     }
 
     /**
@@ -683,7 +683,7 @@ class Player extends AbstractActiveRecord
      */
     public function getSurname()
     {
-        return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id'])->cache();
+        return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id']);
     }
 
     /**

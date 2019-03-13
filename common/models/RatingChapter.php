@@ -69,6 +69,6 @@ class RatingChapter extends AbstractActiveRecord
      */
     public function getRatingType()
     {
-        return $this->hasMany(RatingType::class, ['rating_type_rating_chapter_id' => 'rating_chapter_id'])->cache();
+        return $this->hasMany(RatingType::class, ['rating_type_rating_chapter_id' => 'rating_chapter_id']);
     }
 }
