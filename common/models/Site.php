@@ -4,7 +4,6 @@ namespace common\models;
 
 use common\components\ErrorHelper;
 use Exception;
-use Throwable;
 use Yii;
 
 /**
@@ -58,18 +57,9 @@ class Site extends AbstractActiveRecord
         $version = '0.0.0';
         $date = time();
 
-        try {
-            $site = self::getDb()->cache(function () {
-                return self::find()
-                    ->where(['site_id' => 1])
-                    ->one();
-            });
-        } catch (Throwable $e) {
-            ErrorHelper::log($e);
-            $site = self::find()
-                ->where(['site_id' => 1])
-                ->one();
-        }
+        $site = self::find()
+            ->where(['site_id' => 1])
+            ->one();
 
         if ($site) {
             $version = $site->site_version_1 . '.' . $site->site_version_2 . '.' . $site->site_version_3;
