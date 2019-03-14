@@ -16,6 +16,7 @@ use common\models\Name;
 use common\models\NameCountry;
 use common\models\OffSeason;
 use common\models\Position;
+use common\models\Schedule;
 use common\models\Season;
 use common\models\Stadium;
 use common\models\Stage;
@@ -796,6 +797,53 @@ class FixController extends AbstractController
             ->batchInsert(
                 Conference::tableName(),
                 ['conference_season_id', 'conference_team_id'],
+                $data
+            )
+            ->execute();
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    public function actionConference()
+    {
+        Lineup::deleteAll(['lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 120])]);
+        Game::deleteAll(['game_schedule_id' => 120]);
+
+        $seasonId = Season::getCurrentSeason() + 1;
+        $scheduleId = Schedule::find()
+            ->select(['schedule_id'])
+            ->where([
+                'schedule_tournament_type_id' => TournamentType::CONFERENCE,
+                'schedule_stage_id' => Stage::TOUR_1,
+                'schedule_season_id' => $seasonId,
+            ])
+            ->limit(1)
+            ->scalar();
+
+        /** @var Conference[] $offSeasonArray */
+        $offSeasonArray = Conference::find()
+            ->with(['team.stadium'])
+            ->where(['conference_season_id' => $seasonId])
+            ->orderBy('RAND()')
+            ->all();
+        $countOffSeason = count($offSeasonArray);
+
+        $data = [];
+        for ($i = 0; $i < $countOffSeason; $i = $i + 2) {
+            $data[] = [
+                $offSeasonArray[$i]->off_season_team_id,
+                $offSeasonArray[$i + 1]->off_season_team_id,
+                $scheduleId,
+                $offSeasonArray[$i + 1]->team->team_stadium_id
+            ];
+        }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Game::tableName(),
+                ['game_guest_team_id', 'game_home_team_id', 'game_schedule_id', 'game_stadium_id'],
                 $data
             )
             ->execute();
