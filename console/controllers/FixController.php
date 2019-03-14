@@ -832,8 +832,8 @@ class FixController extends AbstractController
         $data = [];
         for ($i = 0; $i < $countOffSeason; $i = $i + 2) {
             $data[] = [
-                $offSeasonArray[$i]->off_season_team_id,
-                $offSeasonArray[$i + 1]->off_season_team_id,
+                $offSeasonArray[$i]->conference_team_id,
+                $offSeasonArray[$i + 1]->conference_team_id,
                 $scheduleId,
                 $offSeasonArray[$i + 1]->team->team_stadium_id
             ];
