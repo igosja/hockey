@@ -810,7 +810,7 @@ class FixController extends AbstractController
         Lineup::deleteAll(['lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 120])]);
         Game::deleteAll(['game_schedule_id' => 120]);
 
-        $seasonId = Season::getCurrentSeason() + 1;
+        $seasonId = Season::getCurrentSeason();
         $scheduleId = Schedule::find()
             ->select(['schedule_id'])
             ->where([
