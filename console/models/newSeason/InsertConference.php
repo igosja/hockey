@@ -61,6 +61,7 @@ class InsertConference
         /** @var Conference[] $conferenceArray */
         $conferenceArray = Conference::find()
             ->with(['team'])
+            ->where(['conference_season_id' => $seasonId])
             ->orderBy(['conference_team_id' => SORT_ASC])
             ->all();
 
