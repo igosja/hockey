@@ -51,6 +51,7 @@ use yii\web\IdentityInterface;
  * @property float $user_money
  * @property string $user_name
  * @property int $user_news_id
+ * @property string $user_notes
  * @property string $user_password
  * @property float $user_rating
  * @property int $user_referrer_done
@@ -174,7 +175,8 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     }
                     return $value;
                 }
-            ]
+            ],
+            [['user_notes'], 'safe']
         ];
     }
 
@@ -397,6 +399,23 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_sex_id',
             'user_surname',
             'user_timezone',
+        ])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function updateNotes()
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->save(true, [
+            'user_notes',
         ])) {
             return false;
         }

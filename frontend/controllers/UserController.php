@@ -493,4 +493,25 @@ class UserController extends AbstractController
 
         return $this->render('re-register');
     }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionNotes()
+    {
+        $model = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        if ($model->updateNotes()) {
+            $this->setSuccessFlash('Данные успешно сохранены.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Блокнот менеджера');
+
+        return $this->render('notes', [
+            'model' => $model,
+        ]);
+    }
 }
