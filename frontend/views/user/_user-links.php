@@ -45,6 +45,10 @@ try {
                 'text' => 'Подопечные',
                 'url' => ['user/referral', 'id' => $id],
             ],
+            [
+                'text' => 'Блокнот',
+                'url' => ['user/notes', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {
