@@ -48,6 +48,7 @@ class UserController extends AbstractController
                     'password',
                     'money-transfer',
                     'referral',
+                    'notes',
                 ],
                 'rules' => [
                     [
@@ -60,6 +61,7 @@ class UserController extends AbstractController
                             'password',
                             'money-transfer',
                             'referral',
+                            'notes',
                         ],
                         'roles' => ['@'],
                     ],
