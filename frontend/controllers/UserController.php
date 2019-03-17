@@ -48,6 +48,7 @@ class UserController extends AbstractController
                     'password',
                     'money-transfer',
                     'referral',
+                    'notes',
                 ],
                 'rules' => [
                     [
@@ -60,6 +61,7 @@ class UserController extends AbstractController
                             'password',
                             'money-transfer',
                             'referral',
+                            'notes',
                         ],
                         'roles' => ['@'],
                     ],
@@ -492,5 +494,26 @@ class UserController extends AbstractController
         $this->setSeoTitle('Преререгистрация команды');
 
         return $this->render('re-register');
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionNotes()
+    {
+        $model = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        if ($model->updateNotes()) {
+            $this->setSuccessFlash('Данные успешно сохранены.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Блокнот менеджера');
+
+        return $this->render('notes', [
+            'model' => $model,
+        ]);
     }
 }
