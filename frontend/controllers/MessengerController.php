@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
+use common\models\Blacklist;
 use common\models\Message;
 use common\models\User;
 use Yii;
@@ -45,15 +46,15 @@ class MessengerController extends AbstractController
         $query = Message::find()
             ->select([
                 'message_id' => 'MAX(`message_id`)',
-                'message_user_id' => 'IF(`message_user_id_to`=' . Yii::$app->user->id . ', `message_user_id_from`, `message_user_id_to`)',
+                'message_user_id' => 'IF(`message_user_id_to`=' . $this->user->user_id . ', `message_user_id_from`, `message_user_id_to`)',
                 'message_user_id_from',
                 'message_user_id_to',
-                'message_read' => 'MIN(IF(`message_user_id_to`=' . Yii::$app->user->id . ', IF(`message_read`=0, `message_read`, 1), 1))',
+                'message_read' => 'MIN(IF(`message_user_id_to`=' . $this->user->user_id . ', IF(`message_read`=0, `message_read`, 1), 1))',
             ])
             ->where([
                 'or',
-                ['message_user_id_from' => Yii::$app->user->id],
-                ['message_user_id_to' => Yii::$app->user->id]
+                ['message_user_id_from' => $this->user->user_id],
+                ['message_user_id_to' => $this->user->user_id]
             ])
             ->groupBy('message_user_id')
             ->orderBy(['message_read' => SORT_ASC, 'message_id' => SORT_DESC]);
@@ -89,8 +90,8 @@ class MessengerController extends AbstractController
         $messageArray = Message::find()
             ->where([
                 'or',
-                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
-                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+                ['message_user_id_from' => $id, 'message_user_id_to' => $this->user->user_id],
+                ['message_user_id_from' => $this->user->user_id, 'message_user_id_to' => $id]
             ])
             ->limit(Yii::$app->params['pageSizeMessage'])
             ->orderBy(['message_id' => SORT_DESC])
@@ -99,8 +100,8 @@ class MessengerController extends AbstractController
         $countMessage = Message::find()
             ->where([
                 'or',
-                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
-                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+                ['message_user_id_from' => $id, 'message_user_id_to' => $this->user->user_id],
+                ['message_user_id_from' => $this->user->user_id, 'message_user_id_to' => $id]
             ])
             ->count();
 
@@ -111,12 +112,22 @@ class MessengerController extends AbstractController
 
         Message::updateAll(
             ['message_read' => time()],
-            ['message_read' => 0, 'message_user_id_to' => Yii::$app->user->id, 'message_user_id_from' => $id]
+            ['message_read' => 0, 'message_user_id_to' => $this->user->user_id, 'message_user_id_from' => $id]
         );
+
+        $inBlacklistOwner = Blacklist::find()
+            ->where(['blacklist_owner_user_id' => $this->user->user_id, 'blacklist_interlocutor_user_id' => $id])
+            ->count();
+
+        $inBlacklistInterlocutor = Blacklist::find()
+            ->where(['blacklist_owner_user_id' => $id, 'blacklist_interlocutor_user_id' => $this->user->user_id])
+            ->count();
 
         $this->setSeoTitle('Личная переписка');
 
         return $this->render('view', [
+            'inBlacklistInterlocutor' => $inBlacklistInterlocutor,
+            'inBlacklistOwner' => $inBlacklistOwner,
             'lazy' => $lazy,
             'model' => $model,
             'messageArray' => array_reverse($messageArray),
@@ -132,8 +143,8 @@ class MessengerController extends AbstractController
         $messageArray = Message::find()
             ->where([
                 'or',
-                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
-                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+                ['message_user_id_from' => $id, 'message_user_id_to' => $this->user->user_id],
+                ['message_user_id_from' => $this->user->user_id, 'message_user_id_to' => $id]
             ])
             ->offset(Yii::$app->request->get('offset'))
             ->limit(Yii::$app->request->get('limit'))
@@ -144,8 +155,8 @@ class MessengerController extends AbstractController
         $countMessage = Message::find()
             ->where([
                 'or',
-                ['message_user_id_from' => $id, 'message_user_id_to' => Yii::$app->user->id],
-                ['message_user_id_from' => Yii::$app->user->id, 'message_user_id_to' => $id]
+                ['message_user_id_from' => $id, 'message_user_id_to' => $this->user->user_id],
+                ['message_user_id_from' => $this->user->user_id, 'message_user_id_to' => $id]
             ])
             ->count();
 
@@ -167,7 +178,7 @@ class MessengerController extends AbstractController
                 . ', '
                 . $message->userFrom->userLink()
                 . '</div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message '
-                . (Yii::$app->user->id == $message->message_user_id_from ? 'message-from-me' : 'message-to-me')
+                . ($this->user->user_id == $message->message_user_id_from ? 'message-from-me' : 'message-to-me')
                 . '">'
                 . HockeyHelper::bbDecode($message->message_text)
                 . '</div></div>';

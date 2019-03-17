@@ -380,6 +380,22 @@ class User extends AbstractActiveRecord implements IdentityInterface
         return true;
     }
 
+    public function blacklistIcon()
+    {
+        $blacklist = Blacklist::find()
+            ->where([
+                'blacklist_owner_user_id' => Yii::$app->user->id,
+                'blacklist_interlocutor_user_id' => $this->user_id,
+            ])
+            ->limit(1)
+            ->one();
+        if ($blacklist) {
+            return '<i class="fa fa-file-text" title="Удалить из черного списка"></i>';
+        } else {
+            return '<i class="fa fa-file-text-o" title="Добавить в черный список"></i>';
+        }
+    }
+
     /**
      * @return bool
      * @throws Exception
