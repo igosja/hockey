@@ -74,6 +74,20 @@ class Message extends AbstractActiveRecord
             return false;
         }
 
+        $inBlacklistOwner = Blacklist::find()
+            ->where(['blacklist_owner_user_id' => $user->user_id, 'blacklist_interlocutor_user_id' => $userId])
+            ->count();
+        if ($inBlacklistOwner) {
+            return false;
+        }
+
+        $inBlacklistInterlocutor = Blacklist::find()
+            ->where(['blacklist_owner_user_id' => $userId, 'blacklist_interlocutor_user_id' => $user->user_id])
+            ->count();
+        if ($inBlacklistInterlocutor) {
+            return false;
+        }
+
         if (!$this->load(Yii::$app->request->post())) {
             return false;
         }

@@ -29,6 +29,10 @@ $user = User::find()->where(['user_id' => Yii::$app->request->get('id', Yii::$ap
                         '<i class="fa fa-envelope-o"></i>',
                         ['messenger/view', 'id' => $user->user_id]
                     ); ?>
+                    <?= Html::a(
+                        $user->blacklistIcon(),
+                        ['user/blacklist', 'id' => $user->user_id]
+                    ); ?>
                 <?php endif; ?>
                 <?php if ($user->user_holiday) : ?>
                     <span class="italic">(в отпуске)</span>

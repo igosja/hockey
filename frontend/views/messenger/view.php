@@ -8,6 +8,8 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /**
+ * @var int $inBlacklistInterlocutor
+ * @var int $inBlacklistOwner
  * @var int $lazy
  * @var \common\models\Message[] $messageArray
  * @var \common\models\User $user
@@ -59,6 +61,18 @@ $user = Yii::$app->user->identity;
                     <?= FormatHelper::asDateTime($user->user_date_block_comment); ?>
                     <br/>
                     Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
+                </div>
+            </div>
+        <?php elseif ($inBlacklistOwner) : ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вы не можете написать сообщение этому менеджеру так как вы добавили его в чёрный список
+                </div>
+            </div>
+        <?php elseif ($inBlacklistInterlocutor) : ?>
+            <div class="row margin-top">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
+                    Вы не можете написать сообщение этому менеджеру так как он добавил вас в чёрный список
                 </div>
             </div>
         <?php else: ?>
