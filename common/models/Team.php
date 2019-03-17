@@ -892,7 +892,11 @@ class Team extends AbstractActiveRecord
      */
     public function availableTrainingPower()
     {
-        return $this->baseTraining->base_training_power_count - $this->usedTrainingPower();
+        $result = $this->baseTraining->base_training_power_count - $this->usedTrainingPower();
+        if ($result < 0) {
+            $result = 0;
+        }
+        return $result;
     }
 
     /**
@@ -900,7 +904,11 @@ class Team extends AbstractActiveRecord
      */
     public function availableTrainingSpecial()
     {
-        return $this->baseTraining->base_training_special_count - $this->usedTrainingSpecial();
+        $result = $this->baseTraining->base_training_special_count - $this->usedTrainingSpecial();
+        if ($result < 0) {
+            $result = 0;
+        }
+        return $result;
     }
 
     /**
@@ -908,7 +916,11 @@ class Team extends AbstractActiveRecord
      */
     public function availableTrainingPosition()
     {
-        return $this->baseTraining->base_training_position_count - $this->usedTrainingPosition();
+        $result = $this->baseTraining->base_training_position_count - $this->usedTrainingPosition();
+        if ($result < 0) {
+            $result = 0;
+        }
+        return $result;
     }
 
     /**
