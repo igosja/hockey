@@ -29,6 +29,7 @@ use yii\helpers\Html;
  * @property Country $country
  * @property Game $game
  * @property HistoryText $historyText
+ * @property National $national
  * @property Player $player
  * @property Position $position
  * @property Special $special
@@ -121,6 +122,13 @@ class History extends AbstractActiveRecord
             $text = str_replace(
                 '{team2}',
                 $this->teamTwo->teamLink(),
+                $text
+            );
+        }
+        if (false !== strpos($text, '{national}')) {
+            $text = str_replace(
+                '{national}',
+                $this->national->nationalLink(),
                 $text
             );
         }
@@ -236,6 +244,14 @@ class History extends AbstractActiveRecord
     public function getHistoryText()
     {
         return $this->hasOne(HistoryText::class, ['history_text_id' => 'history_history_text_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNational()
+    {
+        return $this->hasOne(National::class, ['national_id' => 'history_national_id']);
     }
 
     /**
