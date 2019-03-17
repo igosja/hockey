@@ -415,9 +415,4 @@ class PlayerController extends AbstractController
 
         return $player;
     }
-
-    public function actionAva()
-    {
-        return $this->renderPartial('ava');
-    }
 }
