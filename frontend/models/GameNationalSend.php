@@ -158,6 +158,16 @@ class GameNationalSend extends Model
      */
     public function saveLineup()
     {
+        if ($this->home) {
+            if ($this->game->game_home_user_id == $this->national->national_user_id && $this->national->national_vice_id == Yii::$app->user->id) {
+                return false;
+            }
+        } else {
+            if ($this->game->game_guest_user_id == $this->national->national_user_id && $this->national->national_vice_id == Yii::$app->user->id) {
+                return false;
+            }
+        }
+
         if (!$this->load(Yii::$app->request->post())) {
             return false;
         }
@@ -229,6 +239,7 @@ class GameNationalSend extends Model
             $this->game->game_home_tactic_id_3 = $this->tactic_3;
             $this->game->game_home_tactic_id_4 = $this->tactic_4;
             $this->game->game_ticket = $this->ticket;
+            $this->game->game_home_user_id = Yii::$app->user->id;
         } else {
             $this->game->game_guest_mood_id = $this->mood;
             $this->game->game_guest_rudeness_id_1 = $this->rudeness_1;
@@ -243,6 +254,7 @@ class GameNationalSend extends Model
             $this->game->game_guest_tactic_id_2 = $this->tactic_2;
             $this->game->game_guest_tactic_id_3 = $this->tactic_3;
             $this->game->game_guest_tactic_id_4 = $this->tactic_4;
+            $this->game->game_guest_user_id = Yii::$app->user->id;
         }
         $this->game->save();
 

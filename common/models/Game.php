@@ -63,6 +63,7 @@ use yii\helpers\Html;
  * @property float $game_guest_teamwork_2
  * @property float $game_guest_teamwork_3
  * @property float $game_guest_teamwork_4
+ * @property float $game_guest_user_id
  * @property int $game_home_auto
  * @property int $game_home_collision_1
  * @property int $game_home_collision_2
@@ -115,6 +116,7 @@ use yii\helpers\Html;
  * @property float $game_home_teamwork_2
  * @property float $game_home_teamwork_3
  * @property float $game_home_teamwork_4
+ * @property float $game_home_user_id
  * @property int $game_played
  * @property int $game_ticket
  * @property int $game_schedule_id
@@ -230,6 +232,7 @@ class Game extends AbstractActiveRecord
                     'game_guest_tactic_id_3',
                     'game_guest_tactic_id_4',
                     'game_guest_team_id',
+                    'game_guest_user_id',
                     'game_home_auto',
                     'game_home_collision_1',
                     'game_home_collision_2',
@@ -272,6 +275,7 @@ class Game extends AbstractActiveRecord
                     'game_home_tactic_id_3',
                     'game_home_tactic_id_4',
                     'game_home_team_id',
+                    'game_home_user_id',
                     'game_played',
                     'game_ticket',
                     'game_schedule_id',

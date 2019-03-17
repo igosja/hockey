@@ -186,7 +186,7 @@ class National extends AbstractActiveRecord
                 ) . ' ';
         }
         $result = $result . Html::a(
-                $this->country->country_name,
+                $this->country->country_name . ' (' . $this->nationalType->national_type_name . ')',
                 ['national/view', 'id' => $this->national_id]
             );
         return $result;
