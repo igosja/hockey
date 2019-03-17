@@ -229,6 +229,7 @@ class GameSend extends Model
             $this->game->game_home_tactic_id_3 = $this->tactic_3;
             $this->game->game_home_tactic_id_4 = $this->tactic_4;
             $this->game->game_ticket = $this->ticket;
+            $this->game->game_home_user_id = Yii::$app->user->id;
         } else {
             $this->game->game_guest_mood_id = $this->mood;
             $this->game->game_guest_rudeness_id_1 = $this->rudeness_1;
@@ -243,6 +244,7 @@ class GameSend extends Model
             $this->game->game_guest_tactic_id_2 = $this->tactic_2;
             $this->game->game_guest_tactic_id_3 = $this->tactic_3;
             $this->game->game_guest_tactic_id_4 = $this->tactic_4;
+            $this->game->game_guest_user_id = Yii::$app->user->id;
         }
         $this->game->save();
 
