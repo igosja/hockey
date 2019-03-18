@@ -43,10 +43,10 @@ class TransferApplicationTo extends Model
         parent::__construct($config);
 
         $this->minPrice = isset($this->player->transfer->transfer_price_seller) ? $this->player->transfer->transfer_price_seller : ceil($this->player->player_price / 2);
-        $this->maxPrice = $this->team->team_finance;
+        $this->maxPrice = $this->team ? $this->team->team_finance : $this->minPrice;
         $this->transferApplication = TransferApplication::find()
             ->where([
-                'transfer_application_team_id' => $this->team->team_id,
+                'transfer_application_team_id' => $this->team ? $this->team->team_id : 0,
                 'transfer_application_transfer_id' => (isset($this->player->transfer->transfer_id) ? $this->player->transfer->transfer_id : 0),
             ])
             ->limit(1)

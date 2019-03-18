@@ -25,6 +25,7 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use console\models\generator\InsertSwiss;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -807,45 +808,6 @@ class FixController extends AbstractController
      */
     public function actionConference()
     {
-        Lineup::deleteAll(['lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 120])]);
-        Game::deleteAll(['game_schedule_id' => 120]);
-
-        $seasonId = Season::getCurrentSeason();
-        $scheduleId = Schedule::find()
-            ->select(['schedule_id'])
-            ->where([
-                'schedule_tournament_type_id' => TournamentType::CONFERENCE,
-                'schedule_stage_id' => Stage::TOUR_1,
-                'schedule_season_id' => $seasonId,
-            ])
-            ->limit(1)
-            ->scalar();
-
-        /** @var Conference[] $offSeasonArray */
-        $offSeasonArray = Conference::find()
-            ->with(['team.stadium'])
-            ->where(['conference_season_id' => $seasonId])
-            ->orderBy('RAND()')
-            ->all();
-        $countOffSeason = count($offSeasonArray);
-
-        $data = [];
-        for ($i = 0; $i < $countOffSeason; $i = $i + 2) {
-            $data[] = [
-                $offSeasonArray[$i]->conference_team_id,
-                $offSeasonArray[$i + 1]->conference_team_id,
-                $scheduleId,
-                $offSeasonArray[$i + 1]->team->team_stadium_id
-            ];
-        }
-
-        Yii::$app->db
-            ->createCommand()
-            ->batchInsert(
-                Game::tableName(),
-                ['game_guest_team_id', 'game_home_team_id', 'game_schedule_id', 'game_stadium_id'],
-                $data
-            )
-            ->execute();
+        (new InsertSwiss())->execute();
     }
 }
