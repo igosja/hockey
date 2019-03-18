@@ -250,6 +250,21 @@ class InsertSchedule
             $data[] = [$date, $seasonId, $scheduleStageArray[$i], $tournamentType];
             if ($conference) {
                 $data[] = [$date, $seasonId, $scheduleConferenceStageArray[$i], TournamentType::CONFERENCE];
+                if (in_array($scheduleConferenceStageArray[$i], [
+                    Stage::TOUR_31,
+                    Stage::TOUR_32,
+                    Stage::TOUR_33,
+                    Stage::TOUR_34,
+                    Stage::TOUR_35,
+                    Stage::TOUR_36,
+                    Stage::TOUR_37,
+                    Stage::TOUR_38,
+                    Stage::TOUR_39,
+                    Stage::TOUR_40,
+                    Stage::TOUR_41,
+                ])) {
+                    $data[] = [$date, $seasonId, Stage::FRIENDLY, TournamentType::FRIENDLY];
+                }
             }
         }
 
