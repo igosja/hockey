@@ -113,41 +113,41 @@ class InsertSwiss
             ->with(['team'])
             ->orderBy(['swiss_id' => SORT_ASC])
             ->all();
-        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
-            $maxCount = 1;
+//        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
+        $maxCount = 1;
 
-            for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
-                $userTeamSubQuery = null;
-                $subQuery = Game::find()
-                    ->select('IF(`game_home_team_id`=' . $teamArray[$i]->swiss_team_id . ', `game_guest_team_id`, `game_home_team_id`) AS `game_home_team_id`')
-                    ->joinWith(['schedule'])
-                    ->where([
-                        'or',
-                        ['game_home_team_id' => $teamArray[$i]->swiss_team_id],
-                        ['game_guest_team_id' => $teamArray[$i]->swiss_team_id]
-                    ])
-                    ->andWhere([
-                        'schedule.schedule_tournament_type_id' => $tournamentTypeId,
-                        'schedule.schedule_season_id' => Season::getCurrentSeason()
-                    ])
-                    ->groupBy(['game_home_team_id'])
-                    ->having(['>=', 'COUNT(`game_id`)', $maxCount]);
-                if ($teamArray[$i]->team->team_user_id) {
-                    $userTeamSubQuery = Team::find()
-                        ->select(['team_id'])
-                        ->where(['team_user_id' => $teamArray[$i]->swiss_team_id]);
-                }
-                $free = Swiss::find()
-                    ->select(['swiss_team_id'])
-                    ->where(['!=', 'swiss_team_id', $teamArray[$i]->swiss_team_id])
-                    ->andWhere(['not', ['swiss_team_id' => $subQuery]])
-                    ->andFilterWhere(['not', ['swiss_team_id' => $userTeamSubQuery]])
-                    ->orderBy(['swiss_id' => SORT_ASC])
-                    ->column();
-
-                $teamArray[$i]->opponent = $free;
+        for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
+            $userTeamSubQuery = null;
+            $subQuery = Game::find()
+                ->select('IF(`game_home_team_id`=' . $teamArray[$i]->swiss_team_id . ', `game_guest_team_id`, `game_home_team_id`) AS `game_home_team_id`')
+                ->joinWith(['schedule'])
+                ->where([
+                    'or',
+                    ['game_home_team_id' => $teamArray[$i]->swiss_team_id],
+                    ['game_guest_team_id' => $teamArray[$i]->swiss_team_id]
+                ])
+                ->andWhere([
+                    'schedule.schedule_tournament_type_id' => $tournamentTypeId,
+                    'schedule.schedule_season_id' => Season::getCurrentSeason()
+                ])
+                ->groupBy(['game_home_team_id'])
+                ->having(['>=', 'COUNT(`game_id`)', $maxCount]);
+            if ($teamArray[$i]->team->team_user_id) {
+                $userTeamSubQuery = Team::find()
+                    ->select(['team_id'])
+                    ->where(['team_user_id' => $teamArray[$i]->swiss_team_id]);
             }
+            $free = Swiss::find()
+                ->select(['swiss_team_id'])
+                ->where(['!=', 'swiss_team_id', $teamArray[$i]->swiss_team_id])
+                ->andWhere(['not', ['swiss_team_id' => $subQuery]])
+                ->andFilterWhere(['not', ['swiss_team_id' => $userTeamSubQuery]])
+                ->orderBy(['swiss_id' => SORT_ASC])
+                ->column();
+
+            $teamArray[$i]->opponent = $free;
         }
+//        }
 
         return $teamArray;
     }
@@ -161,15 +161,15 @@ class InsertSwiss
      */
     private function swiss($tournamentTypeId, $positionDifference, array $teamArray, $stageId)
     {
-        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
+//        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
             if (!$gameArray = $this->swissOne($tournamentTypeId, $positionDifference, $teamArray)) {
                 $positionDifference++;
 
                 $gameArray = $this->swiss($tournamentTypeId, $positionDifference, $teamArray, $stageId);
             }
-        } else {
-            $gameArray = $this->swissConference($teamArray, $stageId);
-        }
+//        } else {
+//            $gameArray = $this->swissConference($teamArray, $stageId);
+//        }
 
         return $gameArray;
     }
