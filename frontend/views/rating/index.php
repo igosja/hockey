@@ -120,8 +120,8 @@ use yii\helpers\Html;
             } elseif (RatingType::TEAM_VISITOR == $ratingType->rating_type_id) {
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Помещаемость',
-                    'label' => 'Помещаемость',
+                    'footer' => 'Посещаемость',
+                    'label' => 'Посещаемость',
                     'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asDecimal($model->team->team_visitor / 100);
                     }

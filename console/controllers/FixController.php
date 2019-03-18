@@ -810,4 +810,44 @@ class FixController extends AbstractController
     {
         (new InsertSwiss())->execute();
     }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    public function actionSchedule()
+    {
+        $data = [];
+
+        $scheduleArray = Schedule::find()
+            ->where([
+                'schedule_tournament_type_id' => TournamentType::CONFERENCE,
+                'schedule_stage_id' => [
+                    Stage::TOUR_31,
+                    Stage::TOUR_32,
+                    Stage::TOUR_33,
+                    Stage::TOUR_34,
+                    Stage::TOUR_35,
+                    Stage::TOUR_36,
+                    Stage::TOUR_37,
+                    Stage::TOUR_38,
+                    Stage::TOUR_39,
+                    Stage::TOUR_40,
+                    Stage::TOUR_41,
+                ],
+                'schedule_season_id' => Season::getCurrentSeason(),
+            ])
+            ->orderBy(['schedule_id' => SORT_ASC])
+            ->all();
+        foreach ($scheduleArray as $schedule) {
+            $data[] = [$schedule->schedule_date, $schedule->schedule_season_id, Stage::FRIENDLY, TournamentType::FRIENDLY];
+        }
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                Schedule::tableName(),
+                ['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'],
+                $data
+            )
+            ->execute();
+    }
 }
