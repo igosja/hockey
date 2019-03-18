@@ -22,6 +22,6 @@ class m190310_153429_player_national_squad_id extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable(self::TABLE);
+        $this->renameColumn(self::TABLE, 'player_national_squad_id', 'player_national_line_id');
     }
 }

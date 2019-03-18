@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\components\ErrorHelper;
 use common\components\TimeZoneHelper;
 use common\models\Achievement;
+use common\models\Blacklist;
 use common\models\City;
 use common\models\Country;
 use common\models\Finance;
@@ -48,6 +49,7 @@ class UserController extends AbstractController
                     'password',
                     'money-transfer',
                     'referral',
+                    'notes',
                 ],
                 'rules' => [
                     [
@@ -60,6 +62,7 @@ class UserController extends AbstractController
                             'password',
                             'money-transfer',
                             'referral',
+                            'notes',
                         ],
                         'roles' => ['@'],
                     ],
@@ -492,5 +495,53 @@ class UserController extends AbstractController
         $this->setSeoTitle('Преререгистрация команды');
 
         return $this->render('re-register');
+    }
+
+    /**
+     * @return string|\yii\web\Response
+     * @throws \Exception
+     */
+    public function actionNotes()
+    {
+        $model = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        if ($model->updateNotes()) {
+            $this->setSuccessFlash('Данные успешно сохранены.');
+            return $this->refresh();
+        }
+
+        $this->setSeoTitle('Блокнот менеджера');
+
+        return $this->render('notes', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionBlacklist($id)
+    {
+        $blacklist = Blacklist::find()
+            ->where([
+                'blacklist_owner_user_id' => $this->user->user_id,
+                'blacklist_interlocutor_user_id' => $id,
+            ])
+            ->limit(1)
+            ->one();
+        if ($blacklist) {
+            $blacklist->delete();
+        } else {
+            $model = new Blacklist();
+            $model->blacklist_owner_user_id = $this->user->user_id;
+            $model->blacklist_interlocutor_user_id = $id;
+            $model->save();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer ? Yii::$app->request->referrer : ['user/view', 'id' => $id]);
     }
 }

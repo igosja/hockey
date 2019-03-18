@@ -81,7 +81,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     public function getElectionNationalViceVote()
     {
         return $this->hasMany(
-            ElectionNationalVote::class,
+            ElectionNationalViceVote::class,
             ['election_national_vice_vote_application_id' => 'election_national_vice_application_id']
         );
     }

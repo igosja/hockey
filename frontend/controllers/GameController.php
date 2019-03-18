@@ -6,12 +6,13 @@ use common\components\ErrorHelper;
 use common\models\Event;
 use common\models\Game;
 use common\models\GameComment;
+use common\models\GameVote;
 use common\models\Lineup;
-use common\models\User;
 use common\models\UserRole;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Response;
 
 /**
@@ -20,6 +21,32 @@ use yii\web\Response;
  */
 class GameController extends AbstractController
 {
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [
+                    'delete-comment',
+                    'vote',
+                ],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'delete-comment',
+                            'vote',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * @param int $id
      * @return string
@@ -180,15 +207,7 @@ class GameController extends AbstractController
      */
     public function actionDeleteComment($id, $gameId)
     {
-        if (Yii::$app->user->isGuest) {
-            $this->forbiddenRole();
-        }
-
-        /**
-         * @var User $user
-         */
-        $user = Yii::$app->user->identity;
-        if (UserRole::ADMIN != $user->user_user_role_id) {
+        if (UserRole::ADMIN != $this->user->user_user_role_id) {
             $this->forbiddenRole();
         }
 
@@ -196,7 +215,6 @@ class GameController extends AbstractController
             ->where(['game_comment_id' => $id, 'game_comment_game_id' => $gameId])
             ->limit(1)
             ->one();
-
         $this->notFound($model);
 
         try {
@@ -207,5 +225,40 @@ class GameController extends AbstractController
         }
 
         return $this->redirect(['game/view', 'id' => $gameId]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionVote($id)
+    {
+        $game = Game::find()
+            ->where(['game_id' => $id])
+            ->andWhere(['!=', 'game_played', 0])
+            ->limit(1)
+            ->one();
+        $this->notFound($game);
+
+        $vote = Yii::$app->request->get('vote', 1);
+        if (!in_array($vote, [-1, 1])) {
+            $vote = 1;
+        }
+
+        $model = GameVote::find()
+            ->where(['game_vote_game_id' => $id, 'game_vote_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            $model = new GameVote();
+            $model->game_vote_game_id = $id;
+            $model->game_vote_user_id = $this->user->user_id;
+        }
+        $model->game_vote_rating = $vote;
+        $model->save();
+
+        return $this->redirect(['game/view', 'id' => $id]);
     }
 }

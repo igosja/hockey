@@ -42,7 +42,7 @@ use yii\widgets\Pjax;
  * @var Player[] $gkArray
  * @var Player[] $ldArray
  * @var Player[] $lwArray
- * @var \frontend\models\GameSend $model
+ * @var \frontend\models\GameNationalSend $model
  * @var array $moodArray
  * @var bool $isVip
  * @var \yii\data\ActiveDataProvider $playerDataProvider
@@ -58,6 +58,13 @@ use yii\widgets\Pjax;
 LineupAsset::register($this);
 
 ?>
+<?php if (($model->home && $model->game->game_home_user_id == $model->national->national_user_id && $model->national->national_vice_id == Yii::$app->user->id) || (!$model->home && $model->game->game_guest_user_id == $model->national->national_user_id && $model->national->national_vice_id == Yii::$app->user->id)) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+            Тренер сборной уже отправил состав на этот матч. Вы не можете вносить в него изменения.
+        </div>
+    </div>
+<?php endif; ?>
 <?php if ($isVip) : ?>
     <div class="row margin-top">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">

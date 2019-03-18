@@ -123,7 +123,7 @@ class NewsComment extends AbstractActiveRecord
      */
     public function getNews()
     {
-        return $this->hasOne(News::class, ['news_id' => 'news_comment_news_id'])->cache();
+        return $this->hasOne(News::class, ['news_id' => 'news_comment_news_id']);
     }
 
     /**
@@ -131,6 +131,6 @@ class NewsComment extends AbstractActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id'])->cache();
+        return $this->hasOne(User::class, ['user_id' => 'news_comment_user_id']);
     }
 }
