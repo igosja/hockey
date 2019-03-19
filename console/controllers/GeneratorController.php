@@ -111,26 +111,26 @@ class GeneratorController extends AbstractController
     public function actionIndex()
     {
         $modelArray = [
-            new UpdateCronDate(),
-            new SiteClose(),
-//            new DumpDatabase(),
-            new PlayerPowerNewToOld(),
-            new CheckLineup(),
-            new FillLineup(),
-            new PlayerSpecialToLineup(),
-            new CheckCaptain(),
-            new SetAuto(),
-            new CheckTeamMoodLimit(),
-            new SetDefaultStyle(),
-            new SetUserAuto(),
-            new SetTicketPrice(),
-            new CountVisitor(),
-            new SetStadium(),
-            new FinanceStadium(),
-            new TeamToStatistic(),
-            new UserToRating(),
-            new LineupToStatistic(),
-            new NationalVs(),
+//            new UpdateCronDate(),
+//            new SiteClose(),
+////            new DumpDatabase(),
+//            new PlayerPowerNewToOld(),
+//            new CheckLineup(),
+//            new FillLineup(),
+//            new PlayerSpecialToLineup(),
+//            new CheckCaptain(),
+//            new SetAuto(),
+//            new CheckTeamMoodLimit(),
+//            new SetDefaultStyle(),
+//            new SetUserAuto(),
+//            new SetTicketPrice(),
+//            new CountVisitor(),
+//            new SetStadium(),
+//            new FinanceStadium(),
+//            new TeamToStatistic(),
+//            new UserToRating(),
+//            new LineupToStatistic(),
+//            new NationalVs(),
             new GameResult(),
             new UpdateLeagueCoefficient(),
             new UpdateTeamStatistic(),
@@ -208,7 +208,7 @@ class GeneratorController extends AbstractController
         ];
 
         try {
-            (new CheckCronDate())->execute();
+//            (new CheckCronDate())->execute();
             $this->progress($modelArray);
         } catch (Exception $e) {
             ErrorHelper::log($e);
