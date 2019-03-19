@@ -327,20 +327,18 @@ class Game extends AbstractActiveRecord
             );
         } elseif (TournamentType::LEAGUE == $this->schedule->schedule_tournament_type_id) {
             if ($this->schedule->schedule_stage_id <= Stage::QUALIFY_3) {
-                $roundId = 0;
+                $round = 'qualification';
             } elseif ($this->schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1) {
-                $roundId = 1;
+                $round = 'table';
             } else {
-                $roundId = 2;
+                $round = 'playoff';
             }
 
             $result = Html::a(
                 $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
-                    'league/index',
-                    'roundId' => $roundId,
+                    'champions-league/' . $round,
                     'seasonId' => $this->schedule->schedule_season_id,
-                    'stageId' => $this->schedule->schedule_stage_id,
                 ]
             );
         } elseif (TournamentType::CHAMPIONSHIP == $this->schedule->schedule_tournament_type_id) {
