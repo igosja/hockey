@@ -8,7 +8,6 @@ use common\models\Schedule;
 use common\models\Season;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\ActiveQuery;
 
 /**
  * Class ScheduleController
@@ -30,7 +29,7 @@ class ScheduleController extends AbstractController
                 'stage',
             ])
             ->where(['schedule_season_id' => $seasonId])
-            ->orderBy(['schedule_id' => SORT_ASC]);
+            ->orderBy(['schedule_date' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
