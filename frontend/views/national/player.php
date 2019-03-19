@@ -27,12 +27,8 @@ use yii\widgets\ActiveForm;
 <?php $form = ActiveForm::begin([
     'fieldConfig' => [
         'errorOptions' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 notification-error'],
-        'labelOptions' => ['class' => 'strong'],
         'options' => ['class' => 'row'],
-        'template' =>
-            '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">{label}</div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{input}</div>
-            {error}',
+        'template' => '{error}',
     ],
 ]); ?>
 <div class="row">
@@ -40,6 +36,7 @@ use yii\widgets\ActiveForm;
         <p>В сборной должно быть 32 игрока - 2 вратаря и 30 полевых хоккеистов (по шесть человек на каждую позицию).</p>
     </div>
 </div>
+<?= $form->field($model, 'player'); ?>
 <?php for ($i = Position::GK; $i <= Position::RW; $i++) : ?>
     <?php
 
