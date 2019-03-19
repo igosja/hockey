@@ -2540,6 +2540,7 @@ class GameResult
      */
     private function toDataBase()
     {
+        Event::deleteAll(['event_game_id' => $this->game->game_id]);
         $this->gameToDataBase();
         $this->eventToDataBase();
         $this->lineupToDataBase();
@@ -2670,7 +2671,7 @@ class GameResult
             }
 
             foreach ($this->result[$team]['player']['field'] as $player) {
-                if ($player['lineup_id']) {
+                if (isset($player['lineup_id']) && $player['lineup_id']) {
                     $model = Lineup::find()->where(['lineup_id' => $player['lineup_id']])->limit(1)->one();
                     if ($model) {
                         $model->lineup_age = $player['age'];
