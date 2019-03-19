@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
         <p>В сборной должно быть 32 игрока - 2 вратаря и 30 полевых хоккеистов (по шесть человек на каждую позицию).</p>
     </div>
 </div>
-<?= $form->field($model, 'player', ['value' => '']); ?>
+<?= $form->field($model, 'player')->error(); ?>
 <?php for ($i = Position::GK; $i <= Position::RW; $i++) : ?>
     <?php
 
