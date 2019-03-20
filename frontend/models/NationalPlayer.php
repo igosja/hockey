@@ -44,6 +44,9 @@ class NationalPlayer extends Model
         ];
     }
 
+    /**
+     * @param $attribute
+     */
     public function checkPlayer($attribute)
     {
         $formPlayerArray = [];
