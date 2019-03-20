@@ -300,6 +300,7 @@ class Team extends AbstractActiveRecord
             $player->player_age = $age;
             $player->player_country_id = $this->stadium->city->country->country_id;
             $player->player_position_id = $position[$i];
+            $player->player_team_id = 0;
             $player->save();
         }
     }
