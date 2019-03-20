@@ -308,7 +308,7 @@ class NationalController extends AbstractController
         $model = new NationalPlayer(['national' => $national]);
         if ($model->savePlayer()) {
             $this->setSuccessFlash();
-            $this->refresh();
+            return $this->refresh();
         }
 
         $gkArray = Player::find()
