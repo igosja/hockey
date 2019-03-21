@@ -31,6 +31,7 @@ use yii\db\ActiveQuery;
  * @property float $statistic_team_win_percent
  * @property int $statistic_team_win_shootout
  *
+ * @property National $national
  * @property Team $team
  */
 class StatisticTeam extends AbstractActiveRecord
@@ -94,6 +95,14 @@ class StatisticTeam extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNational()
+    {
+        return $this->hasOne(National::class, ['national_id' => 'statistic_team_national_id']);
     }
 
     /**

@@ -218,7 +218,7 @@ class StandingPlace
                     'world_cup_difference' => SORT_DESC,
                     'world_cup_score' => SORT_DESC,
                     'national_power_vs' => SORT_ASC,
-                    'world_cup_team_id' => SORT_ASC,
+                    'world_cup_national_id' => SORT_ASC,
                 ])
                 ->all();
             for ($i = 0, $countWorldCup = count($worldCupArray); $i < $countWorldCup; $i++) {

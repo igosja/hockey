@@ -47,6 +47,7 @@ use yii\db\ActiveQuery;
  * @property int $statistic_player_tournament_type_id
  * @property int $statistic_player_win
  *
+ * @property National $national
  * @property Player $player
  * @property Team $team
  */
@@ -131,6 +132,14 @@ class StatisticPlayer extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNational()
+    {
+        return $this->hasOne(National::class, ['national_id' => 'statistic_player_national_id']);
     }
 
     /**
