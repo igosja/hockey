@@ -878,6 +878,9 @@ class GameResult
                 }
 
                 $this->result[$team]['team']['teamwork'][$j] = round($teamwork / 10);
+                if ($this->result[$team]['team']['teamwork'][$j] > 25) {
+                    $this->result[$team]['team']['teamwork'][$j];
+                }
             }
         }
     }
@@ -2755,7 +2758,7 @@ class GameResult
             }
 
             foreach ($this->result[$team]['player']['field'] as $player) {
-                if ($player['player_id']) {
+                if (isset($player['player_id']) && $player['player_id']) {
                     $model = StatisticPlayer::find()->where([
                         'statistic_player_championship_playoff' => $is_playoff,
                         'statistic_player_country_id' => $countryId,
