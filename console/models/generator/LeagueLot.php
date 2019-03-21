@@ -518,7 +518,7 @@ class LeagueLot
         return [
             'i' => $team,
             'team_id' => $teamArray[0][$team]->participant_league_team_id,
-            'country_id' => $team[0][$team]->team->stadium->city->city_country_id,
+            'country_id' => $teamArray[0][$team]->team->stadium->city->city_country_id,
         ];
     }
 
