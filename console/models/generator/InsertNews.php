@@ -221,7 +221,7 @@ class InsertNews
         foreach ($scheduleArray as $schedule) {
             $stageName = $this->stageName($schedule->schedule_stage_id);
             if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
-                $result[] = $stageName . ' Чемпионата мира среди сборных';
+                $result[] = 'матчи ' . $stageName . ' Чемпионата мира среди сборных';
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1 && $schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_6) {
                     $result[] = 'матчи ' . $stageName . ' Лиги чемпионов';
@@ -241,7 +241,7 @@ class InsertNews
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
                     $result[] = 'матчи ' . $stageName . ' национальных чемпионатов';
                 } elseif ($schedule->schedule_stage_id <= Stage::FINAL_GAME) {
-                    $result[] = $stageName . ' национальных чемпионатов';
+                    $result[] = $stageName . 'ы национальных чемпионатов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                     $result[] = $stageName . 'ы национальных чемпионатов';
                 }
