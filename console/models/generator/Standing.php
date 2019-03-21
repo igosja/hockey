@@ -237,7 +237,7 @@ class Standing
                 }
 
                 $model = WorldCup::find()->where([
-                    'world_cup_national_id' => $game->game_home_national_id,
+                    'world_cup_national_id' => $game->game_guest_national_id,
                     'world_cup_season_id' => $game->schedule->schedule_season_id,
                 ])->one();
                 if ($model) {

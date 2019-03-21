@@ -62,7 +62,7 @@ if ($statisticType->isTeamChapter()) {
             'format' => 'raw',
             'label' => 'Команда',
             'value' => function (StatisticTeam $model) {
-                return $model->team->teamLink('img');
+                return $model->national->nationalLink(true);
             }
         ],
         [
@@ -96,7 +96,7 @@ if ($statisticType->isTeamChapter()) {
             'format' => 'raw',
             'label' => 'Команда',
             'value' => function (StatisticPlayer $model) {
-                return $model->team->teamLink('img');
+                return $model->national->nationalLink(true);
             }
         ],
         [
