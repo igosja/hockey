@@ -14,6 +14,7 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Name;
 use common\models\NameCountry;
+use common\models\National;
 use common\models\OffSeason;
 use common\models\Position;
 use common\models\Schedule;
@@ -849,5 +850,54 @@ class FixController extends AbstractController
                 $data
             )
             ->execute();
+    }
+
+    public function actionNationalFinance()
+    {
+        National::updateAll(['national_visitor' => 100]);
+
+        $gameArray = Game::find()
+            ->where(['game_schedule_id' => 127])
+            ->all();
+        foreach ($gameArray as $game) {
+            $game->game_visitor = $game->stadium->stadium_capacity;
+            $game->save(true, ['game_visitor']);
+
+            $income = $game->game_visitor * $game->game_ticket;
+            $income = floor($income / 3);
+
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
+                'finance_national_id' => $game->nationalHome->national_id,
+                'finance_value' => $income,
+                'finance_value_after' => $game->nationalHome->national_finance + $income,
+                'finance_value_before' => $game->nationalHome->national_finance,
+            ]);
+
+            $game->nationalHome->national_finance = $game->nationalHome->national_finance + $income;
+            $game->nationalHome->save();
+
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
+                'finance_national_id' => $game->nationalGuest->national_id,
+                'finance_value' => $income,
+                'finance_value_after' => $game->nationalGuest->national_finance + $income,
+                'finance_value_before' => $game->nationalGuest->national_finance,
+            ]);
+
+            $game->nationalGuest->national_finance = $game->nationalGuest->national_finance + $income;
+            $game->nationalGuest->save();
+
+            Finance::log([
+                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
+                'finance_team_id' => $game->stadium->team->team_id,
+                'finance_value' => $income,
+                'finance_value_after' => $game->stadium->team->team_finance + $income,
+                'finance_value_before' => $game->stadium->team->team_finance,
+            ]);
+
+            $game->stadium->team->team_finance = $game->stadium->team->team_finance + $income;
+            $game->stadium->team->save();
+        }
     }
 }
