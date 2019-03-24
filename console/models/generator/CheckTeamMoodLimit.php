@@ -40,7 +40,7 @@ class CheckTeamMoodLimit
                 continue;
             }
 
-            if ($this->game->teamHome) {
+            if ($this->game->game_home_team_id) {
                 $this->checkTeam();
             } else {
                 $this->checkNational();
