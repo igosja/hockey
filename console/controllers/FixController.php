@@ -10,6 +10,8 @@ use common\models\Event;
 use common\models\EventType;
 use common\models\Finance;
 use common\models\FinanceText;
+use common\models\ForumChapter;
+use common\models\ForumGroup;
 use common\models\Game;
 use common\models\Lineup;
 use common\models\Name;
@@ -17,7 +19,6 @@ use common\models\NameCountry;
 use common\models\National;
 use common\models\OffSeason;
 use common\models\Position;
-use common\models\Schedule;
 use common\models\Season;
 use common\models\Stadium;
 use common\models\Stage;
@@ -26,7 +27,6 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\InsertSwiss;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -866,54 +866,13 @@ class FixController extends AbstractController
                 $data
             )
             ->execute();
-    }
 
-    /**
-     * @throws \yii\db\Exception
-     */
-    public function actionConference()
-    {
-        (new InsertSwiss())->execute();
-    }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    public function actionSchedule()
-    {
-        $data = [];
-
-        $scheduleArray = Schedule::find()
-            ->where([
-                'schedule_tournament_type_id' => TournamentType::CONFERENCE,
-                'schedule_stage_id' => [
-                    Stage::TOUR_31,
-                    Stage::TOUR_32,
-                    Stage::TOUR_33,
-                    Stage::TOUR_34,
-                    Stage::TOUR_35,
-                    Stage::TOUR_36,
-                    Stage::TOUR_37,
-                    Stage::TOUR_38,
-                    Stage::TOUR_39,
-                    Stage::TOUR_40,
-                    Stage::TOUR_41,
-                ],
-                'schedule_season_id' => Season::getCurrentSeason(),
-            ])
-            ->orderBy(['schedule_id' => SORT_ASC])
-            ->all();
-        foreach ($scheduleArray as $schedule) {
-            $data[] = [$schedule->schedule_date, $schedule->schedule_season_id, Stage::FRIENDLY, TournamentType::FRIENDLY];
+        if (isset($countryId)) {
+            $model = new ForumGroup();
+            $model->forum_group_country_id = $countryId;
+            $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
+            $model->save();
         }
-        Yii::$app->db
-            ->createCommand()
-            ->batchInsert(
-                Schedule::tableName(),
-                ['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'],
-                $data
-            )
-            ->execute();
     }
 
     public function actionNationalFinance()
