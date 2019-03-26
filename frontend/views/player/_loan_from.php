@@ -36,14 +36,12 @@ use yii\widgets\ActiveForm;
                     <th>Команда потенциального арендатора</th>
                     <th class="col-20">Время заявки</th>
                     <th class="col-15">Срок аренды</th>
-                    <th class="col-15">Сумма</th>
                 </tr>
                 <?php foreach ($model->loanApplicationArray as $item): ?>
                     <tr>
                         <td><?= $item->team->teamLink('img'); ?></td>
                         <td class="text-center"><?= FormatHelper::asDatetime($item->loan_application_date); ?></td>
                         <td class="text-center"><?= $item->loan_application_day; ?></td>
-                        <td class="text-right"><?= FormatHelper::asCurrency($item->loan_application_price); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
