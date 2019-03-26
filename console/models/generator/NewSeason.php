@@ -38,6 +38,7 @@ use console\models\newSeason\PlayerPriceAndSalary;
 use console\models\newSeason\PlayerTireBaseLevel;
 use console\models\newSeason\RandPhysical;
 use console\models\newSeason\TruncateTables;
+use console\models\newSeason\VisitorResetAll;
 use Exception;
 use Yii;
 
@@ -90,6 +91,7 @@ class NewSeason
             new PlayerPriceAndSalary(),
             new BaseMaintenance(),
             new MoodResetAll(),
+            new VisitorResetAll(),
             new GameRow(),
             new CountryAutoReset(),
             new TruncateTables(),

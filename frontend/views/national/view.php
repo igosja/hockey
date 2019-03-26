@@ -94,7 +94,10 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
                 'value' => function (Player $model) {
                     return $model->playerLink()
                         . $model->iconPension()
-                        . $model->iconInjury();
+                        . $model->iconInjury()
+                        . '<br><span class="font-grey text-size-3">'
+                        . $model->team->teamLink()
+                        . '</span>';
                 }
             ],
             [
