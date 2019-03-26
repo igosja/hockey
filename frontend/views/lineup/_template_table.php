@@ -4,8 +4,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
+ * @var \frontend\controllers\AbstractController $controller
  * @var \common\models\LineupTemplate[] $lineupTemplateArray
  */
+
+$controller = Yii::$app->controller;
 
 ?>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -28,14 +31,16 @@ use yii\helpers\Url;
                             'data-url' => Url::to(['lineup/template-load', 'id' => $lineupTemplate->lineup_template_id]),
                         ]
                     ); ?>
-                    <?= Html::a(
-                        '<i class="fa fa-trash-o" aria-hidden="true" title="Удалить"></i>',
-                        'javascript:',
-                        [
-                            'class' => 'template-delete',
-                            'data-url' => Url::to(['lineup/template-delete', 'id' => $lineupTemplate->lineup_template_id]),
-                        ]
-                    ); ?>
+                    <?php if ($lineupTemplate->lineup_template_team_id == $controller->myTeam->team_id) : ?>
+                        <?= Html::a(
+                            '<i class="fa fa-trash-o" aria-hidden="true" title="Удалить"></i>',
+                            'javascript:',
+                            [
+                                'class' => 'template-delete',
+                                'data-url' => Url::to(['lineup/template-delete', 'id' => $lineupTemplate->lineup_template_id]),
+                            ]
+                        ); ?>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

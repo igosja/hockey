@@ -211,12 +211,12 @@ LineupAsset::register($this);
 <div class="row margin-top">
     <?= $form
         ->field($model, 'ticket', [
-            'template' => ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-right strong">
-                                {label}
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-4 text-center">
-                                {input}
-                                </div>'
+            'template' => '<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-right strong">
+                        {label}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-2 col-xs-4 text-center">
+                        {input}
+                        </div>'
         ])
         ->textInput(['class' => 'form-control', 'disabled' => !$model->home])
         ->label('Билет, $'); ?>

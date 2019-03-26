@@ -422,13 +422,13 @@ class GameSend extends Model
         $rw_4_id = $this->line[4][5];
 
         $model = LineupTemplate::find()
-            ->where(['lineup_template_team_id' => $controller->myTeam->team_id, 'lineup_template_name' => $this->name])
+            ->where(['lineup_template_team_id' => $controller->myTeamOrVice->team_id, 'lineup_template_name' => $this->name])
             ->limit(1)
             ->one();
         if (!$model) {
             $model = new LineupTemplate();
             $model->lineup_template_name = $this->name ?: FormatHelper::asDateTime(time());
-            $model->lineup_template_team_id = $controller->myTeam->team_id;
+            $model->lineup_template_team_id = $controller->myTeamOrVice->team_id;
         }
         $model->lineup_template_captain = $this->captain;
         $model->lineup_template_national_id = 0;

@@ -456,7 +456,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
         }
         foreach ($vice as $teamId => $userId) {
             $team = Team::find()
-                ->where(['team_user_id' => $this->user_id])
+                ->where(['team_id' => $teamId, 'team_user_id' => $this->user_id])
                 ->limit(1)
                 ->one();
             if (!$team) {
