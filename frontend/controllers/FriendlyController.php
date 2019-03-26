@@ -200,7 +200,6 @@ class FriendlyController extends AbstractController
                     'team_id' => Game::find()
                         ->select(['game_home_team_id'])
                         ->where(['game_schedule_id' => $id])
-                        ->column()
                 ]
             ])
             ->andWhere([
@@ -209,7 +208,32 @@ class FriendlyController extends AbstractController
                     'team_id' => Game::find()
                         ->select(['game_guest_team_id'])
                         ->where(['game_schedule_id' => $id])
-                        ->column()
+                ]
+            ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Game::find()
+                        ->joinWith(['schedule'])
+                        ->select(['game_guest_team_id'])
+                        ->where([
+                            'game_home_team_id' => $this->myTeam->team_id,
+                            'schedule_season_id' => Season::getCurrentSeason(),
+                            'schedule_tournament_type_id' => TournamentType::FRIENDLY,
+                        ])
+                ]
+            ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Game::find()
+                        ->joinWith(['schedule'])
+                        ->select(['game_home_team_id'])
+                        ->where([
+                            'game_guest_team_id' => $this->myTeam->team_id,
+                            'schedule_season_id' => Season::getCurrentSeason(),
+                            'schedule_tournament_type_id' => TournamentType::FRIENDLY,
+                        ])
                 ]
             ])
             ->orderBy(['team_power_vs' => SORT_DESC]);
