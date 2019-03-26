@@ -34,19 +34,11 @@ use yii\widgets\ActiveForm;
                 <tr>
                     <th>Команда потенциального покупателя</th>
                     <th class="col-20">Время заявки</th>
-                    <th class="col-15">Сумма</th>
                 </tr>
                 <?php foreach ($model->transferApplicationArray as $item): ?>
                     <tr>
-                        <td>
-                            <?= $item->team->teamLink('img'); ?>
-                        </td>
-                        <td class="text-center">
-                            <?= FormatHelper::asDatetime($item->transfer_application_date); ?>
-                        </td>
-                        <td class="text-right">
-                            <?= FormatHelper::asCurrency($item->transfer_application_price); ?>
-                        </td>
+                        <td><?= $item->team->teamLink('img'); ?></td>
+                        <td class="text-center"><?= FormatHelper::asDatetime($item->transfer_application_date); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
