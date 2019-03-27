@@ -79,6 +79,9 @@ class InsertSwiss
         $positionDifference = 1;
 
         $teamArray = $this->swissPrepare($tournamentTypeId);
+        print '<pre>';
+        print_r(count($teamArray));
+        exit;
         $gameArray = $this->swiss($tournamentTypeId, $positionDifference, $teamArray, $stageId);
 
         return $gameArray;
