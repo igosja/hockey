@@ -877,6 +877,7 @@ class FixController extends AbstractController
 
     public function actionConference()
     {
+        Conference::deleteAll(['and', ['conference_game' => 0], ['between', 'conference_team_id', 443, 476]]);
         Lineup::deleteAll([
             'lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 136])
         ]);
