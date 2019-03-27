@@ -26,6 +26,7 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use console\models\generator\InsertSwiss;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -808,5 +809,14 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
+    }
+
+    public function actionConference()
+    {
+        Lineup::deleteAll([
+            'lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 136])
+        ]);
+        Game::deleteAll(['game_schedule_id' => 136]);
+        (new InsertSwiss())->execute();
     }
 }
