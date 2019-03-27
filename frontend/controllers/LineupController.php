@@ -1785,7 +1785,7 @@ class LineupController extends AbstractController
             return;
         }
         $model = LineupTemplate::find()
-            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeamOrVice->team_id])
+            ->where(['lineup_template_id' => $id, 'lineup_template_team_id' => $this->myTeam->team_id])
             ->limit(1)
             ->one();
         if ($model) {

@@ -10,14 +10,14 @@ use common\models\Event;
 use common\models\EventType;
 use common\models\Finance;
 use common\models\FinanceText;
+use common\models\ForumChapter;
+use common\models\ForumGroup;
 use common\models\Game;
 use common\models\Lineup;
 use common\models\Name;
 use common\models\NameCountry;
-use common\models\National;
 use common\models\OffSeason;
 use common\models\Position;
-use common\models\Schedule;
 use common\models\Season;
 use common\models\Stadium;
 use common\models\Stage;
@@ -866,102 +866,21 @@ class FixController extends AbstractController
                 $data
             )
             ->execute();
+
+        if (isset($countryId)) {
+            $model = new ForumGroup();
+            $model->forum_group_country_id = $countryId;
+            $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
+            $model->save();
+        }
     }
 
-    /**
-     * @throws \yii\db\Exception
-     */
     public function actionConference()
     {
+        Lineup::deleteAll([
+            'lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 136])
+        ]);
+        Game::deleteAll(['game_schedule_id' => 136]);
         (new InsertSwiss())->execute();
-    }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    public function actionSchedule()
-    {
-        $data = [];
-
-        $scheduleArray = Schedule::find()
-            ->where([
-                'schedule_tournament_type_id' => TournamentType::CONFERENCE,
-                'schedule_stage_id' => [
-                    Stage::TOUR_31,
-                    Stage::TOUR_32,
-                    Stage::TOUR_33,
-                    Stage::TOUR_34,
-                    Stage::TOUR_35,
-                    Stage::TOUR_36,
-                    Stage::TOUR_37,
-                    Stage::TOUR_38,
-                    Stage::TOUR_39,
-                    Stage::TOUR_40,
-                    Stage::TOUR_41,
-                ],
-                'schedule_season_id' => Season::getCurrentSeason(),
-            ])
-            ->orderBy(['schedule_id' => SORT_ASC])
-            ->all();
-        foreach ($scheduleArray as $schedule) {
-            $data[] = [$schedule->schedule_date, $schedule->schedule_season_id, Stage::FRIENDLY, TournamentType::FRIENDLY];
-        }
-        Yii::$app->db
-            ->createCommand()
-            ->batchInsert(
-                Schedule::tableName(),
-                ['schedule_date', 'schedule_season_id', 'schedule_stage_id', 'schedule_tournament_type_id'],
-                $data
-            )
-            ->execute();
-    }
-
-    public function actionNationalFinance()
-    {
-        National::updateAll(['national_visitor' => 100]);
-
-        $gameArray = Game::find()
-            ->where(['game_schedule_id' => 127])
-            ->all();
-        foreach ($gameArray as $game) {
-            $game->game_visitor = $game->stadium->stadium_capacity;
-            $game->save(true, ['game_visitor']);
-
-            $income = $game->game_visitor * $game->game_ticket;
-            $income = floor($income / 3);
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_national_id' => $game->nationalHome->national_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->nationalHome->national_finance + $income,
-                'finance_value_before' => $game->nationalHome->national_finance,
-            ]);
-
-            $game->nationalHome->national_finance = $game->nationalHome->national_finance + $income;
-            $game->nationalHome->save();
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_national_id' => $game->nationalGuest->national_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->nationalGuest->national_finance + $income,
-                'finance_value_before' => $game->nationalGuest->national_finance,
-            ]);
-
-            $game->nationalGuest->national_finance = $game->nationalGuest->national_finance + $income;
-            $game->nationalGuest->save();
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_team_id' => $game->stadium->team->team_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->stadium->team->team_finance + $income,
-                'finance_value_before' => $game->stadium->team->team_finance,
-            ]);
-
-            $game->stadium->team->team_finance = $game->stadium->team->team_finance + $income;
-            $game->stadium->team->save();
-        }
     }
 }

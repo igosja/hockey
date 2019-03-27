@@ -10,7 +10,9 @@ use common\models\History;
 use common\models\National;
 use common\models\Player;
 use common\models\Position;
+use common\models\Schedule;
 use common\models\Season;
+use common\models\TournamentType;
 use frontend\models\NationalPlayer;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -86,9 +88,11 @@ class NationalController extends AbstractController
                 'physical',
                 'playerPosition.position',
                 'playerSpecial.special',
+                'squadNational',
                 'statisticPlayer',
                 'style',
                 'surname',
+                'team.stadium.city.country',
             ])
             ->where(['player_national_id' => $id]);
         $dataProvider = new ActiveDataProvider([
@@ -303,6 +307,16 @@ class NationalController extends AbstractController
         $national = $this->getNational($id);
         if ($this->myNational->national_id != $national->national_id) {
             $this->forbiddenRole();
+        }
+
+        $schedule = Schedule::find()
+            ->where(['schedule_tournament_type_id' => TournamentType::NATIONAL])
+            ->andWhere(['>', 'schedule_date', time()])
+            ->limit(1)
+            ->one();
+        if ($schedule && $schedule->schedule_date < time() + 86400) {
+            $this->setErrorFlash('Нельзя менять состав сборной менее чем за сутки до матча');
+            return $this->redirect(['national/view', 'id' => $id]);
         }
 
         $model = new NationalPlayer(['national' => $national]);
