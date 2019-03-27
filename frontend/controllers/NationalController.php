@@ -88,9 +88,11 @@ class NationalController extends AbstractController
                 'physical',
                 'playerPosition.position',
                 'playerSpecial.special',
+                'squadNational',
                 'statisticPlayer',
                 'style',
                 'surname',
+                'team.stadium.city.country',
             ])
             ->where(['player_national_id' => $id]);
         $dataProvider = new ActiveDataProvider([
