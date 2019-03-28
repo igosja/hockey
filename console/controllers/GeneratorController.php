@@ -36,6 +36,7 @@ use console\models\generator\MakeTransfer;
 use console\models\generator\MoodReset;
 use console\models\generator\NationalFire;
 use console\models\generator\NationalStadium;
+use console\models\generator\NationalViceFire;
 use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
@@ -179,6 +180,7 @@ class GeneratorController extends AbstractController
             new NationalVoteStatus(),
             new NationalViceVoteStatus(),
             new NationalFire(),
+            new NationalViceFire(),
             new PresidentVoteStatus(),
             new PresidentViceVoteStatus(),
             new PresidentFire(),
