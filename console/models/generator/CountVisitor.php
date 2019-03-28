@@ -18,20 +18,6 @@ class CountVisitor
      */
     public function execute()
     {
-        $subQuery = Game::find()
-            ->joinWith(['schedule'])
-            ->select(['game_id'])
-            ->where(['game_played' => 0])
-            ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()');
-        $specialArray = PlayerSpecial::find()
-            ->indexBy('lineup.lineup_game_id')
-            ->joinWith(['lineup'])
-            ->select(['SUM(player_special_level) AS player_special_level', 'lineup_game_id'])
-            ->where(['player_special_special_id' => Special::IDOL])
-            ->andWhere(['lineup_game_id' => $subQuery])
-            ->groupBy(['lineup_game_id'])
-            ->all();
-
         $gameArray = Game::find()
             ->joinWith(['schedule'])
             ->with([
@@ -52,10 +38,12 @@ class CountVisitor
             /**
              * @var Game $game
              */
-            $special = 0;
-            if (isset($specialArray[$game->game_id])) {
-                $special = $specialArray[$game->game_id]->playerspecial_level;
-            }
+            $special = PlayerSpecial::find()
+                ->indexBy('player_special_id')
+                ->joinWith(['lineup'])
+                ->where(['player_special_special_id' => Special::IDOL])
+                ->andWhere(['lineup_game_id' => $game->game_id])
+                ->sum('player_special_level');
             if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
                 $guestVisitor = $game->nationalGuest->national_visitor;
                 $homeVisitor = $game->nationalHome->national_visitor;
