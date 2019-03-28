@@ -39,6 +39,7 @@ use yii\web\IdentityInterface;
  * @property int $user_date_block_forum
  * @property int $user_date_confirm
  * @property int $user_date_login
+ * @property int $user_date_delete
  * @property int $user_date_register
  * @property int $user_date_vip
  * @property string $user_email
@@ -124,6 +125,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_date_block_comment_news',
                     'user_date_block_forum',
                     'user_date_confirm',
+                    'user_date_delete',
                     'user_date_login',
                     'user_date_register',
                     'user_date_vip',

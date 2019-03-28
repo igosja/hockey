@@ -183,6 +183,11 @@ print $this->render('_top');
             'Отказаться от команды',
             ['user/drop-team']
         ); ?>
+        |
+        <?= Html::a(
+            'Удалить аккаунт',
+            ['user/delete']
+        ); ?>
     </div>
 </div>
 <?php endif; ?>

@@ -76,8 +76,10 @@ abstract class AbstractController extends Controller
 
     /**
      * @param $action
-     * @return bool
+     * @return bool|\yii\web\Response
      * @throws \Exception
+     * @throws ForbiddenHttpException
+     * @throws \yii\web\BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -170,6 +172,10 @@ abstract class AbstractController extends Controller
 
             if (!$this->user->user_date_confirm) {
                 Yii::$app->session->setFlash('warning', 'Пожалуйста, подтвердите свой почтовый адрес');
+            }
+
+            if (!('restore' == $action->id && 'user' == $action->controller->id) && $this->user->user_date_delete) {
+                return $this->redirect(['user/restore']);
             }
         }
 
