@@ -154,7 +154,7 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block = $model->time * 86400 + time();
+            $model->user_date_block = 7 * 86400 + time();
             if ($model->save()) {
                 foreach ($model->team as $team) {
                     $team->managerFire();
@@ -189,8 +189,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_chat = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_chat = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_chat'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -221,8 +227,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_comment = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_comment = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -253,8 +265,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_comment_deal = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_comment_deal = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_deal'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -285,8 +303,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_comment_game = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_comment_game = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_game'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -317,8 +341,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_comment_news = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_comment_news = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_news'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -349,8 +379,14 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block_forum = $model->time * 86400 + time();
-            if ($model->save()) {
+            $time = 1;
+            if ($model->user_block_count_date > time() - 30 * 24 * 60 * 60) {
+                $time = $model->user_block_count + 1;
+            }
+            $model->user_block_count = $time;
+            $model->user_block_count_date = time();
+            $model->user_date_block_forum = $time * 86400 + time();
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_forum'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }

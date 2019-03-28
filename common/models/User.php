@@ -26,6 +26,8 @@ use yii\web\IdentityInterface;
  * @property int $user_block_comment_deal_block_reason_id
  * @property int $user_block_comment_game_block_reason_id
  * @property int $user_block_comment_news_block_reason_id
+ * @property int $user_block_count
+ * @property int $user_block_count_date
  * @property int $user_block_forum_block_reason_id
  * @property string $user_city
  * @property string $user_code
@@ -84,8 +86,6 @@ class User extends AbstractActiveRecord implements IdentityInterface
     const MAX_HOLIDAY = 30;
     const MAX_VIP_HOLIDAY = 60;
 
-    public $time;
-
     /**
      * @return string
      */
@@ -114,6 +114,8 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_block_comment_deal_block_reason_id',
                     'user_block_comment_game_block_reason_id',
                     'user_block_comment_news_block_reason_id',
+                    'user_block_count',
+                    'user_block_count_date',
                     'user_block_forum_block_reason_id',
                     'user_country_id',
                     'user_date_block',

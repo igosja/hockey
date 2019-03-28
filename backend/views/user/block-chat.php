@@ -27,13 +27,6 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'time')->dropDownList([
-            2 => '2 дня',
-            5 => '5 дней',
-            7 => '7 дней',
-            30 => '1 месяц',
-            365 => '1 год'
-        ]); ?>
         <?= $form->field($model, 'user_block_chat_block_reason_id')->dropDownList($blockReasonArray); ?>
         <div class="form-group">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
