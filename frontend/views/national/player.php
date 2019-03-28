@@ -62,10 +62,11 @@ use yii\widgets\ActiveForm;
                     <th class="col-5"></th>
                     <th>Игрок</th>
                     <th class="col-5" title="Позиция">Поз</th>
-                    <th class="col-5" title="Возраст">В</th>
+                    <th class="col-5 hidden-xs" title="Возраст">В</th>
                     <th class="col-5" title="Номинальная сила">С</th>
+                    <th class="col-5" title="Форма">Ф</th>
                     <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
-                    <th class="col-40">Команда</th>
+                    <th class="col-40 hidden-xs">Команда</th>
                 </tr>
                 <?php foreach ($playerArray as $item) { ?>
                     <tr>
@@ -82,22 +83,22 @@ use yii\widgets\ActiveForm;
                             <?= $item->playerLink(['target' => '_blank']); ?>
                         </td>
                         <td class="text-center"><?= $item->position(); ?></td>
-                        <td class="text-center"><?= $item->player_age; ?></td>
+                        <td class="text-center hidden-xs"><?= $item->player_age; ?></td>
                         <td class="text-center"><?= $item->player_power_nominal; ?></td>
+                        <td class="text-center"><?= $item->physical->image(); ?></td>
                         <td class="hidden-xs text-center"><?= $item->special(); ?></td>
-                        <td>
-                            <?= $item->team->teamLink('img'); ?>
-                        </td>
+                        <td class="hidden-xs"><?= $item->team->teamLink('img'); ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <th></th>
                     <th>Игрок</th>
                     <th title="Позиция">Поз</th>
-                    <th title="Возраст">В</th>
+                    <th class="hidden-xs" title="Возраст">В</th>
                     <th title="Номинальная сила">С</th>
+                    <th title="Форма">Ф</th>
                     <th class="hidden-xs" title="Спецвозможности">Спец</th>
-                    <th>Команда</th>
+                    <th class="hidden-xs">Команда</th>
                 </tr>
             </table>
         </div>
