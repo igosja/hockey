@@ -2,13 +2,13 @@
 
 namespace console\models\generator;
 
-use common\models\Country;
+use common\models\National;
 
 /**
- * Class PresidentViceFire
+ * Class NationalViceFire
  * @package console\models\generator
  */
-class PresidentViceFire
+class NationalViceFire
 {
     /**
      * @throws \Exception
@@ -16,17 +16,17 @@ class PresidentViceFire
      */
     public function execute()
     {
-        $countryArray = Country::find()
+        $nationalArray = National::find()
             ->joinWith(['vice'])
-            ->where(['!=', 'country_president_vice_id', 0])
+            ->where(['!=', 'national_vice_id', 0])
             ->andWhere(['<', 'user_date_login', time() - 1296000])
-            ->orderBy(['country_id' => SORT_ASC])
+            ->orderBy(['national_id' => SORT_ASC])
             ->each();
-        foreach ($countryArray as $country) {
+        foreach ($nationalArray as $national) {
             /**
-             * @var Country $country
+             * @var National $national
              */
-            $country->fireVicePresident();
+            $national->fireVice();
         }
     }
 }
