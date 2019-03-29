@@ -222,6 +222,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'country',
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Нац',
                     'footerOptions' => ['class' => 'col-1 hidden-xs', 'title' => 'Национальность'],
@@ -233,6 +234,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'position',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Поз',
                     'footerOptions' => ['title' => 'Позиция'],
@@ -244,6 +246,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'age',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В',
                     'footerOptions' => ['title' => 'Возраст'],
@@ -254,6 +257,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'power',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'С',
                     'footerOptions' => ['title' => 'Сила'],
@@ -285,6 +289,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'days',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Дней',
                     'footerOptions' => ['title' => 'Срок аренды (календарных дней)'],
@@ -295,6 +300,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'price',
                     'contentOptions' => ['class' => 'text-right'],
                     'footer' => 'Цена',
                     'footerOptions' => ['title' => 'Минимальная запрашиваемая цена за 1 день аренды'],
@@ -305,6 +311,7 @@ use yii\widgets\ActiveForm;
                     }
                 ],
                 [
+                    'attribute' => 'loan_id',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Торги',
                     'footerOptions' => ['title' => 'Дата проведения торгов'],

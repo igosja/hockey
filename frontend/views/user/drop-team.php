@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /**
  * @var \common\models\User $model
+ * @var \common\models\Team $team
  */
 
 print $this->render('_top');
@@ -26,6 +27,7 @@ print $this->render('_top');
 <div class="row margin-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         Вы собираетесь отказаться от управления своей командой
+        <?= $team->teamLink('image'); ?>
     </div>
 </div>
 <div class="row">
