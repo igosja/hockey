@@ -107,6 +107,36 @@ class LoanSearch extends Loan
             'pagination' => [
                 'pageSize' => Yii::$app->params['pageSizeTable'],
             ],
+            'sort' => [
+                'attributes' => [
+                    'age' => [
+                        'asc' => ['player_age' => SORT_ASC],
+                        'desc' => ['player_age' => SORT_DESC],
+                    ],
+                    'country' => [
+                        'asc' => ['player_country_id' => SORT_ASC],
+                        'desc' => ['player_country_id' => SORT_DESC],
+                    ],
+                    'days' => [
+                        'asc' => ['loan_day_min' => SORT_ASC],
+                        'desc' => ['loan_day_min' => SORT_DESC],
+                    ],
+                    'loan_id',
+                    'position' => [
+                        'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
+                        'desc' => ['player_position_id' => SORT_DESC, 'player_id' => SORT_DESC],
+                    ],
+                    'power' => [
+                        'asc' => ['player_power_nominal' => SORT_ASC],
+                        'desc' => ['player_power_nominal' => SORT_DESC],
+                    ],
+                    'price' => [
+                        'asc' => ['loan_price_seller' => SORT_ASC],
+                        'desc' => ['loan_price_seller' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => ['loan_id' => SORT_ASC],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
