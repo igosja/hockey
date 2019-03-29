@@ -49,7 +49,9 @@ class UserController extends AbstractController
                     'password',
                     'money-transfer',
                     'referral',
+                    'delete',
                     'notes',
+                    'black-list',
                 ],
                 'rules' => [
                     [
@@ -61,8 +63,10 @@ class UserController extends AbstractController
                             'holiday',
                             'password',
                             'money-transfer',
+                            'delete',
                             'referral',
                             'notes',
+                            'black-list',
                         ],
                         'roles' => ['@'],
                     ],
@@ -462,7 +466,9 @@ class UserController extends AbstractController
 
         $this->setSeoTitle('Отказ от команды');
 
-        return $this->render('drop-team');
+        return $this->render('drop-team', [
+            'team' => $this->myTeam,
+        ]);
     }
 
     /**
@@ -494,7 +500,63 @@ class UserController extends AbstractController
 
         $this->setSeoTitle('Преререгистрация команды');
 
-        return $this->render('re-register');
+        return $this->render('re-register', [
+            'team' => $this->myTeam,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionDelete()
+    {
+        if (Yii::$app->request->get('ok')) {
+            try {
+                $this->user->user_date_delete = time();
+                $this->user->save(true, ['user_date_delete']);
+
+                foreach ($this->myTeamArray as $team) {
+                    $team->managerFire();
+                }
+
+                $this->setSuccessFlash();
+            } catch (\Exception $e) {
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+
+            return $this->redirect(['user/delete']);
+        }
+
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+
+        $this->setSeoTitle('Удаление аккаунта');
+        return $this->render('delete');
+    }
+
+    /**
+     * @return string
+     */
+    public function actionRestore()
+    {
+        if (Yii::$app->request->get('ok')) {
+            try {
+                $this->user->user_date_delete = 0;
+                $this->user->save(true, ['user_date_delete']);
+
+                $this->setSuccessFlash();
+            } catch (\Exception $e) {
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+
+            return $this->redirect(['user/view', 'id' => $this->user->user_id]);
+        }
+
+        Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
+
+        $this->setSeoTitle('Восстановление аккаунта');
+        return $this->render('restore');
     }
 
     /**
