@@ -879,6 +879,7 @@ class FixController extends AbstractController
      */
     public function actionVisitor()
     {
+        Finance::deleteAll(['finance_value' => 0]);
         $gameArray = Game::find()
             ->joinWith(['schedule'])
             ->with(['schedule', 'stadium', 'teamHome', 'teamGuest', 'nationalHome', 'nationalGuest'])
