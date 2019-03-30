@@ -879,10 +879,10 @@ class FixController extends AbstractController
      */
     public function actionVisitor()
     {
+        Finance::deleteAll(['finance_value' => 0]);
         $gameArray = Game::find()
             ->joinWith(['schedule'])
             ->with(['schedule', 'stadium', 'teamHome', 'teamGuest', 'nationalHome', 'nationalGuest'])
-            ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
             ->each();
