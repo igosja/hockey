@@ -72,11 +72,11 @@ class FixController extends AbstractController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionStat()
     {
-        \Yii::$app->db->createCommand()->truncateTable(StatisticPlayer::tableName())->execute();
+        Yii::$app->db->createCommand()->truncateTable(StatisticPlayer::tableName())->execute();
         $gameArray = Game::find()
             ->where(['!=', 'game_played', 0])
             ->orderBy(['game_id' => SORT_ASC])
@@ -871,63 +871,6 @@ class FixController extends AbstractController
             $model->forum_group_country_id = $countryId;
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
-        }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function actionVisitor()
-    {
-        Finance::deleteAll(['finance_value' => 0]);
-        $gameArray = Game::find()
-            ->joinWith(['schedule'])
-            ->with(['schedule', 'stadium', 'teamHome', 'teamGuest', 'nationalHome', 'nationalGuest'])
-            ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->orderBy(['game_id' => SORT_ASC])
-            ->each();
-        foreach ($gameArray as $game) {
-            /**
-             * @var Game $game
-             */
-            $game->game_visitor = $game->stadium->stadium_capacity;
-            $game->save(true, ['game_visitor']);
-            $income = $game->game_visitor * $game->game_ticket;
-
-            $income = floor($income / 3);
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_national_id' => $game->nationalHome->national_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->nationalHome->national_finance + $income,
-                'finance_value_before' => $game->nationalHome->national_finance,
-            ]);
-
-            $game->nationalHome->national_finance = $game->nationalHome->national_finance + $income;
-            $game->nationalHome->save();
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_national_id' => $game->nationalGuest->national_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->nationalGuest->national_finance + $income,
-                'finance_value_before' => $game->nationalGuest->national_finance,
-            ]);
-
-            $game->nationalGuest->national_finance = $game->nationalGuest->national_finance + $income;
-            $game->nationalGuest->save();
-
-            Finance::log([
-                'finance_finance_text_id' => FinanceText::INCOME_TICKET,
-                'finance_team_id' => $game->stadium->team->team_id,
-                'finance_value' => $income,
-                'finance_value_after' => $game->stadium->team->team_finance + $income,
-                'finance_value_before' => $game->stadium->team->team_finance,
-            ]);
-
-            $game->stadium->team->team_finance = $game->stadium->team->team_finance + $income;
-            $game->stadium->team->save();
         }
     }
 }
