@@ -1,5 +1,7 @@
 <?php
 
+use yii\grid\GridView;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -37,7 +39,7 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
         ],
         'request' => [
-            'baseUrl' => '/admin',
+            'baseUrl' => '/qTwnVrXEBN',
             'csrfParam' => '_csrf-backend',
         ],
         'session' => [
@@ -69,7 +71,7 @@ return [
     ],
     'container' => [
         'definitions' => [
-            \yii\grid\GridView::class => [
+            GridView::class => [
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
                 'tableOptions' => ['class' => 'table table-bordered table-hover'],
             ],

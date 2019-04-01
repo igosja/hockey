@@ -810,6 +810,30 @@
             //     position: new google.maps.LatLng(48.568056, 38.658611), //Кадіївка
             //     map: map
             // }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(52.235066, 21.037200), //Варшава
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(51.109513, 17.032187), //Вроцлав
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(54.352125, 18.650112), //Гданськ
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(50.061645, 19.937318), //Краків
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(50.031999, 19.225637), //Освенцим
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(54.036005, 19.037286), //Мальборк
+                map: map
+            }),
         ];
         marker.setMap(map);
     }

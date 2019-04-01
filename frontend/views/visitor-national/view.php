@@ -2,15 +2,17 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\models\Game;
 use common\models\TournamentType;
 use miloschuman\highcharts\Highcharts;
+use yii\web\View;
 
 /**
- * @var \common\models\Game $game
+ * @var Game $game
  * @var array $sDataIncome
  * @var array $sDataVisitor
  * @var int $special
- * @var \yii\web\View $this
+ * @var View $this
  * @var array $xData
  */
 
@@ -82,10 +84,10 @@ use miloschuman\highcharts\Highcharts;
             </tr>
             <tr>
                 <td>
-                    <?= $game->stadium->stadium_name; ?> (вместимость)
+                    <?= $game->nationalHome->stadium->stadium_name; ?> (вместимость)
                 </td>
                 <td class="text-right">
-                    <?= $game->stadium->stadium_capacity; ?>
+                    <?= $game->nationalHome->stadium->stadium_capacity; ?>
                 </td>
             </tr>
             <tr>
