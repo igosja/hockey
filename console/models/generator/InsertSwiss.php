@@ -113,8 +113,11 @@ class InsertSwiss
             ->with(['team'])
             ->orderBy(['swiss_id' => SORT_ASC])
             ->all();
-//        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
-        $maxCount = 1;
+        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
+            $maxCount = 1;
+        } else {
+            $maxCount = 2;
+        }
 
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             $userTeamSubQuery = null;
@@ -147,7 +150,6 @@ class InsertSwiss
 
             $teamArray[$i]->opponent = $free;
         }
-//        }
 
         return $teamArray;
     }
