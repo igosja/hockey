@@ -6,6 +6,7 @@ use common\models\Game;
 use common\models\Special;
 use common\models\TournamentType;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class VisitorNationalController
@@ -34,7 +35,7 @@ class VisitorNationalController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -57,7 +58,7 @@ class VisitorNationalController extends AbstractController
         }
         $guestVisitor = $game->nationalGuest->national_visitor;
         $homeVisitor = $game->nationalHome->national_visitor;
-        $stadiumCapacity = $game->stadium->stadium_capacity;
+        $stadiumCapacity = $game->nationalHome->stadium->stadium_capacity;
         $stageVisitor = $game->schedule->stage->stage_visitor;
         $tournamentTypeId = $game->schedule->schedule_tournament_type_id;
         $tournamentTypeVisitor = $game->schedule->tournamentType->tournament_type_visitor;
@@ -107,7 +108,7 @@ class VisitorNationalController extends AbstractController
     /**
      * @param int $id
      * @return Game
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function getGame($id)
     {

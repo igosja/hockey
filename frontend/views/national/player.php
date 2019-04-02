@@ -1,18 +1,21 @@
 <?php
 
+use common\models\National;
+use common\models\Player;
 use common\models\Position;
+use frontend\models\NationalPlayer;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\Player[] $cfArray
- * @var \common\models\Player[] $gkArray
- * @var \common\models\Player[] $ldArray
- * @var \common\models\Player[] $lwArray
- * @var \frontend\models\NationalPlayer $model
- * @var \common\models\National $national
- * @var \common\models\Player[] $rdArray
- * @var \common\models\Player[] $rwArray
+ * @var Player[] $cfArray
+ * @var Player[] $gkArray
+ * @var Player[] $ldArray
+ * @var Player[] $lwArray
+ * @var NationalPlayer $model
+ * @var National $national
+ * @var Player[] $rdArray
+ * @var Player[] $rwArray
  */
 
 ?>
@@ -64,6 +67,7 @@ use yii\widgets\ActiveForm;
                     <th class="col-5" title="Позиция">Поз</th>
                     <th class="col-5 hidden-xs" title="Возраст">В</th>
                     <th class="col-5" title="Номинальная сила">С</th>
+                    <th class="col-5" title="Усталость">У</th>
                     <th class="col-5" title="Форма">Ф</th>
                     <th class="col-10 hidden-xs" title="Спецвозможности">Спец</th>
                     <th class="col-40 hidden-xs">Команда</th>
@@ -85,6 +89,7 @@ use yii\widgets\ActiveForm;
                         <td class="text-center"><?= $item->position(); ?></td>
                         <td class="text-center hidden-xs"><?= $item->player_age; ?></td>
                         <td class="text-center"><?= $item->player_power_nominal; ?></td>
+                        <td class="text-center"><?= $item->player_tire; ?></td>
                         <td class="text-center"><?= $item->physical->image(); ?></td>
                         <td class="hidden-xs text-center"><?= $item->special(); ?></td>
                         <td class="hidden-xs"><?= $item->team->teamLink('img'); ?></td>
@@ -96,6 +101,7 @@ use yii\widgets\ActiveForm;
                     <th title="Позиция">Поз</th>
                     <th class="hidden-xs" title="Возраст">В</th>
                     <th title="Номинальная сила">С</th>
+                    <th title="Усталость">У</th>
                     <th title="Форма">Ф</th>
                     <th class="hidden-xs" title="Спецвозможности">Спец</th>
                     <th class="hidden-xs">Команда</th>

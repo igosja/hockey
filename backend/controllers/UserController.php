@@ -7,9 +7,11 @@ use common\models\BlockReason;
 use common\models\Cookie;
 use common\models\Payment;
 use common\models\User;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -38,7 +40,7 @@ class UserController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -75,8 +77,8 @@ class UserController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -104,7 +106,7 @@ class UserController extends AbstractController
     /**
      * @param int $id
      * @return Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAuth($id)
     {
@@ -118,8 +120,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionPay($id)
     {
@@ -145,8 +147,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlock($id)
     {
@@ -155,7 +157,7 @@ class UserController extends AbstractController
 
         if ($model->load(Yii::$app->request->post())) {
             $model->user_date_block = 7 * 86400 + time();
-            if ($model->save()) {
+            if ($model->save(true, ['user_date_block', 'user_block_block_reason_id'])) {
                 foreach ($model->team as $team) {
                     $team->managerFire();
                 }
@@ -180,8 +182,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockChat($id)
     {
@@ -196,7 +198,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_chat = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_chat'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_chat_block_reason_id', 'user_date_block_chat'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -218,8 +220,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockComment($id)
     {
@@ -234,7 +236,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_comment = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_comment_block_reason_id', 'user_date_block_comment'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -256,8 +258,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockCommentDeal($id)
     {
@@ -272,7 +274,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_comment_deal = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_deal'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_comment_deal_block_reason_id', 'user_date_block_comment_deal'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -294,8 +296,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockCommentGame($id)
     {
@@ -310,7 +312,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_comment_game = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_game'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_comment_game_block_reason_id', 'user_date_block_comment_game'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -332,8 +334,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockCommentNews($id)
     {
@@ -348,7 +350,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_comment_news = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_comment_news'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_comment_news_block_reason_id', 'user_date_block_comment_news'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }
@@ -370,8 +372,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionBlockForum($id)
     {
@@ -386,7 +388,7 @@ class UserController extends AbstractController
             $model->user_block_count = $time;
             $model->user_block_count_date = time();
             $model->user_date_block_forum = $time * 86400 + time();
-            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_date_block_forum'])) {
+            if ($model->save(true, ['user_block_count', 'user_block_count_date', 'user_block_forum_block_reason_id', 'user_date_block_forum'])) {
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);
             }

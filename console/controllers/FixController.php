@@ -72,11 +72,11 @@ class FixController extends AbstractController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionStat()
     {
-        \Yii::$app->db->createCommand()->truncateTable(StatisticPlayer::tableName())->execute();
+        Yii::$app->db->createCommand()->truncateTable(StatisticPlayer::tableName())->execute();
         $gameArray = Game::find()
             ->where(['!=', 'game_played', 0])
             ->orderBy(['game_id' => SORT_ASC])

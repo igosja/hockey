@@ -8,6 +8,7 @@ use common\models\Schedule;
 use common\models\Season;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class ScheduleController
@@ -42,7 +43,7 @@ class ScheduleController extends AbstractController
             ->limit(1)
             ->scalar();
 
-        $this->setSeoTitle('Рассписание');
+        $this->setSeoTitle('Расписание');
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -55,7 +56,7 @@ class ScheduleController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
