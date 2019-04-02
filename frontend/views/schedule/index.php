@@ -3,11 +3,12 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Schedule;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
  * @var int $scheduleId
@@ -16,7 +17,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>Рассписание</h1>
+        <h1>Расписание</h1>
     </div>
 </div>
 <?= Html::beginForm('', 'get'); ?>
