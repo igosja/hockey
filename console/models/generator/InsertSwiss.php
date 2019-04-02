@@ -10,6 +10,7 @@ use common\models\Swiss;
 use common\models\Team;
 use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class InsertSwiss
@@ -18,8 +19,8 @@ use Yii;
 class InsertSwiss
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
@@ -72,14 +73,12 @@ class InsertSwiss
      * @param int $tournamentTypeId
      * @param int $stageId
      * @return array
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     private function swissGame($tournamentTypeId, $stageId)
     {
-        $positionDifference = 1;
-
         $teamArray = $this->swissPrepare($tournamentTypeId);
-        $gameArray = $this->swiss($tournamentTypeId, $positionDifference, $teamArray, $stageId);
+        $gameArray = $this->swiss($tournamentTypeId, $teamArray, $stageId);
 
         return $gameArray;
     }
@@ -87,7 +86,7 @@ class InsertSwiss
     /**
      * @param int $tournamentTypeId
      * @return Swiss[]
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     private function swissPrepare($tournamentTypeId)
     {
@@ -111,13 +110,9 @@ class InsertSwiss
 
         $teamArray = Swiss::find()
             ->with(['team'])
-            ->orderBy(['swiss_id' => SORT_ASC])
+            ->orderBy('RAND()')
             ->all();
-        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
-            $maxCount = 1;
-        } else {
-            $maxCount = 2;
-        }
+        $maxCount = 1;
 
         for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
             $userTeamSubQuery = null;
@@ -156,37 +151,29 @@ class InsertSwiss
 
     /**
      * @param int $tournamentTypeId
-     * @param int $positionDifference
      * @param Swiss[] $teamArray
      * @param int $stageId
      * @return array
      */
-    private function swiss($tournamentTypeId, $positionDifference, array $teamArray, $stageId)
+    private function swiss($tournamentTypeId, array $teamArray, $stageId)
     {
-//        if (TournamentType::OFF_SEASON == $tournamentTypeId) {
-            if (!$gameArray = $this->swissOne($tournamentTypeId, $positionDifference, $teamArray)) {
-                $positionDifference++;
-
-                $gameArray = $this->swiss($tournamentTypeId, $positionDifference, $teamArray, $stageId);
-            }
-//        } else {
-//            $gameArray = $this->swissConference($teamArray, $stageId);
-//        }
+        if (!$gameArray = $this->swissOne($tournamentTypeId, $teamArray)) {
+            $gameArray = $this->swiss($tournamentTypeId, $teamArray, $stageId);
+        }
 
         return $gameArray;
     }
 
     /**
      * @param int $tournamentTypeId
-     * @param int $difference
      * @param Swiss[] $teamArray
      * @param array $gameArray
      * @return array
      */
-    private function swissOne($tournamentTypeId, $difference, array $teamArray, array $gameArray = [])
+    private function swissOne($tournamentTypeId, array $teamArray, array $gameArray = [])
     {
         $homeTeam = $this->getSwissHomeTeam($teamArray);
-        $guestTeam = $this->getSwissGuestTeam($teamArray, $homeTeam, $difference);
+        $guestTeam = $this->getSwissGuestTeam($teamArray, $homeTeam);
 
         if (!$homeTeam || !$guestTeam) {
             return [];
@@ -203,7 +190,7 @@ class InsertSwiss
         $teamArray = array_values($teamArray);
 
         if (count($teamArray)) {
-            $gameArray = $this->swissOne($tournamentTypeId, $difference, $teamArray, $gameArray);
+            $gameArray = $this->swissOne($tournamentTypeId, $teamArray, $gameArray);
         }
 
         return $gameArray;
@@ -215,7 +202,7 @@ class InsertSwiss
      */
     private function getSwissHomeTeam(array $teamArray)
     {
-        for ($k = 0; $k<=10; $k++) {
+        for ($k = 0; $k <= 10; $k++) {
             for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
                 if ($teamArray[$i]->swiss_home <= $teamArray[$i]->swiss_guest + $k) {
                     return [
@@ -234,17 +221,14 @@ class InsertSwiss
     /**
      * @param Swiss[] $teamArray
      * @param array $homeTeam
-     * @param int $positionDifference
      * @return array
      */
-    private function getSwissGuestTeam(array $teamArray, array $homeTeam, $positionDifference)
+    private function getSwissGuestTeam(array $teamArray, array $homeTeam)
     {
-        for ($k = 0; $k<=10; $k++) {
+        for ($k = 0; $k <= 10; $k++) {
             for ($i = 0, $countTeam = count($teamArray); $i < $countTeam; $i++) {
                 if (
                     $teamArray[$i]->swiss_home + $k >= $teamArray[$i]->swiss_guest
-                    && $teamArray[$i]->swiss_place >= $homeTeam['place'] - $positionDifference
-                    && $teamArray[$i]->swiss_place <= $homeTeam['place'] + $positionDifference
                     && $teamArray[$i]->swiss_team_id != $homeTeam['team_id']
                     && in_array($homeTeam['team_id'], $teamArray[$i]['opponent'])
                     && in_array($teamArray[$i]->swiss_team_id, $homeTeam['opponent'])
@@ -265,7 +249,7 @@ class InsertSwiss
      * @param int $stageId
      * @return array
      */
-    private function swissConference(array $teamArray, $stageId)
+    public function swissConference(array $teamArray, $stageId)
     {
         if (Stage::TOUR_1 == $stageId) {
             $keyArray = [
