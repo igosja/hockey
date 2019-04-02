@@ -6,6 +6,7 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
+use Exception;
 
 /**
  * Class FillLineup
@@ -14,8 +15,8 @@ use common\models\Position;
 class FillLineup
 {
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
@@ -71,11 +72,20 @@ class FillLineup
                     }
 
                     $lineup = Lineup::find()
+                        ->select([
+                            'lineup_id',
+                            'lineup_game_id',
+                            'lineup_line_id',
+                            'lineup_national_id',
+                            'lineup_player_id',
+                            'lineup_position_id',
+                            'lineup_team_id',
+                        ])
                         ->where([
                             'lineup_game_id' => $game->game_id,
                             'lineup_line_id' => $lineId,
-                            'lineup_position_id' => $positionId,
                             'lineup_national_id' => $nationalId,
+                            'lineup_position_id' => $positionId,
                             'lineup_team_id' => $teamId,
                         ])
                         ->limit(1)
@@ -89,6 +99,7 @@ class FillLineup
 
                         $league = Player::find()
                             ->joinWith(['playerPosition'])
+                            ->select(['player_id', 'player_tire'])
                             ->where([
                                 'player_team_id' => 0,
                                 'player_loan_team_id' => 0,
@@ -107,6 +118,7 @@ class FillLineup
                             if ($teamId) {
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
+                                    ->select(['player_id', 'player_tire'])
                                     ->where([
                                         'player_injury' => 0,
                                         'player_position_position_id' => $positionId,
@@ -122,6 +134,7 @@ class FillLineup
                             } else {
                                 $query = Player::find()
                                     ->joinWith(['playerPosition'])
+                                    ->select(['player_id', 'player_tire'])
                                     ->where([
                                         'player_injury' => 0,
                                         'player_position_player_id' => $positionId,
@@ -156,7 +169,14 @@ class FillLineup
                         }
 
                         $lineup->lineup_player_id = $player->player_id;
-                        $lineup->save();
+                        $lineup->save(false, [
+                            'lineup_line_id',
+                            'lineup_position_id',
+                            'lineup_team_id',
+                            'lineup_national_id',
+                            'lineup_game_id',
+                            'lineup_player_id',
+                        ]);
                     }
                 }
             }
