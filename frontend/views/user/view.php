@@ -5,18 +5,23 @@ use common\models\Country;
 use common\models\History;
 use common\models\National;
 use common\models\Team;
+use common\models\User;
 use common\models\UserRating;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $countryDataProvider
- * @var \yii\data\ActiveDataProvider $historyDataProvider
- * @var \yii\data\ActiveDataProvider $nationalDataProvider
- * @var \yii\data\ActiveDataProvider $ratingDataProvider
- * @var \yii\data\ActiveDataProvider $teamDataProvider
+ * @var ActiveDataProvider $countryDataProvider
+ * @var ActiveDataProvider $historyDataProvider
+ * @var ActiveDataProvider $nationalDataProvider
+ * @var ActiveDataProvider $ratingDataProvider
+ * @var ActiveDataProvider $teamDataProvider
+ * @var User $user
  * @var UserRating $userRating
  */
+
+$user = Yii::$app->user->identity;
 
 print $this->render('_top');
 
@@ -171,25 +176,27 @@ print $this->render('_top');
 
     ?>
 </div>
-<?php if (Yii::$app->user->id == Yii::$app->request->get('id') && Yii::$app->user->identity->team) : ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= Html::a(
-            'Перерегистрировать команду',
-            ['user/re-register']
-        ); ?>
-        |
-        <?= Html::a(
-            'Отказаться от команды',
-            ['user/drop-team']
-        ); ?>
-        |
-        <?= Html::a(
-            'Удалить аккаунт',
-            ['user/delete']
-        ); ?>
+<?php if (Yii::$app->user->id == Yii::$app->request->get('id')) : ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= Html::a(
+                'Удалить аккаунт',
+                ['user/delete']
+            ); ?>
+            <?php if ($user->team) : ?>
+                |
+                <?= Html::a(
+                    'Перерегистрировать команду',
+                    ['user/re-register']
+                ); ?>
+                |
+                <?= Html::a(
+                    'Отказаться от команды',
+                    ['user/drop-team']
+                ); ?>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
 <?php endif; ?>
 <div class="row margin-top-small">
     <?php
