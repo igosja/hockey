@@ -98,15 +98,14 @@ class FillLineup
                             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()');
 
                         $league = Player::find()
-                            ->joinWith(['playerPosition'])
                             ->select(['player_id', 'player_tire'])
                             ->where([
                                 'player_team_id' => 0,
                                 'player_loan_team_id' => 0,
-                                'player_school_id' => 0,
                                 'player_injury' => 0,
-                                'player_position_position_id' => $positionId,
+                                'player_position_id' => $positionId,
                                 'player_power_nominal' => 15,
+                                'player_school_id' => 0,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
@@ -117,11 +116,10 @@ class FillLineup
                         if (!$moodId) {
                             if ($teamId) {
                                 $query = Player::find()
-                                    ->joinWith(['playerPosition'])
                                     ->select(['player_id', 'player_tire'])
                                     ->where([
                                         'player_injury' => 0,
-                                        'player_position_position_id' => $positionId,
+                                        'player_position_id' => $positionId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
                                     ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
@@ -133,11 +131,10 @@ class FillLineup
                                     ]);
                             } else {
                                 $query = Player::find()
-                                    ->joinWith(['playerPosition'])
                                     ->select(['player_id', 'player_tire'])
                                     ->where([
                                         'player_injury' => 0,
-                                        'player_position_player_id' => $positionId,
+                                        'player_position_id' => $positionId,
                                         'player_national_id' => $nationalId,
                                     ])
                                     ->andWhere(['not', ['player_id' => $subQuery]])
