@@ -643,12 +643,6 @@ class LeagueLot
             }
         }
 
-        print '<pre>';
-        print_r($item->team->stadium->city->city_country_id);
-        print '<pre>';
-        print_r($team_1['country_id']);
-        exit;
-
         return [];
     }
 
@@ -660,7 +654,7 @@ class LeagueLot
      */
     private function team3($teamArray, $team_1, $team_2)
     {
-        $shuffleArray = $teamArray[1];
+        $shuffleArray = $teamArray[2];
 
         shuffle($shuffleArray);
 
@@ -678,14 +672,6 @@ class LeagueLot
             }
         }
 
-        print '<pre>';
-        print_r($item->team->stadium->city->city_country_id);
-        print '<pre>';
-        print_r($team_1['country_id']);
-        print '<pre>';
-        print_r($team_2['country_id']);
-        exit;
-
         return [];
     }
 
@@ -698,7 +684,7 @@ class LeagueLot
      */
     private function team4($teamArray, $team_1, $team_2, $team_3)
     {
-        $shuffleArray = $teamArray[1];
+        $shuffleArray = $teamArray[3];
 
         shuffle($shuffleArray);
 
@@ -714,16 +700,6 @@ class LeagueLot
                 }
             }
         }
-
-        print '<pre>';
-        print_r($item->team->stadium->city->city_country_id);
-        print '<pre>';
-        print_r($team_1['country_id']);
-        print '<pre>';
-        print_r($team_2['country_id']);
-        print '<pre>';
-        print_r($team_3['country_id']);
-        exit;
 
         return [];
     }
