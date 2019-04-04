@@ -643,6 +643,12 @@ class LeagueLot
             }
         }
 
+        print '<pre>';
+        print_r($item->team->stadium->city->city_country_id);
+        print '<pre>';
+        print_r($team_1['country_id']);
+        exit;
+
         return [];
     }
 
@@ -672,6 +678,14 @@ class LeagueLot
             }
         }
 
+        print '<pre>';
+        print_r($item->team->stadium->city->city_country_id);
+        print '<pre>';
+        print_r($team_1['country_id']);
+        print '<pre>';
+        print_r($team_2['country_id']);
+        exit;
+
         return [];
     }
 
@@ -700,6 +714,16 @@ class LeagueLot
                 }
             }
         }
+
+        print '<pre>';
+        print_r($item->team->stadium->city->city_country_id);
+        print '<pre>';
+        print_r($team_1['country_id']);
+        print '<pre>';
+        print_r($team_2['country_id']);
+        print '<pre>';
+        print_r($team_3['country_id']);
+        exit;
 
         return [];
     }
