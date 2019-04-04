@@ -659,7 +659,7 @@ class LeagueLot
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if (!in_array($item['city_country_id'], [$team_1['country_id'], $team_2['country_id']])) {
+            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id']])) {
                 for ($i = 0, $count_team = count($teamArray[2]); $i < $count_team; $i++) {
                     if ($teamArray[2][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
@@ -689,8 +689,7 @@ class LeagueLot
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if (!in_array($item['city_country_id'],
-                [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']])) {
+            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']])) {
                 for ($i = 0, $count_team = count($teamArray[3]); $i < $count_team; $i++) {
                     if ($teamArray[3][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
