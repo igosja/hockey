@@ -23,6 +23,7 @@ use yii\helpers\Html;
  * @property int $country_stadium_capacity
  *
  * @property City[] $city
+ * @property LeagueCoefficient[] $leagueCoefficient
  * @property User $president
  * @property User $vice
  */
@@ -253,6 +254,14 @@ class Country extends AbstractActiveRecord
     public function getCity()
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLeagueCoefficient()
+    {
+        return $this->hasMany(LeagueCoefficient::class, ['league_coefficient_country_id' => 'country_id']);
     }
 
     /**

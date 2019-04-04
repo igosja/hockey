@@ -6,11 +6,13 @@ use common\models\RatingCountry;
 use common\models\RatingTeam;
 use common\models\RatingType;
 use common\models\RatingUser;
+use common\models\Season;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var RatingType $ratingType
  * @var array $ratingTypeArray
  */
@@ -366,6 +368,50 @@ use yii\helpers\Html;
                         return Yii::$app->formatter->asDecimal(
                             round($model->country->country_auto / ($model->country->country_game ? $model->country->country_game : 1) * 100, 1)
                         );
+                    }
+                ];
+            } elseif (RatingType::COUNTRY_LEAGUE == $ratingType->rating_type_id) {
+                $season = Season::getCurrentSeason();
+                $columns[] = [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => $season,
+                    'footerOptions' => ['title' => 'Сезон ' . $season],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сезон ' . $season],
+                    'label' => $season,
+                    'value' => function (RatingCountry $model) use ($season) {
+                        $count = 0;
+                        $result = 0;
+                        foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
+                            if ($season == $leagueCoefficient->league_coefficient_season_id) {
+                                $count++;
+                                $result = $result + $leagueCoefficient->league_coefficient_point;
+                            }
+                        }
+                        if (!$count) {
+                            $count = 1;
+                        }
+                        return Yii::$app->formatter->asDecimal($result / $count, 4);
+                    }
+                ];
+                $columns[] = [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'K',
+                    'footerOptions' => ['title' => 'Коэффициент'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Коэффициент'],
+                    'label' => 'K',
+                    'value' => function (RatingCountry $model) use ($season) {
+                        $count = 0;
+                        $result = 0;
+                        foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
+                            if ($season == $leagueCoefficient->league_coefficient_season_id) {
+                                $count++;
+                                $result = $result + $leagueCoefficient->league_coefficient_point;
+                            }
+                        }
+                        if (!$count) {
+                            $count = 1;
+                        }
+                        return Yii::$app->formatter->asDecimal($result / $count, 4);
                     }
                 ];
             }
