@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Game;
+use common\models\League;
 use common\models\ParticipantLeague;
 use common\models\Schedule;
 use common\models\Stage;
@@ -15,6 +16,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -54,6 +56,11 @@ class ChampionsLeagueController extends AbstractController
         if ($schedule->schedule_stage_id < Stage::TOUR_LEAGUE_1) {
             return $this->redirect([
                 'champions-league/qualification',
+                'seasonId' => $seasonId,
+            ]);
+        } elseif ($schedule->schedule_stage_id < Stage::ROUND_OF_16) {
+            return $this->redirect([
+                'champions-league/table',
                 'seasonId' => $seasonId,
             ]);
         }
@@ -104,7 +111,7 @@ class ChampionsLeagueController extends AbstractController
                         $inArray = false;
 
                         for ($i = 0, $countParticipant = count($participantArray); $i < $countParticipant; $i++) {
-                            if (in_array($game->game_home_team_id, array($participantArray[$i]['home']->team_id, $participantArray[$i]['guest']->team_id))) {
+                            if (in_array($game->game_home_team_id, [$participantArray[$i]['home']->team_id, $participantArray[$i]['guest']->team_id])) {
                                 $inArray = true;
 
                                 if ($game->game_home_team_id == $participantArray[$i]['home']->team_id) {
@@ -134,10 +141,10 @@ class ChampionsLeagueController extends AbstractController
                         }
                     }
 
-                    $qualificationArray[] = array(
+                    $qualificationArray[] = [
                         'stage' => $stage,
                         'participant' => $participantArray,
-                    );
+                    ];
                 }
             }
         }
@@ -149,6 +156,122 @@ class ChampionsLeagueController extends AbstractController
             'roundArray' => $this->getRoundLinksArray($seasonId),
             'seasonArray' => $this->getSeasonArray(),
             'seasonId' => $seasonId,
+        ]);
+    }
+
+    /**
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionTable()
+    {
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
+        $stageId = Yii::$app->request->get('stageId');
+
+        if (!$stageId) {
+            $schedule = Schedule::find()
+                ->where([
+                    'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    'schedule_season_id' => $seasonId,
+                ])
+                ->andWhere(['<=', 'schedule_date', time()])
+                ->andWhere(['>=', 'schedule_stage_id', Stage::TOUR_LEAGUE_1])
+                ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_LEAGUE_6])
+                ->orderBy(['schedule_date' => SORT_DESC])
+                ->limit(1)
+                ->one();
+            if (!$schedule) {
+                $schedule = Schedule::find()
+                    ->where([
+                        'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                        'schedule_season_id' => $seasonId,
+                    ])
+                    ->andWhere(['>', 'schedule_date', time()])
+                    ->andWhere(['>=', 'schedule_stage_id', Stage::TOUR_LEAGUE_1])
+                    ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_LEAGUE_6])
+                    ->orderBy(['schedule_date' => SORT_ASC])
+                    ->limit(1)
+                    ->one();
+            }
+            $stageId = $schedule->schedule_stage_id;
+        } else {
+            $schedule = Schedule::find()
+                ->where([
+                    'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    'schedule_season_id' => $seasonId,
+                    'schedule_stage_id' => $stageId,
+                ])
+                ->limit(1)
+                ->one();
+        }
+
+        $this->notFound($schedule);
+
+        $groupArray = [
+            1 => ['name' => 'A'],
+            2 => ['name' => 'B'],
+            3 => ['name' => 'C'],
+            4 => ['name' => 'D'],
+            5 => ['name' => 'E'],
+            6 => ['name' => 'F'],
+            7 => ['name' => 'G'],
+            8 => ['name' => 'H'],
+        ];
+
+        for ($group = 1; $group <= 8; $group++) {
+            $gameArray = Game::find()
+                ->joinWith(['schedule'])
+                ->where([
+                    'schedule_stage_id' => $stageId,
+                    'schedule.schedule_season_id' => $seasonId,
+                    'schedule.schedule_tournament_type_id' => TournamentType::LEAGUE,
+                    'game_home_team_id' => League::find()
+                        ->select(['league_team_id'])
+                        ->where([
+                            'league_group' => $group,
+                            'league_season_id' => $seasonId,
+                        ])
+                ])
+                ->orderBy(['game_id' => SORT_ASC])
+                ->all();
+            $groupArray[$group]['game'] = $gameArray;
+
+            $query = League::find()
+                ->where([
+                    'league_group' => $group,
+                    'league_season_id' => $seasonId,
+                ])
+                ->orderBy(['league_place' => SORT_ASC]);
+
+            $dataProvider = new ActiveDataProvider([
+                'pagination' => false,
+                'query' => $query,
+                'sort' => false,
+            ]);
+
+            $groupArray[$group]['team'] = $dataProvider;
+        }
+
+        $stageArray = Schedule::find()
+            ->where([
+                'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                'schedule_season_id' => $seasonId,
+            ])
+            ->andWhere(['>=', 'schedule_stage_id', Stage::TOUR_LEAGUE_1])
+            ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_LEAGUE_6])
+            ->orderBy(['schedule_stage_id' => SORT_ASC])
+            ->all();
+        $stageArray = ArrayHelper::map($stageArray, 'stage.stage_id', 'stage.stage_name');
+
+        $this->setSeoTitle('Лига чемпионов');
+
+        return $this->render('table', [
+            'groupArray' => $groupArray,
+            'roundArray' => $this->getRoundLinksArray($seasonId),
+            'seasonArray' => $this->getSeasonArray(),
+            'seasonId' => $seasonId,
+            'stageArray' => $stageArray,
+            'stageId' => $stageId,
         ]);
     }
 
@@ -200,7 +323,7 @@ class ChampionsLeagueController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
