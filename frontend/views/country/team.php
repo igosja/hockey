@@ -2,11 +2,13 @@
 
 use common\components\ErrorHelper;
 use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var View $this
  */
 
 print $this->render('_country');
@@ -41,6 +43,7 @@ print $this->render('_country');
                 'attribute' => 'last_visit',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Последний визит',
+                'footerOptions' => ['class' => 'hidden-xs'],
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-20 hidden-xs'],
                 'label' => 'Последний визит',
