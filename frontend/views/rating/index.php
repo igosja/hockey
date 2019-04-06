@@ -12,6 +12,8 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
+ * @var array $countryArray
+ * @var integer $countryId
  * @var ActiveDataProvider $dataProvider
  * @var RatingType $ratingType
  * @var array $ratingTypeArray
@@ -34,6 +36,18 @@ use yii\helpers\Html;
         ); ?>
     </div>
 </div>
+<?php if (RatingChapter::TEAM == $ratingType->rating_type_rating_chapter_id): ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= Html::dropDownList(
+                'countryId',
+                $countryId,
+                $countryArray,
+                ['class' => 'form-control submit-on-change', 'id' => 'countryId', 'prompt' => 'Все']
+            ); ?>
+        </div>
+    </div>
+<?php endif; ?>
 <?= Html::endForm(); ?>
 <div class="row">
     <?php
@@ -125,7 +139,7 @@ use yii\helpers\Html;
                     'footer' => 'Посещаемость',
                     'label' => 'Посещаемость',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asDecimal($model->team->team_visitor / 100);
+                        return Yii::$app->formatter->asDecimal($model->team->team_visitor / 100, 2);
                     }
                 ];
             } elseif (RatingType::TEAM_BASE == $ratingType->rating_type_id) {
