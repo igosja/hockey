@@ -320,7 +320,7 @@ class Game extends AbstractActiveRecord
             $result = Html::a(
                 $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
-                    'world-cup/table',
+                    'world-championship/index',
                     'seasonId' => $this->schedule->schedule_season_id,
                     'stageId' => $this->schedule->schedule_stage_id,
                 ]

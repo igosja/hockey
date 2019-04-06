@@ -9,6 +9,7 @@ use common\models\RatingType;
 use common\models\RatingUser;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class RatingController
@@ -22,6 +23,9 @@ class RatingController extends AbstractController
      */
     public function actionIndex($id = RatingType::TEAM_POWER)
     {
+        $countryId = Yii::$app->request->get('countryId');
+        $countryArray = [];
+
         $ratingType = RatingType::find()
             ->where(['rating_type_id' => $id])
             ->limit(1)
@@ -45,9 +49,21 @@ class RatingController extends AbstractController
                     'team.baseTraining',
                     'team.stadium',
                     'team.stadium.city',
-                    'team.stadium.city.country',
                 ])
+                ->joinWith(['team.stadium.city.country'])
+                ->andFilterWhere(['city_country_id' => $countryId])
                 ->orderBy([$ratingType->rating_type_order => SORT_ASC, 'rating_team_team_id' => SORT_ASC]);
+
+            $countryArray = RatingTeam::find()
+                ->joinWith(['team.stadium.city.country'])
+                ->groupBy(['country_id'])
+                ->orderBy(['country_id' => SORT_ASC])
+                ->all();
+            $countryArray = ArrayHelper::map(
+                $countryArray,
+                'team.stadium.city.country.country_id',
+                'team.stadium.city.country.country_name'
+            );
         } elseif (RatingType::USER_RATING == $id) {
             $query = RatingUser::find()
                 ->with(['user'])
@@ -68,6 +84,8 @@ class RatingController extends AbstractController
         $this->setSeoTitle('Рейтинги');
 
         return $this->render('index', [
+            'countryId' => $countryId,
+            'countryArray' => $countryArray,
             'dataProvider' => $dataProvider,
             'ratingType' => $ratingType,
             'ratingTypeArray' => RatingChapter::selectOptions(),

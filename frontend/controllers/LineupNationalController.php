@@ -12,11 +12,16 @@ use common\models\Style;
 use common\models\Tactic;
 use common\models\Teamwork;
 use common\models\TournamentType;
+use Exception;
 use frontend\models\GameNationalSend;
+use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -46,7 +51,7 @@ class LineupNationalController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionView($id)
     {
@@ -285,6 +290,13 @@ class LineupNationalController extends AbstractController
             $rwArray[] = $rwPlayer;
         }
 
+        usort($gkArray, [$this, 'sortLineup']);
+        usort($ldArray, [$this, 'sortLineup']);
+        usort($rdArray, [$this, 'sortLineup']);
+        usort($lwArray, [$this, 'sortLineup']);
+        usort($cfArray, [$this, 'sortLineup']);
+        usort($rwArray, [$this, 'sortLineup']);
+
         $gk_1_id = isset($model->line[0][0]) ? $model->line[0][0] : 0;
         $gk_2_id = isset($model->line[1][0]) ? $model->line[1][0] : 0;
         $ld_1_id = isset($model->line[1][1]) ? $model->line[1][1] : 0;
@@ -380,7 +392,7 @@ class LineupNationalController extends AbstractController
     /**
      * @param int $id
      * @return Game
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function getGame($id)
     {
@@ -1767,7 +1779,7 @@ class LineupNationalController extends AbstractController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionTemplateSave()
     {
@@ -1780,8 +1792,8 @@ class LineupNationalController extends AbstractController
 
     /**
      * @param $id
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionTemplateDelete($id)
     {
@@ -1799,7 +1811,7 @@ class LineupNationalController extends AbstractController
 
     /**
      * @param $id
-     * @return array|LineupTemplate|\yii\db\ActiveRecord|null
+     * @return array|LineupTemplate|ActiveRecord|null
      */
     public function actionTemplateLoad($id)
     {
@@ -1812,5 +1824,15 @@ class LineupNationalController extends AbstractController
             return (new LineupTemplate())->attributes;
         }
         return $model->attributes;
+    }
+
+    /**
+     * @param Player $a
+     * @param Player $b
+     * @return int
+     */
+    public function sortLineup(Player $a, Player $b)
+    {
+        return $a->player_power_real > $b->player_power_real ? -1 : 1;
     }
 }

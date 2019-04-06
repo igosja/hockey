@@ -15,4 +15,12 @@ class MapController extends AbstractController
     {
         return $this->renderPartial('index');
     }
+
+    /**
+     * @return string
+     */
+    public function actionPlan()
+    {
+        return $this->renderPartial('plan');
+    }
 }
