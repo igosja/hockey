@@ -3,6 +3,7 @@
 namespace console\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Championship;
 use common\models\City;
 use common\models\Conference;
 use common\models\Country;
@@ -25,7 +26,6 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
-use console\models\generator\InsertSwiss;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -897,6 +897,14 @@ class FixController extends AbstractController
                         ->where(['conference_season_id' => $seasonId])
                 ]
             ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Championship::find()
+                        ->select(['championship_team_id'])
+                        ->where(['championship_season_id' => $seasonId])
+                ]
+            ])
             ->orderBy(['team_id' => SORT_ASC])
             ->each();
 
@@ -934,12 +942,5 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
-    }
-
-    public function actionConference()
-    {
-        Lineup::deleteAll(['lineup_game_id' => Game::find()->select(['game_id'])->where(['game_schedule_id' => 150])]);
-        Game::deleteAll(['game_schedule_id' => 150]);
-        (new InsertSwiss())->execute();
     }
 }

@@ -22,6 +22,7 @@ use common\models\Tactic;
 use common\models\Team;
 use common\models\Teamwork;
 use common\models\TournamentType;
+use Exception;
 
 /**
  * Class GameResult
@@ -54,8 +55,8 @@ class GameResult
     private $result;
 
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -918,8 +919,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     private function setTeamwork()
     {
@@ -1091,6 +1092,10 @@ class GameResult
                             $this->result[$team]['player']['field'][$key]['power_optimal'] * $this->result['game_info']['home_bonus']
                         );
                     }
+
+                    if ($this->result[$team]['player']['field'][$key]['player_id'] == $this->result[$team]['player']['captain']['player_id']) {
+                        $this->result[$team]['player']['captain']['power'] = $this->result[$team]['player']['field'][$key]['power_optimal'];
+                    }
                 }
             }
         }
@@ -1166,9 +1171,6 @@ class GameResult
                     }
 
                     $this->result[$team]['player']['field'][$key]['power_real'] = $power;
-                    if ($playerId == $this->result[$team]['player']['captain']['player_id']) {
-                        $this->result[$team]['player']['captain']['power'] = $power;
-                    }
                 }
             }
         }
@@ -2538,8 +2540,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     private function toDataBase()
     {
@@ -2551,8 +2553,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     public function gameToDataBase()
     {
@@ -2618,8 +2620,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     private function eventToDataBase()
     {
@@ -2629,8 +2631,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     private function lineupToDataBase()
     {
@@ -2693,8 +2695,8 @@ class GameResult
     }
 
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     private function statisticToDataBase()
     {
