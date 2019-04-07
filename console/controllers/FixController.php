@@ -19,6 +19,7 @@ use common\models\Name;
 use common\models\NameCountry;
 use common\models\Position;
 use common\models\Season;
+use common\models\Squad;
 use common\models\Stadium;
 use common\models\Stage;
 use common\models\StatisticPlayer;
@@ -942,5 +943,28 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function actionSquad()
+    {
+        $model = new Squad();
+        $model->squad_name = '7 состав';
+        $model->squad_color = 'C8E6C9';
+        $model->save();
+        $model = new Squad();
+        $model->squad_name = '8 состав';
+        $model->squad_color = 'F0F4C3';
+        $model->save();
+        $model = new Squad();
+        $model->squad_name = '9 состав';
+        $model->squad_color = 'B2EBF2';
+        $model->save();
+        $model = new Squad();
+        $model->squad_name = '10 состав';
+        $model->squad_color = 'FFCDD2';
+        $model->save();
     }
 }
