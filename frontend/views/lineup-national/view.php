@@ -3,13 +3,17 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Game;
+use common\models\National;
 use common\models\Physical;
 use common\models\Player;
 use common\models\TournamentType;
 use frontend\assets\LineupAsset;
+use frontend\models\GameNationalSend;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
@@ -37,22 +41,22 @@ use yii\widgets\Pjax;
  * @var int $cf_4_id
  * @var int $rw_4_id
  * @var array $cfArray
- * @var \yii\data\ActiveDataProvider $gameDataProvider
+ * @var ActiveDataProvider $gameDataProvider
  * @var Game $game
  * @var Player[] $gkArray
  * @var Player[] $ldArray
  * @var Player[] $lwArray
- * @var \frontend\models\GameNationalSend $model
+ * @var GameNationalSend $model
  * @var array $moodArray
  * @var bool $isVip
- * @var \yii\data\ActiveDataProvider $playerDataProvider
+ * @var ActiveDataProvider $playerDataProvider
  * @var Player[] $rdArray
  * @var array $rudenessArray
  * @var Player[] $rwArray
  * @var array $styleArray
  * @var array $tacticArray
- * @var \common\models\National $national
- * @var \yii\web\View $this
+ * @var National $national
+ * @var View $this
  */
 
 LineupAsset::register($this);
@@ -213,7 +217,7 @@ LineupAsset::register($this);
 <?= $this->render('//site/_show-full-table'); ?>
 <?php $form = ActiveForm::begin([
     'id' => 'lineup-send',
-    'options' => ['class' => 'margin-no game-form', 'data-url' => Url::to(['lineup-national/teamwork'])],
+    'options' => ['class' => 'margin-no game-form', 'data-url' => Url::to(['lineup-national/teamwork', 'id' => $game->game_id])],
 ]); ?>
 <div class="row margin-top">
     <?= $form
@@ -395,7 +399,7 @@ LineupAsset::register($this);
             ?>
             <div class="row margin-top">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center strong">
-                    <?= $line; ?> звено:
+                    <?= $line; ?> звено (<span class="span-power-line-<?= $i; ?>">0</span>):
                 </div>
             </div>
             <?php for ($j = 1; $j <= 5; $j++) : ?>
@@ -656,10 +660,10 @@ $scriptBody = $scriptBody . '
     var cf_4_id = ' . $cf_4_id . ';
     var rw_4_id = ' . $rw_4_id . ';';
 $script = <<< JS
-    $scriptBody
+    $scriptBody;
     $(document).on("ready pjax:end", function() {
         player_change();
     })
 JS;
-$this->registerJs($script, \yii\web\View::POS_END);
+$this->registerJs($script, View::POS_END);
 ?>

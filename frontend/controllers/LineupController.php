@@ -411,11 +411,19 @@ class LineupController extends AbstractController
     {
         $game = $this->getGame($id);
 
-        $model = new GameSend();
+        /**
+         * @var GameSend $model
+         */
+        $class = $this->getModel();
+        $model = new $class;
         $model->load(Yii::$app->request->post());
 
         $result = [
             'power' => 0,
+            'power_line_1' => 0,
+            'power_line_2' => 0,
+            'power_line_3' => 0,
+            'power_line_4' => 0,
             'position' => 0,
             'lineup' => 0,
             'teamwork_1' => 0,
@@ -428,6 +436,10 @@ class LineupController extends AbstractController
 
         if ($data) {
             $power = 0;
+            $power_line_1 = 0;
+            $power_line_2 = 0;
+            $power_line_3 = 0;
+            $power_line_4 = 0;
             $position = 0;
             $teamwork_1 = 0;
             $teamwork_2 = 0;
@@ -502,6 +514,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_1 = $power_line_1 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -541,6 +554,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_1 = $power_line_1 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -580,6 +594,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_1 = $power_line_1 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -619,6 +634,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_1 = $power_line_1 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -658,6 +674,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_1 = $power_line_1 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -697,6 +714,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_2 = $power_line_2 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -736,6 +754,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_2 = $power_line_2 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -775,6 +794,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_2 = $power_line_2 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -814,6 +834,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_2 = $power_line_2 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -853,6 +874,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_2 = $power_line_2 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -892,6 +914,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_3 = $power_line_3 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -931,6 +954,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_3 = $power_line_3 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -970,6 +994,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_3 = $power_line_3 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1009,6 +1034,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_3 = $power_line_3 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1048,6 +1074,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_3 = $power_line_3 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1087,6 +1114,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_4 = $power_line_4 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1126,6 +1154,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_4 = $power_line_4 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1165,6 +1194,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_4 = $power_line_4 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1204,6 +1234,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_4 = $power_line_4 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1243,6 +1274,7 @@ class LineupController extends AbstractController
                         }
                     }
                     $power = $power + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
+                    $power_line_4 = $power_line_4 + round(((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real) * $coefficient);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }
@@ -1744,6 +1776,10 @@ class LineupController extends AbstractController
 
             $result = [
                 'power' => $power,
+                'power_line_1' => $power_line_1,
+                'power_line_2' => $power_line_2,
+                'power_line_3' => $power_line_3,
+                'power_line_4' => $power_line_4,
                 'position' => $position,
                 'lineup' => $lineup,
                 'teamwork_1' => $teamwork_1,
@@ -1851,5 +1887,13 @@ class LineupController extends AbstractController
     public function sortLineup(Player $a, Player $b)
     {
         return $a->player_power_real > $b->player_power_real ? -1 : 1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModel()
+    {
+        return GameSend::class;
     }
 }
