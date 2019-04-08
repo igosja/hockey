@@ -122,7 +122,7 @@ class EndTraining
     {
         Training::updateAll(
             ['training_percent' => 100, 'training_ready' => time()],
-            ['>=', 'training_percent', 100]
+            ['and', ['>=', 'training_percent', 100], ['training_ready' => 0]]
         );
     }
 }
