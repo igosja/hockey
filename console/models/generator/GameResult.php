@@ -2013,14 +2013,16 @@ class GameResult
         $penaltyPositionTeam = $this->penaltyPositionArray($team);
         $penaltyPositionOpponent = $this->penaltyPositionArray($opponent);
 
-        for ($position = Position::LD; $position <= Position::RW; $position++) {
-            $key = $this->getFieldKeyByPosition($position);
-            if (!in_array($position, $penaltyPositionTeam)) {
-                $this->result[$team]['player']['field'][$key]['plus_minus']++;
-            }
+        if (count($penaltyPositionTeam) <= count($penaltyPositionOpponent)) {
+            for ($position = Position::LD; $position <= Position::RW; $position++) {
+                $key = $this->getFieldKeyByPosition($position);
+                if (!in_array($position, $penaltyPositionTeam)) {
+                    $this->result[$team]['player']['field'][$key]['plus_minus']++;
+                }
 
-            if (!in_array($position, $penaltyPositionOpponent)) {
-                $this->result[$opponent]['player']['field'][$key]['plus_minus']--;
+                if (!in_array($position, $penaltyPositionOpponent)) {
+                    $this->result[$opponent]['player']['field'][$key]['plus_minus']--;
+                }
             }
         }
     }
