@@ -459,6 +459,10 @@ class Player extends AbstractActiveRecord
             return $realTire;
         }
 
+        if ($this->myNationalPlayer()) {
+            return $realTire;
+        }
+
         if ($controller->myTeam->baseScout->canSeeOpponentTire()) {
             return $realTire;
         }
@@ -490,6 +494,10 @@ class Player extends AbstractActiveRecord
         }
 
         if ($this->myPlayer()) {
+            return $realGameRow;
+        }
+
+        if ($this->myNationalPlayer()) {
             return $realGameRow;
         }
 
@@ -527,6 +535,10 @@ class Player extends AbstractActiveRecord
             return $realPhysical;
         }
 
+        if ($this->myNationalPlayer()) {
+            return $realPhysical;
+        }
+
         if ($controller->myTeam->baseScout->canSeeOpponentPhysical()) {
             return $realPhysical;
         }
@@ -551,10 +563,10 @@ class Player extends AbstractActiveRecord
          * @var AbstractController $controller
          */
         $controller = Yii::$app->controller;
-        if (!$controller->myTeamOrVice && !$controller->myNationalOrVice) {
+        if (!$controller->myTeam) {
             return false;
         }
-        if (($controller->myTeamOrVice && $controller->myTeamOrVice->team_id != $this->player_team_id) && ($controller->myNationalOrVice && $controller->myNationalOrVice->national_id != $this->player_national_id)) {
+        if ($controller->myTeamOrVice->team_id != $this->player_team_id) {
             return false;
         }
         return true;
