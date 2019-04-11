@@ -46,6 +46,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -105,7 +106,7 @@ class TeamController extends AbstractController
     /**
      * @param int|null $id
      * @return string|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionView($id = null)
     {
@@ -199,7 +200,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionGame($id)
     {
@@ -243,7 +244,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionEvent($id)
     {
@@ -283,7 +284,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionFinance($id)
     {
@@ -319,7 +320,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeal($id)
     {
@@ -375,7 +376,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAchievement($id)
     {
@@ -400,7 +401,7 @@ class TeamController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionStatistics($id)
     {
@@ -604,7 +605,7 @@ class TeamController extends AbstractController
 
             $leaveArray = [];
             if (!$user->isVip()) {
-                if (1 == count($this->myTeamArray)) {
+                if (1 == count($this->myOwnTeamArray)) {
                     $leaveArray[$this->myTeam->team_id] = $this->myTeam->fullName();
                 } else {
                     $teamCountryArray = Team::find()
@@ -619,13 +620,13 @@ class TeamController extends AbstractController
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     } else {
-                        foreach ($this->myTeamArray as $item) {
+                        foreach ($this->myOwnTeamArray as $item) {
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     }
                 }
             } else {
-                if (1 == count($this->myTeamArray)) {
+                if (1 == count($this->myOwnTeamArray)) {
                     if ($team->stadium->city->country->country_id != $this->myTeam->stadium->city->country->country_id) {
                         $leaveArray[0] = 'Беру дополнительную команду';
                     }
@@ -643,7 +644,7 @@ class TeamController extends AbstractController
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     } else {
-                        foreach ($this->myTeamArray as $item) {
+                        foreach ($this->myOwnTeamArray as $item) {
                             $leaveArray[$item->team_id] = $item->fullName();
                         }
                     }
@@ -797,7 +798,7 @@ class TeamController extends AbstractController
      * @param int $id
      * @return string|Response
      * @throws Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionLogo($id)
     {
@@ -836,7 +837,7 @@ class TeamController extends AbstractController
     /**
      * @param int $id
      * @return Team
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function getTeam($id)
     {

@@ -8,10 +8,13 @@ use common\models\Season;
 use common\models\Site;
 use common\models\Team;
 use common\models\User;
+use Exception;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\web\BadRequestHttpException;
 use yii\web\ErrorAction;
 use yii\web\ForbiddenHttpException;
+use yii\web\Response;
 
 /**
  * Class AbstractController
@@ -23,6 +26,7 @@ use yii\web\ForbiddenHttpException;
  * @property Team $myTeam
  * @property Team $myTeamOrVice
  * @property Team $myTeamVice
+ * @property Team[] $myOwnTeamArray
  * @property Team[] $myTeamArray
  * @property int $seasonId
  * @property User $user
@@ -60,6 +64,11 @@ abstract class AbstractController extends Controller
     public $myTeamVice = null;
 
     /**
+     * @var Team[] $myOwnTeamArray
+     */
+    public $myOwnTeamArray = [];
+
+    /**
      * @var Team[] $myTeamArray
      */
     public $myTeamArray = [];
@@ -76,10 +85,10 @@ abstract class AbstractController extends Controller
 
     /**
      * @param $action
-     * @return bool|\yii\web\Response
-     * @throws \Exception
+     * @return bool|Response
+     * @throws Exception
      * @throws ForbiddenHttpException
-     * @throws \yii\web\BadRequestHttpException
+     * @throws BadRequestHttpException
      */
     public function beforeAction($action)
     {
@@ -126,7 +135,12 @@ abstract class AbstractController extends Controller
                     ->indexBy(['team_id'])
                     ->where(['team_vice_id' => Yii::$app->user->id])
                     ->all()
-                );
+            );
+
+            $this->myOwnTeamArray = Team::find()
+                ->indexBy(['team_id'])
+                ->where(['team_user_id' => Yii::$app->user->id])
+                ->all();
 
             $this->checkSessionMyTeamId();
             $this->myTeam = Team::find()
