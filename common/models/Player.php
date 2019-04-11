@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use frontend\controllers\AbstractController;
 use Yii;
 use yii\db\ActiveQuery;
@@ -174,7 +175,7 @@ class Player extends AbstractActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
-     * @throws \Exception
+     * @throws Exception
      */
     public function afterSave($insert, $changedAttributes)
     {
@@ -440,6 +441,108 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function playerTire()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        $realTire = $this->player_tire . '%';
+
+        if (!$controller->myTeam) {
+            return '?';
+        }
+
+        if ($this->myPlayer()) {
+            return $realTire;
+        }
+
+        if ($controller->myTeam->baseScout->canSeeOpponentTire()) {
+            return $realTire;
+        }
+
+        if (!$this->loan && !$this->transfer) {
+            return '?';
+        }
+
+        if ($controller->myTeam->baseScout->canSeeDealTire()) {
+            return $realTire;
+        }
+
+        return '?';
+    }
+
+    /**
+     * @return string
+     */
+    public function playerGameRow()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        $realGameRow = $this->player_game_row;
+
+        if (!$controller->myTeam) {
+            return '?';
+        }
+
+        if ($this->myPlayer()) {
+            return $realGameRow;
+        }
+
+        if ($controller->myTeam->baseScout->canSeeOpponentGameRow()) {
+            return $realGameRow;
+        }
+
+        if (!$this->loan && !$this->transfer) {
+            return '?';
+        }
+
+        if ($controller->myTeam->baseScout->canSeeDealGameRow()) {
+            return $realGameRow;
+        }
+
+        return '?';
+    }
+
+    /**
+     * @return string
+     */
+    public function playerPhysical()
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        $realPhysical = $this->physical->image();
+
+        if (!$controller->myTeam) {
+            return '?';
+        }
+
+        if ($this->myPlayer()) {
+            return $realPhysical;
+        }
+
+        if ($controller->myTeam->baseScout->canSeeOpponentPhysical()) {
+            return $realPhysical;
+        }
+
+        if (!$this->loan && !$this->transfer) {
+            return '?';
+        }
+
+        if ($controller->myTeam->baseScout->canSeeDealPhysical()) {
+            return $realPhysical;
+        }
+
+        return '?';
+    }
+
+    /**
      * @return bool
      */
     public function myPlayer()
@@ -448,10 +551,10 @@ class Player extends AbstractActiveRecord
          * @var AbstractController $controller
          */
         $controller = Yii::$app->controller;
-        if (!$controller->myTeam) {
+        if (!$controller->myTeamOrVice && !$controller->myNationalOrVice) {
             return false;
         }
-        if ($controller->myTeam->team_id != $this->player_team_id) {
+        if (($controller->myTeamOrVice && $controller->myTeamOrVice->team_id != $this->player_team_id) && ($controller->myNationalOrVice && $controller->myNationalOrVice->national_id != $this->player_national_id)) {
             return false;
         }
         return true;
@@ -554,7 +657,7 @@ class Player extends AbstractActiveRecord
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function makeFree()
     {

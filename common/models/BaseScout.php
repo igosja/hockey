@@ -64,4 +64,70 @@ class BaseScout extends AbstractActiveRecord
             ],
         ];
     }
+
+    /**
+     * @return bool
+     */
+    public function canSeeDealGameRow()
+    {
+        if ($this->base_scout_level >= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeDealTire()
+    {
+        if ($this->base_scout_level >= 2) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeDealPhysical()
+    {
+        if ($this->base_scout_level >= 3) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeOpponentGameRow()
+    {
+        if ($this->base_scout_level >= 4) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeOpponentTire()
+    {
+        if ($this->base_scout_level >= 5) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeOpponentPhysical()
+    {
+        if ($this->base_scout_level >= 6) {
+            return true;
+        }
+        return false;
+    }
 }

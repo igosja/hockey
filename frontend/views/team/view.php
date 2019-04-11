@@ -3,13 +3,16 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Player;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $notificationArray
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -116,8 +119,8 @@ use yii\grid\GridView;
                 'footerOptions' => ['title' => 'Усталость'],
                 'headerOptions' => ['title' => 'Усталость'],
                 'label' => 'У',
-                'value' => function (Player $model) use ($team) {
-                    return $team->myTeam() ? $model->player_tire : '?';
+                'value' => function (Player $model) {
+                    return $model->playerTire();
                 }
             ],
             [
@@ -128,8 +131,8 @@ use yii\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['title' => 'Форма'],
                 'label' => 'Ф',
-                'value' => function (Player $model) use ($team) {
-                    return $team->myTeam() ? $model->physical->image() : '?';
+                'value' => function (Player $model) {
+                    return $model->playerPhysical();
                 }
             ],
             [
@@ -173,7 +176,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
                 'label' => 'ИО',
                 'value' => function (Player $model) {
-                    return $model->player_game_row;
+                    return $model->playerGameRow();
                 }
             ],
             [
