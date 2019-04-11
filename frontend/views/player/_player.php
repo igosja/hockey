@@ -1,14 +1,16 @@
 <?php
 
 use common\components\FormatHelper;
+use common\models\Player;
 use common\models\Squad;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
- * @var \common\models\Player $player
- * @var \yii\web\View $this
+ * @var Player $player
+ * @var View $this
  */
 
 if ($player->myPlayer() || $player->myNationalPlayer()) {
@@ -110,11 +112,7 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                         Усталость:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?php if ($player->myPlayer()) : ?>
-                            <?= $player->player_tire; ?>%
-                        <?php else: ?>
-                            ?
-                        <?php endif; ?>
+                        <?= $player->playerTire(); ?>
                         <?= $player->iconInjury(); ?>
                     </div>
                 </div>
@@ -123,11 +121,7 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                         Форма:
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <?php if ($player->myPlayer()) : ?>
-                            <?= $player->physical->image(); ?>
-                        <?php else: ?>
-                            ?
-                        <?php endif; ?>
+                        <?= $player->playerPhysical(); ?>
                     </div>
                 </div>
                 <div class="row">

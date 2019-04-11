@@ -2,17 +2,21 @@
 
 use common\components\ErrorHelper;
 use common\models\Attitude;
+use common\models\National;
 use common\models\Player;
+use frontend\controllers\AbstractController;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \frontend\controllers\AbstractController $controller
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\National $national
- * @var \yii\web\View $this
+ * @var AbstractController $controller
+ * @var ActiveDataProvider $dataProvider
+ * @var National $national
+ * @var View $this
  */
 
 $controller = Yii::$app->controller;
@@ -141,8 +145,8 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
                 'footerOptions' => ['title' => 'Усталость'],
                 'headerOptions' => ['title' => 'Усталость'],
                 'label' => 'У',
-                'value' => function (Player $model) use ($national) {
-                    return $national->myTeamOrVice() ? $model->player_tire : '?';
+                'value' => function (Player $model) {
+                    return $model->playerTire();
                 }
             ],
             [
@@ -153,8 +157,8 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
                 'format' => 'raw',
                 'headerOptions' => ['title' => 'Форма'],
                 'label' => 'Ф',
-                'value' => function (Player $model) use ($national) {
-                    return $national->myTeamOrVice() ? $model->physical->image() : '?';
+                'value' => function (Player $model) {
+                    return $model->playerPhysical();
                 }
             ],
             [
@@ -198,7 +202,7 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
                 'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Играл/отдыхал подряд'],
                 'label' => 'ИО',
                 'value' => function (Player $model) {
-                    return $model->player_game_row;
+                    return $model->playerGameRow();
                 }
             ],
             [
