@@ -977,7 +977,7 @@ class TeamController extends AbstractController
                     Yii::$app->controller->redirect(['president/poll']);
                 }
 
-                $result[] = 'В вашей стране проходят выборы презитента федерации. ' . Html::a(
+                $result[] = 'В вашей стране проходят выборы президента федерации. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['president/view']
                     );
@@ -1021,7 +1021,7 @@ class TeamController extends AbstractController
                     Yii::$app->controller->redirect(['president-vice/poll']);
                 }
 
-                $result[] = 'В вашей стране проходят выборы заместителя презитента федерации. ' . Html::a(
+                $result[] = 'В вашей стране проходят выборы заместителя президента федерации. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['president-vice/view']
                     );
