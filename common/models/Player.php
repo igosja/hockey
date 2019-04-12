@@ -162,7 +162,11 @@ class Player extends AbstractActiveRecord
                 $this->player_physical_id = $physical->physical_id;
                 $this->player_power_nominal_s = $this->player_power_nominal;
                 $this->player_power_old = $this->player_power_nominal;
-                $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
+                if ($this->player_team_id) {
+                    $this->player_surname_id = SurnameCountry::getRandFreeSurnameId($this->player_team_id, $this->player_country_id);
+                } else {
+                    $this->player_surname_id = SurnameCountry::getRandSurnameId($this->player_country_id);
+                }
                 $this->player_training_ability = rand(1, 5);
                 $this->countRealPower($physical);
                 $this->countPriceAndSalary();
