@@ -63,7 +63,8 @@ use yii\web\View;
                         . $model->iconNational()
                         . $model->iconDeal()
                         . $model->iconTraining()
-                        . $model->iconLoan();
+                        . $model->iconLoan()
+                        . $model->iconScout();
                 }
             ],
             [
