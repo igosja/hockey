@@ -142,6 +142,7 @@ if ($player->myPlayer() || $player->myNationalPlayer()) {
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <?= $player->iconStyle(); ?>
+                        <?= $player->iconScout(); ?>
                     </div>
                 </div>
             </div>

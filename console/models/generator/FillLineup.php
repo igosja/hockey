@@ -44,6 +44,23 @@ class FillLineup
                     $teamId = $game->game_home_team_id;
                 }
 
+                $lineupArray = Lineup::find()
+                    ->select([
+                        'lineup_id',
+                        'lineup_game_id',
+                        'lineup_line_id',
+                        'lineup_national_id',
+                        'lineup_player_id',
+                        'lineup_position_id',
+                        'lineup_team_id',
+                    ])
+                    ->where([
+                        'lineup_game_id' => $game->game_id,
+                        'lineup_national_id' => $nationalId,
+                        'lineup_team_id' => $teamId,
+                    ])
+                    ->all();
+
                 for ($j = 0; $j < Lineup::GAME_QUANTITY; $j++) {
                     if (in_array($j, [0])) {
                         $lineId = 0;
@@ -71,25 +88,12 @@ class FillLineup
                         $positionId = Position::RW;
                     }
 
-                    $lineup = Lineup::find()
-                        ->select([
-                            'lineup_id',
-                            'lineup_game_id',
-                            'lineup_line_id',
-                            'lineup_national_id',
-                            'lineup_player_id',
-                            'lineup_position_id',
-                            'lineup_team_id',
-                        ])
-                        ->where([
-                            'lineup_game_id' => $game->game_id,
-                            'lineup_line_id' => $lineId,
-                            'lineup_national_id' => $nationalId,
-                            'lineup_position_id' => $positionId,
-                            'lineup_team_id' => $teamId,
-                        ])
-                        ->limit(1)
-                        ->one();
+                    $lineup = null;
+                    foreach ($lineupArray as $lineupItem) {
+                        if ($lineupItem->lineup_line_id == $lineId && $lineupItem->lineup_position_id == $positionId) {
+                            $lineup = $lineupItem;
+                        }
+                    }
 
                     if (!$lineup || !$lineup->lineup_player_id) {
                         $subQuery = Lineup::find()
