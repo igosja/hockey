@@ -411,14 +411,21 @@ class Team extends AbstractActiveRecord
             $viceTeam->save(true, ['team_vice_id']);
         }
 
-        Yii::$app->mailer->compose(
-            ['html' => 'default-html', 'text' => 'default-text'],
-            ['text' => 'Ваша заявка на получение команды одобрена.']
-        )
-            ->setTo($this->manager->user_email)
-            ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-            ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
-            ->send();
+        $bot = Bot::find()
+            ->where(['bot_user_id' => $user_id])
+            ->limit(1)
+            ->one();
+
+        if (!$bot) {
+            Yii::$app->mailer->compose(
+                ['html' => 'default-html', 'text' => 'default-text'],
+                ['text' => 'Ваша заявка на получение команды одобрена.']
+            )
+                ->setTo($this->manager->user_email)
+                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+                ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
+                ->send();
+        }
     }
 
     /**
