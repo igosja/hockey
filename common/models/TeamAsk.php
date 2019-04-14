@@ -48,7 +48,9 @@ class TeamAsk extends AbstractActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->team_ask_date = time();
-                $this->team_ask_user_id = Yii::$app->user->id;
+                if (!$this->team_ask_user_id) {
+                    $this->team_ask_user_id = Yii::$app->user->id;
+                }
             }
             return true;
         }
