@@ -30,13 +30,14 @@ class BotService
     const BOT_LAST_VISIT = 5184000; //2 month
 
     /**
+     * @throws StaleObjectException
      * @throws Throwable
      * @throws \yii\db\Exception
-     * @throws StaleObjectException
      */
     public function execute()
     {
         $this->deleteOldBot();
+        $this->deleteExtraBot();
         $this->addNewBot();
         $this->lineup();
     }
@@ -60,6 +61,33 @@ class BotService
     }
 
     /**
+     * @throws StaleObjectException
+     * @throws Throwable
+     * @throws \yii\db\Exception
+     */
+    private function deleteExtraBot()
+    {
+        $countFreeTeam = Team::find()
+            ->where(['team_user_id' => 0])
+            ->andWhere(['!=', 'team_id', 0])
+            ->count();
+        if ($countFreeTeam >= self::COUNT_FREE_TEAM) {
+            return;
+        }
+
+        $botArray = Bot::find()
+            ->orderBy(['bot_date' => SORT_ASC])
+            ->limit($countFreeTeam - self::COUNT_FREE_TEAM)
+            ->all();
+        foreach ($botArray as $bot) {
+            foreach ($bot->user->team as $team) {
+                $team->managerFire();
+            }
+            $bot->delete();
+        }
+    }
+
+    /**
      * @throws \yii\db\Exception
      */
     private function addNewBot()
@@ -73,10 +101,11 @@ class BotService
         }
 
         $user = User::find()
-            ->where(['user_date_delete' => 0])
+            ->where(['user_date_delete' => 0, 'user_holiday' => 0])
             ->andWhere(['<', 'user_date_login', time() - self::BOT_LAST_VISIT])
             ->andWhere(['not', ['user_id' => Bot::find()->select(['bot_user_id'])]])
             ->andWhere(['!=', 'user_id', 0])
+            ->andWhere(['<', 'user_date_vip', time()])
             ->orderBy(['user_date_login' => SORT_ASC])
             ->limit(1)
             ->one();

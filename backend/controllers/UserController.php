@@ -49,6 +49,7 @@ class UserController extends AbstractController
 
         $query = User::find()
             ->where(['user_ip' => $model->user_ip])
+            ->andWhere(['not', ['user_ip' => null]])
             ->andWhere(['!=', 'user_id', $model->user_id]);
         $ipDataProvider = new ActiveDataProvider([
             'pagination' => false,
