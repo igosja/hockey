@@ -9,6 +9,7 @@ use common\models\Player;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -40,7 +41,7 @@ class PhysicalController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -179,11 +180,11 @@ class PhysicalController extends AbstractController
 
         header("Content-type: image/png");
 
-        $image = imagecreate(20, 200);
+        $image = imagecreate(20, 250);
         imagecolorallocate($image, 40, 96, 144);
         $text_color = imagecolorallocate($image, 255, 255, 255);
 
-        imagettftext($image, 11, 90, 15, 191, $text_color, Yii::getAlias('@webroot') . '/fonts/HelveticaNeue.ttf', $text);
+        imagettftext($image, 11, 90, 15, 241, $text_color, Yii::getAlias('@webroot') . '/fonts/HelveticaNeue.ttf', $text);
         imagepng($image);
         imagedestroy($image);
     }
@@ -193,7 +194,7 @@ class PhysicalController extends AbstractController
      * @param int $playerId
      * @param int $scheduleId
      * @return array|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionChange($physicalId, $playerId, $scheduleId)
     {
