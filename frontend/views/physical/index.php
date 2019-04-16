@@ -63,6 +63,7 @@ use yii\helpers\Url;
     try {
         $columns = [
             [
+                'attribute' => 'squad',
                 'contentOptions' => function (Player $model) {
                     if ($model->squad) {
                         return ['style' => ['background-color' => '#' . $model->squad->squad_color]];
@@ -77,6 +78,7 @@ use yii\helpers\Url;
                 }
             ],
             [
+                'attribute' => 'position',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Поз',
                 'footerOptions' => ['title' => 'Позиция'],
@@ -87,6 +89,7 @@ use yii\helpers\Url;
                 }
             ],
             [
+                'attribute' => 'age',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'В',
                 'footerOptions' => ['title' => 'Возраст'],
@@ -97,6 +100,7 @@ use yii\helpers\Url;
                 }
             ],
             [
+                'attribute' => 'power',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
