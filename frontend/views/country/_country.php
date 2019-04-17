@@ -3,6 +3,8 @@
 use common\components\FormatHelper;
 use common\models\Attitude;
 use common\models\Country;
+use common\models\Support;
+use frontend\controllers\AbstractController;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -18,8 +20,12 @@ $attitudeArray = Attitude::find()
     ->all();
 $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name');
 
+$support = Support::find()
+    ->where(['support_country_id' => $country->country_id, 'support_inside' => 0, 'support_question' => 0, 'support_read' => 0])
+    ->count();
+
 /**
- * @var \frontend\controllers\AbstractController $controller
+ * @var AbstractController $controller
  */
 $controller = Yii::$app->controller;
 
@@ -159,6 +165,12 @@ $controller = Yii::$app->controller;
             <?= Html::a(
                 'Создать опрос',
                 ['country/poll-create', 'id' => Yii::$app->request->get('id')]
+            ); ?>
+            |
+            <?= Html::a(
+                'Общение с тех.поддержкой' . ($support ? '<sup class="text-size-4">' . $support . '</sup>' : ''),
+                ['country/support-admin', 'id' => Yii::$app->request->get('id')],
+                ['class' => ($support ? 'red' : '')]
             ); ?>
             <?php if (false) : ?>
                 <?php if (Yii::$app->user->id == $country->country_president_id): ?>

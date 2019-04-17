@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -11,14 +12,18 @@ use yii\db\ActiveQuery;
  * @package common\models
  *
  * @property int $support_id
+ * @property int $support_admin_id
+ * @property int $support_country_id
  * @property int $support_date
+ * @property int $support_inside
+ * @property int $support_president_id
  * @property int $support_question
  * @property int $support_read
  * @property string $support_text
  * @property int $support_user_id
- * @property int $support_admin_id
  *
  * @property User $admin
+ * @property User $president
  * @property User $user
  */
 class Support extends AbstractActiveRecord
@@ -41,7 +46,10 @@ class Support extends AbstractActiveRecord
                 [
                     'support_id',
                     'support_admin_id',
+                    'support_country_id',
                     'support_date',
+                    'support_inside',
+                    'support_president_id',
                     'support_question',
                     'support_read',
                     'support_user_id',
@@ -55,11 +63,11 @@ class Support extends AbstractActiveRecord
     }
 
     /**
-     * @param int $userId
+     * @param Support $support
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
-    public function addAnswer($userId)
+    public function addAnswer($support)
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -70,8 +78,11 @@ class Support extends AbstractActiveRecord
         }
 
         $this->support_admin_id = Yii::$app->user->id;
+        $this->support_country_id = $support->support_country_id;
+        $this->support_president_id = $support->support_president_id;
         $this->support_question = 0;
-        $this->support_user_id = $userId;
+        $this->support_user_id = $support->support_user_id;
+        $this->support_inside = 0;
 
         if (!$this->save()) {
             return false;
@@ -82,7 +93,7 @@ class Support extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function addQuestion()
     {
@@ -95,6 +106,37 @@ class Support extends AbstractActiveRecord
         }
 
         $this->support_user_id = Yii::$app->user->id;
+        $this->support_inside = 0;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Country $country
+     * @return bool
+     * @throws Exception
+     */
+    public function addPresidentQuestion(Country $country)
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (!in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->support_country_id = $country->country_id;
+        $this->support_president_id = Yii::$app->user->id;
+        $this->support_inside = 0;
 
         if (!$this->save()) {
             return false;
@@ -125,6 +167,14 @@ class Support extends AbstractActiveRecord
     public function getAdmin()
     {
         return $this->hasOne(User::class, ['user_id' => 'support_admin_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPresident()
+    {
+        return $this->hasOne(User::class, ['user_id' => 'support_president_id']);
     }
 
     /**

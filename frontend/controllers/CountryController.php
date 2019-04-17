@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Country;
 use common\models\Finance;
 use common\models\LeagueDistribution;
@@ -14,13 +16,19 @@ use common\models\ParticipantLeague;
 use common\models\Poll;
 use common\models\PollStatus;
 use common\models\Season;
+use common\models\Support;
 use common\models\Team;
 use common\models\UserRole;
+use Exception;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Class CountryController
@@ -44,6 +52,8 @@ class CountryController extends AbstractController
                     'news-delete',
                     'poll-create',
                     'delete-news-comment',
+                    'support-admin',
+                    'support-admin-load',
                 ],
                 'rules' => [
                     [
@@ -55,6 +65,8 @@ class CountryController extends AbstractController
                             'news-delete',
                             'poll-create',
                             'delete-news-comment',
+                            'support-admin',
+                            'support-admin-load',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -66,8 +78,8 @@ class CountryController extends AbstractController
 
     /**
      * @param $id
-     * @return \yii\web\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function actionAttitudePresident($id)
     {
@@ -136,8 +148,8 @@ class CountryController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionNews($id = 0)
     {
@@ -196,8 +208,8 @@ class CountryController extends AbstractController
     /**
      * @param int $id
      * @param int $newsId
-     * @return string|\yii\web\Response
-     * @throws \yii\web\NotFoundHttpException
+     * @return string|Response
+     * @throws NotFoundHttpException
      */
     public function actionNewsView($id, $newsId)
     {
@@ -244,7 +256,7 @@ class CountryController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionPoll($id)
     {
@@ -359,8 +371,8 @@ class CountryController extends AbstractController
 
     /**
      * @param $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionNewsCreate($id)
     {
@@ -391,8 +403,8 @@ class CountryController extends AbstractController
     /**
      * @param $id
      * @param $newsId
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionNewsUpdate($id, $newsId)
     {
@@ -417,10 +429,10 @@ class CountryController extends AbstractController
     /**
      * @param $id
      * @param $newsId
-     * @return \yii\web\Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     * @throws \yii\web\NotFoundHttpException
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     * @throws NotFoundHttpException
      */
     public function actionNewsDelete($id, $newsId)
     {
@@ -438,7 +450,7 @@ class CountryController extends AbstractController
 
     /**
      * @param $id
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionFire($id)
@@ -477,8 +489,8 @@ class CountryController extends AbstractController
 
     /**
      * @param $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionPollCreate($id)
     {
@@ -509,10 +521,10 @@ class CountryController extends AbstractController
     /**
      * @param $id
      * @param $pollId
-     * @return \yii\web\Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     * @throws \yii\web\NotFoundHttpException
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     * @throws NotFoundHttpException
      */
     public function actionPollDelete($id, $pollId)
     {
@@ -531,9 +543,9 @@ class CountryController extends AbstractController
     /**
      * @param $id
      * @param $newsId
-     * @return \yii\web\Response
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
+     * @return Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeleteNewsComment($id, $newsId)
     {
@@ -557,5 +569,118 @@ class CountryController extends AbstractController
         }
 
         return $this->redirect(['country/news-view', 'id' => $news->news_country_id, 'newsId' => $newsId]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSupportAdmin($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может общаться с техподдержкой от имени федерации');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $model = new Support();
+        if ($model->addPresidentQuestion($country)) {
+            $this->setSuccessFlash('Сообщение успешно сохраненo');
+            return $this->refresh();
+        }
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 0])
+            ->limit(Yii::$app->params['pageSizeMessage'])
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 0])
+            ->count();
+
+        $lazy = 0;
+        if ($countSupport > count($supportArray)) {
+            $lazy = 1;
+        }
+
+        Support::updateAll(
+            ['support_read' => time()],
+            ['support_read' => 0, 'support_country_id' => $country->country_id, 'support_inside' => 0, 'support_question' => 0]
+        );
+
+        $this->setSeoTitle('Техническая поддержка');
+
+        return $this->render('support-admin', [
+            'id' => $country->country_id,
+            'lazy' => $lazy,
+            'model' => $model,
+            'supportArray' => array_reverse($supportArray),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function actionSupportAdminLoad($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [];
+        }
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 0])
+            ->offset(Yii::$app->request->get('offset'))
+            ->limit(Yii::$app->request->get('limit'))
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+        $supportArray = array_reverse($supportArray);
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 0])
+            ->count();
+
+        if ($countSupport > count($supportArray) + Yii::$app->request->get('offset')) {
+            $lazy = 1;
+        } else {
+            $lazy = 0;
+        }
+
+        $list = '';
+
+        foreach ($supportArray as $support) {
+            /**
+             * @var Support $support
+             */
+            $list = $list
+                . '<div class="row margin-top"><div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">'
+                . FormatHelper::asDateTime($support->support_date)
+                . ', '
+                . ($support->support_question ? $support->president->userLink() : $support->admin->userLink())
+                . '</div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message '
+                . ($support->support_question ? 'message-from-me' : 'message-to-me')
+                . '">'
+                . HockeyHelper::bbDecode($support->support_text)
+                . '</div></div>';
+        }
+
+        $result = [
+            'offset' => Yii::$app->request->get('offset') + Yii::$app->request->get('limit'),
+            'lazy' => $lazy,
+            'list' => $list,
+        ];
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $result;
     }
 }

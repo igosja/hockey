@@ -5,7 +5,9 @@ namespace backend\controllers;
 use backend\models\SupportSearch;
 use backend\models\SupportUserSearch;
 use common\models\Support;
+use Exception;
 use Yii;
+use yii\web\Response;
 
 /**
  * Class SupportController
@@ -32,8 +34,8 @@ class SupportController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionView($id)
     {
@@ -44,7 +46,7 @@ class SupportController extends AbstractController
         $this->notFound($support);
 
         $model = new Support();
-        if ($model->addAnswer($support->support_user_id)) {
+        if ($model->addAnswer($support)) {
             $this->setSuccessFlash();
             return $this->refresh();
         }

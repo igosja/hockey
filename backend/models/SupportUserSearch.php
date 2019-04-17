@@ -30,6 +30,7 @@ class SupportUserSearch extends Support
             ->select([
                 'support_id' => 'MAX(support_id)',
                 'support_date' => 'MAX(support_date)',
+                'support_president_id',
                 'support_read' => 'IF(MIN(support_read)=0, 0, 1)',
                 'support_user_id',
             ])
