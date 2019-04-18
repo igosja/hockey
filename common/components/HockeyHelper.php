@@ -13,9 +13,14 @@ use yii\helpers\Html;
  */
 class HockeyHelper
 {
-    public static function gameHomeGuest($game, $teamId)
+    /**
+     * @param Game $game
+     * @param integer $teamOrNationalId
+     * @return string
+     */
+    public static function gameHomeGuest($game, $teamOrNationalId)
     {
-        if ($game->game_home_team_id == $teamId) {
+        if (in_array($teamOrNationalId, [$game->game_home_team_id, $game->game_home_national_id])) {
             $result = 'Д';
         } else {
             $result = 'Г';
@@ -23,9 +28,14 @@ class HockeyHelper
         return $result;
     }
 
-    public static function gamePowerPercent($game, $teamId)
+    /**
+     * @param Game $game
+     * @param integer $teamOrNationalId
+     * @return string
+     */
+    public static function gamePowerPercent($game, $teamOrNationalId)
     {
-        if ($game->game_home_team_id == $teamId) {
+        if (in_array($teamOrNationalId, [$game->game_home_team_id, $game->game_home_national_id])) {
             if ($game->game_played) {
                 $result = self::powerPercent($game->game_guest_power / ($game->game_home_power ?: 1) * 100);
             } else {
@@ -42,7 +52,7 @@ class HockeyHelper
     }
 
     /**
-     * @param int $percent
+     * @param integer $percent
      * @return string
      */
     public static function powerPercent($percent)
@@ -52,7 +62,7 @@ class HockeyHelper
 
     /**
      * @param Game $game
-     * @param int $teamId
+     * @param integer $teamId
      * @return string
      */
     public static function gamePlusMinus($game, $teamId)
@@ -70,7 +80,7 @@ class HockeyHelper
     }
 
     /**
-     * @param int $value
+     * @param integer $value
      * @return string
      */
     public static function plusNecessary($value)
@@ -85,21 +95,21 @@ class HockeyHelper
 
     /**
      * @param Game $game
-     * @param int $teamId
+     * @param integer $teamOrNationalId
      * @return string
      */
-    public static function gameAuto($game, $teamId)
+    public static function gameAuto($game, $teamOrNationalId)
     {
-        if ($game->game_home_team_id == $teamId && $game->game_home_auto) {
+        if (in_array($teamOrNationalId, [$game->game_home_team_id, $game->game_home_national_id]) && $game->game_home_auto) {
             return 'А';
-        } elseif ($game->game_guest_team_id == $teamId && $game->game_guest_auto) {
+        } elseif (in_array($teamOrNationalId, [$game->game_guest_team_id, $game->game_guest_national_id]) == $teamOrNationalId && $game->game_guest_auto) {
             return 'А';
         }
         return '';
     }
 
     /**
-     * @param int $auto
+     * @param integer $auto
      * @return string
      */
     public static function formatAuto($auto)
@@ -112,7 +122,7 @@ class HockeyHelper
 
     /**
      * @param Game $game
-     * @param int $teamId
+     * @param integer $teamId
      * @return string
      */
     public static function opponentLink($game, $teamId)
@@ -134,12 +144,12 @@ class HockeyHelper
 
     /**
      * @param Game $game
-     * @param int $teamId
+     * @param integer $teamOrNationalId
      * @return string
      */
-    public static function formatTeamScore($game, $teamId)
+    public static function formatTeamScore($game, $teamOrNationalId)
     {
-        if ($game->game_home_team_id == $teamId) {
+        if (in_array($teamOrNationalId, [$game->game_home_team_id, $game->game_home_national_id])) {
             return self::formatScore($game, 'home');
         } else {
             return self::formatScore($game, 'guest');
