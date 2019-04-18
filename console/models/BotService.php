@@ -77,7 +77,7 @@ class BotService
 
         $botArray = Bot::find()
             ->orderBy(['bot_date' => SORT_ASC])
-            ->limit($countFreeTeam - self::COUNT_FREE_TEAM)
+            ->limit(self::COUNT_FREE_TEAM - $countFreeTeam)
             ->all();
         foreach ($botArray as $bot) {
             foreach ($bot->user->team as $team) {
@@ -102,7 +102,11 @@ class BotService
 
         $user = User::find()
             ->where(['user_date_delete' => 0, 'user_holiday' => 0])
-            ->andWhere(['<', 'user_date_login', time() - self::BOT_LAST_VISIT])
+            ->andWhere([
+                'or',
+                ['<', 'user_date_login', time() - self::BOT_LAST_VISIT],
+                ['user_ip' => null]
+            ])
             ->andWhere(['not', ['user_id' => Bot::find()->select(['bot_user_id'])]])
             ->andWhere(['!=', 'user_id', 0])
             ->andWhere(['<', 'user_date_vip', time()])
