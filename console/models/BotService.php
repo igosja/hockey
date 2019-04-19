@@ -57,6 +57,13 @@ class BotService
             if ($bot->bot_date != $bot->user->user_date_login) {
                 $bot->delete();
             }
+
+            $teamAsk = TeamAsk::find()
+                ->where(['team_ask_user_id' => $bot->bot_user_id])
+                ->count();
+            if (!$bot->user->team && !$teamAsk) {
+                $bot->delete();
+            }
         }
     }
 
