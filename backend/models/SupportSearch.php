@@ -37,6 +37,7 @@ class SupportSearch extends Support
     public function search($params)
     {
         $query = Support::find()
+            ->where(['support_inside' => 0])
             ->orderBy(['support_date' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([

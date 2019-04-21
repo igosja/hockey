@@ -5,15 +5,18 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Support;
+use common\models\User;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var Support $model
- * @var \yii\web\View $this
- * @var \common\models\User $user
+ * @var View $this
+ * @var User $user
  */
 
 ?>
@@ -37,7 +40,11 @@ use yii\widgets\ActiveForm;
                 'value' => function (Support $model) {
                     $result = FormatHelper::asDateTime($model->support_date);
                     if ($model->support_question) {
-                        $result = $result . ' ' . $model->user->userLink();
+                        if ($model->support_user_id) {
+                            $result = $result . ' ' . $model->user->userLink();
+                        } else {
+                            $result = $result . ' ' . $model->president->userLink() . ' (през)';
+                        }
                     } else {
                         $result = $result . ' ' . $model->admin->userLink();
                     }
