@@ -107,6 +107,7 @@ class Support extends AbstractActiveRecord
 
         $this->support_user_id = Yii::$app->user->id;
         $this->support_inside = 0;
+        $this->support_question = 1;
 
         if (!$this->save()) {
             return false;
@@ -137,6 +138,67 @@ class Support extends AbstractActiveRecord
         $this->support_country_id = $country->country_id;
         $this->support_president_id = Yii::$app->user->id;
         $this->support_inside = 0;
+        $this->support_question = 1;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Country $country
+     * @param integer $userId
+     * @return bool
+     * @throws Exception
+     */
+    public function addPresidentAnswer(Country $country, $userId)
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (!in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->support_country_id = $country->country_id;
+        $this->support_president_id = Yii::$app->user->id;
+        $this->support_inside = 1;
+        $this->support_question = 0;
+        $this->support_user_id = $userId;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Country $country
+     * @return bool
+     * @throws Exception
+     */
+    public function addManagerQuestion(Country $country)
+    {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+
+        $this->support_country_id = $country->country_id;
+        $this->support_user_id = Yii::$app->user->id;
+        $this->support_inside = 1;
+        $this->support_question = 1;
 
         if (!$this->save()) {
             return false;

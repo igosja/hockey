@@ -20,9 +20,20 @@ $attitudeArray = Attitude::find()
     ->all();
 $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name');
 
-$support = Support::find()
+$supportAdmin = Support::find()
     ->where(['support_country_id' => $country->country_id, 'support_inside' => 0, 'support_question' => 0, 'support_read' => 0])
     ->count();
+
+$supportPresident = Support::find()
+    ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_question' => 1, 'support_read' => 0])
+    ->count();
+
+$supportManager = 0;
+if (!Yii::$app->user->isGuest) {
+    $supportManager = Support::find()
+        ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_question' => 0, 'support_read' => 0, 'support_user_id' => Yii::$app->user->id])
+        ->count();
+}
 
 /**
  * @var AbstractController $controller
@@ -153,31 +164,46 @@ $controller = Yii::$app->controller;
         </div>
     </div>
     <?php ActiveForm::end(); ?>
+    <div class="row margin">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+            <?= Html::a(
+                'Общение с президентом федерации' . ($supportManager ? '<sup class="text-size-4">' . $supportManager . '</sup>' : ''),
+                ['country/support-manager', 'id' => $country->country_id],
+                ['class' => ($supportManager ? 'red' : '')]
+            ); ?>
+        </div>
+    </div>
 <?php endif; ?>
 <?php if (in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) : ?>
     <div class="row margin">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
             <?= Html::a(
                 'Создать новость',
-                ['country/news-create', 'id' => Yii::$app->request->get('id')]
+                ['country/news-create', 'id' => $country->country_id]
             ); ?>
             |
             <?= Html::a(
                 'Создать опрос',
-                ['country/poll-create', 'id' => Yii::$app->request->get('id')]
+                ['country/poll-create', 'id' => $country->country_id]
             ); ?>
             |
             <?= Html::a(
-                'Общение с тех.поддержкой' . ($support ? '<sup class="text-size-4">' . $support . '</sup>' : ''),
-                ['country/support-admin', 'id' => Yii::$app->request->get('id')],
-                ['class' => ($support ? 'red' : '')]
+                'Общение с тех.поддержкой' . ($supportAdmin ? '<sup class="text-size-4">' . $supportAdmin . '</sup>' : ''),
+                ['country/support-admin', 'id' => $country->country_id],
+                ['class' => ($supportAdmin ? 'red' : '')]
+            ); ?>
+            |
+            <?= Html::a(
+                'Общение с менеджерами' . ($supportPresident ? '<sup class="text-size-4">' . $supportPresident . '</sup>' : ''),
+                ['country/support-president', 'id' => $country->country_id],
+                ['class' => ($supportPresident ? 'red' : '')]
             ); ?>
             <?php if (false) : ?>
                 <?php if (Yii::$app->user->id == $country->country_president_id): ?>
                     |
                     <?= Html::a(
                         'Распределить фонд',
-                        ['country/money-transfer', 'id' => Yii::$app->request->get('id')]
+                        ['country/money-transfer', 'id' => $country->country_id]
                     ); ?>
                 <?php endif; ?>
             <?php endif; ?>
@@ -185,7 +211,7 @@ $controller = Yii::$app->controller;
                 |
                 <?= Html::a(
                     'Отказаться от должности',
-                    ['country/fire', 'id' => Yii::$app->request->get('id')]
+                    ['country/fire', 'id' => $country->country_id]
                 ); ?>
             <?php endif; ?>
         </div>

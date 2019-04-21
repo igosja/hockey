@@ -683,4 +683,272 @@ class CountryController extends AbstractController
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $result;
     }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSupportPresident($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может общаться с менеджерами от имени федерации');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $query = Support::find()
+            ->select([
+                'support_id' => 'MAX(`support_id`)',
+                'support_country_id',
+                'support_user_id',
+                'support_read' => 'MIN(`support_read`)',
+            ])
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_question' => 1])
+            ->groupBy('support_user_id')
+            ->orderBy(['support_read' => SORT_ASC, 'support_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle('Техническая поддержка');
+
+        return $this->render('support-president', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSupportPresidentView($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может общаться с менеджерами от имени федерации');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $userId = Yii::$app->request->get('user_id');
+
+        $model = new Support();
+        if ($model->addPresidentAnswer($country, $userId)) {
+            $this->setSuccessFlash('Сообщение успешно сохраненo');
+            return $this->refresh();
+        }
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $userId])
+            ->limit(Yii::$app->params['pageSizeMessage'])
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $userId])
+            ->count();
+
+        $lazy = 0;
+        if ($countSupport > count($supportArray)) {
+            $lazy = 1;
+        }
+
+        Support::updateAll(
+            ['support_read' => time()],
+            ['support_read' => 0, 'support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $userId, 'support_question' => 1]
+        );
+
+        $this->setSeoTitle('Техническая поддержка');
+
+        return $this->render('support-president-view', [
+            'id' => $country->country_id,
+            'user_id' => $userId,
+            'lazy' => $lazy,
+            'model' => $model,
+            'supportArray' => array_reverse($supportArray),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function actionSupportPresidentViewLoad($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [];
+        }
+
+        $userId = Yii::$app->request->get('user_id');
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $userId])
+            ->offset(Yii::$app->request->get('offset'))
+            ->limit(Yii::$app->request->get('limit'))
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+        $supportArray = array_reverse($supportArray);
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $userId])
+            ->count();
+
+        if ($countSupport > count($supportArray) + Yii::$app->request->get('offset')) {
+            $lazy = 1;
+        } else {
+            $lazy = 0;
+        }
+
+        $list = '';
+
+        foreach ($supportArray as $support) {
+            /**
+             * @var Support $support
+             */
+            $list = $list
+                . '<div class="row margin-top"><div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">'
+                . FormatHelper::asDateTime($support->support_date)
+                . ', '
+                . ($support->support_question ? $support->president->userLink() : $support->admin->userLink())
+                . '</div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message '
+                . ($support->support_question ? 'message-from-me' : 'message-to-me')
+                . '">'
+                . HockeyHelper::bbDecode($support->support_text)
+                . '</div></div>';
+        }
+
+        $result = [
+            'offset' => Yii::$app->request->get('offset') + Yii::$app->request->get('limit'),
+            'lazy' => $lazy,
+            'list' => $list,
+        ];
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $result;
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSupportManager($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($this->myTeam->stadium->city->city_country_id != $country->country_id) {
+            $this->setErrorFlash('Только мендежер федерации может общаться с президентом');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $model = new Support();
+        if ($model->addManagerQuestion($country)) {
+            $this->setSuccessFlash('Сообщение успешно сохраненo');
+            return $this->refresh();
+        }
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $this->user->user_id])
+            ->limit(Yii::$app->params['pageSizeMessage'])
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $this->user->user_id])
+            ->count();
+
+        $lazy = 0;
+        if ($countSupport > count($supportArray)) {
+            $lazy = 1;
+        }
+
+        Support::updateAll(
+            ['support_read' => time()],
+            ['support_read' => 0, 'support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $this->user->user_id, 'support_question' => 0]
+        );
+
+        $this->setSeoTitle('Техническая поддержка');
+
+        return $this->render('support-manager', [
+            'id' => $country->country_id,
+            'lazy' => $lazy,
+            'model' => $model,
+            'supportArray' => array_reverse($supportArray),
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function actionSupportManagerLoad($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($this->myTeam->stadium->city->city_country_id != $country->country_id) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [];
+        }
+
+        $supportArray = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $this->user->user_id])
+            ->offset(Yii::$app->request->get('offset'))
+            ->limit(Yii::$app->request->get('limit'))
+            ->orderBy(['support_id' => SORT_DESC])
+            ->all();
+        $supportArray = array_reverse($supportArray);
+
+        $countSupport = Support::find()
+            ->where(['support_country_id' => $country->country_id, 'support_inside' => 1, 'support_user_id' => $this->user->user_id])
+            ->count();
+
+        if ($countSupport > count($supportArray) + Yii::$app->request->get('offset')) {
+            $lazy = 1;
+        } else {
+            $lazy = 0;
+        }
+
+        $list = '';
+
+        foreach ($supportArray as $support) {
+            /**
+             * @var Support $support
+             */
+            $list = $list
+                . '<div class="row margin-top"><div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-size-3">'
+                . FormatHelper::asDateTime($support->support_date)
+                . ', '
+                . ($support->support_question ? $support->president->userLink() : $support->president->userLink())
+                . '</div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 message '
+                . ($support->support_question ? 'message-from-me' : 'message-to-me')
+                . '">'
+                . HockeyHelper::bbDecode($support->support_text)
+                . '</div></div>';
+        }
+
+        $result = [
+            'offset' => Yii::$app->request->get('offset') + Yii::$app->request->get('limit'),
+            'lazy' => $lazy,
+            'list' => $list,
+        ];
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $result;
+    }
 }

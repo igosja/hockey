@@ -56,7 +56,7 @@ class SupportController extends AbstractController
 
         Support::updateAll(
             ['support_read' => time()],
-            ['support_read' => 0, 'support_question' => 1, 'support_user_id' => $support->support_user_id]
+            ['support_read' => 0, 'support_question' => 1, 'support_user_id' => $support->support_user_id, 'support_inside' => 0]
         );
 
         $this->view->title = 'Техподдержка';

@@ -34,7 +34,7 @@ class SupportUserSearch extends Support
                 'support_read' => 'IF(MIN(support_read)=0, 0, 1)',
                 'support_user_id',
             ])
-            ->where(['support_question' => 1])
+            ->where(['support_question' => 1, 'support_inside' => 0])
             ->groupBy(['support_user_id'])
             ->orderBy(['support_read' => SORT_ASC, 'support_date' => SORT_DESC]);
 

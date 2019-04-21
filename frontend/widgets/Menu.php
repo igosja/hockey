@@ -217,14 +217,14 @@ class Menu extends Widget
          * @var AbstractController $controller
          */
         $controller = Yii::$app->controller;
-        $countryNews = 0;
+        $countryInfo = 0;
         $messenger = 0;
         $news = 0;
         $support = 0;
         $poll = 0;
         if (!Yii::$app->user->isGuest) {
             $support = Support::find()
-                ->where(['support_user_id' => Yii::$app->user->id, 'support_question' => 0, 'support_read' => 0])
+                ->where(['support_user_id' => Yii::$app->user->id, 'support_question' => 0, 'support_read' => 0, 'support_inside' => 0])
                 ->count();
 
             $messenger = Message::find()
@@ -256,6 +256,25 @@ class Menu extends Widget
                     ->where(['news_country_id' => $controller->myTeam->stadium->city->country->country_id])
                     ->andWhere(['>', 'news_id', $controller->myTeam->team_news_id])
                     ->count();
+
+                $supportManager = Support::find()
+                    ->where(['support_country_id' => $controller->myTeam->stadium->city->country->country_id, 'support_inside' => 1, 'support_question' => 0, 'support_read' => 0, 'support_user_id' => Yii::$app->user->id])
+                    ->count();
+
+                $supportAdmin = 0;
+                $supportPresident = 0;
+
+                if (in_array($controller->user->user_id, [$controller->myTeam->stadium->city->country->country_president_id, $controller->myTeam->stadium->city->country->country_president_vice_id])) {
+                    $supportAdmin = Support::find()
+                        ->where(['support_country_id' => $controller->myTeam->stadium->city->country->country_id, 'support_inside' => 0, 'support_question' => 0, 'support_read' => 0])
+                        ->count();
+
+                    $supportPresident = Support::find()
+                        ->where(['support_country_id' => $controller->myTeam->stadium->city->country->country_id, 'support_inside' => 1, 'support_question' => 1, 'support_read' => 0])
+                        ->count();
+                }
+
+                $countryInfo = $countryNews + $supportManager + $supportAdmin + $supportPresident;
 
                 if (!$poll) {
                     $poll = Poll::find()
@@ -299,8 +318,8 @@ class Menu extends Widget
                 'url' => ['chat/index'],
             ],
             self::ITEM_FEDERATION => [
-                'css' => $countryNews ? 'red' : '',
-                'label' => 'Федерация' . ($countryNews ? ' <sup class="text-size-4">' . $countryNews . '</sup>' : ''),
+                'css' => $countryInfo ? 'red' : '',
+                'label' => 'Федерация' . ($countryInfo ? ' <sup class="text-size-4">' . $countryInfo . '</sup>' : ''),
                 'url' => ['country/news'],
             ],
             self::ITEM_FORUM => [
