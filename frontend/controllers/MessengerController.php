@@ -7,9 +7,11 @@ use common\components\HockeyHelper;
 use common\models\Blacklist;
 use common\models\Message;
 use common\models\User;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -41,8 +43,6 @@ class MessengerController extends AbstractController
      */
     public function actionIndex()
     {
-        $this->setSeoTitle('Личная переписка');
-
         $query = Message::find()
             ->select([
                 'message_id' => 'MAX(`message_id`)',
@@ -62,6 +62,8 @@ class MessengerController extends AbstractController
             'query' => $query,
         ]);
 
+        $this->setSeoTitle('Личная переписка');
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -70,8 +72,8 @@ class MessengerController extends AbstractController
     /**
      * @param int $id
      * @return string|Response
-     * @throws \yii\web\NotFoundHttpException
-     * @throws \Exception
+     * @throws NotFoundHttpException
+     * @throws Exception
      */
     public function actionView($id)
     {

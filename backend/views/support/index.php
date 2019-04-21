@@ -1,15 +1,18 @@
 <?php
 
+use backend\models\UserSearch;
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Support;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \backend\models\UserSearch $searchModel
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var UserSearch $searchModel
+ * @var View $this
  */
 
 ?>
@@ -38,7 +41,12 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'label' => 'Пользователь',
                 'value' => function (Support $model) {
-                    return $model->user->userLink();
+                    if ($model->support_user_id) {
+                        $result = $model->user->userLink();
+                    } else {
+                        $result = $model->president->userLink() . ' (през)';
+                    }
+                    return $result;
                 }
             ],
             [
