@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Building;
+use common\models\Game;
 use common\models\Physical;
 use common\models\PhysicalChange;
 use common\models\Player;
@@ -151,12 +152,29 @@ class PhysicalController extends AbstractController
             $playerId[] = $item['player_id'];
         }
 
+        $opponentArray = [];
+        foreach ($scheduleArray as $key => $schedule) {
+            $game = Game::find()
+                ->where(['game_schedule_id' => $schedule->schedule_id])
+                ->andWhere(['or', ['game_home_team_id' => $team->team_id], ['game_guest_team_id' => $team->team_id]])
+                ->limit(1)
+                ->one();
+            if (!$game) {
+                $opponentArray[$key] = '-';
+            } elseif ($team->team_id == $game->game_guest_team_id) {
+                $opponentArray[$key] = $game->teamHome->team_name;
+            } else {
+                $opponentArray[$key] = $game->teamGuest->team_name;
+            }
+        }
+
         $this->setSeoTitle($team->fullName() . '. Центр физической подготовки');
 
         return $this->render('index', [
             'countSchedule' => $countSchedule,
             'dataProvider' => $dataProvider,
             'onBuilding' => $this->isOnBuilding(),
+            'opponentArray' => $opponentArray,
             'playerPhysicalArray' => $playerPhysicalArray,
             'scheduleArray' => $scheduleArray,
             'team' => $team,
