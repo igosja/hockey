@@ -328,7 +328,7 @@ class Game extends AbstractActiveRecord
         } elseif (TournamentType::LEAGUE == $this->schedule->schedule_tournament_type_id) {
             if ($this->schedule->schedule_stage_id <= Stage::QUALIFY_3) {
                 $round = 'qualification';
-            } elseif ($this->schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1) {
+            } elseif ($this->schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_6) {
                 $round = 'table';
             } else {
                 $round = 'playoff';

@@ -409,6 +409,52 @@ class NationalController extends AbstractController
             ->limit(45)
             ->all();
 
+        $playerArray = Player::find()
+            ->where(['player_national_id' => $national->national_id])
+            ->orderBy(['player_power_nominal_s' => SORT_DESC])
+            ->all();
+        foreach ($playerArray as $player) {
+            if (Position::GK == $player->player_position_id) {
+                $positionArray = $gkArray;
+            } elseif (Position::LD == $player->player_position_id) {
+                $positionArray = $ldArray;
+            } elseif (Position::RD == $player->player_position_id) {
+                $positionArray = $rdArray;
+            } elseif (Position::LW == $player->player_position_id) {
+                $positionArray = $lwArray;
+            } elseif (Position::CF == $player->player_position_id) {
+                $positionArray = $cfArray;
+            } else {
+                $positionArray = $rwArray;
+            }
+
+            $present = false;
+            foreach ($positionArray as $position) {
+                if ($position->player_id == $player->player_id) {
+                    $present = true;
+                }
+            }
+
+            if ($present) {
+                continue;
+            }
+
+            $positionArray[] = $player;
+            if (Position::GK == $player->player_position_id) {
+                $gkArray = $positionArray;
+            } elseif (Position::LD == $player->player_position_id) {
+                $ldArray = $positionArray;
+            } elseif (Position::RD == $player->player_position_id) {
+                $rdArray = $positionArray;
+            } elseif (Position::LW == $player->player_position_id) {
+                $lwArray = $positionArray;
+            } elseif (Position::CF == $player->player_position_id) {
+                $cfArray = $positionArray;
+            } else {
+                $rwArray = $positionArray;
+            }
+        }
+
         $this->setSeoTitle('Изменение состава сборной');
         return $this->render('player', [
             'cfArray' => $cfArray,

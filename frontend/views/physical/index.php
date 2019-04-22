@@ -10,6 +10,7 @@ use yii\helpers\Url;
  * @var int $countSchedule
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var bool $onBuilding
+ * @var array $opponentArray
  * @var array $playerPhysicalArray
  * @var \common\models\Schedule[] $scheduleArray
  * @var \common\models\Team $team
@@ -128,11 +129,11 @@ use yii\helpers\Url;
                 'footer' => Html::img(
                     [
                         'physical/image',
-                        'team' => $team->team_name,
+                        'team' => $opponentArray[$i],
                     ],
                     [
-                        'alt' => $team->team_name,
-                        'title' => $team->team_name,
+                        'alt' => $opponentArray[$i],
+                        'title' => $opponentArray[$i],
                     ]
                 ),
                 'format' => 'raw',
