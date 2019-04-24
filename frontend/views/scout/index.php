@@ -130,6 +130,7 @@ use yii\helpers\Html;
     try {
         $columns = [
             [
+                'attribute' => 'squad',
                 'footer' => 'Игрок',
                 'format' => 'raw',
                 'label' => 'Игрок',
@@ -138,6 +139,7 @@ use yii\helpers\Html;
                 }
             ],
             [
+                'attribute' => 'country',
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Нац',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Национальность'],
@@ -149,6 +151,7 @@ use yii\helpers\Html;
                 }
             ],
             [
+                'attribute' => 'position',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Поз',
                 'footerOptions' => ['title' => 'Позиция'],
@@ -159,6 +162,7 @@ use yii\helpers\Html;
                 }
             ],
             [
+                'attribute' => 'age',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'В',
                 'footerOptions' => ['title' => 'Возраст'],
@@ -169,6 +173,7 @@ use yii\helpers\Html;
                 }
             ],
             [
+                'attribute' => 'power',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'С',
                 'footerOptions' => ['title' => 'Номинальная сила'],
