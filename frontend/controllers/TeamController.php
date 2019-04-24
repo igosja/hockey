@@ -226,8 +226,53 @@ class TeamController extends AbstractController
         ]);
 
         $totalPoint = 0;
+        $totalGameResult = [
+            'game' => 0,
+            'win' => 0,
+            'winOver' => 0,
+            'draw' => 0,
+            'looseOver' => 0,
+            'loose' => 0,
+        ];
         foreach ($dataProvider->models as $game) {
+            /**
+             * @var Game $game
+             */
             $totalPoint = $totalPoint + (int)HockeyHelper::gamePlusMinus($game, $id);
+            $totalGameResult['game']++;
+            if ($team->team_id == $game->game_home_team_id) {
+                if ($game->game_home_score > $game->game_guest_score) {
+                    if ($game->game_home_score_overtime == $game->game_guest_score_overtime) {
+                        $totalGameResult['win']++;
+                    } else {
+                        $totalGameResult['winOver']++;
+                    }
+                } elseif ($game->game_home_score == $game->game_guest_score) {
+                    $totalGameResult['draw']++;
+                } else {
+                    if ($game->game_home_score_overtime == $game->game_guest_score_overtime) {
+                        $totalGameResult['loose']++;
+                    } else {
+                        $totalGameResult['looseOver']++;
+                    }
+                }
+            } else {
+                if ($game->game_guest_score > $game->game_home_score) {
+                    if ($game->game_guest_score_overtime == $game->game_home_score_overtime) {
+                        $totalGameResult['win']++;
+                    } else {
+                        $totalGameResult['winOver']++;
+                    }
+                } elseif ($game->game_guest_score == $game->game_home_score) {
+                    $totalGameResult['draw']++;
+                } else {
+                    if ($game->game_guest_score_overtime == $game->game_home_score_overtime) {
+                        $totalGameResult['loose']++;
+                    } else {
+                        $totalGameResult['looseOver']++;
+                    }
+                }
+            }
         }
 
         $this->setSeoTitle($team->fullName() . '. Матчи команды');
@@ -237,6 +282,7 @@ class TeamController extends AbstractController
             'seasonId' => $seasonId,
             'seasonArray' => Season::getSeasonArray(),
             'team' => $team,
+            'totalGameResult' => $totalGameResult,
             'totalPoint' => $totalPoint,
         ]);
     }
