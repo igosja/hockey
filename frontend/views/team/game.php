@@ -4,15 +4,18 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Game;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var integer $seasonId
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Team $team
+ * @var View $this
  * @var array $totalGameResult
  * @var integer $totalPoint
  */
@@ -53,26 +56,26 @@ use yii\helpers\Html;
         <table class="table table-bordered table-hover">
             <tr>
                 <th>Итоги сезона</th>
-                <th title="Матчи">М</th>
-                <th title="Победы">В</th>
-                <th title="Победы в овертайме">ВО</th>
-                <th title="Ничьи и победы/поражения по буллитам">Н</th>
-                <th title="Поражения в овертайме">ПО</th>
-                <th title="Поражения">П</th>
+                <th class="col-10" title="Матчи">М</th>
+                <th class="col-10 hidden-xs" title="Победы">В</th>
+                <th class="col-10 hidden-xs" title="Победы в овертайме">ВО</th>
+                <th class="col-10 hidden-xs" title="Ничьи и победы/поражения по буллитам">Н</th>
+                <th class="col-10 hidden-xs" title="Поражения в овертайме">ПО</th>
+                <th class="col-10 hidden-xs" title="Поражения">П</th>
             </tr>
             <tr>
                 <td>Всего сыграно матчей</td>
-                <td><?= $totalGameResult['game']; ?></td>
-                <td><?= $totalGameResult['win']; ?></td>
-                <td><?= $totalGameResult['winOver']; ?></td>
-                <td><?= $totalGameResult['draw']; ?></td>
-                <td><?= $totalGameResult['looseOver']; ?></td>
-                <td><?= $totalGameResult['loose']; ?></td>
+                <td class="text-center"><?= $totalGameResult['game']; ?></td>
+                <td class="text-center"><?= $totalGameResult['win']; ?></td>
+                <td class="text-center"><?= $totalGameResult['winOver']; ?></td>
+                <td class="text-center"><?= $totalGameResult['draw']; ?></td>
+                <td class="text-center"><?= $totalGameResult['looseOver']; ?></td>
+                <td class="text-center"><?= $totalGameResult['loose']; ?></td>
             </tr>
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row margin-top">
     <?php
 
     try {

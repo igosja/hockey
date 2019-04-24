@@ -238,6 +238,9 @@ class TeamController extends AbstractController
             /**
              * @var Game $game
              */
+            if (!$game->game_played) {
+                continue;
+            }
             $totalPoint = $totalPoint + (int)HockeyHelper::gamePlusMinus($game, $id);
             $totalGameResult['game']++;
             if ($team->team_id == $game->game_home_team_id) {
