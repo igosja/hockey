@@ -40,8 +40,7 @@ class ScheduleController extends AbstractController
         $scheduleId = Schedule::find()
             ->select(['schedule_id'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->limit(1)
-            ->scalar();
+            ->column();
 
         $this->setSeoTitle('Расписание');
 

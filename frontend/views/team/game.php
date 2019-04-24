@@ -4,16 +4,20 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Game;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $seasonArray
- * @var int $seasonId
- * @var \common\models\Team $team
- * @var \yii\web\View $this
- * @var int $totalPoint
+ * @var integer $seasonId
+ * @var Team $team
+ * @var View $this
+ * @var array $totalGameResult
+ * @var integer $totalPoint
  */
 
 ?>
@@ -48,6 +52,30 @@ use yii\helpers\Html;
     </div>
 <?= Html::endForm(); ?>
 <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Итоги сезона</th>
+                <th class="col-10" title="Матчи">М</th>
+                <th class="col-10 hidden-xs" title="Победы">В</th>
+                <th class="col-10 hidden-xs" title="Победы в овертайме">ВО</th>
+                <th class="col-10 hidden-xs" title="Ничьи и победы/поражения по буллитам">Н</th>
+                <th class="col-10 hidden-xs" title="Поражения в овертайме">ПО</th>
+                <th class="col-10 hidden-xs" title="Поражения">П</th>
+            </tr>
+            <tr>
+                <td>Всего сыграно матчей</td>
+                <td class="text-center"><?= $totalGameResult['game']; ?></td>
+                <td class="text-center"><?= $totalGameResult['win']; ?></td>
+                <td class="text-center"><?= $totalGameResult['winOver']; ?></td>
+                <td class="text-center"><?= $totalGameResult['draw']; ?></td>
+                <td class="text-center"><?= $totalGameResult['looseOver']; ?></td>
+                <td class="text-center"><?= $totalGameResult['loose']; ?></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row margin-top">
     <?php
 
     try {
