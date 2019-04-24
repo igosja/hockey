@@ -10,8 +10,8 @@ use yii\helpers\Html;
 /**
  * @var ActiveDataProvider $dataProvider
  * @var array $seasonArray
- * @var int $seasonId
- * @var int $scheduleId
+ * @var integer $seasonId
+ * @var array $scheduleId
  */
 
 ?>
@@ -78,7 +78,7 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'rowOptions' => function (Schedule $model) use ($scheduleId) {
-                if ($scheduleId == $model->schedule_id) {
+                if (in_array($model->schedule_id, $scheduleId)) {
                     return ['class' => 'info'];
                 }
                 return [];
