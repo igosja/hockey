@@ -161,7 +161,7 @@ class ForumController extends AbstractController
 
         $model = new ForumMessage();
         if ($model->addMessage()) {
-            $this->setSuccessFlash('Сообщение успешно сохранёно');
+            $this->setSuccessFlash('Сообщение успешно сохранено');
             return $this->refresh();
         }
 
