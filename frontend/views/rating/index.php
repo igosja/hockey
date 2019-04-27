@@ -291,14 +291,6 @@ use yii\helpers\Html;
                 ];
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'В кассе',
-                    'label' => 'В кассе',
-                    'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_finance, 'USD');
-                    }
-                ];
-                $columns[] = [
-                    'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стоимость',
                     'label' => 'Стоимость',
                     'value' => function (RatingTeam $model) {
