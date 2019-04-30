@@ -267,14 +267,6 @@
                 map: map
             }),
             new google.maps.Marker({
-                position: new google.maps.LatLng(51.865278, 33.486111), //Шостка
-                map: map
-            }),
-            new google.maps.Marker({
-                position: new google.maps.LatLng(51.674722, 33.913333), //Глухів
-                map: map
-            }),
-            new google.maps.Marker({
                 position: new google.maps.LatLng(51.2309, 33.2027), //Конотоп
                 map: map
             }),
@@ -292,14 +284,6 @@
             }),
             new google.maps.Marker({
                 position: new google.maps.LatLng(52.008611, 33.273611), //Новгород-Сіверський
-                map: map
-            }),
-            new google.maps.Marker({
-                position: new google.maps.LatLng(50.589167, 32.385556), //Прилуки
-                map: map
-            }),
-            new google.maps.Marker({
-                position: new google.maps.LatLng(51.341049, 32.879500), //Батурин
                 map: map
             }),
             new google.maps.Marker({

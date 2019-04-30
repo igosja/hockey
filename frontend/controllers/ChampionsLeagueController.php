@@ -66,7 +66,7 @@ class ChampionsLeagueController extends AbstractController
         }
 
         return $this->redirect([
-            'champions-league/qualification',
+            'champions-league/playoff',
             'seasonId' => $seasonId,
         ]);
     }
@@ -272,6 +272,95 @@ class ChampionsLeagueController extends AbstractController
             'seasonId' => $seasonId,
             'stageArray' => $stageArray,
             'stageId' => $stageId,
+        ]);
+    }
+
+    /**
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionPlayoff()
+    {
+        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+
+        $qualificationArray = [];
+
+        $stageArray = Stage::find()
+            ->where(['stage_id' => [Stage::ROUND_OF_16, Stage::QUARTER, Stage::SEMI, Stage::FINAL_GAME]])
+            ->orderBy(['stage_id' => SORT_ASC])
+            ->all();
+        foreach ($stageArray as $stage) {
+            $scheduleId = Schedule::find()
+                ->select(['schedule_id'])
+                ->where([
+                    'schedule_season_id' => $seasonId,
+                    'schedule_stage_id' => $stage->stage_id,
+                    'schedule_tournament_type_id' => TournamentType::LEAGUE,
+                ])
+                ->orderBy(['schedule_id' => SORT_ASC])
+                ->column();
+            if ($scheduleId) {
+                $gameArray = Game::find()
+                    ->where(['game_schedule_id' => $scheduleId])
+                    ->andWhere([
+                        'game_home_team_id' => ParticipantLeague::find()
+                            ->select(['participant_league_team_id'])
+                            ->where(['participant_league_season_id' => $seasonId])
+                    ])
+                    ->orderBy(['game_id' => SORT_ASC])
+                    ->all();
+                if ($gameArray) {
+                    $participantArray = [];
+
+                    foreach ($gameArray as $game) {
+                        $inArray = false;
+
+                        for ($i = 0, $countParticipant = count($participantArray); $i < $countParticipant; $i++) {
+                            if (in_array($game->game_home_team_id, [$participantArray[$i]['home']->team_id, $participantArray[$i]['guest']->team_id])) {
+                                $inArray = true;
+
+                                if ($game->game_home_team_id == $participantArray[$i]['home']->team_id) {
+                                    $formatScore = 'home';
+                                } else {
+                                    $formatScore = 'guest';
+                                }
+
+                                $participantArray[$i]['game'][] = Html::a(
+                                    $game->formatScore($formatScore),
+                                    ['game/view', 'id' => $game->game_id]
+                                );
+                            }
+                        }
+
+                        if (false == $inArray) {
+                            $participantArray[] = [
+                                'home' => $game->teamHome,
+                                'guest' => $game->teamGuest,
+                                'game' => [
+                                    Html::a(
+                                        $game->formatScore(),
+                                        ['game/view', 'id' => $game->game_id]
+                                    )
+                                ],
+                            ];
+                        }
+                    }
+
+                    $qualificationArray[] = [
+                        'stage' => $stage,
+                        'participant' => $participantArray,
+                    ];
+                }
+            }
+        }
+
+        $this->setSeoTitle('Лига чемпионов');
+
+        return $this->render('qualification', [
+            'qualificationArray' => $qualificationArray,
+            'roundArray' => $this->getRoundLinksArray($seasonId),
+            'seasonArray' => $this->getSeasonArray(),
+            'seasonId' => $seasonId,
         ]);
     }
 
