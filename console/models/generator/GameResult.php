@@ -880,7 +880,7 @@ class GameResult
 
                 $this->result[$team]['team']['teamwork'][$j] = round($teamwork / 10);
                 if ($this->result[$team]['team']['teamwork'][$j] > 25) {
-                    $this->result[$team]['team']['teamwork'][$j];
+                    $this->result[$team]['team']['teamwork'][$j] = 25;
                 }
             }
         }
