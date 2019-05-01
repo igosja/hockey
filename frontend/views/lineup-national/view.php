@@ -442,6 +442,7 @@ LineupAsset::register($this);
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn margin']); ?>
+                <?= Html::a('Очистить', 'javascript:', ['class' => 'btn margin', 'id' => 'reset-lineup']); ?>
             </div>
         </div>
     </div>

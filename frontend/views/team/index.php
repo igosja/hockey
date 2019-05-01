@@ -2,11 +2,12 @@
 
 use common\components\ErrorHelper;
 use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  */
 
 ?>
@@ -46,7 +47,6 @@ use yii\helpers\Html;
             'columns' => $columns,
             'dataProvider' => $dataProvider,
             'showFooter' => true,
-            'summary' => false,
         ]);
     } catch (Exception $e) {
         ErrorHelper::log($e);

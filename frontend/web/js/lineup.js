@@ -381,6 +381,32 @@ jQuery(document).ready(function () {
             }
         });
     });
+
+    $('#reset-lineup').on('click', function () {
+        $('#line-0-0').val('');
+        $('#line-1-0').val('');
+        $('#line-1-1').val('');
+        $('#line-1-2').val('');
+        $('#line-1-3').val('');
+        $('#line-1-4').val('');
+        $('#line-1-5').val('');
+        $('#line-2-1').val('');
+        $('#line-2-2').val('');
+        $('#line-2-3').val('');
+        $('#line-2-4').val('');
+        $('#line-2-5').val('');
+        $('#line-3-1').val('');
+        $('#line-3-2').val('');
+        $('#line-3-3').val('');
+        $('#line-3-4').val('');
+        $('#line-3-5').val('');
+        $('#line-4-1').val('');
+        $('#line-4-2').val('');
+        $('#line-4-3').val('');
+        $('#line-4-4').val('');
+        $('#line-4-5').val('').trigger('change');
+        $('#captain').val('');
+    });
 });
 
 function player_change() {
