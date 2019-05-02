@@ -15,6 +15,7 @@ use common\models\ForumChapter;
 use common\models\ForumGroup;
 use common\models\Game;
 use common\models\Lineup;
+use common\models\Loan;
 use common\models\Name;
 use common\models\NameCountry;
 use common\models\Position;
@@ -36,6 +37,15 @@ use yii\db\Expression;
  */
 class FixController extends AbstractController
 {
+    /**
+     * @return void
+     */
+    public function actionLoan()
+    {
+        Loan::updateAll(['loan_date' => new Expression('loan_ready')], ['!=', 'loan_ready', 0]);
+        Loan::updateAll(['loan_date' => time()], ['loan_ready' => 0]);
+    }
+
     /**
      * @throws Exception
      */
