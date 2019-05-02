@@ -6,7 +6,9 @@ use common\components\FormatHelper;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 
 /**
  * Class Loan
@@ -88,6 +90,21 @@ class Loan extends AbstractActiveRecord
     }
 
     /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->loan_date = time();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @return string
      * @throws Exception
      */
@@ -148,8 +165,8 @@ class Loan extends AbstractActiveRecord
     /**
      * @return bool
      * @throws Exception
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function beforeDelete()
     {

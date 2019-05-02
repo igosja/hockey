@@ -3,16 +3,19 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Loan;
+use common\models\Team;
 use common\models\Transfer;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProviderLoanFrom
- * @var \yii\data\ActiveDataProvider $dataProviderLoanTo
- * @var \yii\data\ActiveDataProvider $dataProviderTransferFrom
- * @var \yii\data\ActiveDataProvider $dataProviderTransferTo
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProviderLoanFrom
+ * @var ActiveDataProvider $dataProviderLoanTo
+ * @var ActiveDataProvider $dataProviderTransferFrom
+ * @var ActiveDataProvider $dataProviderTransferTo
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -45,7 +48,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
                 'value' => function (Transfer $model) {
-                    return FormatHelper::asDate($model->transfer_date);
+                    return FormatHelper::asDate($model->transfer_ready);
                 }
             ],
             [
@@ -154,7 +157,7 @@ use yii\grid\GridView;
                 'label' => 'Дата',
                 'headerOptions' => ['class' => 'col-10'],
                 'value' => function (Transfer $model) {
-                    return FormatHelper::asDate($model->transfer_date);
+                    return FormatHelper::asDate($model->transfer_ready);
                 }
             ],
             [
@@ -263,7 +266,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
                 'value' => function (Loan $model) {
-                    return FormatHelper::asDate($model->loan_date);
+                    return FormatHelper::asDate($model->loan_ready);
                 }
             ],
             [
@@ -381,7 +384,7 @@ use yii\grid\GridView;
                 'headerOptions' => ['class' => 'col-10'],
                 'label' => 'Дата',
                 'value' => function (Loan $model) {
-                    return FormatHelper::asDate($model->loan_date);
+                    return FormatHelper::asDate($model->loan_ready);
                 }
             ],
             [
