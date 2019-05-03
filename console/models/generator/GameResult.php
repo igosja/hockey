@@ -2204,7 +2204,7 @@ class GameResult
             $result = true;
         } elseif ($ifScoreEquals && $ifIsLeague && $ifGroup) {
             $result = true;
-        } elseif ($ifGroup && $ifKnockOut) {
+        } elseif ($ifIsLeague && $ifKnockOut) {
             $prev = Game::find()
                 ->joinWith(['schedule'])
                 ->where([
