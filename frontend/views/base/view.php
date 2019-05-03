@@ -340,3 +340,8 @@ use yii\helpers\Html;
         </fieldset>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= Html::a('В ростер', ['team/view', 'id' => $team->team_id], ['class' => 'btn margin']); ?>
+    </div>
+</div>
