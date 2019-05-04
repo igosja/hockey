@@ -8,10 +8,12 @@ use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
 use common\models\TransferApplication;
+use common\models\User;
 use frontend\controllers\AbstractController;
 use Throwable;
 use Yii;
 use yii\base\Model;
+use yii\db\Exception;
 
 /**
  * Class TransferApplicationTo
@@ -82,7 +84,7 @@ class TransferApplicationTo extends Model
 
     /**
      * @return bool
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -119,6 +121,24 @@ class TransferApplicationTo extends Model
 
         /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
+
+        $check = User::find()
+            ->where(['user_id' => $controller->user->user_referrer_id])
+            ->andWhere(['user_id' => $this->player->team->team_user_id])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Нельзя заключать сделки между подопечными.');
+            return false;
+        }
+
+        $check = User::find()
+            ->where(['user_id' => $this->player->team->team_user_id])
+            ->andWhere(['user_referrer_id' => $controller->user->user_id])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Нельзя заключать сделки между подопечными.');
+            return false;
+        }
 
         $teamArray = [0];
 

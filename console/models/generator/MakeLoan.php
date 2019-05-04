@@ -16,7 +16,9 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\Team;
 use common\models\Transfer;
+use Throwable;
 use yii\db\Expression;
+use yii\db\StaleObjectException;
 
 /**
  * Class MakeLoan
@@ -25,9 +27,9 @@ use yii\db\Expression;
 class MakeLoan
 {
     /**
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      * @return void
+     * @throws StaleObjectException
+     * @throws Throwable
      */
     public function execute()
     {
@@ -152,6 +154,11 @@ class MakeLoan
                 if (in_array($loanApplication->loan_application_user_id, $userArray)) {
                     $loanApplication->loan_application_deal_reason_id = DealReason::MANAGER_LIMIT;
                     $loanApplication->save(true, ['loan_application_deal_reason_id']);
+                    continue;
+                }
+                if ($loanApplication->user->user_id == $loan->managerSeller->user_referrer_id || $loanApplication->user->user_referrer_id == $loan->loan_user_seller_id) {
+                    $loanApplication->loan_application_deal_reason_id = DealReason::MANAGER_LIMIT;
+                    $loanApplication->save(true, ['transfer_application_deal_reason_id']);
                     continue;
                 }
             }

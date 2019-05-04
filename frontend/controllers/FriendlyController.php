@@ -11,11 +11,13 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\Team;
 use common\models\TournamentType;
+use common\models\User;
 use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -43,7 +45,7 @@ class FriendlyController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -109,8 +111,8 @@ class FriendlyController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \yii\web\NotFoundHttpException
+     * @return string|Response
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -234,6 +236,26 @@ class FriendlyController extends AbstractController
                             'schedule_season_id' => Season::getCurrentSeason(),
                             'schedule_tournament_type_id' => TournamentType::FRIENDLY,
                         ])
+                ]
+            ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Team::find()
+                        ->select(['team_id'])
+                        ->where([
+                            'team_user_id' => User::find()
+                                ->select(['user_id'])
+                                ->where(['user_referrer_id' => $this->user->user_id])
+                        ])
+                ]
+            ])
+            ->andWhere([
+                'not',
+                [
+                    'team_id' => Team::find()
+                        ->select(['team_id'])
+                        ->where(['team_user_id' => $this->user->user_referrer_id])
                 ]
             ])
             ->orderBy(['team_power_vs' => SORT_DESC]);

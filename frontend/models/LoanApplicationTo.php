@@ -8,6 +8,7 @@ use common\models\LoanApplication;
 use common\models\Player;
 use common\models\Team;
 use common\models\Transfer;
+use common\models\User;
 use Exception;
 use frontend\controllers\AbstractController;
 use Yii;
@@ -129,6 +130,41 @@ class LoanApplicationTo extends Model
 
         /** @var AbstractController $controller */
         $controller = Yii::$app->controller;
+
+        $check = User::find()
+            ->where(['user_id' => $controller->user->user_referrer_id])
+            ->andWhere(['user_id' => $this->player->team->team_user_id])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Нельзя заключать сделки между подопечными.');
+            return false;
+        }
+
+        $check = User::find()
+            ->where(['user_id' => $this->player->team->team_user_id])
+            ->andWhere(['user_referrer_id' => $controller->user->user_id])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Нельзя заключать сделки между подопечными.');
+            return false;
+        }
+
+        $check = Team::find()
+            ->where(['team_id' => $this->player->player_team_id])
+            ->andWhere([
+                'team_id' => Team::find()
+                    ->select(['team_id'])
+                    ->where([
+                        'team_user_id' => User::find()
+                            ->select(['user_id'])
+                            ->where(['user_referrer_id' => $controller->user->user_id])
+                    ])
+            ])
+            ->count();
+        if ($check) {
+            Yii::$app->session->setFlash('error', 'Нельзя заключать сделки между подопечными.');
+            return false;
+        }
 
         $teamArray = [0];
 

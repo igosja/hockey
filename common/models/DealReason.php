@@ -15,6 +15,7 @@ class DealReason extends AbstractActiveRecord
     const TEAM_LIMIT = 2;
     const NO_MONEY = 3;
     const NOT_BEST = 4;
+    const REFERRER = 4;
 
     /**
      * @return string
