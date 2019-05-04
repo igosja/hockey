@@ -4,6 +4,7 @@ namespace console\models\generator;
 
 use common\models\Season;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class UpdateUserTotalRating
@@ -12,8 +13,8 @@ use Yii;
 class UpdateUserTotalRating
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -139,7 +140,7 @@ class UpdateUserTotalRating
                     AND `user_rating_season_id`!=0
                 ) AS `t4`
                 ON `user_rating_user_id`=`user_rating_user_id_25`
-                SET `user_rating_rating`=500+IFNULL(`user_rating_rating_100`, 0)+IFNULL(`user_rating_rating_75`, 0)+IFNULL(`user_rating_rating_50`, 0)+IFNULL(`user_rating_rating_25`, 0)
+                SET `user_rating_rating`=500+(IFNULL(`user_rating_rating_100`, 0)+IFNULL(`user_rating_rating_75`, 0)+IFNULL(`user_rating_rating_50`, 0)+IFNULL(`user_rating_rating_25`, 0))/(IF($seasonId>4, 4, $seasonId))
                 WHERE `user_rating_season_id`=0";
         Yii::$app->db->createCommand($sql)->execute();
 
