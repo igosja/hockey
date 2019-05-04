@@ -73,7 +73,7 @@ class StoreController extends AbstractController
 
     /**
      * @return string|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionPayment()
     {
@@ -110,7 +110,7 @@ class StoreController extends AbstractController
 
     /**
      * @return string|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionSend()
     {
@@ -474,8 +474,8 @@ class StoreController extends AbstractController
     }
 
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     public function actionResult()
     {
@@ -492,6 +492,7 @@ class StoreController extends AbstractController
             '136.243.38.151',
             '136.243.38.189',
             '88.198.88.98',
+            '136.243.38.108',
         ])) {
             die('HACKING ATTEMPT');
         }
