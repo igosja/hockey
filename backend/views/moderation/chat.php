@@ -42,7 +42,10 @@ use yii\widgets\DetailView;
                 'format' => 'raw',
                 'label' => 'Автор',
                 'value' => function ($model) {
-                    return $model['userLink'];
+                    return Html::a(
+                        strip_tags($model['userLink']),
+                        ['user/view', 'id' => $model['userId']]
+                    );
                 },
             ],
         ];
