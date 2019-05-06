@@ -46,7 +46,7 @@ print $this->render('_top');
                     } else {
                         $result = $result . '(Заместитель президента федерации)';
                     }
-                    return $result;
+                    return Html::a($result, ['country/news', 'id' => $model->country_id]);
                 }
             ],
         ];

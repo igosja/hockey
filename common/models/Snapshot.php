@@ -14,6 +14,7 @@ namespace common\models;
  * @property float $snapshot_base_school
  * @property float $snapshot_base_scout
  * @property float $snapshot_base_training
+ * @property float $snapshot_bot
  * @property int $snapshot_country
  * @property int $snapshot_date
  * @property int $snapshot_manager
