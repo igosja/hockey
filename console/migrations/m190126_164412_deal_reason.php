@@ -26,6 +26,7 @@ class m190126_164412_deal_reason extends Migration
             ['Лимит на одину сделку между командами за сезон'],
             ['У команды не хватило денег'],
             ['Не лучшая заявка'],
+            ['Запрет на сделки между подопечными'],
         ]);
 
         $this->addColumn(self::TABLE_LOAN, 'loan_application_deal_reason_id', $this->integer(2)->defaultValue(0)->after('loan_application_day'));

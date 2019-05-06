@@ -16,6 +16,8 @@ use common\models\Transfer;
 use common\models\TransferApplication;
 use common\models\TransferPosition;
 use common\models\TransferSpecial;
+use Throwable;
+use yii\db\StaleObjectException;
 
 /**
  * Class MakeTransfer
@@ -24,9 +26,9 @@ use common\models\TransferSpecial;
 class MakeTransfer
 {
     /**
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      * @return void
+     * @throws StaleObjectException
+     * @throws Throwable
      */
     public function execute()
     {
@@ -149,6 +151,11 @@ class MakeTransfer
                     continue;
                 }
                 if (in_array($transferApplication->transfer_application_user_id, $userArray)) {
+                    $transferApplication->transfer_application_deal_reason_id = DealReason::MANAGER_LIMIT;
+                    $transferApplication->save(true, ['transfer_application_deal_reason_id']);
+                    continue;
+                }
+                if ($transferApplication->user->user_id == $transfer->managerSeller->user_referrer_id || $transferApplication->user->user_referrer_id == $transfer->transfer_user_seller_id) {
                     $transferApplication->transfer_application_deal_reason_id = DealReason::MANAGER_LIMIT;
                     $transferApplication->save(true, ['transfer_application_deal_reason_id']);
                     continue;
