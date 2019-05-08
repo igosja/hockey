@@ -38,6 +38,7 @@ print $this->render('_top');
         $columns = [
             [
                 'footer' => 'Роль в игре',
+                'format' => 'raw',
                 'label' => 'Роль в игре',
                 'value' => function (Country $model) {
                     $result = $model->country_name . ' ';
