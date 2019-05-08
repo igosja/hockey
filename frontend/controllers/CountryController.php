@@ -266,7 +266,7 @@ class CountryController extends AbstractController
             ->where(['country_id' => $id])
             ->limit(1)
             ->one();
-        if (in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+        if ($this->user && in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
             $statusArray[] = PollStatus::NEW_ONE;
         }
 
