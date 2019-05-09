@@ -15,9 +15,10 @@ use common\models\ForumChapter;
 use common\models\ForumGroup;
 use common\models\Game;
 use common\models\Lineup;
-use common\models\Loan;
 use common\models\Name;
 use common\models\NameCountry;
+use common\models\Physical;
+use common\models\Player;
 use common\models\Position;
 use common\models\Season;
 use common\models\Stadium;
@@ -27,9 +28,12 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use common\models\Transfer;
 use Exception;
+use Throwable;
 use Yii;
 use yii\db\Expression;
+use yii\db\StaleObjectException;
 
 /**
  * Class FixController
@@ -37,15 +41,6 @@ use yii\db\Expression;
  */
 class FixController extends AbstractController
 {
-    /**
-     * @return void
-     */
-    public function actionLoan()
-    {
-        Loan::updateAll(['loan_date' => new Expression('loan_ready')], ['!=', 'loan_ready', 0]);
-        Loan::updateAll(['loan_date' => time()], ['loan_ready' => 0]);
-    }
-
     /**
      * @throws Exception
      */
@@ -811,24 +806,45 @@ class FixController extends AbstractController
     }
 
     /**
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
-    public function actionSalary()
+    public function actionPhysical()
     {
-        $financeArray = Finance::find()
-            ->where(['finance_finance_text_id' => FinanceText::OUTCOME_SALARY])
-            ->andWhere(['between', 'finance_date', 1557388991, 1557389070])
-            ->each();
-        foreach ($financeArray as $finance)
-        {
-            /**
-             * @var Finance $finance
-             */
-            $finance->team->team_finance = $finance->finance_value_before;
-            $finance->team->save(true, ['team_finance']);
+        Player::updateAll(
+            ['player_physical_id' => Physical::DEFAULT_ID],
+            [
+                'and',
+                ['player_team_id' => 0],
+                [
+                    'not',
+                    [
+                        'player_id' => Transfer::find()
+                            ->select(['transfer_player_id'])
+                            ->where(['transfer_checked' => 0])
+                    ]
+                ]
+            ]);
 
-            $finance->delete();
-        }
+        Player::updateAllCounters(['player_physical_id' => -1], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
+        Player::updateAll(['player_physical_id' => 20], ['<', 'player_physical_id', 1]);
+
+        $sql = "UPDATE `player`
+                LEFT JOIN `physical_change`
+                ON `player_id`=`physical_change_player_id`
+                LEFT JOIN `physical`
+                ON `player_physical_id`=`physical_id`
+                LEFT JOIN `schedule`
+                ON `physical_change_schedule_id`=`schedule_id`
+                SET `player_physical_id`=`physical_opposite`
+                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
+        Yii::$app->db->createCommand($sql)->execute();
+
+        $sql = "UPDATE `player`
+                LEFT JOIN `physical`
+                ON `player_physical_id`=`physical_id`
+                SET `player_power_real`=`player_power_nominal`*(100-`player_tire`)/100*`physical_value`/100
+                WHERE `player_age`<40";
+        Yii::$app->db->createCommand($sql)->execute();
     }
 }
