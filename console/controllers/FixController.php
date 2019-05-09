@@ -809,4 +809,26 @@ class FixController extends AbstractController
             $model->save();
         }
     }
+
+    /**
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionSalary()
+    {
+        $financeArray = Finance::find()
+            ->where(['finance_finance_text_id' => FinanceText::OUTCOME_SALARY])
+            ->andWhere(['between', 'finance_date', 1557388991, 1557389070])
+            ->each();
+        foreach ($financeArray as $finance)
+        {
+            /**
+             * @var Finance $finance
+             */
+            $finance->team->team_finance = $finance->finance_value_before;
+            $finance->team->save(true, ['team_finance']);
+
+            $finance->delete();
+        }
+    }
 }
