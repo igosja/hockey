@@ -242,7 +242,7 @@ class HockeyHelper
         $text = preg_replace('/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" target="_blank">$2</a>', $text);
         $text = preg_replace('/\[img\](.*?)\[\/img\]/i', '<img class="img-responsive" src="$1" alt="Image" />', $text);
         $text = str_replace('class="img-responsive" src="https://virtual-hockey.org/img/', 'src="https://virtual-hockey.org/img/', $text);
-        $text = str_replace('class="img-responsive" src="https://www.virtual-hockey.org/img/', 'src="https://www,virtual-hockey.org/img/', $text);
+        $text = str_replace('class="img-responsive" src="https://www.virtual-hockey.org/img/', 'src="https://www.virtual-hockey.org/img/', $text);
         $text = str_replace('class="img-responsive" src="/img/', 'src="/img/', $text);
         $text = str_replace('[p]', '<p>', $text);
         $text = str_replace('[/p]', '</p>', $text);
