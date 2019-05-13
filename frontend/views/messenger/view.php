@@ -3,6 +3,8 @@
 use coderlex\wysibb\WysiBB;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
+use common\models\Message;
+use common\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -11,8 +13,8 @@ use yii\widgets\ActiveForm;
  * @var int $inBlacklistInterlocutor
  * @var int $inBlacklistOwner
  * @var int $lazy
- * @var \common\models\Message[] $messageArray
- * @var \common\models\User $user
+ * @var Message[] $messageArray
+ * @var User $user
  */
 
 print $this->render('//user/_top');
@@ -52,15 +54,6 @@ $user = Yii::$app->user->identity;
                     Вам заблокирован доступ к личным сообщениям
                     <br/>
                     Причина - ваш почтовый адрес не подтверждён
-                </div>
-            </div>
-        <?php elseif ($user->user_date_block_comment >= time()) : ?>
-            <div class="row margin-top">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert warning">
-                    Вам заблокирован доступ к личным сообщениям до
-                    <?= FormatHelper::asDateTime($user->user_date_block_comment); ?>
-                    <br/>
-                    Причина - <?= $user->reasonBlockComment->block_reason_text; ?>
                 </div>
             </div>
         <?php elseif ($inBlacklistOwner) : ?>
