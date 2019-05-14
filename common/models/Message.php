@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -55,7 +56,7 @@ class Message extends AbstractActiveRecord
     /**
      * @param int $userId
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function addMessage($userId)
     {
@@ -68,9 +69,6 @@ class Message extends AbstractActiveRecord
         $user = Yii::$app->user->identity;
 
         if (!$user->user_date_confirm) {
-            return false;
-        }
-        if ($user->user_date_block_comment) {
             return false;
         }
 

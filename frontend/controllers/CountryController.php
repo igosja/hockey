@@ -157,8 +157,8 @@ class CountryController extends AbstractController
             if (Yii::$app->user->isGuest) {
                 $id = Country::DEFAULT_ID;
             } else {
-                if ($this->myTeam) {
-                    $id = $this->myTeam->stadium->city->city_country_id;
+                if ($this->myTeamOrVice) {
+                    $id = $this->myTeamOrVice->stadium->city->city_country_id;
                 } else {
                     $id = Country::DEFAULT_ID;
                 }
