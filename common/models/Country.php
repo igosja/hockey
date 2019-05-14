@@ -106,7 +106,11 @@ class Country extends AbstractActiveRecord
      */
     public static function selectOptions()
     {
-        return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
+        return ArrayHelper::map(
+            self::find()->where(['!=', 'country_id', 0])->orderBy(['country_name' => SORT_ASC])->all(),
+            'country_id',
+            'country_name'
+        );
     }
 
     /**
