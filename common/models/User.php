@@ -54,6 +54,7 @@ use yii\web\IdentityInterface;
  * @property float $user_money
  * @property string $user_name
  * @property int $user_news_id
+ * @property int $user_no_vice
  * @property string $user_notes
  * @property string $user_password
  * @property float $user_rating
@@ -135,6 +136,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_holiday_day',
                     'user_language_id',
                     'user_news_id',
+                    'user_no_vice',
                     'user_referrer_done',
                     'user_referrer_id',
                     'user_sex_id',
@@ -192,6 +194,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_id' => 'Id',
             'user_login' => 'Логин',
             'user_name' => 'Имя',
+            'user_no_vice' => 'Не получать предложения быть заместителем',
             'user_surname' => 'Фамилия',
             'user_sex_id' => 'Пол',
             'user_timezone' => 'Часовой пояс',
