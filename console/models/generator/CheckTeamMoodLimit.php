@@ -31,7 +31,7 @@ class CheckTeamMoodLimit
             ->andWhere(['or', ['!=', 'game_home_mood_id', Mood::NORMAL], ['!=', 'game_guest_mood_id', Mood::NORMAL]])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($gameArray as $game) {
             $this->game = $game;
 

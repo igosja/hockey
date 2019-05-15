@@ -27,7 +27,7 @@ class UserFireExtraTeam
             ->groupBy(['team_user_id'])
             ->having(['>', 'COUNT(team_id)', 1])
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($userArray as $user) {
             /**
              * @var Team $user
@@ -61,7 +61,7 @@ class UserFireExtraTeam
             ->groupBy(['team_user_id'])
             ->having(['>', 'COUNT(team_id)', 1])
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($userArray as $user) {
             /**
              * @var Team $user

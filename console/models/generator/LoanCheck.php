@@ -25,7 +25,7 @@ class LoanCheck
             ->andWhere(['!=', 'loan_ready', 0])
             ->andWhere('FROM_UNIXTIME(`loan_ready`+604800, "%Y-%m-%d")<=CURDATE()')
             ->orderBy(['loan_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($loanArray as $loan) {
             /**
              * @var Loan $loan

@@ -22,7 +22,7 @@ class CountryStadiumCapacity
             ->where(['!=', 'team_id', 0])
             ->groupBy(['country_id'])
             ->orderBy(['country_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($countryArray as $country) {
             /**
              * @var Country $country

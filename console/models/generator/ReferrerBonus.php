@@ -27,7 +27,7 @@ class ReferrerBonus
             ->andWhere(['not', ['team_user_id' => null]])
             ->groupBy(['user_id'])
             ->orderBy(['user_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($userArray as $user) {
             /**
              * @var User $user

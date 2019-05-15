@@ -27,7 +27,7 @@ class NationalViceVoteStatus
             ->where(['election_national_vice_election_status_id' => ElectionStatus::CANDIDATES])
             ->andWhere(['<', 'election_national_vice_date', time() - 172800])
             ->orderBy(['election_national_vice_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionNationalViceArray as $electionNationalVice) {
             /**
              * @var ElectionNationalVice $electionNationalVice
@@ -42,7 +42,7 @@ class NationalViceVoteStatus
             ->where(['election_national_vice_election_status_id' => ElectionStatus::OPEN])
             ->andWhere(['<', 'election_national_vice_date', time() - 259200])
             ->orderBy(['election_national_vice_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionNationalViceArray as $electionNationalVice) {
             /**
              * @var ElectionNationalVice $electionNationalVice

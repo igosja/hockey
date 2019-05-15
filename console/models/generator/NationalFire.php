@@ -26,7 +26,7 @@ class NationalFire
             ->where(['!=', 'national_user_id', 0])
             ->andWhere(['!=', 'national_vice_id', 0])
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($nationalArray as $national) {
             /**
              * @var National $national

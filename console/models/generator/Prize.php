@@ -38,7 +38,7 @@ class Prize
                     ->with(['team'])
                     ->where(['off_season_season_id' => $seasonId])
                     ->orderBy(['off_season_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($offSeasonArray as $offSeason) {
                     /**
                      * @var OffSeason $offSeason
@@ -64,7 +64,7 @@ class Prize
                         'participant_championship_stage_id' => Stage::QUARTER
                     ])
                     ->orderBy(['participant_championship_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($championshipArray as $championship) {
                     /**
                      * @var ParticipantChampionship $championship
@@ -90,7 +90,7 @@ class Prize
                         'participant_championship_stage_id' => Stage::SEMI
                     ])
                     ->orderBy(['participant_championship_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($championshipArray as $championship) {
                     /**
                      * @var ParticipantChampionship $championship
@@ -116,7 +116,7 @@ class Prize
                         'participant_championship_stage_id' => [Stage::FINAL_GAME, 0]
                     ])
                     ->orderBy(['participant_championship_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($championshipArray as $championship) {
                     /**
                      * @var ParticipantChampionship $championship
@@ -145,7 +145,7 @@ class Prize
                     ->with(['team'])
                     ->where(['conference_season_id' => $seasonId])
                     ->orderBy(['conference_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($conferenceArray as $conference) {
                     /**
                      * @var Conference $conference
@@ -168,7 +168,7 @@ class Prize
                     ->with(['team'])
                     ->where(['championship_season_id' => $seasonId])
                     ->orderBy(['championship_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($championshipArray as $championship) {
                     /**
                      * @var Championship $championship
@@ -195,7 +195,7 @@ class Prize
                 $worldCupArray = WorldCup::find()
                     ->with(['national'])
                     ->where(['world_cup_season_id' => $seasonId])
-                    ->each();
+                    ->each(5);
                 foreach ($worldCupArray as $worldCup) {
                     /**
                      * @var WorldCup $worldCup

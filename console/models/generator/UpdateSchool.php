@@ -31,7 +31,7 @@ class UpdateSchool
             ->where(['<=', 'school_day', 0])
             ->andWhere(['school_ready' => 0])
             ->orderBy(['school_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($schoolArray as $school) {
             /**
              * @var School $school

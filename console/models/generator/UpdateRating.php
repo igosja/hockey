@@ -65,7 +65,7 @@ class UpdateRating
 
         $ratingTypeArray = RatingType::find()
             ->orderBy(['rating_type_rating_chapter_id' => SORT_ASC, 'rating_type_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($ratingTypeArray as $ratingType) {
             /**
              * @var RatingType $ratingType
@@ -125,7 +125,7 @@ class UpdateRating
                 $teamArray = Team::find()
                     ->where(['!=', 'team_id', 0])
                     ->orderBy(new Expression($order . ', `team_id` ASC'))
-                    ->each();
+                    ->each(5);
                 foreach ($teamArray as $team) {
                     /**
                      * @var Team $team
@@ -140,7 +140,7 @@ class UpdateRating
                     ->where(['!=', 'team_id', 0])
                     ->groupBy(['country_id'])
                     ->orderBy(['country_id' => SORT_ASC])
-                    ->each();
+                    ->each(5);
                 foreach ($countryArray as $country) {
                     /**
                      * @var Country $country
@@ -150,7 +150,7 @@ class UpdateRating
                         ->joinWith(['stadium.city'])
                         ->where(['city_country_id' => $country->country_id])
                         ->orderBy(new Expression($order . ', `team_id`'))
-                        ->each();
+                        ->each(5);
                     foreach ($teamArray as $team) {
                         /**
                          * @var Team $team
@@ -167,7 +167,7 @@ class UpdateRating
                     ->andWhere(['!=', 'user_id', 0])
                     ->groupBy(['user_id'])
                     ->orderBy(new Expression($order . ', `user_id` ASC'))
-                    ->each();
+                    ->each(5);
                 foreach ($userArray as $user) {
                     /**
                      * @var User $user
@@ -182,7 +182,7 @@ class UpdateRating
                     ->where(['!=', 'city_id', 0])
                     ->groupBy(['country_id'])
                     ->orderBy(new Expression($order . ', `country_id`'))
-                    ->each();
+                    ->each(5);
                 foreach ($countryArray as $country) {
                     /**
                      * @var Country $country

@@ -23,7 +23,7 @@ class LoanDecreaseAndReturn
         $playerArray = Player::find()
             ->where(['<=', 'player_loan_day', 0])
             ->andWhere(['!=', 'player_loan_team_id', 0])
-            ->each();
+            ->each(5);
         foreach ($playerArray as $player) {
             /**
              * @var Player $player

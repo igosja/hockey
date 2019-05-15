@@ -45,7 +45,7 @@ class MakeTransfer
             ->where(['transfer_ready' => 0])
             ->andWhere('`transfer_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'transfer_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($transferArray as $transfer) {
             /**
              * @var Transfer $transfer
