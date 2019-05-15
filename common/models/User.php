@@ -418,6 +418,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
             'user_city',
             'user_country_id',
             'user_name',
+            'user_no_vice',
             'user_sex_id',
             'user_surname',
             'user_timezone',
