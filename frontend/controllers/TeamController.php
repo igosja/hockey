@@ -89,7 +89,7 @@ class TeamController extends AbstractController
                 'stadium.city.country',
             ])
             ->where(['!=', 'team_id', 0])
-            ->orderBy(['country_id' => SORT_ASC])
+            ->orderBy(['country_name' => SORT_ASC])
             ->groupBy(['country_id']);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,

@@ -18,10 +18,13 @@ use common\models\Team;
 use common\models\Transfer;
 use common\models\User;
 use common\models\UserRating;
+use Exception;
 use frontend\models\ChangePassword;
 use frontend\models\UserTransferFinance;
+use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -77,8 +80,8 @@ class UserController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionView($id = 0)
     {
@@ -255,8 +258,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionQuestionnaire()
     {
@@ -302,8 +305,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionHoliday()
     {
@@ -323,6 +326,7 @@ class UserController extends AbstractController
             $userArray = User::find()
                 ->where(['>', 'user_date_login', time() - 604800])
                 ->andWhere(['!=', 'user_id', $this->user->user_id])
+                ->andWhere(['user_no_vice' => 0])
                 ->andWhere([
                     'not',
                     [
@@ -360,7 +364,7 @@ class UserController extends AbstractController
 
     /**
      * @return array|string|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionPassword()
     {
@@ -386,7 +390,7 @@ class UserController extends AbstractController
 
     /**
      * @return string|Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionMoneyTransfer()
     {
@@ -454,7 +458,7 @@ class UserController extends AbstractController
             try {
                 $this->myTeam->managerFire();
                 $this->setSuccessFlash();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 ErrorHelper::log($e);
                 $this->setErrorFlash();
             }
@@ -488,7 +492,7 @@ class UserController extends AbstractController
                 } else {
                     $this->setErrorFlash($result['message']);
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 ErrorHelper::log($e);
                 $this->setErrorFlash();
             }
@@ -520,7 +524,7 @@ class UserController extends AbstractController
                 }
 
                 $this->setSuccessFlash();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 ErrorHelper::log($e);
                 $this->setErrorFlash();
             }
@@ -545,7 +549,7 @@ class UserController extends AbstractController
                 $this->user->save(true, ['user_date_delete']);
 
                 $this->setSuccessFlash();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 ErrorHelper::log($e);
                 $this->setErrorFlash();
             }
@@ -560,8 +564,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionNotes()
     {
@@ -583,8 +587,8 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @return Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function actionBlacklist($id)
     {

@@ -1,12 +1,13 @@
 <?php
 
+use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
  * @var array $countryArray
  * @var array $dayArray
- * @var \common\models\User $model
+ * @var User $model
  * @var array $monthArray
  * @var array $sexArray
  * @var array $timeZoneArray
@@ -95,7 +96,8 @@ print $this->render('_top');
     $timeZoneArray,
     ['class' => 'form-control form-small']
 ); ?>
-<div class="row">
+<?= $form->field($model, 'user_no_vice')->checkbox([], false); ?>
+<div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center text-size-3">
         Если вы поменяете свой e-mail, система автоматически отправит письмо на новый адрес с указанием,
         как подтвердить, что ящик принадлежит вам и работает
