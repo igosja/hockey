@@ -24,7 +24,7 @@ class UserFire
             ->andWhere(['<', 'user_date_vip', time()])
             ->andWhere(['>=', 'team_auto', Team::MAX_AUTO_GAMES])
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($teamArray as $team) {
             /**
              * @var Team $team
@@ -39,7 +39,7 @@ class UserFire
             ->andWhere(['<', 'user_date_vip', time()])
             ->andWhere(['<', 'user_date_login', time() - 1296000])//15 днів для не VIP
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($teamArray as $team) {
             /**
              * @var Team $team
@@ -54,7 +54,7 @@ class UserFire
             ->andWhere(['>=', 'user_date_vip', time()])
             ->andWhere(['<', 'user_date_login', time() - 5184000])//60 днів для VIP
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($teamArray as $team) {
             /**
              * @var Team $team

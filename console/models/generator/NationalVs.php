@@ -18,7 +18,7 @@ class NationalVs
         $nationalArray = National::find()
             ->where(['!=', 'national_id', 0])
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
 
         foreach ($nationalArray as $national) {
             /**

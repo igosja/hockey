@@ -26,7 +26,7 @@ class UpdateBuildingStadium
             ->where(['building_stadium_ready' => 0])
             ->andWhere(['<=', 'building_stadium_day', 0])
             ->orderBy(['building_stadium_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($buildingStadiumArray as $buildingStadium) {
             /**
              * @var BuildingStadium $buildingStadium

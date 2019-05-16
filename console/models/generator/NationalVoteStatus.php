@@ -26,7 +26,7 @@ class NationalVoteStatus
             ->where(['election_national_election_status_id' => ElectionStatus::CANDIDATES])
             ->andWhere(['<', 'election_national_date', time() - 172800])
             ->orderBy(['election_national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionNationalArray as $electionNational) {
             /**
              * @var ElectionNational $electionNational
@@ -41,7 +41,7 @@ class NationalVoteStatus
             ->where(['election_national_election_status_id' => ElectionStatus::OPEN])
             ->andWhere(['<', 'election_national_date', time() - 259200])
             ->orderBy(['election_national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionNationalArray as $electionNational) {
             /**
              * @var ElectionNational $electionNational

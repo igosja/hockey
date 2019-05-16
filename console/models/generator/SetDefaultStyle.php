@@ -50,7 +50,7 @@ class SetDefaultStyle
                 ['game_home_tactic_id_4' => 0],
             ])
             ->orderBy(['game_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($gameArray as $game) {
             /**
              * @var Game $game

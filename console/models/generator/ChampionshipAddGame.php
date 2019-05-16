@@ -39,7 +39,7 @@ class ChampionshipAddGame
             $gameArray = Game::find()
                 ->where(['game_schedule_id' => $schedule->schedule_id])
                 ->orderBy(['game_id' => SORT_ASC])
-                ->each();
+                ->each(5);
             foreach ($gameArray as $game) {
                 /**
                  * @var Game $game
@@ -142,7 +142,7 @@ class ChampionshipAddGame
             $gameArray = Game::find()
                 ->where(['game_schedule_id' => $schedule->schedule_id])
                 ->orderBy(['game_id' => SORT_ASC])
-                ->each();
+                ->each(5);
             foreach ($gameArray as $game) {
                 /**
                  * @var Game $game

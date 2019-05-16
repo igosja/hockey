@@ -20,7 +20,7 @@ class IncreaseNationalUserDay
             ->where(['!=', 'national_user_id', 0])
             ->orWhere(['!=', 'national_vice_id', 0])
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($nationalArray as $national) {
             /**
              * @var National $national

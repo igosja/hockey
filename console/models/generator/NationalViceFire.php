@@ -21,7 +21,7 @@ class NationalViceFire
             ->where(['!=', 'national_vice_id', 0])
             ->andWhere(['<', 'user_date_login', time() - 1296000])
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($nationalArray as $national) {
             /**
              * @var National $national
