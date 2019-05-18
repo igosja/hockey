@@ -1,10 +1,11 @@
 <?php
 
 /**
- * @var \common\models\Team $team
+ * @var Team $team
  */
 
 use common\components\FormatHelper;
+use common\models\Team;
 use yii\helpers\Html;
 
 ?>
@@ -61,7 +62,8 @@ use yii\helpers\Html;
                     <?php if ($team->vice->canDialog()) : ?>
                         <?= Html::a(
                             '<i class="fa fa-envelope-o"></i>',
-                            ['messenger/view', 'id' => $team->vice->user_id]
+                            ['messenger/view', 'id' => $team->vice->user_id],
+                            ['title' => 'Написать']
                         ); ?>
                     <?php endif; ?>
                     <?= Html::a(
@@ -76,6 +78,13 @@ use yii\helpers\Html;
                     Ник:
                     <?= $team->vice->iconVip(); ?>
                     <?= $team->vice->userLink(['class' => 'strong']); ?>
+                    <?php if ($team->canViceLeave()) : ?>
+                        <?= Html::a(
+                            '<i class="fa fa-sign-out"></i>',
+                            ['team/vice-leave', 'id' => $team->team_id],
+                            ['title' => 'Отказаться от заместительства']
+                        ); ?>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>
