@@ -522,6 +522,34 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @throws \yii\db\Exception
+     * @retur void
+     */
+    public function viceFire()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $viceId = $this->team_vice_id;
+
+            $this->team_vice_id = 0;
+            $this->save(true, [
+                'team_vice_id',
+            ]);
+
+            History::log([
+                'history_history_text_id' => HistoryText::USER_VICE_TEAM_OUT,
+                'history_team_id' => $this->team_id,
+                'history_user_id' => $viceId,
+            ]);
+        } catch (Throwable $e) {
+            ErrorHelper::log($e);
+            $transaction->rollBack();
+        }
+
+        $transaction->commit();
+    }
+
+    /**
      * @return array
      * @throws \yii\db\Exception
      */
@@ -1170,6 +1198,21 @@ class Team extends AbstractActiveRecord
             ->orderBy(['forum_message_id' => SORT_DESC])
             ->limit(5)
             ->all();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canViceLeave(): bool
+    {
+        /**
+         * @var AbstractController $controller
+         */
+        $controller = Yii::$app->controller;
+        if ($controller->user && $controller->user->user_id == $this->team_vice_id) {
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -112,7 +112,7 @@ class National extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function fireUser()
     {
@@ -149,7 +149,7 @@ class National extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function fireVice()
     {
@@ -352,7 +352,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if ($stadium->team->team_user_id) {
+                if ($stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -371,7 +371,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEGATIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                if (Attitude::NEGATIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -387,7 +387,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEUTRAL == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                if (Attitude::NEUTRAL == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -403,7 +403,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::POSITIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id) {
+                if (Attitude::POSITIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
