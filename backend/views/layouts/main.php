@@ -8,11 +8,12 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use yii\widgets\Menu;
 
 /**
- * @var \yii\web\View $this
+ * @var View $this
  * @var string $content
  */
 
@@ -83,6 +84,10 @@ AppAsset::register($this);
                 [
                     'label' => '<i class="fa fa-signal fa-fw"></i> Версия сайта',
                     'url' => ['site/version'],
+                ],
+                [
+                    'label' => '<i class="fa fa-file-text-o fa-fw"></i> Логи',
+                    'url' => ['/logreader'],
                 ],
                 [
                     'label' => '<i class="fa fa-sign-out fa-fw"></i> Выход',

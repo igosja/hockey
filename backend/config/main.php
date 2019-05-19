@@ -11,7 +11,7 @@ $params = array_merge(
 
 return [
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'logreader'],
     'components' => [
         'assetManager' => [
             'appendTimestamp' => true,
@@ -79,6 +79,15 @@ return [
     ],
     'controllerNamespace' => 'backend\controllers',
     'id' => 'app-backend',
-    'modules' => [],
+    'modules' => [
+        'logreader' => [
+            'class' => 'zhuravljov\yii\logreader\Module',
+            'aliases' => [
+                'Frontend Errors' => '@frontend/runtime/logs/app.log',
+                'Backend Errors' => '@backend/runtime/logs/app.log',
+                'Console Errors' => '@console/runtime/logs/app.log',
+            ],
+        ],
+    ],
     'params' => $params,
 ];
