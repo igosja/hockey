@@ -46,7 +46,6 @@ class UserController extends AbstractController
                 'class' => AccessControl::class,
                 'only' => [
                     'drop-team',
-                    'money-transfer',
                     'questionnaire',
                     'holiday',
                     'password',
@@ -61,7 +60,6 @@ class UserController extends AbstractController
                         'allow' => true,
                         'actions' => [
                             'drop-team',
-                            'money-transfer',
                             'questionnaire',
                             'holiday',
                             'password',

@@ -20,6 +20,7 @@ use common\models\Support;
 use common\models\Team;
 use common\models\UserRole;
 use Exception;
+use frontend\models\CountryTransferFinance;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -54,6 +55,7 @@ class CountryController extends AbstractController
                     'delete-news-comment',
                     'support-admin',
                     'support-admin-load',
+                    'money-transfer',
                 ],
                 'rules' => [
                     [
@@ -67,6 +69,7 @@ class CountryController extends AbstractController
                             'delete-news-comment',
                             'support-admin',
                             'support-admin-load',
+                            'money-transfer',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -950,5 +953,45 @@ class CountryController extends AbstractController
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionMoneyTransfer(int $id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if ($this->user->user_id != $country->country_president_id) {
+            $this->setErrorFlash('Только президент федерации может распределять фонд федерации');
+            return $this->redirect(['country/news', 'id' => $id]);
+        }
+
+        $model = new CountryTransferFinance(['country' => $country]);
+        if ($model->execute()) {
+            $this->setSuccessFlash('Деньги успешно переведены');
+            return $this->refresh();
+        }
+
+        $teamArray = Team::find()
+            ->where(['!=', 'team_id', 0])
+            ->orderBy(['team_name' => SORT_ASC])
+            ->all();
+        $teamItems = [];
+
+        foreach ($teamArray as $team) {
+            $teamItems[$team->team_id] = $team->fullName();
+        }
+
+        $this->setSeoTitle('Распределение фонда федерации');
+
+        return $this->render('money-transfer', [
+            'model' => $model,
+            'teamArray' => $teamItems,
+        ]);
     }
 }
