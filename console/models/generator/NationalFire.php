@@ -3,11 +3,13 @@
 namespace console\models\generator;
 
 use common\models\Attitude;
+use common\models\Bot;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\National;
 use common\models\Team;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class NationalFire
@@ -16,9 +18,9 @@ use Yii;
 class NationalFire
 {
     /**
-     * @throws \Exception
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
+     * @throws \Exception
      */
     public function execute()
     {
@@ -26,7 +28,7 @@ class NationalFire
             ->where(['!=', 'national_user_id', 0])
             ->andWhere(['!=', 'national_vice_id', 0])
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($nationalArray as $national) {
             /**
              * @var National $national
@@ -34,6 +36,10 @@ class NationalFire
             $negative = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
                 ->andWhere([
                     'team_attitude_national' => Attitude::NEGATIVE,
                     'city_country_id' => $national->national_country_id,
@@ -43,6 +49,10 @@ class NationalFire
             $total = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
                 ->andWhere(['city_country_id' => $national->national_country_id])
                 ->count();
 

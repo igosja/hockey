@@ -3,11 +3,13 @@
 namespace console\models\generator;
 
 use common\models\Attitude;
+use common\models\Bot;
 use common\models\Country;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\Team;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class PresidentFire
@@ -17,7 +19,7 @@ class PresidentFire
 {
     /**
      * @throws \Exception
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -25,7 +27,7 @@ class PresidentFire
             ->where(['!=', 'country_president_id', 0])
             ->andWhere(['!=', 'country_president_vice_id', 0])
             ->orderBy(['country_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($countryArray as $country) {
             /**
              * @var Country $country
@@ -33,6 +35,10 @@ class PresidentFire
             $negative = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
                 ->andWhere([
                     'team_attitude_president' => Attitude::NEGATIVE,
                     'city_country_id' => $country->country_id,
@@ -42,6 +48,10 @@ class PresidentFire
             $total = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
                 ->andWhere(['city_country_id' => $country->country_id])
                 ->count();
 

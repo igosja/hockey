@@ -46,7 +46,7 @@ class MakeLoan
             ->where(['loan_ready' => 0])
             ->andWhere('`loan_date`<=UNIX_TIMESTAMP()-86400')
             ->orderBy(['player_price' => SORT_DESC, 'loan_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($loanArray as $loan) {
             /**
              * @var Loan $loan

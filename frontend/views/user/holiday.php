@@ -1,10 +1,12 @@
 <?php
 
+use common\models\Team;
+use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\User $model
+ * @var User $model
  * @var array $teamArray
  */
 
@@ -50,8 +52,12 @@ print $this->render('_top');
     </div>
 </div>
 <?php foreach ($teamArray as $item) : ?>
-    <?php /** @var \common\models\Team $team */
-    $team = $item['team']; ?>
+    <?php
+    /**
+     * @var Team $team
+     */
+    $team = $item['team'];
+    ?>
     <div class="row">
         <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 text-right">
             <?= Html::label(

@@ -23,7 +23,7 @@ class TeamVisitorAfterGame
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::NATIONAL])
             ->orderBy(['game_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($gameArray as $game) {
             /**
              * @var Game $game

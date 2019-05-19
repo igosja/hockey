@@ -18,7 +18,7 @@ class NationalStadium
     {
         $nationalArray = National::find()
             ->orderBy(['national_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($nationalArray as $national) {
             /**
              * @var National $national

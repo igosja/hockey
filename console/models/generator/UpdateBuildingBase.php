@@ -26,7 +26,7 @@ class UpdateBuildingBase
             ->where(['building_base_ready' => 0])
             ->andWhere(['<=', 'building_base_day', 0])
             ->orderBy(['building_base_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($buildingBaseArray as $buildingBase) {
             /**
              * @var BuildingBase $buildingBase

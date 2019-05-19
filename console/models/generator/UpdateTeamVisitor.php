@@ -19,7 +19,7 @@ class UpdateTeamVisitor
         $teamArray = Team::find()
             ->where(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($teamArray as $team) {
             /**
              * @var Team $team

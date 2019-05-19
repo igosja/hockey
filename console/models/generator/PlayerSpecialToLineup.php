@@ -27,7 +27,7 @@ class PlayerSpecialToLineup
                     ->select(['player_special_player_id'])
             ])
             ->orderBy(['lineup_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($lineupArray as $lineup) {
             /**
              * @var Lineup $lineup

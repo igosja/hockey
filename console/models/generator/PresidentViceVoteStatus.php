@@ -26,7 +26,7 @@ class PresidentViceVoteStatus
             ->where(['election_president_vice_election_status_id' => ElectionStatus::CANDIDATES])
             ->andWhere(['<', 'election_president_vice_date', time() - 172800])
             ->orderBy(['election_president_vice_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionPresidentViceArray as $electionPresidentVice) {
             /**
              * @var ElectionPresidentVice $electionPresidentVice
@@ -41,7 +41,7 @@ class PresidentViceVoteStatus
             ->where(['election_president_vice_election_status_id' => ElectionStatus::OPEN])
             ->andWhere(['<', 'election_president_vice_date', time() - 259200])
             ->orderBy(['election_president_vice_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($electionPresidentViceArray as $electionPresidentVice) {
             /**
              * @var ElectionPresidentVice $electionPresidentVice

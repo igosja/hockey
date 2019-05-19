@@ -35,7 +35,7 @@ class UpdateTraining
             ->where(['>=', 'training_percent', 100])
             ->andWhere(['training_ready' => 0])
             ->orderBy(['training_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($trainingArray as $training) {
             $this->training = $training;
 

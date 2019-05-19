@@ -198,14 +198,12 @@ $controller = Yii::$app->controller;
                 ['country/support-president', 'id' => $country->country_id],
                 ['class' => ($supportPresident ? 'red' : '')]
             ); ?>
-            <?php if (false) : ?>
-                <?php if (Yii::$app->user->id == $country->country_president_id): ?>
-                    |
-                    <?= Html::a(
-                        'Распределить фонд',
-                        ['country/money-transfer', 'id' => $country->country_id]
-                    ); ?>
-                <?php endif; ?>
+            <?php if (Yii::$app->user->id == $country->country_president_id): ?>
+                |
+                <?= Html::a(
+                    'Распределить фонд',
+                    ['country/money-transfer', 'id' => $country->country_id]
+                ); ?>
             <?php endif; ?>
             <?php if ((Yii::$app->user->id == $country->country_president_id && $country->country_president_vice_id) || Yii::$app->user->id == $country->country_president_vice_id) : ?>
                 |

@@ -22,7 +22,7 @@ class IncreaseNationalPlayerDay
             ->andWhere(['!=', 'lineup_player_id', 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['lineup_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($lineupArray as $lineup) {
             /**
              * @var Lineup $lineup

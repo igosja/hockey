@@ -106,7 +106,11 @@ class Country extends AbstractActiveRecord
      */
     public static function selectOptions()
     {
-        return ArrayHelper::map(self::find()->where(['!=', 'country_id', 0])->all(), 'country_id', 'country_name');
+        return ArrayHelper::map(
+            self::find()->where(['!=', 'country_id', 0])->orderBy(['country_name' => SORT_ASC])->all(),
+            'country_id',
+            'country_name'
+        );
     }
 
     /**
@@ -189,7 +193,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if ($stadium->team->team_user_id) {
+                if ($stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -208,7 +212,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEGATIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
+                if (Attitude::NEGATIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -224,7 +228,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEUTRAL == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
+                if (Attitude::NEUTRAL == $stadium->team->team_attitude_president && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -240,7 +244,7 @@ class Country extends AbstractActiveRecord
         $result = 0;
         foreach ($this->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::POSITIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id) {
+                if (Attitude::POSITIVE == $stadium->team->team_attitude_president && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }

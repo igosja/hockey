@@ -17,8 +17,6 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Name;
 use common\models\NameCountry;
-use common\models\Physical;
-use common\models\Player;
 use common\models\Position;
 use common\models\Season;
 use common\models\Stadium;
@@ -28,12 +26,9 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
-use common\models\Transfer;
 use Exception;
-use Throwable;
 use Yii;
 use yii\db\Expression;
-use yii\db\StaleObjectException;
 
 /**
  * Class FixController
@@ -431,36 +426,38 @@ class FixController extends AbstractController
      */
     public function actionNewFed()
     {
-        $countryName = 'Словения';
+        $countryName = 'Венгрия';
+
+        $country = Country::find()
+            ->where(['country_name' => $countryName])
+            ->limit(1)
+            ->one();
+        if (!$country) {
+            $country = new Country();
+            $country->country_name = $countryName;
+            $country->save();
+        }
 
         $nameList = [
-            'Иржи',
-            'Ян',
-            'Петр',
-            'Йозеф',
-            'Павел',
-            'Ярек',
-            'Мартин',
-            'Томаш',
-            'Франтишек',
-            'Зденек',
-            'Михал',
-            'Карл',
-            'Милан',
-            'Лукаш',
-            'Якуб',
+            'Бенце',
+            'Мате',
+            'Левенте',
             'Давид',
-            'Ондржей',
-            'Марек',
+            'Балаж',
             'Даниель',
-            'Войтех',
-            'Филипп',
             'Адам',
-            'Матей',
-            'Доминик',
-            'Штепан',
-            'Матиас',
-            'Шимон',
+            'Милан',
+            'Петер',
+            'Герго',
+            'Балинт',
+            'Тамаш',
+            'Габор',
+            'Козма',
+            'Алекс',
+            'Роберт',
+            'Лайош',
+            'Максим',
+            'Эрвин',
         ];
 
         $nameArray = [
@@ -514,105 +511,6 @@ class FixController extends AbstractController
             ->execute();
 
         $surnameList = [
-            'Новак',
-            'Свобода',
-            'Новотный',
-            'Дворжак',
-            'Черный',
-            'Прохазка',
-            'Кучера',
-            'Веселый',
-            'Горак',
-            'Немец',
-            'Покорный',
-            'Поспишил',
-            'Марек',
-            'Елинек',
-            'Крал',
-            'Ружичка',
-            'Бенеш',
-            'Седлачек',
-            'Долежал',
-            'Земан',
-            'Коларж',
-            'Навратил',
-            'Чермак',
-            'Урбан',
-            'Ванек',
-            'Блажек',
-            'Кржиж',
-            'Коварж',
-            'Копецкий',
-            'Бартош',
-            'Влчек',
-            'Мусил',
-            'Шимек',
-            'Конечный',
-            'Малый',
-            'Чех',
-            'Кадлец',
-            'Станек',
-            'Штепанек',
-            'Голуб',
-            'Достал',
-            'Соукуп',
-            'Мареш',
-            'Моравец',
-            'Тихий',
-            'Валента',
-            'Вавра',
-            'Матоушек',
-            'Ржига',
-            'Блага',
-            'Буреш',
-            'Шевчик',
-            'Грушка',
-            'Машек',
-            'Душек',
-            'Павлик',
-            'Гавличек',
-            'Янда',
-            'Мах',
-            'Лишка',
-            'Беран',
-            'Беднарж',
-            'Вацек',
-            'Витек',
-            'Барта',
-            'Махачек',
-            'Томан',
-            'Кашпар',
-            'Шмид',
-            'Седлак',
-            'Швец',
-            'Мюллер',
-            'Ярош',
-            'Билек',
-            'Славик',
-            'Немечек',
-            'Матейка',
-            'Беранек',
-            'Горачек',
-            'Фишер',
-            'Брож',
-            'Краус',
-            'Кубичек',
-            'Гавел',
-            'Прокоп',
-            'Недухал',
-            'Нетрвал',
-            'Овчачик',
-            'Пешан',
-            'Правец',
-            'Рохла',
-            'Шпрингл',
-            'Табор',
-            'Тобишка',
-            'Вопичка',
-            'Барштипан',
-            'Безуха',
-            'Эстерка',
-            'Груда',
         ];
 
         $surnameArray = [
@@ -667,40 +565,40 @@ class FixController extends AbstractController
             [
                 'country' => $countryName,
                 'list' => [
-                    ['team' => 'Есенице', 'stadium' => 'Подмежакла', 'city' => 'Есенице'],
-                    ['team' => 'Марибор', 'stadium' => 'Табор', 'city' => 'Марибор'],
-                    ['team' => 'Олимпия', 'stadium' => 'Тиволи', 'city' => 'Любляна'],
-                    ['team' => 'Блед', 'stadium' => 'Блед', 'city' => 'Блед'],
-                    ['team' => 'Целе', 'stadium' => 'Целе', 'city' => 'Целе'],
-                    ['team' => 'Славия', 'stadium' => 'Славия', 'city' => 'Любляна'],
-                    ['team' => 'Тиволи', 'stadium' => 'Тиволи', 'city' => 'Любляна'],
-                    ['team' => 'Триглав', 'stadium' => 'Триглав', 'city' => 'Крань'],
-                    ['team' => 'Копер', 'stadium' => 'Копер', 'city' => 'Копер'],
-                    ['team' => 'Веленье', 'stadium' => 'Веленье', 'city' => 'Веленье'],
-                    ['team' => 'Птуй', 'stadium' => 'Птуй', 'city' => 'Птуй'],
-                    ['team' => 'Трбовле', 'stadium' => 'Трбовле', 'city' => 'Трбовле'],
-                    ['team' => 'Камник', 'stadium' => 'Камник', 'city' => 'Камник'],
-                    ['team' => 'Домжале', 'stadium' => 'Домжале', 'city' => 'Домжале'],
-                    ['team' => 'Изола', 'stadium' => 'Изола', 'city' => 'Изола'],
-                    ['team' => 'Брежице', 'stadium' => 'Брежице', 'city' => 'Брежице'],
-                    ['team' => 'Логатец', 'stadium' => 'Логатец', 'city' => 'Логатец'],
-                    ['team' => 'Постойна', 'stadium' => 'Постойна', 'city' => 'Постойна'],
-                    ['team' => 'Врхника', 'stadium' => 'Врхника', 'city' => 'Врхника'],
-                    ['team' => 'Кочевье', 'stadium' => 'Кочевье', 'city' => 'Кочевье'],
-                    ['team' => 'Кршко', 'stadium' => 'Кршко', 'city' => 'Кршко'],
-                    ['team' => 'Гросупле', 'stadium' => 'Гросупле', 'city' => 'Гросупле'],
-                    ['team' => 'Айдовшчина', 'stadium' => 'Айдовшчина', 'city' => 'Айдовшчина'],
-                    ['team' => 'Лития', 'stadium' => 'Лития', 'city' => 'Лития'],
-                    ['team' => 'Менгеш', 'stadium' => 'Менгеш', 'city' => 'Менгеш'],
-                    ['team' => 'Луция', 'stadium' => 'Луция', 'city' => 'Луция'],
-                    ['team' => 'Радовлица', 'stadium' => 'Радовлица', 'city' => 'Радовлица'],
-                    ['team' => 'Идрия', 'stadium' => 'Идрия', 'city' => 'Идрия'],
-                    ['team' => 'Чрномель', 'stadium' => 'Чрномель', 'city' => 'Чрномель'],
-                    ['team' => 'Сежана', 'stadium' => 'Сежана', 'city' => 'Сежана'],
-                    ['team' => 'Храстник', 'stadium' => 'Храстник', 'city' => 'Храстник'],
-                    ['team' => 'Медводе', 'stadium' => 'Медводе', 'city' => 'Медводе'],
-                    ['team' => 'Жалец', 'stadium' => 'Жалец', 'city' => 'Жалец'],
-                    ['team' => 'Шентюр', 'stadium' => 'Шентюр', 'city' => 'Шентюр'],
+                    ['team' => 'Фехервар АВ19', 'stadium' => 'Габор Очкаи', 'city' => 'Секешфехервар'],
+                    ['team' => 'ДАБ.Доцлер', 'stadium' => 'Дунауйварош', 'city' => 'Дунауйварош'],
+                    ['team' => 'Патриот', 'stadium' => 'Егполот', 'city' => 'Будапешт'],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
+                    ['team' => '', 'stadium' => '', 'city' => ''],
                 ],
             ],
         ];
@@ -803,48 +701,5 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
-    }
-
-    /**
-     * @throws Throwable
-     * @throws StaleObjectException
-     */
-    public function actionPhysical()
-    {
-        Player::updateAll(
-            ['player_physical_id' => Physical::DEFAULT_ID],
-            [
-                'and',
-                ['player_team_id' => 0],
-                [
-                    'not',
-                    [
-                        'player_id' => Transfer::find()
-                            ->select(['transfer_player_id'])
-                            ->where(['transfer_checked' => 0])
-                    ]
-                ]
-            ]);
-
-        Player::updateAllCounters(['player_physical_id' => -1], ['<=', 'player_age', Player::AGE_READY_FOR_PENSION]);
-        Player::updateAll(['player_physical_id' => 20], ['<', 'player_physical_id', 1]);
-
-        $sql = "UPDATE `player`
-                LEFT JOIN `physical_change`
-                ON `player_id`=`physical_change_player_id`
-                LEFT JOIN `physical`
-                ON `player_physical_id`=`physical_id`
-                LEFT JOIN `schedule`
-                ON `physical_change_schedule_id`=`schedule_id`
-                SET `player_physical_id`=`physical_opposite`
-                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
-        Yii::$app->db->createCommand($sql)->execute();
-
-        $sql = "UPDATE `player`
-                LEFT JOIN `physical`
-                ON `player_physical_id`=`physical_id`
-                SET `player_power_real`=`player_power_nominal`*(100-`player_tire`)/100*`physical_value`/100
-                WHERE `player_age`<40";
-        Yii::$app->db->createCommand($sql)->execute();
     }
 }

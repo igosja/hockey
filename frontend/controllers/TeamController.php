@@ -63,11 +63,11 @@ class TeamController extends AbstractController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['ask', 'change-my-team', 'logo', 'change'],
+                'only' => ['ask', 'change-my-team', 'logo', 'change', 'vice-leave'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['ask', 'change-my-team', 'logo', 'change'],
+                        'actions' => ['ask', 'change-my-team', 'logo', 'change', 'vice-leave'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -89,7 +89,7 @@ class TeamController extends AbstractController
                 'stadium.city.country',
             ])
             ->where(['!=', 'team_id', 0])
-            ->orderBy(['country_id' => SORT_ASC])
+            ->orderBy(['country_name' => SORT_ASC])
             ->groupBy(['country_id']);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -459,6 +459,38 @@ class TeamController extends AbstractController
         $this->setSeoTitle($team->fullName() . '. Статистика команды');
 
         return $this->render('statistics', [
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionViceLeave($id)
+    {
+        $team = $this->getTeam($id);
+
+        if (!$team->canViceLeave()) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        if (Yii::$app->request->get('ok')) {
+            try {
+                $team->viceFire();
+                $this->setSuccessFlash();
+            } catch (Exception $e) {
+                ErrorHelper::log($e);
+                $this->setErrorFlash();
+            }
+
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        $this->setSeoTitle('Отказ от заместительства');
+
+        return $this->render('vice-leave', [
             'team' => $team,
         ]);
     }

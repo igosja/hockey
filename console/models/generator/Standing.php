@@ -30,7 +30,7 @@ class Standing
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->orderBy(['game_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($gameArray as $game) {
             /**
              * @var Game $game

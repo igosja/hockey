@@ -38,7 +38,7 @@ class CheckCaptain
             ])
             ->having('SUM(lineup_captain)!=1')
             ->groupBy([$groupBy])
-            ->each();
+            ->each(5);
         foreach ($lineupArray as $lineup) {
             /**
              * @var Lineup $lineup

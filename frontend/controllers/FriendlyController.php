@@ -3,12 +3,16 @@
 namespace frontend\controllers;
 
 use common\components\ErrorHelper;
+use common\models\Championship;
+use common\models\Conference;
 use common\models\FriendlyInvite;
 use common\models\FriendlyInviteStatus;
 use common\models\FriendlyStatus;
 use common\models\Game;
+use common\models\ParticipantChampionship;
 use common\models\Schedule;
 use common\models\Season;
+use common\models\Stage;
 use common\models\Team;
 use common\models\TournamentType;
 use common\models\User;
@@ -122,13 +126,13 @@ class FriendlyController extends AbstractController
 
         $team = $this->myTeam;
 
-        $schedule = Schedule::find()
+        $scheduleMain = Schedule::find()
             ->where(['schedule_tournament_type_id' => TournamentType::FRIENDLY, 'schedule_id' => $id])
             ->andWhere(['>', 'schedule_date', time()])
             ->andWhere(['<', 'schedule_date', time() + 1209600])
             ->limit(1)
             ->one();
-        $this->notFound($schedule);
+        $this->notFound($scheduleMain);
 
         $query = Schedule::find()
             ->where(['schedule_tournament_type_id' => TournamentType::FRIENDLY])
@@ -259,6 +263,85 @@ class FriendlyController extends AbstractController
                 ]
             ])
             ->orderBy(['team_power_vs' => SORT_DESC]);
+
+        $championshipSchedule = Schedule::find()
+            ->where([
+                'schedule_date' => $scheduleMain->schedule_date,
+                'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                'schedule_stage_id' => [Stage::FINAL_GAME, Stage::SEMI, Stage::QUARTER]
+            ])
+            ->count();
+        if ($championshipSchedule) {
+            $check = Conference::find()
+                ->where([
+                    'conference_season_id' => Season::getCurrentSeason(),
+                    'conference_team_id' => $this->myTeam->team_id
+                ])
+                ->count();
+            if ($check) {
+                $this->setErrorFlash('Ваша команда играет в конференции любительских клубов');
+                return $this->redirect(['friendly/index']);
+            }
+
+            $query->andWhere([
+                'not',
+                [
+                    'team_id' => Conference::find()
+                        ->select(['conference_team_id'])
+                        ->where(['conference_season_id' => Season::getCurrentSeason()])
+                ]
+            ]);
+            $countParticipant = ParticipantChampionship::find()
+                ->where(['participant_championship_season_id' => Season::getCurrentSeason()])
+                ->count();
+            if ($countParticipant) {
+                $check = ParticipantChampionship::find()
+                    ->where([
+                        'participant_championship_stage_id' => 0,
+                        'participant_championship_season_id' => Season::getCurrentSeason(),
+                        'participant_championship_team_id' => $this->myTeam->team_id
+                    ])
+                    ->count();
+                if ($check) {
+                    $this->setErrorFlash('Ваша команда участвует в плейофф национального чемпионата');
+                    return $this->redirect(['friendly/index']);
+                }
+
+                $query
+                    ->andWhere([
+                        'not',
+                        [
+                            'team_id' => ParticipantChampionship::find()
+                                ->select(['participant_championship_team_id'])
+                                ->where([
+                                    'participant_championship_stage_id' => 0,
+                                    'participant_championship_season_id' => Season::getCurrentSeason(),
+                                ])
+                        ]
+                    ]);
+            } else {
+                $check = Championship::find()
+                    ->where([
+                        'championship_season_id' => Season::getCurrentSeason(),
+                        'championship_team_id' => $this->myTeam->team_id
+                    ])
+                    ->count();
+                if ($check) {
+                    $this->setErrorFlash('В этот день можно назначить матч только после формирования пар плей-офф');
+                    return $this->redirect(['friendly/index']);
+                }
+
+                $query
+                    ->andWhere([
+                        'not',
+                        [
+                            'team_id' => Championship::find()
+                                ->select(['championship_team_id'])
+                                ->where(['championship_season_id' => Season::getCurrentSeason()])
+                        ]
+                    ]);
+            }
+        }
         $teamDataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

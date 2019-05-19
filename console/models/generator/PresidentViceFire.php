@@ -21,7 +21,7 @@ class PresidentViceFire
             ->where(['!=', 'country_president_vice_id', 0])
             ->andWhere(['<', 'user_date_login', time() - 1296000])
             ->orderBy(['country_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($countryArray as $country) {
             /**
              * @var Country $country

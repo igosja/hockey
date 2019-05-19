@@ -25,7 +25,7 @@ class SetAuto
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->andWhere(['or', ['game_guest_mood_id' => 0], ['game_home_mood_id' => 0]])
             ->orderBy(['game_id' => SORT_ASC])
-            ->each();
+            ->each(5);
         foreach ($gameArray as $game) {
             /**
              * @var Game $game
