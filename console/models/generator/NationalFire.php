@@ -45,6 +45,18 @@ class NationalFire
                     'city_country_id' => $national->national_country_id,
                 ])
                 ->count();
+            $positive = Team::find()
+                ->joinWith(['stadium.city'])
+                ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
+                ->andWhere([
+                    'team_attitude_national' => Attitude::POSITIVE,
+                    'city_country_id' => $national->national_country_id,
+                ])
+                ->count();
 
             $total = Team::find()
                 ->joinWith(['stadium.city'])
@@ -56,9 +68,10 @@ class NationalFire
                 ->andWhere(['city_country_id' => $national->national_country_id])
                 ->count();
 
-            $percent = round(($negative ? $negative : 0) / ($total ? $total : 1) * 100);
+            $percentNegative = round(($negative ? $negative : 0) / ($total ? $total : 1) * 100);
+            $percentPositive = round(($positive ? $positive : 0) / ($total ? $total : 1) * 100);
 
-            if ($percent > 25) {
+            if ($percentNegative > 25 && $percentPositive < 50) {
                 History::log([
                     'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_OUT,
                     'history_national_id' => $national->national_id,
