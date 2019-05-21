@@ -55,7 +55,7 @@ class LoanApplicationTo extends Model
         $this->maxDay = isset($this->player->loan->loan_day_max) ? $this->player->loan->loan_day_max : 7;
         $this->loanApplication = LoanApplication::find()
             ->where([
-                'loan_application_team_id' => $this->team->team_id,
+                'loan_application_team_id' => $this->team ? $this->team->team_id : 0,
                 'loan_application_loan_id' => isset($this->player->loan->loan_id) ? $this->player->loan->loan_id : 0,
             ])
             ->limit(1)
