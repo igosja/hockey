@@ -44,6 +44,18 @@ class PresidentFire
                     'city_country_id' => $country->country_id,
                 ])
                 ->count();
+            $positive = Team::find()
+                ->joinWith(['stadium.city'])
+                ->where(['!=', 'team_user_id', 0])
+                ->andWhere([
+                    'not',
+                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
+                ])
+                ->andWhere([
+                    'team_attitude_president' => Attitude::POSITIVE,
+                    'city_country_id' => $country->country_id,
+                ])
+                ->count();
 
             $total = Team::find()
                 ->joinWith(['stadium.city'])
@@ -55,9 +67,10 @@ class PresidentFire
                 ->andWhere(['city_country_id' => $country->country_id])
                 ->count();
 
-            $percent = round(($negative ? $negative : 0) / ($total ? $total : 1) * 100);
+            $percentNegative = round(($negative ? $negative : 0) / ($total ? $total : 1) * 100);
+            $percentPositive = round(($positive ? $positive : 0) / ($total ? $total : 1) * 100);
 
-            if ($percent > 25) {
+            if ($percentNegative > 25 && $percentPositive < 50) {
                 History::log([
                     'history_country_id' => $country->country_id,
                     'history_history_text_id' => HistoryText::USER_PRESIDENT_OUT,
