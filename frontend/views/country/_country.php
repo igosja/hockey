@@ -174,7 +174,7 @@ $controller = Yii::$app->controller;
         </div>
     </div>
 <?php endif; ?>
-<?php if (in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) : ?>
+<?php if (!Yii::$app->user->isGuest && in_array(Yii::$app->user->id, [$country->country_president_id, $country->country_president_vice_id])) : ?>
     <div class="row margin">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
             <?= Html::a(
