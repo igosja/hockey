@@ -2,10 +2,12 @@
 
 namespace console\models\generator;
 
+use common\models\Division;
 use common\models\Game;
 use common\models\PlayerSpecial;
 use common\models\Special;
 use common\models\TournamentType;
+use Exception;
 
 /**
  * Class CountVisitor
@@ -14,7 +16,7 @@ use common\models\TournamentType;
 class CountVisitor
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -52,10 +54,20 @@ class CountVisitor
                 $homeVisitor = $game->teamHome->team_visitor;
             }
 
+            $divisionId = Division::D1;
+            if (in_array($game->schedule->schedule_tournament_type_id, [TournamentType::CHAMPIONSHIP, TournamentType::NATIONAL])) {
+                if (TournamentType::NATIONAL == $game->schedule->schedule_tournament_type_id) {
+                    $divisionId = $game->nationalHome->worldCup->world_cup_division_id;
+                } else {
+                    $divisionId = $game->teamHome->championship->championship_division_id;
+                }
+            }
+
             $visitor = $game->stadium->stadium_capacity;
             $visitor = $visitor * $game->schedule->tournamentType->tournament_type_visitor;
             $visitor = $visitor * $game->schedule->stage->stage_visitor;
             $visitor = $visitor * (100 + $special * 5) / 100;
+            $visitor = $visitor * (100 - ($divisionId - 1));
 
             $ticket = $game->game_ticket;
             if ($ticket < Game::TICKET_PRICE_MIN) {
@@ -73,7 +85,7 @@ class CountVisitor
                 $visitor = $visitor * ($homeVisitor * 2 + $guestVisitor) / 3;
             }
 
-            $visitor = round($visitor / 1000000);
+            $visitor = round($visitor / 100000000);
 
             if ($visitor > $game->stadium->stadium_capacity) {
                 $visitor = $game->stadium->stadium_capacity;

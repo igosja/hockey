@@ -62,10 +62,12 @@ class VisitorNationalController extends AbstractController
         $stageVisitor = $game->schedule->stage->stage_visitor;
         $tournamentTypeId = $game->schedule->schedule_tournament_type_id;
         $tournamentTypeVisitor = $game->schedule->tournamentType->tournament_type_visitor;
+        $divisionId = $game->nationalGuest->worldCup->world_cup_division_id;
 
         $gameVisitor = $stadiumCapacity;
         $gameVisitor = $gameVisitor * $tournamentTypeVisitor;
         $gameVisitor = $gameVisitor * $stageVisitor;
+        $gameVisitor = $gameVisitor * (100 - ($divisionId - 1));
 
         $visitor_array = [];
 
@@ -79,7 +81,7 @@ class VisitorNationalController extends AbstractController
             }
 
             $visitor = $visitor * (100 + $special * 5);
-            $visitor = $visitor / 100000000;
+            $visitor = $visitor / 10000000000;
             $visitor = round($visitor);
 
             if ($visitor > $stadiumCapacity) {

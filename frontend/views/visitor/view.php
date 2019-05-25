@@ -2,15 +2,17 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\models\Game;
 use common\models\TournamentType;
 use miloschuman\highcharts\Highcharts;
+use yii\web\View;
 
 /**
- * @var \common\models\Game $game
+ * @var Game $game
  * @var array $sDataIncome
  * @var array $sDataVisitor
  * @var int $special
- * @var \yii\web\View $this
+ * @var View $this
  * @var array $xData
  */
 
@@ -64,6 +66,24 @@ use miloschuman\highcharts\Highcharts;
                     <?= $game->schedule->tournamentType->tournament_type_visitor / 100; ?>
                 </td>
             </tr>
+            <?php if (TournamentType::CHAMPIONSHIP == $game->schedule->schedule_tournament_type_id) : ?>
+                <tr>
+                    <td>
+                        Дивизион
+                    </td>
+                    <td class="text-right">
+                        <?= $game->teamHome->championship->division->division_name; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Коэффициент дивизиона
+                    </td>
+                    <td class="text-right">
+                        <?= Yii::$app->formatter->asDecimal((100 - ($game->teamHome->championship->championship_division_id - 1)) / 100); ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
             <tr>
                 <td>
                     Стадия
