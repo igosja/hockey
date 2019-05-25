@@ -2,10 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\Division;
 use common\models\Game;
 use common\models\Special;
 use common\models\TournamentType;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class VisitorController
@@ -34,7 +36,7 @@ class VisitorController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -55,16 +57,22 @@ class VisitorController extends AbstractController
                 }
             }
         }
+
         $guestVisitor = $game->teamGuest->team_visitor;
         $homeVisitor = $game->teamHome->team_visitor;
         $stadiumCapacity = $game->stadium->stadium_capacity;
         $stageVisitor = $game->schedule->stage->stage_visitor;
         $tournamentTypeId = $game->schedule->schedule_tournament_type_id;
         $tournamentTypeVisitor = $game->schedule->tournamentType->tournament_type_visitor;
+        $divisionId = Division::D1;
+        if (TournamentType::CHAMPIONSHIP == $tournamentTypeId) {
+            $divisionId = $game->teamHome->championship->championship_division_id;
+        }
 
         $gameVisitor = $stadiumCapacity;
         $gameVisitor = $gameVisitor * $tournamentTypeVisitor;
         $gameVisitor = $gameVisitor * $stageVisitor;
+        $gameVisitor = $gameVisitor * (100 - ($divisionId - 1));
 
         $visitor_array = [];
 
@@ -78,7 +86,7 @@ class VisitorController extends AbstractController
             }
 
             $visitor = $visitor * (100 + $special * 5);
-            $visitor = $visitor / 100000000;
+            $visitor = $visitor / 10000000000;
             $visitor = round($visitor);
 
             if ($visitor > $stadiumCapacity) {
@@ -107,7 +115,7 @@ class VisitorController extends AbstractController
     /**
      * @param int $id
      * @return Game
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function getGame($id)
     {

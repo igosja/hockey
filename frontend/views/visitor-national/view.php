@@ -68,6 +68,22 @@ use yii\web\View;
             </tr>
             <tr>
                 <td>
+                    Дивизион
+                </td>
+                <td class="text-right">
+                    <?= $game->nationalHome->worldCup->division->division_name; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Коэффициент дивизиона
+                </td>
+                <td class="text-right">
+                    <?= Yii::$app->formatter->asDecimal((100 - ($game->nationalHome->worldCup->world_cup_division_id - 1)) / 100); ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Стадия
                 </td>
                 <td class="text-right">
