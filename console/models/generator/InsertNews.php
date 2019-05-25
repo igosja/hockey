@@ -186,7 +186,7 @@ class InsertNews
             ->where(['pre_news_id' => 1])
             ->one();
         if ($preNews->pre_news_error) {
-            $text = $text . '<p class="strong">РАБОТА НАД ОШИКАМИ</p>' . "\r\n" . $preNews->pre_news_error . "\r\n";
+            $text = $text . '<p class="strong">РАБОТА НАД ОШИБКАМИ</p>' . "\r\n" . $preNews->pre_news_error . "\r\n";
         }
 
         if ($preNews->pre_news_new) {

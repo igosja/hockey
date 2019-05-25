@@ -36,6 +36,7 @@ class GameResult
     const AUTO_PENALTY = 25; //Штраф за автососав
     const COEFFICIENT_DEFENCE = 1; //Меньше цифра - больше бросков
     const COEFFICIENT_DEFENCE_GK = 7; //Больше цифра - сильнее вратарь (min 6)
+    const COEFFICIENT_EVENLY = 17; //Больше цифра - равномерные голы на равных соперниках
     const COEFFICIENT_FORWARD = 5; //Меньше цифра - больше бросков
     const COEFFICIENT_GK = 5; //Больше цифра - слабее вратарь
     const COEFFICIENT_RUDENESS = 2; //Больше цифра - больше штрафов
@@ -1879,11 +1880,11 @@ class GameResult
         $scoreDifference = $this->result[$team]['team']['score']['total'] - $this->result[$opponent]['team']['score']['total'];
 
         if ('home' == $team) {
-            if ($scoreDifference < $this->result['should_win'] + 1) {
+            if ($scoreDifference < $this->result['should_win'] + 1 && 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1)) {
                 $result = true;
             }
         } else {
-            if ($scoreDifference < -$this->result['should_win'] + 1) {
+            if ($scoreDifference < -$this->result['should_win'] + 1 && 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1)) {
                 $result = true;
             }
         }
