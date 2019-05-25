@@ -2,12 +2,14 @@
 
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
+use common\models\Review;
+use common\models\User;
 use common\models\UserRole;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Review $review
- * @var \common\models\User $user
+ * @var Review $review
+ * @var User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -27,6 +29,27 @@ $user = Yii::$app->user->identity;
             <?= $review->division->division_name; ?>,
             <?= $review->stage->stage_name; ?>,
             <?= $review->review_season_id; ?> сезон
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p class="text-center">
+            <?php if (!Yii::$app->user->isGuest) : ?>
+                <?= Html::a(
+                    '<i class="fa fa-thumbs-up" aria-hidden="true"></i>',
+                    ['review/vote', 'id' => $review->review_id, 'vote' => 1],
+                    ['title' => 'Интересный и правильный матч, заслуживает внимания']
+                ); ?>
+            <?php endif; ?>
+            <span title="Оценка обзора"><?= $review->rating(); ?></span>
+            <?php if (!Yii::$app->user->isGuest) : ?>
+                <?= Html::a(
+                    '<i class="fa fa-thumbs-down" aria-hidden="true"></i>',
+                    ['review/vote', 'id' => $review->review_id, 'vote' => -1],
+                    ['title' => 'Неинтересный и нелогичный матч, генератор не прав']
+                ); ?>
+            <?php endif; ?>
         </p>
     </div>
 </div>

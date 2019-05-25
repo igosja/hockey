@@ -7,11 +7,19 @@ use common\models\Country;
 use common\models\Division;
 use common\models\Game;
 use common\models\Review;
+use common\models\ReviewVote;
 use common\models\Schedule;
 use common\models\TournamentType;
 use common\models\UserRole;
+use Exception;
 use frontend\models\CreateReview;
+use Throwable;
+use Yii;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Class ReviewController
@@ -42,7 +50,7 @@ class ReviewController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -61,11 +69,11 @@ class ReviewController extends AbstractController
 
     /**
      * @param $id
-     * @return \yii\web\Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
@@ -97,9 +105,9 @@ class ReviewController extends AbstractController
      * @param $countryId
      * @param $divisionId
      * @param $scheduleId
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionCreate($countryId, $divisionId, $scheduleId)
     {
@@ -173,5 +181,39 @@ class ReviewController extends AbstractController
             'model' => $model,
             'schedule' => $schedule,
         ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws Exception
+     * @throws NotFoundHttpException
+     */
+    public function actionVote($id)
+    {
+        $game = Review::find()
+            ->where(['review_id' => $id])
+            ->limit(1)
+            ->one();
+        $this->notFound($game);
+
+        $vote = Yii::$app->request->get('vote', 1);
+        if (!in_array($vote, [-1, 1])) {
+            $vote = 1;
+        }
+
+        $model = ReviewVote::find()
+            ->where(['review_vote_review_id' => $id, 'review_vote_user_id' => $this->user->user_id])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            $model = new ReviewVote();
+            $model->review_vote_review_id = $id;
+            $model->review_vote_user_id = $this->user->user_id;
+        }
+        $model->review_vote_rating = $vote;
+        $model->save();
+
+        return $this->redirect(['review/view', 'id' => $id]);
     }
 }
