@@ -25,7 +25,7 @@ class FillLineup
             ->with(['nationalGuest', 'nationalHome'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
-            ->orderBy(['schedule_tournament_type_id' => SORT_ASC, 'game_id' => SORT_ASC])
+            ->orderBy(['game_id' => SORT_ASC])
             ->each(5);
         foreach ($gameArray as $game) {
             /**

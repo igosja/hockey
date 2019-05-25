@@ -46,7 +46,7 @@ print $this->render('//country/_country');
                     $result = '<div class="row border-top"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
                         . Html::radio($name, $checked, [
                             'index' => $index,
-                            'label' => $model->election_national_application_user_id ? $model->user->userLink() : 'Потив всех',
+                            'label' => $model->election_national_application_user_id ? $model->user->userLink() : 'Против всех',
                             'value' => $model->election_national_application_id,
                         ])
                         . '</div></div>';
