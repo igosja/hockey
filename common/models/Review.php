@@ -94,6 +94,9 @@ class Review extends AbstractActiveRecord
         foreach ($this->reviewGame as $reviewGame) {
             $reviewGame->delete();
         }
+        foreach ($this->reviewVote as $reviewVote) {
+            $reviewVote->delete();
+        }
         return parent::beforeDelete();
     }
 
