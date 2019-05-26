@@ -262,7 +262,7 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if (self::AGE_READY_FOR_PENSION == $this->player_age) {
-            $result = ' <i class="fa fa-bed" title="Заканчивает карьеру в конце текущего сезона"></i>';
+            $result = ' <i class="fa fa-home" title="Заканчивает карьеру в конце текущего сезона"></i>';
         }
         return $result;
     }
@@ -368,7 +368,7 @@ class Player extends AbstractActiveRecord
 
         $result = '';
         if ($countTraining) {
-            $result = ' <i class="fa fa-caret-square-o-up" title="На тренировке"></i>';
+            $result = ' <i class="fa fa-level-up" title="На тренировке"></i>';
         }
         return $result;
     }

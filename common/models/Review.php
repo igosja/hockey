@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use Throwable;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 
 /**
  * Class Review
@@ -23,6 +26,9 @@ use Yii;
  * @property Country $country
  * @property Division $division
  * @property ReviewGame[] $reviewGame
+ * @property ReviewVote[] $reviewVote
+ * @property ReviewVote[] $reviewVoteMinus
+ * @property ReviewVote[] $reviewVotePlus
  * @property Stage $stage
  * @property User $user
  */
@@ -80,19 +86,61 @@ class Review extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function beforeDelete()
     {
         foreach ($this->reviewGame as $reviewGame) {
             $reviewGame->delete();
         }
+        foreach ($this->reviewVote as $reviewVote) {
+            $reviewVote->delete();
+        }
         return parent::beforeDelete();
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return string
+     */
+    public function rating()
+    {
+        $returnArray = [
+            '<span class="font-green">' . count($this->reviewVotePlus) . '</span>',
+            '<span class="font-red">' . count($this->reviewVoteMinus) . '</span>',
+        ];
+
+        $return = implode(' | ', $returnArray);
+
+        return $return;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReviewVote()
+    {
+        return $this->hasMany(ReviewVote::class, ['review_vote_review_id' => 'review_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReviewVoteMinus()
+    {
+        return $this->getReviewVote()->andWhere(['<', 'review_vote_rating', 0]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getReviewVotePlus()
+    {
+        return $this->getReviewVote()->andWhere(['>', 'review_vote_rating', 0]);
+    }
+
+    /**
+     * @return ActiveQuery
      */
     public function getCountry()
     {
@@ -100,7 +148,7 @@ class Review extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDivision()
     {
@@ -108,7 +156,7 @@ class Review extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getReviewGame()
     {
@@ -116,7 +164,7 @@ class Review extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStage()
     {
@@ -124,7 +172,7 @@ class Review extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
