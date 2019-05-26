@@ -1880,11 +1880,11 @@ class GameResult
         $scoreDifference = $this->result[$team]['team']['score']['total'] - $this->result[$opponent]['team']['score']['total'];
 
         if ('home' == $team) {
-            if ($scoreDifference < $this->result['should_win'] + 1 && 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1)) {
+            if ($scoreDifference < $this->result['should_win'] + 1 && ($this->result['minute'] > 60 || 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1))) {
                 $result = true;
             }
         } else {
-            if ($scoreDifference < -$this->result['should_win'] + 1 && 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1)) {
+            if ($scoreDifference < -$this->result['should_win'] + 1 && ($this->result['minute'] > 60 || 0 == $this->result['minute'] % ceil((60 - $this->result['minute']) / ((ceil(abs($this->result['should_win'])) - $scoreDifference) ?: 1) / (self::COEFFICIENT_EVENLY - abs($this->result['should_win'])) ?: 1))) {
                 $result = true;
             }
         }
