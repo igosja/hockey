@@ -365,7 +365,7 @@ class InsertNews
         } elseif (Stage::ROUND_OF_16 == $stageId) {
             $result = '1/8 финала';
         } elseif (Stage::QUARTER == $stageId) {
-            $result = 'четрвертьфиналы';
+            $result = 'четвертьфиналы';
         } elseif (Stage::SEMI == $stageId) {
             $result = 'полуфиналы';
         } elseif (Stage::FINAL_GAME == $stageId) {
