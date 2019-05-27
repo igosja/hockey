@@ -241,7 +241,7 @@ class InsertNews
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
                     $result[] = 'матчи ' . $stageName . ' национальных чемпионатов';
                 } elseif ($schedule->schedule_stage_id <= Stage::FINAL_GAME) {
-                    $result[] = $stageName . 'ы национальных чемпионатов';
+                    $result[] = $stageName . ' национальных чемпионатов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                     $result[] = $stageName . 'ы национальных чемпионатов';
                 }
