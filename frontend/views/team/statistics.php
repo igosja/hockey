@@ -1,10 +1,12 @@
 <?php
 
 use common\components\FormatHelper;
+use common\models\Team;
+use yii\web\View;
 
 /**
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -101,6 +103,30 @@ use common\components\FormatHelper;
                 </td>
                 <td class="hidden-xs text-center">
                     <?= isset($team->ratingTeam->rating_team_base_place_country) ? $team->ratingTeam->rating_team_base_place_country : 0; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Зарплата игроков:</td>
+                <td class="text-center">
+                    <?= FormatHelper::asCurrency($team->team_salary); ?>
+                </td>
+                <td class="hidden-xs text-center">
+                    <?= $team->ratingTeam->rating_team_salary_place ?? 0; ?>
+                </td>
+                <td class="hidden-xs text-center">
+                    <?= $team->ratingTeam->rating_team_salary_place_country ?? 0; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Денег в кассе:</td>
+                <td class="text-center">
+                    <?= FormatHelper::asCurrency($team->team_finance); ?>
+                </td>
+                <td class="hidden-xs text-center">
+                    <?= $team->ratingTeam->rating_team_finance_place ?? 0; ?>
+                </td>
+                <td class="hidden-xs text-center">
+                    <?= $team->ratingTeam->rating_team_finance_place_country ?? 0; ?>
                 </td>
             </tr>
             <tr>

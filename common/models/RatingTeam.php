@@ -13,6 +13,8 @@ use yii\db\ActiveQuery;
  * @property int $rating_team_age_place_country
  * @property int $rating_team_base_place
  * @property int $rating_team_base_place_country
+ * @property int $rating_team_finance_place
+ * @property int $rating_team_finance_place_country
  * @property int $rating_team_player_place
  * @property int $rating_team_player_place_country
  * @property int $rating_team_power_vs_place
@@ -23,6 +25,8 @@ use yii\db\ActiveQuery;
  * @property int $rating_team_price_stadium_place_country
  * @property int $rating_team_price_total_place
  * @property int $rating_team_price_total_place_country
+ * @property int $rating_team_salary_place
+ * @property int $rating_team_salary_place_country
  * @property int $rating_team_stadium_place
  * @property int $rating_team_stadium_place_country
  * @property int $rating_team_team_id
@@ -54,6 +58,8 @@ class RatingTeam extends AbstractActiveRecord
                     'rating_team_age_place_country',
                     'rating_team_base_place',
                     'rating_team_base_place_country',
+                    'rating_team_finance_place',
+                    'rating_team_finance_place_country',
                     'rating_team_player_place',
                     'rating_team_player_place_country',
                     'rating_team_power_vs_place',
@@ -64,6 +70,8 @@ class RatingTeam extends AbstractActiveRecord
                     'rating_team_price_stadium_place_country',
                     'rating_team_price_total_place',
                     'rating_team_price_total_place_country',
+                    'rating_team_salary_place',
+                    'rating_team_salary_place_country',
                     'rating_team_stadium_place',
                     'rating_team_stadium_place_country',
                     'rating_team_team_id',

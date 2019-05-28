@@ -18,11 +18,13 @@ class RatingType extends AbstractActiveRecord
     const COUNTRY_STADIUM = 11;
     const TEAM_AGE = 2;
     const TEAM_BASE = 5;
+    const TEAM_FINANCE = 14;
     const TEAM_PLAYER = 8;
     const TEAM_POWER = 1;
     const TEAM_PRICE_BASE = 6;
     const TEAM_PRICE_STADIUM = 7;
     const TEAM_PRICE_TOTAL = 9;
+    const TEAM_SALARY = 15;
     const TEAM_STADIUM = 3;
     const TEAM_VISITOR = 4;
     const USER_RATING = 10;
