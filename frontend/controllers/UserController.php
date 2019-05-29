@@ -96,7 +96,7 @@ class UserController extends AbstractController
         $query = Country::find()
             ->where(['country_president_id' => $id])
             ->orWhere(['country_president_vice_id' => $id])
-            ->orderBy(['country_id' => SORT_ASC]);
+            ->orderBy(['country_name' => SORT_ASC]);
         $countryDataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
