@@ -11,6 +11,7 @@ use common\models\Season;
 use common\models\Team;
 use common\models\User;
 use Yii;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -20,8 +21,8 @@ use yii\db\Expression;
 class UpdateRating
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
@@ -42,14 +43,14 @@ class UpdateRating
                 ON `city_country_id`=`country_id`
                 WHERE `team_id`!=0
                 GROUP BY `country_id`
-                ORDER BY `country_id` ASC";
+                ORDER BY `country_id`";
         Yii::$app->db->createCommand($sql)->execute();
 
         $sql = "INSERT INTO `rating_team` (`rating_team_team_id`)
                 SELECT `team_id`
                 FROM `team`
                 WHERE `team_id`!=0
-                ORDER BY `team_id` ASC";
+                ORDER BY `team_id`";
         Yii::$app->db->createCommand($sql)->execute();
 
         $sql = "INSERT INTO `rating_user` (`rating_user_user_id`)
@@ -60,7 +61,7 @@ class UpdateRating
                 WHERE `team_id` IS NOT NULL
                 AND `user_id`!=0
                 GROUP BY `user_id`
-                ORDER BY `user_id` ASC";
+                ORDER BY `user_id`";
         Yii::$app->db->createCommand($sql)->execute();
 
         $ratingTypeArray = RatingType::find()
@@ -85,6 +86,9 @@ class UpdateRating
             } elseif (RatingType::TEAM_BASE == $ratingType->rating_type_id) {
                 $order = '`team_base_id`+`team_base_medical_id`+`team_base_physical_id`+`team_base_school_id`+`team_base_scout_id`+`team_base_training_id` DESC';
                 $place = 'rating_team_base_place';
+            } elseif (RatingType::TEAM_FINANCE == $ratingType->rating_type_id) {
+                $order = '`team_finance` DESC';
+                $place = 'rating_team_finance_place';
             } elseif (RatingType::TEAM_PRICE_BASE == $ratingType->rating_type_id) {
                 $order = '`team_price_base` DESC';
                 $place = 'rating_team_price_base_place';
@@ -100,6 +104,9 @@ class UpdateRating
             } elseif (RatingType::USER_RATING == $ratingType->rating_type_id) {
                 $order = '`user_rating` DESC';
                 $place = 'rating_user_rating_place';
+            } elseif (RatingType::TEAM_SALARY == $ratingType->rating_type_id) {
+                $order = '`team_salary` DESC';
+                $place = 'rating_team_salary_place';
             } elseif (RatingType::COUNTRY_STADIUM == $ratingType->rating_type_id) {
                 $order = '`country_stadium_capacity` DESC';
                 $place = 'rating_country_stadium_place';
@@ -113,11 +120,13 @@ class UpdateRating
             if (in_array($ratingType->rating_type_id, [
                 RatingType::TEAM_AGE,
                 RatingType::TEAM_BASE,
+                RatingType::TEAM_FINANCE,
                 RatingType::TEAM_PLAYER,
                 RatingType::TEAM_POWER,
                 RatingType::TEAM_PRICE_BASE,
                 RatingType::TEAM_PRICE_STADIUM,
                 RatingType::TEAM_PRICE_TOTAL,
+                RatingType::TEAM_SALARY,
                 RatingType::TEAM_STADIUM,
                 RatingType::TEAM_VISITOR,
             ])) {
@@ -246,7 +255,7 @@ class UpdateRating
                         ON `country_id`=`t5`.`league_coefficient_country_id`
                         WHERE `city_id`!=0
                         GROUP BY `country_id`
-                        ORDER BY IFNULL(`league_coefficient_coeff_1`, 0)+IFNULL(`league_coefficient_coeff_2`, 0)+IFNULL(`league_coefficient_coeff_3`, 0)+IFNULL(`league_coefficient_coeff_4`, 0)+IFNULL(`league_coefficient_coeff_5`, 0) DESC, `country_id` ASC";
+                        ORDER BY IFNULL(`league_coefficient_coeff_1`, 0)+IFNULL(`league_coefficient_coeff_2`, 0)+IFNULL(`league_coefficient_coeff_3`, 0)+IFNULL(`league_coefficient_coeff_4`, 0)+IFNULL(`league_coefficient_coeff_5`, 0) DESC, `country_id`";
                 $countryArray = Yii::$app->db->createCommand($sql)->queryAll();
 
                 foreach ($countryArray as $country) {

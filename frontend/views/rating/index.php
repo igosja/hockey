@@ -1,6 +1,7 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\components\FormatHelper;
 use common\models\RatingChapter;
 use common\models\RatingCountry;
 use common\models\RatingTeam;
@@ -213,13 +214,31 @@ use yii\helpers\Html;
                         return $model->team->baseScout->base_scout_level;
                     }
                 ];
+            } elseif (RatingType::TEAM_SALARY == $ratingType->rating_type_id) {
+                $columns[] = [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Зарплата игроков',
+                    'label' => 'Зарплата игроков',
+                    'value' => function (RatingTeam $model) {
+                        return FormatHelper::asCurrency($model->team->team_salary);
+                    }
+                ];
+            } elseif (RatingType::TEAM_FINANCE == $ratingType->rating_type_id) {
+                $columns[] = [
+                    'contentOptions' => ['class' => 'text-center'],
+                    'footer' => 'Денег в кассе',
+                    'label' => 'Денег в кассе',
+                    'value' => function (RatingTeam $model) {
+                        return FormatHelper::asCurrency($model->team->team_finance);
+                    }
+                ];
             } elseif (RatingType::TEAM_PRICE_BASE == $ratingType->rating_type_id) {
                 $columns[] = [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'База',
                     'label' => 'База',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_base, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_base);
                     }
                 ];
             } elseif (RatingType::TEAM_PRICE_STADIUM == $ratingType->rating_type_id) {
@@ -228,7 +247,7 @@ use yii\helpers\Html;
                     'footer' => 'Стадион',
                     'label' => 'Стадион',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_stadium, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_stadium);
                     }
                 ];
             } elseif (RatingType::TEAM_PLAYER == $ratingType->rating_type_id) {
@@ -245,15 +264,7 @@ use yii\helpers\Html;
                     'footer' => 'Стоимость',
                     'label' => 'Стоимость',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_player, 'USD');
-                    }
-                ];
-                $columns[] = [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Зарплата',
-                    'label' => 'Зарплата',
-                    'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_salary, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_player);
                     }
                 ];
             } elseif (RatingType::TEAM_PRICE_TOTAL == $ratingType->rating_type_id) {
@@ -262,7 +273,7 @@ use yii\helpers\Html;
                     'footer' => 'База',
                     'label' => 'База',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_base, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_base);
                     }
                 ];
                 $columns[] = [
@@ -270,7 +281,7 @@ use yii\helpers\Html;
                     'footer' => 'Стадион',
                     'label' => 'Стадион',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_stadium, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_stadium);
                     }
                 ];
                 $columns[] = [
@@ -278,15 +289,7 @@ use yii\helpers\Html;
                     'footer' => 'Игроки',
                     'label' => 'Игроки',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_player, 'USD');
-                    }
-                ];
-                $columns[] = [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'В кассе',
-                    'label' => 'В кассе',
-                    'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_finance, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_player);
                     }
                 ];
                 $columns[] = [
@@ -294,7 +297,7 @@ use yii\helpers\Html;
                     'footer' => 'Стоимость',
                     'label' => 'Стоимость',
                     'value' => function (RatingTeam $model) {
-                        return Yii::$app->formatter->asCurrency($model->team->team_price_total, 'USD');
+                        return FormatHelper::asCurrency($model->team->team_price_total);
                     }
                 ];
             }
