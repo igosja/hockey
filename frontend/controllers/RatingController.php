@@ -57,7 +57,7 @@ class RatingController extends AbstractController
             $countryArray = RatingTeam::find()
                 ->joinWith(['team.stadium.city.country'])
                 ->groupBy(['country_id'])
-                ->orderBy(['country_id' => SORT_ASC])
+                ->orderBy(['country_name' => SORT_ASC])
                 ->all();
             $countryArray = ArrayHelper::map(
                 $countryArray,
