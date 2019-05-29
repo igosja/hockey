@@ -385,7 +385,7 @@ class GameResult
     private function countHomeBonus()
     {
         if ($this->game->game_bonus_home) {
-            $this->result['game_info']['home_bonus'] = 1 + $this->game->game_visitor / $this->game->game_stadium_capacity / 10;
+            $this->result['game_info']['home_bonus'] = 1 + $this->game->game_visitor / ($this->game->game_stadium_capacity ?: 1) / 10;
         }
     }
 
