@@ -474,7 +474,7 @@ class LineupController extends AbstractController
                     ->limit(1)
                     ->one();
                 if ($player) {
-                    $power = $power + $player->player_power_real;
+                    $power = $power + round((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                     $position = $position + ((TournamentType::FRIENDLY == $game->schedule->schedule_tournament_type_id) ? $player->player_power_nominal * 0.75 : $player->player_power_real);
                 }
             }

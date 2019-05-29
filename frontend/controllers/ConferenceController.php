@@ -63,7 +63,7 @@ class ConferenceController extends AbstractController
             ->joinWith(['team.stadium.city.country'])
             ->where(['conference_season_id' => $seasonId])
             ->groupBy(['country_id'])
-            ->orderBy(['country_id' => SORT_ASC])
+            ->orderBy(['country_name' => SORT_ASC])
             ->all();
         $countryArray = ArrayHelper::map(
             $countryArray,
