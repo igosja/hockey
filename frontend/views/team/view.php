@@ -6,6 +6,7 @@ use common\models\Player;
 use common\models\Team;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -326,6 +327,27 @@ use yii\web\View;
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
                 <?= FormatHelper::asCurrency($team->team_price_total); ?>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                Расскажите друзьям о Лиге:
+                <p>
+                    <a class="no-underline"
+                       href="https://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['site/index'], true); ?>"
+                       target="_blank">
+                        <i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <a class="no-underline"
+                       href="https://twitter.com/intent/tweet?text=Виртуальная Хоккейная Лига - лучший бесплатный хоккейный онлайн-менеджер.&url=<?= Url::to(['site/index'], true); ?>"
+                       target="_blank">
+                        <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <a class="no-underline" href="https://vk.com/share.php?url=<?= Url::to(['site/index'], true); ?>"
+                       target="_blank">
+                        <i class="fa fa-vk fa-2x" aria-hidden="true"></i>
+                    </a>
+                </p>
             </div>
         </div>
     </div>
