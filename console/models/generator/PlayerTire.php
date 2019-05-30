@@ -77,12 +77,15 @@ class PlayerTire
                 ON `lineup_game_id`=`game_id`
                 LEFT JOIN `schedule`
                 ON `game_schedule_id`=`schedule_id`
+                LEFT JOIN `tournament_type`
+                ON `schedule_tournament_type_id`=`tournament_type_id`
                 SET `player_tire`=`player_tire`+IF((CEIL((`player_age`-12)/11)+`player_game_row`)*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`)>0, (CEIL((`player_age`-12)/11)+`player_game_row`)*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`), 0)
                 WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
                 AND `player_game_row`>0
                 AND `player_age`<=" . Player::AGE_READY_FOR_PENSION . "
                 AND `player_mood_id`>0
                 AND `player_team_id`!=0
+                AND `tournament_type_day_type_id`=" . DayType::B . "
                 AND `lineup_id` NOT IN (
                     SELECT `lineup_id`
                     FROM `lineup`
@@ -112,7 +115,10 @@ class PlayerTire
                     ON `lineup_game_id`=`game_id`
                     LEFT JOIN `schedule`
                     ON `game_schedule_id`=`schedule_id`
+                    LEFT JOIN `tournament_type`
+                    ON `schedule_tournament_type_id`=`tournament_type_id`
                     WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `tournament_type_day_type_id`=" . DayType::B . "
                     AND `lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
