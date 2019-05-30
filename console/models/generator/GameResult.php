@@ -1877,6 +1877,22 @@ class GameResult
     {
         $result = false;
 
+        $teamPenaltyCurrent = count($this->result[$team]['team']['penalty']['current']);
+
+        if ($teamPenaltyCurrent > 2) {
+            $teamPenaltyCurrent = 2;
+        }
+
+        $opponentPenaltyCurrent = count($this->result[$opponent]['team']['penalty']['current']);
+
+        if ($opponentPenaltyCurrent > 2) {
+            $opponentPenaltyCurrent = 2;
+        }
+
+        if ($teamPenaltyCurrent > $opponentPenaltyCurrent) {
+            $result = true;
+        }
+
         $scoreDifference = $this->result[$team]['team']['score']['total'] - $this->result[$opponent]['team']['score']['total'];
 
         if ('home' == $team) {
