@@ -12,6 +12,7 @@ use common\models\Position;
 use common\models\Season;
 use common\models\Squad;
 use common\models\Transfer;
+use Exception;
 use frontend\models\LoanApplicationFrom;
 use frontend\models\LoanApplicationTo;
 use frontend\models\LoanFrom;
@@ -25,6 +26,7 @@ use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -44,11 +46,11 @@ class PlayerController extends AbstractController
 
         $countryArray = ArrayHelper::map(
             Player::find()
-                ->with([
+                ->joinWith([
                     'country',
                 ])
                 ->groupBy(['player_country_id'])
-                ->orderBy(['player_country_id' => SORT_ASC])
+                ->orderBy(['country_name' => SORT_ASC])
                 ->all(),
             'country.country_id',
             'country.country_name'
@@ -75,7 +77,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -107,7 +109,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionEvent($id)
     {
@@ -132,7 +134,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeal($id)
     {
@@ -168,7 +170,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return array|string|Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionTransfer($id)
     {
@@ -254,7 +256,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return array|string|Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionLoan($id)
     {
@@ -340,7 +342,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAchievement($id)
     {
@@ -365,8 +367,8 @@ class PlayerController extends AbstractController
     /**
      * @param $id
      * @return bool
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionSquad($id)
     {
@@ -387,8 +389,8 @@ class PlayerController extends AbstractController
     /**
      * @param $id
      * @return bool
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionNationalSquad($id)
     {
@@ -409,7 +411,7 @@ class PlayerController extends AbstractController
     /**
      * @param int $id
      * @return Player
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     private function getPlayer($id)
     {

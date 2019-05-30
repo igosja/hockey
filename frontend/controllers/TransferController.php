@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\components\ErrorHelper;
 use common\models\Country;
 use common\models\Loan;
+use common\models\LoanVote;
 use common\models\Player;
 use common\models\Position;
 use common\models\Transfer;
@@ -18,7 +19,10 @@ use frontend\models\TransferVote;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -37,11 +41,11 @@ class TransferController extends AbstractController
 
         $countryArray = ArrayHelper::map(
             Player::find()
-                ->with([
+                ->joinWith([
                     'country',
                 ])
                 ->groupBy(['player_country_id'])
-                ->orderBy(['player_country_id' => SORT_ASC])
+                ->orderBy(['country_name' => SORT_ASC])
                 ->all(),
             'country.country_id',
             'country.country_name'
@@ -95,11 +99,11 @@ class TransferController extends AbstractController
 
         $countryArray = ArrayHelper::map(
             Player::find()
-                ->with([
+                ->joinWith([
                     'country',
                 ])
                 ->groupBy(['player_country_id'])
-                ->orderBy(['player_country_id' => SORT_ASC])
+                ->orderBy(['country_name' => SORT_ASC])
                 ->all(),
             'country.country_id',
             'country.country_name'
@@ -125,9 +129,9 @@ class TransferController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \yii\db\Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @return string|Response
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -190,7 +194,7 @@ class TransferController extends AbstractController
                         ->where([
                             'not',
                             [
-                                'loan_id' => \common\models\LoanVote::find()
+                                'loan_id' => LoanVote::find()
                                     ->select(['loan_vote_loan_id'])
                                     ->where(['loan_vote_user_id' => $this->user->user_id])
                             ]
@@ -233,7 +237,7 @@ class TransferController extends AbstractController
                                 ->where([
                                     'not',
                                     [
-                                        'loan_id' => \common\models\LoanVote::find()
+                                        'loan_id' => LoanVote::find()
                                             ->select(['loan_vote_loan_id'])
                                             ->where(['loan_vote_user_id' => $this->user->user_id])
                                     ]
@@ -241,7 +245,7 @@ class TransferController extends AbstractController
                                 ->andWhere(['loan_checked' => 0])
                                 ->andWhere(['!=', 'loan_ready', 0])
                                 ->andWhere([
-                                    'loan_id' => \common\models\LoanVote::find()
+                                    'loan_id' => LoanVote::find()
                                         ->select(['loan_vote_loan_id'])
                                         ->where(['<', 'loan_vote_rating', 0])
                                 ])
@@ -294,8 +298,8 @@ class TransferController extends AbstractController
      * @param int $id
      * @param int $transferId
      * @return Response
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeleteComment($id, $transferId)
     {

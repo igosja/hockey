@@ -99,14 +99,10 @@ class PlayerSearch extends Player
     public function search($params)
     {
         $query = Player::find()
-            ->joinWith(['name', 'surname', 'team'])
+            ->joinWith(['country', 'name', 'surname', 'team'])
             ->with([
-                'country',
-                'name',
                 'playerPosition.position',
                 'playerSpecial.special',
-                'surname',
-                'team',
                 'team.stadium',
                 'team.stadium.city',
                 'team.stadium.city.country',
@@ -126,8 +122,8 @@ class PlayerSearch extends Player
                         'desc' => ['player_age' => SORT_DESC],
                     ],
                     'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
                     ],
                     'price' => [
                         'asc' => ['player_price' => SORT_ASC],

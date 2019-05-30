@@ -99,7 +99,7 @@ class LoanSearch extends Loan
     public function search($params)
     {
         $query = Loan::find()
-            ->joinWith(['player.name', 'player.surname'])
+            ->joinWith(['country', 'player.name', 'player.surname'])
             ->where(['loan_ready' => 0]);
 
         $dataProvider = new ActiveDataProvider([
@@ -114,8 +114,8 @@ class LoanSearch extends Loan
                         'desc' => ['player_age' => SORT_DESC],
                     ],
                     'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
                     ],
                     'days' => [
                         'asc' => ['loan_day_min' => SORT_ASC],

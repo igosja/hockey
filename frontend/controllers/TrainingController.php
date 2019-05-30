@@ -19,6 +19,7 @@ use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class TrainingController
@@ -45,7 +46,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -66,6 +67,7 @@ class TrainingController extends AbstractController
             ->all();
 
         $query = Player::find()
+            ->joinWith(['country'])
             ->where(['player_team_id' => $team->team_id, 'player_loan_team_id' => 0]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
@@ -77,8 +79,8 @@ class TrainingController extends AbstractController
                         'desc' => ['player_age' => SORT_DESC],
                     ],
                     'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
                     ],
                     'position' => [
                         'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
@@ -108,7 +110,7 @@ class TrainingController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionTrain()
@@ -429,7 +431,7 @@ class TrainingController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionCancel($id)

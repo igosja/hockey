@@ -70,8 +70,8 @@ class RatingController extends AbstractController
                 ->orderBy([$ratingType->rating_type_order => SORT_ASC, 'rating_user_user_id' => SORT_ASC]);
         } else {
             $query = RatingCountry::find()
-                ->with(['country'])
-                ->orderBy([$ratingType->rating_type_order => SORT_ASC, 'rating_country_country_id' => SORT_ASC]);
+                ->joinWith(['country'])
+                ->orderBy([$ratingType->rating_type_order => SORT_ASC, 'country_name' => SORT_ASC]);
         }
 
         $dataProvider = new ActiveDataProvider([
