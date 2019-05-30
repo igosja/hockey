@@ -20,6 +20,7 @@ use frontend\models\TrainingFree;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class TrainingFreeController
@@ -46,7 +47,7 @@ class TrainingFreeController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -67,7 +68,8 @@ class TrainingFreeController extends AbstractController
             ->all();
 
         $query = Player::find()
-            ->where(['player_team_id' => $team->team_id, 'player_loan_team_id' => 0]);
+            ->where(['player_team_id' => $team->team_id, 'player_loan_team_id' => 0])
+            ->joinWith(['country']);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,
@@ -78,8 +80,8 @@ class TrainingFreeController extends AbstractController
                         'desc' => ['player_age' => SORT_DESC],
                     ],
                     'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
                     ],
                     'position' => [
                         'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
@@ -126,7 +128,7 @@ class TrainingFreeController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionTrain()

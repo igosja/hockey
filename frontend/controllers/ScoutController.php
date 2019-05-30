@@ -13,6 +13,7 @@ use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class ScoutController
@@ -39,7 +40,7 @@ class ScoutController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionIndex()
     {
@@ -60,6 +61,7 @@ class ScoutController extends AbstractController
             ->all();
 
         $query = Player::find()
+            ->joinWith(['country'])
             ->with([
                 'playerPosition.position',
                 'playerSpecial.special',
@@ -75,8 +77,8 @@ class ScoutController extends AbstractController
                         'desc' => ['player_age' => SORT_DESC],
                     ],
                     'country' => [
-                        'asc' => ['player_country_id' => SORT_ASC],
-                        'desc' => ['player_country_id' => SORT_DESC],
+                        'asc' => ['country_name' => SORT_ASC],
+                        'desc' => ['country_name' => SORT_DESC],
                     ],
                     'position' => [
                         'asc' => ['player_position_id' => SORT_ASC, 'player_id' => SORT_ASC],
@@ -106,7 +108,7 @@ class ScoutController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionStudy()
@@ -216,7 +218,7 @@ class ScoutController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionCancel($id)
