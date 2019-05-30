@@ -1,9 +1,10 @@
 <?php
 
-use common\components\ErrorHelper;
+use common\components\FormatHelper;
+use frontend\controllers\AbstractController;
 
 /**
- * @var \frontend\controllers\AbstractController $controller
+ * @var AbstractController $controller
  */
 
 $controller = Yii::$app->controller;
@@ -49,15 +50,7 @@ $model = $controller->myTeam;
             - Стоимость строений
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($model->team_price_base, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($model->team_price_base); ?>
         </div>
     </div>
     <div class="row">
@@ -65,15 +58,7 @@ $model = $controller->myTeam;
             - Общая стоимость
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <?php
-
-            try {
-                print Yii::$app->formatter->asCurrency($model->team_price_total, 'USD');
-            } catch (Exception $e) {
-                ErrorHelper::log($e);
-            }
-
-            ?>
+            <?= FormatHelper::asCurrency($model->team_price_total); ?>
         </div>
     </div>
 </div>
