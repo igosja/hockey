@@ -99,7 +99,7 @@ class TransferSearch extends Transfer
     public function search($params)
     {
         $query = Transfer::find()
-            ->joinWith(['country', 'player.name', 'player.surname'])
+            ->joinWith(['player.country', 'player.name', 'player.surname'])
             ->where(['transfer_ready' => 0]);
 
         $dataProvider = new ActiveDataProvider([
