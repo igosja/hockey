@@ -52,9 +52,10 @@ class PlayerGameRow
                     LEFT JOIN `schedule`
                     ON `game_schedule_id`=`schedule_id`
                     LEFT JOIN `tournament_type`
-                    ON `schedule_tournament_type_id`
+                    ON `schedule_tournament_type_id`=`tournament_type_id`
                     WHERE `game_played`=0
                     AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `tournament_type_day_type_id`=" . DayType::B . "
                     AND `lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
@@ -77,10 +78,11 @@ class PlayerGameRow
                 LEFT JOIN `schedule`
                 ON `game_schedule_id`=`schedule_id`
                 LEFT JOIN `tournament_type`
-                ON `schedule_tournament_type_id`
+                ON `schedule_tournament_type_id`=`tournament_type_id`
                 SET `player_game_row`=IF(`player_game_row`>0, `player_game_row`+1, 1)
                 WHERE `game_played`=0
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                AND `tournament_type_day_type_id`=" . DayType::B . "
                 AND `lineup_id` NOT IN (
                     SELECT `lineup_id`
                     FROM `lineup`
@@ -108,8 +110,6 @@ class PlayerGameRow
                 ON `lineup_game_id`=`game_id`
                 LEFT JOIN `schedule`
                 ON `game_schedule_id`=`schedule_id`
-                LEFT JOIN `tournament_type`
-                ON `schedule_tournament_type_id`
                 SET `player_game_row`=IF(`player_game_row`>0, `player_game_row`+1, 1)
                 WHERE `game_played`=0
                 AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()

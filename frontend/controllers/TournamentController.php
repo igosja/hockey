@@ -8,7 +8,6 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
 use Yii;
-use yii\db\ActiveQuery;
 use yii\helpers\Html;
 
 /**
@@ -31,13 +30,13 @@ class TournamentController extends AbstractController
         $divisionArray = [];
 
         $championshipArray = Championship::find()
+            ->joinWith(['country'])
             ->with([
-                'country',
                 'division',
             ])
             ->where(['championship_season_id' => $seasonId])
             ->groupBy(['championship_country_id', 'championship_division_id'])
-            ->orderBy(['championship_country_id' => SORT_ASC, 'championship_division_id' => SORT_ASC])
+            ->orderBy(['country_name' => SORT_ASC, 'championship_division_id' => SORT_ASC])
             ->all();
 
         foreach ($championshipArray as $item) {
