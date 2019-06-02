@@ -7,6 +7,7 @@ use common\models\Lineup;
 use common\models\Position;
 use common\models\Schedule;
 use common\models\TournamentType;
+use Exception;
 
 /**
  * Class CheckCaptain
@@ -15,8 +16,8 @@ use common\models\TournamentType;
 class CheckCaptain
 {
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -37,7 +38,7 @@ class CheckCaptain
                     ->where(['game_schedule_id' => $schedule->schedule_id])
             ])
             ->having('SUM(lineup_captain)!=1')
-            ->groupBy([$groupBy])
+            ->groupBy([$groupBy, 'lineup_game_id'])
             ->each(5);
         foreach ($lineupArray as $lineup) {
             /**
