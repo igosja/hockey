@@ -908,33 +908,39 @@ class FixController extends AbstractController
      */
     public function actionCaptain()
     {
-        $groupBy = 'lineup_team_id';
-        $lineupArray = Lineup::find()
-            ->select([$groupBy, 'lineup_game_id'])
-            ->where(['!=', 'lineup_team_id', 0])
-            ->having('SUM(lineup_captain)!=1')
-            ->groupBy([$groupBy, 'lineup_game_id'])
-            ->orderBy(['lineup_game_id' => SORT_ASC])
-            ->each(5);
-        foreach ($lineupArray as $lineup) {
-            /**
-             * @var Lineup $lineup
-             */
-            $this->stdout($lineup->lineup_game_id . PHP_EOL);
+        for ($i = 0; $i <= 1; $i++) {
+            if (0 == $i) {
+                $groupBy = 'lineup_team_id';
+            } else {
+                $groupBy = 'lineup_national_id';
+            }
+            $lineupArray = Lineup::find()
+                ->select([$groupBy, 'lineup_game_id'])
+                ->where(['!=', $groupBy, 0])
+                ->having('SUM(lineup_captain)!=1')
+                ->groupBy([$groupBy, 'lineup_game_id'])
+                ->orderBy(['lineup_game_id' => SORT_ASC])
+                ->each(5);
+            foreach ($lineupArray as $lineup) {
+                /**
+                 * @var Lineup $lineup
+                 */
+                $this->stdout($lineup->lineup_game_id . PHP_EOL);
 
-            Lineup::updateAll(
-                ['lineup_captain' => 0],
-                ['lineup_game_id' => $lineup->lineup_game_id, $groupBy => $lineup->$groupBy]
-            );
+                Lineup::updateAll(
+                    ['lineup_captain' => 0],
+                    ['lineup_game_id' => $lineup->lineup_game_id, $groupBy => $lineup->$groupBy]
+                );
 
-            $lineupUpdate = Lineup::find()
-                ->where(['lineup_game_id' => $lineup->lineup_game_id, $groupBy => $lineup->$groupBy])
-                ->andWhere(['!=', 'lineup_position_id', Position::GK])
-                ->orderBy('RAND()')
-                ->limit(1)
-                ->one();
-            $lineupUpdate->lineup_captain = 1;
-            $lineupUpdate->save(true, ['lineup_captain']);
+                $lineupUpdate = Lineup::find()
+                    ->where(['lineup_game_id' => $lineup->lineup_game_id, $groupBy => $lineup->$groupBy])
+                    ->andWhere(['!=', 'lineup_position_id', Position::GK])
+                    ->orderBy('RAND()')
+                    ->limit(1)
+                    ->one();
+                $lineupUpdate->lineup_captain = 1;
+                $lineupUpdate->save(true, ['lineup_captain']);
+            }
         }
     }
 }
