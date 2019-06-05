@@ -108,7 +108,7 @@ class TeamController extends AbstractController
      * @return string|Response
      * @throws Exception
      */
-    public function actionView($id = null)
+    public function actionView(int $id = null)
     {
         if (!$id && $this->myTeamOrVice) {
             return $this->redirect(['view', 'id' => $this->myTeamOrVice->team_id]);
@@ -945,18 +945,19 @@ class TeamController extends AbstractController
         /**
          * @var User $user
          */
-        $user = Yii::$app->user->identity;
+        $user = $this->user;
 
         $result = [];
 
         $closestGame = Game::find()
+            ->joinWith(['schedule'])
             ->where([
                 'or',
                 ['game_home_team_id' => $this->myTeam->team_id],
                 ['game_guest_team_id' => $this->myTeam->team_id],
             ])
             ->andWhere(['game_played' => 0])
-            ->orderBy(['game_schedule_id' => SORT_ASC])
+            ->orderBy(['schedule_date' => SORT_ASC])
             ->limit(1)
             ->one();
         if ($closestGame) {
