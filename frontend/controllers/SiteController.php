@@ -17,6 +17,7 @@ use frontend\models\PasswordRestore;
 use frontend\models\SignUp;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -72,7 +73,7 @@ class SiteController extends AbstractController
         }
 
         $birthdays = User::find()
-            ->where(['user_birth_day' => date('d'), 'user_birth_month' => date('Y')])
+            ->where(['user_birth_day' => date('d'), 'user_birth_month' => date('m')])
             ->orderBy(['user_id' => SORT_ASC])
             ->all();
         $countryNews = News::find()
@@ -115,7 +116,7 @@ class SiteController extends AbstractController
     /**
      * @param string $code
      * @return Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAuth($code)
     {
@@ -384,7 +385,7 @@ class SiteController extends AbstractController
 
     /**
      * @return Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAuthByKey()
     {
