@@ -21,6 +21,7 @@ use console\models\newSeason\InsertConference;
 use console\models\newSeason\InsertLeague;
 use console\models\newSeason\InsertLeagueCoefficient;
 use console\models\newSeason\InsertLeagueParticipant;
+use console\models\newSeason\InsertNational;
 use console\models\newSeason\InsertNewSeason;
 use console\models\newSeason\InsertOffSeason;
 use console\models\newSeason\InsertSchedule;
@@ -70,6 +71,7 @@ class NewSeason
             new InsertLeagueCoefficient(),
             new LeagueLimit(),
             new InsertSchedule(),
+            new InsertNational(),
             new ChampionshipRotate(),
             new InsertOffSeason(),
             new InsertConference(),

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Division;
 use common\models\Game;
+use common\models\NationalType;
 use common\models\Schedule;
 use common\models\Stage;
 use common\models\StatisticChapter;
@@ -15,6 +16,7 @@ use common\models\WorldCup;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class WorldChampionshipController
@@ -24,12 +26,13 @@ class WorldChampionshipController extends AbstractController
 {
     /**
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionIndex()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
         $divisionId = Yii::$app->request->get('divisionId', Division::D1);
+        $nationalTypeId = Yii::$app->request->get('nationalTypeId', NationalType::MAIN);
         $stageId = Yii::$app->request->get('stageId');
 
         if (!$stageId) {
@@ -71,6 +74,7 @@ class WorldChampionshipController extends AbstractController
             ->where([
                 'world_cup_season_id' => $seasonId,
                 'world_cup_division_id' => $divisionId,
+                'world_cup_national_type_id' => $nationalTypeId,
             ])
             ->orderBy(['world_cup_place' => SORT_ASC]);
 
@@ -101,6 +105,7 @@ class WorldChampionshipController extends AbstractController
                     ->where([
                         'world_cup_season_id' => $seasonId,
                         'world_cup_division_id' => $divisionId,
+                        'world_cup_national_type_id' => $nationalTypeId,
                     ])
             ])
             ->orderBy(['game_id' => SORT_ASC])
@@ -110,10 +115,12 @@ class WorldChampionshipController extends AbstractController
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'divisionArray' => $this->getDivisionLinksArray($seasonId),
+            'divisionArray' => $this->getDivisionLinksArray($seasonId, $nationalTypeId),
             'divisionId' => $divisionId,
             'gameArray' => $gameArray,
-            'seasonArray' => $this->getSeasonArray($divisionId),
+            'nationalTypeArray' => $this->getNationalTypeArray($seasonId, $divisionId),
+            'nationalTypeId' => $nationalTypeId,
+            'seasonArray' => $this->getSeasonArray($divisionId, $nationalTypeId),
             'seasonId' => $seasonId,
             'stageArray' => $stageArray,
             'stageId' => $stageId,
@@ -122,9 +129,10 @@ class WorldChampionshipController extends AbstractController
 
     /**
      * @param $seasonId
+     * @param $nationalTypeId
      * @return array
      */
-    private function getDivisionLinksArray($seasonId)
+    private function getDivisionLinksArray($seasonId, $nationalTypeId)
     {
         $result = [];
 
@@ -132,6 +140,7 @@ class WorldChampionshipController extends AbstractController
             ->with(['division'])
             ->where([
                 'world_cup_season_id' => $seasonId,
+                'world_cup_national_type_id' => $nationalTypeId,
             ])
             ->groupBy(['world_cup_division_id'])
             ->orderBy(['world_cup_division_id' => SORT_ASC])
@@ -141,14 +150,57 @@ class WorldChampionshipController extends AbstractController
                 'alias' => [
                     [
                         'world-championship/index',
-                        'divisionId' => $worldCup->division->division_id,
+                        'divisionId' => $worldCup->world_cup_division_id,
+                        'nationalTypeId' => $worldCup->world_cup_national_type_id,
                         'seasonId' => $seasonId,
                     ],
                 ],
                 'text' => $worldCup->division->division_name,
                 'url' => [
                     'world-championship/index',
-                    'divisionId' => $worldCup->division->division_id,
+                    'divisionId' => $worldCup->world_cup_division_id,
+                    'nationalTypeId' => $worldCup->world_cup_national_type_id,
+                    'seasonId' => $seasonId,
+                ]
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $seasonId
+     * @param $divisionId
+     * @return array
+     */
+    private function getNationalTypeArray($seasonId, $divisionId)
+    {
+        $result = [];
+
+        $worldCupArray = WorldCup::find()
+            ->with(['division'])
+            ->where([
+                'world_cup_season_id' => $seasonId,
+                'world_cup_division_id' => $divisionId,
+            ])
+            ->groupBy(['world_cup_national_type_id'])
+            ->orderBy(['world_cup_national_type_id' => SORT_ASC])
+            ->all();
+        foreach ($worldCupArray as $worldCup) {
+            $result[] = [
+                'alias' => [
+                    [
+                        'world-championship/index',
+                        'divisionId' => $worldCup->world_cup_division_id,
+                        'nationalTypeId' => $worldCup->world_cup_national_type_id,
+                        'seasonId' => $seasonId,
+                    ],
+                ],
+                'text' => $worldCup->nationalType->national_type_name,
+                'url' => [
+                    'world-championship/index',
+                    'divisionId' => $worldCup->world_cup_division_id,
+                    'nationalTypeId' => $worldCup->world_cup_national_type_id,
                     'seasonId' => $seasonId,
                 ]
             ];
@@ -159,13 +211,17 @@ class WorldChampionshipController extends AbstractController
 
     /**
      * @param int $divisionId
+     * @param int $nationalTypeId
      * @return array
      */
-    private function getSeasonArray($divisionId)
+    private function getSeasonArray($divisionId, $nationalTypeId)
     {
         $season = WorldCup::find()
             ->select(['world_cup_season_id'])
-            ->where(['world_cup_division_id' => $divisionId])
+            ->where([
+                'world_cup_division_id' => $divisionId,
+                'world_cup_national_type_id' => $nationalTypeId,
+            ])
             ->groupBy(['world_cup_season_id'])
             ->orderBy(['world_cup_season_id' => SORT_DESC])
             ->all();

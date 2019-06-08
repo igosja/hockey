@@ -2,6 +2,7 @@
 
 namespace console\models\newSeason;
 
+use common\models\Division;
 use common\models\Game;
 use common\models\National;
 use common\models\NationalType;
@@ -9,6 +10,7 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
 use common\models\WorldCup;
+use Exception;
 use Yii;
 use yii\db\Expression;
 
@@ -19,15 +21,15 @@ use yii\db\Expression;
 class InsertWorldCup
 {
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
         $seasonId = Season::getCurrentSeason() + 1;
+        $oldSeasonId = Season::getCurrentSeason();
 
         $nationalTypeArray = NationalType::find()
-            ->where(['national_type_id' => NationalType::MAIN])
             ->orderBy(['national_type_id' => SORT_ASC])
             ->all();
         foreach ($nationalTypeArray as $nationalType) {
@@ -35,6 +37,15 @@ class InsertWorldCup
 
             $nationalArray = National::find()
                 ->where(['national_national_type_id' => $nationalType->national_type_id])
+                ->andWhere([
+                    'national_country_id' => National::find()
+                        ->select(['national_country_id'])
+                        ->where([
+                            'national_id' => WorldCup::find()
+                                ->select(['world_cup_national_id'])
+                                ->where(['world_cup_season_id' => $oldSeasonId])
+                        ])
+                ])
                 ->orderBy(['national_id' => SORT_ASC])
                 ->each();
 
@@ -43,7 +54,51 @@ class InsertWorldCup
                 /**
                  * @var National $national
                  */
-                $data[] = [1, $national->national_id, $national->national_national_type_id, $seasonId];
+                $data[] = [Division::D1, $national->national_id, $national->national_national_type_id, $seasonId];
+            }
+
+            Yii::$app->db
+                ->createCommand()
+                ->batchInsert(
+                    WorldCup::tableName(),
+                    [
+                        'world_cup_division_id',
+                        'world_cup_national_id',
+                        'world_cup_national_type_id',
+                        'world_cup_season_id'
+                    ],
+                    $data
+                )
+                ->execute();
+
+            WorldCup::updateAll(
+                ['world_cup_place' => new Expression('`world_cup_id`-((CEIL(`world_cup_id`/12)-1)*12)')],
+                [
+                    'world_cup_place' => 0,
+                    'world_cup_national_type_id' => $nationalTypeId,
+                    'world_cup_season_id' => $seasonId
+                ]
+            );
+
+            $nationalArray = National::find()
+                ->where(['national_national_type_id' => $nationalType->national_type_id])
+                ->andWhere([
+                    'not',
+                    [
+                        'national_id' => WorldCup::find()
+                            ->select(['world_cup_national_id'])
+                            ->where(['world_cup_season_id' => $seasonId])
+                    ]
+                ])
+                ->orderBy(['national_id' => SORT_ASC])
+                ->each();
+
+            $data = [];
+            foreach ($nationalArray as $national) {
+                /**
+                 * @var National $national
+                 */
+                $data[] = [Division::D2, $national->national_id, $national->national_national_type_id, $seasonId];
             }
 
             Yii::$app->db
@@ -86,105 +141,120 @@ class InsertWorldCup
             $schedule_id_10 = $scheduleArray[9]->schedule_id;
             $schedule_id_11 = $scheduleArray[10]->schedule_id;
 
-            $worldCupArray = WorldCup::find()
+            $divisionArray = WorldCup::find()
+                ->select(['world_cup_division_id'])
                 ->where([
-                    'world_cup_national_type_id' => $national->national_national_type_id,
-                    'world_cup_division_id' => 1,
                     'world_cup_season_id' => $seasonId,
+                    'world_cup_national_type_id' => $nationalTypeId,
                 ])
-                ->orderBy('RAND()')
+                ->groupBy(['world_cup_division_id'])
+                ->orderBy(['world_cup_division_id' => SORT_ASC])
                 ->all();
 
-            $national_id_01 = $worldCupArray[0]->world_cup_national_id;
-            $national_id_02 = $worldCupArray[1]->world_cup_national_id;
-            $national_id_03 = $worldCupArray[2]->world_cup_national_id;
-            $national_id_04 = $worldCupArray[3]->world_cup_national_id;
-            $national_id_05 = $worldCupArray[4]->world_cup_national_id;
-            $national_id_06 = $worldCupArray[5]->world_cup_national_id;
-            $national_id_07 = $worldCupArray[6]->world_cup_national_id;
-            $national_id_08 = $worldCupArray[7]->world_cup_national_id;
-            $national_id_09 = $worldCupArray[8]->world_cup_national_id;
-            $national_id_10 = $worldCupArray[9]->world_cup_national_id;
-            $national_id_11 = $worldCupArray[10]->world_cup_national_id;
-            $national_id_12 = $worldCupArray[11]->world_cup_national_id;
+            foreach ($divisionArray as $division) {
+                /**
+                 * @var WorldCup $division
+                 */
+                $worldCupArray = WorldCup::find()
+                    ->where([
+                        'world_cup_national_type_id' => $nationalTypeId,
+                        'world_cup_division_id' => $division->world_cup_division_id,
+                        'world_cup_season_id' => $seasonId,
+                    ])
+                    ->orderBy('RAND()')
+                    ->all();
 
-            $data = [
-                [0, $national_id_01, $national_id_02, $schedule_id_01],
-                [0, $national_id_07, $national_id_12, $schedule_id_01],
-                [0, $national_id_08, $national_id_06, $schedule_id_01],
-                [0, $national_id_09, $national_id_05, $schedule_id_01],
-                [0, $national_id_10, $national_id_04, $schedule_id_01],
-                [0, $national_id_11, $national_id_03, $schedule_id_01],
-                [0, $national_id_03, $national_id_01, $schedule_id_02],
-                [0, $national_id_04, $national_id_11, $schedule_id_02],
-                [0, $national_id_05, $national_id_10, $schedule_id_02],
-                [0, $national_id_06, $national_id_09, $schedule_id_02],
-                [0, $national_id_07, $national_id_08, $schedule_id_02],
-                [0, $national_id_12, $national_id_02, $schedule_id_02],
-                [0, $national_id_01, $national_id_04, $schedule_id_03],
-                [0, $national_id_02, $national_id_03, $schedule_id_03],
-                [0, $national_id_08, $national_id_12, $schedule_id_03],
-                [0, $national_id_09, $national_id_07, $schedule_id_03],
-                [0, $national_id_10, $national_id_06, $schedule_id_03],
-                [0, $national_id_11, $national_id_05, $schedule_id_03],
-                [0, $national_id_04, $national_id_02, $schedule_id_04],
-                [0, $national_id_05, $national_id_01, $schedule_id_04],
-                [0, $national_id_06, $national_id_11, $schedule_id_04],
-                [0, $national_id_07, $national_id_10, $schedule_id_04],
-                [0, $national_id_08, $national_id_09, $schedule_id_04],
-                [0, $national_id_12, $national_id_03, $schedule_id_04],
-                [0, $national_id_01, $national_id_06, $schedule_id_05],
-                [0, $national_id_02, $national_id_05, $schedule_id_05],
-                [0, $national_id_03, $national_id_04, $schedule_id_05],
-                [0, $national_id_09, $national_id_12, $schedule_id_05],
-                [0, $national_id_10, $national_id_08, $schedule_id_05],
-                [0, $national_id_11, $national_id_07, $schedule_id_05],
-                [0, $national_id_05, $national_id_03, $schedule_id_06],
-                [0, $national_id_06, $national_id_02, $schedule_id_06],
-                [0, $national_id_07, $national_id_01, $schedule_id_06],
-                [0, $national_id_08, $national_id_11, $schedule_id_06],
-                [0, $national_id_09, $national_id_10, $schedule_id_06],
-                [0, $national_id_12, $national_id_04, $schedule_id_06],
-                [0, $national_id_01, $national_id_08, $schedule_id_07],
-                [0, $national_id_02, $national_id_07, $schedule_id_07],
-                [0, $national_id_03, $national_id_06, $schedule_id_07],
-                [0, $national_id_04, $national_id_05, $schedule_id_07],
-                [0, $national_id_10, $national_id_12, $schedule_id_07],
-                [0, $national_id_11, $national_id_09, $schedule_id_07],
-                [0, $national_id_06, $national_id_04, $schedule_id_08],
-                [0, $national_id_07, $national_id_03, $schedule_id_08],
-                [0, $national_id_08, $national_id_02, $schedule_id_08],
-                [0, $national_id_09, $national_id_01, $schedule_id_08],
-                [0, $national_id_10, $national_id_11, $schedule_id_08],
-                [0, $national_id_12, $national_id_05, $schedule_id_08],
-                [0, $national_id_01, $national_id_10, $schedule_id_09],
-                [0, $national_id_02, $national_id_09, $schedule_id_09],
-                [0, $national_id_03, $national_id_08, $schedule_id_09],
-                [0, $national_id_04, $national_id_07, $schedule_id_09],
-                [0, $national_id_05, $national_id_06, $schedule_id_09],
-                [0, $national_id_11, $national_id_12, $schedule_id_09],
-                [0, $national_id_07, $national_id_05, $schedule_id_10],
-                [0, $national_id_08, $national_id_04, $schedule_id_10],
-                [0, $national_id_09, $national_id_03, $schedule_id_10],
-                [0, $national_id_10, $national_id_02, $schedule_id_10],
-                [0, $national_id_11, $national_id_01, $schedule_id_10],
-                [0, $national_id_12, $national_id_06, $schedule_id_10],
-                [0, $national_id_01, $national_id_12, $schedule_id_11],
-                [0, $national_id_02, $national_id_11, $schedule_id_11],
-                [0, $national_id_03, $national_id_10, $schedule_id_11],
-                [0, $national_id_04, $national_id_09, $schedule_id_11],
-                [0, $national_id_05, $national_id_08, $schedule_id_11],
-                [0, $national_id_06, $national_id_07, $schedule_id_11],
-            ];
+                $national_id_01 = $worldCupArray[0]->world_cup_national_id;
+                $national_id_02 = $worldCupArray[1]->world_cup_national_id;
+                $national_id_03 = $worldCupArray[2]->world_cup_national_id;
+                $national_id_04 = $worldCupArray[3]->world_cup_national_id;
+                $national_id_05 = $worldCupArray[4]->world_cup_national_id;
+                $national_id_06 = $worldCupArray[5]->world_cup_national_id;
+                $national_id_07 = $worldCupArray[6]->world_cup_national_id;
+                $national_id_08 = $worldCupArray[7]->world_cup_national_id;
+                $national_id_09 = $worldCupArray[8]->world_cup_national_id;
+                $national_id_10 = $worldCupArray[9]->world_cup_national_id;
+                $national_id_11 = $worldCupArray[10]->world_cup_national_id;
+                $national_id_12 = $worldCupArray[11]->world_cup_national_id;
 
-            Yii::$app->db
-                ->createCommand()
-                ->batchInsert(
-                    Game::tableName(),
-                    ['game_bonus_home', 'game_home_national_id', 'game_guest_national_id', 'game_schedule_id'],
-                    $data
-                )
-                ->execute();
+                $data = [
+                    [0, $national_id_01, $national_id_02, $schedule_id_01],
+                    [0, $national_id_07, $national_id_12, $schedule_id_01],
+                    [0, $national_id_08, $national_id_06, $schedule_id_01],
+                    [0, $national_id_09, $national_id_05, $schedule_id_01],
+                    [0, $national_id_10, $national_id_04, $schedule_id_01],
+                    [0, $national_id_11, $national_id_03, $schedule_id_01],
+                    [0, $national_id_03, $national_id_01, $schedule_id_02],
+                    [0, $national_id_04, $national_id_11, $schedule_id_02],
+                    [0, $national_id_05, $national_id_10, $schedule_id_02],
+                    [0, $national_id_06, $national_id_09, $schedule_id_02],
+                    [0, $national_id_07, $national_id_08, $schedule_id_02],
+                    [0, $national_id_12, $national_id_02, $schedule_id_02],
+                    [0, $national_id_01, $national_id_04, $schedule_id_03],
+                    [0, $national_id_02, $national_id_03, $schedule_id_03],
+                    [0, $national_id_08, $national_id_12, $schedule_id_03],
+                    [0, $national_id_09, $national_id_07, $schedule_id_03],
+                    [0, $national_id_10, $national_id_06, $schedule_id_03],
+                    [0, $national_id_11, $national_id_05, $schedule_id_03],
+                    [0, $national_id_04, $national_id_02, $schedule_id_04],
+                    [0, $national_id_05, $national_id_01, $schedule_id_04],
+                    [0, $national_id_06, $national_id_11, $schedule_id_04],
+                    [0, $national_id_07, $national_id_10, $schedule_id_04],
+                    [0, $national_id_08, $national_id_09, $schedule_id_04],
+                    [0, $national_id_12, $national_id_03, $schedule_id_04],
+                    [0, $national_id_01, $national_id_06, $schedule_id_05],
+                    [0, $national_id_02, $national_id_05, $schedule_id_05],
+                    [0, $national_id_03, $national_id_04, $schedule_id_05],
+                    [0, $national_id_09, $national_id_12, $schedule_id_05],
+                    [0, $national_id_10, $national_id_08, $schedule_id_05],
+                    [0, $national_id_11, $national_id_07, $schedule_id_05],
+                    [0, $national_id_05, $national_id_03, $schedule_id_06],
+                    [0, $national_id_06, $national_id_02, $schedule_id_06],
+                    [0, $national_id_07, $national_id_01, $schedule_id_06],
+                    [0, $national_id_08, $national_id_11, $schedule_id_06],
+                    [0, $national_id_09, $national_id_10, $schedule_id_06],
+                    [0, $national_id_12, $national_id_04, $schedule_id_06],
+                    [0, $national_id_01, $national_id_08, $schedule_id_07],
+                    [0, $national_id_02, $national_id_07, $schedule_id_07],
+                    [0, $national_id_03, $national_id_06, $schedule_id_07],
+                    [0, $national_id_04, $national_id_05, $schedule_id_07],
+                    [0, $national_id_10, $national_id_12, $schedule_id_07],
+                    [0, $national_id_11, $national_id_09, $schedule_id_07],
+                    [0, $national_id_06, $national_id_04, $schedule_id_08],
+                    [0, $national_id_07, $national_id_03, $schedule_id_08],
+                    [0, $national_id_08, $national_id_02, $schedule_id_08],
+                    [0, $national_id_09, $national_id_01, $schedule_id_08],
+                    [0, $national_id_10, $national_id_11, $schedule_id_08],
+                    [0, $national_id_12, $national_id_05, $schedule_id_08],
+                    [0, $national_id_01, $national_id_10, $schedule_id_09],
+                    [0, $national_id_02, $national_id_09, $schedule_id_09],
+                    [0, $national_id_03, $national_id_08, $schedule_id_09],
+                    [0, $national_id_04, $national_id_07, $schedule_id_09],
+                    [0, $national_id_05, $national_id_06, $schedule_id_09],
+                    [0, $national_id_11, $national_id_12, $schedule_id_09],
+                    [0, $national_id_07, $national_id_05, $schedule_id_10],
+                    [0, $national_id_08, $national_id_04, $schedule_id_10],
+                    [0, $national_id_09, $national_id_03, $schedule_id_10],
+                    [0, $national_id_10, $national_id_02, $schedule_id_10],
+                    [0, $national_id_11, $national_id_01, $schedule_id_10],
+                    [0, $national_id_12, $national_id_06, $schedule_id_10],
+                    [0, $national_id_01, $national_id_12, $schedule_id_11],
+                    [0, $national_id_02, $national_id_11, $schedule_id_11],
+                    [0, $national_id_03, $national_id_10, $schedule_id_11],
+                    [0, $national_id_04, $national_id_09, $schedule_id_11],
+                    [0, $national_id_05, $national_id_08, $schedule_id_11],
+                    [0, $national_id_06, $national_id_07, $schedule_id_11],
+                ];
+
+                Yii::$app->db
+                    ->createCommand()
+                    ->batchInsert(
+                        Game::tableName(),
+                        ['game_bonus_home', 'game_home_national_id', 'game_guest_national_id', 'game_schedule_id'],
+                        $data
+                    )
+                    ->execute();
+            }
         }
     }
 }
