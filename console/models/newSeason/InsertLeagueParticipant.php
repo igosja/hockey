@@ -55,12 +55,12 @@ class InsertLeagueParticipant
                         'championship_country_id' => $distribution->league_distribution_country_id,
                         'championship_division_id' => Division::D1,
                         'championship_season_id' => $seasonId,
-                        'championship_place' => 1
+                        'championship_place' => 1,
                     ])
                     ->andWhere(['not', ['championship_team_id' => $participantArray]])
                     ->limit(1)
                     ->one();
-                if ($participantArray) {
+                if ($championship) {
                     $participantArray[] = $championship->championship_team_id;
                 } else {
                     $participantChampionship = ParticipantChampionship::find()

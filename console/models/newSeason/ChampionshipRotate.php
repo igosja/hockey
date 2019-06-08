@@ -209,7 +209,7 @@ class ChampionshipRotate
                 foreach ($divisionArray as $item) {
                     if (!isset($rotateArray[$item->division_id]) && count($rotateArray['conference']) >= 16) {
                         $rotateArray[$item->division_id] = array_slice($rotateArray['conference'], 0, 16);
-                        $rotateArray['conference'] = array_splice($rotateArray['conference'], 0, 16);
+                        array_splice($rotateArray['conference'], 0, 16);
                     }
                 }
             }
@@ -236,23 +236,6 @@ class ChampionshipRotate
                         )
                         ->execute();
                 }
-            }
-
-            if (isset($rotateArray['conference'])) {
-                $data = [];
-
-                foreach ($rotateArray['conference'] as $item) {
-                    $data[] = [$seasonId + 1, $item];
-                }
-
-                Yii::$app->db
-                    ->createCommand()
-                    ->batchInsert(
-                        Conference::tableName(),
-                        ['conference_season_id', 'conference_team_id'],
-                        $data
-                    )
-                    ->execute();
             }
         }
     }

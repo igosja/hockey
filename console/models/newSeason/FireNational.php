@@ -3,6 +3,8 @@
 namespace console\models\newSeason;
 
 use common\models\National;
+use common\models\Team;
+use Exception;
 
 /**
  * Class FireNational
@@ -11,8 +13,8 @@ use common\models\National;
 class FireNational
 {
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -32,5 +34,7 @@ class FireNational
                 $national->fireUser();
             }
         }
+
+        Team::updateAll(['team_attitude_national' => 0, 'team_attitude_u21' => 0, 'team_attitude_u19' => 0]);
     }
 }

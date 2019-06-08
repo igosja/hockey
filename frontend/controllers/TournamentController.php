@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use common\models\Championship;
 use common\models\Division;
+use common\models\NationalType;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -95,19 +97,21 @@ class TournamentController extends AbstractController
                 continue;
             }
 
+            $params = ['seasonId' => $seasonId];
             if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
-                $route = 'world-championship/index';
+                $route = ['world-championship/index'];
+                $params = ArrayHelper::merge($params, ['divisionId' => Division::D1, 'nationalTypeId' => NationalType::MAIN]);
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {
-                $route = 'champions-league/index';
+                $route = ['champions-league/index'];
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id) {
-                $route = 'conference/index';
+                $route = ['conference/index'];
             } else {
-                $route = 'off-season/index';
+                $route = ['off-season/index'];
             }
 
             $tournamentArray[] = Html::a(
                 $schedule->tournamentType->tournament_type_name,
-                [$route, 'seasonId' => $seasonId]
+                ArrayHelper::merge($route, $params)
             );
         }
 

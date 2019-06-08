@@ -2,20 +2,25 @@
 
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use common\models\Game;
+use common\models\User;
 use common\models\WorldCup;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $divisionArray
  * @var int $divisionId
- * @var \common\models\Game[] $gameArray
+ * @var Game[] $gameArray
+ * @var array $nationalTypeArray
+ * @var int $nationalTypeId
  * @var array $seasonArray
  * @var int $seasonId
  * @var array $stageArray
  * @var int $stageId
- * @var \common\models\User $user
+ * @var User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -30,10 +35,17 @@ $user = Yii::$app->user->identity;
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//world-championship/_national-type-links', ['nationalTypeArray' => $nationalTypeArray]); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?= $this->render('//world-championship/_division-links', ['divisionArray' => $divisionArray]); ?>
     </div>
 </div>
 <?= Html::beginForm(['world-championship/index'], 'get'); ?>
+<?= Html::hiddenInput('divisionId', $divisionId); ?>
+<?= Html::hiddenInput('nationalTypeId', $nationalTypeId); ?>
 <div class="row margin-top-small">
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
