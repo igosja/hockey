@@ -28,6 +28,7 @@ use yii\db\ActiveQuery;
  *
  * @property Division $division
  * @property National $national
+ * @property NationalType $nationalType
  */
 class WorldCup extends AbstractActiveRecord
 {
@@ -93,5 +94,13 @@ class WorldCup extends AbstractActiveRecord
     public function getNational()
     {
         return $this->hasOne(National::class, ['national_id' => 'world_cup_national_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNationalType()
+    {
+        return $this->hasOne(NationalType::class, ['national_type_id' => 'world_cup_national_type_id']);
     }
 }

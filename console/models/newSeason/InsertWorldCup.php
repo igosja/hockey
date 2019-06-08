@@ -27,10 +27,9 @@ class InsertWorldCup
     public function execute()
     {
         $seasonId = Season::getCurrentSeason() + 1;
-        $oldSeasonId = Season::getCurrentSeason() + 1;
+        $oldSeasonId = Season::getCurrentSeason();
 
         $nationalTypeArray = NationalType::find()
-            ->where(['national_type_id' => NationalType::MAIN])
             ->orderBy(['national_type_id' => SORT_ASC])
             ->all();
         foreach ($nationalTypeArray as $nationalType) {
