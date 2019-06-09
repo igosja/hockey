@@ -430,16 +430,22 @@ use yii\helpers\Html;
                     'headerOptions' => ['class' => 'col-10', 'title' => 'Коэффициент'],
                     'label' => 'K',
                     'value' => function (RatingCountry $model) use ($season) {
-                        $result = 0;
-                        foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
-                            if ($season - 1 == $leagueCoefficient->league_coefficient_season_id) {
-                                $result = $result + $leagueCoefficient->league_coefficient_point;
+                        $rating = 0;
+                        for ($i = 0; $i < 5; $i++) {
+                            $count = 0;
+                            $result = 0;
+                            foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
+                                if ($season - $i == $leagueCoefficient->league_coefficient_season_id) {
+                                    $count++;
+                                    $result = $result + $leagueCoefficient->league_coefficient_point;
+                                }
                             }
-                            if ($season == $leagueCoefficient->league_coefficient_season_id) {
-                                $result = $result + $leagueCoefficient->league_coefficient_point;
+                            if (!$count) {
+                                $count = 1;
                             }
+                            $rating = $rating + $result / $count;
                         }
-                        return Yii::$app->formatter->asDecimal($result, 4);
+                        return Yii::$app->formatter->asDecimal($rating, 4);
                     }
                 ];
             }
