@@ -1209,6 +1209,200 @@ class TeamController extends AbstractController
             }
         }
 
+        $national21 = National::find()
+            ->where(['national_country_id' => $country->country_id, 'national_national_type_id' => NationalType::U21])
+            ->limit(1)
+            ->one();
+
+        if ($national21 && !$national21->national_user_id && !$national21->national_vice_id && $national && $national->national_user_id) {
+            $electionNational = ElectionNational::find()
+                ->where([
+                    'election_national_country_id' => $country->country_id,
+                    'election_national_national_type_id' => NationalType::U21,
+                    'election_national_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionNational) {
+                $electionNational = new ElectionNational();
+                $electionNational->election_national_country_id = $country->country_id;
+                $electionNational->election_national_national_type_id = NationalType::U21;
+                $electionNational->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionNational->election_national_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U21. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionNational->election_national_election_status_id) {
+                $electionNationalVote = ElectionNationalVote::find()
+                    ->where([
+                        'election_national_vote_application_id' => ElectionNationalApplication::find()
+                            ->select(['election_national_application_id'])
+                            ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
+                        'election_national_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionNationalVote) {
+                    Yii::$app->controller->redirect(['national-election/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы тренера сборной U21. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election/view']
+                    );
+            }
+        }
+
+        if ($national21 && $national21->national_user_id && !$national21->national_vice_id) {
+            $electionNationalVice = ElectionNationalVice::find()
+                ->where([
+                    'election_national_vice_country_id' => $country->country_id,
+                    'election_national_vice_national_type_id' => NationalType::U21,
+                    'election_national_vice_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionNationalVice) {
+                $electionNationalVice = new ElectionNationalVice();
+                $electionNationalVice->election_national_vice_country_id = $country->country_id;
+                $electionNationalVice->election_national_vice_national_type_id = NationalType::U21;
+                $electionNationalVice->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U21. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
+                $electionNationalVote = ElectionNationalViceVote::find()
+                    ->where([
+                        'election_national_vice_vote_application_id' => ElectionNationalViceApplication::find()
+                            ->select(['election_national_vice_application_id'])
+                            ->where(['election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id]),
+                        'election_national_vice_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionNationalVote) {
+                    Yii::$app->controller->redirect(['national-election-vice/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы заместителя тренера нацинальной сборной U21. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/view']
+                    );
+            }
+        }
+
+        $national19 = National::find()
+            ->where(['national_country_id' => $country->country_id, 'national_national_type_id' => NationalType::U19])
+            ->limit(1)
+            ->one();
+
+        if ($national19 && !$national19->national_user_id && !$national19->national_vice_id && $national && $national->national_user_id && $national21 && $national21->national_user_id) {
+            $electionNational = ElectionNational::find()
+                ->where([
+                    'election_national_country_id' => $country->country_id,
+                    'election_national_national_type_id' => NationalType::U19,
+                    'election_national_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionNational) {
+                $electionNational = new ElectionNational();
+                $electionNational->election_national_country_id = $country->country_id;
+                $electionNational->election_national_national_type_id = NationalType::U19;
+                $electionNational->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionNational->election_national_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U19. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionNational->election_national_election_status_id) {
+                $electionNationalVote = ElectionNationalVote::find()
+                    ->where([
+                        'election_national_vote_application_id' => ElectionNationalApplication::find()
+                            ->select(['election_national_application_id'])
+                            ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
+                        'election_national_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionNationalVote) {
+                    Yii::$app->controller->redirect(['national-election/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы тренера сборной U19. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election/view']
+                    );
+            }
+        }
+
+        if ($national19 && $national19->national_user_id && !$national19->national_vice_id) {
+            $electionNationalVice = ElectionNationalVice::find()
+                ->where([
+                    'election_national_vice_country_id' => $country->country_id,
+                    'election_national_vice_national_type_id' => NationalType::U19,
+                    'election_national_vice_election_status_id' => [
+                        ElectionStatus::CANDIDATES,
+                        ElectionStatus::OPEN,
+                    ],
+                ])
+                ->limit(1)
+                ->one();
+
+            if (!$electionNationalVice) {
+                $electionNationalVice = new ElectionNationalVice();
+                $electionNationalVice->election_national_vice_country_id = $country->country_id;
+                $electionNationalVice->election_national_vice_national_type_id = NationalType::U19;
+                $electionNationalVice->save();
+            }
+
+            if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
+                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U19. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/application']
+                    );
+            } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
+                $electionNationalVote = ElectionNationalViceVote::find()
+                    ->where([
+                        'election_national_vice_vote_application_id' => ElectionNationalViceApplication::find()
+                            ->select(['election_national_vice_application_id'])
+                            ->where(['election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id]),
+                        'election_national_vice_vote_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+
+                if (!$electionNationalVote) {
+                    Yii::$app->controller->redirect(['national-election-vice/poll']);
+                }
+
+                $result[] = 'В вашей стране проходят выборы заместителя тренера сборной U19. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['national-election-vice/view']
+                    );
+            }
+        }
+
         $presidentCountryArray = Country::find()
             ->where([
                 'or',
