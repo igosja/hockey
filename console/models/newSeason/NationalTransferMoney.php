@@ -70,6 +70,7 @@ class NationalTransferMoney
             $nationalPlayerDayArray = NationalPlayerDay::find()
                 ->select(['national_player_day_day' => 'SUM(national_player_day_day)', 'national_player_day_team_id'])
                 ->where(['national_player_day_national_id' => $national->national_id])
+                ->groupBy('national_player_day_team_id')
                 ->orderBy(['national_player_day_team_id' => SORT_ASC])
                 ->all();
             foreach ($nationalPlayerDayArray as $nationalPlayerDay) {
