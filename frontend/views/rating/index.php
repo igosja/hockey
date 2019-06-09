@@ -433,6 +433,10 @@ use yii\helpers\Html;
                         $count = 0;
                         $result = 0;
                         foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
+                            if ($season - 1 == $leagueCoefficient->league_coefficient_season_id) {
+                                $count++;
+                                $result = $result + $leagueCoefficient->league_coefficient_point;
+                            }
                             if ($season == $leagueCoefficient->league_coefficient_season_id) {
                                 $count++;
                                 $result = $result + $leagueCoefficient->league_coefficient_point;
