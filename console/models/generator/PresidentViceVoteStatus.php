@@ -8,6 +8,7 @@ use common\models\ElectionPresidentViceApplication;
 use common\models\ElectionStatus;
 use common\models\History;
 use common\models\HistoryText;
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -17,14 +18,14 @@ use yii\db\ActiveQuery;
 class PresidentViceVoteStatus
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
         $electionPresidentViceArray = ElectionPresidentVice::find()
             ->with(['application'])
             ->where(['election_president_vice_election_status_id' => ElectionStatus::CANDIDATES])
-            ->andWhere(['<', 'election_president_vice_date', time() - 172800])
+            ->andWhere(['<', 'election_president_vice_date', time() - 165000])
             ->orderBy(['election_president_vice_id' => SORT_ASC])
             ->each(5);
         foreach ($electionPresidentViceArray as $electionPresidentVice) {
@@ -39,7 +40,7 @@ class PresidentViceVoteStatus
         $electionPresidentViceArray = ElectionPresidentVice::find()
             ->with(['application'])
             ->where(['election_president_vice_election_status_id' => ElectionStatus::OPEN])
-            ->andWhere(['<', 'election_president_vice_date', time() - 259200])
+            ->andWhere(['<', 'election_president_vice_date', time() - 250000])
             ->orderBy(['election_president_vice_id' => SORT_ASC])
             ->each(5);
         foreach ($electionPresidentViceArray as $electionPresidentVice) {
@@ -52,7 +53,7 @@ class PresidentViceVoteStatus
 
     /**
      * @param ElectionPresidentVice $electionPresidentVice
-     * @throws \Exception
+     * @throws Exception
      */
     private function toOpen(ElectionPresidentVice $electionPresidentVice)
     {
@@ -68,7 +69,7 @@ class PresidentViceVoteStatus
 
     /**
      * @param ElectionPresidentVice $electionPresidentVice
-     * @throws \Exception
+     * @throws Exception
      */
     private function toClose(ElectionPresidentVice $electionPresidentVice)
     {

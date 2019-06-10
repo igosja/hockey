@@ -1,18 +1,20 @@
 <?php
 
 use coderlex\wysibb\WysiBB;
+use common\models\ElectionNationalApplication;
+use common\models\Player;
 use common\models\Position;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\Player[] $cfArray
- * @var \common\models\Player[] $gkArray
- * @var \common\models\Player[] $ldArray
- * @var \common\models\Player[] $lwArray
- * @var \common\models\ElectionNationalApplication $model
- * @var \common\models\Player[] $rdArray
- * @var \common\models\Player[] $rwArray
+ * @var Player[] $cfArray
+ * @var Player[] $gkArray
+ * @var Player[] $ldArray
+ * @var Player[] $lwArray
+ * @var ElectionNationalApplication $model
+ * @var Player[] $rdArray
+ * @var Player[] $rwArray
  */
 
 print $this->render('//country/_country');
@@ -20,7 +22,7 @@ print $this->render('//country/_country');
 ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-        <h4>Подача заявки на пост тренера национальной сборной</h4>
+        <h4>Подача заявки на пост тренера сборной</h4>
     </div>
 </div>
 <?php $form = ActiveForm::begin([

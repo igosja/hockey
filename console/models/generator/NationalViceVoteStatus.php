@@ -9,6 +9,7 @@ use common\models\ElectionStatus;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\National;
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -18,14 +19,14 @@ use yii\db\ActiveQuery;
 class NationalViceVoteStatus
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
         $electionNationalViceArray = ElectionNationalVice::find()
             ->with(['application'])
             ->where(['election_national_vice_election_status_id' => ElectionStatus::CANDIDATES])
-            ->andWhere(['<', 'election_national_vice_date', time() - 172800])
+            ->andWhere(['<', 'election_national_vice_date', time() - 165000])
             ->orderBy(['election_national_vice_id' => SORT_ASC])
             ->each(5);
         foreach ($electionNationalViceArray as $electionNationalVice) {
@@ -40,7 +41,7 @@ class NationalViceVoteStatus
         $electionNationalViceArray = ElectionNationalVice::find()
             ->with(['application'])
             ->where(['election_national_vice_election_status_id' => ElectionStatus::OPEN])
-            ->andWhere(['<', 'election_national_vice_date', time() - 259200])
+            ->andWhere(['<', 'election_national_vice_date', time() - 250000])
             ->orderBy(['election_national_vice_id' => SORT_ASC])
             ->each(5);
         foreach ($electionNationalViceArray as $electionNationalVice) {
@@ -53,7 +54,7 @@ class NationalViceVoteStatus
 
     /**
      * @param ElectionNationalVice $electionNationalVice
-     * @throws \Exception
+     * @throws Exception
      */
     private function toOpen(ElectionNationalVice $electionNationalVice)
     {
@@ -69,7 +70,7 @@ class NationalViceVoteStatus
 
     /**
      * @param ElectionNationalVice $electionNationalVice
-     * @throws \Exception
+     * @throws Exception
      */
     private function toClose(ElectionNationalVice $electionNationalVice)
     {
