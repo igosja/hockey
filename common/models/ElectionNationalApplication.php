@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -84,7 +85,12 @@ class ElectionNationalApplication extends AbstractActiveRecord
      */
     public function checkPlayer($attribute)
     {
+        if (count($this->$attribute) != 6) {
+            $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
+        }
+
         $formPlayerArray = [];
+
         foreach ($this->$attribute as $positionId => $playerArray) {
             $playerArray = array_diff($playerArray, [0]);
             $formPlayerArray = ArrayHelper::merge($formPlayerArray, $playerArray);
@@ -105,7 +111,9 @@ class ElectionNationalApplication extends AbstractActiveRecord
                         'player_id' => $playerId,
                         'player_position_id' => $positionId,
                         'player_country_id' => $this->electionNational->election_national_country_id,
+                        'player_national_id' => 0,
                     ])
+                    ->andFilterWhere(['<=', 'player_age', $this->electionNational->national->nationalType->getAgeLimit()])
                     ->exists();
                 if (!$player) {
                     $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
@@ -143,7 +151,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveApplication()
     {

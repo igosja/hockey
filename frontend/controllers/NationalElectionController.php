@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Country;
 use common\models\ElectionNational;
 use common\models\ElectionNationalApplication;
 use common\models\ElectionNationalVote;
@@ -12,7 +13,9 @@ use common\models\Player;
 use common\models\Position;
 use Exception;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class NationalElectionController
@@ -39,7 +42,7 @@ class NationalElectionController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionApplication()
@@ -51,19 +54,16 @@ class NationalElectionController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        $national = National::find()
-            ->where(['national_national_type_id' => NationalType::MAIN, 'national_country_id' => $country->country_id])
-            ->limit(1)
-            ->one();
+        $national = $this->getNational($country);
 
-        if ($national->national_user_id) {
+        if (!$national) {
             return $this->redirect(['team/view']);
         }
 
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
-                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::OPEN
             ])
             ->count();
@@ -73,22 +73,18 @@ class NationalElectionController extends AbstractController
         }
 
         $position = National::find()
-            ->where([
-                'or',
-                ['national_user_id' => Yii::$app->user->id],
-                ['national_vice_id' => Yii::$app->user->id],
-            ])
+            ->where(['national_user_id' => $this->user->user_id])
             ->count();
 
         if ($position) {
-            $this->setErrorFlash('Можно быть тренером или заместителем тренера только в одной сборной.');
+            $this->setErrorFlash('Можно быть тренером только в одной сборной.');
             return $this->redirect(['team/view']);
         }
 
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
-                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::CANDIDATES,
             ])
             ->limit(1)
@@ -96,21 +92,21 @@ class NationalElectionController extends AbstractController
         if (!$electionNational) {
             $electionNational = new ElectionNational();
             $electionNational->election_national_country_id = $country->country_id;
-            $electionNational->election_national_national_type_id = NationalType::MAIN;
+            $electionNational->election_national_national_type_id = $national->national_national_type_id;
             $electionNational->save();
         }
 
         $model = ElectionNationalApplication::find()
             ->where([
                 'election_national_application_election_id' => $electionNational->election_national_id,
-                'election_national_application_user_id' => Yii::$app->user->id,
+                'election_national_application_user_id' => $this->user->user_id,
             ])
             ->limit(1)
             ->one();
         if (!$model) {
             $model = new ElectionNationalApplication();
             $model->election_national_application_election_id = $electionNational->election_national_id;
-            $model->election_national_application_user_id = Yii::$app->user->id;
+            $model->election_national_application_user_id = $this->user->user_id;
         }
 
         if ($model->saveApplication()) {
@@ -126,8 +122,9 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::GK])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::GK, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(15)
             ->all();
@@ -140,8 +137,9 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LD])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LD, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
@@ -154,8 +152,9 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RD])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RD, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
@@ -168,8 +167,9 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LW])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LW, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
@@ -182,8 +182,9 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::CF])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::CF, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
@@ -196,13 +197,14 @@ class NationalElectionController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RW])
+            ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RW, 'player_national_id' => 0])
             ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
 
-        $this->setSeoTitle('Подача заявки на должность тренера национальной сборной');
+        $this->setSeoTitle('Подача заявки на должность тренера сборной');
         return $this->render('application', [
             'cfArray' => $cfArray,
             'gkArray' => $gkArray,
@@ -215,7 +217,7 @@ class NationalElectionController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionView()
     {
@@ -226,19 +228,16 @@ class NationalElectionController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        $national = National::find()
-            ->where(['national_national_type_id' => NationalType::MAIN, 'national_country_id' => $country->country_id])
-            ->limit(1)
-            ->one();
+        $national = $this->getNational($country);
 
-        if ($national->national_user_id) {
+        if (!$national) {
             return $this->redirect(['team/view']);
         }
 
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
-                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::CANDIDATES
             ])
             ->count();
@@ -250,6 +249,7 @@ class NationalElectionController extends AbstractController
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::OPEN,
             ])
             ->limit(1)
@@ -264,21 +264,21 @@ class NationalElectionController extends AbstractController
                 'election_national_vote_application_id' => ElectionNationalApplication::find()
                     ->select(['election_national_application_id'])
                     ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
-                'election_national_vote_user_id' => Yii::$app->user->id,
+                'election_national_vote_user_id' => $this->user->user_id,
             ])
             ->count();
         if (!$voteUser) {
             return $this->redirect(['national-election/poll']);
         }
 
-        $this->setSeoTitle('Голосование за тренера национальной сборной');
+        $this->setSeoTitle('Голосование за тренера сборной');
         return $this->render('view', [
             'electionNational' => $electionNational,
         ]);
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionPoll()
@@ -290,10 +290,7 @@ class NationalElectionController extends AbstractController
         $country = $this->myTeam->stadium->city->country;
         Yii::$app->request->setQueryParams(['id' => $country->country_id]);
 
-        $national = National::find()
-            ->where(['national_national_type_id' => NationalType::MAIN, 'national_country_id' => $country->country_id])
-            ->limit(1)
-            ->one();
+        $national = $this->getNational($country);
 
         if ($national->national_user_id) {
             return $this->redirect(['team/view']);
@@ -302,7 +299,7 @@ class NationalElectionController extends AbstractController
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
-                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::CANDIDATES
             ])
             ->count();
@@ -314,7 +311,7 @@ class NationalElectionController extends AbstractController
         $electionNational = ElectionNational::find()
             ->where([
                 'election_national_country_id' => $country->country_id,
-                'election_national_national_type_id' => NationalType::MAIN,
+                'election_national_national_type_id' => $national->national_national_type_id,
                 'election_national_election_status_id' => ElectionStatus::OPEN,
             ])
             ->limit(1)
@@ -329,7 +326,7 @@ class NationalElectionController extends AbstractController
                 'election_national_vote_application_id' => ElectionNationalApplication::find()
                     ->select(['election_national_application_id'])
                     ->where(['election_national_application_election_id' => $electionNational->election_national_id]),
-                'election_national_vote_user_id' => Yii::$app->user->id,
+                'election_national_vote_user_id' => $this->user->user_id,
             ])
             ->count();
         if ($voteUser) {
@@ -337,13 +334,13 @@ class NationalElectionController extends AbstractController
         }
 
         $model = new ElectionNationalVote();
-        $model->election_national_vote_user_id = Yii::$app->user->id;
+        $model->election_national_vote_user_id = $this->user->user_id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $this->setSuccessFlash('Ваш голос успешно сохранён.');
             return $this->refresh();
         }
 
-        $this->setSeoTitle('Голосование за тренера национальной сборной');
+        $this->setSeoTitle('Голосование за тренера сборной');
 
         return $this->render('poll', [
             'electionNational' => $electionNational,
@@ -351,6 +348,10 @@ class NationalElectionController extends AbstractController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string|Response
+     */
     public function actionPlayer($id)
     {
         if (!$this->myTeam) {
@@ -378,10 +379,30 @@ class NationalElectionController extends AbstractController
             return $this->redirect(['team/view']);
         }
 
-        $this->setSeoTitle('Состав тренера национальной сборной');
+        $this->setSeoTitle('Состав тренера сборной');
 
         return $this->render('player', [
             'electionNationalApplication' => $electionNationalApplication,
         ]);
+    }
+
+    /**
+     * @param Country $country
+     * @return array|National|ActiveRecord|null
+     */
+    private function getNational(Country $country)
+    {
+        for ($i = NationalType::MAIN; $i <= NationalType::U19; $i++) {
+            $national = National::find()
+                ->where(['national_national_type_id' => $i, 'national_country_id' => $country->country_id])
+                ->limit(1)
+                ->one();
+
+            if (!$national->national_user_id) {
+                return $national;
+            }
+        }
+
+        return null;
     }
 }

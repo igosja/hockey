@@ -13,10 +13,13 @@ use common\models\Position;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
+use Exception;
 use frontend\models\NationalPlayer;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -55,8 +58,8 @@ class NationalController extends AbstractController
 
     /**
      * @param $id
-     * @return \yii\web\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function actionAttitudeNational($id)
     {
@@ -75,7 +78,7 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -152,7 +155,7 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionGame($id)
     {
@@ -194,7 +197,7 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionEvent($id)
     {
@@ -233,7 +236,7 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionFinance($id)
     {
@@ -269,7 +272,7 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionAchievement($id)
     {
@@ -294,9 +297,9 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
-     * @throws \Exception
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionPlayer($id)
     {
@@ -333,7 +336,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::GK])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::GK,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(15)
@@ -347,7 +355,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::LD])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::LD,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -361,7 +374,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::RD])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::RD,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -375,7 +393,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::LW])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::LW,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -389,7 +412,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::CF])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::CF,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -403,7 +431,12 @@ class NationalController extends AbstractController
                 'surname',
                 'team.stadium.city.country',
             ])
-            ->where(['player_country_id' => $national->country->country_id, 'player_position_id' => Position::RW])
+            ->where([
+                'player_country_id' => $national->country->country_id,
+                'player_position_id' => Position::RW,
+                'player_national_id' => [0, $national->national_id]
+            ])
+            ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->andWhere(['!=', 'player_team_id', 0])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -471,8 +504,8 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string|Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionFire($id)
     {
@@ -509,7 +542,7 @@ class NationalController extends AbstractController
     /**
      * @param int $id
      * @return National
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function getNational($id)
     {

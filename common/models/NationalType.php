@@ -18,7 +18,7 @@ class NationalType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%national_type}}';
     }
@@ -26,7 +26,7 @@ class NationalType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['national_type_id'], 'integer'],
@@ -34,5 +34,21 @@ class NationalType extends AbstractActiveRecord
             [['national_type_name'], 'string', 'max' => 10],
             [['national_type_name'], 'trim'],
         ];
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getAgeLimit()
+    {
+        $result = null;
+
+        if (self::U21 == $this->national_type_id) {
+            $result = 21;
+        } elseif (self::U19 == $this->national_type_id) {
+            $result = 19;
+        }
+
+        return $result;
     }
 }
