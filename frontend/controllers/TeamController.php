@@ -1260,7 +1260,7 @@ class TeamController extends AbstractController
             }
         }
 
-        if ($national21 && $national21->national_user_id && !$national21->national_vice_id) {
+        if ($national && $national->national_vice_id && $national21 && $national21->national_user_id && !$national21->national_vice_id) {
             $electionNationalVice = ElectionNationalVice::find()
                 ->where([
                     'election_national_vice_country_id' => $country->country_id,
@@ -1357,7 +1357,7 @@ class TeamController extends AbstractController
             }
         }
 
-        if ($national19 && $national19->national_user_id && !$national19->national_vice_id) {
+        if ($national && $national->national_vice_id && $national21 && $national21->national_vice_id && $national19 && $national19->national_user_id && !$national19->national_vice_id) {
             $electionNationalVice = ElectionNationalVice::find()
                 ->where([
                     'election_national_vice_country_id' => $country->country_id,

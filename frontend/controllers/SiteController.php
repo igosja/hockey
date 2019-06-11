@@ -62,6 +62,14 @@ class SiteController extends AbstractController
     /**
      * @return string
      */
+    public function actionClosed(): string
+    {
+        return $this->render('closed');
+    }
+
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         if (Yii::$app->request->get('ref')) {
