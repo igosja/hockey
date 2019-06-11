@@ -2,13 +2,15 @@
 
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
+use common\models\ElectionNational;
 use common\models\ElectionNationalApplication;
+use common\models\ElectionNationalVote;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\ElectionNational $electionNational
- * @var \common\models\ElectionNationalVote $model
+ * @var ElectionNational $electionNational
+ * @var ElectionNationalVote $model
  */
 
 print $this->render('//country/_country');
@@ -18,7 +20,7 @@ print $this->render('//country/_country');
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <h4>Выборы тренера национальной сборной</h4>
+                <h4>Выборы тренера сборной</h4>
             </div>
         </div>
         <div class="row margin-top">

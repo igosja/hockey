@@ -2,6 +2,7 @@
 
 namespace console\models\newSeason;
 
+use common\models\Attitude;
 use common\models\National;
 use common\models\Team;
 use Exception;
@@ -35,6 +36,10 @@ class FireNational
             }
         }
 
-        Team::updateAll(['team_attitude_national' => 0, 'team_attitude_u21' => 0, 'team_attitude_u19' => 0]);
+        Team::updateAll([
+            'team_attitude_national' => Attitude::NEUTRAL,
+            'team_attitude_u21' => Attitude::NEUTRAL,
+            'team_attitude_u19' => Attitude::NEUTRAL,
+        ]);
     }
 }
