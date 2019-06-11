@@ -5,6 +5,7 @@ namespace console\controllers;
 use common\components\ErrorHelper;
 use common\models\History;
 use common\models\HistoryText;
+use common\models\Site;
 use common\models\Team;
 use common\models\TeamAsk;
 use Exception;
@@ -24,6 +25,10 @@ class TeamAskController extends AbstractController
      */
     public function actionIndex()
     {
+        if (!Site::status()) {
+            return true;
+        }
+
         $expression = new Expression('UNIX_TIMESTAMP()-IFNULL(`count_history`, 0)*46800');
         $teamAsk = (new Query())
             ->from(TeamAsk::tableName())

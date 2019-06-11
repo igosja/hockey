@@ -119,10 +119,6 @@ abstract class AbstractController extends Controller
             );
         }
 
-        if (!Site::status() && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException('На сайте проводятся технические работы. Зайдите, пожалуйста, позже.');
-        }
-
         $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
@@ -191,6 +187,14 @@ abstract class AbstractController extends Controller
             if (!('restore' == $action->id && 'user' == $action->controller->id) && $this->user->user_date_delete) {
                 return $this->redirect(['user/restore']);
             }
+        }
+
+        if (!Site::status() && !('site' == $action->controller->id && 'closed' == $action->id)) {
+            return $this->redirect(['site/closed']);
+        }
+
+        if (Site::status() && 'site' == $action->controller->id && 'closed' == $action->id) {
+            return $this->redirect(['site/index']);
         }
 
         return true;
