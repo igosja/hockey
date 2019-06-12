@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @var \common\models\ElectionNationalApplication $electionNationalApplication
+ * @var ElectionNationalApplication $electionNationalApplication
  */
 
 print $this->render('//country/_country');
 
-?>
+use common\models\ElectionNationalApplication; ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <h4>Состав тренера национальной сборной</h4>
+                <h4>Состав тренера сборной</h4>
             </div>
         </div>
         <div class="row">
