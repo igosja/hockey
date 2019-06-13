@@ -2,7 +2,6 @@
 
 namespace console\models;
 
-use common\components\ErrorHelper;
 use common\models\Bot;
 use common\models\Game;
 use common\models\Lineup;
@@ -14,10 +13,8 @@ use common\models\Style;
 use common\models\Tactic;
 use common\models\Team;
 use common\models\TeamAsk;
-use common\models\User;
 use Exception;
 use Throwable;
-use Yii;
 use yii\db\StaleObjectException;
 
 /**
@@ -38,7 +35,6 @@ class BotService
     {
         $this->deleteOldBot();
         $this->deleteExtraBot();
-        $this->addNewBot();
         $this->lineup();
     }
 
@@ -78,7 +74,7 @@ class BotService
             ->where(['team_user_id' => 0])
             ->andWhere(['!=', 'team_id', 0])
             ->count();
-        if ($countFreeTeam >= self::COUNT_FREE_TEAM) {
+        if ($countFreeTeam >= self::COUNT_FREE_TEAM + (time() - 1560449556) / 8640) {
             return;
         }
 
@@ -91,69 +87,6 @@ class BotService
                 $team->managerFire();
             }
             $bot->delete();
-        }
-    }
-
-    /**
-     * @throws \yii\db\Exception
-     */
-    private function addNewBot()
-    {
-        $countFreeTeam = Team::find()
-            ->where(['team_user_id' => 0])
-            ->andWhere(['!=', 'team_id', 0])
-            ->count();
-        if ($countFreeTeam <= self::COUNT_FREE_TEAM) {
-            return;
-        }
-
-        $user = User::find()
-            ->where(['user_date_delete' => 0, 'user_holiday' => 0])
-            ->andWhere([
-                'or',
-                ['<', 'user_date_login', time() - self::BOT_LAST_VISIT],
-                ['user_ip' => null]
-            ])
-            ->andWhere(['not', ['user_id' => Bot::find()->select(['bot_user_id'])]])
-            ->andWhere(['!=', 'user_id', 0])
-            ->andWhere(['<', 'user_date_vip', time()])
-            ->orderBy(['user_date_login' => SORT_ASC])
-            ->limit(1)
-            ->one();
-        if (!$user) {
-            return;
-        }
-
-        $team = Team::find()
-            ->where(['team_user_id' => 0])
-            ->andWhere(['!=', 'team_id', 0])
-            ->orderBy('RAND()')
-            ->limit(1)
-            ->one();
-        if (!$team) {
-            return;
-        }
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            $time = time();
-
-            $model = new Bot();
-            $model->bot_date = $time;
-            $model->bot_user_id = $user->user_id;
-            $model->save();
-
-            $user->user_date_login = $time;
-            $user->save(true, ['user_date_login']);
-
-            $model = new TeamAsk();
-            $model->team_ask_team_id = $team->team_id;
-            $model->team_ask_user_id = $user->user_id;
-            $model->save();
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollBack();
-            ErrorHelper::log($e);
         }
     }
 
