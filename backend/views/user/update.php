@@ -1,11 +1,13 @@
 <?php
 
+use common\models\User;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\User $model
- * @var \yii\web\View $this
+ * @var User $model
+ * @var View $this
  */
 
 ?>
@@ -24,6 +26,7 @@ use yii\widgets\ActiveForm;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'user_login')->textInput(); ?>
+        <?= $form->field($model, 'user_referrer_id')->textInput(); ?>
         <div class="form-group">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-default']); ?>
