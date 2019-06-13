@@ -11,6 +11,7 @@ use common\models\Stage;
 use common\models\Team;
 use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class InsertConference
@@ -19,14 +20,21 @@ use Yii;
 class InsertConference
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
         $seasonId = Season::getCurrentSeason() + 1;
         $teamArray = Team::find()
-            ->where(['not in', 'team_id', Championship::find()->select(['championship_team_id'])])
+            ->where([
+                'not',
+                [
+                    'team_id' => Championship::find()
+                        ->select(['championship_team_id'])
+                        ->where(['championship_season_id' => $seasonId])
+                ]
+            ])
             ->andWhere(['!=', 'team_id', 0])
             ->orderBy(['team_id' => SORT_ASC])
             ->each();
@@ -65,20 +73,22 @@ class InsertConference
             ->orderBy(['conference_team_id' => SORT_ASC])
             ->all();
 
-        $keyArray = [
-            [0, 1],
-            [22, 2],
-            [21, 3],
-            [20, 4],
-            [19, 5],
-            [18, 6],
-            [17, 7],
-            [16, 8],
-            [15, 9],
-            [14, 10],
-            [13, 11],
-            [12, 23],
-        ];
+        $stage = Stage::TOUR_1 - 1;
+        $countTeam = count($conferenceArray);
+
+        $keyArray = [];
+
+        for ($one = 0, $two = $stage; $one < $two; $one++, $two--) {
+            $keyArray[] = [$one, $two];
+        }
+
+        for ($one = $countTeam - 2, $two = $stage + 1; $one > $two + 1; $one--, $two++) {
+            $keyArray[] = [$one, $two];
+        }
+
+        if ($countTeam / 2 + ($stage - 1) / 2 != $countTeam - 1) {
+            $keyArray[] = [$countTeam / 2 + ($stage - 1) / 2, $countTeam - 1];
+        }
 
         $data = [];
         foreach ($keyArray as $item) {

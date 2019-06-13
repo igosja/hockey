@@ -5,6 +5,7 @@ namespace frontend\models;
 use common\models\National;
 use common\models\Player;
 use common\models\Position;
+use Exception;
 use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
@@ -49,6 +50,10 @@ class NationalPlayer extends Model
      */
     public function checkPlayer($attribute)
     {
+        if (count($this->$attribute) != 6) {
+            $this->addError('player', 'Игроки выбраны неправильно');
+        }
+
         $formPlayerArray = [];
         foreach ($this->$attribute as $positionId => $playerArray) {
             $playerArray = array_diff($playerArray, [0]);
@@ -70,7 +75,9 @@ class NationalPlayer extends Model
                         'player_id' => $playerId,
                         'player_position_id' => $positionId,
                         'player_country_id' => $this->national->national_country_id,
+                        'player_national_id' => [0, $this->national->national_id],
                     ])
+                    ->andFilterWhere(['<=', 'player_age', $this->national->nationalType->getAgeLimit()])
                     ->exists();
                 if (!$player) {
                     $this->addError('player', 'Игроки выбраны неправильно');
@@ -83,7 +90,7 @@ class NationalPlayer extends Model
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function savePlayer()
     {

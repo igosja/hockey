@@ -8,6 +8,7 @@ use common\models\ElectionStatus;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\National;
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -17,14 +18,14 @@ use yii\db\ActiveQuery;
 class NationalVoteStatus
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
         $electionNationalArray = ElectionNational::find()
             ->with(['application'])
             ->where(['election_national_election_status_id' => ElectionStatus::CANDIDATES])
-            ->andWhere(['<', 'election_national_date', time() - 172800])
+            ->andWhere(['<', 'election_national_date', time() - 129600])
             ->orderBy(['election_national_id' => SORT_ASC])
             ->each(5);
         foreach ($electionNationalArray as $electionNational) {
@@ -39,7 +40,7 @@ class NationalVoteStatus
         $electionNationalArray = ElectionNational::find()
             ->with(['application'])
             ->where(['election_national_election_status_id' => ElectionStatus::OPEN])
-            ->andWhere(['<', 'election_national_date', time() - 259200])
+            ->andWhere(['<', 'election_national_date', time() - 216000])
             ->orderBy(['election_national_id' => SORT_ASC])
             ->each(5);
         foreach ($electionNationalArray as $electionNational) {
@@ -52,7 +53,7 @@ class NationalVoteStatus
 
     /**
      * @param ElectionNational $electionNational
-     * @throws \Exception
+     * @throws Exception
      */
     private function toOpen(ElectionNational $electionNational)
     {
@@ -68,7 +69,7 @@ class NationalVoteStatus
 
     /**
      * @param ElectionNational $electionNational
-     * @throws \Exception
+     * @throws Exception
      */
     private function toClose(ElectionNational $electionNational)
     {

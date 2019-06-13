@@ -28,10 +28,16 @@ class LeagueLimit
             ->orderBy(['rating_country_league_place' => SORT_ASC])
             ->all();
         foreach ($ratingCountryArray as $ratingCountry) {
-            if ($ratingCountry->rating_country_league_place <= 4) {
-                $data[] = [$ratingCountry->rating_country_country_id, 2, 1, 1, 0, $seasonId];
+            if ($ratingCountry->rating_country_league_place <= 2) {
+                $data[] = [$ratingCountry->rating_country_country_id, 1, 1, 2, 1, $seasonId];
+            } elseif ($ratingCountry->rating_country_league_place <= 6) {
+                $data[] = [$ratingCountry->rating_country_country_id, 1, 1, 1, 2, $seasonId];
+            } elseif ($ratingCountry->rating_country_league_place <= 10) {
+                $data[] = [$ratingCountry->rating_country_country_id, 0, 2, 1, 1, $seasonId];
+            } elseif ($ratingCountry->rating_country_league_place <= 12) {
+                $data[] = [$ratingCountry->rating_country_country_id, 0, 1, 2, 1, $seasonId];
             } else {
-                $data[] = [$ratingCountry->rating_country_country_id, 2, 1, 0, 1, $seasonId];
+                $data[] = [$ratingCountry->rating_country_country_id, 0, 1, 1, 2, $seasonId];
             }
         }
 

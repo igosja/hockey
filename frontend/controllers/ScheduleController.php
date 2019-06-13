@@ -30,7 +30,7 @@ class ScheduleController extends AbstractController
                 'stage',
             ])
             ->where(['schedule_season_id' => $seasonId])
-            ->orderBy(['schedule_date' => SORT_ASC]);
+            ->orderBy(['schedule_date' => SORT_ASC, 'schedule_id' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,

@@ -20,6 +20,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -75,7 +76,7 @@ class ChampionshipController extends AbstractController
 
     /**
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionTable()
     {
@@ -198,7 +199,7 @@ class ChampionshipController extends AbstractController
 
     /**
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionPlayoff()
     {
@@ -305,7 +306,7 @@ class ChampionshipController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
@@ -421,13 +422,13 @@ class ChampionshipController extends AbstractController
                     [
                         'championship/table',
                         'countryId' => $countryId,
-                        'divisionId' => $championship->division->division_id,
+                        'divisionId' => $championship->championship_division_id,
                         'seasonId' => $seasonId,
                     ],
                     [
                         'championship/playoff',
                         'countryId' => $countryId,
-                        'divisionId' => $championship->division->division_id,
+                        'divisionId' => $championship->championship_division_id,
                         'seasonId' => $seasonId,
                     ],
                 ],
@@ -435,7 +436,7 @@ class ChampionshipController extends AbstractController
                 'url' => [
                     'championship/index',
                     'countryId' => $countryId,
-                    'divisionId' => $championship->division->division_id,
+                    'divisionId' => $championship->championship_division_id,
                     'seasonId' => $seasonId,
                 ]
             ];
