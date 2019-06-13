@@ -91,8 +91,8 @@ class UserController extends AbstractController
             return $this->redirect(['user/view', 'id' => $model->user_id]);
         }
 
-        $this->view->title = 'Редактирование причины блокировки';
-        $this->view->params['breadcrumbs'][] = ['label' => 'Стадии соревнований', 'url' => ['stage/index']];
+        $this->view->title = 'Редактирование пользователей';
+        $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
         $this->view->params['breadcrumbs'][] = [
             'label' => $model->user_login,
             'url' => ['user/view', 'id' => $model->user_id]

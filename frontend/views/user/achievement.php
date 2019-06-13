@@ -2,10 +2,11 @@
 
 use common\components\ErrorHelper;
 use common\models\Achievement;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  */
 
 print $this->render('_top');
@@ -36,6 +37,7 @@ print $this->render('_top');
                 'format' => 'raw',
                 'header' => 'Команда',
                 'value' => function (Achievement $model) {
+                    return $model->achievement_team_id ? $model->team->teamLink('img') : $model->national->nationalLink(true);
                     return $model->team->teamLink('img');
                 }
             ],

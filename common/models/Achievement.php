@@ -22,6 +22,7 @@ use yii\db\ActiveQuery;
  *
  * @property Country $country
  * @property Division $division
+ * @property National $national
  * @property Stage $stage
  * @property Team $team
  * @property TournamentType $tournamentType
@@ -31,7 +32,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%achievement}}';
     }
@@ -39,7 +40,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -64,7 +65,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getPosition()
+    public function getPosition(): string
     {
         if ($this->achievement_place) {
             $result = $this->achievement_place;
@@ -80,7 +81,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function getTournament()
+    public function getTournament(): string
     {
         $result = $this->tournamentType->tournament_type_name;
 
@@ -112,7 +113,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'achievement_country_id']);
     }
@@ -120,7 +121,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDivision()
+    public function getDivision(): ActiveQuery
     {
         return $this->hasOne(Division::class, ['division_id' => 'achievement_division_id']);
     }
@@ -128,7 +129,15 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStage()
+    public function getNational(): ActiveQuery
+    {
+        return $this->hasOne(National::class, ['national_id' => 'achievement_national_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getStage(): ActiveQuery
     {
         return $this->hasOne(Stage::class, ['stage_id' => 'achievement_stage_id']);
     }
@@ -136,7 +145,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'achievement_team_id']);
     }
@@ -144,7 +153,7 @@ class Achievement extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTournamentType()
+    public function getTournamentType(): ActiveQuery
     {
         return $this->hasOne(TournamentType::class, ['tournament_type_id' => 'achievement_tournament_type_id']);
     }

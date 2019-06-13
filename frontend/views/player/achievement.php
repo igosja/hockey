@@ -2,12 +2,15 @@
 
 use common\components\ErrorHelper;
 use common\models\AchievementPlayer;
+use common\models\Player;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\Player $player
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var Player $player
+ * @var View $this
  */
 
 print $this->render('//player/_player', ['player' => $player]);
@@ -38,14 +41,14 @@ print $this->render('//player/_player', ['player' => $player]);
                     'format' => 'raw',
                     'label' => 'Команда',
                     'value' => function (AchievementPlayer $model) {
-                        return $model->team->teamLink();
+                        return $model->achievement_player_team_id ? $model->team->teamLink() : $model->national->nationalLink();
                     }
                 ],
                 [
                     'footer' => 'Турнир',
                     'label' => 'Турнир',
                     'value' => function (AchievementPlayer $model) {
-                        return $model->tournamentType->tournament_type_name;
+                        return $model->getTournament();
                     }
                 ],
                 [
