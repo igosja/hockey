@@ -7,6 +7,7 @@ use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class InsertAchievement
@@ -15,8 +16,8 @@ use Yii;
 class InsertAchievement
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -46,16 +47,16 @@ class InsertAchievement
                         WHERE `off_season_season_id`=$seasonId";
                 Yii::$app->db->createCommand($sql)->execute();
             } elseif (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id && Stage::TOUR_11 == $schedule->schedule_stage_id) {
-                $sql = "INSERT INTO `achievement` (`achievement_place`, `achievement_season_id`, `achievement_national_id`, `achievement_tournament_type_id`, `achievement_user_id`)
-                        SELECT `world_cup_place`, `world_cup_season_id`, `national_id`, " . TournamentType::NATIONAL . ", `national_user_id`
+                $sql = "INSERT INTO `achievement` (`achievement_place`, `achievement_division_id`, `achievement_season_id`, `achievement_national_id`, `achievement_tournament_type_id`, `achievement_user_id`)
+                        SELECT `world_cup_place`, `world_cup_division_id`, `world_cup_season_id`, `national_id`, " . TournamentType::NATIONAL . ", `national_user_id`
                         FROM `world_cup`
                         LEFT JOIN `national`
                         ON `world_cup_national_id`=`national_id`
                         WHERE `world_cup_season_id`=$seasonId";
                 Yii::$app->db->createCommand($sql)->execute();
 
-                $sql = "INSERT INTO `achievement_player` (`achievement_player_player_id`, `achievement_player_place`, `achievement_player_season_id`, `achievement_player_national_id`, `achievement_player_tournament_type_id`)
-                        SELECT `national_player_day_player_id`, `world_cup_place`, `world_cup_season_id`, `national_player_day_national_id`, " . TournamentType::NATIONAL . "
+                $sql = "INSERT INTO `achievement_player` (`achievement_player_player_id`, `achievement_player_place`, `achievement_player_division_id`, `achievement_player_season_id`, `achievement_player_national_id`, `achievement_player_tournament_type_id`)
+                        SELECT `national_player_day_player_id`, `world_cup_place`, `world_cup_division_id`, `world_cup_season_id`, `national_player_day_national_id`, " . TournamentType::NATIONAL . "
                         FROM `national_player_day`
                         LEFT JOIN `world_cup`
                         ON `national_player_day_national_id`=`world_cup_national_id`
