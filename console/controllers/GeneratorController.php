@@ -111,6 +111,9 @@ class GeneratorController extends AbstractController
      */
     public function actionIndex()
     {
+        ini_set('mysql.connect_timeout', 28800);
+        ini_set('default_socket_timeout', 28800);
+
         $modelArray = [
             new UpdateCronDate(),
             new SiteClose(),
