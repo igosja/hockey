@@ -902,4 +902,10 @@ class FixController extends AbstractController
             $model->save();
         }
     }
+
+    public function actionDb()
+    {
+        $this->stdout(ini_get('mysql.connect_timeout'));
+        $this->stdout(ini_get('default_socket_timeout'));
+    }
 }
