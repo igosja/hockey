@@ -905,7 +905,7 @@ class FixController extends AbstractController
 
     public function actionDb()
     {
-        $this->stdout(ini_get('mysql.connect_timeout'));
-        $this->stdout(ini_get('default_socket_timeout'));
+        $this->stdout(ini_get('mysql.connect_timeout') . PHP_EOL);
+        $this->stdout(ini_get('default_socket_timeout') . PHP_EOL);
     }
 }
