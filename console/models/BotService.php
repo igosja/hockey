@@ -80,7 +80,7 @@ class BotService
 
         $botArray = Bot::find()
             ->orderBy(['bot_date' => SORT_ASC])
-            ->limit(self::COUNT_FREE_TEAM + (time() - 1560449556) / 8640 - $countFreeTeam)
+            ->limit(round(self::COUNT_FREE_TEAM + (time() - 1560449556) / 8640 - $countFreeTeam))
             ->all();
         foreach ($botArray as $bot) {
             foreach ($bot->user->team as $team) {
