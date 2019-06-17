@@ -23,6 +23,7 @@ use common\models\Team;
 use common\models\Teamwork;
 use common\models\TournamentType;
 use Exception;
+use Yii;
 
 /**
  * Class GameResult
@@ -107,6 +108,7 @@ class GameResult
 
             $this->calculateStatistic();
             $this->toDataBase();
+            Yii::$app->controller->stdout('.');
         }
     }
 
