@@ -7,6 +7,7 @@ use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
 use Exception;
+use Yii;
 
 /**
  * Class FillLineup
@@ -181,6 +182,7 @@ class FillLineup
                     }
                 }
             }
+            Yii::$app->controller->stdout('.');
         }
     }
 }
