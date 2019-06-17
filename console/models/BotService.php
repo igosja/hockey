@@ -9,6 +9,7 @@ use common\models\Mood;
 use common\models\Player;
 use common\models\Position;
 use common\models\Rudeness;
+use common\models\Site;
 use common\models\Style;
 use common\models\Tactic;
 use common\models\Team;
@@ -30,6 +31,9 @@ class BotService
      */
     public function execute()
     {
+        if (!Site::status()) {
+            return;
+        } 
         $this->lineup();
     }
 
