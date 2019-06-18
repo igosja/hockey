@@ -59,7 +59,7 @@ class BotService
                     ->limit(1)
                     ->one();
                 if (!$game) {
-                    continue;
+                    return;
                } 
                
                $countLineup = Lineup::find()
@@ -70,11 +70,11 @@ class BotService
                    ->count();
 
                 if ($game->game_home_team_id == $team->team_id && $countLineup) {
-                    continue;
+                    return;
                 }
 
                 if ($game->game_guest_team_id == $team->team_id && $countLineup) {
-                    continue;
+                    return;
                 }
 
                 Lineup::deleteAll(['lineup_game_id' => $game->game_id, 'lineup_team_id' => $team->team_id]);
