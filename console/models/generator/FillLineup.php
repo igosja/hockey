@@ -60,6 +60,7 @@ class FillLineup
                         'lineup_national_id' => $nationalId,
                         'lineup_team_id' => $teamId,
                     ])
+                    ->orderBy(['lineup_line_id' => SORT_ASC, 'lineup_position_id' => SORT_ASC])
                     ->all();
 
                 for ($j = 0; $j < Lineup::GAME_QUANTITY; $j++) {
