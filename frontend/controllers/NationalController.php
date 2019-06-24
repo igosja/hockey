@@ -71,7 +71,7 @@ class NationalController extends AbstractController
             return $this->redirect(['national/view', 'id' => $id]);
         }
 
-        $this->myTeam->save(true, ['team_attitude_national']);
+        $this->myTeam->save(true, ['team_attitude_national', 'team_attitude_u21', 'team_attitude_u19']);
         return $this->redirect(['national/view', 'id' => $id]);
     }
 

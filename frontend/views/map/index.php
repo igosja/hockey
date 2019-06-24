@@ -254,6 +254,38 @@
                 position: new google.maps.LatLng(54.036005, 19.037286), //Мальборк
                 map: map
             }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(54.683127, 25.277414), //Вільнюс
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(54.898133, 23.903250), //Каунас
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(56.958161, 24.111208), //Рига
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(57.142879, 24.876523), //Сигулда
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(56.409155, 24.198923), //Бауска
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(56.412618, 24.023839), //Пілсрундале
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(58.376716, 26.729458), //Тарту
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(59.429195, 24.755725), //Таллінн
+                map: map
+            }),
         ];
         marker.setMap(map);
     }

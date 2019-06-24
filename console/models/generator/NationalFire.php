@@ -7,6 +7,7 @@ use common\models\Bot;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\National;
+use common\models\NationalType;
 use common\models\Team;
 use Yii;
 use yii\db\Exception;
@@ -33,6 +34,13 @@ class NationalFire
             /**
              * @var National $national
              */
+            if (NationalType::MAIN == $national->national_national_type_id) {
+                $attitudeField = 'team_attitude_national';
+            } elseif (NationalType::U21 == $national->national_national_type_id) {
+                $attitudeField = 'team_attitude_u21';
+            } else {
+                $attitudeField = 'team_attitude_u19';
+            }
             $negative = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
@@ -41,7 +49,7 @@ class NationalFire
                     ['team_user_id' => Bot::find()->select(['bot_user_id'])]
                 ])
                 ->andWhere([
-                    'team_attitude_national' => Attitude::NEGATIVE,
+                    $attitudeField => Attitude::NEGATIVE,
                     'city_country_id' => $national->national_country_id,
                 ])
                 ->count();
@@ -53,7 +61,7 @@ class NationalFire
                     ['team_user_id' => Bot::find()->select(['bot_user_id'])]
                 ])
                 ->andWhere([
-                    'team_attitude_national' => Attitude::POSITIVE,
+                    $attitudeField => Attitude::POSITIVE,
                     'city_country_id' => $national->national_country_id,
                 ])
                 ->count();
@@ -97,7 +105,7 @@ class NationalFire
                         ON `team_stadium_id`=`stadium_id`
                         LEFT JOIN `city`
                         ON `stadium_city_id`=`city_id`
-                        SET `team_attitude_national`=" . Attitude::NEUTRAL . "
+                        SET $attitudeField=" . Attitude::NEUTRAL . "
                         WHERE `city_country_id`=" . $national->national_country_id;
                 Yii::$app->db->createCommand($sql)->execute();
             }
