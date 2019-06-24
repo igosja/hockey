@@ -371,7 +371,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEGATIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
+                if (Attitude::NEGATIVE == (NationalType::MAIN == $this->national_national_type_id ? $stadium->team->team_attitude_national : NationalType::U21 == $this->national_national_type_id ? $stadium->team->team_attitude_u21 : $stadium->team->team_attitude_u19) && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -387,7 +387,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::NEUTRAL == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
+                if (Attitude::NEUTRAL == (NationalType::MAIN == $this->national_national_type_id ? $stadium->team->team_attitude_national : NationalType::U21 == $this->national_national_type_id ? $stadium->team->team_attitude_u21 : $stadium->team->team_attitude_u19) && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }
@@ -403,7 +403,7 @@ class National extends AbstractActiveRecord
         $result = 0;
         foreach ($this->country->city as $city) {
             foreach ($city->stadium as $stadium) {
-                if (Attitude::POSITIVE == $stadium->team->team_attitude_national && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
+                if (Attitude::POSITIVE == (NationalType::MAIN == $this->national_national_type_id ? $stadium->team->team_attitude_national : NationalType::U21 == $this->national_national_type_id ? $stadium->team->team_attitude_u21 : $stadium->team->team_attitude_u19) && $stadium->team->team_user_id && !$stadium->team->manager->bot) {
                     $result++;
                 }
             }

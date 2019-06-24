@@ -56,6 +56,8 @@ use yii\helpers\Html;
  *
  * @property Attitude $attitudeNational
  * @property Attitude $attitudePresident
+ * @property Attitude $attitudeU19
+ * @property Attitude $attitudeU21
  * @property Base $base
  * @property BaseMedical $baseMedical
  * @property BasePhysical $basePhysical
@@ -1237,6 +1239,22 @@ class Team extends AbstractActiveRecord
     public function getAttitudePresident()
     {
         return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_president']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAttitudeU19()
+    {
+        return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_u19']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAttitudeU21()
+    {
+        return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_u21']);
     }
 
     /**

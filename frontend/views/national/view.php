@@ -3,6 +3,7 @@
 use common\components\ErrorHelper;
 use common\models\Attitude;
 use common\models\National;
+use common\models\NationalType;
 use common\models\Player;
 use frontend\controllers\AbstractController;
 use yii\data\ActiveDataProvider;
@@ -47,11 +48,16 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
     <div class="row text-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-head">
             Ваше отношение к тренеру сборной:
-            <a href="javascript:" id="relation-link"><?= $controller->myTeam->attitudeNational->attitude_name; ?></a>
+            <a href="javascript:" id="relation-link">
+                <?= NationalType::MAIN == $national->national_national_type_id ? $controller->myTeam->attitudeNational->attitude_name : NationalType::U21 == $national->national_national_type_id ? $controller->myTeam->attitudeU21->attitude_name : $controller->myTeam->attitudeU19->attitude_name; ?>
+            </a>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-body hidden">
             <?= $form
-                ->field($controller->myTeam, 'team_attitude_national')
+                ->field(
+                    $controller->myTeam,
+                    NationalType::MAIN == $national->national_national_type_id ? 'team_attitude_national' : NationalType::U21 == $national->national_national_type_id ? 'team_attitude_u21' : 'team_attitude_u19'
+                )
                 ->radioList($attitudeArray, [
                     'item' => function ($index, $model, $name, $checked, $value) {
                         $result = '<div class="hidden-lg hidden-md hidden-sm col-xs-3"></div><div class="col-lg-2 col-md-2 col-sm-3 col-xs-9">'
