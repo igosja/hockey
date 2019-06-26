@@ -14,6 +14,7 @@ use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
 use common\models\WorldCup;
+use Exception;
 
 /**
  * Class Prize
@@ -22,7 +23,7 @@ use common\models\WorldCup;
 class Prize
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -200,8 +201,7 @@ class Prize
                     /**
                      * @var WorldCup $worldCup
                      */
-                    $prize = round(25000000 * pow(0.98,
-                            ($worldCup->world_cup_place - 1) + ($worldCup->world_cup_division_id - 1) * 12));
+                    $prize = round((25 - ($worldCup->world_cup_national_type_id - 1) * 5) * 1000000 * pow(0.98, ($worldCup->world_cup_place - 1) + ($worldCup->world_cup_division_id - 1) * 12));
 
                     Finance::log([
                         'finance_finance_text_id' => FinanceText::INCOME_PRIZE_WORLD_CUP,
