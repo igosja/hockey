@@ -168,7 +168,11 @@ LineupAsset::register($this);
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее ваш соперник)',
                 ],
                 'value' => function (Game $model) use ($national) {
-                    return round($model->nationalHome->national_power_vs / ($national->national_power_vs ?: 1) * 100) . '%';
+                    if ($model->game_home_national_id == $national->national_id) {
+                        return round($model->nationalGuest->national_power_vs / ($national->national_power_vs ?: 1) * 100) . '%';
+                    } else {
+                        return round($model->nationalHome->national_power_vs / ($national->national_power_vs ?: 1) * 100) . '%';
+                    }
                 }
             ],
             [

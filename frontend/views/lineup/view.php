@@ -160,8 +160,12 @@ LineupAsset::register($this);
                     'class' => 'hidden-xs',
                     'title' => 'Соотношение сил (чем больше это число, тем сильнее ваш соперник)',
                 ],
-                'value' => function (Game $model) use ($team) {
-                    return round($model->teamHome->team_power_vs / $team->team_power_vs * 100) . '%';
+                'value' => function (Game $model) use ($team): string {
+                    if ($model->game_home_team_id == $team->team_id) {
+                        return round($model->teamGuest->team_power_vs / $team->team_power_vs * 100) . '%';
+                    } else {
+                        return round($model->teamHome->team_power_vs / $team->team_power_vs * 100) . '%';
+                    }
                 }
             ],
             [
