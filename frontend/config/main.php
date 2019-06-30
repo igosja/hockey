@@ -1,5 +1,9 @@
 <?php
 
+use frontend\widgets\LinkPager;
+use yii\grid\GridView;
+use yii\widgets\ListView;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -12,7 +16,7 @@ return [
     'bootstrap' => ['log'],
     'container' => [
         'definitions' => [
-            \yii\grid\GridView::class => [
+            GridView::class => [
                 'emptyText' => false,
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive'],
                 'pager' => [
@@ -25,7 +29,7 @@ return [
                 ],
                 'tableOptions' => ['class' => 'table table-bordered table-hover'],
             ],
-            \yii\widgets\ListView::class => [
+            ListView::class => [
                 'emptyText' => false,
                 'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12 col-xs-12'],
                 'pager' => [
@@ -38,7 +42,7 @@ return [
                 ],
             ],
             \yii\widgets\LinkPager::class => [
-                'class' => \frontend\widgets\LinkPager::class,
+                'class' => LinkPager::class,
             ],
         ],
     ],
@@ -114,6 +118,7 @@ return [
                 'training/free/train' => 'training-free/train',
                 'user/money-transfer/<id:\d+>' => 'user/money-transfer',
                 'visitor/national/<id:\d+>' => 'visitor-national/view',
+                'world-championship' => 'world-championship/index',
                 '<controller:\w+>/p/<page:\d+>/pp/<per-page:\d+>' => '<controller>/index',
                 '<controller:\w+>/p/<page:\d+>' => '<controller>/index',
                 '<controller:\w+>' => '<controller>/index',
