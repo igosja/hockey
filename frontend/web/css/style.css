@@ -807,7 +807,8 @@ td.physical-yellow {
     background-color: #FEEFB3;
 }
 
-td.physical-bordered {
+td.physical-bordered,
+td.planning-bordered {
     background-color: #FEEFB3;
     border: 2px solid #0f103d;
 }
