@@ -30,6 +30,10 @@ try {
                 'text' => 'Достижения',
                 'url' => ['player/achievement', 'id' => Yii::$app->request->get('id', 1)],
             ],
+            [
+                'text' => 'Трофеи',
+                'url' => ['player/trophy', 'id' => Yii::$app->request->get('id', 1)],
+            ],
         ]
     ]);
 } catch (Exception $e) {

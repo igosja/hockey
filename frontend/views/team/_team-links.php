@@ -36,6 +36,10 @@ try {
                 'text' => 'Достижения',
                 'url' => ['team/achievement', 'id' => $id],
             ],
+            [
+                'text' => 'Тофеи',
+                'url' => ['team/trophy', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {

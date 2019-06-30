@@ -454,6 +454,31 @@ class TeamController extends AbstractController
      * @return string
      * @throws NotFoundHttpException
      */
+    public function actionTrophy($id)
+    {
+        $team = $this->getTeam($id);
+
+        $query = Achievement::find()
+            ->where(['achievement_team_id' => $id, 'achievement_place' => [0, 1], 'achievement_stage_id' => 0])
+            ->orderBy(['achievement_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($team->fullName() . '. Трофеи команды');
+
+        return $this->render('trophy', [
+            'dataProvider' => $dataProvider,
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionStatistics($id)
     {
         $team = $this->getTeam($id);
