@@ -44,7 +44,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
                 ],
                 'integer'
             ],
-            [['election_president_vice_application_text'], 'safe']
+            [['election_president_vice_application_text'], 'required']
         ];
     }
 
