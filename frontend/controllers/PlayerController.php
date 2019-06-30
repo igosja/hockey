@@ -365,6 +365,31 @@ class PlayerController extends AbstractController
     }
 
     /**
+     * @param int $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionTrophy($id)
+    {
+        $player = $this->getPlayer($id);
+
+        $query = AchievementPlayer::find()
+            ->where(['achievement_player_player_id' => $id, 'achievement_player_place' => [0, 1], 'achievement_player_stage_id' => 0])
+            ->orderBy(['achievement_player_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($player->playerName() . '. Трофеи игрока');
+
+        return $this->render('trophy', [
+            'dataProvider' => $dataProvider,
+            'player' => $player,
+        ]);
+    }
+
+    /**
      * @param $id
      * @return bool
      * @throws Exception

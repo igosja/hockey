@@ -297,6 +297,31 @@ class NationalController extends AbstractController
     /**
      * @param $id
      * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionTrophy($id)
+    {
+        $national = $this->getNational($id);
+
+        $query = Achievement::find()
+            ->where(['achievement_national_id' => $id, 'achievement_place' => [0, 1], 'achievement_stage_id' => 0])
+            ->orderBy(['achievement_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle($national->fullName() . '. Трофеи сборной');
+
+        return $this->render('trophy', [
+            'dataProvider' => $dataProvider,
+            'national' => $national,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
      * @throws Exception
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException

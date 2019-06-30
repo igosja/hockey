@@ -162,9 +162,30 @@ class UserController extends AbstractController
                 ->orderBy(['achievement_id' => SORT_DESC]),
         ]);
 
-        $this->setSeoTitle('Достижения менеджер');
+        $this->setSeoTitle('Достижения менеджера');
 
         return $this->render('achievement', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionTrophy($id)
+    {
+        $query = Achievement::find()
+            ->where(['achievement_user_id' => $id, 'achievement_place' => [0, 1], 'achievement_stage_id' => 0])
+            ->orderBy(['achievement_id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+        ]);
+
+        $this->setSeoTitle('Трофеи менеджера');
+
+        return $this->render('trophy', [
             'dataProvider' => $dataProvider,
         ]);
     }
