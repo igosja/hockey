@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @var \frontend\controllers\AbstractController $controller
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var AbstractController $controller
+ * @var Team $team
+ * @var View $this
  */
 
 use common\components\FormatHelper;
+use common\models\Team;
+use frontend\controllers\AbstractController;
 use yii\helpers\Html;
+use yii\web\View;
 
 $controller = $this->context;
 $myTeamIds = [];
@@ -76,6 +79,16 @@ foreach ($controller->myTeamArray as $item) {
                     ['school/index'],
                     ['class' => 'no-underline']
                 ); ?>
+                <?php if ($team->manager->isVip()): ?>
+                    <?= Html::a(
+                        Html::img(
+                            '/img/roster/planning.png',
+                            ['alt' => 'Планирование усталости', 'title' => 'Планирование усталости']
+                        ),
+                        ['planning/index'],
+                        ['class' => 'no-underline']
+                    ); ?>
+                <?php endif; ?>
             <?php elseif (!in_array($team->team_id, $myTeamIds) && !$team->team_user_id): ?>
                 <?= Html::a(
                     Html::img(

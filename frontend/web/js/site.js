@@ -52,6 +52,38 @@ jQuery(document).ready(function () {
                 }
             });
         })
+        .on('click', '.planning-change-cell', function () {
+            var tire = $(this).data('tire');
+            var player_id = $(this).data('player');
+            var schedule_id = $(this).data('schedule');
+            var age = $(this).data('age');
+            var game_row = $(this).data('game_row');
+            var game_row_old = $(this).data('game_row_old');
+            var url = $('#planning-available').data('url');
+
+            $.ajax({
+                url: url
+                    + '?tire=' + tire
+                    + '&playerId=' + player_id
+                    + '&scheduleId=' + schedule_id
+                    + '&age=' + age
+                    + '&gameRow=' + game_row
+                    + '&gameRowOld=' + game_row_old,
+                dataType: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data['list'].length; i++) {
+                        var list_id = $('#' + data['list'][i].id);
+                        list_id.removeClass(data['list'][i].remove_class_1);
+                        list_id.removeClass(data['list'][i].remove_class_2);
+                        list_id.addClass(data['list'][i].class);
+                        list_id.data('tire', data['list'][i].tire);
+                        list_id.data('game_row', data['list'][i].game_row);
+                        list_id.data('game_row_old', data['list'][i].game_row_old);
+                        list_id.html(data['list'][i].tire);
+                    }
+                }
+            });
+        })
         .on('change', '#stadium-increase-input', function () {
             var stadiumIncreaseInput = $(this);
             var capacityNew = parseInt(stadiumIncreaseInput.val());
