@@ -59,7 +59,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
                 'integer'
             ],
             [['election_national_application_text'], 'required'],
-            [['election_national_application_text'], 'safe'],
             [['player'], 'checkPlayer'],
         ];
     }
