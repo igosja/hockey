@@ -65,6 +65,16 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'election_president_vice_application_text' => 'Программа',
+        ];
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getElectionPresidentVice()

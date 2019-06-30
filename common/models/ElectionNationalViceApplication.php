@@ -65,6 +65,16 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'election_national_vice_application_text' => 'Программа',
+        ];
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getElectionNationalVice()
