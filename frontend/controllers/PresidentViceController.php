@@ -10,6 +10,7 @@ use common\models\ElectionStatus;
 use Exception;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class PresidentViceController
@@ -36,7 +37,7 @@ class PresidentViceController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionApplication()
@@ -60,7 +61,7 @@ class PresidentViceController extends AbstractController
             ->count();
 
         if ($electionPresidentVice) {
-            return $this->redirect(['president-vice/view']);
+            return $this->redirect(['view']);
         }
 
         $position = Country::find()
@@ -114,7 +115,7 @@ class PresidentViceController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionView()
     {
@@ -137,7 +138,7 @@ class PresidentViceController extends AbstractController
             ->count();
 
         if ($electionPresidentVice) {
-            return $this->redirect(['president-vice/application']);
+            return $this->redirect(['application']);
         }
 
         $electionPresidentVice = ElectionPresidentVice::find()
@@ -161,7 +162,7 @@ class PresidentViceController extends AbstractController
             ])
             ->count();
         if (!$voteUser) {
-            return $this->redirect(['president-vice/poll']);
+            return $this->redirect(['poll']);
         }
 
         $this->setSeoTitle('Голосование за заместителя президента федерации');
@@ -172,7 +173,7 @@ class PresidentViceController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionPoll()
@@ -196,7 +197,7 @@ class PresidentViceController extends AbstractController
             ->count();
 
         if ($electionPresidentVice) {
-            return $this->redirect(['president-vice/application']);
+            return $this->redirect(['application']);
         }
 
         $electionPresidentVice = ElectionPresidentVice::find()
@@ -220,7 +221,7 @@ class PresidentViceController extends AbstractController
             ])
             ->count();
         if ($voteUser) {
-            return $this->redirect(['president-vice/view']);
+            return $this->redirect(['view']);
         }
 
         $model = new ElectionPresidentViceVote();

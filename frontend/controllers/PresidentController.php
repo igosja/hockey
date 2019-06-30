@@ -10,6 +10,7 @@ use common\models\ElectionStatus;
 use Exception;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\Response;
 
 /**
  * Class PresidentController
@@ -36,7 +37,7 @@ class PresidentController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionApplication()
@@ -60,7 +61,7 @@ class PresidentController extends AbstractController
             ->count();
 
         if ($electionPresident) {
-            return $this->redirect(['president/view']);
+            return $this->redirect(['view']);
         }
 
         $position = Country::find()
@@ -114,7 +115,7 @@ class PresidentController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionView()
     {
@@ -137,7 +138,7 @@ class PresidentController extends AbstractController
             ->count();
 
         if ($electionPresident) {
-            return $this->redirect(['president/application']);
+            return $this->redirect(['application']);
         }
 
         $electionPresident = ElectionPresident::find()
@@ -161,7 +162,7 @@ class PresidentController extends AbstractController
             ])
             ->count();
         if (!$voteUser) {
-            return $this->redirect(['president/poll']);
+            return $this->redirect(['poll']);
         }
 
         $this->setSeoTitle('Голосование за президента федерации');
@@ -172,7 +173,7 @@ class PresidentController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
     public function actionPoll()
@@ -196,7 +197,7 @@ class PresidentController extends AbstractController
             ->count();
 
         if ($electionPresident) {
-            return $this->redirect(['president/application']);
+            return $this->redirect(['application']);
         }
 
         $electionPresident = ElectionPresident::find()
@@ -220,7 +221,7 @@ class PresidentController extends AbstractController
             ])
             ->count();
         if ($voteUser) {
-            return $this->redirect(['president/view']);
+            return $this->redirect(['view']);
         }
 
         $model = new ElectionPresidentVote();

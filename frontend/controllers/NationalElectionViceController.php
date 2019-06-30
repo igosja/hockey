@@ -67,7 +67,7 @@ class NationalElectionViceController extends AbstractController
             ->count();
 
         if ($electionNationalVice) {
-            return $this->redirect(['national-election-vice/view']);
+            return $this->redirect(['view']);
         }
 
         $position = National::find()
@@ -149,7 +149,7 @@ class NationalElectionViceController extends AbstractController
             ->count();
 
         if ($electionNationalVice) {
-            return $this->redirect(['national-election-vice/application']);
+            return $this->redirect(['application']);
         }
 
         $electionNationalVice = ElectionNationalVice::find()
@@ -174,7 +174,7 @@ class NationalElectionViceController extends AbstractController
             ])
             ->count();
         if (!$voteUser) {
-            return $this->redirect(['national-election-vice/poll']);
+            return $this->redirect(['poll']);
         }
 
         $this->setSeoTitle('Голосование за заместителя тренера сборной');
@@ -212,7 +212,7 @@ class NationalElectionViceController extends AbstractController
             ->count();
 
         if ($electionNationalVice) {
-            return $this->redirect(['national-vice/application']);
+            return $this->redirect(['application']);
         }
 
         $electionNationalVice = ElectionNationalVice::find()
@@ -237,7 +237,7 @@ class NationalElectionViceController extends AbstractController
             ])
             ->count();
         if ($voteUser) {
-            return $this->redirect(['national-vice/view']);
+            return $this->redirect(['view']);
         }
 
         $model = new ElectionNationalViceVote();

@@ -2,7 +2,6 @@
 
 namespace console\models\generator;
 
-use common\models\ElectionNationalApplication;
 use common\models\ElectionNationalVice;
 use common\models\ElectionNationalViceApplication;
 use common\models\ElectionStatus;
@@ -58,9 +57,9 @@ class NationalViceVoteStatus
      */
     private function toOpen(ElectionNationalVice $electionNationalVice)
     {
-        $model = new ElectionNationalApplication();
-        $model->election_national_application_election_id = $electionNationalVice->election_national_vice_id;
-        $model->election_national_application_text = '-';
+        $model = new ElectionNationalViceApplication();
+        $model->election_national_vice_application_election_id = $electionNationalVice->election_national_vice_id;
+        $model->election_national_vice_application_text = '-';
         $model->save();
 
         $electionNationalVice->election_national_vice_date = time();
