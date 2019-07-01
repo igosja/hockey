@@ -37,7 +37,7 @@ try {
                 'url' => ['team/achievement', 'id' => $id],
             ],
             [
-                'text' => 'Тофеи',
+                'text' => 'Трофеи',
                 'url' => ['team/trophy', 'id' => $id],
             ],
         ]
