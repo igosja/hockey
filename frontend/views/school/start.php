@@ -1,11 +1,13 @@
 <?php
 
+use common\models\Team;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var array $confirmData
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -28,7 +30,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 Время подготовки игрока:
-                <span class="strong"><?= $team->baseSchool->base_school_school_speed; ?></span> туров
+                <span class="strong"><?= $team->baseSchool->base_school_school_speed; ?></span> дней
             </div>
         </div>
         <div class="row">

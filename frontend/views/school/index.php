@@ -1,17 +1,20 @@
 <?php
 
 use common\models\School;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var bool $onBuilding
  * @var array $positionArray
- * @var \common\models\School[] $schoolArray
+ * @var School[] $schoolArray
  * @var array $specialArray
  * @var array $styleArray
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -34,7 +37,7 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 <?php if ($onBuilding) : ?>del<?php endif; ?>">
                 Время подготовки игрока:
-                <span class="strong"><?= $team->baseSchool->base_school_school_speed; ?></span> туров
+                <span class="strong"><?= $team->baseSchool->base_school_school_speed; ?></span> дней
             </div>
         </div>
         <div class="row">
@@ -85,7 +88,7 @@ use yii\helpers\Html;
                     <th class="col-5" title="Возраст">В</th>
                     <th class="col-15" title="Спецвозможности">Спец</th>
                     <th class="col-15">Стиль</th>
-                    <th class="col-15">Осталось туров</th>
+                    <th class="col-15">Осталось дней</th>
                     <th class="col-1"></th>
                 </tr>
                 <?php foreach ($schoolArray as $item) : ?>
