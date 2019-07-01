@@ -11,6 +11,7 @@ use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
 use common\models\WorldCup;
+use Exception;
 
 /**
  * Class StandingPlace
@@ -23,7 +24,7 @@ class StandingPlace
     private $seasonId;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -53,7 +54,7 @@ class StandingPlace
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function conference()
     {
@@ -80,7 +81,7 @@ class StandingPlace
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function offSeason()
     {
@@ -107,7 +108,7 @@ class StandingPlace
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function championship()
     {
@@ -155,7 +156,7 @@ class StandingPlace
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function league()
     {
@@ -192,38 +193,49 @@ class StandingPlace
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function worldCup()
     {
-        $divisionArray = WorldCup::find()
+        $nationalTypeArray = WorldCup::find()
             ->where(['world_cup_season_id' => $this->seasonId])
-            ->groupBy('world_cup_division_id')
-            ->orderBy(['world_cup_division_id' => SORT_ASC])
+            ->groupBy('world_cup_national_type_id')
+            ->orderBy(['world_cup_national_type_id' => SORT_ASC])
             ->all();
-        foreach ($divisionArray as $division) {
-            $worldCupArray = WorldCup::find()
-                ->joinWith(['national'])
+        foreach ($nationalTypeArray as $nationalType) {
+            $divisionArray = WorldCup::find()
                 ->where([
-                    'world_cup_division_id' => $division->world_cup_division_id,
                     'world_cup_season_id' => $this->seasonId,
+                    'world_cup_national_type_id' => $nationalType->world_cup_national_type_id,
                 ])
-                ->orderBy([
-                    'world_cup_point' => SORT_DESC,
-                    'world_cup_win' => SORT_DESC,
-                    'world_cup_win_overtime' => SORT_DESC,
-                    'world_cup_win_shootout' => SORT_DESC,
-                    'world_cup_loose_shootout' => SORT_DESC,
-                    'world_cup_loose_overtime' => SORT_DESC,
-                    'world_cup_difference' => SORT_DESC,
-                    'world_cup_score' => SORT_DESC,
-                    'national_power_vs' => SORT_ASC,
-                    'world_cup_national_id' => SORT_ASC,
-                ])
+                ->groupBy('world_cup_division_id')
+                ->orderBy(['world_cup_division_id' => SORT_ASC])
                 ->all();
-            for ($i = 0, $countWorldCup = count($worldCupArray); $i < $countWorldCup; $i++) {
-                $worldCupArray[$i]->world_cup_place = $i + 1;
-                $worldCupArray[$i]->save();
+            foreach ($divisionArray as $division) {
+                $worldCupArray = WorldCup::find()
+                    ->joinWith(['national'])
+                    ->where([
+                        'world_cup_division_id' => $division->world_cup_division_id,
+                        'world_cup_national_type_id' => $nationalType->world_cup_national_type_id,
+                        'world_cup_season_id' => $this->seasonId,
+                    ])
+                    ->orderBy([
+                        'world_cup_point' => SORT_DESC,
+                        'world_cup_win' => SORT_DESC,
+                        'world_cup_win_overtime' => SORT_DESC,
+                        'world_cup_win_shootout' => SORT_DESC,
+                        'world_cup_loose_shootout' => SORT_DESC,
+                        'world_cup_loose_overtime' => SORT_DESC,
+                        'world_cup_difference' => SORT_DESC,
+                        'world_cup_score' => SORT_DESC,
+                        'national_power_vs' => SORT_ASC,
+                        'world_cup_national_id' => SORT_ASC,
+                    ])
+                    ->all();
+                for ($i = 0, $countWorldCup = count($worldCupArray); $i < $countWorldCup; $i++) {
+                    $worldCupArray[$i]->world_cup_place = $i + 1;
+                    $worldCupArray[$i]->save();
+                }
             }
         }
     }
