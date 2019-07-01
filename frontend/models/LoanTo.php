@@ -186,16 +186,6 @@ class LoanTo extends Model
             }
         }
 
-        if ($this->player->player_age < 18) {
-            Yii::$app->session->setFlash('error', 'Нельзя отдать в аренду игроков младше 18 лет.');
-            return false;
-        }
-
-        if ($this->player->player_age > 38) {
-            Yii::$app->session->setFlash('error', 'Нельзя отдать в аренду игроков старше 38 лет.');
-            return false;
-        }
-
         $count = Training::find()
             ->where(['training_player_id' => $this->player->player_id, 'training_ready' => 0])
             ->count();
