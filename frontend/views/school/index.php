@@ -118,9 +118,9 @@ use yii\web\View;
                     <th class="hidden-xs" title="Национальность">Нац</th>
                     <th title="Позиция">Поз</th>
                     <th title="Возраст">В</th>
-                    <th class="col-15" title="Спецвозможности">Спец</th>
-                    <th class="col-10">Изучение</th>
-                    <th class="col-10" title="Прогресс изучения">%</th>
+                    <th title="Спецвозможности">Спец</th>
+                    <th>Стиль</th>
+                    <th>Осталось дней</th>
                     <th></th>
                 </tr>
             </table>
