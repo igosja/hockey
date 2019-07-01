@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -16,10 +17,12 @@ use yii\db\ActiveQuery;
  * @property int $finance_date
  * @property int $finance_finance_text_id
  * @property int $finance_level
+ * @property int $finance_loan_id
  * @property int $finance_national_id
  * @property int $finance_player_id
  * @property int $finance_season_id
  * @property int $finance_team_id
+ * @property int $finance_transfer_id
  * @property int $finance_user_id
  * @property int $finance_value
  * @property int $finance_value_after
@@ -43,7 +46,7 @@ class Finance extends AbstractActiveRecord
 
     /**
      * @param array $data
-     * @throws \Exception
+     * @throws Exception
      */
     public static function log(array $data)
     {
@@ -67,10 +70,12 @@ class Finance extends AbstractActiveRecord
                     'finance_finance_text_id',
                     'finance_date',
                     'finance_level',
+                    'finance_loan_id',
                     'finance_national_id',
                     'finance_player_id',
                     'finance_season_id',
                     'finance_team_id',
+                    'finance_transfer_id',
                     'finance_user_id',
                     'finance_value',
                     'finance_value_after',
