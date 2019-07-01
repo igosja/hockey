@@ -323,6 +323,8 @@ class Game extends AbstractActiveRecord
                     'world-championship/index',
                     'seasonId' => $this->schedule->schedule_season_id,
                     'stageId' => $this->schedule->schedule_stage_id,
+                    'divisionId' => $this->nationalHome->worldCup->world_cup_division_id,
+                    'nationalTypeId' => $this->nationalHome->national_national_type_id,
                 ]
             );
         } elseif (TournamentType::LEAGUE == $this->schedule->schedule_tournament_type_id) {

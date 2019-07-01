@@ -18,6 +18,10 @@ try {
                 'url' => ['user/achievement', 'id' => $id],
             ],
             [
+                'text' => 'Трофеи',
+                'url' => ['user/trophy', 'id' => $id],
+            ],
+            [
                 'text' => 'Личный счёт',
                 'url' => ['user/finance', 'id' => $id],
             ],

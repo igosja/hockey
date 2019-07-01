@@ -5,6 +5,7 @@ namespace console\models\generator;
 use common\models\Country;
 use common\models\ElectionPresident;
 use common\models\ElectionPresidentApplication;
+use common\models\ElectionPresidentViceApplication;
 use common\models\ElectionStatus;
 use common\models\History;
 use common\models\HistoryText;
@@ -59,9 +60,9 @@ class PresidentVoteStatus
      */
     private function toOpen(ElectionPresident $electionPresident)
     {
-        $model = new ElectionPresidentApplication();
-        $model->election_president_application_election_id = $electionPresident->election_president_id;
-        $model->election_president_application_text = '-';
+        $model = new ElectionPresidentViceApplication();
+        $model->election_president_vice_application_election_id = $electionPresident->election_president_id;
+        $model->election_president_vice_application_text = '-';
         $model->save();
 
         $electionPresident->election_president_election_status_id = ElectionStatus::OPEN;

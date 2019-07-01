@@ -12,6 +12,7 @@ use common\models\Team;
 use common\models\TournamentType;
 use common\models\User;
 use Yii;
+use yii\db\Exception;
 use yii\helpers\Html;
 
 /**
@@ -21,9 +22,9 @@ use yii\helpers\Html;
 class InsertNews
 {
     /**
-     * @throws \Exception
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
+     * @throws \Exception
      */
     public function execute()
     {
@@ -109,12 +110,10 @@ class InsertNews
             if ($result) {
                 $text = $text . '<p>Самый крупный счёт в этот день был зафиксирован в матче ' . HockeyHelper::teamOrNationalLink(
                         Team::findOne($result['home_team_id']),
-                        National::findOne($result['home_national_id']),
-                        false
+                        National::findOne($result['home_national_id'])
                     ) . ' - ' . HockeyHelper::teamOrNationalLink(
                         Team::findOne($result['guest_team_id']),
-                        National::findOne($result['guest_national_id']),
-                        false
+                        National::findOne($result['guest_national_id'])
                     ) . ' - ' . Html::a(
                         $result['game_home_score'] . ':' . $result['game_guest_score'],
                         ['game/view', 'id' => $result['game_id']]
@@ -165,12 +164,10 @@ class InsertNews
             if ($result) {
                 $text = $text . '<p>Самую большую суммарную силу соперников зрители могли увидеть в матче ' . HockeyHelper::teamOrNationalLink(
                         Team::findOne($result['home_team_id']),
-                        National::findOne($result['home_national_id']),
-                        false
+                        National::findOne($result['home_national_id'])
                     ) . ' - ' . HockeyHelper::teamOrNationalLink(
                         Team::findOne($result['guest_team_id']),
-                        National::findOne($result['guest_national_id']),
-                        false
+                        National::findOne($result['guest_national_id'])
                     ) . ' - ' . Html::a(
                         $result['game_home_score'] . ':' . $result['game_guest_score'],
                         ['game/view', 'id' => $result['game_id']]

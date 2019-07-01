@@ -44,7 +44,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
                 ],
                 'integer'
             ],
-            [['election_president_vice_application_text'], 'safe']
+            [['election_president_vice_application_text'], 'required']
         ];
     }
 
@@ -62,6 +62,16 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'election_president_vice_application_text' => 'Программа',
+        ];
     }
 
     /**

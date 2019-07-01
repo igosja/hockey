@@ -44,7 +44,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
                 ],
                 'integer'
             ],
-            [['election_national_vice_application_text'], 'safe']
+            [['election_national_vice_application_text'], 'required']
         ];
     }
 
@@ -62,6 +62,16 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'election_national_vice_application_text' => 'Программа',
+        ];
     }
 
     /**

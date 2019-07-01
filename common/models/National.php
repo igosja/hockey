@@ -104,6 +104,7 @@ class National extends AbstractActiveRecord
                 [
                     'world-championship/index',
                     'divisionId' => $this->worldCup->division->division_id,
+                    'nationalTypeId' => $this->national_national_type_id,
                 ]
             );
         }

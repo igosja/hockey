@@ -28,6 +28,10 @@ try {
                 'text' => 'Достижения',
                 'url' => ['national/achievement', 'id' => $id],
             ],
+            [
+                'text' => 'Трофеи',
+                'url' => ['national/trophy', 'id' => $id],
+            ],
         ]
     ]);
 } catch (Exception $e) {
