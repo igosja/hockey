@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use common\components\ErrorHelper;
+use common\models\Finance;
+use common\models\FinanceText;
 use common\models\TransferComment;
 use common\models\TransferVote as VoteModel;
 use common\models\User;
@@ -106,6 +108,25 @@ class TransferVote extends Model
                 $model->transfer_comment_text = $this->comment;
                 $model->transfer_comment_transfer_id = $this->transferId;
                 $model->save();
+            }
+
+            $checkFinance = Finance::find()
+                ->where(['finance_transfer_id' => $this->transferId, 'finance_user_id' => $user->user_id])
+                ->count();
+            if (!$checkFinance) {
+                $sum = 1000;
+
+                Finance::log([
+                    'finance_finance_text_id' => FinanceText::INCOME_DEAL_CHECK,
+                    'finance_transfer_id' => $this->transferId,
+                    'finance_user_id' => $user->user_id,
+                    'finance_value' => $sum,
+                    'finance_value_after' => $user->user_finance + $sum,
+                    'finance_value_before' => $user->user_finance,
+                ]);
+
+                $user->user_finance = $user->user_finance + $sum;
+                $user->save(true, ['user_finance']);
             }
         } catch (Exception $e) {
             ErrorHelper::log($e);

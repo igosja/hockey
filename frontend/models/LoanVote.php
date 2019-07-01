@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use common\components\ErrorHelper;
+use common\models\Finance;
+use common\models\FinanceText;
 use common\models\LoanComment;
 use common\models\LoanVote as VoteModel;
 use common\models\User;
@@ -106,6 +108,25 @@ class LoanVote extends Model
                 $model->loan_comment_text = $this->comment;
                 $model->loan_comment_loan_id = $this->loanId;
                 $model->save();
+            }
+
+            $checkFinance = Finance::find()
+                ->where(['finance_transfer_id' => $this->loanId, 'finance_user_id' => $user->user_id])
+                ->count();
+            if (!$checkFinance) {
+                $sum = 1000;
+
+                Finance::log([
+                    'finance_finance_text_id' => FinanceText::INCOME_DEAL_CHECK,
+                    'finance_loan_id' => $this->loanId,
+                    'finance_user_id' => $user->user_id,
+                    'finance_value' => $sum,
+                    'finance_value_after' => $user->user_finance + $sum,
+                    'finance_value_before' => $user->user_finance,
+                ]);
+
+                $user->user_finance = $user->user_finance + $sum;
+                $user->save(true, ['user_finance']);
             }
         } catch (Exception $e) {
             ErrorHelper::log($e);
