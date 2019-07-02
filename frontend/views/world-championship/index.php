@@ -2,6 +2,7 @@
 
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
+use common\models\Division;
 use common\models\Game;
 use common\models\User;
 use common\models\WorldCup;
@@ -257,6 +258,18 @@ $user = Yii::$app->user->identity;
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function (WorldCup $model) {
+                $class = '';
+                $title = '';
+                if ($model->world_cup_place <= 2 && $model->world_cup_division_id > Division::D1) {
+                    $class = 'tournament-table-up';
+                    $title = 'Зона повышения';
+                } elseif ($model->world_cup_place >= 11 && $model->world_cup_division_id < Division::D2) {
+                    $class = 'tournament-table-down';
+                    $title = 'Зона вылета';
+                }
+                return ['class' => $class, 'title' => $title];
+            },
             'showFooter' => true,
             'summary' => false,
         ]);

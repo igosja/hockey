@@ -5,6 +5,7 @@ namespace console\models\generator;
 use common\models\Finance;
 use common\models\FinanceText;
 use common\models\User;
+use Exception;
 use yii\db\Expression;
 
 /**
@@ -14,7 +15,7 @@ use yii\db\Expression;
 class ReferrerBonus
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -43,10 +44,10 @@ class ReferrerBonus
             ]);
 
             $user->referrer->user_finance = $user->referrer->user_finance + $sum;
-            $user->referrer->save();
+            $user->referrer->save(true, ['user_finance']);
 
             $user->user_referrer_done = 1;
-            $user->save();
+            $user->save(true, ['user_referrer_done']);
         }
     }
 }

@@ -15,7 +15,7 @@ class FinanceText extends AbstractActiveRecord
     const INCOME_BUILDING_BASE = 17;
     const INCOME_BUILDING_STADIUM = 15;
     const INCOME_COACH = 37;
-    const INCOME_COMMENT = 35;
+    const INCOME_DEAL_CHECK = 35;
     const INCOME_LOAN = 21;
     const INCOME_NATIONAL = 26;
     const INCOME_PENSION = 25;
