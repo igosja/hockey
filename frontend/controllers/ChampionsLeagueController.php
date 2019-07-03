@@ -76,7 +76,7 @@ class ChampionsLeagueController extends AbstractController
      */
     public function actionQualification()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
         $qualificationArray = [];
 
@@ -281,7 +281,7 @@ class ChampionsLeagueController extends AbstractController
      */
     public function actionPlayoff()
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
         $qualificationArray = [];
 
@@ -416,7 +416,7 @@ class ChampionsLeagueController extends AbstractController
      */
     public function actionStatistics($id = StatisticType::TEAM_NO_PASS)
     {
-        $seasonId = Yii::$app->request->get('season_id', $this->seasonId);
+        $seasonId = Yii::$app->request->get('seasonId', $this->seasonId);
 
         $statisticType = StatisticType::find()
             ->where(['statistic_type_id' => $id])

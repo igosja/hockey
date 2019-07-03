@@ -124,7 +124,7 @@ class WorldCup extends AbstractActiveRecord
             }
         }
 
-        return implode(' ', $result);
+        return implode('', $result);
     }
 
     /**

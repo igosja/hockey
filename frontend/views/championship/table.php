@@ -3,16 +3,21 @@
 use common\components\ErrorHelper;
 use common\components\HockeyHelper;
 use common\models\Championship;
+use common\models\Country;
+use common\models\Game;
+use common\models\Review;
+use common\models\User;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Country $country
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var Country $country
+ * @var ActiveDataProvider $dataProvider
  * @var array $divisionArray
  * @var int $divisionId
- * @var \common\models\Game[] $gameArray
- * @var \common\models\Review[] $reviewArray
+ * @var Game[] $gameArray
+ * @var Review[] $reviewArray
  * @var bool $reviewCreate
  * @var array $roundArray
  * @var array $scheduleId
@@ -20,7 +25,7 @@ use yii\helpers\Html;
  * @var int $seasonId
  * @var array $stageArray
  * @var int $stageId
- * @var \common\models\User $user
+ * @var User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -252,6 +257,7 @@ $user = Yii::$app->user->identity;
                 'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'Ф',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
+                'format' => 'raw',
                 'header' => 'Ф',
                 'headerOptions' => ['class' => 'col-3 hidden-xs', 'title' => 'Форма'],
                 'value' => function (Championship $model): string {

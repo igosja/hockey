@@ -93,16 +93,7 @@ class Championship extends AbstractActiveRecord
                 'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
                 'schedule_season_id' => $this->championship_season_id,
             ])
-            ->andWhere([
-                'schedule_stage_id' => [
-                    Stage::TOUR_LEAGUE_1,
-                    Stage::TOUR_LEAGUE_2,
-                    Stage::TOUR_LEAGUE_3,
-                    Stage::TOUR_LEAGUE_4,
-                    Stage::TOUR_LEAGUE_5,
-                    Stage::TOUR_LEAGUE_6,
-                ]
-            ])
+            ->andWhere(['<=', 'schedule_stage_id', Stage::TOUR_30])
             ->column();
         $gameArray = Game::find()
             ->where([

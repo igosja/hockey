@@ -240,6 +240,7 @@ $user = Yii::$app->user->identity;
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
                     'footer' => 'Ф',
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
+                    'format' => 'raw',
                     'header' => 'Ф',
                     'headerOptions' => ['class' => 'col-3 hidden-xs', 'title' => 'Форма'],
                     'value' => function (League $model): string {

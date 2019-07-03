@@ -114,7 +114,7 @@ class OffSeason extends AbstractActiveRecord
             }
         }
 
-        return implode(' ', $result);
+        return implode('', $result);
     }
 
     /**
