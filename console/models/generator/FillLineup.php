@@ -21,6 +21,12 @@ class FillLineup
      */
     public function execute()
     {
+        $gameIdArray = Game::find()
+            ->select(['game_id'])
+            ->joinWith(['schedule'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->column();
+
         $gameArray = Game::find()
             ->joinWith(['schedule'])
             ->with(['nationalGuest', 'nationalHome'])
@@ -99,9 +105,8 @@ class FillLineup
 
                     if (!$lineup || !$lineup->lineup_player_id) {
                         $subQuery = Lineup::find()
-                            ->joinWith(['game.schedule'])
                             ->select(['lineup_player_id'])
-                            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()');
+                            ->where(['lineup_game_id' => $gameIdArray]);
 
                         $league = Player::find()
                             ->select(['player_id', 'player_tire'])

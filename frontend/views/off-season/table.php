@@ -2,16 +2,18 @@
 
 use common\components\ErrorHelper;
 use common\models\OffSeason;
+use common\models\User;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
  * @var array $countryArray
  * @var int $countryId
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var array $seasonArray
  * @var int $seasonId
- * @var \common\models\User $user
+ * @var User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -175,6 +177,17 @@ $user = Yii::$app->user->identity;
                 'label' => 'О',
                 'value' => function (OffSeason $model) {
                     return $model->off_season_point;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Ф',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
+                'format' => 'raw',
+                'header' => 'Ф',
+                'headerOptions' => ['class' => 'col-3 hidden-xs', 'title' => 'Форма'],
+                'value' => function (OffSeason $model): string {
+                    return $model->lastGamesShape();
                 }
             ],
             [
