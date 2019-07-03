@@ -14,9 +14,11 @@ use common\models\NewsComment;
 use common\models\ParticipantLeague;
 use common\models\Poll;
 use common\models\PollStatus;
+use common\models\Recommendation;
 use common\models\Season;
 use common\models\Support;
 use common\models\Team;
+use common\models\User;
 use common\models\UserRole;
 use Exception;
 use frontend\models\CountryTransferFinance;
@@ -26,6 +28,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -55,6 +58,7 @@ class CountryController extends AbstractController
                     'support-admin',
                     'support-admin-load',
                     'money-transfer',
+                    'free-team',
                 ],
                 'rules' => [
                     [
@@ -69,6 +73,7 @@ class CountryController extends AbstractController
                             'support-admin',
                             'support-admin-load',
                             'money-transfer',
+                            'free-team',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -487,6 +492,144 @@ class CountryController extends AbstractController
         return $this->render('fire', [
             'id' => $id,
         ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionFreeTeam($id)
+    {
+        $country = Country::find()
+            ->where(['country_id' => $id])
+            ->limit(1)
+            ->one();
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может рекомандовать менеджеров');
+            return $this->redirect(['team', 'id' => $id]);
+        }
+        $query = Team::find()
+            ->joinWith([
+                'stadium.city' => function (ActiveQuery $query) {
+                    return $query->select(['city_country_id', 'city_id', 'city_name']);
+                }
+            ])
+            ->with([
+                'stadium' => function (ActiveQuery $query) {
+                    return $query->select(['stadium_city_id', 'stadium_id']);
+                },
+            ])
+            ->select(['team_id', 'team_name', 'team_stadium_id', 'team_user_id'])
+            ->where(['city_country_id' => $id, 'team_user_id' => 0]);
+        $dataProvider = new ActiveDataProvider([
+            'pagination' => false,
+            'query' => $query,
+            'sort' => [
+                'attributes' => [
+                    'last_visit' => [
+                        'asc' => ['user_date_login' => SORT_ASC],
+                        'desc' => ['user_date_login' => SORT_DESC],
+                    ],
+                    'manager' => [
+                        'asc' => ['user_login' => SORT_ASC],
+                        'desc' => ['user_login' => SORT_DESC],
+                    ],
+                    'team' => [
+                        'asc' => ['team_name' => SORT_ASC],
+                        'desc' => ['team_name' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => ['team' => SORT_ASC],
+            ]
+        ]);
+
+        $this->setSeoTitle('Свободные команды федерации');
+
+        return $this->render('free-team', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @param int $teamId
+     * @return string|Response
+     * @throws Exception
+     * @throws NotFoundHttpException
+     */
+    public function actionRecommendationCreate(int $id, int $teamId)
+    {
+        $team = Team::find()
+            ->where(['team_id' => $teamId])
+            ->limit(1)
+            ->one();
+        $this->notFound($team);
+
+        $country = $team->stadium->city->country;
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может рекомандовать менеджеров');
+            return $this->redirect(['country/team', 'id' => $id]);
+        }
+
+        if ($team->recommendation) {
+            $this->setErrorFlash('На получение этой команды уже подана рекомендация');
+            return $this->redirect(['country/free-team', 'id' => $id]);
+        }
+
+        $model = new Recommendation();
+        $model->recommendation_team_id = $teamId;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->setSuccessFlash('Рекомендация успешно сохранена');
+            return $this->redirect(['country/free-team', 'id' => $country->country_id]);
+        }
+
+        $userArray = User::find()
+            ->where(['!=', 'user_id', 0])
+            ->andWhere(['>', 'user_date_login', time() - 604800])
+            ->orderBy(['user_login' => SORT_ASC])
+            ->all();
+
+        $this->setSeoTitle('Создание рекомендации на получение команды');
+
+        return $this->render('recommendation-create', [
+            'userArray' => ArrayHelper::map($userArray, 'user_id', 'user_login'),
+            'model' => $model,
+            'team' => $team,
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @param int $teamId
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws StaleObjectException
+     * @throws Throwable
+     */
+    public function actionRecommendationDelete(int $id, int $teamId)
+    {
+        $team = Team::find()
+            ->where(['team_id' => $teamId])
+            ->limit(1)
+            ->one();
+        $this->notFound($team);
+
+        $country = $team->stadium->city->country;
+        if (!in_array($this->user->user_id, [$country->country_president_id, $country->country_president_vice_id])) {
+            $this->setErrorFlash('Только президент федерации или его заместитель может рекомандовать менеджеров');
+            return $this->redirect(['country/team', 'id' => $id]);
+        }
+
+        if (!$team->recommendation) {
+            $this->setErrorFlash('На получение этой команды не подана рекомендация');
+            return $this->redirect(['country/free-team', 'id' => $id]);
+        }
+
+        $team->recommendation->delete();
+        $this->setSuccessFlash('Рекомендация успешно удалена');
+
+        return $this->redirect(['country/free-team', 'id' => $id]);
     }
 
     /**

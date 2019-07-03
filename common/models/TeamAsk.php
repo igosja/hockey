@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  * @property int $team_ask_team_id
  * @property int $team_ask_user_id
  *
+ * @property Recommendation $recommendation
  * @property Team $team
  * @property User $user
  */
@@ -23,7 +24,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%team_ask}}';
     }
@@ -31,7 +32,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['team_ask_id', 'team_ask_date', 'team_ask_leave_id', 'team_ask_team_id', 'team_ask_user_id'], 'integer'],
@@ -43,7 +44,7 @@ class TeamAsk extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -60,7 +61,18 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getRecommendation(): ActiveQuery
+    {
+        return $this->hasOne(
+            Recommendation::class,
+            ['recommendation_team_id' => 'team_ask_team_id', 'recommendation_user_id' => 'team_ask_user_id']
+        );
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'team_ask_team_id']);
     }
@@ -68,7 +80,7 @@ class TeamAsk extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'team_ask_user_id']);
     }
