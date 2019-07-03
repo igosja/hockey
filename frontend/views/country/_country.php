@@ -198,6 +198,11 @@ $controller = Yii::$app->controller;
                 ['country/support-president', 'id' => $country->country_id],
                 ['class' => ($supportPresident ? 'red' : '')]
             ); ?>
+            |
+            <?= Html::a(
+                'Свободные команды',
+                ['country/free-team', 'id' => $country->country_id]
+            ); ?>
             <?php if (Yii::$app->user->id == $country->country_president_id): ?>
                 |
                 <?= Html::a(

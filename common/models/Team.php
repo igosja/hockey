@@ -72,6 +72,7 @@ use yii\helpers\Html;
  * @property User $manager
  * @property OffSeason $offSeason
  * @property RatingTeam $ratingTeam
+ * @property Recommendation $recommendation
  * @property Stadium $stadium
  * @property TeamAsk[] $teamAsk
  * @property User $vice
@@ -1377,6 +1378,14 @@ class Team extends AbstractActiveRecord
     public function getRatingTeam()
     {
         return $this->hasOne(RatingTeam::class, ['rating_team_team_id' => 'team_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRecommendation()
+    {
+        return $this->hasOne(Recommendation::class, ['recommendation_team_id' => 'team_id']);
     }
 
     /**

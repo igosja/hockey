@@ -37,7 +37,8 @@ class NewsSearch extends News
      */
     public function search($params)
     {
-        $query = News::find();
+        $query = News::find()
+            ->where(['news_country_id' => 0]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
