@@ -219,20 +219,20 @@ $user = Yii::$app->user->identity;
                 }
             ],
             [
-                'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'ЗШ',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
-                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Заброшенные шайбы'],
+                'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Заброшенные шайбы'],
                 'label' => 'ЗШ',
                 'value' => function (Championship $model) {
                     return $model->championship_score;
                 }
             ],
             [
-                'contentOptions' => ['class' => 'col-5 hidden-xs text-center'],
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
                 'footer' => 'ПШ',
                 'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
-                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Пропущенные шайбы'],
+                'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Пропущенные шайбы'],
                 'label' => 'ПШ',
                 'value' => function (Championship $model) {
                     return $model->championship_pass;
@@ -246,6 +246,16 @@ $user = Yii::$app->user->identity;
                 'headerOptions' => ['class' => 'col-5', 'title' => 'Очки'],
                 'value' => function (Championship $model) {
                     return $model->championship_point;
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Ф',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
+                'header' => 'Ф',
+                'headerOptions' => ['class' => 'col-3 hidden-xs', 'title' => 'Форма'],
+                'value' => function (Championship $model): string {
+                    return $model->lastGamesShape();
                 }
             ],
             [

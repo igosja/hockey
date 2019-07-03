@@ -178,6 +178,16 @@ $user = Yii::$app->user->identity;
                 }
             ],
             [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Ф',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Форма'],
+                'header' => 'Ф',
+                'headerOptions' => ['class' => 'col-3 hidden-xs', 'title' => 'Форма'],
+                'value' => function (Conference $model): string {
+                    return $model->lastGamesShape();
+                }
+            ],
+            [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Vs',
                 'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
