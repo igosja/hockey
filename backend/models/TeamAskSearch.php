@@ -15,16 +15,15 @@ class TeamAskSearch extends TeamAsk
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return [
-        ];
+        return [];
     }
 
     /**
      * @return array
      */
-    public function scenarios()
+    public function scenarios(): array
     {
         return Model::scenarios();
     }
@@ -33,7 +32,7 @@ class TeamAskSearch extends TeamAsk
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params): ActiveDataProvider
     {
         $query = TeamAsk::find();
 
