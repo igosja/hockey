@@ -3,7 +3,6 @@
 namespace console\models\generator;
 
 use common\models\Attitude;
-use common\models\Bot;
 use common\models\History;
 use common\models\HistoryText;
 use common\models\National;
@@ -45,10 +44,6 @@ class NationalFire
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
                 ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
-                ->andWhere([
                     $attitudeField => Attitude::NEGATIVE,
                     'city_country_id' => $national->national_country_id,
                 ])
@@ -56,10 +51,6 @@ class NationalFire
             $positive = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
-                ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
                 ->andWhere([
                     $attitudeField => Attitude::POSITIVE,
                     'city_country_id' => $national->national_country_id,
@@ -69,10 +60,6 @@ class NationalFire
             $total = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
-                ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
                 ->andWhere(['city_country_id' => $national->national_country_id])
                 ->count();
 

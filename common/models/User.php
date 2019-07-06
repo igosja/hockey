@@ -78,7 +78,6 @@ use yii\web\IdentityInterface;
  * @property BlockReason $reasonBlockCommentGame
  * @property BlockReason $reasonBlockCommentNews
  * @property BlockReason $reasonBlockForum
- * @property Bot $bot
  * @property User $referrer
  * @property Sex $sex
  * @property Team[] $team
@@ -563,14 +562,6 @@ class User extends AbstractActiveRecord implements IdentityInterface
         }
 
         return $result;
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getBot(): ActiveQuery
-    {
-        return $this->hasOne(Bot::class, ['bot_user_id' => 'user_id']);
     }
 
     /**

@@ -6,6 +6,7 @@ use common\models\Position;
 use common\models\Season;
 use common\models\Special;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class Snapshot
@@ -14,8 +15,8 @@ use Yii;
 class Snapshot
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -29,7 +30,6 @@ class Snapshot
                     `snapshot_base_school`=(SELECT AVG(`base_school_level`) FROM `team` LEFT JOIN `base_school` ON `team_base_school_id` = `base_school_id` WHERE `team_id`!=0),
                     `snapshot_base_scout`=(SELECT AVG(`base_scout_level`) FROM `team` LEFT JOIN `base_scout` ON `team_base_scout_id` = `base_scout_id` WHERE `team_id`!=0),
                     `snapshot_base_training`=(SELECT AVG(`base_training_level`) FROM `team` LEFT JOIN `base_training` ON `team_base_training_id` = `base_training_id` WHERE `team_id`!=0),
-                    `snapshot_bot`=(SELECT COUNT(`bot_id`) FROM `bot`),
                     `snapshot_country`=(SELECT COUNT(`city_id`) FROM (SELECT `city_id` FROM `city` WHERE `city_country_id` != 0 GROUP BY `city_country_id`) AS `t`),
                     `snapshot_date`=UNIX_TIMESTAMP(),
                     `snapshot_manager`=(SELECT COUNT(`user_id`) FROM `user` WHERE `user_date_login`>UNIX_TIMESTAMP()-604800),
