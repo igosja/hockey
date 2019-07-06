@@ -1,13 +1,18 @@
 <?php
 
+use backend\models\PollSearch;
 use common\components\ErrorHelper;
+use common\models\Poll;
+use common\models\PollStatus;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \backend\models\PollSearch $searchModel
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var PollSearch $searchModel
+ * @var View $this
  */
 
 ?>
@@ -30,7 +35,17 @@ use yii\helpers\Html;
                 'attribute' => 'poll_id',
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
-            'poll_text',
+            [
+                'format' => 'raw',
+                'value' => function (Poll $model): string {
+                    $result = '';
+                    if (PollStatus::NEW_ONE == $model->poll_poll_status_id) {
+                        $result = $result . '<i class="fa fa-clock-o fa-fw"></i> ';
+                    }
+                    $result = $result . $model->poll_text;
+                    return $result;
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],

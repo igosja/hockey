@@ -3,7 +3,6 @@
 namespace console\models\generator;
 
 use common\models\Attitude;
-use common\models\Bot;
 use common\models\Country;
 use common\models\History;
 use common\models\HistoryText;
@@ -36,10 +35,6 @@ class PresidentFire
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
                 ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
-                ->andWhere([
                     'team_attitude_president' => Attitude::NEGATIVE,
                     'city_country_id' => $country->country_id,
                 ])
@@ -47,10 +42,6 @@ class PresidentFire
             $positive = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
-                ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
                 ->andWhere([
                     'team_attitude_president' => Attitude::POSITIVE,
                     'city_country_id' => $country->country_id,
@@ -60,10 +51,6 @@ class PresidentFire
             $total = Team::find()
                 ->joinWith(['stadium.city'])
                 ->where(['!=', 'team_user_id', 0])
-                ->andWhere([
-                    'not',
-                    ['team_user_id' => Bot::find()->select(['bot_user_id'])]
-                ])
                 ->andWhere(['city_country_id' => $country->country_id])
                 ->count();
 
@@ -89,7 +76,7 @@ class PresidentFire
 
                 $country->country_president_id = $country->country_president_vice_id;
                 $country->country_president_vice_id = 0;
-                $country->save();
+                $country->save(true, ['country_president_id', 'country_president_vice_id']);
 
                 $sql = "UPDATE `team`
                         LEFT JOIN `stadium`

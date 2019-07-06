@@ -202,8 +202,8 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     private function createPlayers()
     {
@@ -261,8 +261,8 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     private function createLeaguePlayers()
     {
@@ -309,8 +309,8 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function updatePower()
     {
@@ -384,8 +384,8 @@ class Team extends AbstractActiveRecord
 
     /**
      * @param $user_id
-     * @throws Exception
      * @return void
+     * @throws Exception
      */
     public function managerEmploy($user_id)
     {
@@ -414,21 +414,14 @@ class Team extends AbstractActiveRecord
             $viceTeam->save(true, ['team_vice_id']);
         }
 
-        $bot = Bot::find()
-            ->where(['bot_user_id' => $user_id])
-            ->limit(1)
-            ->one();
-
-        if (!$bot) {
-            Yii::$app->mailer->compose(
-                ['html' => 'default-html', 'text' => 'default-text'],
-                ['text' => 'Ваша заявка на получение команды одобрена.']
-            )
-                ->setTo($this->manager->user_email)
-                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
-                ->send();
-        }
+        Yii::$app->mailer->compose(
+            ['html' => 'default-html', 'text' => 'default-text'],
+            ['text' => 'Ваша заявка на получение команды одобрена.']
+        )
+            ->setTo($this->manager->user_email)
+            ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
+            ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
+            ->send();
     }
 
     /**

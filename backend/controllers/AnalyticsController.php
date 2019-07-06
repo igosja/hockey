@@ -251,11 +251,6 @@ class AnalyticsController extends AbstractController
                 'name' => 'Средний размер стадиона',
                 'select' => 'snapshot_stadium',
             ),
-            43 => array(
-                'id' => 43,
-                'name' => 'Количество ботов',
-                'select' => 'snapshot_bot',
-            ),
         );
 
         $seasonId = Yii::$app->request->get('seasonId', Season::getCurrentSeason());
