@@ -34,6 +34,7 @@ class BotService
     {
         $team = Team::find()
             ->where(['team_user_id' => 0])
+            ->andWhere(['!=', 'team_id', 0])
             ->orderBy('RAND()')
             ->limit(1)
             ->one();
