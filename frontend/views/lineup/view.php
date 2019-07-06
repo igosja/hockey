@@ -250,7 +250,11 @@ LineupAsset::register($this);
                 <td></td>
                 <td class="col-30 text-center strong">Тактика</td>
                 <td class="col-30 text-center strong">Грубость</td>
-                <td class="col-30 text-center strong">Стиль</td>
+                <td class="col-30 text-center strong">
+                    Стиль
+                    <i class="fa fa-question-circle-o"
+                       title="силовым лучше всего играть против скоростного;<br/>скоростным лучше всего играть против технического;<br/>техническим лучше всего играть против силового."></i>
+                </td>
             </tr>
             <tr>
                 <td class="text-right strong">1 звено:</td>
