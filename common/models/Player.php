@@ -148,7 +148,7 @@ class Player extends AbstractActiveRecord
                 if (!$this->player_style_id) {
                     $this->player_style_id = Style::getRandStyleId();;
                 }
-                if (!$this->player_tire) {
+                if (!isset($this->player_tire)) {
                     $this->player_tire = 50;
                 }
                 if ($this->player_team_id) {
