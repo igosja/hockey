@@ -1,5 +1,10 @@
 jQuery(document).ready(function () {
     $(document)
+        .tooltip({
+            content: function () {
+                return $(this).prop('title');
+            }
+        })
         .on('click', '.show-full-table', function () {
             $('.show-full-table').hide();
             var table_list = $('table');
