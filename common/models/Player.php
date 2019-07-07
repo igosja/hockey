@@ -51,6 +51,7 @@ use yii\helpers\Html;
  * @property Loan $loan
  * @property Team $loanTeam
  * @property Name $name
+ * @property National $national
  * @property Physical $physical
  * @property PlayerPosition[] $playerPosition
  * @property PlayerSpecial[] $playerSpecial
@@ -250,7 +251,12 @@ class Player extends AbstractActiveRecord
     {
         $result = '';
         if ($this->player_national_id) {
-            $result = ' <i class="fa fa-flag" title="Игрок национальной сборной"></i>';
+            if (NationalType::MAIN == $this->national->national_national_type_id) {
+                $text = 'национальной сборной';
+            } else {
+                $text = 'сборной ' . $this->national->nationalType->national_type_name;
+            }
+            $result = ' <i class="fa fa-flag" title="Игрок ' . $text . '"></i>';
         }
         return $result;
     }
@@ -755,6 +761,14 @@ class Player extends AbstractActiveRecord
     public function getName()
     {
         return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getNational()
+    {
+        return $this->hasOne(National::class, ['national_id' => 'player_national_id']);
     }
 
     /**

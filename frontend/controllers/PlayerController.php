@@ -87,6 +87,15 @@ class PlayerController extends AbstractController
 
         $query = Lineup::find()
             ->joinWith(['game.schedule'])
+            ->with([
+                'game.nationalGuest',
+                'game.nationalHome',
+                'game.schedule.stage',
+                'game.schedule.tournamentType',
+                'game.teamGuest',
+                'game.teamHome',
+                'position',
+            ])
             ->where(['lineup_player_id' => $id])
             ->andWhere(['schedule.schedule_season_id' => $seasonId])
             ->andWhere(['!=', 'game.game_played', 0])
