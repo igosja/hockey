@@ -69,10 +69,28 @@ class AchievementPlayer extends AbstractActiveRecord
     {
         if ($this->achievement_player_place) {
             $result = $this->achievement_player_place;
+            if ($this->achievement_player_place <= 3) {
+                if (1 == $this->achievement_player_place) {
+                    $color = 'gold';
+                } elseif (2 == $this->achievement_player_place) {
+                    $color = 'silver';
+                } else {
+                    $color = '#6A3805';
+                }
+                $result = $result . ' <i class="fa fa-trophy" style="color: ' . $color . ';"></i>';
+            }
         } elseif ($this->stage) {
             $result = $this->stage->stage_name;
+            if (in_array($this->achievement_player_stage_id, [Stage::FINAL_GAME, Stage::SEMI])) {
+                if (Stage::FINAL_GAME == $this->achievement_player_stage_id) {
+                    $color = 'silver';
+                } else {
+                    $color = '#6A3805';
+                }
+                $result = $result . ' <i class="fa fa-trophy" style="color: ' . $color . ';"></i>';
+            }
         } else {
-            $result = 'Чемпион';
+            $result = 'Чемпион <i class="fa fa-trophy" style="color: gold;"></i>';
         }
 
         return $result;

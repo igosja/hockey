@@ -52,6 +52,7 @@ use yii\web\View;
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Позиция',
+                'format' => 'raw',
                 'label' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
                 'value' => function (Achievement $model) {
