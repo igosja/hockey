@@ -2,12 +2,15 @@
 
 use common\components\ErrorHelper;
 use common\models\Achievement;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -49,6 +52,7 @@ use yii\grid\GridView;
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Позиция',
+                'format' => 'raw',
                 'label' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
                 'value' => function (Achievement $model) {

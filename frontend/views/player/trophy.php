@@ -54,6 +54,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 [
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Позиция',
+                    'format' => 'raw',
                     'headerOptions' => ['class' => 'col-10'],
                     'label' => 'Позиция',
                     'value' => function (AchievementPlayer $model) {
