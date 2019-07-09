@@ -11,6 +11,7 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $divisionArray
  * @var int $divisionId
+ * @var \common\models\Team $myTeam
  * @var int $seasonId
  * @var \common\models\StatisticType $statisticType
  * @var array $statisticTypeArray
@@ -117,6 +118,18 @@ if ($statisticType->isTeamChapter()) {
         print GridView::widget([
             'columns' => $columns,
             'dataProvider' => $dataProvider,
+            'rowOptions' => function ($model) use ($myTeam, $statisticType): array {
+                if (!$myTeam) {
+                    return [];
+                }
+                $class = '';
+                if ($statisticType->isTeamChapter() && $model->statistic_team_team_id == $myTeam->team_id) {
+                    $class = 'info';
+                } elseif (!$statisticType->isTeamChapter() && $model->statistic_player_team_id == $myTeam->team_id) {
+                    $class = 'info';
+                }
+                return ['class' => $class];
+            },
             'showFooter' => true,
         ]);
     } catch (Exception $e) {
