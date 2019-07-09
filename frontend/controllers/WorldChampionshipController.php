@@ -285,6 +285,7 @@ class WorldChampionshipController extends AbstractController
             'dataProvider' => $dataProvider,
             'divisionArray' => $this->getDivisionStatisticsLinksArray($seasonId),
             'divisionId' => $divisionId,
+            'myTeam' => $this->myTeam,
             'seasonId' => $seasonId,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),

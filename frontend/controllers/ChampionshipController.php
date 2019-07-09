@@ -374,6 +374,7 @@ class ChampionshipController extends AbstractController
             'dataProvider' => $dataProvider,
             'divisionArray' => $this->getDivisionStatisticsLinksArray($countryId, $roundId, $seasonId),
             'divisionId' => $divisionId,
+            'myTeam' => $this->myTeam,
             'roundArray' => $this->getRoundStatisticsLinksArray($countryId, $divisionId, $seasonId),
             'roundId' => $roundId,
             'seasonId' => $seasonId,

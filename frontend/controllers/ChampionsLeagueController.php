@@ -459,6 +459,7 @@ class ChampionsLeagueController extends AbstractController
 
         return $this->render('statistics', [
             'dataProvider' => $dataProvider,
+            'myTeam' => $this->myTeam,
             'seasonId' => $seasonId,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),
