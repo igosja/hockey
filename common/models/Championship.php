@@ -125,7 +125,7 @@ class Championship extends AbstractActiveRecord
             }
         }
 
-        return implode(' ', $result);
+        return implode('', $result);
     }
 
     /**
