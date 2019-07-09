@@ -133,6 +133,7 @@ class OffSeasonController extends AbstractController
 
         return $this->render('statistics', [
             'dataProvider' => $dataProvider,
+            'myTeam' => $this->myTeam,
             'statisticType' => $statisticType,
             'statisticTypeArray' => StatisticChapter::selectOptions(),
         ]);
