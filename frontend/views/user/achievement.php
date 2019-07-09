@@ -38,7 +38,6 @@ print $this->render('_top');
                 'header' => 'Команда',
                 'value' => function (Achievement $model) {
                     return $model->achievement_team_id ? $model->team->teamLink('img') : $model->national->nationalLink(true);
-                    return $model->team->teamLink('img');
                 }
             ],
             [
@@ -51,6 +50,7 @@ print $this->render('_top');
             [
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Позиция',
+                'format' => 'raw',
                 'header' => 'Позиция',
                 'headerOptions' => ['class' => 'col-10'],
                 'value' => function (Achievement $model) {

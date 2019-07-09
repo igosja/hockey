@@ -130,13 +130,16 @@ class TeamController extends AbstractController
                 'country'
             ])
             ->with([
+                'loan',
                 'name',
+                'national.nationalType',
                 'physical',
                 'playerPosition.position',
                 'playerSpecial.special',
                 'statisticPlayer',
                 'style',
                 'surname',
+                'transfer',
             ])
             ->where(['player_team_id' => $id])
             ->orWhere(['player_loan_team_id' => $id]);
