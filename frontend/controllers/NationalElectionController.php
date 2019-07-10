@@ -12,8 +12,10 @@ use common\models\NationalType;
 use common\models\Player;
 use common\models\Position;
 use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -214,6 +216,70 @@ class NationalElectionController extends AbstractController
             'rdArray' => $rdArray,
             'rwArray' => $rwArray,
         ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     */
+    public function actionDeleteApplication(): Response
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        $national = $this->getNational($country);
+
+        if (!$national) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionNational = ElectionNational::find()
+            ->where([
+                'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => $national->national_national_type_id,
+                'election_national_election_status_id' => ElectionStatus::OPEN
+            ])
+            ->count();
+
+        if ($electionNational) {
+            return $this->redirect(['view']);
+        }
+
+        $electionNational = ElectionNational::find()
+            ->where([
+                'election_national_country_id' => $country->country_id,
+                'election_national_national_type_id' => $national->national_national_type_id,
+                'election_national_election_status_id' => ElectionStatus::CANDIDATES,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$electionNational) {
+            $electionNational = new ElectionNational();
+            $electionNational->election_national_country_id = $country->country_id;
+            $electionNational->election_national_national_type_id = $national->national_national_type_id;
+            $electionNational->save();
+        }
+
+        $model = ElectionNationalApplication::find()
+            ->where([
+                'election_national_application_election_id' => $electionNational->election_national_id,
+                'election_national_application_user_id' => $this->user->user_id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return $this->redirect(['national-election/application']);
+        }
+
+        $model->delete();
+
+        $this->setSuccessFlash('Заявка успешно удалена.');
+        return $this->redirect(['national-election/application']);
     }
 
     /**
