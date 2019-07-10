@@ -10,8 +10,10 @@ use common\models\ElectionStatus;
 use common\models\National;
 use common\models\NationalType;
 use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -120,6 +122,70 @@ class NationalElectionViceController extends AbstractController
         return $this->render('application', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     */
+    public function actionDeleteApplication(): Response
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        $national = $this->getNational($country);
+
+        if (!$national) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionNationalVice = ElectionNationalVice::find()
+            ->where([
+                'election_national_vice_country_id' => $country->country_id,
+                'election_national_vice_national_type_id' => $national->national_national_type_id,
+                'election_national_vice_election_status_id' => ElectionStatus::OPEN
+            ])
+            ->count();
+
+        if ($electionNationalVice) {
+            return $this->redirect(['view']);
+        }
+
+        $electionNationalVice = ElectionNationalVice::find()
+            ->where([
+                'election_national_vice_country_id' => $country->country_id,
+                'election_national_vice_national_type_id' => $national->national_national_type_id,
+                'election_national_vice_election_status_id' => ElectionStatus::CANDIDATES,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$electionNationalVice) {
+            $electionNationalVice = new ElectionNationalVice();
+            $electionNationalVice->election_national_vice_country_id = $country->country_id;
+            $electionNationalVice->election_national_vice_national_type_id = $national->national_national_type_id;
+            $electionNationalVice->save();
+        }
+
+        $model = ElectionNationalViceApplication::find()
+            ->where([
+                'election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id,
+                'election_national_vice_application_user_id' => $this->user->user_id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return $this->redirect(['national-election-vice/application']);
+        }
+
+        $model->delete();
+
+        $this->setSuccessFlash('Заявка успешно удалена.');
+        return $this->redirect(['national-election-vice/application']);
     }
 
     /**
