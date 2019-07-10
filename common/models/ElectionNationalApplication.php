@@ -4,8 +4,10 @@ namespace common\models;
 
 use common\components\HockeyHelper;
 use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -38,7 +40,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_national_application}}';
     }
@@ -46,7 +48,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -67,7 +69,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -80,9 +82,22 @@ class ElectionNationalApplication extends AbstractActiveRecord
     }
 
     /**
-     * @param $attribute
+     * @return bool
+     * @throws Throwable
+     * @throws StaleObjectException
      */
-    public function checkPlayer($attribute)
+    public function beforeDelete(): bool
+    {
+        foreach ($this->electionNationalPlayer as $electionNationalPlayer) {
+            $electionNationalPlayer->delete();
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
+     * @param array $attribute
+     */
+    public function checkPlayer(array $attribute)
     {
         if (count($this->$attribute) != 6) {
             $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
@@ -126,7 +141,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function playerPower()
+    public function playerPower(): int
     {
         $result = 0;
 
@@ -152,7 +167,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function saveApplication()
+    public function saveApplication(): bool
     {
         $this->loadPlayer();
 
@@ -181,7 +196,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'election_national_application_text' => 'Программа',
@@ -191,7 +206,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNational()
+    public function getElectionNational(): ActiveQuery
     {
         return $this->hasOne(
             ElectionNational::class,
@@ -202,7 +217,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalPlayer()
+    public function getElectionNationalPlayer(): ActiveQuery
     {
         return $this->hasMany(
             ElectionNationalPlayer::class,
@@ -213,7 +228,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalVote()
+    public function getElectionNationalVote(): ActiveQuery
     {
         return $this->hasMany(
             ElectionNationalVote::class,
@@ -224,7 +239,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'election_national_application_user_id']);
     }

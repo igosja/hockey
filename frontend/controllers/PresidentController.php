@@ -8,7 +8,9 @@ use common\models\ElectionPresidentApplication;
 use common\models\ElectionPresidentVote;
 use common\models\ElectionStatus;
 use Exception;
+use Throwable;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -104,7 +106,7 @@ class PresidentController extends AbstractController
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->setSuccessFlash('Изменения успшено сохранены.');
+            $this->setSuccessFlash();
             return $this->refresh();
         }
 
@@ -112,6 +114,65 @@ class PresidentController extends AbstractController
         return $this->render('application', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     */
+    public function actionDeleteApplication(): Response
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        if ($country->country_president_id) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::OPEN
+            ])
+            ->count();
+
+        if ($electionPresident) {
+            return $this->redirect(['view']);
+        }
+
+        $electionPresident = ElectionPresident::find()
+            ->where([
+                'election_president_country_id' => $country->country_id,
+                'election_president_election_status_id' => ElectionStatus::CANDIDATES,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$electionPresident) {
+            $electionPresident = new ElectionPresident();
+            $electionPresident->election_president_country_id = $country->country_id;
+            $electionPresident->save();
+        }
+
+        $model = ElectionPresidentApplication::find()
+            ->where([
+                'election_president_application_election_id' => $electionPresident->election_president_id,
+                'election_president_application_user_id' => Yii::$app->user->id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return $this->redirect(['president/application']);
+        }
+
+        $model->delete();
+
+        $this->setSuccessFlash('Заявка успешно удалена.');
+        return $this->redirect(['president/application']);
     }
 
     /**
