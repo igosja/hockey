@@ -49,14 +49,14 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-head">
             Ваше отношение к тренеру сборной:
             <a href="javascript:" id="relation-link">
-                <?= NationalType::MAIN == $national->national_national_type_id ? $controller->myTeam->attitudeNational->attitude_name : NationalType::U21 == $national->national_national_type_id ? $controller->myTeam->attitudeU21->attitude_name : $controller->myTeam->attitudeU19->attitude_name; ?>
+                <?= NationalType::MAIN == $national->national_national_type_id ? $controller->myTeam->attitudeNational->attitude_name : (NationalType::U21 == $national->national_national_type_id ? $controller->myTeam->attitudeU21->attitude_name : $controller->myTeam->attitudeU19->attitude_name); ?>
             </a>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 relation-body hidden">
             <?= $form
                 ->field(
                     $controller->myTeam,
-                    NationalType::MAIN == $national->national_national_type_id ? 'team_attitude_national' : NationalType::U21 == $national->national_national_type_id ? 'team_attitude_u21' : 'team_attitude_u19'
+                    NationalType::MAIN == $national->national_national_type_id ? 'team_attitude_national' : (NationalType::U21 == $national->national_national_type_id ? 'team_attitude_u21' : 'team_attitude_u19')
                 )
                 ->radioList($attitudeArray, [
                     'item' => function ($index, $model, $name, $checked, $value) {
