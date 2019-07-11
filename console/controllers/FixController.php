@@ -18,14 +18,17 @@ use common\models\Lineup;
 use common\models\Name;
 use common\models\NameCountry;
 use common\models\Position;
+use common\models\Schedule;
 use common\models\Season;
 use common\models\Stadium;
 use common\models\Stage;
 use common\models\StatisticPlayer;
+use common\models\StatisticTeam;
 use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use common\models\WorldCup;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -901,5 +904,240 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function actionReplay()
+    {
+        $game = Game::find()
+            ->where(['game_id' => 40390])
+            ->limit(1)
+            ->one();
+        if (!$game || !$game->game_played) {
+            $this->stdout(1);
+            return true;
+        }
+
+        $schedule = Schedule::find()
+            ->where(['schedule_id' => 387])
+            ->limit(1)
+            ->one();
+        if (!$schedule) {
+            $this->stdout(2);
+            return true;
+        }
+
+        $schedule->schedule_tournament_type_id = TournamentType::NATIONAL;
+        $schedule->schedule_stage_id = Stage::TOUR_2;
+        $schedule->save(true, [
+            'schedule_tournament_type_id',
+            'schedule_stage_id',
+        ]);
+
+        $game->game_schedule_id = $schedule->schedule_id;
+        $game->game_played = 0;
+        $game->save(true, ['game_schedule_id', 'game_played']);
+
+        $nationalId = 52;
+
+        $worldCup = WorldCup::find()
+            ->where(['world_cup_national_id' => $nationalId])
+            ->limit(1)
+            ->one();
+        if (!$worldCup) {
+            $this->stdout(3);
+            return true;
+        }
+        $worldCup->world_cup_game = $worldCup->world_cup_game - 1;
+        $worldCup->world_cup_win = $worldCup->world_cup_win - 1;
+        $worldCup->world_cup_score = $worldCup->world_cup_score - $game->game_guest_score;
+        $worldCup->world_cup_point = $worldCup->world_cup_point - 3;
+        $worldCup->save(true, [
+            'world_cup_game',
+            'world_cup_win',
+            'world_cup_score',
+            'world_cup_point',
+        ]);
+
+        $statisticTeam = StatisticTeam::find()
+            ->where(['statistic_team_national_id' => $nationalId])
+            ->limit(1)
+            ->one();
+        if (!$statisticTeam) {
+            $this->stdout(4);
+            return true;
+        }
+        $statisticTeam->statistic_team_game = $statisticTeam->statistic_team_game - 1;
+        $statisticTeam->statistic_team_game_no_pass = $statisticTeam->statistic_team_game_no_pass - 1;
+        $statisticTeam->statistic_team_penalty_minute = $statisticTeam->statistic_team_penalty_minute - $game->game_guest_penalty;
+        $statisticTeam->statistic_team_penalty_minute_opponent = $statisticTeam->statistic_team_penalty_minute_opponent - $game->game_home_penalty;
+        $statisticTeam->statistic_team_score = $statisticTeam->statistic_team_score - $game->game_guest_score;
+        $statisticTeam->statistic_team_win = $statisticTeam->statistic_team_win - 1;
+        $statisticTeam->save(true, [
+            'statistic_team_game',
+            'statistic_team_game_no_pass',
+            'statistic_team_penalty_minute',
+            'statistic_team_penalty_minute_opponent',
+            'statistic_team_score',
+            'statistic_team_win',
+        ]);
+
+        $nationalId = 67;
+
+        $worldCup = WorldCup::find()
+            ->where(['world_cup_national_id' => $nationalId])
+            ->limit(1)
+            ->one();
+        if (!$worldCup) {
+            $this->stdout(5);
+            return true;
+        }
+        $worldCup->world_cup_game = $worldCup->world_cup_game - 1;
+        $worldCup->world_cup_loose = $worldCup->world_cup_loose - 1;
+        $worldCup->world_cup_pass = $worldCup->world_cup_pass - $game->game_guest_score;
+        $worldCup->save(true, [
+            'world_cup_game',
+            'world_cup_win',
+            'world_cup_score',
+        ]);
+
+        $statisticTeam = StatisticTeam::find()
+            ->where(['statistic_team_national_id' => $nationalId])
+            ->limit(1)
+            ->one();
+        if (!$statisticTeam) {
+            $this->stdout(6);
+            return true;
+        }
+        $statisticTeam->statistic_team_game = $statisticTeam->statistic_team_game - 1;
+        $statisticTeam->statistic_team_game_no_score = $statisticTeam->statistic_team_game_no_score - 1;
+        $statisticTeam->statistic_team_penalty_minute = $statisticTeam->statistic_team_penalty_minute - $game->game_home_penalty;
+        $statisticTeam->statistic_team_penalty_minute_opponent = $statisticTeam->statistic_team_penalty_minute_opponent - $game->game_guest_penalty;
+        $statisticTeam->statistic_team_pass = $statisticTeam->statistic_team_pass - $game->game_guest_score;
+        $statisticTeam->statistic_team_loose = $statisticTeam->statistic_team_loose - 1;
+        $statisticTeam->save(true, [
+            'statistic_team_game',
+            'statistic_team_game_no_pass',
+            'statistic_team_penalty_minute',
+            'statistic_team_penalty_minute_opponent',
+            'statistic_team_pass',
+            'statistic_team_loose',
+        ]);
+
+        foreach ($game->lineup as $lineup) {
+            $statisticPlayer = StatisticPlayer::find()
+                ->where([
+                    'statistic_player_id' => $lineup->lineup_player_id,
+                    'statistic_player_national_id' => $lineup->lineup_national_id,
+                ])
+                ->limit(1)
+                ->one();
+            if (!$statisticPlayer) {
+                continue;
+            }
+
+            if ($statisticPlayer->statistic_player_is_gk) {
+                $statisticPlayer->statistic_player_assist = $statisticPlayer->statistic_player_assist - $lineup->lineup_assist;
+                $statisticPlayer->statistic_player_game = $statisticPlayer->statistic_player_game - 1;
+                if ($lineup->lineup_national_id == $game->game_home_national_id) {
+                    $statisticPlayer->statistic_player_loose = $statisticPlayer->statistic_player_loose - 1;
+                    $statisticPlayer->statistic_player_shot_gk = $statisticPlayer->statistic_player_shot_gk - $game->game_guest_shot;
+                    $statisticPlayer->statistic_player_pass = $statisticPlayer->statistic_player_pass - $game->game_guest_score;
+                    $statisticPlayer->statistic_player_save = $statisticPlayer->statistic_player_save - $game->game_guest_shot + $game->game_guest_score;
+                } else {
+                    $statisticPlayer->statistic_player_win = $statisticPlayer->statistic_player_win - 1;
+                    $statisticPlayer->statistic_player_shutout = $statisticPlayer->statistic_player_shutout - 1;
+                    $statisticPlayer->statistic_player_shot_gk = $statisticPlayer->statistic_player_shot_gk - $game->game_home_shot;
+                    $statisticPlayer->statistic_player_save = $statisticPlayer->statistic_player_save - $game->game_home_shot + $game->game_home_score;
+                }
+            } else {
+                if ($lineup->lineup_national_id == $game->game_home_national_id) {
+                    $statisticPlayer->statistic_player_loose = $statisticPlayer->statistic_player_loose - 1;
+                } else {
+                    $statisticPlayer->statistic_player_win = $statisticPlayer->statistic_player_win - 1;
+                }
+                $statisticPlayer->statistic_player_assist = $statisticPlayer->statistic_player_assist - $lineup->lineup_assist;
+                $statisticPlayer->statistic_player_game = $statisticPlayer->statistic_player_game - 1;
+                $statisticPlayer->statistic_player_penalty = $statisticPlayer->statistic_player_penalty - $lineup->lineup_penalty;
+                $statisticPlayer->statistic_player_plus_minus = $statisticPlayer->statistic_player_plus_minus - $lineup->lineup_plus_minus;
+                $statisticPlayer->statistic_player_point = $statisticPlayer->statistic_player_point - $lineup->lineup_score - $lineup->lineup_assist;
+                $statisticPlayer->statistic_player_score = $statisticPlayer->statistic_player_score - $lineup->lineup_score;
+                $statisticPlayer->statistic_player_shot = $statisticPlayer->statistic_player_shot - $lineup->lineup_shot;
+            }
+
+            $statisticPlayer->save();
+        }
+
+        StatisticTeam::updateAll(
+            ['statistic_team_win_percent' => new Expression('statistic_team_win/statistic_team_game*100')],
+            ['statistic_team_season_id' => Season::getCurrentSeason()]
+        );
+
+        StatisticPlayer::updateAll(
+            [
+                'statistic_player_pass_per_game' => new Expression('statistic_player_pass/IF(statistic_player_game=0,1,statistic_player_game)'),
+                'statistic_player_save_percent' => new Expression('statistic_player_save/IF(statistic_player_shot_gk=0,1,statistic_player_shot_gk)*100'),
+            ],
+            ['statistic_player_season_id' => Season::getCurrentSeason(), 'statistic_player_is_gk' => 1]
+        );
+
+        StatisticPlayer::updateAll(
+            [
+                'statistic_player_face_off_percent' => new Expression('statistic_player_face_off_win/IF(statistic_player_face_off=0,1,statistic_player_face_off)*100'),
+                'statistic_player_score_shot_percent' => new Expression('statistic_player_score/IF(statistic_player_shot=0,1,statistic_player_shot)*100'),
+                'statistic_player_shot_per_game' => new Expression('statistic_player_shot/IF(statistic_player_game=0,1,statistic_player_game)'),
+            ],
+            ['statistic_player_season_id' => Season::getCurrentSeason(), 'statistic_player_is_gk' => 0]
+        );
+
+        $seasonId = Season::getCurrentSeason();
+
+        $nationalTypeArray = WorldCup::find()
+            ->where(['world_cup_season_id' => $seasonId])
+            ->groupBy('world_cup_national_type_id')
+            ->orderBy(['world_cup_national_type_id' => SORT_ASC])
+            ->all();
+        foreach ($nationalTypeArray as $nationalType) {
+            $divisionArray = WorldCup::find()
+                ->where([
+                    'world_cup_season_id' => $seasonId,
+                    'world_cup_national_type_id' => $nationalType->world_cup_national_type_id,
+                ])
+                ->groupBy('world_cup_division_id')
+                ->orderBy(['world_cup_division_id' => SORT_ASC])
+                ->all();
+            foreach ($divisionArray as $division) {
+                $worldCupArray = WorldCup::find()
+                    ->joinWith(['national'])
+                    ->where([
+                        'world_cup_division_id' => $division->world_cup_division_id,
+                        'world_cup_national_type_id' => $nationalType->world_cup_national_type_id,
+                        'world_cup_season_id' => $seasonId,
+                    ])
+                    ->orderBy([
+                        'world_cup_point' => SORT_DESC,
+                        'world_cup_win' => SORT_DESC,
+                        'world_cup_win_overtime' => SORT_DESC,
+                        'world_cup_win_shootout' => SORT_DESC,
+                        'world_cup_loose_shootout' => SORT_DESC,
+                        'world_cup_loose_overtime' => SORT_DESC,
+                        'world_cup_difference' => SORT_DESC,
+                        'world_cup_score' => SORT_DESC,
+                        'national_power_vs' => SORT_ASC,
+                        'world_cup_national_id' => SORT_ASC,
+                    ])
+                    ->all();
+                for ($i = 0, $countWorldCup = count($worldCupArray); $i < $countWorldCup; $i++) {
+                    $worldCupArray[$i]->world_cup_place = $i + 1;
+                    $worldCupArray[$i]->save();
+                }
+            }
+        }
+
+        $this->stdout('Done');
+        return true;
     }
 }
