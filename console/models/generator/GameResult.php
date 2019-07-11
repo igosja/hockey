@@ -2199,9 +2199,9 @@ class GameResult
     {
         $result = false;
 
-        $ifScoreEquals = ($this->result['home']['team']['score']['total'] == $this->result['guest']['team']['score']['total']);
-        $ifIsLeague = (TournamentType::LEAGUE == $this->game->schedule->schedule_tournament_type_id);
-        $ifGroup = in_array($this->game->schedule->schedule_stage_id, [
+        $isScoreEquals = ($this->result['home']['team']['score']['total'] == $this->result['guest']['team']['score']['total']);
+        $isLeague = (TournamentType::LEAGUE == $this->game->schedule->schedule_tournament_type_id);
+        $isGroup = in_array($this->game->schedule->schedule_stage_id, [
             Stage::TOUR_LEAGUE_1,
             Stage::TOUR_LEAGUE_2,
             Stage::TOUR_LEAGUE_3,
@@ -2209,7 +2209,7 @@ class GameResult
             Stage::TOUR_LEAGUE_5,
             Stage::TOUR_LEAGUE_6,
         ]);
-        $ifKnockOut = in_array($this->game->schedule->schedule_stage_id, [
+        $isKnockOut = in_array($this->game->schedule->schedule_stage_id, [
             Stage::QUALIFY_1,
             Stage::QUALIFY_2,
             Stage::QUALIFY_3,
@@ -2219,11 +2219,11 @@ class GameResult
             Stage::FINAL_GAME,
         ]);
 
-        if ($ifScoreEquals && !$ifIsLeague) {
+        if ($isScoreEquals && !$isLeague) {
             $result = true;
-        } elseif ($ifScoreEquals && $ifIsLeague && $ifGroup) {
+        } elseif ($isScoreEquals && $isLeague && $isGroup) {
             $result = true;
-        } elseif ($ifIsLeague && $ifKnockOut) {
+        } elseif ($isLeague && $isKnockOut) {
             $prev = Game::find()
                 ->joinWith(['schedule'])
                 ->where([
@@ -2241,8 +2241,8 @@ class GameResult
                     'schedule_season_id' => $this->game->schedule->schedule_season_id,
                     'schedule_tournament_type_id' => $this->game->schedule->schedule_tournament_type_id,
                     'schedule_stage_id' => $this->game->schedule->schedule_stage_id,
-                    'game_played' => 1,
                 ])
+                ->andWhere(['!=', 'game_played', 0])
                 ->limit(1)
                 ->one();
 
