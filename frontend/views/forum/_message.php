@@ -2,9 +2,10 @@
 
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
+use common\models\ForumMessage;
 
 /**
- * @var \common\models\ForumMessage $model
+ * @var ForumMessage $model
  */
 
 ?>
@@ -13,6 +14,7 @@ use common\components\HockeyHelper;
 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <?= $model->user->forumLogo(); ?>
             <?= $model->user->userLink(['color' => true]); ?>
         </div>
     </div>

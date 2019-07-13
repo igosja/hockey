@@ -88,7 +88,8 @@ class SiteController extends AbstractController
         $freeTeam = Team::find()->where(['team_user_id' => 0])->andWhere(['!=', 'team_id', 0])->count();
         $gameComment = GameComment::find()->where(['game_comment_check' => 0])->count();
         $loanComment = LoanComment::find()->where(['loan_comment_check' => 0])->count();
-        $logo = Logo::find()->count();
+        $logo = Logo::find()->where(['!=', 'logo_team_id', 0])->count();
+        $photo = Logo::find()->where(['logo_team_id' => 0])->count();
         $news = News::find()->where(['news_check' => 0])->count();
         $newsComment = NewsComment::find()->where(['news_comment_check' => 0])->count();
         $review = Review::find()->where(['review_check' => 0])->count();
@@ -133,6 +134,7 @@ class SiteController extends AbstractController
             'paymentArray' => $paymentArray,
             'paymentCategories' => $paymentCategories,
             'paymentData' => $paymentData,
+            'photo' => $photo,
             'poll' => $poll,
             'review' => $review,
             'support' => $support,

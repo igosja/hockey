@@ -75,6 +75,7 @@ class ElectionNational extends AbstractActiveRecord
             $result[] = [
                 'count' => $count,
                 'user' => $application->election_national_application_user_id ? $application->user->userLink() : 'Против всех',
+                'logo' => $application->election_national_application_user_id ? $application->user->smallLogo() : '',
             ];
             $total = $total + $count;
         }

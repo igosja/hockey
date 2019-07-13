@@ -919,7 +919,21 @@ blockquote:before {
     width: auto;
 }
 
-.team-logo {
+.user-logo-small {
+    height: auto;
+    max-height: 75px;
+    max-width: 100%;
+    width: auto;
+}
+
+.user-logo-small-span {
+    height: 75px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.team-logo,
+.user-logo {
     height: auto;
     max-height: 125px;
     max-width: 100%;
