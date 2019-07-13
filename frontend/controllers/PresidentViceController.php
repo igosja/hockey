@@ -8,7 +8,9 @@ use common\models\ElectionPresidentViceApplication;
 use common\models\ElectionPresidentViceVote;
 use common\models\ElectionStatus;
 use Exception;
+use Throwable;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\web\Response;
 
@@ -112,6 +114,65 @@ class PresidentViceController extends AbstractController
         return $this->render('application', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     */
+    public function actionDeleteApplication(): Response
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $country = $this->myTeam->stadium->city->country;
+        Yii::$app->request->setQueryParams(['id' => $country->country_id]);
+
+        if ($country->country_president_vice_id || !$country->country_president_id) {
+            return $this->redirect(['team/view']);
+        }
+
+        $electionPresidentVice = ElectionPresidentVice::find()
+            ->where([
+                'election_president_vice_country_id' => $country->country_id,
+                'election_president_vice_election_status_id' => ElectionStatus::OPEN
+            ])
+            ->count();
+
+        if ($electionPresidentVice) {
+            return $this->redirect(['view']);
+        }
+
+        $electionPresidentVice = ElectionPresidentVice::find()
+            ->where([
+                'election_president_vice_country_id' => $country->country_id,
+                'election_president_vice_election_status_id' => ElectionStatus::CANDIDATES,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$electionPresidentVice) {
+            $electionPresidentVice = new ElectionPresidentVice();
+            $electionPresidentVice->election_president_vice_country_id = $country->country_id;
+            $electionPresidentVice->save();
+        }
+
+        $model = ElectionPresidentViceApplication::find()
+            ->where([
+                'election_president_vice_application_election_id' => $electionPresidentVice->election_president_vice_id,
+                'election_president_vice_application_user_id' => Yii::$app->user->id,
+            ])
+            ->limit(1)
+            ->one();
+        if (!$model) {
+            return $this->redirect(['president-vice/application']);
+        }
+
+        $model->delete();
+
+        $this->setSuccessFlash('Заявка успешно удалена.');
+        return $this->redirect(['president-vice/application']);
     }
 
     /**

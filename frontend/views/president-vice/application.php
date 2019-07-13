@@ -1,11 +1,12 @@
 <?php
 
 use coderlex\wysibb\WysiBB;
+use common\models\ElectionPresidentViceApplication;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \common\models\ElectionPresidentViceApplication $model
+ * @var ElectionPresidentViceApplication $model
  */
 
 print $this->render('//country/_country');
@@ -34,6 +35,9 @@ print $this->render('//country/_country');
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn margin']); ?>
+        <?php if (!$model->isNewRecord) : ?>
+            <?= Html::a('Удалить', ['delete-application'], ['class' => 'btn margin']); ?>
+        <?php endif; ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>
