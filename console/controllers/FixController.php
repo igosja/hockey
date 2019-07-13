@@ -26,6 +26,7 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use common\models\WorldCup;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -901,5 +902,31 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function actionReplay()
+    {
+        $nationalId = 67;
+
+        $worldCup = WorldCup::find()
+            ->where(['world_cup_national_id' => $nationalId])
+            ->limit(1)
+            ->one();
+        if (!$worldCup) {
+            $this->stdout(5);
+            return true;
+        }
+        $worldCup->world_cup_loose = $worldCup->world_cup_loose - 1;
+        $worldCup->world_cup_pass = $worldCup->world_cup_pass - 14;
+        $worldCup->save(true, [
+            'world_cup_loose',
+            'world_cup_pass',
+        ]);
+
+        return true;
     }
 }
