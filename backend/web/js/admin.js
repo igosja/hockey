@@ -42,6 +42,13 @@ function admin_bell() {
                 $('.panel-logo').hide();
             }
 
+            $('.admin-photo').html(data.photo);
+            if (data.photo > 0) {
+                $('.panel-photo').show();
+            } else {
+                $('.panel-photo').hide();
+            }
+
             $('.admin-complaint').html(data.complaint);
             if (data.complaint > 0) {
                 $('.panel-complaint').show();

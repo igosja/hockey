@@ -565,6 +565,82 @@ class User extends AbstractActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return string
+     */
+    public function logo(): string
+    {
+        $result = 'Нет<br/>фото';
+        if (file_exists(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png')) {
+            $result = Html::img(
+                '/img/user/125/' . $this->user_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png'),
+                [
+                    'alt' => $this->user_login,
+                    'class' => 'user-logo',
+                    'title' => $this->user_login,
+                ]
+            );
+        }
+
+        if (Yii::$app->user->id == $this->user_id) {
+            $result = Html::a(
+                $result,
+                ['user/logo'],
+                ['class' => 'team-logo-link']
+            );
+        } else {
+            $result = Html::tag(
+                'span',
+                $result,
+                ['class' => 'team-logo-link']
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function smallLogo(): string
+    {
+        $result = '<span class="user-logo-small-span"></span>';
+
+        if (file_exists(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png')) {
+            $result = Html::img(
+                '/img/user/125/' . $this->user_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png'),
+                [
+                    'alt' => $this->user_login,
+                    'class' => 'user-logo-small',
+                    'title' => $this->user_login,
+                ]
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function forumLogo(): string
+    {
+        $result = '';
+
+        if (file_exists(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png')) {
+            $result = Html::img(
+                    '/img/user/125/' . $this->user_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/user/125/' . $this->user_id . '.png'),
+                    [
+                        'alt' => $this->user_login,
+                        'class' => 'user-logo-small',
+                        'title' => $this->user_login,
+                    ]
+                ) . '<br/>';
+        }
+
+        return $result;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getCountry()

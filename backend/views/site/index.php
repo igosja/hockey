@@ -2,8 +2,10 @@
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\models\Payment;
 use miloschuman\highcharts\Highcharts;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var int $chat
@@ -16,12 +18,13 @@ use yii\helpers\Html;
  * @var int $logo
  * @var int $news
  * @var int $newsComment
- * @var \common\models\Payment[] $paymentArray
+ * @var Payment[] $paymentArray
  * @var array $paymentData
  * @var array $paymentCategories
+ * @var int $photo
  * @var int $review
  * @var int $support
- * @var \yii\web\View $this
+ * @var View $this
  * @var int $transferComment
  * @var int $poll
  */
@@ -79,6 +82,32 @@ use yii\helpers\Html;
                     <div class="clearfix"></div>
                 </div>',
                 ['logo/index']
+            ); ?>
+        </div>
+    </div>
+    <div
+            class="col-lg-3 col-md-6 col-sm-12 col-xs-12 panel-photo"
+            <?php if (0 == $photo) : ?>style="display:none;"<?php endif; ?>
+    >
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge admin-photo"><?= $photo; ?></div>
+                        <div>Фото</div>
+                    </div>
+                </div>
+            </div>
+            <?= Html::a(
+                '<div class="panel-footer">
+                    <span class="pull-left">Подробнее</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>',
+                ['photo/index']
             ); ?>
         </div>
     </div>
