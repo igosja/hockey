@@ -673,11 +673,6 @@ class UserController extends AbstractController
         $model = $this->user;
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
 
-        if ($model->updateSocial()) {
-            $this->setSuccessFlash('Данные успешно сохранены.');
-            return $this->refresh();
-        }
-
         $this->setSeoTitle($model->user_login . '. Профили в социальных сетях.');
 
         return $this->render('social', [

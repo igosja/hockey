@@ -25,13 +25,21 @@ class SocialController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only' => [
+                    'connect',
+                    'disconnect',
+                ],
                 'rules' => [
                     [
+                        'actions' => [
+                            'connect',
+                            'disconnect',
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -115,7 +123,7 @@ class SocialController extends AbstractController
      * @param string $id
      * @return Response
      */
-    public function actionLogin(string $id)
+    public function actionLogin(string $id): Response
     {
         $oauthId = '';
         $field = '';
