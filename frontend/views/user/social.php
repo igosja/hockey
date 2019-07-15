@@ -62,7 +62,7 @@ print $this->render('_top');
         <?php else: ?>
             <?= Html::a(
                 'Подключить',
-                OAuthFacebook::getConnectUrl()
+                OAuthFacebook::getConnectUrl('connect')
             ); ?>
         <?php endif; ?>
     </div>
@@ -84,29 +84,7 @@ print $this->render('_top');
         <?php else: ?>
             <?= Html::a(
                 'Подключить',
-                OAuthGoogle::getConnectUrl()
-            ); ?>
-        <?php endif; ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-        <i class="fa fa-twitter-square"></i>
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <?php if ($model->user_social_twitter_id) : ?>
-            <?= Html::a(
-                'Профиль',
-                'javascript:'
-            ); ?>
-            [<?= Html::a(
-                'Отключить',
-                ['social/disconnect', 'id' => 'tw']
-            ); ?>]
-        <?php else: ?>
-            <?= Html::a(
-                'Подключить',
-                ['social/connect', 'id' => 'tw']
+                OAuthGoogle::getConnectUrl('connect')
             ); ?>
         <?php endif; ?>
     </div>
@@ -129,7 +107,7 @@ print $this->render('_top');
         <?php else: ?>
             <?= Html::a(
                 'Подключить',
-                OAuthVk::getConnectUrl()
+                OAuthVk::getConnectUrl('connect')
             ); ?>
         <?php endif; ?>
     </div>

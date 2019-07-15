@@ -67,7 +67,6 @@ use yii\web\IdentityInterface;
  * @property int $user_show_social
  * @property string $user_social_facebook_id
  * @property string $user_social_google_id
- * @property string $user_social_twitter_id
  * @property string $user_social_vk_id
  * @property string $user_surname
  * @property string $user_timezone
@@ -192,7 +191,6 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_notes',
                     'user_social_facebook_id',
                     'user_social_google_id',
-                    'user_social_twitter_id',
                     'user_social_vk_id',
                 ],
                 'safe'

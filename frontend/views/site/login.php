@@ -2,12 +2,17 @@
 
 /**
  * @var ActiveForm $form
- * @var \common\models\LoginForm $model
- * @var \yii\web\View $this
+ * @var LoginForm $model
+ * @var View $this
  */
 
+use common\models\LoginForm;
+use frontend\models\OAuthFacebook;
+use frontend\models\OAuthGoogle;
+use frontend\models\OAuthVk;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\web\View;
 
 ?>
 <div class="row">
@@ -38,3 +43,27 @@ use yii\helpers\Html;
     </div>
 </div>
 <?php ActiveForm::end(); ?>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        Или войдите при помощи социальных сетей:
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= Html::a(
+            '<i class="fa fa-facebook-square fa-2x"></i>',
+            OAuthFacebook::getConnectUrl('auth'),
+            ['title' => 'Facebook']
+        ); ?>
+        <?= Html::a(
+            '<i class="fa fa-google-plus-square fa-2x"></i>',
+            OAuthGoogle::getConnectUrl('auth'),
+            ['title' => 'Google+']
+        ); ?>
+        <?= Html::a(
+            '<i class="fa fa-vk fa-2x"></i>',
+            OAuthVk::getConnectUrl('auth'),
+            ['title' => 'ВКонтакте']
+        ); ?>
+    </div>
+</div>

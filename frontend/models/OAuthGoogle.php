@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * Class OAuthGoogle
@@ -19,12 +20,13 @@ class OAuthGoogle
     const URL_USER_INFO = 'https://www.googleapis.com/oauth2/v1/userinfo';
 
     /**
+     * @param string $redirectUrl
      * @return string
      */
-    public static function getConnectUrl(): string
+    public static function getConnectUrl(string $redirectUrl): string
     {
         $params = [
-            'redirect_uri' => 'http://lvh.me/social/connect/gl',
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'gl'], true),
             'response_type' => 'code',
             'client_id' => self::ID,
             'scope' => self::SCOPE,
@@ -33,7 +35,11 @@ class OAuthGoogle
         return self::URL_AUTH . '?' . urldecode(http_build_query($params));
     }
 
-    public static function getId()
+    /**
+     * @param $redirectUrl
+     * @return string
+     */
+    public static function getId($redirectUrl)
     {
         $code = Yii::$app->request->get('code');
 
@@ -41,12 +47,10 @@ class OAuthGoogle
             return '';
         }
 
-        $redirectUri = 'http://lvh.me/social/connect/gl';
-
         $params = [
             'client_id' => self::ID,
             'client_secret' => self::SECRET,
-            'redirect_uri' => $redirectUri,
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'gl'], true),
             'grant_type' => 'authorization_code',
             'code' => $code,
         ];

@@ -17,8 +17,7 @@ class m190714_135924_social extends Migration
         $this->addColumn(self::TABLE, 'user_show_social', $this->integer(1)->defaultValue(0)->after('user_shop_special'));
         $this->addColumn(self::TABLE, 'user_social_facebook_id', $this->string(255)->after('user_show_social'));
         $this->addColumn(self::TABLE, 'user_social_google_id', $this->string(255)->after('user_social_facebook_id'));
-        $this->addColumn(self::TABLE, 'user_social_twitter_id', $this->string(255)->after('user_social_google_id'));
-        $this->addColumn(self::TABLE, 'user_social_vk_id', $this->string(255)->after('user_social_twitter_id'));
+        $this->addColumn(self::TABLE, 'user_social_vk_id', $this->string(255)->after('user_social_google_id'));
     }
 
     /**
@@ -29,7 +28,6 @@ class m190714_135924_social extends Migration
         $this->dropColumn(self::TABLE, 'user_show_social');
         $this->dropColumn(self::TABLE, 'user_social_facebook_id');
         $this->dropColumn(self::TABLE, 'user_social_google_id');
-        $this->dropColumn(self::TABLE, 'user_social_twitter_id');
         $this->dropColumn(self::TABLE, 'user_social_vk_id');
     }
 }

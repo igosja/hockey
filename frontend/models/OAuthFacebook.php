@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * Class OAuthFacebook
@@ -18,22 +19,25 @@ class OAuthFacebook
     const URL_USER_INFO = 'https://graph.facebook.com/me';
 
     /**
+     * @param string $redirectUrl
      * @return string
      */
-    public static function getConnectUrl(): string
+    public static function getConnectUrl(string $redirectUrl): string
     {
-        $redirectUri = 'http://lvh.me/social/connect/fb';
-
         $params = [
             'client_id' => self::ID,
-            'redirect_uri' => $redirectUri,
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'fb'], true),
             'response_type' => 'code',
         ];
 
         return self::URL_AUTH . '?' . urldecode(http_build_query($params));
     }
 
-    public static function getId()
+    /**
+     * @param string $redirectUrl
+     * @return string
+     */
+    public static function getId(string $redirectUrl)
     {
         $code = Yii::$app->request->get('code');
 
@@ -41,11 +45,9 @@ class OAuthFacebook
             return '';
         }
 
-        $redirectUri = 'http://lvh.me/social/connect/fb';
-
         $params = [
             'client_id' => self::ID,
-            'redirect_uri' => $redirectUri,
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'fb'], true),
             'client_secret' => self::SECRET,
             'code' => $code,
         ];

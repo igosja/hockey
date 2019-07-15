@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * Class OAuthVk
@@ -18,20 +19,25 @@ class OAuthVk
     const URL_TOKEN = 'https://oauth.vk.com/access_token';
 
     /**
+     * @param string $redirectUrl
      * @return string
      */
-    public static function getConnectUrl(): string
+    public static function getConnectUrl(string $redirectUrl): string
     {
         $params = [
             'client_id' => self::ID,
-            'redirect_uri' => 'http://lvh.me/social/connect/vk',
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'vk'], true),
             'response_type' => 'code'
         ];
 
         return self::URL_AUTH . '?' . urldecode(http_build_query($params));
     }
 
-    public static function getId()
+    /**
+     * @param string $redirectUrl
+     * @return string
+     */
+    public static function getId(string $redirectUrl)
     {
         $code = Yii::$app->request->get('code');
 
@@ -39,13 +45,11 @@ class OAuthVk
             return '';
         }
 
-        $redirectUri = 'http://lvh.me/social/connect/vk';
-
         $params = [
             'client_id' => self::ID,
             'client_secret' => self::SECRET,
             'code' => $code,
-            'redirect_uri' => $redirectUri,
+            'redirect_uri' => Url::to(['social/' . $redirectUrl, 'id' => 'vk'], true),
         ];
 
         $tokenInfo = Json::decode(file_get_contents(self::URL_TOKEN . '?' . urldecode(http_build_query($params))));
