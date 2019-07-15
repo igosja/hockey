@@ -110,5 +110,21 @@ $user = User::find()->where(['user_id' => Yii::$app->request->get('id', Yii::$ap
                 <span class="strong"><?= FormatHelper::asDate($user->user_date_register); ?></span>
             </div>
         </div>
+        <?php if (!Yii::$app->user->isGuest && Yii::$app->request->get('id') == Yii::$app->user->id) : ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    Я в социальных сетях:
+                    <span class="strong">
+                        <?= $user->socialLinks(); ?>
+                    </span>
+                    <span class="strong">
+                        <?= Html::a(
+                            '<i class="fa fa-arrow-circle-right"></i>',
+                            ['user/social']
+                        ); ?>
+                    </span>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

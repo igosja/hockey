@@ -64,6 +64,11 @@ use yii\web\IdentityInterface;
  * @property int $user_shop_point
  * @property int $user_shop_position
  * @property int $user_shop_special
+ * @property int $user_show_social
+ * @property string $user_social_facebook_id
+ * @property string $user_social_google_id
+ * @property string $user_social_twitter_id
+ * @property string $user_social_vk_id
  * @property string $user_surname
  * @property string $user_timezone
  * @property int $user_user_role_id
@@ -143,6 +148,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     'user_shop_point',
                     'user_shop_position',
                     'user_shop_special',
+                    'user_show_social',
                     'user_user_role_id',
                 ],
                 'integer'
@@ -181,7 +187,16 @@ class User extends AbstractActiveRecord implements IdentityInterface
                     return $value;
                 }
             ],
-            [['user_notes'], 'safe']
+            [
+                [
+                    'user_notes',
+                    'user_social_facebook_id',
+                    'user_social_google_id',
+                    'user_social_twitter_id',
+                    'user_social_vk_id',
+                ],
+                'safe'
+            ]
         ];
     }
 
@@ -432,6 +447,21 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @return bool
      * @throws Exception
      */
+    public function updateSocial()
+    {
+        if (!$this->load(Yii::$app->request->post())) {
+            return false;
+        }
+        if (!$this->save(true, ['user_show_social'])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
     public function updateNotes()
     {
         if (!$this->load(Yii::$app->request->post())) {
@@ -638,6 +668,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function socialLinks(): string
+    {
+        return '';
     }
 
     /**
