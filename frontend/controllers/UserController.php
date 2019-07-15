@@ -29,7 +29,6 @@ use yii\data\ActiveDataProvider;
 use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -58,6 +57,7 @@ class UserController extends AbstractController
                     'notes',
                     'black-list',
                     'logo',
+                    'social',
                 ],
                 'rules' => [
                     [
@@ -73,6 +73,7 @@ class UserController extends AbstractController
                             'notes',
                             'black-list',
                             'logo',
+                            'social',
                         ],
                         'roles' => ['@'],
                     ],
@@ -638,7 +639,6 @@ class UserController extends AbstractController
     /**
      * @return string|Response
      * @throws Exception
-     * @throws NotFoundHttpException
      */
     public function actionLogo()
     {
@@ -661,6 +661,22 @@ class UserController extends AbstractController
             'logoArray' => $logoArray,
             'model' => $model,
             'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSocial()
+    {
+        $model = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        $this->setSeoTitle($model->user_login . '. Профили в социальных сетях.');
+
+        return $this->render('social', [
+            'model' => $model,
         ]);
     }
 }

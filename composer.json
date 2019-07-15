@@ -27,7 +27,9 @@
     "yiisoft/yii2-bootstrap": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
     "coderlex/yii2-wysibb": "*",
-    "zhuravljov/yii2-logreader": "*"
+    "zhuravljov/yii2-logreader": "*",
+    "ext-curl": "^7.3",
+    "ext-json": "^1.7"
   },
   "require-dev": {
     "codeception/base": "^2.2.3",
