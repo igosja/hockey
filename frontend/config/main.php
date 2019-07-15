@@ -116,6 +116,7 @@ return [
                 'rating/<page:\d+>' => 'rating/index',
                 'social/connect/<id:\w+>' => 'social/connect',
                 'social/disconnect/<id:\w+>' => 'social/disconnect',
+                'social/login/<id:\w+>' => 'social/login',
                 'sign-up' => 'site/sign-up',
                 'training/free' => 'training-free/index',
                 'training/free/train' => 'training-free/train',
