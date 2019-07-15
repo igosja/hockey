@@ -60,11 +60,13 @@ use yii\helpers\Html;
                 'contentOptions' => ['class' => 'col-5 text-center'],
                 'footer' => '№',
                 'header' => '№',
+                'headerOptions' => ['class' => 'col-5'],
             ],
         ];
 
         if (RatingChapter::TEAM == $ratingType->rating_type_rating_chapter_id) {
             $columns[] = [
+                'attribute' => 'team_name',
                 'footer' => 'Команда',
                 'format' => 'raw',
                 'label' => 'Команда',
@@ -75,40 +77,44 @@ use yii\helpers\Html;
 
             if (RatingType::TEAM_POWER == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 's_21',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 's21',
                     'footerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
-                    'headerOptions' => ['title' => 'Сумма сил 21 лучшего игрока'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сумма сил 21 лучшего игрока'],
                     'label' => 's21',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_21;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 's_26',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 's26',
-                    'label' => 's26',
-                    'headerOptions' => ['title' => 'Сумма сил 26 лучших игроков'],
                     'footerOptions' => ['title' => 'Сумма сил 26 лучших игроков'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сумма сил 26 лучших игроков'],
+                    'label' => 's26',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_26;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 's_32',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 's32',
                     'footerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
-                    'headerOptions' => ['title' => 'Сумма сил 32 лучших игроков'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сумма сил 32 лучших игроков'],
                     'label' => 's32',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_power_s_32;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Vs',
                     'footerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
-                    'headerOptions' => ['title' => 'Рейтинг силы команды в длительных соревнованиях'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Рейтинг силы команды в длительных соревнованиях'],
                     'label' => 'Vs',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_power_vs;
@@ -116,10 +122,11 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::TEAM_AGE == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'В',
                     'footerOptions' => ['title' => 'Средний возраст'],
-                    'headerOptions' => ['title' => 'Средний возраст'],
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Средний возраст'],
                     'label' => 'В',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_age;
@@ -127,88 +134,101 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::TEAM_STADIUM == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Вместимость',
-                    'label' => 'Вместимость',
+                    'footer' => 'Вм',
+                    'footerOptions' => ['title' => 'Вместимость'],
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Вместимость'],
+                    'label' => 'Вм',
                     'value' => function (RatingTeam $model) {
                         return $model->team->stadium->stadium_capacity;
                     }
                 ];
             } elseif (RatingType::TEAM_VISITOR == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Посещаемость',
-                    'label' => 'Посещаемость',
+                    'footer' => 'Пос',
+                    'footerOptions' => ['title' => 'Посещаемость'],
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Посещаемость'],
+                    'label' => 'Пос',
                     'value' => function (RatingTeam $model) {
                         return Yii::$app->formatter->asDecimal($model->team->team_visitor / 100, 2);
                     }
                 ];
             } elseif (RatingType::TEAM_BASE == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'base',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Б',
                     'footerOptions' => ['title' => 'База'],
-                    'headerOptions' => ['title' => 'База'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'База'],
                     'label' => 'Б',
                     'value' => function (RatingTeam $model) {
                         return $model->team->base->base_level;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'П',
                     'footerOptions' => ['title' => 'Количество построек'],
-                    'headerOptions' => ['title' => 'Количество построек'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Количество построек'],
                     'label' => 'П',
                     'value' => function (RatingTeam $model) {
                         return $model->team->baseUsed();
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'training',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Т',
                     'footerOptions' => ['title' => 'Тренировочная база'],
-                    'headerOptions' => ['title' => 'Тренировочная база'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Тренировочная база'],
                     'label' => 'Т',
                     'value' => function (RatingTeam $model) {
                         return $model->team->baseTraining->base_training_level;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'medical',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'М',
                     'footerOptions' => ['title' => 'Медицинский центр'],
-                    'headerOptions' => ['title' => 'Медицинский центр'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Медицинский центр'],
                     'label' => 'М',
                     'value' => function (RatingTeam $model) {
                         return $model->team->baseMedical->base_medical_level;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'physical',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Ф',
                     'footerOptions' => ['title' => 'Физцентр'],
-                    'headerOptions' => ['title' => 'Физцентр'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Физцентр'],
                     'label' => 'Ф',
                     'value' => function (RatingTeam $model) {
                         return $model->team->basePhysical->base_physical_level;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'school',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Сп',
                     'footerOptions' => ['title' => 'Спротшкола'],
-                    'headerOptions' => ['title' => 'Спротшкола'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Спротшкола'],
                     'label' => 'Сп',
                     'value' => function (RatingTeam $model) {
                         return $model->team->baseSchool->base_school_level;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'scout',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Ск',
                     'footerOptions' => ['title' => 'Скаутцентр'],
-                    'headerOptions' => ['title' => 'Скаутцентр'],
+                    'headerOptions' => ['class' => 'col-6', 'title' => 'Скаутцентр'],
                     'label' => 'Ск',
                     'value' => function (RatingTeam $model) {
                         return $model->team->baseScout->base_scout_level;
@@ -216,26 +236,32 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::TEAM_SALARY == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Зарплата игроков',
-                    'label' => 'Зарплата игроков',
+                    'footer' => 'ЗП',
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Зарплата игроков'],
+                    'label' => 'ЗП',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_salary);
                     }
                 ];
             } elseif (RatingType::TEAM_FINANCE == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Денег в кассе',
-                    'label' => 'Денег в кассе',
+                    'footer' => '$',
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Денег в кассе'],
+                    'label' => '$',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_finance);
                     }
                 ];
             } elseif (RatingType::TEAM_PRICE_BASE == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'База',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'База',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_base);
@@ -243,8 +269,10 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::TEAM_PRICE_STADIUM == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стадион',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Стадион',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_stadium);
@@ -252,49 +280,61 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::TEAM_PLAYER == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'player_number',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Количество',
-                    'label' => 'Количество',
+                    'footer' => 'Кол',
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Количество'],
+                    'label' => 'Кол',
                     'value' => function (RatingTeam $model) {
                         return $model->team->team_player;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Стоимость',
-                    'label' => 'Стоимость',
+                    'footer' => '$',
+                    'headerOptions' => ['class' => 'col-15', 'title' => 'Стоимость'],
+                    'label' => '$',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_player);
                     }
                 ];
             } elseif (RatingType::TEAM_PRICE_TOTAL == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'base_price',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'База',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'База',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_base);
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'stadium_price',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стадион',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Стадион',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_stadium);
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'player_price',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Игроки',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Игроки',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_player);
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'Стоимость',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => 'Стоимость',
                     'value' => function (RatingTeam $model) {
                         return FormatHelper::asCurrency($model->team->team_price_total);
@@ -322,8 +362,10 @@ use yii\helpers\Html;
                 }
             ];
             $columns[] = [
+                'attribute' => 'val',
                 'contentOptions' => ['class' => 'text-center'],
                 'footer' => 'Рейтинг',
+                'headerOptions' => ['class' => 'col-15'],
                 'label' => 'Рейтинг',
                 'value' => function (RatingUser $model) {
                     return $model->user->user_rating;
@@ -341,8 +383,10 @@ use yii\helpers\Html;
 
             if (RatingType::COUNTRY_STADIUM == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '10 лучших',
+                    'headerOptions' => ['class' => 'col-15'],
                     'label' => '10 лучших',
                     'value' => function (RatingCountry $model) {
                         return $model->country->country_stadium_capacity;
@@ -350,28 +394,32 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::COUNTRY_AUTO == $ratingType->rating_type_id) {
                 $columns[] = [
+                    'attribute' => 'game',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'И',
                     'footerOptions' => ['title' => 'Игры'],
-                    'headerOptions' => ['title' => 'Игры'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Игры'],
                     'label' => 'И',
                     'value' => function (RatingCountry $model) {
                         return $model->country->country_game;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'auto',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'А',
                     'footerOptions' => ['title' => 'Автосоставы'],
-                    'headerOptions' => ['title' => 'Автосоставы'],
+                    'headerOptions' => ['class' => 'col-10', 'title' => 'Автосоставы'],
                     'label' => 'А',
                     'value' => function (RatingCountry $model) {
                         return $model->country->country_auto;
                     }
                 ];
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => '%',
+                    'headerOptions' => ['class' => 'col-10'],
                     'label' => '%',
                     'value' => function (RatingCountry $model) {
                         return Yii::$app->formatter->asDecimal(
@@ -381,49 +429,37 @@ use yii\helpers\Html;
                 ];
             } elseif (RatingType::COUNTRY_LEAGUE == $ratingType->rating_type_id) {
                 $season = Season::getCurrentSeason();
-                $columns[] = [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => $season - 1,
-                    'footerOptions' => ['title' => 'Сезон ' . ($season - 1)],
-                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сезон ' . ($season - 1)],
-                    'label' => $season - 1,
-                    'value' => function (RatingCountry $model) use ($season) {
-                        $count = 0;
-                        $result = 0;
-                        foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
-                            if ($season - 1 == $leagueCoefficient->league_coefficient_season_id) {
-                                $count++;
-                                $result = $result + $leagueCoefficient->league_coefficient_point;
-                            }
-                        }
-                        if (!$count) {
-                            $count = 1;
-                        }
-                        return Yii::$app->formatter->asDecimal($result / $count, 4);
+                for ($i = 4; $i >= 0; $i--) {
+                    $columnSeason = $season - $i;
+
+                    if ($columnSeason < 2) {
+                        continue;
                     }
-                ];
-                $columns[] = [
-                    'contentOptions' => ['class' => 'text-center'],
-                    'footer' => $season,
-                    'footerOptions' => ['title' => 'Сезон ' . $season],
-                    'headerOptions' => ['class' => 'col-10', 'title' => 'Сезон ' . $season],
-                    'label' => $season,
-                    'value' => function (RatingCountry $model) use ($season) {
-                        $count = 0;
-                        $result = 0;
-                        foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
-                            if ($season == $leagueCoefficient->league_coefficient_season_id) {
-                                $count++;
-                                $result = $result + $leagueCoefficient->league_coefficient_point;
+
+                    $columns[] = [
+                        'contentOptions' => ['class' => 'text-center'],
+                        'footer' => $columnSeason,
+                        'footerOptions' => ['title' => 'Сезон ' . $columnSeason],
+                        'headerOptions' => ['class' => 'col-10', 'title' => 'Сезон ' . $columnSeason],
+                        'label' => $columnSeason,
+                        'value' => function (RatingCountry $model) use ($columnSeason) {
+                            $count = 0;
+                            $result = 0;
+                            foreach ($model->country->leagueCoefficient as $leagueCoefficient) {
+                                if ($columnSeason == $leagueCoefficient->league_coefficient_season_id) {
+                                    $count++;
+                                    $result = $result + $leagueCoefficient->league_coefficient_point;
+                                }
                             }
+                            if (!$count) {
+                                $count = 1;
+                            }
+                            return Yii::$app->formatter->asDecimal($result / $count, 4);
                         }
-                        if (!$count) {
-                            $count = 1;
-                        }
-                        return Yii::$app->formatter->asDecimal($result / $count, 4);
-                    }
-                ];
+                    ];
+                }
                 $columns[] = [
+                    'attribute' => 'val',
                     'contentOptions' => ['class' => 'text-center'],
                     'footer' => 'K',
                     'footerOptions' => ['title' => 'Коэффициент'],

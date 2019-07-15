@@ -53,7 +53,13 @@ print $this->render('//country/_country');
                         ])
                         . '</div></div>';
                     if ($model->election_national_application_user_id) {
-                        $result = $result . '<div class="row">
+                        $result = $result
+                            . '<div class="row">
+                                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-center">'
+                            . $model->user->smallLogo()
+                            . '</div>
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+                                <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             Дата регистрации: '
                             . FormatHelper::asDate($model->user->user_date_register)
@@ -79,7 +85,9 @@ print $this->render('//country/_country');
                             <div class="row margin-top-small">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">'
                             . HockeyHelper::bbDecode($model->election_national_application_text)
-                            . '</div></div>';
+                            . '</div></div>
+                                    </div>
+                                </div>';
                     }
                     return $result;
                 }

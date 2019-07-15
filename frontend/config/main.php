@@ -114,6 +114,8 @@ return [
                 'password/restore' => 'site/password-restore',
                 'player/national/squad/<id:\d+>' => 'player/national-squad',
                 'rating/<page:\d+>' => 'rating/index',
+                'social/connect/<id:\w+>' => 'social/connect',
+                'social/disconnect/<id:\w+>' => 'social/disconnect',
                 'sign-up' => 'site/sign-up',
                 'training/free' => 'training-free/index',
                 'training/free/train' => 'training-free/train',

@@ -2672,10 +2672,18 @@ class GameResult
                 if ($model) {
                     $model->lineup_age = $this->result[$team]['player']['gk']['age'];
                     $model->lineup_assist = $this->result[$team]['player']['gk']['assist'];
+                    $model->lineup_assist_power = $this->result[$team]['player']['gk']['assist_power'];
+                    $model->lineup_assist_short = $this->result[$team]['player']['gk']['assist_short'];
+                    $model->lineup_game_with_shootout = $this->result[$team]['player']['gk']['game_with_shootout'];
+                    $model->lineup_loose = $this->result[$team]['player']['gk']['loose'];
                     $model->lineup_pass = $this->result[$team]['player']['gk']['pass'];
+                    $model->lineup_point = $this->result[$team]['player']['gk']['point'];
                     $model->lineup_power_nominal = $this->result[$team]['player']['gk']['power_nominal'];
                     $model->lineup_power_real = $this->result[$team]['player']['gk']['power_real'];
+                    $model->lineup_save = $this->result[$team]['player']['gk']['save'];
                     $model->lineup_shot = $this->result[$team]['player']['gk']['shot'];
+                    $model->lineup_shutout = $this->result[$team]['player']['gk']['shootout'];
+                    $model->lineup_win = $this->result[$team]['player']['gk']['win'];
                     $model->save();
                 }
             }
@@ -2688,10 +2696,18 @@ class GameResult
                 if ($model) {
                     $model->lineup_age = $this->result[$team]['player']['gk2']['age'];
                     $model->lineup_assist = $this->result[$team]['player']['gk2']['assist'];
+                    $model->lineup_assist_power = $this->result[$team]['player']['gk2']['assist_power'];
+                    $model->lineup_assist_short = $this->result[$team]['player']['gk2']['assist_short'];
+                    $model->lineup_game_with_shootout = $this->result[$team]['player']['gk2']['game_with_shootout'];
+                    $model->lineup_loose = $this->result[$team]['player']['gk2']['loose'];
                     $model->lineup_pass = $this->result[$team]['player']['gk2']['pass'];
+                    $model->lineup_point = $this->result[$team]['player']['gk2']['point'];
                     $model->lineup_power_nominal = $this->result[$team]['player']['gk2']['power_nominal'];
                     $model->lineup_power_real = $this->result[$team]['player']['gk2']['power_real'];
+                    $model->lineup_save = $this->result[$team]['player']['gk2']['save'];
                     $model->lineup_shot = $this->result[$team]['player']['gk2']['shot'];
+                    $model->lineup_shutout = $this->result[$team]['player']['gk2']['shootout'];
+                    $model->lineup_win = $this->result[$team]['player']['gk2']['win'];
                     $model->save();
                 }
             }
@@ -2702,12 +2718,24 @@ class GameResult
                     if ($model) {
                         $model->lineup_age = $player['age'];
                         $model->lineup_assist = $player['assist'];
+                        $model->lineup_assist_power = $player['assist_power'];
+                        $model->lineup_assist_short = $player['assist_short'];
+                        $model->lineup_face_off = $player['face_off'];
+                        $model->lineup_face_off_win = $player['face_off_win'];
+                        $model->lineup_loose = $player['loose'];
                         $model->lineup_penalty = $player['penalty'] * 2;
                         $model->lineup_plus_minus = $player['plus_minus'];
+                        $model->lineup_point = $player['point'];
                         $model->lineup_power_nominal = $player['power_nominal'];
                         $model->lineup_power_real = $player['power_real'];
                         $model->lineup_score = $player['score'];
+                        $model->lineup_score_draw = $player['score_draw'];
+                        $model->lineup_score_power = $player['score_power'];
+                        $model->lineup_score_short = $player['score_short'];
+                        $model->lineup_score_win = $player['score_win'];
                         $model->lineup_shot = $player['shot'];
+                        $model->lineup_shootout_win = $player['bullet_win'];
+                        $model->lineup_win = $player['win'];
                         $model->save();
                     }
                 }
@@ -2739,9 +2767,9 @@ class GameResult
         }
 
         if (TournamentType::CHAMPIONSHIP == $this->game->schedule->schedule_tournament_type_id && $this->game->schedule->schedule_stage_id >= Stage::ROUND_OF_16) {
-            $is_playoff = 1;
+            $isPlayoff = 1;
         } else {
-            $is_playoff = 0;
+            $isPlayoff = 0;
         }
 
         for ($i = 0; $i < 2; $i++) {
@@ -2753,7 +2781,7 @@ class GameResult
 
             if ($this->result[$team]['player']['gk']['player_id']) {
                 $model = StatisticPlayer::find()->where([
-                    'statistic_player_championship_playoff' => $is_playoff,
+                    'statistic_player_championship_playoff' => $isPlayoff,
                     'statistic_player_country_id' => $countryId,
                     'statistic_player_division_id' => $divisionId,
                     'statistic_player_is_gk' => 1,
@@ -2783,7 +2811,7 @@ class GameResult
             foreach ($this->result[$team]['player']['field'] as $player) {
                 if (isset($player['player_id']) && $player['player_id']) {
                     $model = StatisticPlayer::find()->where([
-                        'statistic_player_championship_playoff' => $is_playoff,
+                        'statistic_player_championship_playoff' => $isPlayoff,
                         'statistic_player_country_id' => $countryId,
                         'statistic_player_division_id' => $divisionId,
                         'statistic_player_is_gk' => 0,
@@ -2818,7 +2846,7 @@ class GameResult
             }
 
             $model = StatisticTeam::find()->where([
-                'statistic_team_championship_playoff' => $is_playoff,
+                'statistic_team_championship_playoff' => $isPlayoff,
                 'statistic_team_country_id' => $countryId,
                 'statistic_team_division_id' => $divisionId,
                 'statistic_team_national_id' => $this->result['game_info'][$team . '_national_id'],

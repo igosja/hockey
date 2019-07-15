@@ -11,6 +11,7 @@ use common\models\Country;
 use common\models\Finance;
 use common\models\History;
 use common\models\Loan;
+use common\models\Logo;
 use common\models\National;
 use common\models\Season;
 use common\models\Sex;
@@ -20,6 +21,7 @@ use common\models\User;
 use common\models\UserRating;
 use Exception;
 use frontend\models\ChangePassword;
+use frontend\models\UserLogo;
 use frontend\models\UserTransferFinance;
 use Throwable;
 use Yii;
@@ -54,6 +56,8 @@ class UserController extends AbstractController
                     'delete',
                     'notes',
                     'black-list',
+                    'logo',
+                    'social',
                 ],
                 'rules' => [
                     [
@@ -68,6 +72,8 @@ class UserController extends AbstractController
                             'referral',
                             'notes',
                             'black-list',
+                            'logo',
+                            'social',
                         ],
                         'roles' => ['@'],
                     ],
@@ -628,5 +634,49 @@ class UserController extends AbstractController
         }
 
         return $this->redirect(Yii::$app->request->referrer ? Yii::$app->request->referrer : ['user/view', 'id' => $id]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionLogo()
+    {
+        $user = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $user->user_id]);
+
+        $model = new UserLogo(['userId' => $user->user_id]);
+        if ($model->upload()) {
+            $this->setSuccessFlash();
+            return $this->refresh();
+        }
+
+        $logoArray = Logo::find()
+            ->where(['logo_team_id' => 0])
+            ->all();
+
+        $this->setSeoTitle($user->user_login . '. Загрузка фото');
+
+        return $this->render('logo', [
+            'logoArray' => $logoArray,
+            'model' => $model,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @return string|Response
+     * @throws Exception
+     */
+    public function actionSocial()
+    {
+        $model = $this->user;
+        Yii::$app->request->setQueryParams(['id' => $model->user_id]);
+
+        $this->setSeoTitle($model->user_login . '. Профили в социальных сетях.');
+
+        return $this->render('social', [
+            'model' => $model,
+        ]);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @var \common\models\ElectionPresident $electionPresident
+ * @var ElectionPresident $electionPresident
  */
 
 print $this->render('//country/_country');
 
-?>
+use common\models\ElectionPresident; ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
@@ -23,12 +23,19 @@ print $this->render('//country/_country');
         </div>
         <?php foreach ($electionPresident->applications() as $application) : ?>
             <div class="row">
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <?= $application['user']; ?>
+                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-center">
+                    <?= $application['logo']; ?>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                    <?= $application['count']; ?>
-                    (<?= $application['percent']; ?>%)
+                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <?= $application['user']; ?>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                            <?= $application['count']; ?>
+                            (<?= $application['percent']; ?>%)
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>

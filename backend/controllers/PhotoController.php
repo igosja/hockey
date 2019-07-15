@@ -11,10 +11,10 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * Class LogoController
+ * Class PhotoController
  * @package backend\controllers
  */
-class LogoController extends AbstractController
+class PhotoController extends AbstractController
 {
     /**
      * @return string
@@ -22,12 +22,12 @@ class LogoController extends AbstractController
     public function actionIndex()
     {
         $query = Logo::find()
-            ->where(['!=', 'logo_team_id', 0]);
+            ->where(['logo_team_id' => 0]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->view->title = 'Логотипы команд';
+        $this->view->title = 'Фото пользователей';
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('index', [
@@ -44,13 +44,13 @@ class LogoController extends AbstractController
     {
         $model = Logo::find()
             ->where(['logo_id' => $id])
-            ->andWhere(['!=', 'logo_team_id', 0])
+            ->andWhere(['logo_team_id' => 0])
             ->limit(1)
             ->one();
         $this->notFound($model);
 
-        $this->view->title = $model->team->team_name;
-        $this->view->params['breadcrumbs'][] = ['label' => 'Логотипы команд', 'url' => ['logo/index']];
+        $this->view->title = $model->user->user_login;
+        $this->view->params['breadcrumbs'][] = ['label' => 'Фото пользователей', 'url' => ['logo/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
         return $this->render('view', [
@@ -69,19 +69,19 @@ class LogoController extends AbstractController
     {
         $model = Logo::find()
             ->where(['logo_id' => $id])
-            ->andWhere(['!=', 'logo_team_id', 0])
+            ->andWhere(['logo_team_id' => 0])
             ->limit(1)
             ->one();
         $this->notFound($model);
 
-        $file = Yii::getAlias('@frontend') . '/web/upload/img/team/125/' . $model->team->team_id . '.png';
+        $file = Yii::getAlias('@frontend') . '/web/upload/img/user/125/' . $model->logo_user_id . '.png';
         if (file_exists($file)) {
-            rename($file, Yii::getAlias('@frontend') . '/web/img/team/125/' . $model->team->team_id . '.png');
+            rename($file, Yii::getAlias('@frontend') . '/web/img/user/125/' . $model->logo_user_id . '.png');
         }
 
         $model->delete();
         $this->setSuccessFlash();
-        return $this->redirect(['logo/index']);
+        return $this->redirect(['photo/index']);
     }
 
     /**
@@ -95,13 +95,13 @@ class LogoController extends AbstractController
     {
         $model = Logo::find()
             ->where(['logo_id' => $id])
-            ->andWhere(['!=', 'logo_team_id', 0])
+            ->andWhere(['logo_team_id' => 0])
             ->limit(1)
             ->one();
         $this->notFound($model);
 
         $model->delete();
         $this->setSuccessFlash();
-        return $this->redirect(['logo/index']);
+        return $this->redirect(['photo/index']);
     }
 }

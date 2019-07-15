@@ -60,6 +60,10 @@ AppAsset::register($this);
                     'url' => ['logo/index'],
                 ],
                 [
+                    'label' => '<i class="fa fa-user fa-fw"></i> Фото <span class="badge admin-photo"></span>',
+                    'url' => ['photo/index'],
+                ],
+                [
                     'label' => '<i class="fa fa-comments fa-fw"></i> Тех. поддержка <span class="badge admin-support"></span>',
                     'url' => ['support/index'],
                 ],

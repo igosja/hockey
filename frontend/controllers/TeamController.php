@@ -991,7 +991,7 @@ class TeamController extends AbstractController
         if ($closestGame) {
             if (($closestGame->game_home_team_id == $this->myTeam->team_id && !$closestGame->game_home_mood_id) ||
                 ($closestGame->game_guest_team_id == $this->myTeam->team_id && !$closestGame->game_guest_mood_id)) {
-                $result[] = 'Вы не отправили состав на ближайший матч своей команды. ' . Html::a(
+                $result[] = '<span class="font-red">Вы не отправили состав на ближайший матч своей команды.</span> ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['lineup/view', 'id' => $closestGame->game_id]
                     );
