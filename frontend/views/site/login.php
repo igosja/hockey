@@ -52,17 +52,17 @@ use yii\web\View;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <?= Html::a(
             '<i class="fa fa-facebook-square fa-2x"></i>',
-            OAuthFacebook::getConnectUrl('auth'),
+            OAuthFacebook::getConnectUrl('login'),
             ['title' => 'Facebook']
         ); ?>
         <?= Html::a(
             '<i class="fa fa-google-plus-square fa-2x"></i>',
-            OAuthGoogle::getConnectUrl('auth'),
+            OAuthGoogle::getConnectUrl('login'),
             ['title' => 'Google+']
         ); ?>
         <?= Html::a(
             '<i class="fa fa-vk fa-2x"></i>',
-            OAuthVk::getConnectUrl('auth'),
+            OAuthVk::getConnectUrl('login'),
             ['title' => 'ВКонтакте']
         ); ?>
     </div>
