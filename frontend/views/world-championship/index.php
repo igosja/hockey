@@ -77,7 +77,7 @@ $user = Yii::$app->user->identity;
     </div>
 </div>
 <?= Html::beginForm(
-    ['world-championship/index', 'seasonId' => $seasonId, 'divisionId' => $divisionId],
+    ['world-championship/index', 'seasonId' => $seasonId, 'divisionId' => $divisionId, 'nationalTypeId' => $nationalTypeId],
     'get'
 ); ?>
 <div class="row margin-top-small">
