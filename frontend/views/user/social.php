@@ -42,7 +42,7 @@ print $this->render('_top');
         <?php if ($model->user_social_facebook_id) : ?>
             <?= Html::a(
                 'Профиль',
-                'javascript:'
+                'https://www.facebook.com/app_scoped_user_id/' . $model->user_social_facebook_id
             ); ?>
             [<?= Html::a(
                 'Отключить',
@@ -64,7 +64,7 @@ print $this->render('_top');
         <?php if ($model->user_social_google_id) : ?>
             <?= Html::a(
                 'Профиль',
-                'javascript:'
+                'https://plus.google.com/' . $model->user_social_google_id
             ); ?>
             [<?= Html::a(
                 'Отключить',
