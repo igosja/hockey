@@ -5,6 +5,8 @@ namespace common\components;
 use common\models\Game;
 use common\models\National;
 use common\models\Team;
+use DateTime;
+use Exception;
 use yii\helpers\Html;
 
 /**
@@ -188,7 +190,8 @@ class HockeyHelper
         $full = true,
         $link = true,
         $linkType = 'string'
-    ) {
+    )
+    {
         if ($team && $team->team_id) {
             $name = $team->team_name;
 
@@ -307,5 +310,95 @@ class HockeyHelper
     {
         $text = str_replace(']?', ']', $text);
         return $text;
+    }
+
+    /**
+     * @return int
+     */
+    public static function getStoreDiscount(): int
+    {
+        try {
+            $now = (new DateTime())->getTimestamp();
+            $discountDates = self::getDiscountDates();
+
+            foreach ($discountDates as $discountDate) {
+                if ($now >= $discountDate[0] && $now <= $discountDate[1]) {
+                    return 20;
+                }
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        return 0;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getStoreDiscountText(): string
+    {
+        try {
+            $now = (new DateTime())->getTimestamp();
+            $discountDates = self::getDiscountDates();
+
+            foreach ($discountDates as $key => $discountDate) {
+                if ($now >= $discountDate[0] && $now <= $discountDate[1]) {
+                    $result = '';
+                    if (in_array($key, ['newYear1', 'newYear2'])) {
+                        $result = 'C 25 декабря по 07 января';
+                    } elseif ('womenDay' == $key) {
+                        $result = 'C 05 по 10 марта';
+                    } elseif ('victoryDay' == $key) {
+                        $result = 'C 01 по 10 мая';
+                    } elseif ('schoolDay' == $key) {
+                        $result = 'C 01 по 10 сентября';
+                    }
+                    return $result . ' в магазине действует скидка 20%';
+                }
+            }
+        } catch (Exception $e) {
+            ErrorHelper::log($e);
+        }
+
+        return '';
+    }
+
+    /**
+     * @param float $price
+     * @return float
+     */
+    public static function getStorePriceWithDiscount(float $price): float
+    {
+        return round($price * (1 - HockeyHelper::getStoreDiscount() / 100), 2);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private static function getDiscountDates()
+    {
+        return [
+            'newYear1' => [
+                (new DateTime(date('Y') . '-01-01 00:00:00'))->getTimestamp(),
+                (new DateTime(date('Y') . '-01-07 23:59:59'))->getTimestamp()
+            ],
+            'womenDay' => [
+                (new DateTime(date('Y') . '-03-05 00:00:00'))->getTimestamp(),
+                (new DateTime(date('Y') . '-03-10 23:59:59'))->getTimestamp()
+            ],
+            'victoryDay' => [
+                (new DateTime(date('Y') . '-05-01 00:00:00'))->getTimestamp(),
+                (new DateTime(date('Y') . '-05-10 23:59:59'))->getTimestamp()
+            ],
+            'schoolDay' => [
+                (new DateTime(date('Y') . '-09-01 00:00:00'))->getTimestamp(),
+                (new DateTime(date('Y') . '-09-10 23:59:59'))->getTimestamp()
+            ],
+            'newYear2' => [
+                (new DateTime(date('Y') . '-12-25 00:00:00'))->getTimestamp(),
+                (new DateTime(date('Y') . '-12-31 23:59:59'))->getTimestamp()
+            ],
+        ];
     }
 }
