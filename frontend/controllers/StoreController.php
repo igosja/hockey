@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
 use common\models\Finance;
 use common\models\FinanceText;
 use common\models\Money;
@@ -64,10 +65,13 @@ class StoreController extends AbstractController
      */
     public function actionIndex()
     {
+        $bonusText = HockeyHelper::getStoreDiscountText();
+
         $this->setSeoTitle('Виртуальный магазин');
 
         return $this->render('index', [
-            'user' => Yii::$app->user->identity
+            'bonusText' => $bonusText,
+            'user' => Yii::$app->user->identity,
         ]);
     }
 
@@ -123,7 +127,7 @@ class StoreController extends AbstractController
 
         $userArray = User::find()
             ->where(['!=', 'user_id', 0])
-            ->andWhere(['>', 'user_date_login', time()-604800])
+            ->andWhere(['>', 'user_date_login', time() - 604800])
             ->orderBy(['user_login' => SORT_ASC])
             ->all();
 
@@ -175,7 +179,7 @@ class StoreController extends AbstractController
             180 => 10,
             365 => 15,
         ];
-        $price = $priceArray[$day];
+        $price = HockeyHelper::getStorePriceWithDiscount($priceArray[$day]);
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -235,7 +239,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = 1;
+        $price = HockeyHelper::getStorePriceWithDiscount(1);
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -288,7 +292,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = 3;
+        $price = HockeyHelper::getStorePriceWithDiscount(3);
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -341,7 +345,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = 3;
+        $price = HockeyHelper::getStorePriceWithDiscount(3);
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -398,7 +402,7 @@ class StoreController extends AbstractController
 
         $user = $this->user;
 
-        $price = 5;
+        $price = HockeyHelper::getStorePriceWithDiscount(5);
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');

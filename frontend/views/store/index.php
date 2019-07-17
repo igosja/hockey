@@ -1,10 +1,13 @@
 <?php
 
 use common\components\FormatHelper;
+use common\components\HockeyHelper;
+use common\models\User;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\User $user
+ * @var string $bonusText
+ * @var User $user
  */
 
 ?>
@@ -34,6 +37,13 @@ use yii\helpers\Html;
         </p>
     </div>
 </div>
+<?php if ($bonusText) : ?>
+    <div class="row margin">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center alert info">
+            <?= $bonusText; ?>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
@@ -43,7 +53,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 2 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(2) . ' ед.',
                         ['store/vip', 'day' => 15]
                     ); ?>
                 </td>
@@ -54,7 +64,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 3 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3) . ' ед.',
                         ['store/vip', 'day' => 30]
                     ); ?>
                 </td>
@@ -65,7 +75,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 5 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(5) . ' ед.',
                         ['store/vip', 'day' => 60]
                     ); ?>
                 </td>
@@ -76,7 +86,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 10 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(10) . ' ед.',
                         ['store/vip', 'day' => 180]
                     ); ?>
                 </td>
@@ -87,7 +97,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 15 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(15) . ' ед.',
                         ['store/vip', 'day' => 365]
                     ); ?>
                 </td>
@@ -114,7 +124,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 1 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(1) . ' ед.',
                         ['store/power']
                     ); ?>
                 </td>
@@ -125,7 +135,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 3 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3) . ' ед.',
                         ['store/position']
                     ); ?>
                 </td>
@@ -136,7 +146,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 3 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3) . ' ед.',
                         ['store/special']
                     ); ?>
                 </td>
@@ -147,7 +157,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за 5 ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(5) . ' ед.',
                         ['store/finance']
                     ); ?>
                 </td>
