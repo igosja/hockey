@@ -9,6 +9,7 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
+use Exception;
 use Yii;
 
 /**
@@ -18,9 +19,9 @@ use Yii;
 class LeagueLot
 {
     /**
-     * @throws \Exception
-     * @throws \yii\db\Exception
      * @return void
+     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -375,7 +376,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function lot($stageId)
+    private function lot(int $stageId): array
     {
         $teamArray = $this->prepare($stageId);
         $teamArray = $this->all($teamArray, $stageId);
@@ -387,7 +388,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function prepare($stageId)
+    private function prepare(int $stageId): array
     {
         $seasonId = Season::getCurrentSeason();
 
@@ -426,9 +427,9 @@ class LeagueLot
         $teamResultArray = [[], [], [], []];
 
         $countParticipantLeague = count($participantLeagueArray);
-        $limitQuater = $countParticipantLeague / 4;
+        $limitQuarter = $countParticipantLeague / 4;
         $limitHalf = $countParticipantLeague / 2;
-        $limitThree = $limitQuater * 3;
+        $limitThree = $limitQuarter * 3;
 
         for ($i = 0; $i < $countParticipantLeague; $i++) {
             if (in_array($stageId, [Stage::QUALIFY_2, Stage::QUALIFY_3])) {
@@ -438,7 +439,7 @@ class LeagueLot
                     $teamResultArray[1][] = $participantLeagueArray[$i];
                 }
             } else {
-                if ($i < $limitQuater) {
+                if ($i < $limitQuarter) {
                     $teamResultArray[0][] = $participantLeagueArray[$i];
                 } elseif ($i < $limitHalf) {
                     $teamResultArray[1][] = $participantLeagueArray[$i];
@@ -458,7 +459,7 @@ class LeagueLot
      * @param int $stageId
      * @return array
      */
-    private function all(array $teamArray, $stageId)
+    private function all(array $teamArray, int $stageId): array
     {
         if (in_array($stageId, [Stage::QUALIFY_2, Stage::QUALIFY_3])) {
             if (!$team_result_array = $this->one($teamArray)) {
@@ -474,11 +475,11 @@ class LeagueLot
     }
 
     /**
-     * @param $teamArray
+     * @param array $teamArray
      * @param array $teamResultArray
      * @return array
      */
-    private function one($teamArray, $teamResultArray = [])
+    private function one(array $teamArray, array $teamResultArray = []): array
     {
         $homeTeam = $this->teamHome($teamArray);
         $guestTeam = $this->teamGuest($teamArray, $homeTeam);
@@ -511,7 +512,7 @@ class LeagueLot
      * @param array $teamArray
      * @return array
      */
-    private function teamHome(array $teamArray)
+    private function teamHome(array $teamArray): array
     {
         $team = array_rand($teamArray[0]);
 
@@ -527,7 +528,7 @@ class LeagueLot
      * @param array $homeTeam
      * @return array
      */
-    private function teamGuest(array $teamArray, array $homeTeam)
+    private function teamGuest(array $teamArray, array $homeTeam): array
     {
         $shuffleArray = $teamArray[1];
 
@@ -550,12 +551,12 @@ class LeagueLot
     }
 
     /**
-     * @param $teamArray
+     * @param array $teamArray
      * @param array $teamResultArray
      * @param int $groupNumber
      * @return array
      */
-    private function group($teamArray, $teamResultArray = [], $groupNumber = 1)
+    private function group(array $teamArray, array $teamResultArray = [], int $groupNumber = 1): array
     {
         $team1 = $this->team1($teamArray);
         $team2 = $this->team2($teamArray, $team1);
@@ -607,7 +608,7 @@ class LeagueLot
      * @param array $team_array
      * @return array
      */
-    private function team1(array $team_array)
+    private function team1(array $team_array): array
     {
         $team = array_rand($team_array[0]);
 
@@ -615,28 +616,30 @@ class LeagueLot
             'i' => $team,
             'team_id' => $team_array[0][$team]->participant_league_team_id,
             'country_id' => $team_array[0][$team]->team->stadium->city->city_country_id,
+            'user_id' => $team_array[0][$team]->team->team_user_id,
         ];
     }
 
     /**
-     * @param $teamArray
-     * @param $team_1
+     * @param array $teamArray
+     * @param array $team_1
      * @return array
      */
-    private function team2($teamArray, $team_1)
+    private function team2(array $teamArray, array $team_1): array
     {
         $shuffleArray = $teamArray[1];
 
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if ($item->team->stadium->city->city_country_id != $team_1['country_id']) {
+            if ($item->team->stadium->city->city_country_id != $team_1['country_id'] && $item->team->team_user_id != $team_1['user_id']) {
                 for ($i = 0, $count_team = count($teamArray[1]); $i < $count_team; $i++) {
                     if ($teamArray[1][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
                             'i' => $i,
                             'team_id' => $teamArray[1][$i]->participant_league_team_id,
                             'country_id' => $teamArray[1][$i]->team->stadium->city->city_country_id,
+                            'user_id' => $teamArray[1][$i]->team->team_user_id,
                         ];
                     }
                 }
@@ -647,25 +650,26 @@ class LeagueLot
     }
 
     /**
-     * @param $teamArray
-     * @param $team_1
-     * @param $team_2
+     * @param array $teamArray
+     * @param array $team_1
+     * @param array $team_2
      * @return array
      */
-    private function team3($teamArray, $team_1, $team_2)
+    private function team3(array $teamArray, array $team_1, array $team_2): array
     {
         $shuffleArray = $teamArray[2];
 
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id']])) {
+            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id']]) && !in_array($item->team->team_user_id, [$team_1['user_id'], $team_2['user_id']])) {
                 for ($i = 0, $count_team = count($teamArray[2]); $i < $count_team; $i++) {
                     if ($teamArray[2][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
                             'i' => $i,
                             'team_id' => $teamArray[2][$i]->participant_league_team_id,
                             'country_id' => $teamArray[2][$i]->team->stadium->city->city_country_id,
+                            'user_id' => $teamArray[2][$i]->team->team_user_id,
                         ];
                     }
                 }
@@ -676,20 +680,20 @@ class LeagueLot
     }
 
     /**
-     * @param $teamArray
-     * @param $team_1
-     * @param $team_2
-     * @param $team_3
+     * @param array $teamArray
+     * @param array $team_1
+     * @param array $team_2
+     * @param array $team_3
      * @return array
      */
-    private function team4($teamArray, $team_1, $team_2, $team_3)
+    private function team4(array $teamArray, array $team_1, array $team_2, array $team_3): array
     {
         $shuffleArray = $teamArray[3];
 
         shuffle($shuffleArray);
 
         foreach ($shuffleArray as $item) {
-            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']])) {
+            if (!in_array($item->team->stadium->city->city_country_id, [$team_1['country_id'], $team_2['country_id'], $team_3['country_id']]) && !in_array($item->team->team_user_id, [$team_1['user_id'], $team_2['user_id'], $team_3['user_id']])) {
                 for ($i = 0, $count_team = count($teamArray[3]); $i < $count_team; $i++) {
                     if ($teamArray[3][$i]->participant_league_team_id == $item->participant_league_team_id) {
                         return [
