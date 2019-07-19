@@ -239,7 +239,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = HockeyHelper::getStorePriceWithDiscount(1);
+        $price = HockeyHelper::getStorePriceWithDiscount(1 * $user->getStoreCoefficient());
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -274,7 +274,7 @@ class StoreController extends AbstractController
             return $this->redirect(['store/index']);
         }
 
-        $message = 'Вы собираетесь приобрести балл силы для тренировки игрока команды за ' . $price . ' ед.';
+        $message = 'Вы собираетесь приобрести <span class="strong">балл силы</span> для тренировки игрока команды за <span class="strong">' . $price . '</span> ед.';
 
         $this->setSeoTitle('Виртуальный магазин');
 
@@ -292,7 +292,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = HockeyHelper::getStorePriceWithDiscount(3);
+        $price = HockeyHelper::getStorePriceWithDiscount(3 * $user->getStoreCoefficient());
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -327,7 +327,7 @@ class StoreController extends AbstractController
             return $this->redirect(['store/index']);
         }
 
-        $message = 'Вы собираетесь приобрести совмещение для игрока команды за ' . $price . ' ед.';
+        $message = 'Вы собираетесь приобрести <span class="strong">совмещение</span> для игрока команды за <span class="strong">' . $price . '</span> ед.';
 
         $this->setSeoTitle('Виртуальный магазин');
 
@@ -345,7 +345,7 @@ class StoreController extends AbstractController
     {
         $user = $this->user;
 
-        $price = HockeyHelper::getStorePriceWithDiscount(3);
+        $price = HockeyHelper::getStorePriceWithDiscount(3 * $user->getStoreCoefficient());
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -380,7 +380,7 @@ class StoreController extends AbstractController
             return $this->redirect(['store/index']);
         }
 
-        $message = 'Вы собираетесь приобрести спецвозможность для игрока команды за ' . $price . ' ед.';
+        $message = 'Вы собираетесь приобрести <span class="strong">спецвозможность</span> для игрока команды за <span class="strong">' . $price . '</span> ед.';
 
         $this->setSeoTitle('Виртуальный магазин');
 
@@ -402,7 +402,7 @@ class StoreController extends AbstractController
 
         $user = $this->user;
 
-        $price = HockeyHelper::getStorePriceWithDiscount(5);
+        $price = HockeyHelper::getStorePriceWithDiscount(5 * $user->getStoreCoefficient());
 
         if ($user->user_money < $price) {
             $this->setErrorFlash('Недостаточно средств на счету.');
@@ -449,7 +449,7 @@ class StoreController extends AbstractController
             return $this->redirect(['store/index']);
         }
 
-        $message = 'Вы собираетесь приобрести ' . FormatHelper::asCurrency(1000000) . ' на счёт своей команды за ' . $price . ' ед.';
+        $message = 'Вы собираетесь приобрести <span class="strong">' . FormatHelper::asCurrency(1000000) . '</span> на счёт своей команды за <span class="strong">' . $price . '</span> ед.';
 
         $this->setSeoTitle('Виртуальный магазин');
 

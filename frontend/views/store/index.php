@@ -116,6 +116,17 @@ use yii\helpers\Html;
     </div>
 </div>
 <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p>
+            Ваш коэффициент цен:
+            <span class="strong"><?= $user->getStoreCoefficient(); ?>x</span>
+            <?php if ($user->getStoreCoefficientText()): ?>
+                (Причина: <?= $user->getStoreCoefficientText(); ?>)
+            <?php endif; ?>
+        </p>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
         <table class="table table-bordered table-hover">
             <tr>
@@ -124,7 +135,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(1) . ' ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(1 * $user->getStoreCoefficient()) . ' ед.',
                         ['store/power']
                     ); ?>
                 </td>
@@ -135,7 +146,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3) . ' ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3 * $user->getStoreCoefficient()) . ' ед.',
                         ['store/position']
                     ); ?>
                 </td>
@@ -146,7 +157,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3) . ' ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(3 * $user->getStoreCoefficient()) . ' ед.',
                         ['store/special']
                     ); ?>
                 </td>
@@ -157,7 +168,7 @@ use yii\helpers\Html;
                 </td>
                 <td class="text-right">
                     <?= Html::a(
-                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(5) . ' ед.',
+                        'Купить за ' . HockeyHelper::getStorePriceWithDiscount(5 * $user->getStoreCoefficient()) . ' ед.',
                         ['store/finance']
                     ); ?>
                 </td>
