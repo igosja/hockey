@@ -2,9 +2,12 @@
 
 namespace console\models\generator;
 
+use common\models\Game;
 use common\models\Lineup;
 use common\models\LineupSpecial;
 use common\models\PlayerSpecial;
+use Exception;
+use yii\db\ActiveQuery;
 
 /**
  * Class PlayerSpecialToLineup
@@ -13,15 +16,38 @@ use common\models\PlayerSpecial;
 class PlayerSpecialToLineup
 {
     /**
-     * @throws \Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
+        $gameIdArray = Game::find()
+            ->select(['game_id'])
+            ->joinWith(['schedule'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['game_played' => 0])
+            ->column();
         $lineupArray = Lineup::find()
-            ->joinWith(['game.schedule'])
-            ->where(['game_played' => 0])
-            ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->with([
+                'player' => function (ActiveQuery $query): ActiveQuery {
+                    return $query
+                        ->with([
+                            'playerSpecial' => function (ActiveQuery $query): ActiveQuery {
+                                return $query
+                                    ->select([
+                                        'player_special_level',
+                                        'player_special_player_id',
+                                        'player_special_special_id',
+                                    ]);
+
+                            },
+                        ])
+                        ->select(['player_id']);
+
+                },
+            ])
+            ->select(['lineup_id', 'lineup_player_id'])
+            ->where(['lineup_game_id' => $gameIdArray])
             ->andWhere([
                 'lineup_player_id' => PlayerSpecial::find()
                     ->select(['player_special_player_id'])
