@@ -2,19 +2,23 @@
 
 use common\components\ErrorHelper;
 use common\models\Player;
+use common\models\Schedule;
+use common\models\Team;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
  * @var int $countSchedule
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  * @var bool $onBuilding
  * @var array $opponentArray
  * @var array $playerPhysicalArray
- * @var \common\models\Schedule[] $scheduleArray
- * @var \common\models\Team $team
- * @var \yii\web\View $this
+ * @var Schedule[] $scheduleArray
+ * @var Team $team
+ * @var View $this
  */
 
 ?>
@@ -170,5 +174,14 @@ use yii\helpers\Url;
     }
 
     ?>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= Html::a(
+            'Удалить все изменения',
+            ['clear'],
+            ['class' => 'btn margin']
+        ); ?>
+    </div>
 </div>
 <?= $this->render('//site/_show-full-table'); ?>

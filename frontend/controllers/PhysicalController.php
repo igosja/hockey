@@ -11,8 +11,10 @@ use common\models\Schedule;
 use common\models\Season;
 use common\models\TournamentType;
 use Exception;
+use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -338,9 +340,37 @@ class PhysicalController extends AbstractController
     }
 
     /**
+     * @return Response
+     * @throws Throwable
+     * @throws StaleObjectException
+     */
+    public function actionClear(): Response
+    {
+        if (!$this->myTeam) {
+            return $this->redirect(['team/view']);
+        }
+
+        $team = $this->myTeam;
+
+        $physicalChangeArray = PhysicalChange::find()
+            ->where(['physical_change_team_id' => $team->team_id])
+            ->andWhere([
+                'physical_change_schedule_id' => Schedule::find()
+                    ->select(['schedule_id'])
+                    ->where(['>', 'schedule_date', time()])
+            ])
+            ->all();
+        foreach ($physicalChangeArray as $physicalChange) {
+            $physicalChange->delete();
+        }
+
+        return $this->redirect(['physical/index']);
+    }
+
+    /**
      * @return bool
      */
-    private function isOnBuilding()
+    private function isOnBuilding(): bool
     {
         if (!$this->myTeam->buildingBase) {
             return false;
