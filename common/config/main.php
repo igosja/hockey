@@ -103,7 +103,7 @@ return [
             ],
         ],
     ],
-    'language' => 'en',
+    'language' => 'ru',
     'timeZone' => 'UTC',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
 ];
