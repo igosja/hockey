@@ -397,7 +397,61 @@ class User extends AbstractActiveRecord implements IdentityInterface
         return true;
     }
 
-    public function blacklistIcon()
+    /**
+     * @return float
+     */
+    public function getStoreCoefficient(): float
+    {
+        $result = [100];
+        foreach ($this->team as $team) {
+            if (1 == $team->ratingTeam->rating_team_power_vs_place) {
+                $result[] = 500;
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 3) {
+                $result[] = 400;
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 5) {
+                $result[] = 300;
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 10) {
+                $result[] = 200;
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 20) {
+                $result[] = 150;
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 30) {
+                $result[] = 125;
+            }
+        }
+        rsort($result);
+        return $result[0] / 100;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStoreCoefficientText(): string
+    {
+        $result = [100 => ''];
+        foreach ($this->team as $team) {
+            if (1 == $team->ratingTeam->rating_team_power_vs_place) {
+                $result[500] = 'Лучшая команда Лиги';
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 3) {
+                $result[400] = 'В тройке лучших команд Лиги';
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 5) {
+                $result[300] = 'В пятерке лучших команд Лиги';
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 10) {
+                $result[200] = 'В десятке лучших команд Лиги';
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 20) {
+                $result[150] = 'В двадцатке лучших команд Лиги';
+            } elseif ($team->ratingTeam->rating_team_power_vs_place <= 30) {
+                $result[125] = 'В тридцатке лучших команд Лиги';
+            }
+        }
+        krsort($result);
+        $result = array_values($result);
+        return $result[0];
+    }
+
+    /**
+     * @return string
+     */
+    public function blacklistIcon(): string
     {
         $blacklist = Blacklist::find()
             ->where([

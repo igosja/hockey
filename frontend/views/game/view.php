@@ -6,20 +6,25 @@ use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Event;
 use common\models\EventType;
+use common\models\Game;
+use common\models\GameComment;
+use common\models\Lineup;
 use common\models\Position;
+use common\models\User;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
 
 /**
- * @var \yii\data\ActiveDataProvider $commentDataProvider
- * @var \yii\data\ActiveDataProvider $eventDataProvider
- * @var \common\models\Game $game
- * @var \common\models\GameComment $model
- * @var \common\models\Lineup[] $lineupGuest
- * @var \common\models\Lineup[] $lineupHome
- * @var \common\models\User $user
+ * @var ActiveDataProvider $commentDataProvider
+ * @var ActiveDataProvider $eventDataProvider
+ * @var Game $game
+ * @var GameComment $model
+ * @var Lineup[] $lineupGuest
+ * @var Lineup[] $lineupHome
+ * @var User $user
  */
 
 $user = Yii::$app->user->identity;
@@ -58,6 +63,7 @@ $user = Yii::$app->user->identity;
                 <tr>
                     <th>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                            <?= $game->game_home_national_id ? $game->nationalHome->country->countryImage() : ''; ?>
                             <?= HockeyHelper::teamOrNationalLink($game->teamHome, $game->nationalHome, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_home_auto); ?>
                         </div>
@@ -78,6 +84,7 @@ $user = Yii::$app->user->identity;
                             ?>)
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                            <?= $game->game_guest_national_id ? $game->nationalGuest->country->countryImage() : ''; ?>
                             <?= HockeyHelper::teamOrNationalLink($game->teamGuest, $game->nationalGuest, false, true, 'img'); ?>
                             <?= HockeyHelper::formatAuto($game->game_guest_auto); ?>
                         </div>
@@ -88,13 +95,22 @@ $user = Yii::$app->user->identity;
     </div>
     <div class="row">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
-            <?php if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamHome->team_id . '.png')) : ?>
+            <?php if ($game->teamHome && file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->game_home_team_id . '.png')) : ?>
                 <?= Html::img(
-                    '/img/team/125/' . $game->teamHome->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamHome->team_id . '.png'),
+                    '/img/team/125/' . $game->game_home_team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $game->game_home_team_id . '.png'),
                     [
                         'alt' => $game->teamHome->team_name,
                         'class' => 'team-logo-game',
                         'title' => $game->teamHome->team_name,
+                    ]
+                ); ?>
+            <?php elseif ($game->nationalHome && file_exists(Yii::getAlias('@webroot') . '/img/country/100/' . $game->nationalHome->national_country_id . '.png')) : ?>
+                <?= Html::img(
+                    '/img/country/100/' . $game->nationalHome->national_country_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/country/100/' . $game->nationalHome->national_country_id . '.png'),
+                    [
+                        'alt' => $game->nationalHome->country->country_name,
+                        'class' => 'team-logo-game',
+                        'title' => $game->nationalHome->country->country_name,
                     ]
                 ); ?>
             <?php endif; ?>
@@ -116,13 +132,22 @@ $user = Yii::$app->user->identity;
             </div>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center">
-            <?php if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamGuest->team_id . '.png')) : ?>
+            <?php if ($game->teamGuest && file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamGuest->team_id . '.png')) : ?>
                 <?= Html::img(
                     '/img/team/125/' . $game->teamGuest->team_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/team/125/' . $game->teamGuest->team_id . '.png'),
                     [
                         'alt' => $game->teamGuest->team_name,
                         'class' => 'team-logo-game',
                         'title' => $game->teamGuest->team_name,
+                    ]
+                ); ?>
+            <?php elseif ($game->nationalGuest && file_exists(Yii::getAlias('@webroot') . '/img/country/100/' . $game->nationalGuest->national_country_id . '.png')) : ?>
+                <?= Html::img(
+                    '/img/country/100/' . $game->nationalGuest->national_country_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/country/100/' . $game->nationalHome->national_country_id . '.png'),
+                    [
+                        'alt' => $game->nationalGuest->country->country_name,
+                        'class' => 'team-logo-game',
+                        'title' => $game->nationalGuest->country->country_name,
                     ]
                 ); ?>
             <?php endif; ?>

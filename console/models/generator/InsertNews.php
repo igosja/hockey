@@ -202,11 +202,11 @@ class InsertNews
     }
 
     /**
-     * @param array $scheduleArray
+     * @param Schedule[] $scheduleArray
      * @param bool $today
      * @return string
      */
-    private function text(array $scheduleArray, $today = false)
+    private function text(array $scheduleArray, bool $today = false): string
     {
         $result = [];
         if ($today) {
@@ -216,39 +216,41 @@ class InsertNews
         }
 
         foreach ($scheduleArray as $schedule) {
+            $text = '';
             $stageName = $this->stageName($schedule->schedule_stage_id);
             if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $stageName . ' Чемпионата мира среди сборных';
+                $text = 'матчи ' . $stageName . ' Чемпионата мира среди сборных';
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_1 && $schedule->schedule_stage_id <= Stage::TOUR_LEAGUE_6) {
-                    $result[] = 'матчи ' . $stageName . ' Лиги чемпионов';
+                    $text = 'матчи ' . $stageName . ' Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::QUARTER) {
-                    $result[] = 'матчи ' . $stageName . ' Лиги чемпионов';
+                    $text = 'матчи ' . $stageName . ' Лиги чемпионов';
                 } elseif ($schedule->schedule_stage_id < Stage::FINAL_GAME) {
-                    $result[] = $stageName . ' Лиги чемпионов';
+                    $text = $stageName . ' Лиги чемпионов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
                     if ($today) {
                         $before = 'состоялся';
                     } else {
                         $before = 'будет сыгран';
                     }
-                    $result[] = $stageName . ' Лиги чемпионов';
+                    $text = $stageName . ' Лиги чемпионов';
                 }
             } elseif (TournamentType::CHAMPIONSHIP == $schedule->schedule_tournament_type_id) {
                 if ($schedule->schedule_stage_id <= Stage::TOUR_30) {
-                    $result[] = 'матчи ' . $stageName . ' национальных чемпионатов';
+                    $text = 'матчи ' . $stageName . ' национальных чемпионатов';
                 } elseif ($schedule->schedule_stage_id <= Stage::FINAL_GAME) {
-                    $result[] = $stageName . ' национальных чемпионатов';
+                    $text = $stageName . ' национальных чемпионатов';
                 } elseif (Stage::FINAL_GAME == $schedule->schedule_stage_id) {
-                    $result[] = $stageName . 'ы национальных чемпионатов';
+                    $text = $stageName . 'ы национальных чемпионатов';
                 }
             } elseif (TournamentType::CONFERENCE == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $stageName . ' конференции любительских клубов';
+                $text = 'матчи ' . $stageName . ' конференции любительских клубов';
             } elseif (TournamentType::OFF_SEASON == $schedule->schedule_tournament_type_id) {
-                $result[] = 'матчи ' . $stageName . ' кубка межсезонья';
+                $text = 'матчи ' . $stageName . ' кубка межсезонья';
             } elseif (TournamentType::FRIENDLY == $schedule->schedule_tournament_type_id) {
-                $result[] = 'товарищеские матчи';
+                $text = 'товарищеские матчи';
             }
+            $result[] = Html::a($text, ['schedule/view', 'id' => $schedule->schedule_id]);
         }
 
         $result = $before . ' ' . implode(' и ', $result);
@@ -256,7 +258,11 @@ class InsertNews
         return $result;
     }
 
-    private function stageName($stageId)
+    /**
+     * @param int $stageId
+     * @return string
+     */
+    private function stageName(int $stageId): string
     {
         $result = '';
         if (Stage::TOUR_1 == $stageId) {
