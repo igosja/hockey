@@ -113,12 +113,6 @@ abstract class AbstractController extends Controller
             $userIp = Yii::$app->request->userIP;
         }
 
-        if (YII_DEBUG && !in_array($userIp, $allowedIp) && !($action instanceof ErrorAction)) {
-            throw new ForbiddenHttpException(
-                'Этот сайт предназначен для разработки. Пользовательский сайт находиться по адресу https://virtual-hockey.org'
-            );
-        }
-
         $this->seasonId = Season::getCurrentSeason();
 
         if (!Yii::$app->user->isGuest) {
