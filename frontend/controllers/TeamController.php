@@ -999,7 +999,7 @@ class TeamController extends AbstractController
 
             if (($closestGame->game_home_team_id == $this->myTeam->team_id && Mood::SUPER == $closestGame->game_home_mood_id) ||
                 ($closestGame->game_guest_team_id == $this->myTeam->team_id && Mood::SUPER == $closestGame->game_guest_mood_id)) {
-                $result[] = 'В ближайшем матче ваша команда будет использовать супер. ' . Html::a(
+                $result[] = 'В ближайшем матче ваша команда будет использовать <span class="strong font-green">супер</span>. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['lineup/view', 'id' => $closestGame->game_id]
                     );
@@ -1007,7 +1007,7 @@ class TeamController extends AbstractController
 
             if (($closestGame->game_home_team_id == $this->myTeam->team_id && Mood::REST == $closestGame->game_home_mood_id) ||
                 ($closestGame->game_guest_team_id == $this->myTeam->team_id && Mood::REST == $closestGame->game_guest_mood_id)) {
-                $result[] = 'В ближайшем матче ваша команда будет использовать <span class="strong red">отдых</span>. ' . Html::a(
+                $result[] = 'В ближайшем матче ваша команда будет использовать <span class="strong font-red">отдых</span>. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['lineup/view', 'id' => $closestGame->game_id]
                     );
