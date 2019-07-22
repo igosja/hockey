@@ -125,7 +125,7 @@ $user = Yii::$app->user->identity;
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                     <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
-                    (<?= $game->stadium->stadium_capacity; ?>),
+                    (<?= $game->game_stadium_capacity; ?>),
                     Зрителей: <?= $game->game_visitor; ?>.
                     Билет: <?= FormatHelper::asCurrency($game->game_ticket); ?>
                 </div>
