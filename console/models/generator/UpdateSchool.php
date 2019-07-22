@@ -57,6 +57,9 @@ class UpdateSchool
                         $specialId = 0;
                         $withSpecial = 0;
                     }
+                } else {
+                    $specialId = 0;
+                    $withSpecial = 0;
                 }
 
                 if ($school->school_with_style) {
@@ -73,12 +76,15 @@ class UpdateSchool
                         $styleId = Style::getRandStyleId();
                         $withStyle = 0;
                     }
+                } else {
+                    $styleId = Style::getRandStyleId();
+                    $withStyle = 0;
                 }
             } else {
-                $withSpecial = 0;
                 $specialId = 0;
-                $withStyle = 0;
+                $withSpecial = 0;
                 $styleId = Style::getRandStyleId();
+                $withStyle = 0;
             }
 
             $player = new Player();
