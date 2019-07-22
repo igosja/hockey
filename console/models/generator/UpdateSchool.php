@@ -10,6 +10,7 @@ use common\models\Scout;
 use common\models\Season;
 use common\models\Style;
 use common\models\SurnameCountry;
+use Exception;
 
 /**
  * Class UpdateSchool
@@ -18,7 +19,7 @@ use common\models\SurnameCountry;
 class UpdateSchool
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -103,7 +104,7 @@ class UpdateSchool
                 $playerSpecial->save();
             }
 
-            if ($school->team->baseScout->base_scout_base_level >= 5) {
+            if ($school->team->baseScout->base_scout_level >= 5) {
                 for ($i = 0; $i < 2; $i++) {
                     $scout = new Scout();
                     $scout->scout_percent = 100;
