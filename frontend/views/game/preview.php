@@ -4,12 +4,13 @@ use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\components\HockeyHelper;
 use common\models\Game;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
  * @var Game $game
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  */
 
 ?>
@@ -62,7 +63,7 @@ use yii\helpers\Html;
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <?= Html::a($game->stadium->stadium_name, ['team/view', 'id' => $game->stadium->team->team_id]); ?>
-                        (<?= $game->stadium->stadium_capacity; ?>)
+                        (<?= $game->game_played ? $game->game_stadium_capacity : $game->stadium->stadium_capacity; ?>)
                     </div>
                 </div>
             <?php endif; ?>
