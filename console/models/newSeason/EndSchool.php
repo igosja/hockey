@@ -10,6 +10,7 @@ use common\models\Scout;
 use common\models\Season;
 use common\models\Style;
 use common\models\SurnameCountry;
+use Exception;
 
 /**
  * Class EndSchool
@@ -18,7 +19,7 @@ use common\models\SurnameCountry;
 class EndSchool
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -56,6 +57,9 @@ class EndSchool
                         $specialId = 0;
                         $withSpecial = 0;
                     }
+                } else {
+                    $specialId = 0;
+                    $withSpecial = 0;
                 }
 
                 if ($school->school_with_style) {
@@ -72,12 +76,15 @@ class EndSchool
                         $styleId = Style::getRandStyleId();
                         $withStyle = 0;
                     }
+                } else {
+                    $styleId = Style::getRandStyleId();
+                    $withStyle = 0;
                 }
             } else {
-                $withSpecial = 0;
                 $specialId = 0;
-                $withStyle = 0;
+                $withSpecial = 0;
                 $styleId = Style::getRandStyleId();
+                $withStyle = 0;
             }
 
             $player = new Player();

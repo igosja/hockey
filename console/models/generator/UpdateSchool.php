@@ -10,6 +10,7 @@ use common\models\Scout;
 use common\models\Season;
 use common\models\Style;
 use common\models\SurnameCountry;
+use Exception;
 
 /**
  * Class UpdateSchool
@@ -18,7 +19,7 @@ use common\models\SurnameCountry;
 class UpdateSchool
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -56,6 +57,9 @@ class UpdateSchool
                         $specialId = 0;
                         $withSpecial = 0;
                     }
+                } else {
+                    $specialId = 0;
+                    $withSpecial = 0;
                 }
 
                 if ($school->school_with_style) {
@@ -72,12 +76,15 @@ class UpdateSchool
                         $styleId = Style::getRandStyleId();
                         $withStyle = 0;
                     }
+                } else {
+                    $styleId = Style::getRandStyleId();
+                    $withStyle = 0;
                 }
             } else {
-                $withSpecial = 0;
                 $specialId = 0;
-                $withStyle = 0;
+                $withSpecial = 0;
                 $styleId = Style::getRandStyleId();
+                $withStyle = 0;
             }
 
             $player = new Player();
@@ -103,7 +110,7 @@ class UpdateSchool
                 $playerSpecial->save();
             }
 
-            if ($school->team->baseScout->base_scout_base_level >= 5) {
+            if ($school->team->baseScout->base_scout_level >= 5) {
                 for ($i = 0; $i < 2; $i++) {
                     $scout = new Scout();
                     $scout->scout_percent = 100;
