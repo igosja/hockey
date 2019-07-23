@@ -16,11 +16,21 @@ use Yii;
 class PlayerTire
 {
     /**
+     * @var int[] $scheduleIdsArray
+     */
+    private $scheduleIdsArray;
+
+    /**
      * @throws \yii\db\Exception
      * @return void
      */
     public function execute()
     {
+        $this->scheduleIdsArray = Schedule::find()
+            ->select(['schedule_id'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->column();
+
         $this->updateMood();
 
         $schedule = Schedule::find()
@@ -49,10 +59,8 @@ class PlayerTire
                 ON `player_id`=`lineup_player_id`
                 LEFT JOIN `game`
                 ON `lineup_game_id`=`game_id`
-                LEFT JOIN `schedule`
-                ON `game_schedule_id`=`schedule_id`
                 SET `player_mood_id`=IF(`lineup_team_id`=`game_home_team_id`, `game_home_mood_id`, `game_guest_mood_id`)
-                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()";
+                WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")";
         Yii::$app->db->createCommand($sql)->execute();
     }
 
@@ -80,7 +88,7 @@ class PlayerTire
                 LEFT JOIN `tournament_type`
                 ON `schedule_tournament_type_id`=`tournament_type_id`
                 SET `player_tire`=`player_tire`+IF((CEIL((`player_age`-12)/11)+`player_game_row`)*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`)>0, (CEIL((`player_age`-12)/11)+`player_game_row`)*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`), 0)
-                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                 AND `player_game_row`>0
                 AND `player_age`<=" . Player::AGE_READY_FOR_PENSION . "
                 AND `player_mood_id`>0
@@ -91,9 +99,7 @@ class PlayerTire
                     FROM `lineup`
                     LEFT JOIN `game`
                     ON `lineup_game_id`=`game_id`
-                    LEFT JOIN `schedule`
-                    ON `game_schedule_id`=`schedule_id`
-                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `lineup_line_id`=1
                     AND `lineup_position_id`=1
                 )";
@@ -117,16 +123,14 @@ class PlayerTire
                     ON `game_schedule_id`=`schedule_id`
                     LEFT JOIN `tournament_type`
                     ON `schedule_tournament_type_id`=`tournament_type_id`
-                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `tournament_type_day_type_id`=" . DayType::B . "
                     AND `lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
                         ON `lineup_game_id`=`game_id`
-                        LEFT JOIN `schedule`
-                        ON `game_schedule_id`=`schedule_id`
-                        WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                        WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )
@@ -155,10 +159,8 @@ class PlayerTire
                 ON `player_id`=`lineup_player_id`
                 LEFT JOIN `game`
                 ON `lineup_game_id`=`game_id`
-                LEFT JOIN `schedule`
-                ON `game_schedule_id`=`schedule_id`
                 SET `player_tire`=`player_tire`+IF((FLOOR((`player_age`-12)/11)+CEIL(`player_game_row`/2))*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`)>0, (FLOOR((`player_age`-12)/11)+CEIL(`player_game_row`/2))*(" . Mood::REST . "-`player_mood_id`)-IF(`player_special_level` IS NULL, 0, `player_special_level`)>0, 0)
-                WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                 AND `player_game_row`>0
                 AND `player_age`<40
                 AND `player_mood_id`>0
@@ -168,9 +170,7 @@ class PlayerTire
                     FROM `lineup`
                     LEFT JOIN `game`
                     ON `lineup_game_id`=`game_id`
-                    LEFT JOIN `schedule`
-                    ON `game_schedule_id`=`schedule_id`
-                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `lineup_line_id`=1
                     AND `lineup_position_id`=1
                 )";

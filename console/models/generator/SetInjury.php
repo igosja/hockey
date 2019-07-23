@@ -8,6 +8,7 @@ use common\models\HistoryText;
 use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
+use Yii;
 
 /**
  * Class SetInjury
@@ -18,10 +19,10 @@ class SetInjury
     const MIN_GAMES_FOR_INJURY = 100;
 
     /**
+     * @return bool
      * @throws \Exception
-     * @return void
      */
-    public function execute()
+    public function execute(): bool
     {
         $game = Game::find()
             ->joinWith(['schedule'])
@@ -29,30 +30,44 @@ class SetInjury
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
             ->count();
         if ($game < self::MIN_GAMES_FOR_INJURY) {
-            return;
+            return true;
         }
 
-        $playerSubQuery = Player::find()->select(['player_team_id'])->where(['>', 'player_injury', 0]);
+        $gameIdArray = Game::find()
+            ->select(['game_id'])
+            ->joinWith(['schedule'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['game_played' => 0])
+            ->column();
+
         $lineup = Lineup::find()
             ->joinWith([
-                'game.schedule',
                 'player'
             ])
             ->with(['player'])
-            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->where(['lineup_game_id' => $gameIdArray])
             ->andWhere(['player_injury' => 0])
-            ->andWhere(['not', ['player_team_id' => $playerSubQuery]])
+            ->andWhere([
+                'not',
+                [
+                    'player_team_id' => Player::find()
+                        ->select(['player_team_id'])
+                        ->where(['>', 'player_injury', 0])
+                ]
+            ])
             ->orderBy(['player_tire' => SORT_DESC])
             ->addOrderBy('RAND()')
             ->limit(1)
             ->one();
         if (!$lineup) {
-            return;
+            return true;
         }
 
         if (Position::GK == $lineup->lineup_position_id && 1 == $lineup->lineup_line_id) {
-            return;
+            return true;
         }
+
+        $transaction = Yii::$app->db->beginTransaction();
 
         $lineup->player->player_injury = 1;
         $lineup->player->player_injury_day = rand(1, 9);
@@ -64,5 +79,9 @@ class SetInjury
             'history_player_id' => $lineup->lineup_player_id,
             'history_value' => $lineup->player->player_injury_day,
         ]);
+
+        $transaction->commit();
+
+        return true;
     }
 }
