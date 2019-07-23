@@ -15,11 +15,21 @@ use yii\db\Expression;
 class PlayerGameRow
 {
     /**
+     * @var int[] $scheduleIdsArray
+     */
+    private $scheduleIdsArray;
+
+    /**
      * @throws \yii\db\Exception
      * @return void
      */
     public function execute()
     {
+        $this->scheduleIdsArray = Schedule::find()
+            ->select(['schedule_id'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->column();
+
         $this->updatePlayer();
 
         $schedule = Schedule::find()
@@ -54,16 +64,14 @@ class PlayerGameRow
                     LEFT JOIN `tournament_type`
                     ON `schedule_tournament_type_id`=`tournament_type_id`
                     WHERE `game_played`=0
-                    AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    AND `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `tournament_type_day_type_id`=" . DayType::B . "
                     AND `lineup_id` NOT IN (
                         SELECT `lineup_id`
                         FROM `lineup`
                         LEFT JOIN `game`
                         ON `lineup_game_id`=`game_id`
-                        LEFT JOIN `schedule`
-                        ON `game_schedule_id`=`schedule_id`
-                        WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                        WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                         AND `lineup_line_id`=1
                         AND `lineup_position_id`=1
                     )
@@ -81,16 +89,14 @@ class PlayerGameRow
                 ON `schedule_tournament_type_id`=`tournament_type_id`
                 SET `player_game_row`=IF(`player_game_row`>0, `player_game_row`+1, 1)
                 WHERE `game_played`=0
-                AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                AND `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                 AND `tournament_type_day_type_id`=" . DayType::B . "
                 AND `lineup_id` NOT IN (
                     SELECT `lineup_id`
                     FROM `lineup`
                     LEFT JOIN `game`
                     ON `lineup_game_id`=`game_id`
-                    LEFT JOIN `schedule`
-                    ON `game_schedule_id`=`schedule_id`
-                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `lineup_line_id`=1
                     AND `lineup_position_id`=1
                 )";
@@ -108,19 +114,15 @@ class PlayerGameRow
                 ON `player_id`=`lineup_player_id`
                 LEFT JOIN `game`
                 ON `lineup_game_id`=`game_id`
-                LEFT JOIN `schedule`
-                ON `game_schedule_id`=`schedule_id`
                 SET `player_game_row`=IF(`player_game_row`>0, `player_game_row`+1, 1)
                 WHERE `game_played`=0
-                AND FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                AND `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                 AND `lineup_id` NOT IN (
                     SELECT `lineup_id`
                     FROM `lineup`
                     LEFT JOIN `game`
                     ON `lineup_game_id`=`game_id`
-                    LEFT JOIN `schedule`
-                    ON `game_schedule_id`=`schedule_id`
-                    WHERE FROM_UNIXTIME(`schedule_date`, '%Y-%m-%d')=CURDATE()
+                    WHERE `game_schedule_id` IN (" . implode(',', $this->scheduleIdsArray). ")
                     AND `lineup_line_id`=1
                     AND `lineup_position_id`=1
                 )";
