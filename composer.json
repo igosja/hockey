@@ -29,7 +29,8 @@
     "coderlex/yii2-wysibb": "*",
     "zhuravljov/yii2-logreader": "*",
     "ext-curl": "^7.3",
-    "ext-json": "^1.7"
+    "ext-json": "^1.7",
+    "yiisoft/yii2-redis": "^2.0"
   },
   "require-dev": {
     "codeception/base": "^2.2.3",

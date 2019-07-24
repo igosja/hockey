@@ -43,6 +43,7 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'session' => [
+            'class' => 'yii\redis\Session',
             'name' => 'advanced-backend',
         ],
         'urlManager' => [

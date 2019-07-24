@@ -359,7 +359,7 @@ class Team extends AbstractActiveRecord
         $power_s_26 = $power + Player::find()->where(['player_id' => $player1])->sum('player_power_nominal_s');
         $power = Player::find()->where(['player_id' => $player30])->sum('player_power_nominal_s');
         $power_s_32 = $power + Player::find()->where(['player_id' => $player2])->sum('player_power_nominal_s');
-        $power_v = round(($power_c_21 + $power_c_26 + $power_c_21) / 79 * 21);
+        $power_v = round(($power_c_21 + $power_c_26 + $power_c_32) / 79 * 21);
         $power_vs = round(($power_s_21 + $power_s_26 + $power_s_32) / 79 * 21);
 
         $this->team_power_c_21 = $power_c_21;
