@@ -14,10 +14,16 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
             'transport' => [
                 'class' => 'Swift_SendmailTransport',
             ],
+            'viewPath' => '@common/mail',
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'database' => 0,
+            'hostname' => 'localhost',
+            'port' => 6379,
         ],
     ],
     'container' => [
