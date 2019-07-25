@@ -9,6 +9,7 @@ use yii\db\ActiveQuery;
  * @package common\models
  *
  * @property int $scout_id
+ * @property int $scout_is_school
  * @property int $scout_percent
  * @property int $scout_player_id
  * @property int $scout_ready
@@ -37,6 +38,7 @@ class Scout extends AbstractActiveRecord
             [
                 [
                     'scout_id',
+                    'scout_is_school',
                     'scout_percent',
                     'scout_player_id',
                     'scout_ready',
