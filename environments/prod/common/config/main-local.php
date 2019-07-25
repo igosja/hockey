@@ -22,6 +22,7 @@ return [
                 'username' => 'igosja87@gmail.com',
                 'password' => 'ch6oJKxmCX',
                 'port' => '587',
+                'encryption' => 'tls',
 //                'host' => 'virtual-hockey.org',
 //                'username' => 'info@virtual-hockey.org',
 //                'password' => 'rxttgRhOKztb1UI',
