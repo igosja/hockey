@@ -1062,10 +1062,14 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedScout()
+    public function usedScout(): int
     {
         return Scout::find()
-            ->where(['scout_team_id' => $this->team_id, 'scout_season_id' => Season::getCurrentSeason()])
+            ->where([
+                'scout_team_id' => $this->team_id,
+                'scout_season_id' => Season::getCurrentSeason(),
+                'scout_is_school' => 0,
+            ])
             ->count();
     }
 
