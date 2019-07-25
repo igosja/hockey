@@ -113,6 +113,7 @@ class UpdateSchool
             if ($school->team->baseScout->base_scout_level >= 5) {
                 for ($i = 0; $i < 2; $i++) {
                     $scout = new Scout();
+                    $scout->scout_is_school = 1;
                     $scout->scout_percent = 100;
                     $scout->scout_player_id = $player->player_id;
                     $scout->scout_ready = time();
