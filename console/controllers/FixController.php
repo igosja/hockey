@@ -56,6 +56,7 @@ class FixController extends AbstractController
                 ['lineup_id' => $maxLineupId + 1],
                 ['lineup_player_id' => $lineup['lineup_player_id'], 'lineup_game_id' => $lineupArray['lineup_game_id']]
             );
+            $this->stdout($maxLineupId . '/' . count($maxLineupId));
         }
     }
 
