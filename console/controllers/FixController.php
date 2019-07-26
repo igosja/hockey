@@ -29,6 +29,7 @@ use common\models\TournamentType;
 use Exception;
 use Yii;
 use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * Class FixController
@@ -36,6 +37,28 @@ use yii\db\Expression;
  */
 class FixController extends AbstractController
 {
+    public function actionLine()
+    {
+        $lineupArray = (new Query())
+            ->select(['lineup_player_id', 'lineup_game_id'])
+            ->from(Lineup::tableName())
+            ->where(['lineup_id' => 0])
+            ->orWhere(['lineup_id' => null])
+            ->limit(2)
+            ->all();
+        foreach ($lineupArray as $lineup) {
+            $maxLineupId = (new Query())
+                ->select(['MAX(lineup_id)'])
+                ->from(Lineup::tableName())
+                ->column();
+            Yii::$app->db->createCommand()->update(
+                Lineup::tableName(),
+                ['lineup_id' => $maxLineupId + 1],
+                ['lineup_player_id' => $lineup['lineup_player_id'], 'lineup_game_id' => $lineupArray['lineup_game_id']]
+            );
+        }
+    }
+
     /**
      * @throws Exception
      */
