@@ -39,6 +39,11 @@ class FixController extends AbstractController
 {
     public function actionLine()
     {
+        $maxLineupId = (new Query())
+            ->select(['MAX(lineup_id)'])
+            ->from(Lineup::tableName())
+            ->column();
+        $maxLineupId = $maxLineupId[0];
         $lineupArray = (new Query())
             ->select(['lineup_player_id', 'lineup_game_id'])
             ->from(Lineup::tableName())
@@ -47,16 +52,13 @@ class FixController extends AbstractController
             ->limit(2)
             ->all();
         foreach ($lineupArray as $lineup) {
-            $maxLineupId = (new Query())
-                ->select(['MAX(lineup_id)'])
-                ->from(Lineup::tableName())
-                ->column();
+            $maxLineupId++;
             Yii::$app->db->createCommand()->update(
                 Lineup::tableName(),
-                ['lineup_id' => $maxLineupId + 1],
-                ['lineup_player_id' => $lineup['lineup_player_id'], 'lineup_game_id' => $lineupArray['lineup_game_id']]
+                ['lineup_id' => $maxLineupId],
+                ['lineup_player_id' => $lineup['lineup_player_id'], 'lineup_game_id' => $lineup['lineup_game_id']]
             );
-            $this->stdout($maxLineupId . '/' . count($maxLineupId));
+            $this->stdout($maxLineupId . '/' . count($maxLineupId) . PHP_EOL);
         }
     }
 
