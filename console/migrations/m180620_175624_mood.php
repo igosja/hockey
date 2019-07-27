@@ -15,7 +15,7 @@ class m180620_175624_mood extends Migration
     public function safeUp()
     {
         $this->createTable(self::TABLE, [
-            'mood_id' => $this->primaryKey(11),
+            'mood_id' => $this->primaryKey(1),
             'mood_name' => $this->string(10),
         ]);
 

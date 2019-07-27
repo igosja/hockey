@@ -15,7 +15,7 @@ class m190113_081758_team_country_news extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn(self::TABLE, 'team_news_id', $this->integer(11)->defaultValue(0));
+        $this->addColumn(self::TABLE, 'team_news_id', $this->integer(11)->defaultValue(0)->after('team_name'));
         $this->dropColumn(self::TABLE_2, 'user_country_news_id');
     }
 
