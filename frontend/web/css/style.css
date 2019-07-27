@@ -690,6 +690,10 @@ td.table-bordered-right {
     background-color: #e8e8e8;
 }
 
+.div-odd {
+    background-color: #e8e8e8;
+}
+
 .hr {
     background-color: #286090;
     height: 1px;
