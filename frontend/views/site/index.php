@@ -1,14 +1,18 @@
 <?php
 
 use common\components\HockeyHelper;
+use common\models\ForumMessage;
+use common\models\News;
+use common\models\Review;
+use common\models\User;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\User[] $birthdays
- * @var \common\models\News $countryNews
- * @var \common\models\ForumMessage[] $forumMessage
- * @var \common\models\News $news
- * @var \common\models\Review[] $reviews
+ * @var User[] $birthdays
+ * @var News $countryNews
+ * @var ForumMessage[] $forumMessage
+ * @var News $news
+ * @var Review[] $reviews
  */
 
 ?>
@@ -206,13 +210,7 @@ use yii\helpers\Html;
                                 (<?= Html::a($item->user_login, ['user/view', 'id' => $item->user_id]); ?>)
                                 <?php if ($item->user_birth_year) : ?>
                                     -
-                                    <?= Yii::t(
-                                        'app',
-                                        'исполняется {years, plural, one{# год} few{# года} many{# лет} other{# лет}}!',
-                                        [
-                                            'years' => date('Y') - $item->user_birth_year,
-                                        ]
-                                    ); ?>
+                                    <?= date('Y') - $item->user_birth_year; ?>-я годовщина!
                                 <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
