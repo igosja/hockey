@@ -1,10 +1,11 @@
 <?php
 
 use common\components\ErrorHelper;
+use yii\data\ActiveDataProvider;
 use yii\widgets\ListView;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var ActiveDataProvider $dataProvider
  */
 
 ?>
@@ -19,7 +20,14 @@ use yii\widgets\ListView;
     try {
         print ListView::widget([
             'dataProvider' => $dataProvider,
-            'itemOptions' => ['class' => 'row border-top'],
+            'itemOptions' => function ($model, $key, $index) {
+                unset($model, $key);
+                $class = ['row', 'border-top'];
+                if ($index % 2) {
+                    $class[] = 'div-odd';
+                }
+                return ['class' => $class];
+            },
             'itemView' => '_news',
         ]);
     } catch (Exception $e) {
