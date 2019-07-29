@@ -3,6 +3,7 @@
 namespace console\models;
 
 use common\components\ErrorHelper;
+use common\models\Base;
 use common\models\BaseSchool;
 use common\models\Building;
 use common\models\BuildingBase;
@@ -28,7 +29,7 @@ use Yii;
 class BotService
 {
     const COUNT_LINEUP = 22;
-    const SCHOOL_LEVEL = 1;
+    const BASE_LEVEL = 1;
 
     /**
      * @throws Exception
@@ -39,6 +40,7 @@ class BotService
             return;
         }
         $this->lineup();
+        $this->buildBase();
         $this->buildSchool();
         $this->startSchool();
     }
@@ -157,6 +159,69 @@ class BotService
      * @return bool
      * @throws \yii\db\Exception
      */
+    private function buildBase(): bool
+    {
+        $team = Team::find()
+            ->where(['team_user_id' => 0, 'team_base_id' => 0])
+            ->andWhere(['!=', 'team_id', 0])
+            ->orderBy('RAND()')
+            ->limit(1)
+            ->one();
+        if (!$team) {
+            return true;
+        }
+
+        if ($team->buildingBase) {
+            return true;
+        }
+
+        $base = Base::find()
+            ->where(['base_level' => self::BASE_LEVEL])
+            ->limit(1)
+            ->one();
+
+        if (!$base) {
+            return true;
+        }
+
+        if ($base->base_price_buy > $team->team_finance) {
+            return true;
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $model = new BuildingBase();
+            $model->building_base_building_id = Building::BASE;
+            $model->building_base_construction_type_id = ConstructionType::BUILD;
+            $model->building_base_day = $base->base_build_speed;
+            $model->building_base_team_id = $team->team_id;
+            $model->save();
+
+            Finance::log([
+                'finance_building_id' => Building::BASE,
+                'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
+                'finance_level' => self::BASE_LEVEL,
+                'finance_team_id' => $team->team_id,
+                'finance_value' => -$base->base_price_buy,
+                'finance_value_after' => $team->team_finance - $base->base_price_buy,
+                'finance_value_before' => $team->team_finance,
+            ]);
+
+            $team->team_finance = $team->team_finance - $base->base_price_buy;
+            $team->save(true, ['team_finance']);
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollBack();
+            ErrorHelper::log($e);
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     private function buildSchool(): bool
     {
         $team = Team::find()
@@ -182,7 +247,7 @@ class BotService
         }
 
         $baseSchool = BaseSchool::find()
-            ->where(['base_school_level' => self::SCHOOL_LEVEL])
+            ->where(['base_school_level' => self::BASE_LEVEL])
             ->limit(1)
             ->one();
 
@@ -210,7 +275,7 @@ class BotService
             Finance::log([
                 'finance_building_id' => Building::SCHOOL,
                 'finance_finance_text_id' => FinanceText::OUTCOME_BUILDING_BASE,
-                'finance_level' => self::SCHOOL_LEVEL,
+                'finance_level' => self::BASE_LEVEL,
                 'finance_team_id' => $team->team_id,
                 'finance_value' => -$baseSchool->base_school_price_buy,
                 'finance_value_after' => $team->team_finance - $baseSchool->base_school_price_buy,
@@ -238,6 +303,7 @@ class BotService
             ->where(['team_user_id' => 0])
             ->andWhere(['!=', 'team_id', 0])
             ->andWhere(['!=', 'team_base_school_id', 0])
+            ->andWhere(['team_id' => 25])
             ->orderBy('RAND()')
             ->limit(1)
             ->one();
