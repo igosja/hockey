@@ -2,6 +2,7 @@
 
 namespace console\models\generator;
 
+use common\models\Building;
 use common\models\NameCountry;
 use common\models\Player;
 use common\models\PlayerSpecial;
@@ -99,6 +100,9 @@ class UpdateSchool
             );
             $player->player_team_id = $school->school_team_id;
             $player->player_tire = $school->team->baseMedical->base_medical_tire;
+            if ($school->team->buildingBase && in_array($school->team->buildingBase->building_base_building_id, [Building::BASE, Building::MEDICAL])) {
+                $player->player_tire = Player::TIRE_DEFAULT;
+            }
             $player->player_training_ability = rand(1, 5);
             $player->save();
 
