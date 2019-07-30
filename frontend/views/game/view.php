@@ -489,8 +489,9 @@ $user = Yii::$app->user->identity;
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center hidden-xs'],
+                    'format' => 'raw',
                     'header' => 'Тип',
-                    'headerOptions' => ['class' => 'col-1 text-center hidden-xs'],
+                    'headerOptions' => ['class' => 'text-center hidden-xs'],
                     'value' => function (Event $model) {
                         return Html::img(
                             '/img/event_type/' . $model->event_event_type_id . '.png',
@@ -526,7 +527,7 @@ $user = Yii::$app->user->identity;
                         if ($model->playerAssist1) {
                             $result = $result . ' (' . $model->playerAssist1->playerLink();
                             if ($model->playerAssist2) {
-                                $result = $result . ', ' . $model->playerAssist2->playerLink();
+                                $result = $result . ' + ' . $model->playerAssist2->playerLink();
                             }
                             $result = $result . ')';
                         }
