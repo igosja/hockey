@@ -490,9 +490,15 @@ $user = Yii::$app->user->identity;
                 [
                     'contentOptions' => ['class' => 'text-center hidden-xs'],
                     'header' => 'Тип',
-                    'headerOptions' => ['class' => 'text-center hidden-xs'],
+                    'headerOptions' => ['class' => 'col-1 text-center hidden-xs'],
                     'value' => function (Event $model) {
-                        return $model->eventType->event_type_text;
+                        return Html::img(
+                            '/img/event_type/' . $model->event_event_type_id . '.png',
+                            [
+                                'alt' => $model->eventType->event_type_text,
+                                'title' => $model->eventType->event_type_text,
+                            ]
+                        );
                     }
                 ],
                 [
