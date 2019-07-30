@@ -489,10 +489,17 @@ $user = Yii::$app->user->identity;
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center hidden-xs'],
+                    'format' => 'raw',
                     'header' => 'Тип',
                     'headerOptions' => ['class' => 'text-center hidden-xs'],
                     'value' => function (Event $model) {
-                        return $model->eventType->event_type_text;
+                        return Html::img(
+                            '/img/event_type/' . $model->event_event_type_id . '.png',
+                            [
+                                'alt' => $model->eventType->event_type_text,
+                                'title' => $model->eventType->event_type_text,
+                            ]
+                        );
                     }
                 ],
                 [
@@ -520,7 +527,7 @@ $user = Yii::$app->user->identity;
                         if ($model->playerAssist1) {
                             $result = $result . ' (' . $model->playerAssist1->playerLink();
                             if ($model->playerAssist2) {
-                                $result = $result . ', ' . $model->playerAssist2->playerLink();
+                                $result = $result . ' + ' . $model->playerAssist2->playerLink();
                             }
                             $result = $result . ')';
                         }
