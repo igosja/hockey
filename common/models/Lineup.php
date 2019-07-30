@@ -122,9 +122,9 @@ class Lineup extends AbstractActiveRecord
     {
         $result = '';
         if ($this->lineup_power_change > 0) {
-            $result = '<i class="fa fa-plus-square-o" title="+1 балл по результатам матча"></i>';
+            $result = '<i class="fa fa-plus-square-o font-green" title="+1 балл по результатам матча"></i>';
         } elseif ($this->lineup_power_change < 0) {
-            $result = '<i class="fa fa-minus-square-o" title="-1 балл по результатам матча"></i>';
+            $result = '<i class="fa fa-minus-square-o font-red" title="-1 балл по результатам матча"></i>';
         }
         return $result;
     }
