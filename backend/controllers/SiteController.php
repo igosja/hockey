@@ -67,27 +67,6 @@ class SiteController extends AbstractController
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->get('mail')) {
-            Yii::$app->mailer->setTransport([
-                'host' => 'virtual-hockey.org',
-                'username' => 'info@virtual-hockey.org',
-                'password' => 'rxttgRhOKztb1UI',
-                'port' => '587',
-                'encryption' => 'tls',
-            ]);
-
-            Yii::$app
-                ->mailer
-                ->compose(
-                    ['html' => 'signUp-html', 'text' => 'signUp-text'],
-                    ['model' => Yii::$app->user->identity]
-                )
-                ->setTo('igosja@ukr.net')
-                ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
-                ->setSubject('Регистрация на сайте Виртуальной Хоккейной Лиги')
-                ->send();
-        }
-
         $file = Yii::getAlias('@frontend') . '/web/chat.txt';
         try {
             $content = file_get_contents($file);
