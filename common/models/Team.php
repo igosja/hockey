@@ -809,6 +809,30 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function divisionShort()
+    {
+        if ($this->championship) {
+            $result = Html::a(
+                $this->championship->division->division_name . ' (' .
+                $this->championship->championship_place . ')',
+                [
+                    'championship/index',
+                    'countryId' => $this->championship->country->country_id,
+                    'divisionId' => $this->championship->division->division_id,
+                ]
+            );
+        } else {
+            $result = Html::a(
+                'Конф' . ' (' . $this->conference->conference_place . ')',
+                ['conference/table']
+            );
+        }
+        return $result;
+    }
+
+    /**
      * @return integer
      */
     public function baseMaintenance()

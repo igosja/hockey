@@ -3,14 +3,17 @@
 use common\components\ErrorHelper;
 use common\components\FormatHelper;
 use common\models\Team;
+use common\models\TeamAsk;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \common\models\Team $model
- * @var \common\models\TeamAsk[] $teamAskArray
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var Team $model
+ * @var TeamAsk[] $teamAskArray
+ * @var View $this
  */
 
 ?>
@@ -95,6 +98,17 @@ use yii\helpers\Html;
                 'label' => 'Страна',
                 'value' => function (Team $model) {
                     return $model->stadium->city->country->countryLink();
+                }
+            ],
+            [
+                'contentOptions' => ['class' => 'hidden-xs text-center'],
+                'footer' => 'Див',
+                'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Дивизион'],
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'hidden-xs', 'title' => 'Дивизион'],
+                'label' => 'Див',
+                'value' => function (Team $model) {
+                    return $model->divisionShort();
                 }
             ],
             [
