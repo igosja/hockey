@@ -58,6 +58,7 @@ class PlanningController extends AbstractController
             ->with(['stage', 'tournamentType'])
             ->where(['>', 'schedule_date', time()])
             ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
+            ->groupBy(['schedule_date'])
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
         $countSchedule = count($scheduleArray);
@@ -322,6 +323,7 @@ class PlanningController extends AbstractController
             $scheduleArray = Schedule::find()
                 ->where(['>=', 'schedule_id', $scheduleId])
                 ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
+                ->groupBy(['schedule_date'])
                 ->orderBy(['schedule_id' => SORT_ASC])
                 ->all();
 
