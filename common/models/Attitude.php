@@ -19,7 +19,7 @@ class Attitude extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%attitude}}';
     }
@@ -27,7 +27,7 @@ class Attitude extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['attitude_id', 'attitude_order'], 'integer'],

@@ -20,7 +20,7 @@ class DealReason extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%deal_reason}}';
     }
@@ -28,7 +28,7 @@ class DealReason extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['deal_reason_id'], 'integer'],

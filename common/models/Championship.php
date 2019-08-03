@@ -35,7 +35,7 @@ class Championship extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%championship}}';
     }
@@ -43,7 +43,7 @@ class Championship extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -131,24 +131,24 @@ class Championship extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'championship_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'championship_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getDivision()
+    public function getDivision(): ActiveQuery
     {
-        return $this->hasOne(Division::class, ['division_id' => 'championship_division_id']);
+        return $this->hasOne(Division::class, ['division_id' => 'championship_division_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'championship_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'championship_team_id'])->cache();
     }
 }

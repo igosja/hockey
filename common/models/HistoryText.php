@@ -58,7 +58,7 @@ class HistoryText extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%history_text}}';
     }
@@ -66,7 +66,7 @@ class HistoryText extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['history_text_id'], 'integer'],

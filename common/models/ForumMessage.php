@@ -3,8 +3,11 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 use yii\helpers\Html;
 
 /**
@@ -29,7 +32,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%forum_message}}';
     }
@@ -37,7 +40,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -62,7 +65,7 @@ class ForumMessage extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -80,10 +83,10 @@ class ForumMessage extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->complaint as $complaint) {
             $complaint->delete();
@@ -93,9 +96,9 @@ class ForumMessage extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
-    public function addMessage()
+    public function addMessage(): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -129,7 +132,7 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function links()
+    public function links(): string
     {
         /**
          * @var User $user
@@ -179,24 +182,24 @@ class ForumMessage extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getComplaint()
+    public function getComplaint(): ActiveQuery
     {
         return $this->hasMany(Complaint::class, ['complaint_forum_message_id' => 'forum_message_id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getForumTheme()
+    public function getForumTheme(): ActiveQuery
     {
         return $this->hasOne(ForumTheme::class, ['forum_theme_id' => 'forum_message_forum_theme_id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'forum_message_user_id'])->cache();
     }
 }

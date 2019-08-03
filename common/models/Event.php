@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -41,7 +42,7 @@ class Event extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%event}}';
     }
@@ -49,7 +50,7 @@ class Event extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -78,94 +79,93 @@ class Event extends AbstractActiveRecord
 
     /**
      * @param array $data
-     * @throws \Exception
+     * @return bool
+     * @throws Exception
      */
-    public static function log(array $data)
+    public static function log(array $data): bool
     {
         $event = new self();
         $event->setAttributes($data);
-        $event->save();
+        return $event->save();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getEventTextGoal()
+    public function getEventTextGoal(): ActiveQuery
     {
-        return $this->hasOne(EventTextGoal::class, ['event_text_goal_id' => 'event_event_text_goal_id']);
+        return $this->hasOne(EventTextGoal::class, ['event_text_goal_id' => 'event_event_text_goal_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getEventTextPenalty()
+    public function getEventTextPenalty(): ActiveQuery
     {
-        return $this->hasOne(EventTextPenalty::class,
-            ['event_text_penalty_id' => 'event_event_text_penalty_id']);
+        return $this->hasOne(EventTextPenalty::class, ['event_text_penalty_id' => 'event_event_text_penalty_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getEventTextShootout()
+    public function getEventTextShootout(): ActiveQuery
     {
-        return $this->hasOne(EventTextShootout::class,
-            ['event_text_shootout_id' => 'event_event_text_shootout_id']);
+        return $this->hasOne(EventTextShootout::class, ['event_text_shootout_id' => 'event_event_text_shootout_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getEventType()
+    public function getEventType(): ActiveQuery
     {
-        return $this->hasOne(EventType::class, ['event_type_id' => 'event_event_type_id']);
+        return $this->hasOne(EventType::class, ['event_type_id' => 'event_event_type_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
-        return $this->hasOne(National::class, ['national_id' => 'event_national_id']);
+        return $this->hasOne(National::class, ['national_id' => 'event_national_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayerAssist1()
+    public function getPlayerAssist1(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_1_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_1_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayerAssist2()
+    public function getPlayerAssist2(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_2_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_assist_2_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayerPenalty()
+    public function getPlayerPenalty(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_penalty_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_penalty_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayerScore()
+    public function getPlayerScore(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'event_player_score_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'event_player_score_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'event_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'event_team_id'])->cache();
     }
 }

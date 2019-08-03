@@ -24,7 +24,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_national_vice_application}}';
     }
@@ -32,7 +32,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -52,7 +52,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -67,7 +67,7 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'election_national_vice_application_text' => 'Программа',
@@ -77,18 +77,18 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalVice()
+    public function getElectionNationalVice(): ActiveQuery
     {
         return $this->hasOne(
             ElectionNationalVice::class,
             ['election_national_vice_id' => 'election_national_vice_application_election_id']
-        );
+        )->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getElectionNationalViceVote()
+    public function getElectionNationalViceVote(): ActiveQuery
     {
         return $this->hasMany(
             ElectionNationalViceVote::class,
@@ -99,8 +99,8 @@ class ElectionNationalViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'election_national_vice_application_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'election_national_vice_application_user_id'])->cache();
     }
 }

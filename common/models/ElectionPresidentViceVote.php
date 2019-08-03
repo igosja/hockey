@@ -16,7 +16,7 @@ class ElectionPresidentViceVote extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_president_vice_vote}}';
     }
@@ -24,7 +24,7 @@ class ElectionPresidentViceVote extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -43,7 +43,7 @@ class ElectionPresidentViceVote extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {

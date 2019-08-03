@@ -23,7 +23,7 @@ class BaseSchool extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%base_school}}';
     }
@@ -31,7 +31,7 @@ class BaseSchool extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

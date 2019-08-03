@@ -23,7 +23,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_national_vice}}';
     }
@@ -31,7 +31,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -51,7 +51,7 @@ class ElectionNationalVice extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -66,7 +66,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function applications()
+    public function applications(): array
     {
         $result = [];
         $total = 0;
@@ -91,7 +91,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication()
+    public function getApplication(): ActiveQuery
     {
         return $this->hasMany(
             ElectionNationalViceApplication::class,
@@ -102,7 +102,7 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionStatus()
+    public function getElectionStatus(): ActiveQuery
     {
         return $this->hasOne(ElectionStatus::class,
             ['election_status_id' => 'election_national_vice_election_status_id']);
@@ -111,11 +111,11 @@ class ElectionNationalVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
         return $this->hasOne(National::class, [
             'national_country_id' => 'election_national_vice_country_id',
             'national_national_type_id' => 'election_national_vice_national_type_id',
-        ]);
+        ])->cache();
     }
 }

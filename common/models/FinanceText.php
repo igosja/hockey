@@ -53,7 +53,7 @@ class FinanceText extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%finance_text}}';
     }
@@ -61,7 +61,7 @@ class FinanceText extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['finance_text_id'], 'integer'],

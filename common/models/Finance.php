@@ -39,26 +39,15 @@ class Finance extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%finance}}';
     }
 
     /**
-     * @param array $data
-     * @throws Exception
-     */
-    public static function log(array $data)
-    {
-        $finance = new self();
-        $finance->setAttributes($data);
-        $finance->save();
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -92,7 +81,7 @@ class Finance extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -107,9 +96,21 @@ class Finance extends AbstractActiveRecord
     }
 
     /**
+     * @param array $data
+     * @return bool
+     * @throws Exception
+     */
+    public static function log(array $data): bool
+    {
+        $finance = new self();
+        $finance->setAttributes($data);
+        return $finance->save();
+    }
+
+    /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         $text = $this->financeText->finance_text_text;
         if (false !== strpos($text, '{player}')) {
@@ -175,40 +176,40 @@ class Finance extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getFinanceText()
+    public function getFinanceText(): ActiveQuery
     {
-        return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id']);
+        return $this->hasOne(FinanceText::class, ['finance_text_id' => 'finance_finance_text_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getBuilding()
+    public function getBuilding(): ActiveQuery
     {
-        return $this->hasOne(Building::class, ['building_id' => 'finance_building_id']);
+        return $this->hasOne(Building::class, ['building_id' => 'finance_building_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'finance_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'finance_player_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'finance_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'finance_team_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'finance_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'finance_user_id'])->cache();
     }
 }
