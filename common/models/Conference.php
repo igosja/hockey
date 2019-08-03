@@ -33,7 +33,7 @@ class Conference extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%conference}}';
     }
@@ -41,7 +41,7 @@ class Conference extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -121,8 +121,8 @@ class Conference extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'conference_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'conference_team_id'])->cache();
     }
 }

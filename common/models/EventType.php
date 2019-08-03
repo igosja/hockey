@@ -18,7 +18,7 @@ class EventType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%event_type}}';
     }
@@ -26,7 +26,7 @@ class EventType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['event_type_id'], 'integer'],

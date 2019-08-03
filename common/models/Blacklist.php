@@ -15,7 +15,7 @@ class Blacklist extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%blacklist}}';
     }
@@ -23,7 +23,7 @@ class Blacklist extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

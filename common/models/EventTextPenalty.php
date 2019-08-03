@@ -14,31 +14,31 @@ class EventTextPenalty extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%event_text_penalty}}';
     }
 
     /**
-     * @return false|null|string
+     * @return array
      */
-    public static function getRandTextId()
+    public function rules(): array
+    {
+        return [
+            [['event_text_penalty_id'], 'integer'],
+            [['event_text_penalty_text'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public static function getRandTextId(): string
     {
         return self::find()
             ->select(['event_text_penalty_id'])
             ->orderBy('RAND()')
             ->limit(1)
             ->scalar();
-    }
-
-    /**
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            [['event_text_penalty_id'], 'integer'],
-            [['event_text_penalty_text'], 'string', 'max' => 255],
-        ];
     }
 }

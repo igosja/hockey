@@ -18,7 +18,7 @@ class FriendlyInviteStatus extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%friendly_invite_status}}';
     }
@@ -26,7 +26,7 @@ class FriendlyInviteStatus extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['friendly_invite_status_id'], 'integer'],

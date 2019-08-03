@@ -22,7 +22,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_president_vice}}';
     }
@@ -30,7 +30,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -49,7 +49,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -64,7 +64,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function applications()
+    public function applications(): array
     {
         $result = [];
         $total = 0;
@@ -89,7 +89,7 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getApplication()
+    public function getApplication(): ActiveQuery
     {
         return $this->hasMany(
             ElectionPresidentViceApplication::class,
@@ -100,17 +100,16 @@ class ElectionPresidentVice extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'election_president_vice_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'election_president_vice_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getElectionStatus()
+    public function getElectionStatus(): ActiveQuery
     {
-        return $this->hasOne(ElectionStatus::class,
-            ['election_status_id' => 'election_president_vice_election_status_id']);
+        return $this->hasOne(ElectionStatus::class, ['election_status_id' => 'election_president_vice_election_status_id']);
     }
 }

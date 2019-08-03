@@ -19,7 +19,7 @@ class ElectionNationalPlayer extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_national_player}}';
     }
@@ -27,7 +27,7 @@ class ElectionNationalPlayer extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -44,8 +44,8 @@ class ElectionNationalPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'election_national_player_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'election_national_player_player_id'])->cache();
     }
 }

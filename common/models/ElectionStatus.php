@@ -18,7 +18,7 @@ class ElectionStatus extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%election_status}}';
     }
@@ -26,7 +26,7 @@ class ElectionStatus extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['election_status_id'], 'integer'],
