@@ -627,7 +627,10 @@ class TeamController extends AbstractController
                     },
                     'teamAsk' => function (ActiveQuery $query) {
                         return $query->select(['team_ask_team_id']);
-                    }
+                    },
+                    'championship.country',
+                    'championship.division',
+                    'conference',
                 ])
                 ->select([
                     'team_id',
@@ -849,7 +852,10 @@ class TeamController extends AbstractController
                     },
                     'teamAsk' => function (ActiveQuery $query) {
                         return $query->select(['team_ask_team_id']);
-                    }
+                    },
+                    'championship.country',
+                    'championship.division',
+                    'conference',
                 ])
                 ->select([
                     'team_id',

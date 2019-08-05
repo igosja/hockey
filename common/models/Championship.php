@@ -103,6 +103,7 @@ class Championship extends AbstractActiveRecord
             ])
             ->andWhere(['game_schedule_id' => $scheduleIdArray])
             ->andWhere(['!=', 'game_played', 0])
+            ->orderBy(['game_schedule_id' => SORT_DESC])
             ->limit($limit)
             ->all();
         foreach ($gameArray as $game) {
