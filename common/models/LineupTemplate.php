@@ -51,7 +51,7 @@ class LineupTemplate extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%lineup_template}}';
     }
@@ -59,7 +59,7 @@ class LineupTemplate extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
