@@ -20,7 +20,7 @@ class LineupSpecial extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%lineup_special}}';
     }
@@ -28,7 +28,7 @@ class LineupSpecial extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -47,8 +47,8 @@ class LineupSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'lineup_special_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'lineup_special_special_id'])->cache();
     }
 }
