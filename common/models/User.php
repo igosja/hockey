@@ -430,17 +430,17 @@ class User extends AbstractActiveRecord implements IdentityInterface
         $result = [100 => ''];
         foreach ($this->team as $team) {
             if (1 == $team->ratingTeam->rating_team_power_vs_place) {
-                $result[500] = 'Лучшая команда Лиги';
+                $result[500] = 'Вы управляете лучшей командой Лиги';
             } elseif ($team->ratingTeam->rating_team_power_vs_place <= 3) {
-                $result[400] = 'В тройке лучших команд Лиги';
+                $result[400] = 'Вы управляете командой из тройки лучших в Лиге';
             } elseif ($team->ratingTeam->rating_team_power_vs_place <= 5) {
-                $result[300] = 'В пятерке лучших команд Лиги';
+                $result[300] = 'Вы управляете командой из пятерки лучших в Лиге';
             } elseif ($team->ratingTeam->rating_team_power_vs_place <= 10) {
-                $result[200] = 'В десятке лучших команд Лиги';
+                $result[200] = 'Вы управляете командой из десятки лучших в Лиге';
             } elseif ($team->ratingTeam->rating_team_power_vs_place <= 20) {
-                $result[150] = 'В двадцатке лучших команд Лиги';
+                $result[150] = 'Вы управляете командой из двадцатки лучших в Лиге';
             } elseif ($team->ratingTeam->rating_team_power_vs_place <= 30) {
-                $result[125] = 'В тридцатке лучших команд Лиги';
+                $result[125] = 'Вы управляете командой из тридцатки лучших в Лиге';
             }
         }
         krsort($result);
