@@ -27,7 +27,7 @@ class Training extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName():string
     {
         return '{{%training}}';
     }
@@ -35,7 +35,7 @@ class Training extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules():array
     {
         return [
             [
@@ -59,24 +59,24 @@ class Training extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'training_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'training_player_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'training_position_id']);
+        return $this->hasOne(Position::class, ['position_id' => 'training_position_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'training_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'training_special_id'])->cache();
     }
 }
