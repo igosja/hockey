@@ -15,7 +15,7 @@ class PreNews extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%pre_news}}';
     }
@@ -23,7 +23,7 @@ class PreNews extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['pre_news_id'], 'integer'],
@@ -31,7 +31,10 @@ class PreNews extends AbstractActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'pre_news_new' => 'Новое на сайте',

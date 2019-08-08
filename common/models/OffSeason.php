@@ -33,7 +33,7 @@ class OffSeason extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%off_season}}';
     }
@@ -41,7 +41,7 @@ class OffSeason extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -120,8 +120,8 @@ class OffSeason extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'off_season_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'off_season_team_id'])->cache();
     }
 }

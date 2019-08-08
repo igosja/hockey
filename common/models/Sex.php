@@ -16,7 +16,7 @@ class Sex extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%sex}}';
     }
@@ -24,7 +24,7 @@ class Sex extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['sex_id'], 'integer'],
@@ -37,7 +37,7 @@ class Sex extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function selectOptions()
+    public static function selectOptions(): array
     {
         return ArrayHelper::map(self::find()->all(), 'sex_id', 'sex_name');
     }

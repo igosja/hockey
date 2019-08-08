@@ -27,7 +27,7 @@ class ParticipantLeague extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%participant_league}}';
     }
@@ -35,7 +35,7 @@ class ParticipantLeague extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -58,7 +58,7 @@ class ParticipantLeague extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLeagueCoefficient()
+    public function getLeagueCoefficient(): ActiveQuery
     {
         return $this->hasOne(LeagueCoefficient::class, [
             'league_coefficient_team_id' => 'participant_league_team_id',
@@ -69,16 +69,16 @@ class ParticipantLeague extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStage()
+    public function getStage(): ActiveQuery
     {
-        return $this->hasOne(Stage::class, ['stage_id' => 'participant_league_stage_in']);
+        return $this->hasOne(Stage::class, ['stage_id' => 'participant_league_stage_in'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'participant_league_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'participant_league_team_id'])->cache();
     }
 }

@@ -27,7 +27,7 @@ class Training extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName():string
+    public static function tableName(): string
     {
         return '{{%training}}';
     }
@@ -35,7 +35,7 @@ class Training extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules():array
+    public function rules(): array
     {
         return [
             [

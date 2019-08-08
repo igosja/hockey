@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -23,26 +24,29 @@ class Money extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%money}}';
     }
 
     /**
      * @param array $data
-     * @throws \Exception
+     * @return bool
+     * @throws Exception
      */
-    public static function log(array $data)
+    public static function log(array $data): bool
     {
         $money = new self();
         $money->setAttributes($data);
         $money->save();
+
+        return true;
     }
 
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['money_id', 'money_money_text_id', 'money_date', 'money_user_id'], 'integer'],
@@ -55,7 +59,7 @@ class Money extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -69,8 +73,8 @@ class Money extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getMoneyText()
+    public function getMoneyText(): ActiveQuery
     {
-        return $this->hasOne(MoneyText::class, ['money_text_id' => 'money_money_text_id']);
+        return $this->hasOne(MoneyText::class, ['money_text_id' => 'money_money_text_id'])->cache();
     }
 }

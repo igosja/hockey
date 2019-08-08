@@ -26,7 +26,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%stadium}}';
     }
@@ -34,7 +34,7 @@ class Stadium extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['stadium_id', 'stadium_capacity', 'stadium_city_id', 'stadium_date', 'stadium_maintenance'], 'integer'],
@@ -48,7 +48,7 @@ class Stadium extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -61,6 +61,9 @@ class Stadium extends AbstractActiveRecord
         return false;
     }
 
+    /**
+     * @return void
+     */
     public function countMaintenance()
     {
         $this->stadium_maintenance = round(pow($this->stadium_capacity / 35, 2));

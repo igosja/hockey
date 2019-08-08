@@ -58,7 +58,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%statistic_type}}';
     }
@@ -66,7 +66,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['statistic_type_id', 'statistic_type_statistic_chapter_id', 'statistic_type_sort'], 'integer'],
@@ -87,7 +87,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isTeamChapter()
+    public function isTeamChapter(): bool
     {
         return in_array($this->statistic_type_id, [
             StatisticType::TEAM_NO_PASS,
@@ -109,7 +109,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isGkType()
+    public function isGkType(): bool
     {
         return in_array($this->statistic_type_id, [
             StatisticType::PLAYER_PASS,

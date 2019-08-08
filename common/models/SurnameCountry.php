@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
 use yii\db\Expression;
 
 /**
@@ -18,7 +19,7 @@ class SurnameCountry extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%surname_country}}';
     }
@@ -26,7 +27,7 @@ class SurnameCountry extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['surname_country_country_id', 'surname_country_surname_id'], 'integer'],
@@ -39,7 +40,7 @@ class SurnameCountry extends AbstractActiveRecord
      * @param string $andWhere
      * @return false|null|string
      */
-    public static function getRandSurnameId($countryId, $andWhere = '1=1')
+    public static function getRandSurnameId(int $countryId, $andWhere = '1=1')
     {
         return self::find()
             ->joinWith(['surname'])
@@ -57,7 +58,7 @@ class SurnameCountry extends AbstractActiveRecord
      * @param int $length
      * @return int
      */
-    public static function getRandFreeSurnameId($teamId, $countryId, $length = 1)
+    public static function getRandFreeSurnameId(int $teamId, int $countryId, int $length = 1): int
     {
         $teamSurnameArray = Surname::find()
             ->joinWith(['player'])
@@ -84,10 +85,10 @@ class SurnameCountry extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getSurname()
+    public function getSurname(): ActiveQuery
     {
-        return $this->hasOne(Surname::class, ['surname_id' => 'surname_country_surname_id']);
+        return $this->hasOne(Surname::class, ['surname_id' => 'surname_country_surname_id'])->cache();
     }
 }
