@@ -18,7 +18,7 @@ class Surname extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%surname}}';
     }
@@ -26,7 +26,7 @@ class Surname extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['surname_id'], 'integer'],
@@ -39,7 +39,7 @@ class Surname extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
         return $this->hasMany(Player::class, ['player_surname_id' => 'surname_id']);
     }

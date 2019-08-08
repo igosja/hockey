@@ -16,7 +16,7 @@ class NationalUserDay extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%national_user_day}}';
     }
@@ -24,7 +24,7 @@ class NationalUserDay extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

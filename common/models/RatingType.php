@@ -32,7 +32,7 @@ class RatingType extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%rating_type}}';
     }
@@ -40,7 +40,7 @@ class RatingType extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['rating_type_id', 'rating_type_rating_chapter_id'], 'integer'],

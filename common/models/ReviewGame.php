@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class ReviewGame
  * @package common\models
@@ -18,7 +20,7 @@ class ReviewGame extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%review_game}}';
     }
@@ -26,7 +28,7 @@ class ReviewGame extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -42,10 +44,10 @@ class ReviewGame extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getGame()
+    public function getGame(): ActiveQuery
     {
-        return $this->hasOne(Game::class, ['game_id' => 'review_game_game_id']);
+        return $this->hasOne(Game::class, ['game_id' => 'review_game_game_id'])->cache();
     }
 }

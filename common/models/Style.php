@@ -19,7 +19,7 @@ class Style extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%style}}';
     }
@@ -27,7 +27,7 @@ class Style extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['style_id'], 'integer'],
@@ -38,10 +38,10 @@ class Style extends AbstractActiveRecord
     }
 
     /**
-     * @param null $notIn
+     * @param array|null $notIn
      * @return false|string|null
      */
-    public static function getRandStyleId($notIn = null)
+    public static function getRandStyleId(array $notIn = null)
     {
         return self::find()
             ->select(['style_id'])

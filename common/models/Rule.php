@@ -21,7 +21,7 @@ class Rule extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%rule}}';
     }
@@ -29,7 +29,7 @@ class Rule extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['rule_id', 'rule_date', 'rule_order'], 'integer'],
@@ -43,7 +43,7 @@ class Rule extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -63,7 +63,7 @@ class Rule extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'rule_id' => 'Id',
@@ -74,9 +74,9 @@ class Rule extends AbstractActiveRecord
     }
 
     /**
-     * @return mixed|string
+     * @return string
      */
-    public function formatSearchText()
+    public function formatSearchText(): string
     {
         $text = strip_tags($this->rule_text);
         $startPosition = mb_stripos($text, Yii::$app->request->get('q')) - self::SEARCH_SYMBOLS;

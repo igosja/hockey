@@ -34,7 +34,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%payment}}';
     }
@@ -42,7 +42,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['payment_status'], 'in', 'range' => [self::NOT_PAID, self::PAID]],
@@ -53,7 +53,10 @@ class Payment extends AbstractActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'payment_sum' => 'Сумма',
@@ -64,7 +67,7 @@ class Payment extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -81,7 +84,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function getPaymentHighChartsData()
+    public static function getPaymentHighChartsData(): array
     {
         $expression = new Expression('FROM_UNIXTIME(`payment_date`, \'%b-%Y\')');
         $payment = (new Query())
@@ -120,7 +123,7 @@ class Payment extends AbstractActiveRecord
      * @param string $dateEnd
      * @return array
      */
-    public static function getDateArrayByMonth($dateStart, $dateEnd)
+    public static function getDateArrayByMonth(string $dateStart, string $dateEnd): array
     {
         $dateArray = [];
 
@@ -135,7 +138,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function paymentUrl()
+    public function paymentUrl(): string
     {
         $merchantId = self::MERCHANT_ID;
         $secretKey = self::MERCHANT_SECRET_KEY;
@@ -156,7 +159,7 @@ class Payment extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function pay()
+    public function pay(): bool
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -205,13 +208,13 @@ class Payment extends AbstractActiveRecord
                 $this->user->referrer->user_money = $this->user->referrer->user_money + $sum;
                 $this->user->referrer->save(true, ['user_money']);
             }
+
+            $transaction->commit();
         } catch (Exception $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
             return false;
         }
-
-        $transaction->commit();
         return true;
     }
 
@@ -219,7 +222,7 @@ class Payment extends AbstractActiveRecord
      * @param int $userId
      * @return int
      */
-    private function paymentBonus($userId)
+    private function paymentBonus(int $userId): int
     {
         $paymentSum = Payment::find()
             ->where(['payment_user_id' => $userId, 'payment_status' => Payment::PAID])
@@ -242,7 +245,7 @@ class Payment extends AbstractActiveRecord
     /**
      * @return array
      */
-    private function getBonusArray()
+    private function getBonusArray(): array
     {
         return [0 => 0, 10 => 2, 25 => 4, 50 => 6, 75 => 8, 100 => 10, 200 => 15, 300 => 20, 500 => 25];
     }
@@ -250,8 +253,8 @@ class Payment extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'payment_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'payment_user_id'])->cache();
     }
 }
