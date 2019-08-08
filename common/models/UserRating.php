@@ -40,7 +40,7 @@ class UserRating extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user_rating}}';
     }
@@ -48,7 +48,7 @@ class UserRating extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

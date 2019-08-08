@@ -20,7 +20,7 @@ class UserRole extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user_role}}';
     }
@@ -28,7 +28,7 @@ class UserRole extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_role_id'], 'integer'],

@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class Swiss
  * @package common\models
@@ -21,7 +23,7 @@ class Swiss extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%swiss}}';
     }
@@ -29,7 +31,7 @@ class Swiss extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['swiss_id', 'swiss_guest', 'swiss_home', 'swiss_place', 'swiss_team_id'], 'integer'],
@@ -39,8 +41,8 @@ class Swiss extends AbstractActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'swiss_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'swiss_team_id'])->cache();
     }
 }

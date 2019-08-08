@@ -15,7 +15,7 @@ class TeamVisitor extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%team_visitor}}';
     }
@@ -23,7 +23,7 @@ class TeamVisitor extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['team_visitor_id', 'team_visitor_team_id'], 'integer'],

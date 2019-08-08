@@ -74,7 +74,7 @@ class TeamAsk extends AbstractActiveRecord
      */
     public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'team_ask_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'team_ask_team_id'])->cache();
     }
 
     /**
@@ -82,6 +82,6 @@ class TeamAsk extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'team_ask_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'team_ask_user_id'])->cache();
     }
 }

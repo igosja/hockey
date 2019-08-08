@@ -20,7 +20,7 @@ class TransferSpecial extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%transfer_special}}';
     }
@@ -28,7 +28,7 @@ class TransferSpecial extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -47,8 +47,8 @@ class TransferSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'transfer_special_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'transfer_special_special_id'])->cache();
     }
 }
