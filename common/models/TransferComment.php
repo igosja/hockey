@@ -24,7 +24,7 @@ class TransferComment extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%transfer_comment}}';
     }
@@ -32,7 +32,7 @@ class TransferComment extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -55,7 +55,7 @@ class TransferComment extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -71,8 +71,8 @@ class TransferComment extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'transfer_comment_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'transfer_comment_user_id'])->cache();
     }
 }

@@ -20,7 +20,7 @@ class Tactic extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%tactic}}';
     }
@@ -28,7 +28,7 @@ class Tactic extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['tactic_id'], 'integer'],

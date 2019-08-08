@@ -87,7 +87,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%team}}';
     }
@@ -95,7 +95,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -149,21 +149,21 @@ class Team extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->team_attitude_national = 2;
-                $this->team_attitude_president = 2;
-                $this->team_attitude_u19 = 2;
-                $this->team_attitude_u21 = 2;
+                $this->team_attitude_national = Attitude::NEUTRAL;
+                $this->team_attitude_president = Attitude::NEUTRAL;
+                $this->team_attitude_u19 = Attitude::NEUTRAL;
+                $this->team_attitude_u21 = Attitude::NEUTRAL;
                 $this->team_base_id = 2;
                 $this->team_base_medical_id = 1;
                 $this->team_base_physical_id = 1;
                 $this->team_base_school_id = 1;
                 $this->team_base_scout_id = 1;
                 $this->team_base_training_id = 1;
-                $this->team_finance = 10000000;
+                $this->team_finance = Team::START_MONEY;
                 $this->team_free_base = 5;
                 $this->team_mood_rest = 3;
                 $this->team_mood_super = 3;
@@ -177,9 +177,10 @@ class Team extends AbstractActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @return bool|void
      * @throws Exception
      */
-    public function afterSave($insert, $changedAttributes)
+    public function afterSave($insert, $changedAttributes): bool
     {
         parent::afterSave($insert, $changedAttributes);
 
@@ -199,13 +200,15 @@ class Team extends AbstractActiveRecord
             $this->createLeaguePlayers();
             $this->updatePower();
         }
+
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      * @throws Exception
      */
-    private function createPlayers()
+    private function createPlayers(): bool
     {
         $position = [
             Position::GK,
@@ -258,13 +261,15 @@ class Team extends AbstractActiveRecord
             $player->player_team_id = $this->team_id;
             $player->save();
         }
+
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      * @throws Exception
      */
-    private function createLeaguePlayers()
+    private function createLeaguePlayers(): bool
     {
         $position = [
             Position::GK,
@@ -306,13 +311,15 @@ class Team extends AbstractActiveRecord
             $player->player_team_id = 0;
             $player->save();
         }
+
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      * @throws Exception
      */
-    public function updatePower()
+    public function updatePower(): bool
     {
         $player1 = Player::find()
             ->select(['player_id'])
@@ -380,14 +387,16 @@ class Team extends AbstractActiveRecord
             'team_power_v',
             'team_power_vs',
         ]);
+
+        return true;
     }
 
     /**
-     * @param $user_id
-     * @return void
+     * @param int $user_id
+     * @return bool
      * @throws Exception
      */
-    public function managerEmploy($user_id)
+    public function managerEmploy(int $user_id):bool
     {
         $this->team_user_id = $user_id;
         $this->save();
@@ -422,13 +431,15 @@ class Team extends AbstractActiveRecord
             ->setFrom([Yii::$app->params['noReplyEmail'] => Yii::$app->params['noReplyName']])
             ->setSubject('Получение команды на сайте Виртуальной Хоккейной Лиги')
             ->send();
+
+        return true;
     }
 
     /**
+     * @return bool
      * @throws \yii\db\Exception
-     * @retur void
      */
-    public function managerFire()
+    public function managerFire(): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -509,19 +520,21 @@ class Team extends AbstractActiveRecord
                     'history_user_id' => $viceId,
                 ]);
             }
+
+            $transaction->commit();
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
         }
 
-        $transaction->commit();
+        return true;
     }
 
     /**
+     * @return bool
      * @throws \yii\db\Exception
-     * @retur void
      */
-    public function viceFire()
+    public function viceFire(): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -537,19 +550,21 @@ class Team extends AbstractActiveRecord
                 'history_team_id' => $this->team_id,
                 'history_user_id' => $viceId,
             ]);
+
+            $transaction->commit();
         } catch (Throwable $e) {
             ErrorHelper::log($e);
             $transaction->rollBack();
         }
 
-        $transaction->commit();
+        return true;
     }
 
     /**
      * @return array
      * @throws \yii\db\Exception
      */
-    public function reRegister()
+    public function reRegister(): array
     {
         if ($this->base->base_level >= 5) {
             return [
@@ -739,7 +754,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function logo()
+    public function logo():string
     {
         $result = 'Добавить<br/>эмблему';
         if (file_exists(Yii::getAlias('@webroot') . '/img/team/125/' . $this->team_id . '.png')) {
@@ -758,7 +773,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconFreeTeam()
+    public function iconFreeTeam():string
     {
         $result = '';
         if (!$this->team_user_id) {
@@ -770,7 +785,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function offSeason()
+    public function offSeason():string
     {
         $result = '-';
         if ($this->offSeason) {
@@ -785,7 +800,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function division()
+    public function division():string
     {
         if ($this->championship) {
             $result = Html::a(
@@ -833,17 +848,17 @@ class Team extends AbstractActiveRecord
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function baseMaintenance()
+    public function baseMaintenance():int
     {
         return $this->base->base_maintenance_base + $this->base->base_maintenance_slot * $this->baseUsed();
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function baseUsed()
+    public function baseUsed():int
     {
         return $this->baseMedical->base_medical_level
             + $this->basePhysical->base_physical_level
@@ -855,7 +870,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function fullName()
+    public function fullName():string
     {
         return $this->team_name
             . ' (' . $this->stadium->city->city_name
@@ -868,7 +883,7 @@ class Team extends AbstractActiveRecord
      * @param bool $short
      * @return string
      */
-    public function teamLink($type = 'string', $short = false)
+    public function teamLink(string $type = 'string', bool $short = false):string
     {
         if ('img' == $type) {
             return $this->stadium->city->country->countryImage()
@@ -906,7 +921,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availablePhysical()
+    public function availablePhysical():int
     {
         return $this->basePhysical->base_physical_change_count - $this->usedPhysical();
     }
@@ -914,7 +929,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableSchool()
+    public function availableSchool():int
     {
         return $this->baseSchool->base_school_player_count - $this->usedSchool();
     }
@@ -922,7 +937,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableSchoolWithSpecial()
+    public function availableSchoolWithSpecial():int
     {
         return $this->baseSchool->base_school_with_special - $this->usedSchoolWithSpecial();
     }
@@ -930,7 +945,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableSchoolWithStyle()
+    public function availableSchoolWithStyle():int
     {
         return $this->baseSchool->base_school_with_style - $this->usedSchoolWithStyle();
     }
@@ -938,7 +953,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableScout()
+    public function availableScout():int
     {
         return $this->baseScout->base_scout_my_style_count - $this->usedScout();
     }
@@ -946,7 +961,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableTrainingPower()
+    public function availableTrainingPower():int
     {
         $result = $this->baseTraining->base_training_power_count - $this->usedTrainingPower();
         if ($result < 0) {
@@ -958,7 +973,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableTrainingSpecial()
+    public function availableTrainingSpecial():int
     {
         $result = $this->baseTraining->base_training_special_count - $this->usedTrainingSpecial();
         if ($result < 0) {
@@ -970,7 +985,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function availableTrainingPosition()
+    public function availableTrainingPosition():int
     {
         $result = $this->baseTraining->base_training_position_count - $this->usedTrainingPosition();
         if ($result < 0) {
@@ -982,7 +997,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isSchool()
+    public function isSchool():bool
     {
         $onSchool = School::find()
             ->where(['school_team_id' => $this->team_id, 'school_ready' => 0])
@@ -993,7 +1008,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isScout()
+    public function isScout():bool
     {
         $onScout = Scout::find()
             ->where(['scout_team_id' => $this->team_id, 'scout_ready' => 0])
@@ -1004,7 +1019,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isTraining()
+    public function isTraining():bool
     {
         $onScout = Training::find()
             ->where(['training_team_id' => $this->team_id, 'training_ready' => 0])
@@ -1015,7 +1030,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedTrainingPower()
+    public function usedTrainingPower():int
     {
         return Training::find()
             ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
@@ -1026,7 +1041,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedTrainingSpecial()
+    public function usedTrainingSpecial():int
     {
         return Training::find()
             ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
@@ -1037,7 +1052,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedTrainingPosition()
+    public function usedTrainingPosition():int
     {
         return Training::find()
             ->where(['training_team_id' => $this->team_id, 'training_season_id' => Season::getCurrentSeason()])
@@ -1048,7 +1063,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedSchool()
+    public function usedSchool():int
     {
         return School::find()
             ->where(['school_team_id' => $this->team_id, 'school_season_id' => Season::getCurrentSeason()])
@@ -1058,7 +1073,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedSchoolWithSpecial()
+    public function usedSchoolWithSpecial():int
     {
         return School::find()
             ->where([
@@ -1072,7 +1087,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedSchoolWithStyle()
+    public function usedSchoolWithStyle():int
     {
         return School::find()
             ->where([
@@ -1100,7 +1115,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function usedPhysical()
+    public function usedPhysical():int
     {
         return PhysicalChange::find()
             ->where([
@@ -1113,7 +1128,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function planPhysical()
+    public function planPhysical():int
     {
         return PhysicalChange::find()
             ->where([
@@ -1136,7 +1151,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myTeam()
+    public function myTeam():bool
     {
         /**
          * @var AbstractController $controller
@@ -1157,7 +1172,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myTeamOrVice()
+    public function myTeamOrVice():bool
     {
         /**
          * @var AbstractController $controller
@@ -1178,7 +1193,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return Game[]
      */
-    public function latestGame()
+    public function latestGame():array
     {
         return array_reverse(Game::find()
             ->joinWith(['schedule'])
@@ -1192,7 +1207,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return Game[]
      */
-    public function nearestGame()
+    public function nearestGame():array
     {
         return Game::find()
             ->joinWith(['schedule'])
@@ -1206,7 +1221,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ForumMessage[]
      */
-    public function forumLastArray()
+    public function forumLastArray():array
     {
         return ForumMessage::find()
             ->select([
@@ -1242,7 +1257,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function rosterPhrase()
+    public function rosterPhrase():string
     {
         return RosterPhrase::rand();
     }
@@ -1250,7 +1265,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAttitudeNational()
+    public function getAttitudeNational():ActiveQuery
     {
         return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_national']);
     }
@@ -1258,7 +1273,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAttitudePresident()
+    public function getAttitudePresident():ActiveQuery
     {
         return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_president']);
     }
@@ -1266,7 +1281,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAttitudeU19()
+    public function getAttitudeU19():ActiveQuery
     {
         return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_u19']);
     }
@@ -1274,7 +1289,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAttitudeU21()
+    public function getAttitudeU21():ActiveQuery
     {
         return $this->hasOne(Attitude::class, ['attitude_id' => 'team_attitude_u21']);
     }
@@ -1282,7 +1297,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBase()
+    public function getBase():ActiveQuery
     {
         return $this->hasOne(Base::class, ['base_id' => 'team_base_id']);
     }
@@ -1290,7 +1305,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBaseMedical()
+    public function getBaseMedical():ActiveQuery
     {
         return $this->hasOne(BaseMedical::class, ['base_medical_id' => 'team_base_medical_id']);
     }
@@ -1298,7 +1313,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBasePhysical()
+    public function getBasePhysical():ActiveQuery
     {
         return $this->hasOne(BasePhysical::class, ['base_physical_id' => 'team_base_physical_id']);
     }
@@ -1306,7 +1321,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBaseSchool()
+    public function getBaseSchool():ActiveQuery
     {
         return $this->hasOne(BaseSchool::class, ['base_school_id' => 'team_base_school_id']);
     }
@@ -1314,7 +1329,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBaseScout()
+    public function getBaseScout():ActiveQuery
     {
         return $this->hasOne(BaseScout::class, ['base_scout_id' => 'team_base_scout_id']);
     }
@@ -1322,7 +1337,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBaseTraining()
+    public function getBaseTraining():ActiveQuery
     {
         return $this->hasOne(BaseTraining::class, ['base_training_id' => 'team_base_training_id']);
     }
@@ -1330,7 +1345,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuildingBase()
+    public function getBuildingBase():ActiveQuery
     {
         return $this
             ->hasOne(BuildingBase::class, ['building_base_team_id' => 'team_id'])
@@ -1340,7 +1355,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuildingStadium()
+    public function getBuildingStadium():ActiveQuery
     {
         return $this
             ->hasOne(BuildingStadium::class, ['building_stadium_team_id' => 'team_id'])
@@ -1350,27 +1365,29 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getChampionship()
+    public function getChampionship():ActiveQuery
     {
         return $this
             ->hasOne(Championship::class, ['championship_team_id' => 'team_id'])
-            ->andWhere(['championship_season_id' => Season::getCurrentSeason()]);
+            ->andWhere(['championship_season_id' => Season::getCurrentSeason()])
+            ->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getConference()
+    public function getConference():ActiveQuery
     {
         return $this
             ->hasOne(Conference::class, ['conference_team_id' => 'team_id'])
-            ->andWhere(['conference_season_id' => Season::getCurrentSeason()]);
+            ->andWhere(['conference_season_id' => Season::getCurrentSeason()])
+            ->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getFriendlyStatus()
+    public function getFriendlyStatus():ActiveQuery
     {
         return $this->hasOne(FriendlyStatus::class, ['friendly_status_id' => 'team_friendly_status_id']);
     }
@@ -1378,7 +1395,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getManager()
+    public function getManager():ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'team_user_id']);
     }
@@ -1386,17 +1403,18 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getOffSeason()
+    public function getOffSeason():ActiveQuery
     {
         return $this
             ->hasOne(OffSeason::class, ['off_season_team_id' => 'team_id'])
-            ->andWhere(['off_season_season_id' => Season::getCurrentSeason()]);
+            ->andWhere(['off_season_season_id' => Season::getCurrentSeason()])
+            ->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getRatingTeam()
+    public function getRatingTeam():ActiveQuery
     {
         return $this->hasOne(RatingTeam::class, ['rating_team_team_id' => 'team_id']);
     }
@@ -1404,7 +1422,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRecommendation()
+    public function getRecommendation():ActiveQuery
     {
         return $this->hasOne(Recommendation::class, ['recommendation_team_id' => 'team_id']);
     }
@@ -1412,7 +1430,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStadium()
+    public function getStadium():ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'team_stadium_id']);
     }
@@ -1420,7 +1438,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeamAsk()
+    public function getTeamAsk():ActiveQuery
     {
         return $this->hasMany(TeamAsk::class, ['team_ask_team_id' => 'team_id']);
     }
@@ -1428,7 +1446,7 @@ class Team extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getVice()
+    public function getVice():ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'team_vice_id']);
     }
