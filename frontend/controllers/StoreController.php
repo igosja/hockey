@@ -29,7 +29,7 @@ class StoreController extends AbstractController
     /**
      * @return array
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
@@ -51,7 +51,7 @@ class StoreController extends AbstractController
      * @return bool
      * @throws Exception
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         if (in_array($action->id, ['success', 'error', 'result'])) {
             $this->enableCsrfValidation = false;
@@ -63,7 +63,7 @@ class StoreController extends AbstractController
     /**
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $bonusText = HockeyHelper::getStoreDiscountText();
 

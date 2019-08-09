@@ -95,9 +95,9 @@ class ElectionNationalApplication extends AbstractActiveRecord
     }
 
     /**
-     * @param array $attribute
+     * @param string $attribute
      */
-    public function checkPlayer(array $attribute)
+    public function checkPlayer(string $attribute)
     {
         if (count($this->$attribute) != 6) {
             $this->addError('election_national_application_text', 'Игроки выбраны неправильно');
