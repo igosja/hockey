@@ -149,29 +149,51 @@ class ForumMessage extends AbstractActiveRecord
         ];
 
         if (($user->user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
-            $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-pencil" aria-hidden="true"></i>',
+                ['forum/message-update', 'id' => $this->forum_message_id],
+                ['title' => 'Редактировать']
+            );
         }
 
         if ($user->user_id == $this->forum_message_user_id || !$isUser) {
-            $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+                ['forum/message-delete', 'id' => $this->forum_message_id],
+                ['title' => 'Удалить']
+            );
         }
 
         if (!$this->complaint) {
-            $linkArray[] = Html::a('Пожаловаться', ['forum/message-complaint', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
+                ['forum/message-complaint', 'id' => $this->forum_message_id],
+                ['title' => 'Пожаловаться']
+            );
         }
 
         if (!$isUser) {
-            $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>',
+                ['forum/message-move', 'id' => $this->forum_message_id],
+                ['title' => 'Переместить']
+            );
 
             if (!$this->forum_message_blocked) {
                 $text = 'Блокировать';
+                $icon = 'lock';
             } else {
                 $text = 'Разблокировать';
+                $icon = 'unlock';
             }
-            $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-' . $icon . '" aria-hidden="true"></i>',
+                ['forum/message-block', 'id' => $this->forum_message_id],
+                ['title' => $text]
+            );
         }
 
-        $result = implode(' | ', $linkArray);
+        $result = implode(' ', $linkArray);
 
         return $result;
     }

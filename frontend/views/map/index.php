@@ -286,6 +286,10 @@
                 position: new google.maps.LatLng(59.429195, 24.755725), //Таллінн
                 map: map
             }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(50.145642, 30.474139), //Київська Русь
+                map: map
+            }),
         ];
         marker.setMap(map);
     }
