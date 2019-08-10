@@ -22,10 +22,10 @@ $identity = Yii::$app->user->identity;
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3 font-grey">
     <?= FormatHelper::asDateTime($model->news_comment_date); ?>
     <?php if (!Yii::$app->user->isGuest && UserRole::ADMIN == $identity->user_user_role_id) : ?>
-        |
         <?= Html::a(
-            'Удалить',
-            ['news/delete-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id]
+            '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+            ['news/delete-comment', 'id' => $model->news_comment_id, 'newsId' => $model->news_comment_news_id],
+            ['title' => 'Удалить']
         ); ?>
     <?php endif; ?>
 </div>

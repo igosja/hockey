@@ -3,8 +3,11 @@
 namespace common\models;
 
 use common\components\HockeyHelper;
+use Exception;
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 use yii\helpers\Html;
 
 /**
@@ -80,8 +83,8 @@ class ForumMessage extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function beforeDelete()
     {
@@ -93,7 +96,7 @@ class ForumMessage extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function addMessage()
     {
@@ -142,36 +145,58 @@ class ForumMessage extends AbstractActiveRecord
         $isUser = (UserRole::USER == $user->user_user_role_id);
         $linkArray = [
             Html::a(
-                'Цитировать',
+                '<i class="fa fa-quote-right" aria-hidden="true"></i>',
                 'javascript:',
-                ['class' => 'forum-quote', 'data' => ['text' => $this->forum_message_text]]
+                ['class' => 'forum-quote', 'data' => ['text' => $this->forum_message_text], 'title' => 'Цитировать']
             ),
         ];
 
         if (($user->user_id == $this->forum_message_user_id && !$this->forum_message_blocked) || !$isUser) {
-            $linkArray[] = Html::a('Редактировать', ['forum/message-update', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-pencil" aria-hidden="true"></i>',
+                ['forum/message-update', 'id' => $this->forum_message_id],
+                ['title' => 'Редактировать']
+            );
         }
 
         if ($user->user_id == $this->forum_message_user_id || !$isUser) {
-            $linkArray[] = Html::a('Удалить', ['forum/message-delete', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+                ['forum/message-delete', 'id' => $this->forum_message_id],
+                ['title' => 'Удалить']
+            );
         }
 
         if (!$this->complaint) {
-            $linkArray[] = Html::a('Пожаловаться', ['forum/message-complaint', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
+                ['forum/message-complaint', 'id' => $this->forum_message_id],
+                ['title' => 'Пожаловаться']
+            );
         }
 
         if (!$isUser) {
-            $linkArray[] = Html::a('Переместить', ['forum/message-move', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>',
+                ['forum/message-move', 'id' => $this->forum_message_id],
+                ['title' => 'Переместить']
+            );
 
             if (!$this->forum_message_blocked) {
                 $text = 'Блокировать';
+                $icon = 'lock';
             } else {
                 $text = 'Разблокировать';
+                $icon = 'unlock';
             }
-            $linkArray[] = Html::a($text, ['forum/message-block', 'id' => $this->forum_message_id]);
+            $linkArray[] = Html::a(
+                '<i class="fa fa-' . $icon . '" aria-hidden="true"></i>',
+                ['forum/message-block', 'id' => $this->forum_message_id],
+                ['title' => $text]
+            );
         }
 
-        $result = implode(' | ', $linkArray);
+        $result = implode(' ', $linkArray);
 
         return $result;
     }
@@ -185,7 +210,7 @@ class ForumMessage extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getForumTheme()
     {
@@ -193,7 +218,7 @@ class ForumMessage extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUser()
     {
