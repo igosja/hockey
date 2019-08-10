@@ -2,9 +2,7 @@
 
 namespace console\models\newSeason;
 
-use common\models\Division;
 use common\models\Game;
-use common\models\National;
 use common\models\NationalType;
 use common\models\Schedule;
 use common\models\Season;
@@ -27,93 +25,12 @@ class InsertWorldCup
     public function execute()
     {
         $seasonId = Season::getCurrentSeason() + 1;
-        $oldSeasonId = Season::getCurrentSeason();
 
         $nationalTypeArray = NationalType::find()
             ->orderBy(['national_type_id' => SORT_ASC])
             ->all();
         foreach ($nationalTypeArray as $nationalType) {
             $nationalTypeId = $nationalType->national_type_id;
-
-            $nationalArray = National::find()
-                ->where(['national_national_type_id' => $nationalType->national_type_id])
-                ->andWhere([
-                    'national_country_id' => National::find()
-                        ->select(['national_country_id'])
-                        ->where([
-                            'national_id' => WorldCup::find()
-                                ->select(['world_cup_national_id'])
-                                ->where(['world_cup_season_id' => $oldSeasonId])
-                        ])
-                ])
-                ->orderBy(['national_id' => SORT_ASC])
-                ->each();
-
-            $data = [];
-            foreach ($nationalArray as $national) {
-                /**
-                 * @var National $national
-                 */
-                $data[] = [Division::D1, $national->national_id, $national->national_national_type_id, $seasonId];
-            }
-
-            Yii::$app->db
-                ->createCommand()
-                ->batchInsert(
-                    WorldCup::tableName(),
-                    [
-                        'world_cup_division_id',
-                        'world_cup_national_id',
-                        'world_cup_national_type_id',
-                        'world_cup_season_id'
-                    ],
-                    $data
-                )
-                ->execute();
-
-            WorldCup::updateAll(
-                ['world_cup_place' => new Expression('`world_cup_id`-((CEIL(`world_cup_id`/12)-1)*12)')],
-                [
-                    'world_cup_place' => 0,
-                    'world_cup_national_type_id' => $nationalTypeId,
-                    'world_cup_season_id' => $seasonId
-                ]
-            );
-
-            $nationalArray = National::find()
-                ->where(['national_national_type_id' => $nationalType->national_type_id])
-                ->andWhere([
-                    'not',
-                    [
-                        'national_id' => WorldCup::find()
-                            ->select(['world_cup_national_id'])
-                            ->where(['world_cup_season_id' => $seasonId])
-                    ]
-                ])
-                ->orderBy(['national_id' => SORT_ASC])
-                ->each();
-
-            $data = [];
-            foreach ($nationalArray as $national) {
-                /**
-                 * @var National $national
-                 */
-                $data[] = [Division::D2, $national->national_id, $national->national_national_type_id, $seasonId];
-            }
-
-            Yii::$app->db
-                ->createCommand()
-                ->batchInsert(
-                    WorldCup::tableName(),
-                    [
-                        'world_cup_division_id',
-                        'world_cup_national_id',
-                        'world_cup_national_type_id',
-                        'world_cup_season_id'
-                    ],
-                    $data
-                )
-                ->execute();
 
             WorldCup::updateAll(
                 ['world_cup_place' => new Expression('`world_cup_id`-((CEIL(`world_cup_id`/12)-1)*12)')],
