@@ -11,6 +11,7 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
+use yii\db\Transaction;
 
 /**
  * Class TransferVote
@@ -88,6 +89,9 @@ class TransferVote extends Model
             return false;
         }
 
+        $transaction = Yii::$app->db->beginTransaction();
+        $transaction->setIsolationLevel(Transaction::SERIALIZABLE);
+
         $model = VoteModel::find()
             ->where(['transfer_vote_transfer_id' => $this->transferId, 'transfer_vote_user_id' => $user->user_id])
             ->limit(1)
@@ -98,7 +102,6 @@ class TransferVote extends Model
             $model->transfer_vote_user_id = $user->user_id;
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
         try {
             $model->transfer_vote_rating = $this->vote;
             $model->save();
