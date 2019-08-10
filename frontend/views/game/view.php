@@ -493,13 +493,7 @@ $user = Yii::$app->user->identity;
                     'header' => 'Тип',
                     'headerOptions' => ['class' => 'text-center hidden-xs'],
                     'value' => function (Event $model) {
-                        return Html::img(
-                            '/img/event_type/' . $model->event_event_type_id . '.png',
-                            [
-                                'alt' => $model->eventType->event_type_text,
-                                'title' => $model->eventType->event_type_text,
-                            ]
-                        );
+                        return $model->icon();
                     }
                 ],
                 [
@@ -510,19 +504,23 @@ $user = Yii::$app->user->identity;
                     'value' => function (Event $model) {
                         $result = '';
                         if ($model->eventTextGoal) {
-                            $result = $result . $model->eventTextGoal->event_text_goal_text;
+                            $result = $result . $model->eventTextGoal->event_text_goal_text . '.';
                         }
                         if ($model->eventTextPenalty) {
-                            $result = $result . $model->eventTextPenalty->event_text_penalty_text;
+                            $result = $result . $model->eventTextPenalty->event_text_penalty_text . '.';
                         }
                         if ($model->eventTextShootout) {
-                            $result = $result . $model->eventTextShootout->event_text_shootout_text;
+                            $result = $result . $model->eventTextShootout->event_text_shootout_text . '.';
                         }
                         if ($model->playerPenalty) {
                             $result = $result . ' Удаление - ' . $model->playerPenalty->playerLink();
                         }
                         if ($model->playerScore) {
-                            $result = $result . ' Шайба - ' . $model->playerScore->playerLink();
+                            if (EventType::SHOOTOUT == $model->event_event_type_id) {
+                                $result = $result . ' ' . $model->playerScore->playerLink();
+                            } else {
+                                $result = $result . ' Шайба - ' . $model->playerScore->playerLink();
+                            }
                         }
                         if ($model->playerAssist1) {
                             $result = $result . ' (' . $model->playerAssist1->playerLink();
