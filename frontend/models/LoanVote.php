@@ -11,7 +11,6 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
-use yii\db\Transaction;
 
 /**
  * Class LoanVote
@@ -90,7 +89,6 @@ class LoanVote extends Model
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $transaction->setIsolationLevel(Transaction::SERIALIZABLE);
 
         $model = VoteModel::find()
             ->where(['loan_vote_loan_id' => $this->loanId, 'loan_vote_user_id' => $user->user_id])
