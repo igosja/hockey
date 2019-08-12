@@ -51,14 +51,6 @@ class FinanceText extends AbstractActiveRecord
     const USER_TRANSFER = 27;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%finance_text}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

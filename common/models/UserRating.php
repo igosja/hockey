@@ -38,14 +38,6 @@ namespace common\models;
 class UserRating extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%user_rating}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

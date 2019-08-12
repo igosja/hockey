@@ -20,14 +20,6 @@ use yii\db\ActiveQuery;
 class Complaint extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%complaint}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

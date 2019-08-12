@@ -18,14 +18,6 @@ use yii\db\ActiveQuery;
 class LineupSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%lineup_special}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

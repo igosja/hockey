@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class GameComment extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%game_comment}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -6,7 +6,9 @@ use common\components\FormatHelper;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Throwable;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 
 /**
  * Class Transfer
@@ -44,14 +46,6 @@ use yii\db\ActiveQuery;
  */
 class Transfer extends AbstractActiveRecord
 {
-    /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%transfer}}';
-    }
-
     /**
      * @return array
      */
@@ -316,8 +310,8 @@ class Transfer extends AbstractActiveRecord
     /**
      * @return bool
      * @throws Exception
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
     public function beforeDelete(): bool
     {

@@ -17,14 +17,6 @@ use yii\db\ActiveQuery;
 class PollAnswer extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%poll_answer}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

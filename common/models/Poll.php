@@ -33,14 +33,6 @@ class Poll extends AbstractActiveRecord
     public $answer;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%poll}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

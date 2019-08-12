@@ -18,14 +18,6 @@ use yii\db\ActiveQuery;
 class TransferSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%transfer_special}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

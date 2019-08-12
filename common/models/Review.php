@@ -35,14 +35,6 @@ use yii\db\StaleObjectException;
 class Review extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%review}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

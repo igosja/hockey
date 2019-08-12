@@ -24,14 +24,6 @@ use yii\db\ActiveQuery;
 class FriendlyInvite extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%friendly_invite}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

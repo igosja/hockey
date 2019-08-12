@@ -41,14 +41,6 @@ use yii\helpers\Html;
 class History extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%history}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class Scout extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%scout}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

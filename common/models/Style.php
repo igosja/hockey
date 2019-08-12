@@ -17,14 +17,6 @@ class Style extends AbstractActiveRecord
     const TECHNIQUE = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%style}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -31,14 +31,6 @@ use yii\db\ActiveQuery;
 class Conference extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%conference}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

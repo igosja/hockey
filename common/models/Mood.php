@@ -16,14 +16,6 @@ class Mood extends AbstractActiveRecord
     const SUPER = 1;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%mood}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

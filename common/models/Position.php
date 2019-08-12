@@ -20,14 +20,6 @@ class Position extends AbstractActiveRecord
     const RW = 6;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%position}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

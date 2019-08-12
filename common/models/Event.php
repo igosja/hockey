@@ -40,14 +40,6 @@ use yii\db\ActiveQuery;
 class Event extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%event}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

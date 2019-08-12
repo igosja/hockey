@@ -17,14 +17,6 @@ use yii\db\ActiveQuery;
 class RatingUser extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rating_user}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

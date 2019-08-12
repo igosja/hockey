@@ -16,14 +16,6 @@ use yii\db\ActiveQuery;
 class Surname extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%surname}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -30,14 +30,6 @@ class RatingType extends AbstractActiveRecord
     const USER_RATING = 10;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rating_type}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

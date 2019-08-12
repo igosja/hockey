@@ -17,14 +17,6 @@ use yii\db\Expression;
 class SurnameCountry extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%surname_country}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

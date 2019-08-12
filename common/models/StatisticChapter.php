@@ -18,14 +18,6 @@ use yii\helpers\ArrayHelper;
 class StatisticChapter extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%statistic_chapter}}';
-    }
-
-    /**
      * @return array
      */
     public static function selectOptions(): array

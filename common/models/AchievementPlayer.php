@@ -30,14 +30,6 @@ use yii\db\ActiveQuery;
 class AchievementPlayer extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%achievement_player}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

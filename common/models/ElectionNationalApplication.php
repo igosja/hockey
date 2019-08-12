@@ -38,14 +38,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
     public $playerArray;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_national_application}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

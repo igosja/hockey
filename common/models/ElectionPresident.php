@@ -20,14 +20,6 @@ use yii\db\ActiveQuery;
 class ElectionPresident extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_president}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

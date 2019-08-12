@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class Logo extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%logo}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -18,14 +18,6 @@ namespace common\models;
 class LeagueDistribution extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%league_distribution}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -19,14 +19,6 @@ class ForumChapter extends AbstractActiveRecord
     const NATIONAL = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%forum_chapter}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

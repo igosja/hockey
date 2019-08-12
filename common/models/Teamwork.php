@@ -14,14 +14,6 @@ namespace common\models;
 class Teamwork extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%teamwork}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -21,14 +21,6 @@ class Swiss extends AbstractActiveRecord
     public $opponent;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%swiss}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
@@ -39,7 +31,7 @@ class Swiss extends AbstractActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTeam(): ActiveQuery
     {

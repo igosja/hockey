@@ -18,14 +18,6 @@ use yii\db\ActiveQuery;
 class PlayerSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%player_special}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

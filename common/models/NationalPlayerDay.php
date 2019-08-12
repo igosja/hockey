@@ -15,14 +15,6 @@ namespace common\models;
 class NationalPlayerDay extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%national_player_day}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -85,14 +85,6 @@ class Team extends AbstractActiveRecord
     const START_MONEY = 10000000;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%team}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

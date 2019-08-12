@@ -33,14 +33,6 @@ use yii\db\ActiveQuery;
 class Championship extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%championship}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

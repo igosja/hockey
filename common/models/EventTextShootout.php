@@ -15,14 +15,6 @@ class EventTextShootout extends AbstractActiveRecord
     const SCORE = 1;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%event_text_shootout}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

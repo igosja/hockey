@@ -22,14 +22,6 @@ class Building extends AbstractActiveRecord
     const MIN_LEVEL = 0;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%building}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

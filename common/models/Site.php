@@ -21,14 +21,6 @@ use Yii;
 class Site extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%site}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

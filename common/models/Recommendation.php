@@ -17,14 +17,6 @@ use yii\db\ActiveQuery;
 class Recommendation extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%recommendation}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

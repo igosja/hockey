@@ -21,14 +21,6 @@ namespace common\models;
 class LeagueCoefficient extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%league_coefficient}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -18,14 +18,6 @@ use yii\db\ActiveQuery;
 class ReviewGame extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%review_game}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -15,14 +15,6 @@ namespace common\models;
 class Planning extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%planning}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

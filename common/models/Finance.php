@@ -37,14 +37,6 @@ use yii\db\ActiveQuery;
 class Finance extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%finance}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

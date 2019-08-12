@@ -15,14 +15,6 @@ class Rudeness extends AbstractActiveRecord
     const ROUGH = 2;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rudeness}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

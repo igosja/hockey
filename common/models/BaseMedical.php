@@ -17,14 +17,6 @@ namespace common\models;
 class BaseMedical extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%base_medical}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

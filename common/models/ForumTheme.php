@@ -26,14 +26,6 @@ use yii\db\StaleObjectException;
 class ForumTheme extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%forum_theme}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

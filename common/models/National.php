@@ -41,14 +41,6 @@ use yii\helpers\Html;
 class National extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%national}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
