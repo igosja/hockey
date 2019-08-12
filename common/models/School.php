@@ -31,14 +31,6 @@ class School extends AbstractActiveRecord
     const AGE = 17;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%school}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

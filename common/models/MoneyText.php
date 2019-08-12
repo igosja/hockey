@@ -22,14 +22,6 @@ class MoneyText extends AbstractActiveRecord
     const OUTCOME_VIP = 7;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%money_text}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

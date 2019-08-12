@@ -14,14 +14,6 @@ namespace common\models;
 class TransferVote extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%transfer_vote}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

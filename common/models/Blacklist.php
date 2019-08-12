@@ -13,14 +13,6 @@ namespace common\models;
 class Blacklist extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%blacklist}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

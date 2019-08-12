@@ -72,14 +72,6 @@ class Player extends AbstractActiveRecord
     const TIRE_MAX_FOR_LINEUP = 60;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%player}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

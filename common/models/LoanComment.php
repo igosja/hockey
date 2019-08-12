@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class LoanComment extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%loan_comment}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class Money extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%money}}';
-    }
-
-    /**
      * @param array $data
      * @return bool
      * @throws Exception

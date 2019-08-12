@@ -16,14 +16,6 @@ class NationalType extends AbstractActiveRecord
     const MAIN = 1;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%national_type}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

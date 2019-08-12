@@ -25,14 +25,6 @@ use yii\db\ActiveQuery;
 class News extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%news}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

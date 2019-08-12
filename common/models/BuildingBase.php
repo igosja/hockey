@@ -26,14 +26,6 @@ use yii\db\ActiveQuery;
 class BuildingBase extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%building_base}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

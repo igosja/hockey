@@ -12,14 +12,6 @@ namespace common\models;
 class NameCountry extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%name_country}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

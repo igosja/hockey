@@ -35,14 +35,6 @@ class Country extends AbstractActiveRecord
     const DEFAULT_ID = 157;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%country}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

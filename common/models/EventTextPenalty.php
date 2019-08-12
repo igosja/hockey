@@ -12,14 +12,6 @@ namespace common\models;
 class EventTextPenalty extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%event_text_penalty}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

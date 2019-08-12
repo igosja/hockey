@@ -19,14 +19,6 @@ class Rule extends AbstractActiveRecord
     const SEARCH_SYMBOLS = 200;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rule}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

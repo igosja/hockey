@@ -14,14 +14,6 @@ namespace common\models;
 class ElectionNationalVote extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_national_vote}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

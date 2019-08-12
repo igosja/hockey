@@ -24,14 +24,6 @@ use yii\db\ActiveQuery;
 class ParticipantChampionship extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%participant_championship}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

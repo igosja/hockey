@@ -16,14 +16,6 @@ use yii\db\ActiveQuery;
 class PlayerPosition extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%player_position}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

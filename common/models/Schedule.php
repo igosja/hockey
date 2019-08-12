@@ -21,14 +21,6 @@ use yii\db\ActiveQuery;
 class Schedule extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%schedule}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

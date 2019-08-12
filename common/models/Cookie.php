@@ -20,14 +20,6 @@ use yii\db\ActiveQuery;
 class Cookie extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%cookie}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

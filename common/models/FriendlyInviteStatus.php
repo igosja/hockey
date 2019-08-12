@@ -16,14 +16,6 @@ class FriendlyInviteStatus extends AbstractActiveRecord
     const NEW_ONE = 1;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%friendly_invite_status}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

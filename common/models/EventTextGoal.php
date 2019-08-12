@@ -12,14 +12,6 @@ namespace common\models;
 class EventTextGoal extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%event_text_goal}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

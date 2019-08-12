@@ -14,14 +14,6 @@ namespace common\models;
 class LoanVote extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%loan_vote}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

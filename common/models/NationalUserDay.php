@@ -14,14 +14,6 @@ namespace common\models;
 class NationalUserDay extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%national_user_day}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

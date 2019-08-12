@@ -17,14 +17,6 @@ class DayType extends AbstractActiveRecord
     const C = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%day_type}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

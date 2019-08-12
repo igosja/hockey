@@ -25,14 +25,6 @@ use yii\db\ActiveQuery;
 class BuildingStadium extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%building_stadium}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

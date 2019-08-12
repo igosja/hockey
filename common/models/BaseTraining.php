@@ -24,14 +24,6 @@ namespace common\models;
 class BaseTraining extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%base_training}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

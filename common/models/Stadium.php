@@ -24,14 +24,6 @@ class Stadium extends AbstractActiveRecord
     const ONE_SIT_PRICE_SELL = 150;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%stadium}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

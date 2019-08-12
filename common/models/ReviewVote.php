@@ -14,14 +14,6 @@ namespace common\models;
 class ReviewVote extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%review_vote}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

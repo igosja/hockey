@@ -30,14 +30,6 @@ class Special extends AbstractActiveRecord
     const MAX_SPECIALS = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%special}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

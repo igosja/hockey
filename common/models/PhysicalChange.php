@@ -15,14 +15,6 @@ namespace common\models;
 class PhysicalChange extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%physical_change}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

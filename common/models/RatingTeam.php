@@ -38,14 +38,6 @@ use yii\db\ActiveQuery;
 class RatingTeam extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rating_team}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -31,14 +31,6 @@ use yii\db\ActiveQuery;
 class OffSeason extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%off_season}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

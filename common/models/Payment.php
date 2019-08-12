@@ -32,14 +32,6 @@ class Payment extends AbstractActiveRecord
     const MERCHANT_SECRET_KEY = 's3lyp66r';
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%payment}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

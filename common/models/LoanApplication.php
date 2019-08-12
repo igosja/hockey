@@ -25,14 +25,6 @@ use yii\db\ActiveQuery;
 class LoanApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%loan_application}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

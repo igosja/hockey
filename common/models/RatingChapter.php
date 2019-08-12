@@ -22,14 +22,6 @@ class RatingChapter extends AbstractActiveRecord
     const COUNTRY = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rating_chapter}}';
-    }
-
-    /**
      * @return array
      */
     public static function selectOptions(): array

@@ -54,14 +54,6 @@ use yii\db\ActiveQuery;
 class StatisticPlayer extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%statistic_player}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

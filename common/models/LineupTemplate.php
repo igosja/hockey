@@ -49,14 +49,6 @@ namespace common\models;
 class LineupTemplate extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%lineup_template}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

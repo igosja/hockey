@@ -27,14 +27,6 @@ namespace common\models;
 class BaseScout extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%base_scout}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

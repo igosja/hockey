@@ -173,14 +173,6 @@ class Game extends AbstractActiveRecord
     public $shot;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%game}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

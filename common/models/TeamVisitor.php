@@ -13,14 +13,6 @@ namespace common\models;
 class TeamVisitor extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%team_visitor}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -18,14 +18,6 @@ use yii\db\ActiveQuery;
 class LoanSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%loan_special}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

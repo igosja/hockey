@@ -19,14 +19,6 @@ use yii\db\ActiveQuery;
 class RatingCountry extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%rating_country}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

@@ -24,14 +24,6 @@ use yii\db\ActiveQuery;
 class TransferApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%transfer_application}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

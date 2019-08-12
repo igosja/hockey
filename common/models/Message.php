@@ -24,14 +24,6 @@ use yii\db\ActiveQuery;
 class Message extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%message}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

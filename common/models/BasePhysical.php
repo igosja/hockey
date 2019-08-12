@@ -18,14 +18,6 @@ namespace common\models;
 class BasePhysical extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%base_physical}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

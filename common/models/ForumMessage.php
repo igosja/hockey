@@ -30,14 +30,6 @@ use yii\helpers\Html;
 class ForumMessage extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%forum_message}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

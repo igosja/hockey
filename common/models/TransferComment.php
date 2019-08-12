@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class TransferComment extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%transfer_comment}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

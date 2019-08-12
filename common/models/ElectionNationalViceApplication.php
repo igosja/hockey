@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class ElectionNationalViceApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_national_vice_application}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

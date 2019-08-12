@@ -18,14 +18,6 @@ class Physical extends AbstractActiveRecord
     const DEFAULT_ID = 16;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%physical}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

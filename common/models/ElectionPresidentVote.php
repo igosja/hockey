@@ -14,14 +14,6 @@ namespace common\models;
 class ElectionPresidentVote extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_president_vote}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

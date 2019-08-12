@@ -15,14 +15,6 @@ class FriendlyStatus extends AbstractActiveRecord
     const NONE = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%friendly_status}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

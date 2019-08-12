@@ -17,14 +17,6 @@ use yii\db\ActiveQuery;
 class LoanPosition extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%loan_position}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

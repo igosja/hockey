@@ -14,14 +14,6 @@ use yii\helpers\ArrayHelper;
 class Sex extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%sex}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

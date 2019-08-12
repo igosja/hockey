@@ -13,14 +13,6 @@ use yii\helpers\ArrayHelper;
 class Season extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%season}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

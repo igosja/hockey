@@ -19,14 +19,6 @@ namespace common\models;
 class Base extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%base}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

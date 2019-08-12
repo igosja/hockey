@@ -22,14 +22,6 @@ use yii\db\ActiveQuery;
 class ForumGroup extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%forum_group}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

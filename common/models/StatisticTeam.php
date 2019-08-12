@@ -37,14 +37,6 @@ use yii\db\ActiveQuery;
 class StatisticTeam extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%statistic_team}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

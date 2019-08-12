@@ -18,14 +18,6 @@ class Tactic extends AbstractActiveRecord
     const ALL_ATTACK = 5;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%tactic}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array

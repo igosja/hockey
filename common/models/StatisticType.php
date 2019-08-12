@@ -56,14 +56,6 @@ class StatisticType extends AbstractActiveRecord
     const TEAM_WIN_PERCENT = 13;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%statistic_type}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
