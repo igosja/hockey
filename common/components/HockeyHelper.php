@@ -297,6 +297,7 @@ class HockeyHelper
         $text = str_replace(':tongue:', '<img alt="tongue" src="/img/smiles/271.gif" />', $text);
         $text = str_replace(':hockey:', '<img alt="hockey" src="/img/smiles/137.gif" />', $text);
         $text = str_replace(':fight:', '<img alt="fight" src="/img/smiles/142.gif" />', $text);
+        $text = str_replace('&nbsp;', ' ', $text);
         $text = nl2br($text);
 
         return $text;
