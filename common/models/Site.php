@@ -21,17 +21,9 @@ use Yii;
 class Site extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%site}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -52,7 +44,7 @@ class Site extends AbstractActiveRecord
     /**
      * @return string
      */
-    public static function version()
+    public static function version(): string
     {
         $version = '0.0.0';
         $date = time();
@@ -78,7 +70,7 @@ class Site extends AbstractActiveRecord
     /**
      * @return int
      */
-    public static function status()
+    public static function status(): int
     {
         $site = self::find()
             ->where(['site_id' => 1])
@@ -93,14 +85,17 @@ class Site extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
      * @throws Exception
      */
-    public static function switchStatus()
+    public static function switchStatus(): bool
     {
         $model = Site::find()
             ->where(['site_id' => 1])
             ->one();
         $model->site_status = 1 - $model->site_status;
         $model->save();
+
+        return true;
     }
 }

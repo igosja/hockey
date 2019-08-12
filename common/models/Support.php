@@ -29,17 +29,9 @@ use yii\db\ActiveQuery;
 class Support extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%support}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -67,7 +59,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function addAnswer($support)
+    public function addAnswer(Support $support): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -95,7 +87,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function addQuestion()
+    public function addQuestion(): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -121,7 +113,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function addPresidentQuestion(Country $country)
+    public function addPresidentQuestion(Country $country): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -149,11 +141,11 @@ class Support extends AbstractActiveRecord
 
     /**
      * @param Country $country
-     * @param integer $userId
+     * @param int $userId
      * @return bool
      * @throws Exception
      */
-    public function addPresidentAnswer(Country $country, $userId)
+    public function addPresidentAnswer(Country $country, int $userId): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -185,7 +177,7 @@ class Support extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function addManagerQuestion(Country $country)
+    public function addManagerQuestion(Country $country): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -211,7 +203,7 @@ class Support extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -226,7 +218,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getAdmin()
+    public function getAdmin(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'support_admin_id']);
     }
@@ -234,7 +226,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPresident()
+    public function getPresident(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'support_president_id']);
     }
@@ -242,7 +234,7 @@ class Support extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'support_user_id']);
     }

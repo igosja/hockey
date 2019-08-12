@@ -12,17 +12,9 @@ namespace common\models;
 class BlockReason extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%block_reason}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['block_reason_id'], 'integer'],

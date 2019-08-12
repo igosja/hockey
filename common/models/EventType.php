@@ -16,17 +16,9 @@ class EventType extends AbstractActiveRecord
     const SHOOTOUT = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%event_type}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['event_type_id'], 'integer'],

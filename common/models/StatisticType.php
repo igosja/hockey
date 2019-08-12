@@ -56,17 +56,9 @@ class StatisticType extends AbstractActiveRecord
     const TEAM_WIN_PERCENT = 13;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%statistic_type}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['statistic_type_id', 'statistic_type_statistic_chapter_id', 'statistic_type_sort'], 'integer'],
@@ -87,7 +79,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isTeamChapter()
+    public function isTeamChapter(): bool
     {
         return in_array($this->statistic_type_id, [
             StatisticType::TEAM_NO_PASS,
@@ -109,7 +101,7 @@ class StatisticType extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function isGkType()
+    public function isGkType(): bool
     {
         return in_array($this->statistic_type_id, [
             StatisticType::PLAYER_PASS,

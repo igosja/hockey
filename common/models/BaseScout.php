@@ -27,17 +27,9 @@ namespace common\models;
 class BaseScout extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%base_scout}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -68,7 +60,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeDealGameRow()
+    public function canSeeDealGameRow(): bool
     {
         if ($this->base_scout_level >= 1) {
             return true;
@@ -79,7 +71,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeDealTire()
+    public function canSeeDealTire(): bool
     {
         if ($this->base_scout_level >= 2) {
             return true;
@@ -90,7 +82,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeDealPhysical()
+    public function canSeeDealPhysical(): bool
     {
         if ($this->base_scout_level >= 3) {
             return true;
@@ -101,7 +93,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeOpponentGameRow()
+    public function canSeeOpponentGameRow(): bool
     {
         if ($this->base_scout_level >= 4) {
             return true;
@@ -112,7 +104,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeOpponentTire()
+    public function canSeeOpponentTire(): bool
     {
         if ($this->base_scout_level >= 5) {
             return true;
@@ -123,7 +115,7 @@ class BaseScout extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function canSeeOpponentPhysical()
+    public function canSeeOpponentPhysical(): bool
     {
         if ($this->base_scout_level >= 6) {
             return true;

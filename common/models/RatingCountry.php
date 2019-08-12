@@ -19,17 +19,9 @@ use yii\db\ActiveQuery;
 class RatingCountry extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%rating_country}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -48,7 +40,7 @@ class RatingCountry extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'rating_country_country_id']);
     }

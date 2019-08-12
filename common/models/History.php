@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Exception;
 use yii\db\ActiveQuery;
 use yii\helpers\Html;
 
@@ -40,17 +41,9 @@ use yii\helpers\Html;
 class History extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%history}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -82,7 +75,7 @@ class History extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -96,19 +89,20 @@ class History extends AbstractActiveRecord
 
     /**
      * @param array $data
-     * @throws \Exception
+     * @return bool
+     * @throws Exception
      */
-    public static function log(array $data)
+    public static function log(array $data): bool
     {
         $history = new self();
         $history->setAttributes($data);
-        $history->save();
+        return $history->save();
     }
 
     /**
      * @return string
      */
-    public function text()
+    public function text(): string
     {
         $text = $this->historyText->history_text_text;
         if (false !== strpos($text, '{team}')) {
@@ -225,80 +219,80 @@ class History extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'history_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'history_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getGame()
+    public function getGame(): ActiveQuery
     {
-        return $this->hasOne(Game::class, ['game_id' => 'history_game_id']);
+        return $this->hasOne(Game::class, ['game_id' => 'history_game_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getHistoryText()
+    public function getHistoryText(): ActiveQuery
     {
-        return $this->hasOne(HistoryText::class, ['history_text_id' => 'history_history_text_id']);
+        return $this->hasOne(HistoryText::class, ['history_text_id' => 'history_history_text_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
-        return $this->hasOne(National::class, ['national_id' => 'history_national_id']);
+        return $this->hasOne(National::class, ['national_id' => 'history_national_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'history_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'history_player_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'history_position_id']);
+        return $this->hasOne(Position::class, ['position_id' => 'history_position_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'history_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'history_special_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'history_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'history_team_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeamTwo()
+    public function getTeamTwo(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'history_team_2_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'history_team_2_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'history_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'history_user_id'])->cache();
     }
 }

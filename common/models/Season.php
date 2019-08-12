@@ -13,17 +13,9 @@ use yii\helpers\ArrayHelper;
 class Season extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%season}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['season_id'], 'integer'],
@@ -33,7 +25,7 @@ class Season extends AbstractActiveRecord
     /**
      * @return int
      */
-    public static function getCurrentSeason()
+    public static function getCurrentSeason(): int
     {
         $result = self::find()->max('season_id');
         return $result;
@@ -42,7 +34,7 @@ class Season extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function getSeasonArray()
+    public static function getSeasonArray(): array
     {
         $result = self::find()
             ->orderBy(['season_id' => SORT_DESC])

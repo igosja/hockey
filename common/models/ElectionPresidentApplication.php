@@ -22,17 +22,9 @@ use yii\db\ActiveQuery;
 class ElectionPresidentApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%election_president_application}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -52,7 +44,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -67,7 +59,7 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'election_president_application_text' => 'Программа',
@@ -77,18 +69,18 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresident()
+    public function getElectionPresident(): ActiveQuery
     {
         return $this->hasOne(
             ElectionPresident::class,
             ['election_president_id' => 'election_president_application_election_id']
-        );
+        )->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresidentVote()
+    public function getElectionPresidentVote(): ActiveQuery
     {
         return $this->hasMany(
             ElectionPresidentVote::class,
@@ -99,8 +91,8 @@ class ElectionPresidentApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'election_president_application_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'election_president_application_user_id'])->cache();
     }
 }

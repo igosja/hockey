@@ -18,17 +18,9 @@ use yii\db\ActiveQuery;
 class PlayerSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%player_special}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -42,7 +34,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLineup()
+    public function getLineup(): ActiveQuery
     {
         return $this->hasMany(Lineup::class, ['lineup_player_id' => 'player_special_player_id']);
     }
@@ -50,7 +42,7 @@ class PlayerSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
         return $this->hasOne(Special::class, ['special_id' => 'player_special_special_id']);
     }

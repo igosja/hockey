@@ -6,6 +6,8 @@ use common\components\ErrorHelper;
 use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\Exception;
+use yii\db\StaleObjectException;
 
 /**
  * Class Poll
@@ -31,17 +33,9 @@ class Poll extends AbstractActiveRecord
     public $answer;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%poll}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['poll_id', 'poll_country_id', 'poll_date', 'poll_user_id', 'poll_poll_status_id'], 'integer'],
@@ -52,7 +46,10 @@ class Poll extends AbstractActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'answer' => 'Ответ',
@@ -67,7 +64,7 @@ class Poll extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -82,10 +79,10 @@ class Poll extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->pollAnswer as $item) {
             $item->delete();
@@ -95,9 +92,9 @@ class Poll extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
-    public function savePoll()
+    public function savePoll(): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -136,19 +133,21 @@ class Poll extends AbstractActiveRecord
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function prepareForm()
+    public function prepareForm(): bool
     {
         for ($i = 0, $countAnswer = count($this->pollAnswer); $i < $countAnswer; $i++) {
             $this->answer[$i] = $this->pollAnswer[$i]->poll_answer_text;
         }
+
+        return true;
     }
 
     /**
      * @return array
      */
-    public function answers()
+    public function answers(): array
     {
         $result = [];
         $total = 0;
@@ -172,7 +171,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'poll_country_id']);
     }
@@ -180,7 +179,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollAnswer()
+    public function getPollAnswer(): ActiveQuery
     {
         return $this->hasMany(PollAnswer::class, ['poll_answer_poll_id' => 'poll_id']);
     }
@@ -188,7 +187,7 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollStatus()
+    public function getPollStatus(): ActiveQuery
     {
         return $this->hasOne(PollStatus::class, ['poll_status_id' => 'poll_poll_status_id']);
     }
@@ -196,8 +195,8 @@ class Poll extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'poll_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'poll_user_id'])->cache();
     }
 }

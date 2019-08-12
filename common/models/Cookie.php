@@ -20,17 +20,9 @@ use yii\db\ActiveQuery;
 class Cookie extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%cookie}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -49,16 +41,16 @@ class Cookie extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUserOne()
+    public function getUserOne(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'cookie_user_1_id']);
+        return $this->hasOne(User::class, ['user_id' => 'cookie_user_1_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUserTwo()
+    public function getUserTwo(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'cookie_user_2_id']);
+        return $this->hasOne(User::class, ['user_id' => 'cookie_user_2_id'])->cache();
     }
 }

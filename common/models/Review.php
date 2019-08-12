@@ -35,17 +35,9 @@ use yii\db\StaleObjectException;
 class Review extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%review}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -72,7 +64,7 @@ class Review extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -89,7 +81,7 @@ class Review extends AbstractActiveRecord
      * @throws Throwable
      * @throws StaleObjectException
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->reviewGame as $reviewGame) {
             $reviewGame->delete();
@@ -103,7 +95,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function rating()
+    public function rating(): string
     {
         $returnArray = [
             '<span class="font-green">' . count($this->reviewVotePlus) . '</span>',
@@ -118,7 +110,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getReviewVote()
+    public function getReviewVote(): ActiveQuery
     {
         return $this->hasMany(ReviewVote::class, ['review_vote_review_id' => 'review_id']);
     }
@@ -126,7 +118,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getReviewVoteMinus()
+    public function getReviewVoteMinus(): ActiveQuery
     {
         return $this->getReviewVote()->andWhere(['<', 'review_vote_rating', 0]);
     }
@@ -134,7 +126,7 @@ class Review extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getReviewVotePlus()
+    public function getReviewVotePlus(): ActiveQuery
     {
         return $this->getReviewVote()->andWhere(['>', 'review_vote_rating', 0]);
     }
@@ -142,23 +134,23 @@ class Review extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'review_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'review_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getDivision()
+    public function getDivision(): ActiveQuery
     {
-        return $this->hasOne(Division::class, ['division_id' => 'review_division_id']);
+        return $this->hasOne(Division::class, ['division_id' => 'review_division_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getReviewGame()
+    public function getReviewGame(): ActiveQuery
     {
         return $this->hasMany(ReviewGame::class, ['review_game_review_id' => 'review_id']);
     }
@@ -166,16 +158,16 @@ class Review extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStage()
+    public function getStage(): ActiveQuery
     {
-        return $this->hasOne(Stage::class, ['stage_id' => 'review_stage_id']);
+        return $this->hasOne(Stage::class, ['stage_id' => 'review_stage_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'review_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'review_user_id'])->cache();
     }
 }

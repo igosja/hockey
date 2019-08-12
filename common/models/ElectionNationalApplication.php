@@ -38,14 +38,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
     public $playerArray;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%election_national_application}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
@@ -153,14 +145,15 @@ class ElectionNationalApplication extends AbstractActiveRecord
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function loadPlayer()
+    public function loadPlayer(): bool
     {
         $this->playerArray = [];
         foreach ($this->electionNationalPlayer as $electionNationalPlayer) {
             $this->playerArray[] = $electionNationalPlayer->election_national_player_player_id;
         }
+        return true;
     }
 
     /**
@@ -211,7 +204,7 @@ class ElectionNationalApplication extends AbstractActiveRecord
         return $this->hasOne(
             ElectionNational::class,
             ['election_national_id' => 'election_national_application_election_id']
-        );
+        )->cache();
     }
 
     /**
@@ -241,6 +234,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'election_national_application_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'election_national_application_user_id'])->cache();
     }
 }

@@ -35,17 +35,9 @@ class Country extends AbstractActiveRecord
     const DEFAULT_ID = 157;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%country}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -70,7 +62,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryImage()
+    public function countryImage(): string
     {
         return Html::img(
             '/img/country/12/' . $this->country_id . '.png',
@@ -88,7 +80,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryImageLink()
+    public function countryImageLink(): string
     {
         return Html::a($this->countryImage(), ['country/news', 'id' => $this->country_id]);
     }
@@ -96,7 +88,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function countryLink()
+    public function countryLink(): string
     {
         return $this->countryImage() . ' ' . Html::a($this->country_name, ['country/news', 'id' => $this->country_id]);
     }
@@ -104,7 +96,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return array
      */
-    public static function selectOptions()
+    public static function selectOptions(): array
     {
         return ArrayHelper::map(
             self::find()->where(['!=', 'country_id', 0])->orderBy(['country_name' => SORT_ASC])->all(),
@@ -117,7 +109,7 @@ class Country extends AbstractActiveRecord
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function firePresident()
+    public function firePresident(): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -162,7 +154,7 @@ class Country extends AbstractActiveRecord
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function fireVicePresident()
+    public function fireVicePresident(): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -188,7 +180,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function attitudePresident()
+    public function attitudePresident(): int
     {
         $result = 0;
         foreach ($this->city as $city) {
@@ -205,9 +197,9 @@ class Country extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudePresidentNegative()
+    public function attitudePresidentNegative(): int
     {
         $result = 0;
         foreach ($this->city as $city) {
@@ -221,9 +213,9 @@ class Country extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudePresidentNeutral()
+    public function attitudePresidentNeutral(): int
     {
         $result = 0;
         foreach ($this->city as $city) {
@@ -237,9 +229,9 @@ class Country extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudePresidentPositive()
+    public function attitudePresidentPositive(): int
     {
         $result = 0;
         foreach ($this->city as $city) {
@@ -255,7 +247,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCity()
+    public function getCity(): ActiveQuery
     {
         return $this->hasMany(City::class, ['city_country_id' => 'country_id']);
     }
@@ -263,7 +255,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLeagueCoefficient()
+    public function getLeagueCoefficient(): ActiveQuery
     {
         return $this->hasMany(LeagueCoefficient::class, ['league_coefficient_country_id' => 'country_id']);
     }
@@ -271,7 +263,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPresident()
+    public function getPresident(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'country_president_id']);
     }
@@ -279,7 +271,7 @@ class Country extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getVice()
+    public function getVice(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'country_president_vice_id']);
     }

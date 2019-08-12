@@ -56,17 +56,9 @@ class HistoryText extends AbstractActiveRecord
     const VIP_WINNER = 24;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%history_text}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['history_text_id'], 'integer'],

@@ -17,17 +17,9 @@ use yii\db\ActiveQuery;
 class TransferPosition extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%transfer_position}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['transfer_position_id', 'transfer_position_position_id', 'transfer_position_transfer_id'], 'integer'],
@@ -38,8 +30,8 @@ class TransferPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'transfer_position_position_id']);
+        return $this->hasOne(Position::class, ['position_id' => 'transfer_position_position_id'])->cache();
     }
 }

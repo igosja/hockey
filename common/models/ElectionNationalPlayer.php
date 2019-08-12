@@ -17,17 +17,9 @@ use yii\db\ActiveQuery;
 class ElectionNationalPlayer extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%election_national_player}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -44,8 +36,8 @@ class ElectionNationalPlayer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'election_national_player_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'election_national_player_player_id'])->cache();
     }
 }

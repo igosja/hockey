@@ -49,17 +49,9 @@ use yii\db\StaleObjectException;
 class Loan extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%loan}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -93,7 +85,7 @@ class Loan extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -108,7 +100,7 @@ class Loan extends AbstractActiveRecord
      * @return string
      * @throws Exception
      */
-    public function dealDate()
+    public function dealDate(): string
     {
         $today = (new DateTime())
             ->setTimezone(new DateTimeZone('UTC'))
@@ -126,7 +118,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function position()
+    public function position(): string
     {
         $result = [];
         foreach ($this->playerPosition as $position) {
@@ -138,7 +130,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function special()
+    public function special(): string
     {
         $result = [];
         foreach ($this->playerSpecial as $special) {
@@ -150,7 +142,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function rating()
+    public function rating(): string
     {
         $returnArray = [
             '<span class="font-green">' . count($this->loanVotePlus) . '</span>',
@@ -168,7 +160,7 @@ class Loan extends AbstractActiveRecord
      * @throws Throwable
      * @throws StaleObjectException
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->loanApplication as $item) {
             $item->delete();
@@ -179,7 +171,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function alerts()
+    public function alerts(): array
     {
         $result = [
             'success' => [],
@@ -335,7 +327,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuyer()
+    public function getBuyer(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'loan_team_buyer_id']);
     }
@@ -343,7 +335,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanApplication()
+    public function getLoanApplication(): ActiveQuery
     {
         return $this->hasMany(LoanApplication::class, ['loan_application_loan_id' => 'loan_id']);
     }
@@ -351,7 +343,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanVote()
+    public function getLoanVote(): ActiveQuery
     {
         return $this->hasMany(LoanVote::class, ['loan_vote_loan_id' => 'loan_id']);
     }
@@ -359,7 +351,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanVoteMinus()
+    public function getLoanVoteMinus(): ActiveQuery
     {
         return $this->getLoanVote()->andWhere(['<', 'loan_vote_rating', 0]);
     }
@@ -367,7 +359,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanVotePlus()
+    public function getLoanVotePlus(): ActiveQuery
     {
         return $this->getLoanVote()->andWhere(['>', 'loan_vote_rating', 0]);
     }
@@ -375,7 +367,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getManagerBuyer()
+    public function getManagerBuyer(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'loan_user_buyer_id']);
     }
@@ -383,23 +375,23 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getManagerSeller()
+    public function getManagerSeller(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'loan_user_seller_id']);
+        return $this->hasOne(User::class, ['user_id' => 'loan_user_seller_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'loan_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'loan_player_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getPlayerPosition()
+    public function getPlayerPosition(): ActiveQuery
     {
         return $this->hasMany(LoanPosition::class, ['loan_position_loan_id' => 'loan_id']);
     }
@@ -407,7 +399,7 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayerSpecial()
+    public function getPlayerSpecial(): ActiveQuery
     {
         return $this->hasMany(LoanSpecial::class, ['loan_special_loan_id' => 'loan_id']);
     }
@@ -415,8 +407,8 @@ class Loan extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSeller()
+    public function getSeller(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'loan_team_seller_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'loan_team_seller_id'])->cache();
     }
 }

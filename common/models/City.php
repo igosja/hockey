@@ -18,17 +18,9 @@ use yii\db\ActiveQuery;
 class City extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%city}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['city_id', 'city_country_id'], 'integer'],
@@ -41,7 +33,7 @@ class City extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'city_country_id']);
     }
@@ -49,7 +41,7 @@ class City extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStadium()
+    public function getStadium(): ActiveQuery
     {
         return $this->hasMany(Stadium::class, ['stadium_city_id' => 'city_id']);
     }

@@ -21,17 +21,9 @@ use yii\db\ActiveQuery;
 class Schedule extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%schedule}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -51,7 +43,7 @@ class Schedule extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'schedule_date' => 'Date',
@@ -63,24 +55,24 @@ class Schedule extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSeason()
+    public function getSeason(): ActiveQuery
     {
-        return $this->hasOne(Season::class, ['season_id' => 'schedule_season_id']);
+        return $this->hasOne(Season::class, ['season_id' => 'schedule_season_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getStage()
+    public function getStage(): ActiveQuery
     {
-        return $this->hasOne(Stage::class, ['stage_id' => 'schedule_stage_id']);
+        return $this->hasOne(Stage::class, ['stage_id' => 'schedule_stage_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTournamentType()
+    public function getTournamentType(): ActiveQuery
     {
-        return $this->hasOne(TournamentType::class, ['tournament_type_id' => 'schedule_tournament_type_id']);
+        return $this->hasOne(TournamentType::class, ['tournament_type_id' => 'schedule_tournament_type_id'])->cache();
     }
 }

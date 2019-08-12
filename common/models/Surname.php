@@ -16,17 +16,9 @@ use yii\db\ActiveQuery;
 class Surname extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%surname}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['surname_id'], 'integer'],
@@ -39,7 +31,7 @@ class Surname extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
         return $this->hasMany(Player::class, ['player_surname_id' => 'surname_id']);
     }

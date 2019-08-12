@@ -13,17 +13,9 @@ namespace common\models;
 class PreNews extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%pre_news}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['pre_news_id'], 'integer'],
@@ -31,7 +23,10 @@ class PreNews extends AbstractActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'pre_news_new' => 'Новое на сайте',

@@ -31,17 +31,9 @@ class School extends AbstractActiveRecord
     const AGE = 17;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%school}}';
-    }
-
-    /**
      * @return array
      */
-    public function schools()
+    public function rules(): array
     {
         return [
             [
@@ -67,32 +59,32 @@ class School extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'school_position_id']);
+        return $this->hasOne(Position::class, ['position_id' => 'school_position_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'school_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'school_special_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getStyle()
+    public function getStyle(): ActiveQuery
     {
-        return $this->hasOne(Style::class, ['style_id' => 'school_style_id']);
+        return $this->hasOne(Style::class, ['style_id' => 'school_style_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'school_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'school_team_id'])->cache();
     }
 }

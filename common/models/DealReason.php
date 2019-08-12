@@ -18,17 +18,9 @@ class DealReason extends AbstractActiveRecord
     const REFERRER = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%deal_reason}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['deal_reason_id'], 'integer'],

@@ -37,17 +37,9 @@ use yii\db\ActiveQuery;
 class StatisticTeam extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%statistic_team}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -84,7 +76,7 @@ class StatisticTeam extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -100,7 +92,7 @@ class StatisticTeam extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
         return $this->hasOne(National::class, ['national_id' => 'statistic_team_national_id']);
     }
@@ -108,7 +100,7 @@ class StatisticTeam extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'statistic_team_team_id']);
     }
