@@ -15,13 +15,15 @@ use yii\helpers\Html;
     <?php if (!Yii::$app->user->isGuest && $model->news_user_id == Yii::$app->user->id) : ?>
         <span class="text-size-3 font-grey">
             <?= Html::a(
-                'Редактировать',
-                ['country/news-update', 'id' => $model->news_country_id, 'newsId' => $model->news_id]
+                '<i class="fa fa-pencil" aria-hidden="true"></i>',
+                ['country/news-update', 'id' => $model->news_country_id, 'newsId' => $model->news_id],
+                ['title' => 'Редактировать']
             ); ?>
             |
             <?= Html::a(
-                'Удалить',
-                ['country/news-delete', 'id' => $model->news_country_id, 'newsId' => $model->news_id]
+                '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+                ['country/news-delete', 'id' => $model->news_country_id, 'newsId' => $model->news_id],
+                ['title' => 'Удалить']
             ); ?>
         </span>
     <?php endif; ?>

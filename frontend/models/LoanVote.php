@@ -11,6 +11,7 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
+use yii\db\Transaction;
 
 /**
  * Class LoanVote
@@ -88,6 +89,9 @@ class LoanVote extends Model
             return false;
         }
 
+        $transaction = Yii::$app->db->beginTransaction();
+        $transaction->setIsolationLevel(Transaction::SERIALIZABLE);
+
         $model = VoteModel::find()
             ->where(['loan_vote_loan_id' => $this->loanId, 'loan_vote_user_id' => $user->user_id])
             ->limit(1)
@@ -98,7 +102,6 @@ class LoanVote extends Model
             $model->loan_vote_user_id = $user->user_id;
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
         try {
             $model->loan_vote_rating = $this->vote;
             $model->save();

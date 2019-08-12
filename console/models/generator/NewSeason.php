@@ -40,6 +40,7 @@ use console\models\newSeason\PlayerTireBaseLevel;
 use console\models\newSeason\RandPhysical;
 use console\models\newSeason\TruncateTables;
 use console\models\newSeason\VisitorResetAll;
+use console\models\newSeason\WorldCupRotate;
 use Exception;
 use Yii;
 
@@ -73,6 +74,7 @@ class NewSeason
             new InsertSchedule(),
             new InsertNational(),
             new ChampionshipRotate(),
+            new WorldCupRotate(),
             new InsertOffSeason(),
             new InsertConference(),
             new InsertChampionship(),

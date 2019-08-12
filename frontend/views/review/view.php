@@ -56,7 +56,11 @@ $user = Yii::$app->user->identity;
 <?php if (!Yii::$app->user->isGuest && UserRole::USER != $user->user_user_role_id) : ?>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <?= Html::a('Удалить', ['review/delete', 'id' => $review->review_id]); ?>
+            <?= Html::a(
+                '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+                ['review/delete', 'id' => $review->review_id],
+                ['title' => 'Удалить']
+            ); ?>
         </div>
     </div>
 <?php endif; ?>

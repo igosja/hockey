@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use Exception;
 use yii\db\ActiveQuery;
+use yii\helpers\Html;
 
 /**
  * Class Event
@@ -77,8 +79,27 @@ class Event extends AbstractActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function icon(): string
+    {
+        $iconId = $this->event_event_type_id;
+        if (EventType::SHOOTOUT == $iconId && EventTextShootout::NO_SCORE == $this->event_event_text_shootout_id) {
+            $iconId++;
+        }
+
+        return Html::img(
+            '/img/event_type/' . $iconId . '.png',
+            [
+                'alt' => $this->eventType->event_type_text,
+                'title' => $this->eventType->event_type_text,
+            ]
+        );
+    }
+
+    /**
      * @param array $data
-     * @throws \Exception
+     * @throws Exception
      */
     public static function log(array $data)
     {
