@@ -10,6 +10,7 @@ use common\models\User;
 use Exception;
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 
 /**
  * Class UserTransferFinance
@@ -118,7 +119,7 @@ class UserTransferFinance extends Model
         }
 
         Finance::log([
-            'finance_comment' => ($this->comment ? $this->comment . ' ' : '') . $this->user->user_login,
+            'finance_comment' => ($this->comment ? $this->comment . ' ' : '') . Html::encode($this->user->user_login),
             'finance_finance_text_id' => FinanceText::USER_TRANSFER,
             'finance_team_id' => $team->team_id,
             'finance_value' => $this->sum,
@@ -147,7 +148,7 @@ class UserTransferFinance extends Model
         }
 
         Finance::log([
-            'finance_comment' => ($this->comment ? $this->comment . ', ' : '') . $this->user->user_login,
+            'finance_comment' => ($this->comment ? $this->comment . ', ' : '') . Html::encode($this->user->user_login),
             'finance_country_id' => $country->country_id,
             'finance_finance_text_id' => FinanceText::USER_TRANSFER,
             'finance_value' => $this->sum,

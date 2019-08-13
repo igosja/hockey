@@ -85,7 +85,7 @@ use yii\helpers\Html;
                         <?= $news->news_text; ?>
                     </p>
                     <?= Html::a(
-                        $news->user->user_login,
+                        Html::encode($news->user->user_login),
                         ['user/view', 'id' => $news->news_user_id]
                     ); ?>
                     <p class="text-justify text-size-3">
@@ -158,7 +158,7 @@ use yii\helpers\Html;
                                 (<?= $item->division->division_name; ?>),
                                 <?= $item->stage->stage_name; ?>:
                                 <?= Html::a($item->review_title, ['review/view', 'id' => $item->review_id]); ?>
-                                (<?= Html::a($item->user->user_login, ['user/view', 'id' => $item->user->user_id]); ?>)
+                                (<?= Html::a(Html::encode($item->user->user_login), ['user/view', 'id' => $item->user->user_id]); ?>)
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -183,7 +183,7 @@ use yii\helpers\Html;
                     <p class="text-justify">
                         <?= HockeyHelper::bbDecode($countryNews->news_text); ?>
                     </p>
-                    <?= Html::a($countryNews->user->user_login, ['user/view', 'id' => $countryNews->user->user_id]); ?>
+                    <?= Html::a(Html::encode($countryNews->user->user_login), ['user/view', 'id' => $countryNews->user->user_id]); ?>
                     <p class="text-justify text-size-3">
                         [<?= Html::a('Подробнее', ['country/news', 'id' => $countryNews->news_country_id]); ?>]
                     </p>
@@ -207,7 +207,7 @@ use yii\helpers\Html;
                         <?php foreach ($birthdays as $item) : ?>
                             <li>
                                 <?= $item->user_name; ?> <?= $item->user_surname; ?>
-                                (<?= Html::a($item->user_login, ['user/view', 'id' => $item->user_id]); ?>)
+                                (<?= Html::a(Html::encode($item->user_login), ['user/view', 'id' => $item->user_id]); ?>)
                                 <?php if ($item->user_birth_year) : ?>
                                     -
                                     <?= date('Y') - $item->user_birth_year; ?>-я годовщина!

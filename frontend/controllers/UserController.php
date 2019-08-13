@@ -29,6 +29,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -655,7 +656,7 @@ class UserController extends AbstractController
             ->where(['logo_team_id' => 0])
             ->all();
 
-        $this->setSeoTitle($user->user_login . '. Загрузка фото');
+        $this->setSeoTitle(Html::encode($user->user_login) . '. Загрузка фото');
 
         return $this->render('logo', [
             'logoArray' => $logoArray,
@@ -673,7 +674,7 @@ class UserController extends AbstractController
         $model = $this->user;
         Yii::$app->request->setQueryParams(['id' => $model->user_id]);
 
-        $this->setSeoTitle($model->user_login . '. Профили в социальных сетях.');
+        $this->setSeoTitle(Html::encode($model->user_login) . '. Профили в социальных сетях.');
 
         return $this->render('social', [
             'model' => $model,

@@ -26,7 +26,12 @@ use yii\helpers\Html;
                 'attribute' => 'user_id',
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
-            'user_login',
+            [
+                'attribute' => 'user_login',
+                'value' => function (User $model) {
+                    return Html::encode($model->user_login);
+                }
+            ],
             [
                 'label' => 'Страна',
                 'value' => function (User $model) {

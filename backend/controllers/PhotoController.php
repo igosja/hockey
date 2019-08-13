@@ -7,6 +7,7 @@ use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\StaleObjectException;
+use yii\helpers\Html;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -49,7 +50,7 @@ class PhotoController extends AbstractController
             ->one();
         $this->notFound($model);
 
-        $this->view->title = $model->user->user_login;
+        $this->view->title = Html::encode($model->user->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Фото пользователей', 'url' => ['logo/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 

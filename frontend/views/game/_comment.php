@@ -15,7 +15,7 @@ $identity = Yii::$app->user->identity;
 <div class="row border-top">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-2">
         <?= Html::a(
-            $model->user->user_login,
+            Html::encode($model->user->user_login),
             ['user/view', 'id' => $model->game_comment_user_id],
             ['class' => 'strong']
         ); ?>

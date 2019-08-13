@@ -28,7 +28,7 @@ $user = User::find()->where(['user_id' => Yii::$app->request->get('id', Yii::$ap
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         Ник:
                         <?= $user->iconVip(); ?>
-                        <span class="strong"><?= $user->user_login; ?></span>
+                        <span class="strong"><?= Html::encode($user->user_login); ?></span>
                         <?php if ($user->canDialog()) : ?>
                             <?= Html::a(
                                 '<i class="fa fa-envelope-o"></i>',
