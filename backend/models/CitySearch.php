@@ -15,7 +15,7 @@ class CitySearch extends City
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['city_id'], 'integer'],

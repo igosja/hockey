@@ -15,7 +15,7 @@ class PollSearch extends Poll
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['poll_id'], 'integer'],

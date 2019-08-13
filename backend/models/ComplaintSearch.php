@@ -15,7 +15,7 @@ class ComplaintSearch extends Complaint
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['complaint_id'], 'integer'],

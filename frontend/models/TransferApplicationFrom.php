@@ -27,7 +27,7 @@ class TransferApplicationFrom extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['off'], 'boolean'],

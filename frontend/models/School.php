@@ -32,7 +32,7 @@ class School extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['position_id', 'special_id', 'style_id'], 'integer'],

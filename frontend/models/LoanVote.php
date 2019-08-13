@@ -45,7 +45,7 @@ class LoanVote extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['vote'], 'in', 'range' => [-1, 1]],
