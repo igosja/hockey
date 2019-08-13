@@ -29,52 +29,53 @@ $user = Yii::$app->user->identity;
 
 ?>
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>
+            Чемпионат мира среди сборных
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//world-championship/_national-type-links', ['nationalTypeArray' => $nationalTypeArray]); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+        <?= $this->render('//world-championship/_division-links', ['divisionArray' => $divisionArray]); ?>
+    </div>
+</div>
+<?= Html::beginForm(['world-championship/index'], 'get'); ?>
+<?= Html::hiddenInput('divisionId', $divisionId); ?>
+<?= Html::hiddenInput('nationalTypeId', $nationalTypeId); ?>
+<div class="row margin-top-small">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+        <?= Html::label('Сезон', 'seasonId'); ?>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+        <?= Html::dropDownList(
+            'seasonId',
+            $seasonId,
+            $seasonArray,
+            ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+        ); ?>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+</div>
+<?= Html::endForm(); ?>
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center team-logo-div">
         <?= Html::img(
-            '/img/tournament_type/' . TournamentType::NATIONAL . '.png',
+            '/img/tournament_type/' . TournamentType::NATIONAL . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/tournament_type/' . TournamentType::NATIONAL . '.png'),
             [
                 'alt' => 'Чемпионат мира среди сборных',
+                'class' => 'country-logo',
                 'title' => 'Чемпионат мира среди сборных',
             ]
         ); ?>
     </div>
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h1>
-                    Чемпионат мира среди сборных
-                </h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <?= $this->render('//world-championship/_national-type-links', ['nationalTypeArray' => $nationalTypeArray]); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <?= $this->render('//world-championship/_division-links', ['divisionArray' => $divisionArray]); ?>
-            </div>
-        </div>
-        <?= Html::beginForm(['world-championship/index'], 'get'); ?>
-        <?= Html::hiddenInput('divisionId', $divisionId); ?>
-        <?= Html::hiddenInput('nationalTypeId', $nationalTypeId); ?>
-        <div class="row margin-top-small">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-                <?= Html::label('Сезон', 'seasonId'); ?>
-            </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                <?= Html::dropDownList(
-                    'seasonId',
-                    $seasonId,
-                    $seasonArray,
-                    ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
-                ); ?>
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
-        </div>
-        <?= Html::endForm(); ?>
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <p class="text-justify">
