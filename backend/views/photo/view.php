@@ -63,8 +63,8 @@ use yii\widgets\DetailView;
                         return Html::img(
                             '/img/user/125/' . $model->logo_user_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/img/user/125/' . $model->logo_user_id . '.png'),
                             [
-                                'alt' => $model->user->user_login,
-                                'title' => $model->user->user_login,
+                                'alt' => Html::encode($model->user->user_login),
+                                'title' => Html::encode($model->user->user_login),
                             ]
                         );
                     }
@@ -79,8 +79,8 @@ use yii\widgets\DetailView;
                         return Html::img(
                             '/upload/img/user/125/' . $model->logo_user_id . '.png?v=' . filemtime(Yii::getAlias('@frontend') . '/web/upload/img/user/125/' . $model->logo_user_id . '.png'),
                             [
-                                'alt' => $model->user->user_login,
-                                'title' => $model->user->user_login,
+                                'alt' => Html::encode($model->user->user_login),
+                                'title' => Html::encode($model->user->user_login),
                             ]
                         );
                     }

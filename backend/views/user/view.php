@@ -51,7 +51,7 @@ use yii\widgets\DetailView;
             [
                 'label' => 'Логин',
                 'value' => function (User $model) {
-                    return $model->user_login;
+                    return Html::encode($model->user_login);
                 },
             ],
             [

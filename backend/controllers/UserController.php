@@ -11,6 +11,7 @@ use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -64,7 +65,7 @@ class UserController extends AbstractController
             'query' => $query,
         ]);
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -94,7 +95,7 @@ class UserController extends AbstractController
         $this->view->title = 'Редактирование пользователей';
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
         $this->view->params['breadcrumbs'][] = [
-            'label' => $model->user_login,
+            'label' => Html::encode($model->user_login),
             'url' => ['user/view', 'id' => $model->user_id]
         ];
         $this->view->params['breadcrumbs'][] = $this->view->title;
@@ -136,7 +137,7 @@ class UserController extends AbstractController
             $this->redirect(['user/view', 'id' => $id]);
         }
 
-        $this->view->title = $user->user_login;
+        $this->view->title = Html::encode($user->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -170,7 +171,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -208,7 +209,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -246,7 +247,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -284,7 +285,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -322,7 +323,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -360,7 +361,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 
@@ -398,7 +399,7 @@ class UserController extends AbstractController
         $blockReasonArray = BlockReason::find()->all();
         $blockReasonArray = ArrayHelper::map($blockReasonArray, 'block_reason_id', 'block_reason_text');
 
-        $this->view->title = $model->user_login;
+        $this->view->title = Html::encode($model->user_login);
         $this->view->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
         $this->view->params['breadcrumbs'][] = $this->view->title;
 

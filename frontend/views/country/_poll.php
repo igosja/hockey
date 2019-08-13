@@ -33,7 +33,7 @@ use yii\helpers\Html;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Автор:
                 <?= Html::a(
-                    $model->user->user_login,
+                    Html::encode($model->user->user_login),
                     ['user/view', 'id' => $model->poll_user_id]
                 ); ?>
             </div>

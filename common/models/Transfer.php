@@ -9,6 +9,7 @@ use Exception;
 use Throwable;
 use yii\db\ActiveQuery;
 use yii\db\StaleObjectException;
+use yii\helpers\Html;
 
 /**
  * Class Transfer
@@ -135,11 +136,11 @@ class Transfer extends AbstractActiveRecord
                     ->one();
                 if ($history) {
                     if (HistoryText::USER_MANAGER_TEAM_OUT == $history->history_history_text_id) {
-                        $result['error'][] = 'Менеджер <span class="strong">' . $history->user->user_login . '</span> покинул команду <span class="strong">' . $history->team->team_name . '</span>.';
+                        $result['error'][] = 'Менеджер <span class="strong">' . Html::encode($history->user->user_login) . '</span> покинул команду <span class="strong">' . $history->team->team_name . '</span>.';
                     } elseif ($history->history_date > time() - 2592000) {
-                        $result['error'][] = 'Менеджер <span class="strong">' . $history->user->user_login . '</span> менее 1 месяца в команде.';
+                        $result['error'][] = 'Менеджер <span class="strong">' . Html::encode($history->user->user_login) . '</span> менее 1 месяца в команде.';
                     } elseif ($history->history_date > time() - 5184000) {
-                        $result['warning'][] = 'Менеджер <span class="strong">' . $history->user->user_login . '</span> менее 2 месяцев в команде.';
+                        $result['warning'][] = 'Менеджер <span class="strong">' . Html::encode($history->user->user_login) . '</span> менее 2 месяцев в команде.';
                     }
                 }
 
@@ -148,13 +149,13 @@ class Transfer extends AbstractActiveRecord
                     ->limit(1)
                     ->one();
                 if ($user->user_date_login < time() - 604800) {
-                    $result['error'][] = 'Менеджер <span class="strong">' . $user->user_login . '</span> больше недели не заходил на сайт.';
+                    $result['error'][] = 'Менеджер <span class="strong">' . Html::encode($user->user_login) . '</span> больше недели не заходил на сайт.';
                 }
 
                 if ($user->user_date_register > time() - 2592000) {
-                    $result['error'][] = 'Менеджер <span class="strong">' . $user->user_login . '</span> менее 1 месяца в Лиге.';
+                    $result['error'][] = 'Менеджер <span class="strong">' . Html::encode($user->user_login) . '</span> менее 1 месяца в Лиге.';
                 } elseif ($user->user_date_register > time() - 5184000) {
-                    $result['warning'][] = 'Менеджер <span class="strong">' . $user->user_login . '</span> менее 2 месяцев в Лиге.';
+                    $result['warning'][] = 'Менеджер <span class="strong">' . Html::encode($user->user_login) . '</span> менее 2 месяцев в Лиге.';
                 }
 
                 $team = Team::find()
@@ -187,7 +188,7 @@ class Transfer extends AbstractActiveRecord
                     ->count();
 
                 if ($transfer + $loan) {
-                    $result['warning'][] = 'У менеджера <span class="strong">' . $user->user_login . '</span> в этом сезоне уже отменяли <span class="strong">' . ($transfer + $loan) . ' сделок</span>.';
+                    $result['warning'][] = 'У менеджера <span class="strong">' . Html::encode($user->user_login) . '</span> в этом сезоне уже отменяли <span class="strong">' . ($transfer + $loan) . ' сделок</span>.';
                 }
             }
         }

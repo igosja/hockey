@@ -25,7 +25,12 @@ use yii\helpers\Html;
                 'attribute' => 'user_id',
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
-            'user_login',
+            [
+                'attribute' => 'user_login',
+                'value' => function (\common\models\User $model) {
+                    return Html::encode($model->user_login);
+                }
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],

@@ -147,7 +147,7 @@ class History extends AbstractActiveRecord
             $text = str_replace(
                 '{user}',
                 Html::a(
-                    $this->user->user_login,
+                    Html::encode($this->user->user_login),
                     ['user/view', 'id' => $this->history_user_id]
                 ),
                 $text

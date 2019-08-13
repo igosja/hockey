@@ -238,7 +238,7 @@ use yii\web\View;
                                 </td>
                                 <td>
                                     <?= Html::a(
-                                        $item->user->user_login,
+                                        Html::encode($item->user->user_login),
                                         ['user/view', 'id' => $item->payment_user_id],
                                         ['target' => '_blank']
                                     ) ?>

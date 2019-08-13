@@ -34,9 +34,9 @@ use yii\widgets\ActiveForm;
                         <?= Html::img(
                             '/img/user/125/' . $user->user_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/user/125/' . $user->user_id . '.png'),
                             [
-                                'alt' => $user->user_login,
+                                'alt' => Html::encode($user->user_login),
                                 'class' => 'team-logo',
-                                'title' => $user->user_login,
+                                'title' => Html::encode($user->user_login),
                             ]
                         ); ?>
                     <?php else : ?>
@@ -61,9 +61,9 @@ use yii\widgets\ActiveForm;
                         <?= Html::img(
                             '/upload/img/user/125/' . $user->user_id . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/upload/img/user/125/' . $user->user_id . '.png'),
                             [
-                                'alt' => $user->user_login,
+                                'alt' => Html::encode($user->user_login),
                                 'class' => 'team-logo',
-                                'title' => $user->user_login,
+                                'title' => Html::encode($user->user_login),
                             ]
                         ); ?>
                     <?php else : ?>
