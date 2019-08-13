@@ -1,5 +1,6 @@
 <?php
 
+use common\models\TournamentType;
 use yii\helpers\Html;
 
 /**
@@ -12,37 +13,50 @@ use yii\helpers\Html;
 
 ?>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h1>
-            Лига Чемпионов
-        </h1>
-    </div>
-</div>
-<?= Html::beginForm(['champions-league/qualification'], 'get'); ?>
-<div class="row margin-top-small">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-        <?= Html::label('Сезон', 'seasonId'); ?>
-    </div>
-    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-        <?= Html::dropDownList(
-            'seasonId',
-            $seasonId,
-            $seasonArray,
-            ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <?= Html::img(
+            '/img/tournament_type/' . TournamentType::LEAGUE . '.png',
+            [
+                'alt' => 'Лига Чемпионов',
+                'title' => 'Лига Чемпионов',
+            ]
         ); ?>
     </div>
-    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
-</div>
-<?= Html::endForm(); ?>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p class="text-justify">
-            Лига чемпионов - самый престижный клубный турнир Лиги, куда попадают лучшие команды предыдущего сезона.
-            Число мест в розыгрыше от каждой федерации и стартовый этап для каждой команды определяется согласно
-            клубному рейтингу стран.
-            В турнире есть отборочные раунды, групповой двухкруговой турнир, раунды плей-офф и финал.
-        </p>
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1>
+                    Лига Чемпионов
+                </h1>
+            </div>
+        </div>
+        <?= Html::beginForm(['champions-league/qualification'], 'get'); ?>
+        <div class="row margin-top-small">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                <?= Html::label('Сезон', 'seasonId'); ?>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+                <?= Html::dropDownList(
+                    'seasonId',
+                    $seasonId,
+                    $seasonArray,
+                    ['class' => 'form-control submit-on-change', 'id' => 'seasonId']
+                ); ?>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-4"></div>
+        </div>
+        <?= Html::endForm(); ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p class="text-justify">
+                    Лига чемпионов - самый престижный клубный турнир Лиги, куда попадают лучшие команды предыдущего сезона.
+                    Число мест в розыгрыше от каждой федерации и стартовый этап для каждой команды определяется согласно
+                    клубному рейтингу стран.
+                    В турнире есть отборочные раунды, групповой двухкруговой турнир, раунды плей-офф и финал.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
