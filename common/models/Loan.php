@@ -49,6 +49,14 @@ use yii\db\StaleObjectException;
 class Loan extends AbstractActiveRecord
 {
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%loan}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array

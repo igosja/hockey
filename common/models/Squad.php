@@ -15,6 +15,14 @@ class Squad extends AbstractActiveRecord
     const SQUAD_DEFAULT = 1;
 
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%squad}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array

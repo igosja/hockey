@@ -92,6 +92,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
     const MAX_VIP_HOLIDAY = 60;
 
     /**
+     * @return string
+     */
+    public static function tableName(): string
+    {
+        return '{{%user}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array

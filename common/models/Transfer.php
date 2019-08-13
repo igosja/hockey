@@ -47,6 +47,14 @@ use yii\db\StaleObjectException;
 class Transfer extends AbstractActiveRecord
 {
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%transfer}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array
