@@ -18,6 +18,14 @@ use yii\db\ActiveQuery;
 class City extends AbstractActiveRecord
 {
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%city}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array

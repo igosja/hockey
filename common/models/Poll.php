@@ -28,6 +28,14 @@ use yii\db\StaleObjectException;
 class Poll extends AbstractActiveRecord
 {
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%poll}}';
+    }
+
+    /**
      * @var array $answer
      */
     public $answer;

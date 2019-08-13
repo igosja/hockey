@@ -22,6 +22,14 @@ use yii\db\ActiveQuery;
 class TeamAsk extends AbstractActiveRecord
 {
     /**
+     * @return string
+     */
+    public static function tableName():string
+    {
+        return '{{%team_ask}}';
+    }
+
+    /**
      * @return array
      */
     public function rules(): array
