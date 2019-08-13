@@ -67,7 +67,7 @@ class PlayerSearch extends Player
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

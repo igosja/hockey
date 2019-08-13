@@ -70,7 +70,7 @@ class LoanApplicationTo extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['day'], 'integer', 'min' => $this->minDay, 'max' => $this->maxDay],

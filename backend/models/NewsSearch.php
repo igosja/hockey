@@ -15,7 +15,7 @@ class NewsSearch extends News
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['news_id'], 'integer'],

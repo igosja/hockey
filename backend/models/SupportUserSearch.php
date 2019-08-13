@@ -15,7 +15,7 @@ class SupportUserSearch extends Support
     /**
      * @return array
      */
-    public function scenarios()
+    public function scenarios(): array
     {
         return Model::scenarios();
     }

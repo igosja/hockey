@@ -15,7 +15,7 @@ class SupportSearch extends Support
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['support_user_id'], 'integer'],

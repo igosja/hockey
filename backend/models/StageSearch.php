@@ -15,7 +15,7 @@ class StageSearch extends Stage
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['stage_id'], 'integer'],

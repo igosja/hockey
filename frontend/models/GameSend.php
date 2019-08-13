@@ -124,7 +124,7 @@ class GameSend extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['line'], 'safe'],

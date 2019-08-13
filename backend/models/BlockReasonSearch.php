@@ -15,7 +15,7 @@ class BlockReasonSearch extends BlockReason
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['block_reason_id'], 'integer'],

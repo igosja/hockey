@@ -15,7 +15,7 @@ class TeamSearch extends Team
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['team_id'], 'integer'],

@@ -15,7 +15,7 @@ class UserSearch extends User
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_id'], 'integer'],

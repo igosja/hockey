@@ -67,7 +67,7 @@ class TransferHistorySearch extends Transfer
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [

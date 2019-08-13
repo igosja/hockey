@@ -24,7 +24,7 @@ class Activation extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['code'], 'trim'],

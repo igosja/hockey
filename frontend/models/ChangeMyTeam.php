@@ -2,7 +2,6 @@
 
 namespace frontend\models;
 
-use common\models\Team;
 use Yii;
 use yii\base\Model;
 
@@ -17,7 +16,7 @@ class ChangeMyTeam extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['teamId'], 'integer'],

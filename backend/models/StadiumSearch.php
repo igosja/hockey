@@ -15,7 +15,7 @@ class StadiumSearch extends Stadium
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['stadium_id', 'stadium_city_id'], 'integer'],

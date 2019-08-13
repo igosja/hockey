@@ -15,7 +15,7 @@ class RuleSearch extends Rule
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['rule_id', 'rule_order'], 'integer'],

@@ -15,7 +15,7 @@ class SquadSearch extends Squad
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['squad_id'], 'integer'],

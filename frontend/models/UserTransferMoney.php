@@ -34,7 +34,7 @@ class UserTransferMoney extends Model
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['userId'], 'integer', 'min' => 1],
