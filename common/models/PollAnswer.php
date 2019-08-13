@@ -17,17 +17,9 @@ use yii\db\ActiveQuery;
 class PollAnswer extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%poll_answer}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['poll_answer_id', 'poll_answer_poll_id'], 'integer'],
@@ -40,7 +32,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         if (parent::beforeDelete()) {
             PollUser::deleteAll(['poll_user_poll_answer_id' => $this->poll_answer_id]);
@@ -52,7 +44,7 @@ class PollAnswer extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPollUser()
+    public function getPollUser(): ActiveQuery
     {
         return $this->hasMany(PollUser::class, ['poll_user_poll_answer_id' => 'poll_answer_id']);
     }

@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Throwable;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\StaleObjectException;
 
 /**
  * Class ForumTheme
@@ -24,17 +26,9 @@ use yii\db\ActiveQuery;
 class ForumTheme extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%forum_theme}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -58,7 +52,7 @@ class ForumTheme extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -72,10 +66,10 @@ class ForumTheme extends AbstractActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
+     * @throws Throwable
+     * @throws StaleObjectException
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->forumMessage as $forumMessage) {
             $forumMessage->delete();
@@ -86,7 +80,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumGroup()
+    public function getForumGroup(): ActiveQuery
     {
         return $this->hasOne(ForumGroup::class, ['forum_group_id' => 'forum_theme_forum_group_id']);
     }
@@ -94,7 +88,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumMessage()
+    public function getForumMessage(): ActiveQuery
     {
         return $this
             ->hasMany(ForumMessage::class, ['forum_message_forum_theme_id' => 'forum_theme_id'])
@@ -104,7 +98,7 @@ class ForumTheme extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'forum_theme_user_id']);
     }

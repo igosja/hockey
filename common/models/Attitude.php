@@ -17,17 +17,9 @@ class Attitude extends AbstractActiveRecord
     const POSITIVE = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%attitude}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['attitude_id', 'attitude_order'], 'integer'],

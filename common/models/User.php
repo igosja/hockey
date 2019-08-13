@@ -92,17 +92,9 @@ class User extends AbstractActiveRecord implements IdentityInterface
     const MAX_VIP_HOLIDAY = 60;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_email'], 'email'],
@@ -196,7 +188,10 @@ class User extends AbstractActiveRecord implements IdentityInterface
         ];
     }
 
-    public function attributeLabels()
+    /**
+     * @return array
+     */
+    public function attributeLabels(): array
     {
         return [
             'user_city' => 'Город',
@@ -235,7 +230,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return integer
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->getPrimaryKey();
     }
@@ -243,7 +238,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function getAuthKey()
+    public function getAuthKey(): string
     {
         return $this->user_code;
     }
@@ -252,7 +247,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @param string $authKey
      * @return bool
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey): bool
     {
         return $this->getAuthKey() === $authKey;
     }
@@ -261,28 +256,30 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @param string $password
      * @return bool
      */
-    public function validatePassword($password)
+    public function validatePassword(string $password): bool
     {
         return Yii::$app->getSecurity()->validatePassword($password, $this->user_password);
     }
 
     /**
      * @param string $password
-     * @return void
+     * @return bool
      */
-    public function setPassword($password)
+    public function setPassword(string $password): bool
     {
         try {
             $this->user_password = Yii::$app->getSecurity()->generatePasswordHash($password);
         } catch (Exception $e) {
             ErrorHelper::log($e);
         }
+
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function generateUserCode()
+    public function generateUserCode(): bool
     {
         $code = md5(uniqid(rand(), 1));
         if (!self::find()->where(['user_code' => $code])->exists()) {
@@ -290,13 +287,14 @@ class User extends AbstractActiveRecord implements IdentityInterface
         } else {
             $this->generateUserCode();
         }
+        return true;
     }
 
     /**
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -311,7 +309,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function iconVip()
+    public function iconVip(): string
     {
         $result = '';
         if ($this->isVip()) {
@@ -323,7 +321,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public function isVip()
+    public function isVip(): bool
     {
         return $this->user_date_vip > time();
     }
@@ -331,7 +329,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function fullName()
+    public function fullName(): string
     {
         $result = 'Новый менеджер';
         if ($this->user_name || $this->user_surname) {
@@ -343,7 +341,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function lastVisit()
+    public function lastVisit(): string
     {
         $date = $this->user_date_login;
         $min_5 = $date + 5 * 60;
@@ -369,7 +367,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function birthDay()
+    public function birthDay(): string
     {
         if ($this->user_birth_day && $this->user_birth_day && $this->user_birth_year) {
             $result = $this->user_birth_day . '.' . $this->user_birth_month . '.' . $this->user_birth_year;
@@ -383,7 +381,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return bool
      */
-    public function canDialog()
+    public function canDialog(): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;
@@ -471,7 +469,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @return bool
      * @throws Exception
      */
-    public function updateQuestionnaire()
+    public function updateQuestionnaire(): bool
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -497,7 +495,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @return bool
      * @throws Exception
      */
-    public function updateNotes()
+    public function updateNotes(): bool
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -514,7 +512,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @return bool
      * @throws Exception
      */
-    public function updateHoliday()
+    public function updateHoliday(): bool
     {
         if (!$this->load(Yii::$app->request->post())) {
             return false;
@@ -591,7 +589,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
      * @param array $options
      * @return string
      */
-    public function userLink(array $options = [])
+    public function userLink(array $options = []): string
     {
         if (isset($options['color']) && UserRole::ADMIN == $this->user_user_role_id && $options['color']) {
             unset($options['color']);
@@ -608,7 +606,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return string
      */
-    public function userFrom()
+    public function userFrom(): string
     {
         if (!$this->country) {
             $countryName = '';
@@ -716,7 +714,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_id' => 'user_country_id']);
     }
@@ -724,7 +722,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getPresident()
+    public function getPresident(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_president_id' => 'user_id']);
     }
@@ -732,7 +730,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getPresidentVice()
+    public function getPresidentVice(): ActiveQuery
     {
         return $this->hasOne(Country::class, ['country_president_vice_id' => 'user_id']);
     }
@@ -740,7 +738,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlock()
+    public function getReasonBlock(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_block_reason_id']);
     }
@@ -748,7 +746,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockComment()
+    public function getReasonBlockComment(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_block_reason_id']);
     }
@@ -756,7 +754,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockChat()
+    public function getReasonBlockChat(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_chat_block_reason_id']);
     }
@@ -764,7 +762,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockCommentDeal()
+    public function getReasonBlockCommentDeal(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_deal_block_reason_id']);
     }
@@ -772,7 +770,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockCommentGame()
+    public function getReasonBlockCommentGame(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_game_block_reason_id']);
     }
@@ -780,7 +778,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockCommentNews()
+    public function getReasonBlockCommentNews(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_comment_news_block_reason_id']);
     }
@@ -788,7 +786,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReasonBlockForum()
+    public function getReasonBlockForum(): ActiveQuery
     {
         return $this->hasOne(BlockReason::class, ['block_reason_id' => 'user_block_forum_block_reason_id']);
     }
@@ -796,15 +794,15 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getReferrer()
+    public function getReferrer(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'user_referrer_id']);
+        return $this->hasOne(User::class, ['user_id' => 'user_referrer_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSex()
+    public function getSex(): ActiveQuery
     {
         return $this->hasOne(Sex::class, ['sex_id' => 'user_sex_id']);
     }
@@ -812,7 +810,7 @@ class User extends AbstractActiveRecord implements IdentityInterface
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
         return $this->hasMany(Team::class, ['team_user_id' => 'user_id']);
     }

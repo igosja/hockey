@@ -17,17 +17,9 @@ use yii\db\ActiveQuery;
 class RatingUser extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%rating_user}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -44,7 +36,7 @@ class RatingUser extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'rating_user_user_id']);
     }

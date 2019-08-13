@@ -24,17 +24,9 @@ use yii\db\ActiveQuery;
 class ParticipantChampionship extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%participant_championship}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -57,21 +49,21 @@ class ParticipantChampionship extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getChampionship()
+    public function getChampionship(): ActiveQuery
     {
         return $this->hasOne(Championship::class, [
             'championship_country_id' => 'participant_championship_country_id',
             'championship_division_id' => 'participant_championship_division_id',
             'championship_season_id' => 'participant_championship_season_id',
             'championship_team_id' => 'participant_championship_team_id',
-        ]);
+        ])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'participant_championship_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'participant_championship_team_id'])->cache();
     }
 }

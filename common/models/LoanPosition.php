@@ -17,17 +17,9 @@ use yii\db\ActiveQuery;
 class LoanPosition extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%loan_position}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['loan_position_id', 'loan_position_loan_id', 'loan_position_position_id'], 'integer'],
@@ -38,8 +30,8 @@ class LoanPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
-        return $this->hasOne(Position::class, ['position_id' => 'loan_position_position_id']);
+        return $this->hasOne(Position::class, ['position_id' => 'loan_position_position_id'])->cache();
     }
 }

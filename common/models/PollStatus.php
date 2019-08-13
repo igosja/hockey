@@ -16,17 +16,9 @@ class PollStatus extends AbstractActiveRecord
     const OPEN = 2;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%poll_status}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['poll_status_id'], 'integer'],

@@ -300,6 +300,10 @@ class HockeyHelper
         $text = str_replace("&nbsp;", ' ', $text);
         $text = nl2br($text);
 
+        $text = htmlentities($text, null, 'utf-8');
+        $text = str_replace("&nbsp;", " ", $text);
+        $text = html_entity_decode($text);
+
         return $text;
     }
 

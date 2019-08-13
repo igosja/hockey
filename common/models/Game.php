@@ -173,17 +173,9 @@ class Game extends AbstractActiveRecord
     public $shot;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%game}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -314,7 +306,10 @@ class Game extends AbstractActiveRecord
         ];
     }
 
-    public function tournamentLink()
+    /**
+     * @return string
+     */
+    public function tournamentLink(): string
     {
         if (TournamentType::NATIONAL == $this->schedule->schedule_tournament_type_id) {
             $result = Html::a(
@@ -378,10 +373,10 @@ class Game extends AbstractActiveRecord
     }
 
     /**
-     * @param $team
+     * @param string $team
      * @return string
      */
-    public function cssMood($team)
+    public function cssMood(string $team): string
     {
         $classLoose = 'font-red';
         $classWin = 'font-green';
@@ -403,7 +398,7 @@ class Game extends AbstractActiveRecord
      * @param int $id
      * @return string
      */
-    public function cssStyle($team, $id)
+    public function cssStyle(string $team, int $id): string
     {
         $classLoose = 'font-red';
         $classWin = 'font-green';
@@ -444,7 +439,7 @@ class Game extends AbstractActiveRecord
      * @param string $first
      * @return string
      */
-    public function formatScore($first = 'home')
+    public function formatScore($first = 'home'): string
     {
         if ($this->game_played) {
             if ('home' == $first) {
@@ -463,7 +458,7 @@ class Game extends AbstractActiveRecord
      * @param bool $link
      * @return string
      */
-    public function teamOrNationalLink($side = 'home', $full = true, $link = true)
+    public function teamOrNationalLink(string $side = 'home', bool $full = true, bool $link = true): string
     {
         if ('home' == $side) {
             $team = $this->teamHome;
@@ -512,7 +507,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function rating()
+    public function rating(): string
     {
         $returnArray = [
             '<span class="font-green">' . count($this->gameVotePlus) . '</span>',
@@ -527,7 +522,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGameVote()
+    public function getGameVote(): ActiveQuery
     {
         return $this->hasMany(GameVote::class, ['game_vote_game_id' => 'game_id']);
     }
@@ -535,7 +530,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGameVoteMinus()
+    public function getGameVoteMinus(): ActiveQuery
     {
         return $this->getGameVote()->andWhere(['<', 'game_vote_rating', 0]);
     }
@@ -543,7 +538,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGameVotePlus()
+    public function getGameVotePlus(): ActiveQuery
     {
         return $this->getGameVote()->andWhere(['>', 'game_vote_rating', 0]);
     }
@@ -551,7 +546,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLineup()
+    public function getLineup(): ActiveQuery
     {
         return $this->hasMany(Lineup::class, ['lineup_game_id' => 'game_id']);
     }
@@ -559,7 +554,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getMoodGuest()
+    public function getMoodGuest(): ActiveQuery
     {
         return $this->hasOne(Mood::class, ['mood_id' => 'game_guest_mood_id']);
     }
@@ -567,7 +562,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getMoodHome()
+    public function getMoodHome(): ActiveQuery
     {
         return $this->hasOne(Mood::class, ['mood_id' => 'game_home_mood_id']);
     }
@@ -575,23 +570,23 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNationalGuest()
+    public function getNationalGuest(): ActiveQuery
     {
-        return $this->hasOne(National::class, ['national_id' => 'game_guest_national_id']);
+        return $this->hasOne(National::class, ['national_id' => 'game_guest_national_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNationalHome()
+    public function getNationalHome(): ActiveQuery
     {
-        return $this->hasOne(National::class, ['national_id' => 'game_home_national_id']);
+        return $this->hasOne(National::class, ['national_id' => 'game_home_national_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getRudenessGuest1()
+    public function getRudenessGuest1(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_1']);
     }
@@ -599,7 +594,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessGuest2()
+    public function getRudenessGuest2(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_2']);
     }
@@ -607,7 +602,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessGuest3()
+    public function getRudenessGuest3(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_3']);
     }
@@ -615,7 +610,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessGuest4()
+    public function getRudenessGuest4(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_guest_rudeness_id_4']);
     }
@@ -623,7 +618,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessHome1()
+    public function getRudenessHome1(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_1']);
     }
@@ -631,7 +626,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessHome2()
+    public function getRudenessHome2(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_2']);
     }
@@ -639,7 +634,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessHome3()
+    public function getRudenessHome3(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_3']);
     }
@@ -647,7 +642,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRudenessHome4()
+    public function getRudenessHome4(): ActiveQuery
     {
         return $this->hasOne(Rudeness::class, ['rudeness_id' => 'game_home_rudeness_id_4']);
     }
@@ -655,15 +650,15 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSchedule()
+    public function getSchedule(): ActiveQuery
     {
-        return $this->hasOne(Schedule::class, ['schedule_id' => 'game_schedule_id']);
+        return $this->hasOne(Schedule::class, ['schedule_id' => 'game_schedule_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getStadium()
+    public function getStadium(): ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'game_stadium_id']);
     }
@@ -671,7 +666,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleGuest1()
+    public function getStyleGuest1(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_1']);
     }
@@ -679,7 +674,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleGuest2()
+    public function getStyleGuest2(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_2']);
     }
@@ -687,7 +682,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleGuest3()
+    public function getStyleGuest3(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_3']);
     }
@@ -695,7 +690,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleGuest4()
+    public function getStyleGuest4(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_guest_style_id_4']);
     }
@@ -703,7 +698,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleHome1()
+    public function getStyleHome1(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_1']);
     }
@@ -711,7 +706,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleHome2()
+    public function getStyleHome2(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_2']);
     }
@@ -719,7 +714,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleHome3()
+    public function getStyleHome3(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_3']);
     }
@@ -727,7 +722,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyleHome4()
+    public function getStyleHome4(): ActiveQuery
     {
         return $this->hasOne(Style::class, ['style_id' => 'game_home_style_id_4']);
     }
@@ -735,7 +730,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticGuest1()
+    public function getTacticGuest1(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_1']);
     }
@@ -743,7 +738,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticGuest2()
+    public function getTacticGuest2(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_2']);
     }
@@ -751,7 +746,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticGuest3()
+    public function getTacticGuest3(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_3']);
     }
@@ -759,7 +754,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticGuest4()
+    public function getTacticGuest4(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_guest_tactic_id_4']);
     }
@@ -767,7 +762,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticHome1()
+    public function getTacticHome1(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_1']);
     }
@@ -775,7 +770,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticHome2()
+    public function getTacticHome2(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_2']);
     }
@@ -783,7 +778,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticHome3()
+    public function getTacticHome3(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_3']);
     }
@@ -791,7 +786,7 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTacticHome4()
+    public function getTacticHome4(): ActiveQuery
     {
         return $this->hasOne(Tactic::class, ['tactic_id' => 'game_home_tactic_id_4']);
     }
@@ -799,16 +794,16 @@ class Game extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeamGuest()
+    public function getTeamGuest(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'game_guest_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'game_guest_team_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeamHome()
+    public function getTeamHome(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'game_home_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'game_home_team_id'])->cache();
     }
 }

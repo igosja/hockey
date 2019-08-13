@@ -24,17 +24,9 @@ use yii\db\ActiveQuery;
 class FriendlyInvite extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%friendly_invite}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -57,7 +49,7 @@ class FriendlyInvite extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -71,7 +63,7 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getFriendlyInviteStatus()
+    public function getFriendlyInviteStatus(): ActiveQuery
     {
         return $this->hasOne(
             FriendlyInviteStatus::class,
@@ -82,16 +74,16 @@ class FriendlyInvite extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGuestTeam()
+    public function getGuestTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_guest_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_guest_team_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getHomeTeam()
+    public function getHomeTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_home_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'friendly_invite_home_team_id'])->cache();
     }
 }

@@ -457,7 +457,8 @@ class UserController extends AbstractController
     {
         Yii::$app->request->setQueryParams(['id' => Yii::$app->user->id]);
         $query = User::find()
-            ->where(['user_referrer_id' => Yii::$app->user->id]);
+            ->where(['user_referrer_id' => Yii::$app->user->id])
+            ->andWhere(['!=', 'user_date_confirm', 0]);
         $dataProvider = new ActiveDataProvider([
             'pagination' => false,
             'query' => $query,

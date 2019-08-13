@@ -41,17 +41,9 @@ use yii\helpers\Html;
 class National extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%national}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -83,7 +75,7 @@ class National extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function fullName()
+    public function fullName(): string
     {
         return $this->country->country_name
             . ' (' . $this->nationalType->national_type_name
@@ -93,7 +85,7 @@ class National extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function division()
+    public function division(): string
     {
         $result = '-';
         if ($this->worldCup) {
@@ -115,7 +107,7 @@ class National extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function fireUser()
+    public function fireUser(): bool
     {
         if (!$this->national_user_id) {
             return true;
@@ -152,7 +144,7 @@ class National extends AbstractActiveRecord
      * @return bool
      * @throws Exception
      */
-    public function fireVice()
+    public function fireVice(): bool
     {
         if (!$this->national_vice_id) {
             return true;
@@ -174,7 +166,7 @@ class National extends AbstractActiveRecord
      * @param bool $image
      * @return string
      */
-    public function nationalLink($image = false)
+    public function nationalLink(bool $image = false): string
     {
         $result = '';
         if ($image) {
@@ -196,7 +188,7 @@ class National extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myTeam()
+    public function myTeam(): bool
     {
         /**
          * @var AbstractController $controller
@@ -217,7 +209,7 @@ class National extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myTeamOrVice()
+    public function myTeamOrVice(): bool
     {
         /**
          * @var AbstractController $controller
@@ -246,7 +238,7 @@ class National extends AbstractActiveRecord
     /**
      * @return Game[]
      */
-    public function latestGame()
+    public function latestGame(): array
     {
         return array_reverse(Game::find()
             ->joinWith(['schedule'])
@@ -260,7 +252,7 @@ class National extends AbstractActiveRecord
     /**
      * @return Game[]
      */
-    public function nearestGame()
+    public function nearestGame(): array
     {
         return Game::find()
             ->joinWith(['schedule'])
@@ -272,10 +264,10 @@ class National extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
      * @throws Exception
-     * @return void
      */
-    public function updatePower()
+    public function updatePower(): bool
     {
         $player1 = Player::find()
             ->select(['player_id'])
@@ -343,12 +335,14 @@ class National extends AbstractActiveRecord
             'national_power_v',
             'national_power_vs',
         ]);
+
+        return true;
     }
 
     /**
      * @return int
      */
-    public function attitudeNational()
+    public function attitudeNational(): int
     {
         $result = 0;
         foreach ($this->country->city as $city) {
@@ -365,9 +359,9 @@ class National extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudeNationalNegative()
+    public function attitudeNationalNegative(): int
     {
         $result = 0;
         foreach ($this->country->city as $city) {
@@ -381,9 +375,9 @@ class National extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudeNationalNeutral()
+    public function attitudeNationalNeutral(): int
     {
         $result = 0;
         foreach ($this->country->city as $city) {
@@ -397,9 +391,9 @@ class National extends AbstractActiveRecord
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function attitudeNationalPositive()
+    public function attitudeNationalPositive(): int
     {
         $result = 0;
         foreach ($this->country->city as $city) {
@@ -415,7 +409,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStadium()
+    public function getStadium(): ActiveQuery
     {
         return $this->hasOne(Stadium::class, ['stadium_id' => 'national_stadium_id']);
     }
@@ -423,23 +417,23 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'national_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'national_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNationalType()
+    public function getNationalType(): ActiveQuery
     {
-        return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id']);
+        return $this->hasOne(NationalType::class, ['national_type_id' => 'national_national_type_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'national_user_id']);
     }
@@ -447,7 +441,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getVice()
+    public function getVice(): ActiveQuery
     {
         return $this->hasOne(User::class, ['user_id' => 'national_vice_id']);
     }
@@ -455,7 +449,7 @@ class National extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getWorldCup()
+    public function getWorldCup(): ActiveQuery
     {
         return $this
             ->hasOne(WorldCup::class, ['world_cup_national_id' => 'national_id'])

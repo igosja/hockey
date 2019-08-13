@@ -22,17 +22,9 @@ use yii\db\ActiveQuery;
 class ElectionPresidentViceApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%election_president_vice_application}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -52,7 +44,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -67,7 +59,7 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'election_president_vice_application_text' => 'Программа',
@@ -77,18 +69,18 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresidentVice()
+    public function getElectionPresidentVice(): ActiveQuery
     {
         return $this->hasOne(
             ElectionPresidentVice::class,
             ['election_president_vice_id' => 'election_president_vice_application_election_id']
-        );
+        )->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getElectionPresidentViceVote()
+    public function getElectionPresidentViceVote(): ActiveQuery
     {
         return $this->hasMany(
             ElectionPresidentViceVote::class,
@@ -99,8 +91,8 @@ class ElectionPresidentViceApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'election_president_vice_application_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'election_president_vice_application_user_id'])->cache();
     }
 }

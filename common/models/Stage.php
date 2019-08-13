@@ -69,17 +69,9 @@ class Stage extends AbstractActiveRecord
     const FINAL_GAME = 55;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%stage}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['stage_id'], 'integer'],

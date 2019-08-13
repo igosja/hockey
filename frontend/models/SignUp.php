@@ -55,6 +55,20 @@ class SignUp extends Model
             $cookies = Yii::$app->request->cookies;
             $referrer_id = $cookies->getValue('user_referrer_id', 0);
 
+            $userIp = Yii::$app->request->headers->get('x-real-ip');
+            if (!$userIp) {
+                $userIp = Yii::$app->request->userIP;
+            }
+
+            $refUser = User::find()
+                ->where(['user_id' => $referrer_id])
+                ->andWhere(['!=', 'user_ip', $userIp])
+                ->limit(1)
+                ->one();
+            if (!$refUser) {
+                $referrer_id = 0;
+            }
+
             $model = new User();
             $model->user_email = $this->email;
             $model->user_login = $this->username;

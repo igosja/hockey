@@ -38,17 +38,9 @@ use yii\db\ActiveQuery;
 class RatingTeam extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%rating_team}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -86,7 +78,7 @@ class RatingTeam extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'rating_team_team_id']);
     }

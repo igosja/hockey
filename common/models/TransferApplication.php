@@ -24,17 +24,9 @@ use yii\db\ActiveQuery;
 class TransferApplication extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%transfer_application}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -57,7 +49,7 @@ class TransferApplication extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -71,7 +63,7 @@ class TransferApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDealReason()
+    public function getDealReason(): ActiveQuery
     {
         return $this->hasOne(DealReason::class, ['deal_reason_id' => 'transfer_application_deal_reason_id']);
     }
@@ -79,16 +71,16 @@ class TransferApplication extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'transfer_application_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'transfer_application_team_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'transfer_application_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'transfer_application_user_id'])->cache();
     }
 }

@@ -18,17 +18,9 @@ use yii\db\ActiveQuery;
 class LoanSpecial extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%loan_special}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['loan_special_id', 'loan_special_level', 'loan_special_loan_id', 'loan_special_special_id'], 'integer'],
@@ -39,8 +31,8 @@ class LoanSpecial extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSpecial()
+    public function getSpecial(): ActiveQuery
     {
-        return $this->hasOne(Special::class, ['special_id' => 'loan_special_special_id']);
+        return $this->hasOne(Special::class, ['special_id' => 'loan_special_special_id'])->cache();
     }
 }

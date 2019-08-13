@@ -25,17 +25,9 @@ use yii\db\ActiveQuery;
 class News extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%news}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['news_id', 'news_check', 'news_country_id', 'news_date', 'news_user_id'], 'integer'],
@@ -48,7 +40,7 @@ class News extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'news_id' => 'Id',
@@ -62,7 +54,7 @@ class News extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -80,7 +72,7 @@ class News extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function beforeDelete()
+    public function beforeDelete(): bool
     {
         foreach ($this->newsComment as $newsComment) {
             $newsComment->delete();
@@ -91,7 +83,7 @@ class News extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function text()
+    public function text(): string
     {
         return nl2br($this->news_text);
     }
@@ -99,15 +91,15 @@ class News extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'news_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'news_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNewsComment()
+    public function getNewsComment(): ActiveQuery
     {
         return $this->hasMany(NewsComment::class, ['news_comment_news_id' => 'news_id']);
     }
@@ -115,8 +107,8 @@ class News extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'news_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'news_user_id'])->cache();
     }
 }

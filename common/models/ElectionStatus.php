@@ -16,17 +16,9 @@ class ElectionStatus extends AbstractActiveRecord
     const OPEN = 2;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%election_status}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['election_status_id'], 'integer'],

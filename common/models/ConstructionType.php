@@ -15,17 +15,9 @@ class ConstructionType extends AbstractActiveRecord
     const DESTROY = 2;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%construction_type}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['construction_type_id'], 'integer'],

@@ -21,17 +21,9 @@ class TournamentType extends AbstractActiveRecord
     const FRIENDLY = 6;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%tournament_type}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['tournament_type_id', 'tournament_type_day_type_id'], 'integer'],

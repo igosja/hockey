@@ -18,17 +18,9 @@ class UserRole extends AbstractActiveRecord
     const USER = 1;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%user_role}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_role_id'], 'integer'],

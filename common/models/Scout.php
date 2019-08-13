@@ -22,17 +22,9 @@ use yii\db\ActiveQuery;
 class Scout extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%scout}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -55,8 +47,8 @@ class Scout extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayer()
+    public function getPlayer(): ActiveQuery
     {
-        return $this->hasOne(Player::class, ['player_id' => 'scout_player_id']);
+        return $this->hasOne(Player::class, ['player_id' => 'scout_player_id'])->cache();
     }
 }

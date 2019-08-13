@@ -22,17 +22,9 @@ class RatingChapter extends AbstractActiveRecord
     const COUNTRY = 3;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%rating_chapter}}';
-    }
-
-    /**
      * @return array
      */
-    public static function selectOptions()
+    public static function selectOptions(): array
     {
         $typesArray = self::find()
             ->with(['ratingType'])
@@ -54,7 +46,7 @@ class RatingChapter extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['rating_chapter_id', 'rating_chapter_order'], 'integer'],
@@ -67,7 +59,7 @@ class RatingChapter extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getRatingType()
+    public function getRatingType(): ActiveQuery
     {
         return $this->hasMany(RatingType::class, ['rating_type_rating_chapter_id' => 'rating_chapter_id']);
     }

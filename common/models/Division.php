@@ -17,17 +17,9 @@ class Division extends AbstractActiveRecord
     const D4 = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%division}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['division_id'], 'integer'],

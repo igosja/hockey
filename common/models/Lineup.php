@@ -52,14 +52,6 @@ class Lineup extends AbstractActiveRecord
     const GAME_QUANTITY = 22;
 
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%lineup}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
@@ -146,7 +138,7 @@ class Lineup extends AbstractActiveRecord
      */
     public function getGame(): ActiveQuery
     {
-        return $this->hasOne(Game::class, ['game_id' => 'lineup_game_id']);
+        return $this->hasOne(Game::class, ['game_id' => 'lineup_game_id'])->cache();
     }
 
     /**

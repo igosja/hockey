@@ -30,17 +30,9 @@ use yii\db\ActiveQuery;
 class League extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%league}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -135,8 +127,8 @@ class League extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'league_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'league_team_id'])->cache();
     }
 }

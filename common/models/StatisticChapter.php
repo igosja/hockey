@@ -18,17 +18,9 @@ use yii\helpers\ArrayHelper;
 class StatisticChapter extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%statistic_chapter}}';
-    }
-
-    /**
      * @return array
      */
-    public static function selectOptions()
+    public static function selectOptions(): array
     {
         $typesArray = self::find()
             ->with(['statisticType'])
@@ -50,7 +42,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['statistic_chapter_id', 'statistic_chapter_order'], 'integer'],
@@ -64,7 +56,7 @@ class StatisticChapter extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -83,7 +75,7 @@ class StatisticChapter extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStatisticType()
+    public function getStatisticType(): ActiveQuery
     {
         return $this->hasMany(StatisticType::class, ['statistic_type_statistic_chapter_id' => 'statistic_chapter_id']);
     }

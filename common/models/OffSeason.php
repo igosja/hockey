@@ -31,17 +31,9 @@ use yii\db\ActiveQuery;
 class OffSeason extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%off_season}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -121,8 +113,8 @@ class OffSeason extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'off_season_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'off_season_team_id'])->cache();
     }
 }

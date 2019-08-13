@@ -26,6 +26,7 @@ class ReferrerBonus
             ->andWhere(['user_referrer_done' => 0])
             ->andWhere(['>', 'user_date_login', new Expression('user_date_register+2592000')])
             ->andWhere(['not', ['team_user_id' => null]])
+            ->andWhere(['!=', 'user_date_confirm', 0])
             ->groupBy(['user_id'])
             ->orderBy(['user_id' => SORT_ASC])
             ->each(5);

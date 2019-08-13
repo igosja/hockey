@@ -19,17 +19,9 @@ class ForumChapter extends AbstractActiveRecord
     const NATIONAL = 4;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%forum_chapter}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['forum_chapter_id', 'forum_chapter_order'], 'integer'],
@@ -43,7 +35,7 @@ class ForumChapter extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -62,7 +54,7 @@ class ForumChapter extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getForumGroup()
+    public function getForumGroup(): ActiveQuery
     {
         return $this
             ->hasMany(ForumGroup::class, ['forum_group_forum_chapter_id' => 'forum_chapter_id'])

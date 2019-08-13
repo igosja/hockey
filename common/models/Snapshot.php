@@ -54,11 +54,4 @@ namespace common\models;
  */
 class Snapshot extends AbstractActiveRecord
 {
-    /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%snapshot}}';
-    }
 }

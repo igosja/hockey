@@ -5,6 +5,7 @@ namespace common\models;
 use common\components\FormatHelper;
 use DateInterval;
 use DateTime;
+use Exception;
 use yii\db\ActiveQuery;
 
 /**
@@ -25,17 +26,9 @@ use yii\db\ActiveQuery;
 class BuildingBase extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%building_base}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -57,7 +50,7 @@ class BuildingBase extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -70,9 +63,9 @@ class BuildingBase extends AbstractActiveRecord
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function endDate()
+    public function endDate(): string
     {
         $day = $this->building_base_day;
 
@@ -91,16 +84,16 @@ class BuildingBase extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBuilding()
+    public function getBuilding(): ActiveQuery
     {
-        return $this->hasOne(Building::class, ['building_id' => 'building_base_building_id']);
+        return $this->hasOne(Building::class, ['building_id' => 'building_base_building_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'building_base_team_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'building_base_team_id'])->cache();
     }
 }

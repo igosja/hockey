@@ -72,17 +72,9 @@ class Player extends AbstractActiveRecord
     const TIRE_MAX_FOR_LINEUP = 60;
 
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%player}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -131,7 +123,7 @@ class Player extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -180,9 +172,10 @@ class Player extends AbstractActiveRecord
     /**
      * @param bool $insert
      * @param array $changedAttributes
+     * @return bool
      * @throws Exception
      */
-    public function afterSave($insert, $changedAttributes)
+    public function afterSave($insert, $changedAttributes): bool
     {
         parent::afterSave($insert, $changedAttributes);
 
@@ -198,6 +191,7 @@ class Player extends AbstractActiveRecord
                 'history_team_id' => $this->player_team_id
             ]);
         }
+        return true;
     }
 
     /**
@@ -223,7 +217,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconInjury()
+    public function iconInjury(): string
     {
         $result = '';
         if ($this->player_injury) {
@@ -235,7 +229,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconDeal()
+    public function iconDeal(): string
     {
         $result = '';
         if ($this->loan || $this->transfer) {
@@ -247,7 +241,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconNational()
+    public function iconNational(): string
     {
         $result = '';
         if ($this->player_national_id) {
@@ -264,7 +258,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconPension()
+    public function iconPension(): string
     {
         $result = '';
         if (self::AGE_READY_FOR_PENSION == $this->player_age) {
@@ -277,7 +271,7 @@ class Player extends AbstractActiveRecord
      * @param boolean $showOnlyIfStudied
      * @return string
      */
-    public function iconStyle($showOnlyIfStudied = false)
+    public function iconStyle(bool $showOnlyIfStudied = false): string
     {
         /**
          * @var AbstractController $controller
@@ -341,7 +335,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return int
      */
-    public function countScout()
+    public function countScout(): int
     {
         /**
          * @var AbstractController $controller
@@ -362,7 +356,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconTraining()
+    public function iconTraining(): string
     {
         $countTraining = Training::find()
             ->where([
@@ -382,7 +376,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconScout()
+    public function iconScout(): string
     {
         /**
          * @var AbstractController $controller
@@ -408,7 +402,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function iconLoan()
+    public function iconLoan(): string
     {
         $result = '';
         if ($this->player_loan_day) {
@@ -420,7 +414,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function powerNominal()
+    public function powerNominal(): string
     {
         $class = '';
         if ($this->player_power_nominal > $this->player_power_old) {
@@ -434,7 +428,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function playerName()
+    public function playerName(): string
     {
         return $this->name->name_name . ' ' . $this->surname->surname_name;
     }
@@ -442,7 +436,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function position()
+    public function position(): string
     {
         $result = [];
         foreach ($this->playerPosition as $position) {
@@ -454,7 +448,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function special()
+    public function special(): string
     {
         $result = [];
         foreach ($this->playerSpecial as $special) {
@@ -467,7 +461,7 @@ class Player extends AbstractActiveRecord
      * @param array $options
      * @return string
      */
-    public function playerLink(array $options = [])
+    public function playerLink(array $options = []): string
     {
         return Html::a(
             $this->name->name_name . ' ' . $this->surname->surname_name,
@@ -479,7 +473,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function playerTire()
+    public function playerTire(): string
     {
         /**
          * @var AbstractController $controller
@@ -517,7 +511,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function playerGameRow()
+    public function playerGameRow(): string
     {
         /**
          * @var AbstractController $controller
@@ -555,7 +549,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function playerPhysical()
+    public function playerPhysical(): string
     {
         /**
          * @var AbstractController $controller
@@ -593,7 +587,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myPlayer()
+    public function myPlayer(): bool
     {
         /**
          * @var AbstractController $controller
@@ -611,7 +605,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function myNationalPlayer()
+    public function myNationalPlayer(): bool
     {
         /**
          * @var AbstractController $controller
@@ -629,7 +623,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function trainingPositionDropDownList()
+    public function trainingPositionDropDownList(): string
     {
         if (2 == count($this->playerPosition)) {
             return '';
@@ -663,7 +657,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return string
      */
-    public function trainingSpecialDropDownList()
+    public function trainingSpecialDropDownList(): string
     {
         $playerSpecial = PlayerSpecial::find()
             ->where(['player_special_level' => Special::MAX_LEVEL, 'player_special_player_id' => $this->player_id])
@@ -705,9 +699,10 @@ class Player extends AbstractActiveRecord
     }
 
     /**
+     * @return bool
      * @throws Exception
      */
-    public function makeFree()
+    public function makeFree(): bool
     {
         History::log([
             'history_history_text_id' => HistoryText::PLAYER_FREE,
@@ -729,20 +724,22 @@ class Player extends AbstractActiveRecord
             'player_squad_id',
             'player_team_id',
         ]);
+
+        return true;
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getCountry()
+    public function getCountry(): ActiveQuery
     {
-        return $this->hasOne(Country::class, ['country_id' => 'player_country_id']);
+        return $this->hasOne(Country::class, ['country_id' => 'player_country_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getLoan()
+    public function getLoan(): ActiveQuery
     {
         return $this->hasOne(Loan::class, ['loan_player_id' => 'player_id'])->andWhere(['loan_ready' => 0]);
     }
@@ -750,7 +747,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLoanTeam()
+    public function getLoanTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'player_loan_team_id']);
     }
@@ -758,7 +755,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getName()
+    public function getName(): ActiveQuery
     {
         return $this->hasOne(Name::class, ['name_id' => 'player_name_id']);
     }
@@ -766,7 +763,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
         return $this->hasOne(National::class, ['national_id' => 'player_national_id']);
     }
@@ -774,7 +771,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPhysical()
+    public function getPhysical(): ActiveQuery
     {
         return $this->hasOne(Physical::class, ['physical_id' => 'player_physical_id']);
     }
@@ -782,7 +779,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayerPosition()
+    public function getPlayerPosition(): ActiveQuery
     {
         return $this->hasMany(PlayerPosition::class, ['player_position_player_id' => 'player_id']);
     }
@@ -790,7 +787,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPlayerSpecial()
+    public function getPlayerSpecial(): ActiveQuery
     {
         return $this->hasMany(PlayerSpecial::class, ['player_special_player_id' => 'player_id']);
     }
@@ -798,15 +795,15 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSchoolTeam()
+    public function getSchoolTeam(): ActiveQuery
     {
-        return $this->hasOne(Team::class, ['team_id' => 'player_school_id']);
+        return $this->hasOne(Team::class, ['team_id' => 'player_school_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSquad()
+    public function getSquad(): ActiveQuery
     {
         return $this->hasOne(Squad::class, ['squad_id' => 'player_squad_id']);
     }
@@ -814,7 +811,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getSquadNational()
+    public function getSquadNational(): ActiveQuery
     {
         return $this->hasOne(Squad::class, ['squad_id' => 'player_national_squad_id']);
     }
@@ -822,7 +819,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStatisticPlayer()
+    public function getStatisticPlayer(): ActiveQuery
     {
         return $this
             ->hasMany(StatisticPlayer::class, ['statistic_player_player_id' => 'player_id'])
@@ -832,15 +829,15 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getStyle()
+    public function getStyle(): ActiveQuery
     {
-        return $this->hasOne(Style::class, ['style_id' => 'player_style_id']);
+        return $this->hasOne(Style::class, ['style_id' => 'player_style_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getSurname()
+    public function getSurname(): ActiveQuery
     {
         return $this->hasOne(Surname::class, ['surname_id' => 'player_surname_id']);
     }
@@ -848,7 +845,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTeam()
+    public function getTeam(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'player_team_id']);
     }
@@ -856,7 +853,7 @@ class Player extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getTransfer()
+    public function getTransfer(): ActiveQuery
     {
         return $this->hasOne(Transfer::class, ['transfer_player_id' => 'player_id'])->andWhere(['transfer_ready' => 0]);
     }

@@ -33,17 +33,9 @@ use yii\db\ActiveQuery;
 class WorldCup extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%world_cup}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -131,24 +123,24 @@ class WorldCup extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getDivision()
+    public function getDivision(): ActiveQuery
     {
-        return $this->hasOne(Division::class, ['division_id' => 'world_cup_division_id']);
+        return $this->hasOne(Division::class, ['division_id' => 'world_cup_division_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNational()
+    public function getNational(): ActiveQuery
     {
-        return $this->hasOne(National::class, ['national_id' => 'world_cup_national_id']);
+        return $this->hasOne(National::class, ['national_id' => 'world_cup_national_id'])->cache();
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getNationalType()
+    public function getNationalType(): ActiveQuery
     {
-        return $this->hasOne(NationalType::class, ['national_type_id' => 'world_cup_national_type_id']);
+        return $this->hasOne(NationalType::class, ['national_type_id' => 'world_cup_national_type_id'])->cache();
     }
 }

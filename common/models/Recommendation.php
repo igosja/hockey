@@ -17,14 +17,6 @@ use yii\db\ActiveQuery;
 class Recommendation extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName(): string
-    {
-        return '{{%recommendation}}';
-    }
-
-    /**
      * @return array
      */
     public function rules(): array
@@ -57,6 +49,6 @@ class Recommendation extends AbstractActiveRecord
      */
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'recommendation_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'recommendation_user_id'])->cache();
     }
 }

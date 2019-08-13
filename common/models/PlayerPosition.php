@@ -16,17 +16,9 @@ use yii\db\ActiveQuery;
 class PlayerPosition extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%player_position}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['player_position_player_id', 'player_position_position_id'], 'integer'],
@@ -37,7 +29,7 @@ class PlayerPosition extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getPosition()
+    public function getPosition(): ActiveQuery
     {
         return $this->hasOne(Position::class, ['position_id' => 'player_position_position_id']);
     }

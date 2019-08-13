@@ -17,17 +17,9 @@ use Yii;
 class PollUser extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%poll_user}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['poll_user_poll_answer_id', 'poll_user_date', 'poll_user_user_id'], 'integer'],
@@ -39,7 +31,7 @@ class PollUser extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
@@ -54,7 +46,7 @@ class PollUser extends AbstractActiveRecord
     /**
      * @return bool
      */
-    public function addAnswer()
+    public function addAnswer(): bool
     {
         if (Yii::$app->user->isGuest) {
             return false;

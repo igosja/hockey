@@ -22,17 +22,9 @@ use yii\db\ActiveQuery;
 class GameComment extends AbstractActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%game_comment}}';
-    }
-
-    /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [
@@ -55,7 +47,7 @@ class GameComment extends AbstractActiveRecord
      * @param bool $insert
      * @return bool
      */
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (!parent::beforeSave($insert)) {
             return false;
@@ -71,8 +63,8 @@ class GameComment extends AbstractActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id']);
+        return $this->hasOne(User::class, ['user_id' => 'game_comment_user_id'])->cache();
     }
 }
