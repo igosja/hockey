@@ -1077,10 +1077,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionPresident->election_president_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов президентов федерации. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['president/application']
-                    );
+                $electionPresidentApplication = ElectionPresidentApplication::find()
+                    ->where([
+                        'election_president_application_election_id' => $electionPresident->election_president_id,
+                        'election_president_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionPresidentApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность президента федерации. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['president/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов президентов федерации. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['president/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionPresident->election_president_election_status_id) {
                 $electionPresidentVote = ElectionPresidentVote::find()
                     ->where([
@@ -1121,10 +1134,24 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionPresidentVice->election_president_vice_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей президентов федерации. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['president-vice/application']
-                    );
+                $electionPresidentViceApplication = ElectionPresidentViceApplication::find()
+                    ->where([
+                        'election_president_vice_application_election_id' => $electionPresidentVice->election_president_vice_id,
+                        'election_president_vice_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionPresidentViceApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность заместителя президента федерации. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['president-vice/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей президентов федерации. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['president-vice/application']
+                        );
+                }
+
             } elseif (ElectionStatus::OPEN == $electionPresidentVice->election_president_vice_election_status_id) {
                 $electionPresidentVote = ElectionPresidentViceVote::find()
                     ->where([
@@ -1172,10 +1199,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNational->election_national_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров национальной сборной. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election/application']
-                    );
+                $electionNationalApplication = ElectionNationalApplication::find()
+                    ->where([
+                        'election_national_application_election_id' => $electionNational->election_national_id,
+                        'election_national_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность тренера национальной сборной. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров национальной сборной. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNational->election_national_election_status_id) {
                 $electionNationalVote = ElectionNationalVote::find()
                     ->where([
@@ -1190,7 +1230,7 @@ class TeamController extends AbstractController
                     Yii::$app->controller->redirect(['national-election/poll']);
                 }
 
-                $result[] = 'В вашей стране проходят выборы тренера нацинальной сборной. ' . Html::a(
+                $result[] = 'В вашей стране проходят выборы тренера национальной сборной. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['national-election/view']
                     );
@@ -1218,10 +1258,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера нацинальной сборной. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election-vice/application']
-                    );
+                $electionNationalViceApplication = ElectionNationalViceApplication::find()
+                    ->where([
+                        'election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id,
+                        'election_national_vice_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalViceApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность заместителя тренера национальной сборной. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера национальной сборной. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
                 $electionNationalVote = ElectionNationalViceVote::find()
                     ->where([
@@ -1236,7 +1289,7 @@ class TeamController extends AbstractController
                     Yii::$app->controller->redirect(['national-election-vice/poll']);
                 }
 
-                $result[] = 'В вашей стране проходят выборы заместителя тренера нацинальной сборной. ' . Html::a(
+                $result[] = 'В вашей стране проходят выборы заместителя тренера национальной сборной. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['national-election-vice/view']
                     );
@@ -1269,10 +1322,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNational->election_national_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U21. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election/application']
-                    );
+                $electionNationalApplication = ElectionNationalApplication::find()
+                    ->where([
+                        'election_national_application_election_id' => $electionNational->election_national_id,
+                        'election_national_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность тренера сборной U21. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U21. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNational->election_national_election_status_id) {
                 $electionNationalVote = ElectionNationalVote::find()
                     ->where([
@@ -1315,10 +1381,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U21. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election-vice/application']
-                    );
+                $electionNationalViceApplication = ElectionNationalViceApplication::find()
+                    ->where([
+                        'election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id,
+                        'election_national_vice_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalViceApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность заместителя тренера сборной U21. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U21. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
                 $electionNationalVote = ElectionNationalViceVote::find()
                     ->where([
@@ -1333,7 +1412,7 @@ class TeamController extends AbstractController
                     Yii::$app->controller->redirect(['national-election-vice/poll']);
                 }
 
-                $result[] = 'В вашей стране проходят выборы заместителя тренера нацинальной сборной U21. ' . Html::a(
+                $result[] = 'В вашей стране проходят выборы заместителя тренера сборной U21. ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                         ['national-election-vice/view']
                     );
@@ -1366,10 +1445,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNational->election_national_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U19. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election/application']
-                    );
+                $electionNationalApplication = ElectionNationalApplication::find()
+                    ->where([
+                        'election_national_application_election_id' => $electionNational->election_national_id,
+                        'election_national_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность тренера сборной U19. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов тренеров сборной U19. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNational->election_national_election_status_id) {
                 $electionNationalVote = ElectionNationalVote::find()
                     ->where([
@@ -1412,10 +1504,23 @@ class TeamController extends AbstractController
             }
 
             if (ElectionStatus::CANDIDATES == $electionNationalVice->election_national_vice_election_status_id) {
-                $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U19. ' . Html::a(
-                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['national-election-vice/application']
-                    );
+                $electionNationalViceApplication = ElectionNationalViceApplication::find()
+                    ->where([
+                        'election_national_vice_application_election_id' => $electionNationalVice->election_national_vice_id,
+                        'election_national_vice_application_user_id' => Yii::$app->user->id,
+                    ])
+                    ->count();
+                if ($electionNationalViceApplication) {
+                    $result[] = 'Вы являетесь кандидатом на должность заместителя тренера сборной U19. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                } else {
+                    $result[] = 'В вашей стране открыт прием заявок от кандидатов заместителей тренера сборной U19. ' . Html::a(
+                            '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                            ['national-election-vice/application']
+                        );
+                }
             } elseif (ElectionStatus::OPEN == $electionNationalVice->election_national_vice_election_status_id) {
                 $electionNationalVote = ElectionNationalViceVote::find()
                     ->where([
