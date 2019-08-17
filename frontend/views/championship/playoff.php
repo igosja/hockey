@@ -7,6 +7,7 @@ use yii\helpers\Html;
  * @var array $divisionArray
  * @var int $divisionId
  * @var array $playoffArray
+ * @var array $reviewArray
  * @var bool $reviewCreate
  * @var array $roundArray
  * @var array $scheduleId
@@ -96,6 +97,24 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php endforeach; ?>
+<?php if ($reviewArray) : ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 strong margin-top text-center">
+            Обзоры:
+        </div>
+    </div>
+    <?php foreach ($reviewArray as $review) : ?>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-1"></div>
+            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-11">
+                <?= $review->stage->stage_name; ?> -
+                <?= Html::a($review->review_title, ['review/view', 'id' => $review->review_id]); ?>
+                -
+                <?= $review->user->userLink(); ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <p>
@@ -110,7 +129,7 @@ use yii\helpers\Html;
                 ],
                 ['class' => 'btn margin']
             ); ?>
-            <?php if ($reviewCreate && false) : ?>
+            <?php if ($reviewCreate) : ?>
                 <?= Html::a(
                     'Написать обзор',
                     [
