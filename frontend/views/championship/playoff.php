@@ -129,7 +129,7 @@ use yii\helpers\Html;
                 ],
                 ['class' => 'btn margin']
             ); ?>
-            <?php if ($reviewCreate && false) : ?>
+            <?php if ($reviewCreate) : ?>
                 <?= Html::a(
                     'Написать обзор',
                     [

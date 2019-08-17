@@ -344,7 +344,7 @@ class ChampionshipController extends AbstractController
             'reviewArray' => $reviewArray,
             'reviewCreate' => $this->canReviewCreate($gameArray, $countryId, $divisionId, $schedule->schedule_id),
             'roundArray' => $this->getRoundLinksArray($countryId, $divisionId, $seasonId),
-            'scheduleId' => 0,
+            'scheduleId' => $schedule->schedule_id,
             'seasonArray' => $this->getSeasonArray($countryId, $divisionId),
             'seasonId' => $seasonId,
         ]);
