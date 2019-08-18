@@ -19,6 +19,12 @@ class TournamentType extends AbstractActiveRecord
     const CONFERENCE = 4;
     const OFF_SEASON = 5;
     const FRIENDLY = 6;
+    const OLYMPIAD = 7;
+
+    public static function tableName()
+    {
+        return '{{%tournament_name}}';
+    }
 
     /**
      * @return array

@@ -7,6 +7,7 @@ use common\models\Season;
 use common\models\Stage;
 use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class InsertSchedule
@@ -15,8 +16,8 @@ use Yii;
 class InsertSchedule
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
@@ -264,6 +265,28 @@ class InsertSchedule
                     Stage::TOUR_41,
                 ])) {
                     $data[] = [$date, $seasonId, Stage::FRIENDLY, TournamentType::FRIENDLY];
+                }
+
+                if (0 == $seasonId % 4) {
+                    if (Stage::TOUR_31 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::TOUR_OLYMPIAD_1, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_32 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::TOUR_OLYMPIAD_2, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_33 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::TOUR_OLYMPIAD_3, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_34 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::TOUR_OLYMPIAD_4, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_35 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::TOUR_OLYMPIAD_5, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_36 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::ROUND_OF_16, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_37 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::QUARTER, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_38 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::SEMI, TournamentType::OLYMPIAD];
+                    } elseif (Stage::TOUR_39 == $scheduleConferenceStageArray[$i]) {
+                        $data[] = [$date, $seasonId, Stage::FINAL_GAME, TournamentType::OLYMPIAD];
+                    }
                 }
             }
         }
