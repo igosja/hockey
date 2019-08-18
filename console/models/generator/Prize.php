@@ -9,6 +9,7 @@ use common\models\FinanceText;
 use common\models\OffSeason;
 use common\models\ParticipantChampionship;
 use common\models\ParticipantLeague;
+use common\models\ParticipantOlympiad;
 use common\models\Schedule;
 use common\models\Season;
 use common\models\Stage;
@@ -322,6 +323,89 @@ class Prize
 
                     $league->team->team_finance = $league->team->team_finance + $prize;
                     $league->team->save();
+                }
+            } elseif (TournamentType::OLYMPIAD == $schedule->schedule_tournament_type_id && in_array($schedule->schedule_stage_id,
+                    [
+                        Stage::ROUND_OF_16,
+                        Stage::QUARTER,
+                        Stage::SEMI
+                    ])) {
+                $nationalArray = ParticipantOlympiad::find()
+                    ->with(['national'])
+                    ->where([
+                        'participant_olympiad_season_id' => $seasonId,
+                        'participant_olympiad_stage_id' => $schedule->schedule_stage_id
+                    ])
+                    ->all();
+                foreach ($nationalArray as $national) {
+                    if (Stage::SEMI == $national->participant_olympiad_stage_id) {
+                        $prize = 5000000;
+                    } elseif (Stage::QUARTER == $national->participant_olympiad_stage_id) {
+                        $prize = 4000000;
+                    } else {
+                        $prize = 3000000;
+                    }
+
+                    Finance::log([
+                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_OLYMPIAD,
+                        'finance_national_id' => $national->participant_olympiad_national_id,
+                        'finance_value' => $prize,
+                        'finance_value_after' => $national->national->national_finance + $prize,
+                        'finance_value_before' => $national->national->national_finance,
+                    ]);
+
+                    $national->national->national_finance = $national->national->national_finance + $prize;
+                    $national->national->save();
+                }
+            } elseif (TournamentType::OLYMPIAD == $schedule->schedule_tournament_type_id && Stage::TOUR_OLYMPIAD_5 == $schedule->schedule_stage_id) {
+                $nationalArray = ParticipantOlympiad::find()
+                    ->with(['national'])
+                    ->where(['participant_olympiad_season_id' => $seasonId, 'participant_olympiad_stage_id' => [5, 6]])
+                    ->orderBy(['participant_league_id' => SORT_ASC])
+                    ->all();
+                foreach ($nationalArray as $national) {
+                    if (5 == $national->participant_olympiad_stage_id) {
+                        $prize = 2000000;
+                    } else {
+                        $prize = 1000000;
+                    }
+
+                    Finance::log([
+                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_OLYMPIAD,
+                        'finance_national_id' => $national->participant_olympiad_national_id,
+                        'finance_value' => $prize,
+                        'finance_value_after' => $national->national->national_finance + $prize,
+                        'finance_value_before' => $national->national->national_finance,
+                    ]);
+
+                    $national->national->national_finance = $national->national->national_finance + $prize;
+                    $national->national->save();
+                }
+            } elseif (TournamentType::OLYMPIAD == $schedule->schedule_tournament_type_id && Stage::FINAL_GAME == $schedule->schedule_stage_id) {
+                $nationalArray = ParticipantOlympiad::find()
+                    ->with(['national'])
+                    ->where([
+                        'participant_olympiad_season_id' => $seasonId,
+                        'participant_olympiad_stage_id' => [Stage::FINAL_GAME, 0]
+                    ])
+                    ->all();
+                foreach ($nationalArray as $national) {
+                    if (Stage::FINAL_GAME == $national->participant_olympiad_stage_id) {
+                        $prize = 6000000;
+                    } else {
+                        $prize = 7000000;
+                    }
+
+                    Finance::log([
+                        'finance_finance_text_id' => FinanceText::INCOME_PRIZE_OLYMPIAD,
+                        'finance_national_id' => $national->participant_olympiad_national_id,
+                        'finance_value' => $prize,
+                        'finance_value_after' => $national->national->national_finance + $prize,
+                        'finance_value_before' => $national->national->national_finance,
+                    ]);
+
+                    $national->national->national_finance = $national->national->national_finance + $prize;
+                    $national->national->save();
                 }
             }
         }
