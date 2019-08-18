@@ -59,7 +59,7 @@ class PhysicalController extends AbstractController
         $scheduleArray = Schedule::find()
             ->with(['stage', 'tournamentType'])
             ->where(['>', 'schedule_date', time()])
-            ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
+            ->andWhere(['not', ['schedule_tournament_type_id' => [TournamentType::CONFERENCE, TournamentType::OLYMPIAD]]])
             ->groupBy(['schedule_date'])
             ->orderBy(['schedule_id' => SORT_ASC])
             ->all();
@@ -271,7 +271,7 @@ class PhysicalController extends AbstractController
                     ->where(['physical_change_player_id' => $playerId])
                     ->andWhere(['>', 'physical_change_schedule_id', Schedule::find()
                         ->select(['schedule_id'])
-                        ->where(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
+                        ->where(['not', ['schedule_tournament_type_id' => [TournamentType::CONFERENCE, TournamentType::OLYMPIAD]]])
                         ->andWhere(['>', 'schedule_date', time()])
                         ->orderBy(['schedule_id' => SORT_ASC])
                         ->limit(1)
@@ -293,7 +293,7 @@ class PhysicalController extends AbstractController
 
                 $scheduleArray = Schedule::find()
                     ->where(['>=', 'schedule_id', $scheduleId])
-                    ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::CONFERENCE])
+                    ->andWhere(['not', ['schedule_tournament_type_id' => [TournamentType::CONFERENCE, TournamentType::OLYMPIAD]]])
                     ->groupBy(['schedule_date'])
                     ->orderBy(['schedule_id' => SORT_ASC])
                     ->all();

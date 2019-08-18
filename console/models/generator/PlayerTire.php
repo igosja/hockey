@@ -7,7 +7,9 @@ use common\models\Mood;
 use common\models\Player;
 use common\models\Schedule;
 use common\models\Special;
+use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class PlayerTire
@@ -21,14 +23,15 @@ class PlayerTire
     private $scheduleIdsArray;
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
         $this->scheduleIdsArray = Schedule::find()
             ->select(['schedule_id'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::OLYMPIAD])
             ->column();
 
         $this->updateMood();
@@ -49,8 +52,8 @@ class PlayerTire
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     private function updateMood()
     {
@@ -65,8 +68,8 @@ class PlayerTire
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     private function b()
     {
@@ -141,8 +144,8 @@ class PlayerTire
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     private function c()
     {
