@@ -105,11 +105,20 @@ class PlayerController extends AbstractController
             'query' => $query,
         ]);
 
+        $score = (clone $query)->sum('lineup_score');
+        $assist = (clone $query)->sum('lineup_assist');
+        $plusMinus = (clone $query)->sum('lineup_plus_minus');
+        $powerChange = (clone $query)->sum('lineup_power_change');
+
         $this->setSeoTitle($player->playerName() . '. Профиль игрока');
 
         return $this->render('view', [
+            'assist' => $assist,
             'dataProvider' => $dataProvider,
             'player' => $player,
+            'plusMinus' => $plusMinus,
+            'powerChange' => $powerChange,
+            'score' => $score,
             'seasonArray' => Season::getSeasonArray(),
             'seasonId' => $seasonId,
         ]);

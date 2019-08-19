@@ -1,5 +1,6 @@
 <?php
 
+use common\models\TournamentType;
 use yii\helpers\Html;
 
 /**
@@ -36,13 +37,27 @@ use yii\helpers\Html;
 </div>
 <?= Html::endForm(); ?>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p class="text-justify">
-            Лига чемпионов - самый престижный клубный турнир Лиги, куда попадают лучшие команды предыдущего сезона.
-            Число мест в розыгрыше от каждой федерации и стартовый этап для каждой команды определяется согласно
-            клубному рейтингу стран.
-            В турнире есть отборочные раунды, групповой двухкруговой турнир, раунды плей-офф и финал.
-        </p>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center team-logo-div">
+        <?= Html::img(
+            '/img/tournament_type/' . TournamentType::LEAGUE . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/tournament_type/' . TournamentType::LEAGUE . '.png'),
+            [
+                'alt' => 'Лига Чемпионов',
+                'class' => 'country-logo',
+                'title' => 'Лига Чемпионов',
+            ]
+        ); ?>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p class="text-justify">
+                    Лига чемпионов - самый престижный клубный турнир Лиги, куда попадают лучшие команды предыдущего сезона.
+                    Число мест в розыгрыше от каждой федерации и стартовый этап для каждой команды определяется согласно
+                    клубному рейтингу стран.
+                    В турнире есть отборочные раунды, групповой двухкруговой турнир, раунды плей-офф и финал.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">

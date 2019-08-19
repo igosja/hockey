@@ -288,6 +288,52 @@ class ChampionshipController extends AbstractController
             }
         }
 
+        $schedule = Schedule::find()
+            ->where([
+                'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                'schedule_season_id' => $seasonId,
+            ])
+            ->andWhere(['<=', 'schedule_date', time()])
+            ->andWhere(['schedule_stage_id' => [Stage::QUARTER, Stage::SEMI, Stage::FINAL_GAME]])
+            ->orderBy(['schedule_date' => SORT_DESC])
+            ->limit(1)
+            ->one();
+        if (!$schedule) {
+            $schedule = Schedule::find()
+                ->where([
+                    'schedule_tournament_type_id' => TournamentType::CHAMPIONSHIP,
+                    'schedule_season_id' => $seasonId,
+                ])
+                ->andWhere(['>', 'schedule_date', time()])
+                ->andWhere(['schedule_stage_id' => [Stage::QUARTER, Stage::SEMI, Stage::FINAL_GAME]])
+                ->orderBy(['schedule_date' => SORT_ASC])
+                ->limit(1)
+                ->one();
+        }
+
+        $gameArray = Game::find()
+            ->where([
+                'game_schedule_id' => $schedule->schedule_id,
+                'game_home_team_id' => Championship::find()
+                    ->select(['championship_team_id'])
+                    ->where([
+                        'championship_season_id' => $seasonId,
+                        'championship_country_id' => $countryId,
+                        'championship_division_id' => $divisionId,
+                    ])
+            ])
+            ->orderBy(['game_id' => SORT_ASC])
+            ->all();
+
+        $reviewArray = Review::find()
+            ->where([
+                'review_country_id' => $countryId,
+                'review_division_id' => $divisionId,
+                'review_season_id' => $seasonId,
+            ])
+            ->orderBy(['review_schedule_id' => SORT_ASC])
+            ->all();
+
         $this->setSeoTitle($country->country_name . '. Национальный чемпионат');
 
         return $this->render('playoff', [
@@ -295,9 +341,10 @@ class ChampionshipController extends AbstractController
             'divisionArray' => $this->getDivisionLinksArray($countryId, $seasonId),
             'divisionId' => $divisionId,
             'playoffArray' => $playoffArray,
-            'reviewCreate' => false,
+            'reviewArray' => $reviewArray,
+            'reviewCreate' => $this->canReviewCreate($gameArray, $countryId, $divisionId, $schedule->schedule_id),
             'roundArray' => $this->getRoundLinksArray($countryId, $divisionId, $seasonId),
-            'scheduleId' => 0,
+            'scheduleId' => $schedule->schedule_id,
             'seasonArray' => $this->getSeasonArray($countryId, $divisionId),
             'seasonId' => $seasonId,
         ]);

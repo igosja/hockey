@@ -7,8 +7,12 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
+ * @var int $assist
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \common\models\Player $player
+ * @var int $plusMinus
+ * @var int $powerChange
+ * @var int $score
  * @var array $seasonArray
  * @var int $seasonId
  * @var \yii\web\View $this
@@ -118,7 +122,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
-                    'footer' => 'Ш',
+                    'footer' => $score,
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Шайбы'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Шайбы'],
                     'label' => 'Ш',
@@ -128,7 +132,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
-                    'footer' => 'П',
+                    'footer' => $assist,
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Голевые передачи'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Голевые передачи'],
                     'label' => 'П',
@@ -138,7 +142,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
-                    'footer' => '+/-',
+                    'footer' => HockeyHelper::plusNecessary($plusMinus),
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Плюс/минус'],
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Плюс/минус'],
                     'label' => '+/-',
@@ -148,6 +152,7 @@ print $this->render('//player/_player', ['player' => $player]);
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
+                    'footer' => HockeyHelper::plusNecessary($powerChange),
                     'footerOptions' => ['class' => 'hidden-xs', 'title' => 'Изменение силы'],
                     'format' => 'raw',
                     'headerOptions' => ['class' => 'col-5 hidden-xs', 'title' => 'Изменение силы'],

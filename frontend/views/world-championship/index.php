@@ -4,6 +4,7 @@ use common\components\ErrorHelper;
 use common\components\HockeyHelper;
 use common\models\Division;
 use common\models\Game;
+use common\models\TournamentType;
 use common\models\User;
 use common\models\WorldCup;
 use yii\data\ActiveDataProvider;
@@ -64,16 +65,30 @@ $user = Yii::$app->user->identity;
 </div>
 <?= Html::endForm(); ?>
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <p class="text-justify">
-            Чемпионат мира - это главный турнир для сборных в Лиге.
-            Чемпионат мира проводится один раз в сезон.
-        </p>
-        <p>
-            В чемпионате мира может быть несколько дивизионов, в зависимости от числа стран в Лиге.
-            Победители низших дивизионов получают право в следующем сезоне играть в более высоком дивизионе.
-            Проигравшие вылетают в более низкий дивизион.
-        </p>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center team-logo-div">
+        <?= Html::img(
+            '/img/tournament_type/' . TournamentType::NATIONAL . '.png?v=' . filemtime(Yii::getAlias('@webroot') . '/img/tournament_type/' . TournamentType::NATIONAL . '.png'),
+            [
+                'alt' => 'Чемпионат мира среди сборных',
+                'class' => 'country-logo',
+                'title' => 'Чемпионат мира среди сборных',
+            ]
+        ); ?>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <p class="text-justify">
+                    Чемпионат мира - это главный турнир для сборных в Лиге.
+                    Чемпионат мира проводится один раз в сезон.
+                </p>
+                <p>
+                    В чемпионате мира может быть несколько дивизионов, в зависимости от числа стран в Лиге.
+                    Победители низших дивизионов получают право в следующем сезоне играть в более высоком дивизионе.
+                    Проигравшие вылетают в более низкий дивизион.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <?= Html::beginForm(
