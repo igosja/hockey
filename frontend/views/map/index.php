@@ -219,6 +219,10 @@
                 map: map
             }),
             new google.maps.Marker({
+                position: new google.maps.LatLng(51.5225, 30.718056), //Славутич
+                map: map
+            }),
+            new google.maps.Marker({
                 position: new google.maps.LatLng(50.2540414, 28.6550473), //Житомир
                 map: map
             }),
