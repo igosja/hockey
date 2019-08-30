@@ -8,11 +8,7 @@ html {
     -moz-background-image: url('/img/background.jpg');
     -o-background-image: url('/img/background.jpg');
     -webkit-background-image: url('/img/background.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    -webkit-background-size: 100%;
+    background-repeat: repeat;
 }
 
 html, body, table {
