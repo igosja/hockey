@@ -223,6 +223,10 @@ AppAsset::register($this);
                     'template' => '<a href="{url}">{label}<span class="fa arrow"></span></a>',
                     'items' => [
                         [
+                            'label' => 'Типы турниров',
+                            'url' => ['tournament-type/index'],
+                        ],
+                        [
                             'label' => 'Стадии соревнований',
                             'url' => ['stage/index'],
                         ],
