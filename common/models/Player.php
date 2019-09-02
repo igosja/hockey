@@ -682,6 +682,18 @@ class Player extends AbstractActiveRecord
             $field = 1;
         }
 
+        $specialId = null;
+        $playerSpecial = PlayerSpecial::find()
+            ->where(['player_special_player_id' => $this->player_id])
+            ->count();
+        if (Special::MAX_SPECIALS == $playerSpecial) {
+            $specialId = PlayerSpecial::find()
+                ->select(['player_special_special_id'])
+                ->where(['player_special_player_id' => $this->player_id])
+                ->andWhere(['<', 'player_special_level', Special::MAX_LEVEL])
+                ->column();
+        }
+
         $specialArray = Special::find()
             ->filterWhere(['special_gk' => $gk, 'special_field' => $field])
             ->andWhere([
@@ -695,6 +707,7 @@ class Player extends AbstractActiveRecord
                         ])
                 ]
             ])
+            ->andFilterWhere(['special_id' => $specialId])
             ->orderBy(['special_id' => SORT_ASC])
             ->all();
 
