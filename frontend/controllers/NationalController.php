@@ -7,6 +7,7 @@ use common\models\Achievement;
 use common\models\Finance;
 use common\models\Game;
 use common\models\History;
+use common\models\Mood;
 use common\models\National;
 use common\models\Player;
 use common\models\Position;
@@ -18,6 +19,7 @@ use frontend\models\NationalPlayer;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\Html;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -77,12 +79,17 @@ class NationalController extends AbstractController
 
     /**
      * @param $id
-     * @return string|Response
-     * @throws NotFoundHttpException
+     * @return string
+     * @throws Exception
      */
     public function actionView($id)
     {
         $national = $this->getNational($id);
+
+        $notificationArray = [];
+        if ($this->myNationalOrVice && $id == $this->myNationalOrVice->national_id) {
+            $notificationArray = $this->getNotificationArray();
+        }
 
         $query = Player::find()
             ->with([
@@ -148,6 +155,7 @@ class NationalController extends AbstractController
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
+            'notificationArray' => $notificationArray,
             'national' => $national,
         ]);
     }
@@ -579,5 +587,57 @@ class NationalController extends AbstractController
         $this->notFound($national);
 
         return $national;
+    }
+
+    /**
+     * @return array|Response
+     * @throws Exception
+     */
+    public function getNotificationArray()
+    {
+        if (!$this->myNationalOrVice) {
+            return [];
+        }
+
+        $result = [];
+
+        $closestGame = Game::find()
+            ->joinWith(['schedule'])
+            ->where([
+                'or',
+                ['game_home_national_id' => $this->myNationalOrVice->national_id],
+                ['game_guest_national_id' => $this->myNationalOrVice->national_id],
+            ])
+            ->andWhere(['game_played' => 0])
+            ->orderBy(['schedule_date' => SORT_ASC])
+            ->limit(1)
+            ->one();
+        if ($closestGame) {
+            if (($closestGame->game_home_national_id == $this->myNationalOrVice->national_id && !$closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_national_id == $this->myNationalOrVice->national_id && !$closestGame->game_guest_mood_id)) {
+                $result[] = '<span class="font-red">Вы не отправили состав на ближайший матч своей команды.</span> ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+
+            if (($closestGame->game_home_national_id == $this->myNationalOrVice->national_id && Mood::SUPER == $closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_national_id == $this->myNationalOrVice->national_id && Mood::SUPER == $closestGame->game_guest_mood_id)) {
+                $result[] = 'В ближайшем матче ваша команда будет использовать <span class="strong font-green">супер</span>. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+
+            if (($closestGame->game_home_national_id == $this->myNationalOrVice->national_id && Mood::REST == $closestGame->game_home_mood_id) ||
+                ($closestGame->game_guest_national_id == $this->myNationalOrVice->national_id && Mood::REST == $closestGame->game_guest_mood_id)) {
+                $result[] = 'В ближайшем матче ваша команда будет использовать <span class="strong font-red">отдых</span>. ' . Html::a(
+                        '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
+                        ['lineup/view', 'id' => $closestGame->game_id]
+                    );
+            }
+        }
+
+        return $result;
     }
 }
