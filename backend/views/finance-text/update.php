@@ -1,11 +1,11 @@
 <?php
 
-use common\models\TournamentType;
+use common\models\FinanceText;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var TournamentType $model
+ * @var FinanceText $model
  * @var View $this
  */
 
@@ -17,10 +17,10 @@ use yii\web\View;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Список', ['tournament-type/index'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Список', ['finance-text/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Просмотр', ['tournament-type/view', 'id' => $model->tournament_type_id], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Просмотр', ['finance-text/view', 'id' => $model->finance_text_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <?= $this->render('_form', ['model' => $model]); ?>

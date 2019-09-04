@@ -1,10 +1,12 @@
 <?php
 
+use common\models\TournamentType;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \common\models\Stage $model
- * @var \yii\web\View $this
+ * @var TournamentType $model
+ * @var View $this
  */
 
 ?>
