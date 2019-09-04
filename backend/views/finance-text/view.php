@@ -1,13 +1,13 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\models\TournamentType;
+use common\models\FinanceText;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @var TournamentType $model
+ * @var FinanceText $model
  * @var View $this
  */
 
@@ -19,10 +19,10 @@ use yii\widgets\DetailView;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Список', ['tournament-type/index'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Список', ['finance-text/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Изменить', ['tournament-type/update', 'id' => $model->tournament_type_id], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Изменить', ['finance-text/update', 'id' => $model->finance_text_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -30,10 +30,8 @@ use yii\widgets\DetailView;
 
     try {
         $attributes = [
-            'tournament_type_id',
-            'tournament_type_name',
-            'tournament_type_visitor',
-            'tournament_type_day_type_id',
+            'finance_text_id',
+            'finance_text_text',
         ];
         print DetailView::widget([
             'attributes' => $attributes,

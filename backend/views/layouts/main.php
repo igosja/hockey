@@ -230,6 +230,14 @@ AppAsset::register($this);
                             'label' => 'Стадии соревнований',
                             'url' => ['stage/index'],
                         ],
+                        [
+                            'label' => 'Типы турниров',
+                            'url' => ['tournament-type/index'],
+                        ],
+                        [
+                            'label' => 'Описания финансовых операций',
+                            'url' => ['finance-text/index'],
+                        ],
                     ],
                     'url' => 'javascript:',
                 ],

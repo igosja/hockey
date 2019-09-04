@@ -2,15 +2,15 @@
 
 namespace backend\models;
 
-use common\models\TournamentType;
+use common\models\FinanceText;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class TournamentTypeSearch
+ * Class FinanceTextSearch
  * @package backend\models
  */
-class TournamentTypeSearch extends TournamentType
+class FinanceTextSearch extends FinanceText
 {
     /**
      * @return array
@@ -18,8 +18,8 @@ class TournamentTypeSearch extends TournamentType
     public function rules(): array
     {
         return [
-            [['tournament_type_id'], 'integer'],
-            [['tournament_type_name'], 'safe'],
+            [['finance_text_id'], 'integer'],
+            [['finance_text_text'], 'safe'],
         ];
     }
 
@@ -37,12 +37,10 @@ class TournamentTypeSearch extends TournamentType
      */
     public function search($params)
     {
-        $query = TournamentType::find()
+        $query = FinanceText::find()
             ->select([
-                'tournament_type_id',
-                'tournament_type_day_type_id',
-                'tournament_type_name',
-                'tournament_type_visitor',
+                'finance_text_id',
+                'finance_text_text',
             ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -54,8 +52,8 @@ class TournamentTypeSearch extends TournamentType
         }
 
         $query
-            ->andFilterWhere(['tournament_type_id' => $this->tournament_type_id])
-            ->andFilterWhere(['like', 'tournament_type_name', $this->tournament_type_name]);
+            ->andFilterWhere(['finance_text_id' => $this->finance_text_id])
+            ->andFilterWhere(['like', 'finance_text_text', $this->finance_text_text]);
 
         return $dataProvider;
     }
