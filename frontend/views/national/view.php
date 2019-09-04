@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
  * @var AbstractController $controller
  * @var ActiveDataProvider $dataProvider
  * @var National $national
+ * @var array $notificationArray
  * @var View $this
  */
 
@@ -79,6 +80,17 @@ $attitudeArray = ArrayHelper::map($attitudeArray, 'attitude_id', 'attitude_name'
         </div>
     </div>
     <?php ActiveForm::end(); ?>
+<?php endif; ?>
+<?php if ($notificationArray) : ?>
+    <div class="row margin-top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <ul>
+                <?php foreach ($notificationArray as $item) : ?>
+                    <li><?= $item; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
 <?php endif; ?>
 <div class="row margin-top-small">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
