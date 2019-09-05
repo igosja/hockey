@@ -196,6 +196,19 @@ class TrainingController extends AbstractController
                     return $this->redirect(['training/index']);
                 }
 
+                if (Position::GK == $player->player_position_id) {
+                    $this->setErrorFlash('Вратарю нельзя натренировать совмещение.');
+                    return $this->redirect(['training/index']);
+                }
+
+                $playerPosition = PlayerPosition::find()
+                    ->where(['player_position_player_id' => $playerId])
+                    ->count();
+                if (2 == $playerPosition) {
+                    $this->setErrorFlash('Одному игроку нельзя натренировать больше одного совмещения.');
+                    return $this->redirect(['training/index']);
+                }
+
                 $transfer = Transfer::find()
                     ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
                     ->count();
@@ -264,6 +277,14 @@ class TrainingController extends AbstractController
                     return $this->redirect(['training/index']);
                 }
 
+                $playerSpecial = PlayerSpecial::find()
+                    ->where(['player_special_level' => Special::MAX_LEVEL, 'player_special_player_id' => $playerId])
+                    ->count();
+                if (Special::MAX_SPECIALS == $playerSpecial) {
+                    $this->setErrorFlash('Игроку нельзя натренировать более 4 спецвозможностей.');
+                    return $this->redirect(['training/index']);
+                }
+
                 $transfer = Transfer::find()
                     ->where(['transfer_player_id' => $playerId, 'transfer_ready' => 0])
                     ->count();
@@ -291,6 +312,18 @@ class TrainingController extends AbstractController
                 $isGk = Position::GK == $player->player_position_id ? 1 : null;
                 $isField = Position::GK == $player->player_position_id ? null : 1;
 
+                $specialId = null;
+                $playerSpecial = PlayerSpecial::find()
+                    ->where(['player_special_player_id' => $playerId])
+                    ->count();
+                if (Special::MAX_SPECIALS == $playerSpecial) {
+                    $specialId = PlayerSpecial::find()
+                        ->select(['player_special_special_id'])
+                        ->where(['player_special_player_id' => $playerId])
+                        ->andWhere(['<', 'player_special_level', Special::MAX_LEVEL])
+                        ->column();
+                }
+
                 $special = Special::find()
                     ->where(['special_id' => $special])
                     ->andFilterWhere(['special_gk' => $isGk, 'special_field' => $isField])
@@ -305,6 +338,7 @@ class TrainingController extends AbstractController
                                 ])
                         ]
                     ])
+                    ->andFilterWhere(['special_id' => $specialId])
                     ->limit(1)
                     ->one();
                 if (!$special) {
