@@ -617,7 +617,7 @@ class NationalController extends AbstractController
                 ($closestGame->game_guest_national_id == $this->myNationalOrVice->national_id && !$closestGame->game_guest_mood_id)) {
                 $result[] = '<span class="font-red">Вы не отправили состав на ближайший матч своей команды.</span> ' . Html::a(
                         '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
-                        ['lineup/view', 'id' => $closestGame->game_id]
+                        ['lineup-national/view', 'id' => $closestGame->game_id]
                     );
             }
 
