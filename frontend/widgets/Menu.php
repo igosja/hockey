@@ -341,7 +341,7 @@ class Menu extends Widget
                 'url' => ['messenger/index'],
             ],
             self::ITEM_NATIONAL_TEAM => [
-                'css' => $nationalId ? '' : 'hidden',
+                'css' => $nationalId ? 'red' : 'hidden',
                 'label' => 'Сборная',
                 'url' => ['national/view', 'id' => $nationalId],
             ],
