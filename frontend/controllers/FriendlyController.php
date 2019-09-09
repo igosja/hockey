@@ -470,7 +470,6 @@ class FriendlyController extends AbstractController
                     [
                         'and',
                         ['!=', 'friendly_invite_friendly_invite_status_id', FriendlyInviteStatus::ACCEPTED],
-                        ['friendly_invite_schedule_id' => $id],
                         [
                             'or',
                             ['friendly_invite_guest_team_id' => $this->myTeam->team_id],
@@ -484,7 +483,6 @@ class FriendlyController extends AbstractController
                     [
                         'and',
                         ['!=', 'friendly_invite_friendly_invite_status_id', FriendlyInviteStatus::ACCEPTED],
-                        ['friendly_invite_schedule_id' => $id],
                         [
                             'or',
                             ['friendly_invite_guest_team_id' => $teamId],
@@ -621,7 +619,6 @@ class FriendlyController extends AbstractController
                 [
                     'and',
                     ['!=', 'friendly_invite_friendly_invite_status_id', FriendlyInviteStatus::ACCEPTED],
-                    ['friendly_invite_schedule_id' => $invite->friendly_invite_schedule_id],
                     [
                         'or',
                         ['friendly_invite_guest_team_id' => $invite->friendly_invite_guest_team_id],
@@ -635,7 +632,6 @@ class FriendlyController extends AbstractController
                 [
                     'and',
                     ['!=', 'friendly_invite_friendly_invite_status_id', FriendlyInviteStatus::ACCEPTED],
-                    ['friendly_invite_schedule_id' => $invite->friendly_invite_schedule_id],
                     [
                         'or',
                         ['friendly_invite_guest_team_id' => $invite->friendly_invite_home_team_id],
