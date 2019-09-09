@@ -1,10 +1,12 @@
 <?php
 
+use common\components\FormatHelper;
+use common\models\Poll;
 use common\models\PollStatus;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Poll $model
+ * @var Poll $model
  */
 
 ?>
@@ -32,10 +34,8 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Автор:
-                <?= Html::a(
-                    Html::encode($model->user->user_login),
-                    ['user/view', 'id' => $model->poll_user_id]
-                ); ?>
+                <?= $model->user->userLink(['color' => true]); ?>,
+                <?= FormatHelper::asDateTime($model->poll_date); ?>
             </div>
         </div>
         <?php foreach ($model->pollAnswer as $answer) : ?>
