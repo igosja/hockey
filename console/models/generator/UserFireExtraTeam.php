@@ -49,7 +49,7 @@ class UserFireExtraTeam
                 ->limit($limit)
                 ->all();
             foreach ($teamArray as $team) {
-                $team->managerFire();
+                $team->managerFire(History::FIRE_REASON_EXTRA_TEAM);
             }
         }
 
@@ -83,7 +83,7 @@ class UserFireExtraTeam
                 ->limit($limit)
                 ->all();
             foreach ($teamArray as $team) {
-                $team->managerFire();
+                $team->managerFire(History::FIRE_REASON_EXTRA_TEAM);
             }
         }
     }
