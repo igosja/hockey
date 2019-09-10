@@ -3,6 +3,7 @@
 namespace console\models\newSeason;
 
 use common\models\Attitude;
+use common\models\History;
 use common\models\National;
 use common\models\Team;
 use Exception;
@@ -32,7 +33,7 @@ class FireNational
                 $national->fireVice();
             }
             if ($national->user) {
-                $national->fireUser();
+                $national->fireUser(History::FIRE_REASON_NEW_SEASON);
             }
         }
 

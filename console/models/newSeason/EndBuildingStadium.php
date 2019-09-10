@@ -6,6 +6,7 @@ use common\models\BuildingStadium;
 use common\models\ConstructionType;
 use common\models\History;
 use common\models\HistoryText;
+use Exception;
 
 /**
  * Class EndBuildingStadium
@@ -14,8 +15,8 @@ use common\models\HistoryText;
 class EndBuildingStadium
 {
     /**
-     * @throws \Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -34,7 +35,7 @@ class EndBuildingStadium
             if (ConstructionType::BUILD == $buildingStadium->building_stadium_construction_type_id) {
                 $historyTextId = HistoryText::STADIUM_UP;
             } else {
-                $historyTextId = HistoryText::STADIUM_UP;
+                $historyTextId = HistoryText::STADIUM_DOWN;
             }
 
             $buildingStadium->team->stadium->stadium_capacity = $buildingStadium->building_stadium_capacity;

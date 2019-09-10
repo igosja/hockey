@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\UserSearch;
 use common\models\BlockReason;
 use common\models\Cookie;
+use common\models\History;
 use common\models\Payment;
 use common\models\User;
 use Exception;
@@ -161,7 +162,7 @@ class UserController extends AbstractController
             $model->user_date_block = 7 * 86400 + time();
             if ($model->save(true, ['user_date_block', 'user_block_block_reason_id'])) {
                 foreach ($model->team as $team) {
-                    $team->managerFire();
+                    $team->managerFire(History::FIRE_REASON_PENALTY);
                 }
                 $this->setSuccessFlash();
                 return $this->redirect(['user/view', 'id' => $model->user_id]);

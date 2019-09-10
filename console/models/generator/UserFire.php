@@ -2,6 +2,7 @@
 
 namespace console\models\generator;
 
+use common\models\History;
 use common\models\Team;
 use Exception;
 
@@ -29,7 +30,7 @@ class UserFire
             /**
              * @var Team $team
              */
-            $team->managerFire();
+            $team->managerFire(History::FIRE_REASON_AUTO);
         }
 
         $teamArray = Team::find()
@@ -44,7 +45,7 @@ class UserFire
             /**
              * @var Team $team
              */
-            $team->managerFire();
+            $team->managerFire(History::FIRE_REASON_ABSENCE);
         }
 
         $teamArray = Team::find()
@@ -59,7 +60,7 @@ class UserFire
             /**
              * @var Team $team
              */
-            $team->managerFire();
+            $team->managerFire(History::FIRE_REASON_ABSENCE);
         }
     }
 }

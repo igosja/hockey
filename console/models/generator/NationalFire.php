@@ -4,11 +4,9 @@ namespace console\models\generator;
 
 use common\models\Attitude;
 use common\models\History;
-use common\models\HistoryText;
 use common\models\National;
 use common\models\NationalType;
 use common\models\Team;
-use Yii;
 use yii\db\Exception;
 
 /**
@@ -67,34 +65,7 @@ class NationalFire
             $percentPositive = round(($positive ? $positive : 0) / ($total ? $total : 1) * 100);
 
             if ($percentNegative > 25 && $percentPositive < 50) {
-                History::log([
-                    'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_OUT,
-                    'history_national_id' => $national->national_id,
-                    'history_user_id' => $national->national_user_id,
-                ]);
-                History::log([
-                    'history_history_text_id' => HistoryText::USER_VICE_NATIONAL_OUT,
-                    'history_national_id' => $national->national_id,
-                    'history_user_id' => $national->national_vice_id,
-                ]);
-                History::log([
-                    'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_IN,
-                    'history_national_id' => $national->national_id,
-                    'history_user_id' => $national->national_vice_id,
-                ]);
-
-                $national->national_user_id = $national->national_vice_id;
-                $national->national_vice_id = 0;
-                $national->save();
-
-                $sql = "UPDATE `team`
-                        LEFT JOIN `stadium`
-                        ON `team_stadium_id`=`stadium_id`
-                        LEFT JOIN `city`
-                        ON `stadium_city_id`=`city_id`
-                        SET $attitudeField=" . Attitude::NEUTRAL . "
-                        WHERE `city_country_id`=" . $national->national_country_id;
-                Yii::$app->db->createCommand($sql)->execute();
+                $national->fireUser(History::FIRE_REASON_VOTE);
             }
         }
     }

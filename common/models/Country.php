@@ -106,15 +106,17 @@ class Country extends AbstractActiveRecord
     }
 
     /**
+     * @param int $reason
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function firePresident(): bool
+    public function firePresident(int $reason = History::FIRE_REASON_SELF): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
             History::log([
+                'history_fire_reason' => $reason,
                 'history_country_id' => $this->country_id,
                 'history_history_text_id' => HistoryText::USER_PRESIDENT_OUT,
                 'history_user_id' => $this->country_president_id,
