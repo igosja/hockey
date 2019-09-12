@@ -1,13 +1,13 @@
 <?php
 
 use common\components\ErrorHelper;
-use common\models\Stage;
+use common\models\FinanceText;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @var Stage $model
+ * @var FinanceText $model
  * @var View $this
  */
 
@@ -19,10 +19,10 @@ use yii\widgets\DetailView;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Список', ['stage/index'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Список', ['finance-text/index'], ['class' => 'btn btn-default']); ?>
     </li>
     <li>
-        <?= Html::a('Изменить', ['stage/update', 'id' => $model->stage_id], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Изменить', ['finance-text/update', 'id' => $model->finance_text_id], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -30,9 +30,8 @@ use yii\widgets\DetailView;
 
     try {
         $attributes = [
-            'stage_id',
-            'stage_name',
-            'stage_visitor',
+            'finance_text_id',
+            'finance_text_text',
         ];
         print DetailView::widget([
             'attributes' => $attributes,

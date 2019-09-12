@@ -2,15 +2,15 @@
 
 namespace backend\models;
 
-use common\models\Stage;
+use common\models\FinanceText;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class StageSearch
+ * Class FinanceTextSearch
  * @package backend\models
  */
-class StageSearch extends Stage
+class FinanceTextSearch extends FinanceText
 {
     /**
      * @return array
@@ -18,8 +18,8 @@ class StageSearch extends Stage
     public function rules(): array
     {
         return [
-            [['stage_id'], 'integer'],
-            [['stage_name'], 'safe'],
+            [['finance_text_id'], 'integer'],
+            [['finance_text_text'], 'safe'],
         ];
     }
 
@@ -37,11 +37,10 @@ class StageSearch extends Stage
      */
     public function search($params)
     {
-        $query = Stage::find()
+        $query = FinanceText::find()
             ->select([
-                'stage_id',
-                'stage_name',
-                'stage_visitor',
+                'finance_text_id',
+                'finance_text_text',
             ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -53,8 +52,8 @@ class StageSearch extends Stage
         }
 
         $query
-            ->andFilterWhere(['stage_id' => $this->stage_id])
-            ->andFilterWhere(['like', 'stage_name', $this->stage_name]);
+            ->andFilterWhere(['finance_text_id' => $this->finance_text_id])
+            ->andFilterWhere(['like', 'finance_text_text', $this->finance_text_text]);
 
         return $dataProvider;
     }

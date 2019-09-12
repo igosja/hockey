@@ -25,6 +25,7 @@ class FinanceText extends AbstractActiveRecord
     const INCOME_PRIZE_OFF_SEASON = 6;
     const INCOME_PRIZE_VIP = 1;
     const INCOME_PRIZE_WORLD_CUP = 2;
+    const INCOME_PRIZE_OLYMPIAD = 39;
     const INCOME_REFERRAL = 28;
     const INCOME_REVIEW = 34;
     const INCOME_SCOUT_STYLE = 33;
@@ -49,6 +50,14 @@ class FinanceText extends AbstractActiveRecord
     const OUTCOME_TRANSFER = 19;
     const TEAM_RE_REGISTER = 24;
     const USER_TRANSFER = 27;
+
+    /**
+     * @return string
+     */
+    public static function tableName(): string
+    {
+        return '{{%finance_text}}';
+    }
 
     /**
      * @return array

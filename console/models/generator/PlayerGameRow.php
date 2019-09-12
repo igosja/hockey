@@ -5,7 +5,9 @@ namespace console\models\generator;
 use common\models\DayType;
 use common\models\Player;
 use common\models\Schedule;
+use common\models\TournamentType;
 use Yii;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -20,14 +22,15 @@ class PlayerGameRow
     private $scheduleIdsArray;
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     public function execute()
     {
         $this->scheduleIdsArray = Schedule::find()
             ->select(['schedule_id'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::OLYMPIAD])
             ->column();
 
         $this->updatePlayer();
@@ -46,8 +49,8 @@ class PlayerGameRow
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     private function b()
     {
@@ -104,8 +107,8 @@ class PlayerGameRow
     }
 
     /**
-     * @throws \yii\db\Exception
      * @return void
+     * @throws Exception
      */
     private function c()
     {

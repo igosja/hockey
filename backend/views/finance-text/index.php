@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\StageSearch;
+use backend\models\FinanceTextSearch;
 use common\components\ErrorHelper;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
@@ -9,7 +9,7 @@ use yii\web\View;
 
 /**
  * @var ActiveDataProvider $dataProvider
- * @var StageSearch $searchModel
+ * @var FinanceTextSearch $searchModel
  * @var View $this
  */
 
@@ -21,7 +21,7 @@ use yii\web\View;
 </div>
 <ul class="list-inline preview-links text-center">
     <li>
-        <?= Html::a('Создать', ['stage/create'], ['class' => 'btn btn-default']); ?>
+        <?= Html::a('Создать', ['finance-text/create'], ['class' => 'btn btn-default']); ?>
     </li>
 </ul>
 <div class="row">
@@ -30,11 +30,10 @@ use yii\web\View;
     try {
         $columns = [
             [
-                'attribute' => 'stage_id',
+                'attribute' => 'finance_text_id',
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
-            'stage_name',
-            'stage_visitor',
+            'finance_text_text',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],

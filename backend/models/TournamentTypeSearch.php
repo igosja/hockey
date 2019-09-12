@@ -2,15 +2,15 @@
 
 namespace backend\models;
 
-use common\models\Stage;
+use common\models\TournamentType;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class StageSearch
+ * Class TournamentTypeSearch
  * @package backend\models
  */
-class StageSearch extends Stage
+class TournamentTypeSearch extends TournamentType
 {
     /**
      * @return array
@@ -18,8 +18,8 @@ class StageSearch extends Stage
     public function rules(): array
     {
         return [
-            [['stage_id'], 'integer'],
-            [['stage_name'], 'safe'],
+            [['tournament_type_id'], 'integer'],
+            [['tournament_type_name'], 'safe'],
         ];
     }
 
@@ -37,11 +37,12 @@ class StageSearch extends Stage
      */
     public function search($params)
     {
-        $query = Stage::find()
+        $query = TournamentType::find()
             ->select([
-                'stage_id',
-                'stage_name',
-                'stage_visitor',
+                'tournament_type_id',
+                'tournament_type_day_type_id',
+                'tournament_type_name',
+                'tournament_type_visitor',
             ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -53,8 +54,8 @@ class StageSearch extends Stage
         }
 
         $query
-            ->andFilterWhere(['stage_id' => $this->stage_id])
-            ->andFilterWhere(['like', 'stage_name', $this->stage_name]);
+            ->andFilterWhere(['tournament_type_id' => $this->tournament_type_id])
+            ->andFilterWhere(['like', 'tournament_type_name', $this->tournament_type_name]);
 
         return $dataProvider;
     }
