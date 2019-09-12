@@ -1,10 +1,11 @@
 <?php
 
+use common\models\Stage;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /**
- * @var \common\models\Stage $model
+ * @var Stage $model
  */
 
 ?>

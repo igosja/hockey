@@ -5,8 +5,11 @@ namespace backend\controllers;
 use backend\models\TournamentTypeSearch;
 use common\components\ErrorHelper;
 use common\models\TournamentType;
+use Exception;
 use Throwable;
 use Yii;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Class TournamentTypeController
@@ -32,8 +35,8 @@ class TournamentTypeController extends AbstractController
     }
 
     /**
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionCreate()
     {
@@ -55,8 +58,8 @@ class TournamentTypeController extends AbstractController
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
+     * @return string|Response
+     * @throws Exception
      */
     public function actionUpdate($id)
     {
@@ -87,7 +90,7 @@ class TournamentTypeController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -108,8 +111,8 @@ class TournamentTypeController extends AbstractController
 
     /**
      * @param int $id
-     * @return \yii\web\Response
-     * @throws \yii\web\NotFoundHttpException
+     * @return Response
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {

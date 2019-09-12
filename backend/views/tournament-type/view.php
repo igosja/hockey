@@ -1,12 +1,14 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\models\TournamentType;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @var \common\models\TournamentType $model
- * @var \yii\web\View $this
+ * @var TournamentType $model
+ * @var View $this
  */
 
 ?>
