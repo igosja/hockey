@@ -142,36 +142,35 @@ class FillLineup
                             ->andFilterWhere(['player_country_id' => $countryId])
                             ->limit(1);
 
-                        if (!$moodId) {
-                            if ($teamId) {
-                                $query = Player::find()
-                                    ->select(['player_id', 'player_tire'])
-                                    ->where([
-                                        'player_injury' => 0,
-                                        'player_position_id' => $positionId,
-                                    ])
-                                    ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
-                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
-                                    ->andWhere([
-                                        'or',
-                                        ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
-                                        ['player_loan_team_id' => $teamId],
-                                    ]);
-                            } else {
-                                $query = Player::find()
-                                    ->select(['player_id', 'player_tire'])
-                                    ->where([
-                                        'player_injury' => 0,
-                                        'player_position_id' => $positionId,
-                                        'player_national_id' => $nationalId,
-                                    ])
-                                    ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
-                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP]);
-                            }
+                        if ($teamId) {
+                            $query = Player::find()
+                                ->select(['player_id', 'player_tire'])
+                                ->where([
+                                    'player_injury' => 0,
+                                    'player_position_id' => $positionId,
+                                ])
+                                ->andWhere(['not', ['player_id' => $subQuery]])
+                                ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
+                                ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
+                                ->andWhere([
+                                    'or',
+                                    ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
+                                    ['player_loan_team_id' => $teamId],
+                                ]);
+                        } else {
+                            $query = Player::find()
+                                ->select(['player_id', 'player_tire'])
+                                ->where([
+                                    'player_injury' => 0,
+                                    'player_position_id' => $positionId,
+                                    'player_national_id' => $nationalId,
+                                ])
+                                ->andWhere(['not', ['player_id' => $subQuery]])
+                                ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
+                                ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP]);
+                        }
 
                         $player = $query->all();
                         if (!$player) {
