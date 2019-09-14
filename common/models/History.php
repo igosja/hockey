@@ -14,6 +14,7 @@ use yii\helpers\Html;
  * @property int $history_building_id
  * @property int $history_country_id
  * @property int $history_date
+ * @property int $history_fire_reason
  * @property int $history_game_id
  * @property int $history_history_text_id
  * @property int $history_national_id
@@ -40,6 +41,14 @@ use yii\helpers\Html;
  */
 class History extends AbstractActiveRecord
 {
+    const FIRE_REASON_SELF = 1;
+    const FIRE_REASON_AUTO = 2;
+    const FIRE_REASON_ABSENCE = 3;
+    const FIRE_REASON_PENALTY = 4;
+    const FIRE_REASON_EXTRA_TEAM = 5;
+    const FIRE_REASON_NEW_SEASON = 6;
+    const FIRE_REASON_VOTE = 7;
+
     /**
      * @return array
      */

@@ -104,16 +104,18 @@ class National extends AbstractActiveRecord
     }
 
     /**
+     * @param int $reason
      * @return bool
      * @throws Exception
      */
-    public function fireUser(): bool
+    public function fireUser(int $reason = History::FIRE_REASON_SELF): bool
     {
         if (!$this->national_user_id) {
             return true;
         }
 
         History::log([
+            'history_fire_reason' => $reason,
             'history_history_text_id' => HistoryText::USER_MANAGER_NATIONAL_OUT,
             'history_national_id' => $this->national_id,
             'history_user_id' => $this->national_user_id,
@@ -136,6 +138,21 @@ class National extends AbstractActiveRecord
         $this->national_user_id = $this->national_vice_id;
         $this->national_vice_id = 0;
         $this->save(true, ['national_user_id', 'national_vice_id']);
+
+        if (NationalType::MAIN == $this->national_national_type_id) {
+            $attitudeField = 'team_attitude_national';
+        } elseif (NationalType::U21 == $this->national_national_type_id) {
+            $attitudeField = 'team_attitude_u21';
+        } else {
+            $attitudeField = 'team_attitude_u19';
+        }
+
+        foreach ($this->country->city as $city) {
+            foreach ($city->stadium as $stadium) {
+                $stadium->team->$attitudeField = Attitude::NEUTRAL;
+                $stadium->team->save(true, [$attitudeField]);
+            }
+        }
 
         return true;
     }

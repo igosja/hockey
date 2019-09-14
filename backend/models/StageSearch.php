@@ -37,7 +37,12 @@ class StageSearch extends Stage
      */
     public function search($params)
     {
-        $query = Stage::find()->select(['stage_id', 'stage_name']);
+        $query = Stage::find()
+            ->select([
+                'stage_id',
+                'stage_name',
+                'stage_visitor',
+            ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

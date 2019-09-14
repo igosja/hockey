@@ -436,10 +436,11 @@ class Team extends AbstractActiveRecord
     }
 
     /**
+     * @param int $reason
      * @return bool
      * @throws \yii\db\Exception
      */
-    public function managerFire(): bool
+    public function managerFire(int $reason = History::FIRE_REASON_SELF): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -508,6 +509,7 @@ class Team extends AbstractActiveRecord
             }
 
             History::log([
+                'history_fire_reason' => $reason,
                 'history_history_text_id' => HistoryText::USER_MANAGER_TEAM_OUT,
                 'history_team_id' => $this->team_id,
                 'history_user_id' => $userId,

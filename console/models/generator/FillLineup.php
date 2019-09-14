@@ -6,6 +6,7 @@ use common\models\Game;
 use common\models\Lineup;
 use common\models\Player;
 use common\models\Position;
+use common\models\TournamentType;
 use Exception;
 use Yii;
 
@@ -25,6 +26,13 @@ class FillLineup
             ->select(['game_id'])
             ->joinWith(['schedule'])
             ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['!=', 'schedule_tournament_type_id', TournamentType::OLYMPIAD])
+            ->column();
+        $gameIdOlympiadArray = Game::find()
+            ->select(['game_id'])
+            ->joinWith(['schedule'])
+            ->where('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['schedule_tournament_type_id' => TournamentType::OLYMPIAD])
             ->column();
 
         $gameArray = Game::find()
@@ -38,14 +46,16 @@ class FillLineup
             /**
              * @var Game $game
              */
+            if (TournamentType::OLYMPIAD != $game->schedule->schedule_tournament_type_id) {
+                $gameIdOlympiadArray = null;
+            }
+
             for ($i = 0; $i < 2; $i++) {
                 if (0 == $i) {
-                    $moodId = $game->game_guest_mood_id;
                     $nationalId = $game->game_guest_national_id;
                     $countryId = isset($game->nationalGuest->national_country_id) ? $game->nationalGuest->national_country_id : null;
                     $teamId = $game->game_guest_team_id;
                 } else {
-                    $moodId = $game->game_home_mood_id;
                     $nationalId = $game->game_home_national_id;
                     $countryId = isset($game->nationalHome->national_country_id) ? $game->nationalHome->national_country_id : null;
                     $teamId = $game->game_home_team_id;
@@ -108,6 +118,13 @@ class FillLineup
                             ->select(['lineup_player_id'])
                             ->where(['lineup_game_id' => $gameIdArray]);
 
+                        $olympiadSubQuery = null;
+                        if ($gameIdOlympiadArray) {
+                            $olympiadSubQuery = Lineup::find()
+                                ->select(['lineup_player_id'])
+                                ->where(['lineup_game_id' => $gameIdOlympiadArray]);
+                        }
+
                         $league = Player::find()
                             ->select(['player_id', 'player_tire'])
                             ->where([
@@ -119,45 +136,44 @@ class FillLineup
                                 'player_school_id' => 0,
                             ])
                             ->andWhere(['not', ['player_id' => $subQuery]])
+                            ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
                             ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
                             ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
                             ->andFilterWhere(['player_country_id' => $countryId])
                             ->limit(1);
 
-                        if (!$moodId) {
-                            if ($teamId) {
-                                $query = Player::find()
-                                    ->select(['player_id', 'player_tire'])
-                                    ->where([
-                                        'player_injury' => 0,
-                                        'player_position_id' => $positionId,
-                                    ])
-                                    ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
-                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
-                                    ->andWhere([
-                                        'or',
-                                        ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
-                                        ['player_loan_team_id' => $teamId],
-                                    ]);
-                            } else {
-                                $query = Player::find()
-                                    ->select(['player_id', 'player_tire'])
-                                    ->where([
-                                        'player_injury' => 0,
-                                        'player_position_id' => $positionId,
-                                        'player_national_id' => $nationalId,
-                                    ])
-                                    ->andWhere(['not', ['player_id' => $subQuery]])
-                                    ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
-                                    ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP]);
-                            }
-
-                            $player = $query->all();
-                            if (!$player) {
-                                $player = $league->all();
-                            }
+                        if ($teamId) {
+                            $query = Player::find()
+                                ->select(['player_id', 'player_tire'])
+                                ->where([
+                                    'player_injury' => 0,
+                                    'player_position_id' => $positionId,
+                                ])
+                                ->andWhere(['not', ['player_id' => $subQuery]])
+                                ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
+                                ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP])
+                                ->andWhere([
+                                    'or',
+                                    ['player_team_id' => $teamId, 'player_loan_team_id' => 0],
+                                    ['player_loan_team_id' => $teamId],
+                                ]);
                         } else {
+                            $query = Player::find()
+                                ->select(['player_id', 'player_tire'])
+                                ->where([
+                                    'player_injury' => 0,
+                                    'player_position_id' => $positionId,
+                                    'player_national_id' => $nationalId,
+                                ])
+                                ->andWhere(['not', ['player_id' => $subQuery]])
+                                ->andFilterWhere(['not', ['player_id' => $olympiadSubQuery]])
+                                ->andWhere(['<=', 'player_age', Player::AGE_READY_FOR_PENSION])
+                                ->andWhere(['<=', 'player_tire', Player::TIRE_MAX_FOR_LINEUP]);
+                        }
+
+                        $player = $query->all();
+                        if (!$player) {
                             $player = $league->all();
                         }
 

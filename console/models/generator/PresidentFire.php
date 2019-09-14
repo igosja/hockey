@@ -5,9 +5,7 @@ namespace console\models\generator;
 use common\models\Attitude;
 use common\models\Country;
 use common\models\History;
-use common\models\HistoryText;
 use common\models\Team;
-use Yii;
 use yii\db\Exception;
 
 /**
@@ -58,34 +56,7 @@ class PresidentFire
             $percentPositive = round(($positive ? $positive : 0) / ($total ? $total : 1) * 100);
 
             if ($percentNegative > 25 && $percentPositive < 50) {
-                History::log([
-                    'history_country_id' => $country->country_id,
-                    'history_history_text_id' => HistoryText::USER_PRESIDENT_OUT,
-                    'history_user_id' => $country->country_president_id,
-                ]);
-                History::log([
-                    'history_country_id' => $country->country_id,
-                    'history_history_text_id' => HistoryText::USER_VICE_PRESIDENT_OUT,
-                    'history_user_id' => $country->country_president_vice_id,
-                ]);
-                History::log([
-                    'history_country_id' => $country->country_id,
-                    'history_history_text_id' => HistoryText::USER_PRESIDENT_IN,
-                    'history_user_id' => $country->country_president_vice_id,
-                ]);
-
-                $country->country_president_id = $country->country_president_vice_id;
-                $country->country_president_vice_id = 0;
-                $country->save(true, ['country_president_id', 'country_president_vice_id']);
-
-                $sql = "UPDATE `team`
-                        LEFT JOIN `stadium`
-                        ON `team_stadium_id`=`stadium_id`
-                        LEFT JOIN `city`
-                        ON `stadium_city_id`=`city_id`
-                        SET `team_attitude_president`=" . Attitude::NEUTRAL . "
-                        WHERE `city_country_id`=" . $country->country_id;
-                Yii::$app->db->createCommand($sql)->execute();
+                $country->firePresident(History::FIRE_REASON_VOTE);
             }
         }
     }

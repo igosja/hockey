@@ -1,13 +1,16 @@
 <?php
 
+use backend\models\StageSearch;
 use common\components\ErrorHelper;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \backend\models\StageSearch $searchModel
- * @var \yii\web\View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var StageSearch $searchModel
+ * @var View $this
  */
 
 ?>
@@ -31,6 +34,7 @@ use yii\helpers\Html;
                 'headerOptions' => ['class' => 'col-lg-1'],
             ],
             'stage_name',
+            'stage_visitor',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['class' => 'text-center'],

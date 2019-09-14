@@ -24,6 +24,7 @@ use console\models\newSeason\InsertLeagueParticipant;
 use console\models\newSeason\InsertNational;
 use console\models\newSeason\InsertNewSeason;
 use console\models\newSeason\InsertOffSeason;
+use console\models\newSeason\InsertOlympiad;
 use console\models\newSeason\InsertSchedule;
 use console\models\newSeason\InsertWorldCup;
 use console\models\newSeason\LeagueLimit;
@@ -80,6 +81,7 @@ class NewSeason
             new InsertChampionship(),
             new InsertLeague(),
             new InsertWorldCup(),
+            new InsertOlympiad(),
             new EndBuildingBase(),
             new EndBuildingStadium(),
             new RandPhysical(),

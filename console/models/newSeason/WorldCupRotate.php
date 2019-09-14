@@ -49,6 +49,35 @@ class WorldCupRotate
                     foreach ($worldCupArray as $worldCup) {
                         $rotateWorldCup[] = $worldCup->world_cup_national_id;
                     }
+
+                    $worldCupArray = WorldCup::find()
+                        ->where([
+                            'world_cup_division_id' => $division->division_id + 1,
+                            'world_cup_national_type_id' => $nationalType->national_type_id,
+                            'world_cup_season_id' => $seasonId,
+                        ])
+                        ->orderBy(['world_cup_place' => SORT_ASC])
+                        ->limit(2)
+                        ->all();
+                    if ($worldCupArray) {
+                        foreach ($worldCupArray as $worldCup) {
+                            $rotateWorldCup[] = $worldCup->world_cup_national_id;
+                        }
+                    } else {
+                        $worldCupArray = WorldCup::find()
+                            ->where([
+                                'world_cup_division_id' => $division->division_id,
+                                'world_cup_national_type_id' => $nationalType->national_type_id,
+                                'world_cup_season_id' => $seasonId,
+                            ])
+                            ->orderBy(['world_cup_place' => SORT_ASC])
+                            ->offset(10)
+                            ->limit(2)
+                            ->all();
+                        foreach ($worldCupArray as $worldCup) {
+                            $rotateWorldCup[] = $worldCup->world_cup_national_id;
+                        }
+                    }
                 } else {
                     $worldCupArray = WorldCup::find()
                         ->where([
@@ -120,7 +149,7 @@ class WorldCupRotate
                     $data = [];
 
                     foreach ($rotateArray[$division->division_id] as $item) {
-                        $data[] = [$nationalType->world_cup_national_type_id, $division->division_id, $seasonId + 1, $item];
+                        $data[] = [$nationalType->national_type_id, $division->division_id, $seasonId + 1, $item];
                     }
 
                     Yii::$app->db

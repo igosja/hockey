@@ -67,6 +67,11 @@ class Stage extends AbstractActiveRecord
     const QUARTER = 53;
     const SEMI = 54;
     const FINAL_GAME = 55;
+    const TOUR_OLYMPIAD_1 = 56;
+    const TOUR_OLYMPIAD_2 = 57;
+    const TOUR_OLYMPIAD_3 = 58;
+    const TOUR_OLYMPIAD_4 = 59;
+    const TOUR_OLYMPIAD_5 = 60;
 
     /**
      * @return string

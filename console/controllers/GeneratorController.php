@@ -42,6 +42,8 @@ use console\models\generator\NationalViceVoteStatus;
 use console\models\generator\NationalVoteStatus;
 use console\models\generator\NationalVs;
 use console\models\generator\NewSeason;
+use console\models\generator\OlympiadLot;
+use console\models\generator\OlympiadOut;
 use console\models\generator\PlayerGameRow;
 use console\models\generator\PlayerLeaguePower;
 use console\models\generator\PlayerPowerNewToOld;
@@ -162,6 +164,8 @@ class GeneratorController extends AbstractController
             new MakePlayed(),
             new LeagueOut(),
             new LeagueLot(),
+            new OlympiadOut(),
+            new OlympiadLot(),
             new InsertParticipantChampionship(),
             new ChampionshipAddGame(),
             new ChampionshipLot(),

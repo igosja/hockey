@@ -1,8 +1,11 @@
 <?php
 
 /**
- * @var \common\models\Poll $poll
+ * @var Poll $poll
  */
+
+use common\components\FormatHelper;
+use common\models\Poll;
 
 ?>
 <div class="row">
@@ -23,7 +26,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-size-3">
                 Автор:
-                <?= $poll->user->userLink(); ?>
+                <?= $poll->user->userLink(); ?>,
+                <?= FormatHelper::asDateTime($poll->poll_date); ?>
             </div>
         </div>
         <?php foreach ($poll->answers() as $answer) : ?>

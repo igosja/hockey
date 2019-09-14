@@ -1,12 +1,14 @@
 <?php
 
 use common\components\ErrorHelper;
+use common\models\Stage;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
 
 /**
- * @var \common\models\Stage $model
- * @var \yii\web\View $this
+ * @var Stage $model
+ * @var View $this
  */
 
 ?>
@@ -30,6 +32,7 @@ use yii\widgets\DetailView;
         $attributes = [
             'stage_id',
             'stage_name',
+            'stage_visitor',
         ];
         print DetailView::widget([
             'attributes' => $attributes,
