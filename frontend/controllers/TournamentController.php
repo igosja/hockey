@@ -93,12 +93,15 @@ class TournamentController extends AbstractController
                 TournamentType::LEAGUE,
                 TournamentType::CONFERENCE,
                 TournamentType::OFF_SEASON,
+                TournamentType::OLYMPIAD,
             ])) {
                 continue;
             }
 
             $params = ['seasonId' => $seasonId];
-            if (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
+            if (TournamentType::OLYMPIAD == $schedule->schedule_tournament_type_id) {
+                $route = ['olympiad/index'];
+            } elseif (TournamentType::NATIONAL == $schedule->schedule_tournament_type_id) {
                 $route = ['world-championship/index'];
                 $params = ArrayHelper::merge($params, ['divisionId' => Division::D1, 'nationalTypeId' => NationalType::MAIN]);
             } elseif (TournamentType::LEAGUE == $schedule->schedule_tournament_type_id) {

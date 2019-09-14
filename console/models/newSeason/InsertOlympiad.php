@@ -3,7 +3,6 @@
 namespace console\models\newSeason;
 
 use common\models\Game;
-use common\models\National;
 use common\models\NationalType;
 use common\models\Olympiad;
 use common\models\ParticipantOlympiad;
@@ -26,32 +25,33 @@ class InsertOlympiad
      */
     public function execute(): bool
     {
-        $seasonId = Season::getCurrentSeason() + 1;
+//        $seasonId = Season::getCurrentSeason() + 1;
+        $seasonId = Season::getCurrentSeason();
 
         if ($seasonId % 4) {
             return true;
         }
 
-        $data = [];
-        $nationalArray = National::find()
-            ->where(['national_national_type_id' => NationalType::MAIN])
-            ->orderBy(['national_id' => SORT_ASC])
-            ->all();
-        foreach ($nationalArray as $national) {
-            $data[] = [$national->national_id, $seasonId];
-        }
-
-        Yii::$app->db
-            ->createCommand()
-            ->batchInsert(
-                ParticipantOlympiad::tableName(),
-                [
-                    'participant_olympiad_national_id',
-                    'participant_olympiad_season_id',
-                ],
-                $data
-            )
-            ->execute();
+//        $data = [];
+//        $nationalArray = National::find()
+//            ->where(['national_national_type_id' => NationalType::MAIN])
+//            ->orderBy(['national_id' => SORT_ASC])
+//            ->all();
+//        foreach ($nationalArray as $national) {
+//            $data[] = [$national->national_id, $seasonId];
+//        }
+//
+//        Yii::$app->db
+//            ->createCommand()
+//            ->batchInsert(
+//                ParticipantOlympiad::tableName(),
+//                [
+//                    'participant_olympiad_national_id',
+//                    'participant_olympiad_season_id',
+//                ],
+//                $data
+//            )
+//            ->execute();
 
         $nationalArray = $this->lot();
 
@@ -153,22 +153,28 @@ class InsertOlympiad
             ->limit(24)
             ->all();
 
-        $nationalResultArray = [[], [], [], []];
+        $nationalResultArray = [[], [], [], [], [], []];
 
         $countNational = count($nationalArray);
-        $limitQuarter = $countNational / 4;
-        $limitHalf = $countNational / 2;
-        $limitThree = $limitQuarter * 3;
+        $limitOne = $countNational / 6;
+        $limitTwo = $limitOne * 2;
+        $limitThree = $limitOne * 3;
+        $limitFour = $limitOne * 4;
+        $limitFive = $limitOne * 5;
 
         for ($i = 0; $i < $countNational; $i++) {
-            if ($i < $limitQuarter) {
+            if ($i < $limitOne) {
                 $nationalResultArray[0][] = $nationalArray[$i];
-            } elseif ($i < $limitHalf) {
+            } elseif ($i < $limitTwo) {
                 $nationalResultArray[1][] = $nationalArray[$i];
             } elseif ($i < $limitThree) {
                 $nationalResultArray[2][] = $nationalArray[$i];
-            } else {
+            } elseif ($i < $limitFour) {
                 $nationalResultArray[3][] = $nationalArray[$i];
+            } elseif ($i < $limitFive) {
+                $nationalResultArray[4][] = $nationalArray[$i];
+            } else {
+                $nationalResultArray[5][] = $nationalArray[$i];
             }
         }
 
@@ -200,24 +206,32 @@ class InsertOlympiad
         $national2 = $this->national($nationalArray, 1);
         $national3 = $this->national($nationalArray, 2);
         $national4 = $this->national($nationalArray, 3);
+        $national5 = $this->national($nationalArray, 4);
+        $national6 = $this->national($nationalArray, 5);
 
         $nationalResultArray[$groupNumber] = [
             $national1['national_id'],
             $national2['national_id'],
             $national3['national_id'],
             $national4['national_id'],
+            $national5['national_id'],
+            $national6['national_id'],
         ];
 
         unset($nationalArray[0][$national1['i']]);
         unset($nationalArray[1][$national2['i']]);
         unset($nationalArray[2][$national3['i']]);
         unset($nationalArray[3][$national4['i']]);
+        unset($nationalArray[4][$national5['i']]);
+        unset($nationalArray[5][$national6['i']]);
 
         $nationalArray = array(
             array_values($nationalArray[0]),
             array_values($nationalArray[1]),
             array_values($nationalArray[2]),
             array_values($nationalArray[3]),
+            array_values($nationalArray[4]),
+            array_values($nationalArray[5]),
         );
 
         if (count($nationalArray[0])) {

@@ -23,7 +23,7 @@ class TournamentType extends AbstractActiveRecord
 
     public static function tableName()
     {
-        return '{{%tournament_name}}';
+        return '{{%tournament_type}}';
     }
 
     /**
@@ -33,7 +33,7 @@ class TournamentType extends AbstractActiveRecord
     {
         return [
             [['tournament_type_id', 'tournament_type_day_type_id'], 'integer'],
-            [['tournament_type_visitor'], 'integer', 'min' => 0, 'max' => 200],
+            [['tournament_type_visitor'], 'integer', 'min' => 0, 'max' => 250],
             [['tournament_type_day_type_id', 'tournament_type_name', 'tournament_type_visitor'], 'required'],
             [['tournament_type_name'], 'string', 'max' => 20],
             [['tournament_type_name'], 'trim'],
