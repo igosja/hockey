@@ -26,8 +26,7 @@ class InsertOlympiad
      */
     public function execute(): bool
     {
-//        $seasonId = Season::getCurrentSeason() + 1;
-        $seasonId = Season::getCurrentSeason();
+        $seasonId = Season::getCurrentSeason() + 1;
 
         if ($seasonId % 4) {
             return true;
