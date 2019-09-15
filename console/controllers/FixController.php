@@ -26,6 +26,7 @@ use common\models\Surname;
 use common\models\SurnameCountry;
 use common\models\Team;
 use common\models\TournamentType;
+use console\models\newSeason\InsertOlympiad;
 use Exception;
 use Yii;
 use yii\db\Expression;
@@ -927,5 +928,13 @@ class FixController extends AbstractController
             $model->forum_group_forum_chapter_id = ForumChapter::NATIONAL;
             $model->save();
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function actionOlympiad()
+    {
+        (new InsertOlympiad())->execute();
     }
 }
