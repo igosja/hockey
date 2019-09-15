@@ -3,6 +3,7 @@
 namespace console\models\newSeason;
 
 use common\models\Game;
+use common\models\National;
 use common\models\NationalType;
 use common\models\Olympiad;
 use common\models\ParticipantOlympiad;
@@ -32,26 +33,26 @@ class InsertOlympiad
             return true;
         }
 
-//        $data = [];
-//        $nationalArray = National::find()
-//            ->where(['national_national_type_id' => NationalType::MAIN])
-//            ->orderBy(['national_id' => SORT_ASC])
-//            ->all();
-//        foreach ($nationalArray as $national) {
-//            $data[] = [$national->national_id, $seasonId];
-//        }
-//
-//        Yii::$app->db
-//            ->createCommand()
-//            ->batchInsert(
-//                ParticipantOlympiad::tableName(),
-//                [
-//                    'participant_olympiad_national_id',
-//                    'participant_olympiad_season_id',
-//                ],
-//                $data
-//            )
-//            ->execute();
+        $data = [];
+        $nationalArray = National::find()
+            ->where(['national_national_type_id' => NationalType::MAIN])
+            ->orderBy(['national_id' => SORT_ASC])
+            ->all();
+        foreach ($nationalArray as $national) {
+            $data[] = [$national->national_id, $seasonId];
+        }
+
+        Yii::$app->db
+            ->createCommand()
+            ->batchInsert(
+                ParticipantOlympiad::tableName(),
+                [
+                    'participant_olympiad_national_id',
+                    'participant_olympiad_season_id',
+                ],
+                $data
+            )
+            ->execute();
 
         $nationalArray = $this->lot();
 
