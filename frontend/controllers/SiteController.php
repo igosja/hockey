@@ -410,4 +410,23 @@ class SiteController extends AbstractController
 
         return $this->redirect(['site/index']);
     }
+
+    /**
+     * @param int $id
+     */
+    public function actionCookie(int $id)
+    {
+        $userArray = Cookie::getDuplicatedUsers($id);
+        sort($userArray);
+        foreach ($userArray as $item) {
+            $user = User::find()->where(['user_id' => $item])->limit(1)->one();
+            if ($user) {
+                print '<pre>';
+                print $user->user_login;
+            }
+        }
+        print '<pre>';
+        print_r($userArray);
+        exit;
+    }
 }
