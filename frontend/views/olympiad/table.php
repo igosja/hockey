@@ -281,7 +281,7 @@ $user = Yii::$app->user->identity;
                 'rowOptions' => function (Olympiad $model) {
                     $class = '';
                     $title = '';
-                    if ($model->olympiad_place <= 2) {
+                    if ($model->olympiad_place <= 4) {
                         $class = 'tournament-table-up';
                         $title = 'Зона плей-офф';
                     }

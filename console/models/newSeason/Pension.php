@@ -18,8 +18,8 @@ use common\models\Team;
 class Pension
 {
     /**
-     * @throws \Exception
-     * @return void
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function execute()
     {
@@ -78,6 +78,14 @@ class Pension
             $player->player_loan_team_id = 0;
             $player->player_team_id = 0;
             $player->save();
+
+            if ($player->transfer) {
+                $player->transfer->delete();
+            }
+
+            if ($player->loan) {
+                $player->loan->delete();
+            }
         }
     }
 }
