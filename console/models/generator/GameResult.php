@@ -19,7 +19,6 @@ use common\models\StatisticPlayer;
 use common\models\StatisticTeam;
 use common\models\Style;
 use common\models\Tactic;
-use common\models\Team;
 use common\models\Teamwork;
 use common\models\TournamentType;
 use Exception;
@@ -67,6 +66,7 @@ class GameResult
             ->with(['schedule', 'teamHome', 'teamHome.championship', 'nationalHome', 'nationalHome.worldCup'])
             ->where(['game_played' => 0])
             ->andWhere('FROM_UNIXTIME(`schedule_date`, "%Y-%m-%d")=CURDATE()')
+            ->andWhere(['game_guest_optimality_1' => 0, 'game_home_optimality_1' => 0])
             ->orderBy(['game_id' => SORT_ASC])
             ->each(1);
         foreach ($gameArray as $game) {
