@@ -21,6 +21,8 @@ use Throwable;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Class BaseController
@@ -51,7 +53,7 @@ class BaseController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -278,8 +280,8 @@ class BaseController extends AbstractController
 
     /**
      * @param int $building
+     * @return string|Response
      * @throws \yii\db\Exception
-     * @return string|\yii\web\Response
      */
     public function actionBuild($building)
     {
@@ -461,9 +463,9 @@ class BaseController extends AbstractController
 
     /**
      * @param int $building
+     * @return string|Response
+     * @throws NotFoundHttpException
      * @throws \yii\db\Exception
-     * @throws \yii\web\NotFoundHttpException
-     * @return string|\yii\web\Response
      */
     public function actionDestroy($building)
     {
@@ -540,6 +542,9 @@ class BaseController extends AbstractController
 
             if (!$base) {
                 $this->setErrorFlash('Тип строения выбран неправильно.');
+                return $this->redirect(['base/view', 'id' => $team->team_id]);
+            } elseif ($team->baseUsed() - 1 < $team->base->base_slot_min) {
+                $this->setErrorFlash('Минимальное количество занятых слотов должно быть не менне <span class="strong">' . $team->base->base_slot_min . '</span>.');
                 return $this->redirect(['base/view', 'id' => $team->team_id]);
             } elseif (Building::TRAINING == $building && $team->isTraining()) {
                 $this->setErrorFlash('В тренировочном центре тренируются игроки.');
@@ -629,7 +634,7 @@ class BaseController extends AbstractController
 
     /**
      * @param $id
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws \yii\db\Exception
      */
     public function actionCancel($id)

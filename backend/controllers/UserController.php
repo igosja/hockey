@@ -159,7 +159,7 @@ class UserController extends AbstractController
         $this->notFound($model);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_date_block = 7 * 86400 + time();
+            $model->user_date_block = 365 * 86400 + time();
             if ($model->save(true, ['user_date_block', 'user_block_block_reason_id'])) {
                 foreach ($model->team as $team) {
                     $team->managerFire(History::FIRE_REASON_PENALTY);
