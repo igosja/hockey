@@ -37,7 +37,7 @@ class SupportSearch extends Support
     public function search($params)
     {
         $query = Support::find()
-            ->where(['support_inside' => 0])
+            ->where(['support_inside' => 0, 'support_country_id' => 0])
             ->orderBy(['support_date' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -48,7 +48,7 @@ class SupportSearch extends Support
             return $dataProvider;
         }
 
-        $query->where(['support_user_id' => $this->support_user_id]);
+        $query->andWhere(['support_user_id' => $this->support_user_id]);
 
         return $dataProvider;
     }
