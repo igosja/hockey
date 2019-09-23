@@ -3,6 +3,7 @@
 namespace console\models\generator;
 
 use Yii;
+use yii\db\Exception;
 
 /**
  * Class PlayerPrice
@@ -11,8 +12,8 @@ use Yii;
 class PlayerPrice
 {
     /**
-     * @throws \yii\db\Exception
      * @return void
+     *@throws Exception
      */
     public function execute()
     {
@@ -37,7 +38,7 @@ class PlayerPrice
                     GROUP BY `player_position_player_id`
                 ) AS `t2`
                 ON `player_position_player_id`=`player_id`
-                SET `player_price`=POW(150-(28-`player_age`), 2)*(`position`-1+`player_power_nominal`+IFNULL(`special_level`, 0))
+                SET `player_price`=POW(150-(28-`player_age`), 2)*(`position`-1+`player_power_nominal`+IFNULL(`special_level`, 0)*10)
                 WHERE `player_age`<40";
         Yii::$app->db->createCommand($sql)->execute();
     }
