@@ -19,6 +19,7 @@ use common\models\StatisticPlayer;
 use common\models\StatisticTeam;
 use common\models\Style;
 use common\models\Tactic;
+use common\models\Team;
 use common\models\Teamwork;
 use common\models\TournamentType;
 use Exception;
