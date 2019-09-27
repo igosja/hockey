@@ -17,6 +17,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
 /**
@@ -136,6 +137,30 @@ class NationalElectionController extends AbstractController
             ->limit(15)
             ->all();
 
+        if (count($gkArray) < 2) {
+            $gkArray = ArrayHelper::merge(
+                $gkArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::GK,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(2 - count($gkArray))
+                    ->all()
+            );
+        }
+
         $ldArray = Player::find()
             ->with([
                 'name',
@@ -150,6 +175,30 @@ class NationalElectionController extends AbstractController
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
+
+        if (count($ldArray) < 6) {
+            $ldArray = ArrayHelper::merge(
+                $ldArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::LD,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(6 - count($ldArray))
+                    ->all()
+            );
+        }
 
         $rdArray = Player::find()
             ->with([
@@ -166,6 +215,30 @@ class NationalElectionController extends AbstractController
             ->limit(45)
             ->all();
 
+        if (count($rdArray) < 6) {
+            $rdArray = ArrayHelper::merge(
+                $rdArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::RD,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(6 - count($rdArray))
+                    ->all()
+            );
+        }
+
         $lwArray = Player::find()
             ->with([
                 'name',
@@ -180,6 +253,30 @@ class NationalElectionController extends AbstractController
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
+
+        if (count($lwArray) < 6) {
+            $lwArray = ArrayHelper::merge(
+                $lwArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::LW,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(6 - count($lwArray))
+                    ->all()
+            );
+        }
 
         $cfArray = Player::find()
             ->with([
@@ -196,6 +293,30 @@ class NationalElectionController extends AbstractController
             ->limit(45)
             ->all();
 
+        if (count($cfArray) < 6) {
+            $cfArray = ArrayHelper::merge(
+                $cfArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::CF,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(6 - count($cfArray))
+                    ->all()
+            );
+        }
+
         $rwArray = Player::find()
             ->with([
                 'name',
@@ -210,6 +331,30 @@ class NationalElectionController extends AbstractController
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
             ->all();
+
+        if (count($rwArray) < 6) {
+            $rwArray = ArrayHelper::merge(
+                $rwArray,
+                Player::find()
+                    ->with([
+                        'name',
+                        'playerPosition.position',
+                        'playerSpecial.special',
+                        'surname',
+                        'team.stadium.city.country',
+                    ])
+                    ->where([
+                        'player_country_id' => $country->country_id,
+                        'player_position_id' => Position::RW,
+                        'player_national_id' => 0,
+                        'player_team_id' => 0,
+                    ])
+                    ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
+                    ->orderBy(['player_power_nominal_s' => SORT_DESC])
+                    ->limit(6 - count($rwArray))
+                    ->all()
+            );
+        }
 
         $this->setSeoTitle('Подача заявки на должность тренера сборной');
         return $this->render('application', [

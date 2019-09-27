@@ -112,7 +112,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
 
             foreach ($playerArray as $playerId) {
                 $player = Player::find()
-                    ->where(['!=', 'player_team_id', 0])
                     ->andWhere([
                         'player_id' => $playerId,
                         'player_position_id' => $positionId,
