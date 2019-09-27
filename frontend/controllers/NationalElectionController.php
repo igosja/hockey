@@ -117,6 +117,11 @@ class NationalElectionController extends AbstractController
             return $this->refresh();
         }
 
+        $teamId = null;
+        if (19 != $national->nationalType->getAgeLimit()) {
+            $teamId = 0;
+        }
+
         $gkArray = Player::find()
             ->with([
                 'name',
@@ -126,7 +131,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::GK, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(15)
@@ -165,7 +170,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LD, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -204,7 +209,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RD, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -243,7 +248,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::LW, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -282,7 +287,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::CF, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
@@ -321,7 +326,7 @@ class NationalElectionController extends AbstractController
                 'team.stadium.city.country',
             ])
             ->where(['player_country_id' => $country->country_id, 'player_position_id' => Position::RW, 'player_national_id' => 0])
-            ->andWhere(['!=', 'player_team_id', 0])
+            ->andFilterWhere(['!=', 'player_team_id', $teamId])
             ->andFilterWhere(['<=', 'player_age', $national->nationalType->getAgeLimit()])
             ->orderBy(['player_power_nominal_s' => SORT_DESC])
             ->limit(45)
