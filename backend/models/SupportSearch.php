@@ -18,7 +18,7 @@ class SupportSearch extends Support
     public function rules(): array
     {
         return [
-            [['support_user_id'], 'integer'],
+            [['support_country_id', 'support_user_id'], 'integer'],
         ];
     }
 
@@ -37,7 +37,7 @@ class SupportSearch extends Support
     public function search($params)
     {
         $query = Support::find()
-            ->where(['support_inside' => 0, 'support_country_id' => 0])
+            ->where(['support_inside' => 0])
             ->orderBy(['support_date' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -48,7 +48,7 @@ class SupportSearch extends Support
             return $dataProvider;
         }
 
-        $query->andWhere(['support_user_id' => $this->support_user_id]);
+        $query->andWhere(['support_user_id' => $this->support_user_id, 'support_country_id' => $this->support_country_id]);
 
         return $dataProvider;
     }
