@@ -52,7 +52,10 @@ class SupportController extends AbstractController
         }
 
         $searchModel = new SupportSearch();
-        $dataProvider = $searchModel->search(['support_user_id' => $support->support_user_id]);
+        $dataProvider = $searchModel->search([
+            'support_user_id' => $support->support_user_id,
+            'support_country_id' => $support->support_country_id,
+        ]);
 
         Support::updateAll(
             ['support_read' => time()],
