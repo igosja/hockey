@@ -124,6 +124,7 @@ use yii\helpers\Html;
  * @property int $game_stadium_id
  * @property int $game_visitor
  *
+ * @property Championship $championship
  * @property GameVote[] $gameVote
  * @property GameVote[] $gameVoteMinus
  * @property GameVote[] $gameVotePlus
@@ -160,6 +161,7 @@ use yii\helpers\Html;
  * @property Tactic $tacticHome4
  * @property Team $teamGuest
  * @property Team $teamHome
+ * @property WorldCup $worldCup
  */
 class Game extends AbstractActiveRecord
 {
@@ -318,7 +320,7 @@ class Game extends AbstractActiveRecord
                     'world-championship/index',
                     'seasonId' => $this->schedule->schedule_season_id,
                     'stageId' => $this->schedule->schedule_stage_id,
-                    'divisionId' => $this->nationalHome->worldCup->world_cup_division_id,
+                    'divisionId' => $this->worldCup->world_cup_division_id,
                     'nationalTypeId' => $this->nationalHome->national_national_type_id,
                 ]
             );
@@ -339,13 +341,19 @@ class Game extends AbstractActiveRecord
                 ]
             );
         } elseif (TournamentType::CHAMPIONSHIP == $this->schedule->schedule_tournament_type_id) {
+            if ($this->schedule->schedule_stage_id <= Stage::TOUR_30) {
+                $round = 'table';
+            } else {
+                $round = 'playoff';
+            }
+
             $result = Html::a(
                 $this->schedule->tournamentType->tournament_type_name . ', ' . $this->schedule->stage->stage_name,
                 [
-                    'championship/index',
+                    'championship/' . $round,
                     'seasonId' => $this->schedule->schedule_season_id,
-                    'divisionId' => $this->teamHome->championship->championship_division_id,
-                    'countryId' => $this->teamHome->championship->championship_country_id,
+                    'divisionId' => $this->championship->championship_division_id,
+                    'countryId' => $this->championship->championship_country_id,
                     'stageId' => $this->schedule->schedule_stage_id,
                 ]
             );
@@ -517,6 +525,16 @@ class Game extends AbstractActiveRecord
         $return = implode(' | ', $returnArray);
 
         return $return;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getChampionship(): ActiveQuery
+    {
+        return $this
+            ->hasOne(Championship::class, ['championship_team_id' => 'game_home_team_id'])
+            ->andWhere(['championship.championship_season_id' => $this->schedule->schedule_season_id]);
     }
 
     /**
@@ -805,5 +823,15 @@ class Game extends AbstractActiveRecord
     public function getTeamHome(): ActiveQuery
     {
         return $this->hasOne(Team::class, ['team_id' => 'game_home_team_id'])->cache();
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getWorldCup(): ActiveQuery
+    {
+        return $this
+            ->hasOne(WorldCup::class, ['world_cup_national_id' => 'game_home_national_id'])
+            ->andWhere(['world_cup.world_cup_season_id' => $this->schedule->schedule_season_id]);
     }
 }
