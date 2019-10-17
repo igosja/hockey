@@ -54,6 +54,7 @@ $context = $this->context;
                     ";" + Math.random();
             </script>
             <!--/LiveInternet-->
+            <!-- fb1ddcd0fe2ed10ac5f2f029a4c98dc5d17b9bea -->
         <?php if (!$context->user || !$context->user->isVip()) : ?>
             <!-- Google AdSense -->
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

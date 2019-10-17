@@ -294,6 +294,30 @@
                 position: new google.maps.LatLng(50.145642, 30.474139), //Київська Русь
                 map: map
             }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(47.491122, 19.049489), //Будапешт
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(48.102564, 20.783021), //Мішкольц
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(47.529544, 21.625064), //Дебрецен
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(46.251841, 20.147388), //Сеґед
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(46.073959, 18.229014), //Печ
+                map: map
+            }),
+            new google.maps.Marker({
+                position: new google.maps.LatLng(47.191425, 18.409940), //Секешфегервар
+                map: map
+            }),
         ];
         marker.setMap(map);
     }
