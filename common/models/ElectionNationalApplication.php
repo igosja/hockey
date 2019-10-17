@@ -96,7 +96,6 @@ class ElectionNationalApplication extends AbstractActiveRecord
         }
 
         $formPlayerArray = [];
-
         foreach ($this->$attribute as $positionId => $playerArray) {
             $playerArray = array_diff($playerArray, [0]);
             $formPlayerArray = ArrayHelper::merge($formPlayerArray, $playerArray);
