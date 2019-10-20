@@ -9,8 +9,13 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 
 /**
- * @var Game $game
  * @var ActiveDataProvider $dataProvider
+ * @var Game $game
+ * @var int $draw
+ * @var int $loose
+ * @var int $pass
+ * @var int $score
+ * @var int $win
  */
 
 ?>
@@ -150,39 +155,37 @@ use yii\helpers\Html;
             $columns = [
                 [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Дата',
+                    'footerOptions' => ['class' => 'hidden'],
                     'header' => 'Дата',
                     'headerOptions' => ['class' => 'col-15'],
-                    'value' => function ($model) {
+                    'value' => function (Game $model) {
                         return FormatHelper::asDate($model->schedule->schedule_date);
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
-                    'footer' => 'Турнир',
-                    'footerOptions' => ['class' => 'hidden-xs'],
+                    'footerOptions' => ['class' => 'hidden'],
                     'header' => 'Турнир',
                     'headerOptions' => ['class' => 'hidden-xs'],
-                    'value' => function ($model) {
+                    'value' => function (Game $model) {
                         return $model->schedule->tournamentType->tournament_type_name;
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'hidden-xs text-center'],
-                    'footer' => 'Стадия',
-                    'footerOptions' => ['class' => 'hidden-xs'],
+                    'footerOptions' => ['class' => 'hidden'],
                     'header' => 'Стадия',
                     'headerOptions' => ['class' => 'col-15 hidden-xs'],
-                    'value' => function ($model) {
+                    'value' => function (Game $model) {
                         return $model->schedule->stage->stage_name;
                     }
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Игра',
+                    'footerOptions' => ['class' => 'hidden'],
                     'format' => 'raw',
                     'header' => 'Игра',
-                    'value' => function ($model) {
+                    'value' => function (Game $model) {
                         return HockeyHelper::teamOrNationalLink($model->teamHome, $model->nationalHome, false)
                             . ' - '
                             . HockeyHelper::teamOrNationalLink($model->teamGuest, $model->nationalGuest, false);
@@ -190,11 +193,12 @@ use yii\helpers\Html;
                 ],
                 [
                     'contentOptions' => ['class' => 'text-center'],
-                    'footer' => 'Результат',
+                    'footer' => '+' . $win . ' =' . $draw . ' -' . $loose . ' (' . $score . ':' . $pass . ')',
+                    'footerOptions' => ['colspan' => '5'],
                     'format' => 'raw',
-                    'header' => 'Результат',
+                    'header' => 'Счёт',
                     'headerOptions' => ['class' => 'col-10'],
-                    'value' => function ($model) {
+                    'value' => function (Game $model) {
                         return Html::a(
                             HockeyHelper::formatScore($model, 'home'),
                             ['game/view', 'id' => $model->game_id]
